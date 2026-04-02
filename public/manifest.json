@@ -1,0 +1,14 @@
+{
+  "name": "Die Digitale Transformation",
+  "short_name": "Transformation",
+  "description": "Eine poetisch-philosophische Trilogie von Markus Oehring – Resonanzvernunft im digitalen Zeitalter",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F9F6F0",
+  "theme_color": "#0A3D62",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
