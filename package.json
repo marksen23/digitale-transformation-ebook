@@ -1,4 +1,3 @@
-@"
 {
   "name": "digitale-transformation-ebook",
   "version": "1.0.0",
@@ -22,4 +21,3 @@
     "postcss": "^8.4.47"
   }
 }
-"@ | Out-File -Encoding utf8 package.json
