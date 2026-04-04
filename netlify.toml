@@ -1,18 +1,18 @@
 [build]
-  command = "npm run build"
-  publish = "dist"
+  command = "pnpm install && pnpm build"
+  publish = "dist/public"
+  functions = "dist/functions"
+
+[build.environment]
+  NODE_VERSION = "22.13.0"
+  PNPM_VERSION = "10.4.1"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
 
-[[headers]]
-  for = "/*"
-  [headers.values]
-    Content-Security-Policy = "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;"
-    Strict-Transport-Security = "max-age=31536000; includeSubDomains"
-    X-Content-Type-Options = "nosniff"
-    X-Frame-Options = "DENY"
-    Referrer-Policy = "strict-origin-when-cross-origin"
-    Permissions-Policy = "camera=(), microphone=(), geolocation=(), payment=()"
+[dev]
+  command = "pnpm dev"
+  port = 3000
+  framework = "vite"
