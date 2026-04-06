@@ -386,26 +386,23 @@ export default function Home() {
 
       {/* ─── Body ───────────────────────────────────────────── */}
       <div className="flex-1 flex min-h-0 relative">
-        {/* Sidebar overlay */}
-        <AnimatePresence>
-          {sidebarOpen && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-black/40 z-20 md:hidden"
-              onClick={() => setSidebarOpen(false)}
-            />
-          )}
-        </AnimatePresence>
+        {/* Sidebar overlay (mobile only) */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/40 z-20 md:hidden"
+            onClick={() => setSidebarOpen(false)}
+          />
+        )}
 
         {/* ─── Sidebar ──────────────────────────────────────── */}
-        <aside className={`
-          fixed md:relative z-30 h-full w-72 flex-none overflow-y-auto
-          border-r transition-transform duration-300 ease-in-out
-          ${sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'}
-          ${darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'}
-        `}>
+        <aside
+          className={`
+            fixed md:static z-30 top-12 bottom-0 left-0 w-72 flex-none overflow-y-auto
+            border-r transition-transform duration-300 ease-in-out
+            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+            ${darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'}
+          `}
+        >
           <nav className="p-4 space-y-1">
             {/* Cover */}
             <button
