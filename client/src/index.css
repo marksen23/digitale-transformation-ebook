@@ -43,84 +43,108 @@
 }
 
 :root {
-  --primary: #192347;
-  --primary-foreground: #F5F5F5;
-  --sidebar-primary: #192347;
-  --sidebar-primary-foreground: #F5F5F5;
-  --chart-1: #DAA520;
-  --chart-2: #B8860B;
-  --chart-3: #8B6914;
-  --chart-4: #5D4A0F;
-  --chart-5: #3D2F0A;
+  --primary: #1e293b;
+  --primary-foreground: #f8fafc;
+  --sidebar-primary: #1e293b;
+  --sidebar-primary-foreground: #f8fafc;
+  --chart-1: #d97706;
+  --chart-2: #b45309;
+  --chart-3: #92400e;
+  --chart-4: #78350f;
+  --chart-5: #451a03;
   --radius: 0.5rem;
-  --background: #FAFAFA;
-  --foreground: #2C2C2C;
-  --card: #FFFFFF;
-  --card-foreground: #2C2C2C;
-  --popover: #FFFFFF;
-  --popover-foreground: #2C2C2C;
-  --secondary: #E8E8E8;
-  --secondary-foreground: #2C2C2C;
-  --muted: #D0D0D0;
-  --muted-foreground: #666666;
-  --accent: #DAA520;
-  --accent-foreground: #192347;
-  --destructive: #DC2626;
-  --destructive-foreground: #FFFFFF;
-  --border: #E0E0E0;
-  --input: #FFFFFF;
-  --ring: #DAA520;
-  --sidebar: #FAFAFA;
-  --sidebar-foreground: #2C2C2C;
-  --sidebar-accent: #DAA520;
-  --sidebar-accent-foreground: #192347;
-  --sidebar-border: #E0E0E0;
-  --sidebar-ring: #DAA520;
+  --background: #fafaf9;
+  --foreground: #292524;
+  --card: #ffffff;
+  --card-foreground: #292524;
+  --popover: #ffffff;
+  --popover-foreground: #292524;
+  --secondary: #e7e5e4;
+  --secondary-foreground: #292524;
+  --muted: #d6d3d1;
+  --muted-foreground: #78716c;
+  --accent: #d97706;
+  --accent-foreground: #1e293b;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+  --border: #e7e5e4;
+  --input: #ffffff;
+  --ring: #d97706;
+  --sidebar: #fafaf9;
+  --sidebar-foreground: #292524;
+  --sidebar-accent: #d97706;
+  --sidebar-accent-foreground: #1e293b;
+  --sidebar-border: #e7e5e4;
+  --sidebar-ring: #d97706;
+}
+
+.dark {
+  --background: #0c0a09;
+  --foreground: #e7e5e4;
+  --card: #1c1917;
+  --card-foreground: #e7e5e4;
+  --popover: #1c1917;
+  --popover-foreground: #e7e5e4;
+  --secondary: #292524;
+  --secondary-foreground: #e7e5e4;
+  --muted: #44403c;
+  --muted-foreground: #a8a29e;
+  --accent: #d97706;
+  --accent-foreground: #fefce8;
+  --border: #292524;
+  --input: #292524;
+  --ring: #d97706;
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+  html, body, #root {
+    height: 100%;
+    margin: 0;
+  }
   body {
     @apply bg-background text-foreground;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-  
+
+  /* Scrollbar */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #a8a29e;
+    border-radius: 3px;
+  }
+  .dark ::-webkit-scrollbar-thumb {
+    background: #44403c;
+  }
+
+  /* Selection */
+  ::selection {
+    background: #d9770640;
+  }
+
+  /* Serif headings */
   h1, h2, h3, h4, h5, h6 {
-    font-family: Georgia, 'Times New Roman', serif;
-    font-weight: 700;
-    color: #192347;
+    font-family: 'Lora', 'Crimson Text', Georgia, 'Times New Roman', serif;
+    font-weight: 600;
   }
-  
-  h1 {
-    @apply text-4xl;
-    letter-spacing: -0.02em;
+
+  /* Serif for article content */
+  .font-serif {
+    font-family: 'Lora', 'Crimson Text', Georgia, 'Times New Roman', serif;
   }
-  
-  h2 {
-    @apply text-3xl;
-    letter-spacing: -0.01em;
-  }
-  
-  h3 {
-    @apply text-2xl;
-  }
-  
-  p {
-    line-height: 1.7;
-    color: #2C2C2C;
-  }
-  
+
   button:not(:disabled),
   [role="button"]:not([aria-disabled="true"]),
-  [type="button"]:not(:disabled),
-  [type="submit"]:not(:disabled),
-  [type="reset"]:not(:disabled),
-  a[href],
-  select:not(:disabled),
-  input[type="checkbox"]:not(:disabled),
-  input[type="radio"]:not(:disabled) {
+  a[href] {
     @apply cursor-pointer;
   }
 }
@@ -139,78 +163,11 @@
     min-width: 0;
   }
 
-  @media (min-width: 640px) {
-    .container {
-      padding-left: 1.5rem;
-      padding-right: 1.5rem;
-    }
-  }
-
   @media (min-width: 1024px) {
     .container {
       padding-left: 2rem;
       padding-right: 2rem;
       max-width: 1280px;
-    }
-  }
-  
-  .ebook-page {
-    @apply bg-white;
-    min-height: 100vh;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 3rem 1.5rem;
-    display: flex;
-    flex-direction: column;
-    page-break-after: always;
-  }
-  
-  .ebook-page-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-  }
-  
-  .ebook-page-text {
-    flex: 1;
-    overflow: hidden;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: unset;
-    font-size: 0.95rem;
-    line-height: 1.6;
-    color: #2C2C2C;
-  }
-  
-  .ebook-page-footer {
-    margin-top: auto;
-    padding-top: 2rem;
-    border-top: 1px solid #E0E0E0;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #999999;
-  }
-  
-  .ebook-divider {
-    @apply my-6 h-px bg-gradient-to-r from-transparent via-accent to-transparent;
-  }
-  
-  .ebook-chapter-title {
-    @apply text-accent text-xs font-semibold tracking-widest uppercase mb-3;
-  }
-  
-  .ebook-section-break {
-    @apply my-8 flex justify-center;
-  }
-  
-  .ebook-ornament {
-    @apply text-accent text-xl;
-  }
-  
-  @media (min-width: 768px) {
-    .ebook-page {
-      padding: 3rem 2rem;
     }
   }
 }
