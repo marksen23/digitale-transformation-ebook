@@ -98,20 +98,27 @@ function cleanContent(text: string): string {
 export function parseEbookMarkdown(raw: string): EbookData {
   const lines = raw.split('\n');
 
-  // Find section boundaries (skip table-of-contents area before line 70)
+  // Find section boundaries — scan all lines after the metadata header.
+  // When a section heading appears multiple times (e.g. in the ToC AND in
+  // the actual content), we keep the LAST occurrence, which is the real one.
   const found: { def: SectionDef; lineStart: number }[] = [];
-  for (let i = 70; i < lines.length; i++) {
+  for (let i = 50; i < lines.length; i++) {
     const line = lines[i].trim();
     for (const def of sectionDefs) {
       if (def.pattern.test(line)) {
-        // Avoid duplicate matches (e.g. "Vorwort" in ToC vs actual)
-        if (!found.some(f => f.def.id === def.id)) {
+        const existing = found.findIndex(f => f.def.id === def.id);
+        if (existing !== -1) {
+          // Update to the later (real) occurrence
+          found[existing].lineStart = i;
+        } else {
           found.push({ def, lineStart: i });
         }
         break;
       }
     }
   }
+  // Re-sort by lineStart so content boundaries are correct
+  found.sort((a, b) => a.lineStart - b.lineStart);
 
   // Extract content between boundaries
   const chapters: Chapter[] = found.map((entry, idx) => {
