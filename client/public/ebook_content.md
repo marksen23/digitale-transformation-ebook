@@ -2737,6 +2737,7 @@ Verwandlung  Grundbewegung der Überführung. Nicht Ersetzung, nicht Übersetzun
 Wahrheit  In der Resonanzvernunft nicht Korrespondenz von Aussage und Sachverhalt, sondern Bewährung in Begegnung: was sich in resonanten Anschlüssen als tragfähig erweist.
 Weltfaltung  Erkenntnisprinzip. Wirklichkeit als dynamisches Entfalten von Möglichkeiten, die ineinander gefaltet (nicht nebeneinander gelegt) sind und durch Begegnung aktualisiert werden. Vier Grundbewegungen: Komplexion, Selektion, Stabilisierung, Variation.
 Widerständigkeit  Erste formale Bedingung resonanter Erkenntnis. Das Andere lässt sich nicht vereinnahmen, nicht restlos berechnen, nicht in Echo auflösen. Ohne Widerständigkeit keine Resonanz, nur Spiegelung.
+Wirklichkeit  Nicht Summe berechenbarer Fakten, sondern das Widerständige, das sich im Scheitern des Zugriffs zeigt. In der Resonanzvernunft: was antwortet, nicht was vorliegt.
 Zwischen  Ontologische Grundkategorie der Resonanzvernunft. Der Ort, an dem Dazwischenintelligenz geschieht und das transformative Dritte entsteht; weder innen noch außen, sondern die relationale Spannung selbst.
 
 Literaturverzeichnis
@@ -2759,7 +2760,11 @@ Habermas, Jürgen: Theorie des kommunikativen Handelns. 2 Bände. Frankfurt am M
 
 Heidegger, Martin: Sein und Zeit. Tübingen: Max Niemeyer, 1927.
 
+Heidegger, Martin: Die Frage nach der Technik. In: Vorträge und Aufsätze. Pfullingen: Günther Neske, 1954.
+
 Heidegger, Martin: Gelassenheit. Pfullingen: Günther Neske, 1959.
+
+Husserl, Edmund: Ideen zu einer reinen Phänomenologie und phänomenologischen Philosophie. Halle: Max Niemeyer, 1913.
 
 Kant, Immanuel: Kritik der reinen Vernunft. Riga: Johann Friedrich Hartknoch, 1781.
 
@@ -2776,6 +2781,8 @@ Peirce, Charles S.: Collected Papers of Charles Sanders Peirce. 8 Bände. Cambri
 Ricœur, Paul: Temps et récit. 3 Bände. Paris: Seuil, 1983–1985.
 
 Rosa, Hartmut: Resonanz. Eine Soziologie der Weltbeziehung. Berlin: Suhrkamp, 2016.
+
+Rosa, Hartmut: Unverfügbarkeit. Salzburg/Wien: Residenz-Verlag, 2018.
 
 Waldenfels, Bernhard: Antwortregister. Frankfurt am Main: Suhrkamp, 1994.
 

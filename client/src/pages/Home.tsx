@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   ChevronRight, ChevronLeft, Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
-  MessageCircleQuestion, Send, Loader2, BookText,
+  MessageCircleQuestion, Send, Loader2,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 
@@ -158,12 +158,6 @@ export default function Home() {
     }
     return index;
   }, [ebook, glossaryMap]);
-
-  // Sorted terms for the Begriffsverzeichnis
-  const sortedKeywords = useMemo(() =>
-    Array.from(glossaryMap.keys()).sort((a, b) => a.localeCompare(b, 'de')),
-    [glossaryMap]
-  );
 
   // Q&A submit
   const askQuestion = useCallback(async () => {
@@ -370,7 +364,6 @@ export default function Home() {
 
   const renderGlossarContent = (chapter: Chapter) => {
     // Parse glossary entries: "Term  Definition text..." pattern
-    // Each entry starts with a term followed by two or more spaces and then the definition
     const entries: { term: string; definition: string }[] = [];
     const lines = chapter.content.split('\n');
     let currentTerm = '';
@@ -380,7 +373,6 @@ export default function Home() {
       const trimmed = line.trim();
       if (!trimmed) continue;
 
-      // Check if line starts a new glossary entry (Term followed by double-space then definition)
       const match = trimmed.match(/^([A-ZÄÖÜ][a-zA-ZäöüÄÖÜß\s\-()„"]+?)\s{2,}(.+)$/);
       if (match) {
         if (currentTerm) {
@@ -389,7 +381,6 @@ export default function Home() {
         currentTerm = match[1].trim();
         currentDef = match[2];
       } else if (currentTerm) {
-        // Continuation of current definition
         currentDef += ' ' + trimmed;
       }
     }
@@ -397,9 +388,21 @@ export default function Home() {
       entries.push({ term: currentTerm, definition: currentDef.trim() });
     }
 
+    // Sort alphabetically (German collation)
+    entries.sort((a, b) => a.term.localeCompare(b.term, 'de'));
+
     // Extract intro text (lines before the first definition entry)
-    const introEnd = chapter.content.indexOf(entries[0]?.term || '');
+    const introEnd = entries[0] ? chapter.content.indexOf(entries[0].term) : -1;
     const intro = introEnd > 0 ? chapter.content.slice(0, introEnd).trim() : '';
+
+    // Group entries by first letter
+    const grouped = new Map<string, typeof entries>();
+    for (const entry of entries) {
+      const letter = entry.term[0].toUpperCase();
+      const list = grouped.get(letter) || [];
+      list.push(entry);
+      grouped.set(letter, list);
+    }
 
     return (
       <motion.article
@@ -416,24 +419,84 @@ export default function Home() {
           <h1 className={`font-serif tracking-tight mb-3 ${darkMode ? 'text-stone-100' : 'text-indigo-950'} text-2xl md:text-3xl`}>
             {chapter.title}
           </h1>
+          <p className={`text-sm mt-2 ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+            {entries.length} Begriffe – Definition und Vorkommen in den Kapiteln.
+          </p>
           <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
         </header>
 
         <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
           {intro && <p className="mb-8 italic">{intro}</p>}
 
-          <dl className="space-y-6">
-            {entries.map((entry, i) => (
-              <div key={i} className={`pb-5 border-b ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
-                <dt className={`font-semibold mb-1.5 ${darkMode ? 'text-amber-400' : 'text-indigo-900'}`}>
-                  {entry.term}
-                </dt>
-                <dd className={`ml-0 leading-relaxed ${darkMode ? 'text-stone-400' : 'text-stone-600'}`}>
-                  {entry.definition}
-                </dd>
-              </div>
+          {/* Letter navigation */}
+          <div className="flex flex-wrap gap-1.5 mb-10 sticky top-16 z-10 py-2 -mx-2 px-2 rounded-lg backdrop-blur-sm"
+               style={{ background: darkMode ? 'rgba(28,25,23,0.85)' : 'rgba(250,250,249,0.85)' }}>
+            {Array.from(grouped.keys()).map(letter => (
+              <button
+                key={letter}
+                onClick={() => {
+                  document.getElementById(`glossar-${letter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${
+                  darkMode ? 'bg-stone-800 text-stone-300 hover:bg-stone-700' : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                }`}
+              >
+                {letter}
+              </button>
             ))}
-          </dl>
+          </div>
+
+          {Array.from(grouped.entries()).map(([letter, items]) => (
+            <section key={letter} id={`glossar-${letter}`} className="mb-10 scroll-mt-24">
+              <h2 className={`text-lg font-semibold mb-4 pb-1 border-b ${
+                darkMode ? 'text-amber-400 border-stone-800' : 'text-indigo-900 border-stone-200'
+              }`}>
+                {letter}
+              </h2>
+              <dl className="space-y-6">
+                {items.map((entry, i) => {
+                  const chapters = keywordIndex.get(entry.term) || [];
+                  return (
+                    <div key={`${letter}-${i}`} className={`pb-5 border-b ${darkMode ? 'border-stone-800/60' : 'border-stone-200/70'}`}>
+                      <dt className={`font-semibold mb-1.5 ${darkMode ? 'text-amber-400' : 'text-indigo-900'}`}>
+                        {entry.term}
+                      </dt>
+                      <dd className={`ml-0 leading-relaxed ${darkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+                        {entry.definition}
+                      </dd>
+                      {chapters.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mt-3">
+                          <span className={`text-[10px] uppercase tracking-wider mr-1 self-center ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+                            Vorkommen:
+                          </span>
+                          {chapters.slice(0, 6).map(chId => {
+                            const ch = ebook?.chapters.find(c => c.id === chId);
+                            return ch ? (
+                              <button
+                                key={chId}
+                                onClick={() => navigateTo(chId)}
+                                className={`text-[10px] px-2 py-0.5 rounded-full transition-colors ${
+                                  darkMode ? 'bg-stone-800 text-stone-400 hover:bg-stone-700 hover:text-amber-400' : 'bg-stone-100 text-stone-500 hover:bg-stone-200 hover:text-indigo-700'
+                                }`}
+                                title={ch.title}
+                              >
+                                {ch.title.length > 28 ? ch.title.slice(0, 28) + '…' : ch.title}
+                              </button>
+                            ) : null;
+                          })}
+                          {chapters.length > 6 && (
+                            <span className={`text-[10px] px-2 py-0.5 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                              +{chapters.length - 6} weitere
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </dl>
+            </section>
+          ))}
         </div>
 
         <div className="mt-14 flex justify-center">
@@ -504,115 +567,6 @@ export default function Home() {
     );
   };
 
-  const renderBegriffsverzeichnis = () => {
-    // Group keywords by first letter
-    const grouped = new Map<string, string[]>();
-    for (const term of sortedKeywords) {
-      const letter = term[0].toUpperCase();
-      const list = grouped.get(letter) || [];
-      list.push(term);
-      grouped.set(letter, list);
-    }
-
-    return (
-      <motion.article
-        key="begriffe"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16"
-      >
-        <header className="mb-10 md:mb-14">
-          <p className="text-amber-600 text-xs tracking-[0.2em] uppercase font-medium mb-3">
-            Verzeichnis
-          </p>
-          <h1 className={`font-serif tracking-tight mb-3 ${darkMode ? 'text-stone-100' : 'text-indigo-950'} text-2xl md:text-3xl`}>
-            Begriffsverzeichnis
-          </h1>
-          <p className={`text-sm mb-4 ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
-            {glossaryMap.size} Begriffe aus dem Glossar, verknüpft mit ihrem Vorkommen in den Kapiteln.
-          </p>
-          <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
-        </header>
-
-        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
-          {/* Letter navigation */}
-          <div className="flex flex-wrap gap-1.5 mb-8">
-            {Array.from(grouped.keys()).map(letter => (
-              <button
-                key={letter}
-                onClick={() => {
-                  document.getElementById(`begriffe-${letter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }}
-                className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${
-                  darkMode ? 'bg-stone-800 text-stone-300 hover:bg-stone-700' : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
-                }`}
-              >
-                {letter}
-              </button>
-            ))}
-          </div>
-
-          {Array.from(grouped.entries()).map(([letter, terms]) => (
-            <div key={letter} id={`begriffe-${letter}`} className="mb-8">
-              <h3 className={`text-lg font-semibold mb-3 pb-1 border-b ${
-                darkMode ? 'text-amber-400 border-stone-800' : 'text-indigo-900 border-stone-200'
-              }`}>
-                {letter}
-              </h3>
-              <div className="space-y-3">
-                {terms.map(term => {
-                  const def = glossaryMap.get(term) || '';
-                  const chapters = keywordIndex.get(term) || [];
-
-                  return (
-                    <div key={term} className={`pb-3 border-b ${darkMode ? 'border-stone-800/50' : 'border-stone-100'}`}>
-                      <button
-                        onClick={() => navigateTo('glossar')}
-                        className={`font-medium text-sm hover:text-amber-600 transition-colors ${darkMode ? 'text-stone-200' : 'text-stone-800'}`}
-                      >
-                        {term}
-                      </button>
-                      <p className={`text-xs mt-1 line-clamp-2 ${darkMode ? 'text-stone-500' : 'text-stone-500'}`}>
-                        {def.slice(0, 150)}{def.length > 150 ? '...' : ''}
-                      </p>
-                      {chapters.length > 0 && (
-                        <div className="flex flex-wrap gap-1 mt-2">
-                          {chapters.slice(0, 5).map(chId => {
-                            const ch = ebook?.chapters.find(c => c.id === chId);
-                            return ch ? (
-                              <button
-                                key={chId}
-                                onClick={() => navigateTo(chId)}
-                                className={`text-[10px] px-2 py-0.5 rounded-full transition-colors ${
-                                  darkMode ? 'bg-stone-800 text-stone-400 hover:bg-stone-700' : 'bg-stone-100 text-stone-500 hover:bg-stone-200'
-                                }`}
-                              >
-                                {ch.title.length > 30 ? ch.title.slice(0, 30) + '...' : ch.title}
-                              </button>
-                            ) : null;
-                          })}
-                          {chapters.length > 5 && (
-                            <span className={`text-[10px] px-2 py-0.5 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
-                              +{chapters.length - 5} weitere
-                            </span>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="mt-14 flex justify-center">
-          <span className="text-amber-500/40 text-2xl select-none">&loz;</span>
-        </div>
-      </motion.article>
-    );
-  };
 
   const renderChapterContent = (chapter: Chapter) => {
     // Use specialized renderers for Glossar and Literaturverzeichnis
@@ -737,11 +691,6 @@ export default function Home() {
               <Bookmark size={16} fill={bookmarks.includes(currentId) ? 'currentColor' : 'none'} />
             </button>
           )}
-
-          {/* Begriffsverzeichnis */}
-          <button onClick={() => navigateTo('__begriffe__')} className={`p-1.5 rounded-md transition-colors ${currentId === '__begriffe__' ? 'text-amber-500' : 'hover:bg-stone-200/50'}`} title="Begriffsverzeichnis">
-            <BookText size={16} />
-          </button>
 
           {/* Dark mode */}
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
@@ -905,12 +854,10 @@ export default function Home() {
         <main ref={contentRef} className="flex-1 overflow-y-auto relative" onClick={() => setActiveKeyword(null)}>
           {currentId === '__cover__'
             ? renderCover()
-            : currentId === '__begriffe__'
-              ? renderBegriffsverzeichnis()
-              : currentChapter && renderChapterContent(currentChapter)}
+            : currentChapter && renderChapterContent(currentChapter)}
 
           {/* Navigation footer */}
-          {currentId !== '__cover__' && currentId !== '__begriffe__' && (
+          {currentId !== '__cover__' && (
             <div className={`border-t px-6 py-4 ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
               <div className="max-w-2xl mx-auto flex items-center justify-between">
                 <button
