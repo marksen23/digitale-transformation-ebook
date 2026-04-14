@@ -52,7 +52,7 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^Kapitel 5: Die Prüfungen im digitalen Labyrinth$/, id: 'band1-kap5', title: 'Kapitel 5: Die Prüfungen im digitalen Labyrinth', part: 'band1', partTitle: 'Band I: Die Überführung' },
   { pattern: /^Substory: Enkidus innere Entwicklung$/, id: 'band1-substory', title: 'Enkidus innere Entwicklung', subtitle: 'Das Erwachen des Geistes', part: 'band1', partTitle: 'Band I: Die Überführung' },
   { pattern: /^Epilog: Das Lied vom ewigen Wandel$/, id: 'band1-epilog', title: 'Epilog: Das Lied vom ewigen Wandel', part: 'band1', partTitle: 'Band I: Die Überführung' },
-  { pattern: /^Reflexion zu Band I/, id: 'band1-reflexion', title: 'Reflexion zu Band I', subtitle: 'Die Überführung als Arbeit am Mythos', part: 'band1', partTitle: 'Band I: Die Überführung' },
+  { pattern: /^Reflexion zu Band I:/, id: 'band1-reflexion', title: 'Reflexion zu Band I', subtitle: 'Die Überführung als Arbeit am Mythos', part: 'band1', partTitle: 'Band I: Die Überführung' },
 
   // Band II
   { pattern: /^Prolog: Der Ausgang beginnt$/, id: 'band2-prolog', title: 'Prolog: Der Ausgang beginnt', part: 'band2', partTitle: 'Band II: Der Ausgang' },
@@ -62,7 +62,7 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^Kapitel 4: Die Kritik der digitalen Urteilskraft$/, id: 'band2-kap4', title: 'Kapitel 4: Die Kritik der digitalen Urteilskraft', part: 'band2', partTitle: 'Band II: Der Ausgang' },
   { pattern: /^Kapitel 5: Der Mut zur Imperfektion$/, id: 'band2-kap5', title: 'Kapitel 5: Der Mut zur Imperfektion', part: 'band2', partTitle: 'Band II: Der Ausgang' },
   { pattern: /^Epilog: Ein neuer Ausgang$/, id: 'band2-epilog', title: 'Epilog: Ein neuer Ausgang', part: 'band2', partTitle: 'Band II: Der Ausgang' },
-  { pattern: /^Reflexion zu Band II/, id: 'band2-reflexion', title: 'Reflexion zu Band II', subtitle: 'Die digitale Aufklärung', part: 'band2', partTitle: 'Band II: Der Ausgang' },
+  { pattern: /^Reflexion zu Band II:/, id: 'band2-reflexion', title: 'Reflexion zu Band II', subtitle: 'Die digitale Aufklärung', part: 'band2', partTitle: 'Band II: Der Ausgang' },
 
   // Band III
   { pattern: /^Prolog: Die Stille zwischen den Signalen$/, id: 'band3-prolog', title: 'Prolog: Die Stille zwischen den Signalen', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
@@ -73,7 +73,7 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^Kapitel 5: Die Rückkehr zur Präsenz im Virtuellen$/, id: 'band3-kap5', title: 'Kapitel 5: Die Rückkehr zur Präsenz im Virtuellen', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
   { pattern: /^Substory: Die innere Rückbindung eines Users$/, id: 'band3-substory', title: 'Die innere Rückbindung eines Users', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
   { pattern: /^Epilog: Religio/, id: 'band3-epilog', title: 'Epilog: Religio \u2014 die Rückbindung als Integration', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
-  { pattern: /^Reflexion zu Band III/, id: 'band3-reflexion', title: 'Reflexion zu Band III', subtitle: 'Die existenzielle Rückbindung', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
+  { pattern: /^Reflexion zu Band III:/, id: 'band3-reflexion', title: 'Reflexion zu Band III', subtitle: 'Die existenzielle Rückbindung', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
 
   // Teile IV-VII
   { pattern: /^TEIL IV: DIE ARCHITEKTUR DER$/, id: 'teil4', title: 'Die Architektur der Leitmotive', part: 'teil4', partTitle: 'Teil IV: Leitmotive' },
@@ -81,9 +81,10 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^TEIL VI: PRAKTISCHE$/, id: 'teil6', title: 'Praktische Resonanzvernunft \u2014 Zweite Kritik', subtitle: 'Handeln im Zwischen', part: 'teil6', partTitle: 'Teil VI: Zweite Kritik' },
   { pattern: /^TEIL VII: ONTOLOGIE DES RELATIONALEN$/, id: 'teil7', title: 'Ontologie des Relationalen \u2014 Dritte Kritik', subtitle: 'Sein im Zwischen', part: 'teil7', partTitle: 'Teil VII: Dritte Kritik' },
 
-  // Schluss & Glossar
+  // Schluss, Glossar & Literaturverzeichnis
   { pattern: /^SCHLUSSREFLEXION/, id: 'schlussreflexion', title: 'Schlussreflexion', subtitle: 'Das Gesamtwerk', part: 'schluss', partTitle: 'Schlussreflexion' },
   { pattern: /^Glossar der philosophischen Begriffe$/, id: 'glossar', title: 'Glossar der philosophischen Begriffe', part: 'glossar', partTitle: 'Glossar' },
+  { pattern: /^Literaturverzeichnis$/, id: 'literatur', title: 'Literaturverzeichnis', part: 'literatur', partTitle: 'Literaturverzeichnis' },
 ];
 
 function cleanContent(text: string): string {
@@ -98,20 +99,27 @@ function cleanContent(text: string): string {
 export function parseEbookMarkdown(raw: string): EbookData {
   const lines = raw.split('\n');
 
-  // Find section boundaries (skip table-of-contents area before line 70)
+  // Find section boundaries — scan all lines after the metadata header.
+  // When a section heading appears multiple times (e.g. in the ToC AND in
+  // the actual content), we keep the LAST occurrence, which is the real one.
   const found: { def: SectionDef; lineStart: number }[] = [];
-  for (let i = 70; i < lines.length; i++) {
+  for (let i = 50; i < lines.length; i++) {
     const line = lines[i].trim();
     for (const def of sectionDefs) {
       if (def.pattern.test(line)) {
-        // Avoid duplicate matches (e.g. "Vorwort" in ToC vs actual)
-        if (!found.some(f => f.def.id === def.id)) {
+        const existing = found.findIndex(f => f.def.id === def.id);
+        if (existing !== -1) {
+          // Update to the later (real) occurrence
+          found[existing].lineStart = i;
+        } else {
           found.push({ def, lineStart: i });
         }
         break;
       }
     }
   }
+  // Re-sort by lineStart so content boundaries are correct
+  found.sort((a, b) => a.lineStart - b.lineStart);
 
   // Extract content between boundaries
   const chapters: Chapter[] = found.map((entry, idx) => {
@@ -181,6 +189,7 @@ export function parseEbookMarkdown(raw: string): EbookData {
       { id: 'teil7', title: 'Teil VII: Dritte Kritik', subtitle: 'Ontologie des Relationalen' },
       { id: 'schluss', title: 'Schlussreflexion' },
       { id: 'glossar', title: 'Glossar' },
+      { id: 'literatur', title: 'Literaturverzeichnis' },
     ],
     chapters,
   };
