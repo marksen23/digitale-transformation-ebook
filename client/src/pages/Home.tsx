@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   ChevronRight, ChevronLeft, Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
-  MessageCircleQuestion, Send, Loader2,
+  MessageCircleQuestion, Send, Loader2, Languages, Sparkles,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 
@@ -30,6 +30,14 @@ export default function Home() {
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
   const [fontSize, setFontSize] = useLocalStorage('ebook-fontsize', 1); // 0=small 1=normal 2=large 3=xlarge
+  const [fontFamily, setFontFamily] = useLocalStorage<string>('ebook-fontfamily', 'serif');
+  const [fontMenuOpen, setFontMenuOpen] = useState(false);
+  const [language, setLanguage] = useLocalStorage<string>('ebook-language', 'de');
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [translating, setTranslating] = useState(false);
+  const [translationError, setTranslationError] = useState<string | null>(null);
+  const translationCache = useRef<Map<string, string>>(new Map());
+  const [translationTick, setTranslationTick] = useState(0);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Chapter[]>([]);
@@ -282,6 +290,88 @@ export default function Home() {
 
   const fontSizeClasses = ['text-sm leading-relaxed', 'text-base leading-relaxed', 'text-lg leading-relaxed', 'text-xl leading-loose'];
 
+  const fontFamilyMap: Record<string, string> = {
+    serif: 'font-serif',
+    sans: 'font-sans',
+    mono: 'font-mono',
+    lora: '',
+    merriweather: '',
+    opendyslexic: '',
+  };
+  const fontFamilyStyle: Record<string, React.CSSProperties> = {
+    serif: {},
+    sans: {},
+    mono: {},
+    lora: { fontFamily: '"Lora", serif' },
+    merriweather: { fontFamily: '"Merriweather", serif' },
+    opendyslexic: { fontFamily: '"OpenDyslexic", "Comic Sans MS", sans-serif' },
+  };
+  const fontFamilyOptions: { key: string; label: string }[] = [
+    { key: 'serif', label: 'Serif (Standard)' },
+    { key: 'sans', label: 'Sans-serif' },
+    { key: 'mono', label: 'Monospace' },
+    { key: 'lora', label: 'Lora' },
+    { key: 'merriweather', label: 'Merriweather' },
+    { key: 'opendyslexic', label: 'OpenDyslexic' },
+  ];
+  const fontClass = fontFamilyMap[fontFamily] ?? 'font-serif';
+  const fontStyle = fontFamilyStyle[fontFamily] ?? {};
+
+  const languageOptions: { code: string; label: string }[] = [
+    { code: 'de', label: 'Deutsch (Original)' },
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'es', label: 'Español' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'pt', label: 'Português' },
+    { code: 'tr', label: 'Türkçe' },
+    { code: 'pl', label: 'Polski' },
+    { code: 'nl', label: 'Nederlands' },
+    { code: 'zh', label: '中文' },
+    { code: 'ja', label: '日本語' },
+    { code: 'ar', label: 'العربية' },
+  ];
+  const languageLabel = languageOptions.find(l => l.code === language)?.label || language;
+
+  // Translate the current chapter when language ≠ 'de'
+  useEffect(() => {
+    if (!currentChapter) return;
+    if (language === 'de') { setTranslationError(null); return; }
+    if (currentChapter.id === 'glossar' || currentChapter.id === 'literatur') return;
+    const cacheKey = `${currentChapter.id}::${language}`;
+    if (translationCache.current.has(cacheKey)) return;
+
+    let cancelled = false;
+    setTranslating(true);
+    setTranslationError(null);
+    (async () => {
+      try {
+        const res = await fetch('/api/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: currentChapter.content,
+            targetLang: language,
+            sourceLang: 'de',
+          }),
+        });
+        const data = await res.json();
+        if (cancelled) return;
+        if (data.error) {
+          setTranslationError(data.error);
+        } else if (data.translation) {
+          translationCache.current.set(cacheKey, data.translation);
+          setTranslationTick(t => t + 1);
+        }
+      } catch {
+        if (!cancelled) setTranslationError('Verbindungsfehler bei der Übersetzung.');
+      } finally {
+        if (!cancelled) setTranslating(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [currentChapter, language]);
+
   // ─── Render ────────────────────────────────────────────────────────
 
   if (loading) {
@@ -425,7 +515,7 @@ export default function Home() {
           <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
         </header>
 
-        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+        <div className={`${fontClass} ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
           {intro && <p className="mb-8 italic">{intro}</p>}
 
           {/* Letter navigation */}
@@ -528,7 +618,7 @@ export default function Home() {
           <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
         </header>
 
-        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+        <div className={`${fontClass} ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
           {paragraphs.map((para, i) => {
             const trimmed = para.trim();
 
@@ -573,8 +663,15 @@ export default function Home() {
     if (chapter.id === 'glossar') return renderGlossarContent(chapter);
     if (chapter.id === 'literatur') return renderLiteraturContent(chapter);
 
+    // Determine displayed content (translated if language ≠ 'de' and cached)
+    const cacheKey = `${chapter.id}::${language}`;
+    const translated = language !== 'de' ? translationCache.current.get(cacheKey) : undefined;
+    const displayContent = translated || chapter.content;
+    const isTranslated = !!translated && language !== 'de';
+    void translationTick; // subscribe to cache updates
+
     // Split content into paragraphs and render with proper typography
-    const paragraphs = chapter.content.split('\n\n').filter(p => p.trim());
+    const paragraphs = displayContent.split('\n\n').filter(p => p.trim());
 
     return (
       <motion.article
@@ -597,11 +694,26 @@ export default function Home() {
               {chapter.subtitle}
             </p>
           )}
+          {isTranslated && (
+            <div className="mt-3 inline-flex items-center gap-1.5 text-[10px] tracking-wider uppercase px-2 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">
+              <Sparkles size={10} />
+              AI-übersetzt · {languageLabel}
+            </div>
+          )}
+          {translating && language !== 'de' && !isTranslated && (
+            <div className={`mt-3 inline-flex items-center gap-2 text-xs ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+              <Loader2 size={12} className="animate-spin text-amber-500" />
+              Übersetze nach {languageLabel}…
+            </div>
+          )}
+          {translationError && language !== 'de' && (
+            <p className="mt-3 text-xs text-red-500">{translationError} Zeige Originaltext.</p>
+          )}
           <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
         </header>
 
         {/* Content */}
-        <div className={`font-serif space-y-5 ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+        <div className={`${fontClass} space-y-5 ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
           {paragraphs.map((para, i) => {
             const trimmed = para.trim();
 
@@ -609,7 +721,7 @@ export default function Home() {
             if (trimmed.startsWith('\u201E') || trimmed.startsWith('"') || trimmed.startsWith('\u00AB')) {
               return (
                 <blockquote key={i} className={`border-l-2 border-amber-500/40 pl-5 italic ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
-                  {renderWithKeywords(trimmed, chapter.id)}
+                  {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
                 </blockquote>
               );
             }
@@ -623,7 +735,7 @@ export default function Home() {
               );
             }
 
-            return <p key={i}>{renderWithKeywords(trimmed, chapter.id)}</p>;
+            return <p key={i}>{isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}</p>;
           })}
         </div>
 
@@ -676,10 +788,95 @@ export default function Home() {
           <button onClick={() => setFontSize(Math.max(0, fontSize - 1))} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Kleiner" disabled={fontSize === 0}>
             <Minus size={14} />
           </button>
-          <Type size={14} className="opacity-40" />
+          <div className="relative">
+            <button
+              onClick={(e) => { e.stopPropagation(); setFontMenuOpen(o => !o); setLanguageMenuOpen(false); }}
+              className={`p-1.5 rounded-md transition-colors ${fontMenuOpen ? 'bg-amber-500/15 text-amber-600' : 'hover:bg-stone-200/50'}`}
+              title="Schriftart auswählen"
+            >
+              <Type size={14} />
+            </button>
+            <AnimatePresence>
+              {fontMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className={`absolute right-0 top-full mt-2 w-52 rounded-xl shadow-xl border z-40 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+                >
+                  <p className={`px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Schriftart</p>
+                  {fontFamilyOptions.map(opt => {
+                    const active = fontFamily === opt.key;
+                    return (
+                      <button
+                        key={opt.key}
+                        onClick={() => { setFontFamily(opt.key); setFontMenuOpen(false); }}
+                        style={fontFamilyStyle[opt.key]}
+                        className={`w-full text-left px-3 py-2 text-sm transition-colors ${fontFamilyMap[opt.key]} ${
+                          active
+                            ? (darkMode ? 'bg-amber-500/15 text-amber-400' : 'bg-amber-500/15 text-amber-700')
+                            : (darkMode ? 'text-stone-300 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <button onClick={() => setFontSize(Math.min(3, fontSize + 1))} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Größer" disabled={fontSize === 3}>
             <Plus size={14} />
           </button>
+
+          {/* Language */}
+          <div className="relative">
+            <button
+              onClick={(e) => { e.stopPropagation(); setLanguageMenuOpen(o => !o); setFontMenuOpen(false); }}
+              className={`p-1.5 rounded-md transition-colors flex items-center gap-1 ${languageMenuOpen || language !== 'de' ? 'text-amber-600' : 'hover:bg-stone-200/50'}`}
+              title="Sprache auswählen"
+            >
+              <Languages size={16} />
+              {language !== 'de' && (
+                <span className="text-[10px] uppercase tracking-wider">{language}</span>
+              )}
+              {translating && <Loader2 size={10} className="animate-spin" />}
+            </button>
+            <AnimatePresence>
+              {languageMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className={`absolute right-0 top-full mt-2 w-52 rounded-xl shadow-xl border z-40 overflow-hidden max-h-[70vh] overflow-y-auto ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+                >
+                  <p className={`px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Sprache</p>
+                  {languageOptions.map(opt => {
+                    const active = language === opt.code;
+                    return (
+                      <button
+                        key={opt.code}
+                        onClick={() => { setLanguage(opt.code); setLanguageMenuOpen(false); }}
+                        className={`w-full text-left px-3 py-2 text-sm transition-colors ${
+                          active
+                            ? (darkMode ? 'bg-amber-500/15 text-amber-400' : 'bg-amber-500/15 text-amber-700')
+                            : (darkMode ? 'text-stone-300 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                  <p className={`px-3 py-2 text-[10px] border-t ${darkMode ? 'border-stone-700 text-stone-500' : 'border-stone-100 text-stone-400'}`}>
+                    Glossar & Literatur bleiben deutsch.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Bookmark */}
           {currentId !== '__cover__' && (
@@ -851,7 +1048,7 @@ export default function Home() {
         </aside>
 
         {/* ─── Main Content ─────────────────────────────────── */}
-        <main ref={contentRef} className="flex-1 overflow-y-auto relative" onClick={() => setActiveKeyword(null)}>
+        <main ref={contentRef} className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); }}>
           {currentId === '__cover__'
             ? renderCover()
             : currentChapter && renderChapterContent(currentChapter)}

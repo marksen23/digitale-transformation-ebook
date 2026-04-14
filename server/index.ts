@@ -82,6 +82,63 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
     }
   });
 
+  // ─── Gemini Translation API ──────────────────────────────────────
+  app.post("/api/translate", async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    }
+
+    const { text, targetLang, sourceLang } = req.body;
+    if (!text || !targetLang) {
+      return res.status(400).json({ error: "Text und Zielsprache sind erforderlich." });
+    }
+
+    const langNames: Record<string, string> = {
+      en: "English", fr: "French", es: "Spanish", it: "Italian", pt: "Portuguese",
+      tr: "Turkish", pl: "Polish", nl: "Dutch", zh: "Chinese (Simplified)",
+      ja: "Japanese", ar: "Arabic", de: "German",
+    };
+    const targetName = langNames[targetLang] || targetLang;
+    const sourceName = langNames[sourceLang || "de"] || "German";
+
+    const prompt = `You are a literary translator. Translate the following philosophical text from ${sourceName} into ${targetName}.
+Preserve key philosophical terms (Resonanzvernunft, Dasein, Antlitz, Kairos, Gestell) in their original German form, or give them in ${targetName} with the original German in parentheses on first occurrence.
+Preserve paragraphs, line breaks, and the overall rhythm of the prose.
+Do not add commentary, headings, or notes — return only the translated text.
+
+Text:
+${text}`;
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.3, maxOutputTokens: 8192 },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Gemini translate error:", errText);
+        return res.status(502).json({ error: "Fehler bei der Übersetzung." });
+      }
+
+      const data = await response.json();
+      const translation = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      if (!translation) return res.status(502).json({ error: "Leere Übersetzung." });
+      res.json({ translation });
+    } catch (err) {
+      console.error("Translate request failed:", err);
+      res.status(502).json({ error: "Verbindung zur Übersetzungs-API fehlgeschlagen." });
+    }
+  });
+
   // Handle client-side routing - serve index.html for all routes
   app.get("*", (_req, res) => {
     res.sendFile(path.join(staticPath, "index.html"));
