@@ -304,21 +304,21 @@ export default function Home() {
   }
 
   const renderCover = () => (
-    <div className={`min-h-full flex items-center justify-center p-6 ${darkMode ? 'bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950' : 'bg-gradient-to-br from-indigo-950 via-indigo-900 to-stone-900'}`}>
+    <div className={`min-h-full flex items-center justify-center p-4 sm:p-6 ${darkMode ? 'bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950' : 'bg-gradient-to-br from-indigo-950 via-indigo-900 to-stone-900'}`}>
       <motion.div
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
         className="max-w-lg w-full"
       >
-        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-10 text-center space-y-8">
+        <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 sm:p-10 text-center space-y-8">
           <div className="space-y-2">
             <p className="text-amber-400 text-xs tracking-[0.3em] uppercase font-medium">Markus Oehring</p>
             <div className="w-16 h-px bg-amber-500/50 mx-auto" />
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-4xl md:text-5xl font-serif text-white tracking-tight leading-tight">
+            <h1 className="text-[clamp(1.75rem,8vw,3rem)] md:text-5xl font-serif text-white tracking-tight leading-tight break-words">
               Die Digitale<br />Transformation
             </h1>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto" />
