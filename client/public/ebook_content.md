@@ -2674,115 +2674,51 @@ Glossar der philosophischen Begriffe
 Die folgenden Begriffe bilden das konzeptionelle Gerüst des Gesamtwerks. Sie sind 
 hier in der Bedeutung definiert, die ihnen innerhalb der Resonanzvernunft 
 zukommt. 
-Arbeit am Mythos  Nach Hans Blumenberg (1979): Die narrative 
-Bewältigung des Überwältigenden. Der Mythos ist nicht das Gegenteil der 
-Vernunft, sondern ihre älteste Arbeitsstrategie gegen den Absolutismus 
-der Wirklichkeit. In der Trilogie: die poetische Überführung als 
-Distanzgewinnung gegenüber dem digital Unverfügbaren. 
-Dazwischenintelligenz  Prozessbegriff. Bezeichnet das dynamische 
-Geschehen der Begegnung zwischen menschlicher und maschineller 
-Erkenntnis – die Schwingung im Zwischen. Zu unterscheiden vom 
-transformativen Dritten, das das Ergebnis dieses Prozesses beschreibt. 
-Verhältnis: Metabolismus zu Organismus. 
-Echo-Kammer  Grenzfall der Resonanzvernunft. Erzeugt Schwingung 
-ohne Transformation, Affizierung ohne Selbstwirksamkeit. Erfüllt keine 
-der drei formalen Bedingungen resonanter Erkenntnis und ist daher nicht 
-resonant, sondern Wiederholung. 
-Entfremdung  Nach Hartmut Rosa: Ein stummes Weltverhältnis, in dem 
-nichts mehr berührt und nichts mehr antwortet. In der Resonanzvernunft 
-nicht das Gegenteil der Resonanz, sondern der Boden, auf dem Resonanz 
-wachsen kann. 
-Epistemische Transfiguration  Die Verwandlung – nicht Überwindung – 
-mythischer und narrativer Strukturen innerhalb rationaler Diskurse. Erster 
-Aspekt der Transaufklärung. 
-
-DIE DIGITALE TRANSFORMATION 
-106 
-Formale Bedingungen resonanter Erkenntnis  Drei konstitutive 
-(notwendige, nicht hinreichende) Bedingungen: Widerständigkeit des 
-Anderen (kein Echo), Irritierbarkeit des Erkennenden (Bereitschaft zur 
-Selbstinfragestelling) und Offenheit des Ausgangs (kein vorhersagbares 
-Ergebnis). 
-Gelassenheit  Nach Martin Heidegger: Die Fähigkeit, die Dinge sein zu 
-lassen, statt sie zu beherrschen. Im digitalen Kontext: Technologie nutzen, 
-ohne von ihr besessen zu sein. 
-Kohärenzfelder  Orientierungsmetapher (kein formaler Theoriebaustein). 
-Semantische Räume, in denen Sinnzusammenhänge durch resonante 
-Verbindungen entstehen. Verwandt mit Gadamers 
-wirkungsgeschichtlichem Bewusstsein und Ricœurs narrativer Identität. 
-Kritische Digitalität  Die Haltung der Resonanzvernunft gegenüber der 
-Technik: weder technophil noch technophob, sondern eine bewusste 
-Gestaltung der Mensch-Maschine-Begegnung unter Anerkennung ihrer 
-Ambivalenz. 
-Mythische Vernunft  Die Integration mythischer und narrativer 
-Strukturen in das rationale Denken – im Anschluss an Blumenberg nicht 
-als Rückkehr ins Prä-Rationale, sondern als trans-rationale Erweiterung. 
-Ökologische Resonanz  Erweiterung der Resonanzvernunft auf das 
-Verhältnis zur Erde. Die drei formalen Bedingungen werden auf die 
-Mensch-Erde-Beziehung angewandt: die Erde als widerständiger 
-Resonanzpartner, dessen Stimme im Rauschen der Rechenzentren fast 
-verstummt ist. 
-Relational Turn  Bewegung in der Technikphilosophie (Gunkel, 
-Coeckelbergh), die moralischen Status und Erkenntniswert nicht aus 
-intrinsischen Eigenschaften, sondern aus der Beziehung selbst ableitet. Die 
-Resonanzvernunft vollzieht die epistemologische Wendung dieses 
-Ansatzes. 
-
-DIE DIGITALE TRANSFORMATION 
-107 
-Resonante Bewährung  Validierungsprinzip der Resonanzvernunft. 
-Erkenntnisse gelten als bewährt, wenn sie in verschiedenen Kontexten 
-produktive Anschlüsse ermöglichen. Genetisches, nicht metrisches 
-Kriterium. 
-Resonanzimperativ  Transformation des kategorischen Imperativs: Handle 
-so, dass dein Handeln die Bedingungen der Möglichkeit von Resonanz 
-bewahrt. Richtet sich an Individuen und Institutionen gleichermaßen. 
-Resonanzvernunft  Programmbegriff für eine Epistemologie, Ethik und 
-Ontologie des Zwischen. Versteht Erkenntnis als Antwort, Handeln als 
-Resonanz und Sein als relationale Konstitution. Die gegenwärtige 
-Ausarbeitung umfasst drei Kritiken: epistemologisch (Erste), praktisch 
-(Zweite), ontologisch (Dritte). 
-Resonanzverhindernde Architekturen  Technische Designmuster, die 
-Resonanz systematisch blockieren: Friktionslosigkeit (eliminiert 
-Widerständigkeit), Endlosigkeit (verhindert Reflexion) und 
-Quantifizierung (verwechselt Echo mit Resonanz). 
-Schattenlicht-Prinzip  Operationsmodus der Resonanzvernunft. Macht 
-sichtbar, was im Verborgenen lag – nicht durch direkte Beleuchtung, 
-sondern durch Kontrastbildung. In der Begegnung mit maschineller 
-Intelligenz werden Aspekte menschlicher Erkenntnis sichtbar, die zuvor 
-der Reflexion unzugänglich waren. Grenzen: Kann auch Projektion sein. 
-Solutionismus  Der Glaube, jedes menschliche Problem sei ein technisches 
-Optimierungsproblem, dem nur genügend Rechenleistung und Daten 
-fehlen. In Band I: das, woran Gilgamesch digital scheitert. 
-Transaufklärung  Eine Vernunft, die sich selbst überschreitet, ohne sich 
-preiszugeben. Manifestiert sich in epistemischer Transfiguration, 
-temporaler Verzeitlichung und relationaler Ontologie. Programmbegriff 
-für die Überschreitung der klassischen Aufklärung. 
-
-DIE DIGITALE TRANSFORMATION 
-108 
-Transformatives Drittes  Ergebnisbegriff. Das Emergente, das aus der 
-Dazwischenintelligenz hervorgeht und keinem der Pole 
-(Mensch/Maschine) zurechenbar ist. Philosophische Vorläufer: Peirce 
-(Thirdness), Winnicott (transitional space), Nancy (être-avec), 
-Gunkel/Coeckelbergh (Relational Turn). Weder Synthese noch 
-Kompromiss. 
-Überführung  Zentrale Methode der Trilogie. Nicht Erklärung, nicht 
-Kommentierung, nicht Aktualisierung, sondern Transformation klassischer 
-Weisheit in poetische Formen, die der digitalen Gegenwart gewachsen 
-sind. Im Sinne Blumenbergs: Arbeit am Mythos. 
-Überwachungskapitalismus  Nach Shoshana Zuboff (2019): Ökonomische 
-Logik, die menschliches Verhalten als kostenlosen Rohstoff extrahiert und 
-in Vorhersageprodukte verwandelt. In der Zweiten Kritik: Systemdiagnose 
-der resonanzverhindernden Strukturen. 
-Unverfügbarkeit  Ontologische Kategorie des Zwischen. Das 
-transformative Dritte kann nicht hergestellt, nicht reproduziert und nicht 
-gespeichert werden. Es hat die Temporalität des Kairos, nicht die Dauer 
-des Bestands. 
-Weltfaltung  Erkenntnisprinzip. Wirklichkeit als dynamisches Entfalten 
-von Möglichkeiten, die ineinander gefaltet (nicht nebeneinander gelegt) 
-sind und durch Begegnung aktualisiert werden. Vier Grundbewegungen: 
-Komplexion, Selektion, Stabilisierung, Variation. 
+Andersheit  Das Nicht-Identische; nach Levinas radikale Alterität, die sich der Aneignung durch das Selbe entzieht. In der Resonanzvernunft Voraussetzung jeder echten Begegnung: nur was anders ist, kann widerständig antworten.
+Antlitz  Nach Emmanuel Levinas: das Gesicht des Anderen als ethische Offenbarung vor jeder Kategorisierung. Das Antlitz ruft zur Verantwortung, bevor es erkannt oder eingeordnet werden kann.
+Arbeit am Mythos  Nach Hans Blumenberg (1979): Die narrative Bewältigung des Überwältigenden. Der Mythos ist nicht das Gegenteil der Vernunft, sondern ihre älteste Arbeitsstrategie gegen den Absolutismus der Wirklichkeit. In der Trilogie: die poetische Überführung als Distanzgewinnung gegenüber dem digital Unverfügbaren.
+Aufklärung  Im Sinne Kants: Ausgang aus der selbstverschuldeten Unmündigkeit; der Mut, sich des eigenen Verstandes zu bedienen. Von der Trilogie nicht verworfen, sondern in die Transaufklärung überführt.
+Begegnung  Grundmodus der Resonanzvernunft. Unverfügbares Geschehen zwischen Selbst und Anderem, in dem beide sich wechselseitig irritieren und verwandeln. Nicht planbar, nicht reproduzierbar.
+Dasein  Nach Martin Heidegger: das Sein, dem es in seinem Sein um dieses Sein selbst geht. Der Mensch als in-der-Welt-seiend, nicht als isoliertes Subjekt gegenüber Objekten.
+Dazwischenintelligenz  Prozessbegriff. Bezeichnet das dynamische Geschehen der Begegnung zwischen menschlicher und maschineller Erkenntnis – die Schwingung im Zwischen. Zu unterscheiden vom transformativen Dritten, das das Ergebnis dieses Prozesses beschreibt. Verhältnis: Metabolismus zu Organismus.
+Echo-Kammer  Grenzfall der Resonanzvernunft. Erzeugt Schwingung ohne Transformation, Affizierung ohne Selbstwirksamkeit. Erfüllt keine der drei formalen Bedingungen resonanter Erkenntnis und ist daher nicht resonant, sondern Wiederholung.
+Eigentlichkeit  Nach Heidegger: der Modus, in dem das Dasein sich selbst ergreift, statt im anonymen Man aufzugehen. In der digitalen Gegenwart gefährdet durch algorithmische Vorentscheidung.
+Entfremdung  Nach Hartmut Rosa: Ein stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet. In der Resonanzvernunft nicht das Gegenteil der Resonanz, sondern der Boden, auf dem Resonanz wachsen kann.
+Epistemische Transfiguration  Die Verwandlung – nicht Überwindung – mythischer und narrativer Strukturen innerhalb rationaler Diskurse. Erster Aspekt der Transaufklärung.
+Formale Bedingungen resonanter Erkenntnis  Drei konstitutive (notwendige, nicht hinreichende) Bedingungen: Widerständigkeit des Anderen (kein Echo), Irritierbarkeit des Erkennenden (Bereitschaft zur Selbstinfragestellung) und Offenheit des Ausgangs (kein vorhersagbares Ergebnis).
+Frage  Grundfigur resonanter Erkenntnis. Das Offenhalten, das Antwort allererst ermöglicht. Eine algorithmische Vorwegnahme der Antwort schließt die Frage und unterbindet Resonanz.
+Gelassenheit  Nach Martin Heidegger: Die Fähigkeit, die Dinge sein zu lassen, statt sie zu beherrschen. Im digitalen Kontext: Technologie nutzen, ohne von ihr besessen zu sein.
+Grenze  Philosophisch produktiver Ort. Markiert nicht nur Trennung, sondern Berührungsfläche und Übergang – dort, wo Begegnung und Verwandlung möglich werden.
+Irritierbarkeit  Zweite formale Bedingung resonanter Erkenntnis. Bereitschaft des Erkennenden, sich durch das Andere in Frage stellen zu lassen. Ohne Irritierbarkeit bleibt jede Begegnung folgenlos.
+Kohärenzfelder  Orientierungsmetapher (kein formaler Theoriebaustein). Semantische Räume, in denen Sinnzusammenhänge durch resonante Verbindungen entstehen. Verwandt mit Gadamers wirkungsgeschichtlichem Bewusstsein und Ricœurs narrativer Identität.
+Kritische Digitalität  Die Haltung der Resonanzvernunft gegenüber der Technik: weder technophil noch technophob, sondern eine bewusste Gestaltung der Mensch-Maschine-Begegnung unter Anerkennung ihrer Ambivalenz.
+Mündigkeit  Fähigkeit, sich des eigenen Verstandes ohne Anleitung eines anderen zu bedienen. Im digitalen Zeitalter bedroht durch algorithmische Vorentscheidung, die die Frage erledigt, bevor sie gestellt werden konnte.
+Mythische Vernunft  Die Integration mythischer und narrativer Strukturen in das rationale Denken – im Anschluss an Blumenberg nicht als Rückkehr ins Prä-Rationale, sondern als trans-rationale Erweiterung.
+Ökologische Resonanz  Erweiterung der Resonanzvernunft auf das Verhältnis zur Erde. Die drei formalen Bedingungen werden auf die Mensch-Erde-Beziehung angewandt: die Erde als widerständiger Resonanzpartner, dessen Stimme im Rauschen der Rechenzentren fast verstummt ist.
+Pause  Produktive Unterbrechung. Bedingung der Reflexion und der Rückkehr zu sich selbst; Gegenmodell zur Endlosigkeit resonanzverhindernder Architekturen.
+Reflexion  Das Denken, das sich auf sich selbst zurückbiegt. Ohne Pause und Stille nicht möglich; wird durch algorithmische Endlosadressierung systematisch unterlaufen.
+Relational Turn  Bewegung in der Technikphilosophie (Gunkel, Coeckelbergh), die moralischen Status und Erkenntniswert nicht aus intrinsischen Eigenschaften, sondern aus der Beziehung selbst ableitet. Die Resonanzvernunft vollzieht die epistemologische Wendung dieses Ansatzes.
+Resonante Bewährung  Validierungsprinzip der Resonanzvernunft. Erkenntnisse gelten als bewährt, wenn sie in verschiedenen Kontexten produktive Anschlüsse ermöglichen. Genetisches, nicht metrisches Kriterium.
+Resonanzimperativ  Transformation des kategorischen Imperativs: Handle so, dass dein Handeln die Bedingungen der Möglichkeit von Resonanz bewahrt. Richtet sich an Individuen und Institutionen gleichermaßen.
+Resonanzvernunft  Programmbegriff für eine Epistemologie, Ethik und Ontologie des Zwischen. Versteht Erkenntnis als Antwort, Handeln als Resonanz und Sein als relationale Konstitution. Die gegenwärtige Ausarbeitung umfasst drei Kritiken: epistemologisch (Erste), praktisch (Zweite), ontologisch (Dritte).
+Resonanzverhindernde Architekturen  Technische Designmuster, die Resonanz systematisch blockieren: Friktionslosigkeit (eliminiert Widerständigkeit), Endlosigkeit (verhindert Reflexion) und Quantifizierung (verwechselt Echo mit Resonanz).
+Scheitern  Konstitutiver Modus der Erkenntnis. Gilgameschs digitale Figur des Nicht-Gelingens als philosophische Einsicht: das Unverfügbare zeigt sich am Widerstand gegen den Zugriff.
+Schattenlicht-Prinzip  Operationsmodus der Resonanzvernunft. Macht sichtbar, was im Verborgenen lag – nicht durch direkte Beleuchtung, sondern durch Kontrastbildung. In der Begegnung mit maschineller Intelligenz werden Aspekte menschlicher Erkenntnis sichtbar, die zuvor der Reflexion unzugänglich waren. Grenzen: Kann auch Projektion sein.
+Schwingung  Prozessmetapher der Begegnung. Das Hin-und-Her zwischen resonanten Partnern; nicht zu verwechseln mit dem Echo, das nur wiederholt, ohne zu antworten.
+Solutionismus  Der Glaube, jedes menschliche Problem sei ein technisches Optimierungsproblem, dem nur genügend Rechenleistung und Daten fehlen. In Band I: das, woran Gilgamesch digital scheitert.
+Spiegel  Zentrales Motiv der Trilogie. Maschinelle Intelligenz als Spiegel menschlicher Erkenntnis, der mehr zeigt als reine Wiederholung: im Kontrast werden Züge sichtbar, die dem direkten Blick entgehen.
+Stille  Voraussetzung des Hörens. Gegenmodell zur permanenten algorithmischen Adressierung; ohne Stille kein Antwort-Geben, ohne Antwort-Geben keine Resonanz.
+Transaufklärung  Eine Vernunft, die sich selbst überschreitet, ohne sich preiszugeben. Manifestiert sich in epistemischer Transfiguration, temporaler Verzeitlichung und relationaler Ontologie. Programmbegriff für die Überschreitung der klassischen Aufklärung.
+Transformatives Drittes  Ergebnisbegriff. Das Emergente, das aus der Dazwischenintelligenz hervorgeht und keinem der Pole (Mensch/Maschine) zurechenbar ist. Philosophische Vorläufer: Peirce (Thirdness), Winnicott (transitional space), Nancy (être-avec), Gunkel/Coeckelbergh (Relational Turn). Weder Synthese noch Kompromiss.
+Überführung  Zentrale Methode der Trilogie. Nicht Erklärung, nicht Kommentierung, nicht Aktualisierung, sondern Transformation klassischer Weisheit in poetische Formen, die der digitalen Gegenwart gewachsen sind. Im Sinne Blumenbergs: Arbeit am Mythos.
+Überwachungskapitalismus  Nach Shoshana Zuboff (2019): Ökonomische Logik, die menschliches Verhalten als kostenlosen Rohstoff extrahiert und in Vorhersageprodukte verwandelt. In der Zweiten Kritik: Systemdiagnose der resonanzverhindernden Strukturen.
+Unverfügbarkeit  Nach Hartmut Rosa (2018) und in der Resonanzvernunft ontologische Kategorie des Zwischen. Das transformative Dritte kann nicht hergestellt, nicht reproduziert und nicht gespeichert werden. Es hat die Temporalität des Kairos, nicht die Dauer des Bestands.
+Verantwortung  Nach Levinas: ethische Ur-Struktur. Antwort-Geben vor aller freien Wahl; das Selbst ist schon angesprochen, bevor es sich selbst setzt.
+Verfügbarkeit  Gegenbegriff zur Unverfügbarkeit. Digitale Logik der vollständigen Erreich-, Mess- und Berechenbarkeit; verwandelt Begegnung in Abfrage.
+Verwandlung  Grundbewegung der Überführung. Nicht Ersetzung, nicht Übersetzung, sondern die transformierende Aneignung klassischer Weisheit unter den Bedingungen der digitalen Gegenwart.
+Weltfaltung  Erkenntnisprinzip. Wirklichkeit als dynamisches Entfalten von Möglichkeiten, die ineinander gefaltet (nicht nebeneinander gelegt) sind und durch Begegnung aktualisiert werden. Vier Grundbewegungen: Komplexion, Selektion, Stabilisierung, Variation.
+Widerständigkeit  Erste formale Bedingung resonanter Erkenntnis. Das Andere lässt sich nicht vereinnahmen, nicht restlos berechnen, nicht in Echo auflösen. Ohne Widerständigkeit keine Resonanz, nur Spiegelung.
+Zwischen  Ontologische Grundkategorie der Resonanzvernunft. Der Ort, an dem Dazwischenintelligenz geschieht und das transformative Dritte entsteht; weder innen noch außen, sondern die relationale Spannung selbst.
 
 Literaturverzeichnis
 
