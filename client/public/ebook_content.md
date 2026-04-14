@@ -2784,3 +2784,59 @@ von Möglichkeiten, die ineinander gefaltet (nicht nebeneinander gelegt)
 sind und durch Begegnung aktualisiert werden. Vier Grundbewegungen: 
 Komplexion, Selektion, Stabilisierung, Variation. 
 
+Literaturverzeichnis
+
+Primärliteratur
+
+Aristoteles: Metaphysik. Verschiedene Ausgaben.
+
+Barad, Karen: Meeting the Universe Halfway. Quantum Physics and the Entanglement of Matter and Meaning. Durham/London: Duke University Press, 2007.
+
+Blumenberg, Hans: Arbeit am Mythos. Frankfurt am Main: Suhrkamp, 1979.
+
+Buber, Martin: Ich und Du. Leipzig: Insel-Verlag, 1923.
+
+Descartes, René: Meditationes de Prima Philosophia. 1641. Verschiedene Ausgaben.
+
+Gadamer, Hans-Georg: Wahrheit und Methode. Grundzüge einer philosophischen Hermeneutik. Tübingen: Mohr Siebeck, 1960.
+
+Habermas, Jürgen: Theorie des kommunikativen Handelns. 2 Bände. Frankfurt am Main: Suhrkamp, 1981.
+
+Heidegger, Martin: Sein und Zeit. Tübingen: Max Niemeyer, 1927.
+
+Heidegger, Martin: Gelassenheit. Pfullingen: Günther Neske, 1959.
+
+Kant, Immanuel: Kritik der reinen Vernunft. Riga: Johann Friedrich Hartknoch, 1781.
+
+Kant, Immanuel: Beantwortung der Frage: Was ist Aufklärung? In: Berlinische Monatsschrift, 1784.
+
+Levinas, Emmanuel: Totalité et Infini. Essai sur l'extériorité. Den Haag: Martinus Nijhoff, 1961.
+
+Luhmann, Niklas: Soziale Systeme. Grundriß einer allgemeinen Theorie. Frankfurt am Main: Suhrkamp, 1984.
+
+Nancy, Jean-Luc: Être singulier pluriel. Paris: Galilée, 1996.
+
+Peirce, Charles S.: Collected Papers of Charles Sanders Peirce. 8 Bände. Cambridge, MA: Harvard University Press, 1931–1958.
+
+Ricœur, Paul: Temps et récit. 3 Bände. Paris: Seuil, 1983–1985.
+
+Rosa, Hartmut: Resonanz. Eine Soziologie der Weltbeziehung. Berlin: Suhrkamp, 2016.
+
+Waldenfels, Bernhard: Antwortregister. Frankfurt am Main: Suhrkamp, 1994.
+
+Weber, Max: Wirtschaft und Gesellschaft. Grundriß der verstehenden Soziologie. Tübingen: Mohr Siebeck, 1922.
+
+Winnicott, Donald W.: Playing and Reality. London: Tavistock Publications, 1971.
+
+Zuboff, Shoshana: The Age of Surveillance Capitalism. The Fight for a Human Future at the New Frontier of Power. New York: PublicAffairs, 2019.
+
+Sekundärliteratur und Technikphilosophie
+
+Arendt, Hannah: Vita activa oder Vom tätigen Leben. Stuttgart: Kohlhammer, 1960.
+
+Biesta, Gert: The Beautiful Risk of Education. Boulder, CO: Paradigm Publishers, 2014.
+
+Coeckelbergh, Mark: AI Ethics. Cambridge, MA: MIT Press, 2020.
+
+Gunkel, David J.: The Machine Question. Critical Perspectives on AI, Robots, and Ethics. Cambridge, MA: MIT Press, 2012.
+

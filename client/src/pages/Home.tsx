@@ -1,8 +1,9 @@
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   ChevronRight, ChevronLeft, Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
+  MessageCircleQuestion, Send, Loader2, BookText,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 
@@ -35,6 +36,16 @@ export default function Home() {
   const [bookmarks, setBookmarks] = useLocalStorage<string[]>('ebook-bookmarks', []);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [readProgress, setReadProgress] = useState(0);
+
+  // Q&A Chat
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatQuestion, setChatQuestion] = useState('');
+  const [chatHistory, setChatHistory] = useState<{ q: string; a: string }[]>([]);
+  const [chatLoading, setChatLoading] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // Keyword popover
+  const [activeKeyword, setActiveKeyword] = useState<{ term: string; definition: string; x: number; y: number } | null>(null);
 
   const contentRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -100,6 +111,154 @@ export default function Home() {
     if (searchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
   }, [searchOpen]);
 
+  const currentChapter = ebook ? ebook.chapters.find(c => c.id === currentId) : undefined;
+
+  // Build glossary keyword map from the glossar chapter
+  const glossaryMap = useMemo(() => {
+    if (!ebook) return new Map<string, string>();
+    const glossarChapter = ebook.chapters.find(c => c.id === 'glossar');
+    if (!glossarChapter) return new Map<string, string>();
+
+    const map = new Map<string, string>();
+    const lines = glossarChapter.content.split('\n');
+    let currentTerm = '';
+    let currentDef = '';
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+      const match = trimmed.match(/^([A-ZÄÖÜ][a-zA-ZäöüÄÖÜß\s\-()„"]+?)\s{2,}(.+)$/);
+      if (match) {
+        if (currentTerm) map.set(currentTerm, currentDef.trim());
+        currentTerm = match[1].trim();
+        currentDef = match[2];
+      } else if (currentTerm) {
+        currentDef += ' ' + trimmed;
+      }
+    }
+    if (currentTerm) map.set(currentTerm, currentDef.trim());
+    return map;
+  }, [ebook]);
+
+  // Build keyword index: which terms appear in which chapters
+  const keywordIndex = useMemo(() => {
+    if (!ebook || glossaryMap.size === 0) return new Map<string, string[]>();
+    const index = new Map<string, string[]>();
+    const terms = Array.from(glossaryMap.keys());
+    for (const ch of ebook.chapters) {
+      if (ch.id === 'glossar' || ch.id === 'literatur') continue;
+      const lower = ch.content.toLowerCase();
+      for (const term of terms) {
+        if (lower.includes(term.toLowerCase())) {
+          const list = index.get(term) || [];
+          list.push(ch.id);
+          index.set(term, list);
+        }
+      }
+    }
+    return index;
+  }, [ebook, glossaryMap]);
+
+  // Sorted terms for the Begriffsverzeichnis
+  const sortedKeywords = useMemo(() =>
+    Array.from(glossaryMap.keys()).sort((a, b) => a.localeCompare(b, 'de')),
+    [glossaryMap]
+  );
+
+  // Q&A submit
+  const askQuestion = useCallback(async () => {
+    if (!chatQuestion.trim() || !currentChapter || chatLoading) return;
+    const q = chatQuestion.trim();
+    setChatQuestion('');
+    setChatLoading(true);
+    setChatHistory(prev => [...prev, { q, a: '' }]);
+
+    try {
+      const res = await fetch('/api/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          question: q,
+          chapterTitle: currentChapter.title,
+          chapterContent: currentChapter.content,
+        }),
+      });
+      const data = await res.json();
+      if (data.error) {
+        setChatHistory(prev => {
+          const copy = [...prev];
+          copy[copy.length - 1].a = `Fehler: ${data.error}`;
+          return copy;
+        });
+      } else {
+        setChatHistory(prev => {
+          const copy = [...prev];
+          copy[copy.length - 1].a = data.answer;
+          return copy;
+        });
+      }
+    } catch {
+      setChatHistory(prev => {
+        const copy = [...prev];
+        copy[copy.length - 1].a = 'Verbindungsfehler. Bitte versuche es erneut.';
+        return copy;
+      });
+    } finally {
+      setChatLoading(false);
+    }
+  }, [chatQuestion, currentChapter, chatLoading]);
+
+  // Scroll chat to bottom
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatHistory, chatLoading]);
+
+  // Close keyword popover on chapter change or scroll
+  useEffect(() => { setActiveKeyword(null); }, [currentId]);
+
+  // Render text with keyword highlighting
+  const renderWithKeywords = useCallback((text: string, chapterId: string): ReactNode => {
+    if (glossaryMap.size === 0 || chapterId === 'glossar' || chapterId === 'literatur') return text;
+
+    // Build regex from glossary terms, longest first to avoid partial matches
+    const terms = Array.from(glossaryMap.keys()).sort((a, b) => b.length - a.length);
+    const escaped = terms.map(t => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'));
+    const regex = new RegExp(`\\b(${escaped.join('|')})`, 'gi');
+
+    const parts: ReactNode[] = [];
+    let lastIndex = 0;
+    let match: RegExpExecArray | null;
+    const seen = new Set<string>(); // Only highlight first occurrence per paragraph
+
+    while ((match = regex.exec(text)) !== null) {
+      const matchedText = match[0];
+      const termKey = terms.find(t => t.toLowerCase() === matchedText.toLowerCase());
+      if (!termKey || seen.has(termKey.toLowerCase())) continue;
+      seen.add(termKey.toLowerCase());
+
+      if (match.index > lastIndex) {
+        parts.push(text.slice(lastIndex, match.index));
+      }
+      const def = glossaryMap.get(termKey) || '';
+      parts.push(
+        <button
+          key={`${match.index}-${termKey}`}
+          className={`underline decoration-dotted decoration-amber-500/50 underline-offset-2 cursor-help hover:decoration-amber-500 transition-colors ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}
+          onClick={(e) => {
+            e.stopPropagation();
+            const rect = (e.target as HTMLElement).getBoundingClientRect();
+            setActiveKeyword({ term: termKey, definition: def, x: rect.left, y: rect.bottom + 8 });
+          }}
+        >
+          {matchedText}
+        </button>
+      );
+      lastIndex = match.index + matchedText.length;
+    }
+    if (lastIndex < text.length) parts.push(text.slice(lastIndex));
+    return parts.length > 0 ? parts : text;
+  }, [glossaryMap, darkMode]);
+
   // Navigation helpers
   const allIds = useMemo(() => {
     if (!ebook) return ['__cover__'];
@@ -126,8 +285,6 @@ export default function Home() {
   const toggleBookmark = useCallback((id: string) => {
     setBookmarks(prev => prev.includes(id) ? prev.filter(b => b !== id) : [...prev, id]);
   }, [setBookmarks]);
-
-  const currentChapter = ebook?.chapters.find(c => c.id === currentId);
 
   const fontSizeClasses = ['text-sm leading-relaxed', 'text-base leading-relaxed', 'text-lg leading-relaxed', 'text-xl leading-loose'];
 
@@ -211,7 +368,257 @@ export default function Home() {
     </div>
   );
 
+  const renderGlossarContent = (chapter: Chapter) => {
+    // Parse glossary entries: "Term  Definition text..." pattern
+    // Each entry starts with a term followed by two or more spaces and then the definition
+    const entries: { term: string; definition: string }[] = [];
+    const lines = chapter.content.split('\n');
+    let currentTerm = '';
+    let currentDef = '';
+
+    for (const line of lines) {
+      const trimmed = line.trim();
+      if (!trimmed) continue;
+
+      // Check if line starts a new glossary entry (Term followed by double-space then definition)
+      const match = trimmed.match(/^([A-ZÄÖÜ][a-zA-ZäöüÄÖÜß\s\-()„"]+?)\s{2,}(.+)$/);
+      if (match) {
+        if (currentTerm) {
+          entries.push({ term: currentTerm, definition: currentDef.trim() });
+        }
+        currentTerm = match[1].trim();
+        currentDef = match[2];
+      } else if (currentTerm) {
+        // Continuation of current definition
+        currentDef += ' ' + trimmed;
+      }
+    }
+    if (currentTerm) {
+      entries.push({ term: currentTerm, definition: currentDef.trim() });
+    }
+
+    // Extract intro text (lines before the first definition entry)
+    const introEnd = chapter.content.indexOf(entries[0]?.term || '');
+    const intro = introEnd > 0 ? chapter.content.slice(0, introEnd).trim() : '';
+
+    return (
+      <motion.article
+        key={chapter.id}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16"
+      >
+        <header className="mb-10 md:mb-14">
+          <p className="text-amber-600 text-xs tracking-[0.2em] uppercase font-medium mb-3">
+            {chapter.partTitle}
+          </p>
+          <h1 className={`font-serif tracking-tight mb-3 ${darkMode ? 'text-stone-100' : 'text-indigo-950'} text-2xl md:text-3xl`}>
+            {chapter.title}
+          </h1>
+          <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
+        </header>
+
+        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+          {intro && <p className="mb-8 italic">{intro}</p>}
+
+          <dl className="space-y-6">
+            {entries.map((entry, i) => (
+              <div key={i} className={`pb-5 border-b ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
+                <dt className={`font-semibold mb-1.5 ${darkMode ? 'text-amber-400' : 'text-indigo-900'}`}>
+                  {entry.term}
+                </dt>
+                <dd className={`ml-0 leading-relaxed ${darkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+                  {entry.definition}
+                </dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+
+        <div className="mt-14 flex justify-center">
+          <span className="text-amber-500/40 text-2xl select-none">&loz;</span>
+        </div>
+      </motion.article>
+    );
+  };
+
+  const renderLiteraturContent = (chapter: Chapter) => {
+    // Parse bibliography: detect sub-sections and individual entries
+    const paragraphs = chapter.content.split('\n\n').filter(p => p.trim());
+
+    return (
+      <motion.article
+        key={chapter.id}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16"
+      >
+        <header className="mb-10 md:mb-14">
+          <p className="text-amber-600 text-xs tracking-[0.2em] uppercase font-medium mb-3">
+            {chapter.partTitle}
+          </p>
+          <h1 className={`font-serif tracking-tight mb-3 ${darkMode ? 'text-stone-100' : 'text-indigo-950'} text-2xl md:text-3xl`}>
+            {chapter.title}
+          </h1>
+          <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
+        </header>
+
+        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+          {paragraphs.map((para, i) => {
+            const trimmed = para.trim();
+
+            // Section headings (Primärliteratur, Sekundärliteratur)
+            if (/^(Primärliteratur|Sekundärliteratur)/.test(trimmed)) {
+              return (
+                <h3 key={i} className={`font-serif font-semibold text-lg mt-10 mb-5 pb-2 border-b ${darkMode ? 'text-stone-200 border-stone-700' : 'text-indigo-900 border-stone-300'}`}>
+                  {trimmed}
+                </h3>
+              );
+            }
+
+            // Bibliography entries — author name followed by colon
+            if (/^[A-ZÄÖÜ][\wäöüÄÖÜß\-]+,\s/.test(trimmed)) {
+              const colonIdx = trimmed.indexOf(':');
+              if (colonIdx > 0) {
+                const author = trimmed.slice(0, colonIdx);
+                const rest = trimmed.slice(colonIdx + 1).trim();
+                return (
+                  <p key={i} className={`pl-6 -indent-6 mb-3 leading-relaxed ${darkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+                    <span className={`font-medium ${darkMode ? 'text-stone-200' : 'text-stone-800'}`}>{author}:</span>{' '}
+                    <span className="italic">{rest}</span>
+                  </p>
+                );
+              }
+            }
+
+            return <p key={i} className="mb-3">{trimmed}</p>;
+          })}
+        </div>
+
+        <div className="mt-14 flex justify-center">
+          <span className="text-amber-500/40 text-2xl select-none">&loz;</span>
+        </div>
+      </motion.article>
+    );
+  };
+
+  const renderBegriffsverzeichnis = () => {
+    // Group keywords by first letter
+    const grouped = new Map<string, string[]>();
+    for (const term of sortedKeywords) {
+      const letter = term[0].toUpperCase();
+      const list = grouped.get(letter) || [];
+      list.push(term);
+      grouped.set(letter, list);
+    }
+
+    return (
+      <motion.article
+        key="begriffe"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.4 }}
+        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16"
+      >
+        <header className="mb-10 md:mb-14">
+          <p className="text-amber-600 text-xs tracking-[0.2em] uppercase font-medium mb-3">
+            Verzeichnis
+          </p>
+          <h1 className={`font-serif tracking-tight mb-3 ${darkMode ? 'text-stone-100' : 'text-indigo-950'} text-2xl md:text-3xl`}>
+            Begriffsverzeichnis
+          </h1>
+          <p className={`text-sm mb-4 ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+            {glossaryMap.size} Begriffe aus dem Glossar, verknüpft mit ihrem Vorkommen in den Kapiteln.
+          </p>
+          <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
+        </header>
+
+        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+          {/* Letter navigation */}
+          <div className="flex flex-wrap gap-1.5 mb-8">
+            {Array.from(grouped.keys()).map(letter => (
+              <button
+                key={letter}
+                onClick={() => {
+                  document.getElementById(`begriffe-${letter}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }}
+                className={`w-8 h-8 rounded-lg text-xs font-medium transition-colors ${
+                  darkMode ? 'bg-stone-800 text-stone-300 hover:bg-stone-700' : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                }`}
+              >
+                {letter}
+              </button>
+            ))}
+          </div>
+
+          {Array.from(grouped.entries()).map(([letter, terms]) => (
+            <div key={letter} id={`begriffe-${letter}`} className="mb-8">
+              <h3 className={`text-lg font-semibold mb-3 pb-1 border-b ${
+                darkMode ? 'text-amber-400 border-stone-800' : 'text-indigo-900 border-stone-200'
+              }`}>
+                {letter}
+              </h3>
+              <div className="space-y-3">
+                {terms.map(term => {
+                  const def = glossaryMap.get(term) || '';
+                  const chapters = keywordIndex.get(term) || [];
+
+                  return (
+                    <div key={term} className={`pb-3 border-b ${darkMode ? 'border-stone-800/50' : 'border-stone-100'}`}>
+                      <button
+                        onClick={() => navigateTo('glossar')}
+                        className={`font-medium text-sm hover:text-amber-600 transition-colors ${darkMode ? 'text-stone-200' : 'text-stone-800'}`}
+                      >
+                        {term}
+                      </button>
+                      <p className={`text-xs mt-1 line-clamp-2 ${darkMode ? 'text-stone-500' : 'text-stone-500'}`}>
+                        {def.slice(0, 150)}{def.length > 150 ? '...' : ''}
+                      </p>
+                      {chapters.length > 0 && (
+                        <div className="flex flex-wrap gap-1 mt-2">
+                          {chapters.slice(0, 5).map(chId => {
+                            const ch = ebook?.chapters.find(c => c.id === chId);
+                            return ch ? (
+                              <button
+                                key={chId}
+                                onClick={() => navigateTo(chId)}
+                                className={`text-[10px] px-2 py-0.5 rounded-full transition-colors ${
+                                  darkMode ? 'bg-stone-800 text-stone-400 hover:bg-stone-700' : 'bg-stone-100 text-stone-500 hover:bg-stone-200'
+                                }`}
+                              >
+                                {ch.title.length > 30 ? ch.title.slice(0, 30) + '...' : ch.title}
+                              </button>
+                            ) : null;
+                          })}
+                          {chapters.length > 5 && (
+                            <span className={`text-[10px] px-2 py-0.5 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                              +{chapters.length - 5} weitere
+                            </span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-14 flex justify-center">
+          <span className="text-amber-500/40 text-2xl select-none">&loz;</span>
+        </div>
+      </motion.article>
+    );
+  };
+
   const renderChapterContent = (chapter: Chapter) => {
+    // Use specialized renderers for Glossar and Literaturverzeichnis
+    if (chapter.id === 'glossar') return renderGlossarContent(chapter);
+    if (chapter.id === 'literatur') return renderLiteraturContent(chapter);
+
     // Split content into paragraphs and render with proper typography
     const paragraphs = chapter.content.split('\n\n').filter(p => p.trim());
 
@@ -248,7 +655,7 @@ export default function Home() {
             if (trimmed.startsWith('\u201E') || trimmed.startsWith('"') || trimmed.startsWith('\u00AB')) {
               return (
                 <blockquote key={i} className={`border-l-2 border-amber-500/40 pl-5 italic ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
-                  {trimmed}
+                  {renderWithKeywords(trimmed, chapter.id)}
                 </blockquote>
               );
             }
@@ -262,7 +669,7 @@ export default function Home() {
               );
             }
 
-            return <p key={i}>{trimmed}</p>;
+            return <p key={i}>{renderWithKeywords(trimmed, chapter.id)}</p>;
           })}
         </div>
 
@@ -330,6 +737,11 @@ export default function Home() {
               <Bookmark size={16} fill={bookmarks.includes(currentId) ? 'currentColor' : 'none'} />
             </button>
           )}
+
+          {/* Begriffsverzeichnis */}
+          <button onClick={() => navigateTo('__begriffe__')} className={`p-1.5 rounded-md transition-colors ${currentId === '__begriffe__' ? 'text-amber-500' : 'hover:bg-stone-200/50'}`} title="Begriffsverzeichnis">
+            <BookText size={16} />
+          </button>
 
           {/* Dark mode */}
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
@@ -490,11 +902,15 @@ export default function Home() {
         </aside>
 
         {/* ─── Main Content ─────────────────────────────────── */}
-        <main ref={contentRef} className="flex-1 overflow-y-auto relative">
-          {currentId === '__cover__' ? renderCover() : currentChapter && renderChapterContent(currentChapter)}
+        <main ref={contentRef} className="flex-1 overflow-y-auto relative" onClick={() => setActiveKeyword(null)}>
+          {currentId === '__cover__'
+            ? renderCover()
+            : currentId === '__begriffe__'
+              ? renderBegriffsverzeichnis()
+              : currentChapter && renderChapterContent(currentChapter)}
 
           {/* Navigation footer */}
-          {currentId !== '__cover__' && (
+          {currentId !== '__cover__' && currentId !== '__begriffe__' && (
             <div className={`border-t px-6 py-4 ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
               <div className="max-w-2xl mx-auto flex items-center justify-between">
                 <button
@@ -524,9 +940,49 @@ export default function Home() {
             </div>
           )}
 
+          {/* Keyword popover */}
+          <AnimatePresence>
+            {activeKeyword && (
+              <motion.div
+                initial={{ opacity: 0, y: 4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                className={`fixed z-50 max-w-sm rounded-xl shadow-xl border p-4 ${
+                  darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'
+                }`}
+                style={{
+                  left: Math.min(activeKeyword.x, window.innerWidth - 380),
+                  top: Math.min(activeKeyword.y, window.innerHeight - 200),
+                }}
+                onClick={(e) => e.stopPropagation()}
+              >
+                <h4 className={`font-serif font-semibold text-sm mb-2 ${darkMode ? 'text-amber-400' : 'text-indigo-900'}`}>
+                  {activeKeyword.term}
+                </h4>
+                <p className={`text-xs leading-relaxed ${darkMode ? 'text-stone-400' : 'text-stone-600'}`}>
+                  {activeKeyword.definition}
+                </p>
+                <div className="mt-3 flex gap-2">
+                  <button
+                    onClick={() => { navigateTo('glossar'); setActiveKeyword(null); }}
+                    className="text-[10px] text-amber-600 hover:text-amber-500 transition-colors"
+                  >
+                    Im Glossar ansehen →
+                  </button>
+                  <button
+                    onClick={() => setActiveKeyword(null)}
+                    className={`text-[10px] ml-auto ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}
+                  >
+                    Schließen
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
           {/* Scroll to top */}
           <AnimatePresence>
-            {showScrollTop && (
+            {showScrollTop && !chatOpen && (
               <motion.button
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -540,6 +996,134 @@ export default function Home() {
               </motion.button>
             )}
           </AnimatePresence>
+
+          {/* ─── Q&A Chat ──────────────────────────────────────── */}
+          {currentId !== '__cover__' && (
+            <>
+              {/* FAB button */}
+              <AnimatePresence>
+                {!chatOpen && (
+                  <motion.button
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    onClick={() => setChatOpen(true)}
+                    className={`fixed bottom-6 right-6 p-3.5 rounded-full shadow-lg z-20 transition-colors ${
+                      darkMode
+                        ? 'bg-amber-600 text-white hover:bg-amber-500'
+                        : 'bg-indigo-900 text-white hover:bg-indigo-800'
+                    }`}
+                    title="Dem Autor eine Frage stellen"
+                  >
+                    <MessageCircleQuestion size={20} />
+                  </motion.button>
+                )}
+              </AnimatePresence>
+
+              {/* Chat panel */}
+              <AnimatePresence>
+                {chatOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 20, scale: 0.95 }}
+                    className={`fixed bottom-4 right-4 w-[360px] max-h-[500px] z-40 rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
+                      darkMode ? 'bg-stone-900 border-stone-700' : 'bg-white border-stone-200'
+                    }`}
+                  >
+                    {/* Chat header */}
+                    <div className={`flex items-center justify-between px-4 py-3 border-b flex-none ${
+                      darkMode ? 'border-stone-700 bg-stone-800/50' : 'border-stone-100 bg-stone-50'
+                    }`}>
+                      <div className="flex items-center gap-2">
+                        <MessageCircleQuestion size={16} className="text-amber-500" />
+                        <span className="font-serif text-sm font-medium">Frage zum Kapitel</span>
+                      </div>
+                      <button onClick={() => setChatOpen(false)} className="p-1 rounded hover:bg-stone-200/50 transition-colors">
+                        <X size={14} />
+                      </button>
+                    </div>
+
+                    {/* Chat context */}
+                    <div className={`px-4 py-2 text-[10px] border-b flex-none ${
+                      darkMode ? 'border-stone-700 text-stone-500' : 'border-stone-100 text-stone-400'
+                    }`}>
+                      Kontext: {currentChapter?.title || currentId}
+                    </div>
+
+                    {/* Chat messages */}
+                    <div className="flex-1 overflow-y-auto px-4 py-3 space-y-4 min-h-[200px]">
+                      {chatHistory.length === 0 && (
+                        <div className={`text-center py-8 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                          <MessageCircleQuestion size={32} className="mx-auto mb-3 opacity-40" />
+                          <p className="text-xs">Stelle eine Frage zum aktuellen Kapitel.</p>
+                          <p className="text-[10px] mt-1 opacity-60">Die Antwort bezieht sich auf den Inhalt und das Gesamtwerk.</p>
+                        </div>
+                      )}
+                      {chatHistory.map((entry, i) => (
+                        <div key={i} className="space-y-2">
+                          {/* Question */}
+                          <div className="flex justify-end">
+                            <div className={`max-w-[85%] rounded-2xl rounded-tr-sm px-3.5 py-2 text-xs ${
+                              darkMode ? 'bg-amber-600/20 text-amber-200' : 'bg-indigo-900 text-white'
+                            }`}>
+                              {entry.q}
+                            </div>
+                          </div>
+                          {/* Answer */}
+                          {entry.a ? (
+                            <div className="flex justify-start">
+                              <div className={`max-w-[85%] rounded-2xl rounded-tl-sm px-3.5 py-2 text-xs leading-relaxed ${
+                                darkMode ? 'bg-stone-800 text-stone-300' : 'bg-stone-100 text-stone-700'
+                              }`}>
+                                {entry.a.split('\n\n').map((p, j) => (
+                                  <p key={j} className={j > 0 ? 'mt-2' : ''}>{p}</p>
+                                ))}
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="flex justify-start">
+                              <div className={`rounded-2xl rounded-tl-sm px-3.5 py-2 ${
+                                darkMode ? 'bg-stone-800' : 'bg-stone-100'
+                              }`}>
+                                <Loader2 size={14} className="animate-spin text-amber-500" />
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      ))}
+                      <div ref={chatEndRef} />
+                    </div>
+
+                    {/* Chat input */}
+                    <div className={`px-3 py-3 border-t flex-none flex gap-2 ${
+                      darkMode ? 'border-stone-700' : 'border-stone-100'
+                    }`}>
+                      <input
+                        type="text"
+                        value={chatQuestion}
+                        onChange={(e) => setChatQuestion(e.target.value)}
+                        onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askQuestion(); } }}
+                        placeholder="Frage stellen..."
+                        className={`flex-1 px-3 py-2 rounded-lg text-xs border focus:outline-none focus:ring-2 focus:ring-amber-500/50 ${
+                          darkMode ? 'bg-stone-800 border-stone-700 text-stone-200 placeholder:text-stone-500' : 'bg-stone-50 border-stone-200 text-stone-800 placeholder:text-stone-400'
+                        }`}
+                      />
+                      <button
+                        onClick={askQuestion}
+                        disabled={!chatQuestion.trim() || chatLoading}
+                        className={`p-2 rounded-lg transition-colors disabled:opacity-30 ${
+                          darkMode ? 'bg-amber-600 text-white hover:bg-amber-500' : 'bg-indigo-900 text-white hover:bg-indigo-800'
+                        }`}
+                      >
+                        <Send size={14} />
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </>
+          )}
         </main>
       </div>
     </div>

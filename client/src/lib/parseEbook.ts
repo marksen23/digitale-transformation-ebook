@@ -81,9 +81,10 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^TEIL VI: PRAKTISCHE$/, id: 'teil6', title: 'Praktische Resonanzvernunft \u2014 Zweite Kritik', subtitle: 'Handeln im Zwischen', part: 'teil6', partTitle: 'Teil VI: Zweite Kritik' },
   { pattern: /^TEIL VII: ONTOLOGIE DES RELATIONALEN$/, id: 'teil7', title: 'Ontologie des Relationalen \u2014 Dritte Kritik', subtitle: 'Sein im Zwischen', part: 'teil7', partTitle: 'Teil VII: Dritte Kritik' },
 
-  // Schluss & Glossar
+  // Schluss, Glossar & Literaturverzeichnis
   { pattern: /^SCHLUSSREFLEXION/, id: 'schlussreflexion', title: 'Schlussreflexion', subtitle: 'Das Gesamtwerk', part: 'schluss', partTitle: 'Schlussreflexion' },
   { pattern: /^Glossar der philosophischen Begriffe$/, id: 'glossar', title: 'Glossar der philosophischen Begriffe', part: 'glossar', partTitle: 'Glossar' },
+  { pattern: /^Literaturverzeichnis$/, id: 'literatur', title: 'Literaturverzeichnis', part: 'literatur', partTitle: 'Literaturverzeichnis' },
 ];
 
 function cleanContent(text: string): string {
@@ -188,6 +189,7 @@ export function parseEbookMarkdown(raw: string): EbookData {
       { id: 'teil7', title: 'Teil VII: Dritte Kritik', subtitle: 'Ontologie des Relationalen' },
       { id: 'schluss', title: 'Schlussreflexion' },
       { id: 'glossar', title: 'Glossar' },
+      { id: 'literatur', title: 'Literaturverzeichnis' },
     ],
     chapters,
   };
