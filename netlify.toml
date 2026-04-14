@@ -7,6 +7,15 @@
   NODE_VERSION = "22.13.0"
   PNPM_VERSION = "10.4.1"
 
+# Proxy /api/* requests to the Render backend (Express + Gemini)
+# Replace the URL with your actual Render service URL.
+[[redirects]]
+  from = "/api/*"
+  to = "https://digitale-transformation-ebook.onrender.com/api/:splat"
+  status = 200
+  force = true
+
+# SPA fallback — must come AFTER the /api rule
 [[redirects]]
   from = "/*"
   to = "/index.html"
