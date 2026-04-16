@@ -86,7 +86,9 @@ Der Leser befindet sich aktuell im Kapitel: "${chapterTitle}"
 Beantworte die Frage des Lesers auf Deutsch, sachkundig und im Geiste des Werks.
 Beziehe dich auf den Inhalt des aktuellen Kapitels, aber auch auf das Gesamtwerk wenn relevant.
 Erkläre philosophische Konzepte verständlich, aber ohne sie zu vereinfachen.
-Halte deine Antwort prägnant (max. 3-4 Absätze).`;
+
+Umfang: Schreibe 2–3 vollständige Absätze. Jeder Absatz muss einen abgeschlossenen Gedanken enthalten.
+Schließe die Antwort immer mit einem vollständigen Satz ab — niemals mitten im Satz aufhören.`;
 
     const userMessage = `Kapitelinhalt (Auszug):
 ${chapterContent.slice(0, 4000)}
@@ -105,7 +107,7 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
             ],
             generationConfig: {
               temperature: 0.7,
-              maxOutputTokens: 1024,
+              maxOutputTokens: 2048,
             },
           }),
         }
