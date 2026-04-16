@@ -705,8 +705,6 @@ export default function Home() {
         </header>
 
         <div className={`${fontClass} ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
-          {intro && <p className="mb-8 italic">{intro}</p>}
-
           {/* Letter navigation */}
           <div className="flex flex-wrap gap-1.5 mb-10 sticky top-16 z-10 py-2 -mx-2 px-2 rounded-lg backdrop-blur-sm"
                style={{ background: darkMode ? 'rgba(28,25,23,0.85)' : 'rgba(250,250,249,0.85)' }}>
@@ -1014,15 +1012,6 @@ export default function Home() {
 
       {/* ─── Top Bar ─────────────────────────────────────────── */}
       <header className={`flex-none h-12 flex items-center px-4 gap-2 border-b z-40 relative ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
-        {/* Sidebar toggle (claude.ai-style panel icon) */}
-        <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className={`p-1.5 rounded-md transition-colors ${darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50'}`}
-          title={sidebarOpen ? 'Navigation einklappen' : 'Navigation ausklappen'}
-        >
-          {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={18} />}
-        </button>
-
         {/* Burger menu with actions */}
         <div className="relative">
           <button
@@ -1082,6 +1071,15 @@ export default function Home() {
             )}
           </AnimatePresence>
         </div>
+
+        {/* Sidebar toggle (claude.ai-style panel icon) */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className={`p-1.5 rounded-md transition-colors ${darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50'}`}
+          title={sidebarOpen ? 'Navigation einklappen' : 'Navigation ausklappen'}
+        >
+          {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={18} />}
+        </button>
 
         <div className="flex-1 min-w-0">
           <h1 className="text-sm font-serif truncate opacity-70">

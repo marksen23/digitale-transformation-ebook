@@ -686,13 +686,10 @@ ${text}`;
             const trimmed = line.trim();
             if (!trimmed) continue;
 
-            const match = trimmed.match(/^([A-ZÄÖÜ][a-zA-ZäöüÄÖÜß\s\-()„"]+?)\s{2,}(.+)$/);
+            const match = trimmed.match(/^([A-ZÄÖÜ][a-zA-ZäöüÄÖÜß\s\u2013\u2014\-()„"]+?)\s{2,}(.+)$/);
             if (match) {
               if (currentTerm) {
                 glossarEntries.push({ term: currentTerm, definition: currentDef.trim() });
-              } else if (!glossarEntries.length) {
-                introText = currentDef || trimmed;
-                if (!currentDef) continue; // This line itself might be the intro
               }
               currentTerm = match[1].trim();
               currentDef = match[2];
@@ -704,12 +701,6 @@ ${text}`;
           }
           if (currentTerm) {
             glossarEntries.push({ term: currentTerm, definition: currentDef.trim() });
-          }
-
-          // Render intro
-          if (introText) {
-            drawWrapped(introText, fontSerifItalic, FONT_SIZE, LINE_HEIGHT, COLOR_SUBTLE);
-            cursorY -= 15;
           }
 
           // Render each entry: bold term, then definition
@@ -801,9 +792,23 @@ ${text}`;
           continue;
         }
 
+        // Add Einleitung as top-level ToC/bookmark entry
+        if (ch.part === 'einleitung' && lastPart !== 'einleitung') {
+          tocEntries.push({ title: 'Einleitung', pageNum: pageNum + 1, level: 0, indent: 0 });
+          const einleitungBm: BookmarkEntry = {
+            title: 'Einleitung',
+            pageIndex: pdf.getPageCount(),
+            y: PAGE_H - MARGIN_T,
+            level: 0,
+            children: [],
+          };
+          bookmarks.push(einleitungBm);
+          lastPart = ch.part;
+        }
+
         // Neuer Teil? (Teile IV-VII, Schlussreflexion, etc.)
-        if (ch.part !== lastPart && !ch.id.startsWith('band')) {
-          // F\u00fcr Nicht-Band-Teile: Top-Level-Bookmark
+        if (ch.part !== lastPart && !ch.id.startsWith('band') && ch.part !== 'einleitung') {
+          // Für Nicht-Band-Teile: Top-Level-Bookmark
           const partEntry: BookmarkEntry = {
             title: ch.partTitle, pageIndex: pdf.getPageCount(),
             y: PAGE_H - MARGIN_T, level: 0, children: [],
