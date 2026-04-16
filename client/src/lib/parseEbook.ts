@@ -10,6 +10,10 @@ export interface Chapter {
   part: string;
   partTitle: string;
   content: string;
+  /** If true, this is a decorative title page (no scrollable content) */
+  isTitlePage?: boolean;
+  /** Description line shown on title pages */
+  description?: string;
 }
 
 export interface Part {
@@ -37,6 +41,8 @@ interface SectionDef {
   subtitle?: string;
   part: string;
   partTitle: string;
+  isTitlePage?: boolean;
+  description?: string;
 }
 
 const sectionDefs: SectionDef[] = [
@@ -44,6 +50,7 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^Präambel zur Trilogie$/, id: 'praeambel', title: 'Präambel zur Trilogie', subtitle: 'Von der Erschöpfung zur Erneuerung', part: 'einleitung', partTitle: 'Einleitung' },
 
   // Band I
+  { pattern: /^BAND I: DIE ÜBERFÜHRUNG/, id: 'band1-title', title: 'Band I: Die Überführung', subtitle: 'Gilgamesch im digitalen Zeitalter', part: 'band1', partTitle: 'Band I: Die Überführung', isTitlePage: true, description: 'Eine poetische Transformation der uralten Sage in die Welt von Code und Künstlicher Intelligenz' },
   { pattern: /^Prolog: Die Überführung beginnt$/, id: 'band1-prolog', title: 'Prolog: Die Überführung beginnt', subtitle: 'Gesang von Uruk und der Maschine', part: 'band1', partTitle: 'Band I: Die Überführung' },
   { pattern: /^Kapitel 1: Die Begegnung mit Enkidu$/, id: 'band1-kap1', title: 'Kapitel 1: Die Begegnung mit Enkidu', part: 'band1', partTitle: 'Band I: Die Überführung' },
   { pattern: /^Kapitel 2: Der Bund von Uruk$/, id: 'band1-kap2', title: 'Kapitel 2: Der Bund von Uruk', part: 'band1', partTitle: 'Band I: Die Überführung' },
@@ -55,6 +62,7 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^Reflexion zu Band I:/, id: 'band1-reflexion', title: 'Reflexion zu Band I', subtitle: 'Die Überführung als Arbeit am Mythos', part: 'band1', partTitle: 'Band I: Die Überführung' },
 
   // Band II
+  { pattern: /^BAND II: DER AUSGANG/, id: 'band2-title', title: 'Band II: Der Ausgang', subtitle: 'Kant im Zeitalter der Maschinenvernunft', part: 'band2', partTitle: 'Band II: Der Ausgang', isTitlePage: true, description: 'Eine poetische Überführung der Aufklärung in das digitale Zeitalter' },
   { pattern: /^Prolog: Der Ausgang beginnt$/, id: 'band2-prolog', title: 'Prolog: Der Ausgang beginnt', part: 'band2', partTitle: 'Band II: Der Ausgang' },
   { pattern: /^Kapitel 1: Die algorithmische Vormundschaft$/, id: 'band2-kap1', title: 'Kapitel 1: Die algorithmische Vormundschaft', part: 'band2', partTitle: 'Band II: Der Ausgang' },
   { pattern: /^Kapitel 2: Die Begegnung mit dem Spiegel$/, id: 'band2-kap2', title: 'Kapitel 2: Die Begegnung mit dem Spiegel', part: 'band2', partTitle: 'Band II: Der Ausgang' },
@@ -65,6 +73,7 @@ const sectionDefs: SectionDef[] = [
   { pattern: /^Reflexion zu Band II:/, id: 'band2-reflexion', title: 'Reflexion zu Band II', subtitle: 'Die digitale Aufklärung', part: 'band2', partTitle: 'Band II: Der Ausgang' },
 
   // Band III
+  { pattern: /^BAND III: DIE RÜCKBINDUNG/, id: 'band3-title', title: 'Band III: Die Rückbindung', subtitle: 'Resonanz im Zeitalter der Entfremdung', part: 'band3', partTitle: 'Band III: Die Rückbindung', isTitlePage: true, description: 'Eine poetische Überführung von Heidegger, Levinas und Rosa' },
   { pattern: /^Prolog: Die Stille zwischen den Signalen$/, id: 'band3-prolog', title: 'Prolog: Die Stille zwischen den Signalen', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
   { pattern: /^Kapitel 1: Das .Man. der Plattformen$/, id: 'band3-kap1', title: 'Kapitel 1: Das \u201EMan\u201C der Plattformen', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
   { pattern: /^Kapitel 2: Die Begegnung mit dem digitalen Anderen$/, id: 'band3-kap2', title: 'Kapitel 2: Die Begegnung mit dem digitalen Anderen', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
@@ -138,6 +147,7 @@ export function parseEbookMarkdown(raw: string): EbookData {
         /^LEITMOTIVE$/.test(l) ||
         /^RESONANZVERNUNFT$/.test(l) ||
         /^Eine poetisch/.test(l) ||
+        /^Code und Künstlicher Intelligenz$/.test(l) ||
         /^Theoretische Grundlegung/.test(l) ||
         /^Von der Erschöpfung/.test(l) ||
         /^Gilgamesch im digitalen Zeitalter$/.test(l) ||
@@ -167,6 +177,7 @@ export function parseEbookMarkdown(raw: string): EbookData {
       part: entry.def.part,
       partTitle: entry.def.partTitle,
       content,
+      ...(entry.def.isTitlePage ? { isTitlePage: true, description: entry.def.description } : {}),
     };
   });
 

@@ -3,7 +3,7 @@ import { createServer } from "http";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { PDFDocument, StandardFonts, rgb, degrees } from "pdf-lib";
+import { PDFDocument, PDFName, PDFString, StandardFonts, rgb, degrees } from "pdf-lib";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -204,6 +204,16 @@ ${text}`;
           font: fontSans,
           color: rgb(0.5, 0.5, 0.5),
         });
+        // Copyright-Footer + Druckhinweis
+        const footer = `\u00A9 2026 Markus Oehring \u2014 ${wmId} \u2014 Drucken/Kopieren nicht gestattet`;
+        const fw = fontSans.widthOfTextAtSize(footer, 7);
+        page.drawText(footer, {
+          x: PAGE_W / 2 - fw / 2,
+          y: MARGIN_B / 2 - 12,
+          size: 7,
+          font: fontSans,
+          color: rgb(0.65, 0.65, 0.65),
+        });
       }
 
       const wrapText = (text: string, font: typeof fontSerif, fontSize: number, maxWidth: number): string[] => {
@@ -392,6 +402,28 @@ ${text}`;
       addWatermark(currentPage);
       pageNum++;
       addPageNumber(currentPage, pageNum);
+
+      // ── Druckschutz: PDF-JavaScript blockiert Drucken in Adobe Reader/Chrome ──
+      const jsCode = [
+        'var _origPrint = this.print;',
+        'this.print = function() {',
+        '  app.alert("Drucken ist f\\u00FCr dieses Werk nicht gestattet.", 0);',
+        '};',
+        // Auch Menü-Druck abfangen
+        'if (typeof app.addMenuItem === "function") {',
+        '  try { app.addMenuItem({ cName: "-", cParent: "File", cExec: "void(0);" }); } catch(e) {}',
+        '}',
+      ].join('\n');
+
+      // OpenAction → JavaScript beim Öffnen ausführen
+      const jsDictRef = pdf.context.register(
+        pdf.context.obj({
+          [PDFName.of('Type').toString()]: PDFName.of('Action'),
+          [PDFName.of('S').toString()]: PDFName.of('JavaScript'),
+          [PDFName.of('JS').toString()]: PDFString.of(jsCode),
+        })
+      );
+      pdf.catalog.set(PDFName.of('OpenAction'), jsDictRef);
 
       // PDF serialisieren
       const pdfBytes = await pdf.save();

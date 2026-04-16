@@ -3,7 +3,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   ChevronRight, ChevronLeft, Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
-  MessageCircleQuestion, Send, Loader2, Languages, Sparkles,
+  MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 
@@ -73,6 +73,10 @@ export default function Home() {
   // Print/PDF blocker UI state
   const [printBlocked, setPrintBlocked] = useState(false);
 
+  // PWA Install Prompt
+  const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
   // Service-Worker-Update-Toast
   const [swNeedsRefresh, setSwNeedsRefresh] = useState(false);
   const swUpdateRef = useRef<(() => Promise<void>) | null>(null);
@@ -96,6 +100,28 @@ export default function Home() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
+
+  // PWA Install Prompt abfangen
+  useEffect(() => {
+    // Prüfe ob bereits installiert (standalone/fullscreen)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      || (navigator as any).standalone === true;
+    if (isStandalone) setIsInstalled(true);
+
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+
+    const onInstalled = () => setIsInstalled(true);
+    window.addEventListener('appinstalled', onInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener('appinstalled', onInstalled);
+    };
+  }, []);
 
   // Print/PDF-Schutz: Hinweis statt Inhalt anzeigen
   useEffect(() => {
@@ -532,8 +558,28 @@ export default function Home() {
               onClick={() => navigateTo('vorwort')}
               className="px-8 py-3 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition-colors text-sm"
             >
-              Lesen beginnen
+              <BookOpen size={16} className="inline mr-2 -mt-0.5" />
+              Lesen
             </button>
+            {!isInstalled && (
+              <button
+                onClick={async () => {
+                  if (installPrompt && 'prompt' in installPrompt) {
+                    (installPrompt as any).prompt();
+                    const result = await (installPrompt as any).userChoice;
+                    if (result.outcome === 'accepted') setIsInstalled(true);
+                    setInstallPrompt(null);
+                  } else {
+                    // Fallback für iOS Safari (kein beforeinstallprompt)
+                    alert('Tippe auf „Teilen" ➜ „Zum Home-Bildschirm" um die App zu installieren.');
+                  }
+                }}
+                className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
+              >
+                <Smartphone size={16} />
+                Installieren
+              </button>
+            )}
             <a
               href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
               className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
@@ -550,6 +596,48 @@ export default function Home() {
       </motion.div>
     </div>
   );
+
+  const renderBandTitlePage = (chapter: Chapter) => {
+    // Extract Band number from id (band1-title, band2-title, band3-title)
+    const bandNum = chapter.id.replace('-title', '').replace('band', '');
+    const romanNum = { '1': 'I', '2': 'II', '3': 'III' }[bandNum] || bandNum;
+
+    return (
+      <div className={`min-h-full flex items-center justify-center p-4 sm:p-6 ${darkMode ? 'bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950' : 'bg-gradient-to-br from-indigo-950 via-indigo-900 to-stone-900'}`}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-lg w-full"
+        >
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 sm:p-12 text-center space-y-8">
+            <div className="space-y-2">
+              <p className="text-amber-400 text-xs tracking-[0.3em] uppercase font-medium">Band {romanNum}</p>
+              <div className="w-16 h-px bg-amber-500/50 mx-auto" />
+            </div>
+
+            <div className="space-y-5">
+              <h1 className="text-[clamp(1.5rem,7vw,2.5rem)] md:text-4xl font-serif text-white tracking-tight leading-tight">
+                {chapter.title.replace(/^Band [IVX]+: /, '')}
+              </h1>
+              <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto" />
+              {chapter.subtitle && (
+                <p className="text-stone-300 text-base md:text-lg font-serif italic max-w-sm mx-auto leading-relaxed">
+                  {chapter.subtitle}
+                </p>
+              )}
+            </div>
+
+            {chapter.description && (
+              <p className="text-stone-400 text-sm font-serif max-w-sm mx-auto leading-relaxed">
+                {chapter.description}
+              </p>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    );
+  };
 
   const renderGlossarContent = (chapter: Chapter) => {
     // Parse glossary entries: "Term  Definition text..." pattern
@@ -829,6 +917,22 @@ export default function Home() {
                 <blockquote key={i} className={`border-l-2 border-amber-500/40 pl-5 italic ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
                   {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
                 </blockquote>
+              );
+            }
+
+            // Detect markdown headings (### and ####)
+            if (trimmed.startsWith('#### ')) {
+              return (
+                <h4 key={i} className={`font-serif font-semibold text-base mt-6 mb-3 ${darkMode ? 'text-stone-300' : 'text-indigo-800'}`}>
+                  {trimmed.slice(5)}
+                </h4>
+              );
+            }
+            if (trimmed.startsWith('### ')) {
+              return (
+                <h3 key={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
+                  {trimmed.slice(4)}
+                </h3>
               );
             }
 
@@ -1197,7 +1301,9 @@ export default function Home() {
         <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); }}>
           {currentId === '__cover__'
             ? renderCover()
-            : currentChapter && renderChapterContent(currentChapter)}
+            : currentChapter?.isTitlePage
+              ? renderBandTitlePage(currentChapter)
+              : currentChapter && renderChapterContent(currentChapter)}
 
           {/* Navigation footer */}
           {currentId !== '__cover__' && (
