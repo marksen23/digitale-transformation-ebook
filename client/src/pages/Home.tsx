@@ -4,6 +4,7 @@ import {
   ChevronRight, ChevronLeft, Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
+  PanelLeftClose, PanelLeft,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 
@@ -27,7 +28,8 @@ export default function Home() {
 
   // Navigation
   const [currentId, setCurrentId] = useLocalStorage<string>('ebook-chapter', '__cover__');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 768);
+  const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
 
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
@@ -1011,10 +1013,75 @@ export default function Home() {
       )}
 
       {/* ─── Top Bar ─────────────────────────────────────────── */}
-      <header className={`flex-none h-12 flex items-center px-4 gap-3 border-b z-30 ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 rounded-md hover:bg-stone-200/50 dark:hover:bg-stone-700/50 transition-colors" title="Navigation">
-          {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
+      <header className={`flex-none h-12 flex items-center px-4 gap-2 border-b z-30 ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
+        {/* Sidebar toggle (claude.ai-style panel icon) */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className={`p-1.5 rounded-md transition-colors ${darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50'}`}
+          title={sidebarOpen ? 'Navigation einklappen' : 'Navigation ausklappen'}
+        >
+          {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={18} />}
         </button>
+
+        {/* Burger menu with actions */}
+        <div className="relative">
+          <button
+            onClick={(e) => { e.stopPropagation(); setBurgerMenuOpen(o => !o); }}
+            className={`p-1.5 rounded-md transition-colors ${burgerMenuOpen ? (darkMode ? 'bg-stone-700' : 'bg-stone-200') : (darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50')}`}
+            title="Menü"
+          >
+            <Menu size={18} />
+          </button>
+          <AnimatePresence>
+            {burgerMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -4, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -4, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                onClick={(e) => e.stopPropagation()}
+                className={`absolute left-0 top-full mt-2 w-56 rounded-xl shadow-xl border z-50 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+              >
+                <div className="py-1">
+                  <button
+                    onClick={() => { navigateTo('vorwort'); setBurgerMenuOpen(false); }}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <BookOpen size={16} className="text-amber-500 flex-none" />
+                    Beginnen zu Lesen
+                  </button>
+                  {!isInstalled && (
+                    <button
+                      onClick={async () => {
+                        setBurgerMenuOpen(false);
+                        if (installPrompt && 'prompt' in installPrompt) {
+                          (installPrompt as any).prompt();
+                          const result = await (installPrompt as any).userChoice;
+                          if (result.outcome === 'accepted') setIsInstalled(true);
+                          setInstallPrompt(null);
+                        } else {
+                          alert('Tippe auf \u201eTeilen\u201c \u27a1 \u201eZum Home-Bildschirm\u201c um die App zu installieren.');
+                        }
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                    >
+                      <Smartphone size={16} className="text-amber-500 flex-none" />
+                      App installieren
+                    </button>
+                  )}
+                  <a
+                    href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
+                    onClick={() => setBurgerMenuOpen(false)}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <Download size={16} className="text-amber-500 flex-none" />
+                    PDF herunterladen
+                  </a>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
 
         <div className="flex-1 min-w-0">
           <h1 className="text-sm font-serif truncate opacity-70">
@@ -1203,12 +1270,12 @@ export default function Home() {
           />
         )}
 
-        {/* ─── Sidebar ──────────────────────────────────────── */}
+        {/* ─── Sidebar (push-layout auf Desktop, overlay auf Mobile) ── */}
         <aside
           className={`
-            fixed md:static z-30 top-12 bottom-0 left-0 w-72 flex-none overflow-y-auto
-            border-r transition-transform duration-300 ease-in-out
-            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+            fixed md:relative z-30 top-12 md:top-0 bottom-0 left-0 w-72 flex-none overflow-y-auto
+            border-r transition-all duration-300 ease-in-out
+            ${sidebarOpen ? 'translate-x-0 md:w-72 md:min-w-[18rem]' : '-translate-x-full md:translate-x-0 md:w-0 md:min-w-0 md:overflow-hidden md:border-r-0'}
             ${darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'}
           `}
         >
@@ -1284,7 +1351,7 @@ export default function Home() {
               </div>
             )}
 
-            {/* PDF download */}
+            {/* PDF download (now also available in burger menu) */}
             <div className="pt-4 border-t border-stone-200 dark:border-stone-800 mt-4">
               <a
                 href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
@@ -1293,6 +1360,16 @@ export default function Home() {
                 <Download size={14} />
                 PDF herunterladen
               </a>
+            </div>
+            {/* Sidebar close button (mobile) */}
+            <div className="pt-2 md:hidden">
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center gap-2 ${darkMode ? 'text-stone-500 hover:bg-stone-800' : 'text-stone-400 hover:bg-stone-100'}`}
+              >
+                <PanelLeftClose size={14} />
+                Navigation schlie\u00dfen
+              </button>
             </div>
           </nav>
         </aside>

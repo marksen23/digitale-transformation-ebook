@@ -671,6 +671,130 @@ ${text}`;
 
       // ── Kapitel durchgehen ──────────────────────────────
       for (const ch of chapters) {
+        // ── Glossar: spezielle Darstellung ──────────────────
+        if (ch.id === 'glossar') {
+          renderChapterStart(ch);
+
+          // Parse glossary entries
+          const glossarEntries: { term: string; definition: string }[] = [];
+          const glossarLines = ch.content.split('\n');
+          let introText = '';
+          let currentTerm = '';
+          let currentDef = '';
+
+          for (const line of glossarLines) {
+            const trimmed = line.trim();
+            if (!trimmed) continue;
+
+            const match = trimmed.match(/^([A-ZÄÖÜ][a-zA-ZäöüÄÖÜß\s\-()„"]+?)\s{2,}(.+)$/);
+            if (match) {
+              if (currentTerm) {
+                glossarEntries.push({ term: currentTerm, definition: currentDef.trim() });
+              } else if (!glossarEntries.length) {
+                introText = currentDef || trimmed;
+                if (!currentDef) continue; // This line itself might be the intro
+              }
+              currentTerm = match[1].trim();
+              currentDef = match[2];
+            } else if (currentTerm) {
+              currentDef += ' ' + trimmed;
+            } else {
+              introText += (introText ? ' ' : '') + trimmed;
+            }
+          }
+          if (currentTerm) {
+            glossarEntries.push({ term: currentTerm, definition: currentDef.trim() });
+          }
+
+          // Render intro
+          if (introText) {
+            drawWrapped(introText, fontSerifItalic, FONT_SIZE, LINE_HEIGHT, COLOR_SUBTLE);
+            cursorY -= 15;
+          }
+
+          // Render each entry: bold term, then definition
+          for (const entry of glossarEntries) {
+            ensureSpace(LINE_HEIGHT * 3);
+            cursorY -= 8;
+
+            // Term (bold, amber color)
+            drawWrapped(entry.term, fontSerifBold, FONT_SIZE + 0.5, LINE_HEIGHT, COLOR_AMBER);
+            cursorY -= 2;
+
+            // Definition (normal, slightly indented)
+            drawWrapped(entry.definition, fontSerif, FONT_SIZE, LINE_HEIGHT, COLOR_BODY, 12);
+            cursorY -= 4;
+          }
+
+          lastPart = ch.part;
+          continue;
+        }
+
+        // ── Literatur: Hängender Einzug ─────────────────────
+        if (ch.id === 'literatur') {
+          renderChapterStart(ch);
+
+          const litParagraphs = ch.content.split('\n\n').filter(p => p.trim());
+
+          for (const para of litParagraphs) {
+            const trimmed = para.trim();
+            if (!trimmed) continue;
+
+            // Check if it's a section header like "Primärliteratur" or "Sekundärliteratur"
+            if (trimmed.length < 40 && !trimmed.includes('.') && /^[A-ZÄÖÜa-zäöü]/.test(trimmed)) {
+              ensureSpace(H3_SIZE * 3);
+              cursorY -= 14;
+              drawWrapped(trimmed, fontSerifBold, H3_SIZE, H3_SIZE * 1.4, COLOR_INDIGO);
+              cursorY -= 8;
+              continue;
+            }
+
+            // Bibliography entry with hanging indent
+            ensureSpace(LINE_HEIGHT * 2);
+            // Use wrapText with full width for the first line, then indent continuation
+            const allText = trimmed.replace(/\n/g, ' ');
+            const words = allText.split(/\s+/);
+            let firstLine = true;
+            let currentLine = '';
+            const indent = 18;
+
+            for (const word of words) {
+              const testLine = currentLine ? `${currentLine} ${word}` : word;
+              const maxW = firstLine ? TEXT_W : TEXT_W - indent;
+              try {
+                if (fontSerif.widthOfTextAtSize(testLine, FONT_SIZE) > maxW && currentLine) {
+                  ensureSpace(LINE_HEIGHT);
+                  try {
+                    currentPage.drawText(currentLine, {
+                      x: MARGIN_L + (firstLine ? 0 : indent), y: cursorY,
+                      size: FONT_SIZE, font: fontSerif, color: COLOR_BODY,
+                    });
+                  } catch { /* skip */ }
+                  cursorY -= LINE_HEIGHT;
+                  currentLine = word;
+                  firstLine = false;
+                } else {
+                  currentLine = testLine;
+                }
+              } catch { if (currentLine) { /* flush */ } currentLine = ''; }
+            }
+            if (currentLine) {
+              ensureSpace(LINE_HEIGHT);
+              try {
+                currentPage.drawText(currentLine, {
+                  x: MARGIN_L + (firstLine ? 0 : indent), y: cursorY,
+                  size: FONT_SIZE, font: fontSerif, color: COLOR_BODY,
+                });
+              } catch { /* skip */ }
+              cursorY -= LINE_HEIGHT;
+            }
+            cursorY -= 4;
+          }
+
+          lastPart = ch.part;
+          continue;
+        }
+
         if (ch.isTitlePage) {
           renderBandTitlePage(ch);
           lastPart = ch.part;
