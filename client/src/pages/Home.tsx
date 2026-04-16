@@ -1013,7 +1013,7 @@ export default function Home() {
       )}
 
       {/* ─── Top Bar ─────────────────────────────────────────── */}
-      <header className={`flex-none h-12 flex items-center px-4 gap-2 border-b z-30 ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
+      <header className={`flex-none h-12 flex items-center px-4 gap-2 border-b z-40 relative ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
         {/* Sidebar toggle (claude.ai-style panel icon) */}
         <button
           onClick={() => setSidebarOpen(!sidebarOpen)}
@@ -1375,7 +1375,7 @@ export default function Home() {
         </aside>
 
         {/* ─── Main Content ─────────────────────────────────── */}
-        <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); }}>
+        <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setBurgerMenuOpen(false); }}>
           {currentId === '__cover__'
             ? renderCover()
             : currentChapter?.isTitlePage
