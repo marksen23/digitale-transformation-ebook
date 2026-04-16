@@ -22,6 +22,48 @@ async function startServer() {
 
   app.use(express.static(staticPath));
 
+  // ─── Health / Diagnose-Endpunkt ───────────────────────────────────
+  app.get("/api/health", async (_req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(200).json({
+        status: "degraded",
+        server: "ok",
+        gemini: "not_configured",
+        message: "GEMINI_API_KEY ist nicht als Environment-Variable gesetzt.",
+      });
+    }
+
+    // Kurzer Ping an Gemini, um Key-Gültigkeit zu prüfen
+    try {
+      const testResponse = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: "Hi" }] }],
+            generationConfig: { maxOutputTokens: 5 },
+          }),
+        }
+      );
+      if (testResponse.ok) {
+        return res.json({ status: "ok", server: "ok", gemini: "ok" });
+      }
+      const errBody = await testResponse.text();
+      return res.json({
+        status: "degraded",
+        server: "ok",
+        gemini: "error",
+        gemini_status: testResponse.status,
+        gemini_detail: errBody.slice(0, 300),
+      });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      return res.json({ status: "degraded", server: "ok", gemini: "unreachable", error: message });
+    }
+  });
+
   // ─── Gemini Q&A API ──────────────────────────────────────────────
   app.post("/api/ask", async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
@@ -71,8 +113,12 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
 
       if (!response.ok) {
         const errText = await response.text();
-        console.error("Gemini API error:", errText);
-        return res.status(502).json({ error: "Fehler bei der Gemini-API-Anfrage." });
+        console.error("Gemini API error:", response.status, errText);
+        const detail = response.status === 400 ? "Ungültiger API-Key (400)" :
+                       response.status === 401 || response.status === 403 ? "API-Key nicht autorisiert (401/403) — bitte Key auf Render prüfen" :
+                       response.status === 429 ? "Rate-Limit erreicht (429) — bitte kurz warten" :
+                       `Gemini-Fehler ${response.status}`;
+        return res.status(502).json({ error: detail });
       }
 
       const data = await response.json();
@@ -127,8 +173,12 @@ ${text}`;
 
       if (!response.ok) {
         const errText = await response.text();
-        console.error("Gemini translate error:", errText);
-        return res.status(502).json({ error: "Fehler bei der Übersetzung." });
+        console.error("Gemini translate error:", response.status, errText);
+        const detail = response.status === 400 ? "Ungültiger API-Key (400)" :
+                       response.status === 401 || response.status === 403 ? "API-Key nicht autorisiert (401/403) — bitte Key auf Render prüfen" :
+                       response.status === 429 ? "Rate-Limit erreicht (429) — bitte kurz warten" :
+                       `Gemini-Fehler ${response.status}`;
+        return res.status(502).json({ error: detail });
       }
 
       const data = await response.json();
