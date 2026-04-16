@@ -87,8 +87,8 @@ Beantworte die Frage des Lesers auf Deutsch, sachkundig und im Geiste des Werks.
 Beziehe dich auf den Inhalt des aktuellen Kapitels, aber auch auf das Gesamtwerk wenn relevant.
 Erkläre philosophische Konzepte verständlich, aber ohne sie zu vereinfachen.
 
-Umfang: Schreibe 2–3 vollständige Absätze. Jeder Absatz muss einen abgeschlossenen Gedanken enthalten.
-Schließe die Antwort immer mit einem vollständigen Satz ab — niemals mitten im Satz aufhören.`;
+Antworte so ausführlich wie die Frage es erfordert — kurze Fragen knapp, komplexe Fragen gründlicher.
+Schließe die Antwort immer mit einem vollständigen Satz ab.`;
 
     const userMessage = `Kapitelinhalt (Auszug):
 ${chapterContent.slice(0, 4000)}
@@ -168,7 +168,7 @@ ${text}`;
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             contents: [{ role: "user", parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.3, maxOutputTokens: 8192 },
+            generationConfig: { temperature: 0.3, maxOutputTokens: 65536 },
           }),
         }
       );
