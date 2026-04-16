@@ -171,3 +171,33 @@
     }
   }
 }
+
+/* ─── Copy-Schutz ──────────────────────────────────────────────
+   Textauswahl auf Ebook-Inhalt unterbinden.
+   Eingabefelder (input, textarea) bleiben nutzbar. */
+article,
+[data-content-protected] {
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+/* ─── Print-/PDF-Schutz ────────────────────────────────────────
+   Beim Drucken oder „Als PDF speichern" wird der eigentliche
+   Inhalt ausgeblendet und ein Hinweis gedruckt. */
+@media print {
+  html, body {
+    background: #ffffff !important;
+  }
+  body > #root {
+    display: none !important;
+  }
+  body::before {
+    content: "Drucken und PDF-Export sind für dieses Werk nicht verfügbar. Bitte nutzen Sie die digitale Ausgabe.";
+    display: block;
+    padding: 3rem 2rem;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 1rem;
+    color: #1c1917;
+    text-align: center;
+  }
+}

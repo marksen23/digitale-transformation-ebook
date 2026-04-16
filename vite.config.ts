@@ -5,6 +5,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
 import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+import { VitePWA } from "vite-plugin-pwa";
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
@@ -150,7 +151,89 @@ function vitePluginManusDebugCollector(): Plugin {
   };
 }
 
-const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector()];
+const plugins = [
+  react(),
+  tailwindcss(),
+  jsxLocPlugin(),
+  vitePluginManusRuntime(),
+  vitePluginManusDebugCollector(),
+  VitePWA({
+    registerType: "autoUpdate",
+    includeAssets: ["icons/*.png", "favicon.ico"],
+    manifest: {
+      name: "Digitale Transformation – Trilogie",
+      short_name: "DT Trilogie",
+      description:
+        "Ebook-Trilogie zur digitalen Transformation: offline lesbar, mit Glossar, Übersetzung und Q&A.",
+      lang: "de",
+      start_url: "/",
+      scope: "/",
+      display: "standalone",
+      orientation: "portrait",
+      background_color: "#1e1b4b",
+      theme_color: "#b45309",
+      icons: [
+        { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
+        { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+        {
+          src: "/icons/icon-maskable-512.png",
+          sizes: "512x512",
+          type: "image/png",
+          purpose: "maskable",
+        },
+      ],
+    },
+    workbox: {
+      globPatterns: ["**/*.{js,css,html,woff2,svg,png,ico,md}"],
+      navigateFallback: "/index.html",
+      navigateFallbackDenylist: [/^\/api\//],
+      cleanupOutdatedCaches: true,
+      runtimeCaching: [
+        {
+          urlPattern: /^https:\/\/fonts\.googleapis\.com\/.*/i,
+          handler: "CacheFirst",
+          options: {
+            cacheName: "google-fonts-stylesheets",
+            expiration: { maxEntries: 10, maxAgeSeconds: 60 * 60 * 24 * 365 },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/fonts\.gstatic\.com\/.*/i,
+          handler: "CacheFirst",
+          options: {
+            cacheName: "google-fonts-webfonts",
+            expiration: { maxEntries: 30, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            cacheableResponse: { statuses: [0, 200] },
+          },
+        },
+        {
+          urlPattern: /^https:\/\/cdn\.jsdelivr\.net\/.*/i,
+          handler: "CacheFirst",
+          options: {
+            cacheName: "cdn-assets",
+            expiration: { maxEntries: 20, maxAgeSeconds: 60 * 60 * 24 * 365 },
+            cacheableResponse: { statuses: [0, 200] },
+          },
+        },
+        {
+          urlPattern: /\/ebook_content\.md$/i,
+          handler: "StaleWhileRevalidate",
+          options: {
+            cacheName: "ebook-content",
+            expiration: { maxEntries: 4, maxAgeSeconds: 60 * 60 * 24 * 30 },
+          },
+        },
+        {
+          urlPattern: /^\/api\//,
+          handler: "NetworkOnly",
+        },
+      ],
+    },
+    devOptions: {
+      enabled: false,
+    },
+  }),
+];
 
 export default defineConfig({
   plugins,

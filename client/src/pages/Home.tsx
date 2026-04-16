@@ -8,10 +8,12 @@ import {
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 
 // ─── Helpers ────────────────────────────────────────────────────────
-function useLocalStorage<T>(key: string, fallback: T) {
+function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
   const [value, setValue] = useState<T>(() => {
-    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
-    catch { return fallback; }
+    const resolveFallback = () =>
+      typeof fallback === 'function' ? (fallback as () => T)() : fallback;
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : resolveFallback(); }
+    catch { return resolveFallback(); }
   });
   useEffect(() => { localStorage.setItem(key, JSON.stringify(value)); }, [key, value]);
   return [value, setValue] as const;
@@ -55,6 +57,26 @@ export default function Home() {
   // Keyword popover
   const [activeKeyword, setActiveKeyword] = useState<{ term: string; definition: string; x: number; y: number } | null>(null);
 
+  // Watermark ID (anonymer Session-Fingerprint, pro Gerät einmalig generiert)
+  const [watermarkId] = useLocalStorage<string>('ebook-wm-id', () => {
+    try {
+      const bytes = crypto.getRandomValues(new Uint8Array(2));
+      const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+      const date = new Date().toISOString().slice(0, 10);
+      return `DT-${hex}-${date}`;
+    } catch {
+      const date = new Date().toISOString().slice(0, 10);
+      return `DT-XXXX-${date}`;
+    }
+  });
+
+  // Print/PDF blocker UI state
+  const [printBlocked, setPrintBlocked] = useState(false);
+
+  // Service-Worker-Update-Toast
+  const [swNeedsRefresh, setSwNeedsRefresh] = useState(false);
+  const swUpdateRef = useRef<(() => Promise<void>) | null>(null);
+
   const contentRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -74,6 +96,67 @@ export default function Home() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
+
+  // Print/PDF-Schutz: Hinweis statt Inhalt anzeigen
+  useEffect(() => {
+    const onBeforePrint = () => setPrintBlocked(true);
+    const onAfterPrint = () => setPrintBlocked(false);
+    window.addEventListener('beforeprint', onBeforePrint);
+    window.addEventListener('afterprint', onAfterPrint);
+    return () => {
+      window.removeEventListener('beforeprint', onBeforePrint);
+      window.removeEventListener('afterprint', onAfterPrint);
+    };
+  }, []);
+
+  // Copy-Schutz: Kopieren des Ebook-Inhalts unterbinden
+  useEffect(() => {
+    const onCopy = (e: ClipboardEvent) => {
+      // Erlaubt Kopieren in Eingabefeldern (Suche, Chat)
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
+      e.preventDefault();
+      e.clipboardData?.setData('text/plain', 'Kopieren ist für dieses Werk nicht gestattet.');
+    };
+    const onContextMenu = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
+      e.preventDefault();
+    };
+    document.addEventListener('copy', onCopy);
+    document.addEventListener('contextmenu', onContextMenu);
+    return () => {
+      document.removeEventListener('copy', onCopy);
+      document.removeEventListener('contextmenu', onContextMenu);
+    };
+  }, []);
+
+  // Service Worker Update-Benachrichtigung
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    let cancelled = false;
+    import('virtual:pwa-register')
+      .then(({ registerSW }) => {
+        const updateSW = registerSW({
+          onNeedRefresh() {
+            if (!cancelled) setSwNeedsRefresh(true);
+          },
+          onRegisteredSW(_swUrl, registration) {
+            if (registration) {
+              // Regelmäßig auf Updates prüfen (1x/Stunde)
+              setInterval(() => registration.update().catch(() => {}), 60 * 60 * 1000);
+            }
+          },
+        });
+        swUpdateRef.current = updateSW;
+      })
+      .catch(() => {
+        /* SW-Registrierung nur in production-Build verfügbar */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Scroll tracking
   useEffect(() => {
@@ -372,6 +455,23 @@ export default function Home() {
     return () => { cancelled = true; };
   }, [currentChapter, language]);
 
+  // Baut ein dezentes, kacheliges SVG-Wasserzeichen als data-URL
+  const watermarkStyle = useMemo(() => {
+    const fill = darkMode ? '%23f5f5f4' : '%231e1b4b';
+    const opacity = darkMode ? '0.08' : '0.05';
+    const text = `Lizenziert für ${watermarkId}`;
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'>` +
+      `<g transform='rotate(-28 210 130)' fill='${fill}' fill-opacity='${opacity}' font-family='Georgia, serif' font-size='16' font-style='italic'>` +
+      `<text x='50%' y='45%' text-anchor='middle'>${text}</text>` +
+      `<text x='50%' y='62%' text-anchor='middle' font-size='11' letter-spacing='3'>DIGITALE TRANSFORMATION · TRILOGIE</text>` +
+      `</g></svg>`;
+    return {
+      backgroundImage: `url("data:image/svg+xml;utf8,${svg}")`,
+      backgroundRepeat: 'repeat' as const,
+      backgroundSize: '420px 260px',
+    };
+  }, [darkMode, watermarkId]);
+
   // ─── Render ────────────────────────────────────────────────────────
 
   if (loading) {
@@ -435,8 +535,7 @@ export default function Home() {
               Lesen beginnen
             </button>
             <a
-              href="/Die_Digitale_Transformation_Ebook.pdf"
-              download
+              href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
               className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
             >
               <Download size={16} />
@@ -679,8 +778,15 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16"
+        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16 relative"
       >
+        {/* Dezentes, dynamisches Wasserzeichen (diagonale Kachelung) */}
+        <div
+          aria-hidden
+          className="pointer-events-none select-none absolute inset-0 z-0"
+          style={watermarkStyle}
+        />
+        <div className="relative z-10">
         {/* Chapter header */}
         <header className="mb-10 md:mb-14">
           <p className="text-amber-600 text-xs tracking-[0.2em] uppercase font-medium mb-3">
@@ -743,6 +849,7 @@ export default function Home() {
         <div className="mt-14 flex justify-center">
           <span className="text-amber-500/40 text-2xl select-none">&loz;</span>
         </div>
+        </div>
       </motion.article>
     );
   };
@@ -759,6 +866,46 @@ export default function Home() {
 
   return (
     <div className={`h-screen flex flex-col ${darkMode ? 'bg-stone-950 text-stone-200' : 'bg-stone-50 text-stone-800'}`}>
+      {/* ─── Service-Worker-Update-Toast ──────────────────────── */}
+      <AnimatePresence>
+        {swNeedsRefresh && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-3 right-3 z-[60] max-w-sm rounded-lg shadow-lg border border-amber-500/40 bg-indigo-950 text-stone-100 px-4 py-3 flex items-center gap-3"
+          >
+            <Sparkles size={16} className="text-amber-400 flex-none" />
+            <div className="text-xs leading-tight flex-1">
+              Neue Version verfügbar.
+            </div>
+            <button
+              onClick={() => { swUpdateRef.current?.().catch(() => {}); setSwNeedsRefresh(false); }}
+              className="text-xs font-medium px-3 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white transition-colors"
+            >
+              Neu laden
+            </button>
+            <button
+              onClick={() => setSwNeedsRefresh(false)}
+              className="p-1 text-stone-400 hover:text-stone-100 transition-colors"
+              title="Später"
+            >
+              <X size={14} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ─── Print/PDF-Schutz: Screen-Overlay während Druck ──── */}
+      {printBlocked && (
+        <div className="fixed inset-0 z-[100] bg-white text-stone-900 flex items-center justify-center p-8 print:flex">
+          <div className="max-w-md text-center font-serif">
+            <p className="text-lg mb-2">Drucken &amp; PDF-Export sind für dieses Werk nicht verfügbar.</p>
+            <p className="text-sm text-stone-600">Bitte nutzen Sie die digitale Ausgabe.</p>
+          </div>
+        </div>
+      )}
+
       {/* ─── Top Bar ─────────────────────────────────────────── */}
       <header className={`flex-none h-12 flex items-center px-4 gap-3 border-b z-30 ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
         <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 rounded-md hover:bg-stone-200/50 dark:hover:bg-stone-700/50 transition-colors" title="Navigation">
@@ -1036,8 +1183,7 @@ export default function Home() {
             {/* PDF download */}
             <div className="pt-4 border-t border-stone-200 dark:border-stone-800 mt-4">
               <a
-                href="/Die_Digitale_Transformation_Ebook.pdf"
-                download
+                href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-amber-600 hover:bg-amber-500/10 transition-colors"
               >
                 <Download size={14} />
@@ -1048,7 +1194,7 @@ export default function Home() {
         </aside>
 
         {/* ─── Main Content ─────────────────────────────────── */}
-        <main ref={contentRef} className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); }}>
+        <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); }}>
           {currentId === '__cover__'
             ? renderCover()
             : currentChapter && renderChapterContent(currentChapter)}
