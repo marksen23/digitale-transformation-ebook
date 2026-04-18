@@ -9,7 +9,10 @@ import {
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 import EnkiduPage from './EnkiduPage';
-import { useSpeechRecognition, useSpeechSynthesis } from '@/hooks/useSpeech';
+import {
+  useSpeechRecognition, useSpeechSynthesis,
+  filterVoicesByLang, guessVoiceGender, buildParaStarts,
+} from '@/hooks/useSpeech';
 
 // ─── Helpers ────────────────────────────────────────────────────────
 function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
@@ -64,6 +67,32 @@ export default function Home() {
   // One shared TTS instance; ttsTarget tracks what's currently being read
   const tts = useSpeechSynthesis();
   const [ttsTarget, setTtsTarget] = useState<'chapter' | number | null>(null);
+
+  // Persisted playback settings
+  const [ttsRate, setTtsRate] = useLocalStorage<number>('ebook-tts-rate', 1);
+  const [ttsVoiceURI, setTtsVoiceURI] = useLocalStorage<string>('ebook-tts-voice', '');
+
+  // Paragraph start positions for highlight tracking (rebuilt on each play)
+  const ttsParagraphStartsRef = useRef<number[]>([]);
+
+  // Active paragraph index derived from charIndex reported by onboundary
+  const ttsActiveParagraph = useMemo(() => {
+    if (!tts.speaking || ttsTarget !== 'chapter' || tts.currentCharIndex < 0) return -1;
+    const starts = ttsParagraphStartsRef.current;
+    let idx = 0;
+    for (let i = 0; i < starts.length; i++) {
+      if (starts[i] <= tts.currentCharIndex) idx = i;
+      else break;
+    }
+    return idx;
+  }, [tts.speaking, tts.currentCharIndex, ttsTarget]);
+
+  // Auto-scroll highlighted paragraph into view
+  useEffect(() => {
+    if (ttsActiveParagraph < 0) return;
+    const el = document.querySelector(`[data-tts-para="${ttsActiveParagraph}"]`);
+    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, [ttsActiveParagraph]);
 
   // When TTS stops externally (end of speech), clear target
   useEffect(() => { if (!tts.speaking) setTtsTarget(null); }, [tts.speaking]);
@@ -518,6 +547,24 @@ export default function Home() {
       .join(' ');
   }, []);
 
+  // Startet TTS für das aktuelle Kapitel — baut Paragraph-Starts für Highlighting
+  const startChapterTTS = useCallback(() => {
+    if (!currentChapter || currentChapter.isTitlePage) return;
+    const cacheKey = `${currentChapter.id}::${language}`;
+    const translated = translationCache.current.get(cacheKey);
+    const content = translated || currentChapter.content;
+    // Build paragraph start positions (same logic as getChapterPlainText)
+    ttsParagraphStartsRef.current = buildParaStarts(content);
+    const text = getChapterPlainText(content);
+    setTtsTarget('chapter');
+    tts.speak(text, {
+      lang: language === 'de' ? 'de-DE' : language,
+      rate: ttsRate,
+      voiceURI: ttsVoiceURI || undefined,
+    });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentChapter, language, ttsRate, ttsVoiceURI, getChapterPlainText]);
+
   // Baut ein dezentes, kacheliges SVG-Wasserzeichen als data-URL
   const watermarkStyle = useMemo(() => {
     const fill = darkMode ? '%23f5f5f4' : '%231e1b4b';
@@ -945,11 +992,22 @@ export default function Home() {
         <div className={`${fontClass} space-y-5 ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
           {paragraphs.map((para, i) => {
             const trimmed = para.trim();
+            const isActive = ttsActiveParagraph === i;
+            // Highlight class applied to readable paragraphs when TTS is on this index
+            const hlClass = isActive
+              ? darkMode
+                ? 'bg-amber-500/15 -mx-2 px-2 rounded-sm transition-colors duration-300'
+                : 'bg-amber-100 -mx-2 px-2 rounded-sm transition-colors duration-300'
+              : 'transition-colors duration-300';
 
-            // Detect quotes (lines starting with \u201E or ")
+            // Detect quotes (lines starting with „ or " or «)
             if (trimmed.startsWith('\u201E') || trimmed.startsWith('"') || trimmed.startsWith('\u00AB')) {
               return (
-                <blockquote key={i} className={`border-l-2 border-amber-500/40 pl-5 italic ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+                <blockquote
+                  key={i}
+                  data-tts-para={i}
+                  className={`border-l-2 border-amber-500/40 pl-5 italic ${darkMode ? 'text-stone-400' : 'text-stone-500'} ${hlClass}`}
+                >
                   {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
                 </blockquote>
               );
@@ -958,14 +1016,14 @@ export default function Home() {
             // Detect markdown headings (### and ####)
             if (trimmed.startsWith('#### ')) {
               return (
-                <h4 key={i} className={`font-serif font-semibold text-base mt-6 mb-3 ${darkMode ? 'text-stone-300' : 'text-indigo-800'}`}>
+                <h4 key={i} data-tts-para={i} className={`font-serif font-semibold text-base mt-6 mb-3 ${darkMode ? 'text-stone-300' : 'text-indigo-800'}`}>
                   {trimmed.slice(5)}
                 </h4>
               );
             }
             if (trimmed.startsWith('### ')) {
               return (
-                <h3 key={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
+                <h3 key={i} data-tts-para={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
                   {trimmed.slice(4)}
                 </h3>
               );
@@ -974,13 +1032,17 @@ export default function Home() {
             // Detect section subheadings (short lines, no period at end, <80 chars)
             if (trimmed.length < 80 && !trimmed.endsWith('.') && !trimmed.endsWith(':') && !trimmed.endsWith(',') && !trimmed.includes('\n') && /^[A-ZÄÖÜ\d]/.test(trimmed)) {
               return (
-                <h3 key={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
+                <h3 key={i} data-tts-para={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
                   {trimmed}
                 </h3>
               );
             }
 
-            return <p key={i}>{isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}</p>;
+            return (
+              <p key={i} data-tts-para={i} className={hlClass}>
+                {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
+              </p>
+            );
           })}
         </div>
 
@@ -1424,125 +1486,155 @@ export default function Home() {
               : currentChapter && renderChapterContent(currentChapter)}
 
           {/* ─── Audio Player Footer ─────────────────────────── */}
-          {currentId !== '__cover__' && (
-            <div className={`border-t ${darkMode ? 'border-stone-800 bg-stone-900/80' : 'border-stone-200 bg-white/90'} backdrop-blur-sm`}>
-              <div className="max-w-2xl mx-auto px-5 pt-3 pb-4">
+          {currentId !== '__cover__' && (() => {
+            // German voices (or voices matching current language)
+            const langPrefix = language === 'de' ? 'de' : language.slice(0, 2);
+            const langVoices = filterVoicesByLang(tts.voices, langPrefix);
+            const isPlaying = tts.speaking && ttsTarget === 'chapter';
+            const speeds = [0.75, 1, 1.25, 1.5, 2] as const;
 
-                {/* Track info row */}
-                <div className="flex items-center justify-between mb-2 gap-3">
-                  <p className={`text-xs font-serif truncate min-w-0 ${
-                    tts.speaking && ttsTarget === 'chapter'
-                      ? darkMode ? 'text-amber-400' : 'text-amber-700'
-                      : darkMode ? 'text-stone-400' : 'text-stone-500'
-                  }`}>
-                    {currentChapter?.isTitlePage
-                      ? currentChapter.title
-                      : currentChapter
-                        ? `${currentChapter.partTitle ? currentChapter.partTitle + ' · ' : ''}${currentChapter.title}`
-                        : ''}
-                  </p>
-                  <span className={`text-[10px] tabular-nums flex-none ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
-                    {currentIndex}&thinsp;/&thinsp;{allIds.length - 1}
-                  </span>
-                </div>
+            return (
+              <div className={`border-t ${darkMode ? 'border-stone-800 bg-stone-900/80' : 'border-stone-200 bg-white/90'} backdrop-blur-sm`}>
+                <div className="max-w-2xl mx-auto px-5 pt-3 pb-4 space-y-2">
 
-                {/* Progress bar — scroll position in current chapter */}
-                <div
-                  className={`h-0.5 rounded-full overflow-hidden mb-4 ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
-                  title={`${Math.round(readProgress)}% gelesen`}
-                >
-                  <motion.div
-                    className="h-full rounded-full"
-                    style={{ width: `${readProgress}%` }}
-                    animate={{
-                      backgroundColor: tts.speaking && ttsTarget === 'chapter'
-                        ? '#f59e0b'
-                        : darkMode ? '#57534e' : '#d6d3d1',
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                </div>
+                  {/* Track info row */}
+                  <div className="flex items-center justify-between gap-3">
+                    <p className={`text-xs font-serif truncate min-w-0 ${
+                      isPlaying
+                        ? darkMode ? 'text-amber-400' : 'text-amber-700'
+                        : darkMode ? 'text-stone-400' : 'text-stone-500'
+                    }`}>
+                      {currentChapter?.isTitlePage
+                        ? currentChapter.title
+                        : currentChapter
+                          ? `${currentChapter.partTitle ? currentChapter.partTitle + ' · ' : ''}${currentChapter.title}`
+                          : ''}
+                    </p>
+                    <span className={`text-[10px] tabular-nums flex-none ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                      {currentIndex}&thinsp;/&thinsp;{allIds.length - 1}
+                    </span>
+                  </div>
 
-                {/* Controls row */}
-                <div className="flex items-center justify-center gap-5">
-
-                  {/* Skip back (previous chapter) */}
-                  <button
-                    onClick={goPrev}
-                    disabled={currentIndex === 0}
-                    className={`p-2 rounded-full transition-all disabled:opacity-25 ${
-                      darkMode
-                        ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800'
-                        : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
-                    }`}
-                    title="Vorheriges Kapitel"
+                  {/* Progress bar — scroll position in current chapter */}
+                  <div
+                    className={`h-0.5 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
+                    title={`${Math.round(readProgress)}% gelesen`}
                   >
-                    <SkipBack size={20} />
-                  </button>
+                    <motion.div
+                      className="h-full rounded-full"
+                      style={{ width: `${readProgress}%` }}
+                      animate={{ backgroundColor: isPlaying ? '#f59e0b' : darkMode ? '#57534e' : '#d6d3d1' }}
+                      transition={{ duration: 0.3 }}
+                    />
+                  </div>
 
-                  {/* Play / Pause — centre piece */}
-                  <button
-                    onClick={() => {
-                      if (tts.speaking && ttsTarget === 'chapter') {
-                        tts.stop();
-                      } else {
-                        if (!currentChapter || currentChapter.isTitlePage) return;
-                        const cacheKey = `${currentChapter.id}::${language}`;
-                        const translated = translationCache.current.get(cacheKey);
-                        const text = getChapterPlainText(translated || currentChapter.content);
-                        setTtsTarget('chapter');
-                        tts.speak(text);
-                      }
-                    }}
-                    disabled={!tts.supported || currentChapter?.isTitlePage}
-                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-30 disabled:cursor-not-allowed ${
-                      tts.speaking && ttsTarget === 'chapter'
-                        ? darkMode
-                          ? 'bg-amber-500 text-stone-950 hover:bg-amber-400 scale-105'
-                          : 'bg-amber-600 text-white hover:bg-amber-500 scale-105'
-                        : darkMode
-                          ? 'bg-stone-700 text-stone-100 hover:bg-stone-600'
-                          : 'bg-stone-800 text-white hover:bg-stone-700'
-                    }`}
-                    title={
-                      !tts.supported
-                        ? 'Vorlesen nicht unterstützt (Firefox)'
-                        : tts.speaking && ttsTarget === 'chapter'
-                          ? 'Vorlesen stoppen'
-                          : currentChapter?.isTitlePage
-                            ? 'Auf Titelseiten nicht verfügbar'
-                            : (() => {
-                                const cacheKey = currentChapter ? `${currentChapter.id}::${language}` : '';
-                                return language !== 'de' && translationCache.current.get(cacheKey)
-                                  ? `Übersetzte Version vorlesen (${language.toUpperCase()})`
-                                  : 'Kapitel vorlesen';
-                              })()
-                    }
-                  >
-                    {tts.speaking && ttsTarget === 'chapter'
-                      ? <Pause size={20} fill="currentColor" />
-                      : <Play size={20} fill="currentColor" style={{ marginLeft: 2 }} />
-                    }
-                  </button>
+                  {/* ─ Controls + Voice + Speed ─ */}
+                  <div className="flex items-center justify-between gap-2 pt-1">
 
-                  {/* Skip forward (next chapter) */}
-                  <button
-                    onClick={goNext}
-                    disabled={currentIndex === allIds.length - 1}
-                    className={`p-2 rounded-full transition-all disabled:opacity-25 ${
-                      darkMode
-                        ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800'
-                        : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
-                    }`}
-                    title="Nächstes Kapitel"
-                  >
-                    <SkipForward size={20} />
-                  </button>
+                    {/* Voice selector — left side */}
+                    <div className="flex items-center gap-1 flex-1 min-w-0">
+                      {langVoices.length > 1 ? (
+                        langVoices.slice(0, 4).map(v => {
+                          const gender = guessVoiceGender(v.name);
+                          const label = gender === 'female' ? '♀' : gender === 'male' ? '♂' : '◈';
+                          const shortName = v.name.split(' ').slice(-1)[0].replace(/Online.*/, '').trim().slice(0, 8);
+                          const active = ttsVoiceURI === v.uri || (!ttsVoiceURI && langVoices[0].uri === v.uri);
+                          return (
+                            <button
+                              key={v.uri}
+                              onClick={() => {
+                                setTtsVoiceURI(v.uri);
+                                if (isPlaying) { tts.stop(); }
+                              }}
+                              title={v.name}
+                              className={`px-1.5 py-0.5 rounded text-[10px] leading-tight transition-colors flex-none ${
+                                active
+                                  ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
+                                  : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700 hover:border-stone-600' : 'text-stone-500 hover:text-stone-700 border border-stone-200 hover:border-stone-300'
+                              }`}
+                            >
+                              <span>{label}</span>
+                              <span className="ml-0.5 hidden sm:inline">{shortName}</span>
+                            </button>
+                          );
+                        })
+                      ) : (
+                        /* Single or no voice — show nothing / placeholder */
+                        <span className={`text-[10px] ${darkMode ? 'text-stone-700' : 'text-stone-300'}`}>
+                          {langVoices.length === 1 ? langVoices[0].name.split(' ').pop() : ''}
+                        </span>
+                      )}
+                    </div>
 
+                    {/* Navigation controls — centre */}
+                    <div className="flex items-center gap-3 flex-none">
+                      <button
+                        onClick={goPrev}
+                        disabled={currentIndex === 0}
+                        className={`p-1.5 rounded-full transition-all disabled:opacity-25 ${darkMode ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'}`}
+                        title="Vorheriges Kapitel"
+                      >
+                        <SkipBack size={18} />
+                      </button>
+
+                      {/* Play / Pause button */}
+                      <button
+                        onClick={() => isPlaying ? tts.stop() : startChapterTTS()}
+                        disabled={!tts.supported || currentChapter?.isTitlePage}
+                        className={`w-11 h-11 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-30 disabled:cursor-not-allowed ${
+                          isPlaying
+                            ? darkMode ? 'bg-amber-500 text-stone-950 hover:bg-amber-400 scale-105' : 'bg-amber-600 text-white hover:bg-amber-500 scale-105'
+                            : darkMode ? 'bg-stone-700 text-stone-100 hover:bg-stone-600' : 'bg-stone-800 text-white hover:bg-stone-700'
+                        }`}
+                        title={
+                          !tts.supported ? 'Vorlesen nicht unterstützt (Firefox)'
+                            : isPlaying ? 'Vorlesen stoppen'
+                            : currentChapter?.isTitlePage ? 'Auf Titelseiten nicht verfügbar'
+                            : 'Kapitel vorlesen'
+                        }
+                      >
+                        {isPlaying
+                          ? <Pause size={18} fill="currentColor" />
+                          : <Play size={18} fill="currentColor" style={{ marginLeft: 2 }} />
+                        }
+                      </button>
+
+                      <button
+                        onClick={goNext}
+                        disabled={currentIndex === allIds.length - 1}
+                        className={`p-1.5 rounded-full transition-all disabled:opacity-25 ${darkMode ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'}`}
+                        title="Nächstes Kapitel"
+                      >
+                        <SkipForward size={18} />
+                      </button>
+                    </div>
+
+                    {/* Speed selector — right side */}
+                    <div className="flex items-center gap-0.5 flex-1 justify-end">
+                      {speeds.map(s => (
+                        <button
+                          key={s}
+                          onClick={() => {
+                            setTtsRate(s);
+                            if (isPlaying) { tts.stop(); }
+                          }}
+                          className={`px-1 py-0.5 rounded text-[10px] leading-tight transition-colors flex-none ${
+                            ttsRate === s
+                              ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
+                              : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700 hover:border-stone-600' : 'text-stone-500 hover:text-stone-700 border border-stone-200 hover:border-stone-300'
+                          }`}
+                          title={`Geschwindigkeit ${s}×`}
+                        >
+                          {s === 1 ? '1×' : `${s}×`}
+                        </button>
+                      ))}
+                    </div>
+
+                  </div>
                 </div>
               </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Keyword popover */}
           <AnimatePresence>
