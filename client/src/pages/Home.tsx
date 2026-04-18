@@ -1208,14 +1208,13 @@ export default function Home() {
           </h1>
         </div>
 
-        {/* Progress bar — shows TTS position when playing, scroll position otherwise */}
+        {/* Progress bar — overall book position */}
         {currentId !== '__cover__' && (
-          <div className={`hidden sm:block w-24 h-1 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}>
-            <motion.div
-              className="h-full rounded-full"
-              style={{ width: `${displayProgress}%` }}
-              animate={{ backgroundColor: isPlaying ? '#f59e0b' : darkMode ? '#78716c' : '#a8a29e' }}
-              transition={{ duration: 0.3 }}
+          <div className={`hidden sm:block w-24 h-1 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
+               title={`Kapitel ${currentIndex} von ${allIds.length - 1}`}>
+            <div
+              className="h-full bg-amber-500 rounded-full transition-all duration-500"
+              style={{ width: `${Math.round((currentIndex / (allIds.length - 1)) * 100)}%` }}
             />
           </div>
         )}
