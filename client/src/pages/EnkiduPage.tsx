@@ -212,7 +212,10 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       });
       const data = await res.json();
       if (data.error) {
-        setMessages((prev) => [...prev, { role: "assistant", content: `[Fehler: ${data.error}]`, error: true }]);
+        const msg = res.status === 429
+          ? `⏱ ${data.error}`
+          : `[Fehler: ${data.error}]`;
+        setMessages((prev) => [...prev, { role: "assistant", content: msg, error: true }]);
         setHasError(true);
       } else {
         setMessages((prev) => [...prev, { role: "assistant", content: data.response }]);
