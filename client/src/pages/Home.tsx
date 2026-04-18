@@ -3,15 +3,19 @@ import { AnimatePresence, motion } from 'framer-motion';
 import {
   ChevronRight, ChevronLeft, Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
-  MessageCircleQuestion, Send, Loader2,
+  MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
+  PanelLeftClose, PanelLeft,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
+import EnkiduPage from './EnkiduPage';
 
 // ─── Helpers ────────────────────────────────────────────────────────
-function useLocalStorage<T>(key: string, fallback: T) {
+function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
   const [value, setValue] = useState<T>(() => {
-    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : fallback; }
-    catch { return fallback; }
+    const resolveFallback = () =>
+      typeof fallback === 'function' ? (fallback as () => T)() : fallback;
+    try { const v = localStorage.getItem(key); return v ? JSON.parse(v) : resolveFallback(); }
+    catch { return resolveFallback(); }
   });
   useEffect(() => { localStorage.setItem(key, JSON.stringify(value)); }, [key, value]);
   return [value, setValue] as const;
@@ -25,11 +29,21 @@ export default function Home() {
 
   // Navigation
   const [currentId, setCurrentId] = useLocalStorage<string>('ebook-chapter', '__cover__');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 768);
+  const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
+  const [enkiduOpen, setEnkiduOpen] = useState(false);
 
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
   const [fontSize, setFontSize] = useLocalStorage('ebook-fontsize', 1); // 0=small 1=normal 2=large 3=xlarge
+  const [fontFamily, setFontFamily] = useLocalStorage<string>('ebook-fontfamily', 'serif');
+  const [fontMenuOpen, setFontMenuOpen] = useState(false);
+  const [language, setLanguage] = useLocalStorage<string>('ebook-language', 'de');
+  const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [translating, setTranslating] = useState(false);
+  const [translationError, setTranslationError] = useState<string | null>(null);
+  const translationCache = useRef<Map<string, string>>(new Map());
+  const [translationTick, setTranslationTick] = useState(0);
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState<Chapter[]>([]);
@@ -46,6 +60,30 @@ export default function Home() {
 
   // Keyword popover
   const [activeKeyword, setActiveKeyword] = useState<{ term: string; definition: string; x: number; y: number } | null>(null);
+
+  // Watermark ID (anonymer Session-Fingerprint, pro Gerät einmalig generiert)
+  const [watermarkId] = useLocalStorage<string>('ebook-wm-id', () => {
+    try {
+      const bytes = crypto.getRandomValues(new Uint8Array(2));
+      const hex = Array.from(bytes).map(b => b.toString(16).padStart(2, '0')).join('').toUpperCase();
+      const date = new Date().toISOString().slice(0, 10);
+      return `DT-${hex}-${date}`;
+    } catch {
+      const date = new Date().toISOString().slice(0, 10);
+      return `DT-XXXX-${date}`;
+    }
+  });
+
+  // Print/PDF blocker UI state
+  const [printBlocked, setPrintBlocked] = useState(false);
+
+  // PWA Install Prompt
+  const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
+  const [isInstalled, setIsInstalled] = useState(false);
+
+  // Service-Worker-Update-Toast
+  const [swNeedsRefresh, setSwNeedsRefresh] = useState(false);
+  const swUpdateRef = useRef<(() => Promise<void>) | null>(null);
 
   const contentRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -66,6 +104,89 @@ export default function Home() {
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
+
+  // PWA Install Prompt abfangen
+  useEffect(() => {
+    // Prüfe ob bereits installiert (standalone/fullscreen)
+    const isStandalone = window.matchMedia('(display-mode: standalone)').matches
+      || (navigator as any).standalone === true;
+    if (isStandalone) setIsInstalled(true);
+
+    const handler = (e: Event) => {
+      e.preventDefault();
+      setInstallPrompt(e);
+    };
+    window.addEventListener('beforeinstallprompt', handler);
+
+    const onInstalled = () => setIsInstalled(true);
+    window.addEventListener('appinstalled', onInstalled);
+
+    return () => {
+      window.removeEventListener('beforeinstallprompt', handler);
+      window.removeEventListener('appinstalled', onInstalled);
+    };
+  }, []);
+
+  // Print/PDF-Schutz: Hinweis statt Inhalt anzeigen
+  useEffect(() => {
+    const onBeforePrint = () => setPrintBlocked(true);
+    const onAfterPrint = () => setPrintBlocked(false);
+    window.addEventListener('beforeprint', onBeforePrint);
+    window.addEventListener('afterprint', onAfterPrint);
+    return () => {
+      window.removeEventListener('beforeprint', onBeforePrint);
+      window.removeEventListener('afterprint', onAfterPrint);
+    };
+  }, []);
+
+  // Copy-Schutz: Kopieren des Ebook-Inhalts unterbinden
+  useEffect(() => {
+    const onCopy = (e: ClipboardEvent) => {
+      // Erlaubt Kopieren in Eingabefeldern (Suche, Chat)
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
+      e.preventDefault();
+      e.clipboardData?.setData('text/plain', 'Kopieren ist für dieses Werk nicht gestattet.');
+    };
+    const onContextMenu = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) return;
+      e.preventDefault();
+    };
+    document.addEventListener('copy', onCopy);
+    document.addEventListener('contextmenu', onContextMenu);
+    return () => {
+      document.removeEventListener('copy', onCopy);
+      document.removeEventListener('contextmenu', onContextMenu);
+    };
+  }, []);
+
+  // Service Worker Update-Benachrichtigung
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    let cancelled = false;
+    import('virtual:pwa-register')
+      .then(({ registerSW }) => {
+        const updateSW = registerSW({
+          onNeedRefresh() {
+            if (!cancelled) setSwNeedsRefresh(true);
+          },
+          onRegisteredSW(_swUrl, registration) {
+            if (registration) {
+              // Regelmäßig auf Updates prüfen (1x/Stunde)
+              setInterval(() => registration.update().catch(() => {}), 60 * 60 * 1000);
+            }
+          },
+        });
+        swUpdateRef.current = updateSW;
+      })
+      .catch(() => {
+        /* SW-Registrierung nur in production-Build verfügbar */
+      });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   // Scroll tracking
   useEffect(() => {
@@ -282,6 +403,105 @@ export default function Home() {
 
   const fontSizeClasses = ['text-sm leading-relaxed', 'text-base leading-relaxed', 'text-lg leading-relaxed', 'text-xl leading-loose'];
 
+  const fontFamilyMap: Record<string, string> = {
+    serif: 'font-serif',
+    sans: 'font-sans',
+    mono: 'font-mono',
+    lora: '',
+    merriweather: '',
+    opendyslexic: '',
+  };
+  const fontFamilyStyle: Record<string, React.CSSProperties> = {
+    serif: {},
+    sans: {},
+    mono: {},
+    lora: { fontFamily: '"Lora", serif' },
+    merriweather: { fontFamily: '"Merriweather", serif' },
+    opendyslexic: { fontFamily: '"OpenDyslexic", "Comic Sans MS", sans-serif' },
+  };
+  const fontFamilyOptions: { key: string; label: string }[] = [
+    { key: 'serif', label: 'Serif (Standard)' },
+    { key: 'sans', label: 'Sans-serif' },
+    { key: 'mono', label: 'Monospace' },
+    { key: 'lora', label: 'Lora' },
+    { key: 'merriweather', label: 'Merriweather' },
+    { key: 'opendyslexic', label: 'OpenDyslexic' },
+  ];
+  const fontClass = fontFamilyMap[fontFamily] ?? 'font-serif';
+  const fontStyle = fontFamilyStyle[fontFamily] ?? {};
+
+  const languageOptions: { code: string; label: string }[] = [
+    { code: 'de', label: 'Deutsch (Original)' },
+    { code: 'en', label: 'English' },
+    { code: 'fr', label: 'Français' },
+    { code: 'es', label: 'Español' },
+    { code: 'it', label: 'Italiano' },
+    { code: 'pt', label: 'Português' },
+    { code: 'tr', label: 'Türkçe' },
+    { code: 'pl', label: 'Polski' },
+    { code: 'nl', label: 'Nederlands' },
+    { code: 'zh', label: '中文' },
+    { code: 'ja', label: '日本語' },
+    { code: 'ar', label: 'العربية' },
+  ];
+  const languageLabel = languageOptions.find(l => l.code === language)?.label || language;
+
+  // Translate the current chapter when language ≠ 'de'
+  useEffect(() => {
+    if (!currentChapter) return;
+    if (language === 'de') { setTranslationError(null); return; }
+    if (currentChapter.id === 'glossar' || currentChapter.id === 'literatur') return;
+    const cacheKey = `${currentChapter.id}::${language}`;
+    if (translationCache.current.has(cacheKey)) return;
+
+    let cancelled = false;
+    setTranslating(true);
+    setTranslationError(null);
+    (async () => {
+      try {
+        const res = await fetch('/api/translate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            text: currentChapter.content,
+            targetLang: language,
+            sourceLang: 'de',
+          }),
+        });
+        const data = await res.json();
+        if (cancelled) return;
+        if (data.error) {
+          setTranslationError(data.error);
+        } else if (data.translation) {
+          translationCache.current.set(cacheKey, data.translation);
+          setTranslationTick(t => t + 1);
+        }
+      } catch {
+        if (!cancelled) setTranslationError('Verbindungsfehler bei der Übersetzung.');
+      } finally {
+        if (!cancelled) setTranslating(false);
+      }
+    })();
+    return () => { cancelled = true; };
+  }, [currentChapter, language]);
+
+  // Baut ein dezentes, kacheliges SVG-Wasserzeichen als data-URL
+  const watermarkStyle = useMemo(() => {
+    const fill = darkMode ? '%23f5f5f4' : '%231e1b4b';
+    const opacity = darkMode ? '0.08' : '0.05';
+    const text = `Lizenziert für ${watermarkId}`;
+    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'>` +
+      `<g transform='rotate(-28 210 130)' fill='${fill}' fill-opacity='${opacity}' font-family='Georgia, serif' font-size='16' font-style='italic'>` +
+      `<text x='50%' y='45%' text-anchor='middle'>${text}</text>` +
+      `<text x='50%' y='62%' text-anchor='middle' font-size='11' letter-spacing='3'>DIGITALE TRANSFORMATION · TRILOGIE</text>` +
+      `</g></svg>`;
+    return {
+      backgroundImage: `url("data:image/svg+xml;utf8,${svg}")`,
+      backgroundRepeat: 'repeat' as const,
+      backgroundSize: '420px 260px',
+    };
+  }, [darkMode, watermarkId]);
+
   // ─── Render ────────────────────────────────────────────────────────
 
   if (loading) {
@@ -342,11 +562,30 @@ export default function Home() {
               onClick={() => navigateTo('vorwort')}
               className="px-8 py-3 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition-colors text-sm"
             >
-              Lesen beginnen
+              <BookOpen size={16} className="inline mr-2 -mt-0.5" />
+              Lesen
             </button>
+            {!isInstalled && (
+              <button
+                onClick={async () => {
+                  if (installPrompt && 'prompt' in installPrompt) {
+                    (installPrompt as any).prompt();
+                    const result = await (installPrompt as any).userChoice;
+                    if (result.outcome === 'accepted') setIsInstalled(true);
+                    setInstallPrompt(null);
+                  } else {
+                    // Fallback für iOS Safari (kein beforeinstallprompt)
+                    alert('Tippe auf „Teilen" ➜ „Zum Home-Bildschirm" um die App zu installieren.');
+                  }
+                }}
+                className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
+              >
+                <Smartphone size={16} />
+                Installieren
+              </button>
+            )}
             <a
-              href="/Die_Digitale_Transformation_Ebook.pdf"
-              download
+              href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
               className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
             >
               <Download size={16} />
@@ -361,6 +600,48 @@ export default function Home() {
       </motion.div>
     </div>
   );
+
+  const renderBandTitlePage = (chapter: Chapter) => {
+    // Extract Band number from id (band1-title, band2-title, band3-title)
+    const bandNum = chapter.id.replace('-title', '').replace('band', '');
+    const romanNum = { '1': 'I', '2': 'II', '3': 'III' }[bandNum] || bandNum;
+
+    return (
+      <div className={`min-h-full flex items-center justify-center p-4 sm:p-6 ${darkMode ? 'bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950' : 'bg-gradient-to-br from-indigo-950 via-indigo-900 to-stone-900'}`}>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-lg w-full"
+        >
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 sm:p-12 text-center space-y-8">
+            <div className="space-y-2">
+              <p className="text-amber-400 text-xs tracking-[0.3em] uppercase font-medium">Band {romanNum}</p>
+              <div className="w-16 h-px bg-amber-500/50 mx-auto" />
+            </div>
+
+            <div className="space-y-5">
+              <h1 className="text-[clamp(1.5rem,7vw,2.5rem)] md:text-4xl font-serif text-white tracking-tight leading-tight">
+                {chapter.title.replace(/^Band [IVX]+: /, '')}
+              </h1>
+              <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto" />
+              {chapter.subtitle && (
+                <p className="text-stone-300 text-base md:text-lg font-serif italic max-w-sm mx-auto leading-relaxed">
+                  {chapter.subtitle}
+                </p>
+              )}
+            </div>
+
+            {chapter.description && (
+              <p className="text-stone-400 text-sm font-serif max-w-sm mx-auto leading-relaxed">
+                {chapter.description}
+              </p>
+            )}
+          </div>
+        </motion.div>
+      </div>
+    );
+  };
 
   const renderGlossarContent = (chapter: Chapter) => {
     // Parse glossary entries: "Term  Definition text..." pattern
@@ -425,9 +706,7 @@ export default function Home() {
           <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
         </header>
 
-        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
-          {intro && <p className="mb-8 italic">{intro}</p>}
-
+        <div className={`${fontClass} ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
           {/* Letter navigation */}
           <div className="flex flex-wrap gap-1.5 mb-10 sticky top-16 z-10 py-2 -mx-2 px-2 rounded-lg backdrop-blur-sm"
                style={{ background: darkMode ? 'rgba(28,25,23,0.85)' : 'rgba(250,250,249,0.85)' }}>
@@ -528,7 +807,7 @@ export default function Home() {
           <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
         </header>
 
-        <div className={`font-serif ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+        <div className={`${fontClass} ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
           {paragraphs.map((para, i) => {
             const trimmed = para.trim();
 
@@ -573,8 +852,15 @@ export default function Home() {
     if (chapter.id === 'glossar') return renderGlossarContent(chapter);
     if (chapter.id === 'literatur') return renderLiteraturContent(chapter);
 
+    // Determine displayed content (translated if language ≠ 'de' and cached)
+    const cacheKey = `${chapter.id}::${language}`;
+    const translated = language !== 'de' ? translationCache.current.get(cacheKey) : undefined;
+    const displayContent = translated || chapter.content;
+    const isTranslated = !!translated && language !== 'de';
+    void translationTick; // subscribe to cache updates
+
     // Split content into paragraphs and render with proper typography
-    const paragraphs = chapter.content.split('\n\n').filter(p => p.trim());
+    const paragraphs = displayContent.split('\n\n').filter(p => p.trim());
 
     return (
       <motion.article
@@ -582,8 +868,15 @@ export default function Home() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.4 }}
-        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16"
+        className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16 relative"
       >
+        {/* Dezentes, dynamisches Wasserzeichen (diagonale Kachelung) */}
+        <div
+          aria-hidden
+          className="pointer-events-none select-none absolute inset-0 z-0"
+          style={watermarkStyle}
+        />
+        <div className="relative z-10">
         {/* Chapter header */}
         <header className="mb-10 md:mb-14">
           <p className="text-amber-600 text-xs tracking-[0.2em] uppercase font-medium mb-3">
@@ -597,11 +890,26 @@ export default function Home() {
               {chapter.subtitle}
             </p>
           )}
+          {isTranslated && (
+            <div className="mt-3 inline-flex items-center gap-1.5 text-[10px] tracking-wider uppercase px-2 py-1 rounded-full bg-amber-500/15 text-amber-600 dark:text-amber-400">
+              <Sparkles size={10} />
+              AI-übersetzt · {languageLabel}
+            </div>
+          )}
+          {translating && language !== 'de' && !isTranslated && (
+            <div className={`mt-3 inline-flex items-center gap-2 text-xs ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+              <Loader2 size={12} className="animate-spin text-amber-500" />
+              Übersetze nach {languageLabel}…
+            </div>
+          )}
+          {translationError && language !== 'de' && (
+            <p className="mt-3 text-xs text-red-500">{translationError} Zeige Originaltext.</p>
+          )}
           <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
         </header>
 
         {/* Content */}
-        <div className={`font-serif space-y-5 ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`}>
+        <div className={`${fontClass} space-y-5 ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
           {paragraphs.map((para, i) => {
             const trimmed = para.trim();
 
@@ -609,8 +917,24 @@ export default function Home() {
             if (trimmed.startsWith('\u201E') || trimmed.startsWith('"') || trimmed.startsWith('\u00AB')) {
               return (
                 <blockquote key={i} className={`border-l-2 border-amber-500/40 pl-5 italic ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
-                  {renderWithKeywords(trimmed, chapter.id)}
+                  {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
                 </blockquote>
+              );
+            }
+
+            // Detect markdown headings (### and ####)
+            if (trimmed.startsWith('#### ')) {
+              return (
+                <h4 key={i} className={`font-serif font-semibold text-base mt-6 mb-3 ${darkMode ? 'text-stone-300' : 'text-indigo-800'}`}>
+                  {trimmed.slice(5)}
+                </h4>
+              );
+            }
+            if (trimmed.startsWith('### ')) {
+              return (
+                <h3 key={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
+                  {trimmed.slice(4)}
+                </h3>
               );
             }
 
@@ -623,13 +947,14 @@ export default function Home() {
               );
             }
 
-            return <p key={i}>{renderWithKeywords(trimmed, chapter.id)}</p>;
+            return <p key={i}>{isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}</p>;
           })}
         </div>
 
         {/* Chapter ornament */}
         <div className="mt-14 flex justify-center">
           <span className="text-amber-500/40 text-2xl select-none">&loz;</span>
+        </div>
         </div>
       </motion.article>
     );
@@ -647,10 +972,123 @@ export default function Home() {
 
   return (
     <div className={`h-screen flex flex-col ${darkMode ? 'bg-stone-950 text-stone-200' : 'bg-stone-50 text-stone-800'}`}>
+      {/* ─── Service-Worker-Update-Toast ──────────────────────── */}
+      <AnimatePresence>
+        {swNeedsRefresh && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed top-3 right-3 z-[60] max-w-sm rounded-lg shadow-lg border border-amber-500/40 bg-indigo-950 text-stone-100 px-4 py-3 flex items-center gap-3"
+          >
+            <Sparkles size={16} className="text-amber-400 flex-none" />
+            <div className="text-xs leading-tight flex-1">
+              Neue Version verfügbar.
+            </div>
+            <button
+              onClick={() => { swUpdateRef.current?.().catch(() => {}); setSwNeedsRefresh(false); }}
+              className="text-xs font-medium px-3 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white transition-colors"
+            >
+              Neu laden
+            </button>
+            <button
+              onClick={() => setSwNeedsRefresh(false)}
+              className="p-1 text-stone-400 hover:text-stone-100 transition-colors"
+              title="Später"
+            >
+              <X size={14} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ─── Print/PDF-Schutz: Screen-Overlay während Druck ──── */}
+      {printBlocked && (
+        <div className="fixed inset-0 z-[100] bg-white text-stone-900 flex items-center justify-center p-8 print:flex">
+          <div className="max-w-md text-center font-serif">
+            <p className="text-lg mb-2">Drucken &amp; PDF-Export sind für dieses Werk nicht verfügbar.</p>
+            <p className="text-sm text-stone-600">Bitte nutzen Sie die digitale Ausgabe.</p>
+          </div>
+        </div>
+      )}
+
       {/* ─── Top Bar ─────────────────────────────────────────── */}
-      <header className={`flex-none h-12 flex items-center px-4 gap-3 border-b z-30 ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
-        <button onClick={() => setSidebarOpen(!sidebarOpen)} className="p-1.5 rounded-md hover:bg-stone-200/50 dark:hover:bg-stone-700/50 transition-colors" title="Navigation">
-          {sidebarOpen ? <X size={18} /> : <Menu size={18} />}
+      <header className={`flex-none h-12 flex items-center px-4 gap-2 border-b z-40 relative ${darkMode ? 'bg-stone-900/95 border-stone-800' : 'bg-white/95 border-stone-200'} backdrop-blur-sm`}>
+        {/* Burger menu with actions */}
+        <div className="relative">
+          <button
+            onClick={(e) => { e.stopPropagation(); setBurgerMenuOpen(o => !o); }}
+            className={`p-1.5 rounded-md transition-colors ${burgerMenuOpen ? (darkMode ? 'bg-stone-700' : 'bg-stone-200') : (darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50')}`}
+            title="Menü"
+          >
+            <Menu size={18} />
+          </button>
+          <AnimatePresence>
+            {burgerMenuOpen && (
+              <motion.div
+                initial={{ opacity: 0, y: -4, scale: 0.95 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -4, scale: 0.95 }}
+                transition={{ duration: 0.15 }}
+                onClick={(e) => e.stopPropagation()}
+                className={`absolute left-0 top-full mt-2 w-56 rounded-xl shadow-xl border z-50 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+              >
+                <div className="py-1">
+                  <button
+                    onClick={() => { navigateTo('vorwort'); setBurgerMenuOpen(false); }}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <BookOpen size={16} className="text-amber-500 flex-none" />
+                    Beginnen zu Lesen
+                  </button>
+                  {!isInstalled && (
+                    <button
+                      onClick={async () => {
+                        setBurgerMenuOpen(false);
+                        if (installPrompt && 'prompt' in installPrompt) {
+                          (installPrompt as any).prompt();
+                          const result = await (installPrompt as any).userChoice;
+                          if (result.outcome === 'accepted') setIsInstalled(true);
+                          setInstallPrompt(null);
+                        } else {
+                          alert('Tippe auf \u201eTeilen\u201c \u27a1 \u201eZum Home-Bildschirm\u201c um die App zu installieren.');
+                        }
+                      }}
+                      className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                    >
+                      <Smartphone size={16} className="text-amber-500 flex-none" />
+                      App installieren
+                    </button>
+                  )}
+                  <a
+                    href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
+                    onClick={() => setBurgerMenuOpen(false)}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <Download size={16} className="text-amber-500 flex-none" />
+                    PDF herunterladen
+                  </a>
+                  <div className={`h-px mx-4 my-1 ${darkMode ? 'bg-stone-700' : 'bg-stone-200'}`} />
+                  <button
+                    onClick={() => { setEnkiduOpen(true); setBurgerMenuOpen(false); }}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <Sparkles size={16} className="text-amber-500 flex-none" />
+                    Enkidu — Gespräch
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+
+        {/* Sidebar toggle (claude.ai-style panel icon) */}
+        <button
+          onClick={() => setSidebarOpen(!sidebarOpen)}
+          className={`p-1.5 rounded-md transition-colors ${darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50'}`}
+          title={sidebarOpen ? 'Navigation einklappen' : 'Navigation ausklappen'}
+        >
+          {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={18} />}
         </button>
 
         <div className="flex-1 min-w-0">
@@ -676,10 +1114,95 @@ export default function Home() {
           <button onClick={() => setFontSize(Math.max(0, fontSize - 1))} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Kleiner" disabled={fontSize === 0}>
             <Minus size={14} />
           </button>
-          <Type size={14} className="opacity-40" />
+          <div className="relative">
+            <button
+              onClick={(e) => { e.stopPropagation(); setFontMenuOpen(o => !o); setLanguageMenuOpen(false); }}
+              className={`p-1.5 rounded-md transition-colors ${fontMenuOpen ? 'bg-amber-500/15 text-amber-600' : 'hover:bg-stone-200/50'}`}
+              title="Schriftart auswählen"
+            >
+              <Type size={14} />
+            </button>
+            <AnimatePresence>
+              {fontMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className={`absolute right-0 top-full mt-2 w-52 rounded-xl shadow-xl border z-40 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+                >
+                  <p className={`px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Schriftart</p>
+                  {fontFamilyOptions.map(opt => {
+                    const active = fontFamily === opt.key;
+                    return (
+                      <button
+                        key={opt.key}
+                        onClick={() => { setFontFamily(opt.key); setFontMenuOpen(false); }}
+                        style={fontFamilyStyle[opt.key]}
+                        className={`w-full text-left px-3 py-2 text-sm transition-colors ${fontFamilyMap[opt.key]} ${
+                          active
+                            ? (darkMode ? 'bg-amber-500/15 text-amber-400' : 'bg-amber-500/15 text-amber-700')
+                            : (darkMode ? 'text-stone-300 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
           <button onClick={() => setFontSize(Math.min(3, fontSize + 1))} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Größer" disabled={fontSize === 3}>
             <Plus size={14} />
           </button>
+
+          {/* Language */}
+          <div className="relative">
+            <button
+              onClick={(e) => { e.stopPropagation(); setLanguageMenuOpen(o => !o); setFontMenuOpen(false); }}
+              className={`p-1.5 rounded-md transition-colors flex items-center gap-1 ${languageMenuOpen || language !== 'de' ? 'text-amber-600' : 'hover:bg-stone-200/50'}`}
+              title="Sprache auswählen"
+            >
+              <Languages size={16} />
+              {language !== 'de' && (
+                <span className="text-[10px] uppercase tracking-wider">{language}</span>
+              )}
+              {translating && <Loader2 size={10} className="animate-spin" />}
+            </button>
+            <AnimatePresence>
+              {languageMenuOpen && (
+                <motion.div
+                  initial={{ opacity: 0, y: -4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -4 }}
+                  onClick={(e) => e.stopPropagation()}
+                  className={`absolute right-0 top-full mt-2 w-52 rounded-xl shadow-xl border z-40 overflow-hidden max-h-[70vh] overflow-y-auto ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+                >
+                  <p className={`px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Sprache</p>
+                  {languageOptions.map(opt => {
+                    const active = language === opt.code;
+                    return (
+                      <button
+                        key={opt.code}
+                        onClick={() => { setLanguage(opt.code); setLanguageMenuOpen(false); }}
+                        className={`w-full text-left px-3 py-2 text-sm transition-colors ${
+                          active
+                            ? (darkMode ? 'bg-amber-500/15 text-amber-400' : 'bg-amber-500/15 text-amber-700')
+                            : (darkMode ? 'text-stone-300 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
+                        }`}
+                      >
+                        {opt.label}
+                      </button>
+                    );
+                  })}
+                  <p className={`px-3 py-2 text-[10px] border-t ${darkMode ? 'border-stone-700 text-stone-500' : 'border-stone-100 text-stone-400'}`}>
+                    Glossar & Literatur bleiben deutsch.
+                  </p>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
 
           {/* Bookmark */}
           {currentId !== '__cover__' && (
@@ -755,12 +1278,12 @@ export default function Home() {
           />
         )}
 
-        {/* ─── Sidebar ──────────────────────────────────────── */}
+        {/* ─── Sidebar (push-layout auf Desktop, overlay auf Mobile) ── */}
         <aside
           className={`
-            fixed md:static z-30 top-12 bottom-0 left-0 w-72 flex-none overflow-y-auto
-            border-r transition-transform duration-300 ease-in-out
-            ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'}
+            fixed md:relative z-30 top-12 md:top-0 bottom-0 left-0 w-72 flex-none overflow-y-auto
+            border-r transition-all duration-300 ease-in-out
+            ${sidebarOpen ? 'translate-x-0 md:w-72 md:min-w-[18rem]' : '-translate-x-full md:translate-x-0 md:w-0 md:min-w-0 md:overflow-hidden md:border-r-0'}
             ${darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'}
           `}
         >
@@ -836,25 +1359,36 @@ export default function Home() {
               </div>
             )}
 
-            {/* PDF download */}
+            {/* PDF download (now also available in burger menu) */}
             <div className="pt-4 border-t border-stone-200 dark:border-stone-800 mt-4">
               <a
-                href="/Die_Digitale_Transformation_Ebook.pdf"
-                download
+                href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-amber-600 hover:bg-amber-500/10 transition-colors"
               >
                 <Download size={14} />
                 PDF herunterladen
               </a>
             </div>
+            {/* Sidebar close button (mobile) */}
+            <div className="pt-2 md:hidden">
+              <button
+                onClick={() => setSidebarOpen(false)}
+                className={`w-full text-left px-3 py-2 rounded-lg text-xs flex items-center gap-2 ${darkMode ? 'text-stone-500 hover:bg-stone-800' : 'text-stone-400 hover:bg-stone-100'}`}
+              >
+                <PanelLeftClose size={14} />
+                Navigation schlie\u00dfen
+              </button>
+            </div>
           </nav>
         </aside>
 
         {/* ─── Main Content ─────────────────────────────────── */}
-        <main ref={contentRef} className="flex-1 overflow-y-auto relative" onClick={() => setActiveKeyword(null)}>
+        <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setBurgerMenuOpen(false); }}>
           {currentId === '__cover__'
             ? renderCover()
-            : currentChapter && renderChapterContent(currentChapter)}
+            : currentChapter?.isTitlePage
+              ? renderBandTitlePage(currentChapter)
+              : currentChapter && renderChapterContent(currentChapter)}
 
           {/* Navigation footer */}
           {currentId !== '__cover__' && (
@@ -1073,6 +1607,9 @@ export default function Home() {
           )}
         </main>
       </div>
+
+      {/* ─── Enkidu KI ──────────────────────────────────────── */}
+      {enkiduOpen && <EnkiduPage onClose={() => setEnkiduOpen(false)} />}
     </div>
   );
 }
