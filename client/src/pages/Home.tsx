@@ -350,9 +350,12 @@ export default function Home() {
       });
       const data = await res.json();
       if (data.error) {
+        const msg = res.status === 429
+          ? `⏱ ${data.error}`
+          : `Fehler: ${data.error}`;
         setChatHistory(prev => {
           const copy = [...prev];
-          copy[copy.length - 1].a = `Fehler: ${data.error}`;
+          copy[copy.length - 1].a = msg;
           return copy;
         });
       } else {
@@ -533,7 +536,9 @@ export default function Home() {
         const data = await res.json();
         if (cancelled) return;
         if (data.error) {
-          setTranslationError(data.error);
+          setTranslationError(
+            res.status === 429 ? `⏱ ${data.error}` : data.error
+          );
         } else if (data.translation) {
           translationCache.current.set(cacheKey, data.translation);
           setTranslationTick(t => t + 1);
