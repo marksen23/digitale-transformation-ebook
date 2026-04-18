@@ -4,10 +4,11 @@ import {
   ChevronRight, ChevronLeft, Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
-  PanelLeftClose, PanelLeft,
+  PanelLeftClose, PanelLeft, Volume2, VolumeX, Mic, MicOff,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 import EnkiduPage from './EnkiduPage';
+import { useSpeechRecognition, useSpeechSynthesis } from '@/hooks/useSpeech';
 
 // ─── Helpers ────────────────────────────────────────────────────────
 function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
@@ -57,6 +58,19 @@ export default function Home() {
   const [chatHistory, setChatHistory] = useState<{ q: string; a: string }[]>([]);
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  // ─── Speech (TTS / STT) ──────────────────────────────────────────
+  // One shared TTS instance; ttsTarget tracks what's currently being read
+  const tts = useSpeechSynthesis();
+  const [ttsTarget, setTtsTarget] = useState<'chapter' | number | null>(null);
+
+  // When TTS stops externally (end of speech), clear target
+  useEffect(() => { if (!tts.speaking) setTtsTarget(null); }, [tts.speaking]);
+
+  // STT for Q&A chat input
+  const chatStt = useSpeechRecognition((text) => {
+    setChatQuestion(q => q ? q + ' ' + text : text);
+  });
 
   // Keyword popover
   const [activeKeyword, setActiveKeyword] = useState<{ term: string; definition: string; x: number; y: number } | null>(null);
@@ -484,6 +498,21 @@ export default function Home() {
     })();
     return () => { cancelled = true; };
   }, [currentChapter, language]);
+
+  // Extrahiert lesbaren Plaintext aus Kapitelinhalt für TTS
+  const getChapterPlainText = useCallback((content: string): string => {
+    return content
+      .split('\n\n')
+      .map(p => p.trim())
+      .filter(p => p)
+      .map(p =>
+        p.replace(/^#{1,6}\s+/, '')
+         .replace(/^>\s*/gm, '')
+         .replace(/\*\*(.+?)\*\*/g, '$1')
+         .replace(/\*(.+?)\*/g, '$1')
+      )
+      .join(' ');
+  }, []);
 
   // Baut ein dezentes, kacheliges SVG-Wasserzeichen als data-URL
   const watermarkStyle = useMemo(() => {
@@ -1215,6 +1244,28 @@ export default function Home() {
             </button>
           )}
 
+          {/* Vorlesen (TTS) — nur auf Kapiteln */}
+          {currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur' && tts.supported && (
+            <button
+              onClick={() => {
+                if (tts.speaking && ttsTarget === 'chapter') {
+                  tts.stop();
+                } else {
+                  if (!currentChapter) return;
+                  const cacheKey = `${currentChapter.id}::${language}`;
+                  const translated = translationCache.current.get(cacheKey);
+                  const text = getChapterPlainText(translated || currentChapter.content);
+                  setTtsTarget('chapter');
+                  tts.speak(text);
+                }
+              }}
+              className={`p-1.5 rounded-md transition-colors ${tts.speaking && ttsTarget === 'chapter' ? 'text-amber-500 bg-amber-500/10' : 'hover:bg-stone-200/50'}`}
+              title={tts.speaking && ttsTarget === 'chapter' ? 'Vorlesen stoppen' : 'Kapitel vorlesen'}
+            >
+              {tts.speaking && ttsTarget === 'chapter' ? <VolumeX size={16} /> : <Volume2 size={16} />}
+            </button>
+          )}
+
           {/* Dark mode */}
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
             {darkMode ? <Sun size={16} /> : <Moon size={16} />}
@@ -1553,7 +1604,7 @@ export default function Home() {
                           </div>
                           {/* Answer */}
                           {entry.a ? (
-                            <div className="flex justify-start">
+                            <div className="flex justify-start items-end gap-1">
                               <div className={`max-w-[85%] rounded-2xl rounded-tl-sm px-3.5 py-2 text-xs leading-relaxed ${
                                 darkMode ? 'bg-stone-800 text-stone-300' : 'bg-stone-100 text-stone-700'
                               }`}>
@@ -1561,6 +1612,26 @@ export default function Home() {
                                   <p key={j} className={j > 0 ? 'mt-2' : ''}>{p}</p>
                                 ))}
                               </div>
+                              {tts.supported && (
+                                <button
+                                  onClick={() => {
+                                    if (tts.speaking && ttsTarget === i) {
+                                      tts.stop();
+                                    } else {
+                                      setTtsTarget(i);
+                                      tts.speak(entry.a);
+                                    }
+                                  }}
+                                  className={`p-1.5 rounded-full flex-none transition-colors ${
+                                    tts.speaking && ttsTarget === i
+                                      ? 'text-amber-500'
+                                      : darkMode ? 'text-stone-600 hover:text-stone-400' : 'text-stone-400 hover:text-stone-600'
+                                  }`}
+                                  title={tts.speaking && ttsTarget === i ? 'Vorlesen stoppen' : 'Antwort vorlesen'}
+                                >
+                                  {tts.speaking && ttsTarget === i ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                                </button>
+                              )}
                             </div>
                           ) : (
                             <div className="flex justify-start">
@@ -1580,14 +1651,30 @@ export default function Home() {
                     <div className={`px-3 py-3 border-t flex-none flex gap-2 ${
                       darkMode ? 'border-stone-700' : 'border-stone-100'
                     }`}>
+                      {/* Mic button */}
+                      {chatStt.supported && (
+                        <button
+                          onClick={chatStt.toggle}
+                          className={`p-2 rounded-lg transition-colors flex-none ${
+                            chatStt.listening
+                              ? 'bg-red-500 text-white animate-pulse'
+                              : darkMode ? 'bg-stone-700 text-stone-300 hover:bg-stone-600' : 'bg-stone-100 text-stone-600 hover:bg-stone-200'
+                          }`}
+                          title={chatStt.listening ? 'Aufnahme stoppen' : 'Frage sprechen'}
+                        >
+                          {chatStt.listening ? <MicOff size={14} /> : <Mic size={14} />}
+                        </button>
+                      )}
                       <input
                         type="text"
                         value={chatQuestion}
                         onChange={(e) => setChatQuestion(e.target.value)}
                         onKeyDown={(e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); askQuestion(); } }}
-                        placeholder="Frage stellen..."
+                        placeholder={chatStt.listening ? 'Zuhören…' : 'Frage stellen...'}
                         className={`flex-1 px-3 py-2 rounded-lg text-xs border focus:outline-none focus:ring-2 focus:ring-amber-500/50 ${
-                          darkMode ? 'bg-stone-800 border-stone-700 text-stone-200 placeholder:text-stone-500' : 'bg-stone-50 border-stone-200 text-stone-800 placeholder:text-stone-400'
+                          chatStt.listening
+                            ? darkMode ? 'bg-red-900/20 border-red-700 text-stone-200' : 'bg-red-50 border-red-300 text-stone-800'
+                            : darkMode ? 'bg-stone-800 border-stone-700 text-stone-200 placeholder:text-stone-500' : 'bg-stone-50 border-stone-200 text-stone-800 placeholder:text-stone-400'
                         }`}
                       />
                       <button

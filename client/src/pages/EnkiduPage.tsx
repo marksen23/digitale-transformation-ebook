@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useSpeechRecognition, useSpeechSynthesis } from "@/hooks/useSpeech";
 
 // ─── Types ────────────────────────────────────────────────────────
 type Screen = "landing" | "chat" | "feedback" | "profile";
@@ -96,6 +97,21 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  // ─── Speech ──────────────────────────────────────────────────────
+  const tts = useSpeechSynthesis();
+  const [speakingIdx, setSpeakingIdx] = useState<number | null>(null);
+  useEffect(() => { if (!tts.speaking) setSpeakingIdx(null); }, [tts.speaking]);
+
+  const stt = useSpeechRecognition(useCallback((text: string) => {
+    setInputValue(prev => prev ? prev + ' ' + text : text);
+    setTimeout(() => {
+      const ta = textareaRef.current;
+      if (!ta) return;
+      ta.style.height = 'auto';
+      ta.style.height = Math.min(ta.scrollHeight, 160) + 'px';
+    }, 0);
+  }, []));
+
   // Inject Google Fonts
   useEffect(() => {
     const id = "enkidu-fonts";
@@ -139,6 +155,12 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           .enkidu-input-btns { width: auto; }
           .enkidu-input-btns button { flex: none; }
         }
+        /* Mic pulsing indicator */
+        @keyframes enkidu-mic-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+        .enkidu-mic-active { animation: enkidu-mic-pulse 1.2s ease infinite; }
+        /* TTS speaker button */
+        .enkidu-speaker { opacity: 0; transition: opacity 0.15s; }
+        .enkidu-msg-row:hover .enkidu-speaker { opacity: 1; }
       `;
       document.head.appendChild(style);
     }
@@ -349,6 +371,31 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
               <span style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: msg.role === "assistant" ? C.accentDim : C.muted }}>
                 {msg.role === "assistant" ? "Enkidu" : "Du"}
               </span>
+              {/* TTS button for Enkidu messages */}
+              {msg.role === "assistant" && !msg.error && tts.supported && (
+                <button
+                  className="enkidu-speaker"
+                  onClick={() => {
+                    if (tts.speaking && speakingIdx === i) {
+                      tts.stop();
+                    } else {
+                      setSpeakingIdx(i);
+                      tts.speak(msg.content);
+                    }
+                  }}
+                  title={tts.speaking && speakingIdx === i ? 'Vorlesen stoppen' : 'Vorlesen'}
+                  style={btn({
+                    fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.1em",
+                    color: tts.speaking && speakingIdx === i ? C.accent : C.muted,
+                    background: "none", border: `1px solid ${tts.speaking && speakingIdx === i ? C.accentDim : C.border}`,
+                    padding: "0.1rem 0.4rem", lineHeight: 1.4,
+                  })}
+                  onMouseEnter={(e) => { (e.target as HTMLElement).style.color = C.accent; (e.target as HTMLElement).style.borderColor = C.accentDim; }}
+                  onMouseLeave={(e) => { (e.target as HTMLElement).style.color = tts.speaking && speakingIdx === i ? C.accent : C.muted; (e.target as HTMLElement).style.borderColor = tts.speaking && speakingIdx === i ? C.accentDim : C.border; }}
+                >
+                  {tts.speaking && speakingIdx === i ? '◼ stopp' : '▶ hören'}
+                </button>
+              )}
               {/* Edit button for user messages */}
               {msg.role === "user" && !loading && hoveredMsg === i && (
                 <button
@@ -412,6 +459,26 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
             onBlur={(e) => ((e.target as HTMLElement).style.borderColor = editingIndex !== null ? C.accentDim : C.border)}
           />
           <div className="enkidu-input-btns">
+            {/* Mic button */}
+            {stt.supported && (
+              <button
+                onClick={stt.toggle}
+                className={stt.listening ? 'enkidu-mic-active' : ''}
+                title={stt.listening ? 'Aufnahme stoppen' : 'Spracheingabe'}
+                style={btn({
+                  fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: stt.listening ? C.textBright : C.muted,
+                  background: stt.listening ? "rgba(139,58,58,0.3)" : "none",
+                  border: `1px solid ${stt.listening ? "#8b3a3a" : C.border}`,
+                  padding: "0.9rem 0.8rem", height: 52, flexShrink: 0,
+                })}
+                onMouseEnter={(e) => { if (!stt.listening) { (e.target as HTMLElement).style.color = C.text; (e.target as HTMLElement).style.borderColor = C.muted; } }}
+                onMouseLeave={(e) => { if (!stt.listening) { (e.target as HTMLElement).style.color = C.muted; (e.target as HTMLElement).style.borderColor = C.border; } }}
+              >
+                {stt.listening ? '◉ stopp' : '◎ mic'}
+              </button>
+            )}
             <button
               onClick={sendMessage}
               disabled={!inputValue.trim() || loading}
