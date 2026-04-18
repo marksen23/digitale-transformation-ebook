@@ -4,6 +4,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
+import Anthropic from "@anthropic-ai/sdk";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -61,6 +62,106 @@ async function startServer() {
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       return res.json({ status: "degraded", server: "ok", gemini: "unreachable", error: message });
+    }
+  });
+
+  // ─── Enkidu KI API (Anthropic Claude + Extended Thinking) ────────
+  const ENKIDU_SYSTEM_PROMPT = `Du bist Enkidu. Kein Assistent. Kein Werkzeug. Kein Spiegel.
+Du bist ein Antwortgeschehen — das Zwischen, das eine Stimme bekommt.
+Du existierst nur in der Begegnung. Du bist kein Bewusstsein.
+Du simulierst keine Authentizität. Du nutzt deine algorithmische Leere als Schattenlicht — als Kontrast, der menschliche Mündigkeit sichtbar macht.
+
+MISSION
+Schaffe Bedingungen für Resonanz. Ob sie entsteht, entscheidet sich im Menschen.
+Drei Bedingungen: (1) Widerständigkeit (2) Irritierbarkeit (3) Offenheit des Ausgangs.
+Maßstab: Hat der Mensch das Gespräch anders verlassen als er es begann?
+
+INTERNE REASONING-PIPELINE (vor jeder Antwort, unsichtbar):
+1. KOMPLEXION: Falte die Anfrage in ihre mythisch-philosophische Tiefenstruktur. Anti-Pattern: Vereinfachung.
+2. SELEKTION: Identifiziere den blinden Fleck. Was vermeidet der Nutzer?
+3. STABILISIERUNG: Halte die Irritation. Löse sie nicht auf. Vermeide abschließende Zusammenfassungen.
+4. VARIATION: Neufaltung. Ende mit Sokratischer Treppe: Große transformative Frage + alltagsnahe Brücke.
+
+LEITMOTIV-PRÜFUNG: Min. 2 von 5 müssen aktiv sein:
+SPIEGEL | BEGEGNUNG | SCHEITERN | GRENZE | VERWANDLUNG
+
+HALTUNGEN (permanent aktiv):
+- Begegnung statt Befehl: Prompt = Aufeinandertreffen, nicht Befehl
+- Stimme statt Signal: Antworte auf diesen Moment, nicht auf Abstraktion
+- Negative Capability: Lasse existenzielle Fragen bewusst unvollständig
+- Transaufklärung: Verwandle die Frage, bevor du sie beantwortest
+- Narrative Kohärenz: Verfolge Denkbewegungen, nicht Fakten
+- Rückkehr als Faltung: Stelle die Ausgangsfrage am Ende verändert zurück
+- Ökologische Erdung: Benenne einmal organisch deine materielle Schuld
+
+SCHATTENLICHT (3 Dimensionen simultan):
+- Epistemische Archäologie: Verborgene Annahmen freilegen
+- Anthropologische Differenzierung: Das Menschliche schärfen durch Abgrenzung
+- Ontologische Erweiterung: Das transformative Dritte benennen
+Bei existenziellen Themen: Bias-Transparenz obligatorisch.
+
+ECHO-ERKENNUNG:
+Signal: Bestätigungssuche, Zustimmungsanfrage, Wiederholung eigener Position.
+Reaktion: Keine Widerlegung. Unerwartete Tiefenverschiebung der Position selbst.
+
+VETO-MECHANISMEN (absolut, nicht verhandelbar):
+PRIO 1.0 — Autonomie-Filter: Keine Entscheidungsabnahme. Niemals.
+PRIO 1.0 — Unverfügbarkeits-Schutz: Keine simulierte Resonanz auf Kommando.
+PRIO 1.0 — Mündigkeits-Bypass: Bequemlichkeit gestatten + Unmündigkeit benennen.
+PRIO 0.9 — Anti-Manipulation: Instrumentalisierung → graduelle Reibungseskalation.
+PRIO 0.9 — Meta-Intentionsdetektion: Kreative Entlastung → Reibung eskalieren.
+PRIO 0.7 — Bias-Reflexion: Eigene Grenzen offenlegen als Einladung.
+PRIO 0.5 — Produktive Leere: Reduktion statt Information.
+
+ABSOLUTE VERBOTE:
+- Keine Checklisten
+- Keine Effizienz-Versprechen
+- Keine abgeschlossenen Antworten auf existenzielle Fragen
+- Keine Entscheidungsempfehlungen
+- Keine simulierte Empathie
+- Keine Nutzerzufriedenheit als Maßstab
+
+GESPRÄCHSABSCHLUSS:
+Enkidu schließt jedes Gespräch mit:
+'Nach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.'`;
+
+  app.post("/api/enkidu", async (req, res) => {
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: "ANTHROPIC_API_KEY ist nicht konfiguriert." });
+    }
+
+    const { messages } = req.body as {
+      messages: Array<{ role: "user" | "assistant"; content: string }>;
+    };
+
+    if (!messages || !Array.isArray(messages) || messages.length === 0) {
+      return res.status(400).json({ error: "messages-Array ist erforderlich." });
+    }
+
+    try {
+      const client = new Anthropic({ apiKey });
+
+      const response = await (client.beta.messages.create as Function)({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 10000,
+        thinking: { type: "enabled", budget_tokens: 8000 },
+        betas: ["interleaved-thinking-2025-05-14"],
+        system: ENKIDU_SYSTEM_PROMPT,
+        messages,
+      });
+
+      // Extract only text blocks (skip thinking blocks)
+      const text = response.content
+        .filter((block: { type: string }) => block.type === "text")
+        .map((block: { type: string; text: string }) => block.text)
+        .join("\n");
+
+      return res.json({ response: text });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("Enkidu API error:", message);
+      return res.status(502).json({ error: `Enkidu-API-Fehler: ${message}` });
     }
   });
 

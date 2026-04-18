@@ -7,6 +7,7 @@ import {
   PanelLeftClose, PanelLeft,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
+import EnkiduPage from './EnkiduPage';
 
 // ─── Helpers ────────────────────────────────────────────────────────
 function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
@@ -30,6 +31,7 @@ export default function Home() {
   const [currentId, setCurrentId] = useLocalStorage<string>('ebook-chapter', '__cover__');
   const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 768);
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
+  const [enkiduOpen, setEnkiduOpen] = useState(false);
 
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
@@ -1066,6 +1068,14 @@ export default function Home() {
                     <Download size={16} className="text-amber-500 flex-none" />
                     PDF herunterladen
                   </a>
+                  <div className={`h-px mx-4 my-1 ${darkMode ? 'bg-stone-700' : 'bg-stone-200'}`} />
+                  <button
+                    onClick={() => { setEnkiduOpen(true); setBurgerMenuOpen(false); }}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <Sparkles size={16} className="text-amber-500 flex-none" />
+                    Enkidu — Gespräch
+                  </button>
                 </div>
               </motion.div>
             )}
@@ -1597,6 +1607,9 @@ export default function Home() {
           )}
         </main>
       </div>
+
+      {/* ─── Enkidu KI ──────────────────────────────────────── */}
+      {enkiduOpen && <EnkiduPage onClose={() => setEnkiduOpen(false)} />}
     </div>
   );
 }
