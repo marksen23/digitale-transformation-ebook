@@ -126,6 +126,19 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         }
         .enkidu-edit-btn { opacity:0; transition:opacity 0.15s; }
         .enkidu-msg-row:hover .enkidu-edit-btn { opacity:1; }
+        /* Mobile input layout */
+        .enkidu-input-area { padding: 1rem !important; }
+        .enkidu-input-inner { flex-wrap: wrap; gap: 0.6rem !important; }
+        .enkidu-input-inner textarea { min-width: 0; width: 100% !important; flex: 1 1 100% !important; }
+        .enkidu-input-btns { display: flex; gap: 0.6rem; width: 100%; }
+        .enkidu-input-btns button { flex: 1; justify-content: center; }
+        @media (min-width: 640px) {
+          .enkidu-input-area { padding: 1.5rem 3rem !important; }
+          .enkidu-input-inner { flex-wrap: nowrap; gap: 1rem !important; }
+          .enkidu-input-inner textarea { flex: 1 1 auto !important; width: auto !important; }
+          .enkidu-input-btns { width: auto; }
+          .enkidu-input-btns button { flex: none; }
+        }
       `;
       document.head.appendChild(style);
     }
@@ -385,8 +398,8 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       </div>
 
       {/* Input */}
-      <div style={{ borderTop: `1px solid ${C.border}`, padding: "1.5rem 3rem", background: C.void, flexShrink: 0 }}>
-        <div style={{ maxWidth: 760, margin: "0 auto", display: "flex", gap: "1rem", alignItems: "flex-end" }}>
+      <div className="enkidu-input-area" style={{ borderTop: `1px solid ${C.border}`, background: C.void, flexShrink: 0 }}>
+        <div className="enkidu-input-inner" style={{ maxWidth: 760, margin: "0 auto", display: "flex", alignItems: "flex-end" }}>
           <textarea
             ref={textareaRef}
             value={inputValue}
@@ -394,31 +407,34 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
             onKeyDown={handleKeyDown}
             placeholder={editingIndex !== null ? "Nachricht bearbeiten …" : "Schreibe …"}
             rows={1}
-            style={{ flex: 1, background: editingIndex !== null ? "rgba(196,168,130,0.06)" : C.surface, border: `1px solid ${editingIndex !== null ? C.accentDim : C.border}`, color: C.textBright, fontFamily: C.serif, fontSize: "1rem", lineHeight: 1.6, padding: "0.9rem 1.2rem", resize: "none", minHeight: 52, maxHeight: 160, outline: "none", transition: "border-color 0.2s, background 0.2s" }}
+            style={{ minWidth: 0, background: editingIndex !== null ? "rgba(196,168,130,0.06)" : C.surface, border: `1px solid ${editingIndex !== null ? C.accentDim : C.border}`, color: C.textBright, fontFamily: C.serif, fontSize: "1rem", lineHeight: 1.6, padding: "0.9rem 1.2rem", resize: "none", minHeight: 52, maxHeight: 160, outline: "none", transition: "border-color 0.2s, background 0.2s" }}
             onFocus={(e) => ((e.target as HTMLElement).style.borderColor = C.accentDim)}
             onBlur={(e) => ((e.target as HTMLElement).style.borderColor = editingIndex !== null ? C.accentDim : C.border)}
           />
-          <button
-            onClick={sendMessage}
-            disabled={!inputValue.trim() || loading}
-            style={btn({ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.void, background: !inputValue.trim() || loading ? C.accentDim : C.accent, padding: "0.9rem 1.5rem", cursor: !inputValue.trim() || loading ? "not-allowed" : "pointer", height: 52, flexShrink: 0 })}
-          >
-            {editingIndex !== null ? "Aktualisieren" : "Senden"}
-          </button>
-          {editingIndex !== null && (
+          <div className="enkidu-input-btns">
             <button
-              onClick={() => { setEditingIndex(null); setInputValue(""); if (textareaRef.current) textareaRef.current.style.height = "auto"; }}
-              style={btn({ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.9rem 1rem", height: 52, flexShrink: 0 })}
+              onClick={sendMessage}
+              disabled={!inputValue.trim() || loading}
+              style={btn({ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.void, background: !inputValue.trim() || loading ? C.accentDim : C.accent, padding: "0.9rem 1rem", cursor: !inputValue.trim() || loading ? "not-allowed" : "pointer", height: 52, flexShrink: 0 })}
+            >
+              {editingIndex !== null ? "✓" : "Senden"}
+            </button>
+            {editingIndex !== null && (
+              <button
+                onClick={() => { setEditingIndex(null); setInputValue(""); if (textareaRef.current) textareaRef.current.style.height = "auto"; }}
+                style={btn({ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.9rem 0.8rem", height: 52, flexShrink: 0 })}
+                onMouseEnter={(e) => { (e.target as HTMLElement).style.color = C.text; (e.target as HTMLElement).style.borderColor = C.muted; }}
+                onMouseLeave={(e) => { (e.target as HTMLElement).style.color = C.muted; (e.target as HTMLElement).style.borderColor = C.border; }}
+              >✕</button>
+            )}
+            <button
+              onClick={endConversation}
+              style={btn({ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.9rem 0.8rem", height: 52, flexShrink: 0 })}
               onMouseEnter={(e) => { (e.target as HTMLElement).style.color = C.text; (e.target as HTMLElement).style.borderColor = C.muted; }}
               onMouseLeave={(e) => { (e.target as HTMLElement).style.color = C.muted; (e.target as HTMLElement).style.borderColor = C.border; }}
-            >Abbrechen</button>
-          )}
-          <button
-            onClick={endConversation}
-            style={btn({ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.9rem 1rem", height: 52, flexShrink: 0 })}
-            onMouseEnter={(e) => { (e.target as HTMLElement).style.color = C.text; (e.target as HTMLElement).style.borderColor = C.muted; }}
-            onMouseLeave={(e) => { (e.target as HTMLElement).style.color = C.muted; (e.target as HTMLElement).style.borderColor = C.border; }}
-          >Beenden</button>
+              title="Gespräch beenden"
+            >Ende</button>
+          </div>
         </div>
       </div>
     </div>
