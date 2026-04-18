@@ -1,10 +1,11 @@
 import { useState, useEffect, useCallback, useRef, useMemo, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
-  ChevronRight, ChevronLeft, Menu, X, Download, Search,
+  Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
-  PanelLeftClose, PanelLeft, Volume2, VolumeX, Mic, MicOff,
+  PanelLeftClose, PanelLeft, VolumeX, Mic, MicOff,
+  SkipBack, SkipForward, Play, Pause,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 import EnkiduPage from './EnkiduPage';
@@ -66,6 +67,9 @@ export default function Home() {
 
   // When TTS stops externally (end of speech), clear target
   useEffect(() => { if (!tts.speaking) setTtsTarget(null); }, [tts.speaking]);
+
+  // Stop TTS when the user navigates to a different chapter
+  useEffect(() => { tts.stop(); setTtsTarget(null); }, [currentId]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // STT for Q&A chat input
   const chatStt = useSpeechRecognition((text) => {
@@ -1244,36 +1248,6 @@ export default function Home() {
             </button>
           )}
 
-          {/* Vorlesen (TTS) — nur auf Kapiteln */}
-          {currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur' && tts.supported && (() => {
-            const cacheKey = currentChapter ? `${currentChapter.id}::${language}` : '';
-            const hasTranslation = language !== 'de' && !!translationCache.current.get(cacheKey);
-            const stopLabel = 'Vorlesen stoppen';
-            const startLabel = hasTranslation
-              ? `Übersetzte Version vorlesen (${language.toUpperCase()})`
-              : 'Kapitel vorlesen (Originaltext)';
-            return (
-              <button
-                onClick={() => {
-                  if (tts.speaking && ttsTarget === 'chapter') {
-                    tts.stop();
-                  } else {
-                    if (!currentChapter) return;
-                    const translated = translationCache.current.get(cacheKey);
-                    // Only read translation if it actually exists in cache
-                    const text = getChapterPlainText(translated || currentChapter.content);
-                    setTtsTarget('chapter');
-                    tts.speak(text);
-                  }
-                }}
-                className={`p-1.5 rounded-md transition-colors ${tts.speaking && ttsTarget === 'chapter' ? 'text-amber-500 bg-amber-500/10' : 'hover:bg-stone-200/50'}`}
-                title={tts.speaking && ttsTarget === 'chapter' ? stopLabel : startLabel}
-              >
-                {tts.speaking && ttsTarget === 'chapter' ? <VolumeX size={16} /> : <Volume2 size={16} />}
-              </button>
-            );
-          })()}
-
           {/* Dark mode */}
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
             {darkMode ? <Sun size={16} /> : <Moon size={16} />}
@@ -1449,33 +1423,123 @@ export default function Home() {
               ? renderBandTitlePage(currentChapter)
               : currentChapter && renderChapterContent(currentChapter)}
 
-          {/* Navigation footer */}
+          {/* ─── Audio Player Footer ─────────────────────────── */}
           {currentId !== '__cover__' && (
-            <div className={`border-t px-6 py-4 ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
-              <div className="max-w-2xl mx-auto flex items-center justify-between">
-                <button
-                  onClick={goPrev}
-                  disabled={currentIndex === 0}
-                  className={`flex items-center gap-1 text-xs px-4 py-2 rounded-lg transition-colors disabled:opacity-30 ${
-                    darkMode ? 'hover:bg-stone-800 text-stone-400' : 'hover:bg-stone-100 text-stone-600'
-                  }`}
+            <div className={`border-t ${darkMode ? 'border-stone-800 bg-stone-900/80' : 'border-stone-200 bg-white/90'} backdrop-blur-sm`}>
+              <div className="max-w-2xl mx-auto px-5 pt-3 pb-4">
+
+                {/* Track info row */}
+                <div className="flex items-center justify-between mb-2 gap-3">
+                  <p className={`text-xs font-serif truncate min-w-0 ${
+                    tts.speaking && ttsTarget === 'chapter'
+                      ? darkMode ? 'text-amber-400' : 'text-amber-700'
+                      : darkMode ? 'text-stone-400' : 'text-stone-500'
+                  }`}>
+                    {currentChapter?.isTitlePage
+                      ? currentChapter.title
+                      : currentChapter
+                        ? `${currentChapter.partTitle ? currentChapter.partTitle + ' · ' : ''}${currentChapter.title}`
+                        : ''}
+                  </p>
+                  <span className={`text-[10px] tabular-nums flex-none ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                    {currentIndex}&thinsp;/&thinsp;{allIds.length - 1}
+                  </span>
+                </div>
+
+                {/* Progress bar — scroll position in current chapter */}
+                <div
+                  className={`h-0.5 rounded-full overflow-hidden mb-4 ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
+                  title={`${Math.round(readProgress)}% gelesen`}
                 >
-                  <ChevronLeft size={14} />
-                  Zurück
-                </button>
-                <span className={`text-xs ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
-                  {currentIndex} / {allIds.length - 1}
-                </span>
-                <button
-                  onClick={goNext}
-                  disabled={currentIndex === allIds.length - 1}
-                  className={`flex items-center gap-1 text-xs px-4 py-2 rounded-lg transition-colors disabled:opacity-30 ${
-                    darkMode ? 'hover:bg-stone-800 text-stone-400' : 'hover:bg-stone-100 text-stone-600'
-                  }`}
-                >
-                  Weiter
-                  <ChevronRight size={14} />
-                </button>
+                  <motion.div
+                    className="h-full rounded-full"
+                    style={{ width: `${readProgress}%` }}
+                    animate={{
+                      backgroundColor: tts.speaking && ttsTarget === 'chapter'
+                        ? '#f59e0b'
+                        : darkMode ? '#57534e' : '#d6d3d1',
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                </div>
+
+                {/* Controls row */}
+                <div className="flex items-center justify-center gap-5">
+
+                  {/* Skip back (previous chapter) */}
+                  <button
+                    onClick={goPrev}
+                    disabled={currentIndex === 0}
+                    className={`p-2 rounded-full transition-all disabled:opacity-25 ${
+                      darkMode
+                        ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800'
+                        : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
+                    }`}
+                    title="Vorheriges Kapitel"
+                  >
+                    <SkipBack size={20} />
+                  </button>
+
+                  {/* Play / Pause — centre piece */}
+                  <button
+                    onClick={() => {
+                      if (tts.speaking && ttsTarget === 'chapter') {
+                        tts.stop();
+                      } else {
+                        if (!currentChapter || currentChapter.isTitlePage) return;
+                        const cacheKey = `${currentChapter.id}::${language}`;
+                        const translated = translationCache.current.get(cacheKey);
+                        const text = getChapterPlainText(translated || currentChapter.content);
+                        setTtsTarget('chapter');
+                        tts.speak(text);
+                      }
+                    }}
+                    disabled={!tts.supported || currentChapter?.isTitlePage}
+                    className={`w-12 h-12 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-30 disabled:cursor-not-allowed ${
+                      tts.speaking && ttsTarget === 'chapter'
+                        ? darkMode
+                          ? 'bg-amber-500 text-stone-950 hover:bg-amber-400 scale-105'
+                          : 'bg-amber-600 text-white hover:bg-amber-500 scale-105'
+                        : darkMode
+                          ? 'bg-stone-700 text-stone-100 hover:bg-stone-600'
+                          : 'bg-stone-800 text-white hover:bg-stone-700'
+                    }`}
+                    title={
+                      !tts.supported
+                        ? 'Vorlesen nicht unterstützt (Firefox)'
+                        : tts.speaking && ttsTarget === 'chapter'
+                          ? 'Vorlesen stoppen'
+                          : currentChapter?.isTitlePage
+                            ? 'Auf Titelseiten nicht verfügbar'
+                            : (() => {
+                                const cacheKey = currentChapter ? `${currentChapter.id}::${language}` : '';
+                                return language !== 'de' && translationCache.current.get(cacheKey)
+                                  ? `Übersetzte Version vorlesen (${language.toUpperCase()})`
+                                  : 'Kapitel vorlesen';
+                              })()
+                    }
+                  >
+                    {tts.speaking && ttsTarget === 'chapter'
+                      ? <Pause size={20} fill="currentColor" />
+                      : <Play size={20} fill="currentColor" style={{ marginLeft: 2 }} />
+                    }
+                  </button>
+
+                  {/* Skip forward (next chapter) */}
+                  <button
+                    onClick={goNext}
+                    disabled={currentIndex === allIds.length - 1}
+                    className={`p-2 rounded-full transition-all disabled:opacity-25 ${
+                      darkMode
+                        ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800'
+                        : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'
+                    }`}
+                    title="Nächstes Kapitel"
+                  >
+                    <SkipForward size={20} />
+                  </button>
+
+                </div>
               </div>
             </div>
           )}
@@ -1637,7 +1701,7 @@ export default function Home() {
                                   }`}
                                   title={tts.speaking && ttsTarget === i ? 'Vorlesen stoppen' : 'Antwort vorlesen'}
                                 >
-                                  {tts.speaking && ttsTarget === i ? <VolumeX size={12} /> : <Volume2 size={12} />}
+                                  {tts.speaking && ttsTarget === i ? <VolumeX size={12} /> : <Play size={12} />}
                                 </button>
                               )}
                             </div>
