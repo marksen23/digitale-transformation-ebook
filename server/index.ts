@@ -9,6 +9,52 @@ import Anthropic from "@anthropic-ai/sdk";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// ─── In-memory Rate Limiter ───────────────────────────────────────────────────
+interface RateBucket { count: number; resetAt: number; }
+const _rlStore = new Map<string, RateBucket>();
+
+// Stale entries aufräumen (alle 15 Minuten)
+setInterval(() => {
+  const now = Date.now();
+  _rlStore.forEach((v, k) => {
+    if (now > v.resetAt) _rlStore.delete(k);
+  });
+}, 15 * 60 * 1000).unref();
+
+function getClientIp(req: express.Request): string {
+  // Netlify/Render setzen X-Forwarded-For
+  const fwd = req.headers['x-forwarded-for'];
+  const raw = Array.isArray(fwd) ? fwd[0] : fwd?.split(',')[0];
+  return (raw ?? req.ip ?? 'unknown').trim();
+}
+
+/**
+ * Express-Middleware: max. `max` Anfragen pro IP innerhalb von `windowMs` ms.
+ * Antwortet mit HTTP 429 + Retry-After, wenn das Limit überschritten wird.
+ */
+function rateLimiter(key: string, max: number, windowMs: number) {
+  return (req: express.Request, res: express.Response, next: express.NextFunction) => {
+    const ip = getClientIp(req);
+    const storeKey = `${key}:${ip}`;
+    const now = Date.now();
+    const bucket = _rlStore.get(storeKey);
+
+    if (!bucket || now > bucket.resetAt) {
+      _rlStore.set(storeKey, { count: 1, resetAt: now + windowMs });
+      return next();
+    }
+    if (bucket.count >= max) {
+      const retryAfter = Math.ceil((bucket.resetAt - now) / 1000);
+      res.setHeader('Retry-After', String(retryAfter));
+      return res.status(429).json({
+        error: `Zu viele Anfragen — bitte ${retryAfter} Sekunden warten.`,
+      });
+    }
+    bucket.count++;
+    return next();
+  };
+}
+
 async function startServer() {
   const app = express();
   const server = createServer(app);
@@ -148,7 +194,7 @@ Enkidu schließt jedes Gespräch mit:
     return "";
   };
 
-  app.post("/api/enkidu", async (req, res) => {
+  app.post("/api/enkidu", rateLimiter('enkidu', 20, 60 * 60_000), async (req, res) => {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "ANTHROPIC_API_KEY ist nicht konfiguriert." });
@@ -203,7 +249,7 @@ ${ebookContent}`
   });
 
   // ─── Gemini Q&A API ──────────────────────────────────────────────
-  app.post("/api/ask", async (req, res) => {
+  app.post("/api/ask", rateLimiter('ask', 10, 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
@@ -270,7 +316,7 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
   });
 
   // ─── Gemini Translation API ──────────────────────────────────────
-  app.post("/api/translate", async (req, res) => {
+  app.post("/api/translate", rateLimiter('translate', 5, 10 * 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
@@ -331,7 +377,7 @@ ${text}`;
   });
 
   // ─── PDF-Download mit professioneller Formatierung ─────────────────
-  app.get("/api/pdf", async (req, res) => {
+  app.get("/api/pdf", rateLimiter('pdf', 3, 60 * 60_000), async (req, res) => {
     try {
       // Ebook-Inhalt laden
       const mdPath = path.join(staticPath, "ebook_content.md");
