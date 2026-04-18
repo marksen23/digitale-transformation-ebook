@@ -1245,26 +1245,34 @@ export default function Home() {
           )}
 
           {/* Vorlesen (TTS) — nur auf Kapiteln */}
-          {currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur' && tts.supported && (
-            <button
-              onClick={() => {
-                if (tts.speaking && ttsTarget === 'chapter') {
-                  tts.stop();
-                } else {
-                  if (!currentChapter) return;
-                  const cacheKey = `${currentChapter.id}::${language}`;
-                  const translated = translationCache.current.get(cacheKey);
-                  const text = getChapterPlainText(translated || currentChapter.content);
-                  setTtsTarget('chapter');
-                  tts.speak(text);
-                }
-              }}
-              className={`p-1.5 rounded-md transition-colors ${tts.speaking && ttsTarget === 'chapter' ? 'text-amber-500 bg-amber-500/10' : 'hover:bg-stone-200/50'}`}
-              title={tts.speaking && ttsTarget === 'chapter' ? 'Vorlesen stoppen' : 'Kapitel vorlesen'}
-            >
-              {tts.speaking && ttsTarget === 'chapter' ? <VolumeX size={16} /> : <Volume2 size={16} />}
-            </button>
-          )}
+          {currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur' && tts.supported && (() => {
+            const cacheKey = currentChapter ? `${currentChapter.id}::${language}` : '';
+            const hasTranslation = language !== 'de' && !!translationCache.current.get(cacheKey);
+            const stopLabel = 'Vorlesen stoppen';
+            const startLabel = hasTranslation
+              ? `Übersetzte Version vorlesen (${language.toUpperCase()})`
+              : 'Kapitel vorlesen (Originaltext)';
+            return (
+              <button
+                onClick={() => {
+                  if (tts.speaking && ttsTarget === 'chapter') {
+                    tts.stop();
+                  } else {
+                    if (!currentChapter) return;
+                    const translated = translationCache.current.get(cacheKey);
+                    // Only read translation if it actually exists in cache
+                    const text = getChapterPlainText(translated || currentChapter.content);
+                    setTtsTarget('chapter');
+                    tts.speak(text);
+                  }
+                }}
+                className={`p-1.5 rounded-md transition-colors ${tts.speaking && ttsTarget === 'chapter' ? 'text-amber-500 bg-amber-500/10' : 'hover:bg-stone-200/50'}`}
+                title={tts.speaking && ttsTarget === 'chapter' ? stopLabel : startLabel}
+              >
+                {tts.speaking && ttsTarget === 'chapter' ? <VolumeX size={16} /> : <Volume2 size={16} />}
+              </button>
+            );
+          })()}
 
           {/* Dark mode */}
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
