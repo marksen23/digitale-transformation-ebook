@@ -1598,162 +1598,14 @@ export default function Home() {
           </nav>
         </aside>
 
-        {/* ─── Main Content ─────────────────────────────────── */}
+        {/* ─── Content + sticky player column ───────────────── */}
+        <div className="flex-1 flex flex-col min-h-0">
         <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setHeadphonesMenuOpen(false); setBurgerMenuOpen(false); }}>
           {currentId === '__cover__'
             ? renderCover()
             : currentChapter?.isTitlePage
               ? renderBandTitlePage(currentChapter)
               : currentChapter && renderChapterContent(currentChapter)}
-
-          {/* ─── Audio Player Footer ─────────────────────────── */}
-          {currentId !== '__cover__' && (() => {
-            // Use component-level derived TTS values
-            const langVoices = ttsLangVoices;
-            const speeds = ttsSpeeds;
-
-            return (
-              <div className={`border-t ${darkMode ? 'border-stone-800 bg-stone-900/80' : 'border-stone-200 bg-white/90'} backdrop-blur-sm`}>
-                <div className="max-w-2xl mx-auto px-5 pt-3 pb-4 space-y-2">
-
-                  {/* Track info row */}
-                  <div className="flex items-center justify-between gap-3">
-                    <p className={`text-xs font-serif truncate min-w-0 ${
-                      isPlaying
-                        ? darkMode ? 'text-amber-400' : 'text-amber-700'
-                        : darkMode ? 'text-stone-400' : 'text-stone-500'
-                    }`}>
-                      {currentChapter?.isTitlePage
-                        ? currentChapter.title
-                        : currentChapter
-                          ? `${currentChapter.partTitle ? currentChapter.partTitle + ' · ' : ''}${currentChapter.title}`
-                          : ''}
-                    </p>
-                    <span className={`text-[10px] tabular-nums flex-none ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
-                      {currentIndex}&thinsp;/&thinsp;{allIds.length - 1}
-                    </span>
-                  </div>
-
-                  {/* Progress bar — TTS position when playing, scroll position otherwise */}
-                  <div
-                    className={`h-0.5 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
-                    title={isPlaying ? `${Math.round(ttsProgress)}% vorgelesen` : `${Math.round(readProgress)}% gelesen`}
-                  >
-                    <motion.div
-                      className="h-full rounded-full"
-                      style={{ width: `${displayProgress}%` }}
-                      animate={{ backgroundColor: isPlaying ? '#f59e0b' : darkMode ? '#57534e' : '#d6d3d1' }}
-                      transition={{ duration: 0.3 }}
-                    />
-                  </div>
-
-                  {/* ─ Controls + Voice + Speed ─ */}
-                  <div className="flex items-center justify-between gap-2 pt-1">
-
-                    {/* Voice selector — left side */}
-                    <div className="flex items-center gap-1 flex-1 min-w-0">
-                      {langVoices.length > 1 ? (
-                        langVoices.slice(0, 4).map(v => {
-                          const gender = guessVoiceGender(v.name);
-                          const label = gender === 'female' ? '♀' : gender === 'male' ? '♂' : '◈';
-                          const shortName = v.name.split(' ').slice(-1)[0].replace(/Online.*/, '').trim().slice(0, 8);
-                          const active = ttsVoiceURI === v.uri || (!ttsVoiceURI && langVoices[0].uri === v.uri);
-                          return (
-                            <button
-                              key={v.uri}
-                              onClick={() => {
-                                setTtsVoiceURI(v.uri);
-                                if (isPlaying) { tts.stop(); }
-                              }}
-                              title={v.name}
-                              className={`px-1.5 py-0.5 rounded text-[10px] leading-tight transition-colors flex-none ${
-                                active
-                                  ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
-                                  : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700 hover:border-stone-600' : 'text-stone-500 hover:text-stone-700 border border-stone-200 hover:border-stone-300'
-                              }`}
-                            >
-                              <span>{label}</span>
-                              <span className="ml-0.5 hidden sm:inline">{shortName}</span>
-                            </button>
-                          );
-                        })
-                      ) : (
-                        /* Single or no voice — show nothing / placeholder */
-                        <span className={`text-[10px] ${darkMode ? 'text-stone-700' : 'text-stone-300'}`}>
-                          {langVoices.length === 1 ? langVoices[0].name.split(' ').pop() : ''}
-                        </span>
-                      )}
-                    </div>
-
-                    {/* Navigation controls — centre */}
-                    <div className="flex items-center gap-3 flex-none">
-                      <button
-                        onClick={goPrev}
-                        disabled={currentIndex === 0}
-                        className={`p-1.5 rounded-full transition-all disabled:opacity-25 ${darkMode ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'}`}
-                        title="Vorheriges Kapitel"
-                      >
-                        <SkipBack size={18} />
-                      </button>
-
-                      {/* Play / Pause button */}
-                      <button
-                        onClick={() => isPlaying ? tts.stop() : startChapterTTS()}
-                        disabled={!tts.supported || currentChapter?.isTitlePage}
-                        className={`w-11 h-11 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-30 disabled:cursor-not-allowed ${
-                          isPlaying
-                            ? darkMode ? 'bg-amber-500 text-stone-950 hover:bg-amber-400 scale-105' : 'bg-amber-600 text-white hover:bg-amber-500 scale-105'
-                            : darkMode ? 'bg-stone-700 text-stone-100 hover:bg-stone-600' : 'bg-stone-800 text-white hover:bg-stone-700'
-                        }`}
-                        title={
-                          !tts.supported ? 'Vorlesen nicht unterstützt (Firefox)'
-                            : isPlaying ? 'Vorlesen stoppen'
-                            : currentChapter?.isTitlePage ? 'Auf Titelseiten nicht verfügbar'
-                            : 'Kapitel vorlesen'
-                        }
-                      >
-                        {isPlaying
-                          ? <Pause size={18} fill="currentColor" />
-                          : <Play size={18} fill="currentColor" style={{ marginLeft: 2 }} />
-                        }
-                      </button>
-
-                      <button
-                        onClick={goNext}
-                        disabled={currentIndex === allIds.length - 1}
-                        className={`p-1.5 rounded-full transition-all disabled:opacity-25 ${darkMode ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'}`}
-                        title="Nächstes Kapitel"
-                      >
-                        <SkipForward size={18} />
-                      </button>
-                    </div>
-
-                    {/* Speed selector — right side */}
-                    <div className="flex items-center gap-0.5 flex-1 justify-end">
-                      {speeds.map(s => (
-                        <button
-                          key={s}
-                          onClick={() => {
-                            setTtsRate(s);
-                            if (isPlaying) { tts.stop(); }
-                          }}
-                          className={`px-1 py-0.5 rounded text-[10px] leading-tight transition-colors flex-none ${
-                            ttsRate === s
-                              ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
-                              : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700 hover:border-stone-600' : 'text-stone-500 hover:text-stone-700 border border-stone-200 hover:border-stone-300'
-                          }`}
-                          title={`Geschwindigkeit ${s}×`}
-                        >
-                          {s === 1 ? '1×' : `${s}×`}
-                        </button>
-                      ))}
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            );
-          })()}
 
           {/* Keyword popover */}
           <AnimatePresence>
@@ -1976,6 +1828,89 @@ export default function Home() {
             </>
           )}
         </main>
+
+        {/* ─── Audio Player Footer — sticky, always visible ──── */}
+        {currentId !== '__cover__' && (
+          <div className={`flex-none border-t ${darkMode ? 'border-stone-800 bg-stone-900/95' : 'border-stone-200 bg-white/95'} backdrop-blur-sm`}>
+            <div className="max-w-2xl mx-auto px-5 pt-2.5 pb-3 space-y-2">
+
+              {/* Track info */}
+              <div className="flex items-center justify-between gap-3">
+                <p className={`text-xs font-serif truncate min-w-0 ${
+                  isPlaying
+                    ? darkMode ? 'text-amber-400' : 'text-amber-700'
+                    : darkMode ? 'text-stone-400' : 'text-stone-500'
+                }`}>
+                  {currentChapter?.isTitlePage
+                    ? currentChapter.title
+                    : currentChapter
+                      ? `${currentChapter.partTitle ? currentChapter.partTitle + ' · ' : ''}${currentChapter.title}`
+                      : ''}
+                </p>
+                <span className={`text-[10px] tabular-nums flex-none ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                  {currentIndex}&thinsp;/&thinsp;{allIds.length - 1}
+                </span>
+              </div>
+
+              {/* Progress bar — TTS position when playing, scroll position otherwise */}
+              <div
+                className={`h-0.5 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
+                title={isPlaying ? `${Math.round(ttsProgress)}% vorgelesen` : `${Math.round(readProgress)}% gelesen`}
+              >
+                <motion.div
+                  className="h-full rounded-full"
+                  style={{ width: `${displayProgress}%` }}
+                  animate={{ backgroundColor: isPlaying ? '#f59e0b' : darkMode ? '#57534e' : '#d6d3d1' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </div>
+
+              {/* Navigation controls */}
+              <div className="flex items-center justify-center gap-4 pt-0.5">
+                <button
+                  onClick={goPrev}
+                  disabled={currentIndex === 0}
+                  className={`p-1.5 rounded-full transition-all disabled:opacity-25 ${darkMode ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'}`}
+                  title="Vorheriges Kapitel"
+                >
+                  <SkipBack size={18} />
+                </button>
+
+                <button
+                  onClick={() => isPlaying ? tts.stop() : startChapterTTS()}
+                  disabled={!tts.supported || !!currentChapter?.isTitlePage}
+                  className={`w-11 h-11 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-30 disabled:cursor-not-allowed ${
+                    isPlaying
+                      ? darkMode ? 'bg-amber-500 text-stone-950 hover:bg-amber-400 scale-105' : 'bg-amber-600 text-white hover:bg-amber-500 scale-105'
+                      : darkMode ? 'bg-stone-700 text-stone-100 hover:bg-stone-600' : 'bg-stone-800 text-white hover:bg-stone-700'
+                  }`}
+                  title={
+                    !tts.supported ? 'Vorlesen nicht unterstützt (Firefox)'
+                      : isPlaying ? 'Vorlesen stoppen'
+                      : currentChapter?.isTitlePage ? 'Auf Titelseiten nicht verfügbar'
+                      : 'Kapitel vorlesen'
+                  }
+                >
+                  {isPlaying
+                    ? <Pause size={18} fill="currentColor" />
+                    : <Play size={18} fill="currentColor" style={{ marginLeft: 2 }} />
+                  }
+                </button>
+
+                <button
+                  onClick={goNext}
+                  disabled={currentIndex === allIds.length - 1}
+                  className={`p-1.5 rounded-full transition-all disabled:opacity-25 ${darkMode ? 'text-stone-400 hover:text-stone-100 hover:bg-stone-800' : 'text-stone-500 hover:text-stone-900 hover:bg-stone-100'}`}
+                  title="Nächstes Kapitel"
+                >
+                  <SkipForward size={18} />
+                </button>
+              </div>
+
+            </div>
+          </div>
+        )}
+        </div>{/* end content+player column */}
       </div>
 
       {/* ─── Enkidu KI ──────────────────────────────────────── */}
