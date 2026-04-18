@@ -5,7 +5,7 @@ import {
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, VolumeX, Mic, MicOff,
-  SkipBack, SkipForward, Play, Pause,
+  SkipBack, SkipForward, Play, Pause, Headphones,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 import EnkiduPage from './EnkiduPage';
@@ -45,6 +45,7 @@ export default function Home() {
   const [fontMenuOpen, setFontMenuOpen] = useState(false);
   const [language, setLanguage] = useLocalStorage<string>('ebook-language', 'de');
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
+  const [headphonesMenuOpen, setHeadphonesMenuOpen] = useState(false);
   const [translating, setTranslating] = useState(false);
   const [translationError, setTranslationError] = useState<string | null>(null);
   const translationCache = useRef<Map<string, string>>(new Map());
@@ -74,6 +75,8 @@ export default function Home() {
 
   // Paragraph start positions for highlight tracking (rebuilt on each play)
   const ttsParagraphStartsRef = useRef<number[]>([]);
+  // Total char length of TTS text — used for progress bar computation
+  const ttsTotalCharsRef = useRef<number>(0);
 
   // Active paragraph index derived from charIndex reported by onboundary
   const ttsActiveParagraph = useMemo(() => {
@@ -493,6 +496,18 @@ export default function Home() {
   ];
   const languageLabel = languageOptions.find(l => l.code === language)?.label || language;
 
+  // ─── TTS derived values (shared between toolbar + footer) ──────────
+  const isPlaying = tts.speaking && ttsTarget === 'chapter';
+  const ttsLangPrefix = language === 'de' ? 'de' : language.slice(0, 2);
+  const ttsLangVoices = filterVoicesByLang(tts.voices, ttsLangPrefix);
+  const ttsSpeeds = [0.75, 1, 1.25, 1.5, 2] as const;
+  // TTS reading progress (0–100); falls back to scroll progress when idle
+  const ttsProgress =
+    isPlaying && tts.currentCharIndex >= 0 && ttsTotalCharsRef.current > 0
+      ? Math.min(100, (tts.currentCharIndex / ttsTotalCharsRef.current) * 100)
+      : 0;
+  const displayProgress = isPlaying ? ttsProgress : readProgress;
+
   // Translate the current chapter when language ≠ 'de'
   useEffect(() => {
     if (!currentChapter) return;
@@ -556,6 +571,7 @@ export default function Home() {
     // Build paragraph start positions (same logic as getChapterPlainText)
     ttsParagraphStartsRef.current = buildParaStarts(content);
     const text = getChapterPlainText(content);
+    ttsTotalCharsRef.current = text.length;
     setTtsTarget('chapter');
     tts.speak(text, {
       lang: language === 'de' ? 'de-DE' : language,
@@ -1192,10 +1208,15 @@ export default function Home() {
           </h1>
         </div>
 
-        {/* Progress bar */}
+        {/* Progress bar — shows TTS position when playing, scroll position otherwise */}
         {currentId !== '__cover__' && (
           <div className={`hidden sm:block w-24 h-1 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}>
-            <div className="h-full bg-amber-500 transition-all duration-300 rounded-full" style={{ width: `${readProgress}%` }} />
+            <motion.div
+              className="h-full rounded-full"
+              style={{ width: `${displayProgress}%` }}
+              animate={{ backgroundColor: isPlaying ? '#f59e0b' : darkMode ? '#78716c' : '#a8a29e' }}
+              transition={{ duration: 0.3 }}
+            />
           </div>
         )}
 
@@ -1298,6 +1319,106 @@ export default function Home() {
               )}
             </AnimatePresence>
           </div>
+
+          {/* Headphones — starts/stops TTS + voice/speed settings */}
+          {currentId !== '__cover__' && tts.supported && (
+            <div className="relative">
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setHeadphonesMenuOpen(o => !o);
+                  setFontMenuOpen(false);
+                  setLanguageMenuOpen(false);
+                }}
+                className={`p-1.5 rounded-md transition-colors ${
+                  isPlaying
+                    ? 'text-amber-500 bg-amber-500/10'
+                    : headphonesMenuOpen
+                      ? (darkMode ? 'bg-stone-700 text-amber-400' : 'bg-stone-200 text-amber-600')
+                      : 'hover:bg-stone-200/50'
+                }`}
+                title={isPlaying ? 'Vorlesen aktiv — Einstellungen' : 'Vorlesen'}
+              >
+                <Headphones size={16} className={isPlaying ? 'animate-pulse' : ''} />
+              </button>
+              <AnimatePresence>
+                {headphonesMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    onClick={(e) => e.stopPropagation()}
+                    className={`absolute right-0 top-full mt-2 w-56 rounded-xl shadow-xl border z-40 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+                  >
+                    {/* Play / Stop */}
+                    <div className={`px-3 pt-3 pb-2.5 border-b ${darkMode ? 'border-stone-700' : 'border-stone-100'}`}>
+                      <button
+                        onClick={() => { isPlaying ? tts.stop() : startChapterTTS(); }}
+                        disabled={!!currentChapter?.isTitlePage}
+                        className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-40 ${
+                          isPlaying
+                            ? darkMode ? 'bg-amber-500/20 text-amber-400' : 'bg-amber-50 text-amber-700'
+                            : darkMode ? 'bg-stone-700 text-stone-200 hover:bg-stone-600' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
+                        }`}
+                      >
+                        {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+                        {isPlaying ? 'Vorlesen stoppen' : 'Kapitel vorlesen'}
+                      </button>
+                    </div>
+
+                    {/* Voice selection */}
+                    {ttsLangVoices.length > 1 && (
+                      <div className={`px-3 pt-2.5 pb-2.5 border-b ${darkMode ? 'border-stone-700' : 'border-stone-100'}`}>
+                        <p className={`text-[10px] uppercase tracking-wider mb-1.5 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Stimme</p>
+                        <div className="flex flex-wrap gap-1">
+                          {ttsLangVoices.slice(0, 4).map(v => {
+                            const gender = guessVoiceGender(v.name);
+                            const label = gender === 'female' ? '♀' : gender === 'male' ? '♂' : '◈';
+                            const shortName = v.name.split(' ').slice(-1)[0].replace(/Online.*/, '').trim().slice(0, 8);
+                            const active = ttsVoiceURI === v.uri || (!ttsVoiceURI && ttsLangVoices[0].uri === v.uri);
+                            return (
+                              <button
+                                key={v.uri}
+                                onClick={() => { setTtsVoiceURI(v.uri); if (isPlaying) tts.stop(); }}
+                                title={v.name}
+                                className={`px-1.5 py-0.5 rounded text-[10px] transition-colors ${
+                                  active
+                                    ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
+                                    : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700' : 'text-stone-500 hover:text-stone-700 border border-stone-200'
+                                }`}
+                              >
+                                {label} {shortName}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                    )}
+
+                    {/* Speed selection */}
+                    <div className="px-3 pt-2.5 pb-3">
+                      <p className={`text-[10px] uppercase tracking-wider mb-1.5 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Geschwindigkeit</p>
+                      <div className="flex flex-wrap gap-1">
+                        {ttsSpeeds.map(s => (
+                          <button
+                            key={s}
+                            onClick={() => { setTtsRate(s); if (isPlaying) tts.stop(); }}
+                            className={`px-1.5 py-0.5 rounded text-[10px] transition-colors ${
+                              ttsRate === s
+                                ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
+                                : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700' : 'text-stone-500 hover:text-stone-700 border border-stone-200'
+                            }`}
+                          >
+                            {s === 1 ? '1×' : `${s}×`}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+          )}
 
           {/* Bookmark */}
           {currentId !== '__cover__' && (
@@ -1478,7 +1599,7 @@ export default function Home() {
         </aside>
 
         {/* ─── Main Content ─────────────────────────────────── */}
-        <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setBurgerMenuOpen(false); }}>
+        <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setHeadphonesMenuOpen(false); setBurgerMenuOpen(false); }}>
           {currentId === '__cover__'
             ? renderCover()
             : currentChapter?.isTitlePage
@@ -1487,11 +1608,9 @@ export default function Home() {
 
           {/* ─── Audio Player Footer ─────────────────────────── */}
           {currentId !== '__cover__' && (() => {
-            // German voices (or voices matching current language)
-            const langPrefix = language === 'de' ? 'de' : language.slice(0, 2);
-            const langVoices = filterVoicesByLang(tts.voices, langPrefix);
-            const isPlaying = tts.speaking && ttsTarget === 'chapter';
-            const speeds = [0.75, 1, 1.25, 1.5, 2] as const;
+            // Use component-level derived TTS values
+            const langVoices = ttsLangVoices;
+            const speeds = ttsSpeeds;
 
             return (
               <div className={`border-t ${darkMode ? 'border-stone-800 bg-stone-900/80' : 'border-stone-200 bg-white/90'} backdrop-blur-sm`}>
@@ -1515,14 +1634,14 @@ export default function Home() {
                     </span>
                   </div>
 
-                  {/* Progress bar — scroll position in current chapter */}
+                  {/* Progress bar — TTS position when playing, scroll position otherwise */}
                   <div
                     className={`h-0.5 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
-                    title={`${Math.round(readProgress)}% gelesen`}
+                    title={isPlaying ? `${Math.round(ttsProgress)}% vorgelesen` : `${Math.round(readProgress)}% gelesen`}
                   >
                     <motion.div
                       className="h-full rounded-full"
-                      style={{ width: `${readProgress}%` }}
+                      style={{ width: `${displayProgress}%` }}
                       animate={{ backgroundColor: isPlaying ? '#f59e0b' : darkMode ? '#57534e' : '#d6d3d1' }}
                       transition={{ duration: 0.3 }}
                     />
