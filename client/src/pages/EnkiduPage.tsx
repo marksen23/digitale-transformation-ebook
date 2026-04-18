@@ -78,6 +78,13 @@ function TypingIndicator() {
   );
 }
 
+// ─── Constants ────────────────────────────────────────────────────
+// Defined outside component so it's stable across renders
+const INITIAL_MSG: Message = {
+  role: "assistant",
+  content: "Du bist hier. Das ist bereits eine Entscheidung.\nWas bringst du mit, das du noch nicht benennen kannst?",
+};
+
 // ─── Main Component ───────────────────────────────────────────────
 export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const [screen, setScreen] = useState<Screen>("landing");
@@ -185,21 +192,13 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     ta.style.height = Math.min(ta.scrollHeight, 160) + "px";
   }, []);
 
-  const INITIAL_MSG: Message = {
-    role: "assistant",
-    content: "Du bist hier. Das ist bereits eine Entscheidung.\nWas bringst du mit, das du noch nicht benennen kannst?",
-  };
-
   const enterChat = useCallback((withMessages?: Message[]) => {
-    if (withMessages) {
-      setMessages(withMessages);
-    } else if (messages.length === 0) {
-      setMessages([INITIAL_MSG]);
-    }
+    // Always start fresh when no messages supplied (new conversation from landing).
+    // Never preserve old messages — avoids stale-closure bugs after completeFeedback.
+    setMessages(withMessages ?? [INITIAL_MSG]);
     setHasError(false);
     setScreen("chat");
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [messages.length]);
+  }, []);
 
   // ─── Core send logic ──────────────────────────────────────────
   const doSend = useCallback(async (msgList: Message[]) => {
