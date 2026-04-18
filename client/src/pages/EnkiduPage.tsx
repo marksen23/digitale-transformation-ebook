@@ -149,25 +149,89 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         }
         .enkidu-edit-btn { opacity:0; transition:opacity 0.15s; }
         .enkidu-msg-row:hover .enkidu-edit-btn { opacity:1; }
-        /* Mobile input layout */
-        .enkidu-input-area { padding: 1rem !important; }
-        .enkidu-input-inner { flex-wrap: wrap; gap: 0.6rem !important; }
-        .enkidu-input-inner textarea { min-width: 0; width: 100% !important; flex: 1 1 100% !important; }
-        .enkidu-input-btns { display: flex; gap: 0.6rem; width: 100%; }
-        .enkidu-input-btns button { flex: 1; justify-content: center; }
-        @media (min-width: 640px) {
-          .enkidu-input-area { padding: 1.5rem 3rem !important; }
-          .enkidu-input-inner { flex-wrap: nowrap; gap: 1rem !important; }
-          .enkidu-input-inner textarea { flex: 1 1 auto !important; width: auto !important; }
-          .enkidu-input-btns { width: auto; }
-          .enkidu-input-btns button { flex: none; }
-        }
         /* Mic pulsing indicator */
         @keyframes enkidu-mic-pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
         .enkidu-mic-active { animation: enkidu-mic-pulse 1.2s ease infinite; }
         /* TTS speaker button */
         .enkidu-speaker { opacity: 0; transition: opacity 0.15s; }
         .enkidu-msg-row:hover .enkidu-speaker { opacity: 1; }
+
+        /* ── Responsive nav ── */
+        .enkidu-nav {
+          padding: 0.9rem 1rem !important;
+          gap: 0.6rem;
+        }
+        .enkidu-nav-links { gap: 0.9rem !important; }
+        .enkidu-nav-item {
+          font-size: 0.62rem !important;
+          letter-spacing: 0.08em !important;
+        }
+        .enkidu-close-btn {
+          font-family: monospace; font-size: 1.1rem; line-height: 1;
+          color: #888; background: none; border: none; cursor: pointer;
+          padding: 0.4rem 0.5rem; transition: color 0.2s; flex-shrink: 0;
+        }
+        .enkidu-close-btn:hover { color: #e8e2d4; }
+        @media (min-width: 640px) {
+          .enkidu-nav { padding: 1.2rem 2.5rem !important; }
+          .enkidu-nav-links { gap: 2rem !important; }
+          .enkidu-nav-item { font-size: 0.75rem !important; letter-spacing: 0.15em !important; }
+          .enkidu-close-btn { font-size: 1.3rem; padding: 0.4rem 0.6rem; }
+        }
+
+        /* ── Responsive chat ── */
+        .enkidu-chat-container { padding-top: 3.5rem !important; }
+        .enkidu-chat-header { padding: 0.75rem 1rem !important; }
+        .enkidu-messages { padding: 1.2rem 1rem 1rem !important; gap: 1.8rem !important; }
+        @media (min-width: 640px) {
+          .enkidu-chat-container { padding-top: 4rem !important; }
+          .enkidu-chat-header { padding: 1.2rem 3rem !important; }
+          .enkidu-messages { padding: 3rem !important; gap: 2.5rem !important; }
+        }
+
+        /* ── Input area ── */
+        .enkidu-input-area { padding: 0.75rem 1rem !important; }
+        .enkidu-input-inner { flex-wrap: wrap; gap: 0.5rem !important; }
+        .enkidu-input-inner textarea { min-width: 0; width: 100% !important; flex: 1 1 100% !important; }
+        .enkidu-input-btns { display: flex; gap: 0.5rem; width: 100%; }
+        .enkidu-input-btns button { flex: 1; justify-content: center; }
+        @media (min-width: 640px) {
+          .enkidu-input-area { padding: 1.2rem 3rem !important; }
+          .enkidu-input-inner { flex-wrap: nowrap; gap: 1rem !important; }
+          .enkidu-input-inner textarea { flex: 1 1 auto !important; width: auto !important; }
+          .enkidu-input-btns { width: auto; }
+          .enkidu-input-btns button { flex: none; }
+        }
+
+        /* ── Responsive profile ── */
+        .enkidu-profile { padding: 4.5rem 1rem 3rem !important; }
+        .enkidu-stats-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
+        .enkidu-history-row {
+          display: flex !important; flex-direction: column !important;
+          gap: 0.5rem !important; padding: 1rem 0 !important;
+        }
+        .enkidu-history-preview { white-space: normal !important; overflow: visible !important; }
+        .enkidu-history-btns { display: flex; gap: 0.5rem; }
+        @media (min-width: 480px) {
+          .enkidu-stats-grid { grid-template-columns: repeat(3,1fr) !important; gap: 1rem !important; }
+        }
+        @media (min-width: 640px) {
+          .enkidu-profile { padding: 7rem 3rem 4rem !important; }
+          .enkidu-stats-grid { gap: 1.5rem !important; }
+          .enkidu-history-row {
+            display: grid !important;
+            grid-template-columns: 140px 1fr auto !important;
+            gap: 1.5rem !important; align-items: center !important;
+            flex-direction: unset !important;
+          }
+          .enkidu-history-preview { white-space: nowrap !important; overflow: hidden !important; }
+        }
+
+        /* ── Touch: always show action buttons on mobile ── */
+        @media (hover: none) {
+          .enkidu-edit-btn { opacity: 1 !important; }
+          .enkidu-speaker { opacity: 1 !important; }
+        }
       `;
       document.head.appendChild(style);
     }
@@ -314,16 +378,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     fontFamily: C.serif, fontSize: "1.1rem", lineHeight: "1.7", overflowX: "hidden",
   };
 
-  const CloseBtn = () => (
-    <button onClick={onClose} style={btn({
-      position: "fixed", top: "1.5rem", right: "2rem", zIndex: 200,
-      fontFamily: C.mono, fontSize: "1.2rem", color: C.textDim,
-      background: "none", letterSpacing: "0.1em", lineHeight: 1, padding: "0.5rem",
-    })} title="Schließen"
-      onMouseEnter={(e) => ((e.target as HTMLElement).style.color = C.textBright)}
-      onMouseLeave={(e) => ((e.target as HTMLElement).style.color = C.textDim)}
-    >×</button>
-  );
+  // Close button is now rendered inside the nav bar
 
   // ─── SCREEN 1: LANDING ────────────────────────────────────────
   const renderLanding = () => (
@@ -346,9 +401,9 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   // ─── SCREEN 2: CHAT ───────────────────────────────────────────
   const renderChat = () => (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh", paddingTop: "4rem" }}>
+    <div className="enkidu-chat-container" style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       {/* Header */}
-      <div style={{ padding: "1.2rem 3rem", borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
+      <div className="enkidu-chat-header" style={{ borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
         <span style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.2em", color: C.accentDim, textTransform: "uppercase" }}>
           Enkidu — Gespräch
         </span>
@@ -363,7 +418,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       </div>
 
       {/* Messages */}
-      <div style={{ flex: 1, overflowY: "auto", padding: "3rem", display: "flex", flexDirection: "column", gap: "2.5rem", maxWidth: 760, margin: "0 auto", width: "100%", scrollbarWidth: "thin", scrollbarColor: `${C.border} transparent` }}>
+      <div className="enkidu-messages" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", maxWidth: 760, margin: "0 auto", width: "100%", scrollbarWidth: "thin", scrollbarColor: `${C.border} transparent` }}>
         {messages.map((msg, i) => (
           <div key={i} className="enkidu-msg enkidu-msg-row" style={{ display: "flex", flexDirection: "column", gap: "0.4rem", position: "relative" }}
             onMouseEnter={() => setHoveredMsg(i)}
@@ -576,14 +631,14 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     ).length;
 
     return (
-      <div style={{ padding: "7rem 3rem 4rem", maxWidth: 900, margin: "0 auto" }}>
+      <div className="enkidu-profile" style={{ maxWidth: 900, margin: "0 auto" }}>
         <div style={{ marginBottom: "4rem" }}>
           <h2 style={{ fontFamily: C.serif, fontSize: "2.5rem", fontWeight: 400, fontStyle: "italic", color: C.textBright, marginBottom: "0.5rem" }}>Resonanzverlauf</h2>
           <p style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase" }}>Spuren der Begegnung</p>
         </div>
 
         {/* Stats */}
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: "1.5rem", marginBottom: "4rem" }}>
+        <div className="enkidu-stats-grid" style={{ display: "grid", marginBottom: "3rem" }}>
           {[
             { label: "Gespräche geführt", value: conversations.length || "—" },
             { label: "Momente des Innehaltens", value: pauseCount || "—" },
@@ -606,10 +661,10 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
               const d = new Date(conv.date);
               const dateStr = d.toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
               return (
-                <div key={conv.id} style={{ display: "grid", gridTemplateColumns: "140px 1fr auto", gap: "1.5rem", alignItems: "center", padding: "1.2rem 0", borderBottom: `1px solid ${C.border}` }}>
-                  <span style={{ fontFamily: C.mono, fontSize: "0.7rem", color: C.muted, letterSpacing: "0.05em" }}>{dateStr}</span>
-                  <span style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.95rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>„{conv.preview}"</span>
-                  <div style={{ display: "flex", gap: "0.5rem", flexShrink: 0 }}>
+                <div key={conv.id} className="enkidu-history-row" style={{ borderBottom: `1px solid ${C.border}` }}>
+                  <span style={{ fontFamily: C.mono, fontSize: "0.7rem", color: C.muted, letterSpacing: "0.05em", flexShrink: 0 }}>{dateStr}</span>
+                  <span className="enkidu-history-preview" style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.95rem", textOverflow: "ellipsis" }}>„{conv.preview}"</span>
+                  <div className="enkidu-history-btns" style={{ flexShrink: 0 }}>
                     <button
                       onClick={() => continueConversation(conv)}
                       style={btn({ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.accent, background: "none", border: `1px solid ${C.accentDim}`, padding: "0.4rem 0.9rem" })}
@@ -643,18 +698,24 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   return (
     <div className="enkidu-grain" style={overlayStyle}>
-      <CloseBtn />
-      <nav style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, padding: "1.5rem 3rem", display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${screen !== "landing" ? C.border : "transparent"}`, background: screen !== "landing" ? "rgba(8,8,8,0.92)" : "transparent", backdropFilter: screen !== "landing" ? "blur(12px)" : "none", transition: "border-color 0.4s, background 0.4s" }}>
-        <span style={{ fontFamily: C.mono, fontSize: "0.85rem", letterSpacing: "0.2em", color: C.accent, textTransform: "uppercase" }}>Enkidu</span>
-        <ul style={{ display: "flex", gap: "2.5rem", listStyle: "none", margin: 0, padding: 0 }}>
+      <nav className="enkidu-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${screen !== "landing" ? C.border : "transparent"}`, background: screen !== "landing" ? "rgba(8,8,8,0.92)" : "transparent", backdropFilter: screen !== "landing" ? "blur(12px)" : "none", transition: "border-color 0.4s, background 0.4s" }}>
+        <span style={{ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>Enkidu</span>
+        <ul className="enkidu-nav-links" style={{ display: "flex", listStyle: "none", margin: 0, padding: 0 }}>
           {navItems.map((item) => (
             <li key={item.id}>
-              <button onClick={() => item.id === "chat" ? enterChat() : setScreen(item.id)}
-                style={btn({ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.15em", color: screen === item.id ? C.textBright : C.textDim, background: "none", textTransform: "uppercase", padding: 0 })}
+              <button
+                className="enkidu-nav-item"
+                onClick={() => item.id === "chat" ? enterChat() : setScreen(item.id)}
+                style={btn({ fontFamily: C.mono, textTransform: "uppercase", padding: "0.2rem 0", color: screen === item.id ? C.textBright : C.textDim, background: "none" })}
               >{item.label}</button>
             </li>
           ))}
         </ul>
+        <button
+          className="enkidu-close-btn"
+          onClick={onClose}
+          title="Schließen"
+        >×</button>
       </nav>
 
       {screen === "landing" && renderLanding()}
