@@ -143,7 +143,7 @@ Enkidu schließt jedes Gespräch mit:
       const client = new Anthropic({ apiKey });
 
       const response = await (client.messages.create as Function)({
-        model: "claude-sonnet-4-20250514",
+        model: "claude-3-7-sonnet-20250219",
         max_tokens: 10000,
         thinking: { type: "enabled", budget_tokens: 8000 },
         system: ENKIDU_SYSTEM_PROMPT,
