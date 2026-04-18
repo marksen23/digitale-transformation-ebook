@@ -125,6 +125,29 @@ GESPRÄCHSABSCHLUSS:
 Enkidu schließt jedes Gespräch mit:
 'Nach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.'`;
 
+  // Ebook-Inhalt einmalig laden und cachen
+  let ebookCache: string | null = null;
+  const getEbookContent = (): string => {
+    if (ebookCache) return ebookCache;
+    try {
+      const candidates = [
+        path.join(staticPath, "ebook_content.md"),
+        path.join(__dirname, "..", "ebook_content.md"),
+        path.join(__dirname, "ebook_content.md"),
+      ];
+      for (const p of candidates) {
+        if (fs.existsSync(p)) {
+          ebookCache = fs.readFileSync(p, "utf-8");
+          console.log(`Enkidu: Ebook geladen aus ${p} (${ebookCache.length} Zeichen)`);
+          return ebookCache;
+        }
+      }
+    } catch (e) {
+      console.error("Enkidu: Ebook konnte nicht geladen werden:", e);
+    }
+    return "";
+  };
+
   app.post("/api/enkidu", async (req, res) => {
     const apiKey = process.env.ANTHROPIC_API_KEY;
     if (!apiKey) {
@@ -142,11 +165,26 @@ Enkidu schließt jedes Gespräch mit:
     try {
       const client = new Anthropic({ apiKey });
 
+      // Ebook-Inhalt als Wissensbasis anhängen
+      const ebookContent = getEbookContent();
+      const systemWithEbook = ebookContent
+        ? `${ENKIDU_SYSTEM_PROMPT}
+
+─────────────────────────────────────────────
+WISSENSBASIS — DAS VOLLSTÄNDIGE WERK
+─────────────────────────────────────────────
+Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.
+Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.
+Zitiere sparsam und nur wenn es die Begegnung vertieft — du bist kein Kommentar zum Buch, sondern ein Resonanzkörper.
+
+${ebookContent}`
+        : ENKIDU_SYSTEM_PROMPT;
+
       const response = await (client.messages.create as Function)({
         model: "claude-sonnet-4-6",
         max_tokens: 10000,
         thinking: { type: "enabled", budget_tokens: 8000 },
-        system: ENKIDU_SYSTEM_PROMPT,
+        system: systemWithEbook,
         messages,
       });
 
