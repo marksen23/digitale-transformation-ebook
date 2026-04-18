@@ -142,11 +142,10 @@ Enkidu schließt jedes Gespräch mit:
     try {
       const client = new Anthropic({ apiKey });
 
-      const response = await (client.beta.messages.create as Function)({
+      const response = await (client.messages.create as Function)({
         model: "claude-sonnet-4-20250514",
         max_tokens: 10000,
         thinking: { type: "enabled", budget_tokens: 8000 },
-        betas: ["interleaved-thinking-2025-05-14"],
         system: ENKIDU_SYSTEM_PROMPT,
         messages,
       });
