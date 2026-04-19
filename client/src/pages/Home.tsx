@@ -1187,6 +1187,24 @@ export default function Home() {
         <div className="mt-14 flex justify-center">
           <span className="text-amber-500/40 text-2xl select-none">&loz;</span>
         </div>
+
+        {/* ── Completion toggle at end of chapter ── */}
+        <div className="mt-8 mb-2 flex justify-center">
+          <button
+            onClick={() => toggleCompleted(chapter.id)}
+            className={`flex items-center gap-2 px-4 py-2 rounded-full border text-xs font-mono tracking-widest uppercase transition-all duration-200 ${
+              completedChapters.includes(chapter.id)
+                ? 'border-emerald-500/60 text-emerald-500 bg-emerald-500/8'
+                : darkMode
+                  ? 'border-stone-700 text-stone-500 hover:border-stone-500 hover:text-stone-300'
+                  : 'border-stone-300 text-stone-400 hover:border-stone-400 hover:text-stone-600'
+            }`}
+            title={completedChapters.includes(chapter.id) ? 'Als ungelesen markieren' : 'Als gelesen markieren'}
+          >
+            <CheckCircle2 size={13} />
+            {completedChapters.includes(chapter.id) ? 'Gelesen' : 'Als gelesen markieren'}
+          </button>
+        </div>
         </div>
       </motion.article>
     );
@@ -1576,17 +1594,6 @@ export default function Home() {
             >
               <PenLine size={16} />
               {notes[currentId] && <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-amber-500" />}
-            </button>
-          )}
-
-          {/* Chapter completion toggle */}
-          {currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur' && (
-            <button
-              onClick={() => toggleCompleted(currentId)}
-              className={`p-1.5 rounded-md transition-colors ${completedChapters.includes(currentId) ? 'text-emerald-500' : 'opacity-40 hover:opacity-80'}`}
-              title={completedChapters.includes(currentId) ? 'Als ungelesen markieren' : 'Als gelesen markieren'}
-            >
-              <CheckCircle2 size={16} />
             </button>
           )}
 
