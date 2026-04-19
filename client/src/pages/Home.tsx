@@ -1,14 +1,15 @@
-import { useState, useEffect, useCallback, useRef, useMemo, type ReactNode } from 'react';
+import { useState, useEffect, useCallback, useRef, useMemo, lazy, Suspense, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, VolumeX, Mic, MicOff,
-  SkipBack, SkipForward, Play, Pause, Headphones,
+  SkipBack, SkipForward, Play, Pause, Headphones, Network,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
-import EnkiduPage from './EnkiduPage';
+const EnkiduPage      = lazy(() => import('./EnkiduPage'));
+const ConceptGraphPage = lazy(() => import('./ConceptGraphPage'));
 import {
   useSpeechRecognition, useSpeechSynthesis,
   filterVoicesByLang, guessVoiceGender, buildParaStarts,
@@ -26,6 +27,24 @@ function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
   return [value, setValue] as const;
 }
 
+// ─── Lazy-load fallback ─────────────────────────────────────────────
+function OverlayLoader() {
+  return (
+    <div style={{
+      position: 'fixed', inset: 0, zIndex: 50,
+      background: '#080808', display: 'flex',
+      alignItems: 'center', justifyContent: 'center',
+    }}>
+      <div style={{
+        width: 32, height: 32, border: '2px solid #2a2a2a',
+        borderTopColor: '#c4a882', borderRadius: '50%',
+        animation: 'spin 0.8s linear infinite',
+      }} />
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+    </div>
+  );
+}
+
 // ─── Main Component ─────────────────────────────────────────────────
 export default function Home() {
   // Data
@@ -37,6 +56,7 @@ export default function Home() {
   const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 768);
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
   const [enkiduOpen, setEnkiduOpen] = useState(false);
+  const [conceptGraphOpen, setConceptGraphOpen] = useState(false);
 
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
@@ -1192,6 +1212,13 @@ export default function Home() {
                     <Sparkles size={16} className="text-amber-500 flex-none" />
                     Enkidu — Gespräch
                   </button>
+                  <button
+                    onClick={() => { setConceptGraphOpen(true); setBurgerMenuOpen(false); }}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <Network size={16} className="text-amber-500 flex-none" />
+                    Begriffsnetz
+                  </button>
                 </div>
               </motion.div>
             )}
@@ -1423,6 +1450,15 @@ export default function Home() {
               </AnimatePresence>
             </div>
           )}
+
+          {/* Concept Graph */}
+          <button
+            onClick={() => setConceptGraphOpen(true)}
+            className={`p-1.5 rounded-md transition-colors hidden sm:flex ${conceptGraphOpen ? 'text-amber-500' : 'hover:bg-stone-200/50'}`}
+            title="Begriffsnetz"
+          >
+            <Network size={16} />
+          </button>
 
           {/* Bookmark */}
           {currentId !== '__cover__' && (
@@ -1918,7 +1954,18 @@ export default function Home() {
       </div>
 
       {/* ─── Enkidu KI ──────────────────────────────────────── */}
-      {enkiduOpen && <EnkiduPage onClose={() => setEnkiduOpen(false)} />}
+      {enkiduOpen && (
+        <Suspense fallback={<OverlayLoader />}>
+          <EnkiduPage onClose={() => setEnkiduOpen(false)} />
+        </Suspense>
+      )}
+
+      {/* ─── Begriffsnetz ─────────────────────────────────── */}
+      {conceptGraphOpen && (
+        <Suspense fallback={<OverlayLoader />}>
+          <ConceptGraphPage onClose={() => setConceptGraphOpen(false)} />
+        </Suspense>
+      )}
     </div>
   );
 }
