@@ -128,6 +128,9 @@ export default function Home() {
     setChatQuestion(q => q ? q + ' ' + text : text);
   });
 
+  // Keyboard shortcuts help panel
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
   // Keyword popover
   const [activeKeyword, setActiveKeyword] = useState<{ term: string; definition: string; x: number; y: number } | null>(null);
 
@@ -276,17 +279,6 @@ export default function Home() {
     contentRef.current?.scrollTo({ top: 0, behavior: 'instant' });
   }, [currentId]);
 
-  // Keyboard navigation
-  useEffect(() => {
-    const handler = (e: KeyboardEvent) => {
-      if (e.target instanceof HTMLInputElement) return;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); goNext(); }
-      if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); goPrev(); }
-      if ((e.ctrlKey || e.metaKey) && e.key === 'f') { e.preventDefault(); setSearchOpen(o => !o); }
-    };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
-  });
 
   // Search
   useEffect(() => {
@@ -473,6 +465,73 @@ export default function Home() {
   const toggleBookmark = useCallback((id: string) => {
     setBookmarks(prev => prev.includes(id) ? prev.filter(b => b !== id) : [...prev, id]);
   }, [setBookmarks]);
+
+  // ─── Keyboard shortcuts ─────────────────────────────────────────────────────
+  useEffect(() => {
+    const isTyping = () => {
+      const el = document.activeElement;
+      return el instanceof HTMLInputElement ||
+             el instanceof HTMLTextAreaElement ||
+             (el instanceof HTMLElement && el.isContentEditable);
+    };
+
+    const handler = (e: KeyboardEvent) => {
+      // Escape always closes active panels, highest priority first
+      if (e.key === 'Escape') {
+        if (shortcutsOpen)      { setShortcutsOpen(false); return; }
+        if (conceptGraphOpen)   { setConceptGraphOpen(false); return; }
+        if (enkiduOpen)         { setEnkiduOpen(false); return; }
+        if (searchOpen)         { setSearchOpen(false); setSearchQuery(''); return; }
+        if (chatOpen)           { setChatOpen(false); return; }
+        if (fontMenuOpen)       { setFontMenuOpen(false); return; }
+        if (languageMenuOpen)   { setLanguageMenuOpen(false); return; }
+        if (headphonesMenuOpen) { setHeadphonesMenuOpen(false); return; }
+        if (burgerMenuOpen)     { setBurgerMenuOpen(false); return; }
+        return;
+      }
+
+      // No content shortcuts while typing into inputs
+      if (isTyping()) return;
+      if (e.metaKey || e.altKey) return;
+
+      if (e.ctrlKey) {
+        if (e.key === 'f') {
+          e.preventDefault();
+          setSearchOpen(o => !o);
+          setTimeout(() => searchInputRef.current?.focus(), 50);
+        }
+        return;
+      }
+
+      switch (e.key) {
+        case 'ArrowRight': case ']':
+          e.preventDefault(); goNext(); break;
+        case 'ArrowLeft': case '[':
+          e.preventDefault(); goPrev(); break;
+        case '/':
+          e.preventDefault();
+          setSearchOpen(true);
+          setTimeout(() => searchInputRef.current?.focus(), 50);
+          break;
+        case 'b':
+          if (currentId !== '__cover__') toggleBookmark(currentId); break;
+        case 'd': setDarkMode(v => !v); break;
+        case 't': setSidebarOpen(v => !v); break;
+        case 'e': setEnkiduOpen(v => !v); break;
+        case 'n': setConceptGraphOpen(v => !v); break;
+        case '?': setShortcutsOpen(v => !v); break;
+      }
+    };
+
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [
+    shortcutsOpen, conceptGraphOpen, enkiduOpen, searchOpen, chatOpen,
+    fontMenuOpen, languageMenuOpen, headphonesMenuOpen, burgerMenuOpen,
+    goNext, goPrev, currentId, toggleBookmark,
+    setDarkMode, setSidebarOpen, setEnkiduOpen, setConceptGraphOpen,
+    setSearchOpen, setSearchQuery, setBurgerMenuOpen,
+  ]);
 
   const fontSizeClasses = ['text-sm leading-relaxed', 'text-base leading-relaxed', 'text-lg leading-relaxed', 'text-xl leading-loose'];
 
@@ -1475,8 +1534,66 @@ export default function Home() {
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
             {darkMode ? <Sun size={16} /> : <Moon size={16} />}
           </button>
+
+          {/* Keyboard shortcuts help */}
+          <button
+            onClick={() => setShortcutsOpen(o => !o)}
+            className={`hidden sm:flex p-1.5 rounded-md transition-colors font-mono text-xs ${shortcutsOpen ? 'text-amber-500' : 'opacity-40 hover:opacity-80'}`}
+            title="Tastenkürzel anzeigen (?)"
+          >?</button>
         </div>
       </header>
+
+      {/* ─── Keyboard shortcuts panel ────────────────────────── */}
+      <AnimatePresence>
+        {shortcutsOpen && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.15 }}
+            className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+            style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(4px)' }}
+            onClick={() => setShortcutsOpen(false)}
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ duration: 0.15 }}
+              onClick={e => e.stopPropagation()}
+              className={`rounded-lg border shadow-2xl p-6 w-full max-w-sm ${darkMode ? 'bg-stone-900 border-stone-700' : 'bg-white border-stone-200'}`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <h3 className={`font-mono text-xs tracking-widest uppercase ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>Tastenkürzel</h3>
+                <button onClick={() => setShortcutsOpen(false)} className={`font-mono text-lg leading-none ${darkMode ? 'text-stone-500 hover:text-stone-200' : 'text-stone-400 hover:text-stone-700'}`}>×</button>
+              </div>
+              <div className="space-y-1">
+                {[
+                  { key: '→ / ]',    desc: 'Nächstes Kapitel' },
+                  { key: '← / [',    desc: 'Vorheriges Kapitel' },
+                  { key: '/ ',       desc: 'Suche öffnen' },
+                  { key: 'Ctrl+F',   desc: 'Suche öffnen' },
+                  { key: 'b',        desc: 'Lesezeichen setzen' },
+                  { key: 'd',        desc: 'Hell / Dunkel wechseln' },
+                  { key: 't',        desc: 'Seitenleiste ein-/ausblenden' },
+                  { key: 'e',        desc: 'Enkidu öffnen / schließen' },
+                  { key: 'n',        desc: 'Begriffsnetz öffnen / schließen' },
+                  { key: 'Esc',      desc: 'Aktuelles Panel schließen' },
+                  { key: '?',        desc: 'Diese Übersicht' },
+                ].map(({ key, desc }) => (
+                  <div key={key} className="flex items-center justify-between gap-4">
+                    <kbd className={`font-mono text-xs px-1.5 py-0.5 rounded border ${darkMode ? 'bg-stone-800 border-stone-600 text-stone-300' : 'bg-stone-100 border-stone-300 text-stone-600'}`}>
+                      {key}
+                    </kbd>
+                    <span className={`text-xs flex-1 text-right ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>{desc}</span>
+                  </div>
+                ))}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ─── Search Bar ──────────────────────────────────────── */}
       <AnimatePresence>
