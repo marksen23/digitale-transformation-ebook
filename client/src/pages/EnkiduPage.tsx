@@ -88,7 +88,7 @@ function BlinkCursor({ style }: { style?: React.CSSProperties }) {
         background: C.accent,
         verticalAlign: "text-bottom",
         borderRadius: "1px",
-        animation: "enkidu-cursor 1.08s step-end infinite",
+        animation: "enkidu-cursor 2.8s linear infinite",
         flexShrink: 0,
         ...style,
       }}
@@ -103,7 +103,7 @@ function TypingIndicator() {
       {[0, 200, 400].map((delay) => (
         <span key={delay} style={{
           display: "inline-block", width: 5, height: 5, borderRadius: "50%",
-          background: C.accentDim, animation: `enkidu-dot 1.2s ease ${delay}ms infinite`,
+          background: C.accentDim, animation: `enkidu-dot 2.2s ease ${delay}ms infinite`,
         }} />
       ))}
     </div>
@@ -175,11 +175,18 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       const style = document.createElement("style");
       style.id = id;
       style.textContent = `
-        @keyframes enkidu-dot { 0%,100%{opacity:.3;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+        /* Ruhiger Atemrhythmus: sichtbar halten → sanft ausblenden → Pause → sanft einblenden */
+        @keyframes enkidu-dot { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.9;transform:scale(1.25)} }
         @keyframes enkidu-fade-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
         @keyframes enkidu-glyph { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
         @keyframes enkidu-msg { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes enkidu-cursor { 0%,49%{opacity:1} 50%,100%{opacity:0} }
+        @keyframes enkidu-cursor {
+          0%   { opacity: 1; }
+          38%  { opacity: 1; }
+          54%  { opacity: 0; }
+          88%  { opacity: 0; }
+          100% { opacity: 1; }
+        }
         .enkidu-msg { animation: enkidu-msg 0.4s ease; }
         .enkidu-grain::before {
           content:''; position:fixed; inset:0;
