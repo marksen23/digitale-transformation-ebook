@@ -253,6 +253,7 @@ export default function Home() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
     let cancelled = false;
+    let swIntervalId: ReturnType<typeof setInterval> | undefined;
     import('virtual:pwa-register')
       .then(({ registerSW }) => {
         const updateSW = registerSW({
@@ -262,7 +263,7 @@ export default function Home() {
           onRegisteredSW(_swUrl, registration) {
             if (registration) {
               // Regelmäßig auf Updates prüfen (1x/Stunde)
-              setInterval(() => registration.update().catch(() => {}), 60 * 60 * 1000);
+              swIntervalId = setInterval(() => registration.update().catch(() => {}), 60 * 60 * 1000);
             }
           },
         });
@@ -273,6 +274,7 @@ export default function Home() {
       });
     return () => {
       cancelled = true;
+      clearInterval(swIntervalId); // Memory-Leak-Fix: Interval beim Unmount aufräumen
     };
   }, []);
 

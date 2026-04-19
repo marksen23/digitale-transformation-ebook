@@ -657,12 +657,14 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         zIndex: 150,
       }}>
         {[
-          { label: "+", delta: 1.2 },
-          { label: "−", delta: 0.83 },
-          { label: "↺", reset: true },
+          { label: "+", delta: 1.2,  aria: "Vergrößern" },
+          { label: "−", delta: 0.83, aria: "Verkleinern" },
+          { label: "↺", reset: true, aria: "Zoom zurücksetzen" },
         ].map(btn => (
           <button
             key={btn.label}
+            aria-label={btn.aria}
+            title={btn.aria}
             onClick={() => {
               if (btn.reset) { setZoom(1); setPan({ x: 0, y: 0 }); }
               else setZoom(z => clampZoom(z * (btn.delta ?? 1)));

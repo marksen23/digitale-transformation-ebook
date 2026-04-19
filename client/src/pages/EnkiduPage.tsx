@@ -6,6 +6,7 @@ import AnalyticsScreen from "@/components/enkidu/AnalyticsScreen";
 type Screen = "landing" | "chat" | "feedback" | "profile" | "analytics";
 
 interface Message {
+  id: string;           // stabile UUID-Identität für React-Keys
   role: "user" | "assistant";
   content: string;
   error?: boolean;
@@ -33,7 +34,15 @@ const LS_KEY = "enkidu-conversations";
 function loadConversations(): Conversation[] {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (!raw) return [];
+    const parsed: Conversation[] = JSON.parse(raw);
+    // Migration: ältere gespeicherte Nachrichten ohne 'id' bekommen eine stabile UUID
+    return parsed.map(conv => ({
+      ...conv,
+      messages: conv.messages.map(m =>
+        m.id ? m : { ...m, id: crypto.randomUUID() }
+      ),
+    }));
   } catch { return []; }
 }
 
@@ -104,6 +113,7 @@ function TypingIndicator() {
 // ─── Constants ────────────────────────────────────────────────────
 // Defined outside component so it's stable across renders
 const INITIAL_MSG: Message = {
+  id: "enkidu-init",
   role: "assistant",
   content: "Du bist hier. Das ist bereits eine Entscheidung.\nWas bringst du mit, das du noch nicht benennen kannst?",
 };
@@ -328,14 +338,15 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         const msg = res.status === 429
           ? `⏱ ${data.error}`
           : `[Fehler: ${data.error}]`;
-        setMessages((prev) => [...prev, { role: "assistant", content: msg, error: true }]);
+        setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: msg, error: true }]);
         setHasError(true);
       } else {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.response }]);
+        setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: data.response }]);
         setHasError(false);
       }
     } catch {
       setMessages((prev) => [...prev, {
+        id: crypto.randomUUID(),
         role: "assistant",
         content: "[Verbindungsfehler. Bitte versuche es erneut.]",
         error: true,
@@ -349,7 +360,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const sendMessage = useCallback(async () => {
     const text = inputValue.trim();
     if (!text || loading) return;
-    const newMessages: Message[] = [...messages, { role: "user", content: text }];
+    const newMessages: Message[] = [...messages, { id: crypto.randomUUID(), role: "user", content: text }];
     setMessages(newMessages);
     setInputValue("");
     setEditingIndex(null);
@@ -372,6 +383,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   // Edit: put user message back in input, remove it + everything after
   const editMessage = useCallback((index: number) => {
+    if (index < 0 || index >= messages.length) return;
     const msg = messages[index];
     if (msg.role !== "user") return;
     setInputValue(msg.content);
@@ -475,7 +487,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       {/* Messages */}
       <div className="enkidu-messages" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", maxWidth: 760, margin: "0 auto", width: "100%", scrollbarWidth: "thin", scrollbarColor: `${C.border} transparent` }}>
         {messages.map((msg, i) => (
-          <div key={i} className="enkidu-msg enkidu-msg-row" style={{ display: "flex", flexDirection: "column", gap: "0.4rem", position: "relative" }}
+          <div key={msg.id} className="enkidu-msg enkidu-msg-row" style={{ display: "flex", flexDirection: "column", gap: "0.4rem", position: "relative" }}
             onMouseEnter={() => setHoveredMsg(i)}
             onMouseLeave={() => setHoveredMsg(null)}
           >
