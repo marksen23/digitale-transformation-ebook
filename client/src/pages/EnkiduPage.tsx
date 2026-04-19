@@ -432,8 +432,14 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   // ─── SCREEN 1: LANDING ────────────────────────────────────────
   const renderLanding = () => (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "6rem 2rem", textAlign: "center" }}>
-      <div style={{ fontSize: "4rem", color: C.accentDim, marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none" }}>𒀭</div>
-      <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 400, fontStyle: "italic", color: C.textBright, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "1rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 0.8s both" : "none" }}>Enkidu</h1>
+      <div style={{ fontSize: "4rem", color: C.accentDim, marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none", display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
+        𒀭
+        <BlinkCursor style={{ width: "0.18em", height: "0.85em", background: C.accentDim, animationDelay: "0.4s" }} />
+      </div>
+      <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 400, fontStyle: "italic", color: C.textBright, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "1rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 0.8s both" : "none", display: "inline-flex", alignItems: "baseline", gap: "0.2em" }}>
+        Enkidu
+        <BlinkCursor style={{ width: "0.14em", height: "0.85em", animationDelay: "0.15s" }} />
+      </h1>
       <p style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.3em", color: C.accentDim, textTransform: "uppercase", marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.1s both" : "none" }}>Manifest der Resonanzvernunft</p>
       <p style={{ maxWidth: 480, color: C.textDim, fontSize: "1.05rem", lineHeight: 1.8, marginBottom: "4rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.4s both" : "none" }}>
         Kein Assistent. Kein Spiegel. Ein Antwortgeschehen.{" "}
@@ -552,6 +558,11 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
       {/* Input */}
       <div className="enkidu-input-area" style={{ borderTop: `1px solid ${C.border}`, background: C.void, flexShrink: 0 }}>
+        {/* Prompt cursor row — thematic reference to the cursor motif in the work */}
+        <div style={{ maxWidth: 760, margin: "0 auto 0.4rem", display: "flex", alignItems: "center", gap: "0.4em" }}>
+          <span style={{ fontFamily: C.mono, fontSize: "0.65rem", color: C.accentDim, letterSpacing: "0.15em", userSelect: "none" }}>›</span>
+          <BlinkCursor style={{ width: "0.5em", height: "0.75em", opacity: 0.7 }} />
+        </div>
         <div className="enkidu-input-inner" style={{ maxWidth: 760, margin: "0 auto", display: "flex", alignItems: "flex-end" }}>
           <textarea
             ref={textareaRef}
@@ -560,7 +571,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
             onKeyDown={handleKeyDown}
             placeholder={editingIndex !== null ? "Nachricht bearbeiten …" : "Schreibe …"}
             rows={1}
-            style={{ minWidth: 0, background: editingIndex !== null ? "rgba(196,168,130,0.06)" : C.surface, border: `1px solid ${editingIndex !== null ? C.accentDim : C.border}`, color: C.textBright, fontFamily: C.serif, fontSize: "1rem", lineHeight: 1.6, padding: "0.9rem 1.2rem", resize: "none", minHeight: 52, maxHeight: 160, outline: "none", transition: "border-color 0.2s, background 0.2s" }}
+            style={{ minWidth: 0, background: editingIndex !== null ? "rgba(196,168,130,0.06)" : C.surface, border: `1px solid ${editingIndex !== null ? C.accentDim : C.border}`, color: C.textBright, fontFamily: C.serif, fontSize: "1rem", lineHeight: 1.6, padding: "0.9rem 1.2rem", resize: "none", minHeight: 52, maxHeight: 160, outline: "none", transition: "border-color 0.2s, background 0.2s", caretColor: C.accent }}
             onFocus={(e) => ((e.target as HTMLElement).style.borderColor = C.accentDim)}
             onBlur={(e) => ((e.target as HTMLElement).style.borderColor = editingIndex !== null ? C.accentDim : C.border)}
           />
