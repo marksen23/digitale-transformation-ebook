@@ -65,6 +65,28 @@ function btn(overrides: React.CSSProperties = {}): React.CSSProperties {
   };
 }
 
+// ─── Blinking terminal cursor ─────────────────────────────────────
+// References the cursor motif from the ebook — the moment before the
+// first word, the "Zwischen" between thought and utterance.
+function BlinkCursor({ style }: { style?: React.CSSProperties }) {
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        display: "inline-block",
+        width: "0.52em",
+        height: "1.05em",
+        background: C.accent,
+        verticalAlign: "text-bottom",
+        borderRadius: "1px",
+        animation: "enkidu-cursor 1.08s step-end infinite",
+        flexShrink: 0,
+        ...style,
+      }}
+    />
+  );
+}
+
 // ─── Typing indicator ─────────────────────────────────────────────
 function TypingIndicator() {
   return (
@@ -142,6 +164,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         @keyframes enkidu-fade-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
         @keyframes enkidu-glyph { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
         @keyframes enkidu-msg { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes enkidu-cursor { 0%,49%{opacity:1} 50%,100%{opacity:0} }
         .enkidu-msg { animation: enkidu-msg 0.4s ease; }
         .enkidu-grain::before {
           content:''; position:fixed; inset:0;
@@ -731,7 +754,10 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   return (
     <div className="enkidu-grain" style={overlayStyle}>
       <nav className="enkidu-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${screen !== "landing" ? C.border : "transparent"}`, background: screen !== "landing" ? "rgba(8,8,8,0.92)" : "transparent", backdropFilter: screen !== "landing" ? "blur(12px)" : "none", transition: "border-color 0.4s, background 0.4s" }}>
-        <span style={{ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>Enkidu</span>
+        <span style={{ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0, display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
+          Enkidu
+          <BlinkCursor style={{ width: "0.45em", height: "0.85em" }} />
+        </span>
         <ul className="enkidu-nav-links" style={{ display: "flex", listStyle: "none", margin: 0, padding: 0 }}>
           {navItems.map((item) => (
             <li key={item.id}>
