@@ -1419,7 +1419,7 @@ export default function Home() {
                     className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
                   >
                     <Sparkles size={16} className="text-amber-500 flex-none" />
-                    Enkidu — Gespräch
+                    Enkidu — Begegnung
                   </button>
                   <button
                     onClick={() => { setConceptGraphOpen(true); setBurgerMenuOpen(false); }}
