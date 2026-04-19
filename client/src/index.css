@@ -103,6 +103,13 @@
   html, body, #root {
     height: 100%;
     margin: 0;
+    /* Kein Overscroll-Bounce — verhindert das "verschieben" der gesamten App auf Android */
+    overscroll-behavior: none;
+  }
+  html {
+    /* Kein horizontales Scrollen / Verschieben */
+    overflow-x: hidden;
+    touch-action: pan-y;
   }
   body {
     @apply bg-background text-foreground;

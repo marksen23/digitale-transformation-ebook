@@ -1272,7 +1272,7 @@ export default function Home() {
   };
 
   return (
-    <div className={`h-screen flex flex-col ${darkMode ? 'bg-stone-950 text-stone-200' : 'bg-stone-50 text-stone-800'}`}>
+    <div className={`h-dvh flex flex-col ${darkMode ? 'bg-stone-950 text-stone-200' : 'bg-stone-50 text-stone-800'}`}>
       {/* ─── Service-Worker-Update-Toast ──────────────────────── */}
       <AnimatePresence>
         {swNeedsRefresh && (
@@ -2102,7 +2102,8 @@ export default function Home() {
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
                 onClick={() => contentRef.current?.scrollTo({ top: 0, behavior: 'smooth' })}
-                className={`fixed bottom-6 right-6 p-3 rounded-full shadow-lg z-10 transition-colors ${
+                style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))' }}
+                className={`fixed right-6 p-3 rounded-full shadow-lg z-10 transition-colors ${
                   darkMode ? 'bg-stone-800 text-stone-300 hover:bg-stone-700' : 'bg-white text-stone-600 hover:bg-stone-50 border border-stone-200'
                 }`}
               >
@@ -2122,7 +2123,8 @@ export default function Home() {
                     animate={{ opacity: 1, scale: 1 }}
                     exit={{ opacity: 0, scale: 0.8 }}
                     onClick={() => setChatOpen(true)}
-                    className={`fixed bottom-6 right-6 p-3.5 rounded-full shadow-lg z-20 transition-colors ${
+                    style={{ bottom: 'calc(1.5rem + env(safe-area-inset-bottom, 0px))' }}
+                    className={`fixed right-6 p-3.5 rounded-full shadow-lg z-20 transition-colors ${
                       darkMode
                         ? 'bg-amber-600 text-white hover:bg-amber-500'
                         : 'bg-indigo-900 text-white hover:bg-indigo-800'
@@ -2141,7 +2143,8 @@ export default function Home() {
                     initial={{ opacity: 0, y: 20, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                    className={`fixed bottom-4 right-4 w-[360px] max-h-[500px] z-40 rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
+                    style={{ bottom: 'calc(1rem + env(safe-area-inset-bottom, 0px))' }}
+                    className={`fixed right-4 w-[360px] max-h-[500px] z-40 rounded-2xl shadow-2xl border flex flex-col overflow-hidden ${
                       darkMode ? 'bg-stone-900 border-stone-700' : 'bg-white border-stone-200'
                     }`}
                   >
@@ -2278,7 +2281,10 @@ export default function Home() {
 
         {/* ─── Audio Player Footer — sticky, always visible ──── */}
         {currentId !== '__cover__' && (
-          <div className={`flex-none border-t ${darkMode ? 'border-stone-800 bg-stone-900/95' : 'border-stone-200 bg-white/95'} backdrop-blur-sm`}>
+          <div
+            className={`flex-none border-t ${darkMode ? 'border-stone-800 bg-stone-900/95' : 'border-stone-200 bg-white/95'} backdrop-blur-sm`}
+            style={{ paddingBottom: 'env(safe-area-inset-bottom, 0px)' }}
+          >
             <div className="max-w-2xl mx-auto px-5 pt-2.5 pb-3 space-y-2">
 
               {/* Track info */}

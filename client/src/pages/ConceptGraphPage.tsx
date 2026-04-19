@@ -204,6 +204,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         background: C.void, color: C.text,
         fontFamily: C.serif, display: "flex", flexDirection: "column",
         overflowX: "hidden",
+        paddingTop: "env(safe-area-inset-top, 0px)",
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
       {/* Grain overlay */}
@@ -212,59 +214,61 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
       }} />
 
-      {/* Nav */}
-      <nav className="concept-nav-bar" style={{
+      {/* Nav — zwei explizite Zeilen, kein flexWrap-Trick */}
+      <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
-        display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem",
-        padding: "0.65rem 1rem",
+        display: "flex", flexDirection: "column", gap: "0.4rem",
+        padding: "0.65rem 1rem 0.6rem",
         borderBottom: `1px solid ${C.border}`,
         background: "rgba(8,8,8,0.92)", backdropFilter: "blur(12px)",
       }}>
-        {/* Row 1: Title + Legende + Close */}
-        <span style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>
-          Begriffsnetz
-        </span>
+        {/* Zeile 1: Titel + Legende + Schließen */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <span style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>
+            Begriffsnetz
+          </span>
 
-        <div style={{ flex: 1 }} />
+          <div style={{ flex: 1 }} />
 
-        {/* Legend toggle */}
-        <button
-          onClick={() => setLegendOpen(o => !o)}
-          title="Legende / Kategorien"
-          style={{
-            fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
-            textTransform: "uppercase", color: legendOpen ? C.accent : C.muted,
-            background: legendOpen ? "rgba(196,168,130,0.08)" : "none",
-            border: `1px solid ${legendOpen ? C.accentDim : C.border}`,
-            padding: "0.3rem 0.7rem", cursor: "pointer",
-            transition: "all 0.15s", flexShrink: 0,
-          }}
-          onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
-          onMouseLeave={e => {
-            e.currentTarget.style.color = legendOpen ? C.accent : C.muted;
-            e.currentTarget.style.borderColor = legendOpen ? C.accentDim : C.border;
-          }}
-        >
-          Legende
-        </button>
+          {/* Legend toggle */}
+          <button
+            onClick={() => setLegendOpen(o => !o)}
+            title="Legende / Kategorien"
+            style={{
+              fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
+              textTransform: "uppercase", color: legendOpen ? C.accent : C.muted,
+              background: legendOpen ? "rgba(196,168,130,0.08)" : "none",
+              border: `1px solid ${legendOpen ? C.accentDim : C.border}`,
+              padding: "0.3rem 0.7rem", cursor: "pointer",
+              transition: "all 0.15s", flexShrink: 0,
+            }}
+            onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
+            onMouseLeave={e => {
+              e.currentTarget.style.color = legendOpen ? C.accent : C.muted;
+              e.currentTarget.style.borderColor = legendOpen ? C.accentDim : C.border;
+            }}
+          >
+            Legende
+          </button>
 
-        {/* Close */}
-        <button
-          onClick={onClose}
-          title="Schließen"
-          style={{
-            fontFamily: "monospace", fontSize: "1.2rem", lineHeight: 1,
-            color: C.textDim, background: "none", border: "none",
-            cursor: "pointer", padding: "0.3rem 0.4rem",
-            transition: "color 0.2s", flexShrink: 0,
-          }}
-          onMouseEnter={e => (e.currentTarget.style.color = C.textBright)}
-          onMouseLeave={e => (e.currentTarget.style.color = C.textDim)}
-        >×</button>
+          {/* Close */}
+          <button
+            onClick={onClose}
+            title="Schließen"
+            style={{
+              fontFamily: "monospace", fontSize: "1.2rem", lineHeight: 1,
+              color: C.textDim, background: "none", border: "none",
+              cursor: "pointer", padding: "0.3rem 0.4rem",
+              transition: "color 0.2s", flexShrink: 0,
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = C.textBright)}
+            onMouseLeave={e => (e.currentTarget.style.color = C.textDim)}
+          >×</button>
+        </div>
 
-        {/* Row 2: Search (full width on mobile, capped on desktop) */}
-        <div className="concept-search-row" style={{ display: "flex", alignItems: "center", gap: "0.5rem", width: "100%" }}>
-          <div style={{ flex: 1, position: "relative", maxWidth: 340 }}>
+        {/* Zeile 2: Suche — immer volle Breite, kein CSS-Trick nötig */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <div style={{ flex: 1, position: "relative", maxWidth: 400 }}>
             <input
               type="text"
               value={searchQuery}
@@ -302,7 +306,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {/* Legend / category filter panel */}
       {legendOpen && (
         <div style={{
-          position: "fixed", top: "5.4rem", right: "1.2rem", zIndex: 190,
+          position: "fixed", top: "5.2rem", right: "1.2rem", zIndex: 190,
           background: C.deep, border: `1px solid ${C.border}`,
           padding: "1rem 1.1rem", minWidth: 200,
           backdropFilter: "blur(8px)",
@@ -695,15 +699,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       <style>{`
         /* Nav: two-row layout — row 1: title/controls, row 2: search */
         .concept-graph-body {
-          margin-top: 5.2rem;
-          height: calc(100vh - 5.2rem);
-        }
-        /* Desktop: search row doesn't need full width, align left */
-        @media (min-width: 641px) {
-          .concept-search-row {
-            width: auto !important;
-            flex: 0 1 380px !important;
-          }
+          /* Nav: Zeile 1 (~1.7rem) + gap (0.4rem) + Zeile 2 (~1.6rem) + padding (~1.25rem) ≈ 5rem */
+          margin-top: 5rem;
+          height: calc(100dvh - 5rem);
         }
 
         /* Mobile (≤ 640 px): only bottom sheet, sidebar hidden */
@@ -715,9 +713,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             bottom: 0; left: 0; right: 0;
             background: ${C.deep};
             border-top: 1px solid ${C.border};
-            padding: 1rem 1.2rem 1.5rem;
+            padding: 1rem 1.2rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
             z-index: 160;
-            max-height: 55vh;
+            max-height: 55dvh;
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: ${C.border} transparent;

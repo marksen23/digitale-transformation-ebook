@@ -456,13 +456,16 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     position: "fixed", inset: 0, zIndex: 50,
     background: C.void, color: C.text,
     fontFamily: C.serif, fontSize: "1.1rem", lineHeight: "1.7", overflowX: "hidden",
+    // Safe Area: Nav-Leiste oben, Android-Systemleiste unten freistellen
+    paddingTop: "env(safe-area-inset-top, 0px)",
+    paddingBottom: "env(safe-area-inset-bottom, 0px)",
   };
 
   // Close button is now rendered inside the nav bar
 
   // ─── SCREEN 1: LANDING ────────────────────────────────────────
   const renderLanding = () => (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "6rem 2rem", textAlign: "center" }}>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100dvh", padding: "6rem 2rem", textAlign: "center" }}>
       <div style={{ fontSize: "4rem", color: C.accentDim, marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none", display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
         𒀭
         <BlinkCursor style={{ width: "0.18em", height: "0.85em", background: C.accentDim, animationDelay: "0.4s" }} />
@@ -487,7 +490,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   // ─── SCREEN 2: CHAT ───────────────────────────────────────────
   const renderChat = () => (
-    <div className="enkidu-chat-container" style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    <div className="enkidu-chat-container" style={{ display: "flex", flexDirection: "column", height: "100dvh" }}>
       {/* Header */}
       <div className="enkidu-chat-header" style={{ borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
         <span style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.2em", color: C.accentDim, textTransform: "uppercase" }}>
@@ -596,7 +599,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       </div>
 
       {/* Input */}
-      <div className="enkidu-input-area" style={{ borderTop: `1px solid ${C.border}`, background: C.void, flexShrink: 0 }}>
+      <div className="enkidu-input-area" style={{ borderTop: `1px solid ${C.border}`, background: C.void, flexShrink: 0, paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
         {/* Prompt cursor row — thematic reference to the cursor motif in the work */}
         <div style={{ maxWidth: 760, margin: "0 auto 0.4rem", display: "flex", alignItems: "center", gap: "0.4em" }}>
           <span style={{ fontFamily: C.mono, fontSize: "0.65rem", color: C.accentDim, letterSpacing: "0.15em", userSelect: "none" }}>›</span>
@@ -671,7 +674,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       { key: "q3" as const, text: "Trägst du etwas aus diesem Gespräch mit, das vorher nicht da war?", options: ["Ja — eine Frage, ein Bild, eine Spannung.", "Vielleicht — es klärt sich noch.", "Nein — ich bin, wie ich kam."] },
     ];
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "6rem 2rem" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100dvh", padding: "6rem 2rem" }}>
         <div style={{ maxWidth: 560, width: "100%" }}>
           <div style={{ marginBottom: "4rem" }}>
             <span style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.25em", color: C.accentDim, textTransform: "uppercase", display: "block", marginBottom: "1.5rem" }}>Nachklang</span>
