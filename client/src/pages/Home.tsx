@@ -6,6 +6,7 @@ import {
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, VolumeX, Mic, MicOff,
   SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine, CheckCircle2,
+  Maximize2, Minimize2,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
@@ -142,6 +143,14 @@ export default function Home() {
       prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
     );
   }, [setCompletedChapters]);
+
+  // Tiefenlese-Modus — Sidebar verstecken, volle Konzentration auf Text
+  const [focusMode, setFocusMode] = useState(false);
+
+  // Buch-Schwellen-Overlay — beim Wechsel zwischen den drei Bänden
+  const [buchSchwelle, setBuchSchwelle] = useState<{
+    title: string; subtitle?: string; romanNum: string;
+  } | null>(null);
 
   // Scroll position restoration — keyed by chapter id, in-memory
   const scrollPositions = useRef<Record<string, number>>({});
@@ -483,11 +492,38 @@ export default function Home() {
   }, [currentIndex, allIds, setCurrentId]);
 
   const navigateTo = useCallback((id: string) => {
+    // Buch-Schwelle: beim Wechsel zu einer Titelseite eines anderen Bandes
+    // zeigen wir kurz einen Übergangsmoment — die Schwelle als sichtbaren Ort
+    if (ebook) {
+      const target = ebook.chapters.find(c => c.id === id);
+      const current = ebook.chapters.find(c => c.id === currentId);
+      const romanNums: Record<string, string> = { band1: 'I', band2: 'II', band3: 'III' };
+      if (
+        target?.isTitlePage &&
+        current &&
+        target.part !== current.part &&
+        romanNums[target.part]
+      ) {
+        setBuchSchwelle({
+          title: target.title.replace(/^Band\s+[IVX]+:\s*/i, ''),
+          subtitle: target.subtitle,
+          romanNum: romanNums[target.part],
+        });
+        setSidebarOpen(false);
+        setTimeout(() => {
+          setBuchSchwelle(null);
+          setCurrentId(id);
+          setSearchOpen(false);
+          setSearchQuery('');
+        }, 2500);
+        return;
+      }
+    }
     setCurrentId(id);
     setSidebarOpen(false);
     setSearchOpen(false);
     setSearchQuery('');
-  }, [setCurrentId]);
+  }, [currentId, ebook, setCurrentId]);
 
   const toggleBookmark = useCallback((id: string) => {
     setBookmarks(prev => prev.includes(id) ? prev.filter(b => b !== id) : [...prev, id]);
@@ -547,6 +583,7 @@ export default function Home() {
           if (currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur') toggleCompleted(currentId); break;
         case 'd': setDarkMode(v => !v); break;
         case 't': setSidebarOpen(v => !v); break;
+        case 'f': setFocusMode(v => { if (!v) setSidebarOpen(false); return !v; }); break;
         case 'e': setEnkiduOpen(v => !v); break;
         case 'n': setConceptGraphOpen(v => !v); break;
         case '?': setShortcutsOpen(v => !v); break;
@@ -560,7 +597,7 @@ export default function Home() {
     fontMenuOpen, languageMenuOpen, headphonesMenuOpen, burgerMenuOpen,
     goNext, goPrev, currentId, toggleBookmark, toggleCompleted,
     setDarkMode, setSidebarOpen, setEnkiduOpen, setConceptGraphOpen,
-    setSearchOpen, setSearchQuery, setBurgerMenuOpen,
+    setSearchOpen, setSearchQuery, setBurgerMenuOpen, setFocusMode,
   ]);
 
   const fontSizeClasses = ['text-sm leading-relaxed', 'text-base leading-relaxed', 'text-lg leading-relaxed', 'text-xl leading-loose'];
@@ -1122,7 +1159,7 @@ export default function Home() {
           <div className="mt-4 flex items-center gap-3">
             <div className="flex-1 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
             <span className={`text-[10px] font-mono tracking-widest uppercase flex-shrink-0 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
-              ca. {readingMins} Min.
+              ca. {readingMins} Min. · Nimm dir Zeit.
             </span>
           </div>
         </header>
@@ -1145,7 +1182,7 @@ export default function Home() {
                 <blockquote
                   key={i}
                   data-tts-para={i}
-                  className={`border-l-2 border-amber-500/40 pl-5 italic ${darkMode ? 'text-stone-400' : 'text-stone-500'} ${hlClass}`}
+                  className={`border-l-2 border-amber-500/40 pl-5 italic my-8 md:my-10 ${darkMode ? 'text-stone-400' : 'text-stone-500'} ${hlClass}`}
                 >
                   {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
                 </blockquote>
@@ -1254,6 +1291,48 @@ export default function Home() {
         )}
       </AnimatePresence>
 
+      {/* ─── Buch-Schwellen-Overlay ──────────────────────────── */}
+      {/* Das Dazwischen zwischen zwei Bänden — die Schwelle als sichtbarer Moment */}
+      <AnimatePresence>
+        {buchSchwelle && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.7 }}
+            className="fixed inset-0 z-[80] flex items-center justify-center"
+            style={{ background: darkMode ? '#080806' : '#0d0c18' }}
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 24 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              className="text-center px-8 max-w-lg"
+            >
+              <p className="text-amber-600/50 text-xs tracking-[0.45em] uppercase font-mono mb-7">
+                Band {buchSchwelle.romanNum}
+              </p>
+              <div className="w-20 h-px mx-auto mb-9"
+                   style={{ background: 'linear-gradient(to right, transparent, rgba(217,119,6,0.4), transparent)' }} />
+              <h2 className="font-serif text-3xl md:text-4xl text-stone-100/90 tracking-tight leading-tight mb-5">
+                {buchSchwelle.title}
+              </h2>
+              {buchSchwelle.subtitle && (
+                <p className="font-serif italic text-stone-400/70 text-lg leading-relaxed">
+                  {buchSchwelle.subtitle}
+                </p>
+              )}
+              <div className="mt-12 flex items-center justify-center gap-3">
+                <div className="w-12 h-px" style={{ background: 'rgba(217,119,6,0.2)' }} />
+                <span className="text-stone-700 text-[10px] font-mono tracking-[0.4em] uppercase">Schwelle</span>
+                <div className="w-12 h-px" style={{ background: 'rgba(217,119,6,0.2)' }} />
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* ─── Print/PDF-Schutz: Screen-Overlay während Druck ──── */}
       {printBlocked && (
         <div className="fixed inset-0 z-[100] bg-white text-stone-900 flex items-center justify-center p-8 print:flex">
@@ -1342,12 +1421,23 @@ export default function Home() {
         </div>
 
         {/* Sidebar toggle (claude.ai-style panel icon) */}
+        {!focusMode && (
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className={`p-1.5 rounded-md transition-colors ${darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50'}`}
+            title={sidebarOpen ? 'Navigation einklappen' : 'Navigation ausklappen'}
+          >
+            {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={18} />}
+          </button>
+        )}
+
+        {/* Tiefenlese-Modus */}
         <button
-          onClick={() => setSidebarOpen(!sidebarOpen)}
-          className={`p-1.5 rounded-md transition-colors ${darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50'}`}
-          title={sidebarOpen ? 'Navigation einklappen' : 'Navigation ausklappen'}
+          onClick={() => { setFocusMode(v => !v); if (!focusMode) setSidebarOpen(false); }}
+          className={`p-1.5 rounded-md transition-colors ${focusMode ? (darkMode ? 'bg-amber-600/20 text-amber-400' : 'bg-amber-100 text-amber-700') : (darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50')}`}
+          title={focusMode ? 'Tiefenlesen beenden (F)' : 'Tiefenlesen — volle Konzentration (F)'}
         >
-          {sidebarOpen ? <PanelLeftClose size={18} /> : <PanelLeft size={18} />}
+          {focusMode ? <Minimize2 size={16} /> : <Maximize2 size={16} />}
         </button>
 
         <div className="flex-1 min-w-0">
@@ -1646,6 +1736,7 @@ export default function Home() {
                   { key: 'b',        desc: 'Lesezeichen setzen' },
                   { key: 'c',        desc: 'Kapitel als gelesen markieren' },
                   { key: 'd',        desc: 'Hell / Dunkel wechseln' },
+                  { key: 'f',        desc: 'Tiefenlesen ein-/ausschalten' },
                   { key: 't',        desc: 'Seitenleiste ein-/ausblenden' },
                   { key: 'e',        desc: 'Enkidu öffnen / schließen' },
                   { key: 'n',        desc: 'Begriffsnetz öffnen / schließen' },
@@ -1794,7 +1885,9 @@ export default function Home() {
           className={`
             fixed md:relative z-30 top-12 md:top-0 bottom-0 left-0 w-72 flex-none overflow-y-auto
             border-r transition-all duration-300 ease-in-out
-            ${sidebarOpen ? 'translate-x-0 md:w-72 md:min-w-[18rem]' : '-translate-x-full md:translate-x-0 md:w-0 md:min-w-0 md:overflow-hidden md:border-r-0'}
+            ${focusMode
+              ? '-translate-x-full md:translate-x-0 md:w-0 md:min-w-0 md:overflow-hidden md:border-r-0'
+              : sidebarOpen ? 'translate-x-0 md:w-72 md:min-w-[18rem]' : '-translate-x-full md:translate-x-0 md:w-0 md:min-w-0 md:overflow-hidden md:border-r-0'}
             ${darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'}
           `}
         >
@@ -1934,7 +2027,13 @@ export default function Home() {
 
         {/* ─── Content + sticky player column ───────────────── */}
         <div className="flex-1 flex flex-col min-h-0">
-        <main ref={contentRef} data-content-protected className="flex-1 overflow-y-auto relative" onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setHeadphonesMenuOpen(false); setBurgerMenuOpen(false); }}>
+        <main
+          ref={contentRef}
+          data-content-protected
+          className={`flex-1 overflow-y-auto relative transition-all duration-500 ${focusMode ? 'bg-opacity-100' : ''}`}
+          style={focusMode ? { lineHeight: '1.95', letterSpacing: '0.01em' } : undefined}
+          onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setHeadphonesMenuOpen(false); setBurgerMenuOpen(false); }}
+        >
           {currentId === '__cover__'
             ? renderCover()
             : currentChapter?.isTitlePage

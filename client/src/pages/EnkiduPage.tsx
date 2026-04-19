@@ -133,6 +133,11 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const [landingVisible, setLandingVisible] = useState(false);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConvId, setActiveConvId] = useState<string | null>(null);
+  // "Begegnung"-Datum: Zeitpunkt des Gesprächsbeginns
+  const [convStartDate, setConvStartDate] = useState<string>(() => new Date().toISOString());
+  // Das Dazwischen — Schweigepause (1.2 s) bevor der Typing-Indicator erscheint
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false);
+  const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -300,6 +305,18 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     if (screen === "landing") setTimeout(() => setLandingVisible(true), 50);
   }, [screen]);
 
+  // Schweigepause: Typing-Indicator erst nach 1.2 s einblenden — das Dazwischen sichtbar machen
+  useEffect(() => {
+    if (loading) {
+      setShowTypingIndicator(false);
+      silenceTimerRef.current = setTimeout(() => setShowTypingIndicator(true), 1200);
+    } else {
+      clearTimeout(silenceTimerRef.current);
+      setShowTypingIndicator(false);
+    }
+    return () => clearTimeout(silenceTimerRef.current);
+  }, [loading]);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
@@ -315,11 +332,13 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     ta.style.height = Math.min(ta.scrollHeight, 160) + "px";
   }, []);
 
-  const enterChat = useCallback((withMessages?: Message[]) => {
+  const enterChat = useCallback((withMessages?: Message[], convDate?: string) => {
     // Always start fresh when no messages supplied (new conversation from landing).
     // Never preserve old messages — avoids stale-closure bugs after completeFeedback.
     setMessages(withMessages ?? [INITIAL_MSG]);
     setHasError(false);
+    // Datum der Begegnung: entweder das der wiederaufgenommenen Konversation oder jetzt
+    setConvStartDate(convDate ?? new Date().toISOString());
     setScreen("chat");
   }, []);
 
@@ -429,7 +448,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   // Continue a saved conversation
   const continueConversation = useCallback((conv: Conversation) => {
     setActiveConvId(conv.id);
-    enterChat(conv.messages);
+    enterChat(conv.messages, conv.date);
   }, [enterChat]);
 
   // ─── Overlay container ────────────────────────────────────────
@@ -472,7 +491,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       {/* Header */}
       <div className="enkidu-chat-header" style={{ borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
         <span style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.2em", color: C.accentDim, textTransform: "uppercase" }}>
-          Enkidu — Gespräch
+          Begegnung vom {new Date(convStartDate).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}
         </span>
         {editingIndex !== null && (
           <span style={{ fontFamily: C.mono, fontSize: "0.65rem", color: C.accent, letterSpacing: "0.1em" }}>
@@ -545,10 +564,18 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         ))}
 
         {loading && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-            <span style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.accentDim }}>Enkidu</span>
-            <TypingIndicator />
-          </div>
+          showTypingIndicator ? (
+            /* Nach der Schweigepause: sichtbarer Typing-Indicator */
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", animation: "enkidu-fade-in 0.4s ease" }}>
+              <span style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.accentDim }}>Enkidu</span>
+              <TypingIndicator />
+            </div>
+          ) : (
+            /* Das Dazwischen — Schweigesekunde vor der Antwort */
+            <div style={{ display: "flex", alignItems: "center", padding: "0.6rem 0", animation: "enkidu-fade-in 0.3s ease" }}>
+              <span style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.55em", color: C.border }}>· · ·</span>
+            </div>
+          )
         )}
 
         {/* Retry button */}
@@ -728,13 +755,13 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           <p style={{ color: C.textDim, fontStyle: "italic", fontSize: "0.95rem" }}>Noch keine abgeschlossenen Gespräche. Der Verlauf erscheint hier nach dem ersten Abschluss.</p>
         ) : (
           <div>
-            <h3 style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase", marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>Vergangene Gespräche</h3>
+            <h3 style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase", marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>Vergangene Begegnungen</h3>
             {conversations.map((conv) => {
               const d = new Date(conv.date);
               const dateStr = d.toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
               return (
                 <div key={conv.id} className="enkidu-history-row" style={{ borderBottom: `1px solid ${C.border}` }}>
-                  <span style={{ fontFamily: C.mono, fontSize: "0.7rem", color: C.muted, letterSpacing: "0.05em", flexShrink: 0 }}>{dateStr}</span>
+                  <span style={{ fontFamily: C.mono, fontSize: "0.7rem", color: C.muted, letterSpacing: "0.05em", flexShrink: 0 }}>Begegnung vom {dateStr}</span>
                   <span className="enkidu-history-preview" style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.95rem", textOverflow: "ellipsis" }}>„{conv.preview}"</span>
                   <div className="enkidu-history-btns" style={{ flexShrink: 0 }}>
                     <button
