@@ -518,9 +518,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           </g>
         </svg>
 
-        {/* ── Detail Panel (right sidebar on desktop, hidden if nothing selected) ── */}
+        {/* ── Detail Panel (right sidebar on desktop only) ── */}
         {selectedNode && (
-          <aside style={{
+          <aside className="concept-detail-sidebar" style={{
             width: "clamp(240px, 28vw, 320px)",
             background: C.deep,
             borderLeft: `1px solid ${C.border}`,
@@ -685,7 +685,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       </div>
 
       <style>{`
+        /* Mobile (≤ 640 px): only bottom sheet, sidebar hidden */
         @media (max-width: 640px) {
+          .concept-detail-sidebar { display: none !important; }
           .concept-mobile-sheet {
             display: block !important;
             position: fixed;
@@ -694,9 +696,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             border-top: 1px solid ${C.border};
             padding: 1rem 1.2rem 1.5rem;
             z-index: 160;
-            max-height: 50vh;
+            max-height: 55vh;
             overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: ${C.border} transparent;
           }
+        }
+        /* Desktop (> 640 px): only right sidebar, bottom sheet hidden */
+        @media (min-width: 641px) {
+          .concept-mobile-sheet { display: none !important; }
         }
       `}</style>
     </div>
