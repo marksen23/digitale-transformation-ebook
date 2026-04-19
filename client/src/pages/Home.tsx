@@ -853,38 +853,50 @@ export default function Home() {
     const bandNum = chapter.id.replace('-title', '').replace('band', '');
     const romanNum = { '1': 'I', '2': 'II', '3': 'III' }[bandNum] || bandNum;
 
+    // Minimale Schwellen-Seite — Atemraum statt Inhalt.
+    // Die Animation übernimmt die Zeremonie; diese Seite ist der stille Ort danach.
     return (
-      <div className={`min-h-full flex items-center justify-center p-4 sm:p-6 ${darkMode ? 'bg-gradient-to-br from-stone-950 via-stone-900 to-amber-950' : 'bg-gradient-to-br from-indigo-950 via-indigo-900 to-stone-900'}`}>
+      <div className={`min-h-full flex items-center justify-center ${darkMode ? 'bg-stone-950' : 'bg-stone-50'}`}>
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-lg w-full"
+          key={chapter.id}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.1, ease: 'easeOut' }}
+          className="text-center px-10 max-w-md"
         >
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 sm:p-12 text-center space-y-8">
-            <div className="space-y-2">
-              <p className="text-amber-400 text-xs tracking-[0.3em] uppercase font-medium">Band {romanNum}</p>
-              <div className="w-16 h-px bg-amber-500/50 mx-auto" />
-            </div>
+          {/* Cuneiform glyph — Symbol des Übergangs */}
+          <div className={`text-4xl mb-10 select-none ${darkMode ? 'text-amber-800/40' : 'text-amber-700/25'}`}>
+            𒀭
+          </div>
 
-            <div className="space-y-5">
-              <h1 className="text-[clamp(1.5rem,7vw,2.5rem)] md:text-4xl font-serif text-white tracking-tight leading-tight">
-                {chapter.title.replace(/^Band [IVX]+: /, '')}
-              </h1>
-              <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto" />
-              {chapter.subtitle && (
-                <p className="text-stone-300 text-base md:text-lg font-serif italic max-w-sm mx-auto leading-relaxed">
-                  {chapter.subtitle}
-                </p>
-              )}
-            </div>
+          <p className={`text-[10px] tracking-[0.5em] uppercase font-mono mb-8 ${darkMode ? 'text-amber-700/60' : 'text-amber-700/50'}`}>
+            Band {romanNum}
+          </p>
 
-            {chapter.description && (
-              <p className="text-stone-400 text-sm font-serif max-w-sm mx-auto leading-relaxed">
+          <div className="w-16 h-px mx-auto mb-8"
+               style={{ background: darkMode
+                 ? 'linear-gradient(to right, transparent, rgba(217,119,6,0.3), transparent)'
+                 : 'linear-gradient(to right, transparent, rgba(180,83,9,0.25), transparent)' }} />
+
+          <h1 className={`font-serif text-2xl md:text-3xl tracking-tight leading-snug mb-5 ${darkMode ? 'text-stone-200' : 'text-stone-700'}`}>
+            {chapter.title.replace(/^Band\s+[IVX]+:\s*/i, '')}
+          </h1>
+
+          {chapter.subtitle && (
+            <p className={`font-serif italic text-base leading-relaxed mb-10 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+              {chapter.subtitle}
+            </p>
+          )}
+
+          {chapter.description && (
+            <>
+              <div className="w-8 h-px mx-auto mb-8"
+                   style={{ background: darkMode ? 'rgba(68,64,60,0.8)' : 'rgba(214,211,209,0.8)' }} />
+              <p className={`font-serif text-sm leading-loose ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
                 {chapter.description}
               </p>
-            )}
-          </div>
+            </>
+          )}
         </motion.div>
       </div>
     );
@@ -1301,7 +1313,7 @@ export default function Home() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.7 }}
             className="fixed inset-0 z-[80] flex items-center justify-center"
-            style={{ background: darkMode ? '#080806' : '#0d0c18' }}
+            style={{ background: darkMode ? '#080806' : '#f8f3ea' }}
           >
             <motion.div
               initial={{ opacity: 0, y: 24 }}
@@ -1310,23 +1322,25 @@ export default function Home() {
               transition={{ duration: 0.9, delay: 0.35, ease: [0.16, 1, 0.3, 1] }}
               className="text-center px-8 max-w-lg"
             >
-              <p className="text-amber-600/50 text-xs tracking-[0.45em] uppercase font-mono mb-7">
+              <p className={`text-xs tracking-[0.45em] uppercase font-mono mb-7 ${darkMode ? 'text-amber-600/50' : 'text-amber-700/60'}`}>
                 Band {buchSchwelle.romanNum}
               </p>
               <div className="w-20 h-px mx-auto mb-9"
-                   style={{ background: 'linear-gradient(to right, transparent, rgba(217,119,6,0.4), transparent)' }} />
-              <h2 className="font-serif text-3xl md:text-4xl text-stone-100/90 tracking-tight leading-tight mb-5">
+                   style={{ background: darkMode
+                     ? 'linear-gradient(to right, transparent, rgba(217,119,6,0.4), transparent)'
+                     : 'linear-gradient(to right, transparent, rgba(180,83,9,0.35), transparent)' }} />
+              <h2 className={`font-serif text-3xl md:text-4xl tracking-tight leading-tight mb-5 ${darkMode ? 'text-stone-100/90' : 'text-stone-800'}`}>
                 {buchSchwelle.title}
               </h2>
               {buchSchwelle.subtitle && (
-                <p className="font-serif italic text-stone-400/70 text-lg leading-relaxed">
+                <p className={`font-serif italic text-lg leading-relaxed ${darkMode ? 'text-stone-400/70' : 'text-stone-500'}`}>
                   {buchSchwelle.subtitle}
                 </p>
               )}
               <div className="mt-12 flex items-center justify-center gap-3">
-                <div className="w-12 h-px" style={{ background: 'rgba(217,119,6,0.2)' }} />
-                <span className="text-stone-700 text-[10px] font-mono tracking-[0.4em] uppercase">Schwelle</span>
-                <div className="w-12 h-px" style={{ background: 'rgba(217,119,6,0.2)' }} />
+                <div className="w-12 h-px" style={{ background: darkMode ? 'rgba(217,119,6,0.2)' : 'rgba(180,83,9,0.18)' }} />
+                <span className={`text-[10px] font-mono tracking-[0.4em] uppercase ${darkMode ? 'text-stone-700' : 'text-stone-400'}`}>Schwelle</span>
+                <div className="w-12 h-px" style={{ background: darkMode ? 'rgba(217,119,6,0.2)' : 'rgba(180,83,9,0.18)' }} />
               </div>
             </motion.div>
           </motion.div>
