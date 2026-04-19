@@ -1,8 +1,9 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSpeechRecognition, useSpeechSynthesis } from "@/hooks/useSpeech";
+import AnalyticsScreen from "@/components/enkidu/AnalyticsScreen";
 
 // ─── Types ────────────────────────────────────────────────────────
-type Screen = "landing" | "chat" | "feedback" | "profile";
+type Screen = "landing" | "chat" | "feedback" | "profile" | "analytics";
 
 interface Message {
   role: "user" | "assistant";
@@ -232,6 +233,31 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           .enkidu-edit-btn { opacity: 1 !important; }
           .enkidu-speaker { opacity: 1 !important; }
         }
+
+        /* ── Analytics screen ── */
+        .enkidu-analytics { padding: 4.5rem 1rem 3rem !important; }
+        .enkidu-analytics-stats {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 0.75rem !important;
+        }
+        .enkidu-analytics-grid {
+          display: grid !important;
+          grid-template-columns: 1fr !important;
+          gap: 1.25rem !important;
+        }
+        @media (min-width: 480px) {
+          .enkidu-analytics-stats {
+            grid-template-columns: repeat(4, 1fr) !important;
+          }
+        }
+        @media (min-width: 640px) {
+          .enkidu-analytics { padding: 7rem 3rem 4rem !important; }
+          .enkidu-analytics-stats { gap: 1rem !important; }
+          .enkidu-analytics-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1.5rem !important;
+          }
+        }
       `;
       document.head.appendChild(style);
     }
@@ -246,7 +272,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   }, [messages, loading]);
 
   useEffect(() => {
-    if (screen === "profile") setConversations(loadConversations());
+    if (screen === "profile" || screen === "analytics") setConversations(loadConversations());
   }, [screen]);
 
   const resizeTextarea = useCallback(() => {
@@ -689,11 +715,17 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     );
   };
 
+  // ─── SCREEN 5: ANALYTICS ─────────────────────────────────────
+  const renderAnalytics = () => (
+    <AnalyticsScreen conversations={conversations} />
+  );
+
   // ─── Nav ──────────────────────────────────────────────────────
   const navItems: { id: Screen; label: string }[] = [
-    { id: "landing", label: "Manifest" },
-    { id: "chat", label: "Gespräch" },
-    { id: "profile", label: "Verlauf" },
+    { id: "landing",   label: "Manifest" },
+    { id: "chat",      label: "Gespräch" },
+    { id: "profile",   label: "Verlauf" },
+    { id: "analytics", label: "Analyse" },
   ];
 
   return (
@@ -705,7 +737,10 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
             <li key={item.id}>
               <button
                 className="enkidu-nav-item"
-                onClick={() => item.id === "chat" ? enterChat() : setScreen(item.id)}
+                onClick={() => {
+                  if (item.id === "chat") enterChat();
+                  else setScreen(item.id);
+                }}
                 style={btn({ fontFamily: C.mono, textTransform: "uppercase", padding: "0.2rem 0", color: screen === item.id ? C.textBright : C.textDim, background: "none" })}
               >{item.label}</button>
             </li>
@@ -718,10 +753,11 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         >×</button>
       </nav>
 
-      {screen === "landing" && renderLanding()}
-      {screen === "chat" && renderChat()}
-      {screen === "feedback" && renderFeedback()}
-      {screen === "profile" && renderProfile()}
+      {screen === "landing"   && renderLanding()}
+      {screen === "chat"      && renderChat()}
+      {screen === "feedback"  && renderFeedback()}
+      {screen === "profile"   && renderProfile()}
+      {screen === "analytics" && renderAnalytics()}
     </div>
   );
 }
