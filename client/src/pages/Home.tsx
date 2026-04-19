@@ -5,7 +5,7 @@ import {
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, VolumeX, Mic, MicOff,
-  SkipBack, SkipForward, Play, Pause, Headphones, Network,
+  SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
@@ -130,6 +130,13 @@ export default function Home() {
 
   // Keyboard shortcuts help panel
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
+
+  // Chapter notes
+  const [notesOpen, setNotesOpen] = useState(false);
+  const [notes, setNotes] = useLocalStorage<Record<string, string>>('ebook-notes', {});
+
+  // Scroll position restoration — keyed by chapter id, in-memory
+  const scrollPositions = useRef<Record<string, number>>({});
 
   // Keyword popover
   const [activeKeyword, setActiveKeyword] = useState<{ term: string; definition: string; x: number; y: number } | null>(null);
@@ -261,11 +268,12 @@ export default function Home() {
     };
   }, []);
 
-  // Scroll tracking
+  // Scroll tracking — also save position for restoration
   useEffect(() => {
     const el = contentRef.current;
     if (!el) return;
     const onScroll = () => {
+      scrollPositions.current[currentId] = el.scrollTop;
       setShowScrollTop(el.scrollTop > 400);
       const total = el.scrollHeight - el.clientHeight;
       setReadProgress(total > 0 ? Math.round((el.scrollTop / total) * 100) : 0);
@@ -274,9 +282,13 @@ export default function Home() {
     return () => el.removeEventListener('scroll', onScroll);
   }, [currentId]);
 
-  // Scroll to top on chapter change
+  // Restore saved scroll position on chapter change (default: top)
   useEffect(() => {
-    contentRef.current?.scrollTo({ top: 0, behavior: 'instant' });
+    const saved = scrollPositions.current[currentId] ?? 0;
+    // rAF ensures the new chapter content is rendered before scrolling
+    requestAnimationFrame(() => {
+      contentRef.current?.scrollTo({ top: saved, behavior: 'instant' });
+    });
   }, [currentId]);
 
 
@@ -479,6 +491,7 @@ export default function Home() {
       // Escape always closes active panels, highest priority first
       if (e.key === 'Escape') {
         if (shortcutsOpen)      { setShortcutsOpen(false); return; }
+        if (notesOpen)          { setNotesOpen(false); return; }
         if (conceptGraphOpen)   { setConceptGraphOpen(false); return; }
         if (enkiduOpen)         { setEnkiduOpen(false); return; }
         if (searchOpen)         { setSearchOpen(false); setSearchQuery(''); return; }
@@ -526,7 +539,7 @@ export default function Home() {
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [
-    shortcutsOpen, conceptGraphOpen, enkiduOpen, searchOpen, chatOpen,
+    shortcutsOpen, notesOpen, conceptGraphOpen, enkiduOpen, searchOpen, chatOpen,
     fontMenuOpen, languageMenuOpen, headphonesMenuOpen, burgerMenuOpen,
     goNext, goPrev, currentId, toggleBookmark,
     setDarkMode, setSidebarOpen, setEnkiduOpen, setConceptGraphOpen,
@@ -1039,6 +1052,10 @@ export default function Home() {
     const isTranslated = !!translated && language !== 'de';
     void translationTick; // subscribe to cache updates
 
+    // Reading time estimate (avg. 200 wpm)
+    const wordCount = displayContent.split(/\s+/).filter(Boolean).length;
+    const readingMins = Math.max(1, Math.round(wordCount / 200));
+
     // Split content into paragraphs and render with proper typography
     const paragraphs = displayContent.split('\n\n').filter(p => p.trim());
 
@@ -1085,7 +1102,12 @@ export default function Home() {
           {translationError && language !== 'de' && (
             <p className="mt-3 text-xs text-red-500">{translationError} Zeige Originaltext.</p>
           )}
-          <div className="mt-6 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
+          <div className="mt-4 flex items-center gap-3">
+            <div className="flex-1 h-px bg-gradient-to-r from-amber-500/60 via-amber-500/20 to-transparent" />
+            <span className={`text-[10px] font-mono tracking-widest uppercase flex-shrink-0 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+              ca. {readingMins} Min.
+            </span>
+          </div>
         </header>
 
         {/* Content */}
@@ -1530,6 +1552,18 @@ export default function Home() {
             </button>
           )}
 
+          {/* Chapter notes */}
+          {currentId !== '__cover__' && (
+            <button
+              onClick={() => setNotesOpen(o => !o)}
+              className={`p-1.5 rounded-md transition-colors relative ${notesOpen ? 'text-amber-500' : 'hover:bg-stone-200/50'}`}
+              title="Kapitelnotizen"
+            >
+              <PenLine size={16} />
+              {notes[currentId] && <span className="absolute top-0.5 right-0.5 w-1.5 h-1.5 rounded-full bg-amber-500" />}
+            </button>
+          )}
+
           {/* Dark mode */}
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
             {darkMode ? <Sun size={16} /> : <Moon size={16} />}
@@ -1591,6 +1625,74 @@ export default function Home() {
                 ))}
               </div>
             </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ─── Chapter Notes Panel ─────────────────────────────── */}
+      <AnimatePresence>
+        {notesOpen && (
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className={`fixed top-0 right-0 h-full w-80 z-[55] flex flex-col shadow-2xl border-l ${
+              darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'
+            }`}
+          >
+            {/* Panel header */}
+            <div className={`flex items-center justify-between px-4 py-3 border-b flex-none ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
+              <div className="flex items-center gap-2">
+                <PenLine size={14} className="text-amber-500" />
+                <span className={`text-xs font-mono tracking-widest uppercase ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+                  Notizen
+                </span>
+              </div>
+              <button
+                onClick={() => setNotesOpen(false)}
+                className={`p-1 rounded transition-colors ${darkMode ? 'text-stone-500 hover:text-stone-200' : 'text-stone-400 hover:text-stone-700'}`}
+              >
+                <X size={14} />
+              </button>
+            </div>
+
+            {/* Chapter label */}
+            {ebook && currentId !== '__cover__' && (() => {
+              const ch = ebook.chapters.find(c => c.id === currentId);
+              return ch ? (
+                <div className={`px-4 py-2 border-b flex-none ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
+                  <p className={`text-[11px] truncate ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>{ch.title}</p>
+                </div>
+              ) : null;
+            })()}
+
+            {/* Textarea */}
+            <textarea
+              className={`flex-1 resize-none p-4 text-sm leading-relaxed focus:outline-none ${
+                darkMode
+                  ? 'bg-stone-900 text-stone-200 placeholder:text-stone-700'
+                  : 'bg-white text-stone-800 placeholder:text-stone-300'
+              }`}
+              placeholder="Gedanken, Anmerkungen, Fragen zum Kapitel …"
+              value={notes[currentId] ?? ''}
+              onChange={e => setNotes(prev => ({ ...prev, [currentId]: e.target.value }))}
+            />
+
+            {/* Footer */}
+            <div className={`px-4 py-2 border-t flex-none flex items-center justify-between ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
+              <span className={`text-[10px] font-mono ${darkMode ? 'text-stone-700' : 'text-stone-300'}`}>
+                Automatisch gespeichert
+              </span>
+              {notes[currentId] && (
+                <button
+                  onClick={() => setNotes(prev => { const n = { ...prev }; delete n[currentId]; return n; })}
+                  className={`text-[10px] font-mono transition-colors ${darkMode ? 'text-stone-600 hover:text-red-400' : 'text-stone-400 hover:text-red-500'}`}
+                >
+                  Löschen
+                </button>
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
