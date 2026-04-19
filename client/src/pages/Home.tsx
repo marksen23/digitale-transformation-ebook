@@ -1851,21 +1851,32 @@ export default function Home() {
                     </p>
                   )}
                   {partChapters.map(ch => (
-                    <button
-                      key={ch.id}
-                      onClick={() => navigateTo(ch.id)}
-                      className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition-colors flex items-center gap-2 ${
-                        currentId === ch.id
-                          ? 'bg-amber-500/15 text-amber-700 font-medium'
-                          : darkMode ? 'text-stone-400 hover:bg-stone-800 hover:text-stone-200' : 'text-stone-600 hover:bg-stone-100'
-                      }`}
-                    >
-                      {bookmarks.includes(ch.id) && <Bookmark size={10} className="text-amber-500 flex-none" fill="currentColor" />}
-                      <span className="truncate flex-1">{ch.title}</span>
-                      {completedChapters.includes(ch.id) && (
-                        <CheckCircle2 size={10} className="text-emerald-500 flex-none opacity-70" />
-                      )}
-                    </button>
+                    <div key={ch.id} className="flex items-center group">
+                      <button
+                        onClick={() => navigateTo(ch.id)}
+                        className={`flex-1 min-w-0 text-left px-3 py-1.5 rounded-lg text-xs transition-colors flex items-center gap-2 ${
+                          currentId === ch.id
+                            ? 'bg-amber-500/15 text-amber-700 font-medium'
+                            : darkMode ? 'text-stone-400 hover:bg-stone-800 hover:text-stone-200' : 'text-stone-600 hover:bg-stone-100'
+                        }`}
+                      >
+                        {bookmarks.includes(ch.id) && <Bookmark size={10} className="text-amber-500 flex-none" fill="currentColor" />}
+                        <span className="truncate">{ch.title}</span>
+                      </button>
+                      <button
+                        onClick={(e) => { e.stopPropagation(); toggleCompleted(ch.id); }}
+                        title={completedChapters.includes(ch.id) ? 'Als ungelesen markieren' : 'Als gelesen markieren'}
+                        className={`flex-none p-1 mr-1 rounded transition-colors ${
+                          completedChapters.includes(ch.id)
+                            ? 'text-emerald-500 opacity-80 hover:opacity-100'
+                            : darkMode
+                              ? 'text-stone-700 opacity-0 group-hover:opacity-100 hover:text-stone-400'
+                              : 'text-stone-300 opacity-0 group-hover:opacity-100 hover:text-stone-500'
+                        }`}
+                      >
+                        <CheckCircle2 size={11} />
+                      </button>
+                    </div>
                   ))}
                 </div>
               );
