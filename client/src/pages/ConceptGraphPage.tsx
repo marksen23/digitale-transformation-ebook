@@ -48,20 +48,24 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [legendOpen, setLegendOpen] = useState(false);
 
   // Touch tracking
-  const dragRef   = useRef<{ sx: number; sy: number; px: number; py: number } | null>(null);
-  const pinchRef  = useRef<number | null>(null); // initial touch distance for pinch
+  const dragRef      = useRef<{ sx: number; sy: number; px: number; py: number } | null>(null);
+  const pinchRef     = useRef<number | null>(null); // initial touch distance for pinch
+  const hasDraggedRef = useRef(false);              // true if mouse moved ≥ 4 px after mousedown
   const svgRef    = useRef<SVGSVGElement>(null);
   const panRef    = useRef(pan);
   const zoomRef   = useRef(zoom);
-  useEffect(() => { panRef.current  = pan;  }, [pan]);
-  useEffect(() => { zoomRef.current = zoom; }, [zoom]);
+  // Sync refs synchronously alongside state updates (avoids stale-ref race via useEffect)
+  const setPanSync  = useCallback((p: { x: number; y: number }) => { panRef.current = p;  setPan(p);  }, []);
+  const setZoomSync = useCallback((z: number)                   => { zoomRef.current = z; setZoom(z); }, []);
 
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
 
   // ── Pan / Zoom handlers ────────────────────────────────────────────────────
-
-  const onMouseDown = useCallback((e: React.MouseEvent<SVGRectElement>) => {
+  // onMouseDown lives on the <svg> (not a child rect) so it fires for clicks
+  // anywhere — including on node circles, which are siblings of any background rect.
+  const onMouseDown = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
+    hasDraggedRef.current = false;
     dragRef.current = { sx: e.clientX, sy: e.clientY, px: panRef.current.x, py: panRef.current.y };
   }, []);
 
@@ -69,19 +73,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     if (!dragRef.current) return;
     const dx = e.clientX - dragRef.current.sx;
     const dy = e.clientY - dragRef.current.sy;
-    setPan({ x: dragRef.current.px + dx, y: dragRef.current.py + dy });
-  }, []);
+    // Mark as real drag once threshold exceeded (distinguishes click from drag)
+    if (Math.abs(dx) > 4 || Math.abs(dy) > 4) hasDraggedRef.current = true;
+    setPanSync({ x: dragRef.current.px + dx, y: dragRef.current.py + dy });
+  }, [setPanSync]);
 
   const stopDrag = useCallback(() => { dragRef.current = null; }, []);
 
   const onWheel = useCallback((e: React.WheelEvent<SVGSVGElement>) => {
     e.preventDefault();
     const delta = e.deltaY > 0 ? 0.92 : 1.08;
-    setZoom(z => clampZoom(z * delta));
-  }, []);
+    setZoomSync(clampZoom(zoomRef.current * delta));
+  }, [setZoomSync]);
 
   // Touch events
   const onTouchStart = useCallback((e: React.TouchEvent<SVGSVGElement>) => {
+    hasDraggedRef.current = false;
     if (e.touches.length === 1) {
       const t = e.touches[0];
       dragRef.current = { sx: t.clientX, sy: t.clientY, px: panRef.current.x, py: panRef.current.y };
@@ -100,16 +107,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       const t = e.touches[0];
       const dx = t.clientX - dragRef.current.sx;
       const dy = t.clientY - dragRef.current.sy;
-      setPan({ x: dragRef.current.px + dx, y: dragRef.current.py + dy });
+      if (Math.abs(dx) > 4 || Math.abs(dy) > 4) hasDraggedRef.current = true;
+      setPanSync({ x: dragRef.current.px + dx, y: dragRef.current.py + dy });
     } else if (e.touches.length === 2 && pinchRef.current !== null) {
       const dx = e.touches[0].clientX - e.touches[1].clientX;
       const dy = e.touches[0].clientY - e.touches[1].clientY;
       const dist = Math.hypot(dx, dy);
       const ratio = dist / pinchRef.current;
       pinchRef.current = dist;
-      setZoom(z => clampZoom(z * ratio));
+      setZoomSync(clampZoom(zoomRef.current * ratio));
     }
-  }, []);
+  }, [setPanSync, setZoomSync]);
 
   const onTouchEnd = useCallback(() => {
     dragRef.current  = null;
@@ -146,6 +154,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // ── Node click handler ─────────────────────────────────────────────────────
   const handleNodeClick = useCallback((e: React.MouseEvent, id: string) => {
     e.stopPropagation();
+    if (hasDraggedRef.current) return; // war ein Drag, kein Klick
     setSelectedId(prev => prev === id ? null : id);
     setSearchQuery("");
   }, []);
@@ -354,6 +363,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         <svg
           ref={svgRef}
           style={{ flex: 1, display: "block", cursor: dragRef.current ? "grabbing" : "grab", touchAction: "none" }}
+          onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={stopDrag}
           onMouseLeave={stopDrag}
@@ -361,15 +371,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           onTouchStart={onTouchStart}
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
-          onClick={() => { setSelectedId(null); setSearchQuery(""); setLegendOpen(false); }}
+          onClick={() => {
+            if (hasDraggedRef.current) return; // drag end — kein Reset
+            setSelectedId(null); setSearchQuery(""); setLegendOpen(false);
+          }}
           preserveAspectRatio="xMidYMid meet"
         >
-          {/* Transparent drag catcher */}
-          <rect
-            x="-99999" y="-99999" width="199998" height="199998"
-            fill="transparent"
-            onMouseDown={onMouseDown}
-          />
 
           <g transform={transform}>
             {/* ── Edges ── */}
@@ -666,8 +673,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             aria-label={btn.aria}
             title={btn.aria}
             onClick={() => {
-              if (btn.reset) { setZoom(1); setPan({ x: 0, y: 0 }); }
-              else setZoom(z => clampZoom(z * (btn.delta ?? 1)));
+              if (btn.reset) { setZoomSync(1); setPanSync({ x: 0, y: 0 }); }
+              else setZoomSync(clampZoom(zoomRef.current * (btn.delta ?? 1)));
             }}
             style={{
               fontFamily: C.mono, fontSize: "0.9rem",
