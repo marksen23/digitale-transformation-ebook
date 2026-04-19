@@ -204,55 +204,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       }} />
 
       {/* Nav */}
-      <nav style={{
+      <nav className="concept-nav-bar" style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
-        display: "flex", alignItems: "center", gap: "0.75rem",
-        padding: "0.65rem 1.2rem",
+        display: "flex", alignItems: "center", flexWrap: "wrap", gap: "0.5rem",
+        padding: "0.65rem 1rem",
         borderBottom: `1px solid ${C.border}`,
         background: "rgba(8,8,8,0.92)", backdropFilter: "blur(12px)",
       }}>
-        {/* Title */}
+        {/* Row 1: Title + Legende + Close */}
         <span style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>
           Begriffsnetz
         </span>
 
-        {/* Search */}
-        <div style={{ flex: 1, position: "relative", maxWidth: 300 }}>
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={e => { setSearchQuery(e.target.value); setSelectedId(null); }}
-            placeholder="Begriff suchen …"
-            style={{
-              width: "100%", background: C.surface,
-              border: `1px solid ${searchQuery ? C.accentDim : C.border}`,
-              color: C.textBright, fontFamily: C.serif, fontStyle: "italic",
-              fontSize: "0.88rem", padding: "0.3rem 1.8rem 0.3rem 0.7rem",
-              outline: "none", transition: "border-color 0.2s",
-            }}
-            onFocus={e => (e.currentTarget.style.borderColor = C.accentDim)}
-            onBlur={e => (e.currentTarget.style.borderColor = searchQuery ? C.accentDim : C.border)}
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery("")}
-              style={{
-                position: "absolute", right: "0.4rem", top: "50%", transform: "translateY(-50%)",
-                background: "none", border: "none", color: C.muted, cursor: "pointer",
-                fontFamily: "monospace", fontSize: "0.85rem", lineHeight: 1, padding: "0.1rem",
-              }}
-            >×</button>
-          )}
-        </div>
-
-        {/* Search result count */}
-        {searchQuery && (
-          <span style={{ fontFamily: C.mono, fontSize: "0.6rem", color: C.accentDim, flexShrink: 0 }}>
-            {searchMatchIds.size} Treffer
-          </span>
-        )}
-
-        {/* Spacer */}
         <div style={{ flex: 1 }} />
 
         {/* Legend toggle */}
@@ -289,12 +252,48 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           onMouseEnter={e => (e.currentTarget.style.color = C.textBright)}
           onMouseLeave={e => (e.currentTarget.style.color = C.textDim)}
         >×</button>
+
+        {/* Row 2: Search (full width on mobile, capped on desktop) */}
+        <div className="concept-search-row" style={{ display: "flex", alignItems: "center", gap: "0.5rem", width: "100%" }}>
+          <div style={{ flex: 1, position: "relative", maxWidth: 340 }}>
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={e => { setSearchQuery(e.target.value); setSelectedId(null); }}
+              placeholder="Begriff suchen …"
+              style={{
+                width: "100%", background: C.surface,
+                border: `1px solid ${searchQuery ? C.accentDim : C.border}`,
+                color: C.textBright, fontFamily: C.serif, fontStyle: "italic",
+                fontSize: "0.88rem", padding: "0.3rem 1.8rem 0.3rem 0.7rem",
+                outline: "none", transition: "border-color 0.2s", boxSizing: "border-box",
+              }}
+              onFocus={e => (e.currentTarget.style.borderColor = C.accentDim)}
+              onBlur={e => (e.currentTarget.style.borderColor = searchQuery ? C.accentDim : C.border)}
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery("")}
+                style={{
+                  position: "absolute", right: "0.4rem", top: "50%", transform: "translateY(-50%)",
+                  background: "none", border: "none", color: C.muted, cursor: "pointer",
+                  fontFamily: "monospace", fontSize: "0.85rem", lineHeight: 1, padding: "0.1rem",
+                }}
+              >×</button>
+            )}
+          </div>
+          {searchQuery && (
+            <span style={{ fontFamily: C.mono, fontSize: "0.6rem", color: C.accentDim, flexShrink: 0 }}>
+              {searchMatchIds.size} Treffer
+            </span>
+          )}
+        </div>
       </nav>
 
       {/* Legend / category filter panel */}
       {legendOpen && (
         <div style={{
-          position: "fixed", top: "3.6rem", right: "1.2rem", zIndex: 190,
+          position: "fixed", top: "5.4rem", right: "1.2rem", zIndex: 190,
           background: C.deep, border: `1px solid ${C.border}`,
           padding: "1rem 1.1rem", minWidth: 200,
           backdropFilter: "blur(8px)",
@@ -349,7 +348,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       )}
 
       {/* Main area: SVG graph + detail panel */}
-      <div style={{ display: "flex", flex: 1, marginTop: "2.8rem", height: "calc(100vh - 2.8rem)", overflow: "hidden" }}>
+      <div className="concept-graph-body" style={{ display: "flex", flex: 1, overflow: "hidden" }}>
 
         {/* SVG Graph */}
         <svg
@@ -685,6 +684,19 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       </div>
 
       <style>{`
+        /* Nav: two-row layout — row 1: title/controls, row 2: search */
+        .concept-graph-body {
+          margin-top: 5.2rem;
+          height: calc(100vh - 5.2rem);
+        }
+        /* Desktop: search row doesn't need full width, align left */
+        @media (min-width: 641px) {
+          .concept-search-row {
+            width: auto !important;
+            flex: 0 1 380px !important;
+          }
+        }
+
         /* Mobile (≤ 640 px): only bottom sheet, sidebar hidden */
         @media (max-width: 640px) {
           .concept-detail-sidebar { display: none !important; }
