@@ -5,7 +5,7 @@ import {
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, VolumeX, Mic, MicOff,
-  SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine,
+  SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine, CheckCircle2,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
@@ -134,6 +134,14 @@ export default function Home() {
   // Chapter notes
   const [notesOpen, setNotesOpen] = useState(false);
   const [notes, setNotes] = useLocalStorage<Record<string, string>>('ebook-notes', {});
+
+  // Chapter completion tracking
+  const [completedChapters, setCompletedChapters] = useLocalStorage<string[]>('ebook-completed', []);
+  const toggleCompleted = useCallback((id: string) => {
+    setCompletedChapters(prev =>
+      prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
+    );
+  }, [setCompletedChapters]);
 
   // Scroll position restoration — keyed by chapter id, in-memory
   const scrollPositions = useRef<Record<string, number>>({});
@@ -276,7 +284,12 @@ export default function Home() {
       scrollPositions.current[currentId] = el.scrollTop;
       setShowScrollTop(el.scrollTop > 400);
       const total = el.scrollHeight - el.clientHeight;
-      setReadProgress(total > 0 ? Math.round((el.scrollTop / total) * 100) : 0);
+      const pct = total > 0 ? Math.round((el.scrollTop / total) * 100) : 0;
+      setReadProgress(pct);
+      // Auto-mark chapter as completed when ≥ 80% scrolled through
+      if (pct >= 80 && currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur') {
+        setCompletedChapters(prev => prev.includes(currentId) ? prev : [...prev, currentId]);
+      }
     };
     el.addEventListener('scroll', onScroll, { passive: true });
     return () => el.removeEventListener('scroll', onScroll);
@@ -528,6 +541,8 @@ export default function Home() {
           break;
         case 'b':
           if (currentId !== '__cover__') toggleBookmark(currentId); break;
+        case 'c':
+          if (currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur') toggleCompleted(currentId); break;
         case 'd': setDarkMode(v => !v); break;
         case 't': setSidebarOpen(v => !v); break;
         case 'e': setEnkiduOpen(v => !v); break;
@@ -541,7 +556,7 @@ export default function Home() {
   }, [
     shortcutsOpen, notesOpen, conceptGraphOpen, enkiduOpen, searchOpen, chatOpen,
     fontMenuOpen, languageMenuOpen, headphonesMenuOpen, burgerMenuOpen,
-    goNext, goPrev, currentId, toggleBookmark,
+    goNext, goPrev, currentId, toggleBookmark, toggleCompleted,
     setDarkMode, setSidebarOpen, setEnkiduOpen, setConceptGraphOpen,
     setSearchOpen, setSearchQuery, setBurgerMenuOpen,
   ]);
@@ -1564,6 +1579,17 @@ export default function Home() {
             </button>
           )}
 
+          {/* Chapter completion toggle */}
+          {currentId !== '__cover__' && currentId !== 'glossar' && currentId !== 'literatur' && (
+            <button
+              onClick={() => toggleCompleted(currentId)}
+              className={`p-1.5 rounded-md transition-colors ${completedChapters.includes(currentId) ? 'text-emerald-500' : 'opacity-40 hover:opacity-80'}`}
+              title={completedChapters.includes(currentId) ? 'Als ungelesen markieren' : 'Als gelesen markieren'}
+            >
+              <CheckCircle2 size={16} />
+            </button>
+          )}
+
           {/* Dark mode */}
           <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
             {darkMode ? <Sun size={16} /> : <Moon size={16} />}
@@ -1609,6 +1635,7 @@ export default function Home() {
                   { key: '/ ',       desc: 'Suche öffnen' },
                   { key: 'Ctrl+F',   desc: 'Suche öffnen' },
                   { key: 'b',        desc: 'Lesezeichen setzen' },
+                  { key: 'c',        desc: 'Kapitel als gelesen markieren' },
                   { key: 'd',        desc: 'Hell / Dunkel wechseln' },
                   { key: 't',        desc: 'Seitenleiste ein-/ausblenden' },
                   { key: 'e',        desc: 'Enkidu öffnen / schließen' },
@@ -1763,6 +1790,31 @@ export default function Home() {
           `}
         >
           <nav className="p-4 space-y-1">
+            {/* Progress indicator */}
+            {ebook && (() => {
+              const eligible = ebook.chapters.filter(c => c.id !== 'glossar' && c.id !== 'literatur');
+              const done = eligible.filter(c => completedChapters.includes(c.id)).length;
+              const pct = eligible.length > 0 ? Math.round((done / eligible.length) * 100) : 0;
+              return (
+                <div className="mb-3 px-1">
+                  <div className="flex items-center justify-between mb-1">
+                    <span className={`text-[10px] font-mono tracking-widest uppercase ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                      Fortschritt
+                    </span>
+                    <span className={`text-[10px] font-mono ${done > 0 ? 'text-emerald-500' : darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                      {done} / {eligible.length}
+                    </span>
+                  </div>
+                  <div className={`h-0.5 rounded-full ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}>
+                    <div
+                      className="h-full rounded-full bg-emerald-500 transition-all duration-500"
+                      style={{ width: `${pct}%` }}
+                    />
+                  </div>
+                </div>
+              );
+            })()}
+
             {/* Cover */}
             <button
               onClick={() => navigateTo('__cover__')}
@@ -1802,7 +1854,10 @@ export default function Home() {
                       }`}
                     >
                       {bookmarks.includes(ch.id) && <Bookmark size={10} className="text-amber-500 flex-none" fill="currentColor" />}
-                      <span className="truncate">{ch.title}</span>
+                      <span className="truncate flex-1">{ch.title}</span>
+                      {completedChapters.includes(ch.id) && (
+                        <CheckCircle2 size={10} className="text-emerald-500 flex-none opacity-70" />
+                      )}
                     </button>
                   ))}
                 </div>
