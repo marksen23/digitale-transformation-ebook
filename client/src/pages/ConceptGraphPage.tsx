@@ -164,12 +164,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         .filter(Boolean) as ConceptNode[]
     : [];
 
+  // ── Categories active for the current selection ────────────────────────────
+  // Includes the selected node's own category + all connected nodes' categories.
+  // Used to highlight relevant legend rows automatically.
+  const activeCats = useMemo((): Set<NodeCategory> => {
+    if (!selectedNode) return new Set();
+    const cats = new Set<NodeCategory>([selectedNode.category]);
+    connectedNodes.forEach(n => cats.add(n.category));
+    return cats;
+  }, [selectedNode, connectedNodes]);
+
   // ── Node click handler ─────────────────────────────────────────────────────
   const handleNodeClick = useCallback((e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     if (hasDraggedRef.current) return; // war ein Drag, kein Klick
     setSelectedId(prev => prev === id ? null : id);
     setSearchQuery("");
+    setLegendOpen(false); // sidebar übernimmt die Legende beim Auswählen
   }, []);
 
   // ── Determine visual state of a node (search-aware) ───────────────────────
@@ -243,26 +254,28 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
           <div style={{ flex: 1 }} />
 
-          {/* Legend toggle */}
-          <button
-            onClick={() => setLegendOpen(o => !o)}
-            title="Legende / Kategorien"
-            style={{
-              fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
-              textTransform: "uppercase", color: legendOpen ? C.accent : C.muted,
-              background: legendOpen ? "rgba(196,168,130,0.08)" : "none",
-              border: `1px solid ${legendOpen ? C.accentDim : C.border}`,
-              padding: "0.3rem 0.7rem", cursor: "pointer",
-              transition: "all 0.15s", flexShrink: 0,
-            }}
-            onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = legendOpen ? C.accent : C.muted;
-              e.currentTarget.style.borderColor = legendOpen ? C.accentDim : C.border;
-            }}
-          >
-            Legende
-          </button>
+          {/* Legend toggle — only shown when no node is selected (sidebar carries the legend then) */}
+          {!selectedId && (
+            <button
+              onClick={() => setLegendOpen(o => !o)}
+              title="Legende / Kategorien"
+              style={{
+                fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
+                textTransform: "uppercase", color: legendOpen ? C.accent : C.muted,
+                background: legendOpen ? "rgba(196,168,130,0.08)" : "none",
+                border: `1px solid ${legendOpen ? C.accentDim : C.border}`,
+                padding: "0.3rem 0.7rem", cursor: "pointer",
+                transition: "all 0.15s", flexShrink: 0,
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
+              onMouseLeave={e => {
+                e.currentTarget.style.color = legendOpen ? C.accent : C.muted;
+                e.currentTarget.style.borderColor = legendOpen ? C.accentDim : C.border;
+              }}
+            >
+              Legende
+            </button>
+          )}
 
           {/* Close */}
           <button
@@ -788,8 +801,75 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </>
             )}
 
+            {/* ── Kategorien-Legende ─────────────────────────────────────────────
+                Aktive Kategorien (ausgewählter Begriff + verbundene Begriffe)
+                werden hervorgehoben. Alle Kategorien bleiben manuell schaltbar. */}
+            <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
+            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.7rem" }}>
+              Kategorien
+            </div>
+            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).map(([cat, color]) => {
+              const hidden   = hiddenCats.has(cat);
+              const isActive = activeCats.has(cat);
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setHiddenCats(prev => {
+                    const next = new Set(prev);
+                    if (next.has(cat)) next.delete(cat); else next.add(cat);
+                    return next;
+                  })}
+                  style={{
+                    display: "flex", alignItems: "center", gap: "0.5rem",
+                    width: "100%", background: "none", border: "none",
+                    cursor: "pointer", padding: "0.28rem 0",
+                    opacity: hidden ? 0.35 : 1, transition: "opacity 0.15s",
+                  }}
+                >
+                  <span style={{
+                    width: 9, height: 9, borderRadius: "50%",
+                    background: hidden ? "transparent" : color,
+                    border: `1.5px solid ${color}`,
+                    flexShrink: 0,
+                    boxShadow: isActive && !hidden ? `0 0 7px ${color}66` : "none",
+                    transition: "all 0.2s",
+                  }} />
+                  <span style={{
+                    fontFamily: C.serif, fontStyle: "italic",
+                    fontSize: "0.82rem",
+                    color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
+                    flex: 1, textAlign: "left",
+                    transition: "color 0.2s",
+                  }}>
+                    {categoryLabel(cat)}
+                  </span>
+                  {/* Active indicator — small dot in category color */}
+                  {isActive && !hidden && (
+                    <span style={{
+                      width: 3, height: 3, borderRadius: "50%",
+                      background: color, flexShrink: 0,
+                    }} />
+                  )}
+                </button>
+              );
+            })}
+            {hiddenCats.size > 0 && (
+              <button
+                onClick={() => setHiddenCats(new Set())}
+                style={{
+                  marginTop: "0.65rem", width: "100%",
+                  fontFamily: C.mono, fontSize: "0.56rem", letterSpacing: "0.1em",
+                  textTransform: "uppercase", color: C.accent,
+                  background: "none", border: `1px solid ${C.accentDim}`,
+                  padding: "0.3rem 0.5rem", cursor: "pointer",
+                }}
+              >
+                Alle einblenden
+              </button>
+            )}
+
             {/* Close detail */}
-            <div style={{ marginTop: "2rem" }}>
+            <div style={{ marginTop: "1.8rem" }}>
               <button
                 onClick={() => setSelectedId(null)}
                 style={{
@@ -832,7 +912,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             {selectedNode.description}
           </p>
           {connectedNodes.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem" }}>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "0.6rem" }}>
               {connectedNodes.map(cn => (
                 <button
                   key={cn.id}
@@ -849,6 +929,62 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               ))}
             </div>
           )}
+
+          {/* ── Kompakte Legende im Mobile-Sheet ── */}
+          <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem" }}>
+            <div style={{ fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.55rem" }}>
+              Kategorien
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" }}>
+              {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).map(([cat, color]) => {
+                const hidden   = hiddenCats.has(cat);
+                const isActive = activeCats.has(cat);
+                return (
+                  <button
+                    key={cat}
+                    onClick={() => setHiddenCats(prev => {
+                      const next = new Set(prev);
+                      if (next.has(cat)) next.delete(cat); else next.add(cat);
+                      return next;
+                    })}
+                    style={{
+                      display: "flex", alignItems: "center", gap: "0.38rem",
+                      background: "none", border: "none", cursor: "pointer",
+                      padding: "0.18rem 0",
+                      opacity: hidden ? 0.35 : 1, transition: "opacity 0.15s",
+                    }}
+                  >
+                    <span style={{
+                      width: 7, height: 7, borderRadius: "50%",
+                      background: hidden ? "transparent" : color,
+                      border: `1.5px solid ${color}`, flexShrink: 0,
+                      boxShadow: isActive && !hidden ? `0 0 5px ${color}55` : "none",
+                    }} />
+                    <span style={{
+                      fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem",
+                      color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
+                    }}>
+                      {categoryLabel(cat)}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+            {hiddenCats.size > 0 && (
+              <button
+                onClick={() => setHiddenCats(new Set())}
+                style={{
+                  marginTop: "0.5rem",
+                  fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em",
+                  textTransform: "uppercase", color: C.accent,
+                  background: "none", border: `1px solid ${C.accentDim}`,
+                  padding: "0.22rem 0.5rem", cursor: "pointer",
+                }}
+              >
+                Alle einblenden
+              </button>
+            )}
+          </div>
         </div>
       )}
 
