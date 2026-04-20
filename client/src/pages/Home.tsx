@@ -6,7 +6,7 @@ import {
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, Mic, MicOff,
   SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine, CheckCircle2,
-  Maximize2, Minimize2,
+  Maximize2, Minimize2, ChevronRight,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
@@ -61,6 +61,7 @@ export default function Home() {
   // Navigation
   const [currentId, setCurrentId] = useLocalStorage<string>('ebook-chapter', '__cover__');
   const [sidebarOpen, setSidebarOpen] = useState(() => typeof window !== 'undefined' && window.innerWidth >= 768);
+  const [expandedParts, setExpandedParts] = useState<Set<string>>(new Set());
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
   const [enkiduOpen, setEnkiduOpen] = useState(false);
   const [conceptGraphOpen, setConceptGraphOpen] = useState(false);
@@ -303,6 +304,12 @@ export default function Home() {
   }, [searchOpen]);
 
   const currentChapter = ebook ? ebook.chapters.find(c => c.id === currentId) : undefined;
+
+  // Auto-expand the part containing the current chapter (sidebar accordion)
+  useEffect(() => {
+    if (!currentChapter?.part) return;
+    setExpandedParts(prev => prev.has(currentChapter.part!) ? prev : new Set(prev).add(currentChapter.part!));
+  }, [currentChapter?.part]);
 
   // ─── Audio Player — Init (nach currentChapter, da plainParagraphs davon abhängt) ──
   const plainParagraphs = useMemo(() => {
@@ -1975,18 +1982,39 @@ export default function Home() {
             {ebook.parts.map(part => {
               const partChapters = ebook.chapters.filter(c => c.part === part.id);
               if (partChapters.length === 0) return null;
+              const isExpanded = expandedParts.has(part.id);
+              const togglePart = () =>
+                setExpandedParts(prev => {
+                  const next = new Set(prev);
+                  if (next.has(part.id)) next.delete(part.id);
+                  else next.add(part.id);
+                  return next;
+                });
 
               return (
                 <div key={part.id} className="pt-3">
-                  <p className={`px-3 text-[10px] tracking-[0.15em] uppercase font-semibold mb-1 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
-                    {part.title}
-                  </p>
-                  {part.subtitle && (
-                    <p className={`px-3 text-[10px] italic mb-2 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                  <button
+                    type="button"
+                    onClick={togglePart}
+                    aria-expanded={isExpanded}
+                    className={`w-full flex items-center gap-1.5 px-3 py-1 rounded-md text-left transition-colors ${
+                      darkMode ? 'hover:bg-stone-800/60' : 'hover:bg-stone-100'
+                    }`}
+                  >
+                    <ChevronRight
+                      size={11}
+                      className={`flex-none transition-transform ${isExpanded ? 'rotate-90' : ''} ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}
+                    />
+                    <span className={`flex-1 min-w-0 text-[10px] tracking-[0.15em] uppercase font-semibold ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+                      {part.title}
+                    </span>
+                  </button>
+                  {isExpanded && part.subtitle && (
+                    <p className={`px-3 text-[10px] italic mb-2 mt-1 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
                       {part.subtitle}
                     </p>
                   )}
-                  {partChapters.map(ch => (
+                  {isExpanded && partChapters.map(ch => (
                     <div key={ch.id} className="flex items-center group">
                       <button
                         onClick={() => navigateTo(ch.id)}

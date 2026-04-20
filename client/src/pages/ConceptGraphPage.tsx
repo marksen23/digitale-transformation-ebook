@@ -1,5 +1,8 @@
 import { useState, useRef, useCallback, useMemo } from "react";
-import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, type ConceptNode, type NodeCategory } from "@/data/conceptGraph";
+import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory } from "@/data/conceptGraph";
+
+const PR_COLOR = "#8ea8b8";
+const PR_GLOW  = "#c4d6e0";
 
 interface ConceptGraphPageProps {
   onClose: () => void;
@@ -58,6 +61,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Search + filter
   const [searchQuery, setSearchQuery] = useState("");
   const [hiddenCats, setHiddenCats] = useState<Set<NodeCategory>>(new Set());
+  const [hiddenLeitmotive, setHiddenLeitmotive] = useState<Set<string>>(new Set());
+  const [hiddenPrinzipien, setHiddenPrinzipien] = useState<Set<string>>(new Set());
   const [legendOpen, setLegendOpen] = useState(false);
 
   // Touch tracking
@@ -71,6 +76,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const setPanSync  = useCallback((p: { x: number; y: number }) => { panRef.current = p;  setPan(p);  }, []);
   const setZoomSync = useCallback((z: number)                   => { zoomRef.current = z; setZoom(z); }, []);
 
+  // Node drag state
+  const [nodePositions, setNodePositions] = useState<Map<string, {x: number, y: number}>>(new Map());
+  const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
+  const nodeDragRef = useRef<{
+    id: string;
+    startClientX: number;
+    startClientY: number;
+    origX: number;
+    origY: number;
+  } | null>(null);
+
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
 
@@ -83,6 +99,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   }, []);
 
   const onMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
+    if (nodeDragRef.current) {
+      const dx = (e.clientX - nodeDragRef.current.startClientX) / zoomRef.current;
+      const dy = (e.clientY - nodeDragRef.current.startClientY) / zoomRef.current;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasDraggedRef.current = true;
+      const id = nodeDragRef.current.id;
+      setNodePositions(prev => new Map(prev).set(id, {
+        x: nodeDragRef.current!.origX + dx,
+        y: nodeDragRef.current!.origY + dy,
+      }));
+      return;
+    }
     if (!dragRef.current) return;
     const dx = e.clientX - dragRef.current.sx;
     const dy = e.clientY - dragRef.current.sy;
@@ -91,7 +118,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setPanSync({ x: dragRef.current.px + dx, y: dragRef.current.py + dy });
   }, [setPanSync]);
 
-  const stopDrag = useCallback(() => { dragRef.current = null; }, []);
+  const stopDrag = useCallback(() => {
+    dragRef.current = null;
+    nodeDragRef.current = null;
+    setDraggingNodeId(null);
+  }, []);
 
   const onWheel = useCallback((e: React.WheelEvent<SVGSVGElement>) => {
     e.preventDefault();
@@ -116,6 +147,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   const onTouchMove = useCallback((e: React.TouchEvent<SVGSVGElement>) => {
     e.preventDefault();
+    if (e.touches.length === 1 && nodeDragRef.current) {
+      const t = e.touches[0];
+      const dx = (t.clientX - nodeDragRef.current.startClientX) / zoomRef.current;
+      const dy = (t.clientY - nodeDragRef.current.startClientY) / zoomRef.current;
+      if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasDraggedRef.current = true;
+      const id = nodeDragRef.current.id;
+      setNodePositions(prev => new Map(prev).set(id, {
+        x: nodeDragRef.current!.origX + dx,
+        y: nodeDragRef.current!.origY + dy,
+      }));
+      return;
+    }
     if (e.touches.length === 1 && dragRef.current) {
       const t = e.touches[0];
       const dx = t.clientX - dragRef.current.sx;
@@ -174,6 +217,16 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     return cats;
   }, [selectedNode, connectedNodes]);
 
+  // Which leitmotiv nodes are relevant to the current selection
+  const activeLeitmotive = useMemo((): Set<string> => {
+    if (!selectedNode) return new Set();
+    const active = new Set<string>();
+    NODES.filter(n => n.category === "leitmotiv").forEach(lm => {
+      if (lm.id === selectedNode.id || connectedIds.has(lm.id)) active.add(lm.id);
+    });
+    return active;
+  }, [selectedNode, connectedIds]);
+
   // ── Node click handler ─────────────────────────────────────────────────────
   const handleNodeClick = useCallback((e: React.MouseEvent, id: string) => {
     e.stopPropagation();
@@ -186,7 +239,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // ── Determine visual state of a node (search-aware) ───────────────────────
   function nodeState(id: string): "focus" | "connected" | "dim" | "neutral" | "hidden" {
     const node = NODE_MAP.get(id);
-    if (node && hiddenCats.has(node.category)) return "hidden";
+    if (node) {
+      if (node.category === "leitmotiv") {
+        if (hiddenLeitmotive.has(id)) return "hidden";
+      } else if (node.category === "prinzip") {
+        if (hiddenPrinzipien.has(id)) return "hidden";
+      } else {
+        if (hiddenCats.has(node.category)) return "hidden";
+      }
+    }
 
     // Search active
     if (searchLower) {
@@ -219,6 +280,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   }
 
   // ── Render ─────────────────────────────────────────────────────────────────
+
+  // Resolves live/dragged position for any node id
+  const getPos = (id: string): {x: number, y: number} => {
+    const override = nodePositions.get(id);
+    if (override) return override;
+    const n = NODE_MAP.get(id);
+    return n ? { x: n.x, y: n.y } : { x: 0, y: 0 };
+  };
+
   const transform = `translate(${pan.x},${pan.y}) scale(${zoom})`;
 
   return (
@@ -258,7 +328,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           {!selectedId && (
             <button
               onClick={() => setLegendOpen(o => !o)}
-              title="Legende / Kategorien"
+              title="Legende / Kohärenzfelder"
               style={{
                 fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
                 textTransform: "uppercase", color: legendOpen ? C.accent : C.muted,
@@ -339,7 +409,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           ref={svgRef}
           width="100%"
           height="100%"
-          style={{ flex: 1, display: "block", cursor: dragRef.current ? "grabbing" : "grab", touchAction: "none" }}
+          style={{ flex: 1, display: "block", cursor: draggingNodeId ? "grabbing" : dragRef.current ? "grabbing" : "grab", touchAction: "none" }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
           onMouseUp={stopDrag}
@@ -365,17 +435,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const hidden = state === "hidden";
               if (hidden) return null;
               const dim    = state === "dim";
+              const {x, y} = getPos(node.id);
               return (
                 <g key={`aura-${node.id}`} style={{ pointerEvents: "none" }}>
                   {/* Outer soft glow — very faint filled circle */}
                   <circle
-                    cx={node.x} cy={node.y} r={node.r + LM_AURA_R}
+                    cx={x} cy={y} r={node.r + LM_AURA_R}
                     fill={LM_COLOR}
                     fillOpacity={dim ? 0.018 : 0.055}
                   />
                   {/* Mid dashed ring — Faltung suggestion */}
                   <circle
-                    cx={node.x} cy={node.y} r={node.r + LM_RING_R}
+                    cx={x} cy={y} r={node.r + LM_RING_R}
                     fill="none"
                     stroke={LM_COLOR}
                     strokeWidth={0.6}
@@ -406,10 +477,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const strokeW   = isFocused ? 1.0 : 0.6;
 
               // Gentle bezier — control point pushed away from center
-              const mx = (src.x + tgt.x) / 2;
-              const my = (src.y + tgt.y) / 2;
-              const dx = tgt.x - src.x;
-              const dy = tgt.y - src.y;
+              const srcPos = getPos(edge.source);
+              const tgtPos = getPos(edge.target);
+              const mx = (srcPos.x + tgtPos.x) / 2;
+              const my = (srcPos.y + tgtPos.y) / 2;
+              const dx = tgtPos.x - srcPos.x;
+              const dy = tgtPos.y - srcPos.y;
               const len = Math.hypot(dx, dy) || 1;
               const curve = Math.min(len * 0.18, 38);
               const cx = mx + (-dy / len) * curve;
@@ -418,7 +491,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               return (
                 <path
                   key={`lm-edge-${i}`}
-                  d={`M ${src.x} ${src.y} Q ${cx} ${cy_} ${tgt.x} ${tgt.y}`}
+                  d={`M ${srcPos.x} ${srcPos.y} Q ${cx} ${cy_} ${tgtPos.x} ${tgtPos.y}`}
                   fill="none"
                   stroke={LM_COLOR}
                   strokeWidth={strokeW}
@@ -447,10 +520,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const strokeWidth = isPrimary ? (state === "focus" ? 1.8 : 1.2) : (state === "focus" ? 1.2 : 0.8);
 
               // Slight bezier curve: control point offset perpendicular to edge
-              const mx = (src.x + tgt.x) / 2;
-              const my = (src.y + tgt.y) / 2;
-              const dx = tgt.x - src.x;
-              const dy = tgt.y - src.y;
+              const srcPos = getPos(edge.source);
+              const tgtPos = getPos(edge.target);
+              const mx = (srcPos.x + tgtPos.x) / 2;
+              const my = (srcPos.y + tgtPos.y) / 2;
+              const dx = tgtPos.x - srcPos.x;
+              const dy = tgtPos.y - srcPos.y;
               const len = Math.hypot(dx, dy) || 1;
               const curveAmount = Math.min(len * 0.12, 22);
               const cx = mx + (-dy / len) * curveAmount;
@@ -458,14 +533,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
               const focusSrc = edge.source === focusId;
               const focusTgt = edge.target === focusId;
+              // Same-category edges get their category color (subtly); cross-category stay neutral
+              const sameCategory = src.category === tgt.category && src.category !== "leitmotiv" && src.category !== "prinzip";
               const stroke = state === "focus"
-                ? (focusSrc || focusTgt ? C.accent : C.text)
+                ? (focusSrc || focusTgt ? C.accent : sameCategory ? CAT_COLOR[src.category] : C.text)
+                : state === "neutral" && sameCategory ? CAT_COLOR[src.category]
                 : C.border;
 
               return (
                 <path
                   key={i}
-                  d={`M ${src.x} ${src.y} Q ${cx} ${cy_} ${tgt.x} ${tgt.y}`}
+                  d={`M ${srcPos.x} ${srcPos.y} Q ${cx} ${cy_} ${tgtPos.x} ${tgtPos.y}`}
                   fill="none"
                   stroke={stroke}
                   strokeWidth={strokeWidth}
@@ -475,9 +553,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               );
             })}
 
-            {/* ── Nodes (concept layer — skip leitmotiv, rendered separately) ── */}
+            {/* ── Nodes (concept layer — skip leitmotiv & prinzip, rendered separately) ── */}
             {NODES.map(node => {
               if (node.category === "leitmotiv") return null; // rendered in leitmotiv pass below
+              if (node.category === "prinzip")   return null; // rendered in prinzip pass below
               const state = nodeState(node.id);
               if (state === "hidden") return null;
               const catColor = CAT_COLOR[node.category];
@@ -503,6 +582,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
               // Split label on \n
               const lines = node.label.split("\n");
+              const {x, y} = getPos(node.id);
 
               return (
                 <g
@@ -511,12 +591,41 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   onClick={e => handleNodeClick(e, node.id)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    hasDraggedRef.current = false;
+                    const pos = getPos(node.id);
+                    nodeDragRef.current = {
+                      id: node.id,
+                      startClientX: e.clientX,
+                      startClientY: e.clientY,
+                      origX: pos.x,
+                      origY: pos.y,
+                    };
+                    setDraggingNodeId(node.id);
+                  }}
+                  onTouchStart={(e) => {
+                    if (e.touches.length === 1) {
+                      e.stopPropagation();
+                      hasDraggedRef.current = false;
+                      const t = e.touches[0];
+                      const pos = getPos(node.id);
+                      nodeDragRef.current = {
+                        id: node.id,
+                        startClientX: t.clientX,
+                        startClientY: t.clientY,
+                        origX: pos.x,
+                        origY: pos.y,
+                      };
+                      setDraggingNodeId(node.id);
+                    }
+                  }}
                 >
                   {/* Glow ring for focus/connected */}
                   {(isFocus || isConnected) && (
                     <circle
-                      cx={node.x}
-                      cy={node.y}
+                      cx={x}
+                      cy={y}
                       r={node.r + (isFocus ? 9 : 5)}
                       fill="none"
                       stroke={catColor}
@@ -527,8 +636,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
                   {/* Node circle */}
                   <circle
-                    cx={node.x}
-                    cy={node.y}
+                    cx={x}
+                    cy={y}
                     r={node.r}
                     fill={fill}
                     fillOpacity={fillOpacity}
@@ -540,8 +649,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   {/* Label */}
                   {lines.length === 1 ? (
                     <text
-                      x={node.x}
-                      y={node.y + 1}
+                      x={x}
+                      y={y + 1}
                       textAnchor="middle"
                       dominantBaseline="middle"
                       fontSize={Math.max(9, Math.min(13, node.r * 0.48))}
@@ -555,8 +664,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     </text>
                   ) : (
                     <text
-                      x={node.x}
-                      y={node.y - 6}
+                      x={x}
+                      y={y - 6}
                       textAnchor="middle"
                       fontSize={Math.max(9, Math.min(13, node.r * 0.42))}
                       fill={labelColor}
@@ -566,7 +675,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       style={{ userSelect: "none", pointerEvents: "none" }}
                     >
                       {lines.map((line, li) => (
-                        <tspan key={li} x={node.x} dy={li === 0 ? 0 : "1.2em"}>{line}</tspan>
+                        <tspan key={li} x={x} dy={li === 0 ? 0 : "1.2em"}>{line}</tspan>
                       ))}
                     </text>
                   )}
@@ -588,6 +697,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const fillOpacity  = isFocus ? 0.22 : isDim ? 0.04 : 0.10;
               const labelOpacity = isDim ? 0.3  : 1;
               const outerR       = node.r + (isFocus ? 8 : 4);
+              const {x, y} = getPos(node.id);
 
               return (
                 <g
@@ -596,11 +706,40 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   onClick={e => handleNodeClick(e, node.id)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    hasDraggedRef.current = false;
+                    const pos = getPos(node.id);
+                    nodeDragRef.current = {
+                      id: node.id,
+                      startClientX: e.clientX,
+                      startClientY: e.clientY,
+                      origX: pos.x,
+                      origY: pos.y,
+                    };
+                    setDraggingNodeId(node.id);
+                  }}
+                  onTouchStart={(e) => {
+                    if (e.touches.length === 1) {
+                      e.stopPropagation();
+                      hasDraggedRef.current = false;
+                      const t = e.touches[0];
+                      const pos = getPos(node.id);
+                      nodeDragRef.current = {
+                        id: node.id,
+                        startClientX: t.clientX,
+                        startClientY: t.clientY,
+                        origX: pos.x,
+                        origY: pos.y,
+                      };
+                      setDraggingNodeId(node.id);
+                    }
+                  }}
                 >
                   {/* Outer glow ring (focus state only) */}
                   {isFocus && (
                     <circle
-                      cx={node.x} cy={node.y} r={outerR + 14}
+                      cx={x} cy={y} r={outerR + 14}
                       fill="none"
                       stroke={LM_GLOW}
                       strokeWidth={1.2}
@@ -610,7 +749,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
                   {/* Outer decorative ring */}
                   <circle
-                    cx={node.x} cy={node.y} r={outerR}
+                    cx={x} cy={y} r={outerR}
                     fill="none"
                     stroke={LM_COLOR}
                     strokeWidth={isFocus ? 1.5 : 0.8}
@@ -620,7 +759,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
                   {/* Inner filled circle */}
                   <circle
-                    cx={node.x} cy={node.y} r={node.r}
+                    cx={x} cy={y} r={node.r}
                     fill={LM_GLOW}
                     fillOpacity={fillOpacity}
                     stroke={LM_GLOW}
@@ -630,8 +769,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
                   {/* Label — small-caps, spaced, above/below node for edge positions */}
                   <text
-                    x={node.x}
-                    y={node.y + (node.y < 100 ? node.r + 14 : node.y > 480 ? -(node.r + 8) : 0)}
+                    x={x}
+                    y={y + (node.y < 100 ? node.r + 14 : node.y > 480 ? -(node.r + 8) : 0)}
                     textAnchor="middle"
                     dominantBaseline={node.y < 100 ? "hanging" :
                                       node.y > 480 ? "auto"    : "middle"}
@@ -644,6 +783,133 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   >
                     {node.label}
                   </text>
+                </g>
+              );
+            })}
+
+            {/* ══ PRINZIP LAYER 1: Complementary pair connection lines ═══════
+                Thin dashed lines between complementary principles
+                (Schatten↔Licht, Wirklichkeit↔Möglichkeit) — visualising
+                the polar tension at the meta-layer. */}
+            {PRINZIP_PAIRS.map(([a, b], i) => {
+              const sA = nodeState(a);
+              const sB = nodeState(b);
+              if (sA === "hidden" || sB === "hidden") return null;
+              const pA = getPos(a);
+              const pB = getPos(b);
+              return (
+                <line
+                  key={`pr-pair-${i}`}
+                  x1={pA.x} y1={pA.y} x2={pB.x} y2={pB.y}
+                  stroke={PR_COLOR}
+                  strokeWidth={0.7}
+                  strokeDasharray="2 6"
+                  opacity={0.35}
+                  style={{ pointerEvents: "none" }}
+                />
+              );
+            })}
+
+            {/* ══ PRINZIP LAYER 2: Principle nodes (meta-overlay) ═══════════
+                Small circles with dashed outer ring in cool blue-silver.
+                Distinct from concept nodes and leitmotive by styling. */}
+            {NODES.filter(n => n.category === "prinzip").map(node => {
+              const state = nodeState(node.id);
+              if (state === "hidden") return null;
+              const isFocus = state === "focus";
+              const isConn  = state === "connected";
+              const isDim   = state === "dim";
+              const {x, y}  = getPos(node.id);
+              const ringOpacity = isDim ? 0.25 : isFocus ? 1 : isConn ? 0.8 : 0.55;
+              const fillOpacity = isFocus ? 0.35 : isDim ? 0.05 : 0.12;
+              const labelOpacity = isDim ? 0.35 : 1;
+              const lines = node.label.split("\n");
+
+              return (
+                <g
+                  key={node.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={e => handleNodeClick(e, node.id)}
+                  onMouseEnter={() => setHoveredId(node.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                  onMouseDown={(e) => {
+                    e.stopPropagation();
+                    hasDraggedRef.current = false;
+                    const pos = getPos(node.id);
+                    nodeDragRef.current = {
+                      id: node.id,
+                      startClientX: e.clientX,
+                      startClientY: e.clientY,
+                      origX: pos.x,
+                      origY: pos.y,
+                    };
+                    setDraggingNodeId(node.id);
+                  }}
+                  onTouchStart={(e) => {
+                    if (e.touches.length === 1) {
+                      e.stopPropagation();
+                      hasDraggedRef.current = false;
+                      const t = e.touches[0];
+                      const pos = getPos(node.id);
+                      nodeDragRef.current = {
+                        id: node.id,
+                        startClientX: t.clientX,
+                        startClientY: t.clientY,
+                        origX: pos.x,
+                        origY: pos.y,
+                      };
+                      setDraggingNodeId(node.id);
+                    }
+                  }}
+                >
+                  {/* Dashed outer ring — principle signature */}
+                  <circle
+                    cx={x} cy={y} r={node.r + 6}
+                    fill="none"
+                    stroke={PR_COLOR}
+                    strokeWidth={isFocus ? 1.2 : 0.6}
+                    strokeDasharray="1.5 3"
+                    opacity={ringOpacity * 0.7}
+                  />
+                  {/* Inner circle */}
+                  <circle
+                    cx={x} cy={y} r={node.r}
+                    fill={PR_GLOW}
+                    fillOpacity={fillOpacity}
+                    stroke={PR_GLOW}
+                    strokeWidth={isFocus ? 1.6 : 1}
+                    strokeOpacity={ringOpacity}
+                  />
+                  {/* Label */}
+                  {lines.length === 1 ? (
+                    <text
+                      x={x} y={y + 1}
+                      textAnchor="middle" dominantBaseline="middle"
+                      fontSize={Math.max(8, Math.min(11, node.r * 0.55))}
+                      fill={PR_GLOW}
+                      opacity={labelOpacity}
+                      fontFamily={C.mono}
+                      letterSpacing="0.08em"
+                      style={{ userSelect: "none", pointerEvents: "none" }}
+                    >
+                      {node.label}
+                    </text>
+                  ) : (
+                    <text
+                      x={x} y={y - 4}
+                      textAnchor="middle"
+                      fontSize={Math.max(8, Math.min(10, node.r * 0.5))}
+                      fill={PR_GLOW}
+                      opacity={labelOpacity}
+                      fontFamily={C.mono}
+                      letterSpacing="0.08em"
+                      style={{ userSelect: "none", pointerEvents: "none" }}
+                    >
+                      {lines.map((line, li) => (
+                        <tspan key={li} x={x} dy={li === 0 ? 0 : "1.15em"}>{line}</tspan>
+                      ))}
+                    </text>
+                  )}
                 </g>
               );
             })}
@@ -661,9 +927,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             pointerEvents: "auto",
           }}>
             <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Kategorien
+              Kohärenzfelder
             </div>
-            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).map(([cat, color]) => {
+            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
               const hidden = hiddenCats.has(cat);
               return (
                 <button
@@ -677,16 +943,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     display: "flex", alignItems: "center", gap: "0.55rem",
                     width: "100%", background: "none", border: "none",
                     cursor: "pointer", padding: "0.3rem 0",
-                    opacity: hidden ? 0.4 : 1, transition: "opacity 0.15s",
+                    opacity: hidden ? 0.25 : 1,
+                    filter: hidden ? "grayscale(1)" : "none",
+                    transition: "opacity 0.15s, filter 0.15s",
                   }}
                 >
                   <span style={{
                     width: 10, height: 10, borderRadius: "50%",
                     background: hidden ? "transparent" : color,
-                    border: `1.5px solid ${color}`,
-                    flexShrink: 0, transition: "background 0.15s",
+                    border: `1.5px solid ${hidden ? "#3a3a3a" : color}`,
+                    flexShrink: 0, transition: "background 0.15s, border-color 0.15s",
                   }} />
-                  <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? C.muted : C.text }}>
+                  <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? "#3a3a3a" : C.text }}>
                     {categoryLabel(cat)}
                   </span>
                 </button>
@@ -706,6 +974,24 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 Alle einblenden
               </button>
             )}
+            <LeitmotivLegendSection
+              hiddenLeitmotive={hiddenLeitmotive}
+              activeLeitmotive={new Set()}
+              onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+              onReset={() => setHiddenLeitmotive(new Set())}
+            />
+            <PrinzipLegendSection
+              hiddenPrinzipien={hiddenPrinzipien}
+              onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
+                const n = new Set(prev);
+                const allHidden = memberIds.every(id => n.has(id));
+                if (allHidden) memberIds.forEach(id => n.delete(id));
+                else memberIds.forEach(id => n.add(id));
+                return n;
+              })}
+              onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+              onReset={() => setHiddenPrinzipien(new Set())}
+            />
           </div>
         )}
 
@@ -716,17 +1002,26 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           zIndex: 20, pointerEvents: "auto",
         }}>
           {[
-            { label: "+", delta: 1.2,  aria: "Vergrößern" },
-            { label: "−", delta: 0.83, aria: "Verkleinern" },
-            { label: "↺", reset: true, aria: "Zoom zurücksetzen" },
+            { label: "+", delta: 1.2,  aria: "Vergrößern",         resetLayout: false, reset: false },
+            { label: "−", delta: 0.83, aria: "Verkleinern",        resetLayout: false, reset: false },
+            { label: "↺", delta: 1,   aria: "Zoom zurücksetzen",   resetLayout: false, reset: true  },
+            { label: "⊙", delta: 1,   aria: "Layout zurücksetzen", resetLayout: true,  reset: false },
           ].map(btn => (
             <button
               key={btn.label}
               aria-label={btn.aria}
               title={btn.aria}
               onClick={() => {
-                if (btn.reset) { setZoomSync(1); setPanSync({ x: 0, y: 0 }); }
-                else setZoomSync(clampZoom(zoomRef.current * (btn.delta ?? 1)));
+                if (btn.resetLayout) {
+                  setNodePositions(new Map());
+                  setZoomSync(1);
+                  setPanSync({ x: 0, y: 0 });
+                } else if (btn.reset) {
+                  setZoomSync(1);
+                  setPanSync({ x: 0, y: 0 });
+                } else {
+                  setZoomSync(clampZoom(zoomRef.current * (btn.delta ?? 1)));
+                }
               }}
               style={{
                 fontFamily: C.mono, fontSize: "0.9rem",
@@ -808,9 +1103,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 werden hervorgehoben. Alle Kategorien bleiben manuell schaltbar. */}
             <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
             <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.7rem" }}>
-              Kategorien
+              Kohärenzfelder
             </div>
-            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).map(([cat, color]) => {
+            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
               const hidden   = hiddenCats.has(cat);
               const isActive = activeCats.has(cat);
               return (
@@ -825,13 +1120,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     display: "flex", alignItems: "center", gap: "0.5rem",
                     width: "100%", background: "none", border: "none",
                     cursor: "pointer", padding: "0.28rem 0",
-                    opacity: hidden ? 0.35 : 1, transition: "opacity 0.15s",
+                    opacity: hidden ? 0.22 : 1,
+                    filter: hidden ? "grayscale(1)" : "none",
+                    transition: "opacity 0.15s, filter 0.15s",
                   }}
                 >
                   <span style={{
                     width: 9, height: 9, borderRadius: "50%",
                     background: hidden ? "transparent" : color,
-                    border: `1.5px solid ${color}`,
+                    border: `1.5px solid ${hidden ? "#3a3a3a" : color}`,
                     flexShrink: 0,
                     boxShadow: isActive && !hidden ? `0 0 7px ${color}66` : "none",
                     transition: "all 0.2s",
@@ -839,7 +1136,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   <span style={{
                     fontFamily: C.serif, fontStyle: "italic",
                     fontSize: "0.82rem",
-                    color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
+                    color: hidden ? "#3a3a3a" : isActive ? C.textBright : C.textDim,
                     flex: 1, textAlign: "left",
                     transition: "color 0.2s",
                   }}>
@@ -869,6 +1166,24 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 Alle einblenden
               </button>
             )}
+            <LeitmotivLegendSection
+              hiddenLeitmotive={hiddenLeitmotive}
+              activeLeitmotive={activeLeitmotive}
+              onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+              onReset={() => setHiddenLeitmotive(new Set())}
+            />
+            <PrinzipLegendSection
+              hiddenPrinzipien={hiddenPrinzipien}
+              onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
+                const n = new Set(prev);
+                const allHidden = memberIds.every(id => n.has(id));
+                if (allHidden) memberIds.forEach(id => n.delete(id));
+                else memberIds.forEach(id => n.add(id));
+                return n;
+              })}
+              onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+              onReset={() => setHiddenPrinzipien(new Set())}
+            />
 
             {/* Close detail */}
             <div style={{ marginTop: "1.8rem" }}>
@@ -935,10 +1250,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           {/* ── Kompakte Legende im Mobile-Sheet ── */}
           <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem" }}>
             <div style={{ fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.55rem" }}>
-              Kategorien
+              Kohärenzfelder
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" }}>
-              {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).map(([cat, color]) => {
+              {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
                 const hidden   = hiddenCats.has(cat);
                 const isActive = activeCats.has(cat);
                 return (
@@ -953,18 +1268,20 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       display: "flex", alignItems: "center", gap: "0.38rem",
                       background: "none", border: "none", cursor: "pointer",
                       padding: "0.18rem 0",
-                      opacity: hidden ? 0.35 : 1, transition: "opacity 0.15s",
+                      opacity: hidden ? 0.22 : 1,
+                      filter: hidden ? "grayscale(1)" : "none",
+                      transition: "opacity 0.15s, filter 0.15s",
                     }}
                   >
                     <span style={{
                       width: 7, height: 7, borderRadius: "50%",
                       background: hidden ? "transparent" : color,
-                      border: `1.5px solid ${color}`, flexShrink: 0,
+                      border: `1.5px solid ${hidden ? "#3a3a3a" : color}`, flexShrink: 0,
                       boxShadow: isActive && !hidden ? `0 0 5px ${color}55` : "none",
                     }} />
                     <span style={{
                       fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem",
-                      color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
+                      color: hidden ? "#3a3a3a" : isActive ? C.textBright : C.textDim,
                     }}>
                       {categoryLabel(cat)}
                     </span>
@@ -986,6 +1303,26 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 Alle einblenden
               </button>
             )}
+            <LeitmotivLegendSection
+              hiddenLeitmotive={hiddenLeitmotive}
+              activeLeitmotive={activeLeitmotive}
+              onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+              onReset={() => setHiddenLeitmotive(new Set())}
+              compact={true}
+            />
+            <PrinzipLegendSection
+              hiddenPrinzipien={hiddenPrinzipien}
+              onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
+                const n = new Set(prev);
+                const allHidden = memberIds.every(id => n.has(id));
+                if (allHidden) memberIds.forEach(id => n.delete(id));
+                else memberIds.forEach(id => n.add(id));
+                return n;
+              })}
+              onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+              onReset={() => setHiddenPrinzipien(new Set())}
+              compact={true}
+            />
           </div>
         </div>
       )}
@@ -998,7 +1335,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           color: C.muted, pointerEvents: "none", whiteSpace: "nowrap",
           zIndex: 150,
         }}>
-          Ziehen zum Verschieben · Scrollen zum Zoomen · Begriff anklicken
+          Knoten ziehen · Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen
         </div>
       )}
 
@@ -1037,16 +1374,257 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   );
 }
 
+function LeitmotivLegendSection({
+  hiddenLeitmotive,
+  activeLeitmotive,
+  onToggle,
+  onReset,
+  compact = false,
+}: {
+  hiddenLeitmotive: Set<string>;
+  activeLeitmotive: Set<string>;
+  onToggle: (id: string) => void;
+  onReset: () => void;
+  compact?: boolean;
+}) {
+  const lmNodes = NODES.filter(n => n.category === "leitmotiv");
+  const LM_GLOW_LOCAL = "#e8dcc0";
+  const LM_COLOR_LOCAL = "#c8b896";
+  return (
+    <>
+      <div style={{
+        fontFamily: "'Courier Prime','Courier New',monospace",
+        fontSize: compact ? "0.54rem" : "0.58rem",
+        letterSpacing: "0.15em", color: "#444",
+        textTransform: "uppercase",
+        marginBottom: compact ? "0.5rem" : "0.7rem",
+        marginTop: compact ? "0.6rem" : 0,
+        borderTop: compact ? "1px solid #2a2a2a" : "none",
+        paddingTop: compact ? "0.6rem" : 0,
+      }}>
+        Leitmotive
+      </div>
+      <div style={compact ? { display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" } : {}}>
+        {lmNodes.map(node => {
+          const hidden   = hiddenLeitmotive.has(node.id);
+          const isActive = activeLeitmotive.has(node.id);
+          return (
+            <button
+              key={node.id}
+              onClick={() => onToggle(node.id)}
+              style={{
+                display: "flex", alignItems: "center",
+                gap: compact ? "0.38rem" : "0.5rem",
+                width: compact ? "auto" : "100%",
+                background: "none", border: "none",
+                cursor: "pointer",
+                padding: compact ? "0.18rem 0" : "0.28rem 0",
+                opacity: hidden ? 0.22 : 1,
+                filter: hidden ? "grayscale(1)" : "none",
+                transition: "opacity 0.15s, filter 0.15s",
+              }}
+            >
+              <span style={{
+                width: compact ? 7 : 9,
+                height: compact ? 7 : 9,
+                borderRadius: "1px",           /* square dot — distinguishes from round category dots */
+                background: hidden ? "transparent" : LM_COLOR_LOCAL,
+                border: `1.5px solid ${hidden ? "#3a3a3a" : LM_GLOW_LOCAL}`,
+                flexShrink: 0,
+                boxShadow: isActive && !hidden ? `0 0 6px ${LM_COLOR_LOCAL}88` : "none",
+                transition: "all 0.2s",
+              }} />
+              <span style={{
+                fontFamily: "'Courier Prime','Courier New',monospace",
+                fontSize: compact ? "0.72rem" : "0.78rem",
+                letterSpacing: "0.1em",
+                color: hidden ? "#3a3a3a" : isActive ? "#e8e2d4" : "#888",
+                flex: compact ? undefined : 1,
+                textAlign: "left",
+                transition: "color 0.2s",
+              }}>
+                {node.label}
+              </span>
+              {isActive && !hidden && !compact && (
+                <span style={{ width: 3, height: 3, borderRadius: "50%", background: LM_COLOR_LOCAL, flexShrink: 0 }} />
+              )}
+            </button>
+          );
+        })}
+      </div>
+      {hiddenLeitmotive.size > 0 && (
+        <button
+          onClick={onReset}
+          style={{
+            marginTop: "0.5rem",
+            width: compact ? "auto" : "100%",
+            fontFamily: "'Courier Prime','Courier New',monospace",
+            fontSize: compact ? "0.54rem" : "0.56rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: "#c4a882",
+            background: "none",
+            border: "1px solid #7a6a52",
+            padding: "0.25rem 0.5rem",
+            cursor: "pointer",
+          }}
+        >
+          Alle einblenden
+        </button>
+      )}
+    </>
+  );
+}
+
 function categoryLabel(cat: string): string {
   const labels: Record<string, string> = {
-    core:           "Kern",
-    ontological:    "Ontologie",
-    relational:     "Relation",
-    language:       "Sprache & Klang",
-    knowledge:      "Erkenntnis",
-    temporal:       "Zeit & Raum",
-    transformation: "Transformation",
+    core:           "Resonanzkern",
+    ontological:    "Daseinsfeld",
+    relational:     "Zwischenfeld",
+    language:       "Sprachfeld",
+    knowledge:      "Denkfeld",
+    temporal:       "Zeitraumfeld",
+    transformation: "Wandlungsfeld",
     leitmotiv:      "Leitmotive",
+    prinzip:        "Erkenntnisprinzipien",
   };
   return labels[cat] ?? cat;
+}
+
+function PrinzipLegendSection({
+  hiddenPrinzipien,
+  onToggleGroup,
+  onToggleMember,
+  onReset,
+  compact = false,
+}: {
+  hiddenPrinzipien: Set<string>;
+  onToggleGroup: (memberIds: string[]) => void;
+  onToggleMember: (id: string) => void;
+  onReset: () => void;
+  compact?: boolean;
+}) {
+  const PR = "#8ea8b8";
+  const PR_BRIGHT = "#c4d6e0";
+  return (
+    <>
+      <div style={{
+        fontFamily: "'Courier Prime','Courier New',monospace",
+        fontSize: compact ? "0.54rem" : "0.58rem",
+        letterSpacing: "0.15em", color: "#444",
+        textTransform: "uppercase",
+        marginBottom: compact ? "0.5rem" : "0.7rem",
+        marginTop: compact ? "0.6rem" : "0.9rem",
+        borderTop: "1px solid #2a2a2a",
+        paddingTop: compact ? "0.6rem" : "0.7rem",
+      }}>
+        Erkenntnisprinzipien
+      </div>
+      <div>
+        {PRINZIP_GROUPS.map(group => {
+          const allHidden = group.memberIds.every(id => hiddenPrinzipien.has(id));
+          return (
+            <div key={group.id} style={{ marginBottom: compact ? "0.3rem" : "0.55rem" }}>
+              <button
+                onClick={() => onToggleGroup(group.memberIds)}
+                title={group.description}
+                style={{
+                  display: "flex", alignItems: "center",
+                  gap: compact ? "0.38rem" : "0.5rem",
+                  width: "100%", background: "none", border: "none",
+                  cursor: "pointer",
+                  padding: compact ? "0.12rem 0" : "0.2rem 0",
+                  opacity: allHidden ? 0.22 : 1,
+                  filter: allHidden ? "grayscale(1)" : "none",
+                  transition: "opacity 0.15s, filter 0.15s",
+                }}
+              >
+                <span style={{
+                  width: compact ? 7 : 9,
+                  height: compact ? 7 : 9,
+                  background: allHidden ? "transparent" : PR,
+                  border: `1.5px solid ${allHidden ? "#3a3a3a" : PR_BRIGHT}`,
+                  flexShrink: 0,
+                  transform: "rotate(45deg)",
+                }} />
+                <span style={{
+                  fontFamily: "'Courier Prime','Courier New',monospace",
+                  fontSize: compact ? "0.7rem" : "0.76rem",
+                  letterSpacing: "0.08em",
+                  color: allHidden ? "#3a3a3a" : "#c8c2b4",
+                  textAlign: "left",
+                }}>
+                  {group.label}
+                </span>
+              </button>
+              {group.memberIds.length > 1 && (
+                <div style={{
+                  display: "flex", flexWrap: "wrap",
+                  gap: "0.15rem 0.6rem",
+                  paddingLeft: compact ? "0.9rem" : "1.2rem",
+                  marginTop: "0.1rem",
+                }}>
+                  {group.memberIds.map(mid => {
+                    const node = NODES.find(n => n.id === mid);
+                    if (!node) return null;
+                    const hidden = hiddenPrinzipien.has(mid);
+                    return (
+                      <button
+                        key={mid}
+                        onClick={() => onToggleMember(mid)}
+                        style={{
+                          display: "flex", alignItems: "center",
+                          gap: "0.3rem",
+                          background: "none", border: "none", cursor: "pointer",
+                          padding: "0.08rem 0",
+                          opacity: hidden ? 0.22 : 1,
+                          filter: hidden ? "grayscale(1)" : "none",
+                          transition: "opacity 0.15s, filter 0.15s",
+                        }}
+                      >
+                        <span style={{
+                          width: 5, height: 5, borderRadius: "50%",
+                          background: hidden ? "transparent" : PR,
+                          border: `1px solid ${hidden ? "#3a3a3a" : PR}`,
+                          flexShrink: 0,
+                        }} />
+                        <span style={{
+                          fontFamily: "'Courier Prime','Courier New',monospace",
+                          fontSize: compact ? "0.64rem" : "0.68rem",
+                          letterSpacing: "0.05em",
+                          color: hidden ? "#3a3a3a" : "#888",
+                        }}>
+                          {node.fullLabel}
+                        </span>
+                      </button>
+                    );
+                  })}
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+      {hiddenPrinzipien.size > 0 && (
+        <button
+          onClick={onReset}
+          style={{
+            marginTop: "0.5rem",
+            width: compact ? "auto" : "100%",
+            fontFamily: "'Courier Prime','Courier New',monospace",
+            fontSize: compact ? "0.54rem" : "0.56rem",
+            letterSpacing: "0.1em",
+            textTransform: "uppercase",
+            color: PR_BRIGHT,
+            background: "none",
+            border: `1px solid ${PR}`,
+            padding: "0.25rem 0.5rem",
+            cursor: "pointer",
+          }}
+        >
+          Alle einblenden
+        </button>
+      )}
+    </>
+  );
 }

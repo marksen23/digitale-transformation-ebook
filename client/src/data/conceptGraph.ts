@@ -8,7 +8,8 @@ export type NodeCategory =
   | "knowledge"
   | "temporal"
   | "transformation"
-  | "leitmotiv";
+  | "leitmotiv"
+  | "prinzip";
 
 export interface ConceptNode {
   id: string;
@@ -41,6 +42,7 @@ export const CAT_COLOR: Record<NodeCategory, string> = {
   temporal:       "#9a9870", // warm yellow
   transformation: "#a07878", // soft red
   leitmotiv:      "#c8b896", // parchment-gold — archetypal deep layer
+  prinzip:        "#8ea8b8", // cool blue-silver — operational principles (meta-layer)
 };
 
 // ─── Nodes ────────────────────────────────────────────────────────────────────
@@ -86,8 +88,8 @@ export const NODES: ConceptNode[] = [
   },
   {
     id: "sprache",
-    label: "Sprache",
-    fullLabel: "Sprache",
+    label: "Logos",
+    fullLabel: "Logos",
     description:
       "Sprache ist nicht Übertragungskanal, sondern Wohnort des Denkens. Sie hält offen, was Denken allein schließen würde — und trägt in jedem Satz mehr als der Sprecher weiß.",
     category: "language",
@@ -142,8 +144,8 @@ export const NODES: ConceptNode[] = [
   },
   {
     id: "klang",
-    label: "Klang",
-    fullLabel: "Klang",
+    label: "Schwingung",
+    fullLabel: "Schwingung",
     description:
       "Klang ist die sinnlichste Form der Resonanz. Bevor ein Wort verstanden wird, schwingt es bereits — trifft Körper und Raum, bevor es den Geist erreicht.",
     category: "language",
@@ -153,8 +155,8 @@ export const NODES: ConceptNode[] = [
   // ── KNOWLEDGE ─────────────────────────────────────────────────────────────
   {
     id: "erkenntnis",
-    label: "Erkenntnis",
-    fullLabel: "Erkenntnis",
+    label: "Einsicht",
+    fullLabel: "Einsicht",
     description:
       "Erkenntnis ist kein Besitz, sondern ein Ereignis. Sie geschieht im Augenblick des Erschreckens, des Innehalten — wenn das Vertraute plötzlich fremd wird und neu gesehen werden muss.",
     category: "knowledge",
@@ -200,8 +202,8 @@ export const NODES: ConceptNode[] = [
   },
   {
     id: "zeit",
-    label: "Zeit",
-    fullLabel: "Zeit",
+    label: "Zeitlichkeit",
+    fullLabel: "Zeitlichkeit",
     description:
       "Zeit ist nicht lineare Abfolge, sondern Tiefenstruktur des Erlebens. In der Resonanzvernunft gilt: Gegenwart ist nicht Punkt, sondern Feld.",
     category: "temporal",
@@ -209,8 +211,8 @@ export const NODES: ConceptNode[] = [
   },
   {
     id: "raum",
-    label: "Raum",
-    fullLabel: "Raum",
+    label: "Spielraum",
+    fullLabel: "Spielraum",
     description:
       "Raum als Bedingung des Zwischen. Zwischen-Raum ist nicht leer — er ist der Ort, an dem Begegnungen sich ereignen können oder verhindert werden.",
     category: "temporal",
@@ -227,15 +229,6 @@ export const NODES: ConceptNode[] = [
   },
 
   // ── RELATIONAL / LEFT ─────────────────────────────────────────────────────
-  {
-    id: "begegnung",
-    label: "Begegnung",
-    fullLabel: "Begegnung",
-    description:
-      "Begegnung ist der Augenblick, in dem das Zwischen lebendig wird. Nicht jedes Treffen ist eine Begegnung — Begegnung setzt Offenheit voraus, die Überraschung zulässt.",
-    category: "relational",
-    x: 145, y: 188, r: 26,
-  },
   {
     id: "dialog",
     label: "Dialog",
@@ -351,15 +344,6 @@ export const NODES: ConceptNode[] = [
     x: 762, y: 482, r: 20,
   },
   {
-    id: "grenze",
-    label: "Grenze",
-    fullLabel: "Grenze",
-    description:
-      "Grenzen sind nicht nur Beschränkungen — sie konstituieren Form. Ohne Grenze kein Profil, keine Identität, keine Begegnung. Das Zwischen entsteht an der Grenze.",
-    category: "transformation",
-    x: 620, y: 492, r: 20,
-  },
-  {
     id: "spannung",
     label: "Spannung",
     fullLabel: "Spannung",
@@ -418,6 +402,141 @@ export const NODES: ConceptNode[] = [
     category: "leitmotiv",
     x: 885, y: 258, r: 26,
   },
+
+  // ── GLOSSARY ADDITIONS ────────────────────────────────────────────────────
+  // Terms drawn from the glossary in Band 3. Each placed in its proper
+  // category and wired to neighbouring concepts via EDGES below.
+  {
+    id: "dazwischenintelligenz",
+    label: "Dazwischen-\nintelligenz",
+    fullLabel: "Dazwischenintelligenz",
+    description:
+      "Prozessbegriff: Das dynamische Geschehen der Begegnung zwischen menschlicher und maschineller Erkenntnis — die Schwingung im Zwischen. Verhältnis zum transformativen Dritten wie Metabolismus zum Organismus.",
+    category: "relational",
+    x: 115, y: 200, r: 22,
+  },
+  {
+    id: "transformatives-drittes",
+    label: "Trans-\nformatives\nDrittes",
+    fullLabel: "Transformatives Drittes",
+    description:
+      "Ergebnisbegriff: Das Emergente, das aus der Dazwischenintelligenz hervorgeht und keinem der Pole (Mensch/Maschine) zurechenbar ist. Vorläufer: Peirce (Thirdness), Winnicott, Nancy, Gunkel/Coeckelbergh. Weder Synthese noch Kompromiss.",
+    category: "relational",
+    x: 460, y: 195, r: 22,
+  },
+  {
+    id: "entfremdung",
+    label: "Entfremdung",
+    fullLabel: "Entfremdung",
+    description:
+      "Nach Hartmut Rosa: Ein stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet. In der Resonanzvernunft nicht das Gegenteil der Resonanz, sondern der Boden, auf dem Resonanz wachsen kann.",
+    category: "relational",
+    x: 60, y: 505, r: 20,
+  },
+  {
+    id: "echo-kammer",
+    label: "Echo-\nkammer",
+    fullLabel: "Echo-Kammer",
+    description:
+      "Grenzfall der Resonanzvernunft: Erzeugt Schwingung ohne Transformation, Affizierung ohne Selbstwirksamkeit. Erfüllt keine der drei formalen Bedingungen resonanter Erkenntnis und ist daher nicht resonant, sondern Wiederholung.",
+    category: "language",
+    x: 850, y: 462, r: 20,
+  },
+  {
+    id: "gelassenheit",
+    label: "Gelassen-\nheit",
+    fullLabel: "Gelassenheit",
+    description:
+      "Nach Martin Heidegger: Die Fähigkeit, die Dinge sein zu lassen, statt sie zu beherrschen. Im digitalen Kontext: Technologie nutzen, ohne von ihr besessen zu sein.",
+    category: "transformation",
+    x: 855, y: 348, r: 20,
+  },
+  {
+    id: "transaufklaerung",
+    label: "Trans-\naufklärung",
+    fullLabel: "Transaufklärung",
+    description:
+      "Eine Vernunft, die sich selbst überschreitet, ohne sich preiszugeben. Manifestiert sich in epistemischer Transfiguration, temporaler Verzeitlichung und relationaler Ontologie. Programmbegriff für die Überschreitung der klassischen Aufklärung.",
+    category: "knowledge",
+    x: 870, y: 80, r: 22,
+  },
+  {
+    id: "resonanzimperativ",
+    label: "Resonanz-\nimperativ",
+    fullLabel: "Resonanzimperativ",
+    description:
+      "Transformation des kategorischen Imperativs: Handle so, dass dein Handeln die Bedingungen der Möglichkeit von Resonanz bewahrt. Richtet sich an Individuen und Institutionen gleichermaßen.",
+    category: "transformation",
+    x: 348, y: 525, r: 20,
+  },
+  {
+    id: "unverfuegbarkeit",
+    label: "Unverfüg-\nbarkeit",
+    fullLabel: "Unverfügbarkeit",
+    description:
+      "Ontologische Kategorie des Zwischen: Das transformative Dritte kann nicht hergestellt, nicht reproduziert und nicht gespeichert werden. Es hat die Temporalität des Kairos, nicht die Dauer des Bestands.",
+    category: "ontological",
+    x: 110, y: 90, r: 20,
+  },
+  {
+    id: "weltfaltung",
+    label: "Welt-\nfaltung",
+    fullLabel: "Weltfaltung",
+    description:
+      "Erkenntnisprinzip: Wirklichkeit als dynamisches Entfalten von Möglichkeiten, die ineinander gefaltet (nicht nebeneinander gelegt) sind und durch Begegnung aktualisiert werden. Vier Grundbewegungen: Komplexion, Selektion, Stabilisierung, Variation.",
+    category: "prinzip",
+    x: 360, y: 543, r: 18,
+  },
+
+  // ── ERKENNTNISPRINZIPIEN — Meta-operational Layer ────────────────────────
+  // Principles of cognition that organize how the whole network is read.
+  // Rendered as a distinct overlay (cool blue-silver, dashed outer ring,
+  // paired connection lines for complementary pairs).
+  {
+    id: "schatten",
+    label: "Schatten",
+    fullLabel: "Schatten",
+    description:
+      "Der Schatten ist nicht das Gegenteil des Lichts, sondern seine Bedingung. Ohne Verbergung keine Sichtbarkeit. Das Schattenlicht-Prinzip: Erkennen entsteht im Kontrast — was sich zeigt, zeigt sich nur, weil etwas zurückbleibt.",
+    category: "prinzip",
+    x: 40, y: 140, r: 16,
+  },
+  {
+    id: "licht",
+    label: "Licht",
+    fullLabel: "Licht",
+    description:
+      "Licht ist nicht bloße Helligkeit, sondern das Ereignis des Sichtbarwerdens. Es leuchtet nur vor einem Grund von Dunkelheit. Im Schattenlicht-Prinzip bilden Licht und Schatten kein Gegensatz, sondern ein einziges Geschehen der Enthüllung.",
+    category: "prinzip",
+    x: 880, y: 140, r: 16,
+  },
+  {
+    id: "raumfaltung",
+    label: "Raum-\nfaltung",
+    fullLabel: "Raumfaltung",
+    description:
+      "Raumfaltung: die Entfaltung des Latenten zum Manifesten. Wirklichkeit ist nicht glatt, sondern gefaltet — jeder Akt der Begegnung faltet einen neuen Raum auf und erzeugt damit neue Möglichkeiten. Denken als Weltfaltung.",
+    category: "prinzip",
+    x: 460, y: 543, r: 18,
+  },
+  {
+    id: "wirklichkeit",
+    label: "Wirklichkeit",
+    fullLabel: "Wirklichkeit",
+    description:
+      "Wirklichkeit ist das, was wirkt — nicht bloßer Bestand, sondern Vollzug. Nur ein Bruchteil des Möglichen wird wirklich. Wirklichkeit ist die im Augenblick verdichtete Möglichkeit, nicht ihre Aufhebung.",
+    category: "prinzip",
+    x: 40, y: 410, r: 16,
+  },
+  {
+    id: "moeglichkeit",
+    label: "Möglich-\nkeit",
+    fullLabel: "Möglichkeit",
+    description:
+      "Möglichkeit ist der Überschuss, aus dem Wirklichkeit sich nährt. Nicht alles, was möglich ist, ist wirklich — aber alles Wirkliche war einmal möglich. Die Möglichkeit ist der Atemraum des Lebendigen.",
+    category: "prinzip",
+    x: 880, y: 410, r: 16,
+  },
 ];
 
 // ─── Edges ────────────────────────────────────────────────────────────────────
@@ -430,7 +549,7 @@ export const EDGES: ConceptEdge[] = [
   { source: "resonanzvernunft", target: "sprache",    weight: "primary" },
   { source: "resonanzvernunft", target: "erkenntnis", weight: "primary" },
   { source: "resonanzvernunft", target: "wandel",     weight: "primary" },
-  { source: "resonanzvernunft", target: "begegnung",  weight: "primary" },
+  { source: "resonanzvernunft", target: "lm-begegnung", weight: "primary" },
 
   // Resonanz cluster
   { source: "resonanz", target: "klang" },
@@ -447,16 +566,11 @@ export const EDGES: ConceptEdge[] = [
   { source: "vernunft", target: "bewusstsein" },
 
   // Zwischen cluster
-  { source: "zwischen", target: "begegnung" },
+  { source: "zwischen", target: "lm-begegnung" },
   { source: "zwischen", target: "dialog" },
   { source: "zwischen", target: "ich-du" },
-  { source: "zwischen", target: "grenze" },
+  { source: "zwischen", target: "lm-grenze" },
   { source: "zwischen", target: "spannung" },
-
-  // Begegnung
-  { source: "begegnung", target: "dialog" },
-  { source: "begegnung", target: "antwort" },
-  { source: "begegnung", target: "ich-du" },
 
   // Dialog
   { source: "dialog", target: "sprache" },
@@ -505,10 +619,10 @@ export const EDGES: ConceptEdge[] = [
   // Transformation
   { source: "wandel",   target: "freiheit" },
   { source: "wandel",   target: "öffnung" },
-  { source: "wandel",   target: "grenze" },
+  { source: "wandel",   target: "lm-grenze" },
   { source: "freiheit", target: "öffnung" },
   { source: "freiheit", target: "selbst" },
-  { source: "freiheit", target: "grenze" },
+  { source: "freiheit", target: "lm-grenze" },
   { source: "öffnung",  target: "zwischen" },
 
   // Knowledge
@@ -517,44 +631,123 @@ export const EDGES: ConceptEdge[] = [
   { source: "denken",      target: "bewusstsein" },
   { source: "denken",      target: "sprache" },
   { source: "bewusstsein", target: "selbst" },
+
+  // ── Glossary additions ──────────────────────────────────────────────────
+  { source: "dazwischenintelligenz", target: "zwischen" },
+  { source: "dazwischenintelligenz", target: "antwort" },
+  { source: "dazwischenintelligenz", target: "transformatives-drittes", weight: "primary" },
+
+  { source: "transformatives-drittes", target: "zwischen" },
+  { source: "transformatives-drittes", target: "andere" },
+  { source: "transformatives-drittes", target: "wandel" },
+  { source: "transformatives-drittes", target: "resonanzvernunft" },
+
+  { source: "entfremdung", target: "welt" },
+  { source: "entfremdung", target: "dialog" },
+  { source: "entfremdung", target: "ich-du" },
+
+  { source: "echo-kammer", target: "echo" },
+  { source: "echo-kammer", target: "klang" },
+  { source: "echo-kammer", target: "schweigen" },
+
+  { source: "gelassenheit", target: "öffnung" },
+  { source: "gelassenheit", target: "freiheit" },
+  { source: "gelassenheit", target: "wandel" },
+
+  { source: "transaufklaerung", target: "vernunft", weight: "primary" },
+  { source: "transaufklaerung", target: "erkenntnis" },
+  { source: "transaufklaerung", target: "denken" },
+  { source: "transaufklaerung", target: "bewusstsein" },
+
+  { source: "resonanzimperativ", target: "freiheit" },
+  { source: "resonanzimperativ", target: "andere" },
+  { source: "resonanzimperativ", target: "selbst" },
+
+  { source: "unverfuegbarkeit", target: "zwischen" },
+  { source: "unverfuegbarkeit", target: "sein" },
+  { source: "unverfuegbarkeit", target: "moment" },
+
+  { source: "weltfaltung", target: "raumfaltung" },
+  { source: "weltfaltung", target: "wirklichkeit" },
+  { source: "weltfaltung", target: "moeglichkeit" },
 ];
 
 // ─── Leitmotiv Resonance Edges ────────────────────────────────────────────────
 // Thin dashed lines connecting archetypal Leitmotiv nodes to the concept nodes
 // they permeate. These are "resonance" relationships — not logical, but thematic.
 export const LEITMOTIV_EDGES: ConceptEdge[] = [
-  // SPIEGEL — upper center → mirrors recognition, truth, selfhood
+  // SPIEGEL — mirrors recognition, truth, selfhood
   { source: "lm-spiegel", target: "bewusstsein" },
   { source: "lm-spiegel", target: "erkenntnis" },
   { source: "lm-spiegel", target: "wahrheit" },
   { source: "lm-spiegel", target: "resonanz" },
   { source: "lm-spiegel", target: "selbst" },
 
-  // BEGEGNUNG — left → the between, dialogue, encounter
-  { source: "lm-begegnung", target: "begegnung" },
+  // ANTLITZ — Levinas-Leitmotiv; radiates to the Begegnungs-Cluster
   { source: "lm-begegnung", target: "dialog" },
-  { source: "lm-begegnung", target: "zwischen" },
-  { source: "lm-begegnung", target: "ich-du" },
   { source: "lm-begegnung", target: "antwort" },
+  { source: "lm-begegnung", target: "ich-du" },
+  { source: "lm-begegnung", target: "moment" },
+  { source: "lm-begegnung", target: "andere" },
 
-  // SCHEITERN — lower left → being, becoming, existence under pressure
+  // SCHEITERN — being, becoming, existence under pressure
   { source: "lm-scheitern", target: "existenz" },
   { source: "lm-scheitern", target: "werden" },
   { source: "lm-scheitern", target: "dasein" },
   { source: "lm-scheitern", target: "sein" },
   { source: "lm-scheitern", target: "wesen" },
 
-  // GRENZE — lower right → boundary, tension, freedom, form
-  { source: "lm-grenze", target: "grenze" },
+  // GRENZE — canonical Grenze node (concept removed); radiates archetypal connections
   { source: "lm-grenze", target: "öffnung" },
   { source: "lm-grenze", target: "spannung" },
-  { source: "lm-grenze", target: "freiheit" },
   { source: "lm-grenze", target: "welt" },
+  { source: "lm-grenze", target: "wesen" },
 
-  // VERWANDLUNG — right → transformation, core resonance
+  // VERWANDLUNG — transformation, core resonance
   { source: "lm-verwandlung", target: "wandel" },
   { source: "lm-verwandlung", target: "öffnung" },
   { source: "lm-verwandlung", target: "resonanzvernunft" },
   { source: "lm-verwandlung", target: "freiheit" },
   { source: "lm-verwandlung", target: "werden" },
+];
+
+// ─── Erkenntnisprinzipien — Grouped Toggles ───────────────────────────────────
+// Meta-layer principles organised into three conceptual groups. Each group can
+// be toggled as a whole via the legend; complementary pairs (Schattenlicht,
+// Wirklichkeit & Möglichkeit) contain two individually-switchable members.
+export interface PrinzipGroup {
+  id: string;
+  label: string;
+  description: string;
+  memberIds: string[];
+}
+
+export const PRINZIP_GROUPS: PrinzipGroup[] = [
+  {
+    id: "schattenlicht",
+    label: "Schattenlicht",
+    description:
+      "Erkennen durch Kontrast: Licht und Schatten bilden ein einziges Geschehen der Sichtbarwerdung.",
+    memberIds: ["schatten", "licht"],
+  },
+  {
+    id: "raumfaltung",
+    label: "Welt- & Raumfaltung",
+    description:
+      "Entfaltung des Latenten zum Manifesten — jede Begegnung faltet einen neuen Möglichkeitsraum auf. Vier Grundbewegungen: Komplexion, Selektion, Stabilisierung, Variation.",
+    memberIds: ["weltfaltung", "raumfaltung"],
+  },
+  {
+    id: "wirklichkeit-moeglichkeit",
+    label: "Wirklichkeit & Möglichkeit",
+    description:
+      "Nicht alles, was möglich ist, ist wirklich. Die Grundspannung des Lebendigen.",
+    memberIds: ["wirklichkeit", "moeglichkeit"],
+  },
+];
+
+// Pair-connection lines for complementary principles.
+export const PRINZIP_PAIRS: Array<[string, string]> = [
+  ["schatten", "licht"],
+  ["wirklichkeit", "moeglichkeit"],
 ];
