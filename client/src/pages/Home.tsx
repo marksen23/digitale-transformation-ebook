@@ -1842,7 +1842,7 @@ export default function Home() {
                   ? 'bg-stone-900 text-stone-200 placeholder:text-stone-700'
                   : 'bg-white text-stone-800 placeholder:text-stone-300'
               }`}
-              placeholder="Gedanken, Anmerkungen, Fragen zum Kapitel …"
+              placeholder="Gedanken und Anmerkungen …"
               value={notes[currentId] ?? ''}
               onChange={e => setNotes(prev => ({ ...prev, [currentId]: e.target.value }))}
             />
