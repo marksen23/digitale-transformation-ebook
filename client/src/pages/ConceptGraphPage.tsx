@@ -334,9 +334,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       <div className="concept-graph-body" style={{ display: "flex", flex: 1, overflow: "hidden" }}>
 
         {/* SVG Graph — in relativem Container für absolute Overlays */}
-        <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
+        <div style={{ flex: 1, position: "relative", overflow: "hidden", display: "flex" }}>
         <svg
           ref={svgRef}
+          width="100%"
+          height="100%"
           style={{ flex: 1, display: "block", cursor: dragRef.current ? "grabbing" : "grab", touchAction: "none" }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}

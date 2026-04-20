@@ -207,17 +207,21 @@ Enkidu schließt jedes Gespräch mit:
       return res.status(400).json({ error: "messages-Array ist erforderlich." });
     }
 
-    // Ebook-Inhalt als Wissensbasis (erste 60.000 Zeichen)
+    // Ebook-Inhalt als Wissensbasis (erste 30.000 Zeichen — reduziert um
+    // den Gesamtprompt unter der Grenze für zuverlässige Antworten zu halten)
     const ebookContent = getEbookContent();
-    const ebookSnippet = ebookContent ? ebookContent.slice(0, 60_000) : "";
+    const ebookSnippet = ebookContent ? ebookContent.slice(0, 30_000) : "";
 
     // Gesprächshistorie als formatierten Text — gleicher Ansatz wie Q&A,
     // kein Multi-Turn-Format, keine Alternations-Probleme.
+    // Auf die letzten 16 Nachrichten (8 Runden) begrenzt, damit der Prompt
+    // auch bei langen Gesprächen nicht zu groß wird.
     const cleanMessages = (messages as Array<{ role: string; content: string; error?: boolean }>)
       .filter((m) => !m.error && m.content?.trim());
 
     const historyText = cleanMessages
-      .slice(0, -1) // alle außer der letzten (= aktuelle Frage)
+      .slice(0, -1)            // alle außer der letzten (= aktuelle Frage)
+      .slice(-16)              // max. 16 vorangegangene Nachrichten = 8 Runden
       .map((m) => `${m.role === "user" ? "Mensch" : "Enkidu"}: ${m.content}`)
       .join("\n\n");
 
@@ -244,6 +248,10 @@ Enkidu schließt jedes Gespräch mit:
             generationConfig: {
               temperature: 0.9,
               maxOutputTokens: 4096,
+              // Thinking explizit deaktivieren — Gemini 2.5 Flash aktiviert
+              // es sonst standardmäßig, was bei großen Prompts zu 400-Fehlern
+              // oder Timeouts führen kann.
+              thinkingConfig: { thinkingBudget: 0 },
             },
           }),
         }
@@ -252,7 +260,6 @@ Enkidu schließt jedes Gespräch mit:
       if (!response.ok) {
         const errText = await response.text();
         console.error("Enkidu Gemini error:", response.status, errText);
-        // Gib den rohen Gemini-Fehlertext zurück damit wir debuggen können
         let detail: string;
         try {
           const parsed = JSON.parse(errText);
@@ -260,7 +267,11 @@ Enkidu schließt jedes Gespräch mit:
         } catch {
           detail = errText;
         }
-        return res.status(502).json({ error: `Gemini ${response.status}: ${detail}` });
+        // Leserfreundliche Fehlermeldungen für häufige Status-Codes
+        if (response.status === 400) detail = `Ungültige Anfrage (400) — ${detail}`;
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten (429)";
+        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen (503)";
+        return res.status(502).json({ error: detail });
       }
 
       const data = await response.json();
