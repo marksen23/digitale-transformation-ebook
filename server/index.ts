@@ -193,7 +193,7 @@ Enkidu schließt jedes Gespräch mit:
     return "";
   };
 
-  app.post("/api/enkidu", rateLimiter('enkidu', 20, 60 * 60_000), async (req, res) => {
+  app.post("/api/enkidu", rateLimiter('enkidu', 100, 60 * 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
@@ -267,7 +267,7 @@ ${ebookContent}`
   });
 
   // ─── Gemini Q&A API ──────────────────────────────────────────────
-  app.post("/api/ask", rateLimiter('ask', 10, 60_000), async (req, res) => {
+  app.post("/api/ask", rateLimiter('ask', 30, 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
@@ -334,7 +334,7 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
   });
 
   // ─── Gemini Translation API ──────────────────────────────────────
-  app.post("/api/translate", rateLimiter('translate', 5, 10 * 60_000), async (req, res) => {
+  app.post("/api/translate", rateLimiter('translate', 20, 10 * 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
