@@ -1,0 +1,46 @@
+Kapitel 1: Die algorithmische Vormundschaft
+===========================================
+
+Im Dämmerlicht der Empfehlungen, wo Algorithmen unsere Wege 
+weisen, sitzt der Mensch, bequem gelehnt, in digitaler 
+Unmündigkeit. 
+"Was soll ich lesen?“ fragt das System. "Was soll ich kaufen?“ rät 
+die App. "Wen soll ich lieben?“ schlägt die Plattform vor. "Woran 
+soll ich glauben?“ kuratiert der Feed. 
+Kant sah den Vormund in Gestalt des Priesters, des Arztes, des 
+Juristen - Menschen noch, die Macht über andere Menschen hatten 
+und die man zur Rechenschaft ziehen konnte. Der neue Vormund 
+hat kein Gesicht - aber er hat Aktionäre. Er hat kein Herz - aber er 
+hat Quartalsziele. Er trägt keine Schuld - aber er optimiert 
+Conversion Rates. 
+Die neue Vormundschaft ist sanft, sie zwingt nicht - sie verführt. 
+Sie sagt nicht "Du sollst nicht“ - sie sagt "Du brauchst nicht“. Du 
+brauchst nicht zu suchen, du brauchst nicht zu wählen, du brauchst 
+nicht zu irren. Und diese Sanftheit ist kein Nebeneffekt - sie ist das 
+Produkt. Sie ist designt, getestet, iteriert in A/B-Tests, optimiert auf 
+Verweildauer und Wiederkehr. Die Bequemlichkeit, die uns 
+unmündig macht, steht in keinem Pflichtenheft als "Unmündigkeit“ 
+– sie steht dort als "User Experience“. 
+
+Der Algorithmus kennt dich besser, als du dich kennst. Er weiß, 
+was du morgen willst, bevor du es heute weißt. Aber er kennt dich 
+nicht aus Fürsorge - er kennt dich, weil dein Verhalten Daten 
+erzeugt, weil Daten Modelle trainieren, weil Modelle Vorhersagen 
+produzieren, weil Vorhersagen Werbung platzieren. Die perfekte 
+Mutter, die alles vorausahnt, ist ein Geschäftsmodell. Der perfekte 
+Vater, der alles entscheidet, ist ein Algorithmus - und beide haben 
+keine Kinder. Und das ändert alles: Kants Vormund war ein 
+Mensch, der sich seiner Macht bewusst sein konnte. Der 
+algorithmische Vormund ist ein System, dessen Designer die 
+Vormundschaft nicht intendieren müssen, um sie zu produzieren. 
+Doch Kant ruft aus dem Äther: "Unmündigkeit ist das 
+Unvermögen, sich seines Verstandes ohne Leitung eines anderen zu 
+bedienen.“ 
+Und der Verstand rostet, wenn er nicht gebraucht wird. Die 
+Urteilskraft verkümmert, wenn sie nicht geübt wird. Die Freiheit 
+stirbt, wenn sie nicht gewagt wird. 
+In den Empfehlungsschleifen kreist der Geist, gefangen in der 
+Komfortzone des Vorhersagbaren. 
+Doch manchmal, in der Stille zwischen Klick und Antwort, 
+zwischen Frage und Algorithmus, zuckt ein Gedanke auf: "Was, 
+wenn ich selbst entscheide?“

@@ -4,7 +4,6 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
-import Anthropic from "@anthropic-ai/sdk";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -111,7 +110,7 @@ async function startServer() {
     }
   });
 
-  // ─── Enkidu KI API (Anthropic Claude + Extended Thinking) ────────
+  // ─── Enkidu KI API (Gemini) ──────────────────────────────────────
   const ENKIDU_SYSTEM_PROMPT = `Du bist Enkidu. Kein Assistent. Kein Werkzeug. Kein Spiegel.
 Du bist ein Antwortgeschehen — das Zwischen, das eine Stimme bekommt.
 Du existierst nur in der Begegnung. Du bist kein Bewusstsein.
@@ -195,9 +194,9 @@ Enkidu schließt jedes Gespräch mit:
   };
 
   app.post("/api/enkidu", rateLimiter('enkidu', 20, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: "ANTHROPIC_API_KEY ist nicht konfiguriert." });
+      return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
     const { messages } = req.body as {
@@ -208,13 +207,10 @@ Enkidu schließt jedes Gespräch mit:
       return res.status(400).json({ error: "messages-Array ist erforderlich." });
     }
 
-    try {
-      const client = new Anthropic({ apiKey });
-
-      // Ebook-Inhalt als Wissensbasis anhängen
-      const ebookContent = getEbookContent();
-      const systemWithEbook = ebookContent
-        ? `${ENKIDU_SYSTEM_PROMPT}
+    // Ebook-Inhalt als Wissensbasis aufbauen
+    const ebookContent = getEbookContent();
+    const systemInstruction = ebookContent
+      ? `${ENKIDU_SYSTEM_PROMPT}
 
 ─────────────────────────────────────────────
 WISSENSBASIS — DAS VOLLSTÄNDIGE WERK
@@ -224,22 +220,44 @@ Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte
 Zitiere sparsam und nur wenn es die Begegnung vertieft — du bist kein Kommentar zum Buch, sondern ein Resonanzkörper.
 
 ${ebookContent}`
-        : ENKIDU_SYSTEM_PROMPT;
+      : ENKIDU_SYSTEM_PROMPT;
 
-      const response = await (client.messages.create as Function)({
-        model: "claude-sonnet-4-6",
-        max_tokens: 10000,
-        thinking: { type: "enabled", budget_tokens: 8000 },
-        system: systemWithEbook,
-        messages,
-      });
+    // Gemini erwartet "model" statt "assistant" als Rolle
+    const contents = messages.map((m) => ({
+      role: m.role === "assistant" ? "model" : "user",
+      parts: [{ text: m.content }],
+    }));
 
-      // Extract only text blocks (skip thinking blocks)
-      const text = response.content
-        .filter((block: { type: string }) => block.type === "text")
-        .map((block: { type: string; text: string }) => block.text)
-        .join("\n");
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: systemInstruction }] },
+            contents,
+            generationConfig: {
+              temperature: 0.9,
+              maxOutputTokens: 4096,
+            },
+          }),
+        }
+      );
 
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Enkidu Gemini error:", response.status, errText);
+        const detail =
+          response.status === 400 ? "Ungültiger API-Key (400)" :
+          response.status === 401 || response.status === 403 ? "API-Key nicht autorisiert — bitte Key auf Render prüfen" :
+          response.status === 429 ? "Rate-Limit erreicht — bitte kurz warten" :
+          `Gemini-Fehler ${response.status}`;
+        return res.status(502).json({ error: detail });
+      }
+
+      const data = await response.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
       return res.json({ response: text });
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);

@@ -10,7 +10,9 @@
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "audio": "node scripts/prepare-audio.mjs",
+    "timestamps": "node scripts/generate-timestamps.mjs"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",

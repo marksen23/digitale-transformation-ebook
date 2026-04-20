@@ -179,6 +179,20 @@
   }
 }
 
+/* ─── Audio Wort-Highlighting ──────────────────────────────────
+   Wird vom useAudioPlayer RAF-Loop via classList gesetzt —
+   kein React-Rerender pro Frame nötig. */
+[data-wi].audio-word-active {
+  background: rgba(217, 119, 6, 0.22);  /* amber-600/22% */
+  border-radius: 2px;
+  padding: 0 1px;
+  margin: 0 -1px;
+  transition: background 0.08s ease;
+}
+.dark [data-wi].audio-word-active {
+  background: rgba(251, 191, 36, 0.25);  /* amber-400/25% dunkel */
+}
+
 /* ─── Copy-Schutz ──────────────────────────────────────────────
    Textauswahl auf Ebook-Inhalt unterbinden.
    Eingabefelder (input, textarea) bleiben nutzbar. */

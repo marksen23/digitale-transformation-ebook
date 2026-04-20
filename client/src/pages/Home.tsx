@@ -4,17 +4,15 @@ import {
   Menu, X, Download, Search,
   BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
-  PanelLeftClose, PanelLeft, VolumeX, Mic, MicOff,
+  PanelLeftClose, PanelLeft, Mic, MicOff,
   SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine, CheckCircle2,
   Maximize2, Minimize2,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
 const ConceptGraphPage = lazy(() => import('./ConceptGraphPage'));
-import {
-  useSpeechRecognition, useSpeechSynthesis,
-  filterVoicesByLang, guessVoiceGender, buildParaStarts,
-} from '@/hooks/useSpeech';
+import { useSpeechRecognition } from '@/hooks/useSpeech';
+import { useAudioPlayer, type VoiceGender } from '@/hooks/useAudioPlayer';
 
 // ─── Helpers ────────────────────────────────────────────────────────
 function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
@@ -26,6 +24,14 @@ function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
   });
   useEffect(() => { localStorage.setItem(key, JSON.stringify(value)); }, [key, value]);
   return [value, setValue] as const;
+}
+
+/** Sekunden → MM:SS */
+function formatTime(s: number): string {
+  if (!isFinite(s) || s < 0) return '0:00';
+  const m = Math.floor(s / 60);
+  const sec = Math.floor(s % 60);
+  return `${m}:${sec.toString().padStart(2, '0')}`;
 }
 
 // ─── Lazy-load fallback ─────────────────────────────────────────────
@@ -85,44 +91,10 @@ export default function Home() {
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // ─── Speech (TTS / STT) ──────────────────────────────────────────
-  // One shared TTS instance; ttsTarget tracks what's currently being read
-  const tts = useSpeechSynthesis();
-  const [ttsTarget, setTtsTarget] = useState<'chapter' | number | null>(null);
-
-  // Persisted playback settings
-  const [ttsRate, setTtsRate] = useLocalStorage<number>('ebook-tts-rate', 1);
-  const [ttsVoiceURI, setTtsVoiceURI] = useLocalStorage<string>('ebook-tts-voice', '');
-
-  // Paragraph start positions for highlight tracking (rebuilt on each play)
-  const ttsParagraphStartsRef = useRef<number[]>([]);
-  // Total char length of TTS text — used for progress bar computation
-  const ttsTotalCharsRef = useRef<number>(0);
-
-  // Active paragraph index derived from charIndex reported by onboundary
-  const ttsActiveParagraph = useMemo(() => {
-    if (!tts.speaking || ttsTarget !== 'chapter' || tts.currentCharIndex < 0) return -1;
-    const starts = ttsParagraphStartsRef.current;
-    let idx = 0;
-    for (let i = 0; i < starts.length; i++) {
-      if (starts[i] <= tts.currentCharIndex) idx = i;
-      else break;
-    }
-    return idx;
-  }, [tts.speaking, tts.currentCharIndex, ttsTarget]);
-
-  // Auto-scroll highlighted paragraph into view
-  useEffect(() => {
-    if (ttsActiveParagraph < 0) return;
-    const el = document.querySelector(`[data-tts-para="${ttsActiveParagraph}"]`);
-    el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, [ttsActiveParagraph]);
-
-  // When TTS stops externally (end of speech), clear target
-  useEffect(() => { if (!tts.speaking) setTtsTarget(null); }, [tts.speaking]);
-
-  // Stop TTS when the user navigates to a different chapter
-  useEffect(() => { tts.stop(); setTtsTarget(null); }, [currentId]); // eslint-disable-line react-hooks/exhaustive-deps
+  // ─── Audio Player — State (Hook-Initialisierung weiter unten nach currentChapter) ──
+  const [audioVoice, setAudioVoice] = useLocalStorage<VoiceGender>('ebook-audio-voice', 'female');
+  // Aktiver Paragraphen-Index (gesetzt vom useAudioPlayer-Callback)
+  const [audioActiveParagraph, setAudioActiveParagraph] = useState(-1);
 
   // STT for Q&A chat input
   const chatStt = useSpeechRecognition((text) => {
@@ -331,6 +303,37 @@ export default function Home() {
   }, [searchOpen]);
 
   const currentChapter = ebook ? ebook.chapters.find(c => c.id === currentId) : undefined;
+
+  // ─── Audio Player — Init (nach currentChapter, da plainParagraphs davon abhängt) ──
+  const plainParagraphs = useMemo(() => {
+    if (!currentChapter) return [];
+    return currentChapter.content
+      .split('\n\n')
+      .map(p => p.trim()
+        .replace(/^#{1,6}\s+/, '')
+        .replace(/^>\s*/gm, '')
+        .replace(/\*\*(.+?)\*\*/g, '$1')
+        .replace(/\*(.+?)\*/g, '$1'))
+      .filter(Boolean);
+  }, [currentChapter]);
+
+  const audio = useAudioPlayer(
+    currentId !== '__cover__' ? currentId : null,
+    audioVoice,
+    {
+      plainParagraphs,
+      onParaChange: (idx) => {
+        setAudioActiveParagraph(idx);
+        if (idx >= 0) {
+          const el = document.querySelector(`[data-audio-para="${idx}"]`);
+          el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      },
+    }
+  );
+
+  // Audio-Paragraph-Highlight zurücksetzen wenn Kapitel wechselt
+  useEffect(() => { setAudioActiveParagraph(-1); }, [currentId]);
 
   // Build glossary keyword map from the glossar chapter
   const glossaryMap = useMemo(() => {
@@ -645,17 +648,10 @@ export default function Home() {
   ];
   const languageLabel = languageOptions.find(l => l.code === language)?.label || language;
 
-  // ─── TTS derived values (shared between toolbar + footer) ──────────
-  const isPlaying = tts.speaking && ttsTarget === 'chapter';
-  const ttsLangPrefix = language === 'de' ? 'de' : language.slice(0, 2);
-  const ttsLangVoices = filterVoicesByLang(tts.voices, ttsLangPrefix);
-  const ttsSpeeds = [0.75, 1, 1.25, 1.5, 2] as const;
-  // TTS reading progress (0–100); falls back to scroll progress when idle
-  const ttsProgress =
-    isPlaying && tts.currentCharIndex >= 0 && ttsTotalCharsRef.current > 0
-      ? Math.min(100, (tts.currentCharIndex / ttsTotalCharsRef.current) * 100)
-      : 0;
-  const displayProgress = isPlaying ? ttsProgress : readProgress;
+  // ─── Audio Player derived values ────────────────────────────────────
+  const isPlaying = audio.playing;
+  // Fortschritts-Anzeige: Audio-Fortschritt wenn aktiv, sonst Scroll-Fortschritt
+  const displayProgress = isPlaying ? audio.progress : readProgress;
 
   // Translate the current chapter when language ≠ 'de'
   useEffect(() => {
@@ -698,39 +694,25 @@ export default function Home() {
     return () => { cancelled = true; };
   }, [currentChapter, language]);
 
-  // Extrahiert lesbaren Plaintext aus Kapitelinhalt für TTS
-  const getChapterPlainText = useCallback((content: string): string => {
-    return content
-      .split('\n\n')
-      .map(p => p.trim())
-      .filter(p => p)
-      .map(p =>
-        p.replace(/^#{1,6}\s+/, '')
-         .replace(/^>\s*/gm, '')
-         .replace(/\*\*(.+?)\*\*/g, '$1')
-         .replace(/\*(.+?)\*/g, '$1')
-      )
-      .join(' ');
+  // Wort-Spans für Audio-Highlighting: gibt Nodes + Wortanzahl zurück.
+  // Wird nur im Paragraph-Renderer aufgerufen wenn Audio+Timestamps aktiv.
+  const renderWithWordSpans = useCallback((text: string, wordOffset: number): { nodes: React.ReactNode[], wordCount: number } => {
+    const tokens = text.split(/(\s+)/);
+    const nodes: React.ReactNode[] = [];
+    let idx = wordOffset;
+    let wordCount = 0;
+    for (const token of tokens) {
+      if (!token) continue;
+      if (/^\s+$/.test(token)) {
+        nodes.push(token);
+      } else {
+        nodes.push(<span key={idx} data-wi={idx}>{token}</span>);
+        idx++;
+        wordCount++;
+      }
+    }
+    return { nodes, wordCount };
   }, []);
-
-  // Startet TTS für das aktuelle Kapitel — baut Paragraph-Starts für Highlighting
-  const startChapterTTS = useCallback(() => {
-    if (!currentChapter || currentChapter.isTitlePage) return;
-    const cacheKey = `${currentChapter.id}::${language}`;
-    const translated = translationCache.current.get(cacheKey);
-    const content = translated || currentChapter.content;
-    // Build paragraph start positions (same logic as getChapterPlainText)
-    ttsParagraphStartsRef.current = buildParaStarts(content);
-    const text = getChapterPlainText(content);
-    ttsTotalCharsRef.current = text.length;
-    setTtsTarget('chapter');
-    tts.speak(text, {
-      lang: language === 'de' ? 'de-DE' : language,
-      rate: ttsRate,
-      voiceURI: ttsVoiceURI || undefined,
-    });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentChapter, language, ttsRate, ttsVoiceURI, getChapterPlainText]);
 
   // Baut ein dezentes, kacheliges SVG-Wasserzeichen als data-URL
   const watermarkStyle = useMemo(() => {
@@ -1178,60 +1160,76 @@ export default function Home() {
 
         {/* Content */}
         <div className={`${fontClass} space-y-5 ${fontSizeClasses[fontSize]} ${darkMode ? 'text-stone-300' : 'text-stone-700'}`} style={fontStyle}>
-          {paragraphs.map((para, i) => {
-            const trimmed = para.trim();
-            const isActive = ttsActiveParagraph === i;
-            // Highlight class applied to readable paragraphs when TTS is on this index
-            const hlClass = isActive
-              ? darkMode
-                ? 'bg-amber-500/15 -mx-2 px-2 rounded-sm transition-colors duration-300'
-                : 'bg-amber-100 -mx-2 px-2 rounded-sm transition-colors duration-300'
-              : 'transition-colors duration-300';
+          {(() => {
+            // Globaler Wort-Zähler für Audio-Wort-Spans (läuft über alle Paragraphen)
+            let wordOffset = 0;
+            const useWordSpans = audio.hasTimestamps && !isTranslated;
 
-            // Detect quotes (lines starting with „ or " or «)
-            if (trimmed.startsWith('\u201E') || trimmed.startsWith('"') || trimmed.startsWith('\u00AB')) {
-              return (
-                <blockquote
-                  key={i}
-                  data-tts-para={i}
-                  className={`border-l-2 border-amber-500/40 pl-5 italic my-8 md:my-10 ${darkMode ? 'text-stone-400' : 'text-stone-500'} ${hlClass}`}
-                >
-                  {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
-                </blockquote>
-              );
-            }
+            return paragraphs.map((para, i) => {
+              const trimmed = para.trim();
+              const isActive = audioActiveParagraph === i;
+              // Paragraphen-Highlight wenn Audio diesen Abschnitt liest
+              const hlClass = isActive
+                ? darkMode
+                  ? 'bg-amber-500/15 -mx-2 px-2 rounded-sm transition-colors duration-300'
+                  : 'bg-amber-100 -mx-2 px-2 rounded-sm transition-colors duration-300'
+                : 'transition-colors duration-300';
 
-            // Detect markdown headings (### and ####)
-            if (trimmed.startsWith('#### ')) {
-              return (
-                <h4 key={i} data-tts-para={i} className={`font-serif font-semibold text-base mt-6 mb-3 ${darkMode ? 'text-stone-300' : 'text-indigo-800'}`}>
-                  {trimmed.slice(5)}
-                </h4>
-              );
-            }
-            if (trimmed.startsWith('### ')) {
-              return (
-                <h3 key={i} data-tts-para={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
-                  {trimmed.slice(4)}
-                </h3>
-              );
-            }
+              // Inhalt rendern: mit Wort-Spans (Audio) oder Keyword-Highlighting (normal)
+              const renderContent = (text: string) => {
+                if (useWordSpans) {
+                  const { nodes, wordCount } = renderWithWordSpans(text, wordOffset);
+                  wordOffset += wordCount;
+                  return nodes;
+                }
+                return isTranslated ? text : renderWithKeywords(text, chapter.id);
+              };
 
-            // Detect section subheadings (short lines, no period at end, <80 chars)
-            if (trimmed.length < 80 && !trimmed.endsWith('.') && !trimmed.endsWith(':') && !trimmed.endsWith(',') && !trimmed.includes('\n') && /^[A-ZÄÖÜ\d]/.test(trimmed)) {
-              return (
-                <h3 key={i} data-tts-para={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
-                  {trimmed}
-                </h3>
-              );
-            }
+              // Detect quotes (lines starting with „ or " or «)
+              if (trimmed.startsWith('\u201E') || trimmed.startsWith('"') || trimmed.startsWith('\u00AB')) {
+                return (
+                  <blockquote
+                    key={i}
+                    data-audio-para={i}
+                    className={`border-l-2 border-amber-500/40 pl-5 italic my-8 md:my-10 ${darkMode ? 'text-stone-400' : 'text-stone-500'} ${hlClass}`}
+                  >
+                    {renderContent(trimmed)}
+                  </blockquote>
+                );
+              }
 
-            return (
-              <p key={i} data-tts-para={i} className={hlClass}>
-                {isTranslated ? trimmed : renderWithKeywords(trimmed, chapter.id)}
-              </p>
-            );
-          })}
+              // Detect markdown headings (### and ####)
+              if (trimmed.startsWith('#### ')) {
+                return (
+                  <h4 key={i} data-audio-para={i} className={`font-serif font-semibold text-base mt-6 mb-3 ${darkMode ? 'text-stone-300' : 'text-indigo-800'}`}>
+                    {trimmed.slice(5)}
+                  </h4>
+                );
+              }
+              if (trimmed.startsWith('### ')) {
+                return (
+                  <h3 key={i} data-audio-para={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
+                    {trimmed.slice(4)}
+                  </h3>
+                );
+              }
+
+              // Detect section subheadings (short lines, no period at end, <80 chars)
+              if (trimmed.length < 80 && !trimmed.endsWith('.') && !trimmed.endsWith(':') && !trimmed.endsWith(',') && !trimmed.includes('\n') && /^[A-ZÄÖÜ\d]/.test(trimmed)) {
+                return (
+                  <h3 key={i} data-audio-para={i} className={`font-serif font-semibold text-lg mt-8 mb-4 ${darkMode ? 'text-stone-200' : 'text-indigo-900'}`}>
+                    {trimmed}
+                  </h3>
+                );
+              }
+
+              return (
+                <p key={i} data-audio-para={i} className={hlClass}>
+                  {renderContent(trimmed)}
+                </p>
+              );
+            });
+          })()}
         </div>
 
         {/* Chapter ornament */}
@@ -1571,12 +1569,16 @@ export default function Home() {
             </AnimatePresence>
           </div>
 
-          {/* Headphones — starts/stops TTS + voice/speed settings */}
-          {currentId !== '__cover__' && tts.supported && (
+          {/* Headphones — Audio-Player (vorproduzierte MP3) */}
+          {currentId !== '__cover__' && (
             <div className="relative">
               <button
                 onClick={(e) => {
                   e.stopPropagation();
+                  if (audio.hasAudio) {
+                    // Klick auf Icon startet/pausiert direkt
+                    if (!headphonesMenuOpen) audio.toggle();
+                  }
                   setHeadphonesMenuOpen(o => !o);
                   setFontMenuOpen(false);
                   setLanguageMenuOpen(false);
@@ -1586,12 +1588,21 @@ export default function Home() {
                     ? 'text-amber-500 bg-amber-500/10'
                     : headphonesMenuOpen
                       ? (darkMode ? 'bg-stone-700 text-amber-400' : 'bg-stone-200 text-amber-600')
-                      : 'hover:bg-stone-200/50'
+                      : audio.hasAudio
+                        ? 'hover:bg-stone-200/50'
+                        : 'opacity-30 cursor-not-allowed'
                 }`}
-                title={isPlaying ? 'Vorlesen aktiv — Einstellungen' : 'Vorlesen'}
+                title={
+                  audio.loading ? 'Lädt Audio…'
+                  : !audio.hasAudio ? 'Kein Audio für dieses Kapitel'
+                  : isPlaying ? 'Pause'
+                  : 'Kapitel anhören'
+                }
+                disabled={audio.loading}
               >
                 <Headphones size={16} className={isPlaying ? 'animate-pulse' : ''} />
               </button>
+
               <AnimatePresence>
                 {headphonesMenuOpen && (
                   <motion.div
@@ -1599,72 +1610,88 @@ export default function Home() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -4 }}
                     onClick={(e) => e.stopPropagation()}
-                    className={`absolute right-0 top-full mt-2 w-56 rounded-xl shadow-xl border z-40 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
+                    className={`absolute right-0 top-full mt-2 w-60 rounded-xl shadow-xl border z-40 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
                   >
-                    {/* Play / Stop */}
-                    <div className={`px-3 pt-3 pb-2.5 border-b ${darkMode ? 'border-stone-700' : 'border-stone-100'}`}>
-                      <button
-                        onClick={() => { isPlaying ? tts.stop() : startChapterTTS(); }}
-                        disabled={!!currentChapter?.isTitlePage}
-                        className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-40 ${
-                          isPlaying
-                            ? darkMode ? 'bg-amber-500/20 text-amber-400' : 'bg-amber-50 text-amber-700'
-                            : darkMode ? 'bg-stone-700 text-stone-200 hover:bg-stone-600' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
-                        }`}
-                      >
-                        {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
-                        {isPlaying ? 'Vorlesen stoppen' : 'Kapitel vorlesen'}
-                      </button>
-                    </div>
-
-                    {/* Voice selection */}
-                    {ttsLangVoices.length > 1 && (
-                      <div className={`px-3 pt-2.5 pb-2.5 border-b ${darkMode ? 'border-stone-700' : 'border-stone-100'}`}>
-                        <p className={`text-[10px] uppercase tracking-wider mb-1.5 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Stimme</p>
-                        <div className="flex flex-wrap gap-1">
-                          {ttsLangVoices.slice(0, 4).map(v => {
-                            const gender = guessVoiceGender(v.name);
-                            const label = gender === 'female' ? '♀' : gender === 'male' ? '♂' : '◈';
-                            const shortName = v.name.split(' ').slice(-1)[0].replace(/Online.*/, '').trim().slice(0, 8);
-                            const active = ttsVoiceURI === v.uri || (!ttsVoiceURI && ttsLangVoices[0].uri === v.uri);
-                            return (
-                              <button
-                                key={v.uri}
-                                onClick={() => { setTtsVoiceURI(v.uri); if (isPlaying) tts.stop(); }}
-                                title={v.name}
-                                className={`px-1.5 py-0.5 rounded text-[10px] transition-colors ${
-                                  active
-                                    ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
-                                    : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700' : 'text-stone-500 hover:text-stone-700 border border-stone-200'
-                                }`}
-                              >
-                                {label} {shortName}
-                              </button>
-                            );
-                          })}
-                        </div>
+                    {!audio.hasAudio ? (
+                      <div className={`px-4 py-4 text-center text-xs ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+                        {audio.loading ? (
+                          <span className="flex items-center justify-center gap-2">
+                            <Loader2 size={12} className="animate-spin text-amber-500" />
+                            Lädt…
+                          </span>
+                        ) : (
+                          <span>Noch kein Audio für dieses Kapitel verfügbar.</span>
+                        )}
                       </div>
-                    )}
-
-                    {/* Speed selection */}
-                    <div className="px-3 pt-2.5 pb-3">
-                      <p className={`text-[10px] uppercase tracking-wider mb-1.5 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Geschwindigkeit</p>
-                      <div className="flex flex-wrap gap-1">
-                        {ttsSpeeds.map(s => (
+                    ) : (
+                      <>
+                        {/* Play / Pause */}
+                        <div className={`px-3 pt-3 pb-2.5 border-b ${darkMode ? 'border-stone-700' : 'border-stone-100'}`}>
                           <button
-                            key={s}
-                            onClick={() => { setTtsRate(s); if (isPlaying) tts.stop(); }}
-                            className={`px-1.5 py-0.5 rounded text-[10px] transition-colors ${
-                              ttsRate === s
-                                ? darkMode ? 'bg-amber-500/20 text-amber-400 border border-amber-500/40' : 'bg-amber-100 text-amber-800 border border-amber-300'
-                                : darkMode ? 'text-stone-500 hover:text-stone-300 border border-stone-700' : 'text-stone-500 hover:text-stone-700 border border-stone-200'
+                            onClick={() => audio.toggle()}
+                            className={`w-full flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                              isPlaying
+                                ? darkMode ? 'bg-amber-500/20 text-amber-400' : 'bg-amber-50 text-amber-700'
+                                : darkMode ? 'bg-stone-700 text-stone-200 hover:bg-stone-600' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'
                             }`}
                           >
-                            {s === 1 ? '1×' : `${s}×`}
+                            {isPlaying ? <Pause size={14} fill="currentColor" /> : <Play size={14} fill="currentColor" />}
+                            {isPlaying ? 'Pause' : 'Kapitel anhören'}
                           </button>
-                        ))}
-                      </div>
-                    </div>
+                        </div>
+
+                        {/* Seekbar + Zeitanzeige */}
+                        <div className={`px-3 pt-2.5 pb-2.5 border-b ${darkMode ? 'border-stone-700' : 'border-stone-100'}`}>
+                          <div
+                            className={`w-full h-1.5 rounded-full cursor-pointer ${darkMode ? 'bg-stone-700' : 'bg-stone-200'}`}
+                            onClick={(e) => {
+                              const rect = e.currentTarget.getBoundingClientRect();
+                              const fraction = (e.clientX - rect.left) / rect.width;
+                              audio.seekFraction(Math.max(0, Math.min(1, fraction)));
+                            }}
+                          >
+                            <div
+                              className="h-full bg-amber-500 rounded-full transition-none"
+                              style={{ width: `${audio.progress}%` }}
+                            />
+                          </div>
+                          <div className={`flex justify-between text-[9px] mt-1 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                            <span>{formatTime(audio.currentTime)}</span>
+                            <span>{formatTime(audio.duration)}</span>
+                          </div>
+                        </div>
+
+                        {/* Stimme: männlich / weiblich */}
+                        <div className="px-3 pt-2.5 pb-3">
+                          <p className={`text-[10px] uppercase tracking-wider mb-1.5 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Stimme</p>
+                          <div className="flex gap-1.5">
+                            {(['female', 'male'] as VoiceGender[]).map(v => (
+                              <button
+                                key={v}
+                                onClick={() => {
+                                  const wasPlaying = isPlaying;
+                                  if (wasPlaying) audio.pause();
+                                  setAudioVoice(v);
+                                  audio.setVoice(v);
+                                }}
+                                className={`flex-1 py-1 rounded text-[11px] font-medium transition-colors border ${
+                                  audioVoice === v
+                                    ? darkMode ? 'bg-amber-500/20 text-amber-400 border-amber-500/40' : 'bg-amber-100 text-amber-800 border-amber-300'
+                                    : darkMode ? 'text-stone-400 border-stone-700 hover:text-stone-200' : 'text-stone-500 border-stone-200 hover:text-stone-700'
+                                }`}
+                              >
+                                {v === 'female' ? '♀ Weiblich' : '♂ Männlich'}
+                              </button>
+                            ))}
+                          </div>
+                          {audio.hasTimestamps && (
+                            <p className={`text-[9px] mt-1.5 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                              ✦ Wort-Highlighting aktiv
+                            </p>
+                          )}
+                        </div>
+                      </>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -2197,26 +2224,7 @@ export default function Home() {
                                   <p key={j} className={j > 0 ? 'mt-2' : ''}>{p}</p>
                                 ))}
                               </div>
-                              {tts.supported && (
-                                <button
-                                  onClick={() => {
-                                    if (tts.speaking && ttsTarget === i) {
-                                      tts.stop();
-                                    } else {
-                                      setTtsTarget(i);
-                                      tts.speak(entry.a);
-                                    }
-                                  }}
-                                  className={`p-1.5 rounded-full flex-none transition-colors ${
-                                    tts.speaking && ttsTarget === i
-                                      ? 'text-amber-500'
-                                      : darkMode ? 'text-stone-600 hover:text-stone-400' : 'text-stone-400 hover:text-stone-600'
-                                  }`}
-                                  title={tts.speaking && ttsTarget === i ? 'Vorlesen stoppen' : 'Antwort vorlesen'}
-                                >
-                                  {tts.speaking && ttsTarget === i ? <VolumeX size={12} /> : <Play size={12} />}
-                                </button>
-                              )}
+                              {/* Antwort-Vorlesen via Web Speech API (Chat-only, kein MP3 nötig) */}
                             </div>
                           ) : (
                             <div className="flex justify-start">
@@ -2305,10 +2313,10 @@ export default function Home() {
                 </span>
               </div>
 
-              {/* Progress bar — TTS position when playing, scroll position otherwise */}
+              {/* Progress bar — Audio-Position wenn aktiv, sonst Scroll-Position */}
               <div
                 className={`h-0.5 rounded-full overflow-hidden ${darkMode ? 'bg-stone-800' : 'bg-stone-200'}`}
-                title={isPlaying ? `${Math.round(ttsProgress)}% vorgelesen` : `${Math.round(readProgress)}% gelesen`}
+                title={isPlaying ? `${Math.round(audio.progress)}% gehört` : `${Math.round(readProgress)}% gelesen`}
               >
                 <motion.div
                   className="h-full rounded-full"
@@ -2330,18 +2338,19 @@ export default function Home() {
                 </button>
 
                 <button
-                  onClick={() => isPlaying ? tts.stop() : startChapterTTS()}
-                  disabled={!tts.supported || !!currentChapter?.isTitlePage}
+                  onClick={() => audio.toggle()}
+                  disabled={!audio.hasAudio || !!currentChapter?.isTitlePage}
                   className={`w-11 h-11 rounded-full flex items-center justify-center transition-all shadow-md disabled:opacity-30 disabled:cursor-not-allowed ${
                     isPlaying
                       ? darkMode ? 'bg-amber-500 text-stone-950 hover:bg-amber-400 scale-105' : 'bg-amber-600 text-white hover:bg-amber-500 scale-105'
                       : darkMode ? 'bg-stone-700 text-stone-100 hover:bg-stone-600' : 'bg-stone-800 text-white hover:bg-stone-700'
                   }`}
                   title={
-                    !tts.supported ? 'Vorlesen nicht unterstützt (Firefox)'
-                      : isPlaying ? 'Vorlesen stoppen'
+                    audio.loading ? 'Lädt Audio…'
+                      : !audio.hasAudio ? 'Kein Audio verfügbar'
+                      : isPlaying ? 'Pause'
                       : currentChapter?.isTitlePage ? 'Auf Titelseiten nicht verfügbar'
-                      : 'Kapitel vorlesen'
+                      : 'Kapitel anhören'
                   }
                 >
                   {isPlaying
