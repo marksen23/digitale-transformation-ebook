@@ -207,9 +207,10 @@ Enkidu schließt jedes Gespräch mit:
       return res.status(400).json({ error: "messages-Array ist erforderlich." });
     }
 
-    // Ebook-Inhalt als Wissensbasis aufbauen
+    // Ebook-Inhalt als Wissensbasis (erste 60.000 Zeichen — reicht für den Kontext)
     const ebookContent = getEbookContent();
-    const systemInstruction = ebookContent
+    const ebookSnippet = ebookContent ? ebookContent.slice(0, 60_000) : "";
+    const systemInstruction = ebookSnippet
       ? `${ENKIDU_SYSTEM_PROMPT}
 
 ─────────────────────────────────────────────
@@ -219,14 +220,33 @@ Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" vo
 Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.
 Zitiere sparsam und nur wenn es die Begegnung vertieft — du bist kein Kommentar zum Buch, sondern ein Resonanzkörper.
 
-${ebookContent}`
+${ebookSnippet}`
       : ENKIDU_SYSTEM_PROMPT;
 
-    // Gemini erwartet "model" statt "assistant" als Rolle
-    const contents = messages.map((m) => ({
-      role: m.role === "assistant" ? "model" : "user",
-      parts: [{ text: m.content }],
-    }));
+    // Bereinige Nachrichten für Gemini:
+    // - Fehlermeldungen (error: true) herausfiltern
+    // - "assistant" → "model" umbenennen
+    // - Sicherstellen: erstes Element ist immer "user", korrekte Alternation
+    const cleanMessages = (messages as Array<{ role: string; content: string; error?: boolean }>)
+      .filter((m) => !m.error && m.content?.trim())
+      .map((m) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      }));
+
+    // Gemini verlangt: erster Turn = user, strikt alternierend
+    const contents: Array<{ role: string; parts: Array<{ text: string }> }> = [];
+    let lastRole = "";
+    for (const msg of cleanMessages) {
+      if (msg.role === lastRole) continue; // doppelte gleiche Rolle überspringen
+      if (contents.length === 0 && msg.role !== "user") continue; // muss mit user beginnen
+      contents.push(msg);
+      lastRole = msg.role;
+    }
+
+    if (contents.length === 0) {
+      return res.status(400).json({ error: "Keine gültigen Nachrichten zum Senden." });
+    }
 
     try {
       const response = await fetch(
@@ -235,7 +255,7 @@ ${ebookContent}`
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemInstruction }] },
+            system_instruction: { parts: [{ text: systemInstruction }] },
             contents,
             generationConfig: {
               temperature: 0.9,
@@ -248,12 +268,15 @@ ${ebookContent}`
       if (!response.ok) {
         const errText = await response.text();
         console.error("Enkidu Gemini error:", response.status, errText);
-        const detail =
-          response.status === 400 ? "Ungültiger API-Key (400)" :
-          response.status === 401 || response.status === 403 ? "API-Key nicht autorisiert — bitte Key auf Render prüfen" :
-          response.status === 429 ? "Rate-Limit erreicht — bitte kurz warten" :
-          `Gemini-Fehler ${response.status}`;
-        return res.status(502).json({ error: detail });
+        // Gib den rohen Gemini-Fehlertext zurück damit wir debuggen können
+        let detail: string;
+        try {
+          const parsed = JSON.parse(errText);
+          detail = parsed?.error?.message || errText;
+        } catch {
+          detail = errText;
+        }
+        return res.status(502).json({ error: `Gemini ${response.status}: ${detail}` });
       }
 
       const data = await response.json();
