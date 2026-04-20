@@ -1,9 +1,15 @@
-import { useState, useRef, useCallback, useEffect, useMemo } from "react";
-import { NODES, EDGES, CAT_COLOR, CANVAS_W, CANVAS_H, type ConceptNode, type NodeCategory } from "@/data/conceptGraph";
+import { useState, useRef, useCallback, useMemo } from "react";
+import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, type ConceptNode, type NodeCategory } from "@/data/conceptGraph";
 
 interface ConceptGraphPageProps {
   onClose: () => void;
 }
+
+// ─── Leitmotiv visual constants (Schattenlicht / Faltung) ─────────────────────
+const LM_COLOR      = "#c8b896"; // parchment-gold — same as CAT_COLOR.leitmotiv
+const LM_GLOW       = "#e8dcc0"; // brighter variant for labels + inner ring
+const LM_AURA_R     = 68;        // outer glow radius added to node.r
+const LM_RING_R     = 34;        // dashed mid-ring radius added to node.r
 
 // ─── Style constants (match Enkidu palette) ────────────────────────────────────
 const C = {
@@ -26,6 +32,13 @@ const ADJACENCY = new Map<string, Set<string>>();
 for (const node of NODES) ADJACENCY.set(node.id, new Set());
 for (const edge of EDGES) {
   ADJACENCY.get(edge.source)?.add(edge.target);
+  ADJACENCY.get(edge.target)?.add(edge.source);
+}
+// Also index leitmotiv resonance edges so clicking a Leitmotiv shows its
+// connected concept nodes in the sidebar.
+for (const edge of LEITMOTIV_EDGES) {
+  if (!ADJACENCY.has(edge.source)) ADJACENCY.set(edge.source, new Set());
+  ADJACENCY.get(edge.source)!.add(edge.target);
   ADJACENCY.get(edge.target)?.add(edge.source);
 }
 
@@ -303,67 +316,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         </div>
       </nav>
 
-      {/* Legend / category filter panel */}
-      {legendOpen && (
-        <div style={{
-          position: "fixed", top: "5.2rem", right: "1.2rem", zIndex: 190,
-          background: C.deep, border: `1px solid ${C.border}`,
-          padding: "1rem 1.1rem", minWidth: 200,
-          backdropFilter: "blur(8px)",
-        }}>
-          <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.75rem" }}>
-            Kategorien
-          </div>
-          {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).map(([cat, color]) => {
-            const hidden = hiddenCats.has(cat);
-            return (
-              <button
-                key={cat}
-                onClick={() => setHiddenCats(prev => {
-                  const next = new Set(prev);
-                  if (next.has(cat)) next.delete(cat); else next.add(cat);
-                  return next;
-                })}
-                style={{
-                  display: "flex", alignItems: "center", gap: "0.55rem",
-                  width: "100%", background: "none", border: "none",
-                  cursor: "pointer", padding: "0.3rem 0",
-                  opacity: hidden ? 0.4 : 1, transition: "opacity 0.15s",
-                }}
-              >
-                <span style={{
-                  width: 10, height: 10, borderRadius: "50%",
-                  background: hidden ? "transparent" : color,
-                  border: `1.5px solid ${color}`,
-                  flexShrink: 0, transition: "background 0.15s",
-                }} />
-                <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? C.muted : C.text }}>
-                  {categoryLabel(cat)}
-                </span>
-              </button>
-            );
-          })}
-          {hiddenCats.size > 0 && (
-            <button
-              onClick={() => setHiddenCats(new Set())}
-              style={{
-                marginTop: "0.75rem", width: "100%",
-                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
-                textTransform: "uppercase", color: C.accent,
-                background: "none", border: `1px solid ${C.accentDim}`,
-                padding: "0.3rem 0.5rem", cursor: "pointer",
-              }}
-            >
-              Alle einblenden
-            </button>
-          )}
-        </div>
-      )}
 
       {/* Main area: SVG graph + detail panel */}
       <div className="concept-graph-body" style={{ display: "flex", flex: 1, overflow: "hidden" }}>
 
-        {/* SVG Graph */}
+        {/* SVG Graph — in relativem Container für absolute Overlays */}
+        <div style={{ flex: 1, position: "relative", overflow: "hidden" }}>
         <svg
           ref={svgRef}
           style={{ flex: 1, display: "block", cursor: dragRef.current ? "grabbing" : "grab", touchAction: "none" }}
@@ -383,6 +341,80 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         >
 
           <g transform={transform}>
+
+            {/* ══ LEITMOTIV LAYER 1: Background aura glows ══════════════════
+                Large translucent halos placed behind all concept nodes.
+                Schattenlicht principle: light emerges from the deep background. */}
+            {NODES.filter(n => n.category === "leitmotiv").map(node => {
+              const state  = nodeState(node.id);
+              const hidden = state === "hidden";
+              if (hidden) return null;
+              const dim    = state === "dim";
+              return (
+                <g key={`aura-${node.id}`} style={{ pointerEvents: "none" }}>
+                  {/* Outer soft glow — very faint filled circle */}
+                  <circle
+                    cx={node.x} cy={node.y} r={node.r + LM_AURA_R}
+                    fill={LM_COLOR}
+                    fillOpacity={dim ? 0.018 : 0.055}
+                  />
+                  {/* Mid dashed ring — Faltung suggestion */}
+                  <circle
+                    cx={node.x} cy={node.y} r={node.r + LM_RING_R}
+                    fill="none"
+                    stroke={LM_COLOR}
+                    strokeWidth={0.6}
+                    strokeDasharray="3 9"
+                    opacity={dim ? 0.12 : 0.32}
+                  />
+                </g>
+              );
+            })}
+
+            {/* ══ LEITMOTIV LAYER 2: Resonance connection lines ══════════════
+                Thin dashed curves from leitmotiv nodes to resonating concepts.
+                Drawn before regular edges so they form the base layer. */}
+            {LEITMOTIV_EDGES.map((edge, i) => {
+              const src = NODE_MAP.get(edge.source);
+              const tgt = NODE_MAP.get(edge.target);
+              if (!src || !tgt) return null;
+
+              const srcState = nodeState(edge.source);
+              const tgtState = nodeState(edge.target);
+              if (srcState === "hidden" || tgtState === "hidden") return null;
+
+              const isFocused = srcState === "focus" || tgtState === "focus" ||
+                                srcState === "connected" || tgtState === "connected";
+              const isDim     = srcState === "dim" && tgtState === "dim";
+
+              const opacity   = isDim ? 0.05 : isFocused ? 0.55 : 0.18;
+              const strokeW   = isFocused ? 1.0 : 0.6;
+
+              // Gentle bezier — control point pushed away from center
+              const mx = (src.x + tgt.x) / 2;
+              const my = (src.y + tgt.y) / 2;
+              const dx = tgt.x - src.x;
+              const dy = tgt.y - src.y;
+              const len = Math.hypot(dx, dy) || 1;
+              const curve = Math.min(len * 0.18, 38);
+              const cx = mx + (-dy / len) * curve;
+              const cy_ = my + (dx / len) * curve;
+
+              return (
+                <path
+                  key={`lm-edge-${i}`}
+                  d={`M ${src.x} ${src.y} Q ${cx} ${cy_} ${tgt.x} ${tgt.y}`}
+                  fill="none"
+                  stroke={LM_COLOR}
+                  strokeWidth={strokeW}
+                  strokeDasharray="5 7"
+                  opacity={opacity}
+                  strokeLinecap="round"
+                  style={{ pointerEvents: "none" }}
+                />
+              );
+            })}
+
             {/* ── Edges ── */}
             {EDGES.map((edge, i) => {
               const src = NODE_MAP.get(edge.source);
@@ -428,8 +460,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               );
             })}
 
-            {/* ── Nodes ── */}
+            {/* ── Nodes (concept layer — skip leitmotiv, rendered separately) ── */}
             {NODES.map(node => {
+              if (node.category === "leitmotiv") return null; // rendered in leitmotiv pass below
               const state = nodeState(node.id);
               if (state === "hidden") return null;
               const catColor = CAT_COLOR[node.category];
@@ -525,8 +558,178 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 </g>
               );
             })}
+
+            {/* ══ LEITMOTIV LAYER 3: Node rings + labels ═════════════════════
+                Drawn on top of all concept nodes. Each Leitmotiv appears as
+                a double-ring with a cap-label — archetypal, luminous, distinct. */}
+            {NODES.filter(n => n.category === "leitmotiv").map(node => {
+              const state    = nodeState(node.id);
+              if (state === "hidden") return null;
+              const isFocus  = state === "focus";
+              const isDim    = state === "dim";
+              const isConn   = state === "connected";
+
+              const ringOpacity  = isDim ? 0.25 : isFocus ? 1 : isConn ? 0.85 : 0.65;
+              const fillOpacity  = isFocus ? 0.22 : isDim ? 0.04 : 0.10;
+              const labelOpacity = isDim ? 0.3  : 1;
+              const outerR       = node.r + (isFocus ? 8 : 4);
+
+              return (
+                <g
+                  key={node.id}
+                  style={{ cursor: "pointer" }}
+                  onClick={e => handleNodeClick(e, node.id)}
+                  onMouseEnter={() => setHoveredId(node.id)}
+                  onMouseLeave={() => setHoveredId(null)}
+                >
+                  {/* Outer glow ring (focus state only) */}
+                  {isFocus && (
+                    <circle
+                      cx={node.x} cy={node.y} r={outerR + 14}
+                      fill="none"
+                      stroke={LM_GLOW}
+                      strokeWidth={1.2}
+                      opacity={0.3}
+                    />
+                  )}
+
+                  {/* Outer decorative ring */}
+                  <circle
+                    cx={node.x} cy={node.y} r={outerR}
+                    fill="none"
+                    stroke={LM_COLOR}
+                    strokeWidth={isFocus ? 1.5 : 0.8}
+                    strokeDasharray={isFocus ? "none" : "2 5"}
+                    opacity={ringOpacity * 0.6}
+                  />
+
+                  {/* Inner filled circle */}
+                  <circle
+                    cx={node.x} cy={node.y} r={node.r}
+                    fill={LM_GLOW}
+                    fillOpacity={fillOpacity}
+                    stroke={LM_GLOW}
+                    strokeWidth={isFocus ? 1.8 : 1.2}
+                    strokeOpacity={ringOpacity}
+                  />
+
+                  {/* Label — small-caps, spaced, above/below node for edge positions */}
+                  <text
+                    x={node.x}
+                    y={node.y + (node.y < 100 ? node.r + 14 : node.y > 480 ? -(node.r + 8) : 0)}
+                    textAnchor="middle"
+                    dominantBaseline={node.y < 100 ? "hanging" :
+                                      node.y > 480 ? "auto"    : "middle"}
+                    fontSize={9}
+                    fill={LM_GLOW}
+                    opacity={labelOpacity}
+                    fontFamily="'Courier Prime', 'Courier New', monospace"
+                    letterSpacing="0.18em"
+                    style={{ userSelect: "none", pointerEvents: "none" }}
+                  >
+                    {node.label}
+                  </text>
+                </g>
+              );
+            })}
+
           </g>
         </svg>
+
+        {/* ── Legende — absolut oben rechts im Graph-Canvas ── */}
+        {legendOpen && (
+          <div style={{
+            position: "absolute", top: "0.9rem", right: "0.9rem", zIndex: 20,
+            background: C.deep, border: `1px solid ${C.border}`,
+            padding: "0.9rem 1rem", minWidth: 190,
+            backdropFilter: "blur(8px)",
+            pointerEvents: "auto",
+          }}>
+            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.75rem" }}>
+              Kategorien
+            </div>
+            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).map(([cat, color]) => {
+              const hidden = hiddenCats.has(cat);
+              return (
+                <button
+                  key={cat}
+                  onClick={() => setHiddenCats(prev => {
+                    const next = new Set(prev);
+                    if (next.has(cat)) next.delete(cat); else next.add(cat);
+                    return next;
+                  })}
+                  style={{
+                    display: "flex", alignItems: "center", gap: "0.55rem",
+                    width: "100%", background: "none", border: "none",
+                    cursor: "pointer", padding: "0.3rem 0",
+                    opacity: hidden ? 0.4 : 1, transition: "opacity 0.15s",
+                  }}
+                >
+                  <span style={{
+                    width: 10, height: 10, borderRadius: "50%",
+                    background: hidden ? "transparent" : color,
+                    border: `1.5px solid ${color}`,
+                    flexShrink: 0, transition: "background 0.15s",
+                  }} />
+                  <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? C.muted : C.text }}>
+                    {categoryLabel(cat)}
+                  </span>
+                </button>
+              );
+            })}
+            {hiddenCats.size > 0 && (
+              <button
+                onClick={() => setHiddenCats(new Set())}
+                style={{
+                  marginTop: "0.75rem", width: "100%",
+                  fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                  textTransform: "uppercase", color: C.accent,
+                  background: "none", border: `1px solid ${C.accentDim}`,
+                  padding: "0.3rem 0.5rem", cursor: "pointer",
+                }}
+              >
+                Alle einblenden
+              </button>
+            )}
+          </div>
+        )}
+
+        {/* ── Zoom Controls — absolut unten rechts im Graph-Canvas ── */}
+        <div style={{
+          position: "absolute", bottom: "1.2rem", right: "1.2rem",
+          display: "flex", flexDirection: "column", gap: "2px",
+          zIndex: 20, pointerEvents: "auto",
+        }}>
+          {[
+            { label: "+", delta: 1.2,  aria: "Vergrößern" },
+            { label: "−", delta: 0.83, aria: "Verkleinern" },
+            { label: "↺", reset: true, aria: "Zoom zurücksetzen" },
+          ].map(btn => (
+            <button
+              key={btn.label}
+              aria-label={btn.aria}
+              title={btn.aria}
+              onClick={() => {
+                if (btn.reset) { setZoomSync(1); setPanSync({ x: 0, y: 0 }); }
+                else setZoomSync(clampZoom(zoomRef.current * (btn.delta ?? 1)));
+              }}
+              style={{
+                fontFamily: C.mono, fontSize: "0.9rem",
+                width: 30, height: 30,
+                background: C.surface, border: `1px solid ${C.border}`,
+                color: C.textDim, cursor: "pointer",
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.15s",
+              }}
+              onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
+              onMouseLeave={e => { e.currentTarget.style.color = C.textDim; e.currentTarget.style.borderColor = C.border; }}
+            >
+              {btn.label}
+            </button>
+          ))}
+        </div>
+
+        </div>{/* end SVG-Container */}
 
         {/* ── Detail Panel (right sidebar on desktop only) ── */}
         {selectedNode && (
@@ -661,40 +864,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         </div>
       )}
 
-      {/* Zoom controls */}
-      <div style={{
-        position: "fixed", bottom: "1.2rem", right: "1.2rem",
-        display: "flex", flexDirection: "column", gap: "2px",
-        zIndex: 150,
-      }}>
-        {[
-          { label: "+", delta: 1.2,  aria: "Vergrößern" },
-          { label: "−", delta: 0.83, aria: "Verkleinern" },
-          { label: "↺", reset: true, aria: "Zoom zurücksetzen" },
-        ].map(btn => (
-          <button
-            key={btn.label}
-            aria-label={btn.aria}
-            title={btn.aria}
-            onClick={() => {
-              if (btn.reset) { setZoomSync(1); setPanSync({ x: 0, y: 0 }); }
-              else setZoomSync(clampZoom(zoomRef.current * (btn.delta ?? 1)));
-            }}
-            style={{
-              fontFamily: C.mono, fontSize: "0.9rem",
-              width: 30, height: 30,
-              background: C.surface, border: `1px solid ${C.border}`,
-              color: C.textDim, cursor: "pointer",
-              display: "flex", alignItems: "center", justifyContent: "center",
-              transition: "all 0.15s",
-            }}
-            onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
-            onMouseLeave={e => { e.currentTarget.style.color = C.textDim; e.currentTarget.style.borderColor = C.border; }}
-          >
-            {btn.label}
-          </button>
-        ))}
-      </div>
 
       <style>{`
         /* Nav: two-row layout — row 1: title/controls, row 2: search */
@@ -739,6 +908,7 @@ function categoryLabel(cat: string): string {
     knowledge:      "Erkenntnis",
     temporal:       "Zeit & Raum",
     transformation: "Transformation",
+    leitmotiv:      "Leitmotive",
   };
   return labels[cat] ?? cat;
 }

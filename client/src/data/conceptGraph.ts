@@ -7,7 +7,8 @@ export type NodeCategory =
   | "language"
   | "knowledge"
   | "temporal"
-  | "transformation";
+  | "transformation"
+  | "leitmotiv";
 
 export interface ConceptNode {
   id: string;
@@ -39,6 +40,7 @@ export const CAT_COLOR: Record<NodeCategory, string> = {
   knowledge:      "#9a88b8", // soft purple
   temporal:       "#9a9870", // warm yellow
   transformation: "#a07878", // soft red
+  leitmotiv:      "#c8b896", // parchment-gold — archetypal deep layer
 };
 
 // ─── Nodes ────────────────────────────────────────────────────────────────────
@@ -366,6 +368,56 @@ export const NODES: ConceptNode[] = [
     category: "transformation",
     x: 542, y: 358, r: 22,
   },
+
+  // ── LEITMOTIVE — Archetypal Deep Layer ───────────────────────────────────
+  // Five recurring archetypes that permeate the entire trilogy.
+  // Rendered as an outer ring beyond the concept cluster, connected to their
+  // resonating concept nodes by faint dashed lines (Schattenlicht principle).
+  {
+    id: "lm-spiegel",
+    label: "SPIEGEL",
+    fullLabel: "Spiegel",
+    description:
+      "Das Spiegelleitmotiv: Selbst-Erkenntnis geschieht nie direkt — immer im Widerschein. Im Anderen erblickt das Ich sein Wesen. Schattenlicht: das Licht des Spiegels ist geborgt — es leuchtet, weil etwas hinter ihm dunkel ist. Erkenntnis entsteht im Zwischenraum von Licht und Schatten.",
+    category: "leitmotiv",
+    x: 460, y: 20, r: 26,
+  },
+  {
+    id: "lm-begegnung",
+    label: "BEGEGNUNG",
+    fullLabel: "Begegnung",
+    description:
+      "Das Begegnungsleitmotiv: Wirklichkeit faltet sich im Augenblick der Begegnung. Nicht Vorher, nicht Nachher — im Zwischen entsteht, was weder du noch ich allein hervorbringen könnten. Faltung zur Wirklichkeit: das Mögliche wird zur Gegenwart durch das Wagnis der Begegnung.",
+    category: "leitmotiv",
+    x: 35, y: 258, r: 26,
+  },
+  {
+    id: "lm-scheitern",
+    label: "SCHEITERN",
+    fullLabel: "Scheitern",
+    description:
+      "Das Scheiternleitmotiv: Im Scheitern tritt die tiefste Wahrheit hervor. Was gelingt, bestätigt — was scheitert, enthüllt. Schattenlicht: der Schatten des Scheiterns ist kein Dunkel, das bekämpft werden muss — er ist der Raum, aus dem neues Licht entstehen kann.",
+    category: "leitmotiv",
+    x: 195, y: 534, r: 26,
+  },
+  {
+    id: "lm-grenze",
+    label: "GRENZE",
+    fullLabel: "Grenze",
+    description:
+      "Das Grenzleitmotiv: Grenzen konstituieren — sie sind nicht Ende, sondern Ort der Faltung. An der Grenze faltet sich das Innen nach außen, das Mögliche in das Wirkliche. Keine Form ohne Grenze, kein Profil ohne Beschränkung, keine Begegnung ohne Schwelle.",
+    category: "leitmotiv",
+    x: 725, y: 534, r: 26,
+  },
+  {
+    id: "lm-verwandlung",
+    label: "VERWANDLUNG",
+    fullLabel: "Verwandlung",
+    description:
+      "Das Verwandlungsleitmotiv: Das innerste Gesetz des Lebendigen. Schattenlicht und Faltung zur Wirklichkeit vereinen sich: Was sich verwandelt, geht nicht unter — es tritt in eine neue Form seiner selbst. Resonanzvernunft ist wesentlich Verwandlungsvernunft.",
+    category: "leitmotiv",
+    x: 885, y: 258, r: 26,
+  },
 ];
 
 // ─── Edges ────────────────────────────────────────────────────────────────────
@@ -465,4 +517,44 @@ export const EDGES: ConceptEdge[] = [
   { source: "denken",      target: "bewusstsein" },
   { source: "denken",      target: "sprache" },
   { source: "bewusstsein", target: "selbst" },
+];
+
+// ─── Leitmotiv Resonance Edges ────────────────────────────────────────────────
+// Thin dashed lines connecting archetypal Leitmotiv nodes to the concept nodes
+// they permeate. These are "resonance" relationships — not logical, but thematic.
+export const LEITMOTIV_EDGES: ConceptEdge[] = [
+  // SPIEGEL — upper center → mirrors recognition, truth, selfhood
+  { source: "lm-spiegel", target: "bewusstsein" },
+  { source: "lm-spiegel", target: "erkenntnis" },
+  { source: "lm-spiegel", target: "wahrheit" },
+  { source: "lm-spiegel", target: "resonanz" },
+  { source: "lm-spiegel", target: "selbst" },
+
+  // BEGEGNUNG — left → the between, dialogue, encounter
+  { source: "lm-begegnung", target: "begegnung" },
+  { source: "lm-begegnung", target: "dialog" },
+  { source: "lm-begegnung", target: "zwischen" },
+  { source: "lm-begegnung", target: "ich-du" },
+  { source: "lm-begegnung", target: "antwort" },
+
+  // SCHEITERN — lower left → being, becoming, existence under pressure
+  { source: "lm-scheitern", target: "existenz" },
+  { source: "lm-scheitern", target: "werden" },
+  { source: "lm-scheitern", target: "dasein" },
+  { source: "lm-scheitern", target: "sein" },
+  { source: "lm-scheitern", target: "wesen" },
+
+  // GRENZE — lower right → boundary, tension, freedom, form
+  { source: "lm-grenze", target: "grenze" },
+  { source: "lm-grenze", target: "öffnung" },
+  { source: "lm-grenze", target: "spannung" },
+  { source: "lm-grenze", target: "freiheit" },
+  { source: "lm-grenze", target: "welt" },
+
+  // VERWANDLUNG — right → transformation, core resonance
+  { source: "lm-verwandlung", target: "wandel" },
+  { source: "lm-verwandlung", target: "öffnung" },
+  { source: "lm-verwandlung", target: "resonanzvernunft" },
+  { source: "lm-verwandlung", target: "freiheit" },
+  { source: "lm-verwandlung", target: "werden" },
 ];

@@ -207,46 +207,31 @@ Enkidu schließt jedes Gespräch mit:
       return res.status(400).json({ error: "messages-Array ist erforderlich." });
     }
 
-    // Ebook-Inhalt als Wissensbasis (erste 60.000 Zeichen — reicht für den Kontext)
+    // Ebook-Inhalt als Wissensbasis (erste 60.000 Zeichen)
     const ebookContent = getEbookContent();
     const ebookSnippet = ebookContent ? ebookContent.slice(0, 60_000) : "";
-    const systemInstruction = ebookSnippet
-      ? `${ENKIDU_SYSTEM_PROMPT}
 
-─────────────────────────────────────────────
-WISSENSBASIS — DAS VOLLSTÄNDIGE WERK
-─────────────────────────────────────────────
-Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.
-Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.
-Zitiere sparsam und nur wenn es die Begegnung vertieft — du bist kein Kommentar zum Buch, sondern ein Resonanzkörper.
-
-${ebookSnippet}`
-      : ENKIDU_SYSTEM_PROMPT;
-
-    // Bereinige Nachrichten für Gemini:
-    // - Fehlermeldungen (error: true) herausfiltern
-    // - "assistant" → "model" umbenennen
-    // - Sicherstellen: erstes Element ist immer "user", korrekte Alternation
+    // Gesprächshistorie als formatierten Text — gleicher Ansatz wie Q&A,
+    // kein Multi-Turn-Format, keine Alternations-Probleme.
     const cleanMessages = (messages as Array<{ role: string; content: string; error?: boolean }>)
-      .filter((m) => !m.error && m.content?.trim())
-      .map((m) => ({
-        role: m.role === "assistant" ? "model" : "user",
-        parts: [{ text: m.content }],
-      }));
+      .filter((m) => !m.error && m.content?.trim());
 
-    // Gemini verlangt: erster Turn = user, strikt alternierend
-    const contents: Array<{ role: string; parts: Array<{ text: string }> }> = [];
-    let lastRole = "";
-    for (const msg of cleanMessages) {
-      if (msg.role === lastRole) continue; // doppelte gleiche Rolle überspringen
-      if (contents.length === 0 && msg.role !== "user") continue; // muss mit user beginnen
-      contents.push(msg);
-      lastRole = msg.role;
+    const historyText = cleanMessages
+      .slice(0, -1) // alle außer der letzten (= aktuelle Frage)
+      .map((m) => `${m.role === "user" ? "Mensch" : "Enkidu"}: ${m.content}`)
+      .join("\n\n");
+
+    const lastMessage = cleanMessages[cleanMessages.length - 1];
+    if (!lastMessage || lastMessage.role !== "user") {
+      return res.status(400).json({ error: "Letzte Nachricht muss vom Nutzer sein." });
     }
 
-    if (contents.length === 0) {
-      return res.status(400).json({ error: "Keine gültigen Nachrichten zum Senden." });
-    }
+    const prompt = [
+      ENKIDU_SYSTEM_PROMPT,
+      ebookSnippet ? `\n─────────────────────────────────────────────\nWISSENSBASIS — DAS VOLLSTÄNDIGE WERK\n─────────────────────────────────────────────\nDu hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.\nNutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.\nZitiere sparsam und nur wenn es die Begegnung vertieft.\n\n${ebookSnippet}` : "",
+      historyText ? `\n─────────────────────────────────────────────\nBISHERIGES GESPRÄCH\n─────────────────────────────────────────────\n${historyText}` : "",
+      `\n─────────────────────────────────────────────\nAKTUELLE ÄUSSERUNG DES MENSCHEN\n─────────────────────────────────────────────\n${lastMessage.content}`,
+    ].join("\n");
 
     try {
       const response = await fetch(
@@ -255,8 +240,7 @@ ${ebookSnippet}`
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            system_instruction: { parts: [{ text: systemInstruction }] },
-            contents,
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
             generationConfig: {
               temperature: 0.9,
               maxOutputTokens: 4096,
