@@ -103,11 +103,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       const dx = (e.clientX - nodeDragRef.current.startClientX) / zoomRef.current;
       const dy = (e.clientY - nodeDragRef.current.startClientY) / zoomRef.current;
       if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasDraggedRef.current = true;
+      // Capture before setNodePositions — updater runs async and nodeDragRef may be
+      // null by then (stopDrag called between mousemove and the state flush).
       const id = nodeDragRef.current.id;
-      setNodePositions(prev => new Map(prev).set(id, {
-        x: nodeDragRef.current!.origX + dx,
-        y: nodeDragRef.current!.origY + dy,
-      }));
+      const ox = nodeDragRef.current.origX;
+      const oy = nodeDragRef.current.origY;
+      setNodePositions(prev => new Map(prev).set(id, { x: ox + dx, y: oy + dy }));
       return;
     }
     if (!dragRef.current) return;
@@ -153,10 +154,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       const dy = (t.clientY - nodeDragRef.current.startClientY) / zoomRef.current;
       if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasDraggedRef.current = true;
       const id = nodeDragRef.current.id;
-      setNodePositions(prev => new Map(prev).set(id, {
-        x: nodeDragRef.current!.origX + dx,
-        y: nodeDragRef.current!.origY + dy,
-      }));
+      const ox = nodeDragRef.current.origX;
+      const oy = nodeDragRef.current.origY;
+      setNodePositions(prev => new Map(prev).set(id, { x: ox + dx, y: oy + dy }));
       return;
     }
     if (e.touches.length === 1 && dragRef.current) {
@@ -176,8 +176,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   }, [setPanSync, setZoomSync]);
 
   const onTouchEnd = useCallback(() => {
-    dragRef.current  = null;
-    pinchRef.current = null;
+    dragRef.current     = null;
+    pinchRef.current    = null;
+    nodeDragRef.current = null;  // was missing — left stale node-drag state on touch
+    setDraggingNodeId(null);
   }, []);
 
   // ── Search match set ─────────────────────────────────────────────────────
@@ -747,12 +749,24 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     />
                   )}
 
+                  {/* Übergeordnet corona — VERWANDLUNG only: second outer ring */}
+                  {node.id === "lm-verwandlung" && (
+                    <circle
+                      cx={x} cy={y} r={outerR + 10}
+                      fill="none"
+                      stroke={LM_GLOW}
+                      strokeWidth={0.6}
+                      strokeDasharray="1 8"
+                      opacity={isDim ? 0.1 : 0.45}
+                    />
+                  )}
+
                   {/* Outer decorative ring */}
                   <circle
                     cx={x} cy={y} r={outerR}
                     fill="none"
                     stroke={LM_COLOR}
-                    strokeWidth={isFocus ? 1.5 : 0.8}
+                    strokeWidth={isFocus ? 1.5 : node.id === "lm-verwandlung" ? 1.2 : 0.8}
                     strokeDasharray={isFocus ? "none" : "2 5"}
                     opacity={ringOpacity * 0.6}
                   />
@@ -1444,6 +1458,11 @@ function LeitmotivLegendSection({
                 transition: "color 0.2s",
               }}>
                 {node.label}
+                {node.id === "lm-verwandlung" && !compact && (
+                  <span style={{ marginLeft: "0.35rem", fontSize: "0.58rem", opacity: 0.55, letterSpacing: "0.05em", verticalAlign: "middle" }}>
+                    ◎
+                  </span>
+                )}
               </span>
               {isActive && !hidden && !compact && (
                 <span style={{ width: 3, height: 3, borderRadius: "50%", background: LM_COLOR_LOCAL, flexShrink: 0 }} />

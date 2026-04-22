@@ -104,16 +104,6 @@ export const NODES: ConceptNode[] = [
     category: "ontological",
     x: 298, y: 392, r: 30,
   },
-  {
-    id: "wandel",
-    label: "Wandel",
-    fullLabel: "Wandel",
-    description:
-      "Wandel ist nicht Verlust — er ist die Bedingung lebendigen Seins. Resonanzvernunft begreift Transformation nicht als Bedrohung, sondern als Einladung zur Öffnung.",
-    category: "transformation",
-    x: 622, y: 392, r: 28,
-  },
-
   // ── LANGUAGE / SOUND ──────────────────────────────────────────────────────
   {
     id: "stimme",
@@ -398,9 +388,9 @@ export const NODES: ConceptNode[] = [
     label: "VERWANDLUNG",
     fullLabel: "Verwandlung",
     description:
-      "Das Verwandlungsleitmotiv: Das innerste Gesetz des Lebendigen. Schattenlicht und Faltung zur Wirklichkeit vereinen sich: Was sich verwandelt, geht nicht unter — es tritt in eine neue Form seiner selbst. Resonanzvernunft ist wesentlich Verwandlungsvernunft.",
+      "Das übergeordnete Leitmotiv: Das innerste Gesetz des Lebendigen. VERWANDLUNG umschließt alle anderen Leitmotive — SPIEGEL, BEGEGNUNG, SCHEITERN, GRENZE sind Erscheinungsformen der Verwandlung. Schattenlicht und Faltung zur Wirklichkeit vereinen sich: Was sich verwandelt, geht nicht unter — es tritt in eine neue Form seiner selbst. Resonanzvernunft ist wesentlich Verwandlungsvernunft.",
     category: "leitmotiv",
-    x: 885, y: 258, r: 26,
+    x: 885, y: 258, r: 32,  // larger radius — übergeordnet
   },
 
   // ── GLOSSARY ADDITIONS ────────────────────────────────────────────────────
@@ -548,8 +538,6 @@ export const EDGES: ConceptEdge[] = [
   { source: "resonanzvernunft", target: "dasein",     weight: "primary" },
   { source: "resonanzvernunft", target: "sprache",    weight: "primary" },
   { source: "resonanzvernunft", target: "erkenntnis", weight: "primary" },
-  { source: "resonanzvernunft", target: "wandel",     weight: "primary" },
-  { source: "resonanzvernunft", target: "lm-begegnung", weight: "primary" },
 
   // Resonanz cluster
   { source: "resonanz", target: "klang" },
@@ -566,10 +554,8 @@ export const EDGES: ConceptEdge[] = [
   { source: "vernunft", target: "bewusstsein" },
 
   // Zwischen cluster
-  { source: "zwischen", target: "lm-begegnung" },
   { source: "zwischen", target: "dialog" },
   { source: "zwischen", target: "ich-du" },
-  { source: "zwischen", target: "lm-grenze" },
   { source: "zwischen", target: "spannung" },
 
   // Dialog
@@ -598,7 +584,6 @@ export const EDGES: ConceptEdge[] = [
   { source: "sein",    target: "werden" },
   { source: "sein",    target: "wesen" },
   { source: "sein",    target: "wahrheit" },
-  { source: "werden",  target: "wandel" },
   { source: "existenz",target: "selbst" },
 
   // Self / World / Relational
@@ -608,7 +593,6 @@ export const EDGES: ConceptEdge[] = [
   { source: "andere",  target: "ich-du" },
   { source: "andere",  target: "welt" },
   { source: "welt",    target: "raum" },
-  { source: "welt",    target: "wandel" },
 
   // Temporal
   { source: "moment",   target: "zeit" },
@@ -617,12 +601,8 @@ export const EDGES: ConceptEdge[] = [
   { source: "zeit",     target: "raum" },
 
   // Transformation
-  { source: "wandel",   target: "freiheit" },
-  { source: "wandel",   target: "öffnung" },
-  { source: "wandel",   target: "lm-grenze" },
   { source: "freiheit", target: "öffnung" },
   { source: "freiheit", target: "selbst" },
-  { source: "freiheit", target: "lm-grenze" },
   { source: "öffnung",  target: "zwischen" },
 
   // Knowledge
@@ -639,7 +619,6 @@ export const EDGES: ConceptEdge[] = [
 
   { source: "transformatives-drittes", target: "zwischen" },
   { source: "transformatives-drittes", target: "andere" },
-  { source: "transformatives-drittes", target: "wandel" },
   { source: "transformatives-drittes", target: "resonanzvernunft" },
 
   { source: "entfremdung", target: "welt" },
@@ -652,7 +631,6 @@ export const EDGES: ConceptEdge[] = [
 
   { source: "gelassenheit", target: "öffnung" },
   { source: "gelassenheit", target: "freiheit" },
-  { source: "gelassenheit", target: "wandel" },
 
   { source: "transaufklaerung", target: "vernunft", weight: "primary" },
   { source: "transaufklaerung", target: "erkenntnis" },
@@ -683,12 +661,15 @@ export const LEITMOTIV_EDGES: ConceptEdge[] = [
   { source: "lm-spiegel", target: "resonanz" },
   { source: "lm-spiegel", target: "selbst" },
 
-  // ANTLITZ — Levinas-Leitmotiv; radiates to the Begegnungs-Cluster
-  { source: "lm-begegnung", target: "dialog" },
-  { source: "lm-begegnung", target: "antwort" },
-  { source: "lm-begegnung", target: "ich-du" },
-  { source: "lm-begegnung", target: "moment" },
-  { source: "lm-begegnung", target: "andere" },
+  // BEGEGNUNG — Wirklichkeit faltet sich im Augenblick der Begegnung
+  // Also receives resonance arcs from the core concept cluster (moved from EDGES)
+  { source: "resonanzvernunft", target: "lm-begegnung" },
+  { source: "zwischen",        target: "lm-begegnung" },
+  { source: "lm-begegnung",   target: "dialog" },
+  { source: "lm-begegnung",   target: "antwort" },
+  { source: "lm-begegnung",   target: "ich-du" },
+  { source: "lm-begegnung",   target: "moment" },
+  { source: "lm-begegnung",   target: "andere" },
 
   // SCHEITERN — being, becoming, existence under pressure
   { source: "lm-scheitern", target: "existenz" },
@@ -697,18 +678,25 @@ export const LEITMOTIV_EDGES: ConceptEdge[] = [
   { source: "lm-scheitern", target: "sein" },
   { source: "lm-scheitern", target: "wesen" },
 
-  // GRENZE — canonical Grenze node (concept removed); radiates archetypal connections
-  { source: "lm-grenze", target: "öffnung" },
-  { source: "lm-grenze", target: "spannung" },
-  { source: "lm-grenze", target: "welt" },
-  { source: "lm-grenze", target: "wesen" },
+  // GRENZE — Grenzen konstituieren; radiates archetypal connections
+  // Also receives resonance arcs formerly in EDGES (moved here for visual consistency)
+  { source: "zwischen",    target: "lm-grenze" },
+  { source: "freiheit",    target: "lm-grenze" },
+  { source: "lm-grenze",  target: "öffnung" },
+  { source: "lm-grenze",  target: "spannung" },
+  { source: "lm-grenze",  target: "welt" },
+  { source: "lm-grenze",  target: "wesen" },
 
-  // VERWANDLUNG — transformation, core resonance
-  { source: "lm-verwandlung", target: "wandel" },
+  // VERWANDLUNG — übergeordnetes Leitmotiv; innerstes Gesetz des Lebendigen.
+  // Encompasses Wandel (removed as concept node) and reaches across the whole network.
   { source: "lm-verwandlung", target: "öffnung" },
   { source: "lm-verwandlung", target: "resonanzvernunft" },
   { source: "lm-verwandlung", target: "freiheit" },
   { source: "lm-verwandlung", target: "werden" },
+  { source: "lm-verwandlung", target: "resonanz" },
+  { source: "lm-verwandlung", target: "welt" },
+  { source: "lm-verwandlung", target: "gelassenheit" },
+  { source: "lm-verwandlung", target: "transformatives-drittes" },
 ];
 
 // ─── Erkenntnisprinzipien — Grouped Toggles ───────────────────────────────────
