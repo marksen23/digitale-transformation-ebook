@@ -219,23 +219,38 @@ Enkidu schließt jedes Gespräch mit:
     const cleanMessages = (messages as Array<{ role: string; content: string; error?: boolean }>)
       .filter((m) => !m.error && m.content?.trim());
 
-    const historyText = cleanMessages
-      .slice(0, -1)            // alle außer der letzten (= aktuelle Frage)
-      .slice(-16)              // max. 16 vorangegangene Nachrichten = 8 Runden
-      .map((m) => `${m.role === "user" ? "Mensch" : "Enkidu"}: ${m.content}`)
-      .join("\n\n");
-
     const lastMessage = cleanMessages[cleanMessages.length - 1];
     if (!lastMessage || lastMessage.role !== "user") {
       return res.status(400).json({ error: "Letzte Nachricht muss vom Nutzer sein." });
     }
 
-    const prompt = [
+    // System-Instruktion: Enkidu-Persönlichkeit + Ebook-Wissen
+    // Wird in das dedizierte systemInstruction-Feld geschrieben — nicht in die
+    // user-Message gequetscht. Das ist das korrekte Gemini-API-Pattern.
+    const systemText = [
       ENKIDU_SYSTEM_PROMPT,
-      ebookSnippet ? `\n─────────────────────────────────────────────\nWISSENSBASIS — DAS VOLLSTÄNDIGE WERK\n─────────────────────────────────────────────\nDu hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.\nNutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.\nZitiere sparsam und nur wenn es die Begegnung vertieft.\n\n${ebookSnippet}` : "",
-      historyText ? `\n─────────────────────────────────────────────\nBISHERIGES GESPRÄCH\n─────────────────────────────────────────────\n${historyText}` : "",
-      `\n─────────────────────────────────────────────\nAKTUELLE ÄUSSERUNG DES MENSCHEN\n─────────────────────────────────────────────\n${lastMessage.content}`,
-    ].join("\n");
+      ebookSnippet
+        ? [
+            "\n─────────────────────────────────────────────",
+            "WISSENSBASIS — DAS VOLLSTÄNDIGE WERK",
+            "─────────────────────────────────────────────",
+            'Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.',
+            "Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.",
+            "Zitiere sparsam und nur wenn es die Begegnung vertieft.",
+            "",
+            ebookSnippet,
+          ].join("\n")
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    // Gesprächshistorie als echtes Multi-Turn-Array (Gemini: role "model", nicht "assistant")
+    // Letzte Nachricht ist immer die aktuelle User-Frage.
+    const conversationContents = cleanMessages.slice(-17).map((m) => ({
+      role: m.role === "user" ? "user" : "model",
+      parts: [{ text: m.content }],
+    }));
 
     try {
       const response = await fetch(
@@ -244,14 +259,14 @@ Enkidu schließt jedes Gespräch mit:
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            systemInstruction: { parts: [{ text: systemText }] },
+            contents: conversationContents,
             generationConfig: {
               temperature: 0.9,
               maxOutputTokens: 4096,
-              // Thinking explizit deaktivieren — Gemini 2.5 Flash aktiviert
-              // es sonst standardmäßig, was bei großen Prompts zu 400-Fehlern
-              // oder Timeouts führen kann.
-              thinkingConfig: { thinkingBudget: 0 },
+              // Kein thinkingConfig — thinkingBudget:0 ist für gemini-2.5-flash
+              // ungültig und verursacht direkt HTTP 400. Thinking-Budget wird
+              // vom Modell automatisch gesetzt (Standard: dynamisch).
             },
           }),
         }
