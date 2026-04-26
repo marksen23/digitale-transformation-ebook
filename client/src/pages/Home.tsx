@@ -1418,6 +1418,42 @@ export default function Home() {
                     <Download size={16} className="text-amber-500 flex-none" />
                     PDF herunterladen
                   </a>
+                  {/* Mobile-only: Schriftgröße & Sprache (auf Desktop in Toolbar) */}
+                  <div className="sm:hidden">
+                    <div className={`h-px mx-4 my-1 ${darkMode ? 'bg-stone-700' : 'bg-stone-200'}`} />
+                    <div className={`px-4 py-1.5 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Schriftgröße</div>
+                    <div className="flex items-center gap-2 px-4 pb-2">
+                      <button
+                        onClick={() => setFontSize(Math.max(0, fontSize - 1))}
+                        disabled={fontSize === 0}
+                        className={`flex-1 py-1.5 rounded-md text-sm font-medium transition-colors disabled:opacity-30 ${darkMode ? 'bg-stone-700 text-stone-200 hover:bg-stone-600' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'}`}
+                      >A−</button>
+                      <span className={`text-xs font-mono w-8 text-center ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+                        {['xs','S','M','L'][fontSize]}
+                      </span>
+                      <button
+                        onClick={() => setFontSize(Math.min(3, fontSize + 1))}
+                        disabled={fontSize === 3}
+                        className={`flex-1 py-1.5 rounded-md text-sm font-medium transition-colors disabled:opacity-30 ${darkMode ? 'bg-stone-700 text-stone-200 hover:bg-stone-600' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'}`}
+                      >A+</button>
+                    </div>
+                    <div className={`px-4 py-1.5 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Sprache</div>
+                    {languageOptions.map(opt => (
+                      <button
+                        key={opt.code}
+                        onClick={() => { setLanguage(opt.code); setBurgerMenuOpen(false); }}
+                        className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between transition-colors ${
+                          language === opt.code
+                            ? (darkMode ? 'text-amber-400 bg-amber-500/10' : 'text-amber-700 bg-amber-500/10')
+                            : (darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
+                        }`}
+                      >
+                        {opt.label}
+                        {language === opt.code && <span className="text-amber-500">✓</span>}
+                      </button>
+                    ))}
+                  </div>
+
                   <div className={`h-px mx-4 my-1 ${darkMode ? 'bg-stone-700' : 'bg-stone-200'}`} />
                   <button
                     onClick={() => { setEnkiduOpen(true); setBurgerMenuOpen(false); }}
@@ -1482,11 +1518,11 @@ export default function Home() {
             <Search size={16} />
           </button>
 
-          {/* Font size */}
-          <button onClick={() => setFontSize(Math.max(0, fontSize - 1))} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Kleiner" disabled={fontSize === 0}>
+          {/* Font size — auf Mobile im Burger-Menu, ab sm hier */}
+          <button onClick={() => setFontSize(Math.max(0, fontSize - 1))} className="hidden sm:flex p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Kleiner" disabled={fontSize === 0}>
             <Minus size={14} />
           </button>
-          <div className="relative">
+          <div className="relative hidden sm:block">
             <button
               onClick={(e) => { e.stopPropagation(); setFontMenuOpen(o => !o); setLanguageMenuOpen(false); }}
               className={`p-1.5 rounded-md transition-colors ${fontMenuOpen ? 'bg-amber-500/15 text-amber-600' : 'hover:bg-stone-200/50'}`}
@@ -1525,12 +1561,12 @@ export default function Home() {
               )}
             </AnimatePresence>
           </div>
-          <button onClick={() => setFontSize(Math.min(3, fontSize + 1))} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Größer" disabled={fontSize === 3}>
+          <button onClick={() => setFontSize(Math.min(3, fontSize + 1))} className="hidden sm:flex p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Größer" disabled={fontSize === 3}>
             <Plus size={14} />
           </button>
 
-          {/* Language */}
-          <div className="relative">
+          {/* Language — auf Mobile im Burger-Menu, ab sm hier */}
+          <div className="relative hidden sm:block">
             <button
               onClick={(e) => { e.stopPropagation(); setLanguageMenuOpen(o => !o); setFontMenuOpen(false); }}
               className={`p-1.5 rounded-md transition-colors flex items-center gap-1 ${languageMenuOpen || language !== 'de' ? 'text-amber-600' : 'hover:bg-stone-200/50'}`}

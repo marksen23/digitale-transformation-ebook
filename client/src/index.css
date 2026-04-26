@@ -105,17 +105,27 @@
     margin: 0;
     /* Kein Overscroll-Bounce — verhindert das "verschieben" der gesamten App auf Android */
     overscroll-behavior: none;
+    /* Kein Scrollen auf html/body-Ebene — scroll nur in dedizierten Containern.
+       Verhindert, dass die gesamte App auf Mobile nach links/oben verschoben wird. */
+    overflow: hidden;
   }
   html {
     /* Kein horizontales Scrollen / Verschieben */
     overflow-x: hidden;
-    touch-action: pan-y;
+    /* KEIN touch-action: pan-y hier — das erlaubte dem Browser, die gesamte Seite
+       als Scroll-Container zu behandeln. Scroll-Container setzen touch-action selbst. */
   }
   body {
     @apply bg-background text-foreground;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Scroll-Container auf Mobile: explizit pan-y erlauben,
+     da wir touch-action vom html-Element entfernt haben */
+  [data-scroll], aside, main, .overflow-y-auto, .overflow-y-scroll {
+    touch-action: pan-y;
   }
 
   /* Scrollbar */
