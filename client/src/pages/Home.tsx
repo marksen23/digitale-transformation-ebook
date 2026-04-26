@@ -6,7 +6,7 @@ import {
   MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, Mic, MicOff,
   SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine, CheckCircle2,
-  Maximize2, Minimize2, ChevronRight,
+  Maximize2, Minimize2, ChevronRight, SlidersHorizontal,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
@@ -65,6 +65,7 @@ export default function Home() {
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
   const [enkiduOpen, setEnkiduOpen] = useState(false);
   const [conceptGraphOpen, setConceptGraphOpen] = useState(false);
+  const [personalizationOpen, setPersonalizationOpen] = useState(false);
 
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
@@ -1418,42 +1419,6 @@ export default function Home() {
                     <Download size={16} className="text-amber-500 flex-none" />
                     PDF herunterladen
                   </a>
-                  {/* Mobile-only: Schriftgröße & Sprache (auf Desktop in Toolbar) */}
-                  <div className="sm:hidden">
-                    <div className={`h-px mx-4 my-1 ${darkMode ? 'bg-stone-700' : 'bg-stone-200'}`} />
-                    <div className={`px-4 py-1.5 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Schriftgröße</div>
-                    <div className="flex items-center gap-2 px-4 pb-2">
-                      <button
-                        onClick={() => setFontSize(Math.max(0, fontSize - 1))}
-                        disabled={fontSize === 0}
-                        className={`flex-1 py-1.5 rounded-md text-sm font-medium transition-colors disabled:opacity-30 ${darkMode ? 'bg-stone-700 text-stone-200 hover:bg-stone-600' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'}`}
-                      >A−</button>
-                      <span className={`text-xs font-mono w-8 text-center ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
-                        {['xs','S','M','L'][fontSize]}
-                      </span>
-                      <button
-                        onClick={() => setFontSize(Math.min(3, fontSize + 1))}
-                        disabled={fontSize === 3}
-                        className={`flex-1 py-1.5 rounded-md text-sm font-medium transition-colors disabled:opacity-30 ${darkMode ? 'bg-stone-700 text-stone-200 hover:bg-stone-600' : 'bg-stone-100 text-stone-700 hover:bg-stone-200'}`}
-                      >A+</button>
-                    </div>
-                    <div className={`px-4 py-1.5 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Sprache</div>
-                    {languageOptions.map(opt => (
-                      <button
-                        key={opt.code}
-                        onClick={() => { setLanguage(opt.code); setBurgerMenuOpen(false); }}
-                        className={`w-full text-left px-4 py-2 text-sm flex items-center justify-between transition-colors ${
-                          language === opt.code
-                            ? (darkMode ? 'text-amber-400 bg-amber-500/10' : 'text-amber-700 bg-amber-500/10')
-                            : (darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
-                        }`}
-                      >
-                        {opt.label}
-                        {language === opt.code && <span className="text-amber-500">✓</span>}
-                      </button>
-                    ))}
-                  </div>
-
                   <div className={`h-px mx-4 my-1 ${darkMode ? 'bg-stone-700' : 'bg-stone-200'}`} />
                   <button
                     onClick={() => { setEnkiduOpen(true); setBurgerMenuOpen(false); }}
@@ -1517,100 +1482,6 @@ export default function Home() {
           <button onClick={() => setSearchOpen(!searchOpen)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Suche (Ctrl+F)">
             <Search size={16} />
           </button>
-
-          {/* Font size — auf Mobile im Burger-Menu, ab sm hier */}
-          <button onClick={() => setFontSize(Math.max(0, fontSize - 1))} className="hidden sm:flex p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Kleiner" disabled={fontSize === 0}>
-            <Minus size={14} />
-          </button>
-          <div className="relative hidden sm:block">
-            <button
-              onClick={(e) => { e.stopPropagation(); setFontMenuOpen(o => !o); setLanguageMenuOpen(false); }}
-              className={`p-1.5 rounded-md transition-colors ${fontMenuOpen ? 'bg-amber-500/15 text-amber-600' : 'hover:bg-stone-200/50'}`}
-              title="Schriftart auswählen"
-            >
-              <Type size={14} />
-            </button>
-            <AnimatePresence>
-              {fontMenuOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  onClick={(e) => e.stopPropagation()}
-                  className={`absolute right-0 top-full mt-2 w-52 rounded-xl shadow-xl border z-40 overflow-hidden ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
-                >
-                  <p className={`px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Schriftart</p>
-                  {fontFamilyOptions.map(opt => {
-                    const active = fontFamily === opt.key;
-                    return (
-                      <button
-                        key={opt.key}
-                        onClick={() => { setFontFamily(opt.key); setFontMenuOpen(false); }}
-                        style={fontFamilyStyle[opt.key]}
-                        className={`w-full text-left px-3 py-2 text-sm transition-colors ${fontFamilyMap[opt.key]} ${
-                          active
-                            ? (darkMode ? 'bg-amber-500/15 text-amber-400' : 'bg-amber-500/15 text-amber-700')
-                            : (darkMode ? 'text-stone-300 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    );
-                  })}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
-          <button onClick={() => setFontSize(Math.min(3, fontSize + 1))} className="hidden sm:flex p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Größer" disabled={fontSize === 3}>
-            <Plus size={14} />
-          </button>
-
-          {/* Language — auf Mobile im Burger-Menu, ab sm hier */}
-          <div className="relative hidden sm:block">
-            <button
-              onClick={(e) => { e.stopPropagation(); setLanguageMenuOpen(o => !o); setFontMenuOpen(false); }}
-              className={`p-1.5 rounded-md transition-colors flex items-center gap-1 ${languageMenuOpen || language !== 'de' ? 'text-amber-600' : 'hover:bg-stone-200/50'}`}
-              title="Sprache auswählen"
-            >
-              <Languages size={16} />
-              {language !== 'de' && (
-                <span className="text-[10px] uppercase tracking-wider">{language}</span>
-              )}
-              {translating && <Loader2 size={10} className="animate-spin" />}
-            </button>
-            <AnimatePresence>
-              {languageMenuOpen && (
-                <motion.div
-                  initial={{ opacity: 0, y: -4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  onClick={(e) => e.stopPropagation()}
-                  className={`absolute right-0 top-full mt-2 w-52 rounded-xl shadow-xl border z-40 overflow-hidden max-h-[70vh] overflow-y-auto ${darkMode ? 'bg-stone-800 border-stone-700' : 'bg-white border-stone-200'}`}
-                >
-                  <p className={`px-3 pt-3 pb-1 text-[10px] uppercase tracking-wider ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>Sprache</p>
-                  {languageOptions.map(opt => {
-                    const active = language === opt.code;
-                    return (
-                      <button
-                        key={opt.code}
-                        onClick={() => { setLanguage(opt.code); setLanguageMenuOpen(false); }}
-                        className={`w-full text-left px-3 py-2 text-sm transition-colors ${
-                          active
-                            ? (darkMode ? 'bg-amber-500/15 text-amber-400' : 'bg-amber-500/15 text-amber-700')
-                            : (darkMode ? 'text-stone-300 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100')
-                        }`}
-                      >
-                        {opt.label}
-                      </button>
-                    );
-                  })}
-                  <p className={`px-3 py-2 text-[10px] border-t ${darkMode ? 'border-stone-700 text-stone-500' : 'border-stone-100 text-stone-400'}`}>
-                    Glossar & Literatur bleiben deutsch.
-                  </p>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
 
           {/* Headphones — Audio-Player (vorproduzierte MP3) */}
           {currentId !== '__cover__' && (
@@ -1773,15 +1644,19 @@ export default function Home() {
             </button>
           )}
 
-          {/* Dark mode */}
-          <button onClick={() => setDarkMode(!darkMode)} className="p-1.5 rounded-md hover:bg-stone-200/50 transition-colors" title="Darstellungsmodus">
-            {darkMode ? <Sun size={16} /> : <Moon size={16} />}
+          {/* Personalisierung — Darstellung, Sprache, Schrift */}
+          <button
+            onClick={() => setPersonalizationOpen(o => !o)}
+            className={`p-1.5 rounded-md transition-colors ${personalizationOpen ? (darkMode ? 'bg-amber-600/20 text-amber-400' : 'bg-amber-100 text-amber-700') : (darkMode ? 'hover:bg-stone-700/50' : 'hover:bg-stone-200/50')}`}
+            title="Darstellung anpassen"
+          >
+            <SlidersHorizontal size={16} />
           </button>
 
           {/* Keyboard shortcuts help */}
           <button
             onClick={() => setShortcutsOpen(o => !o)}
-            className={`hidden sm:flex p-1.5 rounded-md transition-colors font-mono text-xs ${shortcutsOpen ? 'text-amber-500' : 'opacity-40 hover:opacity-80'}`}
+            className={`p-1.5 rounded-md transition-colors font-mono text-xs ${shortcutsOpen ? 'text-amber-500' : (darkMode ? 'opacity-40 hover:opacity-80' : 'opacity-30 hover:opacity-70')}`}
             title="Tastenkürzel anzeigen (?)"
           >?</button>
         </div>
@@ -1905,6 +1780,152 @@ export default function Home() {
               )}
             </div>
           </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* ─── Personalisierungs-Panel (rechts) ───────────────── */}
+      <AnimatePresence>
+        {personalizationOpen && (
+          <>
+            {/* Backdrop — schließt Panel auf Mobile */}
+            <div
+              className="fixed inset-0 z-[44] md:hidden"
+              onClick={() => setPersonalizationOpen(false)}
+            />
+            <motion.aside
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'spring', stiffness: 320, damping: 32 }}
+              className={`fixed right-0 top-12 bottom-0 w-72 z-[45] flex flex-col shadow-2xl border-l ${
+                darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'
+              }`}
+            >
+              {/* Header */}
+              <div className={`flex items-center justify-between px-4 py-3 border-b flex-none ${darkMode ? 'border-stone-800' : 'border-stone-200'}`}>
+                <div className="flex items-center gap-2">
+                  <SlidersHorizontal size={14} className="text-amber-500" />
+                  <span className={`text-xs font-mono tracking-widest uppercase ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>
+                    Darstellung
+                  </span>
+                </div>
+                <button
+                  onClick={() => setPersonalizationOpen(false)}
+                  className={`p-1 rounded transition-colors ${darkMode ? 'text-stone-500 hover:text-stone-200' : 'text-stone-400 hover:text-stone-700'}`}
+                >
+                  <X size={14} />
+                </button>
+              </div>
+
+              {/* Scrollbarer Inhalt */}
+              <div className="flex-1 overflow-y-auto p-4 space-y-6">
+
+                {/* ── Hell / Dunkel ── */}
+                <section>
+                  <p className={`text-[10px] uppercase tracking-widest mb-3 font-mono ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+                    Darstellungsmodus
+                  </p>
+                  <button
+                    onClick={() => setDarkMode(!darkMode)}
+                    className={`w-full flex items-center justify-between px-3 py-2.5 rounded-xl border transition-colors ${
+                      darkMode
+                        ? 'bg-stone-800 border-stone-700 text-stone-200 hover:bg-stone-700'
+                        : 'bg-stone-50 border-stone-200 text-stone-700 hover:bg-stone-100'
+                    }`}
+                  >
+                    <span className="flex items-center gap-2.5 text-sm">
+                      {darkMode ? <Moon size={14} /> : <Sun size={14} />}
+                      {darkMode ? 'Dunkelmodus' : 'Hellmodus'}
+                    </span>
+                    {/* Toggle-Pill */}
+                    <div className={`w-9 h-5 rounded-full relative transition-colors flex-none ${darkMode ? 'bg-amber-500' : 'bg-stone-300'}`}>
+                      <div className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform ${darkMode ? 'translate-x-4' : 'translate-x-0.5'}`} />
+                    </div>
+                  </button>
+                </section>
+
+                {/* ── Schriftgröße ── */}
+                <section>
+                  <p className={`text-[10px] uppercase tracking-widest mb-3 font-mono ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+                    Schriftgröße
+                  </p>
+                  <div className={`flex items-center gap-2 p-1 rounded-xl ${darkMode ? 'bg-stone-800' : 'bg-stone-100'}`}>
+                    <button
+                      onClick={() => setFontSize(Math.max(0, fontSize - 1))}
+                      disabled={fontSize === 0}
+                      className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-30 ${
+                        darkMode ? 'hover:bg-stone-700 text-stone-300 active:bg-stone-600' : 'hover:bg-white text-stone-600 active:bg-stone-50'
+                      }`}
+                    >A−</button>
+                    <span className={`text-xs font-mono w-16 text-center ${darkMode ? 'text-stone-300' : 'text-stone-600'}`}>
+                      {['Klein', 'Normal', 'Groß', 'Sehr groß'][fontSize]}
+                    </span>
+                    <button
+                      onClick={() => setFontSize(Math.min(3, fontSize + 1))}
+                      disabled={fontSize === 3}
+                      className={`flex-1 py-2 rounded-lg text-sm font-medium transition-colors disabled:opacity-30 ${
+                        darkMode ? 'hover:bg-stone-700 text-stone-300 active:bg-stone-600' : 'hover:bg-white text-stone-600 active:bg-stone-50'
+                      }`}
+                    >A+</button>
+                  </div>
+                </section>
+
+                {/* ── Schriftart ── */}
+                <section>
+                  <p className={`text-[10px] uppercase tracking-widest mb-3 font-mono ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+                    Schriftart
+                  </p>
+                  <div className="space-y-1">
+                    {fontFamilyOptions.map(opt => (
+                      <button
+                        key={opt.key}
+                        onClick={() => setFontFamily(opt.key)}
+                        style={fontFamilyStyle[opt.key]}
+                        className={`w-full text-left px-3 py-2.5 rounded-lg text-sm transition-colors ${
+                          fontFamily === opt.key
+                            ? (darkMode ? 'bg-amber-500/15 text-amber-400 font-medium' : 'bg-amber-500/12 text-amber-700 font-medium')
+                            : (darkMode ? 'text-stone-300 hover:bg-stone-800' : 'text-stone-600 hover:bg-stone-50')
+                        }`}
+                      >
+                        {opt.label}
+                        {fontFamily === opt.key && (
+                          <span className="float-right text-amber-500 text-xs mt-0.5">✓</span>
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                </section>
+
+                {/* ── Sprache ── */}
+                <section>
+                  <p className={`text-[10px] uppercase tracking-widest mb-3 font-mono ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
+                    Sprache
+                    {translating && <Loader2 size={10} className="inline ml-2 animate-spin text-amber-500" />}
+                  </p>
+                  <div className="space-y-1">
+                    {languageOptions.map(opt => (
+                      <button
+                        key={opt.code}
+                        onClick={() => setLanguage(opt.code)}
+                        className={`w-full text-left px-3 py-2.5 rounded-lg text-sm flex items-center justify-between transition-colors ${
+                          language === opt.code
+                            ? (darkMode ? 'bg-amber-500/15 text-amber-400 font-medium' : 'bg-amber-500/12 text-amber-700 font-medium')
+                            : (darkMode ? 'text-stone-300 hover:bg-stone-800' : 'text-stone-600 hover:bg-stone-50')
+                        }`}
+                      >
+                        {opt.label}
+                        {language === opt.code && <span className="text-amber-500 text-xs">✓</span>}
+                      </button>
+                    ))}
+                  </div>
+                  <p className={`mt-2 px-1 text-[10px] ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                    Glossar &amp; Literatur bleiben immer Deutsch.
+                  </p>
+                </section>
+
+              </div>
+            </motion.aside>
+          </>
         )}
       </AnimatePresence>
 
