@@ -477,9 +477,8 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const renderLanding = () => (
     // height: 100dvh + overflow: hidden → kein Scrollen möglich, fixer Vollbild-Screen
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100dvh", overflow: "hidden", padding: "3.5rem 2rem 2rem", textAlign: "center" }}>
-      <div style={{ fontSize: "3.2rem", color: C.accentDim, marginBottom: "2rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none", display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
+      <div style={{ fontSize: "3.2rem", color: C.accentDim, marginBottom: "2rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none" }}>
         𒀭
-        <BlinkCursor style={{ width: "0.18em", height: "0.85em", background: C.accentDim, animationDelay: "0.4s" }} />
       </div>
       <h1 style={{ fontFamily: C.serif, fontSize: "clamp(2.6rem,7vw,5.5rem)", fontWeight: 400, fontStyle: "italic", color: C.textBright, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "0.75rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 0.8s both" : "none", display: "inline-flex", alignItems: "baseline", gap: "0.2em" }}>
         Enkidu

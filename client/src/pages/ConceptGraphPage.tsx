@@ -939,6 +939,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             padding: "0.9rem 1rem", minWidth: 190,
             backdropFilter: "blur(8px)",
             pointerEvents: "auto",
+            // Höhe auf verfügbaren Raum begrenzen — verhindert Ausbrechen nach unten
+            maxHeight: "calc(100% - 1.8rem)",
+            overflowY: "auto",
+            overscrollBehavior: "contain",
           }}>
             <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.75rem" }}>
               Kohärenzfelder
