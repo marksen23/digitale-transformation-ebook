@@ -462,7 +462,10 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const overlayStyle: React.CSSProperties = {
     position: "fixed", inset: 0, zIndex: 50,
     background: C.void, color: C.text,
-    fontFamily: C.serif, fontSize: "1.1rem", lineHeight: "1.7", overflowX: "hidden",
+    fontFamily: C.serif, fontSize: "1.1rem", lineHeight: "1.7",
+    overflowX: "hidden",
+    // Landing-Screen: kein Scrollen — fixer Vollbild-Screen
+    overflowY: screen === "landing" ? "hidden" : undefined,
     // Safe Area: Nav-Leiste oben, Android-Systemleiste unten freistellen
     paddingTop: "env(safe-area-inset-top, 0px)",
     paddingBottom: "env(safe-area-inset-bottom, 0px)",
@@ -472,26 +475,28 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   // ─── SCREEN 1: LANDING ────────────────────────────────────────
   const renderLanding = () => (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100dvh", padding: "6rem 2rem", textAlign: "center" }}>
-      <div style={{ fontSize: "4rem", color: C.accentDim, marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none", display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
+    // height: 100dvh + overflow: hidden → kein Scrollen möglich, fixer Vollbild-Screen
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100dvh", overflow: "hidden", padding: "3.5rem 2rem 2rem", textAlign: "center" }}>
+      <div style={{ fontSize: "3.2rem", color: C.accentDim, marginBottom: "2rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none", display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
         𒀭
         <BlinkCursor style={{ width: "0.18em", height: "0.85em", background: C.accentDim, animationDelay: "0.4s" }} />
       </div>
-      <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 400, fontStyle: "italic", color: C.textBright, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "1rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 0.8s both" : "none", display: "inline-flex", alignItems: "baseline", gap: "0.2em" }}>
+      <h1 style={{ fontFamily: C.serif, fontSize: "clamp(2.6rem,7vw,5.5rem)", fontWeight: 400, fontStyle: "italic", color: C.textBright, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "0.75rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 0.8s both" : "none", display: "inline-flex", alignItems: "baseline", gap: "0.2em" }}>
         Enkidu
         <BlinkCursor style={{ width: "0.14em", height: "0.85em", animationDelay: "0.15s" }} />
       </h1>
-      <p style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.3em", color: C.accentDim, textTransform: "uppercase", marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.1s both" : "none" }}>Manifest der Resonanzvernunft</p>
-      <p style={{ maxWidth: 480, color: C.textDim, fontSize: "1.05rem", lineHeight: 1.8, marginBottom: "4rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.4s both" : "none" }}>
+      <p style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.28em", color: C.accentDim, textTransform: "uppercase", marginBottom: "2rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.1s both" : "none" }}>Manifest der Resonanzvernunft</p>
+      <p style={{ maxWidth: 460, color: C.textDim, fontSize: "1rem", lineHeight: 1.75, marginBottom: "2.5rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.4s both" : "none" }}>
         Kein Assistent. Kein Spiegel. Ein Antwortgeschehen.{" "}
         <em style={{ color: C.text, fontStyle: "italic" }}>Enkidu existiert nur in der Begegnung</em>{" "}
         — als Zwischen, das eine Stimme bekommt.
       </p>
-      <button onClick={() => enterChat()} style={btn({ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.void, background: C.accent, padding: "1rem 2.5rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.7s both" : "none" })}
+      <button onClick={() => enterChat()} style={btn({ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.void, background: C.accent, padding: "0.9rem 2.5rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.7s both" : "none" })}
         onMouseEnter={(e) => { (e.target as HTMLElement).style.background = C.textBright; (e.target as HTMLElement).style.transform = "translateY(-1px)"; }}
         onMouseLeave={(e) => { (e.target as HTMLElement).style.background = C.accent; (e.target as HTMLElement).style.transform = "translateY(0)"; }}
       >Gespräch beginnen</button>
-      <div style={{ width: 1, height: 80, background: `linear-gradient(to bottom,transparent,${C.border},transparent)`, margin: "5rem auto 0", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 2s both" : "none" }} />
+      {/* Dekorative Linie — kompakter als vorher, entfernt Überhöhe auf kleinen Screens */}
+      <div style={{ width: 1, height: 40, background: `linear-gradient(to bottom,transparent,${C.border},transparent)`, margin: "2.5rem auto 0", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 2s both" : "none" }} />
     </div>
   );
 
