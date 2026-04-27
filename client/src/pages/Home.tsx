@@ -611,6 +611,20 @@ export default function Home() {
     setSearchOpen, setSearchQuery, setBurgerMenuOpen, setFocusMode,
   ]);
 
+  // Globaler Click-Handler: alle Dropdown-Overlays bei Klick auf Hintergrund schließen.
+  // Die Menü-Buttons und -Container rufen bereits e.stopPropagation() auf, daher
+  // erreichen Klicks *innerhalb* der Menus diesen Handler nie.
+  useEffect(() => {
+    const closeAll = () => {
+      setBurgerMenuOpen(false);
+      setFontMenuOpen(false);
+      setLanguageMenuOpen(false);
+      setHeadphonesMenuOpen(false);
+    };
+    document.addEventListener('click', closeAll);
+    return () => document.removeEventListener('click', closeAll);
+  }, []);
+
   const fontSizeClasses = ['text-sm leading-relaxed', 'text-base leading-relaxed', 'text-lg leading-relaxed', 'text-xl leading-loose'];
 
   const fontFamilyMap: Record<string, string> = {
