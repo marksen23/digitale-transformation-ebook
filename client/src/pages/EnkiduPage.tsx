@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSpeechRecognition, useSpeechSynthesis } from "@/hooks/useSpeech";
 import AnalyticsScreen from "@/components/enkidu/AnalyticsScreen";
+import { useEbookTheme } from "@/hooks/useEbookTheme";
 
 // ─── Types ────────────────────────────────────────────────────────
 type Screen = "landing" | "chat" | "feedback" | "profile" | "analytics";
@@ -59,7 +60,7 @@ function deleteConversation(id: string) {
 }
 
 // ─── Styles ───────────────────────────────────────────────────────
-const C = {
+const C_DARK = {
   void: "#080808", deep: "#0f0f0f", surface: "#161616", border: "#2a2a2a",
   muted: "#444", textDim: "#888", text: "#c8c2b4", textBright: "#e8e2d4",
   accent: "#c4a882", accentDim: "#7a6a52", danger: "#8b3a3a",
@@ -67,9 +68,19 @@ const C = {
   mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
 
+const C_LIGHT: { readonly [K in keyof typeof C_DARK]: string } = {
+  void: "#fafaf9", deep: "#f0ece4", surface: "#ffffff", border: "#d8d2c8",
+  muted: "#a8a29e", textDim: "#78716c", text: "#3a3530", textBright: "#1c1917",
+  accent: "#c4a882", accentDim: "#7a6a52", danger: "#8b3a3a",
+  serif: "'EB Garamond', Georgia, serif",
+  mono: "'Courier Prime', 'Courier New', monospace",
+};
+
+// Modul-Level Helfer/Komponenten nutzen die theme-unabhängigen Felder von C_DARK
+// (mono, accent, accentDim sind in beiden Paletten identisch).
 function btn(overrides: React.CSSProperties = {}): React.CSSProperties {
   return {
-    fontFamily: C.mono, border: "none", cursor: "pointer",
+    fontFamily: C_DARK.mono, border: "none", cursor: "pointer",
     transition: "all 0.2s", ...overrides,
   };
 }
@@ -85,7 +96,7 @@ function BlinkCursor({ style }: { style?: React.CSSProperties }) {
         display: "inline-block",
         width: "0.52em",
         height: "1.05em",
-        background: C.accent,
+        background: C_DARK.accent,
         verticalAlign: "text-bottom",
         borderRadius: "1px",
         animation: "enkidu-cursor 2.8s linear infinite",
@@ -103,7 +114,7 @@ function TypingIndicator() {
       {[0, 200, 400].map((delay) => (
         <span key={delay} style={{
           display: "inline-block", width: 5, height: 5, borderRadius: "50%",
-          background: C.accentDim, animation: `enkidu-dot 2.2s ease ${delay}ms infinite`,
+          background: C_DARK.accentDim, animation: `enkidu-dot 2.2s ease ${delay}ms infinite`,
         }} />
       ))}
     </div>
@@ -120,6 +131,8 @@ const INITIAL_MSG: Message = {
 
 // ─── Main Component ───────────────────────────────────────────────
 export default function EnkiduPage({ onClose }: EnkiduPageProps) {
+  const isDark = useEbookTheme();
+  const C: { readonly [K in keyof typeof C_DARK]: string } = isDark ? C_DARK : C_LIGHT;
   const [screen, setScreen] = useState<Screen>("landing");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
@@ -817,7 +830,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   return (
     <div className="enkidu-grain" style={overlayStyle}>
-      <nav className="enkidu-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${screen !== "landing" ? C.border : "transparent"}`, background: screen !== "landing" ? "rgba(8,8,8,0.92)" : "transparent", backdropFilter: screen !== "landing" ? "blur(12px)" : "none", transition: "border-color 0.4s, background 0.4s" }}>
+      <nav className="enkidu-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${screen !== "landing" ? C.border : "transparent"}`, background: screen !== "landing" ? (isDark ? "rgba(8,8,8,0.92)" : "rgba(240,236,228,0.92)") : "transparent", backdropFilter: screen !== "landing" ? "blur(12px)" : "none", transition: "border-color 0.4s, background 0.4s" }}>
         <span style={{ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0, display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
           Enkidu
           <BlinkCursor style={{ width: "0.45em", height: "0.85em" }} />

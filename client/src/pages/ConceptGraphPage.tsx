@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
+import { useEbookTheme } from "@/hooks/useEbookTheme";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -8,26 +9,55 @@ interface ConceptGraphPageProps {
   onClose: () => void;
 }
 
-// ─── Leitmotiv visual constants (Schattenlicht / Faltung) ─────────────────────
-const LM_COLOR      = "#c8b896"; // parchment-gold — same as CAT_COLOR.leitmotiv
-const LM_GLOW       = "#e8dcc0"; // brighter variant for labels + inner ring
-const LM_AURA_R     = 68;        // outer glow radius added to node.r
-const LM_RING_R     = 34;        // dashed mid-ring radius added to node.r
+// ─── Leitmotiv geometry (theme-independent) ───────────────────────────────────
+const LM_AURA_R = 68;
+const LM_RING_R = 34;
 
-// ─── Style constants (match Enkidu palette) ────────────────────────────────────
-const C = {
+// ─── Shared font stacks ───────────────────────────────────────────────────────
+const SERIF = "'EB Garamond', Georgia, serif";
+const MONO  = "'Courier Prime', 'Courier New', monospace";
+
+// ─── Paletten: Dunkel (Standard) und Hell ────────────────────────────────────
+type Palette = { readonly [K in keyof typeof C_DARK]: string };
+
+const C_DARK = {
   void:       "#080808",
   deep:       "#0f0f0f",
   surface:    "#161616",
   border:     "#2a2a2a",
   muted:      "#444",
+  ghost:      "#555",
   textDim:    "#888",
   text:       "#c8c2b4",
   textBright: "#e8e2d4",
   accent:     "#c4a882",
   accentDim:  "#7a6a52",
-  serif:      "'EB Garamond', Georgia, serif",
-  mono:       "'Courier Prime', 'Courier New', monospace",
+  lmColor:    "#c8b896",
+  lmGlow:     "#e8dcc0",
+  panelBg:    "rgba(10,10,10,0.96)",
+  overlayBg:  "rgba(8,8,8,0.80)",
+  serif:      SERIF,
+  mono:       MONO,
+} as const;
+
+const C_LIGHT = {
+  void:       "#fafaf9",
+  deep:       "#f0ece4",
+  surface:    "#ffffff",
+  border:     "#d8d2c8",
+  muted:      "#a8a29e",
+  ghost:      "#b4aea8",
+  textDim:    "#78716c",
+  text:       "#3a3530",
+  textBright: "#1c1917",
+  accent:     "#c4a882",
+  accentDim:  "#7a6a52",
+  lmColor:    "#9a8468",
+  lmGlow:     "#7a6448",
+  panelBg:    "rgba(240,236,228,0.97)",
+  overlayBg:  "rgba(230,226,218,0.85)",
+  serif:      SERIF,
+  mono:       MONO,
 } as const;
 
 // ─── Pre-build adjacency index ─────────────────────────────────────────────────
@@ -181,6 +211,9 @@ const TOP_HUBS = NODES
 
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
+  const isDark = useEbookTheme();
+  const C: Palette = isDark ? C_DARK : C_LIGHT;
+
   // Pan / Zoom state
   const [pan,  setPan]  = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1.0);
@@ -721,7 +754,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         display: "flex", flexDirection: "column", gap: "0.4rem",
         padding: "0.65rem 1rem 0.6rem",
         borderBottom: `1px solid ${C.border}`,
-        background: "rgba(8,8,8,0.92)", backdropFilter: "blur(12px)",
+        background: C.panelBg, backdropFilter: "blur(12px)",
       }}>
         {/* Zeile 1: Titel + Legende + Schließen */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
@@ -1017,14 +1050,14 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   {/* Outer soft glow — very faint filled circle */}
                   <circle
                     cx={x} cy={y} r={node.r + LM_AURA_R}
-                    fill={LM_COLOR}
+                    fill={C.lmColor}
                     fillOpacity={dim ? 0.018 : 0.055}
                   />
                   {/* Mid dashed ring — Faltung suggestion */}
                   <circle
                     cx={x} cy={y} r={node.r + LM_RING_R}
                     fill="none"
-                    stroke={LM_COLOR}
+                    stroke={C.lmColor}
                     strokeWidth={0.6}
                     strokeDasharray="3 9"
                     opacity={dim ? 0.12 : 0.32}
@@ -1069,7 +1102,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   key={`lm-edge-${i}`}
                   d={`M ${srcPos.x} ${srcPos.y} Q ${cx} ${cy_} ${tgtPos.x} ${tgtPos.y}`}
                   fill="none"
-                  stroke={LM_COLOR}
+                  stroke={C.lmColor}
                   strokeWidth={strokeW}
                   strokeDasharray="5 7"
                   opacity={opacity}
@@ -1474,7 +1507,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     <circle
                       cx={x} cy={y} r={outerR + 14}
                       fill="none"
-                      stroke={LM_GLOW}
+                      stroke={C.lmGlow}
                       strokeWidth={1.2}
                       opacity={0.3}
                     />
@@ -1485,7 +1518,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     <circle
                       cx={x} cy={y} r={outerR + 10}
                       fill="none"
-                      stroke={LM_GLOW}
+                      stroke={C.lmGlow}
                       strokeWidth={0.6}
                       strokeDasharray="1 8"
                       opacity={isDim ? 0.1 : 0.45}
@@ -1496,7 +1529,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   <circle
                     cx={x} cy={y} r={outerR}
                     fill="none"
-                    stroke={LM_COLOR}
+                    stroke={C.lmColor}
                     strokeWidth={isFocus ? 1.5 : node.id === "lm-verwandlung" ? 1.2 : 0.8}
                     strokeDasharray={isFocus ? "none" : "2 5"}
                     opacity={ringOpacity * 0.6}
@@ -1505,9 +1538,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   {/* Inner filled circle */}
                   <circle
                     cx={x} cy={y} r={node.r}
-                    fill={LM_GLOW}
+                    fill={C.lmGlow}
                     fillOpacity={fillOpacity}
-                    stroke={LM_GLOW}
+                    stroke={C.lmGlow}
                     strokeWidth={isFocus ? 1.8 : 1.2}
                     strokeOpacity={ringOpacity}
                   />
@@ -1520,7 +1553,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     dominantBaseline={node.y < 100 ? "hanging" :
                                       node.y > 480 ? "auto"    : "middle"}
                     fontSize={9}
-                    fill={LM_GLOW}
+                    fill={C.lmGlow}
                     opacity={labelOpacity}
                     fontFamily="'Courier Prime', 'Courier New', monospace"
                     letterSpacing="0.18em"
@@ -1731,12 +1764,14 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </button>
             )}
             <LeitmotivLegendSection
+              c={C}
               hiddenLeitmotive={hiddenLeitmotive}
               activeLeitmotive={new Set()}
               onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
               onReset={() => setHiddenLeitmotive(new Set())}
             />
             <PrinzipLegendSection
+              c={C}
               hiddenPrinzipien={hiddenPrinzipien}
               onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
                 const n = new Set(prev);
@@ -1749,6 +1784,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onReset={() => setHiddenPrinzipien(new Set())}
             />
             <UserEdgesLegendSection
+              c={C}
               userEdges={userEdges}
               showUserEdges={showUserEdges}
               onToggleShow={() => setShowUserEdges(v => !v)}
@@ -1855,7 +1891,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         <div className="concept-kohaerenz-panel" style={{
           position: "absolute", bottom: "calc(1.2rem + 142px)", right: "1.2rem",
           zIndex: 15, pointerEvents: "none",
-          background: "rgba(10,10,10,0.88)", border: `1px solid ${C.border}`,
+          background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(6px)",
           padding: "0.55rem 0.7rem",
           width: 162,
@@ -2121,12 +2157,14 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </button>
             )}
             <LeitmotivLegendSection
+              c={C}
               hiddenLeitmotive={hiddenLeitmotive}
               activeLeitmotive={activeLeitmotive}
               onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
               onReset={() => setHiddenLeitmotive(new Set())}
             />
             <PrinzipLegendSection
+              c={C}
               hiddenPrinzipien={hiddenPrinzipien}
               onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
                 const n = new Set(prev);
@@ -2139,6 +2177,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onReset={() => setHiddenPrinzipien(new Set())}
             />
             <UserEdgesLegendSection
+              c={C}
               userEdges={userEdges}
               showUserEdges={showUserEdges}
               onToggleShow={() => setShowUserEdges(v => !v)}
@@ -2331,6 +2370,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </button>
             )}
             <LeitmotivLegendSection
+              c={C}
               hiddenLeitmotive={hiddenLeitmotive}
               activeLeitmotive={activeLeitmotive}
               onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
@@ -2338,6 +2378,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               compact={true}
             />
             <PrinzipLegendSection
+              c={C}
               hiddenPrinzipien={hiddenPrinzipien}
               onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
                 const n = new Set(prev);
@@ -2371,7 +2412,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {pathMode && (
         <div style={{
           position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
-          background: "rgba(15,15,15,0.96)", border: `1px solid #2a2a2a`,
+          background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(8px)", padding: "0.85rem 1rem",
           maxWidth: 340, width: "calc(100vw - 2rem)",
           fontFamily: C.mono, fontSize: "0.6rem",
@@ -2442,7 +2483,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {analyseMode && (
         <div style={{
           position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
-          background: "rgba(15,15,15,0.97)", border: `1px solid #2a2a2a`,
+          background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(10px)", padding: "0.9rem 1rem",
           maxWidth: 380, width: "calc(100vw - 2rem)",
           maxHeight: "calc(100vh - 6rem)", overflowY: "auto",
@@ -2511,7 +2552,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {chatOpen && (
         <div style={{
           position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
-          background: "rgba(15,15,15,0.97)", border: `1px solid #2a2a2a`,
+          background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(10px)",
           width: "min(400px, calc(100vw - 2rem))",
           maxHeight: "calc(100% - 5rem)",
@@ -2614,7 +2655,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         <div
           style={{
             position: "fixed", inset: 0, zIndex: 500,
-            background: "rgba(8,8,8,0.75)", backdropFilter: "blur(6px)",
+            background: C.overlayBg, backdropFilter: "blur(6px)",
             display: "flex", alignItems: "center", justifyContent: "center",
             padding: "1.5rem",
           }}
@@ -2709,12 +2750,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 }
 
 function LeitmotivLegendSection({
-  hiddenLeitmotive,
-  activeLeitmotive,
-  onToggle,
-  onReset,
-  compact = false,
+  c, hiddenLeitmotive, activeLeitmotive, onToggle, onReset, compact = false,
 }: {
+  c: Palette;
   hiddenLeitmotive: Set<string>;
   activeLeitmotive: Set<string>;
   onToggle: (id: string) => void;
@@ -2722,19 +2760,13 @@ function LeitmotivLegendSection({
   compact?: boolean;
 }) {
   const lmNodes = NODES.filter(n => n.category === "leitmotiv");
-  const LM_GLOW_LOCAL = "#e8dcc0";
-  const LM_COLOR_LOCAL = "#c8b896";
   return (
     <>
       <div style={{
-        fontFamily: "'Courier Prime','Courier New',monospace",
-        fontSize: compact ? "0.54rem" : "0.58rem",
-        letterSpacing: "0.15em", color: "#444",
-        textTransform: "uppercase",
-        marginBottom: compact ? "0.5rem" : "0.7rem",
-        marginTop: compact ? "0.6rem" : 0,
-        borderTop: compact ? "1px solid #2a2a2a" : "none",
-        paddingTop: compact ? "0.6rem" : 0,
+        fontFamily: c.mono, fontSize: compact ? "0.54rem" : "0.58rem",
+        letterSpacing: "0.15em", color: c.muted, textTransform: "uppercase",
+        marginBottom: compact ? "0.5rem" : "0.7rem", marginTop: compact ? "0.6rem" : 0,
+        borderTop: compact ? `1px solid ${c.border}` : "none", paddingTop: compact ? "0.6rem" : 0,
       }}>
         Leitmotive
       </div>
@@ -2743,75 +2775,46 @@ function LeitmotivLegendSection({
           const hidden   = hiddenLeitmotive.has(node.id);
           const isActive = activeLeitmotive.has(node.id);
           return (
-            <button
-              key={node.id}
-              onClick={() => onToggle(node.id)}
-              style={{
-                display: "flex", alignItems: "center",
-                gap: compact ? "0.38rem" : "0.5rem",
-                width: compact ? "auto" : "100%",
-                background: "none", border: "none",
-                cursor: "pointer",
-                padding: compact ? "0.18rem 0" : "0.28rem 0",
-                transition: "opacity 0.15s",
-              }}
-            >
-              {/* Quadratischer Dot (unterscheidet sich von runden Kategorie-Dots) */}
+            <button key={node.id} onClick={() => onToggle(node.id)} style={{
+              display: "flex", alignItems: "center", gap: compact ? "0.38rem" : "0.5rem",
+              width: compact ? "auto" : "100%", background: "none", border: "none",
+              cursor: "pointer", padding: compact ? "0.18rem 0" : "0.28rem 0", transition: "opacity 0.15s",
+            }}>
               <span style={{
-                width: compact ? 7 : 9,
-                height: compact ? 7 : 9,
-                borderRadius: "1px",
-                background: hidden ? "transparent" : LM_COLOR_LOCAL,
-                border: `1.5px solid ${hidden ? "#555" : LM_GLOW_LOCAL}`,
-                flexShrink: 0,
-                opacity: hidden ? 0.45 : 1,
-                boxShadow: isActive && !hidden ? `0 0 6px ${LM_COLOR_LOCAL}88` : "none",
+                width: compact ? 7 : 9, height: compact ? 7 : 9, borderRadius: "1px",
+                background: hidden ? "transparent" : c.lmColor,
+                border: `1.5px solid ${hidden ? c.ghost : c.lmGlow}`,
+                flexShrink: 0, opacity: hidden ? 0.45 : 1,
+                boxShadow: isActive && !hidden ? `0 0 6px ${c.lmColor}88` : "none",
                 transition: "all 0.2s",
               }} />
               <span style={{
-                fontFamily: "'Courier Prime','Courier New',monospace",
-                fontSize: compact ? "0.72rem" : "0.78rem",
+                fontFamily: c.mono, fontSize: compact ? "0.72rem" : "0.78rem",
                 letterSpacing: "0.1em",
-                color: hidden ? "#555" : isActive ? "#e8e2d4" : "#888",
-                flex: compact ? undefined : 1,
-                textAlign: "left",
-                transition: "color 0.2s",
+                color: hidden ? c.ghost : isActive ? c.textBright : c.textDim,
+                flex: compact ? undefined : 1, textAlign: "left", transition: "color 0.2s",
               }}>
                 {node.label}
                 {node.id === "lm-verwandlung" && !compact && (
-                  <span style={{ marginLeft: "0.35rem", fontSize: "0.58rem", opacity: 0.55, letterSpacing: "0.05em", verticalAlign: "middle" }}>
-                    ◎
-                  </span>
+                  <span style={{ marginLeft: "0.35rem", fontSize: "0.58rem", opacity: 0.55, letterSpacing: "0.05em", verticalAlign: "middle" }}>◎</span>
                 )}
               </span>
               {hidden ? (
-                <span style={{ fontFamily: "'Courier Prime','Courier New',monospace", fontSize: "0.48rem", letterSpacing: "0.08em", color: "#555", border: "1px solid #2a2a2a", padding: "0.04rem 0.26rem", borderRadius: 2 }}>
-                  aus
-                </span>
+                <span style={{ fontFamily: c.mono, fontSize: "0.48rem", letterSpacing: "0.08em", color: c.ghost, border: `1px solid ${c.border}`, padding: "0.04rem 0.26rem", borderRadius: 2 }}>aus</span>
               ) : isActive && !compact && (
-                <span style={{ width: 3, height: 3, borderRadius: "50%", background: LM_COLOR_LOCAL, flexShrink: 0 }} />
+                <span style={{ width: 3, height: 3, borderRadius: "50%", background: c.lmColor, flexShrink: 0 }} />
               )}
             </button>
           );
         })}
       </div>
       {hiddenLeitmotive.size > 0 && (
-        <button
-          onClick={onReset}
-          style={{
-            marginTop: "0.5rem",
-            width: compact ? "auto" : "100%",
-            fontFamily: "'Courier Prime','Courier New',monospace",
-            fontSize: compact ? "0.54rem" : "0.56rem",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: "#c4a882",
-            background: "none",
-            border: "1px solid #7a6a52",
-            padding: "0.25rem 0.5rem",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={onReset} style={{
+          marginTop: "0.5rem", width: compact ? "auto" : "100%", fontFamily: c.mono,
+          fontSize: compact ? "0.54rem" : "0.56rem", letterSpacing: "0.1em",
+          textTransform: "uppercase", color: c.accent, background: "none",
+          border: `1px solid ${c.accentDim}`, padding: "0.25rem 0.5rem", cursor: "pointer",
+        }}>
           Alle einblenden
         </button>
       )}
@@ -2835,31 +2838,22 @@ function categoryLabel(cat: string): string {
 }
 
 function PrinzipLegendSection({
-  hiddenPrinzipien,
-  onToggleGroup,
-  onToggleMember,
-  onReset,
-  compact = false,
+  c, hiddenPrinzipien, onToggleGroup, onToggleMember, onReset, compact = false,
 }: {
+  c: Palette;
   hiddenPrinzipien: Set<string>;
   onToggleGroup: (memberIds: string[]) => void;
   onToggleMember: (id: string) => void;
   onReset: () => void;
   compact?: boolean;
 }) {
-  const PR = "#8ea8b8";
-  const PR_BRIGHT = "#c4d6e0";
   return (
     <>
       <div style={{
-        fontFamily: "'Courier Prime','Courier New',monospace",
-        fontSize: compact ? "0.54rem" : "0.58rem",
-        letterSpacing: "0.15em", color: "#444",
-        textTransform: "uppercase",
-        marginBottom: compact ? "0.5rem" : "0.7rem",
-        marginTop: compact ? "0.6rem" : "0.9rem",
-        borderTop: "1px solid #2a2a2a",
-        paddingTop: compact ? "0.6rem" : "0.7rem",
+        fontFamily: c.mono, fontSize: compact ? "0.54rem" : "0.58rem",
+        letterSpacing: "0.15em", color: c.muted, textTransform: "uppercase",
+        marginBottom: compact ? "0.5rem" : "0.7rem", marginTop: compact ? "0.6rem" : "0.9rem",
+        borderTop: `1px solid ${c.border}`, paddingTop: compact ? "0.6rem" : "0.7rem",
       }}>
         Erkenntnisprinzipien
       </div>
@@ -2868,89 +2862,52 @@ function PrinzipLegendSection({
           const allHidden = group.memberIds.every(id => hiddenPrinzipien.has(id));
           return (
             <div key={group.id} style={{ marginBottom: compact ? "0.3rem" : "0.55rem" }}>
-              <button
-                onClick={() => onToggleGroup(group.memberIds)}
-                title={group.description}
-                style={{
-                  display: "flex", alignItems: "center",
-                  gap: compact ? "0.38rem" : "0.5rem",
-                  width: "100%", background: "none", border: "none",
-                  cursor: "pointer",
-                  padding: compact ? "0.12rem 0" : "0.2rem 0",
-                  transition: "opacity 0.15s",
-                }}
-              >
-                {/* Raute-Dot (Prinzip-Signatur) */}
+              <button onClick={() => onToggleGroup(group.memberIds)} title={group.description} style={{
+                display: "flex", alignItems: "center", gap: compact ? "0.38rem" : "0.5rem",
+                width: "100%", background: "none", border: "none", cursor: "pointer",
+                padding: compact ? "0.12rem 0" : "0.2rem 0", transition: "opacity 0.15s",
+              }}>
                 <span style={{
-                  width: compact ? 7 : 9,
-                  height: compact ? 7 : 9,
-                  background: allHidden ? "transparent" : PR,
-                  border: `1.5px solid ${allHidden ? "#555" : PR_BRIGHT}`,
-                  flexShrink: 0,
-                  opacity: allHidden ? 0.45 : 1,
-                  transform: "rotate(45deg)",
-                  transition: "all 0.2s",
+                  width: compact ? 7 : 9, height: compact ? 7 : 9,
+                  background: allHidden ? "transparent" : PR_COLOR,
+                  border: `1.5px solid ${allHidden ? c.ghost : PR_GLOW}`,
+                  flexShrink: 0, opacity: allHidden ? 0.45 : 1,
+                  transform: "rotate(45deg)", transition: "all 0.2s",
                 }} />
                 <span style={{
-                  fontFamily: "'Courier Prime','Courier New',monospace",
-                  fontSize: compact ? "0.7rem" : "0.76rem",
-                  letterSpacing: "0.08em",
-                  color: allHidden ? "#555" : "#c8c2b4",
-                  textAlign: "left", flex: 1,
-                  transition: "color 0.2s",
+                  fontFamily: c.mono, fontSize: compact ? "0.7rem" : "0.76rem",
+                  letterSpacing: "0.08em", color: allHidden ? c.ghost : c.text,
+                  textAlign: "left", flex: 1, transition: "color 0.2s",
                 }}>
                   {group.label}
                 </span>
                 {allHidden && (
-                  <span style={{ fontFamily: "'Courier Prime','Courier New',monospace", fontSize: "0.48rem", letterSpacing: "0.08em", color: "#555", border: "1px solid #2a2a2a", padding: "0.04rem 0.26rem", borderRadius: 2 }}>
-                    aus
-                  </span>
+                  <span style={{ fontFamily: c.mono, fontSize: "0.48rem", letterSpacing: "0.08em", color: c.ghost, border: `1px solid ${c.border}`, padding: "0.04rem 0.26rem", borderRadius: 2 }}>aus</span>
                 )}
               </button>
               {group.memberIds.length > 1 && (
-                <div style={{
-                  display: "flex", flexWrap: "wrap",
-                  gap: "0.15rem 0.6rem",
-                  paddingLeft: compact ? "0.9rem" : "1.2rem",
-                  marginTop: "0.1rem",
-                }}>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.15rem 0.6rem", paddingLeft: compact ? "0.9rem" : "1.2rem", marginTop: "0.1rem" }}>
                   {group.memberIds.map(mid => {
                     const node = NODES.find(n => n.id === mid);
                     if (!node) return null;
                     const hidden = hiddenPrinzipien.has(mid);
                     return (
-                      <button
-                        key={mid}
-                        onClick={() => onToggleMember(mid)}
-                        style={{
-                          display: "flex", alignItems: "center",
-                          gap: "0.3rem",
-                          background: "none", border: "none", cursor: "pointer",
-                          padding: "0.08rem 0",
-                          transition: "opacity 0.15s",
-                        }}
-                      >
+                      <button key={mid} onClick={() => onToggleMember(mid)} style={{
+                        display: "flex", alignItems: "center", gap: "0.3rem",
+                        background: "none", border: "none", cursor: "pointer",
+                        padding: "0.08rem 0", transition: "opacity 0.15s",
+                      }}>
                         <span style={{
                           width: 5, height: 5, borderRadius: "50%",
-                          background: hidden ? "transparent" : PR,
-                          border: `1px solid ${hidden ? "#555" : PR}`,
-                          flexShrink: 0,
-                          opacity: hidden ? 0.45 : 1,
-                          transition: "all 0.2s",
+                          background: hidden ? "transparent" : PR_COLOR,
+                          border: `1px solid ${hidden ? c.ghost : PR_COLOR}`,
+                          flexShrink: 0, opacity: hidden ? 0.45 : 1, transition: "all 0.2s",
                         }} />
-                        <span style={{
-                          fontFamily: "'Courier Prime','Courier New',monospace",
-                          fontSize: compact ? "0.64rem" : "0.68rem",
-                          letterSpacing: "0.05em",
-                          color: hidden ? "#555" : "#888",
-                          transition: "color 0.2s",
-                        }}>
+                        <span style={{ fontFamily: c.mono, fontSize: compact ? "0.64rem" : "0.68rem", letterSpacing: "0.05em", color: hidden ? c.ghost : c.textDim, transition: "color 0.2s" }}>
                           {node.fullLabel}
                         </span>
                         {hidden && (
-                          <span style={{ fontFamily: "'Courier Prime','Courier New',monospace", fontSize: "0.44rem", color: "#555", border: "1px solid #2a2a2a", padding: "0.02rem 0.2rem", borderRadius: 2 }}>
-                            aus
-                          </span>
+                          <span style={{ fontFamily: c.mono, fontSize: "0.44rem", color: c.ghost, border: `1px solid ${c.border}`, padding: "0.02rem 0.2rem", borderRadius: 2 }}>aus</span>
                         )}
                       </button>
                     );
@@ -2962,22 +2919,12 @@ function PrinzipLegendSection({
         })}
       </div>
       {hiddenPrinzipien.size > 0 && (
-        <button
-          onClick={onReset}
-          style={{
-            marginTop: "0.5rem",
-            width: compact ? "auto" : "100%",
-            fontFamily: "'Courier Prime','Courier New',monospace",
-            fontSize: compact ? "0.54rem" : "0.56rem",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: PR_BRIGHT,
-            background: "none",
-            border: `1px solid ${PR}`,
-            padding: "0.25rem 0.5rem",
-            cursor: "pointer",
-          }}
-        >
+        <button onClick={onReset} style={{
+          marginTop: "0.5rem", width: compact ? "auto" : "100%", fontFamily: c.mono,
+          fontSize: compact ? "0.54rem" : "0.56rem", letterSpacing: "0.1em",
+          textTransform: "uppercase", color: PR_GLOW, background: "none",
+          border: `1px solid ${PR_COLOR}`, padding: "0.25rem 0.5rem", cursor: "pointer",
+        }}>
           Alle einblenden
         </button>
       )}
@@ -2986,54 +2933,48 @@ function PrinzipLegendSection({
 }
 
 function UserEdgesLegendSection({
-  userEdges,
-  showUserEdges,
-  onToggleShow,
-  onDelete,
-  onClear,
+  c, userEdges, showUserEdges, onToggleShow, onDelete, onClear,
 }: {
+  c: Palette;
   userEdges: UserEdge[];
   showUserEdges: boolean;
   onToggleShow: () => void;
   onDelete: (index: number) => void;
   onClear: () => void;
 }) {
-  const CA = "#c4a882", CA_DIM = "#7a6a52", CM = "#444", CB = "#2a2a2a", CTD = "#888";
-  const MONO = "'Courier Prime','Courier New',monospace";
-  const SERIF = "'EB Garamond', Georgia, serif";
   return (
     <>
-      <div style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.15em", color: CM, textTransform: "uppercase", borderTop: `1px solid ${CB}`, paddingTop: "0.7rem", marginTop: "0.9rem", marginBottom: "0.6rem" }}>
+      <div style={{ fontFamily: c.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: c.muted, textTransform: "uppercase", borderTop: `1px solid ${c.border}`, paddingTop: "0.7rem", marginTop: "0.9rem", marginBottom: "0.6rem" }}>
         Meine Verbindungen {userEdges.length > 0 && `(${userEdges.length})`}
       </div>
       <button
         onClick={onToggleShow}
         style={{ display: "flex", alignItems: "center", gap: "0.5rem", width: "100%", background: "none", border: "none", cursor: "pointer", padding: "0.28rem 0" }}
       >
-        <span style={{ width: 22, height: 4, borderRadius: 2, background: showUserEdges ? CA : "transparent", border: `1.5px dashed ${showUserEdges ? CA : CM}`, flexShrink: 0, opacity: showUserEdges ? 1 : 0.45, transition: "all 0.2s" }} />
-        <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: showUserEdges ? "#c8c2b4" : CM, flex: 1, textAlign: "left" }}>
+        <span style={{ width: 22, height: 4, borderRadius: 2, background: showUserEdges ? c.accent : "transparent", border: `1.5px dashed ${showUserEdges ? c.accent : c.muted}`, flexShrink: 0, opacity: showUserEdges ? 1 : 0.45, transition: "all 0.2s" }} />
+        <span style={{ fontFamily: c.serif, fontStyle: "italic", fontSize: "0.82rem", color: showUserEdges ? c.text : c.muted, flex: 1, textAlign: "left" }}>
           Eigene Verbindungen
         </span>
-        {!showUserEdges && <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: CM, border: `1px solid ${CB}`, padding: "0.04rem 0.28rem", borderRadius: 2 }}>aus</span>}
+        {!showUserEdges && <span style={{ fontFamily: c.mono, fontSize: "0.48rem", color: c.muted, border: `1px solid ${c.border}`, padding: "0.04rem 0.28rem", borderRadius: 2 }}>aus</span>}
       </button>
       {userEdges.length === 0 ? (
-        <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.76rem", color: CM, marginTop: "0.5rem", paddingLeft: "0.2rem" }}>
+        <div style={{ fontFamily: c.serif, fontStyle: "italic", fontSize: "0.76rem", color: c.muted, marginTop: "0.5rem", paddingLeft: "0.2rem" }}>
           Noch keine eigenen Verbindungen
         </div>
       ) : (
         <div style={{ marginTop: "0.4rem" }}>
           {userEdges.map((edge, i) => (
             <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.3rem", marginBottom: "0.3rem" }}>
-              <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.74rem", color: CTD, flex: 1, lineHeight: 1.4 }}>
+              <span style={{ fontFamily: c.serif, fontStyle: "italic", fontSize: "0.74rem", color: c.textDim, flex: 1, lineHeight: 1.4 }}>
                 {NODE_MAP.get(edge.source)?.label.replace("\n", " ")}
-                <span style={{ color: CA_DIM, margin: "0 0.3rem" }}>↔</span>
+                <span style={{ color: c.accentDim, margin: "0 0.3rem" }}>↔</span>
                 {NODE_MAP.get(edge.target)?.label.replace("\n", " ")}
-                {edge.note && <span style={{ display: "block", fontSize: "0.68rem", color: CM, marginTop: "0.1rem" }}>„{edge.note.length > 40 ? edge.note.slice(0, 40) + "…" : edge.note}"</span>}
+                {edge.note && <span style={{ display: "block", fontSize: "0.68rem", color: c.muted, marginTop: "0.1rem" }}>„{edge.note.length > 40 ? edge.note.slice(0, 40) + "…" : edge.note}"</span>}
               </span>
-              <button onClick={() => onDelete(i)} title="Löschen" style={{ fontFamily: MONO, fontSize: "0.7rem", color: CM, background: "none", border: "none", cursor: "pointer", padding: "0.1rem 0.2rem", flexShrink: 0 }}>×</button>
+              <button onClick={() => onDelete(i)} title="Löschen" style={{ fontFamily: c.mono, fontSize: "0.7rem", color: c.muted, background: "none", border: "none", cursor: "pointer", padding: "0.1rem 0.2rem", flexShrink: 0 }}>×</button>
             </div>
           ))}
-          <button onClick={onClear} style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: CA, background: "none", border: `1px solid ${CA_DIM}`, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+          <button onClick={onClear} style={{ marginTop: "0.4rem", fontFamily: c.mono, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: c.accent, background: "none", border: `1px solid ${c.accentDim}`, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
             Alle löschen
           </button>
         </div>

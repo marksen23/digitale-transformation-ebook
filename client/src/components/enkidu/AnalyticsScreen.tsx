@@ -8,12 +8,13 @@ import {
   buildThemenBalance,
   type Conversation,
 } from "@/lib/extractKeywords";
+import { useEbookTheme } from "@/hooks/useEbookTheme";
 
 interface AnalyticsScreenProps {
   conversations: Conversation[];
 }
 
-const C = {
+const C_DARK = {
   void: "#080808",
   surface: "#161616",
   border: "#2a2a2a",
@@ -27,18 +28,34 @@ const C = {
   mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
 
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
+type CPalette = { readonly [K in keyof typeof C_DARK]: string };
+
+const C_LIGHT: CPalette = {
+  void: "#fafaf9",
+  surface: "#ffffff",
+  border: "#d8d2c8",
+  muted: "#a8a29e",
+  textDim: "#78716c",
+  text: "#3a3530",
+  textBright: "#1c1917",
+  accent: "#c4a882",
+  accentDim: "#7a6a52",
+  serif: "'EB Garamond', Georgia, serif",
+  mono: "'Courier Prime', 'Courier New', monospace",
+};
+
+function Section({ c, title, children }: { c: CPalette; title: string; children: React.ReactNode }) {
   return (
     <div style={{
-      background: C.surface,
-      border: `1px solid ${C.border}`,
+      background: c.surface,
+      border: `1px solid ${c.border}`,
       padding: "1.5rem",
     }}>
       <h3 style={{
-        fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.18em",
-        color: C.accentDim, textTransform: "uppercase",
+        fontFamily: c.mono, fontSize: "0.65rem", letterSpacing: "0.18em",
+        color: c.accentDim, textTransform: "uppercase",
         marginBottom: "1.25rem", paddingBottom: "0.75rem",
-        borderBottom: `1px solid ${C.border}`,
+        borderBottom: `1px solid ${c.border}`,
       }}>
         {title}
       </h3>
@@ -48,6 +65,8 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps) {
+  const isDark = useEbookTheme();
+  const C: CPalette = isDark ? C_DARK : C_LIGHT;
   const keywords  = useMemo(() => extractKeywords(conversations, 55), [conversations]);
   const resonanz  = useMemo(() => buildResonanzpfad(conversations), [conversations]);
   const themen    = useMemo(() => buildThemenBalance(conversations), [conversations]);
@@ -93,13 +112,13 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
       <div className="enkidu-analytics-grid">
         {/* Word Cloud — full width */}
         <div style={{ gridColumn: "1 / -1" }}>
-          <Section title="Wort-Wolke — häufigste Begriffe">
+          <Section c={C} title="Wort-Wolke — häufigste Begriffe">
             <WordCloud keywords={keywords} width={780} height={300} />
           </Section>
         </div>
 
         {/* Resonance chart */}
-        <Section title="Resonanzpfad — Nachklang-Verlauf">
+        <Section c={C} title="Resonanzpfad — Nachklang-Verlauf">
           <ResonanzChart data={resonanz} />
           <p style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.06em", color: C.muted, marginTop: "0.75rem", lineHeight: 1.6 }}>
             Amber: Ø Resonanz · Gestrichelt: Überraschung / Innehalten / Mitgenommen
@@ -107,7 +126,7 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
         </Section>
 
         {/* Topic balance */}
-        <Section title="Themenbalance — Welche Begriffe dominieren">
+        <Section c={C} title="Themenbalance — Welche Begriffe dominieren">
           <ThemenBalance data={themen} />
         </Section>
       </div>

@@ -4,6 +4,31 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
+import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
+
+// ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
+const CAT_DE: Record<string, string> = {
+  core: "Kernfeld", ontological: "Daseinsfeld", relational: "Zwischenfeld",
+  language: "Sprachfeld", knowledge: "Denkfeld", temporal: "Zeitraumfeld",
+  transformation: "Wandlungsfeld", leitmotiv: "Leitmotiv", prinzip: "Prinzip",
+};
+const conceptNodes   = NODES.filter(n => n.category !== "leitmotiv" && n.category !== "prinzip");
+const leitmovNodes   = NODES.filter(n => n.category === "leitmotiv");
+const prinzipNodes   = NODES.filter(n => n.category === "prinzip");
+const nodeSrv        = new Map(NODES.map(n => [n.id, n]));
+const crossCatSrv    = EDGES.filter(e => nodeSrv.get(e.source)?.category !== nodeSrv.get(e.target)?.category).length;
+
+const GRAPH_SYSTEM_PROMPT = `Du bist ein philosophischer Gesprächspartner des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+
+Dir steht das vollständige Begriffsnetz des Werks zur Verfügung (${NODES.length} Konzepte, ${EDGES.length} Verbindungen davon ${crossCatSrv} feldübergreifend).
+
+KONZEPTE (nach Kohärenzfeld):
+${conceptNodes.map(n => `• ${n.fullLabel} [${CAT_DE[n.category]}]\n  ${n.description}`).join("\n")}
+
+LEITMOTIVE: ${leitmovNodes.map(n => n.fullLabel).join(" · ")}
+PRINZIPIEN: ${prinzipNodes.map(n => n.fullLabel).join(" · ")}
+
+Beantworte Fragen zum Werk, zu einzelnen Konzepten, zu Verbindungen, Spannungsfeldern und Resonanzen. Sei philosophisch präzise aber zugänglich. Beziehe dich namentlich auf Konzepte aus dem Begriffsnetz wenn es sinnvoll ist. Antworte in 2–4 Absätzen. Schließe wenn passend mit einer offenen Frage, die weiterdenken lässt. Antworte immer auf Deutsch.`;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -490,6 +515,60 @@ Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzähl
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("Spannungsfeld API error:", message);
+      return res.status(502).json({ error: `API-Fehler: ${message}` });
+    }
+  });
+
+  // ─── Graph-Chat: freier Gemini-Dialog über das gesamte Begriffsnetz ──
+  app.post("/api/graph-chat", rateLimiter('graph-chat', 30, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+
+    const { message, history } = req.body as {
+      message: string;
+      history: Array<{ role: "user" | "model"; text: string }>;
+    };
+
+    if (!message?.trim()) return res.status(400).json({ error: "Nachricht fehlt." });
+
+    // Konversationsverlauf in Gemini-Format übersetzen (max. 10 Runden)
+    const recentHistory = (history ?? []).slice(-20);
+    const contents = [
+      ...recentHistory.map(h => ({
+        role: h.role,
+        parts: [{ text: h.text }],
+      })),
+      { role: "user", parts: [{ text: message }] },
+    ];
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: GRAPH_SYSTEM_PROMPT }] },
+            contents,
+            generationConfig: { temperature: 0.85, maxOutputTokens: 3000 },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errText = await response.text();
+        let detail: string;
+        try { detail = JSON.parse(errText)?.error?.message || errText; } catch { detail = errText; }
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
+        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar.";
+        return res.status(502).json({ error: detail });
+      }
+
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      return res.json({ reply });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
       return res.status(502).json({ error: `API-Fehler: ${message}` });
     }
   });
