@@ -300,6 +300,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  // Beim Wechsel des View-Modus alle Arbeitsfunktions-Panels schließen,
+  // damit keine Stale-Overlays aus einem nicht mehr aktiven View bestehen
+  // bleiben. Refs werden mitsynchronisiert, weil onClick-Handler sie lesen.
+  useEffect(() => {
+    setConnectMode(false); connectModeRef.current = false;
+    setConnectSource(null); connectSourceRef.current = null;
+    setPathMode(false); pathModeRef.current = false;
+    setPathNodes([null, null]); pathNodesRef.current = [null, null];
+    setPathResult(null);
+    setAnalyseMode(false); analyseModeRef.current = false;
+    setAnalyseNodes([null, null]); analyseNodesRef.current = [null, null];
+    setAnalyseResult(null);
+    setAnalyseError(null);
+    setChatOpen(false);
+    setNotePopup(null);
+  }, [viewMode]);
+
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
 
