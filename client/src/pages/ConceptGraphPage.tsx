@@ -173,6 +173,12 @@ const CROSS_CAT_EDGE_COUNT = EDGES.filter(
   e => NODE_MAP.get(e.source)?.category !== NODE_MAP.get(e.target)?.category
 ).length;
 
+const TOP_HUBS = NODES
+  .filter(n => n.category !== "leitmotiv" && n.category !== "prinzip")
+  .sort((a, b) => (ADJACENCY.get(b.id)?.size ?? 0) - (ADJACENCY.get(a.id)?.size ?? 0))
+  .slice(0, 5)
+  .map(n => ({ id: n.id, label: n.label.replace("\n", " "), degree: ADJACENCY.get(n.id)?.size ?? 0 }));
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Pan / Zoom state
@@ -250,6 +256,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [analyseError, setAnalyseError] = useState<string | null>(null);
   const analyseModeRef = useRef(false);
   const analyseNodesRef = useRef<[string | null, string | null]>([null, null]);
+
+  // Lesepfad — session-only visit trail (no localStorage)
+  const [visitedNodes, setVisitedNodes] = useState<string[]>([]);
 
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
@@ -367,6 +376,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     if (!focusId) return new Set();
     return ADJACENCY.get(focusId) ?? new Set();
   }, [focusId]);
+
+  // 2-Hop: nodes at distance 2 from focusId (excluding focusId and 1-hop neighbors)
+  const nearIds: Set<string> = useMemo(() => {
+    if (!focusId) return new Set<string>();
+    const near = new Set<string>();
+    for (const connId of Array.from(connectedIds)) {
+      for (const n of Array.from(ADJACENCY.get(connId) ?? new Set<string>())) {
+        if (n !== focusId && !connectedIds.has(n)) near.add(n);
+      }
+    }
+    return near;
+  }, [focusId, connectedIds]);
 
   const selectedNode = selectedId ? NODE_MAP.get(selectedId) ?? null : null;
   const connectedNodes = selectedNode
@@ -507,7 +528,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       return;
     }
 
-    setSelectedId(prev => prev === id ? null : id);
+    setSelectedId(prev => {
+      if (prev !== id) {
+        setVisitedNodes(vp => {
+          if (vp[vp.length - 1] === id) return vp;
+          return [...vp, id].slice(-25);
+        });
+      }
+      return prev === id ? null : id;
+    });
     setSearchQuery("");
     setLegendOpen(false);
   }, []);
@@ -1003,10 +1032,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
               const state = edgeState(edge.source, edge.target);
               const isPrimary = edge.weight === "primary";
+              const bothNear = state === "dim" && nearIds.has(edge.source) && nearIds.has(edge.target);
 
               const opacity =
                 state === "focus"   ? (isPrimary ? 0.80 : 0.65) :
                 state === "neutral" ? (isPrimary ? 0.30 : 0.15) :
+                bothNear            ? 0.10 :
                 0.06;
 
               const strokeWidth = isPrimary ? (state === "focus" ? 1.8 : 1.2) : (state === "focus" ? 1.2 : 0.8);
@@ -1121,6 +1152,25 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               );
             })()}
 
+            {/* ── Lesepfad Trail: straight dashed lines between visited nodes ── */}
+            {visitedNodes.length >= 2 && visitedNodes.slice(0, -1).map((fromId, i) => {
+              const toId = visitedNodes[i + 1];
+              if (!NODE_MAP.has(fromId) || !NODE_MAP.has(toId)) return null;
+              const a = getPos(fromId);
+              const b = getPos(toId);
+              return (
+                <line
+                  key={`trail-${i}`}
+                  x1={a.x} y1={a.y} x2={b.x} y2={b.y}
+                  stroke={C.textDim}
+                  strokeWidth={0.7}
+                  strokeDasharray="2 5"
+                  opacity={0.25}
+                  style={{ pointerEvents: "none" }}
+                />
+              );
+            })}
+
             {/* ── Nodes (concept layer — skip leitmotiv & prinzip, rendered separately) ── */}
             {NODES.map(node => {
               if (node.category === "leitmotiv") return null; // rendered in leitmotiv pass below
@@ -1131,23 +1181,25 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const isFocus = state === "focus";
               const isConnected = state === "connected";
               const isDim = state === "dim";
+              const isNear = isDim && nearIds.has(node.id);
 
               const fillOpacity =
                 isGhost     ? 0.04 :
                 isFocus     ? 1 :
                 isConnected ? 0.85 :
+                isNear      ? 0.55 :
                 isDim       ? 0.4 :
                 0.7;
 
               const fill = isFocus ? catColor : C.surface;
-              const strokeColor = isGhost ? C.border : isFocus ? catColor : isConnected ? catColor : isDim ? C.border : catColor;
-              const strokeOpacity = isGhost ? 0.10 : isFocus ? 1 : isConnected ? 0.7 : isDim ? 0.3 : 0.5;
+              const strokeColor = isGhost ? C.border : isFocus ? catColor : isConnected ? catColor : isNear ? catColor : isDim ? C.border : catColor;
+              const strokeOpacity = isGhost ? 0.10 : isFocus ? 1 : isConnected ? 0.7 : isNear ? 0.40 : isDim ? 0.3 : 0.5;
               const strokeWidth = isFocus ? 2.5 : isConnected ? 1.8 : 1.2;
 
               const labelColor = isGhost ? C.muted : isFocus
                 ? C.void
-                : isConnected ? C.textBright : isDim ? C.textDim : C.text;
-              const labelOpacity = isGhost ? 0.07 : isDim ? 0.4 : 1;
+                : isConnected ? C.textBright : isNear ? "#aaa" : isDim ? C.textDim : C.text;
+              const labelOpacity = isGhost ? 0.07 : isNear ? 0.55 : isDim ? 0.4 : 1;
 
               // Split label on \n
               const lines = node.label.split("\n");
@@ -1317,10 +1369,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const isFocus  = state === "focus";
               const isDim    = state === "dim";
               const isConn   = state === "connected";
+              const isNear   = isDim && nearIds.has(node.id);
 
-              const ringOpacity  = isGhost ? 0.07 : isDim ? 0.25 : isFocus ? 1 : isConn ? 0.85 : 0.65;
-              const fillOpacity  = isGhost ? 0.03 : isFocus ? 0.22 : isDim ? 0.04 : 0.10;
-              const labelOpacity = isGhost ? 0.05 : isDim ? 0.3  : 1;
+              const ringOpacity  = isGhost ? 0.07 : isNear ? 0.40 : isDim ? 0.25 : isFocus ? 1 : isConn ? 0.85 : 0.65;
+              const fillOpacity  = isGhost ? 0.03 : isFocus ? 0.22 : isNear ? 0.07 : isDim ? 0.04 : 0.10;
+              const labelOpacity = isGhost ? 0.05 : isNear ? 0.5 : isDim ? 0.3  : 1;
               const outerR       = node.r + (isFocus ? 8 : 4);
               const {x, y} = getPos(node.id);
 
@@ -1456,10 +1509,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const isFocus = state === "focus";
               const isConn  = state === "connected";
               const isDim   = state === "dim";
+              const isNear  = isDim && nearIds.has(node.id);
               const {x, y}  = getPos(node.id);
-              const ringOpacity = isGhost ? 0.07 : isDim ? 0.25 : isFocus ? 1 : isConn ? 0.8 : 0.55;
-              const fillOpacity = isGhost ? 0.03 : isFocus ? 0.35 : isDim ? 0.05 : 0.12;
-              const labelOpacity = isGhost ? 0.05 : isDim ? 0.35 : 1;
+              const ringOpacity = isGhost ? 0.07 : isNear ? 0.40 : isDim ? 0.25 : isFocus ? 1 : isConn ? 0.8 : 0.55;
+              const fillOpacity = isGhost ? 0.03 : isFocus ? 0.35 : isNear ? 0.08 : isDim ? 0.05 : 0.12;
+              const labelOpacity = isGhost ? 0.05 : isNear ? 0.5 : isDim ? 0.35 : 1;
               const lines = node.label.split("\n");
 
               return (
@@ -1782,20 +1836,43 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               ? Math.round((CROSS_CAT_EDGE_COUNT / CONCEPT_EDGE_COUNT) * 100)
               : 0;
             return (
-              <table style={{ width: "100%", borderCollapse: "collapse" }}>
-                <tbody>
-                  {([
-                    ["Verbindungen", String(CONCEPT_EDGE_COUNT), C.accent],
-                    ["Spannungsfelder", `${CROSS_CAT_EDGE_COUNT} (${crossPct}%)`, "#a882c4"],
-                    ["Eigene", `${userEdges.length} / 30`, "#7eb8c8"],
-                  ] as [string, string, string][]).map(([label, val, color]) => (
-                    <tr key={label}>
-                      <td style={{ fontSize: "0.52rem", color: C.textDim, paddingBottom: "0.22rem", paddingRight: "0.5rem" }}>{label}</td>
-                      <td style={{ fontSize: "0.62rem", color: color, textAlign: "right", paddingBottom: "0.22rem", fontVariantNumeric: "tabular-nums" }}>{val}</td>
-                    </tr>
+              <>
+                <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                  <tbody>
+                    {([
+                      ["Verbindungen", String(CONCEPT_EDGE_COUNT), C.accent],
+                      ["Spannungsfelder", `${CROSS_CAT_EDGE_COUNT} (${crossPct}%)`, "#a882c4"],
+                      ["Eigene", `${userEdges.length} / 30`, "#7eb8c8"],
+                      ["Besucht", String(visitedNodes.length), C.textDim],
+                    ] as [string, string, string][]).map(([label, val, color]) => (
+                      <tr key={label}>
+                        <td style={{ fontSize: "0.52rem", color: C.textDim, paddingBottom: "0.22rem", paddingRight: "0.5rem" }}>{label}</td>
+                        <td style={{ fontSize: "0.62rem", color: color, textAlign: "right", paddingBottom: "0.22rem", fontVariantNumeric: "tabular-nums" }}>{val}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+                {/* Einstiegspunkte — top hubs by degree */}
+                <div style={{ marginTop: "0.55rem", borderTop: `1px solid ${C.border}`, paddingTop: "0.4rem" }}>
+                  <div style={{ fontSize: "0.45rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.35rem" }}>
+                    Einstiegspunkte
+                  </div>
+                  {TOP_HUBS.map(hub => (
+                    <button
+                      key={hub.id}
+                      onClick={() => setSelectedId(hub.id)}
+                      style={{
+                        display: "flex", justifyContent: "space-between", alignItems: "center",
+                        width: "100%", background: "none", border: "none", padding: "0.12rem 0",
+                        cursor: "pointer", pointerEvents: "auto",
+                      }}
+                    >
+                      <span style={{ fontSize: "0.52rem", color: C.text, textAlign: "left" }}>{hub.label}</span>
+                      <span style={{ fontSize: "0.55rem", color: C.accent, fontVariantNumeric: "tabular-nums", marginLeft: "0.5rem" }}>{hub.degree}</span>
+                    </button>
                   ))}
-                </tbody>
-              </table>
+                </div>
+              </>
             );
           })()}
 
@@ -2013,6 +2090,44 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onDelete={i => { const next = userEdges.filter((_, j) => j !== i); setUserEdges(next); saveUserEdges(next); }}
               onClear={() => { setUserEdges([]); saveUserEdges([]); }}
             />
+
+            {/* ── Lesepfad ── */}
+            <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
+            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+              <span>Lesepfad</span>
+              <span style={{ color: C.accent }}>{visitedNodes.length}</span>
+            </div>
+            {visitedNodes.length === 0 ? (
+              <div style={{ fontSize: "0.6rem", color: C.textDim, fontStyle: "italic" }}>Noch kein Konzept besucht</div>
+            ) : (
+              <>
+                {visitedNodes.map((vid, i) => {
+                  const vNode = NODE_MAP.get(vid);
+                  if (!vNode) return null;
+                  return (
+                    <div key={`${vid}-${i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.25rem" }}>
+                      <button
+                        onClick={() => setSelectedId(vid)}
+                        style={{ background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left", fontSize: "0.62rem", color: vid === selectedId ? C.accent : C.text }}
+                      >
+                        {vNode.label.replace("\n", " ")}
+                      </button>
+                      <button
+                        onClick={() => setVisitedNodes(vp => vp.filter((_, j) => j !== i))}
+                        style={{ background: "none", border: "none", padding: "0 0 0 0.5rem", cursor: "pointer", fontSize: "0.55rem", color: C.muted, lineHeight: 1 }}
+                        title="Entfernen"
+                      >×</button>
+                    </div>
+                  );
+                })}
+                <button
+                  onClick={() => setVisitedNodes([])}
+                  style={{ marginTop: "0.5rem", background: "none", border: `1px solid ${C.border}`, padding: "0.25rem 0.6rem", cursor: "pointer", fontFamily: C.mono, fontSize: "0.52rem", color: C.muted, letterSpacing: "0.1em" }}
+                >
+                  Lesepfad löschen
+                </button>
+              </>
+            )}
 
             {/* Close detail */}
             <div style={{ marginTop: "1.8rem" }}>
