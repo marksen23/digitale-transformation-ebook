@@ -2427,7 +2427,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
       {/* ── Pfad-Explorer Ergebnispanel ── */}
       {pathMode && (
-        <div style={{
+        <div className="concept-workfunc-panel" style={{
           position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
           background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(8px)", padding: "0.85rem 1rem",
@@ -2498,7 +2498,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
       {/* ── Spannungsfeld-Analyse Panel ── */}
       {analyseMode && (
-        <div style={{
+        <div className="concept-workfunc-panel" style={{
           position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
           background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(10px)", padding: "0.9rem 1rem",
@@ -2567,7 +2567,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
       {/* ── Graph-Chat Panel ── */}
       {chatOpen && (
-        <div style={{
+        <div className="concept-workfunc-panel" style={{
           position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
           background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(10px)",
@@ -2755,6 +2755,27 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: ${C.border} transparent;
+          }
+          /* Arbeitsfunktions-Panels (Pfad / Analyse / Dialog) als Bottom-Sheets.
+             Override der Inline-Styles: voll breit, oberhalb des Detail-Sheets,
+             max. 70dvh hoch, scrollbar Inhalt. */
+          .concept-workfunc-panel {
+            position: fixed !important;
+            left: 0 !important;
+            right: 0 !important;
+            bottom: 0 !important;
+            top: auto !important;
+            width: 100% !important;
+            max-width: none !important;
+            min-width: 0 !important;
+            max-height: 70dvh !important;
+            border-left: none !important;
+            border-right: none !important;
+            border-bottom: none !important;
+            border-top: 1px solid ${C.border} !important;
+            padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+            z-index: 165 !important;
+            overflow-y: auto;
           }
         }
         /* Desktop (> 640 px): only right sidebar, bottom sheet hidden */
