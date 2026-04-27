@@ -111,6 +111,60 @@ function computeBaumLayout(): Map<string, {x: number, y: number}> {
   return result;
 }
 
+// ─── Path algorithms ──────────────────────────────────────────────────────────
+
+function bfsPath(src: string, tgt: string): string[] | null {
+  if (src === tgt) return [src];
+  const prev = new Map<string, string>();
+  const queue = [src];
+  const visited = new Set([src]);
+  while (queue.length) {
+    const cur = queue.shift()!;
+    for (const n of Array.from(ADJACENCY.get(cur) ?? new Set<string>())) {
+      if (visited.has(n)) continue;
+      visited.add(n);
+      prev.set(n, cur);
+      if (n === tgt) {
+        const path = [tgt];
+        let c = tgt;
+        while (prev.has(c)) { c = prev.get(c)!; path.unshift(c); }
+        return path;
+      }
+      queue.push(n);
+    }
+  }
+  return null;
+}
+
+function dijkstraSurprisingPath(src: string, tgt: string): string[] | null {
+  // Weight = degree of destination node — hubs are "expensive", rare nodes are cheap
+  const dist = new Map<string, number>();
+  const prev = new Map<string, string>();
+  const pq: Array<[number, string]> = [[0, src]];
+  dist.set(src, 0);
+  while (pq.length) {
+    pq.sort((a, b) => a[0] - b[0]);
+    const [d, u] = pq.shift()!;
+    if (u === tgt) {
+      const path = [tgt];
+      let c = tgt;
+      while (prev.has(c)) { c = prev.get(c)!; path.unshift(c); }
+      return path;
+    }
+    if (d > (dist.get(u) ?? Infinity)) continue;
+    for (const n of Array.from(ADJACENCY.get(u) ?? new Set<string>())) {
+      const w = (ADJACENCY.get(n)?.size ?? 1);
+      const nd = d + w;
+      if (nd < (dist.get(n) ?? Infinity)) {
+        dist.set(n, nd);
+        prev.set(n, u);
+        pq.push([nd, n]);
+      }
+    }
+  }
+  return null;
+}
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Pan / Zoom state
@@ -172,6 +226,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const connectSourceRef = useRef<string | null>(null);
   const userEdgesRef = useRef<UserEdge[]>([]);
   userEdgesRef.current = userEdges; // always in sync with latest state
+
+  // Path explorer — select two nodes to find shortest + surprising path
+  const [pathMode, setPathMode] = useState(false);
+  const [pathNodes, setPathNodes] = useState<[string | null, string | null]>([null, null]);
+  const [pathResult, setPathResult] = useState<{ shortest: string[]; surprising: string[] } | null>(null);
+  const pathModeRef = useRef(false);
+  const pathNodesRef = useRef<[string | null, string | null]>([null, null]);
 
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
@@ -321,6 +382,26 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const handleNodeClick = useCallback((e: React.MouseEvent, id: string) => {
     e.stopPropagation();
     if (hasDraggedRef.current) return;
+
+    if (pathModeRef.current) {
+      const [src] = pathNodesRef.current;
+      if (!src) {
+        pathNodesRef.current = [id, null];
+        setPathNodes([id, null]);
+        setPathResult(null);
+      } else if (src === id) {
+        pathNodesRef.current = [null, null];
+        setPathNodes([null, null]);
+        setPathResult(null);
+      } else {
+        const shortest = bfsPath(src, id) ?? [];
+        const surprising = dijkstraSurprisingPath(src, id) ?? [];
+        pathNodesRef.current = [src, id];
+        setPathNodes([src, id]);
+        setPathResult({ shortest, surprising });
+      }
+      return;
+    }
 
     if (connectModeRef.current) {
       if (!connectSourceRef.current) {
@@ -566,6 +647,43 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </button>
           )}
 
+          {/* Pfad-Explorer button */}
+          {viewMode !== "matrix" && (
+            <button
+              onClick={() => {
+                const next = !pathMode;
+                pathModeRef.current = next;
+                setPathMode(next);
+                if (!next) {
+                  pathNodesRef.current = [null, null];
+                  setPathNodes([null, null]);
+                  setPathResult(null);
+                }
+                // Deactivate connect mode when entering path mode
+                if (next && connectModeRef.current) {
+                  connectModeRef.current = false;
+                  setConnectMode(false);
+                  connectSourceRef.current = null;
+                  setConnectSource(null);
+                }
+              }}
+              title={pathMode ? "Pfad-Explorer beenden" : "Pfad zwischen zwei Konzepten finden"}
+              style={{
+                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: pathMode ? "#7eb8c8" : C.muted,
+                background: pathMode ? "rgba(126,184,200,0.08)" : "none",
+                border: `1px solid ${pathMode ? "#4a8898" : C.border}`,
+                padding: "0.3rem 0.55rem", cursor: "pointer",
+                transition: "all 0.15s", flexShrink: 0,
+              }}
+              onMouseEnter={e => { if (!pathMode) { e.currentTarget.style.color = "#7eb8c8"; e.currentTarget.style.borderColor = "#4a8898"; } }}
+              onMouseLeave={e => { if (!pathMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+            >
+              {pathMode ? "✕ Pfad" : "◈ Pfad"}
+            </button>
+          )}
+
           {/* Legend toggle — only shown when no node is selected (sidebar carries the legend then) */}
           {!selectedId && (
             <button
@@ -662,6 +780,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           onTouchEnd={onTouchEnd}
           onClick={() => {
             if (hasDraggedRef.current) return;
+            if (pathModeRef.current) {
+              pathNodesRef.current = [null, null];
+              setPathNodes([null, null]);
+              setPathResult(null);
+              return;
+            }
             if (connectModeRef.current) {
               connectSourceRef.current = null;
               setConnectSource(null);
@@ -843,6 +967,39 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               );
             })}
 
+            {/* ── Path highlight layer ── */}
+            {pathResult && (() => {
+              const renderPath = (path: string[], color: string, opacity: number, width: number) =>
+                path.length < 2 ? null : path.slice(0, -1).map((nid, i) => {
+                  const nextId = path[i + 1];
+                  const p1 = getPos(nid);
+                  const p2 = getPos(nextId);
+                  const mx = (p1.x + p2.x) / 2;
+                  const my = (p1.y + p2.y) / 2;
+                  const dx = p2.x - p1.x, dy = p2.y - p1.y;
+                  const len = Math.hypot(dx, dy) || 1;
+                  const curve = Math.min(len * 0.14, 28);
+                  const cpx = mx + (-dy / len) * curve;
+                  const cpy = my + (dx / len) * curve;
+                  return (
+                    <path
+                      key={`path-${color}-${nid}-${nextId}`}
+                      d={`M ${p1.x} ${p1.y} Q ${cpx} ${cpy} ${p2.x} ${p2.y}`}
+                      fill="none" stroke={color} strokeWidth={width}
+                      opacity={opacity} strokeLinecap="round"
+                      style={{ pointerEvents: "none" }}
+                    />
+                  );
+                });
+              const isSamePath = pathResult.shortest.join() === pathResult.surprising.join();
+              return (
+                <g>
+                  {!isSamePath && renderPath(pathResult.surprising, "#7eb8c8", 0.55, 2.2)}
+                  {renderPath(pathResult.shortest, "#e8d090", 0.80, 2.8)}
+                </g>
+              );
+            })()}
+
             {/* ── Nodes (concept layer — skip leitmotiv & prinzip, rendered separately) ── */}
             {NODES.map(node => {
               if (node.category === "leitmotiv") return null; // rendered in leitmotiv pass below
@@ -921,6 +1078,28 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       strokeWidth={1.5}
                       strokeDasharray="5 4"
                       opacity={0.8}
+                    />
+                  )}
+
+                  {/* Path-mode indicator — blue ring for selected start node */}
+                  {pathNodes[0] === node.id && !pathNodes[1] && (
+                    <circle
+                      cx={x} cy={y} r={node.r + 11}
+                      fill="none"
+                      stroke="#7eb8c8"
+                      strokeWidth={1.5}
+                      strokeDasharray="5 4"
+                      opacity={0.85}
+                    />
+                  )}
+                  {/* Path-mode: endpoint ring */}
+                  {pathResult && (pathNodes[0] === node.id || pathNodes[1] === node.id) && (
+                    <circle
+                      cx={x} cy={y} r={node.r + 8}
+                      fill="none"
+                      stroke="#e8d090"
+                      strokeWidth={1.8}
+                      opacity={0.75}
                     />
                   )}
 
@@ -1801,6 +1980,77 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         </div>
       )}
 
+
+      {/* ── Pfad-Explorer Ergebnispanel ── */}
+      {pathMode && (
+        <div style={{
+          position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
+          background: "rgba(15,15,15,0.96)", border: `1px solid #2a2a2a`,
+          backdropFilter: "blur(8px)", padding: "0.85rem 1rem",
+          maxWidth: 340, width: "calc(100vw - 2rem)",
+          fontFamily: C.mono, fontSize: "0.6rem",
+        }}>
+          <div style={{ color: "#7eb8c8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
+            Pfad-Explorer
+          </div>
+
+          {!pathNodes[0] && (
+            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
+              Ersten Knoten anklicken …
+            </div>
+          )}
+          {pathNodes[0] && !pathNodes[1] && (
+            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
+              <span style={{ color: "#e8d090" }}>{NODE_MAP.get(pathNodes[0])?.label.replace("\n", " ")}</span>
+              {" "}→ Zweiten Knoten anklicken …
+            </div>
+          )}
+
+          {pathResult && (() => {
+            const same = pathResult.shortest.join() === pathResult.surprising.join();
+            const formatPath = (path: string[]) =>
+              path.map(id => NODE_MAP.get(id)?.label.replace("\n", " ") ?? id).join(" → ");
+            return (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.65rem" }}>
+                <div>
+                  <div style={{ color: "#e8d090", letterSpacing: "0.1em", marginBottom: "0.3rem" }}>
+                    Kürzester Pfad ({pathResult.shortest.length - 1} {pathResult.shortest.length - 1 === 1 ? "Schritt" : "Schritte"})
+                  </div>
+                  {pathResult.shortest.length === 0 ? (
+                    <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.textDim }}>Kein Pfad gefunden</div>
+                  ) : (
+                    <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.text, lineHeight: 1.5 }}>
+                      {formatPath(pathResult.shortest)}
+                    </div>
+                  )}
+                </div>
+                <div>
+                  <div style={{ color: "#7eb8c8", letterSpacing: "0.1em", marginBottom: "0.3rem" }}>
+                    Überraschender Pfad{same ? " (identisch)" : ` (${pathResult.surprising.length - 1} ${pathResult.surprising.length - 1 === 1 ? "Schritt" : "Schritte"})`}
+                  </div>
+                  {same ? (
+                    <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.textDim }}>
+                      Kein alternativer Pfad — die Verbindung ist eindeutig
+                    </div>
+                  ) : pathResult.surprising.length === 0 ? (
+                    <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.textDim }}>Kein Pfad gefunden</div>
+                  ) : (
+                    <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.text, lineHeight: 1.5 }}>
+                      {formatPath(pathResult.surprising)}
+                    </div>
+                  )}
+                </div>
+                <button
+                  onClick={() => { pathNodesRef.current = [null, null]; setPathNodes([null, null]); setPathResult(null); }}
+                  style={{ alignSelf: "flex-start", fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.2rem 0.5rem", cursor: "pointer" }}
+                >
+                  Zurücksetzen
+                </button>
+              </div>
+            );
+          })()}
+        </div>
+      )}
 
       {/* ── Notiz-Popup für neue Verbindung ── */}
       {notePopup && (
