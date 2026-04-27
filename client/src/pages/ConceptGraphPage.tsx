@@ -816,13 +816,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               style={{
                 fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: analyseMode ? "#a882c4" : C.muted,
-                background: analyseMode ? "rgba(168,130,196,0.08)" : "none",
-                border: `1px solid ${analyseMode ? "#7a5a98" : C.border}`,
+                color: analyseMode ? "#5aacb8" : C.muted,
+                background: analyseMode ? "rgba(90,172,184,0.08)" : "none",
+                border: `1px solid ${analyseMode ? "#3a8a96" : C.border}`,
                 padding: "0.3rem 0.55rem", cursor: "pointer",
                 transition: "all 0.15s", flexShrink: 0,
               }}
-              onMouseEnter={e => { if (!analyseMode) { e.currentTarget.style.color = "#a882c4"; e.currentTarget.style.borderColor = "#7a5a98"; } }}
+              onMouseEnter={e => { if (!analyseMode) { e.currentTarget.style.color = "#5aacb8"; e.currentTarget.style.borderColor = "#3a8a96"; } }}
               onMouseLeave={e => { if (!analyseMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
               {analyseMode ? "✕ Analyse" : "⚡ Analyse"}
@@ -1281,7 +1281,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     <circle
                       cx={x} cy={y} r={node.r + 11}
                       fill="none"
-                      stroke="#a882c4"
+                      stroke="#5aacb8"
                       strokeWidth={1.5}
                       strokeDasharray="5 4"
                       opacity={0.85}
@@ -1292,7 +1292,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     <circle
                       cx={x} cy={y} r={node.r + 8}
                       fill="none"
-                      stroke="#a882c4"
+                      stroke="#5aacb8"
                       strokeWidth={1.8}
                       opacity={0.7}
                     />
@@ -2390,9 +2390,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           background: "rgba(15,15,15,0.97)", border: `1px solid #2a2a2a`,
           backdropFilter: "blur(10px)", padding: "0.9rem 1rem",
           maxWidth: 380, width: "calc(100vw - 2rem)",
+          maxHeight: "calc(100% - 2rem)", overflowY: "auto",
           fontFamily: C.mono, fontSize: "0.6rem",
         }}>
-          <div style={{ color: "#a882c4", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
+          <div style={{ color: "#5aacb8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
             Spannungsfeld-Analyse
           </div>
 
@@ -2403,7 +2404,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           )}
           {analyseNodes[0] && !analyseNodes[1] && (
             <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
-              <span style={{ color: "#c4a8e0" }}>{NODE_MAP.get(analyseNodes[0])?.label.replace("\n", " ")}</span>
+              <span style={{ color: "#8accd8" }}>{NODE_MAP.get(analyseNodes[0])?.label.replace("\n", " ")}</span>
               {" "}→ Zweiten Knoten anklicken …
             </div>
           )}
@@ -2413,7 +2414,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             const labelB = NODE_MAP.get(analyseNodes[1])?.label.replace("\n", " ") ?? "";
             return (
               <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                <div style={{ fontFamily: C.mono, fontSize: "0.58rem", color: "#7a5a98", letterSpacing: "0.08em" }}>
+                <div style={{ fontFamily: C.mono, fontSize: "0.58rem", color: "#3a8a96", letterSpacing: "0.08em" }}>
                   {labelA} <span style={{ color: C.muted }}>⚡</span> {labelB}
                 </div>
 
@@ -2430,7 +2431,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 )}
 
                 {analyseResult && (
-                  <div style={{ maxHeight: 280, overflowY: "auto" }}>
+                  <div>
                     {analyseResult.split(/\n\n+/).map((para, i) => (
                       <p key={i} style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.8rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.7rem" }}>
                         {para.trim()}

@@ -469,7 +469,7 @@ Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzähl
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             contents: [{ role: "user", parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.75, maxOutputTokens: 1500 },
+            generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
           }),
         }
       );
