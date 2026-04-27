@@ -7,10 +7,18 @@ AI-Endpunkten der App (Phase 2 der Resonanz-Architektur).
 
 ```
 content/resonanzen/
-├── raw/         ← automatisch geschriebene Roh-Logs nach jeder AI-Antwort
-├── pending/     ← (Phase 3) zur Approval vorgelegte Beiträge
-└── published/   ← (Phase 3) approved und im Public Feed sichtbare Beiträge
+├── raw/                          ← automatisch geschriebene Roh-Logs
+│   ├── chapter/<chapterId>/      ← /api/ask, ein Ordner pro Kapitel
+│   ├── analyse/<idA>+<idB>/      ← /api/analyse-pair, ein Ordner pro Knotenpaar
+│   ├── graph-chat/               ← /api/graph-chat, flach
+│   └── enkidu/                   ← /api/enkidu, flach
+├── pending/                      ← (Phase 3) zur Approval vorgelegt
+└── published/                    ← (Phase 3) im Public Feed sichtbar
 ```
+
+Die Verzeichnisstruktur dient als logisches Breadcrumb: aus dem Pfad
+allein lässt sich Kategorie + Kontext (welches Kapitel, welche Knoten)
+ablesen, ohne das Frontmatter zu öffnen.
 
 ## Datei-Format
 

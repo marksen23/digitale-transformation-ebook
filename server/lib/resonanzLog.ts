@@ -100,9 +100,23 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
   return frontmatter.join("\n");
 }
 
-function buildPath(id: string, endpoint: ResonanzEndpoint, ts: string): string {
+/**
+ * Pfadkonvention — kategorisiert + breadcrumb-fähig:
+ *   chapter:<chapterId>      → raw/chapter/<chapterId>/<date>-<id>.md
+ *   analyse:<idA>+<idB>      → raw/analyse/<idA>+<idB>/<date>-<id>.md
+ *   graph                    → raw/graph-chat/<date>-<id>.md
+ *   enkidu                   → raw/enkidu/<date>-<id>.md
+ */
+function buildPath(id: string, endpoint: ResonanzEndpoint, anchor: string, ts: string): string {
   const date = ts.slice(0, 10); // YYYY-MM-DD
-  return `content/resonanzen/raw/${date}-${endpoint}-${id}.md`;
+  const colonIdx = anchor.indexOf(":");
+  const subdir = colonIdx > 0 ? anchor.slice(colonIdx + 1) : "";
+  // Defensive: nur erlaubte Zeichen im Subdir-Namen
+  const safeSubdir = subdir.replace(/[^a-zA-Z0-9+_-]/g, "_");
+  const dirPath = safeSubdir
+    ? `content/resonanzen/raw/${endpoint}/${safeSubdir}`
+    : `content/resonanzen/raw/${endpoint}`;
+  return `${dirPath}/${date}-${id}.md`;
 }
 
 /**
@@ -123,7 +137,7 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
   const ts = new Date().toISOString();
   const hash = contentHash(entry.prompt, entry.response);
   const md = buildMarkdown(entry, id, ts, hash);
-  const repoPath = buildPath(id, entry.endpoint, ts);
+  const repoPath = buildPath(id, entry.endpoint, entry.anchor, ts);
 
   // GitHub Contents API — neue Datei anlegen (kein sha → erlaubt nur create)
   const url = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoPath}`;
