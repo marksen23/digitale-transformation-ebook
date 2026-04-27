@@ -427,6 +427,73 @@ ${text}`;
     }
   });
 
+  // ─── Begriffsnetz: Spannungsfeld-Analyse ─────────────────────────────
+  app.post("/api/analyse-pair", rateLimiter('analyse-pair', 15, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    }
+
+    interface NodeMeta { id: string; label: string; fullLabel: string; description: string; }
+    const { nodeA, nodeB } = req.body as { nodeA: NodeMeta; nodeB: NodeMeta };
+
+    if (!nodeA?.id || !nodeB?.id || !nodeA?.fullLabel || !nodeB?.fullLabel) {
+      return res.status(400).json({ error: "nodeA und nodeB mit id, fullLabel und description sind erforderlich." });
+    }
+    if (nodeA.id === nodeB.id) {
+      return res.status(400).json({ error: "Beide Konzepte müssen verschieden sein." });
+    }
+
+    const prompt = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+
+Analysiere das Spannungsfeld zwischen diesen beiden Konzepten aus dem Begriffsnetz des Werks:
+
+KONZEPT A: ${nodeA.fullLabel}
+${nodeA.description}
+
+KONZEPT B: ${nodeB.fullLabel}
+${nodeB.description}
+
+Schreibe drei prägnante Absätze:
+1. Worin besteht die produktive Spannung oder der Widerspruch zwischen diesen Konzepten — was macht sie zu Gegenspielern oder Komplizen?
+2. Welches transformative "Dritte" entsteht, wenn man beide gemeinsam denkt — was wird sichtbar, das in keinem allein liegt?
+3. Was verändert sich am Verständnis von Mensch, Maschine oder Resonanz, wenn dieser Zusammenhang ernst genommen wird?
+
+Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.75, maxOutputTokens: 1500 },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Spannungsfeld Gemini error:", response.status, errText);
+        let detail: string;
+        try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
+        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
+        return res.status(502).json({ error: detail });
+      }
+
+      const data = await response.json();
+      const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      return res.json({ analysis });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("Spannungsfeld API error:", message);
+      return res.status(502).json({ error: `API-Fehler: ${message}` });
+    }
+  });
+
   // ─── PDF-Download mit professioneller Formatierung ─────────────────
   app.get("/api/pdf", rateLimiter('pdf', 3, 60 * 60_000), async (req, res) => {
     try {

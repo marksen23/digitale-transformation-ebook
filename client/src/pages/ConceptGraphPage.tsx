@@ -234,6 +234,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const pathModeRef = useRef(false);
   const pathNodesRef = useRef<[string | null, string | null]>([null, null]);
 
+  // Spannungsfeld-Analyse — select two nodes → Gemini analysis
+  const [analyseMode, setAnalyseMode] = useState(false);
+  const [analyseNodes, setAnalyseNodes] = useState<[string | null, string | null]>([null, null]);
+  const [analyseResult, setAnalyseResult] = useState<string | null>(null);
+  const [analyseLoading, setAnalyseLoading] = useState(false);
+  const [analyseError, setAnalyseError] = useState<string | null>(null);
+  const analyseModeRef = useRef(false);
+  const analyseNodesRef = useRef<[string | null, string | null]>([null, null]);
+
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
 
@@ -399,6 +408,50 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         pathNodesRef.current = [src, id];
         setPathNodes([src, id]);
         setPathResult({ shortest, surprising });
+      }
+      return;
+    }
+
+    if (analyseModeRef.current) {
+      const [src] = analyseNodesRef.current;
+      if (!src) {
+        analyseNodesRef.current = [id, null];
+        setAnalyseNodes([id, null]);
+        setAnalyseResult(null);
+        setAnalyseError(null);
+      } else if (src === id) {
+        analyseNodesRef.current = [null, null];
+        setAnalyseNodes([null, null]);
+        setAnalyseResult(null);
+        setAnalyseError(null);
+      } else {
+        const nodeAMeta = NODE_MAP.get(src);
+        const nodeBMeta = NODE_MAP.get(id);
+        if (nodeAMeta && nodeBMeta) {
+          analyseNodesRef.current = [src, id];
+          setAnalyseNodes([src, id]);
+          setAnalyseResult(null);
+          setAnalyseError(null);
+          setAnalyseLoading(true);
+          fetch("/api/analyse-pair", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              nodeA: { id: nodeAMeta.id, label: nodeAMeta.label, fullLabel: nodeAMeta.fullLabel, description: nodeAMeta.description },
+              nodeB: { id: nodeBMeta.id, label: nodeBMeta.label, fullLabel: nodeBMeta.fullLabel, description: nodeBMeta.description },
+            }),
+          })
+            .then(r => r.json())
+            .then(data => {
+              setAnalyseLoading(false);
+              if (data.error) setAnalyseError(data.error);
+              else setAnalyseResult(data.analysis ?? null);
+            })
+            .catch(err => {
+              setAnalyseLoading(false);
+              setAnalyseError(err instanceof Error ? err.message : "Verbindungsfehler");
+            });
+        }
       }
       return;
     }
@@ -684,6 +737,42 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </button>
           )}
 
+          {/* Spannungsfeld-Analyse button */}
+          {viewMode !== "matrix" && (
+            <button
+              onClick={() => {
+                const next = !analyseMode;
+                analyseModeRef.current = next;
+                setAnalyseMode(next);
+                if (!next) {
+                  analyseNodesRef.current = [null, null];
+                  setAnalyseNodes([null, null]);
+                  setAnalyseResult(null);
+                  setAnalyseError(null);
+                }
+                // Deactivate other modes
+                if (next) {
+                  if (connectModeRef.current) { connectModeRef.current = false; setConnectMode(false); connectSourceRef.current = null; setConnectSource(null); }
+                  if (pathModeRef.current) { pathModeRef.current = false; setPathMode(false); pathNodesRef.current = [null, null]; setPathNodes([null, null]); setPathResult(null); }
+                }
+              }}
+              title={analyseMode ? "Spannungsfeld-Analyse beenden" : "Spannungsfeld zweier Konzepte analysieren (KI)"}
+              style={{
+                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: analyseMode ? "#a882c4" : C.muted,
+                background: analyseMode ? "rgba(168,130,196,0.08)" : "none",
+                border: `1px solid ${analyseMode ? "#7a5a98" : C.border}`,
+                padding: "0.3rem 0.55rem", cursor: "pointer",
+                transition: "all 0.15s", flexShrink: 0,
+              }}
+              onMouseEnter={e => { if (!analyseMode) { e.currentTarget.style.color = "#a882c4"; e.currentTarget.style.borderColor = "#7a5a98"; } }}
+              onMouseLeave={e => { if (!analyseMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+            >
+              {analyseMode ? "✕ Analyse" : "⚡ Analyse"}
+            </button>
+          )}
+
           {/* Legend toggle — only shown when no node is selected (sidebar carries the legend then) */}
           {!selectedId && (
             <button
@@ -784,6 +873,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               pathNodesRef.current = [null, null];
               setPathNodes([null, null]);
               setPathResult(null);
+              return;
+            }
+            if (analyseModeRef.current) {
+              analyseNodesRef.current = [null, null];
+              setAnalyseNodes([null, null]);
               return;
             }
             if (connectModeRef.current) {
@@ -1100,6 +1194,28 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       stroke="#e8d090"
                       strokeWidth={1.8}
                       opacity={0.75}
+                    />
+                  )}
+
+                  {/* Analyse-mode: first node ring */}
+                  {analyseNodes[0] === node.id && !analyseNodes[1] && (
+                    <circle
+                      cx={x} cy={y} r={node.r + 11}
+                      fill="none"
+                      stroke="#a882c4"
+                      strokeWidth={1.5}
+                      strokeDasharray="5 4"
+                      opacity={0.85}
+                    />
+                  )}
+                  {/* Analyse-mode: endpoint rings (both nodes selected) */}
+                  {(analyseNodes[0] === node.id || analyseNodes[1] === node.id) && analyseNodes[1] !== null && (
+                    <circle
+                      cx={x} cy={y} r={node.r + 8}
+                      fill="none"
+                      stroke="#a882c4"
+                      strokeWidth={1.8}
+                      opacity={0.7}
                     />
                   )}
 
@@ -2042,6 +2158,74 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 </div>
                 <button
                   onClick={() => { pathNodesRef.current = [null, null]; setPathNodes([null, null]); setPathResult(null); }}
+                  style={{ alignSelf: "flex-start", fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.2rem 0.5rem", cursor: "pointer" }}
+                >
+                  Zurücksetzen
+                </button>
+              </div>
+            );
+          })()}
+        </div>
+      )}
+
+      {/* ── Spannungsfeld-Analyse Panel ── */}
+      {analyseMode && (
+        <div style={{
+          position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
+          background: "rgba(15,15,15,0.97)", border: `1px solid #2a2a2a`,
+          backdropFilter: "blur(10px)", padding: "0.9rem 1rem",
+          maxWidth: 380, width: "calc(100vw - 2rem)",
+          fontFamily: C.mono, fontSize: "0.6rem",
+        }}>
+          <div style={{ color: "#a882c4", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
+            Spannungsfeld-Analyse
+          </div>
+
+          {!analyseNodes[0] && (
+            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
+              Ersten Knoten anklicken …
+            </div>
+          )}
+          {analyseNodes[0] && !analyseNodes[1] && (
+            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
+              <span style={{ color: "#c4a8e0" }}>{NODE_MAP.get(analyseNodes[0])?.label.replace("\n", " ")}</span>
+              {" "}→ Zweiten Knoten anklicken …
+            </div>
+          )}
+
+          {analyseNodes[1] && (() => {
+            const labelA = NODE_MAP.get(analyseNodes[0]!)?.label.replace("\n", " ") ?? "";
+            const labelB = NODE_MAP.get(analyseNodes[1])?.label.replace("\n", " ") ?? "";
+            return (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+                <div style={{ fontFamily: C.mono, fontSize: "0.58rem", color: "#7a5a98", letterSpacing: "0.08em" }}>
+                  {labelA} <span style={{ color: C.muted }}>⚡</span> {labelB}
+                </div>
+
+                {analyseLoading && (
+                  <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
+                    Analyse läuft …
+                  </div>
+                )}
+
+                {analyseError && (
+                  <div style={{ fontFamily: C.mono, fontSize: "0.62rem", color: "#c48282" }}>
+                    {analyseError}
+                  </div>
+                )}
+
+                {analyseResult && (
+                  <div style={{ maxHeight: 280, overflowY: "auto" }}>
+                    {analyseResult.split(/\n\n+/).map((para, i) => (
+                      <p key={i} style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.8rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.7rem" }}>
+                        {para.trim()}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
+                <button
+                  onClick={() => { analyseNodesRef.current = [null, null]; setAnalyseNodes([null, null]); setAnalyseResult(null); setAnalyseError(null); }}
                   style={{ alignSelf: "flex-start", fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.2rem 0.5rem", cursor: "pointer" }}
                 >
                   Zurücksetzen
