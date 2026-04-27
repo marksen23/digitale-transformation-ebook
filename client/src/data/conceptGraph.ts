@@ -28,6 +28,24 @@ export interface ConceptEdge {
   weight?: "primary" | "secondary"; // primary = thicker/brighter
 }
 
+export interface UserEdge {
+  source: string;
+  target: string;
+  note?: string;
+  createdAt: number;
+}
+
+const USER_EDGES_KEY = "begriffsnetz-user-edges";
+
+export function loadUserEdges(): UserEdge[] {
+  try { return JSON.parse(localStorage.getItem(USER_EDGES_KEY) ?? "[]"); }
+  catch { return []; }
+}
+
+export function saveUserEdges(edges: UserEdge[]): void {
+  localStorage.setItem(USER_EDGES_KEY, JSON.stringify(edges));
+}
+
 // ─── Canvas: 920 × 560 ────────────────────────────────────────────────────────
 export const CANVAS_W = 920;
 export const CANVAS_H = 560;

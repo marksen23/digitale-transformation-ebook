@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory } from "@/data/conceptGraph";
+import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -58,7 +58,7 @@ function computeClusterLayout(): Map<string, {x: number, y: number}> {
     if (!byCategory.has(node.category)) byCategory.set(node.category, []);
     byCategory.get(node.category)!.push(node.id);
   }
-  const cats = [...byCategory.keys()];
+  const cats = Array.from(byCategory.keys());
   cats.forEach((cat, i) => {
     const ids = byCategory.get(cat)!;
     const angle = (2 * Math.PI * i) / cats.length - Math.PI / 2;
@@ -89,7 +89,7 @@ function computeBaumLayout(): Map<string, {x: number, y: number}> {
     visited.add(id);
     if (!levels[level]) levels[level] = [];
     levels[level].push(id);
-    for (const n of (ADJACENCY.get(id) ?? [])) {
+    for (const n of Array.from(ADJACENCY.get(id) ?? new Set<string>())) {
       if (!visited.has(n)) queue.push({ id: n, level: level + 1 });
     }
   }
@@ -160,6 +160,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [viewPositions, setViewPositions] = useState<Map<string, {x: number, y: number}>>(new Map());
   const viewModeRef = useRef<"netz" | "cluster" | "baum" | "matrix">("netz");
   const transitionRef = useRef<number | null>(null);
+
+  // Connect mode — user-drawn edges persisted in localStorage
+  const [connectMode, setConnectMode] = useState(false);
+  const [connectSource, setConnectSource] = useState<string | null>(null);
+  const [userEdges, setUserEdges] = useState<UserEdge[]>(() => loadUserEdges());
+  const [showUserEdges, setShowUserEdges] = useState(true);
+  const [notePopup, setNotePopup] = useState<{ sourceId: string; targetId: string } | null>(null);
+  const [noteInput, setNoteInput] = useState("");
+  const connectModeRef = useRef(false);
+  const connectSourceRef = useRef<string | null>(null);
+  const userEdgesRef = useRef<UserEdge[]>([]);
+  userEdgesRef.current = userEdges; // always in sync with latest state
 
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
@@ -308,10 +320,35 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // ── Node click handler ─────────────────────────────────────────────────────
   const handleNodeClick = useCallback((e: React.MouseEvent, id: string) => {
     e.stopPropagation();
-    if (hasDraggedRef.current) return; // war ein Drag, kein Klick
+    if (hasDraggedRef.current) return;
+
+    if (connectModeRef.current) {
+      if (!connectSourceRef.current) {
+        connectSourceRef.current = id;
+        setConnectSource(id);
+      } else if (connectSourceRef.current === id) {
+        connectSourceRef.current = null;
+        setConnectSource(null);
+      } else {
+        const src = connectSourceRef.current;
+        const tgt = id;
+        const existsBook = ADJACENCY.get(src)?.has(tgt) || ADJACENCY.get(tgt)?.has(src);
+        const existsUser = userEdgesRef.current.some(
+          e => (e.source === src && e.target === tgt) || (e.source === tgt && e.target === src)
+        );
+        if (!existsBook && !existsUser && userEdgesRef.current.length < 30) {
+          setNotePopup({ sourceId: src, targetId: tgt });
+          setNoteInput("");
+        }
+        connectSourceRef.current = null;
+        setConnectSource(null);
+      }
+      return;
+    }
+
     setSelectedId(prev => prev === id ? null : id);
     setSearchQuery("");
-    setLegendOpen(false); // sidebar übernimmt die Legende beim Auswählen
+    setLegendOpen(false);
   }, []);
 
   // ── Mobile sheet drag — global move/end listeners ─────────────────────────
@@ -503,6 +540,32 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
           <div style={{ flex: 1 }} />
 
+          {/* Connect mode button — nur im Netz-Modus */}
+          {viewMode === "netz" && (
+            <button
+              onClick={() => {
+                const next = !connectMode;
+                connectModeRef.current = next;
+                setConnectMode(next);
+                if (!next) { connectSourceRef.current = null; setConnectSource(null); }
+              }}
+              title={connectMode ? "Verbinden-Modus beenden" : "Eigene Verbindung hinzufügen (max. 30)"}
+              style={{
+                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: connectMode ? C.accent : C.muted,
+                background: connectMode ? "rgba(196,168,130,0.08)" : "none",
+                border: `1px solid ${connectMode ? C.accentDim : C.border}`,
+                padding: "0.3rem 0.55rem", cursor: "pointer",
+                transition: "all 0.15s", flexShrink: 0,
+              }}
+              onMouseEnter={e => { if (!connectMode) { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; } }}
+              onMouseLeave={e => { if (!connectMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+            >
+              {connectMode ? "✕ Verbinden" : "+ Verbinden"}
+            </button>
+          )}
+
           {/* Legend toggle — only shown when no node is selected (sidebar carries the legend then) */}
           {!selectedId && (
             <button
@@ -598,7 +661,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           onTouchMove={onTouchMove}
           onTouchEnd={onTouchEnd}
           onClick={() => {
-            if (hasDraggedRef.current) return; // drag end — kein Reset
+            if (hasDraggedRef.current) return;
+            if (connectModeRef.current) {
+              connectSourceRef.current = null;
+              setConnectSource(null);
+              return;
+            }
             setSelectedId(null); setSearchQuery(""); setLegendOpen(false);
           }}
           preserveAspectRatio="xMidYMid meet"
@@ -732,6 +800,49 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               );
             })}
 
+            {/* ── User Edges — gestrichelte amber Linien über den Buch-Kanten ── */}
+            {showUserEdges && userEdges.map((edge, i) => {
+              const srcPos = getPos(edge.source);
+              const tgtPos = getPos(edge.target);
+              const mx = (srcPos.x + tgtPos.x) / 2;
+              const my = (srcPos.y + tgtPos.y) / 2;
+              const dx = tgtPos.x - srcPos.x;
+              const dy = tgtPos.y - srcPos.y;
+              const len = Math.hypot(dx, dy) || 1;
+              const curve = Math.min(len * 0.18, 35);
+              const cpx = mx + (-dy / len) * curve;
+              const cpy = my + (dx / len) * curve;
+              const focusSrc = edge.source === focusId || edge.source === connectSource;
+              const focusTgt = edge.target === focusId || edge.target === connectSource;
+              const isFocused = focusSrc || focusTgt;
+              return (
+                <g key={`user-edge-${i}`} style={{ pointerEvents: "none" }}>
+                  <path
+                    d={`M ${srcPos.x} ${srcPos.y} Q ${cpx} ${cpy} ${tgtPos.x} ${tgtPos.y}`}
+                    fill="none"
+                    stroke={C.accent}
+                    strokeWidth={isFocused ? 1.8 : 1.3}
+                    strokeDasharray="4 5"
+                    opacity={isFocused ? 0.85 : 0.55}
+                    strokeLinecap="round"
+                  />
+                  {edge.note && (
+                    <text
+                      x={cpx} y={cpy - 4}
+                      textAnchor="middle"
+                      fontSize="7"
+                      fontFamily={C.serif}
+                      fontStyle="italic"
+                      fill={C.accent}
+                      opacity={0.55}
+                    >
+                      {edge.note.length > 22 ? edge.note.slice(0, 22) + "…" : edge.note}
+                    </text>
+                  )}
+                </g>
+              );
+            })}
+
             {/* ── Nodes (concept layer — skip leitmotiv & prinzip, rendered separately) ── */}
             {NODES.map(node => {
               if (node.category === "leitmotiv") return null; // rendered in leitmotiv pass below
@@ -801,6 +912,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     }
                   }}
                 >
+                  {/* Connect-source indicator — amber pulsing ring */}
+                  {connectSource === node.id && (
+                    <circle
+                      cx={x} cy={y} r={node.r + 11}
+                      fill="none"
+                      stroke={C.accent}
+                      strokeWidth={1.5}
+                      strokeDasharray="5 4"
+                      opacity={0.8}
+                    />
+                  )}
+
                   {/* Glow ring for focus/connected */}
                   {(isFocus || isConnected) && (
                     <circle
@@ -1194,6 +1317,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
               onReset={() => setHiddenPrinzipien(new Set())}
             />
+            <UserEdgesLegendSection
+              userEdges={userEdges}
+              showUserEdges={showUserEdges}
+              onToggleShow={() => setShowUserEdges(v => !v)}
+              onDelete={i => { const next = userEdges.filter((_, j) => j !== i); setUserEdges(next); saveUserEdges(next); }}
+              onClear={() => { setUserEdges([]); saveUserEdges([]); }}
+            />
           </div>
         )}
 
@@ -1481,6 +1611,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
               onReset={() => setHiddenPrinzipien(new Set())}
             />
+            <UserEdgesLegendSection
+              userEdges={userEdges}
+              showUserEdges={showUserEdges}
+              onToggleShow={() => setShowUserEdges(v => !v)}
+              onDelete={i => { const next = userEdges.filter((_, j) => j !== i); setUserEdges(next); saveUserEdges(next); }}
+              onClear={() => { setUserEdges([]); saveUserEdges([]); }}
+            />
 
             {/* Close detail */}
             <div style={{ marginTop: "1.8rem" }}>
@@ -1664,6 +1801,69 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         </div>
       )}
 
+
+      {/* ── Notiz-Popup für neue Verbindung ── */}
+      {notePopup && (
+        <div
+          style={{
+            position: "fixed", inset: 0, zIndex: 500,
+            background: "rgba(8,8,8,0.75)", backdropFilter: "blur(6px)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "1.5rem",
+          }}
+          onClick={() => setNotePopup(null)}
+        >
+          <div
+            style={{ background: C.deep, border: `1px solid ${C.accentDim}`, padding: "1.5rem", maxWidth: 360, width: "100%" }}
+            onClick={e => e.stopPropagation()}
+          >
+            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", marginBottom: "0.8rem" }}>
+              Verbindung hinzufügen
+            </div>
+            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "1rem", color: C.textBright, marginBottom: "1rem", lineHeight: 1.4 }}>
+              {NODE_MAP.get(notePopup.sourceId)?.fullLabel}
+              <span style={{ color: C.accentDim, margin: "0 0.4rem" }}>↔</span>
+              {NODE_MAP.get(notePopup.targetId)?.fullLabel}
+            </div>
+            <textarea
+              autoFocus
+              value={noteInput}
+              onChange={e => setNoteInput(e.target.value)}
+              placeholder="Warum verbindest du diese Begriffe? (optional)"
+              rows={3}
+              style={{
+                width: "100%", background: C.surface, border: `1px solid ${C.border}`,
+                color: C.text, fontFamily: C.serif, fontStyle: "italic", fontSize: "0.88rem",
+                padding: "0.5rem 0.7rem", resize: "none", outline: "none",
+                boxSizing: "border-box", marginBottom: "1rem",
+              }}
+              onFocus={e => (e.currentTarget.style.borderColor = C.accentDim)}
+              onBlur={e => (e.currentTarget.style.borderColor = C.border)}
+              onKeyDown={e => {
+                if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+                  const edge: UserEdge = { source: notePopup.sourceId, target: notePopup.targetId, note: noteInput.trim() || undefined, createdAt: Date.now() };
+                  const next = [...userEdges, edge]; setUserEdges(next); saveUserEdges(next); setNotePopup(null);
+                }
+                if (e.key === "Escape") setNotePopup(null);
+              }}
+            />
+            <div style={{ display: "flex", gap: "0.5rem", justifyContent: "flex-end" }}>
+              <button onClick={() => setNotePopup(null)} style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.4rem 0.8rem", cursor: "pointer" }}>
+                Abbrechen
+              </button>
+              <button
+                onClick={() => {
+                  const edge: UserEdge = { source: notePopup.sourceId, target: notePopup.targetId, note: noteInput.trim() || undefined, createdAt: Date.now() };
+                  const next = [...userEdges, edge]; setUserEdges(next); saveUserEdges(next); setNotePopup(null);
+                }}
+                style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.accent, background: "rgba(196,168,130,0.08)", border: `1px solid ${C.accentDim}`, padding: "0.4rem 0.8rem", cursor: "pointer" }}
+              >
+                Verbinden
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         /* Nav: two-row layout — row 1: title/controls, row 2: search */
@@ -1972,6 +2172,63 @@ function PrinzipLegendSection({
         >
           Alle einblenden
         </button>
+      )}
+    </>
+  );
+}
+
+function UserEdgesLegendSection({
+  userEdges,
+  showUserEdges,
+  onToggleShow,
+  onDelete,
+  onClear,
+}: {
+  userEdges: UserEdge[];
+  showUserEdges: boolean;
+  onToggleShow: () => void;
+  onDelete: (index: number) => void;
+  onClear: () => void;
+}) {
+  const CA = "#c4a882", CA_DIM = "#7a6a52", CM = "#444", CB = "#2a2a2a", CTD = "#888";
+  const MONO = "'Courier Prime','Courier New',monospace";
+  const SERIF = "'EB Garamond', Georgia, serif";
+  return (
+    <>
+      <div style={{ fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.15em", color: CM, textTransform: "uppercase", borderTop: `1px solid ${CB}`, paddingTop: "0.7rem", marginTop: "0.9rem", marginBottom: "0.6rem" }}>
+        Meine Verbindungen {userEdges.length > 0 && `(${userEdges.length})`}
+      </div>
+      <button
+        onClick={onToggleShow}
+        style={{ display: "flex", alignItems: "center", gap: "0.5rem", width: "100%", background: "none", border: "none", cursor: "pointer", padding: "0.28rem 0" }}
+      >
+        <span style={{ width: 22, height: 4, borderRadius: 2, background: showUserEdges ? CA : "transparent", border: `1.5px dashed ${showUserEdges ? CA : CM}`, flexShrink: 0, opacity: showUserEdges ? 1 : 0.45, transition: "all 0.2s" }} />
+        <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: showUserEdges ? "#c8c2b4" : CM, flex: 1, textAlign: "left" }}>
+          Eigene Verbindungen
+        </span>
+        {!showUserEdges && <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: CM, border: `1px solid ${CB}`, padding: "0.04rem 0.28rem", borderRadius: 2 }}>aus</span>}
+      </button>
+      {userEdges.length === 0 ? (
+        <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.76rem", color: CM, marginTop: "0.5rem", paddingLeft: "0.2rem" }}>
+          Noch keine eigenen Verbindungen
+        </div>
+      ) : (
+        <div style={{ marginTop: "0.4rem" }}>
+          {userEdges.map((edge, i) => (
+            <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: "0.3rem", marginBottom: "0.3rem" }}>
+              <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.74rem", color: CTD, flex: 1, lineHeight: 1.4 }}>
+                {NODE_MAP.get(edge.source)?.label.replace("\n", " ")}
+                <span style={{ color: CA_DIM, margin: "0 0.3rem" }}>↔</span>
+                {NODE_MAP.get(edge.target)?.label.replace("\n", " ")}
+                {edge.note && <span style={{ display: "block", fontSize: "0.68rem", color: CM, marginTop: "0.1rem" }}>„{edge.note.length > 40 ? edge.note.slice(0, 40) + "…" : edge.note}"</span>}
+              </span>
+              <button onClick={() => onDelete(i)} title="Löschen" style={{ fontFamily: MONO, fontSize: "0.7rem", color: CM, background: "none", border: "none", cursor: "pointer", padding: "0.1rem 0.2rem", flexShrink: 0 }}>×</button>
+            </div>
+          ))}
+          <button onClick={onClear} style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: CA, background: "none", border: `1px solid ${CA_DIM}`, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+            Alle löschen
+          </button>
+        </div>
       )}
     </>
   );
