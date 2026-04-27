@@ -260,6 +260,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Lesepfad — session-only visit trail (no localStorage)
   const [visitedNodes, setVisitedNodes] = useState<string[]>([]);
 
+  // Graph-Chat
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatHistory, setChatHistory] = useState<Array<{ role: "user" | "model"; text: string }>>([]);
+  const [chatInput, setChatInput] = useState("");
+  const [chatLoading, setChatLoading] = useState(false);
+  const chatEndRef = useRef<HTMLDivElement>(null);
+
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
 
@@ -434,6 +441,33 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     const ownEdges = userEdges.filter(e => e.source === id || e.target === id).length;
     return { degree, crossCat, ownEdges };
   }, [selectedNode, userEdges]);
+
+  // ── Graph-Chat send ────────────────────────────────────────────────────────
+  const sendChat = useCallback(async (msg: string) => {
+    const text = msg.trim();
+    if (!text || chatLoading) return;
+    const userMsg = { role: "user" as const, text };
+    const nextHistory = [...chatHistory, userMsg];
+    setChatHistory(nextHistory);
+    setChatInput("");
+    setChatLoading(true);
+    setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
+    try {
+      const r = await fetch("/api/graph-chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message: text, history: chatHistory }),
+      });
+      const data = await r.json();
+      const reply = data.reply ?? data.error ?? "Keine Antwort.";
+      setChatHistory(h => [...h, { role: "model", text: reply }]);
+    } catch {
+      setChatHistory(h => [...h, { role: "model", text: "Verbindungsfehler — bitte erneut versuchen." }]);
+    } finally {
+      setChatLoading(false);
+      setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 80);
+    }
+  }, [chatHistory, chatLoading]);
 
   // ── Node click handler ─────────────────────────────────────────────────────
   const handleNodeClick = useCallback((e: React.MouseEvent, id: string) => {
@@ -826,6 +860,27 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onMouseLeave={e => { if (!analyseMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
               {analyseMode ? "✕ Analyse" : "⚡ Analyse"}
+            </button>
+          )}
+
+          {/* Graph-Chat button */}
+          {viewMode !== "matrix" && (
+            <button
+              onClick={() => setChatOpen(o => !o)}
+              title={chatOpen ? "Dialog schließen" : "Freier Dialog über das Begriffsnetz (KI)"}
+              style={{
+                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: chatOpen ? "#7ab898" : C.muted,
+                background: chatOpen ? "rgba(122,184,152,0.08)" : "none",
+                border: `1px solid ${chatOpen ? "#4a9870" : C.border}`,
+                padding: "0.3rem 0.55rem", cursor: "pointer",
+                transition: "all 0.15s", flexShrink: 0,
+              }}
+              onMouseEnter={e => { if (!chatOpen) { e.currentTarget.style.color = "#7ab898"; e.currentTarget.style.borderColor = "#4a9870"; } }}
+              onMouseLeave={e => { if (!chatOpen) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+            >
+              {chatOpen ? "✕ Dialog" : "◎ Dialog"}
             </button>
           )}
 
@@ -2390,7 +2445,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           background: "rgba(15,15,15,0.97)", border: `1px solid #2a2a2a`,
           backdropFilter: "blur(10px)", padding: "0.9rem 1rem",
           maxWidth: 380, width: "calc(100vw - 2rem)",
-          maxHeight: "calc(100% - 2rem)", overflowY: "auto",
+          maxHeight: "calc(100vh - 6rem)", overflowY: "auto",
           fontFamily: C.mono, fontSize: "0.6rem",
         }}>
           <div style={{ color: "#5aacb8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
@@ -2449,6 +2504,108 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </div>
             );
           })()}
+        </div>
+      )}
+
+      {/* ── Graph-Chat Panel ── */}
+      {chatOpen && (
+        <div style={{
+          position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
+          background: "rgba(15,15,15,0.97)", border: `1px solid #2a2a2a`,
+          backdropFilter: "blur(10px)",
+          width: "min(400px, calc(100vw - 2rem))",
+          maxHeight: "calc(100% - 5rem)",
+          display: "flex", flexDirection: "column",
+          fontFamily: C.mono,
+        }}>
+          {/* Header */}
+          <div style={{ padding: "0.65rem 0.9rem 0.5rem", borderBottom: `1px solid ${C.border}`, flexShrink: 0 }}>
+            <div style={{ fontSize: "0.5rem", letterSpacing: "0.18em", color: "#7ab898", textTransform: "uppercase" }}>
+              ◎ Dialog — Begriffsnetz
+            </div>
+          </div>
+
+          {/* Message list */}
+          <div style={{ flex: 1, overflowY: "auto", padding: "0.7rem 0.9rem", display: "flex", flexDirection: "column", gap: "0.75rem" }}>
+            {chatHistory.length === 0 && (
+              <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.textDim, lineHeight: 1.6 }}>
+                Stelle eine Frage zum Begriffsnetz — zu einzelnen Konzepten, Verbindungen, Spannungsfeldern oder dem Werk als Ganzem.
+              </div>
+            )}
+            {chatHistory.map((msg, i) => (
+              <div key={i} style={{
+                alignSelf: msg.role === "user" ? "flex-end" : "flex-start",
+                maxWidth: "88%",
+              }}>
+                {msg.role === "user" ? (
+                  <div style={{ fontFamily: C.mono, fontSize: "0.62rem", color: C.accent, background: "rgba(196,168,130,0.07)", border: `1px solid rgba(196,168,130,0.15)`, padding: "0.45rem 0.7rem", lineHeight: 1.55 }}>
+                    {msg.text}
+                  </div>
+                ) : (
+                  <div>
+                    {msg.text.split(/\n\n+/).map((para, pi) => (
+                      <p key={pi} style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.55rem" }}>
+                        {para.trim()}
+                      </p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            {chatLoading && (
+              <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.textDim }}>
+                …
+              </div>
+            )}
+            <div ref={chatEndRef} />
+          </div>
+
+          {/* Input */}
+          <div style={{ borderTop: `1px solid ${C.border}`, padding: "0.55rem 0.7rem", flexShrink: 0, display: "flex", gap: "0.5rem", alignItems: "flex-end" }}>
+            <textarea
+              value={chatInput}
+              onChange={e => setChatInput(e.target.value)}
+              onKeyDown={e => {
+                if (e.key === "Enter" && !e.shiftKey) {
+                  e.preventDefault();
+                  sendChat(chatInput);
+                }
+              }}
+              placeholder="Frage eingeben … (Enter zum Senden)"
+              rows={2}
+              style={{
+                flex: 1, background: "none", border: `1px solid ${C.border}`,
+                color: C.text, fontFamily: C.mono, fontSize: "0.62rem",
+                padding: "0.4rem 0.5rem", resize: "none", lineHeight: 1.5,
+                outline: "none",
+              }}
+            />
+            <button
+              onClick={() => sendChat(chatInput)}
+              disabled={chatLoading || !chatInput.trim()}
+              style={{
+                background: "none", border: `1px solid ${chatInput.trim() && !chatLoading ? "#4a9870" : C.border}`,
+                color: chatInput.trim() && !chatLoading ? "#7ab898" : C.muted,
+                fontFamily: C.mono, fontSize: "0.6rem", padding: "0.4rem 0.65rem",
+                cursor: chatInput.trim() && !chatLoading ? "pointer" : "default",
+                transition: "all 0.15s", flexShrink: 0, alignSelf: "flex-end",
+              }}
+            >
+              ▶
+            </button>
+          </div>
+
+          {/* Reset */}
+          {chatHistory.length > 0 && (
+            <div style={{ borderTop: `1px solid ${C.border}`, padding: "0.3rem 0.9rem", flexShrink: 0 }}>
+              <button
+                onClick={() => setChatHistory([])}
+                style={{ background: "none", border: "none", fontFamily: C.mono, fontSize: "0.48rem", color: C.muted, letterSpacing: "0.1em", textTransform: "uppercase", cursor: "pointer", padding: 0 }}
+              >
+                Gespräch zurücksetzen
+              </button>
+            </div>
+          )}
         </div>
       )}
 
