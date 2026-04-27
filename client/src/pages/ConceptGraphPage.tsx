@@ -560,27 +560,28 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               if (node.category === "leitmotiv") return null; // rendered in leitmotiv pass below
               if (node.category === "prinzip")   return null; // rendered in prinzip pass below
               const state = nodeState(node.id);
-              if (state === "hidden") return null;
+              const isGhost = state === "hidden"; // deactivated via legend — render as ghost, not null
               const catColor = CAT_COLOR[node.category];
               const isFocus = state === "focus";
               const isConnected = state === "connected";
               const isDim = state === "dim";
 
               const fillOpacity =
+                isGhost     ? 0.04 :
                 isFocus     ? 1 :
                 isConnected ? 0.85 :
                 isDim       ? 0.4 :
                 0.7;
 
               const fill = isFocus ? catColor : C.surface;
-              const strokeColor = isFocus ? catColor : isConnected ? catColor : isDim ? C.border : catColor;
-              const strokeOpacity = isFocus ? 1 : isConnected ? 0.7 : isDim ? 0.3 : 0.5;
+              const strokeColor = isGhost ? C.border : isFocus ? catColor : isConnected ? catColor : isDim ? C.border : catColor;
+              const strokeOpacity = isGhost ? 0.10 : isFocus ? 1 : isConnected ? 0.7 : isDim ? 0.3 : 0.5;
               const strokeWidth = isFocus ? 2.5 : isConnected ? 1.8 : 1.2;
 
-              const labelColor = isFocus
+              const labelColor = isGhost ? C.muted : isFocus
                 ? C.void
                 : isConnected ? C.textBright : isDim ? C.textDim : C.text;
-              const labelOpacity = isDim ? 0.4 : 1;
+              const labelOpacity = isGhost ? 0.07 : isDim ? 0.4 : 1;
 
               // Split label on \n
               const lines = node.label.split("\n");
@@ -589,8 +590,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               return (
                 <g
                   key={node.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={e => handleNodeClick(e, node.id)}
+                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined }}
+                  onClick={isGhost ? undefined : e => handleNodeClick(e, node.id)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   onMouseDown={(e) => {
@@ -690,22 +691,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 a double-ring with a cap-label — archetypal, luminous, distinct. */}
             {NODES.filter(n => n.category === "leitmotiv").map(node => {
               const state    = nodeState(node.id);
-              if (state === "hidden") return null;
+              const isGhost  = state === "hidden";
               const isFocus  = state === "focus";
               const isDim    = state === "dim";
               const isConn   = state === "connected";
 
-              const ringOpacity  = isDim ? 0.25 : isFocus ? 1 : isConn ? 0.85 : 0.65;
-              const fillOpacity  = isFocus ? 0.22 : isDim ? 0.04 : 0.10;
-              const labelOpacity = isDim ? 0.3  : 1;
+              const ringOpacity  = isGhost ? 0.07 : isDim ? 0.25 : isFocus ? 1 : isConn ? 0.85 : 0.65;
+              const fillOpacity  = isGhost ? 0.03 : isFocus ? 0.22 : isDim ? 0.04 : 0.10;
+              const labelOpacity = isGhost ? 0.05 : isDim ? 0.3  : 1;
               const outerR       = node.r + (isFocus ? 8 : 4);
               const {x, y} = getPos(node.id);
 
               return (
                 <g
                   key={node.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={e => handleNodeClick(e, node.id)}
+                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined }}
+                  onClick={isGhost ? undefined : e => handleNodeClick(e, node.id)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   onMouseDown={(e) => {
@@ -808,7 +809,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             {PRINZIP_PAIRS.map(([a, b], i) => {
               const sA = nodeState(a);
               const sB = nodeState(b);
-              if (sA === "hidden" || sB === "hidden") return null;
+              const bothGhost = sA === "hidden" && sB === "hidden";
               const pA = getPos(a);
               const pB = getPos(b);
               return (
@@ -818,7 +819,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   stroke={PR_COLOR}
                   strokeWidth={0.7}
                   strokeDasharray="2 6"
-                  opacity={0.35}
+                  opacity={bothGhost ? 0.04 : 0.35}
                   style={{ pointerEvents: "none" }}
                 />
               );
@@ -828,22 +829,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 Small circles with dashed outer ring in cool blue-silver.
                 Distinct from concept nodes and leitmotive by styling. */}
             {NODES.filter(n => n.category === "prinzip").map(node => {
-              const state = nodeState(node.id);
-              if (state === "hidden") return null;
+              const state   = nodeState(node.id);
+              const isGhost = state === "hidden";
               const isFocus = state === "focus";
               const isConn  = state === "connected";
               const isDim   = state === "dim";
               const {x, y}  = getPos(node.id);
-              const ringOpacity = isDim ? 0.25 : isFocus ? 1 : isConn ? 0.8 : 0.55;
-              const fillOpacity = isFocus ? 0.35 : isDim ? 0.05 : 0.12;
-              const labelOpacity = isDim ? 0.35 : 1;
+              const ringOpacity = isGhost ? 0.07 : isDim ? 0.25 : isFocus ? 1 : isConn ? 0.8 : 0.55;
+              const fillOpacity = isGhost ? 0.03 : isFocus ? 0.35 : isDim ? 0.05 : 0.12;
+              const labelOpacity = isGhost ? 0.05 : isDim ? 0.35 : 1;
               const lines = node.label.split("\n");
 
               return (
                 <g
                   key={node.id}
-                  style={{ cursor: "pointer" }}
-                  onClick={e => handleNodeClick(e, node.id)}
+                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined }}
+                  onClick={isGhost ? undefined : e => handleNodeClick(e, node.id)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   onMouseDown={(e) => {
@@ -961,20 +962,26 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     display: "flex", alignItems: "center", gap: "0.55rem",
                     width: "100%", background: "none", border: "none",
                     cursor: "pointer", padding: "0.3rem 0",
-                    opacity: hidden ? 0.25 : 1,
-                    filter: hidden ? "grayscale(1)" : "none",
-                    transition: "opacity 0.15s, filter 0.15s",
+                    transition: "opacity 0.15s",
                   }}
                 >
+                  {/* Dot: filled = aktiv, leer = deaktiviert (Ghost-Modus) */}
                   <span style={{
                     width: 10, height: 10, borderRadius: "50%",
                     background: hidden ? "transparent" : color,
-                    border: `1.5px solid ${hidden ? "#3a3a3a" : color}`,
-                    flexShrink: 0, transition: "background 0.15s, border-color 0.15s",
+                    border: `1.5px solid ${hidden ? C.muted : color}`,
+                    flexShrink: 0, transition: "all 0.2s",
+                    opacity: hidden ? 0.45 : 1,
                   }} />
-                  <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? "#3a3a3a" : C.text }}>
+                  <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? C.muted : C.text, flex: 1, textAlign: "left", transition: "color 0.2s" }}>
                     {categoryLabel(cat)}
                   </span>
+                  {/* "aus"-Badge: zeigt explizit an, dass diese Ebene deaktiviert ist */}
+                  {hidden && (
+                    <span style={{ fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted, border: `1px solid ${C.border}`, padding: "0.05rem 0.3rem", borderRadius: 2 }}>
+                      aus
+                    </span>
+                  )}
                 </button>
               );
             })}
@@ -1138,30 +1145,32 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     display: "flex", alignItems: "center", gap: "0.5rem",
                     width: "100%", background: "none", border: "none",
                     cursor: "pointer", padding: "0.28rem 0",
-                    opacity: hidden ? 0.22 : 1,
-                    filter: hidden ? "grayscale(1)" : "none",
-                    transition: "opacity 0.15s, filter 0.15s",
+                    transition: "opacity 0.15s",
                   }}
                 >
                   <span style={{
                     width: 9, height: 9, borderRadius: "50%",
                     background: hidden ? "transparent" : color,
-                    border: `1.5px solid ${hidden ? "#3a3a3a" : color}`,
+                    border: `1.5px solid ${hidden ? C.muted : color}`,
                     flexShrink: 0,
                     boxShadow: isActive && !hidden ? `0 0 7px ${color}66` : "none",
+                    opacity: hidden ? 0.45 : 1,
                     transition: "all 0.2s",
                   }} />
                   <span style={{
                     fontFamily: C.serif, fontStyle: "italic",
                     fontSize: "0.82rem",
-                    color: hidden ? "#3a3a3a" : isActive ? C.textBright : C.textDim,
+                    color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
                     flex: 1, textAlign: "left",
                     transition: "color 0.2s",
                   }}>
                     {categoryLabel(cat)}
                   </span>
-                  {/* Active indicator — small dot in category color */}
-                  {isActive && !hidden && (
+                  {hidden ? (
+                    <span style={{ fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.08em", color: C.muted, border: `1px solid ${C.border}`, padding: "0.04rem 0.28rem", borderRadius: 2 }}>
+                      aus
+                    </span>
+                  ) : isActive && (
                     <span style={{
                       width: 3, height: 3, borderRadius: "50%",
                       background: color, flexShrink: 0,
@@ -1286,23 +1295,28 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       display: "flex", alignItems: "center", gap: "0.38rem",
                       background: "none", border: "none", cursor: "pointer",
                       padding: "0.18rem 0",
-                      opacity: hidden ? 0.22 : 1,
-                      filter: hidden ? "grayscale(1)" : "none",
-                      transition: "opacity 0.15s, filter 0.15s",
+                      transition: "opacity 0.15s",
                     }}
                   >
                     <span style={{
                       width: 7, height: 7, borderRadius: "50%",
                       background: hidden ? "transparent" : color,
-                      border: `1.5px solid ${hidden ? "#3a3a3a" : color}`, flexShrink: 0,
+                      border: `1.5px solid ${hidden ? C.muted : color}`, flexShrink: 0,
+                      opacity: hidden ? 0.45 : 1,
                       boxShadow: isActive && !hidden ? `0 0 5px ${color}55` : "none",
                     }} />
                     <span style={{
                       fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem",
-                      color: hidden ? "#3a3a3a" : isActive ? C.textBright : C.textDim,
+                      color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
+                      transition: "color 0.2s",
                     }}>
                       {categoryLabel(cat)}
                     </span>
+                    {hidden && (
+                      <span style={{ fontFamily: C.mono, fontSize: "0.46rem", color: C.muted, border: `1px solid ${C.border}`, padding: "0.03rem 0.22rem", borderRadius: 2 }}>
+                        aus
+                      </span>
+                    )}
                   </button>
                 );
               })}
@@ -1437,18 +1451,18 @@ function LeitmotivLegendSection({
                 background: "none", border: "none",
                 cursor: "pointer",
                 padding: compact ? "0.18rem 0" : "0.28rem 0",
-                opacity: hidden ? 0.22 : 1,
-                filter: hidden ? "grayscale(1)" : "none",
-                transition: "opacity 0.15s, filter 0.15s",
+                transition: "opacity 0.15s",
               }}
             >
+              {/* Quadratischer Dot (unterscheidet sich von runden Kategorie-Dots) */}
               <span style={{
                 width: compact ? 7 : 9,
                 height: compact ? 7 : 9,
-                borderRadius: "1px",           /* square dot — distinguishes from round category dots */
+                borderRadius: "1px",
                 background: hidden ? "transparent" : LM_COLOR_LOCAL,
-                border: `1.5px solid ${hidden ? "#3a3a3a" : LM_GLOW_LOCAL}`,
+                border: `1.5px solid ${hidden ? "#555" : LM_GLOW_LOCAL}`,
                 flexShrink: 0,
+                opacity: hidden ? 0.45 : 1,
                 boxShadow: isActive && !hidden ? `0 0 6px ${LM_COLOR_LOCAL}88` : "none",
                 transition: "all 0.2s",
               }} />
@@ -1456,7 +1470,7 @@ function LeitmotivLegendSection({
                 fontFamily: "'Courier Prime','Courier New',monospace",
                 fontSize: compact ? "0.72rem" : "0.78rem",
                 letterSpacing: "0.1em",
-                color: hidden ? "#3a3a3a" : isActive ? "#e8e2d4" : "#888",
+                color: hidden ? "#555" : isActive ? "#e8e2d4" : "#888",
                 flex: compact ? undefined : 1,
                 textAlign: "left",
                 transition: "color 0.2s",
@@ -1468,7 +1482,11 @@ function LeitmotivLegendSection({
                   </span>
                 )}
               </span>
-              {isActive && !hidden && !compact && (
+              {hidden ? (
+                <span style={{ fontFamily: "'Courier Prime','Courier New',monospace", fontSize: "0.48rem", letterSpacing: "0.08em", color: "#555", border: "1px solid #2a2a2a", padding: "0.04rem 0.26rem", borderRadius: 2 }}>
+                  aus
+                </span>
+              ) : isActive && !compact && (
                 <span style={{ width: 3, height: 3, borderRadius: "50%", background: LM_COLOR_LOCAL, flexShrink: 0 }} />
               )}
             </button>
@@ -1557,28 +1575,35 @@ function PrinzipLegendSection({
                   width: "100%", background: "none", border: "none",
                   cursor: "pointer",
                   padding: compact ? "0.12rem 0" : "0.2rem 0",
-                  opacity: allHidden ? 0.22 : 1,
-                  filter: allHidden ? "grayscale(1)" : "none",
-                  transition: "opacity 0.15s, filter 0.15s",
+                  transition: "opacity 0.15s",
                 }}
               >
+                {/* Raute-Dot (Prinzip-Signatur) */}
                 <span style={{
                   width: compact ? 7 : 9,
                   height: compact ? 7 : 9,
                   background: allHidden ? "transparent" : PR,
-                  border: `1.5px solid ${allHidden ? "#3a3a3a" : PR_BRIGHT}`,
+                  border: `1.5px solid ${allHidden ? "#555" : PR_BRIGHT}`,
                   flexShrink: 0,
+                  opacity: allHidden ? 0.45 : 1,
                   transform: "rotate(45deg)",
+                  transition: "all 0.2s",
                 }} />
                 <span style={{
                   fontFamily: "'Courier Prime','Courier New',monospace",
                   fontSize: compact ? "0.7rem" : "0.76rem",
                   letterSpacing: "0.08em",
-                  color: allHidden ? "#3a3a3a" : "#c8c2b4",
-                  textAlign: "left",
+                  color: allHidden ? "#555" : "#c8c2b4",
+                  textAlign: "left", flex: 1,
+                  transition: "color 0.2s",
                 }}>
                   {group.label}
                 </span>
+                {allHidden && (
+                  <span style={{ fontFamily: "'Courier Prime','Courier New',monospace", fontSize: "0.48rem", letterSpacing: "0.08em", color: "#555", border: "1px solid #2a2a2a", padding: "0.04rem 0.26rem", borderRadius: 2 }}>
+                    aus
+                  </span>
+                )}
               </button>
               {group.memberIds.length > 1 && (
                 <div style={{
@@ -1600,25 +1625,31 @@ function PrinzipLegendSection({
                           gap: "0.3rem",
                           background: "none", border: "none", cursor: "pointer",
                           padding: "0.08rem 0",
-                          opacity: hidden ? 0.22 : 1,
-                          filter: hidden ? "grayscale(1)" : "none",
-                          transition: "opacity 0.15s, filter 0.15s",
+                          transition: "opacity 0.15s",
                         }}
                       >
                         <span style={{
                           width: 5, height: 5, borderRadius: "50%",
                           background: hidden ? "transparent" : PR,
-                          border: `1px solid ${hidden ? "#3a3a3a" : PR}`,
+                          border: `1px solid ${hidden ? "#555" : PR}`,
                           flexShrink: 0,
+                          opacity: hidden ? 0.45 : 1,
+                          transition: "all 0.2s",
                         }} />
                         <span style={{
                           fontFamily: "'Courier Prime','Courier New',monospace",
                           fontSize: compact ? "0.64rem" : "0.68rem",
                           letterSpacing: "0.05em",
-                          color: hidden ? "#3a3a3a" : "#888",
+                          color: hidden ? "#555" : "#888",
+                          transition: "color 0.2s",
                         }}>
                           {node.fullLabel}
                         </span>
+                        {hidden && (
+                          <span style={{ fontFamily: "'Courier Prime','Courier New',monospace", fontSize: "0.44rem", color: "#555", border: "1px solid #2a2a2a", padding: "0.02rem 0.2rem", borderRadius: 2 }}>
+                            aus
+                          </span>
+                        )}
                       </button>
                     );
                   })}
