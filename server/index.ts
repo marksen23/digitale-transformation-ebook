@@ -5,6 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
 import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
+import { logResonanz, analyseAnchor } from "./lib/resonanzLog.js";
 
 // ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
 const CAT_DE: Record<string, string> = {
@@ -316,7 +317,16 @@ Enkidu schließt jedes Gespräch mit:
 
       const data = await response.json();
       const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      return res.json({ response: text });
+      res.json({ response: text });
+      void logResonanz({
+        endpoint: "enkidu",
+        anchor: "enkidu",
+        prompt: lastMessage.content,
+        response: text,
+        model: "gemini-2.5-flash",
+        contextMeta: { turnCount: cleanMessages.length },
+      });
+      return;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("Enkidu API error:", message);
@@ -331,7 +341,7 @@ Enkidu schließt jedes Gespräch mit:
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
-    const { question, chapterTitle, chapterContent, context } = req.body;
+    const { question, chapterId, chapterTitle, chapterContent, context } = req.body;
     if (!question || !chapterContent) {
       return res.status(400).json({ error: "Frage und Kapitelinhalt sind erforderlich." });
     }
@@ -385,6 +395,17 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
       const data = await response.json();
       const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
       res.json({ answer });
+      void logResonanz({
+        endpoint: "chapter",
+        anchor: chapterId ? `chapter:${chapterId}` : "chapter:unknown",
+        prompt: question,
+        response: answer,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          chapterId: chapterId ?? null,
+          chapterTitle: chapterTitle ?? null,
+        },
+      });
     } catch (err) {
       console.error("Gemini request failed:", err);
       res.status(502).json({ error: "Verbindung zur Gemini-API fehlgeschlagen." });
@@ -511,7 +532,21 @@ Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzähl
 
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      return res.json({ analysis });
+      res.json({ analysis });
+      const sortedIds = [nodeA.id, nodeB.id].sort();
+      void logResonanz({
+        endpoint: "analyse",
+        anchor: analyseAnchor(nodeA.id, nodeB.id),
+        nodeIds: sortedIds,
+        prompt: `Spannungsfeld: ${nodeA.fullLabel} ↔ ${nodeB.fullLabel}`,
+        response: analysis,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          nodeA_label: nodeA.fullLabel,
+          nodeB_label: nodeB.fullLabel,
+        },
+      });
+      return;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("Spannungsfeld API error:", message);
@@ -566,7 +601,18 @@ Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzähl
 
       const data = await response.json();
       const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      return res.json({ reply });
+      res.json({ reply });
+      void logResonanz({
+        endpoint: "graph-chat",
+        anchor: "graph",
+        prompt: message,
+        response: reply,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          historyLength: recentHistory.length,
+        },
+      });
+      return;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       return res.status(502).json({ error: `API-Fehler: ${message}` });

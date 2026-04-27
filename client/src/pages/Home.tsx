@@ -403,6 +403,7 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           question: q,
+          chapterId: currentChapter.id,
           chapterTitle: currentChapter.title,
           chapterContent: currentChapter.content,
         }),
