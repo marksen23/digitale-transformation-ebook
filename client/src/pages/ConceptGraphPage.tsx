@@ -48,6 +48,69 @@ for (const edge of LEITMOTIV_EDGES) {
 // Build node lookup
 const NODE_MAP = new Map<string, ConceptNode>(NODES.map(n => [n.id, n]));
 
+// ─── Layout algorithms for view modes ─────────────────────────────────────────
+const CANVAS_CX = 460, CANVAS_CY = 280;
+
+function computeClusterLayout(): Map<string, {x: number, y: number}> {
+  const result = new Map<string, {x: number, y: number}>();
+  const byCategory = new Map<NodeCategory, string[]>();
+  for (const node of NODES) {
+    if (!byCategory.has(node.category)) byCategory.set(node.category, []);
+    byCategory.get(node.category)!.push(node.id);
+  }
+  const cats = [...byCategory.keys()];
+  cats.forEach((cat, i) => {
+    const ids = byCategory.get(cat)!;
+    const angle = (2 * Math.PI * i) / cats.length - Math.PI / 2;
+    const cx = CANVAS_CX + 210 * Math.cos(angle);
+    const cy = CANVAS_CY + 210 * 0.76 * Math.sin(angle);
+    if (ids.length === 1) {
+      result.set(ids[0], { x: cx, y: cy });
+    } else {
+      ids.forEach((id, j) => {
+        const r = Math.min(16 * ids.length, 60);
+        const a = (2 * Math.PI * j) / ids.length;
+        result.set(id, { x: cx + r * Math.cos(a), y: cy + r * Math.sin(a) });
+      });
+    }
+  });
+  return result;
+}
+
+function computeBaumLayout(): Map<string, {x: number, y: number}> {
+  const result = new Map<string, {x: number, y: number}>();
+  const RADII = [0, 120, 225, 320, 395];
+  const visited = new Set<string>();
+  const levels: string[][] = [];
+  const queue: { id: string; level: number }[] = [{ id: "resonanzvernunft", level: 0 }];
+  while (queue.length) {
+    const { id, level } = queue.shift()!;
+    if (visited.has(id)) continue;
+    visited.add(id);
+    if (!levels[level]) levels[level] = [];
+    levels[level].push(id);
+    for (const n of (ADJACENCY.get(id) ?? [])) {
+      if (!visited.has(n)) queue.push({ id: n, level: level + 1 });
+    }
+  }
+  for (const node of NODES) {
+    if (!visited.has(node.id)) {
+      const last = levels.length;
+      if (!levels[last]) levels[last] = [];
+      levels[last].push(node.id);
+    }
+  }
+  levels.forEach((ids, level) => {
+    const r = RADII[Math.min(level, RADII.length - 1)];
+    if (level === 0) { result.set(ids[0], { x: CANVAS_CX, y: CANVAS_CY }); return; }
+    ids.forEach((id, j) => {
+      const angle = (2 * Math.PI * j) / ids.length - Math.PI / 2;
+      result.set(id, { x: CANVAS_CX + r * Math.cos(angle), y: CANVAS_CY + r * 0.65 * Math.sin(angle) });
+    });
+  });
+  return result;
+}
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Pan / Zoom state
@@ -92,6 +155,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     origY: number;
   } | null>(null);
 
+  // View mode + animated layout transitions
+  const [viewMode, setViewMode] = useState<"netz" | "cluster" | "baum" | "matrix">("netz");
+  const [viewPositions, setViewPositions] = useState<Map<string, {x: number, y: number}>>(new Map());
+  const viewModeRef = useRef<"netz" | "cluster" | "baum" | "matrix">("netz");
+  const transitionRef = useRef<number | null>(null);
+
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
 
@@ -100,11 +169,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // anywhere — including on node circles, which are siblings of any background rect.
   const onMouseDown = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
     hasDraggedRef.current = false;
+    if (viewModeRef.current === "matrix") return;
     dragRef.current = { sx: e.clientX, sy: e.clientY, px: panRef.current.x, py: panRef.current.y };
   }, []);
 
   const onMouseMove = useCallback((e: React.MouseEvent<SVGSVGElement>) => {
     if (nodeDragRef.current) {
+      if (viewModeRef.current !== "netz") { nodeDragRef.current = null; return; }
       const dx = (e.clientX - nodeDragRef.current.startClientX) / zoomRef.current;
       const dy = (e.clientY - nodeDragRef.current.startClientY) / zoomRef.current;
       if (Math.abs(dx) > 3 || Math.abs(dy) > 3) hasDraggedRef.current = true;
@@ -273,6 +344,45 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // ── View mode transition — animate positions via RAF lerp ─────────────────
+  useEffect(() => {
+    viewModeRef.current = viewMode;
+    if (transitionRef.current !== null) cancelAnimationFrame(transitionRef.current);
+    if (viewMode === "netz" || viewMode === "matrix") {
+      setViewPositions(new Map());
+      return;
+    }
+    const target = viewMode === "cluster" ? computeClusterLayout() : computeBaumLayout();
+    // Snapshot start: prefer live drag positions, then current view positions, then defaults
+    const start = new Map<string, {x: number, y: number}>();
+    for (const node of NODES) {
+      start.set(node.id,
+        nodePositions.get(node.id) ??
+        viewPositions.get(node.id) ??
+        { x: node.x, y: node.y }
+      );
+    }
+    let frame = 0;
+    const FRAMES = 40;
+    const tick = () => {
+      frame++;
+      const t = frame / FRAMES;
+      const ease = t < 0.5 ? 2 * t * t : 1 - (-2 * t + 2) ** 2 / 2;
+      const cur = new Map<string, {x: number, y: number}>();
+      for (const node of NODES) {
+        const s = start.get(node.id)!;
+        const e = target.get(node.id) ?? { x: node.x, y: node.y };
+        cur.set(node.id, { x: s.x + (e.x - s.x) * ease, y: s.y + (e.y - s.y) * ease });
+      }
+      setViewPositions(cur);
+      if (frame < FRAMES) transitionRef.current = requestAnimationFrame(tick);
+      else { setViewPositions(target); transitionRef.current = null; }
+    };
+    transitionRef.current = requestAnimationFrame(tick);
+    return () => { if (transitionRef.current !== null) cancelAnimationFrame(transitionRef.current); };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [viewMode]);
+
   // ── Determine visual state of a node (search-aware) ───────────────────────
   function nodeState(id: string): "focus" | "connected" | "dim" | "neutral" | "hidden" {
     const node = NODE_MAP.get(id);
@@ -318,12 +428,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   // ── Render ─────────────────────────────────────────────────────────────────
 
-  // Resolves live/dragged position for any node id
+  // Resolves live position: user drag > view-mode layout > design default
   const getPos = (id: string): {x: number, y: number} => {
-    const override = nodePositions.get(id);
-    if (override) return override;
-    const n = NODE_MAP.get(id);
-    return n ? { x: n.x, y: n.y } : { x: 0, y: 0 };
+    return nodePositions.get(id)
+      ?? viewPositions.get(id)
+      ?? { x: NODE_MAP.get(id)?.x ?? 0, y: NODE_MAP.get(id)?.y ?? 0 };
   };
 
   const transform = `translate(${pan.x},${pan.y}) scale(${zoom})`;
@@ -358,6 +467,39 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           <span style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>
             Begriffsnetz
           </span>
+
+          {/* View mode switcher */}
+          <div style={{ display: "flex", gap: "2px", flexShrink: 0 }}>
+            {([
+              { mode: "netz",    icon: "◎", title: "Netz — Zusammenhänge"   },
+              { mode: "cluster", icon: "⬡", title: "Cluster — Kategorien"   },
+              { mode: "baum",    icon: "⌥", title: "Baum — Hierarchie"      },
+              { mode: "matrix",  icon: "▦", title: "Matrix — Verbindungsdichte" },
+            ] as const).map(({ mode, icon, title }) => {
+              const active = viewMode === mode;
+              return (
+                <button
+                  key={mode}
+                  onClick={() => setViewMode(mode)}
+                  title={title}
+                  style={{
+                    fontFamily: C.mono, fontSize: "0.75rem",
+                    width: 26, height: 26,
+                    background: active ? "rgba(196,168,130,0.12)" : "none",
+                    border: `1px solid ${active ? C.accentDim : C.border}`,
+                    color: active ? C.accent : C.muted,
+                    cursor: "pointer", padding: 0,
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    transition: "all 0.15s",
+                  }}
+                  onMouseEnter={e => { if (!active) { e.currentTarget.style.color = C.text; e.currentTarget.style.borderColor = C.muted; } }}
+                  onMouseLeave={e => { if (!active) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+                >
+                  {icon}
+                </button>
+              );
+            })}
+          </div>
 
           <div style={{ flex: 1 }} />
 
@@ -1054,6 +1196,99 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             />
           </div>
         )}
+
+        {/* ── Matrix Overlay — ersetzt SVG-Graphen im Matrix-Modus ── */}
+        {viewMode === "matrix" && (() => {
+          const sorted = [...NODES].sort((a, b) => a.fullLabel.localeCompare(b.fullLabel, "de"));
+          const CELL = 11, LABEL_W = 90, LABEL_H = 90;
+          const total = sorted.length;
+          const gridW = LABEL_W + total * CELL;
+          const gridH = LABEL_H + total * CELL;
+          return (
+            <div style={{
+              position: "absolute", inset: 0, zIndex: 10,
+              background: C.void, overflow: "auto",
+              padding: "1rem",
+            }}
+              onClick={e => e.stopPropagation()}
+            >
+              <svg
+                width={gridW}
+                height={gridH}
+                style={{ display: "block", overflow: "visible" }}
+              >
+                {/* Column labels (rotated) */}
+                {sorted.map((col, ci) => (
+                  <text
+                    key={`col-${col.id}`}
+                    x={LABEL_W + ci * CELL + CELL / 2}
+                    y={LABEL_H - 4}
+                    textAnchor="start"
+                    transform={`rotate(-60,${LABEL_W + ci * CELL + CELL / 2},${LABEL_H - 4})`}
+                    fontSize="7"
+                    fontFamily={C.mono}
+                    fill={C.textDim}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => { setViewMode("netz"); setSelectedId(col.id); }}
+                  >
+                    {col.label.replace("\n", " ")}
+                  </text>
+                ))}
+                {/* Row labels */}
+                {sorted.map((row, ri) => (
+                  <text
+                    key={`row-${row.id}`}
+                    x={LABEL_W - 4}
+                    y={LABEL_H + ri * CELL + CELL / 2 + 3}
+                    textAnchor="end"
+                    fontSize="7"
+                    fontFamily={C.mono}
+                    fill={C.textDim}
+                    style={{ cursor: "pointer" }}
+                    onClick={() => { setViewMode("netz"); setSelectedId(row.id); }}
+                  >
+                    {row.label.replace("\n", " ")}
+                  </text>
+                ))}
+                {/* Cells */}
+                {sorted.map((row, ri) =>
+                  sorted.map((col, ci) => {
+                    const connected = ADJACENCY.get(row.id)?.has(col.id) || ADJACENCY.get(col.id)?.has(row.id);
+                    const isSelf = row.id === col.id;
+                    const fill = isSelf ? C.border : connected ? C.accent : C.surface;
+                    const opacity = isSelf ? 0.6 : connected ? 0.75 : 0.18;
+                    return (
+                      <rect
+                        key={`${row.id}-${col.id}`}
+                        x={LABEL_W + ci * CELL}
+                        y={LABEL_H + ri * CELL}
+                        width={CELL - 1}
+                        height={CELL - 1}
+                        fill={fill}
+                        opacity={opacity}
+                        style={{ cursor: connected && !isSelf ? "pointer" : "default" }}
+                        onClick={() => {
+                          if (connected && !isSelf) {
+                            setViewMode("netz");
+                            setSelectedId(row.id);
+                          }
+                        }}
+                      >
+                        {connected && !isSelf && (
+                          <title>{row.fullLabel} ↔ {col.fullLabel}</title>
+                        )}
+                      </rect>
+                    );
+                  })
+                )}
+              </svg>
+              <div style={{ marginTop: "0.8rem", fontFamily: C.mono, fontSize: "0.6rem", color: C.muted, letterSpacing: "0.08em" }}>
+                Klick auf eine Zelle → Netz-Ansicht mit dem Begriffspaar ·{" "}
+                <span style={{ color: C.accent }}>▪</span> = verbunden
+              </div>
+            </div>
+          );
+        })()}
 
         {/* ── Zoom Controls — absolut unten rechts im Graph-Canvas ── */}
         <div style={{
