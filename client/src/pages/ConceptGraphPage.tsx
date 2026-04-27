@@ -165,6 +165,14 @@ function dijkstraSurprisingPath(src: string, tgt: string): string[] | null {
   return null;
 }
 
+// ─── Pre-computed graph metrics (concept-to-concept edges only) ───────────────
+// Leitmotiv edges are excluded: they're structurally a separate resonance layer,
+// not concept-to-concept relationships, so including them would skew statistics.
+const CONCEPT_EDGE_COUNT = EDGES.length;
+const CROSS_CAT_EDGE_COUNT = EDGES.filter(
+  e => NODE_MAP.get(e.source)?.category !== NODE_MAP.get(e.target)?.category
+).length;
+
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Pan / Zoom state
@@ -386,6 +394,25 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     });
     return active;
   }, [selectedNode, connectedIds]);
+
+  // ── Kohärenz-Metrik: live stats for selected node ─────────────────────────
+  const nodeMetrics = useMemo(() => {
+    if (!selectedNode) return null;
+    const id = selectedNode.id;
+    // Degree: all direct connections (concept + leitmotiv, as visible in graph)
+    const degree = ADJACENCY.get(id)?.size ?? 0;
+    // Spannungsfelder: concept-to-concept edges where the other node is a different category
+    // Only EDGES (not LEITMOTIV_EDGES) — leitmotiv connections are resonance, not conceptual tension
+    const crossCat = EDGES.filter(
+      e => (e.source === id || e.target === id) &&
+           (() => {
+             const other = e.source === id ? e.target : e.source;
+             return NODE_MAP.get(other)?.category !== selectedNode.category;
+           })()
+    ).length;
+    const ownEdges = userEdges.filter(e => e.source === id || e.target === id).length;
+    return { degree, crossCat, ownEdges };
+  }, [selectedNode, userEdges]);
 
   // ── Node click handler ─────────────────────────────────────────────────────
   const handleNodeClick = useCallback((e: React.MouseEvent, id: string) => {
@@ -1715,6 +1742,79 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           );
         })()}
 
+        {/* ── Kohärenz-Metrik ── compact stats widget, bottom-right, above zoom controls ── */}
+        <div className="concept-kohaerenz-panel" style={{
+          position: "absolute", bottom: "calc(1.2rem + 142px)", right: "1.2rem",
+          zIndex: 15, pointerEvents: "none",
+          background: "rgba(10,10,10,0.88)", border: `1px solid ${C.border}`,
+          backdropFilter: "blur(6px)",
+          padding: "0.55rem 0.7rem",
+          width: 162,
+          fontFamily: C.mono,
+        }}>
+          {/* Header */}
+          <div style={{ fontSize: "0.5rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.45rem" }}>
+            {selectedNode ? `${selectedNode.label.replace("\n", " ")}` : "Kohärenz-Metrik"}
+          </div>
+
+          {selectedNode && nodeMetrics ? (() => {
+            const { degree, crossCat, ownEdges } = nodeMetrics;
+            const integrationPct = degree > 0 ? Math.round((crossCat / degree) * 100) : 0;
+            return (
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <tbody>
+                  {([
+                    ["Verbindungen", String(degree), C.accent],
+                    ["Spannungsfelder", `${crossCat}`, "#a882c4"],
+                    ["Eigene", String(ownEdges), "#7eb8c8"],
+                  ] as [string, string, string][]).map(([label, val, color]) => (
+                    <tr key={label}>
+                      <td style={{ fontSize: "0.52rem", color: C.textDim, paddingBottom: "0.22rem", paddingRight: "0.5rem" }}>{label}</td>
+                      <td style={{ fontSize: "0.62rem", color: color, textAlign: "right", paddingBottom: "0.22rem", fontVariantNumeric: "tabular-nums" }}>{val}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            );
+          })() : (() => {
+            const ownPct = Math.round((userEdges.length / 30) * 100);
+            const crossPct = CONCEPT_EDGE_COUNT > 0
+              ? Math.round((CROSS_CAT_EDGE_COUNT / CONCEPT_EDGE_COUNT) * 100)
+              : 0;
+            return (
+              <table style={{ width: "100%", borderCollapse: "collapse" }}>
+                <tbody>
+                  {([
+                    ["Verbindungen", String(CONCEPT_EDGE_COUNT), C.accent],
+                    ["Spannungsfelder", `${CROSS_CAT_EDGE_COUNT} (${crossPct}%)`, "#a882c4"],
+                    ["Eigene", `${userEdges.length} / 30`, "#7eb8c8"],
+                  ] as [string, string, string][]).map(([label, val, color]) => (
+                    <tr key={label}>
+                      <td style={{ fontSize: "0.52rem", color: C.textDim, paddingBottom: "0.22rem", paddingRight: "0.5rem" }}>{label}</td>
+                      <td style={{ fontSize: "0.62rem", color: color, textAlign: "right", paddingBottom: "0.22rem", fontVariantNumeric: "tabular-nums" }}>{val}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            );
+          })()}
+
+          {/* Integration bar — only when a node is selected */}
+          {selectedNode && nodeMetrics && nodeMetrics.degree > 0 && (() => {
+            const pct = Math.round((nodeMetrics.crossCat / nodeMetrics.degree) * 100);
+            return (
+              <div style={{ marginTop: "0.4rem", borderTop: `1px solid ${C.border}`, paddingTop: "0.35rem" }}>
+                <div style={{ fontSize: "0.48rem", color: C.muted, marginBottom: "0.2rem", letterSpacing: "0.1em" }}>
+                  INTEGRATION {pct}%
+                </div>
+                <div style={{ height: 3, background: C.border, borderRadius: 2 }}>
+                  <div style={{ height: "100%", width: `${pct}%`, background: "#a882c4", borderRadius: 2, transition: "width 0.3s ease" }} />
+                </div>
+              </div>
+            );
+          })()}
+        </div>
+
         {/* ── Zoom Controls — absolut unten rechts im Graph-Canvas ── */}
         <div style={{
           position: "absolute", bottom: "1.2rem", right: "1.2rem",
@@ -2310,6 +2410,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         /* Mobile (≤ 640 px): only bottom sheet, sidebar hidden */
         @media (max-width: 640px) {
           .concept-detail-sidebar { display: none !important; }
+          .concept-kohaerenz-panel { display: none !important; }
           .concept-mobile-sheet {
             display: block !important;
             position: fixed;
