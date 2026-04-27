@@ -2,7 +2,7 @@
   "name": "digitale-transformation-ebook",
   "version": "1.0.0",
   "type": "module",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
@@ -12,7 +12,8 @@
     "format": "prettier --write .",
     "icons": "node scripts/generate-icons.mjs",
     "audio": "node scripts/prepare-audio.mjs",
-    "timestamps": "node scripts/generate-timestamps.mjs"
+    "timestamps": "node scripts/generate-timestamps.mjs",
+    "snapshot:history": "tsx scripts/snapshot-history.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",

@@ -1,0 +1,96 @@
+COPYRIGHT-LIZENZ
+Die Digitale Transformation — Markus Oehring
+
+Copyright © 2026 Markus Oehring. Alle Rechte vorbehalten.
+
+Dieses Repository enthält das Werk "Die Digitale Transformation —
+Eine poetisch-philosophische Trilogie mit theoretischer Grundlegung in
+drei Kritiken", den Quellcode der zugehörigen Reader-Anwendung sowie
+einen Korpus aus AI-generierten Resonanzen und Leserbeiträgen
+(content/resonanzen/) inklusive begleitendem Material (Audio,
+Begriffsnetz, Glossar, History-Log).
+
+═══════════════════════════════════════════════════════════════════
+ERLAUBT
+═══════════════════════════════════════════════════════════════════
+
+1. Persönliche Nutzung auf privaten Geräten zum Zweck des Lesens,
+   Hörens und der individuellen Auseinandersetzung.
+
+2. Kurze Zitate (bis zu 100 Wörtern) für akademische, kritische oder
+   journalistische Auseinandersetzung — mit korrekter Quellenangabe:
+     Oehring, Markus (2026): Die Digitale Transformation.
+     Eine poetisch-philosophische Trilogie.
+     https://digitale-transformation-ebook.de
+
+3. Verlinkung auf das Werk, Star, Watch und Issue-Funktionen auf
+   GitHub, sowie öffentliche Diskussion der Inhalte.
+
+═══════════════════════════════════════════════════════════════════
+NICHT ERLAUBT (ohne ausdrückliche schriftliche Genehmigung)
+═══════════════════════════════════════════════════════════════════
+
+1. Vervielfältigung, Speicherung oder Weitergabe des Werks oder
+   wesentlicher Teile davon in irgendeiner Form.
+
+2. Veröffentlichung von Auszügen über das in Punkt "Erlaubt 2"
+   genannte Zitatrecht hinaus.
+
+3. Bearbeitung, Übersetzung oder Erstellung abgeleiteter Werke
+   (einschließlich Re-Mixing, Adaption, Fortsetzung).
+
+4. Kommerzielle Nutzung jeder Art.
+
+5. Nutzung zum Training, Fine-Tuning oder Embedding maschineller
+   Lernmodelle, zur automatisierten Inhaltsverarbeitung oder zur
+   Generierung abgeleiteter Inhalte — ausgenommen die in der
+   bereitgestellten Reader-Anwendung integrierten Funktionen
+   (Q&A, Übersetzung, Begriffsnetz-Analyse, Enkidu-Begegnung).
+
+═══════════════════════════════════════════════════════════════════
+REPOSITORY-ZUGÄNGLICHKEIT
+═══════════════════════════════════════════════════════════════════
+
+Dieses Repository ist öffentlich einsehbar. Forken und Klonen sind
+technische Funktionen von GitHub, deren Nutzung wir nicht
+einschränken. Jedoch unterliegen sämtliche durch Fork oder Klon
+erstellten Kopien dieser Lizenz vollumfänglich — insbesondere den
+Verboten der Weitergabe, Veröffentlichung und Bearbeitung.
+
+═══════════════════════════════════════════════════════════════════
+RESONANZ-KORPUS
+═══════════════════════════════════════════════════════════════════
+
+Der Inhalt von content/resonanzen/ entsteht aus der Interaktion
+zwischen Lesern und der Reader-Anwendung. Die KI-Antworten sowie
+deren Kuration durch den Autor sind Teil des urheberrechtlich
+geschützten Werks. Die in den Antworten enthaltenen Anfragen wurden
+gegebenenfalls anonymisiert und vom Autor zur Aufnahme in den
+öffentlichen Korpus freigegeben.
+
+═══════════════════════════════════════════════════════════════════
+HISTORY-LOG
+═══════════════════════════════════════════════════════════════════
+
+Der Inhalt von content/history/ dient der lückenlosen Nachvollziehbarkeit
+und dem Originalitätsnachweis. Die Snapshots, Manifests und Ledger-Files
+unterliegen denselben Lizenzbedingungen wie das Werk selbst.
+
+═══════════════════════════════════════════════════════════════════
+KONTAKT & GENEHMIGUNGEN
+═══════════════════════════════════════════════════════════════════
+
+Für Lizenzanfragen, akademische Mitarbeit oder Genehmigungen:
+über GitHub-Issues an https://github.com/marksen23/digitale-transformation-ebook
+oder die auf der Website angegebenen Kontaktwege.
+
+═══════════════════════════════════════════════════════════════════
+GERICHTSSTAND & ANWENDBARES RECHT
+═══════════════════════════════════════════════════════════════════
+
+Es gilt deutsches Urheberrecht. Gerichtsstand ist der Wohnsitz des
+Urhebers, soweit gesetzlich zulässig.
+
+═══════════════════════════════════════════════════════════════════
+
+Stand: April 2026

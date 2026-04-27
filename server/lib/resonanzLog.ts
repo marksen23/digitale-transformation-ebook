@@ -30,6 +30,11 @@ const REPO_OWNER = process.env.GITHUB_REPO_OWNER ?? "marksen23";
 const REPO_NAME  = process.env.GITHUB_REPO_NAME  ?? "digitale-transformation-ebook";
 const REPO_BRANCH = process.env.GITHUB_REPO_BRANCH ?? "main";
 
+// Lizenz- und Copyright-Konstanten — entsprechen LICENSE im Repo-Root.
+const COPYRIGHT_NOTICE = "© 2026 Markus Oehring. Alle Rechte vorbehalten.";
+const LICENSE_ID = "personal-use-only";
+const LICENSE_URL = `https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/main/LICENSE`;
+
 /** Spam-Filter: Mindestanforderungen, damit ein Log überhaupt geschrieben wird. */
 function passesSpamFilter(entry: ResonanzEntry): boolean {
   if (!entry.prompt || entry.prompt.trim().length < 3)   return false;
@@ -67,12 +72,16 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
     "---",
     `id: ${id}`,
     `ts: ${ts}`,
+    `created_at: ${ts}`,
     `endpoint: ${entry.endpoint}`,
     `model: ${yamlString(entry.model)}`,
     `anchor: ${yamlString(entry.anchor)}`,
     `nodeIds: [${(entry.nodeIds ?? []).map(yamlString).join(", ")}]`,
     "status: raw",
     `content_hash: ${hash}`,
+    `copyright: ${yamlString(COPYRIGHT_NOTICE)}`,
+    `license: ${LICENSE_ID}`,
+    `license_url: ${LICENSE_URL}`,
     "audit_trail:",
     "  - event: created",
     `    ts: ${ts}`,
