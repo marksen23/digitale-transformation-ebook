@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useMemo } from "react";
+import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory } from "@/data/conceptGraph";
 
 const PR_COLOR = "#8ea8b8";
@@ -79,6 +79,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Node drag state
   const [nodePositions, setNodePositions] = useState<Map<string, {x: number, y: number}>>(new Map());
   const [draggingNodeId, setDraggingNodeId] = useState<string | null>(null);
+
+  // Mobile bottom sheet — resizable height via drag handle
+  const [sheetHeight, setSheetHeight]   = useState(50); // dvh units (25–82)
+  const [sheetDragging, setSheetDragging] = useState(false);
+  const sheetDragRef = useRef<{ startY: number; startH: number } | null>(null);
   const nodeDragRef = useRef<{
     id: string;
     startClientX: number;
@@ -236,6 +241,36 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setSelectedId(prev => prev === id ? null : id);
     setSearchQuery("");
     setLegendOpen(false); // sidebar übernimmt die Legende beim Auswählen
+  }, []);
+
+  // ── Mobile sheet drag — global move/end listeners ─────────────────────────
+  const SHEET_SNAPS = [25, 50, 80] as const;
+  useEffect(() => {
+    const onMove = (e: TouchEvent | MouseEvent) => {
+      if (!sheetDragRef.current) return;
+      const clientY = 'touches' in e
+        ? (e as TouchEvent).touches[0].clientY
+        : (e as MouseEvent).clientY;
+      const deltaDvh = ((sheetDragRef.current.startY - clientY) / window.innerHeight) * 100;
+      setSheetHeight(Math.max(20, Math.min(85, sheetDragRef.current.startH + deltaDvh)));
+    };
+    const onEnd = () => {
+      if (!sheetDragRef.current) return;
+      sheetDragRef.current = null;
+      setSheetDragging(false);
+      setSheetHeight(h => SHEET_SNAPS.reduce((a, b) => Math.abs(b - h) < Math.abs(a - h) ? b : a));
+    };
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend',  onEnd);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup',   onEnd);
+    return () => {
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend',  onEnd);
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup',   onEnd);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // ── Determine visual state of a node (search-aware) ───────────────────────
@@ -1236,8 +1271,31 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {selectedNode && (
         <div
           className="concept-mobile-sheet"
-          style={{ display: "none" }} // shown via CSS media query
+          style={{
+            display: "none", // CSS media query overrides to block on mobile
+            height: `${sheetHeight}dvh`,
+            transition: sheetDragging ? "none" : "height 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+          }}
         >
+          {/* ── Drag handle ── */}
+          <div
+            onMouseDown={e => { e.stopPropagation(); sheetDragRef.current = { startY: e.clientY, startH: sheetHeight }; setSheetDragging(true); }}
+            onTouchStart={e => { e.stopPropagation(); sheetDragRef.current = { startY: e.touches[0].clientY, startH: sheetHeight }; setSheetDragging(true); }}
+            style={{
+              display: "flex", alignItems: "center", justifyContent: "center",
+              padding: "0.55rem 0 0.45rem",
+              cursor: "ns-resize", touchAction: "none", userSelect: "none",
+              // negative margin to reach full sheet width past the 1.2rem padding
+              margin: "-0.8rem -1.2rem 0.6rem",
+            }}
+          >
+            <div style={{
+              width: 38, height: 4, borderRadius: 2,
+              background: sheetDragging ? C.muted : C.border,
+              transition: "background 0.15s, width 0.15s",
+            }} />
+          </div>
+
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.8rem" }}>
             <div>
               <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.18em", color: CAT_COLOR[selectedNode.category], textTransform: "uppercase", marginBottom: "0.2rem" }}>
@@ -1389,9 +1447,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             bottom: 0; left: 0; right: 0;
             background: ${C.deep};
             border-top: 1px solid ${C.border};
-            padding: 1rem 1.2rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
+            /* padding-top: 0 — Drag-Handle übernimmt den oberen Abstand */
+            padding: 0.8rem 1.2rem calc(1.5rem + env(safe-area-inset-bottom, 0px));
             z-index: 160;
-            max-height: 55dvh;
+            /* height wird dynamisch via inline-style gesetzt (kein max-height hier) */
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: ${C.border} transparent;
