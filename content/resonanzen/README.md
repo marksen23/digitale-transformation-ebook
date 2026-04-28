@@ -7,11 +7,12 @@ AI-Endpunkten der App (Phase 2 der Resonanz-Architektur).
 
 ```
 content/resonanzen/
-├── raw/                          ← automatisch geschriebene Roh-Logs
-│   ├── chapter/<chapterId>/      ← /api/ask, ein Ordner pro Kapitel
-│   ├── analyse/<idA>+<idB>/      ← /api/analyse-pair, ein Ordner pro Knotenpaar
-│   ├── graph-chat/               ← /api/graph-chat, flach
-│   └── enkidu/                   ← /api/enkidu, flach
+├── raw/                                 ← automatisch geschriebene Roh-Logs
+│   ├── chapter/<chapterId>/             ← /api/ask, ein Ordner pro Kapitel
+│   ├── analyse/<idA>+<idB>/             ← /api/analyse-pair, ein Ordner pro Knotenpaar
+│   ├── translate/<chapterId>+<lang>/    ← /api/translate, pro Kapitel-Sprache-Kombi
+│   ├── graph-chat/                      ← /api/graph-chat, flach
+│   └── enkidu/                          ← /api/enkidu, flach
 ├── pending/                      ← (Phase 3) zur Approval vorgelegt
 └── published/                    ← (Phase 3) im Public Feed sichtbar
 ```
@@ -56,6 +57,7 @@ context_meta:
 |---|---|---|
 | `/api/ask` (Kapitel-Q&A) | `chapter:<chapterId>` | `chapter:band2-kap3` |
 | `/api/analyse-pair` (Spannungsfeld) | `analyse:<idA>+<idB>` (alphabetisch) | `analyse:resonanzvernunft+zwischen` |
+| `/api/translate` (Kapitel-Übersetzung) | `translate:<chapterId>+<lang>` | `translate:band2-kap3+en` |
 | `/api/graph-chat` (Dialog) | `graph` | `graph` |
 | `/api/enkidu` (Begegnung) | `enkidu` | `enkidu` |
 

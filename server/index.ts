@@ -419,7 +419,7 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
-    const { text, targetLang, sourceLang } = req.body;
+    const { text, targetLang, sourceLang, chapterId, chapterTitle } = req.body;
     if (!text || !targetLang) {
       return res.status(400).json({ error: "Text und Zielsprache sind erforderlich." });
     }
@@ -467,6 +467,23 @@ ${text}`;
       const translation = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
       if (!translation) return res.status(502).json({ error: "Leere Übersetzung." });
       res.json({ translation });
+      const anchor = chapterId
+        ? `translate:${chapterId}+${targetLang}`
+        : `translate:unknown+${targetLang}`;
+      void logResonanz({
+        endpoint: "translate",
+        anchor,
+        prompt: `Übersetze ${chapterTitle ?? chapterId ?? "Text"} von ${sourceLang ?? "de"} nach ${targetLang}`,
+        response: translation,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          chapterId: chapterId ?? null,
+          chapterTitle: chapterTitle ?? null,
+          sourceLang: sourceLang ?? "de",
+          targetLang,
+          textLength: typeof text === "string" ? text.length : null,
+        },
+      });
     } catch (err) {
       console.error("Translate request failed:", err);
       res.status(502).json({ error: "Verbindung zur Übersetzungs-API fehlgeschlagen." });
