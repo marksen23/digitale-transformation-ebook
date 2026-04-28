@@ -419,7 +419,7 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
-    const { text, targetLang, sourceLang } = req.body;
+    const { text, targetLang, sourceLang, chapterId, chapterTitle } = req.body;
     if (!text || !targetLang) {
       return res.status(400).json({ error: "Text und Zielsprache sind erforderlich." });
     }
@@ -467,45 +467,82 @@ ${text}`;
       const translation = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
       if (!translation) return res.status(502).json({ error: "Leere Übersetzung." });
       res.json({ translation });
+      const anchor = chapterId
+        ? `translate:${chapterId}+${targetLang}`
+        : `translate:unknown+${targetLang}`;
+      void logResonanz({
+        endpoint: "translate",
+        anchor,
+        prompt: `Übersetze ${chapterTitle ?? chapterId ?? "Text"} von ${sourceLang ?? "de"} nach ${targetLang}`,
+        response: translation,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          chapterId: chapterId ?? null,
+          chapterTitle: chapterTitle ?? null,
+          sourceLang: sourceLang ?? "de",
+          targetLang,
+          textLength: typeof text === "string" ? text.length : null,
+        },
+      });
     } catch (err) {
       console.error("Translate request failed:", err);
       res.status(502).json({ error: "Verbindung zur Übersetzungs-API fehlgeschlagen." });
     }
   });
 
-  // ─── Begriffsnetz: Spannungsfeld-Analyse ─────────────────────────────
-  app.post("/api/analyse-pair", rateLimiter('analyse-pair', 15, 60 * 60_000), async (req, res) => {
+  // ─── Begriffsnetz: Cluster-Analyse (2–5 Knoten) ──────────────────────
+  // Drei Prompt-Varianten je nach Knotenanzahl:
+  //   2 → Spannungsfeld (Dialektik)
+  //   3 → Triade (vermittelndes Drittes)
+  //   4–5 → Konstellation (Achsen-Geometrie)
+  interface NodeMeta { id: string; label: string; fullLabel: string; description: string; }
+
+  function buildClusterPrompt(nodes: NodeMeta[]): string {
+    const intro = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.\n\n`;
+    const conceptList = nodes.map((n, i) => `KONZEPT ${String.fromCharCode(65 + i)}: ${n.fullLabel}\n${n.description}`).join("\n\n");
+    if (nodes.length === 2) {
+      return intro + `Analysiere das Spannungsfeld zwischen diesen beiden Konzepten aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nSchreibe drei prägnante Absätze:\n1. Worin besteht die produktive Spannung oder der Widerspruch zwischen diesen Konzepten — was macht sie zu Gegenspielern oder Komplizen?\n2. Welches transformative "Dritte" entsteht, wenn man beide gemeinsam denkt — was wird sichtbar, das in keinem allein liegt?\n3. Was verändert sich am Verständnis von Mensch, Maschine oder Resonanz, wenn dieser Zusammenhang ernst genommen wird?\n\nSchreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+    }
+    if (nodes.length === 3) {
+      return intro + `Analysiere die Triade dieser drei Konzepte aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nIm Unterschied zur Zweier-Spannung entsteht in der Triade ein vermittelndes Drittes. Schreibe drei prägnante Absätze:\n1. Wie bilden A, B und C ein triadisches Gefüge? Welcher der drei steht als Brücke, welche als Pole oder Gegensätze? Welche Bewegung entsteht zwischen ihnen?\n2. Was wird durch das Hinzutreten des Dritten sichtbar, das in der bloßen Zweier-Konstellation noch nicht gesehen werden konnte? Welche emergente Eigenschaft tritt hervor?\n3. Welche Erkenntnis für das Verhältnis Mensch–Maschine, für Resonanz oder für digitale Existenz erschließt diese Triade?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+    }
+    // 4–5 Knoten — Konstellation
+    return intro + `Analysiere diese Konstellation aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nDie Konstellation aus ${nodes.length} Konzepten spannt einen mehrdimensionalen Bedeutungsraum auf. Schreibe drei prägnante Absätze:\n1. Welche Achsen oder Dimensionen spannt diese Konstellation auf? Welche Konzepte stehen einander gegenüber, welche bilden Cluster oder Verwandtschaften?\n2. Welche Konzepte sind Zentrum, welche Peripherie? Gibt es ein verborgenes Bindeglied, das alle zusammenhält? Welche Spannungslinien verlaufen quer durch das Feld?\n3. Welches umfassende Verständnis von Mensch, Maschine oder Resonanz erschließt sich nur in dieser konstellativen Sicht — was bliebe bei kleinerer Auswahl unsichtbar?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+  }
+
+  function clusterAnchor(ids: string[]): string {
+    return `analyse:${[...ids].sort().join("+")}`;
+  }
+
+  function clusterDescriptor(nodes: NodeMeta[]): string {
+    if (nodes.length === 2) return `Spannungsfeld: ${nodes[0].fullLabel} ↔ ${nodes[1].fullLabel}`;
+    if (nodes.length === 3) return `Triade: ${nodes.map(n => n.fullLabel).join(" · ")}`;
+    return `Konstellation (${nodes.length}): ${nodes.map(n => n.fullLabel).join(" · ")}`;
+  }
+
+  async function handleClusterAnalysis(req: express.Request, res: express.Response, nodes: NodeMeta[]): Promise<void> {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+      res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+      return;
+    }
+    if (nodes.length < 2 || nodes.length > 5) {
+      res.status(400).json({ error: "Cluster-Analyse braucht 2 bis 5 Knoten." });
+      return;
+    }
+    for (const n of nodes) {
+      if (!n?.id || !n?.fullLabel) {
+        res.status(400).json({ error: "Jeder Knoten braucht id und fullLabel." });
+        return;
+      }
+    }
+    const ids = nodes.map(n => n.id);
+    if (new Set(ids).size !== ids.length) {
+      res.status(400).json({ error: "Alle Konzepte müssen verschieden sein." });
+      return;
     }
 
-    interface NodeMeta { id: string; label: string; fullLabel: string; description: string; }
-    const { nodeA, nodeB } = req.body as { nodeA: NodeMeta; nodeB: NodeMeta };
-
-    if (!nodeA?.id || !nodeB?.id || !nodeA?.fullLabel || !nodeB?.fullLabel) {
-      return res.status(400).json({ error: "nodeA und nodeB mit id, fullLabel und description sind erforderlich." });
-    }
-    if (nodeA.id === nodeB.id) {
-      return res.status(400).json({ error: "Beide Konzepte müssen verschieden sein." });
-    }
-
-    const prompt = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
-
-Analysiere das Spannungsfeld zwischen diesen beiden Konzepten aus dem Begriffsnetz des Werks:
-
-KONZEPT A: ${nodeA.fullLabel}
-${nodeA.description}
-
-KONZEPT B: ${nodeB.fullLabel}
-${nodeB.description}
-
-Schreibe drei prägnante Absätze:
-1. Worin besteht die produktive Spannung oder der Widerspruch zwischen diesen Konzepten — was macht sie zu Gegenspielern oder Komplizen?
-2. Welches transformative "Dritte" entsteht, wenn man beide gemeinsam denkt — was wird sichtbar, das in keinem allein liegt?
-3. Was verändert sich am Verständnis von Mensch, Maschine oder Resonanz, wenn dieser Zusammenhang ernst genommen wird?
-
-Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+    const prompt = buildClusterPrompt(nodes);
 
     try {
       const response = await fetch(
@@ -522,36 +559,53 @@ Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzähl
 
       if (!response.ok) {
         const errText = await response.text();
-        console.error("Spannungsfeld Gemini error:", response.status, errText);
+        console.error("Cluster-Analyse Gemini error:", response.status, errText);
         let detail: string;
         try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
         if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
         if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
-        return res.status(502).json({ error: detail });
+        res.status(502).json({ error: detail });
+        return;
       }
 
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
       res.json({ analysis });
-      const sortedIds = [nodeA.id, nodeB.id].sort();
       void logResonanz({
         endpoint: "analyse",
-        anchor: analyseAnchor(nodeA.id, nodeB.id),
-        nodeIds: sortedIds,
-        prompt: `Spannungsfeld: ${nodeA.fullLabel} ↔ ${nodeB.fullLabel}`,
+        anchor: clusterAnchor(ids),
+        nodeIds: [...ids].sort(),
+        prompt: clusterDescriptor(nodes),
         response: analysis,
         model: "gemini-2.5-flash",
         contextMeta: {
-          nodeA_label: nodeA.fullLabel,
-          nodeB_label: nodeB.fullLabel,
+          cluster_size: nodes.length,
+          node_labels: nodes.map(n => n.fullLabel),
         },
       });
-      return;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
-      console.error("Spannungsfeld API error:", message);
-      return res.status(502).json({ error: `API-Fehler: ${message}` });
+      console.error("Cluster-Analyse API error:", message);
+      res.status(502).json({ error: `API-Fehler: ${message}` });
     }
+  }
+
+  // Neuer Cluster-Endpoint — primärer Eingang für 2-5 Knoten
+  app.post("/api/analyse-cluster", rateLimiter('analyse-cluster', 15, 60 * 60_000), async (req, res) => {
+    const { nodes } = req.body as { nodes: NodeMeta[] };
+    if (!Array.isArray(nodes)) {
+      return res.status(400).json({ error: "nodes-Array ist erforderlich." });
+    }
+    return handleClusterAnalysis(req, res, nodes);
+  });
+
+  // Backward-compat: alter /api/analyse-pair leitet auf cluster-Logik um
+  app.post("/api/analyse-pair", rateLimiter('analyse-pair', 15, 60 * 60_000), async (req, res) => {
+    const { nodeA, nodeB } = req.body as { nodeA: NodeMeta; nodeB: NodeMeta };
+    if (!nodeA?.id || !nodeB?.id) {
+      return res.status(400).json({ error: "nodeA und nodeB sind erforderlich." });
+    }
+    return handleClusterAnalysis(req, res, [nodeA, nodeB]);
   });
 
   // ─── Graph-Chat: freier Gemini-Dialog über das gesamte Begriffsnetz ──

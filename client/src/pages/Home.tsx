@@ -696,6 +696,8 @@ export default function Home() {
             text: currentChapter.content,
             targetLang: language,
             sourceLang: 'de',
+            chapterId: currentChapter.id,
+            chapterTitle: currentChapter.title,
           }),
         });
         const data = await res.json();

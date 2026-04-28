@@ -283,12 +283,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   // Spannungsfeld-Analyse — select two nodes → Gemini analysis
   const [analyseMode, setAnalyseMode] = useState(false);
-  const [analyseNodes, setAnalyseNodes] = useState<[string | null, string | null]>([null, null]);
+  // Cluster-Analyse: 2–5 Knoten. Array statt Tupel, manueller Start statt Auto.
+  const [analyseNodes, setAnalyseNodes] = useState<string[]>([]);
   const [analyseResult, setAnalyseResult] = useState<string | null>(null);
   const [analyseLoading, setAnalyseLoading] = useState(false);
   const [analyseError, setAnalyseError] = useState<string | null>(null);
   const analyseModeRef = useRef(false);
-  const analyseNodesRef = useRef<[string | null, string | null]>([null, null]);
+  const analyseNodesRef = useRef<string[]>([]);
 
   // Lesepfad — session-only visit trail (no localStorage)
   const [visitedNodes, setVisitedNodes] = useState<string[]>([]);
@@ -300,6 +301,38 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [chatLoading, setChatLoading] = useState(false);
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  // Cluster-Analyse starten (manueller Trigger via Button im Panel).
+  // Nimmt die aktuelle analyseNodes-Liste (2-5 Konzepte), schickt sie an
+  // /api/analyse-cluster, schreibt das Resultat in analyseResult.
+  const runClusterAnalysis = useCallback(() => {
+    const ids = analyseNodesRef.current;
+    if (ids.length < 2 || ids.length > 5) return;
+    const nodes = ids.map(id => NODE_MAP.get(id)).filter(Boolean);
+    if (nodes.length !== ids.length) return;
+    setAnalyseLoading(true);
+    setAnalyseError(null);
+    setAnalyseResult(null);
+    fetch("/api/analyse-cluster", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        nodes: nodes.map(n => ({
+          id: n!.id, label: n!.label, fullLabel: n!.fullLabel, description: n!.description,
+        })),
+      }),
+    })
+      .then(r => r.json())
+      .then(data => {
+        setAnalyseLoading(false);
+        if (data.error) setAnalyseError(data.error);
+        else setAnalyseResult(data.analysis ?? null);
+      })
+      .catch(err => {
+        setAnalyseLoading(false);
+        setAnalyseError(err instanceof Error ? err.message : "Verbindungsfehler");
+      });
+  }, []);
+
   // Beim Wechsel des View-Modus alle Arbeitsfunktions-Panels schließen,
   // damit keine Stale-Overlays aus einem nicht mehr aktiven View bestehen
   // bleiben. Refs werden mitsynchronisiert, weil onClick-Handler sie lesen.
@@ -310,7 +343,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setPathNodes([null, null]); pathNodesRef.current = [null, null];
     setPathResult(null);
     setAnalyseMode(false); analyseModeRef.current = false;
-    setAnalyseNodes([null, null]); analyseNodesRef.current = [null, null];
+    setAnalyseNodes([]); analyseNodesRef.current = [];
     setAnalyseResult(null);
     setAnalyseError(null);
     setChatOpen(false);
@@ -545,46 +578,26 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     }
 
     if (analyseModeRef.current) {
-      const [src] = analyseNodesRef.current;
-      if (!src) {
-        analyseNodesRef.current = [id, null];
-        setAnalyseNodes([id, null]);
-        setAnalyseResult(null);
-        setAnalyseError(null);
-      } else if (src === id) {
-        analyseNodesRef.current = [null, null];
-        setAnalyseNodes([null, null]);
-        setAnalyseResult(null);
-        setAnalyseError(null);
+      // Multi-Node-Cluster-Auswahl (2–5 Knoten). Toggle-Logik:
+      //   Knoten in Liste → entfernen
+      //   Knoten neu, Liste < 5 → hinzufügen
+      //   Liste === 5 → ignorieren
+      // Analyse wird nicht automatisch gestartet — der Nutzer drückt
+      // explizit "Analyse starten" im Panel.
+      const current = analyseNodesRef.current;
+      let next: string[];
+      if (current.includes(id)) {
+        next = current.filter(x => x !== id);
+      } else if (current.length >= 5) {
+        return; // Limit erreicht — ignoriere
       } else {
-        const nodeAMeta = NODE_MAP.get(src);
-        const nodeBMeta = NODE_MAP.get(id);
-        if (nodeAMeta && nodeBMeta) {
-          analyseNodesRef.current = [src, id];
-          setAnalyseNodes([src, id]);
-          setAnalyseResult(null);
-          setAnalyseError(null);
-          setAnalyseLoading(true);
-          fetch("/api/analyse-pair", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              nodeA: { id: nodeAMeta.id, label: nodeAMeta.label, fullLabel: nodeAMeta.fullLabel, description: nodeAMeta.description },
-              nodeB: { id: nodeBMeta.id, label: nodeBMeta.label, fullLabel: nodeBMeta.fullLabel, description: nodeBMeta.description },
-            }),
-          })
-            .then(r => r.json())
-            .then(data => {
-              setAnalyseLoading(false);
-              if (data.error) setAnalyseError(data.error);
-              else setAnalyseResult(data.analysis ?? null);
-            })
-            .catch(err => {
-              setAnalyseLoading(false);
-              setAnalyseError(err instanceof Error ? err.message : "Verbindungsfehler");
-            });
-        }
+        next = [...current, id];
       }
+      analyseNodesRef.current = next;
+      setAnalyseNodes(next);
+      // Bei jeder Selektionsänderung das alte Ergebnis verwerfen
+      setAnalyseResult(null);
+      setAnalyseError(null);
       return;
     }
 
@@ -885,8 +898,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 analyseModeRef.current = next;
                 setAnalyseMode(next);
                 if (!next) {
-                  analyseNodesRef.current = [null, null];
-                  setAnalyseNodes([null, null]);
+                  analyseNodesRef.current = [];
+                  setAnalyseNodes([]);
                   setAnalyseResult(null);
                   setAnalyseError(null);
                 }
@@ -1037,8 +1050,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               return;
             }
             if (analyseModeRef.current) {
-              analyseNodesRef.current = [null, null];
-              setAnalyseNodes([null, null]);
+              analyseNodesRef.current = [];
+              setAnalyseNodes([]);
               return;
             }
             if (connectModeRef.current) {
@@ -1381,25 +1394,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     />
                   )}
 
-                  {/* Analyse-mode: first node ring */}
-                  {analyseNodes[0] === node.id && !analyseNodes[1] && (
+                  {/* Analyse-mode: gewählte Knoten heben sich ab.
+                      1 Knoten gewählt → gestrichelt (Andeutung: weitere möglich)
+                      2+ Knoten gewählt → fester Ring (Cluster bereit) */}
+                  {analyseNodes.includes(node.id) && (
                     <circle
-                      cx={x} cy={y} r={node.r + 11}
+                      cx={x} cy={y} r={node.r + (analyseNodes.length === 1 ? 11 : 8)}
                       fill="none"
                       stroke="#5aacb8"
-                      strokeWidth={1.5}
-                      strokeDasharray="5 4"
-                      opacity={0.85}
-                    />
-                  )}
-                  {/* Analyse-mode: endpoint rings (both nodes selected) */}
-                  {(analyseNodes[0] === node.id || analyseNodes[1] === node.id) && analyseNodes[1] !== null && (
-                    <circle
-                      cx={x} cy={y} r={node.r + 8}
-                      fill="none"
-                      stroke="#5aacb8"
-                      strokeWidth={1.8}
-                      opacity={0.7}
+                      strokeWidth={analyseNodes.length === 1 ? 1.5 : 1.8}
+                      strokeDasharray={analyseNodes.length === 1 ? "5 4" : undefined}
+                      opacity={analyseNodes.length === 1 ? 0.85 : 0.7}
                     />
                   )}
 
@@ -2506,62 +2511,103 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           maxHeight: "calc(100vh - 6rem)", overflowY: "auto",
           fontFamily: C.mono, fontSize: "0.6rem",
         }}>
-          <div style={{ color: "#5aacb8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
-            Spannungsfeld-Analyse
-          </div>
-
-          {!analyseNodes[0] && (
-            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
-              Ersten Knoten anklicken …
-            </div>
-          )}
-          {analyseNodes[0] && !analyseNodes[1] && (
-            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
-              <span style={{ color: "#8accd8" }}>{NODE_MAP.get(analyseNodes[0])?.label.replace("\n", " ")}</span>
-              {" "}→ Zweiten Knoten anklicken …
-            </div>
-          )}
-
-          {analyseNodes[1] && (() => {
-            const labelA = NODE_MAP.get(analyseNodes[0]!)?.label.replace("\n", " ") ?? "";
-            const labelB = NODE_MAP.get(analyseNodes[1])?.label.replace("\n", " ") ?? "";
+          {(() => {
+            const n = analyseNodes.length;
+            const headerLabel =
+              n === 0 ? "Cluster-Analyse" :
+              n === 1 ? "Cluster-Analyse — 1 Knoten" :
+              n === 2 ? "Spannungsfeld (2)" :
+              n === 3 ? "Triade (3)" :
+              `Konstellation (${n})`;
             return (
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                <div style={{ fontFamily: C.mono, fontSize: "0.58rem", color: "#3a8a96", letterSpacing: "0.08em" }}>
-                  {labelA} <span style={{ color: C.muted }}>⚡</span> {labelB}
-                </div>
-
-                {analyseLoading && (
-                  <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
-                    Analyse läuft …
-                  </div>
-                )}
-
-                {analyseError && (
-                  <div style={{ fontFamily: C.mono, fontSize: "0.62rem", color: "#c48282" }}>
-                    {analyseError}
-                  </div>
-                )}
-
-                {analyseResult && (
-                  <div>
-                    {analyseResult.split(/\n\n+/).map((para, i) => (
-                      <p key={i} style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.8rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.7rem" }}>
-                        {para.trim()}
-                      </p>
-                    ))}
-                  </div>
-                )}
-
-                <button
-                  onClick={() => { analyseNodesRef.current = [null, null]; setAnalyseNodes([null, null]); setAnalyseResult(null); setAnalyseError(null); }}
-                  style={{ alignSelf: "flex-start", fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.2rem 0.5rem", cursor: "pointer" }}
-                >
-                  Zurücksetzen
-                </button>
+              <div style={{ color: "#5aacb8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                <span>{headerLabel}</span>
+                {n > 0 && <span style={{ color: C.muted, fontSize: "0.5rem" }}>{n}/5</span>}
               </div>
             );
           })()}
+
+          {analyseNodes.length === 0 && (
+            <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
+              Knoten anklicken — 2 bis 5 für eine Cluster-Analyse.
+            </div>
+          )}
+
+          {analyseNodes.length > 0 && (
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
+              {/* Chip-Reihe: gewählte Knoten, klickbar zum Entfernen */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                {analyseNodes.map(id => {
+                  const meta = NODE_MAP.get(id);
+                  if (!meta) return null;
+                  return (
+                    <button
+                      key={id}
+                      onClick={() => {
+                        const next = analyseNodesRef.current.filter(x => x !== id);
+                        analyseNodesRef.current = next;
+                        setAnalyseNodes(next);
+                        setAnalyseResult(null);
+                        setAnalyseError(null);
+                      }}
+                      style={{
+                        fontFamily: C.serif, fontStyle: "italic", fontSize: "0.7rem",
+                        color: "#8accd8", background: "rgba(90,172,184,0.08)",
+                        border: `1px solid #5aacb8`, padding: "0.2rem 0.5rem",
+                        cursor: "pointer", display: "inline-flex", alignItems: "center", gap: "0.3rem",
+                      }}
+                      title="Entfernen"
+                    >
+                      {meta.label.replace("\n", " ")}
+                      <span style={{ color: C.muted, fontSize: "0.7rem" }}>×</span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Action-Bar: Analyse starten (ab 2 Knoten) + Reset */}
+              <div style={{ display: "flex", gap: "0.4rem" }}>
+                <button
+                  disabled={analyseNodes.length < 2 || analyseLoading}
+                  onClick={runClusterAnalysis}
+                  style={{
+                    fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                    textTransform: "uppercase",
+                    color: analyseNodes.length < 2 ? C.muted : "#080808",
+                    background: analyseNodes.length < 2 || analyseLoading ? "transparent" : "#5aacb8",
+                    border: `1px solid ${analyseNodes.length < 2 ? C.border : "#5aacb8"}`,
+                    padding: "0.3rem 0.7rem",
+                    cursor: analyseNodes.length < 2 || analyseLoading ? "not-allowed" : "pointer",
+                    transition: "all 0.15s",
+                  }}
+                >
+                  {analyseLoading ? "läuft …" : analyseNodes.length < 2 ? "weitere wählen" : "Analyse starten"}
+                </button>
+                <button
+                  onClick={() => { analyseNodesRef.current = []; setAnalyseNodes([]); setAnalyseResult(null); setAnalyseError(null); }}
+                  style={{ fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.3rem 0.5rem", cursor: "pointer" }}
+                >
+                  Reset
+                </button>
+              </div>
+
+              {analyseError && (
+                <div style={{ fontFamily: C.mono, fontSize: "0.62rem", color: "#c48282" }}>
+                  {analyseError}
+                </div>
+              )}
+
+              {analyseResult && (
+                <div>
+                  {analyseResult.split(/\n\n+/).map((para, i) => (
+                    <p key={i} style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.8rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.7rem" }}>
+                      {para.trim()}
+                    </p>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
         </div>
       )}
 
