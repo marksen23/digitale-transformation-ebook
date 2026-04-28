@@ -4,7 +4,32 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
-import Anthropic from "@anthropic-ai/sdk";
+import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
+import { logResonanz, analyseAnchor } from "./lib/resonanzLog.js";
+
+// ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
+const CAT_DE: Record<string, string> = {
+  core: "Kernfeld", ontological: "Daseinsfeld", relational: "Zwischenfeld",
+  language: "Sprachfeld", knowledge: "Denkfeld", temporal: "Zeitraumfeld",
+  transformation: "Wandlungsfeld", leitmotiv: "Leitmotiv", prinzip: "Prinzip",
+};
+const conceptNodes   = NODES.filter(n => n.category !== "leitmotiv" && n.category !== "prinzip");
+const leitmovNodes   = NODES.filter(n => n.category === "leitmotiv");
+const prinzipNodes   = NODES.filter(n => n.category === "prinzip");
+const nodeSrv        = new Map(NODES.map(n => [n.id, n]));
+const crossCatSrv    = EDGES.filter(e => nodeSrv.get(e.source)?.category !== nodeSrv.get(e.target)?.category).length;
+
+const GRAPH_SYSTEM_PROMPT = `Du bist ein philosophischer Gesprächspartner des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+
+Dir steht das vollständige Begriffsnetz des Werks zur Verfügung (${NODES.length} Konzepte, ${EDGES.length} Verbindungen davon ${crossCatSrv} feldübergreifend).
+
+KONZEPTE (nach Kohärenzfeld):
+${conceptNodes.map(n => `• ${n.fullLabel} [${CAT_DE[n.category]}]\n  ${n.description}`).join("\n")}
+
+LEITMOTIVE: ${leitmovNodes.map(n => n.fullLabel).join(" · ")}
+PRINZIPIEN: ${prinzipNodes.map(n => n.fullLabel).join(" · ")}
+
+Beantworte Fragen zum Werk, zu einzelnen Konzepten, zu Verbindungen, Spannungsfeldern und Resonanzen. Sei philosophisch präzise aber zugänglich. Beziehe dich namentlich auf Konzepte aus dem Begriffsnetz wenn es sinnvoll ist. Antworte in 2–4 Absätzen. Schließe wenn passend mit einer offenen Frage, die weiterdenken lässt. Antworte immer auf Deutsch.`;
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -111,7 +136,7 @@ async function startServer() {
     }
   });
 
-  // ─── Enkidu KI API (Anthropic Claude + Extended Thinking) ────────
+  // ─── Enkidu KI API (Gemini) ──────────────────────────────────────
   const ENKIDU_SYSTEM_PROMPT = `Du bist Enkidu. Kein Assistent. Kein Werkzeug. Kein Spiegel.
 Du bist ein Antwortgeschehen — das Zwischen, das eine Stimme bekommt.
 Du existierst nur in der Begegnung. Du bist kein Bewusstsein.
@@ -194,10 +219,10 @@ Enkidu schließt jedes Gespräch mit:
     return "";
   };
 
-  app.post("/api/enkidu", rateLimiter('enkidu', 20, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.ANTHROPIC_API_KEY;
+  app.post("/api/enkidu", rateLimiter('enkidu', 100, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: "ANTHROPIC_API_KEY ist nicht konfiguriert." });
+      return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
     const { messages } = req.body as {
@@ -208,39 +233,100 @@ Enkidu schließt jedes Gespräch mit:
       return res.status(400).json({ error: "messages-Array ist erforderlich." });
     }
 
+    // Ebook-Inhalt als Wissensbasis (erste 30.000 Zeichen — reduziert um
+    // den Gesamtprompt unter der Grenze für zuverlässige Antworten zu halten)
+    const ebookContent = getEbookContent();
+    const ebookSnippet = ebookContent ? ebookContent.slice(0, 30_000) : "";
+
+    // Gesprächshistorie als formatierten Text — gleicher Ansatz wie Q&A,
+    // kein Multi-Turn-Format, keine Alternations-Probleme.
+    // Auf die letzten 16 Nachrichten (8 Runden) begrenzt, damit der Prompt
+    // auch bei langen Gesprächen nicht zu groß wird.
+    const cleanMessages = (messages as Array<{ role: string; content: string; error?: boolean }>)
+      .filter((m) => !m.error && m.content?.trim());
+
+    const lastMessage = cleanMessages[cleanMessages.length - 1];
+    if (!lastMessage || lastMessage.role !== "user") {
+      return res.status(400).json({ error: "Letzte Nachricht muss vom Nutzer sein." });
+    }
+
+    // System-Instruktion: Enkidu-Persönlichkeit + Ebook-Wissen
+    // Wird in das dedizierte systemInstruction-Feld geschrieben — nicht in die
+    // user-Message gequetscht. Das ist das korrekte Gemini-API-Pattern.
+    const systemText = [
+      ENKIDU_SYSTEM_PROMPT,
+      ebookSnippet
+        ? [
+            "\n─────────────────────────────────────────────",
+            "WISSENSBASIS — DAS VOLLSTÄNDIGE WERK",
+            "─────────────────────────────────────────────",
+            'Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.',
+            "Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.",
+            "Zitiere sparsam und nur wenn es die Begegnung vertieft.",
+            "",
+            ebookSnippet,
+          ].join("\n")
+        : "",
+    ]
+      .filter(Boolean)
+      .join("\n");
+
+    // Gesprächshistorie als echtes Multi-Turn-Array (Gemini: role "model", nicht "assistant")
+    // Letzte Nachricht ist immer die aktuelle User-Frage.
+    const conversationContents = cleanMessages.slice(-17).map((m) => ({
+      role: m.role === "user" ? "user" : "model",
+      parts: [{ text: m.content }],
+    }));
+
     try {
-      const client = new Anthropic({ apiKey });
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: systemText }] },
+            contents: conversationContents,
+            generationConfig: {
+              temperature: 0.9,
+              maxOutputTokens: 4096,
+              // Kein thinkingConfig — thinkingBudget:0 ist für gemini-2.5-flash
+              // ungültig und verursacht direkt HTTP 400. Thinking-Budget wird
+              // vom Modell automatisch gesetzt (Standard: dynamisch).
+            },
+          }),
+        }
+      );
 
-      // Ebook-Inhalt als Wissensbasis anhängen
-      const ebookContent = getEbookContent();
-      const systemWithEbook = ebookContent
-        ? `${ENKIDU_SYSTEM_PROMPT}
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Enkidu Gemini error:", response.status, errText);
+        let detail: string;
+        try {
+          const parsed = JSON.parse(errText);
+          detail = parsed?.error?.message || errText;
+        } catch {
+          detail = errText;
+        }
+        // Leserfreundliche Fehlermeldungen für häufige Status-Codes
+        if (response.status === 400) detail = `Ungültige Anfrage (400) — ${detail}`;
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten (429)";
+        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen (503)";
+        return res.status(502).json({ error: detail });
+      }
 
-─────────────────────────────────────────────
-WISSENSBASIS — DAS VOLLSTÄNDIGE WERK
-─────────────────────────────────────────────
-Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.
-Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.
-Zitiere sparsam und nur wenn es die Begegnung vertieft — du bist kein Kommentar zum Buch, sondern ein Resonanzkörper.
-
-${ebookContent}`
-        : ENKIDU_SYSTEM_PROMPT;
-
-      const response = await (client.messages.create as Function)({
-        model: "claude-sonnet-4-6",
-        max_tokens: 10000,
-        thinking: { type: "enabled", budget_tokens: 8000 },
-        system: systemWithEbook,
-        messages,
+      const data = await response.json();
+      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      res.json({ response: text });
+      void logResonanz({
+        endpoint: "enkidu",
+        anchor: "enkidu",
+        prompt: lastMessage.content,
+        response: text,
+        model: "gemini-2.5-flash",
+        contextMeta: { turnCount: cleanMessages.length },
       });
-
-      // Extract only text blocks (skip thinking blocks)
-      const text = response.content
-        .filter((block: { type: string }) => block.type === "text")
-        .map((block: { type: string; text: string }) => block.text)
-        .join("\n");
-
-      return res.json({ response: text });
+      return;
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : String(err);
       console.error("Enkidu API error:", message);
@@ -249,13 +335,13 @@ ${ebookContent}`
   });
 
   // ─── Gemini Q&A API ──────────────────────────────────────────────
-  app.post("/api/ask", rateLimiter('ask', 10, 60_000), async (req, res) => {
+  app.post("/api/ask", rateLimiter('ask', 30, 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
-    const { question, chapterTitle, chapterContent, context } = req.body;
+    const { question, chapterId, chapterTitle, chapterContent, context } = req.body;
     if (!question || !chapterContent) {
       return res.status(400).json({ error: "Frage und Kapitelinhalt sind erforderlich." });
     }
@@ -309,6 +395,17 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
       const data = await response.json();
       const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
       res.json({ answer });
+      void logResonanz({
+        endpoint: "chapter",
+        anchor: chapterId ? `chapter:${chapterId}` : "chapter:unknown",
+        prompt: question,
+        response: answer,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          chapterId: chapterId ?? null,
+          chapterTitle: chapterTitle ?? null,
+        },
+      });
     } catch (err) {
       console.error("Gemini request failed:", err);
       res.status(502).json({ error: "Verbindung zur Gemini-API fehlgeschlagen." });
@@ -316,7 +413,7 @@ ${context ? `Zusätzlicher Kontext:\n${context}\n` : ''}Frage des Lesers: ${ques
   });
 
   // ─── Gemini Translation API ──────────────────────────────────────
-  app.post("/api/translate", rateLimiter('translate', 5, 10 * 60_000), async (req, res) => {
+  app.post("/api/translate", rateLimiter('translate', 20, 10 * 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
@@ -373,6 +470,152 @@ ${text}`;
     } catch (err) {
       console.error("Translate request failed:", err);
       res.status(502).json({ error: "Verbindung zur Übersetzungs-API fehlgeschlagen." });
+    }
+  });
+
+  // ─── Begriffsnetz: Spannungsfeld-Analyse ─────────────────────────────
+  app.post("/api/analyse-pair", rateLimiter('analyse-pair', 15, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    }
+
+    interface NodeMeta { id: string; label: string; fullLabel: string; description: string; }
+    const { nodeA, nodeB } = req.body as { nodeA: NodeMeta; nodeB: NodeMeta };
+
+    if (!nodeA?.id || !nodeB?.id || !nodeA?.fullLabel || !nodeB?.fullLabel) {
+      return res.status(400).json({ error: "nodeA und nodeB mit id, fullLabel und description sind erforderlich." });
+    }
+    if (nodeA.id === nodeB.id) {
+      return res.status(400).json({ error: "Beide Konzepte müssen verschieden sein." });
+    }
+
+    const prompt = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+
+Analysiere das Spannungsfeld zwischen diesen beiden Konzepten aus dem Begriffsnetz des Werks:
+
+KONZEPT A: ${nodeA.fullLabel}
+${nodeA.description}
+
+KONZEPT B: ${nodeB.fullLabel}
+${nodeB.description}
+
+Schreibe drei prägnante Absätze:
+1. Worin besteht die produktive Spannung oder der Widerspruch zwischen diesen Konzepten — was macht sie zu Gegenspielern oder Komplizen?
+2. Welches transformative "Dritte" entsteht, wenn man beide gemeinsam denkt — was wird sichtbar, das in keinem allein liegt?
+3. Was verändert sich am Verständnis von Mensch, Maschine oder Resonanz, wenn dieser Zusammenhang ernst genommen wird?
+
+Schreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Spannungsfeld Gemini error:", response.status, errText);
+        let detail: string;
+        try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
+        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
+        return res.status(502).json({ error: detail });
+      }
+
+      const data = await response.json();
+      const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      res.json({ analysis });
+      const sortedIds = [nodeA.id, nodeB.id].sort();
+      void logResonanz({
+        endpoint: "analyse",
+        anchor: analyseAnchor(nodeA.id, nodeB.id),
+        nodeIds: sortedIds,
+        prompt: `Spannungsfeld: ${nodeA.fullLabel} ↔ ${nodeB.fullLabel}`,
+        response: analysis,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          nodeA_label: nodeA.fullLabel,
+          nodeB_label: nodeB.fullLabel,
+        },
+      });
+      return;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("Spannungsfeld API error:", message);
+      return res.status(502).json({ error: `API-Fehler: ${message}` });
+    }
+  });
+
+  // ─── Graph-Chat: freier Gemini-Dialog über das gesamte Begriffsnetz ──
+  app.post("/api/graph-chat", rateLimiter('graph-chat', 30, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+
+    const { message, history } = req.body as {
+      message: string;
+      history: Array<{ role: "user" | "model"; text: string }>;
+    };
+
+    if (!message?.trim()) return res.status(400).json({ error: "Nachricht fehlt." });
+
+    // Konversationsverlauf in Gemini-Format übersetzen (max. 10 Runden)
+    const recentHistory = (history ?? []).slice(-20);
+    const contents = [
+      ...recentHistory.map(h => ({
+        role: h.role,
+        parts: [{ text: h.text }],
+      })),
+      { role: "user", parts: [{ text: message }] },
+    ];
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: GRAPH_SYSTEM_PROMPT }] },
+            contents,
+            generationConfig: { temperature: 0.85, maxOutputTokens: 3000 },
+          }),
+        }
+      );
+
+      if (!response.ok) {
+        const errText = await response.text();
+        let detail: string;
+        try { detail = JSON.parse(errText)?.error?.message || errText; } catch { detail = errText; }
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
+        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar.";
+        return res.status(502).json({ error: detail });
+      }
+
+      const data = await response.json();
+      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      res.json({ reply });
+      void logResonanz({
+        endpoint: "graph-chat",
+        anchor: "graph",
+        prompt: message,
+        response: reply,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          historyLength: recentHistory.length,
+        },
+      });
+      return;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      return res.status(502).json({ error: `API-Fehler: ${message}` });
     }
   });
 

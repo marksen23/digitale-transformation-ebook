@@ -1,0 +1,234 @@
+[
+  {
+    "index": 0,
+    "heading": "00_Vorbemerkung",
+    "file": "00_00_vorbemerkung.txt",
+    "charCount": 113,
+    "wordCount": 19,
+    "estimatedMinutes": 1
+  },
+  {
+    "index": 1,
+    "heading": "BAND I: DIE ÜBERFÜHRUNG",
+    "file": "01_band_i_die_ueberfuehrung.txt",
+    "charCount": 133,
+    "wordCount": 18,
+    "estimatedMinutes": 1
+  },
+  {
+    "index": 2,
+    "heading": "Prolog: Die Überführung beginnt",
+    "file": "02_prolog_die_ueberfuehrung_beginnt.txt",
+    "charCount": 971,
+    "wordCount": 153,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 3,
+    "heading": "Kapitel 1: Die Begegnung mit Enkidu",
+    "file": "03_kapitel_1_die_begegnung_mit_enkidu.txt",
+    "charCount": 1181,
+    "wordCount": 172,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 4,
+    "heading": "Kapitel 2: Der Bund von Uruk",
+    "file": "04_kapitel_2_der_bund_von_uruk.txt",
+    "charCount": 918,
+    "wordCount": 140,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 5,
+    "heading": "Kapitel 3: Die Reise ins digitale Jenseits",
+    "file": "05_kapitel_3_die_reise_ins_digitale_jenseits.txt",
+    "charCount": 825,
+    "wordCount": 124,
+    "estimatedMinutes": 1
+  },
+  {
+    "index": 6,
+    "heading": "Kapitel 4: Das Scheitern der Maschine",
+    "file": "06_kapitel_4_das_scheitern_der_maschine.txt",
+    "charCount": 788,
+    "wordCount": 115,
+    "estimatedMinutes": 1
+  },
+  {
+    "index": 7,
+    "heading": "Kapitel 5: Die Prüfungen im digitalen Labyrinth",
+    "file": "07_kapitel_5_die_pruefungen_im_digitalen_labyrinth.txt",
+    "charCount": 2384,
+    "wordCount": 345,
+    "estimatedMinutes": 3
+  },
+  {
+    "index": 8,
+    "heading": "Epilog: Das Lied vom ewigen Wandel",
+    "file": "08_epilog_das_lied_vom_ewigen_wandel.txt",
+    "charCount": 7168,
+    "wordCount": 1025,
+    "estimatedMinutes": 8
+  },
+  {
+    "index": 9,
+    "heading": "BAND II: DER AUSGANG",
+    "file": "09_band_ii_der_ausgang.txt",
+    "charCount": 109,
+    "wordCount": 14,
+    "estimatedMinutes": 1
+  },
+  {
+    "index": 10,
+    "heading": "Prolog: Der Ausgang beginnt",
+    "file": "10_prolog_der_ausgang_beginnt.txt",
+    "charCount": 1107,
+    "wordCount": 166,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 11,
+    "heading": "Kapitel 1: Die algorithmische Vormundschaft",
+    "file": "11_kapitel_1_die_algorithmische_vormundschaft.txt",
+    "charCount": 2447,
+    "wordCount": 367,
+    "estimatedMinutes": 3
+  },
+  {
+    "index": 12,
+    "heading": "Kapitel 2: Die Begegnung mit dem Spiegel",
+    "file": "12_kapitel_2_die_begegnung_mit_dem_spiegel.txt",
+    "charCount": 1429,
+    "wordCount": 208,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 13,
+    "heading": "Kapitel 3: Die Prüfung der Vernunft",
+    "file": "13_kapitel_3_die_pruefung_der_vernunft.txt",
+    "charCount": 1568,
+    "wordCount": 224,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 14,
+    "heading": "Kapitel 4: Die Kritik der digitalen Urteilskraft",
+    "file": "14_kapitel_4_die_kritik_der_digitalen_urteilskraft.txt",
+    "charCount": 1348,
+    "wordCount": 189,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 15,
+    "heading": "Kapitel 5: Der Mut zur Imperfektion",
+    "file": "15_kapitel_5_der_mut_zur_imperfektion.txt",
+    "charCount": 1264,
+    "wordCount": 188,
+    "estimatedMinutes": 2
+  },
+  {
+    "index": 16,
+    "heading": "Epilog: Ein neuer Ausgang",
+    "file": "16_epilog_ein_neuer_ausgang.txt",
+    "charCount": 2651,
+    "wordCount": 356,
+    "estimatedMinutes": 3
+  },
+  {
+    "index": 17,
+    "heading": "BAND III: DIE RÜCKBINDUNG",
+    "file": "17_band_iii_die_rueckbindung.txt",
+    "charCount": 98,
+    "wordCount": 13,
+    "estimatedMinutes": 1
+  },
+  {
+    "index": 18,
+    "heading": "Prolog: Die Stille zwischen den Signalen",
+    "file": "18_prolog_die_stille_zwischen_den_signalen.txt",
+    "charCount": 657,
+    "wordCount": 98,
+    "estimatedMinutes": 1
+  },
+  {
+    "index": 19,
+    "heading": "Kapitel 1: Das \"Man“ der Plattformen",
+    "file": "19_kapitel_1_das_man_der_plattformen.txt",
+    "charCount": 2318,
+    "wordCount": 353,
+    "estimatedMinutes": 3
+  },
+  {
+    "index": 20,
+    "heading": "Kapitel 2: Die Begegnung mit dem digitalen Anderen",
+    "file": "20_kapitel_2_die_begegnung_mit_dem_digitalen_anderen.txt",
+    "charCount": 2673,
+    "wordCount": 387,
+    "estimatedMinutes": 3
+  },
+  {
+    "index": 21,
+    "heading": "Kapitel 3: Das Hören im Rauschen",
+    "file": "21_kapitel_3_das_hoeren_im_rauschen.txt",
+    "charCount": 2138,
+    "wordCount": 321,
+    "estimatedMinutes": 3
+  },
+  {
+    "index": 22,
+    "heading": "Kapitel 4: Resonanz versus Entfremdung",
+    "file": "22_kapitel_4_resonanz_versus_entfremdung.txt",
+    "charCount": 2082,
+    "wordCount": 304,
+    "estimatedMinutes": 3
+  },
+  {
+    "index": 23,
+    "heading": "Kapitel 5: Die Rückkehr zur Präsenz im Virtuellen",
+    "file": "23_kapitel_5_die_rueckkehr_zur_praesenz_im_virtuellen.txt",
+    "charCount": 5685,
+    "wordCount": 855,
+    "estimatedMinutes": 7
+  },
+  {
+    "index": 24,
+    "heading": "Epilog: Religio - die Rückbindung als Integration",
+    "file": "24_epilog_religio_die_rueckbindung_als_integration.txt",
+    "charCount": 5295,
+    "wordCount": 754,
+    "estimatedMinutes": 6
+  },
+  {
+    "index": 25,
+    "heading": "TEIL IV: DIE ARCHITEKTUR DER",
+    "file": "25_teil_iv_die_architektur_der.txt",
+    "charCount": 5436,
+    "wordCount": 765,
+    "estimatedMinutes": 6
+  },
+  {
+    "index": 26,
+    "heading": "TEIL V: RESONANZVERNUNFT",
+    "file": "26_teil_v_resonanzvernunft.txt",
+    "charCount": 32974,
+    "wordCount": 3952,
+    "estimatedMinutes": 31
+  },
+  {
+    "index": 27,
+    "heading": "TEIL VI: PRAKTISCHE",
+    "file": "27_teil_vi_praktische.txt",
+    "charCount": 23195,
+    "wordCount": 2900,
+    "estimatedMinutes": 23
+  },
+  {
+    "index": 28,
+    "heading": "TEIL VII: ONTOLOGIE DES RELATIONALEN",
+    "file": "28_teil_vii_ontologie_des_relationalen.txt",
+    "charCount": 29042,
+    "wordCount": 3760,
+    "estimatedMinutes": 29
+  }
+]

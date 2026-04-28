@@ -2,7 +2,7 @@
   "name": "digitale-transformation-ebook",
   "version": "1.0.0",
   "type": "module",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "dev": "vite --host",
     "build": "vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
@@ -10,7 +10,10 @@
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
     "format": "prettier --write .",
-    "icons": "node scripts/generate-icons.mjs"
+    "icons": "node scripts/generate-icons.mjs",
+    "audio": "node scripts/prepare-audio.mjs",
+    "timestamps": "node scripts/generate-timestamps.mjs",
+    "snapshot:history": "tsx scripts/snapshot-history.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
@@ -42,7 +45,6 @@
     "@radix-ui/react-toggle": "^1.1.10",
     "@radix-ui/react-toggle-group": "^1.1.11",
     "@radix-ui/react-tooltip": "^1.2.8",
-    "axios": "^1.12.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
@@ -52,7 +54,6 @@
     "input-otp": "^1.4.2",
     "lucide-react": "^0.453.0",
     "nanoid": "^5.1.5",
-    "next-themes": "^0.4.6",
     "pdf-lib": "^1.17.1",
     "react": "^19.2.1",
     "react-day-picker": "^9.11.1",
@@ -92,7 +93,7 @@
     "vite": "^7.1.7",
     "vite-plugin-manus-runtime": "^0.0.57",
     "vite-plugin-pwa": "^1.2.0",
-    "vitest": "^2.1.4",
+    "vitest": "^4.1.4",
     "workbox-window": "^7.4.0"
   },
   "packageManager": "pnpm@10.4.1+sha512.c753b6c3ad7afa13af388fa6d808035a008e30ea9993f58c6663e2bc5ff21679aa834db094987129aa4d488b86df57f7b634981b2f827cdcacc698cc0cfb88af",
@@ -101,7 +102,8 @@
       "wouter@3.7.1": "patches/wouter@3.7.1.patch"
     },
     "overrides": {
-      "tailwindcss>nanoid": "3.3.7"
+      "tailwindcss>nanoid": "3.3.7",
+      "serialize-javascript": ">=7.0.5"
     }
   }
 }

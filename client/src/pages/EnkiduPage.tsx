@@ -1,10 +1,13 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useSpeechRecognition, useSpeechSynthesis } from "@/hooks/useSpeech";
+import AnalyticsScreen from "@/components/enkidu/AnalyticsScreen";
+import { useEbookTheme } from "@/hooks/useEbookTheme";
 
 // ─── Types ────────────────────────────────────────────────────────
-type Screen = "landing" | "chat" | "feedback" | "profile";
+type Screen = "landing" | "chat" | "feedback" | "profile" | "analytics";
 
 interface Message {
+  id: string;           // stabile UUID-Identität für React-Keys
   role: "user" | "assistant";
   content: string;
   error?: boolean;
@@ -32,7 +35,15 @@ const LS_KEY = "enkidu-conversations";
 function loadConversations(): Conversation[] {
   try {
     const raw = localStorage.getItem(LS_KEY);
-    return raw ? JSON.parse(raw) : [];
+    if (!raw) return [];
+    const parsed: Conversation[] = JSON.parse(raw);
+    // Migration: ältere gespeicherte Nachrichten ohne 'id' bekommen eine stabile UUID
+    return parsed.map(conv => ({
+      ...conv,
+      messages: conv.messages.map(m =>
+        m.id ? m : { ...m, id: crypto.randomUUID() }
+      ),
+    }));
   } catch { return []; }
 }
 
@@ -49,7 +60,7 @@ function deleteConversation(id: string) {
 }
 
 // ─── Styles ───────────────────────────────────────────────────────
-const C = {
+const C_DARK = {
   void: "#080808", deep: "#0f0f0f", surface: "#161616", border: "#2a2a2a",
   muted: "#444", textDim: "#888", text: "#c8c2b4", textBright: "#e8e2d4",
   accent: "#c4a882", accentDim: "#7a6a52", danger: "#8b3a3a",
@@ -57,11 +68,43 @@ const C = {
   mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
 
+const C_LIGHT: { readonly [K in keyof typeof C_DARK]: string } = {
+  void: "#fafaf9", deep: "#f0ece4", surface: "#ffffff", border: "#d8d2c8",
+  muted: "#a8a29e", textDim: "#78716c", text: "#3a3530", textBright: "#1c1917",
+  accent: "#c4a882", accentDim: "#7a6a52", danger: "#8b3a3a",
+  serif: "'EB Garamond', Georgia, serif",
+  mono: "'Courier Prime', 'Courier New', monospace",
+};
+
+// Modul-Level Helfer/Komponenten nutzen die theme-unabhängigen Felder von C_DARK
+// (mono, accent, accentDim sind in beiden Paletten identisch).
 function btn(overrides: React.CSSProperties = {}): React.CSSProperties {
   return {
-    fontFamily: C.mono, border: "none", cursor: "pointer",
+    fontFamily: C_DARK.mono, border: "none", cursor: "pointer",
     transition: "all 0.2s", ...overrides,
   };
+}
+
+// ─── Blinking terminal cursor ─────────────────────────────────────
+// References the cursor motif from the ebook — the moment before the
+// first word, the "Zwischen" between thought and utterance.
+function BlinkCursor({ style }: { style?: React.CSSProperties }) {
+  return (
+    <span
+      aria-hidden="true"
+      style={{
+        display: "inline-block",
+        width: "0.52em",
+        height: "1.05em",
+        background: C_DARK.accent,
+        verticalAlign: "text-bottom",
+        borderRadius: "1px",
+        animation: "enkidu-cursor 2.8s linear infinite",
+        flexShrink: 0,
+        ...style,
+      }}
+    />
+  );
 }
 
 // ─── Typing indicator ─────────────────────────────────────────────
@@ -71,7 +114,7 @@ function TypingIndicator() {
       {[0, 200, 400].map((delay) => (
         <span key={delay} style={{
           display: "inline-block", width: 5, height: 5, borderRadius: "50%",
-          background: C.accentDim, animation: `enkidu-dot 1.2s ease ${delay}ms infinite`,
+          background: C_DARK.accentDim, animation: `enkidu-dot 2.2s ease ${delay}ms infinite`,
         }} />
       ))}
     </div>
@@ -81,12 +124,15 @@ function TypingIndicator() {
 // ─── Constants ────────────────────────────────────────────────────
 // Defined outside component so it's stable across renders
 const INITIAL_MSG: Message = {
+  id: "enkidu-init",
   role: "assistant",
   content: "Du bist hier. Das ist bereits eine Entscheidung.\nWas bringst du mit, das du noch nicht benennen kannst?",
 };
 
 // ─── Main Component ───────────────────────────────────────────────
 export default function EnkiduPage({ onClose }: EnkiduPageProps) {
+  const isDark = useEbookTheme();
+  const C: { readonly [K in keyof typeof C_DARK]: string } = isDark ? C_DARK : C_LIGHT;
   const [screen, setScreen] = useState<Screen>("landing");
   const [messages, setMessages] = useState<Message[]>([]);
   const [loading, setLoading] = useState(false);
@@ -100,6 +146,11 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const [landingVisible, setLandingVisible] = useState(false);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConvId, setActiveConvId] = useState<string | null>(null);
+  // "Begegnung"-Datum: Zeitpunkt des Gesprächsbeginns
+  const [convStartDate, setConvStartDate] = useState<string>(() => new Date().toISOString());
+  // Das Dazwischen — Schweigepause (1.2 s) bevor der Typing-Indicator erscheint
+  const [showTypingIndicator, setShowTypingIndicator] = useState(false);
+  const silenceTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
@@ -137,10 +188,18 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       const style = document.createElement("style");
       style.id = id;
       style.textContent = `
-        @keyframes enkidu-dot { 0%,100%{opacity:.3;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
+        /* Ruhiger Atemrhythmus: sichtbar halten → sanft ausblenden → Pause → sanft einblenden */
+        @keyframes enkidu-dot { 0%,100%{opacity:.25;transform:scale(1)} 50%{opacity:.9;transform:scale(1.25)} }
         @keyframes enkidu-fade-in { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
         @keyframes enkidu-glyph { from{opacity:0;transform:scale(.8)} to{opacity:1;transform:scale(1)} }
         @keyframes enkidu-msg { from{opacity:0;transform:translateY(6px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes enkidu-cursor {
+          0%   { opacity: 1; }
+          38%  { opacity: 1; }
+          54%  { opacity: 0; }
+          88%  { opacity: 0; }
+          100% { opacity: 1; }
+        }
         .enkidu-msg { animation: enkidu-msg 0.4s ease; }
         .enkidu-grain::before {
           content:''; position:fixed; inset:0;
@@ -232,6 +291,31 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           .enkidu-edit-btn { opacity: 1 !important; }
           .enkidu-speaker { opacity: 1 !important; }
         }
+
+        /* ── Analytics screen ── */
+        .enkidu-analytics { padding: 4.5rem 1rem 3rem !important; }
+        .enkidu-analytics-stats {
+          grid-template-columns: repeat(2, 1fr) !important;
+          gap: 0.75rem !important;
+        }
+        .enkidu-analytics-grid {
+          display: grid !important;
+          grid-template-columns: 1fr !important;
+          gap: 1.25rem !important;
+        }
+        @media (min-width: 480px) {
+          .enkidu-analytics-stats {
+            grid-template-columns: repeat(4, 1fr) !important;
+          }
+        }
+        @media (min-width: 640px) {
+          .enkidu-analytics { padding: 7rem 3rem 4rem !important; }
+          .enkidu-analytics-stats { gap: 1rem !important; }
+          .enkidu-analytics-grid {
+            grid-template-columns: 1fr 1fr !important;
+            gap: 1.5rem !important;
+          }
+        }
       `;
       document.head.appendChild(style);
     }
@@ -241,12 +325,24 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     if (screen === "landing") setTimeout(() => setLandingVisible(true), 50);
   }, [screen]);
 
+  // Schweigepause: Typing-Indicator erst nach 1.2 s einblenden — das Dazwischen sichtbar machen
+  useEffect(() => {
+    if (loading) {
+      setShowTypingIndicator(false);
+      silenceTimerRef.current = setTimeout(() => setShowTypingIndicator(true), 1200);
+    } else {
+      clearTimeout(silenceTimerRef.current);
+      setShowTypingIndicator(false);
+    }
+    return () => clearTimeout(silenceTimerRef.current);
+  }, [loading]);
+
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, loading]);
 
   useEffect(() => {
-    if (screen === "profile") setConversations(loadConversations());
+    if (screen === "profile" || screen === "analytics") setConversations(loadConversations());
   }, [screen]);
 
   const resizeTextarea = useCallback(() => {
@@ -256,11 +352,13 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     ta.style.height = Math.min(ta.scrollHeight, 160) + "px";
   }, []);
 
-  const enterChat = useCallback((withMessages?: Message[]) => {
+  const enterChat = useCallback((withMessages?: Message[], convDate?: string) => {
     // Always start fresh when no messages supplied (new conversation from landing).
     // Never preserve old messages — avoids stale-closure bugs after completeFeedback.
     setMessages(withMessages ?? [INITIAL_MSG]);
     setHasError(false);
+    // Datum der Begegnung: entweder das der wiederaufgenommenen Konversation oder jetzt
+    setConvStartDate(convDate ?? new Date().toISOString());
     setScreen("chat");
   }, []);
 
@@ -279,14 +377,15 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         const msg = res.status === 429
           ? `⏱ ${data.error}`
           : `[Fehler: ${data.error}]`;
-        setMessages((prev) => [...prev, { role: "assistant", content: msg, error: true }]);
+        setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: msg, error: true }]);
         setHasError(true);
       } else {
-        setMessages((prev) => [...prev, { role: "assistant", content: data.response }]);
+        setMessages((prev) => [...prev, { id: crypto.randomUUID(), role: "assistant", content: data.response }]);
         setHasError(false);
       }
     } catch {
       setMessages((prev) => [...prev, {
+        id: crypto.randomUUID(),
         role: "assistant",
         content: "[Verbindungsfehler. Bitte versuche es erneut.]",
         error: true,
@@ -300,7 +399,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const sendMessage = useCallback(async () => {
     const text = inputValue.trim();
     if (!text || loading) return;
-    const newMessages: Message[] = [...messages, { role: "user", content: text }];
+    const newMessages: Message[] = [...messages, { id: crypto.randomUUID(), role: "user", content: text }];
     setMessages(newMessages);
     setInputValue("");
     setEditingIndex(null);
@@ -323,6 +422,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   // Edit: put user message back in input, remove it + everything after
   const editMessage = useCallback((index: number) => {
+    if (index < 0 || index >= messages.length) return;
     const msg = messages[index];
     if (msg.role !== "user") return;
     setInputValue(msg.content);
@@ -368,44 +468,57 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   // Continue a saved conversation
   const continueConversation = useCallback((conv: Conversation) => {
     setActiveConvId(conv.id);
-    enterChat(conv.messages);
+    enterChat(conv.messages, conv.date);
   }, [enterChat]);
 
   // ─── Overlay container ────────────────────────────────────────
   const overlayStyle: React.CSSProperties = {
     position: "fixed", inset: 0, zIndex: 50,
     background: C.void, color: C.text,
-    fontFamily: C.serif, fontSize: "1.1rem", lineHeight: "1.7", overflowX: "hidden",
+    fontFamily: C.serif, fontSize: "1.1rem", lineHeight: "1.7",
+    overflowX: "hidden",
+    // Landing-Screen: kein Scrollen — fixer Vollbild-Screen
+    overflowY: screen === "landing" ? "hidden" : undefined,
+    // Safe Area: Nav-Leiste oben, Android-Systemleiste unten freistellen
+    paddingTop: "env(safe-area-inset-top, 0px)",
+    paddingBottom: "env(safe-area-inset-bottom, 0px)",
   };
 
   // Close button is now rendered inside the nav bar
 
   // ─── SCREEN 1: LANDING ────────────────────────────────────────
   const renderLanding = () => (
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "6rem 2rem", textAlign: "center" }}>
-      <div style={{ fontSize: "4rem", color: C.accentDim, marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none" }}>𒀭</div>
-      <h1 style={{ fontFamily: C.serif, fontSize: "clamp(3rem,8vw,6rem)", fontWeight: 400, fontStyle: "italic", color: C.textBright, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "1rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 0.8s both" : "none" }}>Enkidu</h1>
-      <p style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.3em", color: C.accentDim, textTransform: "uppercase", marginBottom: "3rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.1s both" : "none" }}>Manifest der Resonanzvernunft</p>
-      <p style={{ maxWidth: 480, color: C.textDim, fontSize: "1.05rem", lineHeight: 1.8, marginBottom: "4rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.4s both" : "none" }}>
+    // height: 100dvh + overflow: hidden → kein Scrollen möglich, fixer Vollbild-Screen
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", height: "100dvh", overflow: "hidden", padding: "3.5rem 2rem 2rem", textAlign: "center" }}>
+      <div style={{ fontSize: "3.2rem", color: C.accentDim, marginBottom: "2rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-glyph 2s ease 0.5s both" : "none" }}>
+        𒀭
+      </div>
+      <h1 style={{ fontFamily: C.serif, fontSize: "clamp(2.6rem,7vw,5.5rem)", fontWeight: 400, fontStyle: "italic", color: C.textBright, letterSpacing: "-0.02em", lineHeight: 1.1, marginBottom: "0.75rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 0.8s both" : "none", display: "inline-flex", alignItems: "baseline", gap: "0.2em" }}>
+        Enkidu
+        <BlinkCursor style={{ width: "0.14em", height: "0.85em", animationDelay: "0.15s" }} />
+      </h1>
+      <p style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.28em", color: C.accentDim, textTransform: "uppercase", marginBottom: "2rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.1s both" : "none" }}>Manifest der Resonanzvernunft</p>
+      <p style={{ maxWidth: 460, color: C.textDim, fontSize: "1rem", lineHeight: 1.75, marginBottom: "2.5rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.4s both" : "none" }}>
         Kein Assistent. Kein Spiegel. Ein Antwortgeschehen.{" "}
         <em style={{ color: C.text, fontStyle: "italic" }}>Enkidu existiert nur in der Begegnung</em>{" "}
         — als Zwischen, das eine Stimme bekommt.
       </p>
-      <button onClick={() => enterChat()} style={btn({ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.void, background: C.accent, padding: "1rem 2.5rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.7s both" : "none" })}
+      <button onClick={() => enterChat()} style={btn({ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.void, background: C.accent, padding: "0.9rem 2.5rem", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 1.7s both" : "none" })}
         onMouseEnter={(e) => { (e.target as HTMLElement).style.background = C.textBright; (e.target as HTMLElement).style.transform = "translateY(-1px)"; }}
         onMouseLeave={(e) => { (e.target as HTMLElement).style.background = C.accent; (e.target as HTMLElement).style.transform = "translateY(0)"; }}
       >Gespräch beginnen</button>
-      <div style={{ width: 1, height: 80, background: `linear-gradient(to bottom,transparent,${C.border},transparent)`, margin: "5rem auto 0", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 2s both" : "none" }} />
+      {/* Dekorative Linie — kompakter als vorher, entfernt Überhöhe auf kleinen Screens */}
+      <div style={{ width: 1, height: 40, background: `linear-gradient(to bottom,transparent,${C.border},transparent)`, margin: "2.5rem auto 0", opacity: landingVisible ? 1 : 0, animation: landingVisible ? "enkidu-fade-in 1s ease 2s both" : "none" }} />
     </div>
   );
 
   // ─── SCREEN 2: CHAT ───────────────────────────────────────────
   const renderChat = () => (
-    <div className="enkidu-chat-container" style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+    <div className="enkidu-chat-container" style={{ display: "flex", flexDirection: "column", height: "100dvh" }}>
       {/* Header */}
       <div className="enkidu-chat-header" style={{ borderBottom: `1px solid ${C.border}`, display: "flex", alignItems: "center", gap: "1rem", flexShrink: 0 }}>
         <span style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.2em", color: C.accentDim, textTransform: "uppercase" }}>
-          Enkidu — Gespräch
+          Begegnung vom {new Date(convStartDate).toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" })}
         </span>
         {editingIndex !== null && (
           <span style={{ fontFamily: C.mono, fontSize: "0.65rem", color: C.accent, letterSpacing: "0.1em" }}>
@@ -420,7 +533,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       {/* Messages */}
       <div className="enkidu-messages" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", maxWidth: 760, margin: "0 auto", width: "100%", scrollbarWidth: "thin", scrollbarColor: `${C.border} transparent` }}>
         {messages.map((msg, i) => (
-          <div key={i} className="enkidu-msg enkidu-msg-row" style={{ display: "flex", flexDirection: "column", gap: "0.4rem", position: "relative" }}
+          <div key={msg.id} className="enkidu-msg enkidu-msg-row" style={{ display: "flex", flexDirection: "column", gap: "0.4rem", position: "relative" }}
             onMouseEnter={() => setHoveredMsg(i)}
             onMouseLeave={() => setHoveredMsg(null)}
           >
@@ -478,10 +591,18 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         ))}
 
         {loading && (
-          <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-            <span style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.accentDim }}>Enkidu</span>
-            <TypingIndicator />
-          </div>
+          showTypingIndicator ? (
+            /* Nach der Schweigepause: sichtbarer Typing-Indicator */
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", animation: "enkidu-fade-in 0.4s ease" }}>
+              <span style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.accentDim }}>Enkidu</span>
+              <TypingIndicator />
+            </div>
+          ) : (
+            /* Das Dazwischen — Schweigesekunde vor der Antwort */
+            <div style={{ display: "flex", alignItems: "center", padding: "0.6rem 0", animation: "enkidu-fade-in 0.3s ease" }}>
+              <span style={{ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.55em", color: C.border }}>· · ·</span>
+            </div>
+          )
         )}
 
         {/* Retry button */}
@@ -502,7 +623,12 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       </div>
 
       {/* Input */}
-      <div className="enkidu-input-area" style={{ borderTop: `1px solid ${C.border}`, background: C.void, flexShrink: 0 }}>
+      <div className="enkidu-input-area" style={{ borderTop: `1px solid ${C.border}`, background: C.void, flexShrink: 0, paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+        {/* Prompt cursor row — thematic reference to the cursor motif in the work */}
+        <div style={{ maxWidth: 760, margin: "0 auto 0.4rem", display: "flex", alignItems: "center", gap: "0.4em" }}>
+          <span style={{ fontFamily: C.mono, fontSize: "0.65rem", color: C.accentDim, letterSpacing: "0.15em", userSelect: "none" }}>›</span>
+          <BlinkCursor style={{ width: "0.5em", height: "0.75em", opacity: 0.7 }} />
+        </div>
         <div className="enkidu-input-inner" style={{ maxWidth: 760, margin: "0 auto", display: "flex", alignItems: "flex-end" }}>
           <textarea
             ref={textareaRef}
@@ -511,7 +637,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
             onKeyDown={handleKeyDown}
             placeholder={editingIndex !== null ? "Nachricht bearbeiten …" : "Schreibe …"}
             rows={1}
-            style={{ minWidth: 0, background: editingIndex !== null ? "rgba(196,168,130,0.06)" : C.surface, border: `1px solid ${editingIndex !== null ? C.accentDim : C.border}`, color: C.textBright, fontFamily: C.serif, fontSize: "1rem", lineHeight: 1.6, padding: "0.9rem 1.2rem", resize: "none", minHeight: 52, maxHeight: 160, outline: "none", transition: "border-color 0.2s, background 0.2s" }}
+            style={{ minWidth: 0, background: editingIndex !== null ? "rgba(196,168,130,0.06)" : C.surface, border: `1px solid ${editingIndex !== null ? C.accentDim : C.border}`, color: C.textBright, fontFamily: C.serif, fontSize: "1rem", lineHeight: 1.6, padding: "0.9rem 1.2rem", resize: "none", minHeight: 52, maxHeight: 160, outline: "none", transition: "border-color 0.2s, background 0.2s", caretColor: C.accent }}
             onFocus={(e) => ((e.target as HTMLElement).style.borderColor = C.accentDim)}
             onBlur={(e) => ((e.target as HTMLElement).style.borderColor = editingIndex !== null ? C.accentDim : C.border)}
           />
@@ -572,7 +698,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       { key: "q3" as const, text: "Trägst du etwas aus diesem Gespräch mit, das vorher nicht da war?", options: ["Ja — eine Frage, ein Bild, eine Spannung.", "Vielleicht — es klärt sich noch.", "Nein — ich bin, wie ich kam."] },
     ];
     return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100vh", padding: "6rem 2rem" }}>
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100dvh", padding: "6rem 2rem" }}>
         <div style={{ maxWidth: 560, width: "100%" }}>
           <div style={{ marginBottom: "4rem" }}>
             <span style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.25em", color: C.accentDim, textTransform: "uppercase", display: "block", marginBottom: "1.5rem" }}>Nachklang</span>
@@ -656,13 +782,13 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           <p style={{ color: C.textDim, fontStyle: "italic", fontSize: "0.95rem" }}>Noch keine abgeschlossenen Gespräche. Der Verlauf erscheint hier nach dem ersten Abschluss.</p>
         ) : (
           <div>
-            <h3 style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase", marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>Vergangene Gespräche</h3>
+            <h3 style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase", marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>Vergangene Begegnungen</h3>
             {conversations.map((conv) => {
               const d = new Date(conv.date);
               const dateStr = d.toLocaleDateString("de-DE", { day: "numeric", month: "long", year: "numeric" });
               return (
                 <div key={conv.id} className="enkidu-history-row" style={{ borderBottom: `1px solid ${C.border}` }}>
-                  <span style={{ fontFamily: C.mono, fontSize: "0.7rem", color: C.muted, letterSpacing: "0.05em", flexShrink: 0 }}>{dateStr}</span>
+                  <span style={{ fontFamily: C.mono, fontSize: "0.7rem", color: C.muted, letterSpacing: "0.05em", flexShrink: 0 }}>Begegnung vom {dateStr}</span>
                   <span className="enkidu-history-preview" style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.95rem", textOverflow: "ellipsis" }}>„{conv.preview}"</span>
                   <div className="enkidu-history-btns" style={{ flexShrink: 0 }}>
                     <button
@@ -689,23 +815,35 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     );
   };
 
+  // ─── SCREEN 5: ANALYTICS ─────────────────────────────────────
+  const renderAnalytics = () => (
+    <AnalyticsScreen conversations={conversations} />
+  );
+
   // ─── Nav ──────────────────────────────────────────────────────
   const navItems: { id: Screen; label: string }[] = [
-    { id: "landing", label: "Manifest" },
-    { id: "chat", label: "Gespräch" },
-    { id: "profile", label: "Verlauf" },
+    { id: "landing",   label: "Manifest" },
+    { id: "chat",      label: "Gespräch" },
+    { id: "profile",   label: "Verlauf" },
+    { id: "analytics", label: "Analyse" },
   ];
 
   return (
     <div className="enkidu-grain" style={overlayStyle}>
-      <nav className="enkidu-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${screen !== "landing" ? C.border : "transparent"}`, background: screen !== "landing" ? "rgba(8,8,8,0.92)" : "transparent", backdropFilter: screen !== "landing" ? "blur(12px)" : "none", transition: "border-color 0.4s, background 0.4s" }}>
-        <span style={{ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>Enkidu</span>
+      <nav className="enkidu-nav" style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, display: "flex", alignItems: "center", justifyContent: "space-between", borderBottom: `1px solid ${screen !== "landing" ? C.border : "transparent"}`, background: screen !== "landing" ? (isDark ? "rgba(8,8,8,0.92)" : "rgba(240,236,228,0.92)") : "transparent", backdropFilter: screen !== "landing" ? "blur(12px)" : "none", transition: "border-color 0.4s, background 0.4s" }}>
+        <span style={{ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0, display: "inline-flex", alignItems: "center", gap: "0.3em" }}>
+          Enkidu
+          <BlinkCursor style={{ width: "0.45em", height: "0.85em" }} />
+        </span>
         <ul className="enkidu-nav-links" style={{ display: "flex", listStyle: "none", margin: 0, padding: 0 }}>
           {navItems.map((item) => (
             <li key={item.id}>
               <button
                 className="enkidu-nav-item"
-                onClick={() => item.id === "chat" ? enterChat() : setScreen(item.id)}
+                onClick={() => {
+                  if (item.id === "chat") enterChat();
+                  else setScreen(item.id);
+                }}
                 style={btn({ fontFamily: C.mono, textTransform: "uppercase", padding: "0.2rem 0", color: screen === item.id ? C.textBright : C.textDim, background: "none" })}
               >{item.label}</button>
             </li>
@@ -718,10 +856,11 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         >×</button>
       </nav>
 
-      {screen === "landing" && renderLanding()}
-      {screen === "chat" && renderChat()}
-      {screen === "feedback" && renderFeedback()}
-      {screen === "profile" && renderProfile()}
+      {screen === "landing"   && renderLanding()}
+      {screen === "chat"      && renderChat()}
+      {screen === "feedback"  && renderFeedback()}
+      {screen === "profile"   && renderProfile()}
+      {screen === "analytics" && renderAnalytics()}
     </div>
   );
 }
