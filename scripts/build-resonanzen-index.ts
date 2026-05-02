@@ -2,25 +2,30 @@
  * build-resonanzen-index.ts — generiert client/public/resonanzen-index.json
  * aus dem content/resonanzen/-Korpus für die FAQ-Ansicht.
  *
- * Wird als Pre-Build-Step in pnpm build ausgeführt — der JSON-Output ist ein
- * statisches Asset, das vom Frontend lazy geladen wird (kein Bundle-Aufnahme).
+ * Holt die Files über GitHub-Tree-API + Raw-URLs (kein Filesystem-Lookup),
+ * damit der Build in jedem Container-Layout funktioniert. Local + Netlify
+ * + GitHub-Action arbeiten alle gleich.
  *
- * Ausgabe-Schema:
- *   { generatedAt, count, entries: [{ id, ts, endpoint, anchor, nodeIds,
- *                                      status, prompt, response,
- *                                      contextMeta }] }
+ * Konfiguration via env vars (alle optional, mit sinnvollen Defaults):
+ *   GITHUB_REPO_OWNER  (default: marksen23)
+ *   GITHUB_REPO_NAME   (default: digitale-transformation-ebook)
+ *   GITHUB_REPO_BRANCH (default: main)
+ *   GITHUB_TOKEN       (optional — anonyme API hat 60 calls/h Rate-Limit
+ *                       für Tree-Call, raw URLs sind ungelimitiert)
  */
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Pfade deterministisch relativ zum Skript auflösen — process.cwd() ist
-// im Netlify-Build-Context nicht zuverlässig der Repo-Root.
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
-const RESONANZEN_DIR = path.join(ROOT, "content/resonanzen");
 const OUTPUT = path.join(ROOT, "client/public/resonanzen-index.json");
+
+const REPO_OWNER  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
+const REPO_NAME   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
+const REPO_BRANCH = process.env.GITHUB_REPO_BRANCH ?? "main";
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // optional
 
 interface ResonanzEntry {
   id: string;
@@ -34,11 +39,8 @@ interface ResonanzEntry {
   contextMeta: Record<string, unknown>;
 }
 
-/**
- * Minimal YAML-Frontmatter-Parser — reicht für unser Schema.
- * Unterstützt: skalare Strings, in-line Arrays [a, b, c], verschachtelte
- * Objekte (eine Ebene Einrückung). Keine multi-line strings, kein YAML-Spec.
- */
+interface TreeEntry { path: string; type: "blob" | "tree"; }
+
 function parseFrontmatter(md: string): { fm: Record<string, unknown>; body: string } {
   const m = md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
   if (!m) return { fm: {}, body: md };
@@ -55,7 +57,6 @@ function parseFrontmatter(md: string): { fm: Record<string, unknown>; body: stri
     const key = line.slice(0, colon).trim();
     const valueRaw = line.slice(colon + 1).trim();
     if (valueRaw === "") {
-      // Verschachteltes Objekt — sammle alle eingerückten Folgezeilen
       const children: Record<string, string> = {};
       i++;
       while (i < lines.length && lines[i].match(/^\s+/) && !lines[i].match(/^\s+-/)) {
@@ -87,7 +88,6 @@ function stripQuotes(s: string): string {
   return s;
 }
 
-/** Extrahiert Frage und Antwort aus dem Markdown-Body (## Frage / ## Antwort). */
 function extractFrageAntwort(body: string): { prompt: string; response: string } {
   const sections = body.split(/^##\s+/m);
   let prompt = "", response = "";
@@ -101,38 +101,69 @@ function extractFrageAntwort(body: string): { prompt: string; response: string }
   return { prompt, response };
 }
 
-function* walkMd(dir: string): Generator<string> {
-  if (!fs.existsSync(dir)) return;
-  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name.startsWith(".")) continue;
-    const full = path.join(dir, entry.name);
-    if (entry.isDirectory()) {
-      yield* walkMd(full);
-    } else if (entry.name.endsWith(".md") && entry.name !== "README.md") {
-      yield full;
-    }
+async function fetchTree(): Promise<TreeEntry[]> {
+  const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${REPO_BRANCH}?recursive=1`;
+  const headers: Record<string, string> = { "Accept": "application/vnd.github+json", "User-Agent": "dt-resonanzen-index" };
+  if (GITHUB_TOKEN) headers["Authorization"] = `Bearer ${GITHUB_TOKEN}`;
+  const res = await fetch(url, { headers });
+  if (!res.ok) {
+    throw new Error(`Tree API ${res.status} ${res.statusText}: ${(await res.text()).slice(0, 200)}`);
   }
+  const data = await res.json();
+  return data.tree ?? [];
 }
 
-function main() {
-  console.log(`[build-resonanzen-index] ROOT=${ROOT}`);
-  console.log(`[build-resonanzen-index] RESONANZEN_DIR=${RESONANZEN_DIR}`);
-  console.log(`[build-resonanzen-index] OUTPUT=${OUTPUT}`);
-  if (!fs.existsSync(RESONANZEN_DIR)) {
-    console.warn(`[build-resonanzen-index] ${RESONANZEN_DIR} not found — writing empty index.`);
-    console.warn(`[build-resonanzen-index] Sibling dirs at ROOT:`, fs.existsSync(ROOT) ? fs.readdirSync(ROOT).slice(0, 20) : "ROOT does not exist");
+async function fetchRaw(filePath: string): Promise<string> {
+  // raw.githubusercontent.com — kein Rate-Limit, schnell
+  const url = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/${filePath}`;
+  const res = await fetch(url);
+  if (!res.ok) {
+    throw new Error(`Raw fetch ${res.status} ${res.statusText} for ${filePath}`);
+  }
+  return res.text();
+}
+
+async function main() {
+  console.log(`[build-resonanzen-index] Source: ${REPO_OWNER}/${REPO_NAME}@${REPO_BRANCH}`);
+  console.log(`[build-resonanzen-index] OUTPUT: ${OUTPUT}`);
+
+  let tree: TreeEntry[];
+  try {
+    tree = await fetchTree();
+    console.log(`[build-resonanzen-index] Tree: ${tree.length} entries total`);
+  } catch (err) {
+    console.error(`[build-resonanzen-index] Tree fetch failed: ${err instanceof Error ? err.message : err}`);
     fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
-    fs.writeFileSync(OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), count: 0, entries: [] }, null, 2));
+    fs.writeFileSync(OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), count: 0, entries: [], error: String(err) }, null, 2));
     return;
   }
 
+  // Filter auf Resonanz-MD-Files
+  const mdPaths = tree
+    .filter(e => e.type === "blob")
+    .map(e => e.path)
+    .filter(p => p.startsWith("content/resonanzen/") && p.endsWith(".md") && !p.endsWith("README.md"));
+
+  console.log(`[build-resonanzen-index] Found ${mdPaths.length} resonance markdown files`);
+
+  // Parallel fetch (Batch von 10, um Server nicht zu hämmern)
   const entries: ResonanzEntry[] = [];
-  for (const file of walkMd(RESONANZEN_DIR)) {
-    try {
-      const md = fs.readFileSync(file, "utf-8");
+  const BATCH = 10;
+  for (let i = 0; i < mdPaths.length; i += BATCH) {
+    const batch = mdPaths.slice(i, i + BATCH);
+    const results = await Promise.allSettled(batch.map(async p => {
+      const md = await fetchRaw(p);
+      return { path: p, md };
+    }));
+    for (const result of results) {
+      if (result.status !== "fulfilled") {
+        console.warn(`[build-resonanzen-index] skip: ${result.reason}`);
+        continue;
+      }
+      const { md } = result.value;
       const { fm, body } = parseFrontmatter(md);
       const { prompt, response } = extractFrageAntwort(body);
-      if (!fm.id || !fm.ts || !fm.endpoint) continue; // skip malformed
+      if (!fm.id || !fm.ts || !fm.endpoint) continue;
       entries.push({
         id: String(fm.id),
         ts: String(fm.ts),
@@ -144,12 +175,9 @@ function main() {
         response,
         contextMeta: (fm.context_meta as Record<string, unknown>) ?? {},
       });
-    } catch (err) {
-      console.warn(`[build-resonanzen-index] skip ${file}: ${err instanceof Error ? err.message : err}`);
     }
   }
 
-  // Neueste zuerst
   entries.sort((a, b) => b.ts.localeCompare(a.ts));
 
   fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
@@ -160,4 +188,10 @@ function main() {
   console.log(`[build-resonanzen-index] wrote ${entries.length} entries to ${OUTPUT}`);
 }
 
-main();
+main().catch(err => {
+  console.error(`[build-resonanzen-index] FAILED: ${err instanceof Error ? err.stack : err}`);
+  // Trotzdem leeren Index schreiben, damit Vite-Build nicht bricht
+  fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
+  fs.writeFileSync(OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), count: 0, entries: [], error: String(err) }, null, 2));
+  process.exit(0);
+});
