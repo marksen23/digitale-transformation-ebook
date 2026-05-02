@@ -131,3 +131,129 @@ jobs:
           path: client/public/resonanzen-validation-report.json
           retention-days: 30
           if-no-files-found: ignore
+
+      # ─── Säule 3: Versionssicherung ────────────────────────────────────
+      # Bei erfolgreicher Validation:
+      #   - Snapshot der Aggregat-Statistik archivieren (versions/)
+      #   - last-stable-{datum} Tag setzen (überschreibt täglichen Tag)
+      # Snapshots dienen Säule 3 als Anker für Drift-Detection.
+      - name: Build snapshot of corpus state
+        if: success()
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          mkdir -p versions
+          # Snapshot: aktuelle Aggregate aus dem Validation-Report
+          if [ -f client/public/resonanzen-validation-report.json ]; then
+            node -e "
+              const fs = require('fs');
+              const r = JSON.parse(fs.readFileSync('client/public/resonanzen-validation-report.json', 'utf-8'));
+              const snap = {
+                date: '$DATE',
+                generatedAt: new Date().toISOString(),
+                commit: '${{ github.sha }}',
+                filesChecked: r.filesChecked,
+                aggregates: r.aggregates,
+                errors: r.errors,
+                warnings: r.warnings,
+              };
+              fs.writeFileSync('versions/snapshot-$DATE.json', JSON.stringify(snap, null, 2));
+              console.log('Snapshot:', snap);
+            "
+          fi
+
+      - name: Commit snapshot + tag last-stable
+        if: success()
+        run: |
+          DATE=$(date -u +%Y-%m-%d)
+          git config user.name "corpus-guardian-bot"
+          git config user.email "noreply@github.com"
+          git add versions/
+          if git diff --cached --quiet; then
+            echo "No snapshot changes to commit (already exists for today)"
+          else
+            git commit -m "snapshot: corpus state $DATE [skip ci]"
+            git push origin main
+          fi
+          # Tag last-stable überschreiben (force, damit immer auf neuestem stable steht)
+          git tag -f last-stable-$DATE
+          git tag -f last-stable
+          git push origin --tags --force
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ─── Drift-Detection: vergleicht aktuellen mit vorigem Snapshot ────
+      # Bei Alarmen → Issue mit Label 'corpus-drift'.
+      - name: Run drift check
+        if: success()
+        id: drift
+        run: |
+          set +e
+          pnpm tsx scripts/check-corpus-drift.ts > drift-output.txt 2>&1
+          EXIT=$?
+          echo "exit_code=$EXIT" >> $GITHUB_OUTPUT
+          cat drift-output.txt
+          exit 0  # niemals fail — Drift ist Warning, kein Action-Fail
+
+      - name: Open issue on drift alarm
+        if: success() && steps.drift.outputs.exit_code == '1'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report = null;
+            try {
+              report = JSON.parse(fs.readFileSync('client/public/resonanzen-drift-report.json', 'utf-8'));
+            } catch (e) {
+              core.warning('Drift-Report could not be read: ' + e.message);
+              return;
+            }
+            const alarms = (report.issues || []).filter(i => i.level === 'alarm');
+            const warnings = (report.issues || []).filter(i => i.level === 'warning');
+            if (alarms.length === 0 && warnings.length === 0) return;
+            const sha = context.sha.slice(0, 7);
+            const lines = [
+              `**Drift-Detection: Korpus-Stand hat sich seit letzter Snapshot bedenklich verändert.**`,
+              ``,
+              `Commit: ${sha} · Vorherige Snapshot: ${report.previousSnapshot.date} (${report.previousSnapshot.commit?.slice(0,7)}) · Aktuell: ${report.currentSnapshot.date}`,
+              `Delta: ${report.delta.files >= 0 ? '+' : ''}${report.delta.files} Files`,
+              ``,
+              `### Alarme (${alarms.length})`,
+              alarms.length > 0
+                ? alarms.map(i => `- 🚨 **[${i.rule}]** ${i.detail}`).join('\n')
+                : '_keine_',
+              ``,
+              `### Warnings (${warnings.length})`,
+              warnings.length > 0
+                ? warnings.map(i => `- ⚠ [${i.rule}] ${i.detail}`).join('\n')
+                : '_keine_',
+              ``,
+              `---`,
+              `**Was tun:**`,
+              `1. Prüfen ob die Veränderung beabsichtigt war (z.B. bewusstes Löschen alter Einträge)`,
+              `2. Bei unbeabsichtigtem Drift: \`git checkout last-stable -- content/resonanzen/\` und committen`,
+              `3. Schwellwerte des Drift-Detectors (\`scripts/check-corpus-drift.ts\`) sind anpassbar`,
+            ].join('\n');
+
+            // Dedup: bestehendes drift-Issue → Comment, sonst neues Issue
+            const { data: existing } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'corpus-drift',
+            });
+            if (existing.length > 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing[0].number,
+                body: `Erneuter Drift bei ${sha}:\n\n${lines}`,
+              });
+            } else {
+              await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `[Korpus-Drift] ${alarms.length} Alarm(e) bei commit ${sha}`,
+                body: lines,
+                labels: ['corpus-drift'],
+              });
+            }

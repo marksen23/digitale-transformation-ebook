@@ -12,6 +12,12 @@
  *     keine Exception, User sieht nichts.
  */
 import crypto from "crypto";
+import { NODES } from "../../client/src/data/conceptGraph.js";
+
+// Bei Server-Start: Set aller validen Konzept-IDs aus dem Begriffsnetz.
+// Verwendet, um Tippfehler oder veraltete IDs in nodeIds beim Logging
+// herauszufiltern (Vorbeugung gegen Korpus-Drift).
+const VALID_NODE_IDS = new Set(NODES.map(n => n.id));
 
 export type ResonanzEndpoint = "chapter" | "analyse" | "graph-chat" | "enkidu" | "translate" | "path-analyse";
 
@@ -185,6 +191,18 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
   }
   if (!passesSpamFilter(entry)) {
     return;
+  }
+
+  // Defensive: nur valide nodeIds aus dem Begriffsnetz weiterreichen.
+  // Verhindert, dass falsche IDs (Tippfehler, veraltete Schemata) im
+  // Korpus landen — der Konsistenz-Wächter würde sie sonst als orphan flaggen.
+  if (entry.nodeIds && entry.nodeIds.length > 0) {
+    const validIds = entry.nodeIds.filter(id => VALID_NODE_IDS.has(id));
+    const dropped = entry.nodeIds.filter(id => !VALID_NODE_IDS.has(id));
+    if (dropped.length > 0) {
+      console.warn(`[resonanzLog] dropped invalid nodeIds: ${dropped.join(", ")} (endpoint=${entry.endpoint}, anchor=${entry.anchor})`);
+    }
+    entry = { ...entry, nodeIds: validIds };
   }
 
   const id = generateId();
