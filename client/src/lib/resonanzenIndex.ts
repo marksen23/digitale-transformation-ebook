@@ -33,6 +33,45 @@ export async function loadResonanzenIndex(): Promise<ResonanzIndex> {
   return res.json();
 }
 
+/**
+ * Lazy + cached Loader — für Komponenten, die den Index ggf. nicht brauchen.
+ * Schluckt Fehler still (returnt null), damit das Begriffsnetz auch ohne
+ * verfügbaren FAQ-Index funktioniert.
+ */
+let _indexCache: ResonanzIndex | null = null;
+let _indexPromise: Promise<ResonanzIndex | null> | null = null;
+export function loadResonanzenIndexLazy(): Promise<ResonanzIndex | null> {
+  if (_indexCache) return Promise.resolve(_indexCache);
+  if (_indexPromise) return _indexPromise;
+  _indexPromise = loadResonanzenIndex()
+    .then(idx => {
+      _indexCache = idx;
+      return idx;
+    })
+    .catch(() => null);
+  return _indexPromise;
+}
+
+/**
+ * Gruppiert Einträge nach Konzept-IDs (`nodeIds`-Feld). Map: nodeId → entries[].
+ * Sortiert pro Konzept neueste zuerst. Cached intern für O(1) Lookups.
+ */
+let _byNodeCache: { src: ResonanzEntry[]; map: Map<string, ResonanzEntry[]> } | null = null;
+export function groupResonanzenByNode(entries: ResonanzEntry[]): Map<string, ResonanzEntry[]> {
+  if (_byNodeCache && _byNodeCache.src === entries) return _byNodeCache.map;
+  const map = new Map<string, ResonanzEntry[]>();
+  for (const e of entries) {
+    for (const id of e.nodeIds) {
+      const arr = map.get(id);
+      if (arr) arr.push(e);
+      else map.set(id, [e]);
+    }
+  }
+  map.forEach(arr => arr.sort((a: ResonanzEntry, b: ResonanzEntry) => b.ts.localeCompare(a.ts)));
+  _byNodeCache = { src: entries, map };
+  return map;
+}
+
 /** Lädt das Embeddings-Mapping (id → 768-dim Vektor). Lazy, einmal-Cache. */
 export interface EmbeddingsIndex {
   generatedAt: string;

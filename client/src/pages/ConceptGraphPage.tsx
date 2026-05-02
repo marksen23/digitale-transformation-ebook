@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
+import { loadResonanzenIndexLazy, groupResonanzenByNode, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -297,6 +298,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   // Lesepfad — session-only visit trail (no localStorage)
   const [visitedNodes, setVisitedNodes] = useState<string[]>([]);
+
+  // Resonanzen-Korpus für Sidebar-Section "Resonanzen zu diesem Begriff".
+  // Lazy geladen, kein blockierender Effect — Sidebar funktioniert auch ohne.
+  const [resonanzenEntries, setResonanzenEntries] = useState<ResonanzEntry[] | null>(null);
+  const [resonanzenExpanded, setResonanzenExpanded] = useState(false);
+  useEffect(() => {
+    loadResonanzenIndexLazy().then(idx => {
+      if (idx) setResonanzenEntries(idx.entries);
+    });
+  }, []);
+  const resonanzenByNode = useMemo(
+    () => resonanzenEntries ? groupResonanzenByNode(resonanzenEntries) : null,
+    [resonanzenEntries]
+  );
+  // Bei Knoten-Wechsel die Resonanzen-Sektion wieder auf "minimal" zurücksetzen,
+  // damit jeder neue Knoten frisch mit der Default-Anzeige startet.
+  useEffect(() => { setResonanzenExpanded(false); }, [selectedId]);
 
   // Graph-Chat
   const [chatOpen, setChatOpen] = useState(false);
@@ -2153,6 +2171,76 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 </div>
               </>
             )}
+
+            {/* Resonanzen zu diesem Begriff — aus dem FAQ-Korpus.
+                Default-Minimal: max 3 sichtbar, "+ N weitere" zum Aufklappen.
+                Klick auf Eintrag → Deep-Link zu /resonanzen?id=<id>. */}
+            {selectedNode && resonanzenByNode && (() => {
+              const all = resonanzenByNode.get(selectedNode.id) ?? [];
+              if (all.length === 0) return null;
+              const visible = resonanzenExpanded ? all : all.slice(0, 3);
+              return (
+                <>
+                  <div style={{ height: 1, background: C.border, margin: "1.5rem 0 1.2rem" }} />
+                  <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <span>Resonanzen zu diesem Begriff</span>
+                    <span style={{ color: C.accent }}>{all.length}</span>
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    {visible.map(entry => (
+                      <a
+                        key={entry.id}
+                        href={`/resonanzen?id=${entry.id}`}
+                        style={{
+                          display: "block",
+                          background: C.deep, border: `1px solid ${C.border}`,
+                          padding: "0.5rem 0.7rem", textDecoration: "none",
+                          transition: "border-color 0.15s",
+                        }}
+                        onMouseEnter={e => (e.currentTarget.style.borderColor = C.accentDim)}
+                        onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}
+                      >
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.2rem", gap: "0.3rem" }}>
+                          <span style={{ fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
+                            {ENDPOINT_LABEL[entry.endpoint]}
+                          </span>
+                          <time style={{ fontFamily: C.mono, fontSize: "0.5rem", color: C.muted }}>
+                            {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
+                          </time>
+                        </div>
+                        <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.text, lineHeight: 1.4 }}>
+                          {entry.prompt.length > 110 ? entry.prompt.slice(0, 110) + "…" : entry.prompt}
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+                  {all.length > 3 && (
+                    <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
+                      <button
+                        onClick={() => setResonanzenExpanded(v => !v)}
+                        style={{
+                          fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                          color: C.muted, background: "none", border: `1px solid ${C.border}`,
+                          padding: "0.3rem 0.6rem", cursor: "pointer",
+                        }}
+                      >
+                        {resonanzenExpanded ? "einklappen" : `+ ${all.length - 3} weitere`}
+                      </button>
+                      <a
+                        href={`/resonanzen?tag=${selectedNode.id}`}
+                        style={{
+                          fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                          color: C.accent, background: "none", border: `1px solid ${C.accentDim}`,
+                          padding: "0.3rem 0.6rem", textDecoration: "none",
+                        }}
+                      >
+                        alle in FAQ →
+                      </a>
+                    </div>
+                  )}
+                </>
+              );
+            })()}
 
             {/* ── Kategorien-Legende ─────────────────────────────────────────────
                 Aktive Kategorien (ausgewählter Begriff + verbundene Begriffe)
