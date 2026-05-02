@@ -191,6 +191,11 @@ export default function ResonanzenPage() {
         position: "fixed", inset: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
         WebkitOverflowScrolling: "touch",
+        // iOS-safe-area: Content wird unter Notch + Home-Indicator nicht abgeschnitten
+        paddingTop: "env(safe-area-inset-top, 0px)",
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+        paddingLeft: "env(safe-area-inset-left, 0px)",
+        paddingRight: "env(safe-area-inset-right, 0px)",
       }}
     >
       {/* Header */}
@@ -238,7 +243,8 @@ export default function ResonanzenPage() {
                     color: active ? "#080808" : color,
                     background: active ? color : "none",
                     border: `1px solid ${color}`,
-                    padding: "0.3rem 0.6rem", cursor: "pointer",
+                    padding: "0.5rem 0.7rem", cursor: "pointer",
+                    minHeight: 36, // Touch-Target (WCAG-Minimum 44, hier Kompromiss mit Filter-Dichte)
                     transition: "all 0.15s",
                   }}
                 >
@@ -261,10 +267,12 @@ export default function ResonanzenPage() {
               onKeyDown={e => { if (e.key === "Enter" && semanticMode) runSemanticSearch(); }}
               placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Volltext-Suche …"}
               style={{
-                flex: 1, minWidth: 200, fontFamily: SERIF, fontStyle: "italic",
+                flex: 1, minWidth: 180, fontFamily: SERIF, fontStyle: "italic",
                 background: C.surface, color: C.textBright,
                 border: `1px solid ${search ? C.accentDim : C.border}`,
-                padding: "0.4rem 0.7rem", outline: "none",
+                padding: "0.6rem 0.8rem", outline: "none",
+                fontSize: "16px", // iOS-Trick: ≥16px verhindert ungewünschten Zoom beim Fokus
+                minHeight: 44,
               }}
             />
             {/* Semantische-Suche-Toggle (nur sichtbar wenn Embeddings da sind) */}
@@ -284,7 +292,8 @@ export default function ResonanzenPage() {
                   color: semanticMode ? "#080808" : "#5aacb8",
                   background: semanticMode ? "#5aacb8" : "none",
                   border: `1px solid #5aacb8`,
-                  padding: "0.35rem 0.6rem",
+                  padding: "0.5rem 0.7rem",
+                  minHeight: 44,
                   cursor: semanticLoading ? "wait" : "pointer",
                   opacity: semanticLoading ? 0.5 : 1,
                 }}
@@ -301,7 +310,8 @@ export default function ResonanzenPage() {
                 color: filterStatus === "kuratiert" ? "#080808" : C.muted,
                 background: filterStatus === "kuratiert" ? C.accent : "none",
                 border: `1px solid ${filterStatus === "kuratiert" ? C.accent : C.border}`,
-                padding: "0.35rem 0.6rem", cursor: "pointer",
+                padding: "0.5rem 0.7rem", cursor: "pointer",
+                minHeight: 44,
               }}
               title="Nur kuratierte (vom Autor freigegebene) Einträge zeigen"
             >
