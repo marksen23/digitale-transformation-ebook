@@ -115,3 +115,4 @@ client/public/__manus__/version.json
 .claude/worktrees/
 .claude/settings.local.json
 .manus-logs/
+/client/public/resonanzen-index.json
