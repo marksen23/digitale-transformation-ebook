@@ -823,6 +823,55 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     }
   });
 
+  // ─── Embedding-Endpoint für semantische Korpus-Suche ─────────────────
+  // Wraps Gemini text-embedding-004 für die Resonanzen-FAQ-Suche.
+  // Frontend ruft /api/embed mit einer Anfrage, bekommt 768-dim Vektor,
+  // vergleicht client-seitig mit den im Korpus-Index hinterlegten
+  // Embeddings (Cosine-Similarity).
+  app.post("/api/embed", rateLimiter('embed', 60, 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(503).json({ error: "Embedding-API nicht konfiguriert." });
+    }
+    const { text } = req.body as { text: string };
+    if (!text || typeof text !== "string" || text.trim().length === 0) {
+      return res.status(400).json({ error: "text ist erforderlich." });
+    }
+    if (text.length > 8000) {
+      return res.status(400).json({ error: "text zu lang (max 8000 Zeichen)." });
+    }
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            content: { parts: [{ text }] },
+          }),
+        }
+      );
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Embed Gemini error:", response.status, errText);
+        let detail: string;
+        try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
+        return res.status(502).json({ error: detail });
+      }
+      const data = await response.json();
+      const values = data.embedding?.values;
+      if (!Array.isArray(values)) {
+        return res.status(502).json({ error: "Embedding-Antwort fehlerhaft." });
+      }
+      return res.json({ embedding: values });
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("Embed API error:", message);
+      return res.status(502).json({ error: `API-Fehler: ${message}` });
+    }
+  });
+
   // ─── PDF-Download mit professioneller Formatierung ─────────────────
   app.get("/api/pdf", rateLimiter('pdf', 3, 60 * 60_000), async (req, res) => {
     try {

@@ -12,6 +12,7 @@ import WordCloud from "@/components/enkidu/WordCloud";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import {
   loadResonanzenIndex, extractCorpusKeywords,
+  loadEmbeddings, fetchQueryEmbedding, rankBySimilarity,
   ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry, type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
@@ -52,27 +53,90 @@ export default function ResonanzenPage() {
   const [search, setSearch] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
 
+  // Semantische Suche — Toggle + Status. Embeddings werden lazy geladen,
+  // Query-Embedding via /api/embed pro Suchvorgang.
+  const [semanticMode, setSemanticMode] = useState(false);
+  const [semanticLoading, setSemanticLoading] = useState(false);
+  const [semanticResults, setSemanticResults] = useState<Array<{ id: string; score: number }> | null>(null);
+  const [semanticError, setSemanticError] = useState<string | null>(null);
+  const [embeddingsAvailable, setEmbeddingsAvailable] = useState<boolean | null>(null);
+
   useEffect(() => {
     loadResonanzenIndex()
       .then(setIndex)
       .catch(err => setLoadError(err instanceof Error ? err.message : String(err)));
+    // Pre-fetch embeddings (lazy, im Hintergrund)
+    loadEmbeddings().then(emb => {
+      setEmbeddingsAvailable(emb !== null && Object.keys(emb.embeddings ?? {}).length > 0);
+    });
   }, []);
 
+  // Semantische Suche ausführen (debounced via Button-Click)
+  const runSemanticSearch = async () => {
+    const q = search.trim();
+    if (!q || !index) return;
+    setSemanticLoading(true);
+    setSemanticError(null);
+    setSemanticResults(null);
+    try {
+      const [queryVec, embeddings] = await Promise.all([
+        fetchQueryEmbedding(q),
+        loadEmbeddings(),
+      ]);
+      if (!queryVec) {
+        setSemanticError("Query-Embedding konnte nicht berechnet werden.");
+        return;
+      }
+      if (!embeddings || Object.keys(embeddings.embeddings).length === 0) {
+        setSemanticError("Korpus-Embeddings nicht verfügbar.");
+        return;
+      }
+      const ranked = rankBySimilarity(queryVec, index.entries, embeddings.embeddings, 20);
+      setSemanticResults(ranked.map(r => ({ id: r.entry.id, score: r.score })));
+    } catch (err) {
+      setSemanticError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setSemanticLoading(false);
+    }
+  };
+
   // ─── Filter + Suche ─────────────────────────────────────────────────────
+  // Im semantischen Modus mit Resultat-Cache: zeige in dieser Sortierung
+  // nur die rangierten Treffer (gefiltert durch Endpoint/Status/Tag).
+  // Sonst: klassischer Volltext-Filter.
   const filtered = useMemo(() => {
     if (!index) return [];
-    const term = search.trim().toLowerCase();
-    return index.entries.filter(e => {
+    const passes = (e: ResonanzEntry): boolean => {
       if (filterEndpoint !== "all" && e.endpoint !== filterEndpoint) return false;
       if (filterStatus === "kuratiert" && e.status === "raw") return false;
       if (filterTag && !e.nodeIds.includes(filterTag)) return false;
+      return true;
+    };
+
+    if (semanticMode && semanticResults) {
+      const byId = new Map(index.entries.map(e => [e.id, e]));
+      return semanticResults
+        .map(r => byId.get(r.id))
+        .filter((e): e is ResonanzEntry => !!e && passes(e));
+    }
+
+    const term = search.trim().toLowerCase();
+    return index.entries.filter(e => {
+      if (!passes(e)) return false;
       if (term) {
         const hay = (e.prompt + "\n" + e.response + "\n" + e.anchor).toLowerCase();
         if (!hay.includes(term)) return false;
       }
       return true;
     });
-  }, [index, filterEndpoint, filterStatus, filterTag, search]);
+  }, [index, filterEndpoint, filterStatus, filterTag, search, semanticMode, semanticResults]);
+
+  // Score-Map für semantische Anzeige (Eintrag → Cosine-Score)
+  const scoreById = useMemo(() => {
+    const m = new Map<string, number>();
+    if (semanticResults) for (const r of semanticResults) m.set(r.id, r.score);
+    return m;
+  }, [semanticResults]);
 
   // Wortwolke: aus allen Einträgen (oder kuratiert nur) — nicht der gefilterten
   // Liste, weil die Wolke einen Gesamteindruck geben soll, kein Such-Echo
@@ -179,8 +243,13 @@ export default function ResonanzenPage() {
             <input
               type="text"
               value={search}
-              onChange={e => setSearch(e.target.value)}
-              placeholder="Volltext-Suche …"
+              onChange={e => {
+                setSearch(e.target.value);
+                // Semantische Resultate werden beim Tippen ungültig
+                if (semanticResults) setSemanticResults(null);
+              }}
+              onKeyDown={e => { if (e.key === "Enter" && semanticMode) runSemanticSearch(); }}
+              placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Volltext-Suche …"}
               style={{
                 flex: 1, minWidth: 200, fontFamily: SERIF, fontStyle: "italic",
                 background: C.surface, color: C.textBright,
@@ -188,6 +257,32 @@ export default function ResonanzenPage() {
                 padding: "0.4rem 0.7rem", outline: "none",
               }}
             />
+            {/* Semantische-Suche-Toggle (nur sichtbar wenn Embeddings da sind) */}
+            {embeddingsAvailable && (
+              <button
+                onClick={() => {
+                  const next = !semanticMode;
+                  setSemanticMode(next);
+                  setSemanticResults(null);
+                  setSemanticError(null);
+                  if (next && search.trim()) runSemanticSearch();
+                }}
+                disabled={semanticLoading}
+                style={{
+                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
+                  textTransform: "uppercase",
+                  color: semanticMode ? "#080808" : "#5aacb8",
+                  background: semanticMode ? "#5aacb8" : "none",
+                  border: `1px solid #5aacb8`,
+                  padding: "0.35rem 0.6rem",
+                  cursor: semanticLoading ? "wait" : "pointer",
+                  opacity: semanticLoading ? 0.5 : 1,
+                }}
+                title="Suche nach semantischer Ähnlichkeit (Embedding-basiert)"
+              >
+                {semanticLoading ? "…" : semanticMode ? "✓ semantisch" : "≈ semantisch"}
+              </button>
+            )}
             <button
               onClick={() => setFilterStatus(s => s === "all" ? "kuratiert" : "all")}
               style={{
@@ -203,6 +298,16 @@ export default function ResonanzenPage() {
               {filterStatus === "kuratiert" ? "✓ kuratiert" : "alle (auch ungeprüft)"}
             </button>
           </div>
+
+          {/* Semantische Suche Status-Hinweis */}
+          {semanticMode && (
+            <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: "#5aacb8", letterSpacing: "0.08em" }}>
+              {semanticLoading ? "Embedding wird berechnet …"
+                : semanticError ? <span style={{ color: "#c48282" }}>{semanticError}</span>
+                : semanticResults ? `Sortiert nach Ähnlichkeit · Top ${semanticResults.length}`
+                : "Suchbegriff eingeben + Enter drücken (oder Toggle erneut klicken)"}
+            </div>
+          )}
 
           {/* Tag-Filter (top tags) */}
           {topTags.length > 0 && (
@@ -258,6 +363,11 @@ export default function ResonanzenPage() {
                 <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
                   {ENDPOINT_LABEL[entry.endpoint]}
                   {entry.status === "raw" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>· ungeprüft</span>}
+                  {semanticMode && scoreById.has(entry.id) && (
+                    <span style={{ color: "#5aacb8", marginLeft: "0.5rem" }}>
+                      · ≈ {(scoreById.get(entry.id)! * 100).toFixed(0)}%
+                    </span>
+                  )}
                 </span>
                 <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
                   {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
