@@ -1,0 +1,133 @@
+name: Validate Resonanz-Korpus
+
+# Triggert bei jedem Commit auf main, der content/resonanzen/** ändert.
+# Läuft den Konsistenz-Wächter (scripts/validate-resonanzen.ts) und öffnet
+# bei Schema-Verletzungen automatisch ein GitHub-Issue.
+#
+# Wozu das gut ist:
+#   - Frühe Drift-Erkennung: ein Tippfehler im nodeId, ein gebrochener
+#     content_hash, ein illegaler endpoint-Wert → sofort sichtbar
+#   - Keine stille Korruption: das System verlässt nicht unbemerkt den Pfad
+#   - Manuelle Intervention statt heimlicher Fortschritt
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/resonanzen/**"
+      - "scripts/validate-resonanzen.ts"
+      - "client/src/data/conceptGraph.ts"
+  workflow_dispatch:  # manuell triggerbar zum Auf-Verlangen-Check
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      issues: write  # für Issue-Erstellung bei Failures
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 10
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22.13.0"
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Run validation
+        id: validate
+        run: |
+          set +e
+          pnpm tsx scripts/validate-resonanzen.ts > validation-output.txt 2>&1
+          EXIT=$?
+          echo "exit_code=$EXIT" >> $GITHUB_OUTPUT
+          echo "=== validation output ==="
+          cat validation-output.txt
+          if [ -f client/public/resonanzen-validation-report.json ]; then
+            echo "report_path=client/public/resonanzen-validation-report.json" >> $GITHUB_OUTPUT
+          fi
+          exit $EXIT
+
+      - name: Open issue on validation failure
+        if: failure() && steps.validate.outputs.exit_code != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let report = null;
+            try {
+              report = JSON.parse(fs.readFileSync('client/public/resonanzen-validation-report.json', 'utf-8'));
+            } catch (e) {
+              core.warning('Report could not be read: ' + e.message);
+            }
+            const errors = (report?.issues || []).filter(i => i.level === 'error');
+            const warnings = (report?.issues || []).filter(i => i.level === 'warning');
+            const errLines = errors.slice(0, 30).map(i => `- **[${i.rule}]** \`${i.file}\`: ${i.detail}`).join('\n');
+            const warnLines = warnings.slice(0, 10).map(i => `- [${i.rule}] \`${i.file}\`: ${i.detail}`).join('\n');
+            const sha = context.sha.slice(0, 7);
+            const body = [
+              `**Konsistenz-Wächter hat ${errors.length} Fehler im Resonanz-Korpus festgestellt.**`,
+              ``,
+              `Triggered by commit ${sha} auf \`${context.ref}\`.`,
+              `Geprüft: ${report?.filesChecked ?? 0} Files`,
+              ``,
+              `### Fehler`,
+              errLines || '_keine_',
+              warnings.length > 0 ? `\n### Warnings (${warnings.length})\n${warnLines}` : '',
+              ``,
+              `---`,
+              ``,
+              `**Was tun:**`,
+              `1. Inkriminierte Datei(en) prüfen — ist der Eintrag korrekt geschrieben worden?`,
+              `2. Bei Bedarf Frontmatter korrigieren oder den Eintrag entfernen`,
+              `3. Nach Fix: Action wird beim nächsten Push automatisch neu validieren`,
+              `4. Falls dies ein bekanntes Schema-Issue ist, kann der Validator (\`scripts/validate-resonanzen.ts\`) angepasst werden`,
+              ``,
+              `<details><summary>Voller Run-Output</summary>`,
+              ``,
+              '```',
+              fs.existsSync('validation-output.txt') ? fs.readFileSync('validation-output.txt', 'utf-8').slice(0, 4000) : '_no output_',
+              '```',
+              ``,
+              `</details>`,
+            ].join('\n');
+
+            // Suche nach offenem Issue mit selbem Label, vermeide Duplikate
+            const { data: existing } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'corpus-validation',
+            });
+            if (existing.length > 0) {
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: existing[0].number,
+                body: `Erneuter Fail bei commit ${sha}:\n\n${body}`,
+              });
+              core.info(`Updated existing issue #${existing[0].number}`);
+            } else {
+              const { data: created } = await github.rest.issues.create({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: `[Korpus-Validierung] ${errors.length} Fehler bei commit ${sha}`,
+                body,
+                labels: ['corpus-validation', 'bug'],
+              });
+              core.info(`Created issue #${created.number}`);
+            }
+
+      - name: Upload validation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report
+          path: client/public/resonanzen-validation-report.json
+          retention-days: 30
+          if-no-files-found: ignore
