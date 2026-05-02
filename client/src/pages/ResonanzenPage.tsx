@@ -40,6 +40,11 @@ const C_LIGHT: Palette = {
 
 type EndpointKey = ResonanzEntry["endpoint"] | "all";
 type StatusKey = "all" | "kuratiert";
+// Reading-Mode-Verdichtung — phänomenologisches Responsive-Pattern:
+//   surface  → minimal, Frage + 1-Zeilen-Excerpt
+//   depth    → Default, Frage + Excerpt + Tags + on-click Verwandte
+//   research → alles voll, audit-trail-ähnliche Sicht
+type ReadingMode = "surface" | "depth" | "research";
 
 export default function ResonanzenPage() {
   const isDark = useEbookTheme();
@@ -52,6 +57,8 @@ export default function ResonanzenPage() {
   const [filterTag, setFilterTag] = useState<string | null>(null);
   const [search, setSearch] = useState("");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  const [readingMode, setReadingMode] = useState<ReadingMode>("depth");
+  const [showRelatedFor, setShowRelatedFor] = useState<string | null>(null);
 
   // Semantische Suche — Toggle + Status. Embeddings werden lazy geladen,
   // Query-Embedding via /api/embed pro Suchvorgang.
@@ -209,6 +216,30 @@ export default function ResonanzenPage() {
         <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textDim, margin: 0, lineHeight: 1.5 }}>
           {index ? `${index.count} gesammelte Begegnungen — Fragen der Lesenden, Antworten der KI, Pfade durch das Werk.` : "lädt …"}
         </p>
+        {/* Reading-Mode-Toggle: phänomenologisch-responsive Verdichtung.
+            Default 'depth'. 'surface' ist für Schnelldurchsicht, 'research'
+            zeigt alles inkl. Provenance. Verdichtung wirkt auf Eintragsliste. */}
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.4rem", flexWrap: "wrap", alignItems: "center" }}>
+          <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.1em", textTransform: "uppercase", marginRight: "0.4rem" }}>Tiefe:</span>
+          {(["surface", "depth", "research"] as ReadingMode[]).map(m => {
+            const active = readingMode === m;
+            const label = m === "surface" ? "Oberfläche" : m === "depth" ? "Vertiefung" : "Forschung";
+            return (
+              <button
+                key={m}
+                onClick={() => setReadingMode(m)}
+                style={{
+                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                  color: active ? C.textBright : C.muted,
+                  background: active ? C.deep : "none",
+                  border: `1px solid ${active ? C.accentDim : C.border}`,
+                  padding: "0.4rem 0.7rem", cursor: "pointer", minHeight: 36,
+                  transition: "all 0.15s",
+                }}
+              >{label}</button>
+            );
+          })}
+        </div>
       </header>
 
       <main style={{ maxWidth: 960, margin: "0 auto", padding: "1.5rem 1rem 4rem" }}>
@@ -367,63 +398,149 @@ export default function ResonanzenPage() {
               Keine Einträge mit diesen Filtern gefunden.
             </div>
           )}
-          {filtered.map(entry => (
-            <article
-              key={entry.id}
-              style={{
-                marginBottom: "0.7rem",
-                background: C.surface,
-                border: `1px solid ${C.border}`,
-                padding: "0.9rem 1rem",
-                cursor: "pointer",
-              }}
-              onClick={() => setExpandedId(id => id === entry.id ? null : entry.id)}
-            >
-              <header style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.4rem", gap: "0.5rem", flexWrap: "wrap" }}>
-                <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
-                  {ENDPOINT_LABEL[entry.endpoint]}
-                  {entry.status === "raw" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>· ungeprüft</span>}
-                  {semanticMode && scoreById.has(entry.id) && (
-                    <span style={{ color: "#5aacb8", marginLeft: "0.5rem" }}>
-                      · ≈ {(scoreById.get(entry.id)! * 100).toFixed(0)}%
-                    </span>
+          {filtered.map(entry => {
+            const isExpanded = expandedId === entry.id;
+            const showRelated = showRelatedFor === entry.id;
+            // Default-Minimal-Regel: Tags je nach Reading-Mode begrenzen
+            const tagLimit = readingMode === "surface" ? 0 : readingMode === "depth" ? 3 : 99;
+            const excerptLen = readingMode === "surface" ? 90 : readingMode === "depth" ? 220 : 500;
+            // Verwandte Einträge zum Anzeigen aus dem Index ziehen
+            const relatedEntries = (entry.related ?? [])
+              .map(rid => index!.entries.find(e => e.id === rid))
+              .filter((e): e is ResonanzEntry => !!e)
+              .slice(0, readingMode === "research" ? 5 : 3);
+            return (
+              <article
+                key={entry.id}
+                id={`entry-${entry.id}`}
+                style={{
+                  marginBottom: "0.7rem",
+                  background: C.surface,
+                  border: `1px solid ${C.border}`,
+                  padding: "0.9rem 1rem",
+                  cursor: "pointer",
+                  scrollMarginTop: "1rem",
+                }}
+                onClick={() => setExpandedId(id => id === entry.id ? null : entry.id)}
+              >
+                <header style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.4rem", gap: "0.5rem", flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
+                    {ENDPOINT_LABEL[entry.endpoint]}
+                    {entry.status === "raw" && readingMode !== "surface" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>· ungeprüft</span>}
+                    {semanticMode && scoreById.has(entry.id) && (
+                      <span style={{ color: "#5aacb8", marginLeft: "0.5rem" }}>
+                        · ≈ {(scoreById.get(entry.id)! * 100).toFixed(0)}%
+                      </span>
+                    )}
+                  </span>
+                  {readingMode !== "surface" && (
+                    <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
+                      {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
+                    </time>
                   )}
-                </span>
-                <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
-                  {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
-                </time>
-              </header>
+                </header>
 
-              <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textBright, lineHeight: 1.5, marginBottom: "0.4rem" }}>
-                {entry.prompt}
-              </div>
+                <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textBright, lineHeight: 1.5, marginBottom: "0.4rem" }}>
+                  {entry.prompt}
+                </div>
 
-              {entry.nodeIds.length > 0 && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.4rem" }}>
-                  {entry.nodeIds.slice(0, 6).map(t => (
-                    <span key={t} style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, background: C.deep, padding: "0.1rem 0.4rem", border: `1px solid ${C.border}` }}>
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              )}
+                {/* Tags — nur in depth/research, mit Mode-abhängigem Limit */}
+                {tagLimit > 0 && entry.nodeIds.length > 0 && (
+                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", marginBottom: "0.4rem", alignItems: "center" }}>
+                    {entry.nodeIds.slice(0, tagLimit).map(t => (
+                      <span key={t} style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, background: C.deep, padding: "0.1rem 0.4rem", border: `1px solid ${C.border}` }}>
+                        {t}
+                      </span>
+                    ))}
+                    {entry.nodeIds.length > tagLimit && (
+                      <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.textDim }}>
+                        +{entry.nodeIds.length - tagLimit}
+                      </span>
+                    )}
+                  </div>
+                )}
 
-              {expandedId === entry.id ? (
-                <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.6rem", marginTop: "0.4rem" }}>
-                  {entry.response.split(/\n\n+/).map((para, i) => (
-                    <p key={i} style={{ fontFamily: SERIF, fontSize: "0.88rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.7rem" }}>
-                      {para.trim()}
-                    </p>
-                  ))}
-                </div>
-              ) : (
-                <div style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.textDim, lineHeight: 1.5 }}>
-                  {entry.response.slice(0, 220).trim()}
-                  {entry.response.length > 220 ? "…" : ""}
-                </div>
-              )}
-            </article>
-          ))}
+                {isExpanded ? (
+                  <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.6rem", marginTop: "0.4rem" }}>
+                    {entry.response.split(/\n\n+/).map((para, i) => (
+                      <p key={i} style={{ fontFamily: SERIF, fontSize: "0.88rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.7rem" }}>
+                        {para.trim()}
+                      </p>
+                    ))}
+                  </div>
+                ) : (
+                  <div style={{ fontFamily: SERIF, fontSize: readingMode === "surface" ? "0.74rem" : "0.78rem", color: C.textDim, lineHeight: 1.5 }}>
+                    {entry.response.slice(0, excerptLen).trim()}
+                    {entry.response.length > excerptLen ? "…" : ""}
+                  </div>
+                )}
+
+                {/* Verwandte Begegnungen — Cross-Linking. Default eingeklappt
+                    in 'depth', voll sichtbar in 'research', verborgen in 'surface'. */}
+                {readingMode !== "surface" && relatedEntries.length > 0 && (
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.5rem", marginTop: "0.5rem" }}
+                  >
+                    {readingMode === "depth" && !showRelated ? (
+                      <button
+                        onClick={() => setShowRelatedFor(entry.id)}
+                        style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: "none", padding: "0.3rem 0", cursor: "pointer" }}
+                      >
+                        + {relatedEntries.length} verwandte Begegnungen
+                      </button>
+                    ) : (
+                      <>
+                        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, marginBottom: "0.4rem" }}>
+                          Verwandte Begegnungen
+                          {readingMode === "depth" && (
+                            <button
+                              onClick={() => setShowRelatedFor(null)}
+                              style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, background: "none", border: "none", marginLeft: "0.5rem", cursor: "pointer", padding: 0 }}
+                            >einklappen</button>
+                          )}
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                          {relatedEntries.map(r => (
+                            <button
+                              key={r.id}
+                              onClick={() => {
+                                setExpandedId(r.id);
+                                setShowRelatedFor(null);
+                                requestAnimationFrame(() => {
+                                  document.getElementById(`entry-${r.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                });
+                              }}
+                              style={{
+                                fontFamily: SERIF, fontStyle: "italic", fontSize: "0.74rem",
+                                color: C.textDim, textAlign: "left", background: "none",
+                                border: "none", padding: "0.3rem 0", cursor: "pointer",
+                                display: "flex", gap: "0.4rem", alignItems: "baseline",
+                              }}
+                            >
+                              <span style={{ color: ENDPOINT_COLOR[r.endpoint], fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", flexShrink: 0 }}>
+                                {ENDPOINT_LABEL[r.endpoint].slice(0, 5)}
+                              </span>
+                              <span style={{ flex: 1 }}>→ {r.prompt.slice(0, 80)}{r.prompt.length > 80 ? "…" : ""}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
+                  </div>
+                )}
+
+                {/* Provenance — nur in research-Modus */}
+                {readingMode === "research" && isExpanded && (
+                  <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.5rem", marginTop: "0.5rem", fontFamily: MONO, fontSize: "0.5rem", color: C.muted, lineHeight: 1.6 }}>
+                    <div>id: {entry.id}</div>
+                    <div>anchor: {entry.anchor}</div>
+                    <div>status: {entry.status}</div>
+                  </div>
+                )}
+              </article>
+            );
+          })}
         </section>
 
         {/* Footer */}

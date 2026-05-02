@@ -14,6 +14,8 @@ export interface ResonanzEntry {
   prompt: string;
   response: string;
   contextMeta: Record<string, unknown>;
+  /** Top-5 verwandte Einträge — vom Build-Step berechnet via Cosine-Similarity. */
+  related?: string[];
 }
 
 export interface ResonanzIndex {
