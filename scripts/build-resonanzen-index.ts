@@ -39,6 +39,9 @@ interface ResonanzEntry {
   prompt: string;
   response: string;
   contextMeta: Record<string, unknown>;
+  // Top-5 semantisch verwandte Einträge — wird im Build berechnet, falls
+  // Embeddings verfügbar sind. Sortiert nach Cosine-Similarity absteigend.
+  related?: string[];
 }
 
 interface TreeEntry { path: string; type: "blob" | "tree"; }
@@ -182,18 +185,62 @@ async function main() {
 
   entries.sort((a, b) => b.ts.localeCompare(a.ts));
 
+  // ─── Embeddings (optional, nur wenn GEMINI_API_KEY gesetzt) ─────────
+  // Embeddings werden vor dem Index-Schreiben berechnet, damit Cross-Links
+  // direkt mitgeschrieben werden können (vermeidet 2-Pass-Schreiben).
+  let embeddings: Record<string, number[]> | null = null;
+  if (GEMINI_API_KEY && entries.length > 0) {
+    embeddings = await buildEmbeddings(entries);
+  } else {
+    console.log("[build-resonanzen-index] GEMINI_API_KEY nicht gesetzt — Embedding-Suche wird nicht verfügbar sein.");
+  }
+
+  // ─── Cross-Links: top-5 semantisch verwandte pro Eintrag ────────────
+  if (embeddings) {
+    computeCrossLinks(entries, embeddings);
+    const linkCount = entries.reduce((s, e) => s + (e.related?.length ?? 0), 0);
+    console.log(`[build-resonanzen-index] computed ${linkCount} cross-links`);
+  }
+
   fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
   fs.writeFileSync(
     OUTPUT,
     JSON.stringify({ generatedAt: new Date().toISOString(), count: entries.length, entries }, null, 2)
   );
   console.log(`[build-resonanzen-index] wrote ${entries.length} entries to ${OUTPUT}`);
+}
 
-  // ─── Embeddings (optional, nur wenn GEMINI_API_KEY gesetzt) ─────────
-  if (GEMINI_API_KEY && entries.length > 0) {
-    await buildEmbeddings(entries);
-  } else {
-    console.log("[build-resonanzen-index] GEMINI_API_KEY nicht gesetzt — Embedding-Suche wird nicht verfügbar sein.");
+function cosineSim(a: number[], b: number[]): number {
+  if (a.length !== b.length) return 0;
+  let dot = 0, na = 0, nb = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  return na && nb ? dot / (Math.sqrt(na) * Math.sqrt(nb)) : 0;
+}
+
+/** Berechnet pro Eintrag die 5 ähnlichsten anderen Einträge.
+ *  Mutiert entries — schreibt `related: string[]` ins jeweilige Element. */
+function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, number[]>) {
+  const TOP_K = 5;
+  // Min-Score-Schwelle — verhindert, dass wir bei sehr disparatem Korpus
+  // willkürliche Verlinkungen generieren. 0.5 ist ein konservativer Wert.
+  const MIN_SCORE = 0.5;
+  for (const entry of entries) {
+    const v = embeddings[entry.id];
+    if (!v) continue;
+    const scored: Array<{ id: string; score: number }> = [];
+    for (const other of entries) {
+      if (other.id === entry.id) continue;
+      const ov = embeddings[other.id];
+      if (!ov) continue;
+      const score = cosineSim(v, ov);
+      if (score >= MIN_SCORE) scored.push({ id: other.id, score });
+    }
+    scored.sort((a, b) => b.score - a.score);
+    entry.related = scored.slice(0, TOP_K).map(s => s.id);
   }
 }
 
@@ -215,7 +262,7 @@ async function fetchEmbedding(text: string): Promise<number[] | null> {
   }
 }
 
-async function buildEmbeddings(entries: ResonanzEntry[]) {
+async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string, number[]>> {
   // Inkrementell: bestehende Embeddings laden, nur fehlende neu berechnen
   let existing: Record<string, number[]> = {};
   if (fs.existsSync(EMBEDDINGS_OUTPUT)) {
@@ -232,7 +279,7 @@ async function buildEmbeddings(entries: ResonanzEntry[]) {
   if (toCompute.length === 0) {
     console.log("[build-resonanzen-index] all embeddings up to date");
     fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
-    return;
+    return existing;
   }
 
   console.log(`[build-resonanzen-index] computing ${toCompute.length} new embeddings (Gemini text-embedding-004)`);
@@ -260,6 +307,7 @@ async function buildEmbeddings(entries: ResonanzEntry[]) {
 
   fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
   console.log(`[build-resonanzen-index] wrote ${success} new embeddings (${failed} failed) to ${EMBEDDINGS_OUTPUT}`);
+  return existing;
 }
 
 main().catch(err => {
