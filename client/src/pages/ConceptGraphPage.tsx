@@ -2417,7 +2417,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         </div>
       )}
 
-      {/* Hint text (only when nothing selected) */}
+      {/* Hint text — Modus-abhängig, nur wenn nichts selektiert ist */}
       {!selectedNode && (
         <div style={{
           position: "fixed", bottom: "1.2rem", left: "50%", transform: "translateX(-50%)",
@@ -2425,7 +2425,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           color: C.muted, pointerEvents: "none", whiteSpace: "nowrap",
           zIndex: 150,
         }}>
-          Knoten ziehen · Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen
+          {viewMode === "matrix"
+            ? "Zellen anklicken — zeigt Verbindung zwischen zwei Konzepten"
+            : viewMode === "netz"
+              ? "Knoten ziehen · Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen"
+              : "Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen"}
         </div>
       )}
 
