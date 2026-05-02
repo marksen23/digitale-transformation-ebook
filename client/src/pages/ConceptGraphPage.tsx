@@ -786,8 +786,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         borderBottom: `1px solid ${C.border}`,
         background: C.panelBg, backdropFilter: "blur(12px)",
       }}>
-        {/* Zeile 1: Titel + Legende + Schließen */}
-        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
+        {/* Zeile 1: Titel + view-Switcher + Workfunc-Buttons + Legende + Schließen.
+            flexWrap erlaubt Umbruch auf Mobile, wenn die 4 Workfunc-Buttons
+            nicht mehr in eine Reihe passen — sie springen dann unter den Header. */}
+        <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", rowGap: "0.4rem" }}>
           <span style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>
             Begriffsnetz
           </span>
@@ -825,8 +827,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             })}
           </div>
 
-          <div style={{ flex: 1 }} />
-
+          {/* Workfunc-Buttons als gruppierter Container — auf Mobile per CSS
+              in eigene Zeile gezwungen, damit die langen deutschen Labels
+              nicht den Header überlaufen lassen. */}
+          <div className="concept-workfunc-group" style={{
+            display: "flex", gap: "0.4rem", marginLeft: "auto", flexWrap: "wrap",
+          }}>
           {/* Connect mode button — nur im Netz-Modus */}
           {viewMode === "netz" && (
             <button
@@ -946,6 +952,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               {chatOpen ? "✕ Dialog" : "◎ Dialog"}
             </button>
           )}
+          </div>{/* /concept-workfunc-group */}
 
           {/* Legend toggle — only shown when no node is selected (sidebar carries the legend then) */}
           {!selectedId && (
@@ -2826,6 +2833,20 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
             z-index: 165 !important;
             overflow-y: auto;
+          }
+          /* Workfunc-Buttons in eigene Zeile — flex-basis 100% + order
+             pushed sie unter Titel/View-Switcher/Legende/Schließen,
+             damit deutsche Labels nicht den Header brechen. */
+          .concept-workfunc-group {
+            flex-basis: 100% !important;
+            order: 99 !important;
+            margin-left: 0 !important;
+            justify-content: flex-start !important;
+          }
+          /* Header mehr Höhe, weil Workfunc-Bar als zweite Zeile */
+          .concept-graph-body {
+            margin-top: 7.2rem !important;
+            height: calc(100dvh - 7.2rem) !important;
           }
         }
         /* Desktop (> 640 px): only right sidebar, bottom sheet hidden */
