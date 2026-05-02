@@ -174,7 +174,7 @@ export default function ResonanzenPage() {
 
   if (loadError) {
     return (
-      <div style={{ minHeight: "100dvh", background: C.void, color: C.text, fontFamily: SERIF, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ position: "fixed", inset: 0, background: C.void, color: C.text, fontFamily: SERIF, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <p style={{ fontStyle: "italic", color: C.textDim }}>Resonanzen-Index nicht erreichbar: {loadError}</p>
         <Link href="/" style={{ marginTop: "1rem", color: C.accent, fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
       </div>
@@ -182,7 +182,17 @@ export default function ResonanzenPage() {
   }
 
   return (
-    <div style={{ minHeight: "100dvh", background: C.void, color: C.text, fontFamily: SERIF }}>
+    // Eigener Scroll-Container — die App-weite index.css setzt overflow: hidden
+    // auf body/#root für die Reader-Vollbild-UX. data-scroll erlaubt
+    // touch-action: pan-y auf Mobile.
+    <div
+      data-scroll
+      style={{
+        position: "fixed", inset: 0, overflowY: "auto",
+        background: C.void, color: C.text, fontFamily: SERIF,
+        WebkitOverflowScrolling: "touch",
+      }}
+    >
       {/* Header */}
       <header style={{ borderBottom: `1px solid ${C.border}`, padding: "1.5rem 1rem", maxWidth: 960, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
