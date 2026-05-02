@@ -280,6 +280,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [pathResult, setPathResult] = useState<{ shortest: string[]; surprising: string[] } | null>(null);
   const pathModeRef = useRef(false);
   const pathNodesRef = useRef<[string | null, string | null]>([null, null]);
+  // Pfad-Analyse — KI-Reflexion über die gefundenen Pfade (Single oder Vergleich)
+  const [pathAnalysis, setPathAnalysis] = useState<string | null>(null);
+  const [pathAnalysisLoading, setPathAnalysisLoading] = useState(false);
+  const [pathAnalysisError, setPathAnalysisError] = useState<string | null>(null);
 
   // Spannungsfeld-Analyse — select two nodes → Gemini analysis
   const [analyseMode, setAnalyseMode] = useState(false);
@@ -306,7 +310,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // /api/analyse-cluster, schreibt das Resultat in analyseResult.
   const runClusterAnalysis = useCallback(() => {
     const ids = analyseNodesRef.current;
-    if (ids.length < 2 || ids.length > 5) return;
+    if (ids.length < 2 || ids.length > 4) return;
     const nodes = ids.map(id => NODE_MAP.get(id)).filter(Boolean);
     if (nodes.length !== ids.length) return;
     setAnalyseLoading(true);
@@ -333,6 +337,36 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       });
   }, []);
 
+  // Pfad-Analyse starten — KI-Reflexion über shortest + (optional) surprising.
+  // Wird nur enabled, wenn shortest 3-5 Knoten lang ist (siehe UI-Button-Logik).
+  // Server entscheidet automatisch zwischen Einzelpfad und Vergleichs-Variante.
+  const runPathAnalysis = useCallback((from: string, to: string, shortest: string[], surprising: string[]) => {
+    if (shortest.length < 3 || shortest.length > 5) return;
+    setPathAnalysisLoading(true);
+    setPathAnalysisError(null);
+    setPathAnalysis(null);
+    const samePath = surprising.length === shortest.length && shortest.every((id, i) => id === surprising[i]);
+    const body: { from: string; to: string; shortest: string[]; surprising?: string[] } = { from, to, shortest };
+    if (surprising.length >= 3 && surprising.length <= 5 && !samePath) {
+      body.surprising = surprising;
+    }
+    fetch("/api/analyse-path", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    })
+      .then(r => r.json())
+      .then(data => {
+        setPathAnalysisLoading(false);
+        if (data.error) setPathAnalysisError(data.error);
+        else setPathAnalysis(data.analysis ?? null);
+      })
+      .catch(err => {
+        setPathAnalysisLoading(false);
+        setPathAnalysisError(err instanceof Error ? err.message : "Verbindungsfehler");
+      });
+  }, []);
+
   // Beim Wechsel des View-Modus alle Arbeitsfunktions-Panels schließen,
   // damit keine Stale-Overlays aus einem nicht mehr aktiven View bestehen
   // bleiben. Refs werden mitsynchronisiert, weil onClick-Handler sie lesen.
@@ -342,6 +376,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setPathMode(false); pathModeRef.current = false;
     setPathNodes([null, null]); pathNodesRef.current = [null, null];
     setPathResult(null);
+    setPathAnalysis(null); setPathAnalysisError(null);
     setAnalyseMode(false); analyseModeRef.current = false;
     setAnalyseNodes([]); analyseNodesRef.current = [];
     setAnalyseResult(null);
@@ -563,32 +598,36 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         pathNodesRef.current = [id, null];
         setPathNodes([id, null]);
         setPathResult(null);
+        setPathAnalysis(null); setPathAnalysisError(null);
       } else if (src === id) {
         pathNodesRef.current = [null, null];
         setPathNodes([null, null]);
         setPathResult(null);
+        setPathAnalysis(null); setPathAnalysisError(null);
       } else {
         const shortest = bfsPath(src, id) ?? [];
         const surprising = dijkstraSurprisingPath(src, id) ?? [];
         pathNodesRef.current = [src, id];
         setPathNodes([src, id]);
         setPathResult({ shortest, surprising });
+        setPathAnalysis(null); setPathAnalysisError(null);
       }
       return;
     }
 
     if (analyseModeRef.current) {
-      // Multi-Node-Cluster-Auswahl (2–5 Knoten). Toggle-Logik:
+      // Multi-Node-Cluster-Auswahl (2–4 Knoten). Toggle-Logik:
       //   Knoten in Liste → entfernen
-      //   Knoten neu, Liste < 5 → hinzufügen
-      //   Liste === 5 → ignorieren
+      //   Knoten neu, Liste < 4 → hinzufügen
+      //   Liste === 4 → ignorieren (Quadratur ist die Obergrenze; bei 5+
+      //   Konzepten verliert die KI-Analyse Fokus, siehe Phase-2.5-Diskussion)
       // Analyse wird nicht automatisch gestartet — der Nutzer drückt
       // explizit "Analyse starten" im Panel.
       const current = analyseNodesRef.current;
       let next: string[];
       if (current.includes(id)) {
         next = current.filter(x => x !== id);
-      } else if (current.length >= 5) {
+      } else if (current.length >= 4) {
         return; // Limit erreicht — ignoriere
       } else {
         next = [...current, id];
@@ -2500,8 +2539,71 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     </div>
                   )}
                 </div>
+
+                {/* Pfad-Analyse-Button — nur wenn shortest 3-5 Knoten hat
+                    (kürzere = direkte Verbindung, kein Bewegungs-Spielraum;
+                    längere = beliebige Konstruktion durch BFS-Erzwingung) */}
+                {(() => {
+                  const len = pathResult.shortest.length;
+                  const canAnalyse = len >= 3 && len <= 5;
+                  if (!canAnalyse) {
+                    return (
+                      <div style={{ fontFamily: C.mono, fontSize: "0.52rem", color: C.muted, fontStyle: "italic" }}>
+                        {len < 3 ? "Pfad zu kurz für Analyse — Spannungsfeld direkt nutzen." : "Pfad zu lang (>5) für sinnvolle Analyse."}
+                      </div>
+                    );
+                  }
+                  const variant = same ? "Einzelpfad" : "Vergleich";
+                  const stars = len === 4 ? 4 : 3; // sweet spot bei 4
+                  return (
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                      <div style={{ fontFamily: C.mono, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.1em", display: "flex", gap: "0.3rem" }}>
+                        <span style={{ color: "#7eb8c8" }}>{"★".repeat(stars)}{"☆".repeat(4 - stars)}</span>
+                        <span>{variant}</span>
+                      </div>
+                      <button
+                        disabled={pathAnalysisLoading}
+                        onClick={() => {
+                          const [from, to] = pathNodes;
+                          if (!from || !to) return;
+                          runPathAnalysis(from, to, pathResult.shortest, pathResult.surprising);
+                        }}
+                        style={{
+                          alignSelf: "flex-start",
+                          fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                          textTransform: "uppercase",
+                          color: pathAnalysisLoading ? C.muted : "#080808",
+                          background: pathAnalysisLoading ? "transparent" : "#7eb8c8",
+                          border: `1px solid #7eb8c8`,
+                          padding: "0.3rem 0.7rem",
+                          cursor: pathAnalysisLoading ? "not-allowed" : "pointer",
+                          transition: "all 0.15s",
+                        }}
+                      >
+                        {pathAnalysisLoading ? "Analyse läuft …" : (same ? "⚡ Pfad analysieren" : "⚡ Beide Pfade vergleichen")}
+                      </button>
+                    </div>
+                  );
+                })()}
+
+                {pathAnalysisError && (
+                  <div style={{ fontFamily: C.mono, fontSize: "0.62rem", color: "#c48282" }}>
+                    {pathAnalysisError}
+                  </div>
+                )}
+
+                {pathAnalysis && (
+                  <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.5rem" }}>
+                    {pathAnalysis.split(/\n\n+/).map((para, i) => (
+                      <p key={i} style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.6rem" }}>
+                        {para.trim()}
+                      </p>
+                    ))}
+                  </div>
+                )}
+
                 <button
-                  onClick={() => { pathNodesRef.current = [null, null]; setPathNodes([null, null]); setPathResult(null); }}
+                  onClick={() => { pathNodesRef.current = [null, null]; setPathNodes([null, null]); setPathResult(null); setPathAnalysis(null); setPathAnalysisError(null); }}
                   style={{ alignSelf: "flex-start", fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.2rem 0.5rem", cursor: "pointer" }}
                 >
                   Zurücksetzen
@@ -2524,23 +2626,31 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         }}>
           {(() => {
             const n = analyseNodes.length;
-            const headerLabel =
-              n === 0 ? "Cluster-Analyse" :
-              n === 1 ? "Cluster-Analyse — 1 Knoten" :
-              n === 2 ? "Spannungsfeld (2)" :
-              n === 3 ? "Triade (3)" :
-              `Konstellation (${n})`;
+            const formInfo =
+              n === 0 ? { label: "Cluster-Analyse", stars: 0, hint: "" } :
+              n === 1 ? { label: "1 Knoten gewählt", stars: 0, hint: "weitere wählen …" } :
+              n === 2 ? { label: "Spannungsfeld", stars: 4, hint: "Dialektik" } :
+              n === 3 ? { label: "Triade", stars: 4, hint: "sweet spot" } :
+                        { label: "Quadratur", stars: 3, hint: "Vierfeldschema" };
             return (
-              <div style={{ color: "#5aacb8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                <span>{headerLabel}</span>
-                {n > 0 && <span style={{ color: C.muted, fontSize: "0.5rem" }}>{n}/5</span>}
-              </div>
+              <>
+                <div style={{ color: "#5aacb8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.3rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                  <span>{formInfo.label}{n >= 2 ? ` (${n})` : ""}</span>
+                  {n > 0 && <span style={{ color: C.muted, fontSize: "0.5rem" }}>{n}/4</span>}
+                </div>
+                {n >= 2 && (
+                  <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.7rem", color: C.muted, marginBottom: "0.6rem", display: "flex", gap: "0.4rem", alignItems: "baseline" }}>
+                    <span style={{ color: "#5aacb8", letterSpacing: "0.1em" }}>{"★".repeat(formInfo.stars)}{"☆".repeat(4 - formInfo.stars)}</span>
+                    <span>{formInfo.hint}</span>
+                  </div>
+                )}
+              </>
             );
           })()}
 
           {analyseNodes.length === 0 && (
             <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
-              Knoten anklicken — 2 bis 5 für eine Cluster-Analyse.
+              Knoten anklicken — 2 bis 4 für eine Cluster-Analyse.
             </div>
           )}
 

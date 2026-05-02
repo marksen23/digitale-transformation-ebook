@@ -490,11 +490,12 @@ ${text}`;
     }
   });
 
-  // ─── Begriffsnetz: Cluster-Analyse (2–5 Knoten) ──────────────────────
-  // Drei Prompt-Varianten je nach Knotenanzahl:
+  // ─── Begriffsnetz: Cluster-Analyse (2–4 Knoten) ──────────────────────
+  // Drei Prompt-Varianten je nach Knotenanzahl, jeder mit eigener
+  // philosophischer Form:
   //   2 → Spannungsfeld (Dialektik)
-  //   3 → Triade (vermittelndes Drittes)
-  //   4–5 → Konstellation (Achsen-Geometrie)
+  //   3 → Triade (vermittelndes Drittes — sweet spot)
+  //   4 → Quadratur (Vierfeldschema, sich kreuzende Achsen)
   interface NodeMeta { id: string; label: string; fullLabel: string; description: string; }
 
   function buildClusterPrompt(nodes: NodeMeta[]): string {
@@ -506,8 +507,8 @@ ${text}`;
     if (nodes.length === 3) {
       return intro + `Analysiere die Triade dieser drei Konzepte aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nIm Unterschied zur Zweier-Spannung entsteht in der Triade ein vermittelndes Drittes. Schreibe drei prägnante Absätze:\n1. Wie bilden A, B und C ein triadisches Gefüge? Welcher der drei steht als Brücke, welche als Pole oder Gegensätze? Welche Bewegung entsteht zwischen ihnen?\n2. Was wird durch das Hinzutreten des Dritten sichtbar, das in der bloßen Zweier-Konstellation noch nicht gesehen werden konnte? Welche emergente Eigenschaft tritt hervor?\n3. Welche Erkenntnis für das Verhältnis Mensch–Maschine, für Resonanz oder für digitale Existenz erschließt diese Triade?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
     }
-    // 4–5 Knoten — Konstellation
-    return intro + `Analysiere diese Konstellation aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nDie Konstellation aus ${nodes.length} Konzepten spannt einen mehrdimensionalen Bedeutungsraum auf. Schreibe drei prägnante Absätze:\n1. Welche Achsen oder Dimensionen spannt diese Konstellation auf? Welche Konzepte stehen einander gegenüber, welche bilden Cluster oder Verwandtschaften?\n2. Welche Konzepte sind Zentrum, welche Peripherie? Gibt es ein verborgenes Bindeglied, das alle zusammenhält? Welche Spannungslinien verlaufen quer durch das Feld?\n3. Welches umfassende Verständnis von Mensch, Maschine oder Resonanz erschließt sich nur in dieser konstellativen Sicht — was bliebe bei kleinerer Auswahl unsichtbar?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+    // 4 Knoten — Quadratur
+    return intro + `Analysiere die Quadratur dieser vier Konzepte aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nVier Konzepte spannen das klassische Vierfeldschema auf — zwei sich kreuzende Achsen, in deren Spannungspunkt sich Erkenntnis bildet (vergleichbar Heideggers Geviert oder dem klassischen Logos–Pathos–Ethos–Kairos). Schreibe drei prägnante Absätze:\n1. Welche zwei Achsen-Paare bilden sich? Welche Konzepte stehen in Gegensatz, welche in Komplementarität? Wie kreuzen sich die Achsen?\n2. Was wird im Vierfeld sichtbar, das in Triade und Spannungsfeld noch nicht greifbar war? Welcher Mittelpunkt entsteht — oder welche Leere im Zentrum?\n3. Welches umfassende Verständnis von Mensch, Maschine oder Resonanz erschließt nur diese Vierheit — was bliebe in kleineren Konstellationen unsichtbar?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
   }
 
   function clusterAnchor(ids: string[]): string {
@@ -517,7 +518,7 @@ ${text}`;
   function clusterDescriptor(nodes: NodeMeta[]): string {
     if (nodes.length === 2) return `Spannungsfeld: ${nodes[0].fullLabel} ↔ ${nodes[1].fullLabel}`;
     if (nodes.length === 3) return `Triade: ${nodes.map(n => n.fullLabel).join(" · ")}`;
-    return `Konstellation (${nodes.length}): ${nodes.map(n => n.fullLabel).join(" · ")}`;
+    return `Quadratur: ${nodes.map(n => n.fullLabel).join(" · ")}`;
   }
 
   async function handleClusterAnalysis(req: express.Request, res: express.Response, nodes: NodeMeta[]): Promise<void> {
@@ -526,8 +527,8 @@ ${text}`;
       res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
       return;
     }
-    if (nodes.length < 2 || nodes.length > 5) {
-      res.status(400).json({ error: "Cluster-Analyse braucht 2 bis 5 Knoten." });
+    if (nodes.length < 2 || nodes.length > 4) {
+      res.status(400).json({ error: "Cluster-Analyse braucht 2 bis 4 Knoten." });
       return;
     }
     for (const n of nodes) {
@@ -606,6 +607,155 @@ ${text}`;
       return res.status(400).json({ error: "nodeA und nodeB sind erforderlich." });
     }
     return handleClusterAnalysis(req, res, [nodeA, nodeB]);
+  });
+
+  // ─── Begriffsnetz: Pfad-Analyse (3-5 Knoten in Sequenz) ──────────────
+  // Drei Verhaltens-Varianten:
+  //   1. Nur shortest, kein surprising      → Einzelpfad-Analyse
+  //   2. shortest + surprising, identisch   → Einzelpfad-Analyse (ehrlich)
+  //   3. shortest + surprising, verschieden → Vergleichs-Analyse
+  function buildPathDescriptor(ids: string[]): string {
+    return ids.map(id => nodeSrv.get(id)?.fullLabel ?? id).join(" → ");
+  }
+
+  function buildSinglePathPrompt(path: string[]): string {
+    const sequence = path.map((id, i) => {
+      const n = nodeSrv.get(id);
+      return `${i + 1}. ${n?.fullLabel ?? id}: ${n?.description ?? ""}`;
+    }).join("\n");
+    return `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+
+Analysiere diese Bewegung durch das Begriffsnetz des Werks (${path.length} Stationen, ${path.length - 1} Übergänge):
+
+${sequence}
+
+Pfade sind keine bloßen Distanzen, sondern narrative Bewegungen: jede Begriffsfolge erzählt etwas. Schreibe drei prägnante Absätze:
+1. Welche Bewegung beschreibt dieser Pfad? Welcher Übergang ist tragend, welcher kontingent? Wo entsteht die eigentliche Verschiebung der Bedeutung?
+2. Was wird durch diese spezifische Reihenfolge sichtbar, das in Einzelbetrachtung der Konzepte unsichtbar bliebe? Welche philosophische These klingt mit?
+3. Was bedeutet diese Bewegung für das Werk insgesamt — für sein Verständnis von Mensch, Maschine oder Resonanz?
+
+Falls die Sequenz keine substantielle Bewegung enthält (etwa wegen erzwungener Verbindungen im Graph), sage es offen — produziere keinen erzwungenen Sinn. Schreibe philosophisch dicht, ohne Jargon-Prunk. Schließe mit einer offenen Frage.`;
+  }
+
+  function buildComparePathPrompt(shortest: string[], surprising: string[]): string {
+    const seqShort = shortest.map((id, i) => {
+      const n = nodeSrv.get(id);
+      return `   ${i + 1}. ${n?.fullLabel ?? id}: ${n?.description ?? ""}`;
+    }).join("\n");
+    const seqSurprising = surprising.map((id, i) => {
+      const n = nodeSrv.get(id);
+      return `   ${i + 1}. ${n?.fullLabel ?? id}: ${n?.description ?? ""}`;
+    }).join("\n");
+    return `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+
+Vergleiche zwei Pfade durch das Begriffsnetz des Werks zwischen denselben Endpunkten:
+
+DIREKTER PFAD (kürzest, ${shortest.length} Stationen):
+${seqShort}
+
+ÜBERRASCHENDER PFAD (alternative Wegführung, ${surprising.length} Stationen):
+${seqSurprising}
+
+Beide Pfade verbinden dieselben Endpunkte, schlagen aber unterschiedliche Routen ein. Der direkte Weg folgt der dichtesten Begriffslogik, der überraschende eine seltenere Verknüpfung. Schreibe drei prägnante Absätze:
+1. Welche Bewegung erzählt jeder der beiden Wege? Welcher liest sich als logische Konsequenz, welcher als poetisch-überraschend?
+2. Was macht der Vergleich sichtbar, das ein einzelner Pfad nicht zeigen würde? Treffen sich die Bewegungen an einem Mittelpunkt, oder sind sie konträr?
+3. Was sagt die Existenz beider Wege über die Geländegestalt des Begriffsraums — und über das Werk?
+
+Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstruiert wirkt, sage es offen — produziere keinen erzwungenen Vergleich. Schreibe philosophisch dicht, ohne Jargon-Prunk. Schließe mit einer offenen Frage.`;
+  }
+
+  app.post("/api/analyse-path", rateLimiter('analyse-path', 15, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    }
+    const { shortest, surprising, from, to } = req.body as {
+      shortest: string[];
+      surprising?: string[];
+      from: string;
+      to: string;
+    };
+
+    if (!Array.isArray(shortest) || shortest.length < 3 || shortest.length > 5) {
+      return res.status(400).json({ error: "Pfad muss zwischen 3 und 5 Knoten lang sein." });
+    }
+    if (surprising !== undefined && (!Array.isArray(surprising) || surprising.length < 3 || surprising.length > 5)) {
+      return res.status(400).json({ error: "Surprising-Pfad (falls vorhanden) muss 3 bis 5 Knoten lang sein." });
+    }
+    // Verifizieren dass alle IDs im Begriffsnetz existieren
+    const allIds = Array.from(new Set([...shortest, ...(surprising ?? [])]));
+    for (const id of allIds) {
+      if (!nodeSrv.has(id)) {
+        return res.status(400).json({ error: `Unbekannter Knoten: ${id}` });
+      }
+    }
+    if (!from || !to || !nodeSrv.has(from) || !nodeSrv.has(to)) {
+      return res.status(400).json({ error: "from und to müssen valide Knoten-IDs sein." });
+    }
+
+    // Variante wählen: Vergleich nur wenn beide vorhanden UND substantiell verschieden
+    const samePath = surprising && shortest.length === surprising.length
+      && shortest.every((id, i) => id === surprising[i]);
+    const useCompare = surprising && surprising.length >= 3 && !samePath;
+
+    const prompt = useCompare
+      ? buildComparePathPrompt(shortest, surprising!)
+      : buildSinglePathPrompt(shortest);
+
+    const descriptor = useCompare
+      ? `Pfad-Vergleich: ${buildPathDescriptor(shortest)} vs. ${buildPathDescriptor(surprising!)}`
+      : `Pfad-Analyse: ${buildPathDescriptor(shortest)}`;
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
+          }),
+        }
+      );
+      if (!response.ok) {
+        const errText = await response.text();
+        console.error("Pfad-Analyse Gemini error:", response.status, errText);
+        let detail: string;
+        try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
+        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
+        return res.status(502).json({ error: detail });
+      }
+      const data = await response.json();
+      const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      res.json({ analysis, variant: useCompare ? "compare" : "single" });
+
+      const sortedEndpoints = [from, to].sort();
+      void logResonanz({
+        endpoint: "path-analyse",
+        anchor: `path-analyse:${sortedEndpoints[0]}+${sortedEndpoints[1]}`,
+        nodeIds: [...allIds].sort(),
+        prompt: descriptor,
+        response: analysis,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          from,
+          to,
+          shortest_path: shortest,
+          surprising_path: surprising ?? null,
+          shortest_length: shortest.length,
+          surprising_length: surprising?.length ?? null,
+          variant: useCompare ? "compare" : "single",
+          paths_identical: samePath ?? false,
+        },
+      });
+      return;
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : String(err);
+      console.error("Pfad-Analyse API error:", message);
+      return res.status(502).json({ error: `API-Fehler: ${message}` });
+    }
   });
 
   // ─── Graph-Chat: freier Gemini-Dialog über das gesamte Begriffsnetz ──

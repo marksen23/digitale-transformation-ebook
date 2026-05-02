@@ -13,7 +13,7 @@
  */
 import crypto from "crypto";
 
-export type ResonanzEndpoint = "chapter" | "analyse" | "graph-chat" | "enkidu" | "translate";
+export type ResonanzEndpoint = "chapter" | "analyse" | "graph-chat" | "enkidu" | "translate" | "path-analyse";
 
 export interface ResonanzEntry {
   endpoint: ResonanzEndpoint;
@@ -115,6 +115,7 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
  * Pfadkonvention — kategorisiert + breadcrumb-fähig:
  *   chapter:<chapterId>           → raw/chapter/<chapterId>/<date>-<id>.md
  *   analyse:<idA>+<idB>           → raw/analyse/<idA>+<idB>/<date>-<id>.md
+ *   path-analyse:<from>+<to>      → raw/path-analyse/<from>+<to>/<date>-<id>.md
  *   translate:<chapterId>+<lang>  → raw/translate/<chapterId>+<lang>/<date>-<id>.md
  *   graph                         → raw/graph-chat/<date>-<id>.md
  *   enkidu                        → raw/enkidu/<date>-<id>.md
