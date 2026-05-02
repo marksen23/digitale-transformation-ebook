@@ -12,8 +12,13 @@
  */
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 
-const ROOT = process.cwd();
+// Pfade deterministisch relativ zum Skript auflösen — process.cwd() ist
+// im Netlify-Build-Context nicht zuverlässig der Repo-Root.
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const ROOT = path.resolve(__dirname, "..");
 const RESONANZEN_DIR = path.join(ROOT, "content/resonanzen");
 const OUTPUT = path.join(ROOT, "client/public/resonanzen-index.json");
 
@@ -110,8 +115,12 @@ function* walkMd(dir: string): Generator<string> {
 }
 
 function main() {
+  console.log(`[build-resonanzen-index] ROOT=${ROOT}`);
+  console.log(`[build-resonanzen-index] RESONANZEN_DIR=${RESONANZEN_DIR}`);
+  console.log(`[build-resonanzen-index] OUTPUT=${OUTPUT}`);
   if (!fs.existsSync(RESONANZEN_DIR)) {
     console.warn(`[build-resonanzen-index] ${RESONANZEN_DIR} not found — writing empty index.`);
+    console.warn(`[build-resonanzen-index] Sibling dirs at ROOT:`, fs.existsSync(ROOT) ? fs.readdirSync(ROOT).slice(0, 20) : "ROOT does not exist");
     fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
     fs.writeFileSync(OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), count: 0, entries: [] }, null, 2));
     return;
