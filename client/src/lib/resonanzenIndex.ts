@@ -31,6 +31,74 @@ export async function loadResonanzenIndex(): Promise<ResonanzIndex> {
   return res.json();
 }
 
+/** Lädt das Embeddings-Mapping (id → 768-dim Vektor). Lazy, einmal-Cache. */
+export interface EmbeddingsIndex {
+  generatedAt: string;
+  embeddings: Record<string, number[]>;
+}
+
+let _embeddingsCache: EmbeddingsIndex | null = null;
+let _embeddingsPromise: Promise<EmbeddingsIndex | null> | null = null;
+
+export function loadEmbeddings(): Promise<EmbeddingsIndex | null> {
+  if (_embeddingsCache) return Promise.resolve(_embeddingsCache);
+  if (_embeddingsPromise) return _embeddingsPromise;
+  _embeddingsPromise = fetch("/resonanzen-embeddings.json", { cache: "force-cache" })
+    .then(r => r.ok ? r.json() : null)
+    .then(data => {
+      _embeddingsCache = data;
+      return data;
+    })
+    .catch(() => null);
+  return _embeddingsPromise;
+}
+
+/** Holt das Query-Embedding via Server-Endpoint. */
+export async function fetchQueryEmbedding(text: string): Promise<number[] | null> {
+  try {
+    const res = await fetch("/api/embed", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text }),
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    return Array.isArray(data.embedding) ? data.embedding : null;
+  } catch {
+    return null;
+  }
+}
+
+/** Cosine-Similarity zwischen zwei gleichlangen Vektoren. */
+export function cosineSimilarity(a: number[], b: number[]): number {
+  if (a.length !== b.length) return 0;
+  let dot = 0, na = 0, nb = 0;
+  for (let i = 0; i < a.length; i++) {
+    dot += a[i] * b[i];
+    na += a[i] * a[i];
+    nb += b[i] * b[i];
+  }
+  if (na === 0 || nb === 0) return 0;
+  return dot / (Math.sqrt(na) * Math.sqrt(nb));
+}
+
+/** Top-K ähnlichste Einträge für ein Query-Embedding. */
+export function rankBySimilarity(
+  queryVec: number[],
+  entries: ResonanzEntry[],
+  embeddings: Record<string, number[]>,
+  topK = 10,
+): Array<{ entry: ResonanzEntry; score: number }> {
+  const scored: Array<{ entry: ResonanzEntry; score: number }> = [];
+  for (const e of entries) {
+    const v = embeddings[e.id];
+    if (!v) continue;
+    scored.push({ entry: e, score: cosineSimilarity(queryVec, v) });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, topK);
+}
+
 /** Endpoint-Kategorie → menschenlesbares Label */
 export const ENDPOINT_LABEL: Record<ResonanzEntry["endpoint"], string> = {
   "chapter":      "Kapitel-Frage",

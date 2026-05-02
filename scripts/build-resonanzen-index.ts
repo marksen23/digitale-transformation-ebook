@@ -21,11 +21,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const OUTPUT = path.join(ROOT, "client/public/resonanzen-index.json");
+const EMBEDDINGS_OUTPUT = path.join(ROOT, "client/public/resonanzen-embeddings.json");
 
 const REPO_OWNER  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
 const REPO_NAME   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
 const REPO_BRANCH = process.env.GITHUB_REPO_BRANCH ?? "main";
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // optional
+const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // optional — falls nicht gesetzt, Embeddings werden geskippt
 
 interface ResonanzEntry {
   id: string;
@@ -186,6 +188,78 @@ async function main() {
     JSON.stringify({ generatedAt: new Date().toISOString(), count: entries.length, entries }, null, 2)
   );
   console.log(`[build-resonanzen-index] wrote ${entries.length} entries to ${OUTPUT}`);
+
+  // ─── Embeddings (optional, nur wenn GEMINI_API_KEY gesetzt) ─────────
+  if (GEMINI_API_KEY && entries.length > 0) {
+    await buildEmbeddings(entries);
+  } else {
+    console.log("[build-resonanzen-index] GEMINI_API_KEY nicht gesetzt — Embedding-Suche wird nicht verfügbar sein.");
+  }
+}
+
+async function fetchEmbedding(text: string): Promise<number[] | null> {
+  try {
+    const res = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${GEMINI_API_KEY}`,
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 8000) }] } }),
+      }
+    );
+    if (!res.ok) return null;
+    const data = await res.json();
+    return Array.isArray(data.embedding?.values) ? data.embedding.values : null;
+  } catch {
+    return null;
+  }
+}
+
+async function buildEmbeddings(entries: ResonanzEntry[]) {
+  // Inkrementell: bestehende Embeddings laden, nur fehlende neu berechnen
+  let existing: Record<string, number[]> = {};
+  if (fs.existsSync(EMBEDDINGS_OUTPUT)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(EMBEDDINGS_OUTPUT, "utf-8"));
+      existing = data.embeddings ?? {};
+      console.log(`[build-resonanzen-index] reusing ${Object.keys(existing).length} existing embeddings`);
+    } catch {
+      // korruptes File — neu starten
+    }
+  }
+
+  const toCompute = entries.filter(e => !(e.id in existing));
+  if (toCompute.length === 0) {
+    console.log("[build-resonanzen-index] all embeddings up to date");
+    fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
+    return;
+  }
+
+  console.log(`[build-resonanzen-index] computing ${toCompute.length} new embeddings (Gemini text-embedding-004)`);
+  const BATCH = 5;
+  let success = 0, failed = 0;
+  for (let i = 0; i < toCompute.length; i += BATCH) {
+    const batch = toCompute.slice(i, i + BATCH);
+    const results = await Promise.all(batch.map(async e => {
+      // Embed prompt + response zusammen — semantischer Inhalt
+      const text = `${e.prompt}\n\n${e.response}`;
+      const vec = await fetchEmbedding(text);
+      return { id: e.id, vec };
+    }));
+    for (const { id, vec } of results) {
+      if (vec) {
+        existing[id] = vec;
+        success++;
+      } else {
+        failed++;
+      }
+    }
+    // Progress alle 25
+    if ((i + BATCH) % 25 < BATCH) console.log(`[build-resonanzen-index]   embeddings: ${success}/${toCompute.length}`);
+  }
+
+  fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
+  console.log(`[build-resonanzen-index] wrote ${success} new embeddings (${failed} failed) to ${EMBEDDINGS_OUTPUT}`);
 }
 
 main().catch(err => {

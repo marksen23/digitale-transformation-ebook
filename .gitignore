@@ -116,3 +116,4 @@ client/public/__manus__/version.json
 .claude/settings.local.json
 .manus-logs/
 /client/public/resonanzen-index.json
+/client/public/resonanzen-embeddings.json
