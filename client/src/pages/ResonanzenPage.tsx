@@ -70,7 +70,22 @@ export default function ResonanzenPage() {
 
   useEffect(() => {
     loadResonanzenIndex()
-      .then(setIndex)
+      .then(idx => {
+        setIndex(idx);
+        // Deep-Link: ?id=… expandiert + scrollt zum Eintrag (vom Begriffsnetz aus)
+        const params = new URLSearchParams(window.location.search);
+        const targetId = params.get("id");
+        const targetTag = params.get("tag");
+        if (targetId && idx.entries.some(e => e.id === targetId)) {
+          setExpandedId(targetId);
+          requestAnimationFrame(() => {
+            document.getElementById(`entry-${targetId}`)?.scrollIntoView({ behavior: "smooth", block: "center" });
+          });
+        }
+        if (targetTag && idx.entries.some(e => e.nodeIds.includes(targetTag))) {
+          setFilterTag(targetTag);
+        }
+      })
       .catch(err => setLoadError(err instanceof Error ? err.message : String(err)));
     // Pre-fetch embeddings (lazy, im Hintergrund)
     loadEmbeddings().then(emb => {
