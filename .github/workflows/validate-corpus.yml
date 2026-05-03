@@ -27,13 +27,15 @@ jobs:
       issues: write    # für Issue-Erstellung bei Failures
       pull-requests: write  # für künftige Auto-Revert-PRs (Säule 3 Stufe 3c)
     steps:
-      - uses: actions/checkout@v4
+      # Action-SHAs gepinnt (Repo-Policy: keine Tag-Refs erlaubt).
+      # Kommentare nennen die ursprüngliche Tag-Version für Lesbarkeit.
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
 
-      - uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d  # v3
         with:
           version: 10
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
         with:
           node-version: "24"
           cache: pnpm
@@ -56,7 +58,7 @@ jobs:
 
       - name: Open issue on validation failure
         if: failure() && steps.validate.outputs.exit_code != '0'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7
         with:
           script: |
             const fs = require('fs');
@@ -126,7 +128,7 @@ jobs:
 
       - name: Upload validation report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02  # v4
         with:
           name: validation-report
           path: client/public/resonanzen-validation-report.json
@@ -197,7 +199,7 @@ jobs:
 
       - name: Open issue on drift alarm
         if: success() && steps.drift.outputs.exit_code == '1'
-        uses: actions/github-script@v7
+        uses: actions/github-script@f28e40c7f34bde8b3046d885e986cb6290c5673b  # v7
         with:
           script: |
             const fs = require('fs');
