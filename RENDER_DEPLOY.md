@@ -39,7 +39,7 @@ Unter **Environment** → **Environment Variables** setzen:
 
 | Key                  | Wert                                     |
 |----------------------|------------------------------------------|
-| `NODE_VERSION`       | `22.13.0`                                |
+| `NODE_VERSION`       | `24`                                |
 | `NODE_ENV`           | `production`                             |
 | `GEMINI_API_KEY`     | *(dein Key aus Google AI Studio)*        |
 
@@ -106,5 +106,5 @@ Auf dem kostenlosen Plan schläft der Service nach 15 Minuten Inaktivität und b
 Typ:         Web Service
 Build:       pnpm install && pnpm build
 Start:       node dist/index.js
-ENV:         NODE_VERSION=22.13.0, NODE_ENV=production, GEMINI_API_KEY=<key>
+ENV:         NODE_VERSION=24, NODE_ENV=production, GEMINI_API_KEY=<key>
 ```
