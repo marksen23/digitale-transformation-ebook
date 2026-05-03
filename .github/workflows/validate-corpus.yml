@@ -23,8 +23,9 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
-      issues: write  # für Issue-Erstellung bei Failures
+      contents: write  # für Snapshot-Commit + Tag-Push
+      issues: write    # für Issue-Erstellung bei Failures
+      pull-requests: write  # für künftige Auto-Revert-PRs (Säule 3 Stufe 3c)
     steps:
       - uses: actions/checkout@v4
 
