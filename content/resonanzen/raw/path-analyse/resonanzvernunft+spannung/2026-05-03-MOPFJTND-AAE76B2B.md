@@ -5,8 +5,8 @@ created_at: 2026-05-03T07:09:19.705Z
 endpoint: path-analyse
 model: gemini-2.5-flash
 anchor: path-analyse:resonanzvernunft+spannung
-nodeIds: [resonanz, resonanzvernunft, spannung]
-status: raw
+nodeIds: [ resonanz, resonanzvernunft, spannung ]
+status: approved
 content_hash: 6da932e3d30717e8
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
@@ -16,10 +16,15 @@ audit_trail:
     ts: 2026-05-03T07:09:19.705Z
     actor: system
     content_hash: 6da932e3d30717e8
+  - event: status-changed
+    ts: 2026-05-03T18:03:47.747Z
+    actor: admin
+    from: raw
+    to: approved
 context_meta:
   from: spannung
   to: resonanzvernunft
-  shortest_path: ["spannung","resonanz","resonanzvernunft"]
+  shortest_path: [ "spannung", "resonanz", "resonanzvernunft" ]
   shortest_length: 3
   variant: single
   paths_identical: false
