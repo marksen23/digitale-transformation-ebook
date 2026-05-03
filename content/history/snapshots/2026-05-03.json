@@ -1,0 +1,181 @@
+{
+  "ts": "2026-05-03T07:33:34.514Z",
+  "schema_version": 1,
+  "total_files": 78,
+  "corpus_hash": "sha256:d6742596dd3308e7",
+  "counts_by_endpoint": {
+    "analyse": 23,
+    "chapter": 11,
+    "enkidu": 21,
+    "graph-chat": 18,
+    "path-analyse": 4,
+    "translate": 1
+  },
+  "status_distribution": {
+    "raw": 78
+  },
+  "top_anchors": [
+    {
+      "key": "enkidu",
+      "count": 21
+    },
+    {
+      "key": "graph",
+      "count": 18
+    },
+    {
+      "key": "chapter:teil7",
+      "count": 5
+    },
+    {
+      "key": "chapter:band3-kap5",
+      "count": 3
+    },
+    {
+      "key": "chapter:teil5",
+      "count": 2
+    },
+    {
+      "key": "analyse:andere+spannung",
+      "count": 1
+    },
+    {
+      "key": "analyse:andere+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:begegnung+resonanzvernunft+zwischen",
+      "count": 1
+    },
+    {
+      "key": "analyse:bewusstsein+sein",
+      "count": 1
+    },
+    {
+      "key": "analyse:dazwischenintelligenz+unverfuegbarkeit",
+      "count": 1
+    },
+    {
+      "key": "analyse:denken+resonanzvernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:denken+sprache+welt",
+      "count": 1
+    },
+    {
+      "key": "analyse:echo+transaufklaerung+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:erkenntnis+lm-verwandlung",
+      "count": 1
+    },
+    {
+      "key": "analyse:freiheit+spannung+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:freiheit+spannung+zwischen",
+      "count": 1
+    },
+    {
+      "key": "analyse:ich-du+lm-verwandlung",
+      "count": 1
+    },
+    {
+      "key": "analyse:ich-du+selbst",
+      "count": 1
+    },
+    {
+      "key": "analyse:lm-begegnung+schatten",
+      "count": 1
+    },
+    {
+      "key": "analyse:lm-spiegel+resonanzvernunft",
+      "count": 1
+    }
+  ],
+  "top_tags": [
+    {
+      "key": "resonanzvernunft",
+      "count": 8
+    },
+    {
+      "key": "vernunft",
+      "count": 6
+    },
+    {
+      "key": "spannung",
+      "count": 5
+    },
+    {
+      "key": "zwischen",
+      "count": 5
+    },
+    {
+      "key": "lm-verwandlung",
+      "count": 5
+    },
+    {
+      "key": "unverfuegbarkeit",
+      "count": 4
+    },
+    {
+      "key": "sein",
+      "count": 3
+    },
+    {
+      "key": "welt",
+      "count": 3
+    },
+    {
+      "key": "wahrheit",
+      "count": 3
+    },
+    {
+      "key": "andere",
+      "count": 2
+    },
+    {
+      "key": "denken",
+      "count": 2
+    },
+    {
+      "key": "transaufklaerung",
+      "count": 2
+    },
+    {
+      "key": "freiheit",
+      "count": 2
+    },
+    {
+      "key": "ich-du",
+      "count": 2
+    },
+    {
+      "key": "selbst",
+      "count": 2
+    },
+    {
+      "key": "schatten",
+      "count": 2
+    },
+    {
+      "key": "resonanz",
+      "count": 2
+    },
+    {
+      "key": "begegnung",
+      "count": 1
+    },
+    {
+      "key": "bewusstsein",
+      "count": 1
+    },
+    {
+      "key": "dazwischenintelligenz",
+      "count": 1
+    }
+  ]
+}
