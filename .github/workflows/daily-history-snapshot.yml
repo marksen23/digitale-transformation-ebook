@@ -12,6 +12,10 @@ on:
 permissions:
   contents: write           # Push der Snapshot-Files
 
+# JavaScript-Actions explizit auf Node 24 zwingen
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
 jobs:
   snapshot:
     runs-on: ubuntu-latest
