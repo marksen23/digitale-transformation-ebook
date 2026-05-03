@@ -9,14 +9,21 @@ import Home from "./pages/Home";
 
 // Resonanzen-Seite lazy laden — eigener Bundle-Chunk, FAQ-spezifisch.
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
+const AdminPage = lazy(() => import("./pages/AdminPage"));
 
 function Router() {
+  const fallback = <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Georgia, serif", fontStyle: "italic", color: "#888" }}>lädt …</div>;
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/resonanzen"}>
-        <Suspense fallback={<div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Georgia, serif", fontStyle: "italic", color: "#888" }}>lädt …</div>}>
+        <Suspense fallback={fallback}>
           <ResonanzenPage />
+        </Suspense>
+      </Route>
+      <Route path={"/admin"}>
+        <Suspense fallback={fallback}>
+          <AdminPage />
         </Suspense>
       </Route>
       <Route path={"/404"} component={NotFound} />

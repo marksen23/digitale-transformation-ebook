@@ -823,6 +823,28 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     }
   });
 
+  // ─── Admin-Endpoints ────────────────────────────────────────────────
+  // Token-basierte Auth: ADMIN_TOKEN als env var in Render gesetzt.
+  // Phase 1: Read-Only Auth-Check für Dashboard-Zugang.
+  // Phase 2 später: curate, delete (mit Schreib-Operationen via GitHub-API).
+  function checkAdminToken(req: express.Request): boolean {
+    const expected = process.env.ADMIN_TOKEN;
+    if (!expected) return false; // Wenn nicht gesetzt: Admin-Zugang deaktiviert
+    const auth = req.headers.authorization ?? "";
+    const m = auth.match(/^Bearer\s+(.+)$/);
+    return m !== null && m[1] === expected;
+  }
+
+  app.post("/api/admin/check", async (req, res) => {
+    if (!process.env.ADMIN_TOKEN) {
+      return res.status(503).json({ ok: false, error: "Admin-Zugang nicht konfiguriert (ADMIN_TOKEN env var fehlt)." });
+    }
+    if (!checkAdminToken(req)) {
+      return res.status(401).json({ ok: false, error: "Token ungültig oder fehlt." });
+    }
+    return res.json({ ok: true });
+  });
+
   // ─── Embedding-Endpoint für semantische Korpus-Suche ─────────────────
   // Wraps Gemini text-embedding-004 für die Resonanzen-FAQ-Suche.
   // Frontend ruft /api/embed mit einer Anfrage, bekommt 768-dim Vektor,

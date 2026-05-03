@@ -4,7 +4,7 @@
   functions = "dist/functions"
 
 [build.environment]
-  NODE_VERSION = "22.13.0"
+  NODE_VERSION = "24"
   PNPM_VERSION = "10.4.1"
 
 # Proxy /api/* requests to the Render backend (Express + Gemini)
