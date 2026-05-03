@@ -10,7 +10,7 @@ export interface ResonanzEntry {
   endpoint: "chapter" | "enkidu" | "analyse" | "graph-chat" | "translate" | "path-analyse";
   anchor: string;
   nodeIds: string[];
-  status: "raw" | "pending" | "approved" | "published";
+  status: "raw" | "pending" | "approved" | "published" | "rejected";
   prompt: string;
   response: string;
   contextMeta: Record<string, unknown>;

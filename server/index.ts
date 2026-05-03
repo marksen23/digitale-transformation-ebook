@@ -845,6 +845,143 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     return res.json({ ok: true });
   });
 
+  // ─── Phase 2: Kuration ──────────────────────────────────────────────
+  // POST /api/admin/curate { id, status }     → Status-Wechsel
+  // POST /api/admin/delete { id }             → Eintrag löschen
+  // Beide brauchen ADMIN_TOKEN für Auth + GITHUB_TOKEN für Repo-Schreiben.
+  // Audit-Trail wird automatisch erweitert (Provenance-Erhalt).
+
+  const VALID_STATUS_VALUES = new Set(["raw", "pending", "approved", "published", "rejected"]);
+
+  /** Findet ein Resonanz-File anhand der ID via GitHub Tree-API + raw download. */
+  async function findEntryFile(id: string): Promise<{ path: string; content: string; sha: string } | null> {
+    const token = process.env.GITHUB_TOKEN;
+    const owner  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
+    const repo   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
+    const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
+    if (!token) return null;
+    const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`, {
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", Accept: "application/vnd.github+json" },
+    });
+    if (!treeRes.ok) return null;
+    const treeData = await treeRes.json();
+    interface TreeBlobEntry { type: string; path: string }
+    const blobs = (treeData.tree ?? []) as TreeBlobEntry[];
+    const candidates = blobs.filter((e: TreeBlobEntry) =>
+      e.type === "blob" && e.path.startsWith("content/resonanzen/") && e.path.endsWith(".md") && e.path.includes(id)
+    );
+    for (const c of candidates) {
+      const contentsRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${c.path}?ref=${branch}`, {
+        headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", Accept: "application/vnd.github+json" },
+      });
+      if (!contentsRes.ok) continue;
+      const data = await contentsRes.json();
+      const content = Buffer.from(data.content, "base64").toString("utf-8");
+      // Verifiziere dass Frontmatter wirklich diese ID hat (Path-Match alleine reicht nicht)
+      if (new RegExp(`^id:\\s*${id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`, "m").test(content)) {
+        return { path: c.path, content, sha: data.sha };
+      }
+    }
+    return null;
+  }
+
+  /** Schreibt File-Content zurück (PUT) oder löscht (DELETE) via Contents-API. */
+  async function writeOrDeleteFile(
+    op: "update" | "delete", path: string, sha: string, newContent: string | null, message: string,
+  ): Promise<{ ok: boolean; error?: string }> {
+    const token = process.env.GITHUB_TOKEN;
+    const owner  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
+    const repo   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
+    const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
+    if (!token) return { ok: false, error: "GITHUB_TOKEN fehlt" };
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
+    const body: Record<string, unknown> = { message, sha, branch };
+    if (op === "update" && newContent !== null) {
+      body.content = Buffer.from(newContent, "utf-8").toString("base64");
+    }
+    const res = await fetch(url, {
+      method: op === "update" ? "PUT" : "DELETE",
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", "Content-Type": "application/json", Accept: "application/vnd.github+json" },
+      body: JSON.stringify(body),
+    });
+    if (!res.ok) {
+      const txt = await res.text().catch(() => "");
+      return { ok: false, error: `${res.status}: ${txt.slice(0, 200)}` };
+    }
+    return { ok: true };
+  }
+
+  /** Modifiziert Frontmatter mit YAML-Library (Reihenfolge bleibt erhalten). */
+  async function mutateFrontmatter(content: string, mutator: (doc: import("yaml").Document.Parsed) => void): Promise<string> {
+    const yaml = await import("yaml");
+    const m = content.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+    if (!m) throw new Error("Kein Frontmatter im File");
+    const doc = yaml.parseDocument(m[1]);
+    mutator(doc);
+    const newFm = doc.toString().trimEnd();
+    return `---\n${newFm}\n---\n${m[2]}`;
+  }
+
+  app.post("/api/admin/curate", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { id, status } = req.body as { id?: string; status?: string };
+    if (!id) return res.status(400).json({ error: "id fehlt" });
+    if (!status || !VALID_STATUS_VALUES.has(status)) {
+      return res.status(400).json({ error: `status muss eines von ${Array.from(VALID_STATUS_VALUES).join("|")} sein` });
+    }
+
+    const file = await findEntryFile(id);
+    if (!file) return res.status(404).json({ error: `Eintrag ${id} nicht gefunden` });
+
+    let oldStatus = "raw";
+    let newContent: string;
+    try {
+      newContent = await mutateFrontmatter(file.content, doc => {
+        oldStatus = String(doc.get("status") ?? "raw");
+        doc.set("status", status);
+        // audit_trail erweitern: yaml.Document hält die Sequenz als Node mit .add()
+        const trail = doc.get("audit_trail") as { add?: (item: unknown) => void } | undefined;
+        const newEvent = {
+          event: "status-changed",
+          ts: new Date().toISOString(),
+          actor: "admin",
+          from: oldStatus,
+          to: status,
+        };
+        if (trail && typeof trail.add === "function") {
+          trail.add(newEvent);
+        } else {
+          doc.set("audit_trail", [newEvent]);
+        }
+      });
+    } catch (err) {
+      return res.status(500).json({ error: `Frontmatter-Update fehlgeschlagen: ${err instanceof Error ? err.message : err}` });
+    }
+
+    const writeRes = await writeOrDeleteFile(
+      "update", file.path, file.sha, newContent,
+      `curate(${id}): ${oldStatus} → ${status}`
+    );
+    if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
+    return res.json({ ok: true, id, oldStatus, newStatus: status, path: file.path });
+  });
+
+  app.post("/api/admin/delete", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { id } = req.body as { id?: string };
+    if (!id) return res.status(400).json({ error: "id fehlt" });
+
+    const file = await findEntryFile(id);
+    if (!file) return res.status(404).json({ error: `Eintrag ${id} nicht gefunden` });
+
+    const writeRes = await writeOrDeleteFile(
+      "delete", file.path, file.sha, null,
+      `admin-delete: ${id} (${file.path.split("/").slice(-2, -1)[0] ?? "unknown"})`
+    );
+    if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
+    return res.json({ ok: true, id, path: file.path });
+  });
+
   // ─── Embedding-Endpoint für semantische Korpus-Suche ─────────────────
   // Wraps Gemini text-embedding-004 für die Resonanzen-FAQ-Suche.
   // Frontend ruft /api/embed mit einer Anfrage, bekommt 768-dim Vektor,
