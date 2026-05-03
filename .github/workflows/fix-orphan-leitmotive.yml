@@ -1,0 +1,51 @@
+name: Fix Orphan Leitmotiv-IDs
+
+# Manuell triggerbar: repariert Resonanz-Files, deren nodeIds noch das
+# alte unprefixierte Format ("begegnung") statt des korrekten lm-Prefix
+# ("lm-begegnung") nutzen. Mappt automatisch alle 5 Leitmotiv-Knoten.
+#
+# Nutzt GITHUB_TOKEN der Action (contents:write), kein eigener PAT nötig.
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry-Run (nur Anzeige, keine Änderungen)"
+        required: false
+        default: "false"
+        type: choice
+        options: ["false", "true"]
+
+permissions:
+  contents: write
+
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: "true"
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@34e114876b0b11c390a56381ad16ebd13914f8d5  # v4
+
+      - uses: pnpm/action-setup@a3252b78c470c02df07e9d59298aecedc3ccdd6d  # v3
+        with:
+          version: 10
+
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020  # v4
+        with:
+          node-version: "24"
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Fix orphans
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            pnpm tsx scripts/fix-orphan-leitmotive.ts --dry-run
+          else
+            pnpm tsx scripts/fix-orphan-leitmotive.ts
+          fi
