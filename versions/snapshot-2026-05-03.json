@@ -1,0 +1,24 @@
+{
+  "date": "2026-05-03",
+  "generatedAt": "2026-05-03T06:32:19.554Z",
+  "commit": "f3ccea628cdd72873c0491d1cfeb353fad027cbf",
+  "filesChecked": 76,
+  "aggregates": {
+    "byEndpoint": {
+      "analyse": 22,
+      "chapter": 11,
+      "enkidu": 21,
+      "graph-chat": 18,
+      "path-analyse": 3,
+      "translate": 1
+    },
+    "byStatus": {
+      "raw": 76
+    },
+    "orphanNodeIds": [
+      "begegnung"
+    ]
+  },
+  "errors": 0,
+  "warnings": 1
+}
