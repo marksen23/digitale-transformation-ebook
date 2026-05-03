@@ -1,7 +1,7 @@
 {
   "date": "2026-05-03",
-  "generatedAt": "2026-05-03T15:52:17.331Z",
-  "commit": "6afba35c2ad53c03c58b6798e70c4bedce33b7bb",
+  "generatedAt": "2026-05-03T18:04:42.187Z",
+  "commit": "ac3fcc5593ecf25de562b83097e36f8f2e117097",
   "filesChecked": 83,
   "aggregates": {
     "byEndpoint": {
@@ -13,7 +13,8 @@
       "translate": 1
     },
     "byStatus": {
-      "raw": 83
+      "raw": 81,
+      "published": 2
     },
     "orphanNodeIds": [
       "begegnung"
