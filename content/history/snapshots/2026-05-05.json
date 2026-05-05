@@ -1,0 +1,182 @@
+{
+  "ts": "2026-05-05T05:43:06.514Z",
+  "schema_version": 1,
+  "total_files": 99,
+  "corpus_hash": "sha256:af4d8df415174e67",
+  "counts_by_endpoint": {
+    "analyse": 31,
+    "chapter": 14,
+    "enkidu": 21,
+    "graph-chat": 21,
+    "path-analyse": 11,
+    "translate": 1
+  },
+  "status_distribution": {
+    "raw": 96,
+    "published": 3
+  },
+  "top_anchors": [
+    {
+      "key": "enkidu",
+      "count": 21
+    },
+    {
+      "key": "graph",
+      "count": 21
+    },
+    {
+      "key": "chapter:teil7",
+      "count": 5
+    },
+    {
+      "key": "chapter:band3-kap5",
+      "count": 3
+    },
+    {
+      "key": "chapter:teil4",
+      "count": 3
+    },
+    {
+      "key": "chapter:teil5",
+      "count": 2
+    },
+    {
+      "key": "analyse:andere+spannung",
+      "count": 1
+    },
+    {
+      "key": "analyse:andere+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:begegnung+resonanzvernunft+zwischen",
+      "count": 1
+    },
+    {
+      "key": "analyse:bewusstsein+sein",
+      "count": 1
+    },
+    {
+      "key": "analyse:dasein+gegenwart+resonanzvernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:dazwischenintelligenz+unverfuegbarkeit",
+      "count": 1
+    },
+    {
+      "key": "analyse:denken+resonanzvernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:denken+sprache+welt",
+      "count": 1
+    },
+    {
+      "key": "analyse:denken+wahrheit",
+      "count": 1
+    },
+    {
+      "key": "analyse:echo+transaufklaerung+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:erkenntnis+lm-verwandlung",
+      "count": 1
+    },
+    {
+      "key": "analyse:erkenntnis+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:freiheit+spannung+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:freiheit+spannung+zwischen",
+      "count": 1
+    }
+  ],
+  "top_tags": [
+    {
+      "key": "resonanzvernunft",
+      "count": 12
+    },
+    {
+      "key": "zwischen",
+      "count": 12
+    },
+    {
+      "key": "vernunft",
+      "count": 9
+    },
+    {
+      "key": "lm-verwandlung",
+      "count": 9
+    },
+    {
+      "key": "spannung",
+      "count": 7
+    },
+    {
+      "key": "unverfuegbarkeit",
+      "count": 6
+    },
+    {
+      "key": "resonanz",
+      "count": 6
+    },
+    {
+      "key": "wahrheit",
+      "count": 5
+    },
+    {
+      "key": "sein",
+      "count": 4
+    },
+    {
+      "key": "freiheit",
+      "count": 4
+    },
+    {
+      "key": "denken",
+      "count": 3
+    },
+    {
+      "key": "welt",
+      "count": 3
+    },
+    {
+      "key": "erkenntnis",
+      "count": 3
+    },
+    {
+      "key": "gelassenheit",
+      "count": 3
+    },
+    {
+      "key": "selbst",
+      "count": 3
+    },
+    {
+      "key": "lm-grenze",
+      "count": 3
+    },
+    {
+      "key": "stimme",
+      "count": 3
+    },
+    {
+      "key": "\"öffnung\"",
+      "count": 3
+    },
+    {
+      "key": "andere",
+      "count": 2
+    },
+    {
+      "key": "bewusstsein",
+      "count": 2
+    }
+  ]
+}
