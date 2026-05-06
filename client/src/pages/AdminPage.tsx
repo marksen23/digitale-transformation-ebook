@@ -384,7 +384,7 @@ export default function AdminPage() {
             Admin · Korpus-Status
           </h1>
           <div style={{ display: "flex", gap: "0.6rem", alignItems: "baseline" }}>
-            <Link href="/resonanzen" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Resonanzen</Link>
+            <Link href="/resonanzen" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Kollektives Wissen</Link>
             <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
           </div>
         </div>

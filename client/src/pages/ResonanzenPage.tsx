@@ -52,13 +52,21 @@ export default function ResonanzenPage() {
 
   const [index, setIndex] = useState<ResonanzIndex | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [filterEndpoint, setFilterEndpoint] = useState<EndpointKey>("all");
-  const [filterStatus, setFilterStatus] = useState<StatusKey>("all");
-  const [filterTag, setFilterTag] = useState<string | null>(null);
-  const [search, setSearch] = useState("");
+  // URL-Init: Filter-State aus Query-Params (für Deep-Links + Browser-Back)
+  const initParams = typeof window !== "undefined" ? new URLSearchParams(window.location.search) : new URLSearchParams();
+  const [filterEndpoint, setFilterEndpoint] = useState<EndpointKey>(
+    (initParams.get("endpoint") as EndpointKey) ?? "all"
+  );
+  const [filterStatus, setFilterStatus] = useState<StatusKey>(
+    initParams.get("status") === "kuratiert" ? "kuratiert" : "all"
+  );
+  const [filterTag, setFilterTag] = useState<string | null>(initParams.get("tag"));
+  const [search, setSearch] = useState(initParams.get("q") ?? "");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [readingMode, setReadingMode] = useState<ReadingMode>("depth");
   const [showRelatedFor, setShowRelatedFor] = useState<string | null>(null);
+  // Phase 3: Filter-Bar kollabierbar (Default-Minimal)
+  const [filtersExpanded, setFiltersExpanded] = useState(false);
 
   // Semantische Suche — Toggle + Status. Embeddings werden lazy geladen,
   // Query-Embedding via /api/embed pro Suchvorgang.
@@ -92,6 +100,32 @@ export default function ResonanzenPage() {
       setEmbeddingsAvailable(emb !== null && Object.keys(emb.embeddings ?? {}).length > 0);
     });
   }, []);
+
+  // URL-Sync: Such-Term + aktive Filter spiegeln in Query-Params (shareable Deep-Links)
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const update = (key: string, val: string | null) => {
+      if (val && val !== "all") params.set(key, val);
+      else params.delete(key);
+    };
+    update("q", search.trim() || null);
+    update("endpoint", filterEndpoint);
+    update("status", filterStatus === "kuratiert" ? "kuratiert" : null);
+    update("tag", filterTag);
+    // 'id' nur bei expliziter Wahl beibehalten (initial Deep-Link)
+    const newSearch = params.toString();
+    const target = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
+    if (target !== window.location.pathname + window.location.search) {
+      window.history.replaceState({}, "", target);
+    }
+  }, [search, filterEndpoint, filterStatus, filterTag]);
+
+  // Anzahl aktiver Filter (für "Filter (N aktiv)"-Affordance)
+  const activeFilterCount =
+    (filterEndpoint !== "all" ? 1 : 0) +
+    (filterStatus === "kuratiert" ? 1 : 0) +
+    (filterTag ? 1 : 0);
 
   // Semantische Suche ausführen (debounced via Button-Click)
   const runSemanticSearch = async () => {
@@ -224,12 +258,12 @@ export default function ResonanzenPage() {
       <header style={{ borderBottom: `1px solid ${C.border}`, padding: "1.5rem 1rem", maxWidth: 960, margin: "0 auto" }}>
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
           <h1 style={{ fontFamily: SERIF, fontSize: "1.8rem", fontStyle: "italic", color: C.textBright, margin: 0, fontWeight: 400 }}>
-            Resonanzen
+            Kollektives Wissen
           </h1>
           <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
         </div>
         <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textDim, margin: 0, lineHeight: 1.5 }}>
-          {index ? `${index.count} gesammelte Begegnungen — Fragen der Lesenden, Antworten der KI, Pfade durch das Werk.` : "lädt …"}
+          {index ? `${index.count} Begegnungen aus dem kollektiven Wissen — was die Leserschaft fragt, was sich darin sammelt.` : "lädt …"}
         </p>
         {/* Reading-Mode-Toggle: phänomenologisch-responsive Verdichtung.
             Default 'depth'. 'surface' ist für Schnelldurchsicht, 'research'
@@ -257,71 +291,40 @@ export default function ResonanzenPage() {
         </div>
       </header>
 
-      <main style={{ maxWidth: 960, margin: "0 auto", padding: "1.5rem 1rem 4rem" }}>
-        {/* Wortwolke */}
-        {keywords.length > 0 && (
-          <section style={{ marginBottom: "2.5rem" }}>
-            <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem" }}>
-              Kollektiver Fokus — was die Leserschaft fragt
-            </div>
-            <div style={{ background: C.deep, border: `1px solid ${C.border}`, padding: "1rem", overflow: "hidden" }}>
-              <WordCloud keywords={keywords} width={Math.min(900, typeof window !== "undefined" ? window.innerWidth - 64 : 900)} height={260} />
-            </div>
-          </section>
-        )}
-
-        {/* Filter-Bar */}
-        <section style={{ marginBottom: "1.5rem", display: "flex", flexDirection: "column", gap: "0.7rem" }}>
-          {/* Endpoint-Pills */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-            {(["all", "chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse"] as EndpointKey[]).map(key => {
-              const active = filterEndpoint === key;
-              const label = key === "all" ? "Alle" : ENDPOINT_LABEL[key];
-              const count = key === "all" ? (index?.count ?? 0) : (endpointCounts[key] ?? 0);
-              const color = key === "all" ? C.accent : ENDPOINT_COLOR[key];
-              return (
-                <button
-                  key={key}
-                  onClick={() => setFilterEndpoint(key)}
-                  style={{
-                    fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.1em",
-                    textTransform: "uppercase",
-                    color: active ? "#080808" : color,
-                    background: active ? color : "none",
-                    border: `1px solid ${color}`,
-                    padding: "0.5rem 0.7rem", cursor: "pointer",
-                    minHeight: 36, // Touch-Target (WCAG-Minimum 44, hier Kompromiss mit Filter-Dichte)
-                    transition: "all 0.15s",
-                  }}
-                >
-                  {label} <span style={{ opacity: 0.7 }}>({count})</span>
-                </button>
-              );
-            })}
-          </div>
-
-          {/* Status- + Suchleiste */}
-          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", alignItems: "center" }}>
+      <main style={{ maxWidth: 960, margin: "0 auto", padding: "0 1rem 4rem" }}>
+        {/* ═══ SUCH-HERO: zentrales Tool, sticky beim Scroll ═══ */}
+        <section
+          style={{
+            position: "sticky", top: 0, zIndex: 10,
+            background: `${C.void}f0`,
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            padding: "1rem 0",
+            marginBottom: "1.5rem",
+            borderBottom: `1px solid ${C.border}`,
+          }}
+        >
+          <div style={{ display: "flex", gap: "0.5rem", alignItems: "stretch", flexWrap: "wrap" }}>
             <input
               type="text"
               value={search}
               onChange={e => {
                 setSearch(e.target.value);
-                // Semantische Resultate werden beim Tippen ungültig
                 if (semanticResults) setSemanticResults(null);
               }}
               onKeyDown={e => { if (e.key === "Enter" && semanticMode) runSemanticSearch(); }}
-              placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Volltext-Suche …"}
+              placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Suchen im kollektiven Wissen …"}
               style={{
-                flex: 1, minWidth: 180, fontFamily: SERIF, fontStyle: "italic",
+                flex: 1, minWidth: 200,
+                fontFamily: SERIF, fontStyle: "italic",
+                fontSize: "1rem",
                 background: C.surface, color: C.textBright,
                 border: `1px solid ${search ? C.accentDim : C.border}`,
-                padding: "0.6rem 0.8rem", outline: "none",
-                fontSize: "16px", // iOS-Trick: ≥16px verhindert ungewünschten Zoom beim Fokus
-                minHeight: 44,
+                padding: "0.9rem 1.1rem", outline: "none",
+                minHeight: 56,
+                transition: "border-color 0.2s",
               }}
             />
-            {/* Semantische-Suche-Toggle (nur sichtbar wenn Embeddings da sind) */}
             {embeddingsAvailable && (
               <button
                 onClick={() => {
@@ -333,78 +336,158 @@ export default function ResonanzenPage() {
                 }}
                 disabled={semanticLoading}
                 style={{
-                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
-                  textTransform: "uppercase",
+                  fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
                   color: semanticMode ? "#080808" : "#5aacb8",
                   background: semanticMode ? "#5aacb8" : "none",
                   border: `1px solid #5aacb8`,
-                  padding: "0.5rem 0.7rem",
-                  minHeight: 44,
+                  padding: "0 1rem",
+                  minHeight: 56, minWidth: 110,
                   cursor: semanticLoading ? "wait" : "pointer",
                   opacity: semanticLoading ? 0.5 : 1,
                 }}
-                title="Suche nach semantischer Ähnlichkeit (Embedding-basiert)"
+                title="Toggle: Volltext-Match vs. semantische Ähnlichkeit"
               >
                 {semanticLoading ? "…" : semanticMode ? "✓ semantisch" : "≈ semantisch"}
               </button>
             )}
+            {search && (
+              <button
+                onClick={() => { setSearch(""); setSemanticResults(null); setSemanticError(null); }}
+                aria-label="Suche zurücksetzen"
+                style={{
+                  fontFamily: MONO, fontSize: "1rem",
+                  color: C.muted, background: "none",
+                  border: `1px solid ${C.border}`,
+                  minHeight: 56, minWidth: 56,
+                  cursor: "pointer",
+                }}
+              >×</button>
+            )}
+          </div>
+          {/* Live-Counter / Status */}
+          <div style={{ marginTop: "0.5rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", color: C.muted, display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
+            <span>
+              {semanticMode && semanticLoading ? "Embedding wird berechnet …"
+                : semanticMode && semanticError ? <span style={{ color: "#c48282" }}>{semanticError}</span>
+                : semanticMode && semanticResults ? `Top ${semanticResults.length} nach Ähnlichkeit`
+                : semanticMode ? "Suchbegriff + Enter drücken"
+                : search.trim() ? `${filtered.length} Treffer von ${index?.count ?? 0}`
+                : `${index?.count ?? 0} Begegnungen insgesamt`}
+            </span>
+            {/* Filter-Toggle mit Active-Count */}
             <button
-              onClick={() => setFilterStatus(s => s === "all" ? "kuratiert" : "all")}
+              onClick={() => setFiltersExpanded(v => !v)}
               style={{
-                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: filterStatus === "kuratiert" ? "#080808" : C.muted,
-                background: filterStatus === "kuratiert" ? C.accent : "none",
-                border: `1px solid ${filterStatus === "kuratiert" ? C.accent : C.border}`,
-                padding: "0.5rem 0.7rem", cursor: "pointer",
-                minHeight: 44,
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                color: activeFilterCount > 0 ? C.accent : C.muted,
+                background: "none",
+                border: `1px solid ${activeFilterCount > 0 ? C.accentDim : C.border}`,
+                padding: "0.4rem 0.7rem", cursor: "pointer",
+                minHeight: 36,
               }}
-              title="Nur kuratierte (vom Autor freigegebene) Einträge zeigen"
+              aria-expanded={filtersExpanded}
             >
-              {filterStatus === "kuratiert" ? "✓ kuratiert" : "alle (auch ungeprüft)"}
+              {filtersExpanded ? "▾" : "▸"} Filter{activeFilterCount > 0 ? ` (${activeFilterCount} aktiv)` : ""}
             </button>
           </div>
-
-          {/* Semantische Suche Status-Hinweis */}
-          {semanticMode && (
-            <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: "#5aacb8", letterSpacing: "0.08em" }}>
-              {semanticLoading ? "Embedding wird berechnet …"
-                : semanticError ? <span style={{ color: "#c48282" }}>{semanticError}</span>
-                : semanticResults ? `Sortiert nach Ähnlichkeit · Top ${semanticResults.length}`
-                : "Suchbegriff eingeben + Enter drücken (oder Toggle erneut klicken)"}
-            </div>
-          )}
-
-          {/* Tag-Filter (top tags) */}
-          {topTags.length > 0 && (
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", alignItems: "center" }}>
-              <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.1em", textTransform: "uppercase", marginRight: "0.3rem" }}>Tags:</span>
-              {filterTag && (
-                <button
-                  onClick={() => setFilterTag(null)}
-                  style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.accent, background: "rgba(196,168,130,0.1)", border: `1px solid ${C.accentDim}`, padding: "0.18rem 0.5rem", cursor: "pointer" }}
-                >
-                  ✕ {filterTag}
-                </button>
-              )}
-              {!filterTag && topTags.map(({ tag, count }) => (
-                <button
-                  key={tag}
-                  onClick={() => setFilterTag(tag)}
-                  style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.18rem 0.5rem", cursor: "pointer" }}
-                >
-                  {tag} <span style={{ opacity: 0.6 }}>{count}</span>
-                </button>
-              ))}
-            </div>
-          )}
         </section>
 
-        {/* Stats + Result-Count */}
-        <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, letterSpacing: "0.1em", marginBottom: "1rem" }}>
-          {filtered.length} von {index?.count ?? 0} Einträgen
-          {filterStatus === "kuratiert" && <> · nur kuratierte</>}
-        </div>
+        {/* ═══ KOLLABIERBARE FILTER ═══ */}
+        {filtersExpanded && (
+          <section style={{ marginBottom: "1.5rem", display: "flex", flexDirection: "column", gap: "0.8rem", padding: "1rem", background: C.deep, border: `1px solid ${C.border}` }}>
+            {/* Endpoint-Pills */}
+            <div>
+              <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Kategorie:</div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                {(["all", "chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse"] as EndpointKey[]).map(key => {
+                  const active = filterEndpoint === key;
+                  const label = key === "all" ? "Alle" : ENDPOINT_LABEL[key];
+                  const count = key === "all" ? (index?.count ?? 0) : (endpointCounts[key] ?? 0);
+                  const color = key === "all" ? C.accent : ENDPOINT_COLOR[key];
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => setFilterEndpoint(key)}
+                      style={{
+                        fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                        color: active ? "#080808" : color,
+                        background: active ? color : "none",
+                        border: `1px solid ${color}`,
+                        padding: "0.5rem 0.7rem", cursor: "pointer", minHeight: 36,
+                      }}
+                    >
+                      {label} <span style={{ opacity: 0.7 }}>({count})</span>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+            {/* Status-Toggle */}
+            <div>
+              <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Kuration:</div>
+              <button
+                onClick={() => setFilterStatus(s => s === "all" ? "kuratiert" : "all")}
+                style={{
+                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                  color: filterStatus === "kuratiert" ? "#080808" : C.muted,
+                  background: filterStatus === "kuratiert" ? C.accent : "none",
+                  border: `1px solid ${filterStatus === "kuratiert" ? C.accent : C.border}`,
+                  padding: "0.5rem 0.8rem", cursor: "pointer", minHeight: 44,
+                }}
+              >
+                {filterStatus === "kuratiert" ? "✓ Nur kuratiert" : "Alle (auch ungeprüft)"}
+              </button>
+            </div>
+            {/* Tags */}
+            {topTags.length > 0 && (
+              <div>
+                <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
+                  Tags:{filterTag && <span style={{ marginLeft: "0.5rem", color: C.accent }}>aktiv: {filterTag}</span>}
+                </div>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                  {filterTag && (
+                    <button
+                      onClick={() => setFilterTag(null)}
+                      style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.accent, background: "rgba(196,168,130,0.1)", border: `1px solid ${C.accentDim}`, padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 32 }}
+                    >
+                      ✕ {filterTag} entfernen
+                    </button>
+                  )}
+                  {!filterTag && topTags.map(({ tag, count }) => (
+                    <button
+                      key={tag}
+                      onClick={() => setFilterTag(tag)}
+                      style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 32 }}
+                    >
+                      {tag} <span style={{ opacity: 0.6 }}>{count}</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </section>
+        )}
+
+        {/* ═══ WORTWOLKE — klickbar als Such-Hilfe ═══ */}
+        {keywords.length > 0 && !search.trim() && (
+          <section style={{ marginBottom: "2rem" }}>
+            <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+              <span>Kollektiver Fokus — Klick auf ein Wort sucht es</span>
+            </div>
+            <div style={{ background: C.deep, border: `1px solid ${C.border}`, padding: "1rem", overflow: "hidden" }}>
+              <WordCloud
+                keywords={keywords}
+                width={Math.min(900, typeof window !== "undefined" ? window.innerWidth - 64 : 900)}
+                height={260}
+                onWordClick={(word) => {
+                  setSearch(word);
+                  setSemanticResults(null);
+                  if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+              />
+            </div>
+          </section>
+        )}
 
         {/* Eintragsliste */}
         <section>
@@ -456,7 +539,7 @@ export default function ResonanzenPage() {
                 </header>
 
                 <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textBright, lineHeight: 1.5, marginBottom: "0.4rem" }}>
-                  {entry.prompt}
+                  {!semanticMode && search.trim() ? highlightTerm(entry.prompt, search) : entry.prompt}
                 </div>
 
                 {/* Tags — nur in depth/research, mit Mode-abhängigem Limit */}
@@ -485,8 +568,10 @@ export default function ResonanzenPage() {
                   </div>
                 ) : (
                   <div style={{ fontFamily: SERIF, fontSize: readingMode === "surface" ? "0.74rem" : "0.78rem", color: C.textDim, lineHeight: 1.5 }}>
-                    {entry.response.slice(0, excerptLen).trim()}
-                    {entry.response.length > excerptLen ? "…" : ""}
+                    {(() => {
+                      const excerpt = entry.response.slice(0, excerptLen).trim() + (entry.response.length > excerptLen ? "…" : "");
+                      return !semanticMode && search.trim() ? highlightTerm(excerpt, search) : excerpt;
+                    })()}
                   </div>
                 )}
 
@@ -566,5 +651,25 @@ export default function ResonanzenPage() {
         </footer>
       </main>
     </div>
+  );
+}
+
+// ─── Helper: Suchbegriff im Text hervorheben ──────────────────────────────
+// Splittet Text an Treffer-Positionen, wrappt Treffer in <mark> mit Akzent.
+function escapeRegex(s: string): string {
+  return s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function highlightTerm(text: string, term: string): React.ReactNode {
+  const t = term.trim();
+  if (!t || t.length < 2) return text;
+  const re = new RegExp(`(${escapeRegex(t)})`, "gi");
+  const parts = text.split(re);
+  return parts.map((part, i) =>
+    re.test(part) && part.toLowerCase() === t.toLowerCase() ? (
+      <mark key={i} style={{ background: "rgba(196,168,130,0.28)", color: "inherit", padding: "0 1px", borderRadius: "1px" }}>{part}</mark>
+    ) : (
+      <span key={i}>{part}</span>
+    )
   );
 }

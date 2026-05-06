@@ -5,6 +5,8 @@ interface WordCloudProps {
   keywords: KeywordEntry[];
   width?: number;
   height?: number;
+  /** Optional: macht Wörter klickbar (z.B. für Such-Aktivierung). */
+  onWordClick?: (word: string) => void;
 }
 
 interface PlacedWord {
@@ -108,7 +110,7 @@ function placeWords(
   return placed;
 }
 
-export default function WordCloud({ keywords, width = 540, height = 280 }: WordCloudProps) {
+export default function WordCloud({ keywords, width = 540, height = 280, onWordClick }: WordCloudProps) {
   const placed = useMemo(
     () => placeWords(keywords, width, height),
     [keywords, width, height]
@@ -138,8 +140,15 @@ export default function WordCloud({ keywords, width = 540, height = 280 }: WordC
           fontSize={pw.fontSize}
           fill={pw.color}
           fontFamily="'EB Garamond', Georgia, serif"
-          style={{ userSelect: "none", transition: "opacity 0.3s" }}
+          style={{
+            userSelect: "none",
+            transition: "opacity 0.2s",
+            cursor: onWordClick ? "pointer" : "default",
+          }}
           opacity={0.85}
+          onClick={onWordClick ? () => onWordClick(pw.word) : undefined}
+          onMouseEnter={onWordClick ? (e) => (e.currentTarget.setAttribute("opacity", "1")) : undefined}
+          onMouseLeave={onWordClick ? (e) => (e.currentTarget.setAttribute("opacity", "0.85")) : undefined}
         >
           {pw.word}
         </text>
