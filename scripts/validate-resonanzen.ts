@@ -206,14 +206,16 @@ function* walkLocal(dir: string): Generator<string> {
 // ─── Anchor-Format-Validation pro Endpoint ──────────────────────────────────
 
 function checkAnchorFormat(endpoint: string, anchor: string): string | null {
+  // Anchor-IDs dürfen deutsche Umlaute enthalten (öffnung, größe, …),
+  // weil die zugrundeliegenden Konzept-Node-IDs auch Umlaute tragen.
   if (endpoint === "chapter") {
-    if (!/^chapter:[a-z0-9-]+$/.test(anchor)) return "expected chapter:<id>";
+    if (!/^chapter:[a-z0-9äöüß-]+$/.test(anchor)) return "expected chapter:<id>";
   } else if (endpoint === "analyse") {
-    if (!/^analyse:[a-z0-9_+-]+$/.test(anchor)) return "expected analyse:<idA>+<idB>+…";
+    if (!/^analyse:[a-z0-9äöüß_+-]+$/.test(anchor)) return "expected analyse:<idA>+<idB>+…";
   } else if (endpoint === "path-analyse") {
-    if (!/^path-analyse:[a-z0-9_+-]+$/.test(anchor)) return "expected path-analyse:<from>+<to>";
+    if (!/^path-analyse:[a-z0-9äöüß_+-]+$/.test(anchor)) return "expected path-analyse:<from>+<to>";
   } else if (endpoint === "translate") {
-    if (!/^translate:[a-z0-9_+-]+$/.test(anchor)) return "expected translate:<chapterId>+<lang>";
+    if (!/^translate:[a-z0-9äöüß_+-]+$/.test(anchor)) return "expected translate:<chapterId>+<lang>";
   } else if (endpoint === "graph-chat") {
     if (anchor !== "graph") return "expected 'graph'";
   } else if (endpoint === "enkidu") {
