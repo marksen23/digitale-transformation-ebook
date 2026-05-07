@@ -7,21 +7,50 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import {
-  loadResonanzenIndex,
+  loadResonanzenIndex, loadEmbeddings,
   ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
+import { analyzeClusters, type ClusterAnalysis } from "@/lib/clusterAnalysis";
 import {
-  Section, Stat, MiniTagCloud, TimeSeries, computeStats, useAdminTheme, MONO,
+  Section, Stat, MiniTagCloud, TimeSeries, computeStats, useAdminTheme, MONO, SERIF,
 } from "./adminShared";
 
 export default function AdminMetricsPage() {
   const C = useAdminTheme();
   const [index, setIndex] = useState<ResonanzIndex | null>(null);
+  const [clusters, setClusters] = useState<ClusterAnalysis | null>(null);
+  const [clusterState, setClusterState] = useState<"idle" | "computing" | "ready" | "no-embeddings" | "too-few">("idle");
 
   useEffect(() => {
     loadResonanzenIndex().then(setIndex).catch(() => null);
   }, []);
+
+  // Cluster-Berechnung in idle-time, sobald Index geladen ist
+  useEffect(() => {
+    if (!index) return;
+    setClusterState("computing");
+    const run = () => {
+      loadEmbeddings().then(emb => {
+        if (!emb || Object.keys(emb.embeddings).length === 0) {
+          setClusterState("no-embeddings");
+          return;
+        }
+        const result = analyzeClusters(index.entries, emb.embeddings);
+        if (!result) {
+          setClusterState("too-few");
+          return;
+        }
+        setClusters(result);
+        setClusterState("ready");
+      }).catch(() => setClusterState("no-embeddings"));
+    };
+    // requestIdleCallback wo verfügbar, sonst setTimeout
+    type IdleAPI = (cb: () => void, opts?: { timeout: number }) => number;
+    const ric = (window as unknown as { requestIdleCallback?: IdleAPI }).requestIdleCallback;
+    if (typeof ric === "function") ric(run, { timeout: 2000 });
+    else setTimeout(run, 50);
+  }, [index]);
 
   const stats = useMemo(() => index ? computeStats(index.entries) : null, [index]);
 
@@ -59,6 +88,63 @@ export default function AdminMetricsPage() {
 
       <Section title={`Top-Konzepte im Korpus (${stats.topNodeIds.length})`} c={C}>
         <MiniTagCloud items={stats.topNodeIds} c={C} />
+      </Section>
+
+      <Section title={clusters ? `Semantische Cluster (k = ${clusters.k})` : "Semantische Cluster"} c={C}>
+        {clusterState === "computing" && (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>berechne Cluster …</p>
+        )}
+        {clusterState === "no-embeddings" && (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>.
+          </p>
+        )}
+        {clusterState === "too-few" && (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            Zu wenig Daten für Clusterung (mindestens 10 Einträge mit Embedding nötig).
+          </p>
+        )}
+        {clusterState === "ready" && clusters && (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "0.8rem" }}>
+            {clusters.clusters.map(cl => {
+              const epColor = ENDPOINT_COLOR[cl.dominantEndpoint] ?? C.accent;
+              return (
+                <div key={cl.index} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "0.9rem 1rem" }}>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
+                    <span style={{ fontFamily: SERIF, fontSize: "1.6rem", color: epColor }}>{cl.size}</span>
+                    <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: epColor }}>
+                      {ENDPOINT_LABEL[cl.dominantEndpoint] ?? cl.dominantEndpoint}
+                    </span>
+                  </div>
+                  {cl.topNodeIds.length > 0 && (
+                    <div style={{ marginBottom: "0.5rem" }}>
+                      <MiniTagCloud items={cl.topNodeIds} c={C} />
+                    </div>
+                  )}
+                  {cl.closestEntries.length > 0 && (
+                    <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.5rem", marginTop: "0.4rem" }}>
+                      <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, marginBottom: "0.3rem" }}>
+                        zentrumsnächste
+                      </div>
+                      <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                        {cl.closestEntries.map(e => (
+                          <a
+                            key={e.id}
+                            href={`/resonanzen?id=${e.id}`}
+                            target="_blank" rel="noreferrer"
+                            style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: C.text, textDecoration: "none", lineHeight: 1.4 }}
+                          >
+                            → {e.prompt.slice(0, 90)}{e.prompt.length > 90 ? "…" : ""}
+                          </a>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        )}
       </Section>
 
       <Section title="Meistgefragte Anker" c={C}>
