@@ -15,7 +15,7 @@ import {
 import { detectAnchorTensions, type TensionResult } from "@/lib/widerspruchs";
 import {
   Section, Stat, useAdminTheme, MONO, SERIF,
-  loadOptionalJson, type ValidationReport, type DriftReport,
+  loadOptionalJson, type ValidationReport, type DriftReport, type HoldoutReport,
 } from "./adminShared";
 
 type Heartbeat = { ok: boolean; latencyMs: number; checkedAt: string };
@@ -25,15 +25,18 @@ export default function AdminHealthPage() {
 
   const [validationReport, setValidationReport] = useState<ValidationReport | null>(null);
   const [driftReport, setDriftReport] = useState<DriftReport | null>(null);
+  const [holdoutReport, setHoldoutReport] = useState<HoldoutReport | null>(null);
   const [heartbeat, setHeartbeat] = useState<Heartbeat | null>(null);
   const [reportsLoaded, setReportsLoaded] = useState(false);
   const [tensions, setTensions] = useState<TensionResult | null>(null);
   const [tensionsExpanded, setTensionsExpanded] = useState(false);
+  const [holdoutExpanded, setHoldoutExpanded] = useState(false);
 
   useEffect(() => {
     Promise.all([
       loadOptionalJson<ValidationReport>("/resonanzen-validation-report.json").then(setValidationReport),
       loadOptionalJson<DriftReport>("/resonanzen-drift-report.json").then(setDriftReport),
+      loadOptionalJson<HoldoutReport>("/resonanzen-holdout-report.json").then(setHoldoutReport),
     ]).then(() => setReportsLoaded(true));
   }, []);
 
@@ -124,6 +127,52 @@ export default function AdminHealthPage() {
           </>
         ) : (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>Kein Validation-Report verfügbar.</p>
+        )}
+      </Section>
+
+      <Section title="Hold-out-Konsistenz" c={C}>
+        {!reportsLoaded ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>lädt Reports …</p>
+        ) : !holdoutReport ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            Kein Hold-out-Report verfügbar — Korpus zu klein (&lt;30) oder Build ohne Embeddings.
+          </p>
+        ) : (
+          <>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "0.8rem", marginBottom: "0.6rem" }}>
+              <Stat label="Geprüft" value={holdoutReport.checked} color={C.accent} c={C} />
+              <Stat label="Stabil" value={holdoutReport.stable} color="#7ab898" c={C} />
+              <Stat label="Verschoben" value={holdoutReport.shifted} color={C.accent} c={C} />
+              <Stat label="Drift" value={holdoutReport.drifted} color={holdoutReport.drifted > 0 ? "#c48282" : C.muted} c={C} />
+            </div>
+            <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, margin: "0 0 0.5rem 0" }}>
+              Letzter Check: {new Date(holdoutReport.generatedAt).toLocaleString("de-DE")}
+            </p>
+            {holdoutReport.drifted > 0 && (
+              <button
+                onClick={() => setHoldoutExpanded(v => !v)}
+                style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.5rem 0.8rem", cursor: "pointer", marginBottom: "0.5rem", minHeight: 36 }}
+              >
+                {holdoutExpanded ? "▾" : "▸"} Drift-Details ({holdoutReport.drifted})
+              </button>
+            )}
+            {holdoutExpanded && (
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                {holdoutReport.details.filter(d => d.overlap < 2).map(d => (
+                  <div key={d.id} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "0.6rem 0.8rem", fontFamily: MONO, fontSize: "0.55rem" }}>
+                    <div style={{ color: C.text, marginBottom: "0.3rem" }}>
+                      <a href={`/resonanzen?id=${d.id}`} target="_blank" rel="noreferrer" style={{ color: C.accent, textDecoration: "none" }}>{d.id}</a>
+                      <span style={{ marginLeft: "0.5rem", color: "#c48282" }}>overlap = {d.overlap}/3</span>
+                    </div>
+                    <div style={{ color: C.muted, lineHeight: 1.5 }}>
+                      <div>baseline: {d.baseline.join(", ") || "—"}</div>
+                      <div>current : {d.current.join(", ") || "—"}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </>
         )}
       </Section>
 

@@ -184,6 +184,14 @@ export interface DriftReport {
   delta?: { files: number };
   issues?: Array<{ level: string; rule: string; detail: string }>;
 }
+export interface HoldoutReport {
+  generatedAt: string;
+  checked: number;
+  stable: number;
+  shifted: number;
+  drifted: number;
+  details: Array<{ id: string; baseline: string[]; current: string[]; overlap: number }>;
+}
 
 export async function loadOptionalJson<T>(url: string): Promise<T | null> {
   try {

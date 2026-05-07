@@ -22,6 +22,11 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const OUTPUT = path.join(ROOT, "client/public/resonanzen-index.json");
 const EMBEDDINGS_OUTPUT = path.join(ROOT, "client/public/resonanzen-embeddings.json");
+const HOLDOUT_BASELINE_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-baseline.json");
+const HOLDOUT_REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-report.json");
+const HOLDOUT_MIN_CORPUS_SIZE = 30;
+const HOLDOUT_MODULO = 10;          // ≈10% Stichprobe
+const HOLDOUT_TOP_NEIGHBORS = 3;
 
 const REPO_OWNER  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
 const REPO_NAME   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
@@ -202,6 +207,16 @@ async function main() {
     console.log(`[build-resonanzen-index] computed ${linkCount} cross-links`);
   }
 
+  // ─── Hold-out-Konsistenz: Anti-Drift-Mechanismus ─────────────────────
+  // Bei jedem Build: ~10% des Korpus deterministisch als Stichprobe wählen,
+  // ihre Top-3-Nachbarn baseline-en (sticky), und prüfen ob diese Nachbarn
+  // bei späteren Builds stabil bleiben. Drift in Nachbarschaft = Signal.
+  if (embeddings && entries.length >= HOLDOUT_MIN_CORPUS_SIZE) {
+    runHoldoutCheck(entries, embeddings);
+  } else if (embeddings) {
+    console.log(`[build-resonanzen-index] holdout: korpus zu klein (${entries.length} < ${HOLDOUT_MIN_CORPUS_SIZE}) — skip`);
+  }
+
   fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
   fs.writeFileSync(
     OUTPUT,
@@ -242,6 +257,118 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     scored.sort((a, b) => b.score - a.score);
     entry.related = scored.slice(0, TOP_K).map(s => s.id);
   }
+}
+
+// ─── Hold-out-Konsistenz ──────────────────────────────────────────────────
+
+interface HoldoutBaseline {
+  generatedAt: string;
+  baseline: Record<string, { neighbors: string[]; computedAt: string }>;
+}
+interface HoldoutReportDetail {
+  id: string;
+  baseline: string[];
+  current: string[];
+  overlap: number;
+}
+interface HoldoutReport {
+  generatedAt: string;
+  checked: number;
+  stable: number;
+  shifted: number;
+  drifted: number;
+  details: HoldoutReportDetail[];
+}
+
+/** Stable hash: einfacher String-Hash (FNV-1a-Variante), genug für Modulo. */
+function stableHash(s: string): number {
+  let h = 0x811c9dc5;
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i);
+    h = Math.imul(h, 0x01000193);
+  }
+  return h >>> 0;
+}
+
+function selectHoldout(entries: ResonanzEntry[]): ResonanzEntry[] {
+  return entries.filter(e => stableHash(e.id) % HOLDOUT_MODULO === 0);
+}
+
+function findTopNeighbors(target: ResonanzEntry, entries: ResonanzEntry[], embeddings: Record<string, number[]>, k: number): string[] {
+  const v = embeddings[target.id];
+  if (!v) return [];
+  const scored: Array<{ id: string; score: number }> = [];
+  for (const other of entries) {
+    if (other.id === target.id) continue;
+    const ov = embeddings[other.id];
+    if (!ov) continue;
+    scored.push({ id: other.id, score: cosineSim(v, ov) });
+  }
+  scored.sort((a, b) => b.score - a.score);
+  return scored.slice(0, k).map(s => s.id);
+}
+
+function runHoldoutCheck(entries: ResonanzEntry[], embeddings: Record<string, number[]>): void {
+  const holdout = selectHoldout(entries).filter(e => embeddings[e.id]);
+  if (holdout.length === 0) {
+    console.log("[build-resonanzen-index] holdout: keine Stichprobe mit Embedding — skip");
+    return;
+  }
+
+  // Baseline laden (oder leer initialisieren)
+  let baseline: HoldoutBaseline = { generatedAt: new Date().toISOString(), baseline: {} };
+  if (fs.existsSync(HOLDOUT_BASELINE_OUTPUT)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(HOLDOUT_BASELINE_OUTPUT, "utf-8"));
+      if (data && typeof data === "object" && data.baseline) {
+        baseline = data as HoldoutBaseline;
+      }
+    } catch {
+      console.warn("[build-resonanzen-index] holdout-baseline corrupt — fresh start");
+    }
+  }
+
+  // Für jeden Hold-out-Entry: aktuelle Nachbarn berechnen
+  const details: HoldoutReportDetail[] = [];
+  let stable = 0, shifted = 0, drifted = 0;
+  let baselineExtended = false;
+
+  for (const e of holdout) {
+    const current = findTopNeighbors(e, entries, embeddings, HOLDOUT_TOP_NEIGHBORS);
+    const existing = baseline.baseline[e.id];
+
+    if (!existing) {
+      // Erst-Eintrag in der Baseline — als Wahrheit fixieren
+      baseline.baseline[e.id] = { neighbors: current, computedAt: new Date().toISOString() };
+      baselineExtended = true;
+      // Erster Lauf gilt als "stable" (baseline === current per Definition)
+      stable++;
+      details.push({ id: e.id, baseline: current, current, overlap: current.length });
+      continue;
+    }
+
+    const baselineSet = new Set(existing.neighbors);
+    const overlap = current.filter(id => baselineSet.has(id)).length;
+    if (overlap === HOLDOUT_TOP_NEIGHBORS) stable++;
+    else if (overlap >= 2) shifted++;
+    else drifted++;
+    details.push({ id: e.id, baseline: existing.neighbors, current, overlap });
+  }
+
+  if (baselineExtended) {
+    baseline.generatedAt = new Date().toISOString();
+    fs.writeFileSync(HOLDOUT_BASELINE_OUTPUT, JSON.stringify(baseline, null, 2));
+    console.log(`[build-resonanzen-index] holdout-baseline: ${Object.keys(baseline.baseline).length} ids (extended)`);
+  }
+
+  const report: HoldoutReport = {
+    generatedAt: new Date().toISOString(),
+    checked: holdout.length,
+    stable, shifted, drifted,
+    details,
+  };
+  fs.writeFileSync(HOLDOUT_REPORT_OUTPUT, JSON.stringify(report, null, 2));
+  console.log(`[build-resonanzen-index] holdout-report: checked=${holdout.length} stable=${stable} shifted=${shifted} drifted=${drifted}`);
 }
 
 async function fetchEmbedding(text: string): Promise<number[] | null> {
