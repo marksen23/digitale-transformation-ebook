@@ -67,8 +67,14 @@ export default function ResonanzenPage() {
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [readingMode, setReadingMode] = useState<ReadingMode>("depth");
   const [showRelatedFor, setShowRelatedFor] = useState<string | null>(null);
-  // Phase 3: Filter-Bar kollabierbar (Default-Minimal)
-  const [filtersExpanded, setFiltersExpanded] = useState(false);
+  // Phase 3: Filter-Bar kollabierbar (Default-Minimal).
+  // Wenn beim Mount schon Filter via URL aktiv sind, sofort aufklappen —
+  // sonst bliebe ein gesetzter Filter unsichtbar hinter "▸ Filter (1 aktiv)".
+  const [filtersExpanded, setFiltersExpanded] = useState(() => {
+    return (initParams.get("endpoint") && initParams.get("endpoint") !== "all")
+      || initParams.get("status") === "kuratiert"
+      || !!initParams.get("tag");
+  });
 
   // Semantische Suche — Toggle + Status. Embeddings werden lazy geladen,
   // Query-Embedding via /api/embed pro Suchvorgang.
