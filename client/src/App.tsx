@@ -9,7 +9,10 @@ import Home from "./pages/Home";
 
 // Resonanzen-Seite lazy laden — eigener Bundle-Chunk, FAQ-spezifisch.
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
-const AdminPage = lazy(() => import("./pages/AdminPage"));
+const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
+const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
+const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
+const AdminHealthPage = lazy(() => import("./pages/admin/AdminHealthPage"));
 
 function Router() {
   const fallback = <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Georgia, serif", fontStyle: "italic", color: "#888" }}>lädt …</div>;
@@ -21,9 +24,25 @@ function Router() {
           <ResonanzenPage />
         </Suspense>
       </Route>
+      <Route path={"/admin/metrics"}>
+        <Suspense fallback={fallback}>
+          <AdminLayout>
+            <AdminMetricsPage />
+          </AdminLayout>
+        </Suspense>
+      </Route>
+      <Route path={"/admin/health"}>
+        <Suspense fallback={fallback}>
+          <AdminLayout>
+            <AdminHealthPage />
+          </AdminLayout>
+        </Suspense>
+      </Route>
       <Route path={"/admin"}>
         <Suspense fallback={fallback}>
-          <AdminPage />
+          <AdminLayout>
+            <AdminCurationPage />
+          </AdminLayout>
         </Suspense>
       </Route>
       <Route path={"/404"} component={NotFound} />

@@ -16,6 +16,8 @@ import {
   ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry, type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
+import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
+import DeleteConfirm from "@/components/admin/DeleteConfirm";
 
 const SERIF = "'EB Garamond', Georgia, serif";
 const MONO  = "'Courier Prime', 'Courier New', monospace";
@@ -75,6 +77,31 @@ export default function ResonanzenPage() {
   const [semanticResults, setSemanticResults] = useState<Array<{ id: string; score: number }> | null>(null);
   const [semanticError, setSemanticError] = useState<string | null>(null);
   const [embeddingsAvailable, setEmbeddingsAvailable] = useState<boolean | null>(null);
+
+  // Admin-Inline-Löschen: nur sichtbar wenn Token gesetzt + Server-validiert
+  const { state: adminState } = useAdminAuth();
+  const isAdmin = adminState === "ok";
+  const [confirmDelete, setConfirmDelete] = useState<ResonanzEntry | null>(null);
+  const [deleteLoading, setDeleteLoading] = useState(false);
+  const [deleteError, setDeleteError] = useState<string | null>(null);
+
+  async function handleInlineDelete(id: string) {
+    setDeleteLoading(true);
+    setDeleteError(null);
+    const result = await callAdminAction("delete", { id });
+    setDeleteLoading(false);
+    if (result.ok) {
+      setIndex(curr => curr ? {
+        ...curr,
+        count: curr.count - 1,
+        entries: curr.entries.filter(e => e.id !== id),
+      } : curr);
+      setConfirmDelete(null);
+      if (expandedId === id) setExpandedId(null);
+    } else {
+      setDeleteError(result.error ?? "Fehler beim Löschen");
+    }
+  }
 
   useEffect(() => {
     loadResonanzenIndex()
@@ -531,11 +558,27 @@ export default function ResonanzenPage() {
                       </span>
                     )}
                   </span>
-                  {readingMode !== "surface" && (
-                    <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
-                      {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
-                    </time>
-                  )}
+                  <div style={{ display: "flex", gap: "0.5rem", alignItems: "baseline" }}>
+                    {readingMode !== "surface" && (
+                      <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
+                        {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
+                      </time>
+                    )}
+                    {isAdmin && (
+                      <button
+                        onClick={(e) => { e.stopPropagation(); setConfirmDelete(entry); setDeleteError(null); }}
+                        title="Eintrag löschen (Admin)"
+                        aria-label="Eintrag löschen"
+                        style={{
+                          fontFamily: MONO, fontSize: "0.6rem",
+                          color: "#c48282", background: "none",
+                          border: `1px solid ${C.border}`,
+                          padding: "0.2rem 0.4rem", cursor: "pointer",
+                          minWidth: 28, minHeight: 28, lineHeight: 1,
+                        }}
+                      >🗑</button>
+                    )}
+                  </div>
                 </header>
 
                 <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textBright, lineHeight: 1.5, marginBottom: "0.4rem" }}>
@@ -650,6 +693,29 @@ export default function ResonanzenPage() {
           © Markus Oehring · Inhalte unterliegen der <a href="https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE" style={{ color: C.accent, textDecoration: "underline" }}>Werk-Lizenz</a>
         </footer>
       </main>
+
+      {/* Admin-Inline-Löschen — Confirmation-Modal */}
+      {confirmDelete && (
+        <DeleteConfirm
+          entry={confirmDelete}
+          loading={deleteLoading}
+          onCancel={() => { setConfirmDelete(null); setDeleteError(null); }}
+          onConfirm={() => handleInlineDelete(confirmDelete.id)}
+          theme={{ deep: C.deep, border: C.border, muted: C.muted, text: C.text }}
+        />
+      )}
+      {deleteError && (
+        <div
+          role="alert"
+          style={{
+            position: "fixed", bottom: "1rem", left: "50%", transform: "translateX(-50%)",
+            zIndex: 600, background: C.deep, border: "1px solid #c48282",
+            padding: "0.6rem 1rem", fontFamily: MONO, fontSize: "0.6rem", color: "#c48282",
+          }}
+        >
+          ✕ {deleteError}
+        </div>
+      )}
     </div>
   );
 }
