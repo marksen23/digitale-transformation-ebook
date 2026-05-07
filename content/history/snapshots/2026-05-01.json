@@ -1,0 +1,168 @@
+{
+  "ts": "2026-05-01T06:16:37.170Z",
+  "schema_version": 1,
+  "total_files": 46,
+  "corpus_hash": "sha256:0f1d434ea4df6459",
+  "counts_by_endpoint": {
+    "analyse": 14,
+    "chapter": 4,
+    "enkidu": 10,
+    "graph-chat": 17,
+    "translate": 1
+  },
+  "status_distribution": {
+    "raw": 46
+  },
+  "top_anchors": [
+    {
+      "key": "graph",
+      "count": 17
+    },
+    {
+      "key": "enkidu",
+      "count": 10
+    },
+    {
+      "key": "chapter:band3-kap5",
+      "count": 3
+    },
+    {
+      "key": "analyse:andere+spannung",
+      "count": 1
+    },
+    {
+      "key": "analyse:begegnung+resonanzvernunft+zwischen",
+      "count": 1
+    },
+    {
+      "key": "analyse:denken+resonanzvernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:denken+sprache+welt",
+      "count": 1
+    },
+    {
+      "key": "analyse:erkenntnis+lm-verwandlung",
+      "count": 1
+    },
+    {
+      "key": "analyse:ich-du+lm-verwandlung",
+      "count": 1
+    },
+    {
+      "key": "analyse:ich-du+selbst",
+      "count": 1
+    },
+    {
+      "key": "analyse:lm-verwandlung+stimme",
+      "count": 1
+    },
+    {
+      "key": "analyse:lm-verwandlung+wahrheit",
+      "count": 1
+    },
+    {
+      "key": "analyse:raum+unverfuegbarkeit",
+      "count": 1
+    },
+    {
+      "key": "analyse:resonanzvernunft+zwischen",
+      "count": 1
+    },
+    {
+      "key": "analyse:schatten+unverfuegbarkeit",
+      "count": 1
+    },
+    {
+      "key": "analyse:sein+selbst+wahrheit",
+      "count": 1
+    },
+    {
+      "key": "analyse:spannung+welt",
+      "count": 1
+    },
+    {
+      "key": "chapter:band2-kap3",
+      "count": 1
+    },
+    {
+      "key": "translate:band2-kap3+en",
+      "count": 1
+    }
+  ],
+  "top_tags": [
+    {
+      "key": "lm-verwandlung",
+      "count": 4
+    },
+    {
+      "key": "resonanzvernunft",
+      "count": 3
+    },
+    {
+      "key": "spannung",
+      "count": 2
+    },
+    {
+      "key": "zwischen",
+      "count": 2
+    },
+    {
+      "key": "denken",
+      "count": 2
+    },
+    {
+      "key": "welt",
+      "count": 2
+    },
+    {
+      "key": "ich-du",
+      "count": 2
+    },
+    {
+      "key": "selbst",
+      "count": 2
+    },
+    {
+      "key": "wahrheit",
+      "count": 2
+    },
+    {
+      "key": "unverfuegbarkeit",
+      "count": 2
+    },
+    {
+      "key": "andere",
+      "count": 1
+    },
+    {
+      "key": "begegnung",
+      "count": 1
+    },
+    {
+      "key": "sprache",
+      "count": 1
+    },
+    {
+      "key": "erkenntnis",
+      "count": 1
+    },
+    {
+      "key": "stimme",
+      "count": 1
+    },
+    {
+      "key": "raum",
+      "count": 1
+    },
+    {
+      "key": "schatten",
+      "count": 1
+    },
+    {
+      "key": "sein",
+      "count": 1
+    }
+  ]
+}
