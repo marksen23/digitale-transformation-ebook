@@ -72,6 +72,26 @@ export function groupResonanzenByNode(entries: ResonanzEntry[]): Map<string, Res
   return map;
 }
 
+/**
+ * Gruppiert Einträge nach `anchor`-Feld (z.B. "chapter:teil7"). Map: anchor → entries[].
+ * Pattern wie groupResonanzenByNode, mit eigenem Cache. Sortiert pro Anker
+ * neueste zuerst.
+ */
+let _byAnchorCache: { src: ResonanzEntry[]; map: Map<string, ResonanzEntry[]> } | null = null;
+export function groupResonanzenByAnchor(entries: ResonanzEntry[]): Map<string, ResonanzEntry[]> {
+  if (_byAnchorCache && _byAnchorCache.src === entries) return _byAnchorCache.map;
+  const map = new Map<string, ResonanzEntry[]>();
+  for (const e of entries) {
+    if (!e.anchor) continue;
+    const arr = map.get(e.anchor);
+    if (arr) arr.push(e);
+    else map.set(e.anchor, [e]);
+  }
+  map.forEach(arr => arr.sort((a: ResonanzEntry, b: ResonanzEntry) => b.ts.localeCompare(a.ts)));
+  _byAnchorCache = { src: entries, map };
+  return map;
+}
+
 /** Lädt das Embeddings-Mapping (id → 768-dim Vektor). Lazy, einmal-Cache. */
 export interface EmbeddingsIndex {
   generatedAt: string;

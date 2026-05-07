@@ -9,7 +9,12 @@
  */
 import { useEffect, useState } from "react";
 import {
-  Section, Stat, useAdminTheme, MONO,
+  loadResonanzenIndex, loadEmbeddings,
+  ENDPOINT_COLOR, ENDPOINT_LABEL,
+} from "@/lib/resonanzenIndex";
+import { detectAnchorTensions, type TensionResult } from "@/lib/widerspruchs";
+import {
+  Section, Stat, useAdminTheme, MONO, SERIF,
   loadOptionalJson, type ValidationReport, type DriftReport,
 } from "./adminShared";
 
@@ -22,12 +27,26 @@ export default function AdminHealthPage() {
   const [driftReport, setDriftReport] = useState<DriftReport | null>(null);
   const [heartbeat, setHeartbeat] = useState<Heartbeat | null>(null);
   const [reportsLoaded, setReportsLoaded] = useState(false);
+  const [tensions, setTensions] = useState<TensionResult | null>(null);
+  const [tensionsExpanded, setTensionsExpanded] = useState(false);
 
   useEffect(() => {
     Promise.all([
       loadOptionalJson<ValidationReport>("/resonanzen-validation-report.json").then(setValidationReport),
       loadOptionalJson<DriftReport>("/resonanzen-drift-report.json").then(setDriftReport),
     ]).then(() => setReportsLoaded(true));
+  }, []);
+
+  // Anker-Spannungen: Index + Embeddings laden, dann detection laufen lassen
+  useEffect(() => {
+    Promise.all([loadResonanzenIndex(), loadEmbeddings()]).then(([idx, emb]) => {
+      if (!emb) {
+        setTensions({ anchorsChecked: 0, tensionsFound: 0, medianAnchorCosine: null, tensions: [], status: "no-embeddings" });
+        return;
+      }
+      const result = detectAnchorTensions(idx.entries, emb.embeddings);
+      setTensions(result);
+    }).catch(() => setTensions({ anchorsChecked: 0, tensionsFound: 0, medianAnchorCosine: null, tensions: [], status: "no-embeddings" }));
   }, []);
 
   useEffect(() => {
@@ -105,6 +124,78 @@ export default function AdminHealthPage() {
           </>
         ) : (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>Kein Validation-Report verfügbar.</p>
+        )}
+      </Section>
+
+      <Section title="Anker-Spannungen" c={C}>
+        {!tensions ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>analysiere Embeddings …</p>
+        ) : tensions.status === "no-embeddings" ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>.
+          </p>
+        ) : tensions.status === "no-multi-anchors" ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            Keine Anker mit ≥2 Einträgen vorhanden — Detection wartet auf wachsenden Korpus.
+          </p>
+        ) : (
+          <>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.6rem" }}>
+              <Stat label="Anker geprüft" value={tensions.anchorsChecked} color={C.accent} c={C} />
+              <Stat
+                label="Spannungen"
+                value={tensions.tensionsFound}
+                color={tensions.tensionsFound === 0 ? "#7ab898" : "#c48282"}
+                c={C}
+              />
+              <Stat
+                label="Median Cosine"
+                value={tensions.medianAnchorCosine !== null ? tensions.medianAnchorCosine.toFixed(3) : "—"}
+                color={C.muted}
+                c={C}
+              />
+            </div>
+            {tensions.tensionsFound === 0 ? (
+              <p style={{ fontFamily: MONO, fontSize: "0.6rem", color: "#7ab898" }}>
+                ✓ keine Spannungen unter Schwelle (cos &lt; 0.55)
+              </p>
+            ) : (
+              <>
+                <button
+                  onClick={() => setTensionsExpanded(v => !v)}
+                  style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.5rem 0.8rem", cursor: "pointer", marginBottom: "0.6rem", minHeight: 36 }}
+                >
+                  {tensionsExpanded ? "▾" : "▸"} {tensions.tensions.length} Paare anzeigen
+                </button>
+                {tensionsExpanded && (
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                    {tensions.tensions.map((t, i) => (
+                      <div key={i} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "0.7rem 0.9rem" }}>
+                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.4rem", gap: "0.5rem", flexWrap: "wrap" }}>
+                          <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: ENDPOINT_COLOR[t.endpoint] }}>
+                            {ENDPOINT_LABEL[t.endpoint]} · {t.anchor}
+                          </span>
+                          <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: t.similarity < 0.4 ? "#c48282" : C.accent }}>
+                            cos = {t.similarity.toFixed(3)}
+                          </span>
+                        </div>
+                        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "0.5rem" }}>
+                          <a href={`/resonanzen?id=${t.entryA.id}`} target="_blank" rel="noreferrer"
+                             style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: C.text, textDecoration: "none", lineHeight: 1.4, padding: "0.4rem 0.5rem", border: `1px solid ${C.border}`, minHeight: 44 }}>
+                            A → {t.entryA.prompt.slice(0, 80)}{t.entryA.prompt.length > 80 ? "…" : ""}
+                          </a>
+                          <a href={`/resonanzen?id=${t.entryB.id}`} target="_blank" rel="noreferrer"
+                             style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: C.text, textDecoration: "none", lineHeight: 1.4, padding: "0.4rem 0.5rem", border: `1px solid ${C.border}`, minHeight: 44 }}>
+                            B → {t.entryB.prompt.slice(0, 80)}{t.entryB.prompt.length > 80 ? "…" : ""}
+                          </a>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </>
+            )}
+          </>
         )}
       </Section>
 
