@@ -9,6 +9,7 @@ import Home from "./pages/Home";
 
 // Resonanzen-Seite lazy laden — eigener Bundle-Chunk, FAQ-spezifisch.
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
+const PhilosophyPage = lazy(() => import("./pages/PhilosophyPage"));
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
@@ -22,6 +23,11 @@ function Router() {
       <Route path={"/resonanzen"}>
         <Suspense fallback={fallback}>
           <ResonanzenPage />
+        </Suspense>
+      </Route>
+      <Route path={"/philosophie"}>
+        <Suspense fallback={fallback}>
+          <PhilosophyPage />
         </Suspense>
       </Route>
       <Route path={"/admin/metrics"}>
