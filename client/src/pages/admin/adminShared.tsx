@@ -137,7 +137,7 @@ export function MiniTagCloud({ items, c }: { items: Array<{ id: string; count: n
           fontFamily: SERIF, fontStyle: "italic",
           fontSize: `${fontSize(i.count)}px`,
           color: c.accent,
-        }} title={`${i.count} Resonanzen`}>
+        }} title={`${i.count} Begegnungen`}>
           {i.id}
           <sub style={{ fontFamily: MONO, fontSize: "0.45rem", color: c.muted, marginLeft: "0.15rem" }}>{i.count}</sub>
         </span>

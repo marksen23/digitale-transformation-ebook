@@ -2183,7 +2183,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 <>
                   <div style={{ height: 1, background: C.border, margin: "1.5rem 0 1.2rem" }} />
                   <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                    <span>Resonanzen zu diesem Begriff</span>
+                    <span>Begegnungen aus dem Wissen</span>
                     <span style={{ color: C.accent }}>{all.length}</span>
                   </div>
                   <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>

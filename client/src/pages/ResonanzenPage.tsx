@@ -258,7 +258,7 @@ export default function ResonanzenPage() {
   if (loadError) {
     return (
       <div style={{ position: "fixed", inset: 0, background: C.void, color: C.text, fontFamily: SERIF, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
-        <p style={{ fontStyle: "italic", color: C.textDim }}>Resonanzen-Index nicht erreichbar: {loadError}</p>
+        <p style={{ fontStyle: "italic", color: C.textDim }}>Wissens-Index nicht erreichbar: {loadError}</p>
         <Link href="/" style={{ marginTop: "1rem", color: C.accent, fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
       </div>
     );
