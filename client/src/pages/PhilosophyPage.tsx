@@ -87,6 +87,39 @@ export default function PhilosophyPage() {
   const [sheetExpanded, setSheetExpanded] = useState(false);
   const [search, setSearch] = useState("");
   const [pathHintOpen, setPathHintOpen] = useState(false);
+  const [pathPlaying, setPathPlaying] = useState(false);
+  const [pathStep, setPathStep] = useState(0);
+
+  // Pfad-Abspielen: alle 4.5s zur nächsten Station; manuelle Selektion stoppt.
+  useEffect(() => {
+    if (!pathPlaying) return;
+    const id = RESONANZVERNUNFT_PFAD[pathStep];
+    if (id) setSelectedId(id);
+    if (pathStep >= RESONANZVERNUNFT_PFAD.length - 1) {
+      const t = setTimeout(() => setPathPlaying(false), 4500);
+      return () => clearTimeout(t);
+    }
+    const t = setTimeout(() => setPathStep(s => s + 1), 4500);
+    return () => clearTimeout(t);
+  }, [pathPlaying, pathStep]);
+
+  // ESC stoppt Wiedergabe
+  useEffect(() => {
+    if (!pathPlaying) return;
+    const handler = (e: KeyboardEvent) => { if (e.key === "Escape") setPathPlaying(false); };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, [pathPlaying]);
+
+  function togglePathPlay() {
+    if (pathPlaying) {
+      setPathPlaying(false);
+    } else {
+      setPathStep(0);
+      setShowPath(true);
+      setPathPlaying(true);
+    }
+  }
 
   // Default-Selection auf Desktop = Rosa, auf Mobile keine (Sheet bleibt zu)
   useEffect(() => {
@@ -186,19 +219,38 @@ export default function PhilosophyPage() {
               Pfad
             </label>
             {showPath && (
-              <button
-                onClick={() => setPathHintOpen(v => !v)}
-                aria-label="Pfad-Erklärung"
-                title="Was ist der Resonanzvernunft-Pfad?"
-                style={{
-                  fontFamily: MONO, fontSize: "0.65rem",
-                  color: C.accent, background: "none",
-                  border: `1px solid ${C.border}`,
-                  width: 22, height: 22, padding: 0,
-                  cursor: "pointer", borderRadius: "50%",
-                  lineHeight: 1,
-                }}
-              >ⓘ</button>
+              <>
+                <button
+                  onClick={togglePathPlay}
+                  aria-label={pathPlaying ? "Pfad-Wiedergabe stoppen" : "Pfad abspielen"}
+                  title={pathPlaying ? `Station ${pathStep + 1}/${RESONANZVERNUNFT_PFAD.length}` : "Pfad als Erzählung abspielen"}
+                  style={{
+                    fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+                    color: pathPlaying ? "#080808" : C.accent,
+                    background: pathPlaying ? C.accent : "none",
+                    border: `1px solid ${C.accent}`,
+                    padding: "0.25rem 0.6rem",
+                    cursor: "pointer", lineHeight: 1, minHeight: 22,
+                    display: "flex", alignItems: "center", gap: "0.25rem",
+                  }}
+                >
+                  {pathPlaying ? "⏸" : "▶"}
+                  {pathPlaying && <span style={{ fontFamily: MONO, fontSize: "0.5rem" }}>{pathStep + 1}/{RESONANZVERNUNFT_PFAD.length}</span>}
+                </button>
+                <button
+                  onClick={() => setPathHintOpen(v => !v)}
+                  aria-label="Pfad-Erklärung"
+                  title="Was ist der Resonanzvernunft-Pfad?"
+                  style={{
+                    fontFamily: MONO, fontSize: "0.65rem",
+                    color: C.accent, background: "none",
+                    border: `1px solid ${C.border}`,
+                    width: 22, height: 22, padding: 0,
+                    cursor: "pointer", borderRadius: "50%",
+                    lineHeight: 1,
+                  }}
+                >ⓘ</button>
+              </>
             )}
           </div>
         </div>
@@ -299,7 +351,7 @@ export default function PhilosophyPage() {
               philosophers={visible}
               allPhilosophers={sorted}
               selectedId={selectedId}
-              onSelect={id => { setSelectedId(id); }}
+              onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
               showPath={showPath}
               c={C}
               isMobile={isMobile}
@@ -309,7 +361,7 @@ export default function PhilosophyPage() {
               philosophers={visible}
               allPhilosophers={sorted}
               selectedId={selectedId}
-              onSelect={id => { setSelectedId(id); }}
+              onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
               showPath={showPath}
               c={C}
             />
