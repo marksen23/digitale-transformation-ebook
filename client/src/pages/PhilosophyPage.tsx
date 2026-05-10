@@ -79,7 +79,15 @@ export default function PhilosophyPage() {
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  // Deep-Link: ?id=<philosopher-id> setzt initial die Selektion
+  // (z.B. von /resonanzen Cross-Link "Philosophen zu '<tag>'")
+  const initialId = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("id");
+    return id && getPhilosopher(id) ? id : null;
+  }, []);
+  const [selectedId, setSelectedId] = useState<string | null>(initialId);
   const [traditionFilter, setTraditionFilter] = useState<TraditionId | "all">("all");
   const [showPath, setShowPath] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("timeline");
@@ -147,6 +155,8 @@ export default function PhilosophyPage() {
       arr = arr.filter(p =>
         p.name.toLowerCase().includes(searchLower)
         || (getTradition(p.tradition)?.name.toLowerCase().includes(searchLower) ?? false)
+        || p.keyWorks.some(w => w.title.toLowerCase().includes(searchLower))
+        || (p.concepts?.some(c => c.toLowerCase().includes(searchLower)) ?? false)
       );
     }
     return arr;

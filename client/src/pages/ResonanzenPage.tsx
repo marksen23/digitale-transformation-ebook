@@ -18,6 +18,7 @@ import {
 } from "@/lib/resonanzenIndex";
 import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
+import { PHILOSOPHERS } from "@/data/philosophyMap";
 
 const SERIF = "'EB Garamond', Georgia, serif";
 const MONO  = "'Courier Prime', 'Courier New', monospace";
@@ -524,6 +525,44 @@ export default function ResonanzenPage() {
             </div>
           </section>
         )}
+
+        {/* Cross-Link zur Philosophie-Karte: wenn ein Tag aktiv ist und
+            Philosophen mit diesem Konzept verbunden sind, biete einen
+            Sprung dorthin an — die Brücke wirkt in beide Richtungen. */}
+        {filterTag && (() => {
+          const linkedPhils = PHILOSOPHERS.filter(p => p.concepts?.includes(filterTag));
+          if (linkedPhils.length === 0) return null;
+          return (
+            <section style={{
+              background: C.surface, border: `1px solid ${C.border}`,
+              borderLeft: `3px solid ${C.accent}`,
+              padding: "0.7rem 0.9rem",
+              marginBottom: "0.8rem",
+            }}>
+              <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, marginBottom: "0.4rem" }}>
+                Philosophen zu „{filterTag}"
+              </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", alignItems: "baseline" }}>
+                {linkedPhils.map(p => (
+                  <a
+                    key={p.id}
+                    href={`/philosophie?id=${p.id}`}
+                    style={{
+                      fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem",
+                      color: C.accent, textDecoration: "none",
+                      borderBottom: `1px dotted ${C.accentDim}`,
+                    }}
+                  >
+                    {p.name}
+                  </a>
+                ))}
+                <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, letterSpacing: "0.05em", marginLeft: "0.3rem" }}>
+                  → in Karte sehen
+                </span>
+              </div>
+            </section>
+          );
+        })()}
 
         {/* Eintragsliste */}
         <section>
