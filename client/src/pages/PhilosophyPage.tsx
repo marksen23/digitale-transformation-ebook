@@ -936,7 +936,7 @@ function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: Philosop
       ) : null}
 
       {philosopher.scienceLinks && philosopher.scienceLinks.length > 0 && (
-        <div>
+        <div style={{ marginBottom: "1.1rem" }}>
           <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
             wissenschaftlich anschlussfähig
           </div>
@@ -955,6 +955,34 @@ function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: Philosop
                 </span>
               );
             })}
+          </div>
+        </div>
+      )}
+
+      {philosopher.concepts && philosopher.concepts.length > 0 && (
+        <div>
+          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
+            verbundene Begriffe — zum Korpus springen
+          </div>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+            {philosopher.concepts.map(conceptId => (
+              <a
+                key={conceptId}
+                href={`/resonanzen?tag=${encodeURIComponent(conceptId)}`}
+                title={`Begegnungen zu '${conceptId}' anzeigen`}
+                style={{
+                  fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
+                  color: c.accent, background: "none",
+                  border: `1px solid ${c.border}`,
+                  padding: "0.3rem 0.6rem",
+                  textDecoration: "none",
+                  minHeight: 28,
+                  display: "inline-flex", alignItems: "center",
+                }}
+              >
+                {conceptId}
+              </a>
+            ))}
           </div>
         </div>
       )}

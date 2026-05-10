@@ -54,6 +54,12 @@ export interface Philosopher {
   /** IDs von Philosophen, die kritisiert wurden. */
   critiques?: string[];
   scienceLinks?: ScienceLinkId[];
+  /**
+   * Konzept-IDs aus dem Begriffsnetz, mit denen dieser Philosoph
+   * besonders eng verbunden ist. Erlaubt Cross-Link zu /resonanzen?tag=...
+   * — die Brücke zwischen Karte und Korpus.
+   */
+  concepts?: string[];
 }
 
 export interface Tradition {
@@ -519,6 +525,47 @@ export const SCIENCE_LINKS: ScienceLink[] = [
     exemplars: ["Werner Heisenberg", "Niels Bohr", "Erwin Schrödinger", "Carlo Rovelli"],
   },
 ];
+
+// ─── Konzept-Tagging: Philosoph → Begriffsnetz-Knoten ──────────────────
+//
+// Brücke zwischen Karte und Korpus. Pro Philosoph eine kuratierte Liste
+// von Konzept-IDs aus dem Begriffsnetz, mit denen dieser besonders eng
+// verbunden ist. Erlaubt Cross-Link zu /resonanzen?tag=<conceptId>.
+// Die Auswahl ist deutungsoffen — was die zentralen Begriffe **dieses
+// Philosophen im Resonanzvernunft-Diskurs** sind, nicht eine Werkanalyse.
+
+const CONCEPT_TAGS: Record<string, string[]> = {
+  spinoza:        ["sein", "wesen", "freiheit"],
+  leibniz:        ["moeglichkeit", "wirklichkeit", "echo"],
+  kant:           ["vernunft", "erkenntnis", "freiheit", "denken"],
+  schelling:      ["sein", "werden", "transformatives-drittes"],
+  hegel:          ["vernunft", "dialog", "selbst", "andere", "ich-du"],
+  husserl:        ["bewusstsein", "wesen", "erkenntnis"],
+  heidegger:      ["dasein", "sein", "gelassenheit", "welt", "zeit", "öffnung"],
+  "merleau-ponty": ["bewusstsein", "welt", "moment"],
+  gadamer:        ["dialog", "sprache", "wahrheit"],
+  ricoeur:        ["selbst", "andere", "sprache", "ich-du"],
+  benjamin:       ["moment", "schatten", "echo", "lm-spiegel"],
+  adorno:         ["spannung", "andere", "sprache", "schatten"],
+  habermas:       ["vernunft", "dialog", "sprache"],
+  honneth:        ["andere", "ich-du", "selbst"],
+  bergson:        ["zeit", "moment", "werden"],
+  wittgenstein:   ["sprache", "schweigen"],
+  taylor:         ["selbst", "wahrheit", "freiheit"],
+  waldenfels:     ["antwort", "andere", "öffnung", "stimme"],
+  rosa:           ["resonanz", "resonanzvernunft", "unverfuegbarkeit", "entfremdung", "stimme"],
+  reckwitz:       ["entfremdung", "spannung"],
+  luhmann:        ["dazwischenintelligenz", "echo-kammer"],
+  varela:         ["bewusstsein", "welt", "dasein"],
+  prigogine:      ["werden", "transformatives-drittes", "moeglichkeit"],
+  damasio:        ["bewusstsein"],
+  heisenberg:     ["wirklichkeit", "moeglichkeit", "schatten"],
+};
+
+// Tags an die Philosophen-Objekte hängen (mutiert PHILOSOPHERS einmalig).
+for (const p of PHILOSOPHERS) {
+  if (CONCEPT_TAGS[p.id]) p.concepts = CONCEPT_TAGS[p.id];
+}
 
 // ─── Resonanzvernunft-Pfad — die Erzählung ──────────────────────────────
 
