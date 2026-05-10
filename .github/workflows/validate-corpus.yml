@@ -174,7 +174,14 @@ jobs:
             echo "No snapshot changes to commit (already exists for today)"
           else
             git commit -m "snapshot: corpus state $DATE [skip ci]"
-            git push origin main
+            # Race-Schutz: wenn main inzwischen gewachsen ist, rebase
+            # vor dem Push, damit der Snapshot nicht in einer Push-Race
+            # verloren geht.
+            for i in 1 2 3; do
+              git pull --rebase origin main && git push origin main && break
+              echo "push attempt $i fehlgeschlagen, retry …"
+              sleep $((2 * i))
+            done
           fi
           # Tag last-stable überschreiben (force, damit immer auf neuestem stable steht)
           git tag -f last-stable-$DATE

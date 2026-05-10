@@ -25,16 +25,18 @@ jobs:
           # Auf demselben Branch committen, von dem der Workflow lief
           ref: ${{ github.ref }}
 
-      - name: Setup Node
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5
-        with:
-          node-version: '24'
-
+      # pnpm MUSS vor setup-node@v5 stehen — v5 liest packageManager aus
+      # package.json und erwartet pnpm-Binär bereits im PATH.
       - name: Setup pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1  # v4
         with:
           run_install: false
           # Version kommt aus package.json packageManager-Feld
+
+      - name: Setup Node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5
+        with:
+          node-version: '24'
 
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
