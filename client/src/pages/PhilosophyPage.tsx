@@ -85,6 +85,8 @@ export default function PhilosophyPage() {
   const [viewMode, setViewMode] = useState<ViewMode>("timeline");
   const [filtersExpanded, setFiltersExpanded] = useState(false);
   const [sheetExpanded, setSheetExpanded] = useState(false);
+  const [search, setSearch] = useState("");
+  const [pathHintOpen, setPathHintOpen] = useState(false);
 
   // Default-Selection auf Desktop = Rosa, auf Mobile keine (Sheet bleibt zu)
   useEffect(() => {
@@ -105,11 +107,19 @@ export default function PhilosophyPage() {
   }, [sheetExpanded]);
 
   const selected = selectedId ? getPhilosopher(selectedId) : null;
-  const visible = traditionFilter === "all"
-    ? sorted
-    : sorted.filter(p => p.tradition === traditionFilter);
+  const searchLower = search.trim().toLowerCase();
+  const visible = useMemo(() => {
+    let arr = traditionFilter === "all" ? sorted : sorted.filter(p => p.tradition === traditionFilter);
+    if (searchLower) {
+      arr = arr.filter(p =>
+        p.name.toLowerCase().includes(searchLower)
+        || (getTradition(p.tradition)?.name.toLowerCase().includes(searchLower) ?? false)
+      );
+    }
+    return arr;
+  }, [sorted, traditionFilter, searchLower]);
 
-  const activeFilterCount = (traditionFilter !== "all" ? 1 : 0) + (showPath ? 0 : 0);
+  const activeFilterCount = (traditionFilter !== "all" ? 1 : 0) + (searchLower ? 1 : 0);
 
   return (
     <div
@@ -160,42 +170,114 @@ export default function PhilosophyPage() {
                 padding: "0.5rem 0.7rem", cursor: "pointer", minHeight: 36,
               }}
             >
-              {filtersExpanded ? "▾" : "▸"} Filter{traditionFilter !== "all" ? " (1 aktiv)" : ""}
+              {filtersExpanded ? "▾" : "▸"} Filter{activeFilterCount > 0 ? ` (${activeFilterCount} aktiv)` : ""}
             </button>
           ) : null}
 
-          {/* Pfad-Toggle */}
-          <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, cursor: "pointer", marginLeft: "auto" }}>
-            <input
-              type="checkbox"
-              checked={showPath}
-              onChange={e => setShowPath(e.target.checked)}
-              style={{ accentColor: C.accent }}
-            />
-            Pfad
-          </label>
+          {/* Pfad-Toggle + Erklär-Button */}
+          <div style={{ display: "flex", alignItems: "center", gap: "0.3rem", marginLeft: "auto" }}>
+            <label style={{ display: "flex", alignItems: "center", gap: "0.4rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, cursor: "pointer" }}>
+              <input
+                type="checkbox"
+                checked={showPath}
+                onChange={e => setShowPath(e.target.checked)}
+                style={{ accentColor: C.accent }}
+              />
+              Pfad
+            </label>
+            {showPath && (
+              <button
+                onClick={() => setPathHintOpen(v => !v)}
+                aria-label="Pfad-Erklärung"
+                title="Was ist der Resonanzvernunft-Pfad?"
+                style={{
+                  fontFamily: MONO, fontSize: "0.65rem",
+                  color: C.accent, background: "none",
+                  border: `1px solid ${C.border}`,
+                  width: 22, height: 22, padding: 0,
+                  cursor: "pointer", borderRadius: "50%",
+                  lineHeight: 1,
+                }}
+              >ⓘ</button>
+            )}
+          </div>
         </div>
 
-        {/* Filter-Pills (Mobile: kollabierbar; Desktop: immer offen, horizontal scrollbar) */}
-        {(filtersExpanded || !isMobile) && (
+        {/* Pfad-Erklärung — klappt aus, wenn ⓘ geklickt */}
+        {showPath && pathHintOpen && (
           <div style={{
-            display: "flex", gap: "0.3rem",
-            flexWrap: isMobile ? "nowrap" : "wrap",
-            overflowX: isMobile ? "auto" : "visible",
-            marginTop: "0.5rem",
-            paddingBottom: isMobile ? "0.3rem" : 0,
+            background: C.deep, border: `1px solid ${C.border}`,
+            borderLeft: `3px solid ${C.accent}`,
+            padding: "0.7rem 0.9rem", marginTop: "0.6rem",
+            fontFamily: SERIF, fontSize: "0.85rem", color: C.text, lineHeight: 1.55,
           }}>
-            <FilterPill active={traditionFilter === "all"} label="alle" color={C.muted} onClick={() => setTraditionFilter("all")} />
-            {TRADITIONS.map(t => (
-              <FilterPill
-                key={t.id}
-                active={traditionFilter === t.id}
-                label={t.name}
-                color={t.color}
-                onClick={() => setTraditionFilter(t.id)}
-              />
-            ))}
+            <span style={{ fontStyle: "italic" }}>
+              Der Pfad zeichnet die direkteste Linie von Spinozas substanzlosem Welt-Bezug
+              über Schellings Identität von Geist und Natur, Hegels Geist als Beziehung,
+              Heideggers Sein-in-der-Welt, Merleau-Pontys Leibphänomenologie und Gadamers
+              Hermeneutik bis zu Waldenfels' Responsivität und Rosas Resonanzsoziologie.
+              Acht Stationen, acht Beziehungs-Modi der Vernunft.
+            </span>
           </div>
+        )}
+
+        {/* Filter-Pills + Suchfeld (Mobile: kollabierbar; Desktop: immer offen) */}
+        {(filtersExpanded || !isMobile) && (
+          <>
+            {/* Suchfeld */}
+            <div style={{ marginTop: "0.6rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
+              <input
+                type="text"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+                placeholder="Philosoph suchen …"
+                style={{
+                  flex: 1,
+                  fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic",
+                  color: C.text, background: C.surface,
+                  border: `1px solid ${C.border}`,
+                  padding: "0.55rem 0.8rem", outline: "none",
+                  minHeight: 36,
+                }}
+              />
+              {search && (
+                <button
+                  onClick={() => setSearch("")}
+                  aria-label="Suche löschen"
+                  style={{
+                    fontFamily: MONO, fontSize: "0.6rem",
+                    color: C.muted, background: "none",
+                    border: `1px solid ${C.border}`,
+                    padding: "0.4rem 0.7rem", cursor: "pointer", minHeight: 36,
+                  }}
+                >×</button>
+              )}
+              {searchLower && (
+                <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, whiteSpace: "nowrap" }}>
+                  {visible.length} Treffer
+                </span>
+              )}
+            </div>
+
+            <div style={{
+              display: "flex", gap: "0.3rem",
+              flexWrap: isMobile ? "nowrap" : "wrap",
+              overflowX: isMobile ? "auto" : "visible",
+              marginTop: "0.5rem",
+              paddingBottom: isMobile ? "0.3rem" : 0,
+            }}>
+              <FilterPill active={traditionFilter === "all"} label="alle" color={C.muted} onClick={() => setTraditionFilter("all")} />
+              {TRADITIONS.map(t => (
+                <FilterPill
+                  key={t.id}
+                  active={traditionFilter === t.id}
+                  label={t.name}
+                  color={t.color}
+                  onClick={() => setTraditionFilter(t.id)}
+                />
+              ))}
+            </div>
+          </>
         )}
       </header>
 
@@ -757,16 +839,23 @@ function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: Philosop
 
       <div style={{ marginBottom: "1.1rem" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
-          Hauptwerke
+          Hauptwerke ({philosopher.keyWorks.length})
         </div>
-        <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.3rem" }}>
-          {philosopher.keyWorks.map((w, i) => (
-            <li key={i} style={{ fontFamily: SERIF, fontSize: "0.85rem", color: c.text, lineHeight: 1.4 }}>
-              <em>{w.title}</em>
-              <span style={{ fontFamily: MONO, fontSize: "0.6rem", color: c.muted, marginLeft: "0.5rem" }}>{w.year}</span>
+        <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+          {[...philosopher.keyWorks].sort((a, b) => a.year - b.year).map((w, i) => (
+            <li key={i} style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "0.6rem", alignItems: "baseline" }}>
+              <span style={{
+                fontFamily: MONO, fontSize: "0.55rem", color: c.muted,
+                background: c.deep, border: `1px solid ${c.border}`,
+                padding: "0.1rem 0.4rem", borderRadius: 2,
+                minWidth: 38, textAlign: "center", letterSpacing: "0.05em",
+              }}>{w.year}</span>
+              <span style={{ fontFamily: SERIF, fontSize: "0.88rem", color: c.text, lineHeight: 1.4, fontStyle: "italic" }}>
+                {w.title}
+              </span>
             </li>
           ))}
-        </ul>
+        </ol>
       </div>
 
       {(philosopher.receives?.length || philosopher.critiques?.length) ? (
