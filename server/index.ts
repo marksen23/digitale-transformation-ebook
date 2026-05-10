@@ -982,6 +982,126 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     return res.json({ ok: true, id, path: file.path });
   });
 
+  // ─── Phase 3: Hosting-Health (Netlify + Render) ─────────────────────────
+  // Read-Only-Proxies, die an die jeweiligen Provider-APIs durchreichen.
+  // Tokens dürfen den Browser nie sehen — alles serverseitig.
+  // Env vars (alle optional, jeweils via Render-Dashboard):
+  //   NETLIFY_TOKEN       (PAT, scope: read deploys)
+  //   NETLIFY_SITE_ID     (UUID des Netlify-Sites)
+  //   RENDER_API_KEY      (Render API-Key, scope: read services + deploys)
+  //   RENDER_SERVICE_ID   (z.B. srv-XXXXXXXX, das ID des Backend-Service)
+  //
+  // Wenn ein Wertepaar fehlt → 503 mit Klartext, das UI zeigt einen
+  // Hinweis statt zu crashen. Beide Endpoints sind Bearer-auth via ADMIN_TOKEN.
+
+  app.get("/api/admin/netlify-status", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const token = process.env.NETLIFY_TOKEN;
+    const siteId = process.env.NETLIFY_SITE_ID;
+    if (!token || !siteId) {
+      return res.status(503).json({ error: "Netlify-API nicht konfiguriert (NETLIFY_TOKEN / NETLIFY_SITE_ID env vars fehlen)." });
+    }
+    try {
+      const [siteRes, deploysRes] = await Promise.all([
+        fetch(`https://api.netlify.com/api/v1/sites/${siteId}`, {
+          headers: { "Authorization": `Bearer ${token}` },
+        }),
+        fetch(`https://api.netlify.com/api/v1/sites/${siteId}/deploys?per_page=5`, {
+          headers: { "Authorization": `Bearer ${token}` },
+        }),
+      ]);
+      if (!siteRes.ok || !deploysRes.ok) {
+        return res.status(502).json({ error: `Netlify-API: ${siteRes.status}/${deploysRes.status}` });
+      }
+      const site = await siteRes.json();
+      const deploys = await deploysRes.json();
+      // Curated Subset zurückgeben — nicht das ganze Site-Objekt
+      return res.json({
+        site: {
+          name: site.name,
+          url: site.url,
+          ssl_url: site.ssl_url,
+          state: site.state,
+          updated_at: site.updated_at,
+          published_deploy_id: site.published_deploy?.id ?? null,
+          screenshot_url: site.screenshot_url ?? null,
+        },
+        deploys: (deploys as Array<Record<string, unknown>>).map(d => ({
+          id: d.id,
+          state: d.state,
+          branch: d.branch,
+          commit_ref: d.commit_ref,
+          commit_url: d.commit_url,
+          title: d.title,
+          deploy_time: d.deploy_time,    // seconds
+          created_at: d.created_at,
+          published_at: d.published_at,
+          error_message: d.error_message,
+        })),
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      return res.status(502).json({ error: `Netlify-API-Fehler: ${msg}` });
+    }
+  });
+
+  app.get("/api/admin/render-status", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const apiKey = process.env.RENDER_API_KEY;
+    const serviceId = process.env.RENDER_SERVICE_ID;
+    if (!apiKey || !serviceId) {
+      return res.status(503).json({ error: "Render-API nicht konfiguriert (RENDER_API_KEY / RENDER_SERVICE_ID env vars fehlen)." });
+    }
+    try {
+      const [serviceRes, deploysRes] = await Promise.all([
+        fetch(`https://api.render.com/v1/services/${serviceId}`, {
+          headers: { "Authorization": `Bearer ${apiKey}`, "Accept": "application/json" },
+        }),
+        fetch(`https://api.render.com/v1/services/${serviceId}/deploys?limit=3`, {
+          headers: { "Authorization": `Bearer ${apiKey}`, "Accept": "application/json" },
+        }),
+      ]);
+      if (!serviceRes.ok || !deploysRes.ok) {
+        return res.status(502).json({ error: `Render-API: ${serviceRes.status}/${deploysRes.status}` });
+      }
+      const service = await serviceRes.json();
+      const deploysWrapped = await deploysRes.json();
+      // Render returnt deploys als Array von { deploy: {...} }
+      const deploys = Array.isArray(deploysWrapped)
+        ? deploysWrapped.map((w: Record<string, unknown>) => w.deploy ?? w)
+        : [];
+      return res.json({
+        service: {
+          name: service.name,
+          type: service.type,
+          repo: service.repo,
+          branch: service.branch,
+          serviceDetails: service.serviceDetails ? {
+            url: service.serviceDetails.url,
+            region: service.serviceDetails.region,
+            plan: service.serviceDetails.plan,
+          } : null,
+          suspended: service.suspended,
+          updatedAt: service.updatedAt,
+        },
+        deploys: (deploys as Array<Record<string, unknown>>).map(d => ({
+          id: d.id,
+          status: d.status,
+          commit: d.commit ? {
+            id: (d.commit as Record<string, unknown>).id,
+            message: (d.commit as Record<string, unknown>).message,
+          } : null,
+          createdAt: d.createdAt,
+          finishedAt: d.finishedAt,
+          trigger: d.trigger,
+        })),
+      });
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : String(err);
+      return res.status(502).json({ error: `Render-API-Fehler: ${msg}` });
+    }
+  });
+
   // ─── Embedding-Endpoint für semantische Korpus-Suche ─────────────────
   // Wraps Gemini text-embedding-004 für die Resonanzen-FAQ-Suche.
   // Frontend ruft /api/embed mit einer Anfrage, bekommt 768-dim Vektor,

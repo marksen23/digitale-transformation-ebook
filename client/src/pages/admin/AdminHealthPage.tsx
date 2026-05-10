@@ -20,6 +20,63 @@ import {
 
 type Heartbeat = { ok: boolean; latencyMs: number; checkedAt: string };
 
+interface NetlifyDeploy {
+  id: string;
+  state: "ready" | "building" | "error" | "new" | "uploading" | "uploaded" | "preparing" | "processing" | string;
+  branch: string;
+  commit_ref: string | null;
+  commit_url: string | null;
+  title: string | null;
+  deploy_time: number | null;
+  created_at: string;
+  published_at: string | null;
+  error_message: string | null;
+}
+interface NetlifyStatus {
+  site: {
+    name: string; url: string; ssl_url: string;
+    state: string; updated_at: string;
+    published_deploy_id: string | null;
+  };
+  deploys: NetlifyDeploy[];
+}
+
+interface RenderDeploy {
+  id: string;
+  status: string;
+  commit: { id: string; message: string } | null;
+  createdAt: string;
+  finishedAt: string | null;
+  trigger: string;
+}
+interface RenderStatus {
+  service: {
+    name: string;
+    type: string;
+    repo: string;
+    branch: string;
+    serviceDetails: { url: string; region: string; plan: string } | null;
+    suspended: string;
+    updatedAt: string;
+  };
+  deploys: RenderDeploy[];
+}
+
+type AsyncResult<T> = { state: "loading" } | { state: "ok"; data: T } | { state: "error"; error: string };
+
+async function fetchAdminJson<T>(path: string): Promise<AsyncResult<T>> {
+  const t = localStorage.getItem("dt-admin-token");
+  if (!t) return { state: "error", error: "Token fehlt" };
+  try {
+    const res = await fetch(path, { headers: { "Authorization": `Bearer ${t}` } });
+    const data = await res.json().catch(() => ({}));
+    if (!res.ok) return { state: "error", error: data.error ?? `HTTP ${res.status}` };
+    return { state: "ok", data: data as T };
+  } catch (err) {
+    return { state: "error", error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
 export default function AdminHealthPage() {
   const C = useAdminTheme();
 
@@ -31,6 +88,14 @@ export default function AdminHealthPage() {
   const [tensions, setTensions] = useState<TensionResult | null>(null);
   const [tensionsExpanded, setTensionsExpanded] = useState(false);
   const [holdoutExpanded, setHoldoutExpanded] = useState(false);
+  const [netlify, setNetlify] = useState<AsyncResult<NetlifyStatus>>({ state: "loading" });
+  const [render, setRender] = useState<AsyncResult<RenderStatus>>({ state: "loading" });
+
+  // Hosting-Status: Netlify + Render via Server-Proxies
+  useEffect(() => {
+    fetchAdminJson<NetlifyStatus>("/api/admin/netlify-status").then(setNetlify);
+    fetchAdminJson<RenderStatus>("/api/admin/render-status").then(setRender);
+  }, []);
 
   useEffect(() => {
     Promise.all([
@@ -99,6 +164,14 @@ export default function AdminHealthPage() {
             />
           </div>
         )}
+      </Section>
+
+      <Section title="Netlify — Frontend-Deploys" c={C}>
+        <NetlifyPanel result={netlify} c={C} />
+      </Section>
+
+      <Section title="Render — Backend-Service" c={C}>
+        <RenderPanel result={render} c={C} />
       </Section>
 
       <Section title="Korpus-Health (Validation)" c={C}>
@@ -316,4 +389,185 @@ export default function AdminHealthPage() {
       </Section>
     </>
   );
+}
+
+// ─── Netlify-Panel ──────────────────────────────────────────────────────
+
+function NetlifyPanel({ result, c }: { result: AsyncResult<NetlifyStatus>; c: ReturnType<typeof useAdminTheme> }) {
+  if (result.state === "loading") {
+    return <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>frage Netlify-API …</p>;
+  }
+  if (result.state === "error") {
+    return (
+      <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>
+        {result.error.includes("nicht konfiguriert")
+          ? <>Netlify-API nicht konfiguriert. Setze auf Render: <code style={{ fontFamily: MONO, color: c.accent }}>NETLIFY_TOKEN</code> + <code style={{ fontFamily: MONO, color: c.accent }}>NETLIFY_SITE_ID</code>.</>
+          : `Fehler: ${result.error}`}
+      </p>
+    );
+  }
+  const { site, deploys } = result.data;
+  const lastReady = deploys.find(d => d.state === "ready");
+
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.8rem" }}>
+        <Stat
+          label="Site-Status"
+          value={site.state === "current" ? "✓ live" : site.state}
+          color={site.state === "current" ? "#7ab898" : "#c48282"}
+          c={c}
+        />
+        <Stat
+          label="Letzter Deploy"
+          value={lastReady ? formatRelative(lastReady.published_at ?? lastReady.created_at) : "—"}
+          color={c.accent}
+          c={c}
+        />
+        <Stat
+          label="Build-Dauer"
+          value={lastReady?.deploy_time ? `${lastReady.deploy_time}s` : "—"}
+          color={c.muted}
+          c={c}
+        />
+      </div>
+      <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.5rem" }}>
+        Letzte 5 Deploys
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        {deploys.map(d => (
+          <div key={d.id} style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "0.6rem 0.8rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.3rem" }}>
+              <span style={{
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                color: deployStateColor(d.state, c),
+              }}>
+                {d.state} · {d.branch}
+              </span>
+              <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.muted }}>
+                {formatRelative(d.published_at ?? d.created_at)}
+              </span>
+            </div>
+            {d.title && (
+              <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: c.text, lineHeight: 1.4 }}>
+                {d.title.slice(0, 110)}{d.title.length > 110 ? "…" : ""}
+              </div>
+            )}
+            {d.error_message && (
+              <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: "#c48282", marginTop: "0.3rem" }}>
+                ⚠ {d.error_message.slice(0, 200)}
+              </div>
+            )}
+            {d.commit_url && (
+              <a href={d.commit_url} target="_blank" rel="noreferrer" style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accent, textDecoration: "none" }}>
+                ↗ {d.commit_ref?.slice(0, 7) ?? "commit"}
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+// ─── Render-Panel ───────────────────────────────────────────────────────
+
+function RenderPanel({ result, c }: { result: AsyncResult<RenderStatus>; c: ReturnType<typeof useAdminTheme> }) {
+  if (result.state === "loading") {
+    return <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>frage Render-API …</p>;
+  }
+  if (result.state === "error") {
+    return (
+      <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>
+        {result.error.includes("nicht konfiguriert")
+          ? <>Render-API nicht konfiguriert. Setze auf Render: <code style={{ fontFamily: MONO, color: c.accent }}>RENDER_API_KEY</code> + <code style={{ fontFamily: MONO, color: c.accent }}>RENDER_SERVICE_ID</code>.</>
+          : `Fehler: ${result.error}`}
+      </p>
+    );
+  }
+  const { service, deploys } = result.data;
+  const lastLive = deploys.find(d => d.status === "live");
+  const isSuspended = service.suspended === "suspended";
+
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.8rem" }}>
+        <Stat
+          label="Service"
+          value={isSuspended ? "✕ pausiert" : "✓ live"}
+          color={isSuspended ? "#c48282" : "#7ab898"}
+          c={c}
+        />
+        <Stat
+          label="Letzter Deploy"
+          value={lastLive ? formatRelative(lastLive.finishedAt ?? lastLive.createdAt) : "—"}
+          color={c.accent}
+          c={c}
+        />
+        <Stat
+          label="Region"
+          value={service.serviceDetails?.region ?? "—"}
+          color={c.muted}
+          c={c}
+        />
+        <Stat
+          label="Plan"
+          value={service.serviceDetails?.plan ?? "—"}
+          color={c.muted}
+          c={c}
+        />
+      </div>
+      <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.5rem" }}>
+        Letzte 3 Deploys
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        {deploys.map(d => (
+          <div key={d.id} style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "0.6rem 0.8rem" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.3rem" }}>
+              <span style={{
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                color: deployStateColor(d.status, c),
+              }}>
+                {d.status} · {d.trigger}
+              </span>
+              <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.muted }}>
+                {formatRelative(d.finishedAt ?? d.createdAt)}
+              </span>
+            </div>
+            {d.commit?.message && (
+              <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: c.text, lineHeight: 1.4 }}>
+                {d.commit.message.split("\n")[0].slice(0, 120)}
+                <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, marginLeft: "0.5rem" }}>
+                  {d.commit.id.slice(0, 7)}
+                </span>
+              </div>
+            )}
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+// ─── Helpers ────────────────────────────────────────────────────────────
+
+function deployStateColor(state: string, c: ReturnType<typeof useAdminTheme>): string {
+  if (state === "ready" || state === "live") return "#7ab898";
+  if (state === "error" || state === "build_failed" || state === "canceled") return "#c48282";
+  if (state === "building" || state === "uploading" || state === "preparing" || state === "in_progress" || state === "queued") return c.accent;
+  return c.muted;
+}
+
+function formatRelative(iso: string | null): string {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  const diff = Date.now() - d.getTime();
+  const m = Math.floor(diff / 60_000);
+  if (m < 1) return "gerade eben";
+  if (m < 60) return `vor ${m} Min`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `vor ${h} h`;
+  const dd = Math.floor(h / 24);
+  if (dd < 7) return `vor ${dd} Tagen`;
+  return d.toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" });
 }
