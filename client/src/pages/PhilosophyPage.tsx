@@ -49,7 +49,7 @@ const TIMELINE_FROM = 1620;
 const TIMELINE_TO = 2030;
 const PFAD_SET = new Set(RESONANZVERNUNFT_PFAD);
 
-type ViewMode = "timeline" | "network" | "constellation" | "spotlight" | "book";
+type ViewMode = "timeline" | "network" | "constellation" | "spotlight" | "book" | "roots";
 
 function yearToY(year: number): number {
   return ((year - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * 100;
@@ -203,6 +203,7 @@ export default function PhilosophyPage() {
             <ToolbarBtn active={viewMode === "constellation"} label="Sternbild" onClick={() => setViewMode("constellation")} c={C} />
             <ToolbarBtn active={viewMode === "spotlight"} label="Spotlight" onClick={() => setViewMode("spotlight")} c={C} />
             <ToolbarBtn active={viewMode === "book"} label="Buch" onClick={() => setViewMode("book")} c={C} />
+            <ToolbarBtn active={viewMode === "roots"} label="Wurzeln" onClick={() => setViewMode("roots")} c={C} />
           </div>
 
           {/* Filter-Toggle (Mobile: kollabiert, Desktop: immer offen) */}
@@ -399,7 +400,7 @@ export default function PhilosophyPage() {
               c={C}
               isMobile={isMobile}
             />
-          ) : (
+          ) : viewMode === "book" ? (
             <BookView
               allPhilosophers={sorted}
               selectedId={selectedId}
@@ -407,6 +408,16 @@ export default function PhilosophyPage() {
               traditionFilter={traditionFilter}
               c={C}
               isMobile={isMobile}
+              isDark={isDark}
+            />
+          ) : (
+            <RootsView
+              philosophers={visible}
+              allPhilosophers={sorted}
+              selectedId={selectedId}
+              onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
+              showPath={showPath}
+              c={C}
               isDark={isDark}
             />
           )}
@@ -1931,6 +1942,282 @@ function BookPage({ philosophers, layout, isMatch, selectedId, onSelect, title, 
           );
         })}
       </div>
+    </div>
+  );
+}
+
+// ─── Roots-View (Wurzelgeflecht) ──────────────────────────────────────────
+//
+// Zentrales Thema (Resonanzvernunft) als Stamm oben, von dem aus acht
+// Hauptwurzeln die Traditionen darstellen. Philosophen sitzen als Knoten
+// entlang ihrer Tradition-Wurzel; chronologisch geordnet — älteste an
+// der Wurzelspitze (unten), jüngste nahe am Stamm.
+
+function rootBezier(fromX: number, fromY: number, toX: number, toY: number): string {
+  const midY = fromY + (toY - fromY) * 0.45;
+  const cp1 = `${fromX},${midY}`;
+  const cp2 = `${toX},${fromY + (toY - fromY) * 0.75}`;
+  return `M ${fromX} ${fromY} C ${cp1} ${cp2} ${toX} ${toY}`;
+}
+
+function pointOnCubicBezier(
+  fromX: number, fromY: number,
+  cp1x: number, cp1y: number,
+  cp2x: number, cp2y: number,
+  toX: number, toY: number,
+  t: number,
+): { x: number; y: number } {
+  const u = 1 - t;
+  const x = u * u * u * fromX + 3 * u * u * t * cp1x + 3 * u * t * t * cp2x + t * t * t * toX;
+  const y = u * u * u * fromY + 3 * u * u * t * cp1y + 3 * u * t * t * cp2y + t * t * t * toY;
+  return { x, y };
+}
+
+function RootsView({ philosophers, allPhilosophers, selectedId, onSelect, showPath, c, isDark }: {
+  philosophers: Philosopher[];
+  allPhilosophers: Philosopher[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  showPath: boolean;
+  c: Palette;
+  isDark: boolean;
+}) {
+  const W = 1000, H = 800;
+  const TRUNK_TOP = 0;
+  const TRUNK_BOTTOM = 130;
+  const TRUNK_X = 500;
+  const visibleIds = new Set(philosophers.map(p => p.id));
+  const selectedPhil = selectedId ? allPhilosophers.find(p => p.id === selectedId) : null;
+  const [hoverRoot, setHoverRoot] = useState<TraditionId | null>(null);
+
+  const rootTargets = useMemo(() => {
+    const map = new Map<TraditionId, { x: number; y: number }>();
+    TRADITIONS_ORDERED.forEach((t, i) => {
+      const x = 60 + (i / Math.max(TRADITIONS_ORDERED.length - 1, 1)) * (W - 120);
+      const y = H - 40;
+      map.set(t.id, { x, y });
+    });
+    return map;
+  }, []);
+
+  const byTradition = useMemo(() => {
+    const map = new Map<TraditionId, Philosopher[]>();
+    for (const p of allPhilosophers) {
+      const arr = map.get(p.tradition) ?? [];
+      arr.push(p);
+      map.set(p.tradition, arr);
+    }
+    map.forEach((arr: Philosopher[]) => arr.sort((a, b) => a.born - b.born));
+    return map;
+  }, [allPhilosophers]);
+
+  const philosopherPos = useMemo(() => {
+    const map = new Map<string, { x: number; y: number; tradition: TraditionId }>();
+    TRADITIONS_ORDERED.forEach(t => {
+      const target = rootTargets.get(t.id);
+      const list = byTradition.get(t.id) ?? [];
+      if (!target || list.length === 0) return;
+      const midY = TRUNK_BOTTOM + (target.y - TRUNK_BOTTOM) * 0.45;
+      const cp1x = TRUNK_X, cp1y = midY;
+      const cp2x = target.x, cp2y = TRUNK_BOTTOM + (target.y - TRUNK_BOTTOM) * 0.75;
+      list.forEach((p, i) => {
+        const tParam = list.length === 1
+          ? 0.6
+          : 0.95 - (i / Math.max(list.length - 1, 1)) * 0.7;
+        const point = pointOnCubicBezier(TRUNK_X, TRUNK_BOTTOM, cp1x, cp1y, cp2x, cp2y, target.x, target.y, tParam);
+        map.set(p.id, { x: point.x, y: point.y, tradition: t.id });
+      });
+    });
+    return map;
+  }, [byTradition, rootTargets]);
+
+  const crossRoots = selectedPhil
+    ? [
+        ...(selectedPhil.receives ?? []).map(id => ({ id, type: "receives" as const })),
+        ...(selectedPhil.critiques ?? []).map(id => ({ id, type: "critiques" as const })),
+      ]
+    : [];
+
+  const bgColor = isDark ? "#0c0a08" : "#f0ebe2";
+  const trunkColor = isDark ? "#6a5034" : "#7a6a52";
+  const trunkDarker = isDark ? "#3a2a1c" : "#5a4a32";
+
+  return (
+    <div style={{
+      position: "relative",
+      height: "100%", minHeight: 600,
+      background: bgColor,
+      border: `1px solid ${c.border}`,
+      overflow: "hidden",
+    }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: "100%", height: "100%", display: "block" }}
+      >
+        <defs>
+          <linearGradient id="trunk-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={trunkDarker} />
+            <stop offset="100%" stopColor={trunkColor} />
+          </linearGradient>
+          <filter id="root-glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+
+        {/* Stamm */}
+        <rect x={TRUNK_X - 28} y={TRUNK_TOP} width={56} height={TRUNK_BOTTOM} fill="url(#trunk-gradient)" />
+        <line x1={TRUNK_X - 12} y1={20} x2={TRUNK_X - 8} y2={TRUNK_BOTTOM - 20} stroke={trunkDarker} strokeWidth="0.7" opacity="0.6" />
+        <line x1={TRUNK_X + 5} y1={10} x2={TRUNK_X + 9} y2={TRUNK_BOTTOM - 10} stroke={trunkDarker} strokeWidth="0.6" opacity="0.6" />
+        <text
+          x={TRUNK_X} y={TRUNK_BOTTOM / 2 + 5}
+          textAnchor="middle"
+          fontFamily={MONO}
+          fontSize="11"
+          fill={isDark ? "#c8c2b4" : "#fff"}
+          fontWeight={600}
+          style={{ letterSpacing: "0.15em", textTransform: "uppercase" }}
+        >
+          Resonanzvernunft
+        </text>
+        <ellipse cx={TRUNK_X} cy={TRUNK_BOTTOM} rx={44} ry={12} fill={trunkColor} />
+
+        {/* Hauptwurzeln */}
+        {TRADITIONS_ORDERED.map(t => {
+          const target = rootTargets.get(t.id);
+          if (!target) return null;
+          const list = byTradition.get(t.id) ?? [];
+          const isHover = hoverRoot === t.id;
+          const tradColor = t.color;
+          const path = rootBezier(TRUNK_X, TRUNK_BOTTOM, target.x, target.y);
+          const tipR = 4 + Math.min(list.length, 4);
+          return (
+            <g key={t.id}
+               onMouseEnter={() => setHoverRoot(t.id)}
+               onMouseLeave={() => setHoverRoot(null)}
+               style={{ cursor: "pointer" }}
+            >
+              <path
+                d={path}
+                stroke={tradColor}
+                strokeWidth={isHover ? 3.2 : 2}
+                fill="none"
+                opacity={isHover ? 0.95 : 0.55}
+                strokeLinecap="round"
+              />
+              <circle
+                cx={target.x} cy={target.y} r={tipR}
+                fill={tradColor}
+                opacity={isHover ? 0.95 : 0.7}
+              />
+              <text
+                x={target.x}
+                y={target.y + tipR + 14}
+                textAnchor="middle"
+                fontFamily={MONO}
+                fontSize="9"
+                fill={tradColor}
+                opacity={0.85}
+                style={{ letterSpacing: "0.1em", textTransform: "uppercase", pointerEvents: "none" }}
+              >
+                {t.name.length > 16 ? t.name.slice(0, 14) + "…" : t.name}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Cross-Wurzeln */}
+        {crossRoots.map((link, i) => {
+          const fromPos = selectedPhil ? philosopherPos.get(selectedPhil.id) : null;
+          const toPos = philosopherPos.get(link.id);
+          if (!fromPos || !toPos) return null;
+          const midX = (fromPos.x + toPos.x) / 2;
+          const midY = Math.max(fromPos.y, toPos.y) + 60;
+          const d = `M ${fromPos.x} ${fromPos.y} Q ${midX} ${midY} ${toPos.x} ${toPos.y}`;
+          return (
+            <path
+              key={i}
+              d={d}
+              stroke={link.type === "receives" ? "#c4a882" : "#c48282"}
+              strokeWidth="1"
+              strokeDasharray={link.type === "receives" ? "4,2" : "2,2"}
+              fill="none"
+              opacity="0.55"
+            />
+          );
+        })}
+
+        {/* Philosophen-Knoten */}
+        {allPhilosophers.map(p => {
+          const pos = philosopherPos.get(p.id);
+          if (!pos) return null;
+          const isVisible = visibleIds.has(p.id);
+          const isSelected = selectedId === p.id;
+          const isOnPath = showPath && PFAD_SET.has(p.id);
+          const isConnected = selectedPhil && (
+            selectedPhil.receives?.includes(p.id) || selectedPhil.critiques?.includes(p.id)
+          );
+          const tradColor = TRADITIONS.find(t => t.id === p.tradition)?.color ?? c.accent;
+          const r = isSelected ? 7 : isOnPath ? 6 : isConnected ? 5.5 : 4.5;
+          const labelColor = isDark
+            ? (isSelected || isOnPath ? "#e8e2d4" : "#a8a29e")
+            : (isSelected || isOnPath ? "#1c1917" : "#5a5040");
+
+          return (
+            <g key={p.id} opacity={isVisible ? 1 : 0.2} style={{ cursor: isVisible ? "pointer" : "default" }}>
+              <circle cx={pos.x} cy={pos.y} r={14} fill="transparent" onClick={() => isVisible && onSelect(p.id)} />
+              <circle
+                cx={pos.x} cy={pos.y} r={r}
+                fill={tradColor}
+                stroke={isSelected ? labelColor : isOnPath ? "#c4a882" : "none"}
+                strokeWidth={isSelected ? 2 : isOnPath ? 1.5 : 0}
+                filter={isSelected || isOnPath ? "url(#root-glow)" : undefined}
+                style={{ pointerEvents: "none" }}
+              />
+              <text
+                x={pos.x + r + 4}
+                y={pos.y + 3}
+                fontFamily={SERIF}
+                fontSize={isOnPath ? 11 : 10}
+                fill={labelColor}
+                fontStyle="italic"
+                fontWeight={isOnPath || isSelected ? 600 : 400}
+                style={{ pointerEvents: "none", userSelect: "none" }}
+              >
+                {p.name.split(" ").slice(-1)[0]}
+              </text>
+              <title>{p.name} ({p.born}{p.died ? `–${p.died}` : "*"})</title>
+            </g>
+          );
+        })}
+      </svg>
+
+      <div style={{
+        position: "absolute", top: "0.6rem", left: "0.6rem",
+        fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+        color: isDark ? "#888" : "#5a5040",
+        background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.6)",
+        padding: "0.3rem 0.5rem",
+        border: `1px solid ${c.border}`,
+      }}>
+        Resonanzvernunft als Stamm · acht Wurzel-Strömungen · Philosophen als Knoten
+      </div>
+      {selectedPhil && (
+        <div style={{
+          position: "absolute", bottom: "0.5rem", right: "0.5rem",
+          fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.05em",
+          color: isDark ? "#888" : "#5a5040",
+          background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.6)",
+          padding: "0.3rem 0.5rem",
+          border: `1px solid ${c.border}`,
+        }}>
+          ─ ─ rezipiert · ┄┄ kritisiert
+        </div>
+      )}
     </div>
   );
 }
