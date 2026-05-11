@@ -289,13 +289,20 @@ function networkLayout(philosophers: Philosopher[], width: number, height: numbe
     byTradition[p.tradition].push(p);
   }
 
+  // Kollisionsvermeidung innerhalb der Spalte: aufeinanderfolgende
+  // Philosophen mit nahem Geburtsjahr werden um MIN_GAP_Y nach unten
+  // geschoben (Pixel — bei H=700 entspricht 20px etwa 11 Jahren).
+  const MIN_GAP_Y = 20;
   for (const trad of TRADITIONS_ORDERED) {
     const list = (byTradition[trad.id] ?? []).sort((a, b) => a.born - b.born);
     const colIndex = TRADITION_INDEX[trad.id];
     const x = ((colIndex + 0.5) / nCols) * width;
+    let lastY = -Infinity;
     for (const p of list) {
-      const y = ((p.born - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * height;
+      const raw = ((p.born - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * height;
+      const y = Math.max(raw, lastY + MIN_GAP_Y);
       map.set(p.id, { x, y });
+      lastY = y;
     }
   }
   return map;
