@@ -49,7 +49,7 @@ const TIMELINE_FROM = 1620;
 const TIMELINE_TO = 2030;
 const PFAD_SET = new Set(RESONANZVERNUNFT_PFAD);
 
-type ViewMode = "timeline" | "network" | "constellation" | "spotlight" | "book" | "roots";
+type ViewMode = "timeline" | "network" | "constellation" | "spotlight" | "book" | "roots" | "river";
 
 function yearToY(year: number): number {
   return ((year - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * 100;
@@ -204,6 +204,7 @@ export default function PhilosophyPage() {
             <ToolbarBtn active={viewMode === "spotlight"} label="Spotlight" onClick={() => setViewMode("spotlight")} c={C} />
             <ToolbarBtn active={viewMode === "book"} label="Buch" onClick={() => setViewMode("book")} c={C} />
             <ToolbarBtn active={viewMode === "roots"} label="Wurzeln" onClick={() => setViewMode("roots")} c={C} />
+            <ToolbarBtn active={viewMode === "river"} label="Fluss" onClick={() => setViewMode("river")} c={C} />
           </div>
 
           {/* Filter-Toggle (Mobile: kollabiert, Desktop: immer offen) */}
@@ -410,8 +411,18 @@ export default function PhilosophyPage() {
               isMobile={isMobile}
               isDark={isDark}
             />
-          ) : (
+          ) : viewMode === "roots" ? (
             <RootsView
+              philosophers={visible}
+              allPhilosophers={sorted}
+              selectedId={selectedId}
+              onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
+              showPath={showPath}
+              c={C}
+              isDark={isDark}
+            />
+          ) : (
+            <RiverView
               philosophers={visible}
               allPhilosophers={sorted}
               selectedId={selectedId}
@@ -2222,3 +2233,319 @@ function RootsView({ philosophers, allPhilosophers, selectedId, onSelect, showPa
   );
 }
 
+// ─── River-View (Flussdelta) ──────────────────────────────────────────────
+//
+// Zentrales Thema als Quell-Strömung oben, fließt nach unten, verzweigt
+// sich in feinere Arme (8 Traditionen als Hauptarme). Philosophen sitzen
+// als Siedlungen an den Ufern, Konzepte treiben als Glyphen mit der
+// Strömung. Animation respektiert prefers-reduced-motion.
+
+function RiverView({ philosophers, allPhilosophers, selectedId, onSelect, showPath, c, isDark }: {
+  philosophers: Philosopher[];
+  allPhilosophers: Philosopher[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  showPath: boolean;
+  c: Palette;
+  isDark: boolean;
+}) {
+  const W = 1000, H = 800;
+  const SOURCE_BOTTOM = 120;
+  const SOURCE_X = 500;
+  const visibleIds = new Set(philosophers.map(p => p.id));
+  const selectedPhil = selectedId ? allPhilosophers.find(p => p.id === selectedId) : null;
+  const [reducedMotion, setReducedMotion] = useState<boolean>(() =>
+    typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
+  );
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  // Stream-Targets am unteren Rand, leicht ungleichmäßig (organisch)
+  const streamTargets = useMemo(() => {
+    const map = new Map<TraditionId, { x: number; y: number }>();
+    TRADITIONS_ORDERED.forEach((t, i) => {
+      const evenX = 80 + (i / Math.max(TRADITIONS_ORDERED.length - 1, 1)) * (W - 160);
+      // leichter Versatz für organische Anmutung — deterministisch
+      const jitter = ((t.id.charCodeAt(0) * 7) % 40) - 20;
+      map.set(t.id, { x: evenX + jitter, y: H - 30 });
+    });
+    return map;
+  }, []);
+
+  // Stream-Paths: organische Bezier von Quelle zu Target mit zwei Wellen
+  const streamPaths = useMemo(() => {
+    const map = new Map<TraditionId, string>();
+    streamTargets.forEach((target, trad) => {
+      // Zwei Kontrollpunkte für eine Welle: links und rechts vom Mittelpunkt
+      const midX = (SOURCE_X + target.x) / 2;
+      const t1y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.35;
+      const t2y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.7;
+      const sway = ((trad.charCodeAt(0) * 13) % 80) - 40;
+      const cp1x = SOURCE_X + sway;
+      const cp2x = midX - sway / 2;
+      map.set(trad, `M ${SOURCE_X} ${SOURCE_BOTTOM} C ${cp1x} ${t1y} ${cp2x} ${t2y} ${target.x} ${target.y}`);
+    });
+    return map;
+  }, [streamTargets]);
+
+  // Philosophen-Positionen am Ufer der Stream-Paths
+  const byTradition = useMemo(() => {
+    const map = new Map<TraditionId, Philosopher[]>();
+    for (const p of allPhilosophers) {
+      const arr = map.get(p.tradition) ?? [];
+      arr.push(p);
+      map.set(p.tradition, arr);
+    }
+    map.forEach((arr: Philosopher[]) => arr.sort((a, b) => a.born - b.born));
+    return map;
+  }, [allPhilosophers]);
+
+  const philosopherPos = useMemo(() => {
+    const map = new Map<string, { x: number; y: number; side: "left" | "right" }>();
+    TRADITIONS_ORDERED.forEach(trad => {
+      const target = streamTargets.get(trad.id);
+      const list = byTradition.get(trad.id) ?? [];
+      if (!target || list.length === 0) return;
+      const midX = (SOURCE_X + target.x) / 2;
+      const t1y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.35;
+      const t2y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.7;
+      const sway = ((trad.id.charCodeAt(0) * 13) % 80) - 40;
+      const cp1x = SOURCE_X + sway;
+      const cp2x = midX - sway / 2;
+      list.forEach((p, i) => {
+        const tParam = list.length === 1
+          ? 0.55
+          : 0.2 + (i / Math.max(list.length - 1, 1)) * 0.65;
+        const point = pointOnCubicBezier(
+          SOURCE_X, SOURCE_BOTTOM,
+          cp1x, t1y,
+          cp2x, t2y,
+          target.x, target.y,
+          tParam
+        );
+        // Seite alterniert; Versatz 25px lateral
+        const side: "left" | "right" = i % 2 === 0 ? "left" : "right";
+        const offset = side === "left" ? -28 : 28;
+        map.set(p.id, { x: point.x + offset, y: point.y, side });
+      });
+    });
+    return map;
+  }, [byTradition, streamTargets]);
+
+  // Konzept-Glyphen: die häufigsten Konzepte schwimmen die Streams hinunter
+  const flowingConcepts = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of allPhilosophers) {
+      for (const c of p.concepts ?? []) counts[c] = (counts[c] ?? 0) + 1;
+    }
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 12)
+      .map(([id, count]) => ({ id, count }));
+  }, [allPhilosophers]);
+
+  const waterDeep = isDark ? "#0a1822" : "#5a8aa8";
+  const waterLight = isDark ? "#1a3a5a" : "#a8c8d8";
+  const bgColor = isDark ? "#04080c" : "#e8f0f5";
+  const settlementBg = isDark ? "#1a1612" : "#fdf8f0";
+  const settlementInk = isDark ? "#c8c2b4" : "#3a3530";
+
+  return (
+    <div style={{
+      position: "relative",
+      height: "100%", minHeight: 600,
+      background: bgColor,
+      border: `1px solid ${c.border}`,
+      overflow: "hidden",
+    }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: "100%", height: "100%", display: "block" }}
+      >
+        <defs>
+          <linearGradient id="water-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={waterLight} stopOpacity="0.85" />
+            <stop offset="100%" stopColor={waterDeep} stopOpacity="0.65" />
+          </linearGradient>
+          <linearGradient id="source-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor={waterLight} stopOpacity="0.95" />
+            <stop offset="100%" stopColor={waterDeep} stopOpacity="0.7" />
+          </linearGradient>
+          <filter id="river-glow">
+            <feGaussianBlur stdDeviation="2.5" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Per Stream eine Animation-Path für die treibenden Konzepte */}
+          {!reducedMotion && Array.from(streamPaths.entries()).map(([trad, path], i) => (
+            <path key={trad} id={`flow-${i}`} d={path} fill="none" />
+          ))}
+        </defs>
+
+        {/* Quelle — breite Strömung oben */}
+        <rect x={SOURCE_X - 110} y={0} width={220} height={SOURCE_BOTTOM} fill="url(#source-gradient)" />
+        <text
+          x={SOURCE_X} y={SOURCE_BOTTOM / 2 + 5}
+          textAnchor="middle"
+          fontFamily={MONO}
+          fontSize="11"
+          fill={isDark ? "#e8f0f5" : "#0a1822"}
+          fontWeight={600}
+          style={{ letterSpacing: "0.15em", textTransform: "uppercase" }}
+        >
+          Resonanzvernunft
+        </text>
+
+        {/* Stream-Pfade — die acht Strömungen */}
+        {TRADITIONS_ORDERED.map((t, i) => {
+          const path = streamPaths.get(t.id);
+          if (!path) return null;
+          const list = byTradition.get(t.id) ?? [];
+          const width = 8 + Math.min(list.length * 2, 16);
+          return (
+            <g key={t.id}>
+              <path
+                d={path}
+                stroke="url(#water-gradient)"
+                strokeWidth={width}
+                fill="none"
+                strokeLinecap="round"
+                opacity={0.78}
+              />
+              {/* dezenter Highlight-Stroke */}
+              <path
+                d={path}
+                stroke={waterLight}
+                strokeWidth={1}
+                fill="none"
+                opacity={0.5}
+                strokeLinecap="round"
+              />
+              <text
+                x={streamTargets.get(t.id)!.x}
+                y={H - 8}
+                textAnchor="middle"
+                fontFamily={MONO}
+                fontSize="9"
+                fill={t.color}
+                opacity={0.85}
+                style={{ letterSpacing: "0.1em", textTransform: "uppercase", pointerEvents: "none" }}
+              >
+                {t.name.length > 16 ? t.name.slice(0, 14) + "…" : t.name}
+              </text>
+
+              {/* Treibende Konzept-Glyphen je Stream — nur bei !reducedMotion */}
+              {!reducedMotion && flowingConcepts.slice(i % 3, i % 3 + 2).map((cn, ci) => (
+                <text
+                  key={`flow-${t.id}-${cn.id}-${ci}`}
+                  fontFamily={MONO}
+                  fontSize="8"
+                  fill={isDark ? "#e8f0f5" : "#1a3a5a"}
+                  opacity="0.65"
+                  style={{ letterSpacing: "0.05em" }}
+                >
+                  <textPath href={`#flow-${i}`} startOffset="0%">
+                    {cn.id}
+                    <animate
+                      attributeName="startOffset"
+                      from="-5%"
+                      to="105%"
+                      dur={`${22 + ci * 7 + (i % 3) * 3}s`}
+                      repeatCount="indefinite"
+                      begin={`${ci * 4 + i * 1.5}s`}
+                    />
+                  </textPath>
+                </text>
+              ))}
+            </g>
+          );
+        })}
+
+        {/* Statische Konzept-Glyphen bei reduced motion */}
+        {reducedMotion && flowingConcepts.slice(0, 6).map((cn, i) => {
+          const x = 100 + (i % 6) * 140;
+          const y = 250 + Math.floor(i / 6) * 200;
+          return (
+            <text key={cn.id} x={x} y={y}
+              fontFamily={MONO} fontSize="8"
+              fill={isDark ? "#e8f0f5" : "#1a3a5a"}
+              opacity="0.5"
+              style={{ letterSpacing: "0.05em" }}
+            >
+              {cn.id}
+            </text>
+          );
+        })}
+
+        {/* Siedlungen (Philosophen) am Ufer */}
+        {allPhilosophers.map(p => {
+          const pos = philosopherPos.get(p.id);
+          if (!pos) return null;
+          const isVisible = visibleIds.has(p.id);
+          const isSelected = selectedId === p.id;
+          const isOnPath = showPath && PFAD_SET.has(p.id);
+          const isConnected = selectedPhil && (
+            selectedPhil.receives?.includes(p.id) || selectedPhil.critiques?.includes(p.id)
+          );
+          const tradColor = TRADITIONS.find(t => t.id === p.tradition)?.color ?? c.accent;
+          const squareSize = isSelected ? 10 : isOnPath ? 9 : 7;
+          const labelDX = pos.side === "left" ? -(squareSize + 4) : (squareSize + 4);
+
+          return (
+            <g key={p.id} opacity={isVisible ? 1 : 0.2} style={{ cursor: isVisible ? "pointer" : "default" }}>
+              <rect
+                x={pos.x - 14} y={pos.y - 14}
+                width={28} height={28}
+                fill="transparent"
+                onClick={() => isVisible && onSelect(p.id)}
+              />
+              {/* Siedlung: kleines Quadrat */}
+              <rect
+                x={pos.x - squareSize / 2} y={pos.y - squareSize / 2}
+                width={squareSize} height={squareSize}
+                fill={tradColor}
+                stroke={isSelected || isOnPath ? "#c4a882" : settlementInk}
+                strokeWidth={isSelected ? 1.5 : 0.5}
+                filter={isSelected || isOnPath || isConnected ? "url(#river-glow)" : undefined}
+                style={{ pointerEvents: "none" }}
+              />
+              <text
+                x={pos.x + labelDX}
+                y={pos.y + 3}
+                textAnchor={pos.side === "left" ? "end" : "start"}
+                fontFamily={SERIF}
+                fontSize={isOnPath ? 11 : 10}
+                fill={settlementInk}
+                fontStyle="italic"
+                fontWeight={isSelected || isOnPath ? 600 : 400}
+                style={{ pointerEvents: "none", userSelect: "none" }}
+              >
+                {p.name.split(" ").slice(-1)[0]}
+              </text>
+              <title>{p.name} ({p.born}{p.died ? `–${p.died}` : "*"})</title>
+            </g>
+          );
+        })}
+      </svg>
+
+      <div style={{
+        position: "absolute", top: "0.6rem", left: "0.6rem",
+        fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+        color: isDark ? "#888" : "#5a5040",
+        background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.6)",
+        padding: "0.3rem 0.5rem",
+        border: `1px solid ${c.border}`,
+      }}>
+        Quelle Resonanzvernunft · acht Strömungen · Philosophen als Siedlungen · Konzepte treiben mit
+      </div>
+    </div>
+  );
+}
