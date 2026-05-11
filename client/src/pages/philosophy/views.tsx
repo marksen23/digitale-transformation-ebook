@@ -33,12 +33,14 @@ export function ToolbarBtn({ active, label, onClick, c }: { active: boolean; lab
     <button
       onClick={onClick}
       style={{
-        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase",
+        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
         color: active ? "#080808" : c.text,
         background: active ? c.accent : "none",
         border: "none",
-        padding: "0.5rem 0.9rem", cursor: "pointer",
+        padding: "0.5rem 0.75rem", cursor: "pointer",
         minHeight: 36,
+        whiteSpace: "nowrap",
+        flexShrink: 0,
         transition: "all 0.15s",
       }}
     >{label}</button>
@@ -1777,7 +1779,7 @@ export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect,
 // als Siedlungen an den Ufern, Konzepte treiben als Glyphen mit der
 // Strömung. Animation respektiert prefers-reduced-motion.
 
-export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect, showPath, c, isDark }: {
+export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect, showPath, c, isDark, isMobile }: {
   philosophers: Philosopher[];
   allPhilosophers: Philosopher[];
   selectedId: string | null;
@@ -1785,22 +1787,25 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
   showPath: boolean;
   c: Palette;
   isDark: boolean;
+  isMobile?: boolean;
 }) {
   const W = 1000, H = 800;
   const SOURCE_BOTTOM = 120;
   const SOURCE_X = 500;
   const visibleIds = new Set(philosophers.map(p => p.id));
   const selectedPhil = selectedId ? allPhilosophers.find(p => p.id === selectedId) : null;
-  const [reducedMotion, setReducedMotion] = useState<boolean>(() =>
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(() =>
     typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
   );
   useEffect(() => {
     if (typeof window === "undefined") return;
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
-    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    const handler = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
+  // Auch auf Mobile keine Animationen — Performance + Battery
+  const reducedMotion = prefersReducedMotion || isMobile === true;
 
   // Stream-Targets am unteren Rand, leicht ungleichmäßig (organisch)
   const streamTargets = useMemo(() => {

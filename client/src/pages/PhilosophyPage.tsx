@@ -181,8 +181,14 @@ export default function PhilosophyPage() {
 
         {/* Toolbar: View-Mode-Toggle + Filter-Toggle (Mobile) + Pfad-Toggle */}
         <div style={{ display: "flex", gap: "0.4rem", alignItems: "center", flexWrap: "wrap", marginTop: "0.6rem" }}>
-          {/* View-Mode */}
-          <div style={{ display: "flex", gap: 0, border: `1px solid ${C.border}` }}>
+          {/* View-Mode — horizontal scrollbar auf Mobile (7 Sichten passen sonst nicht in 375px) */}
+          <div style={{
+            display: "flex", gap: 0,
+            border: `1px solid ${C.border}`,
+            overflowX: isMobile ? "auto" : "visible",
+            maxWidth: isMobile ? "100%" : "none",
+            WebkitOverflowScrolling: "touch",
+          }}>
             <ToolbarBtn active={viewMode === "timeline"} label="Strahl" onClick={() => setViewMode("timeline")} c={C} />
             <ToolbarBtn active={viewMode === "network"} label="Netz" onClick={() => setViewMode("network")} c={C} />
             <ToolbarBtn active={viewMode === "constellation"} label="Sternbild" onClick={() => setViewMode("constellation")} c={C} />
@@ -415,6 +421,7 @@ export default function PhilosophyPage() {
               showPath={showPath}
               c={C}
               isDark={isDark}
+              isMobile={isMobile}
             />
           )}
         </section>
