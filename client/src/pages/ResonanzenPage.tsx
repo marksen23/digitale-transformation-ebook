@@ -59,6 +59,33 @@ export default function ResonanzenPage() {
       || !!initParams.get("tag");
   });
 
+  // Such-Historie: letzte 5 erfolgreiche Suchen im localStorage
+  const [searchHistory, setSearchHistory] = useState<string[]>(() => {
+    try {
+      const raw = localStorage.getItem("wissen-search-history");
+      if (raw) {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) return arr.slice(0, 5);
+      }
+    } catch { /* ignore */ }
+    return [];
+  });
+  const [searchFocused, setSearchFocused] = useState(false);
+  function addToHistory(term: string) {
+    const t = term.trim();
+    if (t.length < 2) return;
+    setSearchHistory(prev => {
+      const filtered = prev.filter(x => x !== t);
+      const next = [t, ...filtered].slice(0, 5);
+      try { localStorage.setItem("wissen-search-history", JSON.stringify(next)); } catch { /* ignore */ }
+      return next;
+    });
+  }
+  function clearHistory() {
+    setSearchHistory([]);
+    try { localStorage.removeItem("wissen-search-history"); } catch { /* ignore */ }
+  }
+
   // Semantische Suche — Toggle + Status. Embeddings werden lazy geladen,
   // Query-Embedding via /api/embed pro Suchvorgang.
   const [semanticMode, setSemanticMode] = useState(false);
@@ -375,7 +402,14 @@ export default function ResonanzenPage() {
                 setSearch(e.target.value);
                 if (semanticResults) setSemanticResults(null);
               }}
-              onKeyDown={e => { if (e.key === "Enter" && semanticMode) runSemanticSearch(); }}
+              onFocus={() => setSearchFocused(true)}
+              onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
+              onKeyDown={e => {
+                if (e.key === "Enter") {
+                  if (search.trim().length >= 2) addToHistory(search);
+                  if (semanticMode) runSemanticSearch();
+                }
+              }}
               placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Suchen im kollektiven Wissen …"}
               style={{
                 flex: 1, minWidth: 200,
@@ -431,6 +465,42 @@ export default function ResonanzenPage() {
 
           {/* Live-Vorschläge — beim Tippen werden Korpus-Wörter angezeigt,
               die das Tipp-Fragment enthalten. Klick übernimmt das Wort. */}
+          {/* Such-Historie — nur wenn Input fokussiert + leer */}
+          {searchFocused && search.trim().length === 0 && searchHistory.length > 0 && (
+            <div style={{
+              marginTop: "0.4rem",
+              display: "flex", flexWrap: "wrap", gap: "0.3rem",
+              alignItems: "center",
+            }}>
+              <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", marginRight: "0.2rem" }}>
+                zuletzt gesucht:
+              </span>
+              {searchHistory.map(h => (
+                <button
+                  key={h}
+                  onClick={() => setSearch(h)}
+                  style={{
+                    fontFamily: SERIF, fontSize: "0.78rem",
+                    color: C.text, background: C.deep,
+                    border: `1px solid ${C.border}`,
+                    padding: "0.25rem 0.55rem",
+                    cursor: "pointer", minHeight: 28,
+                  }}
+                >↺ {h}</button>
+              ))}
+              <button
+                onClick={clearHistory}
+                aria-label="Historie löschen"
+                style={{
+                  fontFamily: MONO, fontSize: "0.55rem",
+                  color: C.muted, background: "none",
+                  border: "none", padding: "0.25rem 0.4rem",
+                  cursor: "pointer", textDecoration: "underline",
+                }}
+              >leeren</button>
+            </div>
+          )}
+
           {suggestions.length > 0 && (
             <div style={{
               marginTop: "0.4rem",

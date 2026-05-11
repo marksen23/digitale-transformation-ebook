@@ -1879,9 +1879,13 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
       const cp1x = fromX + sway;
       const cp2x = midX - sway / 2;
       list.forEach((p, i) => {
+        // tParam-Range verschoben von 0.2..0.85 auf 0.32..0.92 — die
+        // ältesten Philosophen sitzen nicht mehr direkt am Quell-Band
+        // sondern schon weiter unten, wo sich die Streams räumlich
+        // gefächert haben. Vermeidet Cluster oben.
         const tParam = list.length === 1
-          ? 0.55
-          : 0.2 + (i / Math.max(list.length - 1, 1)) * 0.65;
+          ? 0.6
+          : 0.32 + (i / Math.max(list.length - 1, 1)) * 0.6;
         const point = pointOnCubicBezier(
           fromX, SOURCE_BOTTOM,
           cp1x, t1y,
@@ -1889,13 +1893,28 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
           target.x, target.y,
           tParam
         );
-        // Seite alterniert; Versatz 25px lateral
         const side: "left" | "right" = i % 2 === 0 ? "left" : "right";
         const offset = side === "left" ? -28 : 28;
         map.set(p.id, { x: point.x + offset, y: point.y, side });
       });
     });
-    return map;
+
+    // Zweite Pass: y-Kollisionsvermeidung. Wenn nach dem Layout zwei
+    // Philosophen y-Abstand < MIN_GAP haben, schieben wir den jüngeren
+    // (= zweiten in chronologischer Order) nach unten. So überschneiden
+    // sich die Label-Boxen nicht mehr.
+    const MIN_GAP_Y = 26;
+    const arr = Array.from(map.entries()).map(([id, p]) => ({ id, ...p }));
+    arr.sort((a, b) => a.y - b.y);
+    let lastY = -Infinity;
+    for (let i = 0; i < arr.length; i++) {
+      const adjustedY = Math.max(arr[i].y, lastY + MIN_GAP_Y);
+      arr[i] = { ...arr[i], y: adjustedY };
+      lastY = adjustedY;
+    }
+    const adjusted = new Map<string, { x: number; y: number; side: "left" | "right" }>();
+    arr.forEach(p => adjusted.set(p.id, { x: p.x, y: p.y, side: p.side }));
+    return adjusted;
   }, [byTradition, streamTargets]);
 
   // Konzept-Glyphen: die häufigsten Konzepte schwimmen die Streams hinunter

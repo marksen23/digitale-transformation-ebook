@@ -159,6 +159,16 @@ export default function AdminMetricsPage() {
         )}
       </Section>
 
+      <Section title="Live-Feed — chronologische Begegnungen" c={C}>
+        <p style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.05em", color: C.muted, marginBottom: "0.8rem", maxWidth: 720 }}>
+          Auf der Wissens-Seite zeigen wir bewusst nur ausgewählte Suchergebnisse —
+          der "Resonanzverhinderungsgedanke" verbietet das endlose Scrollen durch alle KI-
+          Ausgaben. Wer den Live-Feed dennoch sehen will (für Kuration, Analyse), findet
+          ihn hier.
+        </p>
+        <FeedList index={index} c={C} />
+      </Section>
+
       <Section title="Meistgefragte Anker" c={C}>
         <table style={{ width: "100%", fontFamily: MONO, fontSize: "0.62rem", borderCollapse: "collapse" }}>
           <tbody>
@@ -180,6 +190,77 @@ export default function AdminMetricsPage() {
           ))}
         </div>
       </Section>
+    </>
+  );
+}
+
+// ─── FeedList — chronologischer Live-Feed der Begegnungen ─────────────────
+// Read-only; pagination per "+ X weitere zeigen". Klick öffnet die Begegnung
+// auf /resonanzen?id=… (in neuem Tab), damit der Admin parallel browsen kann.
+
+function FeedList({ index, c }: { index: ResonanzIndex | null; c: ReturnType<typeof useAdminTheme> }) {
+  const [limit, setLimit] = useState(20);
+  if (!index) return <Skeleton height={48} subtle />;
+
+  const sorted = useMemo(
+    () => [...index.entries].sort((a, b) => b.ts.localeCompare(a.ts)),
+    [index]
+  );
+  const shown = sorted.slice(0, limit);
+
+  return (
+    <>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        {shown.map(entry => {
+          const ep = entry.endpoint;
+          return (
+            <a
+              key={entry.id}
+              href={`/resonanzen?id=${entry.id}`}
+              target="_blank" rel="noreferrer"
+              style={{
+                background: c.surface,
+                border: `1px solid ${c.border}`,
+                padding: "0.6rem 0.85rem",
+                textDecoration: "none",
+                display: "block",
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.3rem" }}>
+                <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[ep] }}>
+                  {ENDPOINT_LABEL[ep]}
+                </span>
+                <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.muted }}>
+                  {new Date(entry.ts).toLocaleString("de-DE", { dateStyle: "medium", timeStyle: "short" })}
+                </time>
+              </div>
+              <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: c.text, lineHeight: 1.4 }}>
+                {entry.prompt.slice(0, 140)}{entry.prompt.length > 140 ? "…" : ""}
+              </div>
+              {entry.status !== "raw" && (
+                <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: entry.status === "published" ? "#7ab898" : c.accent, marginTop: "0.2rem", display: "inline-block" }}>
+                  ✓ {entry.status}
+                </span>
+              )}
+            </a>
+          );
+        })}
+      </div>
+      {sorted.length > limit && (
+        <div style={{ display: "flex", justifyContent: "center", marginTop: "0.8rem" }}>
+          <button
+            onClick={() => setLimit(l => l + 20)}
+            style={{
+              fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase",
+              color: c.accent, background: "none",
+              border: `1px solid ${c.accentDim}`,
+              padding: "0.6rem 1rem", cursor: "pointer", minHeight: 36,
+            }}
+          >
+            + {Math.min(20, sorted.length - limit)} weitere von {sorted.length - limit}
+          </button>
+        </div>
+      )}
     </>
   );
 }
