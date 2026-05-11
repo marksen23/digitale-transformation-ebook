@@ -48,6 +48,10 @@ export default function ResonanzenPage() {
   const [filterTag, setFilterTag] = useState<string | null>(initParams.get("tag"));
   const [search, setSearch] = useState(initParams.get("q") ?? "");
   const [expandedId, setExpandedId] = useState<string | null>(null);
+  // Permalink-Modus: ?id=ABC im URL beim Mount → zeigt nur diesen einen
+  // Eintrag (statt der gesamten Liste, die wir bewusst nicht mehr rendern).
+  // Wird gelöscht sobald User aktiv sucht/filtert.
+  const [permalinkId, setPermalinkId] = useState<string | null>(initParams.get("id"));
   const [readingMode, setReadingMode] = useState<ReadingMode>("depth");
   const [showRelatedFor, setShowRelatedFor] = useState<string | null>(null);
   // Phase 3: Filter-Bar kollabierbar (Default-Minimal).
@@ -220,6 +224,11 @@ export default function ResonanzenPage() {
   // Sonst: klassischer Volltext-Filter.
   const filtered = useMemo(() => {
     if (!index) return [];
+    // Permalink-Modus: nur den einen gemeinten Eintrag rendern
+    if (permalinkId && !search.trim() && filterEndpoint === "all" && !filterTag && filterStatus !== "kuratiert" && !semanticMode) {
+      const target = index.entries.find(e => e.id === permalinkId);
+      return target ? [target] : [];
+    }
     const passes = (e: ResonanzEntry): boolean => {
       if (filterEndpoint !== "all" && e.endpoint !== filterEndpoint) return false;
       if (filterStatus === "kuratiert" && e.status === "raw") return false;
@@ -243,7 +252,7 @@ export default function ResonanzenPage() {
       }
       return true;
     });
-  }, [index, filterEndpoint, filterStatus, filterTag, search, semanticMode, semanticResults]);
+  }, [index, filterEndpoint, filterStatus, filterTag, search, semanticMode, semanticResults, permalinkId]);
 
   // Score-Map für semantische Anzeige (Eintrag → Cosine-Score)
   const scoreById = useMemo(() => {
@@ -271,7 +280,16 @@ export default function ResonanzenPage() {
     || filterTag !== null
     || filterEndpoint !== "all"
     || filterStatus === "kuratiert"
-    || (semanticMode && semanticResults !== null);
+    || (semanticMode && semanticResults !== null)
+    || permalinkId !== null;
+
+  // Beim ersten User-Eingriff (Suche tippen oder Filter setzen) verlässt
+  // der Permalink-Modus die Bühne — sonst überschattet er die echte Suche.
+  useEffect(() => {
+    if (permalinkId && (search.trim().length > 0 || filterTag !== null || filterEndpoint !== "all" || filterStatus === "kuratiert")) {
+      setPermalinkId(null);
+    }
+  }, [search, filterTag, filterEndpoint, filterStatus, permalinkId]);
 
   // Live-Vorschläge beim Tippen: aus dem Keyword-Pool die Wörter holen,
   // die den Tipp-Anfang enthalten. Max 6 Vorschläge, Stopp wenn user >2
