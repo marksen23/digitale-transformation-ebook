@@ -21,7 +21,14 @@ export function ThemeProvider({
   defaultTheme = "light",
   switchable = false,
 }: ThemeProviderProps) {
+  // Initial-State: existierende `dark`-Klasse hat Vorrang vor defaultTheme,
+  // weil main.tsx via syncGlobalTheme() den persistierten Modus schon
+  // angewendet hat. Sonst würde der useEffect unten die User-Wahl
+  // beim ersten Render zurücksetzen (klassischer Theme-Flash-Bug).
   const [theme, setTheme] = useState<Theme>(() => {
+    if (typeof document !== "undefined" && document.documentElement.classList.contains("dark")) {
+      return "dark";
+    }
     if (switchable) {
       const stored = localStorage.getItem("theme");
       return (stored as Theme) || defaultTheme;
@@ -29,17 +36,28 @@ export function ThemeProvider({
     return defaultTheme;
   });
 
+  // Spiegelt das `theme`-State auf das <html data-class="dark">. Wenn
+  // switchable=false, lassen wir globalTheme die Wahrheit verwalten und
+  // synchronisieren stattdessen unser State *vom* DOM (bidirektional).
   useEffect(() => {
+    if (!switchable) {
+      // Beobachte externe Class-Änderungen (z.B. via toggleGlobalTheme von
+      // PageNav oder Home.tsx) und halte unseren State in Sync.
+      const observer = new MutationObserver(() => {
+        const isDark = document.documentElement.classList.contains("dark");
+        setTheme(prev => (prev === (isDark ? "dark" : "light") ? prev : (isDark ? "dark" : "light")));
+      });
+      observer.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+      return () => observer.disconnect();
+    }
+    // switchable: traditionelles Pattern — Provider treibt die Klasse.
     const root = document.documentElement;
     if (theme === "dark") {
       root.classList.add("dark");
     } else {
       root.classList.remove("dark");
     }
-
-    if (switchable) {
-      localStorage.setItem("theme", theme);
-    }
+    localStorage.setItem("theme", theme);
   }, [theme, switchable]);
 
   const toggleTheme = switchable

@@ -832,6 +832,7 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
 }) {
   const W = 1000, H = 700;
   const visibleIds = new Set(philosophers.map(p => p.id));
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 3.5 });
 
   // Stern-Positionen berechnen: pro Tradition Anker + scattering nach
   // Geburtsjahr (radialer Winkel) und Seed (radius).
@@ -908,8 +909,15 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
       <svg
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{
+          width: "100%", height: "100%", display: "block",
+          cursor: canvas.dragging ? "grabbing" : "grab",
+          touchAction: "none",
+        }}
+        {...canvas.bind}
       >
+        <rect x={0} y={0} width={W} height={H} fill="transparent" />
+        <g transform={canvas.transform}>
         <defs>
           {/* Glow-Filter für Sterne */}
           <filter id="star-glow" x="-100%" y="-100%" width="300%" height="300%">
@@ -1070,7 +1078,15 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
             </g>
           );
         })}
+        </g>
       </svg>
+
+      {/* Zoom-Controls */}
+      <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: "#aaa", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
+      </div>
 
       {/* Inline-Legende oben links */}
       <div style={{
@@ -1178,6 +1194,8 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
     return result;
   }, [philosopherPos]);
 
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 3.0 });
+
   return (
     <div style={{
       position: "relative",
@@ -1189,8 +1207,15 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
       <svg
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{
+          width: "100%", height: "100%", display: "block",
+          cursor: canvas.dragging ? "grabbing" : "grab",
+          touchAction: "none",
+        }}
+        {...canvas.bind}
       >
+        <rect x={0} y={0} width={W} height={H} fill="transparent" />
+        <g transform={canvas.transform}>
         <defs>
           <filter id="spot-glow" x="-100%" y="-100%" width="300%" height="300%">
             <feGaussianBlur stdDeviation="3" result="blur" />
@@ -1298,7 +1323,14 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
             </g>
           );
         })}
+        </g>
       </svg>
+
+      <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: "#aaa", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
+      </div>
 
       <div style={{
         position: "absolute", top: "0.6rem", left: "0.6rem",
@@ -1607,6 +1639,7 @@ export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect,
   const TRUNK_X = 500;
   const visibleIds = new Set(philosophers.map(p => p.id));
   const selectedPhil = selectedId ? allPhilosophers.find(p => p.id === selectedId) : null;
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 3.0 });
   const [hoverRoot, setHoverRoot] = useState<TraditionId | null>(null);
 
   const rootTargets = useMemo(() => {
@@ -1672,8 +1705,15 @@ export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect,
       <svg
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{
+          width: "100%", height: "100%", display: "block",
+          cursor: canvas.dragging ? "grabbing" : "grab",
+          touchAction: "none",
+        }}
+        {...canvas.bind}
       >
+        <rect x={0} y={0} width={W} height={H} fill="transparent" />
+        <g transform={canvas.transform}>
         <defs>
           <linearGradient id="trunk-gradient" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={trunkDarker} />
@@ -1813,7 +1853,14 @@ export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect,
             </g>
           );
         })}
+        </g>
       </svg>
+
+      <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, background: c.deep, border: `1px solid ${c.border}`, padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
+      </div>
 
       <div style={{
         position: "absolute", top: "0.6rem", left: "0.6rem",
@@ -1863,6 +1910,7 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
   const SOURCE_X = 500;
   const visibleIds = new Set(philosophers.map(p => p.id));
   const selectedPhil = selectedId ? allPhilosophers.find(p => p.id === selectedId) : null;
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 3.0 });
   const [prefersReducedMotion, setPrefersReducedMotion] = useState<boolean>(() =>
     typeof window !== "undefined" && window.matchMedia?.("(prefers-reduced-motion: reduce)").matches
   );
@@ -2007,8 +2055,15 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
       <svg
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{
+          width: "100%", height: "100%", display: "block",
+          cursor: canvas.dragging ? "grabbing" : "grab",
+          touchAction: "none",
+        }}
+        {...canvas.bind}
       >
+        <rect x={0} y={0} width={W} height={H} fill="transparent" />
+        <g transform={canvas.transform}>
         <defs>
           <linearGradient id="water-gradient" x1="0" y1="0" x2="0" y2="1">
             <stop offset="0%" stopColor={waterLight} stopOpacity="0.85" />
@@ -2175,7 +2230,14 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
             </g>
           );
         })}
+        </g>
       </svg>
+
+      <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, background: c.deep, border: `1px solid ${c.border}`, padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
+      </div>
 
       <div style={{
         position: "absolute", top: "0.6rem", left: "0.6rem",

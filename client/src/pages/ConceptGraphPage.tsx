@@ -2444,6 +2444,75 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </div>
           )}
 
+          {/* ── Resonanzen zu diesem Begriff (Mobile) — Deep-Links zum
+                kollektiven Wissen. Spiegelt die Desktop-Sidebar-Section. */}
+          {resonanzenByNode && (() => {
+            const all = resonanzenByNode.get(selectedNode.id) ?? [];
+            if (all.length === 0) return null;
+            const visible = resonanzenExpanded ? all : all.slice(0, 3);
+            return (
+              <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem", marginBottom: "0.6rem" }}>
+                <div style={{
+                  fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.15em",
+                  color: C.muted, textTransform: "uppercase", marginBottom: "0.55rem",
+                  display: "flex", justifyContent: "space-between", alignItems: "baseline",
+                }}>
+                  <span>Begegnungen aus dem Wissen</span>
+                  <span style={{ color: C.accent }}>{all.length}</span>
+                </div>
+                <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                  {visible.map(entry => (
+                    <a
+                      key={entry.id}
+                      href={`/resonanzen?id=${entry.id}`}
+                      style={{
+                        display: "block",
+                        background: C.deep, border: `1px solid ${C.border}`,
+                        padding: "0.45rem 0.6rem", textDecoration: "none",
+                      }}
+                    >
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.18rem", gap: "0.3rem" }}>
+                        <span style={{ fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
+                          {ENDPOINT_LABEL[entry.endpoint]}
+                        </span>
+                        <time style={{ fontFamily: C.mono, fontSize: "0.5rem", color: C.muted }}>
+                          {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
+                        </time>
+                      </div>
+                      <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem", color: C.text, lineHeight: 1.4 }}>
+                        {entry.prompt.length > 100 ? entry.prompt.slice(0, 100) + "…" : entry.prompt}
+                      </div>
+                    </a>
+                  ))}
+                </div>
+                <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
+                  {all.length > 3 && (
+                    <button
+                      onClick={() => setResonanzenExpanded(v => !v)}
+                      style={{
+                        fontFamily: C.mono, fontSize: "0.52rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                        color: C.muted, background: "none", border: `1px solid ${C.border}`,
+                        padding: "0.28rem 0.55rem", cursor: "pointer",
+                      }}
+                    >
+                      {resonanzenExpanded ? "einklappen" : `+ ${all.length - 3} weitere`}
+                    </button>
+                  )}
+                  <a
+                    href={`/resonanzen?tag=${selectedNode.id}`}
+                    style={{
+                      fontFamily: C.mono, fontSize: "0.52rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                      color: C.accent, background: "none", border: `1px solid ${C.accentDim}`,
+                      padding: "0.28rem 0.55rem", textDecoration: "none",
+                    }}
+                  >
+                    alle im Wissen →
+                  </a>
+                </div>
+              </div>
+            );
+          })()}
+
           {/* ── Kompakte Legende im Mobile-Sheet ── */}
           <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem" }}>
             <div style={{ fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.55rem" }}>

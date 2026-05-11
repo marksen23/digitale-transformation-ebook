@@ -172,10 +172,20 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
-  // Dark mode class
+  // Dark mode class — bidirektional mit globalTheme. Wenn jemand
+  // anderes (z.B. PageNav auf Sub-Page → toggleGlobalTheme) die
+  // `dark`-Klasse ändert, übernehmen wir das hier; und umgekehrt.
   useEffect(() => {
     document.documentElement.classList.toggle('dark', darkMode);
   }, [darkMode]);
+  useEffect(() => {
+    const observer = new MutationObserver(() => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setDarkMode(prev => (prev === isDark ? prev : isDark));
+    });
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
+    return () => observer.disconnect();
+  }, [setDarkMode]);
 
   // PWA Install Prompt abfangen
   useEffect(() => {
