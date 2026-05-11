@@ -164,7 +164,7 @@ export default function PhilosophyPage() {
       data-scroll
       ref={setScrollRef}
       style={{
-        position: "fixed", top: 44, right: 0, bottom: 0, left: 0, overflowY: "auto",
+        position: "fixed", top: 48, right: 0, bottom: 0, left: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
         WebkitOverflowScrolling: "touch",
         paddingTop: "env(safe-area-inset-top, 0px)",

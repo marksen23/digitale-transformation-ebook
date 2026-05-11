@@ -15,9 +15,9 @@
 import { Link, useLocation } from "wouter";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { toggleGlobalTheme } from "@/lib/globalTheme";
-import { C_DARK, C_LIGHT, MONO, RADIUS } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT } from "@/lib/theme";
 
-const FRAME_HEIGHT = 44;
+const FRAME_HEIGHT = 48;
 
 interface NavItem { href: string; label: string; match: RegExp }
 
@@ -38,31 +38,49 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         style={{
           position: "fixed", top: 0, left: 0, right: 0, zIndex: 300,
           height: FRAME_HEIGHT,
-          display: "flex", alignItems: "center", gap: "0.4rem",
-          padding: "0 0.8rem",
-          background: isDark ? "rgba(12,10,9,0.92)" : "rgba(250,250,249,0.92)",
-          backdropFilter: "blur(12px)",
-          WebkitBackdropFilter: "blur(12px)",
+          display: "flex", alignItems: "center", gap: "0.5rem",
+          padding: "0 1rem",
+          background: isDark ? "rgba(12,10,9,0.94)" : "rgba(250,250,249,0.94)",
+          backdropFilter: "blur(14px) saturate(140%)",
+          WebkitBackdropFilter: "blur(14px) saturate(140%)",
+          // Doppel-Bordüre wie ein klassischer Buch-Kapitelkopf:
+          // hairline + 1px-Hauptlinie. boxShadow-Trick statt zwei
+          // border-Lines, weil border bei position:fixed wackeln kann.
           borderBottom: `1px solid ${C.border}`,
+          boxShadow: `0 1px 0 ${isDark ? "rgba(245,158,11,0.08)" : "rgba(180,83,9,0.08)"}, 0 2px 4px rgba(0,0,0,0.04)`,
           paddingTop: "env(safe-area-inset-top, 0px)",
         }}
       >
-        {/* Logo-Mark — verlinkt zur Hauptseite */}
+        {/* Logo-Mark — Initial-Glyphe (Inkunabel-Geste) + gesperrter Werktitel.
+            Das ❦ ersetzt den ◐, weil es als Aldus-Fleuron klassisch verankert ist
+            und die typografische Tonart vorgibt. */}
         <Link
           href="/"
           aria-label="Zur Werk-Hauptseite"
           style={{
-            fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.22em",
+            display: "flex", alignItems: "baseline", gap: "0.45rem",
+            fontFamily: MONO, fontSize: "0.6rem",
+            letterSpacing: TRACKED.classic,
             color: C.accent, textTransform: "uppercase",
             textDecoration: "none", flexShrink: 0,
-            padding: "0.3rem 0.5rem", borderRadius: RADIUS.button,
+            padding: "0.35rem 0.55rem", borderRadius: RADIUS.button,
+            transition: "color 0.15s",
           }}
         >
-          ◐ Resonanzvernunft
+          <span style={{ fontSize: "0.95rem", lineHeight: 1, transform: "translateY(0.04em)", display: "inline-block" }}>
+            {ORNAMENT.leaf}
+          </span>
+          <span>Resonanzvernunft</span>
         </Link>
 
+        {/* Vertikaler Hairline-Trenner zwischen Marke und Menü — klassische
+            Spalten-Disziplin. */}
+        <span aria-hidden="true" style={{
+          width: 1, height: 22, background: C.border, opacity: 0.7, flexShrink: 0,
+        }} />
+
         {/* Menüleiste */}
-        <nav style={{ display: "flex", gap: "0.15rem", marginLeft: "0.4rem", overflowX: "auto" }}>
+        <nav style={{ display: "flex", gap: "0.2rem", overflowX: "auto" }}>
           {NAV.map(item => {
             const active = item.match.test(location);
             return (
@@ -70,15 +88,20 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                 key={item.href}
                 href={item.href}
                 style={{
-                  fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.14em",
+                  position: "relative",
+                  fontFamily: MONO, fontSize: "0.58rem",
+                  letterSpacing: TRACKED.tight,
                   textTransform: "uppercase",
-                  color: active ? "#080808" : C.text,
-                  background: active ? C.accent : "transparent",
-                  padding: "0.35rem 0.7rem",
-                  borderRadius: RADIUS.button,
+                  color: active ? C.accent : C.text,
+                  background: "transparent",
+                  padding: "0.4rem 0.7rem 0.3rem",
                   textDecoration: "none",
                   whiteSpace: "nowrap",
-                  transition: "background 0.15s, color 0.15s",
+                  transition: "color 0.15s, border-color 0.15s",
+                  // Subtile aktive Unterstreichung statt Hintergrundfüllung
+                  // — typografische Aktiv-Markierung im Buchsatz-Geist.
+                  borderBottom: active ? `1.5px solid ${C.accent}` : "1.5px solid transparent",
+                  borderRadius: 0,
                 }}
               >
                 {item.label}

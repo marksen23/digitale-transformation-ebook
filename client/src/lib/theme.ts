@@ -91,3 +91,50 @@ export const SHADOW = {
   panel: "0 2px 6px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.05)",
   hover: "0 2px 8px rgba(0,0,0,0.08), 0 6px 16px rgba(0,0,0,0.06)",
 } as const;
+
+/**
+ * Klassische Setzer-Vokabeln — die Sprache, in der die alten Traditionen
+ * gedruckt wurden, übergeführt in die digitale Oberfläche. Nicht als
+ * nostalgische Verzierung, sondern als typografische Wahrhaftigkeit:
+ * Kapitälchen-Sperrung, Fleuron-Trenner, Inkunabel-Initialen.
+ *
+ * Verwendung in AppFrame, Detail-Panels, Section-Trennungen.
+ */
+
+/** Sperrung für Versalien — "S P I N O Z A" statt "SPINOZA". */
+export const TRACKED = {
+  /** 0.18em — App-Header, Section-Labels (z.B. "DAS WERK") */
+  tight: "0.18em",
+  /** 0.28em — Caption-Labels, MONO-Mini-Bezeichnungen */
+  open: "0.28em",
+  /** 0.45em — sehr offene Klassik-Sperrung für H1-Versalien */
+  classic: "0.45em",
+} as const;
+
+/** Fleuron-Glyphen für ornamentale Trennungen. Aus Unicode-Repertoire,
+ *  keine externen Fonts nötig — funktioniert in jedem Sans/Serif-Fallback. */
+export const ORNAMENT = {
+  /** ❦ — Aldus leaf, das klassische Buch-Fleuron */
+  leaf: "❦",
+  /** ❧ — gewendetes Aldus-Blatt, für invertierte Trenner */
+  leafReversed: "❧",
+  /** ⁂ — Asterism, drei sterne als Sektions-Bruch */
+  asterism: "⁂",
+  /** ◈ — Romboid, modernerer Akzent in klassischem Rhythmus */
+  rhombus: "◈",
+  /** · — Middle dot, dezenter inline-Trenner */
+  middot: "·",
+} as const;
+
+/**
+ * Pergament-warme Hintergrund-Variante für klassisch-buchhafte Sektionen
+ * (z.B. Buch-Sicht in Philosophie, Detail-Panels mit Originalzitat).
+ * Niemals als App-default — nur dort, wo der Buchcharakter den
+ * Vordergrund tragen soll.
+ */
+export const PAPER = {
+  warmLight: "#f7f1e3",  // alter Pergament-Ton, hell
+  warmDark:  "#1a1612",  // gegraute Vellum-Variante, dunkel
+  inkLight:  "#3a3530",  // dunkle Tinte auf hellem Papier
+  inkDark:   "#c8c2b4",  // helle Tinte auf dunklem Vellum
+} as const;

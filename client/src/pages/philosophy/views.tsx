@@ -27,8 +27,9 @@ import {
   yearToY, pointOnCubicBezier, seededRng,
   type Palette,
 } from "./shared";
-import { SERIF_BODY } from "@/lib/theme";
+import { SERIF_BODY, TRACKED, ORNAMENT } from "@/lib/theme";
 import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
+import Ornament, { DropCap } from "@/components/Ornament";
 
 export function ToolbarBtn({ active, label, onClick, c }: { active: boolean; label: string; onClick: () => void; c: Palette }) {
   return (
@@ -550,53 +551,65 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
   const lifespan = `${philosopher.born}${philosopher.died ? `–${philosopher.died}` : "*"}`;
   const isOnPath = PFAD_SET.has(philosopher.id);
 
+  // Erste Buchstabe des resonanzNote für DropCap — der Rest fließt
+  // klassisch um die Initial herum. Nur greifen wenn Text > 60 Zeichen,
+  // sonst wirkt es überdimensioniert.
+  const useDropCap = philosopher.resonanzNote.length > 60;
+  const firstChar = useDropCap ? philosopher.resonanzNote.charAt(0) : "";
+  const restText = useDropCap ? philosopher.resonanzNote.slice(1) : philosopher.resonanzNote;
+
   return (
-    <article style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "1.2rem 1.3rem" }}>
+    <article style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "1.4rem 1.5rem", borderRadius: 8 }}>
       <header style={{ marginBottom: "1.1rem" }}>
-        <div style={{ display: "flex", gap: "0.5rem", alignItems: "baseline", flexWrap: "wrap", marginBottom: "0.4rem" }}>
-          <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: tradColor }}>
+        <div style={{ display: "flex", gap: "0.5rem", alignItems: "baseline", flexWrap: "wrap", marginBottom: "0.55rem" }}>
+          <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: tradColor }}>
             {tradition?.name}
           </span>
-          <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted }}>
-            · {POSITION_LABEL[philosopher.position]}
+          <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: TRACKED.tight }}>
+            {ORNAMENT.middot} {POSITION_LABEL[philosopher.position]}
           </span>
           {isOnPath && (
-            <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.accent, letterSpacing: "0.1em" }}>
-              · auf dem Resonanzvernunft-Pfad
+            <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.accent, letterSpacing: TRACKED.open }}>
+              {ORNAMENT.middot} auf dem Resonanzvernunft-Pfad
             </span>
           )}
         </div>
-        <h2 style={{ fontFamily: SERIF, fontSize: "1.6rem", fontStyle: "italic", color: c.textBright, margin: 0, fontWeight: 400 }}>
+        <h2 style={{ fontFamily: SERIF_BODY, fontSize: "1.7rem", fontStyle: "italic", color: c.textBright, margin: 0, fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
           {philosopher.name}
         </h2>
-        <div style={{ fontFamily: MONO, fontSize: "0.7rem", color: c.muted, marginTop: "0.2rem" }}>
+        <div style={{ fontFamily: MONO, fontSize: "0.68rem", color: c.muted, marginTop: "0.3rem", letterSpacing: TRACKED.tight }}>
           {lifespan}
         </div>
       </header>
 
-      <div style={{ marginBottom: "1.2rem", padding: "0.8rem 1rem", background: c.deep, border: `1px solid ${c.border}`, borderLeft: `3px solid ${tradColor}` }}>
-        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
+      <Ornament variant="rule" c={c} margin="0 0 1.2rem" />
+
+      <div style={{ marginBottom: "1.2rem", padding: "0.9rem 1.1rem", background: c.deep, borderLeft: `3px solid ${tradColor}`, borderRadius: "0 6px 6px 0" }}>
+        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
           Bezug zu Resonanzvernunft
         </div>
-        <p style={{ fontFamily: SERIF_BODY, fontSize: "0.95rem", color: c.text, lineHeight: 1.6, margin: 0, fontStyle: "italic" }}>
-          {philosopher.resonanzNote}
+        <p style={{ fontFamily: SERIF_BODY, fontSize: "0.98rem", color: c.text, lineHeight: 1.65, margin: 0, fontStyle: "italic" }}>
+          {useDropCap && <DropCap c={c}>{firstChar}</DropCap>}
+          {restText}
         </p>
       </div>
 
-      <div style={{ marginBottom: "1.1rem" }}>
-        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
-          Hauptwerke ({philosopher.keyWorks.length})
+      <Ornament variant="asterism" c={c} margin="0.4rem 0 1rem" />
+
+      <div style={{ marginBottom: "1.2rem" }}>
+        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: c.muted, marginBottom: "0.6rem" }}>
+          Hauptwerke <span style={{ color: c.accent }}>{philosopher.keyWorks.length}</span>
         </div>
-        <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+        <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           {[...philosopher.keyWorks].sort((a, b) => a.year - b.year).map((w, i) => (
-            <li key={i} style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "0.6rem", alignItems: "baseline" }}>
+            <li key={i} style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "0.7rem", alignItems: "baseline" }}>
               <span style={{
                 fontFamily: MONO, fontSize: "0.55rem", color: c.muted,
-                background: c.deep, border: `1px solid ${c.border}`,
-                padding: "0.1rem 0.4rem", borderRadius: 2,
-                minWidth: 38, textAlign: "center", letterSpacing: "0.05em",
+                background: "transparent", border: `1px solid ${c.border}`,
+                padding: "0.12rem 0.45rem", borderRadius: 3,
+                minWidth: 42, textAlign: "center", letterSpacing: TRACKED.tight,
               }}>{w.year}</span>
-              <span style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", color: c.text, lineHeight: 1.4, fontStyle: "italic" }}>
+              <span style={{ fontFamily: SERIF_BODY, fontSize: "0.94rem", color: c.text, lineHeight: 1.45, fontStyle: "italic" }}>
                 {w.title}
               </span>
             </li>
