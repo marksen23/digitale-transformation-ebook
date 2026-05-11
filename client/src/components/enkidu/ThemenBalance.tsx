@@ -13,7 +13,7 @@ const C = {
   accent: "#f59e0b",
   accentDim: "#b45309",
   mono: "'Courier Prime', 'Courier New', monospace",
-  serif: "'EB Garamond', Georgia, serif",
+  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
 } as const;
 
 export default function ThemenBalance({ data }: ThemenBalanceProps) {

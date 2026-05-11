@@ -24,7 +24,7 @@ const C_DARK = {
   textBright: "#e8e2d4",
   accent: "#f59e0b",
   accentDim: "#b45309",
-  serif: "'EB Garamond', Georgia, serif",
+  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
   mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
 
@@ -40,7 +40,7 @@ const C_LIGHT: CPalette = {
   textBright: "#1c1917",
   accent: "#f59e0b",
   accentDim: "#b45309",
-  serif: "'EB Garamond', Georgia, serif",
+  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
   mono: "'Courier Prime', 'Courier New', monospace",
 };
 

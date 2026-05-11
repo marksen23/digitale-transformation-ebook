@@ -59,21 +59,21 @@ function deleteConversation(id: string) {
   localStorage.setItem(LS_KEY, JSON.stringify(all));
 }
 
-// ─── Styles ───────────────────────────────────────────────────────
+// ─── Styles — zentrale Palette + Fonts aus lib/theme ───────────────
+import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT } from "@/lib/theme";
+
 const C_DARK = {
-  void: "#080808", deep: "#0f0f0f", surface: "#161616", border: "#2a2a2a",
-  muted: "#444", textDim: "#888", text: "#c8c2b4", textBright: "#e8e2d4",
-  accent: "#f59e0b", accentDim: "#b45309", danger: "#8b3a3a",
-  serif: "'EB Garamond', Georgia, serif",
-  mono: "'Courier Prime', 'Courier New', monospace",
+  ...THEME_DARK,
+  danger: "#8b3a3a",
+  serif: SERIF,
+  mono:  MONO,
 } as const;
 
 const C_LIGHT: { readonly [K in keyof typeof C_DARK]: string } = {
-  void: "#fafaf9", deep: "#f0ece4", surface: "#ffffff", border: "#d8d2c8",
-  muted: "#a8a29e", textDim: "#78716c", text: "#3a3530", textBright: "#1c1917",
-  accent: "#f59e0b", accentDim: "#b45309", danger: "#8b3a3a",
-  serif: "'EB Garamond', Georgia, serif",
-  mono: "'Courier Prime', 'Courier New', monospace",
+  ...THEME_LIGHT,
+  danger: "#8b3a3a",
+  serif: SERIF,
+  mono:  MONO,
 };
 
 // Modul-Level Helfer/Komponenten nutzen die theme-unabhängigen Felder von C_DARK

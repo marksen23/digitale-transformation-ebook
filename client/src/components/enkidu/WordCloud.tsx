@@ -139,7 +139,7 @@ export default function WordCloud({ keywords, width = 540, height = 280, onWordC
           textAnchor="middle"
           fontSize={pw.fontSize}
           fill={pw.color}
-          fontFamily="'EB Garamond', Georgia, serif"
+          fontFamily="'Lora', Georgia, serif"
           style={{
             userSelect: "none",
             transition: "opacity 0.2s",

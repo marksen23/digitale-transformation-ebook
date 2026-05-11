@@ -17,7 +17,7 @@ const C = {
   text: "#c8c2b4",
   accent: "#f59e0b",
   accentDim: "#b45309",
-  serif: "'EB Garamond', Georgia, serif",
+  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
   mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
 
