@@ -7,6 +7,7 @@ import {
   PanelLeftClose, PanelLeft, Mic, MicOff,
   SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine, CheckCircle2,
   Maximize2, Minimize2, ChevronRight, SlidersHorizontal,
+  Compass, BookMarked,
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
@@ -1451,6 +1452,22 @@ export default function Home() {
                     <Network size={16} className="text-amber-500 flex-none" />
                     Begriffsnetz
                   </button>
+                  <a
+                    href="/resonanzen"
+                    onClick={() => setBurgerMenuOpen(false)}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors no-underline ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <BookMarked size={16} className="text-amber-500 flex-none" />
+                    Kollektives Wissen
+                  </a>
+                  <a
+                    href="/philosophie"
+                    onClick={() => setBurgerMenuOpen(false)}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors no-underline ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  >
+                    <Compass size={16} className="text-amber-500 flex-none" />
+                    Philosophische Karte
+                  </a>
                 </div>
               </motion.div>
             )}

@@ -104,6 +104,26 @@ export default function PhilosophyPage() {
     return () => window.removeEventListener("keydown", handler);
   }, [pathPlaying]);
 
+  // Tasten 1-7 schalten die Sichten — nur wenn kein Input-Element fokussiert ist.
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      // Tippt jemand in ein Suchfeld? Dann keine Shortcuts.
+      const target = e.target as HTMLElement | null;
+      if (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable)) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const map: Record<string, ViewMode> = {
+        "1": "timeline", "2": "network", "3": "constellation", "4": "spotlight",
+        "5": "book", "6": "roots", "7": "river",
+      };
+      if (map[e.key]) {
+        setViewMode(map[e.key]);
+        setPathPlaying(false);
+      }
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
+
   function togglePathPlay() {
     if (pathPlaying) {
       setPathPlaying(false);
