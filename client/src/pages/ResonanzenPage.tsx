@@ -271,18 +271,18 @@ export default function ResonanzenPage() {
         paddingRight: "env(safe-area-inset-right, 0px)",
       }}
     >
-      {/* Header */}
-      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "1.5rem 1rem", maxWidth: 960, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem" }}>
-          <h1 style={{ fontFamily: SERIF, fontSize: "1.8rem", fontStyle: "italic", color: C.textBright, margin: 0, fontWeight: 400 }}>
+      {/* Header — kompakt, App-Frame-Style */}
+      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: 960, margin: "0 auto" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
+          <h1 style={{ fontFamily: SERIF, fontSize: "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
             Kollektives Wissen
           </h1>
-          <div style={{ display: "flex", gap: "0.6rem", flexWrap: "wrap", alignItems: "baseline" }}>
-            <Link href="/philosophie" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Philosophische Karte</Link>
-            <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
+          <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap", alignItems: "center" }}>
+            <Link href="/philosophie" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Philosophische Karte</Link>
+            <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>← Zum Werk</Link>
           </div>
         </div>
-        <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textDim, margin: 0, lineHeight: 1.5 }}>
+        <p style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.textDim, margin: "0.3rem 0 0", lineHeight: 1.4 }}>
           {index ? `${index.count} Begegnungen aus dem kollektiven Wissen — was die Leserschaft fragt, was sich darin sammelt.` : "lädt …"}
         </p>
         {/* Reading-Mode-Toggle: phänomenologisch-responsive Verdichtung.

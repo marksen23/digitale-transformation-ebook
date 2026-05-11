@@ -78,19 +78,19 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "1.5rem 1rem 0", maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.8rem", gap: "1rem", flexWrap: "wrap" }}>
-          <h1 style={{ fontFamily: SERIF, fontSize: "1.6rem", fontStyle: "italic", color: C.textBright, margin: 0, fontWeight: 400 }}>
+      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem 0", maxWidth: 1200, margin: "0 auto" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "0.6rem", gap: "1rem", flexWrap: "wrap" }}>
+          <h1 style={{ fontFamily: SERIF, fontSize: "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
             Admin
           </h1>
-          <div style={{ display: "flex", gap: "0.6rem", alignItems: "baseline", flexWrap: "wrap" }}>
-            <Link href="/philosophie" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Philosophie</Link>
-            <Link href="/resonanzen" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>Kollektives Wissen</Link>
-            <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
+          <div style={{ display: "flex", gap: "0.8rem", alignItems: "center", flexWrap: "wrap" }}>
+            <Link href="/philosophie" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Philosophie</Link>
+            <Link href="/resonanzen" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Wissen</Link>
+            <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>← Werk</Link>
             <button
               onClick={resetToken}
               title="Token zurücksetzen"
-              style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.3rem 0.6rem", cursor: "pointer" }}
+              style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.35rem 0.7rem", cursor: "pointer" }}
             >Logout</button>
           </div>
         </div>

@@ -171,22 +171,22 @@ export default function PhilosophyPage() {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      {/* ─── Header ─── */}
-      <header style={{ borderBottom: `1px solid ${C.border}`, padding: isMobile ? "0.8rem 0.8rem 0.6rem" : "1.5rem 1rem", maxWidth: 1400, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "1rem", flexWrap: "wrap" }}>
+      {/* ─── Header — kompakt, App-Frame-Style ─── */}
+      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: 1400, margin: "0 auto" }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
           <div>
-            <h1 style={{ fontFamily: SERIF, fontSize: isMobile ? "1.3rem" : "1.8rem", fontStyle: "italic", color: C.textBright, margin: 0, fontWeight: 400 }}>
+            <h1 style={{ fontFamily: SERIF, fontSize: isMobile ? "1.15rem" : "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
               Philosophische Karte
             </h1>
             {!isMobile && (
-              <p style={{ fontStyle: "italic", fontSize: "0.9rem", color: C.textDim, margin: "0.3rem 0 0 0" }}>
+              <p style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.textDim, margin: "0.2rem 0 0 0", lineHeight: 1.4 }}>
                 Resonanzvernunft im Geflecht ihrer Vorgänger, Zeitgenossen und wissenschaftlichen Anschlüsse.
               </p>
             )}
           </div>
-          <div style={{ display: "flex", gap: "0.6rem", alignItems: "baseline", flexWrap: "wrap" }}>
-            <Link href="/" style={navLinkStyle(C)}>← Zum Werk</Link>
+          <div style={{ display: "flex", gap: "0.8rem", alignItems: "center", flexWrap: "wrap" }}>
             <Link href="/resonanzen" style={navLinkStyle(C)}>Wissen</Link>
+            <Link href="/" style={navLinkStyle(C)}>← Zum Werk</Link>
           </div>
         </div>
 
