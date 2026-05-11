@@ -81,6 +81,7 @@ const C_LIGHT: { readonly [K in keyof typeof C_DARK]: string } = {
 function btn(overrides: React.CSSProperties = {}): React.CSSProperties {
   return {
     fontFamily: C_DARK.mono, border: "none", cursor: "pointer",
+    borderRadius: 6,
     transition: "all 0.2s", ...overrides,
   };
 }

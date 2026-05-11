@@ -6,6 +6,7 @@ import { Route, Switch } from "wouter";
 import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
+import AppFrame from "./components/AppFrame";
 
 // Resonanzen-Seite lazy laden — eigener Bundle-Chunk, FAQ-spezifisch.
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
@@ -15,41 +16,31 @@ const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
 const AdminHealthPage = lazy(() => import("./pages/admin/AdminHealthPage"));
 
+// Wrapper: Sub-Pages laufen alle unter dem globalen AppFrame.
+// Home (/) bleibt aussen vor — seine eigene Reading-UI bestimmt das Frame.
+function Framed({ children }: { children: React.ReactNode }) {
+  return <AppFrame>{children}</AppFrame>;
+}
+
 function Router() {
   const fallback = <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Georgia, serif", fontStyle: "italic", color: "#888" }}>lädt …</div>;
   return (
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/resonanzen"}>
-        <Suspense fallback={fallback}>
-          <ResonanzenPage />
-        </Suspense>
+        <Framed><Suspense fallback={fallback}><ResonanzenPage /></Suspense></Framed>
       </Route>
       <Route path={"/philosophie"}>
-        <Suspense fallback={fallback}>
-          <PhilosophyPage />
-        </Suspense>
+        <Framed><Suspense fallback={fallback}><PhilosophyPage /></Suspense></Framed>
       </Route>
       <Route path={"/admin/metrics"}>
-        <Suspense fallback={fallback}>
-          <AdminLayout>
-            <AdminMetricsPage />
-          </AdminLayout>
-        </Suspense>
+        <Framed><Suspense fallback={fallback}><AdminLayout><AdminMetricsPage /></AdminLayout></Suspense></Framed>
       </Route>
       <Route path={"/admin/health"}>
-        <Suspense fallback={fallback}>
-          <AdminLayout>
-            <AdminHealthPage />
-          </AdminLayout>
-        </Suspense>
+        <Framed><Suspense fallback={fallback}><AdminLayout><AdminHealthPage /></AdminLayout></Suspense></Framed>
       </Route>
       <Route path={"/admin"}>
-        <Suspense fallback={fallback}>
-          <AdminLayout>
-            <AdminCurationPage />
-          </AdminLayout>
-        </Suspense>
+        <Framed><Suspense fallback={fallback}><AdminLayout><AdminCurationPage /></AdminLayout></Suspense></Framed>
       </Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
