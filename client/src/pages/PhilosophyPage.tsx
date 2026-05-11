@@ -49,7 +49,7 @@ const TIMELINE_FROM = 1620;
 const TIMELINE_TO = 2030;
 const PFAD_SET = new Set(RESONANZVERNUNFT_PFAD);
 
-type ViewMode = "timeline" | "network" | "constellation";
+type ViewMode = "timeline" | "network" | "constellation" | "spotlight";
 
 function yearToY(year: number): number {
   return ((year - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * 100;
@@ -201,6 +201,7 @@ export default function PhilosophyPage() {
             <ToolbarBtn active={viewMode === "timeline"} label="Strahl" onClick={() => setViewMode("timeline")} c={C} />
             <ToolbarBtn active={viewMode === "network"} label="Netz" onClick={() => setViewMode("network")} c={C} />
             <ToolbarBtn active={viewMode === "constellation"} label="Sternbild" onClick={() => setViewMode("constellation")} c={C} />
+            <ToolbarBtn active={viewMode === "spotlight"} label="Spotlight" onClick={() => setViewMode("spotlight")} c={C} />
           </div>
 
           {/* Filter-Toggle (Mobile: kollabiert, Desktop: immer offen) */}
@@ -376,7 +377,7 @@ export default function PhilosophyPage() {
               showPath={showPath}
               c={C}
             />
-          ) : (
+          ) : viewMode === "constellation" ? (
             <ConstellationView
               philosophers={visible}
               allPhilosophers={sorted}
@@ -386,6 +387,16 @@ export default function PhilosophyPage() {
               c={C}
               pathPlaying={pathPlaying}
               pathStep={pathStep}
+            />
+          ) : (
+            <SpotlightView
+              philosophers={visible}
+              allPhilosophers={sorted}
+              selectedId={selectedId}
+              onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
+              showPath={showPath}
+              c={C}
+              isMobile={isMobile}
             />
           )}
         </section>
@@ -1431,6 +1442,218 @@ function ConstellationView({ philosophers, allPhilosophers, selectedId, onSelect
           ── rezipiert · ┄┄ kritisiert
         </div>
       )}
+    </div>
+  );
+}
+
+
+// ─── Spotlight-View ────────────────────────────────────────────────────────
+// Themenleiste unten, Philosophen schweben darüber. Hover/Tap auf einen
+// Philosophen sendet einen Lichtstrahl nach unten und beleuchtet die
+// Themen, mit denen er verbunden ist (concepts-Feld).
+
+function SpotlightView({ philosophers, allPhilosophers, selectedId, onSelect, showPath, c, isMobile }: {
+  philosophers: Philosopher[];
+  allPhilosophers: Philosopher[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  showPath: boolean;
+  c: Palette;
+  isMobile: boolean;
+}) {
+  const W = 1000, H = 600;
+  const BAR_HEIGHT = 90;
+  const BAR_Y = H - BAR_HEIGHT;
+  const TOP_PAD = 40, BOTTOM_PAD = 10;
+  const visibleIds = new Set(philosophers.map(p => p.id));
+
+  const [hoverId, setHoverId] = useState<string | null>(null);
+  const spotlightId = isMobile ? selectedId : (hoverId ?? selectedId);
+  const spotlightPhil = spotlightId ? allPhilosophers.find(p => p.id === spotlightId) : null;
+  const spotlightConcepts = new Set(spotlightPhil?.concepts ?? []);
+
+  // Konzept-Universum aus allen concepts-Tags, häufigste zuerst
+  const conceptList = useMemo(() => {
+    const counts: Record<string, number> = {};
+    for (const p of allPhilosophers) {
+      for (const concept of p.concepts ?? []) {
+        counts[concept] = (counts[concept] ?? 0) + 1;
+      }
+    }
+    return Object.entries(counts)
+      .sort((a, b) => b[1] - a[1])
+      .map(([id, count]) => ({ id, count }));
+  }, [allPhilosophers]);
+
+  const conceptX = useMemo(() => {
+    const map = new Map<string, number>();
+    const n = conceptList.length;
+    const padding = 30;
+    const usable = W - 2 * padding;
+    conceptList.forEach((cn, i) => {
+      const x = padding + ((i + 0.5) / n) * usable;
+      map.set(cn.id, x);
+    });
+    return map;
+  }, [conceptList]);
+
+  const philosopherPos = useMemo(() => {
+    const map = new Map<string, { x: number; y: number }>();
+    const usableY = BAR_Y - TOP_PAD - BOTTOM_PAD;
+    for (const p of allPhilosophers) {
+      const xs = (p.concepts ?? []).map(cn => conceptX.get(cn)).filter((x): x is number => x !== undefined);
+      const x = xs.length > 0 ? xs.reduce((s, v) => s + v, 0) / xs.length : W / 2;
+      const y = TOP_PAD + ((p.born - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * usableY;
+      map.set(p.id, { x, y });
+    }
+    return map;
+  }, [allPhilosophers, conceptX]);
+
+  // Vermeide y-Überlappung durch x-Jitter
+  const adjustedPos = useMemo(() => {
+    const arr = Array.from(philosopherPos.entries()).map(([id, p]) => ({ id, ...p }));
+    arr.sort((a, b) => a.y - b.y);
+    for (let i = 1; i < arr.length; i++) {
+      if (arr[i].y - arr[i - 1].y < 22) {
+        const offset = ((i % 2 === 0) ? 1 : -1) * 30;
+        arr[i] = { ...arr[i], x: Math.min(W - 30, Math.max(30, arr[i].x + offset)) };
+      }
+    }
+    const result = new Map<string, { x: number; y: number }>();
+    arr.forEach(p => result.set(p.id, { x: p.x, y: p.y }));
+    return result;
+  }, [philosopherPos]);
+
+  return (
+    <div style={{
+      position: "relative",
+      height: "100%", minHeight: 600,
+      background: "linear-gradient(to bottom, #050810 0%, #0a0d18 70%, #14182a 100%)",
+      border: `1px solid ${c.border}`,
+      overflow: "hidden",
+    }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: "100%", height: "100%", display: "block" }}
+      >
+        <defs>
+          <filter id="spot-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="3" result="blur" />
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <filter id="spot-strong-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="6" result="blur" />
+            <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <linearGradient id="beam-gradient" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#c4a882" stopOpacity="0" />
+            <stop offset="20%" stopColor="#c4a882" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#c4a882" stopOpacity="0.05" />
+          </linearGradient>
+          <radialGradient id="bar-glow" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#c4a882" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#c4a882" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        <rect x={0} y={BAR_Y} width={W} height={BAR_HEIGHT} fill="rgba(20,24,40,0.6)" />
+        <line x1={0} y1={BAR_Y} x2={W} y2={BAR_Y} stroke="#2a2a2a" strokeWidth="0.5" />
+
+        {spotlightPhil && (() => {
+          const pos = adjustedPos.get(spotlightPhil.id);
+          if (!pos) return null;
+          return (
+            <g style={{ pointerEvents: "none" }}>
+              <rect x={pos.x - 30} y={pos.y} width={60} height={BAR_Y - pos.y + BAR_HEIGHT} fill="url(#beam-gradient)" />
+              <line x1={pos.x} y1={pos.y} x2={pos.x} y2={BAR_Y + BAR_HEIGHT} stroke="#c4a882" strokeWidth="0.5" opacity="0.7" />
+            </g>
+          );
+        })()}
+
+        {conceptList.map(({ id, count }) => {
+          const x = conceptX.get(id);
+          if (x === undefined) return null;
+          const isHighlighted = spotlightConcepts.has(id);
+          const fontSize = isHighlighted ? 12 : 9 + Math.min(2, count / 4);
+          const opacity = spotlightPhil ? (isHighlighted ? 1 : 0.25) : 0.7;
+          return (
+            <g key={id}>
+              {isHighlighted && (
+                <circle cx={x} cy={BAR_Y + BAR_HEIGHT / 2} r={28} fill="url(#bar-glow)" style={{ pointerEvents: "none" }} />
+              )}
+              <a href={`/resonanzen?tag=${encodeURIComponent(id)}`} target="_blank" rel="noreferrer">
+                <text
+                  x={x}
+                  y={BAR_Y + BAR_HEIGHT / 2 + fontSize / 3}
+                  textAnchor="middle"
+                  fontFamily={MONO}
+                  fontSize={fontSize}
+                  fill={isHighlighted ? "#fff" : "#c8c2b4"}
+                  opacity={opacity}
+                  fontWeight={isHighlighted ? 600 : 400}
+                  style={{ letterSpacing: "0.05em", cursor: "pointer" }}
+                >
+                  {id}
+                </text>
+              </a>
+            </g>
+          );
+        })}
+
+        {allPhilosophers.map(p => {
+          const pos = adjustedPos.get(p.id);
+          if (!pos) return null;
+          const isVisible = visibleIds.has(p.id);
+          const isSelected = selectedId === p.id;
+          const isSpotlight = spotlightId === p.id;
+          const isOnPath = showPath && PFAD_SET.has(p.id);
+          const radius = isSpotlight ? 6 : isSelected ? 5 : isOnPath ? 4.5 : 3.5;
+          const color = isSpotlight ? "#fff" : isOnPath ? "#c4a882" : "#c8c2b4";
+          const filter = isSpotlight ? "url(#spot-strong-glow)" : "url(#spot-glow)";
+          const labelOpacity = isVisible ? (spotlightPhil ? (isSpotlight ? 1 : 0.45) : 0.85) : 0.2;
+
+          return (
+            <g
+              key={p.id}
+              opacity={isVisible ? 1 : 0.2}
+              style={{ cursor: isVisible ? "pointer" : "default" }}
+              onMouseEnter={() => !isMobile && isVisible && setHoverId(p.id)}
+              onMouseLeave={() => !isMobile && setHoverId(null)}
+              onClick={() => isVisible && onSelect(p.id)}
+            >
+              <circle cx={pos.x} cy={pos.y} r={14} fill="transparent" />
+              <circle cx={pos.x} cy={pos.y} r={radius} fill={color} filter={filter} style={{ pointerEvents: "none" }} />
+              {isOnPath && !isSpotlight && (
+                <circle cx={pos.x} cy={pos.y} r={radius + 3} fill="none" stroke="#c4a882" strokeWidth="0.4" opacity="0.5" style={{ pointerEvents: "none" }} />
+              )}
+              <text
+                x={pos.x + radius + 4}
+                y={pos.y + 3}
+                fontFamily={SERIF}
+                fontSize={isSpotlight ? 12 : isOnPath ? 11 : 10}
+                fill={color}
+                fontStyle="italic"
+                fontWeight={isOnPath || isSpotlight ? 500 : 400}
+                opacity={labelOpacity}
+                style={{ pointerEvents: "none", userSelect: "none" }}
+              >
+                {p.name.split(" ").slice(-1)[0]}
+              </text>
+              <title>{p.name} ({p.born}{p.died ? `–${p.died}` : "*"})</title>
+            </g>
+          );
+        })}
+      </svg>
+
+      <div style={{
+        position: "absolute", top: "0.6rem", left: "0.6rem",
+        fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", color: "#888",
+        background: "rgba(0,0,0,0.4)", padding: "0.3rem 0.5rem",
+        border: `1px solid #2a2a2a`,
+      }}>
+        {isMobile ? "Tippe einen Denker" : "Bewege die Maus über einen Denker"} · der Strahl beleuchtet seine Themen
+      </div>
     </div>
   );
 }
