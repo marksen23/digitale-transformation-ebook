@@ -6,7 +6,7 @@
  * content/resonanzen/raw/**\/*.md). Wortwolke aggregiert die User-Anfragen
  * (prompt-Feld) — was die Leserschaft *fragt*, nicht was die KI antwortet.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "wouter";
 import WordCloud from "@/components/enkidu/WordCloud";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
@@ -58,6 +58,21 @@ export default function ResonanzenPage() {
       || initParams.get("status") === "kuratiert"
       || !!initParams.get("tag");
   });
+
+  // Such-Input-Ref für '/'-Tastenkürzel
+  const searchInputRef = useRef<HTMLInputElement | null>(null);
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      // '/' fokussiert die Suche; ignorieren wenn schon ein Input fokussiert
+      const target = e.target as HTMLElement | null;
+      if (e.key !== "/" || (target && (target.tagName === "INPUT" || target.tagName === "TEXTAREA" || target.isContentEditable))) return;
+      e.preventDefault();
+      searchInputRef.current?.focus();
+      searchInputRef.current?.select();
+    };
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
+  }, []);
 
   // Such-Historie: letzte 5 erfolgreiche Suchen im localStorage
   const [searchHistory, setSearchHistory] = useState<string[]>(() => {
@@ -277,6 +292,33 @@ export default function ResonanzenPage() {
   // Bei jeder neuen Suche Limit zurücksetzen
   useEffect(() => { setResultsLimit(20); }, [search, filterEndpoint, filterStatus, filterTag, semanticMode]);
 
+  // Endpoint-Facets: pro Endpoint zählen, wieviele Treffer es OHNE den
+  // Endpoint-Filter gäbe — damit der User entscheiden kann, wohin er
+  // seine Suche verengt. Wird im Such-Hero über der Sort-Toolbar gezeigt.
+  const endpointFacets = useMemo(() => {
+    if (!index) return [] as Array<{ endpoint: ResonanzEntry["endpoint"]; count: number }>;
+    // Wenn semantischer Modus: nutze semanticResults als Pool
+    const pool = semanticMode && semanticResults
+      ? (semanticResults.map(r => index.entries.find(e => e.id === r.id)).filter(Boolean) as ResonanzEntry[])
+      : index.entries;
+    // Apply same passes WITHOUT endpoint filter
+    const term = search.trim().toLowerCase();
+    const matched = pool.filter(e => {
+      if (filterStatus === "kuratiert" && e.status === "raw") return false;
+      if (filterTag && !e.nodeIds.includes(filterTag)) return false;
+      if (term && !semanticMode) {
+        const hay = (e.prompt + "\n" + e.response + "\n" + e.anchor).toLowerCase();
+        if (!hay.includes(term)) return false;
+      }
+      return true;
+    });
+    const counts: Record<string, number> = {};
+    for (const e of matched) counts[e.endpoint] = (counts[e.endpoint] ?? 0) + 1;
+    return (Object.entries(counts) as Array<[ResonanzEntry["endpoint"], number]>)
+      .sort((a, b) => b[1] - a[1])
+      .map(([endpoint, count]) => ({ endpoint, count }));
+  }, [index, search, filterStatus, filterTag, semanticMode, semanticResults]);
+
   // Sortierung der Ergebnisse — Default 'date' (neueste zuerst)
   type ResultSort = "date" | "relevance" | "length";
   const [resultSort, setResultSort] = useState<ResultSort>("date");
@@ -396,6 +438,7 @@ export default function ResonanzenPage() {
         >
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "stretch", flexWrap: "wrap" }}>
             <input
+              ref={searchInputRef}
               type="text"
               value={search}
               onChange={e => {
@@ -410,7 +453,7 @@ export default function ResonanzenPage() {
                   if (semanticMode) runSemanticSearch();
                 }
               }}
-              placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Suchen im kollektiven Wissen …"}
+              placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Suchen im kollektiven Wissen … (Tastenkürzel: /)"}
               style={{
                 flex: 1, minWidth: 200,
                 fontFamily: SERIF,
@@ -731,6 +774,41 @@ export default function ResonanzenPage() {
             Beginne mit einem Suchwort oben — oder wähle einen Begriff aus der
             Wortwolke darunter. Mit dem Filter rechts engst du die Suche auf
             Kategorien, Kuration oder verbundene Konzepte ein.
+          </section>
+        )}
+
+        {/* Endpoint-Facets — Verteilung der Treffer pro Kategorie.
+            Klick auf eine Facette setzt den Endpoint-Filter, Klick auf
+            den aktiven Filter hebt ihn auf. Hilft beim Verengen der Suche. */}
+        {hasActiveQuery && endpointFacets.length > 1 && (
+          <section style={{ marginBottom: "0.8rem" }}>
+            <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", marginBottom: "0.4rem" }}>
+              Verteilung nach Kategorie:
+            </div>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+              {endpointFacets.map(({ endpoint, count }) => {
+                const active = filterEndpoint === endpoint;
+                const color = ENDPOINT_COLOR[endpoint];
+                return (
+                  <button
+                    key={endpoint}
+                    onClick={() => setFilterEndpoint(active ? "all" : endpoint)}
+                    style={{
+                      fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                      color: active ? "#080808" : color,
+                      background: active ? color : "none",
+                      border: `1px solid ${color}`,
+                      padding: "0.4rem 0.7rem", cursor: "pointer", minHeight: 32,
+                      display: "inline-flex", alignItems: "center", gap: "0.4rem",
+                    }}
+                    title={active ? "Filter aufheben" : `Auf ${ENDPOINT_LABEL[endpoint]} eingrenzen`}
+                  >
+                    <span>{ENDPOINT_LABEL[endpoint]}</span>
+                    <span style={{ opacity: 0.7, fontSize: "0.5rem" }}>{count}</span>
+                  </button>
+                );
+              })}
+            </div>
           </section>
         )}
 
