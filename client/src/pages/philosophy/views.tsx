@@ -83,22 +83,42 @@ export function Timeline({ philosophers, allPhilosophers, selectedId, onSelect, 
   const visibleIds = new Set(philosophers.map(p => p.id));
   const selectedPhil = selectedId ? allPhilosophers.find(p => p.id === selectedId) : null;
 
+  // Y-Position pro Philosoph mit Kollisions-Vermeidung:
+  // Bei nah beieinander liegenden Geburtsjahren (z.B. Hegel 1770 + Schelling
+  // 1775) würden die Labels überlappen. Lösung: chronologisch sortieren,
+  // dann jeden Label um mindestens MIN_GAP% nach unten schieben, falls
+  // der Vorgänger zu nah ist. Chronologie bleibt erhalten, Lesbarkeit auch.
+  const adjustedY = useMemo(() => {
+    const MIN_GAP = 2.6;  // % der Strahl-Höhe (entspricht ~16px auf 600px)
+    const sorted = [...allPhilosophers].sort((a, b) => a.born - b.born);
+    const map = new Map<string, number>();
+    let lastY = -Infinity;
+    for (const p of sorted) {
+      const raw = yearToY(p.born);
+      const y = Math.max(raw, lastY + MIN_GAP);
+      map.set(p.id, y);
+      lastY = y;
+    }
+    return map;
+  }, [allPhilosophers]);
+  const yOf = (id: string, fallbackYear: number) => adjustedY.get(id) ?? yearToY(fallbackYear);
+
   const pathPoints = RESONANZVERNUNFT_PFAD
     .map(id => allPhilosophers.find(p => p.id === id))
     .filter((p): p is Philosopher => !!p)
-    .map(p => ({ id: p.id, y: yearToY(p.born) }));
+    .map(p => ({ id: p.id, y: yOf(p.id, p.born) }));
 
   // Connection-Linien: receives + critiques des selektierten Philosophen
   const connectionsFromSelected: Array<{ to: Philosopher; type: "receives" | "critiques"; y1: number; y2: number; }> = [];
   if (selectedPhil) {
-    const fromY = yearToY(selectedPhil.born);
+    const fromY = yOf(selectedPhil.id, selectedPhil.born);
     for (const id of selectedPhil.receives ?? []) {
       const target = allPhilosophers.find(p => p.id === id);
-      if (target) connectionsFromSelected.push({ to: target, type: "receives", y1: fromY, y2: yearToY(target.born) });
+      if (target) connectionsFromSelected.push({ to: target, type: "receives", y1: fromY, y2: yOf(target.id, target.born) });
     }
     for (const id of selectedPhil.critiques ?? []) {
       const target = allPhilosophers.find(p => p.id === id);
-      if (target) connectionsFromSelected.push({ to: target, type: "critiques", y1: fromY, y2: yearToY(target.born) });
+      if (target) connectionsFromSelected.push({ to: target, type: "critiques", y1: fromY, y2: yOf(target.id, target.born) });
     }
   }
 
@@ -198,7 +218,7 @@ export function Timeline({ philosophers, allPhilosophers, selectedId, onSelect, 
         const isConnected = selectedPhil && (
           selectedPhil.receives?.includes(p.id) || selectedPhil.critiques?.includes(p.id)
         );
-        const y = yearToY(p.born);
+        const y = yOf(p.id, p.born);
         return (
           <button
             key={p.id}
