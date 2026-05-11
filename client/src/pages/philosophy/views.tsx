@@ -1096,15 +1096,20 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
     return map;
   }, [allPhilosophers, conceptX]);
 
-  // Vermeide y-Überlappung durch x-Jitter
+  // Vermeide y-Überlappung durch y-Versatz (statt x-Jitter — der reichte
+  // bei dichten Clustern wie Habermas/Honneth/Adorno/Ricœur nicht aus).
+  // Algorithmus: nach y sortieren, jeden zu nahen Nachfolger so weit nach
+  // unten schieben, dass MIN_GAP_Y eingehalten wird. Chronologie verschiebt
+  // sich leicht, dafür sind alle Labels lesbar.
   const adjustedPos = useMemo(() => {
+    const MIN_GAP_Y = 24;
     const arr = Array.from(philosopherPos.entries()).map(([id, p]) => ({ id, ...p }));
     arr.sort((a, b) => a.y - b.y);
-    for (let i = 1; i < arr.length; i++) {
-      if (arr[i].y - arr[i - 1].y < 22) {
-        const offset = ((i % 2 === 0) ? 1 : -1) * 30;
-        arr[i] = { ...arr[i], x: Math.min(W - 30, Math.max(30, arr[i].x + offset)) };
-      }
+    let lastY = -Infinity;
+    for (let i = 0; i < arr.length; i++) {
+      const targetY = Math.max(arr[i].y, lastY + MIN_GAP_Y);
+      arr[i] = { ...arr[i], y: targetY };
+      lastY = targetY;
     }
     const result = new Map<string, { x: number; y: number }>();
     arr.forEach(p => result.set(p.id, { x: p.x, y: p.y }));
@@ -1420,9 +1425,9 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
         />
       </div>
 
-      {/* Hint */}
+      {/* Hint — unten rechts, nicht oben (überlappte sonst die Themen-Toggles) */}
       <div style={{
-        position: "absolute", top: "0.6rem", right: "0.6rem",
+        position: "absolute", bottom: "0.6rem", right: "0.6rem",
         fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", color: inkDim,
         background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.5)",
         padding: "0.3rem 0.5rem",
@@ -1821,18 +1826,28 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
     return map;
   }, []);
 
+  // Helper: pro Tradition ein eigener Source-Attach-Punkt entlang des
+  // unteren Quellrand-Bereichs — sonst clustern alle ältesten Philosophen
+  // (Spinoza/Kant/Husserl/Bergson) am einzigen Source-Punkt.
+  function sourceAttachX(trad: TraditionId): number {
+    const idx = TRADITIONS_ORDERED.findIndex(t => t.id === trad);
+    if (idx < 0) return SOURCE_X;
+    const n = TRADITIONS_ORDERED.length;
+    return SOURCE_X - 90 + (idx / Math.max(n - 1, 1)) * 180;
+  }
+
   // Stream-Paths: organische Bezier von Quelle zu Target mit zwei Wellen
   const streamPaths = useMemo(() => {
     const map = new Map<TraditionId, string>();
     streamTargets.forEach((target, trad) => {
-      // Zwei Kontrollpunkte für eine Welle: links und rechts vom Mittelpunkt
-      const midX = (SOURCE_X + target.x) / 2;
+      const fromX = sourceAttachX(trad);
+      const midX = (fromX + target.x) / 2;
       const t1y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.35;
       const t2y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.7;
       const sway = ((trad.charCodeAt(0) * 13) % 80) - 40;
-      const cp1x = SOURCE_X + sway;
+      const cp1x = fromX + sway;
       const cp2x = midX - sway / 2;
-      map.set(trad, `M ${SOURCE_X} ${SOURCE_BOTTOM} C ${cp1x} ${t1y} ${cp2x} ${t2y} ${target.x} ${target.y}`);
+      map.set(trad, `M ${fromX} ${SOURCE_BOTTOM} C ${cp1x} ${t1y} ${cp2x} ${t2y} ${target.x} ${target.y}`);
     });
     return map;
   }, [streamTargets]);
@@ -1855,18 +1870,19 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
       const target = streamTargets.get(trad.id);
       const list = byTradition.get(trad.id) ?? [];
       if (!target || list.length === 0) return;
-      const midX = (SOURCE_X + target.x) / 2;
+      const fromX = sourceAttachX(trad.id);
+      const midX = (fromX + target.x) / 2;
       const t1y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.35;
       const t2y = SOURCE_BOTTOM + (target.y - SOURCE_BOTTOM) * 0.7;
       const sway = ((trad.id.charCodeAt(0) * 13) % 80) - 40;
-      const cp1x = SOURCE_X + sway;
+      const cp1x = fromX + sway;
       const cp2x = midX - sway / 2;
       list.forEach((p, i) => {
         const tParam = list.length === 1
           ? 0.55
           : 0.2 + (i / Math.max(list.length - 1, 1)) * 0.65;
         const point = pointOnCubicBezier(
-          SOURCE_X, SOURCE_BOTTOM,
+          fromX, SOURCE_BOTTOM,
           cp1x, t1y,
           cp2x, t2y,
           target.x, target.y,
