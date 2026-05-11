@@ -28,6 +28,7 @@ import {
   type Palette,
 } from "./shared";
 import { SERIF_BODY } from "@/lib/theme";
+import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
 
 export function ToolbarBtn({ active, label, onClick, c }: { active: boolean; label: string; onClick: () => void; c: Palette }) {
   return (
@@ -320,6 +321,14 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
   const W = 800, H = 700;
   const layout = useMemo(() => networkLayout(allPhilosophers, W, H), [allPhilosophers]);
   const visibleIds = new Set(philosophers.map(p => p.id));
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 3.0 });
+
+  // Liefert die aktuelle Position eines Knotens — gedraggt > Layout-Default.
+  const getPos = (id: string) => {
+    const dragged = canvas.nodePos(id);
+    if (dragged) return dragged;
+    return layout.get(id) ?? null;
+  };
 
   // Kanten extrahieren
   const edges = useMemo(() => {
@@ -346,7 +355,12 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
       <svg
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMidYMid meet"
-        style={{ width: "100%", height: "100%", display: "block" }}
+        style={{
+          width: "100%", height: "100%", display: "block",
+          cursor: canvas.dragging ? "grabbing" : "grab",
+          touchAction: "none",
+        }}
+        {...canvas.bind}
       >
         <defs>
           {TRADITIONS_ORDERED.map(t => (
@@ -358,6 +372,11 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
             <path d="M 0 0 L 10 5 L 0 10 z" fill="#c48282" />
           </marker>
         </defs>
+
+        {/* Hintergrund-Rect — fängt Pan-Klicks auch über leeren Bereichen */}
+        <rect x={0} y={0} width={W} height={H} fill="transparent" />
+
+        <g transform={canvas.transform}>
 
         {/* Tradition-Spalten als vertikale Akzentstreifen */}
         {TRADITIONS_ORDERED.map(t => {
@@ -397,8 +416,8 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
 
         {/* Kanten — eingehende/ausgehende des selektierten gehoben, Rest gedimmt */}
         {edges.map((edge, i) => {
-          const from = layout.get(edge.fromId);
-          const to = layout.get(edge.toId);
+          const from = getPos(edge.fromId);
+          const to = getPos(edge.toId);
           if (!from || !to) return null;
 
           const isHighlighted = !selectedId
@@ -433,13 +452,21 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
 
         {/* Knoten */}
         {allPhilosophers.map(p => {
-          const pos = layout.get(p.id);
+          const pos = getPos(p.id);
           if (!pos) return null;
           const isVisible = visibleIds.has(p.id);
           const isSelected = selectedId === p.id;
           const isOnPath = showPath && PFAD_SET.has(p.id);
           const tradColor = getTradition(p.tradition)?.color ?? c.accent;
           const r = isOnPath ? 7 : isSelected ? 8 : 5;
+          const handleClick = () => {
+            if (canvas.justDragged()) return;
+            if (isVisible) onSelect(p.id);
+          };
+          const handleDragStart = (e: React.MouseEvent | React.TouchEvent) => {
+            if (!isVisible) return;
+            canvas.startNodeDrag(e, p.id, pos);
+          };
 
           return (
             <g key={p.id} opacity={isVisible ? 1 : 0.2}>
@@ -448,8 +475,19 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
                 fill={tradColor}
                 stroke={isSelected ? c.textBright : isOnPath ? c.accent : "none"}
                 strokeWidth={isSelected ? 2.5 : isOnPath ? 1.8 : 0}
-                style={{ cursor: isVisible ? "pointer" : "default" }}
-                onClick={() => isVisible && onSelect(p.id)}
+                style={{ cursor: isVisible ? (canvas.draggingNodeId === p.id ? "grabbing" : "grab") : "default" }}
+                onMouseDown={handleDragStart}
+                onTouchStart={handleDragStart}
+                onClick={handleClick}
+              />
+              {/* unsichtbarer größerer Hit-Bereich für Mobile (≥32 px Tap-Ziel) */}
+              <circle
+                cx={pos.x} cy={pos.y} r={Math.max(r + 10, 16)}
+                fill="transparent"
+                style={{ cursor: isVisible ? "grab" : "default" }}
+                onMouseDown={handleDragStart}
+                onTouchStart={handleDragStart}
+                onClick={handleClick}
               />
               <text
                 x={pos.x + r + 3}
@@ -459,14 +497,14 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
                 fill={isSelected ? c.textBright : isOnPath ? tradColor : c.text}
                 fontStyle="italic"
                 fontWeight={isOnPath || isSelected ? 500 : 400}
-                style={{ cursor: isVisible ? "pointer" : "default", userSelect: "none" }}
-                onClick={() => isVisible && onSelect(p.id)}
+                style={{ cursor: isVisible ? "pointer" : "default", userSelect: "none", pointerEvents: "none" }}
               >
                 {p.name.split(" ").slice(-1)[0]}
               </text>
             </g>
           );
         })}
+        </g>
       </svg>
 
       {/* Inline-Legende */}
@@ -476,6 +514,29 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
         background: c.deep, padding: "0.3rem 0.5rem", border: `1px solid ${c.border}`,
       }}>
         ── rezipiert · ┄┄ kritisiert
+      </div>
+
+      {/* Zoom/Reset-Controls */}
+      <div style={{
+        position: "absolute", bottom: "0.5rem", right: "0.5rem",
+        display: "flex", gap: "0.25rem",
+      }}>
+        <button
+          onClick={() => canvas.setZoom(canvas.zoom * 1.2)}
+          aria-label="Zoom in"
+          style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}
+        >+</button>
+        <button
+          onClick={() => canvas.setZoom(canvas.zoom * 0.83)}
+          aria-label="Zoom out"
+          style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}
+        >−</button>
+        <button
+          onClick={() => canvas.resetView()}
+          aria-label="Ansicht zurücksetzen"
+          title="Ansicht zurücksetzen"
+          style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, background: c.deep, border: `1px solid ${c.border}`, padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}
+        >RESET</button>
       </div>
     </div>
   );
