@@ -15,6 +15,7 @@ import {
 } from "@/lib/resonanzenIndex";
 import { callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
+import Skeleton from "@/components/Skeleton";
 import {
   Section, Stat, useAdminTheme, computeStats, MONO, SERIF, type Palette,
 } from "./adminShared";
@@ -81,7 +82,24 @@ export default function AdminCurationPage() {
   }
 
   if (!index || !stats) {
-    return <p style={{ fontStyle: "italic", color: C.textDim }}>lädt Korpus …</p>;
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <Skeleton height="1.4rem" width="55%" />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem" }}>
+          {Array.from({ length: 5 }).map((_, i) => <Skeleton key={i} height={64} />)}
+        </div>
+        <div style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
+          {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} height={36} width={90} />)}
+        </div>
+        {Array.from({ length: 4 }).map((_, i) => (
+          <div key={i} style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+            <Skeleton height="0.8rem" width="40%" subtle />
+            <Skeleton height="1.2rem" width="85%" />
+            <Skeleton height="0.7rem" lines={2} subtle />
+          </div>
+        ))}
+      </div>
+    );
   }
 
   const publishedCount = stats.byStatus["published"] ?? 0;

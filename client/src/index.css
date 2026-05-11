@@ -212,6 +212,19 @@
   cursor: not-allowed;
 }
 
+/* Skeleton-Animation — pulsierende Schein-Bewegung für Loading-Placeholder.
+   Respektiert prefers-reduced-motion. */
+@keyframes skeleton-pulse {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  [role="status"][aria-label="lädt …"] {
+    animation: none !important;
+    opacity: 0.6;
+  }
+}
+
 @layer components {
   .container {
     width: 100%;

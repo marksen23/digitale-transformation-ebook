@@ -12,6 +12,7 @@ import {
   type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
 import { analyzeClusters, type ClusterAnalysis } from "@/lib/clusterAnalysis";
+import Skeleton from "@/components/Skeleton";
 import {
   Section, Stat, MiniTagCloud, TimeSeries, computeStats, useAdminTheme, MONO, SERIF,
 } from "./adminShared";
@@ -54,7 +55,18 @@ export default function AdminMetricsPage() {
 
   const stats = useMemo(() => index ? computeStats(index.entries) : null, [index]);
 
-  if (!stats) return <p style={{ fontStyle: "italic", color: C.textDim }}>lädt Statistiken …</p>;
+  if (!stats) {
+    return (
+      <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+        <Skeleton height="1.4rem" width="60%" />
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))", gap: "0.8rem" }}>
+          {Array.from({ length: 6 }).map((_, i) => <Skeleton key={i} height={64} />)}
+        </div>
+        <Skeleton height="1rem" width="40%" subtle />
+        <Skeleton height={200} subtle />
+      </div>
+    );
+  }
 
   return (
     <>

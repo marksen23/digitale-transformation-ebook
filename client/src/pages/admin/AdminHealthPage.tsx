@@ -13,6 +13,7 @@ import {
   ENDPOINT_COLOR, ENDPOINT_LABEL,
 } from "@/lib/resonanzenIndex";
 import { detectAnchorTensions, type TensionResult } from "@/lib/widerspruchs";
+import Skeleton from "@/components/Skeleton";
 import {
   Section, Stat, useAdminTheme, MONO, SERIF,
   loadOptionalJson, type ValidationReport, type DriftReport, type HoldoutReport,
@@ -176,7 +177,7 @@ export default function AdminHealthPage() {
 
       <Section title="Korpus-Health (Validation)" c={C}>
         {!reportsLoaded ? (
-          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>lädt Reports …</p>
+          <Skeleton height={48} subtle />
         ) : validationReport ? (
           <>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.6rem" }}>
@@ -205,7 +206,7 @@ export default function AdminHealthPage() {
 
       <Section title="Hold-out-Konsistenz" c={C}>
         {!reportsLoaded ? (
-          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>lädt Reports …</p>
+          <Skeleton height={48} subtle />
         ) : !holdoutReport ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
             Kein Hold-out-Report verfügbar — Korpus zu klein (&lt;30) oder Build ohne Embeddings.
@@ -323,7 +324,7 @@ export default function AdminHealthPage() {
 
       <Section title="Drift-Status" c={C}>
         {!reportsLoaded ? (
-          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>lädt Reports …</p>
+          <Skeleton height={48} subtle />
         ) : driftReport ? (
           <>
             <div style={{ marginBottom: "0.6rem" }}>
