@@ -20,7 +20,7 @@ import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 
 type EndpointKey = ResonanzEntry["endpoint"] | "all";
 type StatusKey = "all" | "kuratiert";
@@ -655,13 +655,13 @@ export default function ResonanzenPage() {
                 {isExpanded ? (
                   <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.6rem", marginTop: "0.4rem" }}>
                     {entry.response.split(/\n\n+/).map((para, i) => (
-                      <p key={i} style={{ fontFamily: SERIF, fontSize: "0.88rem", color: C.text, lineHeight: 1.65, margin: "0 0 0.7rem" }}>
+                      <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", color: C.text, lineHeight: 1.7, margin: "0 0 0.7rem" }}>
                         {para.trim()}
                       </p>
                     ))}
                   </div>
                 ) : (
-                  <div style={{ fontFamily: SERIF, fontSize: readingMode === "surface" ? "0.74rem" : "0.78rem", color: C.textDim, lineHeight: 1.5 }}>
+                  <div style={{ fontFamily: SERIF_BODY, fontSize: readingMode === "surface" ? "0.78rem" : "0.82rem", color: C.textDim, lineHeight: 1.6 }}>
                     {(() => {
                       const excerpt = entry.response.slice(0, excerptLen).trim() + (entry.response.length > excerptLen ? "…" : "");
                       return !semanticMode && search.trim() ? highlightTerm(excerpt, search) : excerpt;

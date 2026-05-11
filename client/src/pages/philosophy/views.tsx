@@ -27,6 +27,7 @@ import {
   yearToY, pointOnCubicBezier, seededRng,
   type Palette,
 } from "./shared";
+import { SERIF_BODY } from "@/lib/theme";
 
 export function ToolbarBtn({ active, label, onClick, c }: { active: boolean; label: string; onClick: () => void; c: Palette }) {
   return (
@@ -516,7 +517,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
         <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
           Bezug zu Resonanzvernunft
         </div>
-        <p style={{ fontFamily: SERIF, fontSize: "0.92rem", color: c.text, lineHeight: 1.55, margin: 0, fontStyle: "italic" }}>
+        <p style={{ fontFamily: SERIF_BODY, fontSize: "0.95rem", color: c.text, lineHeight: 1.6, margin: 0, fontStyle: "italic" }}>
           {philosopher.resonanzNote}
         </p>
       </div>
@@ -534,7 +535,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
                 padding: "0.1rem 0.4rem", borderRadius: 2,
                 minWidth: 38, textAlign: "center", letterSpacing: "0.05em",
               }}>{w.year}</span>
-              <span style={{ fontFamily: SERIF, fontSize: "0.88rem", color: c.text, lineHeight: 1.4, fontStyle: "italic" }}>
+              <span style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", color: c.text, lineHeight: 1.4, fontStyle: "italic" }}>
                 {w.title}
               </span>
             </li>
