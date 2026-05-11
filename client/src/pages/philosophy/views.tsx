@@ -24,7 +24,7 @@ import {
 import {
   SERIF, MONO, TIMELINE_FROM, TIMELINE_TO, PFAD_SET,
   TRADITIONS_ORDERED, TRADITION_INDEX,
-  yearToY,
+  yearToY, pointOnCubicBezier, seededRng,
   type Palette,
 } from "./shared";
 
@@ -717,18 +717,6 @@ export function BottomSheet({ philosopher, expanded, onToggle, onClose, onSelect
 
 // ─── Constellation-View (Sternbild) ────────────────────────────────────────
 
-// Deterministische RNG für Stern-Streuung. Inline statt Import, da klein.
-function constellationRng(seed: number): () => number {
-  let a = seed >>> 0;
-  return () => {
-    a = (a + 0x6D2B79F5) >>> 0;
-    let t = a;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-}
-
 // Narrative Anker-Positionen für die acht Konstellationen auf 1000×700.
 // Nicht random — die Lage trägt die Geschichte: Resonanz in der Mitte unten,
 // Wissenschaft als Anschluss-Region rechts, Frühe-Vorläufer links oben.
@@ -773,7 +761,7 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
       if (!anchor) return;
       const n = list.length;
       const seed = trad.split("").reduce((s: number, ch: string) => s + ch.charCodeAt(0), 0);
-      const rng = constellationRng(seed);
+      const rng = seededRng(seed);
       list.forEach((p, i) => {
         // Verteilung: Winkel gleichmäßig + leichte Streuung, Radius variabel
         const baseAngle = (i / Math.max(n, 1)) * Math.PI * 2;
@@ -1508,19 +1496,6 @@ function rootBezier(fromX: number, fromY: number, toX: number, toY: number): str
   const cp1 = `${fromX},${midY}`;
   const cp2 = `${toX},${fromY + (toY - fromY) * 0.75}`;
   return `M ${fromX} ${fromY} C ${cp1} ${cp2} ${toX} ${toY}`;
-}
-
-function pointOnCubicBezier(
-  fromX: number, fromY: number,
-  cp1x: number, cp1y: number,
-  cp2x: number, cp2y: number,
-  toX: number, toY: number,
-  t: number,
-): { x: number; y: number } {
-  const u = 1 - t;
-  const x = u * u * u * fromX + 3 * u * u * t * cp1x + 3 * u * t * t * cp2x + t * t * t * toX;
-  const y = u * u * u * fromY + 3 * u * u * t * cp1y + 3 * u * t * t * cp2y + t * t * t * toY;
-  return { x, y };
 }
 
 export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect, showPath, c, isDark }: {
