@@ -49,7 +49,7 @@ const TIMELINE_FROM = 1620;
 const TIMELINE_TO = 2030;
 const PFAD_SET = new Set(RESONANZVERNUNFT_PFAD);
 
-type ViewMode = "timeline" | "network";
+type ViewMode = "timeline" | "network" | "constellation";
 
 function yearToY(year: number): number {
   return ((year - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * 100;
@@ -200,6 +200,7 @@ export default function PhilosophyPage() {
           <div style={{ display: "flex", gap: 0, border: `1px solid ${C.border}` }}>
             <ToolbarBtn active={viewMode === "timeline"} label="Strahl" onClick={() => setViewMode("timeline")} c={C} />
             <ToolbarBtn active={viewMode === "network"} label="Netz" onClick={() => setViewMode("network")} c={C} />
+            <ToolbarBtn active={viewMode === "constellation"} label="Sternbild" onClick={() => setViewMode("constellation")} c={C} />
           </div>
 
           {/* Filter-Toggle (Mobile: kollabiert, Desktop: immer offen) */}
@@ -366,7 +367,7 @@ export default function PhilosophyPage() {
               c={C}
               isMobile={isMobile}
             />
-          ) : (
+          ) : viewMode === "network" ? (
             <NetworkView
               philosophers={visible}
               allPhilosophers={sorted}
@@ -374,6 +375,17 @@ export default function PhilosophyPage() {
               onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
               showPath={showPath}
               c={C}
+            />
+          ) : (
+            <ConstellationView
+              philosophers={visible}
+              allPhilosophers={sorted}
+              selectedId={selectedId}
+              onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
+              showPath={showPath}
+              c={C}
+              pathPlaying={pathPlaying}
+              pathStep={pathStep}
             />
           )}
         </section>
@@ -1117,5 +1129,308 @@ function BottomSheet({ philosopher, expanded, onToggle, onClose, onSelect, c }: 
         )}
       </div>
     </>
+  );
+}
+
+// ─── Constellation-View (Sternbild) ────────────────────────────────────────
+
+// Deterministische RNG für Stern-Streuung. Inline statt Import, da klein.
+function constellationRng(seed: number): () => number {
+  let a = seed >>> 0;
+  return () => {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+// Narrative Anker-Positionen für die acht Konstellationen auf 1000×700.
+// Nicht random — die Lage trägt die Geschichte: Resonanz in der Mitte unten,
+// Wissenschaft als Anschluss-Region rechts, Frühe-Vorläufer links oben.
+const CONSTELLATION_ANCHORS: Record<TraditionId, { cx: number; cy: number; r: number }> = {
+  "vorlaeufer":         { cx: 170, cy: 130, r: 70 },
+  "idealismus":         { cx: 430, cy: 160, r: 80 },
+  "phaenomenologie":    { cx: 740, cy: 200, r: 95 },
+  "hermeneutik":        { cx: 830, cy: 410, r: 75 },
+  "frankfurter-schule": { cx: 200, cy: 530, r: 100 },
+  "lebensphilosophie":  { cx: 110, cy: 350, r: 70 },
+  "resonanz":           { cx: 500, cy: 540, r: 110 },
+  "wissenschaft":       { cx: 800, cy: 580, r: 110 },
+};
+
+function ConstellationView({ philosophers, allPhilosophers, selectedId, onSelect, showPath, c, pathPlaying, pathStep }: {
+  philosophers: Philosopher[];
+  allPhilosophers: Philosopher[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  showPath: boolean;
+  c: Palette;
+  pathPlaying: boolean;
+  pathStep: number;
+}) {
+  const W = 1000, H = 700;
+  const visibleIds = new Set(philosophers.map(p => p.id));
+
+  // Stern-Positionen berechnen: pro Tradition Anker + scattering nach
+  // Geburtsjahr (radialer Winkel) und Seed (radius).
+  const positions = useMemo(() => {
+    const map = new Map<string, { x: number; y: number; tradition: TraditionId }>();
+    // Gruppe pro Tradition + chronologisch sortieren
+    const byTrad = new Map<TraditionId, Philosopher[]>();
+    for (const p of allPhilosophers) {
+      const arr = byTrad.get(p.tradition) ?? [];
+      arr.push(p);
+      byTrad.set(p.tradition, arr);
+    }
+    byTrad.forEach((list: Philosopher[], trad: TraditionId) => {
+      list.sort((a, b) => a.born - b.born);
+      const anchor = CONSTELLATION_ANCHORS[trad];
+      if (!anchor) return;
+      const n = list.length;
+      const seed = trad.split("").reduce((s: number, ch: string) => s + ch.charCodeAt(0), 0);
+      const rng = constellationRng(seed);
+      list.forEach((p, i) => {
+        // Verteilung: Winkel gleichmäßig + leichte Streuung, Radius variabel
+        const baseAngle = (i / Math.max(n, 1)) * Math.PI * 2;
+        const jitterAngle = (rng() - 0.5) * 0.4;
+        const angle = baseAngle + jitterAngle;
+        const radiusFraction = 0.35 + rng() * 0.65;  // 35-100% des Konstellations-Radius
+        const x = anchor.cx + Math.cos(angle) * anchor.r * radiusFraction;
+        const y = anchor.cy + Math.sin(angle) * anchor.r * radiusFraction;
+        map.set(p.id, { x, y, tradition: trad });
+      });
+    });
+    return map;
+  }, [allPhilosophers]);
+
+  const selectedPhil = selectedId ? allPhilosophers.find(p => p.id === selectedId) : null;
+  const currentPathId = pathPlaying ? RESONANZVERNUNFT_PFAD[pathStep] : null;
+
+  // Konstellations-Linien: Polyline pro Tradition durch chronologisch sortierte Mitglieder
+  const constellationLines = useMemo(() => {
+    const lines: Array<{ tradition: TraditionId; points: string }> = [];
+    const byTrad = new Map<TraditionId, Philosopher[]>();
+    for (const p of allPhilosophers) {
+      const arr = byTrad.get(p.tradition) ?? [];
+      arr.push(p);
+      byTrad.set(p.tradition, arr);
+    }
+    byTrad.forEach((list: Philosopher[], trad: TraditionId) => {
+      const sorted = [...list].sort((a, b) => a.born - b.born);
+      const points = sorted
+        .map(p => positions.get(p.id))
+        .filter((pos): pos is { x: number; y: number; tradition: TraditionId } => !!pos)
+        .map(pos => `${pos.x},${pos.y}`)
+        .join(" ");
+      if (points) lines.push({ tradition: trad, points });
+    });
+    return lines;
+  }, [allPhilosophers, positions]);
+
+  // Cross-Verbindungen vom selektierten zu seinen receives/critiques
+  const crossLinks = selectedPhil
+    ? [
+        ...(selectedPhil.receives ?? []).map(id => ({ id, type: "receives" as const })),
+        ...(selectedPhil.critiques ?? []).map(id => ({ id, type: "critiques" as const })),
+      ]
+    : [];
+
+  return (
+    <div style={{
+      position: "relative",
+      height: "100%", minHeight: 600,
+      background: "#040408",   // tiefe Sternenhimmel-Dunkelheit, unabhängig vom Theme
+      border: `1px solid ${c.border}`,
+      overflow: "hidden",
+    }}>
+      <svg
+        viewBox={`0 0 ${W} ${H}`}
+        preserveAspectRatio="xMidYMid meet"
+        style={{ width: "100%", height: "100%", display: "block" }}
+      >
+        <defs>
+          {/* Glow-Filter für Sterne */}
+          <filter id="star-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="2" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Stärkerer Glow für Pfad-Sterne */}
+          <filter id="path-glow" x="-100%" y="-100%" width="300%" height="300%">
+            <feGaussianBlur stdDeviation="4" result="blur" />
+            <feMerge>
+              <feMergeNode in="blur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+          {/* Radial-Hintergrund-Glow für die Resonanz-Konstellation */}
+          <radialGradient id="resonanz-glow">
+            <stop offset="0%" stopColor="#c4a882" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#c4a882" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+
+        {/* Subtiler Hintergrund-Glow um die Resonanz-Konstellation (das Zentrum) */}
+        <circle
+          cx={CONSTELLATION_ANCHORS["resonanz"].cx}
+          cy={CONSTELLATION_ANCHORS["resonanz"].cy}
+          r={CONSTELLATION_ANCHORS["resonanz"].r * 2.2}
+          fill="url(#resonanz-glow)"
+        />
+
+        {/* Konstellations-Linien: dünn, Tradition-Farbe, niedrige Opazität */}
+        {constellationLines.map(line => {
+          const tradColor = TRADITIONS.find(t => t.id === line.tradition)?.color ?? "#888";
+          return (
+            <polyline
+              key={line.tradition}
+              points={line.points}
+              fill="none"
+              stroke={tradColor}
+              strokeWidth="0.8"
+              opacity={0.28}
+            />
+          );
+        })}
+
+        {/* Cross-Linien: vom selektierten Philosophen zu rezipiert/kritisiert */}
+        {crossLinks.map((link, i) => {
+          const fromPos = selectedPhil ? positions.get(selectedPhil.id) : null;
+          const toPos = positions.get(link.id);
+          if (!fromPos || !toPos) return null;
+          return (
+            <line
+              key={i}
+              x1={fromPos.x} y1={fromPos.y}
+              x2={toPos.x} y2={toPos.y}
+              stroke={link.type === "receives" ? "#c4a882" : "#c48282"}
+              strokeWidth="0.7"
+              strokeDasharray={link.type === "receives" ? undefined : "3,2"}
+              opacity={0.5}
+            />
+          );
+        })}
+
+        {/* Tradition-Labels — dezent in der Mitte */}
+        {TRADITIONS.map(t => {
+          const anchor = CONSTELLATION_ANCHORS[t.id];
+          if (!anchor) return null;
+          return (
+            <text
+              key={t.id}
+              x={anchor.cx}
+              y={anchor.cy - anchor.r - 4}
+              textAnchor="middle"
+              fontFamily={MONO}
+              fontSize="9"
+              fill={t.color}
+              opacity={0.5}
+              style={{ letterSpacing: "0.18em", textTransform: "uppercase", pointerEvents: "none" }}
+            >
+              {t.name}
+            </text>
+          );
+        })}
+
+        {/* Sterne */}
+        {allPhilosophers.map(p => {
+          const pos = positions.get(p.id);
+          if (!pos) return null;
+          const isVisible = visibleIds.has(p.id);
+          const isSelected = selectedId === p.id;
+          const isOnPath = showPath && PFAD_SET.has(p.id);
+          const isCurrentPathStep = currentPathId === p.id;
+          const isConnected = selectedPhil && (
+            selectedPhil.receives?.includes(p.id) || selectedPhil.critiques?.includes(p.id)
+          );
+          const tradColor = TRADITIONS.find(t => t.id === p.tradition)?.color ?? "#aaa";
+
+          // Stern-Eigenschaften
+          const baseRadius = isOnPath ? 5 : 3.5;
+          const radius = isSelected ? 7 : isCurrentPathStep ? 8 : baseRadius;
+          const starColor = isSelected ? "#fff" : isOnPath ? "#c4a882" : isConnected ? "#e8e2d4" : "#c8c2b4";
+          const filter = isOnPath || isSelected || isCurrentPathStep ? "url(#path-glow)" : "url(#star-glow)";
+          const labelOpacity = isVisible ? (isSelected || isOnPath || isConnected ? 1 : 0.7) : 0.2;
+
+          return (
+            <g key={p.id} opacity={isVisible ? 1 : 0.2} style={{ cursor: isVisible ? "pointer" : "default" }}>
+              {/* Unsichtbare Touch-Hit-Box */}
+              <circle
+                cx={pos.x} cy={pos.y} r={16}
+                fill="transparent"
+                onClick={() => isVisible && onSelect(p.id)}
+              />
+              {/* Stern */}
+              <circle
+                cx={pos.x} cy={pos.y} r={radius}
+                fill={starColor}
+                filter={filter}
+                style={{ pointerEvents: "none" }}
+              >
+                {isCurrentPathStep && (
+                  <animate
+                    attributeName="r"
+                    values={`${radius};${radius + 2};${radius}`}
+                    dur="2s"
+                    repeatCount="indefinite"
+                  />
+                )}
+              </circle>
+              {/* Outline ring für Pfad-Sterne */}
+              {isOnPath && !isSelected && (
+                <circle
+                  cx={pos.x} cy={pos.y} r={radius + 3}
+                  fill="none"
+                  stroke="#c4a882"
+                  strokeWidth="0.5"
+                  opacity={0.5}
+                  style={{ pointerEvents: "none" }}
+                />
+              )}
+              {/* Namens-Label, leicht versetzt */}
+              <text
+                x={pos.x + radius + 4}
+                y={pos.y + 3}
+                fontFamily={SERIF}
+                fontSize={isOnPath ? 11 : 9.5}
+                fill={starColor}
+                fontStyle="italic"
+                fontWeight={isOnPath || isSelected ? 500 : 400}
+                opacity={labelOpacity}
+                style={{ pointerEvents: "none", userSelect: "none" }}
+              >
+                {p.name.split(" ").slice(-1)[0]}
+              </text>
+              {/* SR-Title */}
+              <title>{p.name} ({p.born}{p.died ? `–${p.died}` : "*"})</title>
+            </g>
+          );
+        })}
+      </svg>
+
+      {/* Inline-Legende oben links */}
+      <div style={{
+        position: "absolute", top: "0.6rem", left: "0.6rem",
+        fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", color: "#888",
+        background: "rgba(0,0,0,0.4)", padding: "0.3rem 0.5rem",
+        border: `1px solid #2a2a2a`,
+      }}>
+        Tradition · Konstellation
+      </div>
+      {selectedPhil && (
+        <div style={{
+          position: "absolute", bottom: "0.5rem", right: "0.5rem",
+          fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.05em", color: "#888",
+          background: "rgba(0,0,0,0.4)", padding: "0.3rem 0.5rem",
+          border: `1px solid #2a2a2a`,
+        }}>
+          ── rezipiert · ┄┄ kritisiert
+        </div>
+      )}
+    </div>
   );
 }
