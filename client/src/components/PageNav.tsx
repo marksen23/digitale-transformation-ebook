@@ -79,21 +79,30 @@ function PageNavBtn({ label, title, onClick, c, fade }: { label: string; title: 
       title={title}
       aria-label={title}
       style={{
-        width: 38, height: 38,
+        width: 40, height: 40,
         background: c.surface,
         color: c.text,
         border: `1px solid ${c.border}`,
-        fontFamily: MONO, fontSize: "0.9rem", fontWeight: 500,
+        borderRadius: 6,
+        fontFamily: MONO, fontSize: "0.95rem", fontWeight: 500,
         cursor: "pointer",
-        opacity: fade ? 0 : 0.85,
-        transition: "opacity 0.25s ease, background 0.15s, color 0.15s",
+        opacity: fade ? 0 : 1,
+        transition: "opacity 0.25s ease, background 0.15s, color 0.15s, transform 0.15s, box-shadow 0.15s",
         pointerEvents: fade ? "none" : "auto",
-        boxShadow: "0 1px 4px rgba(0,0,0,0.18)",
+        boxShadow: "0 2px 6px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08)",
         display: "flex", alignItems: "center", justifyContent: "center",
         padding: 0,
       }}
-      onMouseEnter={(e) => { e.currentTarget.style.opacity = "1"; e.currentTarget.style.color = c.accent; }}
-      onMouseLeave={(e) => { e.currentTarget.style.opacity = fade ? "0" : "0.85"; e.currentTarget.style.color = c.text; }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.color = c.accent;
+        e.currentTarget.style.transform = "translateY(-1px)";
+        e.currentTarget.style.boxShadow = "0 3px 10px rgba(0,0,0,0.18), 0 6px 18px rgba(0,0,0,0.12)";
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.color = c.text;
+        e.currentTarget.style.transform = "translateY(0)";
+        e.currentTarget.style.boxShadow = "0 2px 6px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08)";
+      }}
     >{label}</button>
   );
 }

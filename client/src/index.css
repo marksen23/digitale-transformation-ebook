@@ -200,6 +200,18 @@
   transition: all 0.15s ease;
 }
 
+/* Hover-Ring: dezenter Amber-Glow um klickbare Elemente, der Inline-
+   Hintergründe NICHT überschreibt. Funktioniert für jeden Button-Stil. */
+[data-scroll] button:not(:disabled):not([disabled]):hover:not(:active),
+[data-scroll] a[href]:hover:not(:active) {
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.18);
+}
+[data-scroll] button:disabled,
+[data-scroll] button[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
 @layer components {
   .container {
     width: 100%;
