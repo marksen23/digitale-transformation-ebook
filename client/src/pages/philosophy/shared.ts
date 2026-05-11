@@ -7,14 +7,9 @@ import {
   type TraditionId,
 } from "@/data/philosophyMap";
 
-export const SERIF = "'EB Garamond', Georgia, serif";
-export const MONO  = "'Courier Prime', 'Courier New', monospace";
-
-export interface Palette {
-  void: string; deep: string; surface: string; border: string;
-  muted: string; textDim: string; text: string; textBright: string;
-  accent: string; accentDim: string;
-}
+// Re-Export der zentralisierten Theme-Werte. Behalten als named exports,
+// damit die views.tsx-Imports unverändert bleiben.
+export { SERIF, MONO, type Palette } from "@/lib/theme";
 
 export const TIMELINE_FROM = 1620;
 export const TIMELINE_TO = 2030;

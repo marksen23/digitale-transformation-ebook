@@ -6,24 +6,11 @@ import type { ReactNode } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 
-export const SERIF = "'EB Garamond', Georgia, serif";
-export const MONO  = "'Courier Prime', 'Courier New', monospace";
-
-export type Palette = {
-  void: string; deep: string; surface: string; border: string;
-  muted: string; textDim: string; text: string; textBright: string;
-  accent: string; accentDim: string;
-};
-export const C_DARK: Palette = {
-  void: "#080808", deep: "#0f0f0f", surface: "#161616", border: "#2a2a2a",
-  muted: "#444", textDim: "#888", text: "#c8c2b4", textBright: "#e8e2d4",
-  accent: "#c4a882", accentDim: "#7a6a52",
-};
-export const C_LIGHT: Palette = {
-  void: "#fafaf9", deep: "#f0ece4", surface: "#ffffff", border: "#d8d2c8",
-  muted: "#a8a29e", textDim: "#78716c", text: "#3a3530", textBright: "#1c1917",
-  accent: "#c4a882", accentDim: "#7a6a52",
-};
+// Theme-Werte aus zentraler Quelle. Re-Export für die Sub-Pages,
+// die bisher von adminShared importieren.
+import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+export { SERIF, MONO, C_DARK, C_LIGHT };
+export type { Palette };
 
 export function useAdminTheme(): Palette {
   const isDark = useEbookTheme();

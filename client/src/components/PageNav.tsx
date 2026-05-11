@@ -13,22 +13,7 @@
 import { useEffect, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { toggleGlobalTheme, syncGlobalTheme } from "@/lib/globalTheme";
-
-const MONO = "'Courier Prime', 'Courier New', monospace";
-
-interface Palette {
-  void: string; surface: string; border: string;
-  muted: string; text: string; textBright: string; accent: string;
-}
-
-const C_DARK: Palette = {
-  void: "#080808", surface: "#161616", border: "#2a2a2a",
-  muted: "#444", text: "#c8c2b4", textBright: "#e8e2d4", accent: "#c4a882",
-};
-const C_LIGHT: Palette = {
-  void: "#fafaf9", surface: "#ffffff", border: "#d8d2c8",
-  muted: "#a8a29e", text: "#3a3530", textBright: "#1c1917", accent: "#c4a882",
-};
+import { MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 
 interface PageNavProps {
   /** Optionaler Scroll-Container — z.B. das data-scroll-Element der Sub-Page.

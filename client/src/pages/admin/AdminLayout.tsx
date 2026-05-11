@@ -10,25 +10,7 @@ import { Link, useLocation } from "wouter";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import PageNav from "@/components/PageNav";
 import { useAdminAuth } from "@/lib/adminAuth";
-
-const SERIF = "'EB Garamond', Georgia, serif";
-const MONO  = "'Courier Prime', 'Courier New', monospace";
-
-type Palette = {
-  void: string; deep: string; surface: string; border: string;
-  muted: string; textDim: string; text: string; textBright: string;
-  accent: string; accentDim: string;
-};
-const C_DARK: Palette = {
-  void: "#080808", deep: "#0f0f0f", surface: "#161616", border: "#2a2a2a",
-  muted: "#444", textDim: "#888", text: "#c8c2b4", textBright: "#e8e2d4",
-  accent: "#c4a882", accentDim: "#7a6a52",
-};
-const C_LIGHT: Palette = {
-  void: "#fafaf9", deep: "#f0ece4", surface: "#ffffff", border: "#d8d2c8",
-  muted: "#a8a29e", textDim: "#78716c", text: "#3a3530", textBright: "#1c1917",
-  accent: "#c4a882", accentDim: "#7a6a52",
-};
+import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 
 const TABS: Array<{ path: string; label: string }> = [
   { path: "/admin",         label: "Kuration" },
