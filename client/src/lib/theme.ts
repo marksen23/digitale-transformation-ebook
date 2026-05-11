@@ -55,6 +55,19 @@ export const C_LIGHT: Palette = {
   accentDim: "#b45309",  // amber-700
 };
 
-/** Gemeinsame Font-Stacks für alle Sub-Pages. */
-export const SERIF = "'EB Garamond', Georgia, serif";
-export const MONO  = "'Courier Prime', 'Courier New', monospace";
+/**
+ * Gemeinsame Font-Stacks für alle Sub-Pages.
+ *
+ * SERIF — bisher 'EB Garamond italic' (literarisch-warm). Jetzt 'Inter'
+ *   (clean, modern, corporate-technich). Ergibt im Italic auch noch eine
+ *   leichte Cursive-Anmutung, aber deutlich nüchterner als Garamond.
+ *
+ * MONO — unverändert für technische Labels (Timestamps, IDs, Status).
+ *
+ * SERIF_BODY — wenn echtes Lese-Serif gebraucht wird (Detail-Panel-Prose
+ *   in Philosophie, Antwort-Texte in Wissen), kommt Lora zum Einsatz —
+ *   gleiche Wahl wie Home.tsx's Reading-Font.
+ */
+export const SERIF      = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif";
+export const MONO       = "'Courier Prime', 'Courier New', monospace";
+export const SERIF_BODY = "'Lora', Georgia, serif";
