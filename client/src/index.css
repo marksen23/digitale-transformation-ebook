@@ -179,6 +179,27 @@
   outline: none;
 }
 
+/* Phase 4: globale Geometrie-Tokens für die Sub-Pages.
+   Greifen bei allen Buttons/Inputs/Cards in den data-scroll-Containern
+   (Wissens-Seite, Philosophie, Admin), die kein border-radius in ihrem
+   inline-style setzen. So müssen die hundert Inline-Style-Objekte nicht
+   einzeln angefasst werden. Inline-Werte gewinnen wo gesetzt. */
+[data-scroll] button:not([style*="border-radius"]),
+[data-scroll] input:not([style*="border-radius"]),
+[data-scroll] textarea:not([style*="border-radius"]),
+[data-scroll] [role="button"]:not([style*="border-radius"]) {
+  border-radius: 4px;
+}
+[data-scroll] article:not([style*="border-radius"]),
+[data-scroll] section[style*="background"]:not([style*="border-radius"]) {
+  border-radius: 6px;
+}
+/* Sanfte Hover-Aufmerksamkeit für klickbare Elemente */
+[data-scroll] button:not(:disabled):not([style*="transition"]),
+[data-scroll] a[href]:not([style*="transition"]) {
+  transition: all 0.15s ease;
+}
+
 @layer components {
   .container {
     width: 100%;

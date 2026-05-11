@@ -20,7 +20,7 @@ import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, type Palette } from "@/lib/theme";
 
 type EndpointKey = ResonanzEntry["endpoint"] | "all";
 type StatusKey = "all" | "kuratiert";
@@ -338,13 +338,14 @@ export default function ResonanzenPage() {
               placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Suchen im kollektiven Wissen …"}
               style={{
                 flex: 1, minWidth: 200,
-                fontFamily: SERIF, fontStyle: "italic",
+                fontFamily: SERIF,
                 fontSize: "1rem",
                 background: C.surface, color: C.textBright,
                 border: `1px solid ${search ? C.accentDim : C.border}`,
+                borderRadius: RADIUS.button,
                 padding: "0.9rem 1.1rem", outline: "none",
                 minHeight: 56,
-                transition: "border-color 0.2s",
+                transition: TRANSITION,
               }}
             />
             {embeddingsAvailable && (
@@ -593,9 +594,12 @@ export default function ResonanzenPage() {
                   marginBottom: "0.7rem",
                   background: C.surface,
                   border: `1px solid ${C.border}`,
+                  borderRadius: RADIUS.card,
+                  boxShadow: SHADOW.card,
                   padding: "0.9rem 1rem",
                   cursor: "pointer",
                   scrollMarginTop: "1rem",
+                  transition: TRANSITION,
                 }}
                 onClick={() => setExpandedId(id => id === entry.id ? null : entry.id)}
               >

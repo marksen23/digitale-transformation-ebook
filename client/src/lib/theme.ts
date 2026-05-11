@@ -71,3 +71,23 @@ export const C_LIGHT: Palette = {
 export const SERIF      = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif";
 export const MONO       = "'Courier Prime', 'Courier New', monospace";
 export const SERIF_BODY = "'Lora', Georgia, serif";
+
+/**
+ * Geometrie-Tokens — angeglichen an Home.tsx's Tailwind-Werte
+ * (rounded-md / rounded-lg). Damit fühlen sich Sub-Page-Karten und
+ * -Buttons wie eine Fortsetzung der Werk-Hauptseite an.
+ */
+export const RADIUS = {
+  button: "4px",   // rounded
+  card: "6px",     // rounded-md
+  panel: "8px",    // rounded-lg
+} as const;
+
+export const TRANSITION = "all 0.15s ease";
+
+/** Subtile Schatten — leichter als Material, eher Notion-style. */
+export const SHADOW = {
+  card: "0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.04)",
+  panel: "0 2px 6px rgba(0,0,0,0.06), 0 4px 12px rgba(0,0,0,0.05)",
+  hover: "0 2px 8px rgba(0,0,0,0.08), 0 6px 16px rgba(0,0,0,0.06)",
+} as const;
