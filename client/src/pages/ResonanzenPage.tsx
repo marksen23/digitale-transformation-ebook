@@ -221,6 +221,47 @@ export default function ResonanzenPage() {
 
   const keywords = useMemo(() => extractCorpusKeywords(cloudEntries, 50), [cloudEntries]);
 
+  // ─── Such-Engine: ist gerade eine Anfrage aktiv? ─────────────────────
+  // Ohne aktive Anfrage zeigt die Seite nur Suchfeld + Wortwolke + Filter —
+  // kein automatisches Listing aller 100+ Einträge.
+  const hasActiveQuery =
+    search.trim().length > 0
+    || filterTag !== null
+    || filterEndpoint !== "all"
+    || filterStatus === "kuratiert"
+    || (semanticMode && semanticResults !== null);
+
+  // Live-Vorschläge beim Tippen: aus dem Keyword-Pool die Wörter holen,
+  // die den Tipp-Anfang enthalten. Max 6 Vorschläge, Stopp wenn user >2
+  // Zeichen länger als Vorschlag tippt.
+  const suggestions = useMemo(() => {
+    const term = search.trim().toLowerCase();
+    if (term.length < 2) return [];
+    if (semanticMode) return [];   // Semantik-Modus hat eigene Resultats-UX
+    const exact = keywords.find(k => k.word.toLowerCase() === term);
+    if (exact) return [];          // exakter Treffer — keine Suggestions mehr
+    return keywords
+      .filter(k => k.word.toLowerCase().includes(term) && k.word.toLowerCase() !== term)
+      .slice(0, 6);
+  }, [search, keywords, semanticMode]);
+
+  // Default-Limit für Ergebnis-Listing — wird via "+ mehr zeigen" erhöht
+  const [resultsLimit, setResultsLimit] = useState(20);
+  // Bei jeder neuen Suche Limit zurücksetzen
+  useEffect(() => { setResultsLimit(20); }, [search, filterEndpoint, filterStatus, filterTag, semanticMode]);
+
+  // Sortierung der Ergebnisse — Default 'date' (neueste zuerst)
+  type ResultSort = "date" | "relevance" | "length";
+  const [resultSort, setResultSort] = useState<ResultSort>("date");
+  const sortedResults = useMemo(() => {
+    const arr = [...filtered];
+    if (resultSort === "date") arr.sort((a, b) => b.ts.localeCompare(a.ts));
+    else if (resultSort === "length") arr.sort((a, b) => b.response.length - a.response.length);
+    // 'relevance': belasse die Original-Reihenfolge (Semantic-Score schon sortiert,
+    // Volltext-Match in Index-Reihenfolge)
+    return arr;
+  }, [filtered, resultSort]);
+
   // Top-Tags aus dem Korpus (für Tag-Filter)
   const topTags = useMemo(() => {
     if (!index) return [];
@@ -387,6 +428,39 @@ export default function ResonanzenPage() {
               >×</button>
             )}
           </div>
+
+          {/* Live-Vorschläge — beim Tippen werden Korpus-Wörter angezeigt,
+              die das Tipp-Fragment enthalten. Klick übernimmt das Wort. */}
+          {suggestions.length > 0 && (
+            <div style={{
+              marginTop: "0.4rem",
+              display: "flex", flexWrap: "wrap", gap: "0.3rem",
+              alignItems: "center",
+            }}>
+              <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", marginRight: "0.2rem" }}>
+                meinst du:
+              </span>
+              {suggestions.map(s => (
+                <button
+                  key={s.word}
+                  onClick={() => { setSearch(s.word); setSemanticResults(null); }}
+                  style={{
+                    fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
+                    color: C.accent, background: "none",
+                    border: `1px solid ${C.border}`,
+                    padding: "0.25rem 0.55rem",
+                    cursor: "pointer", minHeight: 28,
+                  }}
+                >
+                  {s.word}
+                  <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, marginLeft: "0.3rem", letterSpacing: "0.05em" }}>
+                    {s.count}
+                  </span>
+                </button>
+              ))}
+            </div>
+          )}
+
           {/* Live-Counter / Status */}
           <div style={{ marginTop: "0.5rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", color: C.muted, display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
             <span>
@@ -568,14 +642,75 @@ export default function ResonanzenPage() {
           );
         })()}
 
-        {/* Eintragsliste */}
+        {/* Such-Engine: Ergebnis-Sektion nur wenn aktive Anfrage */}
+        {!hasActiveQuery && index && (
+          <section style={{
+            background: C.surface,
+            border: `1px solid ${C.border}`,
+            borderRadius: 6,
+            padding: "1.5rem 1.2rem",
+            textAlign: "center",
+            color: C.textDim,
+            fontStyle: "italic",
+            fontSize: "0.92rem",
+            lineHeight: 1.55,
+          }}>
+            <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.7rem", fontStyle: "normal" }}>
+              {index.count} Begegnungen warten auf eine Frage
+            </div>
+            Beginne mit einem Suchwort oben — oder wähle einen Begriff aus der
+            Wortwolke darunter. Mit dem Filter rechts engst du die Suche auf
+            Kategorien, Kuration oder verbundene Konzepte ein.
+          </section>
+        )}
+
+        {/* Sort-Toolbar — nur wenn Ergebnisse sichtbar sind */}
+        {hasActiveQuery && filtered.length > 1 && (
+          <section style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap", marginBottom: "0.8rem" }}>
+            <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase" }}>
+              {filtered.length} Treffer · sortieren:
+            </span>
+            {(["date", "relevance", "length"] as const).map(s => {
+              const label = s === "date" ? "neueste" : s === "relevance" ? "relevanz" : "länge";
+              const active = resultSort === s;
+              return (
+                <button
+                  key={s}
+                  onClick={() => setResultSort(s)}
+                  style={{
+                    fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                    color: active ? "#080808" : C.muted,
+                    background: active ? C.accent : "none",
+                    border: `1px solid ${active ? C.accent : C.border}`,
+                    padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 28,
+                  }}
+                >{label}</button>
+              );
+            })}
+          </section>
+        )}
+
+        {/* Eintragsliste — nur wenn aktive Anfrage */}
         <section>
-          {filtered.length === 0 && index && (
-            <div style={{ fontStyle: "italic", color: C.textDim, padding: "2rem 0", textAlign: "center" }}>
-              Keine Einträge mit diesen Filtern gefunden.
+          {hasActiveQuery && filtered.length === 0 && index && (
+            <div style={{
+              background: C.surface,
+              border: `1px solid ${C.border}`,
+              borderRadius: 6,
+              padding: "2rem 1.5rem",
+              textAlign: "center",
+              color: C.textDim,
+            }}>
+              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.6rem" }}>
+                keine Treffer
+              </div>
+              <p style={{ fontFamily: SERIF_BODY, fontStyle: "italic", fontSize: "0.92rem", lineHeight: 1.5, margin: 0 }}>
+                Keine Begegnungen mit diesen Filtern gefunden. Versuche ein anderes
+                Wort, deaktiviere einen Filter oder schalte auf semantische Suche.
+              </p>
             </div>
           )}
-          {filtered.map(entry => {
+          {hasActiveQuery && sortedResults.slice(0, resultsLimit).map(entry => {
             const isExpanded = expandedId === entry.id;
             const showRelated = showRelatedFor === entry.id;
             // Default-Minimal-Regel: Tags je nach Reading-Mode begrenzen
@@ -739,6 +874,24 @@ export default function ResonanzenPage() {
               </article>
             );
           })}
+
+          {/* Pagination — "noch X Treffer zeigen" statt Infinite Scroll */}
+          {hasActiveQuery && sortedResults.length > resultsLimit && (
+            <div style={{ display: "flex", justifyContent: "center", marginTop: "1rem" }}>
+              <button
+                onClick={() => setResultsLimit(l => l + 20)}
+                style={{
+                  fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
+                  color: C.accent,
+                  background: "none",
+                  border: `1px solid ${C.accentDim}`,
+                  padding: "0.7rem 1.2rem", cursor: "pointer", minHeight: 40,
+                }}
+              >
+                + {Math.min(20, sortedResults.length - resultsLimit)} weitere von {sortedResults.length - resultsLimit} Treffern
+              </button>
+            </div>
+          )}
         </section>
 
         {/* Footer */}
