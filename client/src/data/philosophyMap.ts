@@ -60,6 +60,12 @@ export interface Philosopher {
    * — die Brücke zwischen Karte und Korpus.
    */
   concepts?: string[];
+  /**
+   * Eine kurze Signatur-Phrase in der Stimme des Denkers — ein Zitat
+   * oder prägnanter Begriff. Wird im Buch-View als handschriftliches
+   * Fragment dargestellt. Manche paraphrasiert, nicht alle wörtlich.
+   */
+  signaturePhrase?: string;
 }
 
 export interface Tradition {
@@ -565,6 +571,45 @@ const CONCEPT_TAGS: Record<string, string[]> = {
 // Tags an die Philosophen-Objekte hängen (mutiert PHILOSOPHERS einmalig).
 for (const p of PHILOSOPHERS) {
   if (CONCEPT_TAGS[p.id]) p.concepts = CONCEPT_TAGS[p.id];
+}
+
+// ─── Signatur-Phrasen für die Buch-Sicht ────────────────────────────────
+//
+// Pro Denker eine kurze handschriftliche Phrase — ein Zitat, eine
+// Selbst-Verdichtung oder ein prägnanter Begriff. Manche paraphrasiert
+// in der Stimme des Denkers, nicht alle wörtlich. Ästhetisch-treffend
+// vor historisch-philologisch.
+
+const SIGNATURE_PHRASES: Record<string, string> = {
+  spinoza:        "Deus sive Natura — Gott oder die Natur.",
+  leibniz:        "Die Monaden haben keine Fenster.",
+  kant:           "Habe Mut, dich deines eigenen Verstandes zu bedienen.",
+  schelling:      "Natur ist sichtbarer Geist.",
+  hegel:          "Das Wahre ist das Ganze.",
+  husserl:        "Zurück zu den Sachen selbst.",
+  heidegger:      "Die Sprache ist das Haus des Seins.",
+  "merleau-ponty": "Der Leib ist unser Anker in der Welt.",
+  gadamer:        "Sein, das verstanden werden kann, ist Sprache.",
+  ricoeur:        "Sich selbst als ein Anderer.",
+  benjamin:       "Aura — Erscheinung einer Ferne, so nah sie sein mag.",
+  adorno:         "Das Ganze ist das Unwahre.",
+  habermas:       "Vernunft im verständigungsorientierten Sprechen.",
+  honneth:        "Anerkennung als Bedingung gelingenden Selbstseins.",
+  bergson:        "Dauer ist gelebte Zeit, kein Container.",
+  wittgenstein:   "Die Grenzen meiner Sprache bedeuten die Grenzen meiner Welt.",
+  taylor:         "Wir sind, was uns wichtig ist.",
+  waldenfels:     "Ich antworte, also bin ich.",
+  rosa:           "Resonanz ist kein Echo — sie ist Antwort.",
+  reckwitz:       "Singularität ist die Norm der Spätmoderne.",
+  luhmann:        "Was wir wissen, wissen wir durch Medien.",
+  varela:         "Mind in Life — der Geist beginnt mit dem Stoffwechsel.",
+  prigogine:      "Ordnung entsteht aus dem Fließen, nicht aus dem Stillstand.",
+  damasio:        "Das somatische Selbst kommt vor dem reflektierenden.",
+  heisenberg:     "Wir beobachten nicht die Natur selbst — sondern Natur, die unserer Frage ausgesetzt ist.",
+};
+
+for (const p of PHILOSOPHERS) {
+  if (SIGNATURE_PHRASES[p.id]) p.signaturePhrase = SIGNATURE_PHRASES[p.id];
 }
 
 // ─── Resonanzvernunft-Pfad — die Erzählung ──────────────────────────────

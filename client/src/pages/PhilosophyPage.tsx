@@ -49,7 +49,7 @@ const TIMELINE_FROM = 1620;
 const TIMELINE_TO = 2030;
 const PFAD_SET = new Set(RESONANZVERNUNFT_PFAD);
 
-type ViewMode = "timeline" | "network" | "constellation" | "spotlight";
+type ViewMode = "timeline" | "network" | "constellation" | "spotlight" | "book";
 
 function yearToY(year: number): number {
   return ((year - TIMELINE_FROM) / (TIMELINE_TO - TIMELINE_FROM)) * 100;
@@ -202,6 +202,7 @@ export default function PhilosophyPage() {
             <ToolbarBtn active={viewMode === "network"} label="Netz" onClick={() => setViewMode("network")} c={C} />
             <ToolbarBtn active={viewMode === "constellation"} label="Sternbild" onClick={() => setViewMode("constellation")} c={C} />
             <ToolbarBtn active={viewMode === "spotlight"} label="Spotlight" onClick={() => setViewMode("spotlight")} c={C} />
+            <ToolbarBtn active={viewMode === "book"} label="Buch" onClick={() => setViewMode("book")} c={C} />
           </div>
 
           {/* Filter-Toggle (Mobile: kollabiert, Desktop: immer offen) */}
@@ -388,7 +389,7 @@ export default function PhilosophyPage() {
               pathPlaying={pathPlaying}
               pathStep={pathStep}
             />
-          ) : (
+          ) : viewMode === "spotlight" ? (
             <SpotlightView
               philosophers={visible}
               allPhilosophers={sorted}
@@ -397,6 +398,16 @@ export default function PhilosophyPage() {
               showPath={showPath}
               c={C}
               isMobile={isMobile}
+            />
+          ) : (
+            <BookView
+              allPhilosophers={sorted}
+              selectedId={selectedId}
+              onSelect={id => { setSelectedId(id); setPathPlaying(false); }}
+              traditionFilter={traditionFilter}
+              c={C}
+              isMobile={isMobile}
+              isDark={isDark}
             />
           )}
         </section>
@@ -1657,3 +1668,270 @@ function SpotlightView({ philosophers, allPhilosophers, selectedId, onSelect, sh
     </div>
   );
 }
+
+// ─── Book-View (Buch der Einflüsse) ───────────────────────────────────────
+//
+// Aufgeschlagenes Buch — links Philosophen, rechts Wissenschaftler.
+// Jeder Denker erscheint als handschriftliches Fragment (signaturePhrase).
+// Themen-Filter (Tradition + Konzept) bringt zugehörige Fragmente in den
+// Vordergrund; andere fadeen leicht zurück. Lebendige Bibliothek.
+
+const BOOK_THEMES: Array<{ id: string; label: string; matches: (p: Philosopher) => boolean }> = [
+  { id: "all", label: "alle", matches: () => true },
+  { id: "resonanz", label: "Resonanz", matches: p => !!p.concepts?.some(c => ["resonanz", "resonanzvernunft", "stimme", "antwort", "öffnung"].includes(c)) },
+  { id: "dasein",   label: "Dasein",   matches: p => !!p.concepts?.some(c => ["dasein", "sein", "welt", "bewusstsein"].includes(c)) },
+  { id: "vernunft", label: "Vernunft", matches: p => !!p.concepts?.some(c => ["vernunft", "erkenntnis", "denken", "dialog"].includes(c)) },
+  { id: "sprache",  label: "Sprache",  matches: p => !!p.concepts?.some(c => ["sprache", "schweigen", "antwort"].includes(c)) },
+  { id: "zeit",     label: "Zeit",     matches: p => !!p.concepts?.some(c => ["zeit", "moment", "werden", "gegenwart"].includes(c)) },
+  { id: "selbst",   label: "Selbst",   matches: p => !!p.concepts?.some(c => ["selbst", "andere", "ich-du", "freiheit"].includes(c)) },
+  { id: "drift",    label: "Spätmoderne", matches: p => !!p.concepts?.some(c => ["entfremdung", "echo-kammer", "spannung", "unverfuegbarkeit"].includes(c)) },
+];
+
+// Deterministische Fragment-Anordnung pro Seite — Position, Rotation, Größe
+function bookFragmentLayout(
+  philosophers: Philosopher[],
+  pageWidthPct: number,
+  pageHeightPct: number,
+  seed: number,
+): Map<string, { x: number; y: number; rotation: number; size: number }> {
+  const map = new Map<string, { x: number; y: number; rotation: number; size: number }>();
+  // Reuse constellationRng pattern
+  let a = seed >>> 0;
+  const rng = () => {
+    a = (a + 0x6D2B79F5) >>> 0;
+    let t = a;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  philosophers.forEach(p => {
+    // Streuung in einem Raster mit jitter, damit Fragmente sich überlagern aber lesbar bleiben
+    const x = 8 + rng() * (pageWidthPct - 16);   // % der Seite, mit Rand
+    const y = 8 + rng() * (pageHeightPct - 12);
+    const rotation = (rng() - 0.5) * 14;          // -7° bis +7°
+    const size = 0.9 + rng() * 0.5;               // 0.9 bis 1.4 em base
+    map.set(p.id, { x, y, rotation, size });
+  });
+  return map;
+}
+
+function BookView({ allPhilosophers, selectedId, onSelect, traditionFilter, c, isMobile, isDark }: {
+  allPhilosophers: Philosopher[];
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  traditionFilter: TraditionId | "all";
+  c: Palette;
+  isMobile: boolean;
+  isDark: boolean;
+}) {
+  const [theme, setTheme] = useState<string>("all");
+
+  // Aufteilung: links Philosophen (alles außer wissenschaft), rechts Wissenschaftler
+  const leftPagePhils = useMemo(
+    () => allPhilosophers.filter(p => p.tradition !== "wissenschaft" && p.signaturePhrase),
+    [allPhilosophers]
+  );
+  const rightPagePhils = useMemo(
+    () => allPhilosophers.filter(p => p.tradition === "wissenschaft" && p.signaturePhrase),
+    [allPhilosophers]
+  );
+
+  // Fragment-Layout je Seite — deterministisch via Seed
+  const leftLayout = useMemo(() => bookFragmentLayout(leftPagePhils, 100, 100, 1337), [leftPagePhils]);
+  const rightLayout = useMemo(() => bookFragmentLayout(rightPagePhils, 100, 100, 4242), [rightPagePhils]);
+
+  const themeMatcher = BOOK_THEMES.find(t => t.id === theme) ?? BOOK_THEMES[0];
+  const isMatch = (p: Philosopher) => {
+    if (traditionFilter !== "all" && p.tradition !== traditionFilter) return false;
+    return themeMatcher.matches(p);
+  };
+
+  // Buchaufschlag-Farben — Pergament hell/dunkel
+  const pageBg = isDark ? "#1a1612" : "#f5efe2";
+  const pageInk = isDark ? "#c8c2b4" : "#3a3530";
+  const inkDim = isDark ? "#5a5040" : "#8a7a60";
+  const spineColor = isDark ? "#0a0805" : "#a8966a";
+
+  return (
+    <div style={{
+      position: "relative",
+      height: "100%", minHeight: 600,
+      background: isDark ? "#0a0805" : "#d4c8a0",
+      border: `1px solid ${c.border}`,
+      display: "flex", flexDirection: "column",
+      overflow: "hidden",
+    }}>
+      {/* Themen-Toggle-Leiste */}
+      <div style={{
+        display: "flex", gap: "0.3rem",
+        flexWrap: isMobile ? "nowrap" : "wrap",
+        overflowX: isMobile ? "auto" : "visible",
+        padding: "0.5rem 0.7rem",
+        background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.2)",
+        borderBottom: `1px solid ${c.border}`,
+      }}>
+        {BOOK_THEMES.map(t => {
+          const active = theme === t.id;
+          return (
+            <button
+              key={t.id}
+              onClick={() => setTheme(t.id)}
+              style={{
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                color: active ? "#080808" : pageInk,
+                background: active ? "#c4a882" : "none",
+                border: `1px solid ${active ? "#c4a882" : inkDim}`,
+                padding: "0.4rem 0.65rem", cursor: "pointer", minHeight: 32,
+                whiteSpace: "nowrap", flexShrink: 0,
+              }}
+            >{t.label}</button>
+          );
+        })}
+      </div>
+
+      {/* Buch-Aufschlag */}
+      <div style={{
+        flex: 1,
+        display: "grid",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 14px 1fr",
+        gridTemplateRows: isMobile ? "auto auto" : "1fr",
+        gap: 0,
+        overflow: isMobile ? "auto" : "hidden",
+        background: pageBg,
+        position: "relative",
+      }}>
+        {/* Linke Seite — Philosophen */}
+        <BookPage
+          philosophers={leftPagePhils}
+          layout={leftLayout}
+          isMatch={isMatch}
+          selectedId={selectedId}
+          onSelect={onSelect}
+          title="Philosophen"
+          pageInk={pageInk}
+          inkDim={inkDim}
+        />
+
+        {/* Buchnaht — nur Desktop */}
+        {!isMobile && (
+          <div style={{
+            background: spineColor,
+            boxShadow: isDark
+              ? "inset 5px 0 8px -3px rgba(0,0,0,0.6), inset -5px 0 8px -3px rgba(0,0,0,0.6)"
+              : "inset 5px 0 8px -3px rgba(80,60,30,0.4), inset -5px 0 8px -3px rgba(80,60,30,0.4)",
+          }} />
+        )}
+        {/* Mobile Naht: oberhalb der rechten Seite eine horizontale Linie */}
+        {isMobile && (
+          <div style={{
+            height: 12, background: spineColor,
+            boxShadow: isDark
+              ? "inset 0 5px 8px -3px rgba(0,0,0,0.6), inset 0 -5px 8px -3px rgba(0,0,0,0.6)"
+              : "inset 0 5px 8px -3px rgba(80,60,30,0.4), inset 0 -5px 8px -3px rgba(80,60,30,0.4)",
+          }} />
+        )}
+
+        {/* Rechte Seite — Wissenschaftler */}
+        <BookPage
+          philosophers={rightPagePhils}
+          layout={rightLayout}
+          isMatch={isMatch}
+          selectedId={selectedId}
+          onSelect={onSelect}
+          title="Wissenschaftler"
+          pageInk={pageInk}
+          inkDim={inkDim}
+        />
+      </div>
+
+      {/* Hint */}
+      <div style={{
+        position: "absolute", top: "0.6rem", right: "0.6rem",
+        fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", color: inkDim,
+        background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.5)",
+        padding: "0.3rem 0.5rem",
+        border: `1px solid ${inkDim}`,
+        pointerEvents: "none",
+      }}>
+        wähle ein Thema · die Stimmen treten hervor
+      </div>
+    </div>
+  );
+}
+
+function BookPage({ philosophers, layout, isMatch, selectedId, onSelect, title, pageInk, inkDim }: {
+  philosophers: Philosopher[];
+  layout: Map<string, { x: number; y: number; rotation: number; size: number }>;
+  isMatch: (p: Philosopher) => boolean;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  title: string;
+  pageInk: string;
+  inkDim: string;
+}) {
+  return (
+    <div style={{
+      position: "relative",
+      padding: "1.2rem 1.5rem",
+      minHeight: 500,
+      overflow: "hidden",
+    }}>
+      {/* Seitenkopf */}
+      <div style={{
+        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.2em", textTransform: "uppercase",
+        color: inkDim, marginBottom: "0.5rem",
+        position: "relative", zIndex: 10,
+      }}>
+        — {title} —
+      </div>
+
+      {/* Fragmente */}
+      <div style={{ position: "relative", minHeight: "calc(100% - 30px)" }}>
+        {philosophers.map(p => {
+          const pos = layout.get(p.id);
+          if (!pos || !p.signaturePhrase) return null;
+          const match = isMatch(p);
+          const isSelected = selectedId === p.id;
+          const isOnPath = PFAD_SET.has(p.id);
+          return (
+            <button
+              key={p.id}
+              onClick={() => onSelect(p.id)}
+              title={`${p.name} (${p.born}${p.died ? `–${p.died}` : "*"})`}
+              style={{
+                position: "absolute",
+                left: `${pos.x}%`, top: `${pos.y}%`,
+                transform: `translate(-50%, -50%) rotate(${pos.rotation}deg) scale(${match ? pos.size + (isSelected ? 0.2 : 0) : pos.size * 0.85})`,
+                background: "none", border: "none", padding: "0.3rem 0.5rem",
+                cursor: "pointer",
+                fontFamily: "'Caveat', 'Cormorant Garamond', cursive",
+                fontSize: "1.15rem",
+                color: pageInk,
+                opacity: match ? (isSelected ? 1 : isOnPath ? 0.95 : 0.85) : 0.18,
+                textAlign: "left",
+                lineHeight: 1.25,
+                maxWidth: "220px",
+                whiteSpace: "normal",
+                fontWeight: isOnPath ? 600 : 400,
+                transition: "opacity 0.4s ease, transform 0.4s ease",
+                zIndex: isSelected ? 50 : isOnPath ? 20 : match ? 10 : 1,
+                textShadow: isSelected ? "0 0 8px rgba(196,168,130,0.5)" : "none",
+              }}
+            >
+              "{p.signaturePhrase}"
+              <span style={{
+                display: "block",
+                fontFamily: "'Cormorant Garamond', serif",
+                fontStyle: "italic",
+                fontSize: "0.65rem",
+                color: inkDim,
+                marginTop: "0.15rem",
+              }}>— {p.name}</span>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
