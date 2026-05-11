@@ -19,6 +19,7 @@ import {
 import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import { PHILOSOPHERS } from "@/data/philosophyMap";
+import PageNav from "@/components/PageNav";
 
 const SERIF = "'EB Garamond', Georgia, serif";
 const MONO  = "'Courier Prime', 'Courier New', monospace";
@@ -52,6 +53,7 @@ type ReadingMode = "surface" | "depth" | "research";
 export default function ResonanzenPage() {
   const isDark = useEbookTheme();
   const C = isDark ? C_DARK : C_LIGHT;
+  const [scrollRef, setScrollRef] = useState<HTMLElement | null>(null);
 
   const [index, setIndex] = useState<ResonanzIndex | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -277,6 +279,7 @@ export default function ResonanzenPage() {
     // touch-action: pan-y auf Mobile.
     <div
       data-scroll
+      ref={setScrollRef}
       style={{
         position: "fixed", inset: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
@@ -329,15 +332,17 @@ export default function ResonanzenPage() {
       </header>
 
       <main style={{ maxWidth: 960, margin: "0 auto", padding: "0 1rem 4rem" }}>
+        {/* ═══ STICKY-BLOCK: Suche + Filter laufen gemeinsam mit beim Scroll,
+            damit der User auch tief in den Treffern noch filtern kann ohne
+            hochzuscrollen. ═══ */}
+        <div style={{ position: "sticky", top: 0, zIndex: 10 }}>
         {/* ═══ SUCH-HERO: zentrales Tool, sticky beim Scroll ═══ */}
         <section
           style={{
-            position: "sticky", top: 0, zIndex: 10,
             background: `${C.void}f0`,
             backdropFilter: "blur(8px)",
             WebkitBackdropFilter: "blur(8px)",
-            padding: "1rem 0",
-            marginBottom: "1.5rem",
+            padding: "1rem 0 0.6rem",
             borderBottom: `1px solid ${C.border}`,
           }}
         >
@@ -429,9 +434,21 @@ export default function ResonanzenPage() {
           </div>
         </section>
 
-        {/* ═══ KOLLABIERBARE FILTER ═══ */}
+        {/* ═══ KOLLABIERBARE FILTER ═══ Teil des Sticky-Blocks; bei Expand
+            scrollen sie mit der Suche mit. Max-Height + overflow falls die
+            Filter-Section länger als der Viewport wird. */}
         {filtersExpanded && (
-          <section style={{ marginBottom: "1.5rem", display: "flex", flexDirection: "column", gap: "0.8rem", padding: "1rem", background: C.deep, border: `1px solid ${C.border}` }}>
+          <section style={{
+            display: "flex", flexDirection: "column", gap: "0.8rem",
+            padding: "1rem",
+            background: `${C.deep}f5`,
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
+            border: `1px solid ${C.border}`,
+            borderTop: "none",
+            maxHeight: "min(60vh, 480px)",
+            overflowY: "auto",
+          }}>
             {/* Endpoint-Pills */}
             <div>
               <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Kategorie:</div>
@@ -504,6 +521,12 @@ export default function ResonanzenPage() {
             )}
           </section>
         )}
+        </div>
+        {/* ═══ ENDE STICKY-BLOCK ═══ */}
+
+        {/* Spacer — damit der erste Eintrag nicht direkt unter dem Sticky-
+            Block klebt sondern etwas Luft hat */}
+        <div style={{ height: "1rem" }} />
 
         {/* ═══ WORTWOLKE — klickbar als Such-Hilfe ═══ */}
         {keywords.length > 0 && !search.trim() && (
@@ -764,6 +787,9 @@ export default function ResonanzenPage() {
           ✕ {deleteError}
         </div>
       )}
+
+      {/* Floating-Werkzeuge — auf jeder Sub-Seite gleich */}
+      <PageNav scrollContainer={scrollRef} />
     </div>
   );
 }

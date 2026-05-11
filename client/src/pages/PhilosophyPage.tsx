@@ -17,6 +17,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
+import PageNav from "@/components/PageNav";
 import {
   TRADITIONS, SCIENCE_LINKS,
   RESONANZVERNUNFT_PFAD,
@@ -168,10 +169,12 @@ export default function PhilosophyPage() {
   }, [sorted, traditionFilter, searchLower]);
 
   const activeFilterCount = (traditionFilter !== "all" ? 1 : 0) + (searchLower ? 1 : 0);
+  const [scrollRef, setScrollRef] = useState<HTMLElement | null>(null);
 
   return (
     <div
       data-scroll
+      ref={setScrollRef}
       style={{
         position: "fixed", inset: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
@@ -497,6 +500,8 @@ export default function PhilosophyPage() {
           c={C}
         />
       )}
+
+      <PageNav scrollContainer={scrollRef} />
     </div>
   );
 }

@@ -5,9 +5,10 @@
  * Auth-Check passiert einmalig beim Mount. Nicht-authentifizierte User
  * sehen Hilfe-Page mit Token-Hinweis.
  */
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
+import PageNav from "@/components/PageNav";
 import { useAdminAuth } from "@/lib/adminAuth";
 
 const SERIF = "'EB Garamond', Georgia, serif";
@@ -40,6 +41,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   const C = isDark ? C_DARK : C_LIGHT;
   const [location] = useLocation();
   const { state, error, resetToken } = useAdminAuth();
+  const [scrollRef, setScrollRef] = useState<HTMLElement | null>(null);
 
   // ─── Auth-States ───────────────────────────────────────────────────────
   if (state === "checking") {
@@ -85,6 +87,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   return (
     <div
       data-scroll
+      ref={setScrollRef}
       style={{
         position: "fixed", inset: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
@@ -141,6 +144,8 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <main style={{ maxWidth: 1200, margin: "0 auto", padding: "1.5rem 1rem 4rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
         {children}
       </main>
+
+      <PageNav scrollContainer={scrollRef} />
     </div>
   );
 }
