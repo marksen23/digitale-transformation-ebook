@@ -25,30 +25,34 @@ export interface Palette {
   accentDim: string;   // accent at lower opacity (borders, halos)
 }
 
+// Werte folgen Tailwind's stone-Palette (Home.tsx-Sprache) und ergänzen
+// den Akzent durch amber-500/700 — damit Werk-Hauptseite und Sub-Pages
+// dieselbe visuelle Stimme sprechen.
+
 export const C_DARK: Palette = {
-  void: "#080808",
-  deep: "#0f0f0f",
-  surface: "#161616",
-  border: "#2a2a2a",
-  muted: "#444",
-  textDim: "#888",
-  text: "#c8c2b4",
-  textBright: "#e8e2d4",
-  accent: "#c4a882",
-  accentDim: "#7a6a52",
+  void: "#0c0a09",       // stone-950
+  deep: "#1c1917",       // stone-900
+  surface: "#292524",    // stone-800
+  border: "#44403c",     // stone-700
+  muted: "#57534e",      // stone-600
+  textDim: "#a8a29e",    // stone-400
+  text: "#e7e5e4",       // stone-200
+  textBright: "#fafaf9", // stone-50
+  accent: "#f59e0b",     // amber-500
+  accentDim: "#b45309",  // amber-700
 };
 
 export const C_LIGHT: Palette = {
-  void: "#fafaf9",
-  deep: "#f0ece4",
+  void: "#fafaf9",       // stone-50
+  deep: "#f5f5f4",       // stone-100
   surface: "#ffffff",
-  border: "#d8d2c8",
-  muted: "#a8a29e",
-  textDim: "#78716c",
-  text: "#3a3530",
-  textBright: "#1c1917",
-  accent: "#c4a882",
-  accentDim: "#7a6a52",
+  border: "#d6d3d1",     // stone-300
+  muted: "#a8a29e",      // stone-400
+  textDim: "#78716c",    // stone-500
+  text: "#292524",       // stone-800
+  textBright: "#1c1917", // stone-900
+  accent: "#f59e0b",     // amber-500
+  accentDim: "#b45309",  // amber-700
 };
 
 /** Gemeinsame Font-Stacks für alle Sub-Pages. */
