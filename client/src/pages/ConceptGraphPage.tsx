@@ -2,6 +2,8 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { loadResonanzenIndexLazy, groupResonanzenByNode, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
+// Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
+import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT } from "@/lib/theme";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -14,51 +16,29 @@ interface ConceptGraphPageProps {
 const LM_AURA_R = 68;
 const LM_RING_R = 34;
 
-// ─── Shared font stacks ───────────────────────────────────────────────────────
-const SERIF = "'EB Garamond', Georgia, serif";
-const MONO  = "'Courier Prime', 'Courier New', monospace";
-
 // ─── Paletten: Dunkel (Standard) und Hell ────────────────────────────────────
 type Palette = { readonly [K in keyof typeof C_DARK]: string };
 
 const C_DARK = {
-  void:       "#080808",
-  deep:       "#0f0f0f",
-  surface:    "#161616",
-  border:     "#2a2a2a",
-  muted:      "#444",
-  ghost:      "#555",
-  textDim:    "#888",
-  text:       "#c8c2b4",
-  textBright: "#e8e2d4",
-  accent:     "#f59e0b",
-  accentDim:  "#b45309",
-  lmColor:    "#c8b896",
-  lmGlow:     "#e8dcc0",
-  panelBg:    "rgba(10,10,10,0.96)",
-  overlayBg:  "rgba(8,8,8,0.80)",
-  serif:      SERIF,
-  mono:       MONO,
+  ...THEME_DARK,
+  ghost:     "#555",
+  lmColor:   "#c8b896",
+  lmGlow:    "#e8dcc0",
+  panelBg:   "rgba(10,10,10,0.96)",
+  overlayBg: "rgba(8,8,8,0.80)",
+  serif:     SERIF,
+  mono:      MONO,
 } as const;
 
 const C_LIGHT = {
-  void:       "#fafaf9",
-  deep:       "#f0ece4",
-  surface:    "#ffffff",
-  border:     "#d8d2c8",
-  muted:      "#a8a29e",
-  ghost:      "#b4aea8",
-  textDim:    "#78716c",
-  text:       "#3a3530",
-  textBright: "#1c1917",
-  accent:     "#f59e0b",
-  accentDim:  "#b45309",
-  lmColor:    "#9a8468",
-  lmGlow:     "#7a6448",
-  panelBg:    "rgba(240,236,228,0.97)",
-  overlayBg:  "rgba(230,226,218,0.85)",
-  serif:      SERIF,
-  mono:       MONO,
+  ...THEME_LIGHT,
+  ghost:     "#b4aea8",
+  lmColor:   "#9a8468",
+  lmGlow:    "#7a6448",
+  panelBg:   "rgba(245,245,244,0.97)",
+  overlayBg: "rgba(230,226,218,0.85)",
+  serif:     SERIF,
+  mono:      MONO,
 } as const;
 
 // ─── Pre-build adjacency index ─────────────────────────────────────────────────
