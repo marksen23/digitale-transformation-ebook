@@ -45,7 +45,7 @@ function OverlayLoader() {
     }}>
       <div style={{
         width: 32, height: 32, border: '2px solid #2a2a2a',
-        borderTopColor: '#c4a882', borderRadius: '50%',
+        borderTopColor: '#f59e0b', borderRadius: '50%',
         animation: 'spin 0.8s linear infinite',
       }} />
       <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>

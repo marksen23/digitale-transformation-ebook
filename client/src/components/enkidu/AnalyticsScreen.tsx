@@ -22,8 +22,8 @@ const C_DARK = {
   textDim: "#888",
   text: "#c8c2b4",
   textBright: "#e8e2d4",
-  accent: "#c4a882",
-  accentDim: "#7a6a52",
+  accent: "#f59e0b",
+  accentDim: "#b45309",
   serif: "'EB Garamond', Georgia, serif",
   mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
@@ -38,8 +38,8 @@ const C_LIGHT: CPalette = {
   textDim: "#78716c",
   text: "#3a3530",
   textBright: "#1c1917",
-  accent: "#c4a882",
-  accentDim: "#7a6a52",
+  accent: "#f59e0b",
+  accentDim: "#b45309",
   serif: "'EB Garamond', Georgia, serif",
   mono: "'Courier Prime', 'Courier New', monospace",
 };

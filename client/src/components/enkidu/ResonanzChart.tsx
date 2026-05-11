@@ -15,8 +15,8 @@ const C = {
   muted: "#444",
   textDim: "#888",
   text: "#c8c2b4",
-  accent: "#c4a882",
-  accentDim: "#7a6a52",
+  accent: "#f59e0b",
+  accentDim: "#b45309",
   serif: "'EB Garamond', Georgia, serif",
   mono: "'Courier Prime', 'Courier New', monospace",
 } as const;

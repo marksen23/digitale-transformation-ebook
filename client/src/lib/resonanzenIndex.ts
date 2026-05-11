@@ -171,7 +171,7 @@ export const ENDPOINT_LABEL: Record<ResonanzEntry["endpoint"], string> = {
 };
 
 export const ENDPOINT_COLOR: Record<ResonanzEntry["endpoint"], string> = {
-  "chapter":      "#c4a882",  // accent
+  "chapter":      "#f59e0b",  // accent
   "enkidu":       "#9a7e5a",
   "analyse":      "#5aacb8",
   "graph-chat":   "#7ab898",

@@ -867,8 +867,8 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
           </filter>
           {/* Radial-Hintergrund-Glow für die Resonanz-Konstellation */}
           <radialGradient id="resonanz-glow">
-            <stop offset="0%" stopColor="#c4a882" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#c4a882" stopOpacity="0" />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
           </radialGradient>
         </defs>
 
@@ -905,7 +905,7 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
               key={i}
               x1={fromPos.x} y1={fromPos.y}
               x2={toPos.x} y2={toPos.y}
-              stroke={link.type === "receives" ? "#c4a882" : "#c48282"}
+              stroke={link.type === "receives" ? "#f59e0b" : "#c48282"}
               strokeWidth="0.7"
               strokeDasharray={link.type === "receives" ? undefined : "3,2"}
               opacity={0.5}
@@ -950,7 +950,7 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
           // Stern-Eigenschaften
           const baseRadius = isOnPath ? 5 : 3.5;
           const radius = isSelected ? 7 : isCurrentPathStep ? 8 : baseRadius;
-          const starColor = isSelected ? "#fff" : isOnPath ? "#c4a882" : isConnected ? "#e8e2d4" : "#c8c2b4";
+          const starColor = isSelected ? "#fff" : isOnPath ? "#f59e0b" : isConnected ? "#e8e2d4" : "#c8c2b4";
           const filter = isOnPath || isSelected || isCurrentPathStep ? "url(#path-glow)" : "url(#star-glow)";
           const labelOpacity = isVisible ? (isSelected || isOnPath || isConnected ? 1 : 0.7) : 0.2;
 
@@ -983,7 +983,7 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
                 <circle
                   cx={pos.x} cy={pos.y} r={radius + 3}
                   fill="none"
-                  stroke="#c4a882"
+                  stroke="#f59e0b"
                   strokeWidth="0.5"
                   opacity={0.5}
                   style={{ pointerEvents: "none" }}
@@ -1139,13 +1139,13 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
             <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
           </filter>
           <linearGradient id="beam-gradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#c4a882" stopOpacity="0" />
-            <stop offset="20%" stopColor="#c4a882" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#c4a882" stopOpacity="0.05" />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0" />
+            <stop offset="20%" stopColor="#f59e0b" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0.05" />
           </linearGradient>
           <radialGradient id="bar-glow" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#c4a882" stopOpacity="0.45" />
-            <stop offset="100%" stopColor="#c4a882" stopOpacity="0" />
+            <stop offset="0%" stopColor="#f59e0b" stopOpacity="0.45" />
+            <stop offset="100%" stopColor="#f59e0b" stopOpacity="0" />
           </radialGradient>
         </defs>
 
@@ -1158,7 +1158,7 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
           return (
             <g style={{ pointerEvents: "none" }}>
               <rect x={pos.x - 30} y={pos.y} width={60} height={BAR_Y - pos.y + BAR_HEIGHT} fill="url(#beam-gradient)" />
-              <line x1={pos.x} y1={pos.y} x2={pos.x} y2={BAR_Y + BAR_HEIGHT} stroke="#c4a882" strokeWidth="0.5" opacity="0.7" />
+              <line x1={pos.x} y1={pos.y} x2={pos.x} y2={BAR_Y + BAR_HEIGHT} stroke="#f59e0b" strokeWidth="0.5" opacity="0.7" />
             </g>
           );
         })()}
@@ -1201,7 +1201,7 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
           const isSpotlight = spotlightId === p.id;
           const isOnPath = showPath && PFAD_SET.has(p.id);
           const radius = isSpotlight ? 6 : isSelected ? 5 : isOnPath ? 4.5 : 3.5;
-          const color = isSpotlight ? "#fff" : isOnPath ? "#c4a882" : "#c8c2b4";
+          const color = isSpotlight ? "#fff" : isOnPath ? "#f59e0b" : "#c8c2b4";
           const filter = isSpotlight ? "url(#spot-strong-glow)" : "url(#spot-glow)";
           const labelOpacity = isVisible ? (spotlightPhil ? (isSpotlight ? 1 : 0.45) : 0.85) : 0.2;
 
@@ -1217,7 +1217,7 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
               <circle cx={pos.x} cy={pos.y} r={14} fill="transparent" />
               <circle cx={pos.x} cy={pos.y} r={radius} fill={color} filter={filter} style={{ pointerEvents: "none" }} />
               {isOnPath && !isSpotlight && (
-                <circle cx={pos.x} cy={pos.y} r={radius + 3} fill="none" stroke="#c4a882" strokeWidth="0.4" opacity="0.5" style={{ pointerEvents: "none" }} />
+                <circle cx={pos.x} cy={pos.y} r={radius + 3} fill="none" stroke="#f59e0b" strokeWidth="0.4" opacity="0.5" style={{ pointerEvents: "none" }} />
               )}
               <text
                 x={pos.x + radius + 4}
@@ -1360,8 +1360,8 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
               style={{
                 fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
                 color: active ? "#080808" : pageInk,
-                background: active ? "#c4a882" : "none",
-                border: `1px solid ${active ? "#c4a882" : inkDim}`,
+                background: active ? "#f59e0b" : "none",
+                border: `1px solid ${active ? "#f59e0b" : inkDim}`,
                 padding: "0.4rem 0.65rem", cursor: "pointer", minHeight: 32,
                 whiteSpace: "nowrap", flexShrink: 0,
               }}
@@ -1699,7 +1699,7 @@ export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect,
             <path
               key={i}
               d={d}
-              stroke={link.type === "receives" ? "#c4a882" : "#c48282"}
+              stroke={link.type === "receives" ? "#f59e0b" : "#c48282"}
               strokeWidth="1"
               strokeDasharray={link.type === "receives" ? "4,2" : "2,2"}
               fill="none"
@@ -1730,7 +1730,7 @@ export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect,
               <circle
                 cx={pos.x} cy={pos.y} r={r}
                 fill={tradColor}
-                stroke={isSelected ? labelColor : isOnPath ? "#c4a882" : "none"}
+                stroke={isSelected ? labelColor : isOnPath ? "#f59e0b" : "none"}
                 strokeWidth={isSelected ? 2 : isOnPath ? 1.5 : 0}
                 filter={isSelected || isOnPath ? "url(#root-glow)" : undefined}
                 style={{ pointerEvents: "none" }}
@@ -2072,7 +2072,7 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
                 x={pos.x - squareSize / 2} y={pos.y - squareSize / 2}
                 width={squareSize} height={squareSize}
                 fill={tradColor}
-                stroke={isSelected || isOnPath ? "#c4a882" : settlementInk}
+                stroke={isSelected || isOnPath ? "#f59e0b" : settlementInk}
                 strokeWidth={isSelected ? 1.5 : 0.5}
                 filter={isSelected || isOnPath || isConnected ? "url(#river-glow)" : undefined}
                 style={{ pointerEvents: "none" }}

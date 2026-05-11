@@ -171,7 +171,7 @@
    focus-visible-Styling haben. Außerhalb @layer base, damit Tailwind
    die Regel nicht entfernt. */
 *:focus-visible {
-  outline: 2px solid #c4a882;
+  outline: 2px solid #f59e0b;
   outline-offset: 2px;
   border-radius: 2px;
 }

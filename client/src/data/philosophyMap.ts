@@ -114,7 +114,7 @@ export const TRADITIONS: Tradition[] = [
     name: "Hermeneutik",
     blurb: "Verstehen geschieht im Zwischen — Horizontverschmelzung statt Subjekt-Objekt.",
     spanFrom: 1900, spanTo: 2010,
-    color: "#c4a882",
+    color: "#f59e0b",
   },
   {
     id: "frankfurter-schule",

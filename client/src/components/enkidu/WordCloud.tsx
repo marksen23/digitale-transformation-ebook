@@ -22,10 +22,10 @@ interface PlacedWord {
 
 // Color palette from C constants — amber-sand spectrum
 const COLORS = [
-  "#c4a882", // accent
+  "#f59e0b", // accent
   "#a8906c",
   "#d4b896",
-  "#7a6a52", // accentDim
+  "#b45309", // accentDim
   "#e8d4b8",
   "#b89870",
   "#6a5a44",
