@@ -522,12 +522,12 @@ export function NetworkView({ philosophers, allPhilosophers, selectedId, onSelec
         display: "flex", gap: "0.25rem",
       }}>
         <button
-          onClick={() => canvas.setZoom(canvas.zoom * 1.2)}
+          onClick={() => canvas.zoomBy(1.2)}
           aria-label="Zoom in"
           style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}
         >+</button>
         <button
-          onClick={() => canvas.setZoom(canvas.zoom * 0.83)}
+          onClick={() => canvas.zoomBy(0.83)}
           aria-label="Zoom out"
           style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}
         >−</button>
@@ -1083,8 +1083,8 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
 
       {/* Zoom-Controls */}
       <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.zoomBy(1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.zoomBy(0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
         <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: "#aaa", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
       </div>
 
@@ -1327,8 +1327,8 @@ export function SpotlightView({ philosophers, allPhilosophers, selectedId, onSel
       </svg>
 
       <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.zoomBy(1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.zoomBy(0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: "#ddd", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
         <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: "#aaa", background: "rgba(0,0,0,0.5)", border: "1px solid #2a2a2a", padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
       </div>
 
@@ -1857,8 +1857,8 @@ export function RootsView({ philosophers, allPhilosophers, selectedId, onSelect,
       </svg>
 
       <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.zoomBy(1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.zoomBy(0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
         <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, background: c.deep, border: `1px solid ${c.border}`, padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
       </div>
 
@@ -2234,8 +2234,8 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
       </svg>
 
       <div style={{ position: "absolute", bottom: "0.5rem", left: "0.5rem", display: "flex", gap: "0.25rem" }}>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
-        <button onClick={() => canvas.setZoom(canvas.zoom * 0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
+        <button onClick={() => canvas.zoomBy(1.2)} aria-label="Zoom in" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>+</button>
+        <button onClick={() => canvas.zoomBy(0.83)} aria-label="Zoom out" style={{ fontFamily: MONO, fontSize: "0.75rem", color: c.text, background: c.deep, border: `1px solid ${c.border}`, width: 28, height: 28, cursor: "pointer", lineHeight: 1 }}>−</button>
         <button onClick={() => canvas.resetView()} aria-label="Reset" style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, background: c.deep, border: `1px solid ${c.border}`, padding: "0 0.5rem", height: 28, cursor: "pointer", letterSpacing: "0.1em" }}>RESET</button>
       </div>
 

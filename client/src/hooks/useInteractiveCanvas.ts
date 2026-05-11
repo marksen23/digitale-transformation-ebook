@@ -65,6 +65,8 @@ export interface InteractiveCanvas {
   resetView: () => void;
   /** Setze Zoom manuell (z.B. via Buttons) */
   setZoom: (z: number) => void;
+  /** Multipliziere Zoom mit Faktor (kompoundiert über aufeinanderfolgende Aufrufe via Ref). */
+  zoomBy: (factor: number) => void;
   /** Setze Pan manuell */
   setPan: (p: NodePos) => void;
   /** Liefert die User-gedraggte Position eines Knotens, oder null. */
@@ -117,6 +119,11 @@ export function useInteractiveCanvas(
 
   const setPan = useCallback((p: NodePos) => { panRef.current = p; setPanState(p); }, []);
   const setZoom = useCallback((z: number) => { const c = clampZoom(z); zoomRef.current = c; setZoomState(c); }, [clampZoom]);
+  const zoomBy = useCallback((factor: number) => {
+    const c = clampZoom(zoomRef.current * factor);
+    zoomRef.current = c;
+    setZoomState(c);
+  }, [clampZoom]);
 
   const resetView = useCallback(() => {
     setPan({ x: 0, y: 0 });
@@ -247,6 +254,7 @@ export function useInteractiveCanvas(
     transform,
     resetView,
     setZoom,
+    zoomBy,
     setPan,
     nodePos,
     startNodeDrag,
