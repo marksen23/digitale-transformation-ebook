@@ -1,19 +1,19 @@
 {
   "date": "2026-05-15",
-  "generatedAt": "2026-05-15T16:31:03.321Z",
-  "commit": "40406e239c0eabf6ad0b89a7614d171c05225f51",
-  "filesChecked": 116,
+  "generatedAt": "2026-05-15T16:31:56.546Z",
+  "commit": "d910fd4d17ce2af33bd4754953b46ffeb350373a",
+  "filesChecked": 117,
   "aggregates": {
     "byEndpoint": {
       "analyse": 40,
-      "chapter": 16,
+      "chapter": 17,
       "enkidu": 20,
       "graph-chat": 20,
       "path-analyse": 18,
       "translate": 2
     },
     "byStatus": {
-      "raw": 113,
+      "raw": 114,
       "published": 3
     },
     "orphanNodeIds": [
