@@ -22,6 +22,7 @@ import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
 import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
+import { analyzeCorpusCoherence } from "@/lib/corpusCoherence";
 
 type EndpointKey = ResonanzEntry["endpoint"] | "all";
 type StatusKey = "all" | "kuratiert";
@@ -55,6 +56,9 @@ export default function ResonanzenPage() {
   const [permalinkId, setPermalinkId] = useState<string | null>(initParams.get("id"));
   const [readingMode, setReadingMode] = useState<ReadingMode>("depth");
   const [showRelatedFor, setShowRelatedFor] = useState<string | null>(null);
+  // Variations-Cluster (Cosine ≥0.88) — separat von related[]. Default
+  // im depth-Mode eingeklappt mit Counter, in research-Mode ausgeklappt.
+  const [showVariationsFor, setShowVariationsFor] = useState<string | null>(null);
   // Phase 3: Filter-Bar kollabierbar (Default-Minimal).
   // Wenn beim Mount schon Filter via URL aktiv sind, sofort aufklappen —
   // sonst bliebe ein gesetzter Filter unsichtbar hinter "▸ Filter (1 aktiv)".
@@ -272,6 +276,22 @@ export default function ResonanzenPage() {
   }, [index, filterStatus]);
 
   const keywords = useMemo(() => extractCorpusKeywords(cloudEntries, 50), [cloudEntries]);
+
+  // Echo-Cluster-Membership: pro Eintrag-ID die transitiv verknüpften
+  // Geschwister-IDs (Cosine ≥0.88). Wird im Treffer-Layout als
+  // "Variationen einer Aussage" gerendert — sprachlich bewusst nicht als
+  // Duplikat-Vorwurf, sondern als Mehrstimmigkeit.
+  const echoMembership = useMemo(() => {
+    if (!index) return new Map<string, string[]>();
+    const coherence = analyzeCorpusCoherence(index.entries);
+    const map = new Map<string, string[]>();
+    for (const cluster of coherence.clusters) {
+      for (const id of cluster.ids) {
+        map.set(id, cluster.ids.filter(other => other !== id));
+      }
+    }
+    return map;
+  }, [index]);
 
   // ─── Such-Engine: ist gerade eine Anfrage aktiv? ─────────────────────
   // Ohne aktive Anfrage zeigt die Seite nur Suchfeld + Wortwolke + Filter —
@@ -880,6 +900,15 @@ export default function ResonanzenPage() {
           {hasActiveQuery && sortedResults.slice(0, resultsLimit).map(entry => {
             const isExpanded = expandedId === entry.id;
             const showRelated = showRelatedFor === entry.id;
+            const showVariations = showVariationsFor === entry.id || readingMode === "research";
+            // Variations: Cluster-Geschwister, die im aktuellen Index existieren.
+            // Wir filtern NICHT auf sortedResults — Cluster-Mitglieder können
+            // auch außerhalb der aktuellen Suche liegen, das ist Teil der Aussage.
+            const variationSiblings = readingMode !== "surface"
+              ? (echoMembership.get(entry.id) ?? [])
+                  .map(sid => index!.entries.find(e => e.id === sid))
+                  .filter((e): e is NonNullable<typeof e> => !!e)
+              : [];
             // Default-Minimal-Regel: Tags je nach Reading-Mode begrenzen
             const tagLimit = readingMode === "surface" ? 0 : readingMode === "depth" ? 3 : 99;
             const excerptLen = readingMode === "surface" ? 90 : readingMode === "depth" ? 220 : 500;
@@ -992,6 +1021,71 @@ export default function ResonanzenPage() {
                       const excerpt = entry.response.slice(0, excerptLen).trim() + (entry.response.length > excerptLen ? "…" : "");
                       return !semanticMode && search.trim() ? highlightTerm(excerpt, search) : excerpt;
                     })()}
+                  </div>
+                )}
+
+                {/* Variations — Echo-Cluster (Cosine ≥0.88). "Mehrere Stimmen
+                    zur selben Frage", nicht "Duplikate". In depth eingeklappt
+                    mit Counter, in research voll sichtbar, in surface verborgen.
+                    Visuell näher zum Treffer als die `related`-Sektion unten. */}
+                {readingMode !== "surface" && variationSiblings.length > 0 && (
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    style={{ paddingTop: "0.5rem", marginTop: "0.5rem" }}
+                  >
+                    {readingMode === "depth" && !showVariations ? (
+                      <button
+                        onClick={() => setShowVariationsFor(entry.id)}
+                        aria-label={`${variationSiblings.length} Variationen dieser Aussage anzeigen`}
+                        style={{
+                          fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                          color: "#c8a87a", background: "none", border: "none",
+                          padding: "0.3rem 0", cursor: "pointer",
+                          display: "inline-flex", alignItems: "center", gap: "0.35rem",
+                        }}
+                      >
+                        <span style={{ fontSize: "0.7rem", color: "#c8a87a" }}>❦</span>
+                        {variationSiblings.length} Variationen dieser Aussage
+                      </button>
+                    ) : (
+                      <>
+                        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#c8a87a", marginBottom: "0.4rem", display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
+                          <span style={{ fontSize: "0.7rem" }}>❦</span>
+                          <span>Variationen dieser Aussage</span>
+                          {readingMode === "depth" && (
+                            <button
+                              onClick={() => setShowVariationsFor(null)}
+                              style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, background: "none", border: "none", marginLeft: "0.3rem", cursor: "pointer", padding: 0 }}
+                            >einklappen</button>
+                          )}
+                        </div>
+                        <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem", paddingLeft: "0.9rem", borderLeft: `1px solid ${C.muted}`, opacity: 0.85 }}>
+                          {variationSiblings.map(s => (
+                            <button
+                              key={s.id}
+                              onClick={() => {
+                                setExpandedId(s.id);
+                                setShowVariationsFor(null);
+                                requestAnimationFrame(() => {
+                                  document.getElementById(`entry-${s.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                                });
+                              }}
+                              style={{
+                                fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
+                                color: C.textDim, textAlign: "left", background: "none",
+                                border: "none", padding: "0.2rem 0", cursor: "pointer",
+                                display: "flex", gap: "0.4rem", alignItems: "baseline",
+                              }}
+                            >
+                              <span style={{ color: ENDPOINT_COLOR[s.endpoint], fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", flexShrink: 0 }}>
+                                {ENDPOINT_LABEL[s.endpoint].slice(0, 5)}
+                              </span>
+                              <span style={{ flex: 1 }}>{s.prompt.slice(0, 90)}{s.prompt.length > 90 ? "…" : ""}</span>
+                            </button>
+                          ))}
+                        </div>
+                      </>
+                    )}
                   </div>
                 )}
 
