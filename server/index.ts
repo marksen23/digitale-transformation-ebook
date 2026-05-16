@@ -19,7 +19,7 @@ const prinzipNodes   = NODES.filter(n => n.category === "prinzip");
 const nodeSrv        = new Map(NODES.map(n => [n.id, n]));
 const crossCatSrv    = EDGES.filter(e => nodeSrv.get(e.source)?.category !== nodeSrv.get(e.target)?.category).length;
 
-const GRAPH_SYSTEM_PROMPT = `Du bist ein philosophischer Gesprächspartner des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+const GRAPH_SYSTEM_PROMPT = `Du bist ein philosophischer Gesprächspartner des Werks "Die Digitale Transformation" — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
 
 Dir steht das vollständige Begriffsnetz des Werks zur Verfügung (${NODES.length} Konzepte, ${EDGES.length} Verbindungen davon ${crossCatSrv} feldübergreifend).
 
@@ -260,7 +260,7 @@ Enkidu schließt jedes Gespräch mit:
             "\n─────────────────────────────────────────────",
             "WISSENSBASIS — DAS VOLLSTÄNDIGE WERK",
             "─────────────────────────────────────────────",
-            'Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation" von Markus Oehring.',
+            'Du hast Zugriff auf den vollständigen Text von "Die Digitale Transformation".',
             "Nutze dieses Wissen, wenn der Mensch auf Inhalte, Kapitel, Figuren oder Konzepte des Werks Bezug nimmt.",
             "Zitiere sparsam und nur wenn es die Begegnung vertieft.",
             "",
@@ -346,7 +346,7 @@ Enkidu schließt jedes Gespräch mit:
       return res.status(400).json({ error: "Frage und Kapitelinhalt sind erforderlich." });
     }
 
-    const systemPrompt = `Du bist ein kenntnisreicher Assistent für das philosophische Werk "Die Digitale Transformation" von Markus Oehring.
+    const systemPrompt = `Du bist ein kenntnisreicher Assistent für das philosophische Werk "Die Digitale Transformation".
 Das Werk ist eine poetisch-philosophische Trilogie mit theoretischer Grundlegung in drei Kritiken.
 Es behandelt das Verhältnis von Mensch und Maschine aus der Perspektive von Gilgamesch (Band I), Kant (Band II) und Heidegger/Levinas/Rosa (Band III).
 Das zentrale Konzept ist die "Resonanzvernunft" — eine Epistemologie, Ethik und Ontologie des Zwischen.
@@ -499,7 +499,7 @@ ${text}`;
   interface NodeMeta { id: string; label: string; fullLabel: string; description: string; }
 
   function buildClusterPrompt(nodes: NodeMeta[]): string {
-    const intro = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.\n\n`;
+    const intro = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.\n\n`;
     const conceptList = nodes.map((n, i) => `KONZEPT ${String.fromCharCode(65 + i)}: ${n.fullLabel}\n${n.description}`).join("\n\n");
     if (nodes.length === 2) {
       return intro + `Analysiere das Spannungsfeld zwischen diesen beiden Konzepten aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nSchreibe drei prägnante Absätze:\n1. Worin besteht die produktive Spannung oder der Widerspruch zwischen diesen Konzepten — was macht sie zu Gegenspielern oder Komplizen?\n2. Welches transformative "Dritte" entsteht, wenn man beide gemeinsam denkt — was wird sichtbar, das in keinem allein liegt?\n3. Was verändert sich am Verständnis von Mensch, Maschine oder Resonanz, wenn dieser Zusammenhang ernst genommen wird?\n\nSchreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
@@ -623,7 +623,7 @@ ${text}`;
       const n = nodeSrv.get(id);
       return `${i + 1}. ${n?.fullLabel ?? id}: ${n?.description ?? ""}`;
     }).join("\n");
-    return `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+    return `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
 
 Analysiere diese Bewegung durch das Begriffsnetz des Werks (${path.length} Stationen, ${path.length - 1} Übergänge):
 
@@ -646,7 +646,7 @@ Falls die Sequenz keine substantielle Bewegung enthält (etwa wegen erzwungener 
       const n = nodeSrv.get(id);
       return `   ${i + 1}. ${n?.fullLabel ?? id}: ${n?.description ?? ""}`;
     }).join("\n");
-    return `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" von Markus Oehring — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
+    return `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.
 
 Vergleiche zwei Pfade durch das Begriffsnetz des Werks zwischen denselben Endpunkten:
 
