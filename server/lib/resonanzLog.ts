@@ -13,6 +13,7 @@
  */
 import crypto from "crypto";
 import { NODES } from "../../client/src/data/conceptGraph.js";
+import { detectEchoes, getEchoDetectorHealth } from "./echoDetector.js";
 
 // Bei Server-Start: Set aller validen Konzept-IDs aus dem Begriffsnetz.
 // Verwendet, um Tippfehler oder veraltete IDs in nodeIds beim Logging
@@ -75,7 +76,7 @@ function yamlString(s: string): string {
   return `"${s.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
 }
 
-function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: string): string {
+function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: string, echoIds: string[] = []): string {
   const frontmatter: string[] = [
     "---",
     `id: ${id}`,
@@ -87,6 +88,14 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
     `nodeIds: [${(entry.nodeIds ?? []).map(yamlString).join(", ")}]`,
     "status: raw",
     `content_hash: ${hash}`,
+  ];
+  // echoes_of: nur wenn at-ingest-Detektion Echos gefunden hat.
+  // Build-Step setzt parallel nearDuplicates im Index — beide repräsentieren
+  // denselben Zustand zu unterschiedlichen Zeitpunkten.
+  if (echoIds.length > 0) {
+    frontmatter.push(`echoes_of: [${echoIds.map(yamlString).join(", ")}]`);
+  }
+  frontmatter.push(
     `copyright: ${yamlString(COPYRIGHT_NOTICE)}`,
     `license: ${LICENSE_ID}`,
     `license_url: ${LICENSE_URL}`,
@@ -95,7 +104,7 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
     `    ts: ${ts}`,
     "    actor: system",
     `    content_hash: ${hash}`,
-  ];
+  );
   if (entry.contextMeta && Object.keys(entry.contextMeta).length > 0) {
     frontmatter.push("context_meta:");
     for (const [k, v] of Object.entries(entry.contextMeta)) {
@@ -163,6 +172,7 @@ export function getResonanzLogHealth() {
     skippedSpamFilter: _resonanzLogSkippedSpam,
     lastSuccess: _lastSuccess,
     lastFailure: _lastFailure,
+    echoDetector: getEchoDetectorHealth(),
   };
 }
 
@@ -234,7 +244,17 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
   const id = generateId();
   const ts = new Date().toISOString();
   const hash = contentHash(entry.prompt, entry.response);
-  const md = buildMarkdown(entry, id, ts, hash);
+
+  // At-Ingest-Echo-Detection: synchron mit Logging, aber fail-soft.
+  // Findet bestehende Einträge mit Cosine ≥0.88 zu prompt+response.
+  // Bei jedem Fehler (kein GitHub-Token, kein Index, Netzwerk) → [].
+  const echoes = await detectEchoes(entry.prompt, entry.response).catch(() => []);
+  const echoIds = echoes.map(e => e.id);
+  if (echoIds.length > 0) {
+    console.info(`[resonanzLog] ${id} echoes ${echoIds.length}: ${echoIds.slice(0, 3).join(", ")}${echoIds.length > 3 ? "…" : ""}`);
+  }
+
+  const md = buildMarkdown(entry, id, ts, hash, echoIds);
   const repoPath = buildPath(id, entry.endpoint, entry.anchor, ts);
 
   const url = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${repoPath}`;

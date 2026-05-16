@@ -76,6 +76,11 @@ interface ResonanzHealth {
   skippedSpamFilter: number;
   lastSuccess: { id: string; ts: string; endpoint: string; anchor: string } | null;
   lastFailure: { ts: string; endpoint: string; reason: string } | null;
+  echoDetector?: {
+    cacheAgeSec: number | null;
+    cachedEntries: number;
+    lastEchoCount: number;
+  };
 }
 
 type AsyncResult<T> = { state: "loading" } | { state: "ok"; data: T } | { state: "error"; error: string };
@@ -633,6 +638,13 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
       <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.4rem" }}>
         Ziel-Repo: <span style={{ color: c.text }}>{h.repoOwner}/{h.repoName}</span> @ <span style={{ color: c.accent }}>{h.repoBranch}</span>
       </div>
+      {h.echoDetector && (
+        <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.5rem" }}>
+          Echo-Detector: <span style={{ color: c.text }}>{h.echoDetector.cachedEntries}</span> Einträge im Cache
+          {h.echoDetector.cacheAgeSec !== null && <> · <span style={{ color: c.text }}>{h.echoDetector.cacheAgeSec}s</span> alt</>}
+          {h.echoDetector.lastEchoCount > 0 && <> · letzter Treffer: <span style={{ color: "#e8c870" }}>{h.echoDetector.lastEchoCount} Echo(s)</span></>}
+        </div>
+      )}
       {h.lastSuccess && (
         <div style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "0.5rem 0.7rem", marginBottom: "0.4rem" }}>
           <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#7ab898", marginBottom: "0.25rem" }}>
