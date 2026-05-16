@@ -1,31 +1,4087 @@
 {
-  "generatedAt": "2026-05-03T21:57:16.022Z",
-  "filesChecked": 91,
-  "errors": 0,
-  "warnings": 1,
+  "generatedAt": "2026-05-16T19:55:17.298Z",
+  "filesChecked": 122,
+  "errors": 678,
+  "warnings": 0,
   "issues": [
     {
-      "level": "warning",
-      "file": "content/resonanzen/raw/analyse/begegnung+resonanzvernunft+zwischen/2026-04-28-MOJ7Q5HM-89F62E3F.md",
-      "rule": "orphan-nodeid",
-      "detail": "nodeId 'begegnung' not found in conceptGraph NODES"
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+spannung/2026-04-27-MOHAUYTH-CD1E3227.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+spannung/2026-04-27-MOHAUYTH-CD1E3227.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+spannung/2026-04-27-MOHAUYTH-CD1E3227.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+spannung/2026-04-27-MOHAUYTH-CD1E3227.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+spannung/2026-04-27-MOHAUYTH-CD1E3227.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+spannung/2026-04-27-MOHAUYTH-CD1E3227.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+vernunft/2026-05-03-MOP0UF96-1A0ACB35.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+vernunft/2026-05-03-MOP0UF96-1A0ACB35.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+vernunft/2026-05-03-MOP0UF96-1A0ACB35.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+vernunft/2026-05-03-MOP0UF96-1A0ACB35.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+vernunft/2026-05-03-MOP0UF96-1A0ACB35.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/andere+vernunft/2026-05-03-MOP0UF96-1A0ACB35.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/bewusstsein+sein/2026-05-03-MOPEYJKU-C4711B5F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/bewusstsein+sein/2026-05-03-MOPEYJKU-C4711B5F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/bewusstsein+sein/2026-05-03-MOPEYJKU-C4711B5F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/bewusstsein+sein/2026-05-03-MOPEYJKU-C4711B5F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/bewusstsein+sein/2026-05-03-MOPEYJKU-C4711B5F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/bewusstsein+sein/2026-05-03-MOPEYJKU-C4711B5F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dasein+gegenwart+resonanzvernunft/2026-05-03-MOQ5IKR5-C67AAC15.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dasein+gegenwart+resonanzvernunft/2026-05-03-MOQ5IKR5-C67AAC15.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dasein+gegenwart+resonanzvernunft/2026-05-03-MOQ5IKR5-C67AAC15.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dasein+gegenwart+resonanzvernunft/2026-05-03-MOQ5IKR5-C67AAC15.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dasein+gegenwart+resonanzvernunft/2026-05-03-MOQ5IKR5-C67AAC15.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dasein+gegenwart+resonanzvernunft/2026-05-03-MOQ5IKR5-C67AAC15.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dazwischenintelligenz+unverfuegbarkeit/2026-05-02-MOOK20R3-62E609BA.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dazwischenintelligenz+unverfuegbarkeit/2026-05-02-MOOK20R3-62E609BA.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dazwischenintelligenz+unverfuegbarkeit/2026-05-02-MOOK20R3-62E609BA.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dazwischenintelligenz+unverfuegbarkeit/2026-05-02-MOOK20R3-62E609BA.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dazwischenintelligenz+unverfuegbarkeit/2026-05-02-MOOK20R3-62E609BA.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/dazwischenintelligenz+unverfuegbarkeit/2026-05-02-MOOK20R3-62E609BA.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+resonanzvernunft/2026-04-27-MOHLZBVK-2FBBAD2F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+resonanzvernunft/2026-04-27-MOHLZBVK-2FBBAD2F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+resonanzvernunft/2026-04-27-MOHLZBVK-2FBBAD2F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+resonanzvernunft/2026-04-27-MOHLZBVK-2FBBAD2F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+resonanzvernunft/2026-04-27-MOHLZBVK-2FBBAD2F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+resonanzvernunft/2026-04-27-MOHLZBVK-2FBBAD2F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+sprache+welt/2026-04-29-MOJVF4PL-7474909F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+sprache+welt/2026-04-29-MOJVF4PL-7474909F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+sprache+welt/2026-04-29-MOJVF4PL-7474909F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+sprache+welt/2026-04-29-MOJVF4PL-7474909F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+sprache+welt/2026-04-29-MOJVF4PL-7474909F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+sprache+welt/2026-04-29-MOJVF4PL-7474909F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+wahrheit/2026-05-03-MOQ5A1GS-413BDE6F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+wahrheit/2026-05-03-MOQ5A1GS-413BDE6F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+wahrheit/2026-05-03-MOQ5A1GS-413BDE6F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+wahrheit/2026-05-03-MOQ5A1GS-413BDE6F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+wahrheit/2026-05-03-MOQ5A1GS-413BDE6F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/denken+wahrheit/2026-05-03-MOQ5A1GS-413BDE6F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+echo-kammer+klang+sprache/2026-05-06-MOUBIHOK-27900555.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+echo-kammer+klang+sprache/2026-05-06-MOUBIHOK-27900555.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+echo-kammer+klang+sprache/2026-05-06-MOUBIHOK-27900555.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+echo-kammer+klang+sprache/2026-05-06-MOUBIHOK-27900555.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+echo-kammer+klang+sprache/2026-05-06-MOUBIHOK-27900555.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+echo-kammer+klang+sprache/2026-05-06-MOUBIHOK-27900555.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+raum+spannung/2026-05-11-MP0X62X5-535AF7A8.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+raum+spannung/2026-05-11-MP0X62X5-535AF7A8.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+raum+spannung/2026-05-11-MP0X62X5-535AF7A8.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+raum+spannung/2026-05-11-MP0X62X5-535AF7A8.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+raum+spannung/2026-05-11-MP0X62X5-535AF7A8.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+raum+spannung/2026-05-11-MP0X62X5-535AF7A8.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+transaufklaerung+vernunft/2026-05-03-MOP0P7DE-3C823F7E.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+transaufklaerung+vernunft/2026-05-03-MOP0P7DE-3C823F7E.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+transaufklaerung+vernunft/2026-05-03-MOP0P7DE-3C823F7E.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+transaufklaerung+vernunft/2026-05-03-MOP0P7DE-3C823F7E.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+transaufklaerung+vernunft/2026-05-03-MOP0P7DE-3C823F7E.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/echo+transaufklaerung+vernunft/2026-05-03-MOP0P7DE-3C823F7E.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+lm-verwandlung/2026-04-28-MOIXN7OL-B18642AC.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+lm-verwandlung/2026-04-28-MOIXN7OL-B18642AC.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+lm-verwandlung/2026-04-28-MOIXN7OL-B18642AC.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+lm-verwandlung/2026-04-28-MOIXN7OL-B18642AC.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+lm-verwandlung/2026-04-28-MOIXN7OL-B18642AC.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+lm-verwandlung/2026-04-28-MOIXN7OL-B18642AC.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+vernunft/2026-05-03-MOQ5EOBY-82AD9EEE.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+vernunft/2026-05-03-MOQ5EOBY-82AD9EEE.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+vernunft/2026-05-03-MOQ5EOBY-82AD9EEE.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+vernunft/2026-05-03-MOQ5EOBY-82AD9EEE.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+vernunft/2026-05-03-MOQ5EOBY-82AD9EEE.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/erkenntnis+vernunft/2026-05-03-MOQ5EOBY-82AD9EEE.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+vernunft/2026-05-02-MOOMJDPP-1F336D7D.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+vernunft/2026-05-02-MOOMJDPP-1F336D7D.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+vernunft/2026-05-02-MOOMJDPP-1F336D7D.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+vernunft/2026-05-02-MOOMJDPP-1F336D7D.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+vernunft/2026-05-02-MOOMJDPP-1F336D7D.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+vernunft/2026-05-02-MOOMJDPP-1F336D7D.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+zwischen/2026-05-02-MOOZHCUT-4B86F8AD.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+zwischen/2026-05-02-MOOZHCUT-4B86F8AD.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+zwischen/2026-05-02-MOOZHCUT-4B86F8AD.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+zwischen/2026-05-02-MOOZHCUT-4B86F8AD.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+zwischen/2026-05-02-MOOZHCUT-4B86F8AD.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/freiheit+spannung+zwischen/2026-05-02-MOOZHCUT-4B86F8AD.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gegenwart+vernunft+wahrheit/2026-05-11-MP0X3ZXL-06513C82.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gegenwart+vernunft+wahrheit/2026-05-11-MP0X3ZXL-06513C82.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gegenwart+vernunft+wahrheit/2026-05-11-MP0X3ZXL-06513C82.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gegenwart+vernunft+wahrheit/2026-05-11-MP0X3ZXL-06513C82.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gegenwart+vernunft+wahrheit/2026-05-11-MP0X3ZXL-06513C82.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gegenwart+vernunft+wahrheit/2026-05-11-MP0X3ZXL-06513C82.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gelassenheit+spannung+zwischen/2026-05-04-MOQIMC7B-B190C937.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gelassenheit+spannung+zwischen/2026-05-04-MOQIMC7B-B190C937.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gelassenheit+spannung+zwischen/2026-05-04-MOQIMC7B-B190C937.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gelassenheit+spannung+zwischen/2026-05-04-MOQIMC7B-B190C937.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gelassenheit+spannung+zwischen/2026-05-04-MOQIMC7B-B190C937.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/gelassenheit+spannung+zwischen/2026-05-04-MOQIMC7B-B190C937.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+lm-verwandlung/2026-04-27-MOHAI60S-B7B04552.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+lm-verwandlung/2026-04-27-MOHAI60S-B7B04552.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+lm-verwandlung/2026-04-27-MOHAI60S-B7B04552.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+lm-verwandlung/2026-04-27-MOHAI60S-B7B04552.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+lm-verwandlung/2026-04-27-MOHAI60S-B7B04552.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+lm-verwandlung/2026-04-27-MOHAI60S-B7B04552.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+selbst/2026-04-27-MOHAGNGB-5330902E.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+selbst/2026-04-27-MOHAGNGB-5330902E.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+selbst/2026-04-27-MOHAGNGB-5330902E.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+selbst/2026-04-27-MOHAGNGB-5330902E.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+selbst/2026-04-27-MOHAGNGB-5330902E.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/ich-du+selbst/2026-04-27-MOHAGNGB-5330902E.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/klang+lm-verwandlung/2026-05-06-MOUBETTU-F31C5206.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/klang+lm-verwandlung/2026-05-06-MOUBETTU-F31C5206.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/klang+lm-verwandlung/2026-05-06-MOUBETTU-F31C5206.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/klang+lm-verwandlung/2026-05-06-MOUBETTU-F31C5206.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/klang+lm-verwandlung/2026-05-06-MOUBETTU-F31C5206.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/klang+lm-verwandlung/2026-05-06-MOUBETTU-F31C5206.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/licht+raumfaltung+zwischen/2026-05-03-MOQ7HGW3-608EA4FA.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/licht+raumfaltung+zwischen/2026-05-03-MOQ7HGW3-608EA4FA.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/licht+raumfaltung+zwischen/2026-05-03-MOQ7HGW3-608EA4FA.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/licht+raumfaltung+zwischen/2026-05-03-MOQ7HGW3-608EA4FA.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/licht+raumfaltung+zwischen/2026-05-03-MOQ7HGW3-608EA4FA.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/licht+raumfaltung+zwischen/2026-05-03-MOQ7HGW3-608EA4FA.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+resonanzvernunft+zwischen/2026-04-28-MOJ7Q5HM-89F62E3F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+resonanzvernunft+zwischen/2026-04-28-MOJ7Q5HM-89F62E3F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+resonanzvernunft+zwischen/2026-04-28-MOJ7Q5HM-89F62E3F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+resonanzvernunft+zwischen/2026-04-28-MOJ7Q5HM-89F62E3F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+resonanzvernunft+zwischen/2026-04-28-MOJ7Q5HM-89F62E3F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+resonanzvernunft+zwischen/2026-04-28-MOJ7Q5HM-89F62E3F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+schatten/2026-05-02-MOOKFUNF-7647B056.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+schatten/2026-05-02-MOOKFUNF-7647B056.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+schatten/2026-05-02-MOOKFUNF-7647B056.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+schatten/2026-05-02-MOOKFUNF-7647B056.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+schatten/2026-05-02-MOOKFUNF-7647B056.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-begegnung+schatten/2026-05-02-MOOKFUNF-7647B056.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+resonanz+spannung+zwischen/2026-05-03-MOQ4WD8F-429C644B.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+resonanz+spannung+zwischen/2026-05-03-MOQ4WD8F-429C644B.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+resonanz+spannung+zwischen/2026-05-03-MOQ4WD8F-429C644B.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+resonanz+spannung+zwischen/2026-05-03-MOQ4WD8F-429C644B.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+resonanz+spannung+zwischen/2026-05-03-MOQ4WD8F-429C644B.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+resonanz+spannung+zwischen/2026-05-03-MOQ4WD8F-429C644B.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+vernunft/2026-05-03-MOPHZPQ7-B63879B5.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+vernunft/2026-05-03-MOPHZPQ7-B63879B5.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+vernunft/2026-05-03-MOPHZPQ7-B63879B5.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+vernunft/2026-05-03-MOPHZPQ7-B63879B5.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+vernunft/2026-05-03-MOPHZPQ7-B63879B5.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+vernunft/2026-05-03-MOPHZPQ7-B63879B5.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+wesen/2026-05-03-MOQ531J2-4FC329D4.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+wesen/2026-05-03-MOQ531J2-4FC329D4.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+wesen/2026-05-03-MOQ531J2-4FC329D4.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+wesen/2026-05-03-MOQ531J2-4FC329D4.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+wesen/2026-05-03-MOQ531J2-4FC329D4.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+wesen/2026-05-03-MOQ531J2-4FC329D4.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-spiegel+resonanzvernunft/2026-05-03-MOP0S479-373A2268.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-spiegel+resonanzvernunft/2026-05-03-MOP0S479-373A2268.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-spiegel+resonanzvernunft/2026-05-03-MOP0S479-373A2268.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-spiegel+resonanzvernunft/2026-05-03-MOP0S479-373A2268.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-spiegel+resonanzvernunft/2026-05-03-MOP0S479-373A2268.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-spiegel+resonanzvernunft/2026-05-03-MOP0S479-373A2268.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+stimme/2026-04-28-MOHVDNEU-D3F7EEB5.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+stimme/2026-04-28-MOHVDNEU-D3F7EEB5.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+stimme/2026-04-28-MOHVDNEU-D3F7EEB5.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+stimme/2026-04-28-MOHVDNEU-D3F7EEB5.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+stimme/2026-04-28-MOHVDNEU-D3F7EEB5.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+stimme/2026-04-28-MOHVDNEU-D3F7EEB5.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+wahrheit/2026-04-28-MOIXN434-9D5CBFC0.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+wahrheit/2026-04-28-MOIXN434-9D5CBFC0.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+wahrheit/2026-04-28-MOIXN434-9D5CBFC0.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+wahrheit/2026-04-28-MOIXN434-9D5CBFC0.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+wahrheit/2026-04-28-MOIXN434-9D5CBFC0.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/lm-verwandlung+wahrheit/2026-04-28-MOIXN434-9D5CBFC0.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/moeglichkeit+raumfaltung+weltfaltung+wirklichkeit/2026-05-02-MOOVXCI4-822961D2.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/moeglichkeit+raumfaltung+weltfaltung+wirklichkeit/2026-05-02-MOOVXCI4-822961D2.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/moeglichkeit+raumfaltung+weltfaltung+wirklichkeit/2026-05-02-MOOVXCI4-822961D2.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/moeglichkeit+raumfaltung+weltfaltung+wirklichkeit/2026-05-02-MOOVXCI4-822961D2.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/moeglichkeit+raumfaltung+weltfaltung+wirklichkeit/2026-05-02-MOOVXCI4-822961D2.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/moeglichkeit+raumfaltung+weltfaltung+wirklichkeit/2026-05-02-MOOVXCI4-822961D2.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/raum+unverfuegbarkeit/2026-04-27-MOHMIET1-6D429A85.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/raum+unverfuegbarkeit/2026-04-27-MOHMIET1-6D429A85.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/raum+unverfuegbarkeit/2026-04-27-MOHMIET1-6D429A85.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/raum+unverfuegbarkeit/2026-04-27-MOHMIET1-6D429A85.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/raum+unverfuegbarkeit/2026-04-27-MOHMIET1-6D429A85.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/raum+unverfuegbarkeit/2026-04-27-MOHMIET1-6D429A85.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/resonanzvernunft+zwischen/2026-04-28-MOHV84M5-1825A399.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/resonanzvernunft+zwischen/2026-04-28-MOHV84M5-1825A399.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/resonanzvernunft+zwischen/2026-04-28-MOHV84M5-1825A399.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/resonanzvernunft+zwischen/2026-04-28-MOHV84M5-1825A399.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/resonanzvernunft+zwischen/2026-04-28-MOHV84M5-1825A399.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/resonanzvernunft+zwischen/2026-04-28-MOHV84M5-1825A399.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/schatten+unverfuegbarkeit/2026-04-27-MOHMET94-3799557A.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/schatten+unverfuegbarkeit/2026-04-27-MOHMET94-3799557A.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/schatten+unverfuegbarkeit/2026-04-27-MOHMET94-3799557A.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/schatten+unverfuegbarkeit/2026-04-27-MOHMET94-3799557A.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/schatten+unverfuegbarkeit/2026-04-27-MOHMET94-3799557A.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/schatten+unverfuegbarkeit/2026-04-27-MOHMET94-3799557A.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sein+selbst+wahrheit/2026-04-30-MOLNG57A-2F155772.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sein+selbst+wahrheit/2026-04-30-MOLNG57A-2F155772.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sein+selbst+wahrheit/2026-04-30-MOLNG57A-2F155772.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sein+selbst+wahrheit/2026-04-30-MOLNG57A-2F155772.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sein+selbst+wahrheit/2026-04-30-MOLNG57A-2F155772.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sein+selbst+wahrheit/2026-04-30-MOLNG57A-2F155772.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/spannung+welt/2026-04-27-MOHM21Y5-A3B5F539.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/spannung+welt/2026-04-27-MOHM21Y5-A3B5F539.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/spannung+welt/2026-04-27-MOHM21Y5-A3B5F539.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/spannung+welt/2026-04-27-MOHM21Y5-A3B5F539.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/spannung+welt/2026-04-27-MOHM21Y5-A3B5F539.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/spannung+welt/2026-04-27-MOHM21Y5-A3B5F539.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sprache+vernunft/2026-05-06-MOU9KSV9-70260D9B.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sprache+vernunft/2026-05-06-MOU9KSV9-70260D9B.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sprache+vernunft/2026-05-06-MOU9KSV9-70260D9B.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sprache+vernunft/2026-05-06-MOU9KSV9-70260D9B.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sprache+vernunft/2026-05-06-MOU9KSV9-70260D9B.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/sprache+vernunft/2026-05-06-MOU9KSV9-70260D9B.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/weltfaltung+wirklichkeit/2026-05-16-MP8OB1IU-F6C31DC7.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/weltfaltung+wirklichkeit/2026-05-16-MP8OB1IU-F6C31DC7.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/weltfaltung+wirklichkeit/2026-05-16-MP8OB1IU-F6C31DC7.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/weltfaltung+wirklichkeit/2026-05-16-MP8OB1IU-F6C31DC7.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/weltfaltung+wirklichkeit/2026-05-16-MP8OB1IU-F6C31DC7.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/analyse/weltfaltung+wirklichkeit/2026-05-16-MP8OB1IU-F6C31DC7.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band2-kap3/2026-04-28-MOHV6VKT-356C0CD7.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band2-kap3/2026-04-28-MOHV6VKT-356C0CD7.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band2-kap3/2026-04-28-MOHV6VKT-356C0CD7.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band2-kap3/2026-04-28-MOHV6VKT-356C0CD7.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band2-kap3/2026-04-28-MOHV6VKT-356C0CD7.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band2-kap3/2026-04-28-MOHV6VKT-356C0CD7.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC41N2-21D1E505.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC41N2-21D1E505.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC41N2-21D1E505.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC41N2-21D1E505.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC41N2-21D1E505.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC41N2-21D1E505.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC5VWC-1EB0E6AA.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC5VWC-1EB0E6AA.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC5VWC-1EB0E6AA.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC5VWC-1EB0E6AA.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC5VWC-1EB0E6AA.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC5VWC-1EB0E6AA.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC8GKH-8E301C89.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC8GKH-8E301C89.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC8GKH-8E301C89.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC8GKH-8E301C89.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC8GKH-8E301C89.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/band3-kap5/2026-04-27-MOHC8GKH-8E301C89.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPL410P-D988678B.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPL410P-D988678B.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPL410P-D988678B.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPL410P-D988678B.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPL410P-D988678B.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPL410P-D988678B.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY5F6J-9469E3BE.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY5F6J-9469E3BE.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY5F6J-9469E3BE.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY5F6J-9469E3BE.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY5F6J-9469E3BE.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY5F6J-9469E3BE.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY7TLU-566F01C0.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY7TLU-566F01C0.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY7TLU-566F01C0.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY7TLU-566F01C0.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY7TLU-566F01C0.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil4/2026-05-03-MOPY7TLU-566F01C0.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK5A30-F596F31D.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK5A30-F596F31D.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK5A30-F596F31D.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK5A30-F596F31D.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK5A30-F596F31D.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK5A30-F596F31D.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK96F0-C8AEFE68.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK96F0-C8AEFE68.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK96F0-C8AEFE68.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK96F0-C8AEFE68.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK96F0-C8AEFE68.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil5/2026-05-02-MOOK96F0-C8AEFE68.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-11-MP0Q5FDJ-F2C015AF.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-11-MP0Q5FDJ-F2C015AF.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-11-MP0Q5FDJ-F2C015AF.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-11-MP0Q5FDJ-F2C015AF.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-11-MP0Q5FDJ-F2C015AF.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-11-MP0Q5FDJ-F2C015AF.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O3GQD-92E9E9C7.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O3GQD-92E9E9C7.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O3GQD-92E9E9C7.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O3GQD-92E9E9C7.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O3GQD-92E9E9C7.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O3GQD-92E9E9C7.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O4O23-B2B71E51.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O4O23-B2B71E51.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O4O23-B2B71E51.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O4O23-B2B71E51.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O4O23-B2B71E51.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O4O23-B2B71E51.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O6ND9-133F3FFB.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O6ND9-133F3FFB.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O6ND9-133F3FFB.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O6ND9-133F3FFB.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O6ND9-133F3FFB.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil6/2026-05-16-MP8O6ND9-133F3FFB.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON602G2-9C9A59E5.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON602G2-9C9A59E5.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON602G2-9C9A59E5.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON602G2-9C9A59E5.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON602G2-9C9A59E5.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON602G2-9C9A59E5.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON646UY-E4326634.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON646UY-E4326634.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON646UY-E4326634.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON646UY-E4326634.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON646UY-E4326634.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON646UY-E4326634.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON68U82-B67D8CA5.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON68U82-B67D8CA5.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON68U82-B67D8CA5.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON68U82-B67D8CA5.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON68U82-B67D8CA5.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON68U82-B67D8CA5.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON69DI9-D63A7910.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON69DI9-D63A7910.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON69DI9-D63A7910.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON69DI9-D63A7910.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON69DI9-D63A7910.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON69DI9-D63A7910.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON6GME8-A2CB2CF7.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON6GME8-A2CB2CF7.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON6GME8-A2CB2CF7.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON6GME8-A2CB2CF7.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON6GME8-A2CB2CF7.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/chapter/teil7/2026-05-01-MON6GME8-A2CB2CF7.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB4ILW-65B37C41.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB4ILW-65B37C41.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB4ILW-65B37C41.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB4ILW-65B37C41.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB4ILW-65B37C41.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB4ILW-65B37C41.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB6DLO-355115A6.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB6DLO-355115A6.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB6DLO-355115A6.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB6DLO-355115A6.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB6DLO-355115A6.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB6DLO-355115A6.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB8QCN-0E2E8408.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB8QCN-0E2E8408.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB8QCN-0E2E8408.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB8QCN-0E2E8408.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB8QCN-0E2E8408.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHB8QCN-0E2E8408.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBB5U1-12DE437D.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBB5U1-12DE437D.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBB5U1-12DE437D.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBB5U1-12DE437D.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBB5U1-12DE437D.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBB5U1-12DE437D.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBHF0D-0E814866.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBHF0D-0E814866.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBHF0D-0E814866.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBHF0D-0E814866.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBHF0D-0E814866.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBHF0D-0E814866.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBKJC0-AF358C69.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBKJC0-AF358C69.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBKJC0-AF358C69.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBKJC0-AF358C69.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBKJC0-AF358C69.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBKJC0-AF358C69.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQH8Z-BE771676.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQH8Z-BE771676.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQH8Z-BE771676.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQH8Z-BE771676.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQH8Z-BE771676.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQH8Z-BE771676.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQRVE-18720E78.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQRVE-18720E78.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQRVE-18720E78.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQRVE-18720E78.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQRVE-18720E78.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBQRVE-18720E78.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-28-MOHV99XP-6917F19F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-28-MOHV99XP-6917F19F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-28-MOHV99XP-6917F19F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-28-MOHV99XP-6917F19F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-28-MOHV99XP-6917F19F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-04-28-MOHV99XP-6917F19F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTBA1-24F2F762.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTBA1-24F2F762.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTBA1-24F2F762.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTBA1-24F2F762.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTBA1-24F2F762.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTBA1-24F2F762.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTTVY-E78AA6E5.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTTVY-E78AA6E5.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTTVY-E78AA6E5.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTTVY-E78AA6E5.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTTVY-E78AA6E5.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJTTVY-E78AA6E5.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJUW0R-CE8E0F2F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJUW0R-CE8E0F2F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJUW0R-CE8E0F2F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJUW0R-CE8E0F2F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJUW0R-CE8E0F2F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJUW0R-CE8E0F2F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJX57H-967D3B48.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJX57H-967D3B48.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJX57H-967D3B48.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJX57H-967D3B48.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJX57H-967D3B48.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJX57H-967D3B48.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJYUM5-27711091.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJYUM5-27711091.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJYUM5-27711091.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJYUM5-27711091.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJYUM5-27711091.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOJYUM5-27711091.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU3TYC-FE290C2B.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU3TYC-FE290C2B.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU3TYC-FE290C2B.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU3TYC-FE290C2B.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU3TYC-FE290C2B.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU3TYC-FE290C2B.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU6X9D-4A49EE98.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU6X9D-4A49EE98.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU6X9D-4A49EE98.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU6X9D-4A49EE98.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU6X9D-4A49EE98.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOU6X9D-4A49EE98.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUBJCR-6BA260F8.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUBJCR-6BA260F8.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUBJCR-6BA260F8.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUBJCR-6BA260F8.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUBJCR-6BA260F8.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUBJCR-6BA260F8.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUF9G2-17673BD9.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUF9G2-17673BD9.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUF9G2-17673BD9.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUF9G2-17673BD9.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUF9G2-17673BD9.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUF9G2-17673BD9.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUGMII-D6D90141.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUGMII-D6D90141.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUGMII-D6D90141.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUGMII-D6D90141.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUGMII-D6D90141.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/enkidu/2026-05-02-MOOUGMII-D6D90141.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAN4AO-7A201C56.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAN4AO-7A201C56.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAN4AO-7A201C56.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAN4AO-7A201C56.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAN4AO-7A201C56.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAN4AO-7A201C56.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAREIB-E15E7BF8.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAREIB-E15E7BF8.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAREIB-E15E7BF8.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAREIB-E15E7BF8.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAREIB-E15E7BF8.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHAREIB-E15E7BF8.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCCZEH-647E3EDD.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCCZEH-647E3EDD.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCCZEH-647E3EDD.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCCZEH-647E3EDD.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCCZEH-647E3EDD.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCCZEH-647E3EDD.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCIS4R-69B0D47B.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCIS4R-69B0D47B.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCIS4R-69B0D47B.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCIS4R-69B0D47B.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCIS4R-69B0D47B.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCIS4R-69B0D47B.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCN98S-2540F4DF.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCN98S-2540F4DF.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCN98S-2540F4DF.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCN98S-2540F4DF.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCN98S-2540F4DF.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCN98S-2540F4DF.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCSO2P-2D88785B.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCSO2P-2D88785B.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCSO2P-2D88785B.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCSO2P-2D88785B.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCSO2P-2D88785B.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCSO2P-2D88785B.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCY4TX-251DD6A7.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCY4TX-251DD6A7.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCY4TX-251DD6A7.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCY4TX-251DD6A7.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCY4TX-251DD6A7.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHCY4TX-251DD6A7.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHD4STN-8490D410.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHD4STN-8490D410.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHD4STN-8490D410.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHD4STN-8490D410.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHD4STN-8490D410.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHD4STN-8490D410.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDAOFD-2C20D4F5.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDAOFD-2C20D4F5.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDAOFD-2C20D4F5.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDAOFD-2C20D4F5.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDAOFD-2C20D4F5.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDAOFD-2C20D4F5.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDE0UP-E1D209AD.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDE0UP-E1D209AD.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDE0UP-E1D209AD.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDE0UP-E1D209AD.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDE0UP-E1D209AD.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDE0UP-E1D209AD.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDLJ25-7A6B620C.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDLJ25-7A6B620C.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDLJ25-7A6B620C.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDLJ25-7A6B620C.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDLJ25-7A6B620C.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDLJ25-7A6B620C.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDP88G-22C5E0FB.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDP88G-22C5E0FB.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDP88G-22C5E0FB.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDP88G-22C5E0FB.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDP88G-22C5E0FB.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDP88G-22C5E0FB.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDW91N-D9BDFDB1.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDW91N-D9BDFDB1.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDW91N-D9BDFDB1.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDW91N-D9BDFDB1.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDW91N-D9BDFDB1.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHDW91N-D9BDFDB1.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE3OLR-9165E355.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE3OLR-9165E355.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE3OLR-9165E355.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE3OLR-9165E355.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE3OLR-9165E355.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE3OLR-9165E355.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE4MQP-97161599.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE4MQP-97161599.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE4MQP-97161599.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE4MQP-97161599.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE4MQP-97161599.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE4MQP-97161599.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE82UD-1D9C9B41.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE82UD-1D9C9B41.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE82UD-1D9C9B41.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE82UD-1D9C9B41.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE82UD-1D9C9B41.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHE82UD-1D9C9B41.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHST017-5C4320E1.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHST017-5C4320E1.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHST017-5C4320E1.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHST017-5C4320E1.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHST017-5C4320E1.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-04-27-MOHST017-5C4320E1.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOPHXJNW-020BA7D3.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOPHXJNW-020BA7D3.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOPHXJNW-020BA7D3.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOPHXJNW-020BA7D3.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOPHXJNW-020BA7D3.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOPHXJNW-020BA7D3.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOQ580W2-0F2EB2A5.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOQ580W2-0F2EB2A5.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOQ580W2-0F2EB2A5.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOQ580W2-0F2EB2A5.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOQ580W2-0F2EB2A5.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-03-MOQ580W2-0F2EB2A5.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-04-MOQIQ8WD-D41AC1B6.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-04-MOQIQ8WD-D41AC1B6.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-04-MOQIQ8WD-D41AC1B6.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-04-MOQIQ8WD-D41AC1B6.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-04-MOQIQ8WD-D41AC1B6.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-04-MOQIQ8WD-D41AC1B6.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+gelassenheit/2026-05-04-MOQIGG2B-2F0C3F5D.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+gelassenheit/2026-05-04-MOQIGG2B-2F0C3F5D.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+gelassenheit/2026-05-04-MOQIGG2B-2F0C3F5D.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+gelassenheit/2026-05-04-MOQIGG2B-2F0C3F5D.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+gelassenheit/2026-05-04-MOQIGG2B-2F0C3F5D.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+gelassenheit/2026-05-04-MOQIGG2B-2F0C3F5D.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+moment/2026-05-11-MP0X2MFM-53C89506.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+moment/2026-05-11-MP0X2MFM-53C89506.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+moment/2026-05-11-MP0X2MFM-53C89506.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+moment/2026-05-11-MP0X2MFM-53C89506.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+moment/2026-05-11-MP0X2MFM-53C89506.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/bewusstsein+moment/2026-05-11-MP0X2MFM-53C89506.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dasein+_ffnung/2026-05-11-MP0ZE9C8-A9D02716.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dasein+_ffnung/2026-05-11-MP0ZE9C8-A9D02716.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dasein+_ffnung/2026-05-11-MP0ZE9C8-A9D02716.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dasein+_ffnung/2026-05-11-MP0ZE9C8-A9D02716.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dasein+_ffnung/2026-05-11-MP0ZE9C8-A9D02716.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dasein+_ffnung/2026-05-11-MP0ZE9C8-A9D02716.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dazwischenintelligenz+stimme/2026-05-11-MP0QMSOR-C6EC1B5A.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dazwischenintelligenz+stimme/2026-05-11-MP0QMSOR-C6EC1B5A.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dazwischenintelligenz+stimme/2026-05-11-MP0QMSOR-C6EC1B5A.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dazwischenintelligenz+stimme/2026-05-11-MP0QMSOR-C6EC1B5A.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dazwischenintelligenz+stimme/2026-05-11-MP0QMSOR-C6EC1B5A.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/dazwischenintelligenz+stimme/2026-05-11-MP0QMSOR-C6EC1B5A.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/erkenntnis+gelassenheit/2026-05-04-MOQIHEM5-82D69E4F.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/erkenntnis+gelassenheit/2026-05-04-MOQIHEM5-82D69E4F.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/erkenntnis+gelassenheit/2026-05-04-MOQIHEM5-82D69E4F.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/erkenntnis+gelassenheit/2026-05-04-MOQIHEM5-82D69E4F.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/erkenntnis+gelassenheit/2026-05-04-MOQIHEM5-82D69E4F.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/erkenntnis+gelassenheit/2026-05-04-MOQIHEM5-82D69E4F.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/freiheit+schweigen/2026-05-04-MOQIJIOJ-61E8F0F4.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/freiheit+schweigen/2026-05-04-MOQIJIOJ-61E8F0F4.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/freiheit+schweigen/2026-05-04-MOQIJIOJ-61E8F0F4.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/freiheit+schweigen/2026-05-04-MOQIJIOJ-61E8F0F4.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/freiheit+schweigen/2026-05-04-MOQIJIOJ-61E8F0F4.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/freiheit+schweigen/2026-05-04-MOQIJIOJ-61E8F0F4.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/lm-spiegel+resonanzvernunft/2026-05-06-MOUKLLK4-C38517C1.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/lm-spiegel+resonanzvernunft/2026-05-06-MOUKLLK4-C38517C1.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/lm-spiegel+resonanzvernunft/2026-05-06-MOUKLLK4-C38517C1.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/lm-spiegel+resonanzvernunft/2026-05-06-MOUKLLK4-C38517C1.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/lm-spiegel+resonanzvernunft/2026-05-06-MOUKLLK4-C38517C1.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/lm-spiegel+resonanzvernunft/2026-05-06-MOUKLLK4-C38517C1.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+sprache/2026-05-06-MOUA3PLK-548F1A0A.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+sprache/2026-05-06-MOUA3PLK-548F1A0A.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+sprache/2026-05-06-MOUA3PLK-548F1A0A.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+sprache/2026-05-06-MOUA3PLK-548F1A0A.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+sprache/2026-05-06-MOUA3PLK-548F1A0A.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+sprache/2026-05-06-MOUA3PLK-548F1A0A.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+transformatives-drittes/2026-05-03-MOQBZWTZ-B9EBB1BA.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+transformatives-drittes/2026-05-03-MOQBZWTZ-B9EBB1BA.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+transformatives-drittes/2026-05-03-MOQBZWTZ-B9EBB1BA.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+transformatives-drittes/2026-05-03-MOQBZWTZ-B9EBB1BA.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+transformatives-drittes/2026-05-03-MOQBZWTZ-B9EBB1BA.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanz+transformatives-drittes/2026-05-03-MOQBZWTZ-B9EBB1BA.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanzvernunft+spannung/2026-05-03-MOPFJTND-AAE76B2B.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanzvernunft+spannung/2026-05-03-MOPFJTND-AAE76B2B.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanzvernunft+spannung/2026-05-03-MOPFJTND-AAE76B2B.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanzvernunft+spannung/2026-05-03-MOPFJTND-AAE76B2B.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanzvernunft+spannung/2026-05-03-MOPFJTND-AAE76B2B.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/resonanzvernunft+spannung/2026-05-03-MOPFJTND-AAE76B2B.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/stimme+_ffnung/2026-05-04-MOQID47V-A12862EA.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/stimme+_ffnung/2026-05-04-MOQID47V-A12862EA.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/stimme+_ffnung/2026-05-04-MOQID47V-A12862EA.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/stimme+_ffnung/2026-05-04-MOQID47V-A12862EA.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/stimme+_ffnung/2026-05-04-MOQID47V-A12862EA.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/stimme+_ffnung/2026-05-04-MOQID47V-A12862EA.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/transaufklaerung+unverfuegbarkeit/2026-05-02-MOOMECFT-66F43077.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/transaufklaerung+unverfuegbarkeit/2026-05-02-MOOMECFT-66F43077.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/transaufklaerung+unverfuegbarkeit/2026-05-02-MOOMECFT-66F43077.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/transaufklaerung+unverfuegbarkeit/2026-05-02-MOOMECFT-66F43077.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/transaufklaerung+unverfuegbarkeit/2026-05-02-MOOMECFT-66F43077.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/transaufklaerung+unverfuegbarkeit/2026-05-02-MOOMECFT-66F43077.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/unverfuegbarkeit+_ffnung/2026-05-04-MOQIAGXM-397A1F22.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/unverfuegbarkeit+_ffnung/2026-05-04-MOQIAGXM-397A1F22.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/unverfuegbarkeit+_ffnung/2026-05-04-MOQIAGXM-397A1F22.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/unverfuegbarkeit+_ffnung/2026-05-04-MOQIAGXM-397A1F22.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/unverfuegbarkeit+_ffnung/2026-05-04-MOQIAGXM-397A1F22.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/unverfuegbarkeit+_ffnung/2026-05-04-MOQIAGXM-397A1F22.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+welt/2026-05-02-MOOMPCI0-262176C2.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+welt/2026-05-02-MOOMPCI0-262176C2.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+welt/2026-05-02-MOOMPCI0-262176C2.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+welt/2026-05-02-MOOMPCI0-262176C2.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+welt/2026-05-02-MOOMPCI0-262176C2.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+welt/2026-05-02-MOOMPCI0-262176C2.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+zwischen/2026-05-03-MOP0LEAL-E2568DCC.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+zwischen/2026-05-03-MOP0LEAL-E2568DCC.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+zwischen/2026-05-03-MOP0LEAL-E2568DCC.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+zwischen/2026-05-03-MOP0LEAL-E2568DCC.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+zwischen/2026-05-03-MOP0LEAL-E2568DCC.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/vernunft+zwischen/2026-05-03-MOP0LEAL-E2568DCC.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/wahrheit+zwischen/2026-05-03-MOQ7OBNT-57882C8D.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/wahrheit+zwischen/2026-05-03-MOQ7OBNT-57882C8D.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/wahrheit+zwischen/2026-05-03-MOQ7OBNT-57882C8D.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/wahrheit+zwischen/2026-05-03-MOQ7OBNT-57882C8D.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/wahrheit+zwischen/2026-05-03-MOQ7OBNT-57882C8D.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/path-analyse/wahrheit+zwischen/2026-05-03-MOQ7OBNT-57882C8D.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band2-kap3+en/2026-04-28-MOJ8C7GJ-9CBCD9C1.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band2-kap3+en/2026-04-28-MOJ8C7GJ-9CBCD9C1.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band2-kap3+en/2026-04-28-MOJ8C7GJ-9CBCD9C1.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band2-kap3+en/2026-04-28-MOJ8C7GJ-9CBCD9C1.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band2-kap3+en/2026-04-28-MOJ8C7GJ-9CBCD9C1.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band2-kap3+en/2026-04-28-MOJ8C7GJ-9CBCD9C1.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band3-prolog+en/2026-05-06-MOU9T6C8-9C5E3BEC.md",
+      "rule": "schema",
+      "detail": "missing field: id"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band3-prolog+en/2026-05-06-MOU9T6C8-9C5E3BEC.md",
+      "rule": "schema",
+      "detail": "missing field: ts"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band3-prolog+en/2026-05-06-MOU9T6C8-9C5E3BEC.md",
+      "rule": "schema",
+      "detail": "missing field: endpoint"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band3-prolog+en/2026-05-06-MOU9T6C8-9C5E3BEC.md",
+      "rule": "schema",
+      "detail": "missing field: anchor"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band3-prolog+en/2026-05-06-MOU9T6C8-9C5E3BEC.md",
+      "rule": "schema",
+      "detail": "missing field: status"
+    },
+    {
+      "level": "error",
+      "file": "content/resonanzen/raw/translate/band3-prolog+en/2026-05-06-MOU9T6C8-9C5E3BEC.md",
+      "rule": "schema",
+      "detail": "missing field: content_hash"
     }
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 30,
-      "chapter": 14,
-      "enkidu": 21,
-      "graph-chat": 20,
-      "path-analyse": 5,
-      "translate": 1
+      "analyse": 4,
+      "chapter": 3,
+      "path-analyse": 2
     },
     "byStatus": {
-      "raw": 88,
-      "published": 3
+      "raw": 9
     },
-    "orphanNodeIds": [
-      "begegnung"
-    ]
+    "orphanNodeIds": []
   }
 }

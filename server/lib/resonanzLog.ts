@@ -14,6 +14,7 @@
 import crypto from "crypto";
 import { NODES } from "../../client/src/data/conceptGraph.js";
 import { detectEchoes, getEchoDetectorHealth } from "./echoDetector.js";
+import { appendToIndex, getIndexUpdaterHealth } from "./indexUpdater.js";
 
 // Bei Server-Start: Set aller validen Konzept-IDs aus dem Begriffsnetz.
 // Verwendet, um Tippfehler oder veraltete IDs in nodeIds beim Logging
@@ -173,6 +174,7 @@ export function getResonanzLogHealth() {
     lastSuccess: _lastSuccess,
     lastFailure: _lastFailure,
     echoDetector: getEchoDetectorHealth(),
+    indexUpdater: getIndexUpdaterHealth(),
   };
 }
 
@@ -276,6 +278,20 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
       if (_resonanzLogSuccessCount % 100 === 0) {
         console.info(`[resonanzLog] ${_resonanzLogSuccessCount} entries logged total`);
       }
+      // Inkrementelles Index-Update: damit der neue Eintrag sofort in
+      // /resonanzen sichtbar ist, ohne auf den CI-Workflow zu warten.
+      // Fire-and-forget — Fehler werden in indexUpdater intern getrackt.
+      void appendToIndex({
+        id, ts,
+        endpoint: entry.endpoint,
+        anchor: entry.anchor,
+        nodeIds: entry.nodeIds ?? [],
+        status: "raw",
+        prompt: entry.prompt,
+        response: entry.response,
+        contextMeta: entry.contextMeta ?? {},
+        ...(echoIds.length > 0 ? { echoes_of: echoIds } : {}),
+      });
       return;
     }
     lastReason = result.reason;

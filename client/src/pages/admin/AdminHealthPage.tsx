@@ -81,6 +81,12 @@ interface ResonanzHealth {
     cachedEntries: number;
     lastEchoCount: number;
   };
+  indexUpdater?: {
+    appendSuccessCount: number;
+    appendFailureCount: number;
+    lastAppend: { id: string; ts: string } | null;
+    lastAppendError: { ts: string; reason: string } | null;
+  };
 }
 
 type AsyncResult<T> = { state: "loading" } | { state: "ok"; data: T } | { state: "error"; error: string };
@@ -643,6 +649,18 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
           Echo-Detector: <span style={{ color: c.text }}>{h.echoDetector.cachedEntries}</span> Einträge im Cache
           {h.echoDetector.cacheAgeSec !== null && <> · <span style={{ color: c.text }}>{h.echoDetector.cacheAgeSec}s</span> alt</>}
           {h.echoDetector.lastEchoCount > 0 && <> · letzter Treffer: <span style={{ color: "#e8c870" }}>{h.echoDetector.lastEchoCount} Echo(s)</span></>}
+        </div>
+      )}
+      {h.indexUpdater && (
+        <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.5rem" }}>
+          Index-Append: <span style={{ color: "#7ab898" }}>{h.indexUpdater.appendSuccessCount} ✓</span>
+          {h.indexUpdater.appendFailureCount > 0 && <> · <span style={{ color: "#c48282" }}>{h.indexUpdater.appendFailureCount} ✗</span></>}
+          {h.indexUpdater.lastAppend && <> · letzter: <span style={{ color: c.text }}>{h.indexUpdater.lastAppend.id}</span></>}
+          {h.indexUpdater.lastAppendError && (
+            <div style={{ color: "#c48282", fontStyle: "italic", marginTop: "0.2rem" }}>
+              ⚠ {h.indexUpdater.lastAppendError.reason}
+            </div>
+          )}
         </div>
       )}
       {h.lastSuccess && (
