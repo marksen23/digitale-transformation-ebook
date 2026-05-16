@@ -16,6 +16,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import crypto from "node:crypto";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -61,6 +62,14 @@ interface ResonanzEntry {
    * Einträge als Referenz verfügbar.
    */
   werkVoiceScore?: number;
+  /**
+   * Buchstreue-Score: 0–1, max Cosine zu allen Kapitel-Embeddings des
+   * Buchtexts. Statische Referenz (Buchtext ändert sich kaum) — komplementär
+   * zu werkVoiceScore (Centroid der kuratierten Einträge, bewegt). Eintrag
+   * kann werkVoiceScore hoch + corpusVoiceScore niedrig haben: stilistisch
+   * konform aber thematisch fern vom Buch.
+   */
+  corpusVoiceScore?: number;
 }
 
 interface TreeEntry { path: string; type: "blob" | "tree"; }
@@ -210,6 +219,15 @@ async function main() {
   let embeddings: Record<string, number[]> | null = null;
   if (GEMINI_API_KEY && entries.length > 0) {
     embeddings = await buildEmbeddings(entries);
+    // Buchtext-Kapitel als zweite Werkstreue-Referenz embedden. Schreibt
+    // chapter:*-IDs in dieselbe Map; computeCrossLinks unten extrahiert
+    // sie für corpusVoiceScore.
+    const chRes = await buildChapterEmbeddings(embeddings);
+    if (chRes.added > 0 || chRes.failed > 0 || chRes.reused > 0) {
+      console.log(`[build-resonanzen-index] chapter-embeddings: ${chRes.added} neu, ${chRes.reused} reused, ${chRes.failed} fehlgeschlagen`);
+      // Embeddings-File mit chapter:* updated zurückschreiben
+      fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings }, null, 2));
+    }
   } else {
     console.log("[build-resonanzen-index] GEMINI_API_KEY nicht gesetzt — Embedding-Suche wird nicht verfügbar sein.");
   }
@@ -286,6 +304,15 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     console.log(`[build-resonanzen-index] werkVoiceScore übersprungen — nur ${curated.length} kuratierte Einträge (<10)`);
   }
 
+  // Buchtext-Embeddings für corpusVoiceScore extrahieren. Statische
+  // Werkstreue-Referenz: max Cosine zu allen Kapitel-Embeddings sagt
+  // "wie nah ist dieser Eintrag am thematischen Schwerpunkt des Buchs".
+  const chapterIds = Object.keys(embeddings).filter(k => k.startsWith("chapter:"));
+  const chapterVecs = chapterIds.map(id => embeddings[id]);
+  if (chapterVecs.length > 0) {
+    console.log(`[build-resonanzen-index] corpusVoiceScore: ${chapterVecs.length} Kapitel-Embeddings als Referenz`);
+  }
+
   for (const entry of entries) {
     const v = embeddings[entry.id];
     if (!v) continue;
@@ -305,9 +332,18 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     if (dups.length > 0) {
       entry.nearDuplicates = dups.map(s => s.id);
     }
-    // werkVoiceScore — Cosine zum Centroid
+    // werkVoiceScore — Cosine zum Centroid der kuratierten Einträge
     if (centroid) {
       entry.werkVoiceScore = Math.max(0, Math.min(1, cosineSim(v, centroid)));
+    }
+    // corpusVoiceScore — max Cosine zu allen Kapitel-Embeddings (Buchstreue)
+    if (chapterVecs.length > 0) {
+      let maxCos = 0;
+      for (const cv of chapterVecs) {
+        const c = cosineSim(v, cv);
+        if (c > maxCos) maxCos = c;
+      }
+      entry.corpusVoiceScore = Math.max(0, Math.min(1, maxCos));
     }
   }
 
@@ -494,6 +530,111 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
   fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
   console.log(`[build-resonanzen-index] wrote ${success} new embeddings (${failed} failed) to ${EMBEDDINGS_OUTPUT}`);
   return existing;
+}
+
+/**
+ * Buchtext-Kapitel als zweite Werkstreue-Referenz embedden.
+ *
+ * Liest client/public/ebook_structured.json, embeddet pro Kapitel mit
+ * SHA-256-basiertem Re-Embed (bei Buchtext-Änderung). Schreibt direkt in
+ * den existing-Map mit chapter:${part}:${id} als ID (part-Prefix
+ * dedupliziert chapter-ids die in mehreren Bänden gleich heißen).
+ *
+ * Chunking: bei content > 6000 chars wird in Chunks gesplittet, jeder
+ * embeddet, dann gewichtet (nach Chunk-Länge) gemittelt. Cosine ist
+ * invariant zu Länge, also kein Normalisierungs-Schritt nötig.
+ *
+ * Mutates `existing` direkt — schreibt es NICHT zurück nach disk; das
+ * macht der Caller im selben Step wie die Korpus-Embeddings, damit
+ * beide in einer JSON liegen.
+ */
+async function buildChapterEmbeddings(existing: Record<string, number[]>): Promise<{ added: number; reused: number; failed: number }> {
+  const ebookPath = path.join(ROOT, "client/public/ebook_structured.json");
+  if (!fs.existsSync(ebookPath)) {
+    console.log("[build-resonanzen-index] ebook_structured.json nicht vorhanden — chapter-embeddings übersprungen");
+    return { added: 0, reused: 0, failed: 0 };
+  }
+
+  // Hash-Manifest für inkrementelles Re-Embedding. Separates File neben
+  // den Embeddings — wenn der Buchtext-Hash sich ändert, neu berechnen.
+  const HASH_FILE = path.join(ROOT, "client/public/resonanzen-chapter-hashes.json");
+  let hashes: Record<string, string> = {};
+  if (fs.existsSync(HASH_FILE)) {
+    try { hashes = JSON.parse(fs.readFileSync(HASH_FILE, "utf-8")); } catch {}
+  }
+
+  let ebook: { chapters?: Array<{ id: string; part: string; content: string }> };
+  try {
+    ebook = JSON.parse(fs.readFileSync(ebookPath, "utf-8"));
+  } catch (err) {
+    console.warn("[build-resonanzen-index] ebook_structured.json korrupt — chapter-embeddings übersprungen");
+    return { added: 0, reused: 0, failed: 0 };
+  }
+
+  const chapters = (ebook.chapters ?? []).filter(c =>
+    c.id && c.part && c.content && c.content.length >= 500
+  );
+
+  if (chapters.length === 0) {
+    console.log("[build-resonanzen-index] keine substantiellen Kapitel (≥500 chars) — chapter-embeddings übersprungen");
+    return { added: 0, reused: 0, failed: 0 };
+  }
+
+  // Dedup gleiche (part, id) — letztes Vorkommen gewinnt
+  const unique = new Map<string, { id: string; part: string; content: string }>();
+  for (const c of chapters) {
+    unique.set(`${c.part}:${c.id}`, c);
+  }
+
+  const CHUNK_SIZE = 6000;
+  let added = 0, reused = 0, failed = 0;
+
+  for (const [key, ch] of Array.from(unique.entries())) {
+    const embId = `chapter:${key}`;
+    const contentHash = crypto.createHash("sha256").update(ch.content).digest("hex").slice(0, 16);
+
+    // Skip wenn ID + Hash unverändert
+    if (existing[embId] && hashes[embId] === contentHash) {
+      reused++;
+      continue;
+    }
+
+    let vec: number[] | null = null;
+    if (ch.content.length <= CHUNK_SIZE) {
+      vec = await fetchEmbedding(ch.content);
+    } else {
+      // Chunks: gewichteter Mittelwert
+      const chunks: string[] = [];
+      for (let i = 0; i < ch.content.length; i += CHUNK_SIZE) {
+        chunks.push(ch.content.slice(i, i + CHUNK_SIZE));
+      }
+      const chunkVecs = await Promise.all(chunks.map(c => fetchEmbedding(c)));
+      const validVecs = chunkVecs.map((v, i) => ({ v, w: chunks[i].length }))
+        .filter((x): x is { v: number[]; w: number } => x.v !== null);
+      if (validVecs.length === 0) {
+        vec = null;
+      } else {
+        const dim = validVecs[0].v.length;
+        const totalW = validVecs.reduce((s, x) => s + x.w, 0);
+        vec = new Array(dim).fill(0);
+        for (const { v, w } of validVecs) {
+          for (let i = 0; i < dim; i++) vec[i] += v[i] * (w / totalW);
+        }
+      }
+    }
+
+    if (vec) {
+      existing[embId] = vec;
+      hashes[embId] = contentHash;
+      added++;
+      console.log(`[build-resonanzen-index]   chapter ${embId} (${ch.content.length} chars, ${ch.content.length > CHUNK_SIZE ? Math.ceil(ch.content.length / CHUNK_SIZE) + " chunks" : "1 chunk"})`);
+    } else {
+      failed++;
+    }
+  }
+
+  fs.writeFileSync(HASH_FILE, JSON.stringify(hashes, null, 2));
+  return { added, reused, failed };
 }
 
 main().catch(err => {

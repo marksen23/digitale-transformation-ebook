@@ -469,9 +469,17 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
         <Stat label="Werk-Drift-Verdacht" value={report.driftCandidates} color={report.driftCandidates > 0 ? "#c48282" : "#7ab898"} c={c} />
         {report.voiceStats && (
           <Stat
-            label="Werkstreue-Median"
+            label="Werk-Median"
             value={(report.voiceStats.median * 100).toFixed(0) + "%"}
             color={report.voiceStats.median > 0.65 ? "#7ab898" : report.voiceStats.median > 0.55 ? c.accent : "#c48282"}
+            c={c}
+          />
+        )}
+        {report.corpusVoiceStats && (
+          <Stat
+            label="Buch-Median"
+            value={(report.corpusVoiceStats.median * 100).toFixed(0) + "%"}
+            color={report.corpusVoiceStats.median > 0.6 ? "#7ab898" : report.corpusVoiceStats.median > 0.45 ? c.accent : "#c48282"}
             c={c}
           />
         )}
@@ -569,8 +577,13 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
                       <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#c48282" }}>
                         {e.endpoint} · {e.anchor}
                       </span>
-                      <span style={{ fontFamily: MONO, fontSize: "0.6rem", color: "#c48282" }}>
-                        {((e.werkVoiceScore ?? 0) * 100).toFixed(0)}%
+                      <span style={{ fontFamily: MONO, fontSize: "0.6rem", color: "#c48282", display: "inline-flex", gap: "0.5rem", alignItems: "baseline" }}>
+                        <span title="Werkstreue-Score: Distanz zum Centroid kuratierter Einträge">werk {((e.werkVoiceScore ?? 0) * 100).toFixed(0)}%</span>
+                        {typeof e.corpusVoiceScore === "number" && (
+                          <span title="Buchstreue-Score: max Cosine zu Kapitel-Embeddings" style={{ color: e.corpusVoiceScore < 0.4 ? "#c48282" : c.muted }}>
+                            · buch {((e.corpusVoiceScore) * 100).toFixed(0)}%
+                          </span>
+                        )}
                       </span>
                     </div>
                     <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: c.text, lineHeight: 1.4 }}>

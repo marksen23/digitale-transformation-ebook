@@ -37,6 +37,8 @@ export interface CoherenceReport {
   topDrift: ResonanzEntry[];
   /** Statistik über werkVoiceScore (min, max, median) — gibt der UI Kontext. */
   voiceStats: { min: number; median: number; max: number; mean: number } | null;
+  /** Statistik über corpusVoiceScore — gleiche Form wie voiceStats, parallel zur Werk-Stimme. */
+  corpusVoiceStats: { min: number; median: number; max: number; mean: number } | null;
 }
 
 const DRIFT_THRESHOLD = 0.55;
@@ -135,11 +137,27 @@ export function analyzeCorpusCoherence(entries: ResonanzEntry[]): CoherenceRepor
     };
   }
 
+  // Corpus-Voice-Stats (Buchstreue) — parallel zur Werk-Stimme
+  const withCorpusScore = entries.filter((e): e is ResonanzEntry & { corpusVoiceScore: number } =>
+    typeof e.corpusVoiceScore === "number"
+  );
+  let corpusVoiceStats: CoherenceReport["corpusVoiceStats"] = null;
+  if (withCorpusScore.length > 0) {
+    const scores = withCorpusScore.map(e => e.corpusVoiceScore).sort((a, b) => a - b);
+    corpusVoiceStats = {
+      min: scores[0],
+      max: scores[scores.length - 1],
+      median: scores[Math.floor(scores.length / 2)],
+      mean: scores.reduce((s, x) => s + x, 0) / scores.length,
+    };
+  }
+
   return {
     entriesWithEchoes,
     clusters,
     driftCandidates: drift.length,
     topDrift: drift.slice(0, 8),
     voiceStats,
+    corpusVoiceStats,
   };
 }

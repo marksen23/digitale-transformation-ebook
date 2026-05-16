@@ -28,6 +28,14 @@ export interface ResonanzEntry {
    * Undefined wenn zu wenig kuratierte Einträge als Referenz vorhanden.
    */
   werkVoiceScore?: number;
+  /**
+   * Buchstreue-Score: max Cosine zu allen Kapitel-Embeddings des Buchtexts.
+   * Statische Referenz (Buchtext ändert sich kaum), komplementär zu
+   * werkVoiceScore (Centroid der kuratierten Einträge, bewegt). Ein
+   * Eintrag kann hohen werkVoiceScore + niedrigen corpusVoiceScore haben:
+   * stilistisch konform aber thematisch fern vom Buch.
+   */
+  corpusVoiceScore?: number;
 }
 
 export interface ResonanzIndex {
