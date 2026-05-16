@@ -47,6 +47,20 @@ interface ResonanzEntry {
   // Top-5 semantisch verwandte Einträge — wird im Build berechnet, falls
   // Embeddings verfügbar sind. Sortiert nach Cosine-Similarity absteigend.
   related?: string[];
+  /**
+   * Near-Duplikate: andere Einträge mit Cosine ≥ NEAR_DUP_THRESHOLD (0.88).
+   * Wenn nicht leer, "wiederholt diese Begegnung im Kern eine bestehende".
+   * Asymmetrisch: A in B.nearDuplicates ⇒ B in A.nearDuplicates (Cosine ist
+   * symmetrisch). Sortiert nach Score absteigend.
+   */
+  nearDuplicates?: string[];
+  /**
+   * Werkstreue-Score: 0–1, wie nah dieser Eintrag am semantischen Zentrum
+   * der approved/published Einträge liegt. Werte < 0.55 deuten auf Drift
+   * (off-voice, generisch, themenfremd). Berechnet nur wenn ≥10 kuratierte
+   * Einträge als Referenz verfügbar.
+   */
+  werkVoiceScore?: number;
 }
 
 interface TreeEntry { path: string; type: "blob" | "tree"; }
@@ -236,13 +250,42 @@ function cosineSim(a: number[], b: number[]): number {
   return na && nb ? dot / (Math.sqrt(na) * Math.sqrt(nb)) : 0;
 }
 
-/** Berechnet pro Eintrag die 5 ähnlichsten anderen Einträge.
- *  Mutiert entries — schreibt `related: string[]` ins jeweilige Element. */
+/** Berechnet pro Eintrag die 5 ähnlichsten anderen Einträge,
+ *  Near-Duplikate (Cosine ≥ 0.88), und werkVoiceScore (Distanz zum
+ *  Zentrum der kuratierten Einträge).
+ *  Mutiert entries direkt. */
 function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, number[]>) {
   const TOP_K = 5;
-  // Min-Score-Schwelle — verhindert, dass wir bei sehr disparatem Korpus
-  // willkürliche Verlinkungen generieren. 0.5 ist ein konservativer Wert.
+  // Min-Score für "related" — konservativ, verhindert willkürliche Links
+  // bei sehr disparatem Korpus.
   const MIN_SCORE = 0.5;
+  // Schwelle für "echtes Echo": die Aussagen wiederholen sich im Kern.
+  // 0.88 ist empirisch aus dem Korpus kalibriert — bei 0.85 mehren sich
+  // false-positives, bei 0.92 verpasst man oft Paraphrasen.
+  const NEAR_DUP_THRESHOLD = 0.88;
+
+  // Zuerst Werk-Stimme berechnen: Centroid der kuratierten Einträge
+  // (approved/published) als Referenz für die werkVoiceScore. Wir brauchen
+  // mindestens 10 als Referenz, sonst ist das Signal zu wackelig.
+  const curated = entries.filter(e =>
+    (e.status === "approved" || e.status === "published") && embeddings[e.id]
+  );
+  let centroid: number[] | null = null;
+  if (curated.length >= 10) {
+    const v0 = embeddings[curated[0].id];
+    centroid = new Array(v0.length).fill(0);
+    for (const e of curated) {
+      const v = embeddings[e.id];
+      for (let i = 0; i < v.length; i++) centroid[i] += v[i];
+    }
+    // Normalisiere zum Mittelwert (Centroid). Cosine ist invariant zur
+    // Länge, also Normierung optional — aber explizit ist klarer.
+    for (let i = 0; i < centroid.length; i++) centroid[i] /= curated.length;
+    console.log(`[build-resonanzen-index] werkVoiceScore: ${curated.length} kuratierte Einträge als Referenz`);
+  } else {
+    console.log(`[build-resonanzen-index] werkVoiceScore übersprungen — nur ${curated.length} kuratierte Einträge (<10)`);
+  }
+
   for (const entry of entries) {
     const v = embeddings[entry.id];
     if (!v) continue;
@@ -256,6 +299,22 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     }
     scored.sort((a, b) => b.score - a.score);
     entry.related = scored.slice(0, TOP_K).map(s => s.id);
+    // Near-Duplikate separat extrahieren (alle, die über die Schwelle sind,
+    // nicht limitiert auf top-5 — ein Eintrag kann viele Echos haben).
+    const dups = scored.filter(s => s.score >= NEAR_DUP_THRESHOLD);
+    if (dups.length > 0) {
+      entry.nearDuplicates = dups.map(s => s.id);
+    }
+    // werkVoiceScore — Cosine zum Centroid
+    if (centroid) {
+      entry.werkVoiceScore = Math.max(0, Math.min(1, cosineSim(v, centroid)));
+    }
+  }
+
+  // Diagnostik: wie viele Einträge mit Near-Duplikaten?
+  const withDups = entries.filter(e => e.nearDuplicates && e.nearDuplicates.length > 0).length;
+  if (withDups > 0) {
+    console.log(`[build-resonanzen-index] ${withDups} Einträge mit Near-Duplikaten (Cosine ≥${NEAR_DUP_THRESHOLD})`);
   }
 }
 

@@ -16,6 +16,18 @@ export interface ResonanzEntry {
   contextMeta: Record<string, unknown>;
   /** Top-5 verwandte Einträge — vom Build-Step berechnet via Cosine-Similarity. */
   related?: string[];
+  /**
+   * Near-Duplikate (Cosine ≥0.88): Einträge, die diese Aussage im Kern
+   * wiederholen. Wenn nicht leer, ist die Begegnung ein Echo einer
+   * existierenden — Curator entscheidet: behalten / merge / "Variation von".
+   */
+  nearDuplicates?: string[];
+  /**
+   * Werkstreue-Score: Cosine-Similarity zum Centroid der approved/published
+   * Einträge. 0–1. < 0.55 = Drift-Verdacht (off-voice / themenfremd).
+   * Undefined wenn zu wenig kuratierte Einträge als Referenz vorhanden.
+   */
+  werkVoiceScore?: number;
 }
 
 export interface ResonanzIndex {

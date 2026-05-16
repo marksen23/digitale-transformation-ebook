@@ -13,6 +13,8 @@ import {
   ENDPOINT_COLOR, ENDPOINT_LABEL,
 } from "@/lib/resonanzenIndex";
 import { detectAnchorTensions, type TensionResult } from "@/lib/widerspruchs";
+import { analyzeCorpusCoherence, type CoherenceReport } from "@/lib/corpusCoherence";
+import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import Skeleton from "@/components/Skeleton";
 import {
   Section, Stat, useAdminTheme, MONO, SERIF,
@@ -100,6 +102,9 @@ export default function AdminHealthPage() {
   const [heartbeat, setHeartbeat] = useState<Heartbeat | null>(null);
   const [reportsLoaded, setReportsLoaded] = useState(false);
   const [tensions, setTensions] = useState<TensionResult | null>(null);
+  const [coherence, setCoherence] = useState<CoherenceReport | null>(null);
+  const [allEntries, setAllEntries] = useState<ResonanzEntry[] | null>(null);
+  const [coherenceExpanded, setCoherenceExpanded] = useState(false);
   const [tensionsExpanded, setTensionsExpanded] = useState(false);
   const [holdoutExpanded, setHoldoutExpanded] = useState(false);
   const [netlify, setNetlify] = useState<AsyncResult<NetlifyStatus>>({ state: "loading" });
@@ -121,9 +126,11 @@ export default function AdminHealthPage() {
     ]).then(() => setReportsLoaded(true));
   }, []);
 
-  // Anker-Spannungen: Index + Embeddings laden, dann detection laufen lassen
+  // Anker-Spannungen + Korpus-Kohärenz: einmal laden, beide Analysen
   useEffect(() => {
     Promise.all([loadResonanzenIndex(), loadEmbeddings()]).then(([idx, emb]) => {
+      setAllEntries(idx.entries);
+      setCoherence(analyzeCorpusCoherence(idx.entries));
       if (!emb) {
         setTensions({ anchorsChecked: 0, tensionsFound: 0, medianAnchorCosine: null, tensions: [], status: "no-embeddings" });
         return;
@@ -266,6 +273,20 @@ export default function AdminHealthPage() {
               </div>
             )}
           </>
+        )}
+      </Section>
+
+      <Section title="Korpus-Kohärenz — Echos & Werk-Drift" c={C}>
+        {!coherence || !allEntries ? (
+          <Skeleton height={64} subtle />
+        ) : (
+          <CoherencePanel
+            report={coherence}
+            entries={allEntries}
+            expanded={coherenceExpanded}
+            onToggleExpanded={() => setCoherenceExpanded(v => !v)}
+            c={C}
+          />
         )}
       </Section>
 
@@ -412,6 +433,159 @@ export default function AdminHealthPage() {
 }
 
 // ─── Ingest-Panel — Auto-Logging-Status ─────────────────────────────────
+
+// ─── Korpus-Kohärenz-Panel ──────────────────────────────────────────────
+//
+// Surface zwei Sichten:
+//   1. Echo-Cluster: Gruppen von Einträgen, die einander semantisch
+//      wiederholen (Cosine ≥0.88). "Diese 3 sagen im Kern dasselbe."
+//   2. Werk-Drift: Einträge mit niedrigem werkVoiceScore (Distanz zum
+//      Centroid der kuratierten Einträge). Drift-Verdacht ab <0.55.
+
+function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
+  report: CoherenceReport;
+  entries: ResonanzEntry[];
+  expanded: boolean;
+  onToggleExpanded: () => void;
+  c: ReturnType<typeof useAdminTheme>;
+}) {
+  const byId = new Map(entries.map(e => [e.id, e]));
+  const haveSemantic = report.voiceStats !== null;
+
+  if (!haveSemantic && report.clusters.length === 0) {
+    return (
+      <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>
+        Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: c.accent }}>GEMINI_API_KEY</code>.
+        Kohärenz-Analyse braucht semantische Vektoren.
+      </p>
+    );
+  }
+
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.8rem" }}>
+        <Stat label="Echo-Cluster" value={report.clusters.length} color={report.clusters.length > 0 ? "#e8c870" : "#7ab898"} c={c} />
+        <Stat label="Einträge mit Echos" value={report.entriesWithEchoes} color={c.accent} c={c} />
+        <Stat label="Werk-Drift-Verdacht" value={report.driftCandidates} color={report.driftCandidates > 0 ? "#c48282" : "#7ab898"} c={c} />
+        {report.voiceStats && (
+          <Stat
+            label="Werkstreue-Median"
+            value={(report.voiceStats.median * 100).toFixed(0) + "%"}
+            color={report.voiceStats.median > 0.65 ? "#7ab898" : report.voiceStats.median > 0.55 ? c.accent : "#c48282"}
+            c={c}
+          />
+        )}
+      </div>
+
+      {report.clusters.length === 0 && report.driftCandidates === 0 ? (
+        <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem", margin: 0 }}>
+          ✓ Keine semantischen Echos, keine Drift-Kandidaten. Der Korpus spricht in einer Stimme.
+        </p>
+      ) : (
+        <button
+          onClick={onToggleExpanded}
+          style={{
+            fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase",
+            color: c.muted, background: "none", border: `1px solid ${c.border}`,
+            padding: "0.35rem 0.7rem", cursor: "pointer", borderRadius: 4,
+            marginBottom: expanded ? "0.8rem" : 0,
+          }}
+        >
+          {expanded ? "▾ einklappen" : "▸ Details zeigen"}
+        </button>
+      )}
+
+      {expanded && (
+        <>
+          {report.clusters.length > 0 && (
+            <div style={{ marginTop: "0.5rem", marginBottom: "1.2rem" }}>
+              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
+                Echo-Cluster ({report.clusters.length})
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
+                {report.clusters.slice(0, 6).map((cluster, i) => (
+                  <div key={i} style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "0.6rem 0.8rem", borderRadius: 6 }}>
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.4rem", flexWrap: "wrap" }}>
+                      <span style={{
+                        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                        color: "#e8c870",
+                      }}>
+                        {cluster.ids.length} Einträge · {cluster.dominantEndpoint}
+                      </span>
+                      {cluster.sharedAnchor && (
+                        <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.muted }}>
+                          → {cluster.sharedAnchor}
+                        </span>
+                      )}
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                      {cluster.ids.map(id => {
+                        const e = byId.get(id);
+                        if (!e) return null;
+                        return (
+                          <a
+                            key={id}
+                            href={`/resonanzen?id=${id}`}
+                            style={{
+                              fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
+                              color: c.text, textDecoration: "none",
+                              borderLeft: `2px solid ${c.border}`, paddingLeft: "0.6rem",
+                              lineHeight: 1.4,
+                            }}
+                          >
+                            {e.prompt.length > 100 ? e.prompt.slice(0, 100) + "…" : e.prompt}
+                          </a>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+                {report.clusters.length > 6 && (
+                  <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.textDim, fontStyle: "italic" }}>
+                    … und {report.clusters.length - 6} weitere Cluster
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {report.topDrift.length > 0 && (
+            <div>
+              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
+                Werk-Drift-Kandidaten (niedrigste werkstreue-Scores)
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                {report.topDrift.map(e => (
+                  <a
+                    key={e.id}
+                    href={`/resonanzen?id=${e.id}`}
+                    style={{
+                      display: "block",
+                      background: c.surface, border: `1px solid #c48282`, borderRadius: 6,
+                      padding: "0.5rem 0.7rem", textDecoration: "none",
+                    }}
+                  >
+                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.4rem", marginBottom: "0.25rem" }}>
+                      <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#c48282" }}>
+                        {e.endpoint} · {e.anchor}
+                      </span>
+                      <span style={{ fontFamily: MONO, fontSize: "0.6rem", color: "#c48282" }}>
+                        {((e.werkVoiceScore ?? 0) * 100).toFixed(0)}%
+                      </span>
+                    </div>
+                    <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: c.text, lineHeight: 1.4 }}>
+                      {e.prompt.length > 110 ? e.prompt.slice(0, 110) + "…" : e.prompt}
+                    </div>
+                  </a>
+                ))}
+              </div>
+            </div>
+          )}
+        </>
+      )}
+    </>
+  );
+}
 
 function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: ReturnType<typeof useAdminTheme> }) {
   if (result.state === "loading") {
