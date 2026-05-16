@@ -198,7 +198,18 @@ jobs:
           if git diff --cached --quiet; then
             echo "No snapshot/index changes to commit"
           else
-            git commit -m "snapshot: corpus state + index $DATE [skip ci]"
+            # WICHTIG: kein [skip ci] mehr!
+            # Race: Netlify batched mehrere Pushes und nutzt das HEAD-Commit-
+            # Message für die [skip ci]-Prüfung. Wenn AI-Log-Push und unser
+            # Snapshot-Push schnell aufeinander folgen, war HEAD = snapshot
+            # mit [skip ci] → Netlify skipped beide. Resultat: kein Deploy
+            # seit dem 11.5. trotz täglich neuer KI-Antworten.
+            #
+            # Der Commit hier ändert nur versions/ + client/public/resonanzen-*.json
+            # — keine dieser Pfade matcht das paths:-Filter des Workflows
+            # (content/resonanzen/**), also kein Infinite-Loop trotz fehlendem
+            # [skip ci].
+            git commit -m "snapshot: corpus state + index $DATE"
             # Race-Schutz: wenn main inzwischen gewachsen ist, rebase
             # vor dem Push, damit der Snapshot nicht in einer Push-Race
             # verloren geht.
@@ -214,6 +225,33 @@ jobs:
           git push origin --tags --force
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # ─── Build-Hook-Trigger (Belt-and-Suspenders) ──────────────────────
+      # Falls Netlify/Render-Auto-Deploy kaputt ist (sei es durch [skip ci]-
+      # Races, deaktivierte Hooks, oder Webhook-Drift), triggern wir den
+      # Build hier explizit. Beide Hooks sind optional: ohne gesetztes
+      # Secret wird der Schritt geräuschlos übersprungen.
+      #
+      # Setup:
+      #   Netlify  → Site settings → Build hooks → New build hook → URL
+      #               als GitHub Secret NETLIFY_BUILD_HOOK_URL speichern
+      #   Render   → Service → Settings → Deploy hook URL
+      #               als GitHub Secret RENDER_DEPLOY_HOOK_URL speichern
+      - name: Trigger Netlify build hook
+        if: success() && env.NETLIFY_HOOK != ''
+        env:
+          NETLIFY_HOOK: ${{ secrets.NETLIFY_BUILD_HOOK_URL }}
+        run: |
+          echo "Triggering Netlify build hook …"
+          curl -fsS -X POST -d {} "$NETLIFY_HOOK" && echo "✓ Netlify build queued"
+
+      - name: Trigger Render deploy hook
+        if: success() && env.RENDER_HOOK != ''
+        env:
+          RENDER_HOOK: ${{ secrets.RENDER_DEPLOY_HOOK_URL }}
+        run: |
+          echo "Triggering Render deploy hook …"
+          curl -fsS -X POST "$RENDER_HOOK" && echo "✓ Render deploy queued"
 
       # ─── Drift-Detection: vergleicht aktuellen mit vorigem Snapshot ────
       # Bei Alarmen → Issue mit Label 'corpus-drift'.
