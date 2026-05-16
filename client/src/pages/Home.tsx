@@ -11,7 +11,7 @@ import {
 } from 'lucide-react';
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
-const ConceptGraphPage = lazy(() => import('./ConceptGraphPage'));
+import { useLocation } from 'wouter';
 import { useSpeechRecognition } from '@/hooks/useSpeech';
 import { useAudioPlayer, type VoiceGender } from '@/hooks/useAudioPlayer';
 
@@ -65,8 +65,10 @@ export default function Home() {
   const [expandedParts, setExpandedParts] = useState<Set<string>>(new Set());
   const [burgerMenuOpen, setBurgerMenuOpen] = useState(false);
   const [enkiduOpen, setEnkiduOpen] = useState(false);
-  const [conceptGraphOpen, setConceptGraphOpen] = useState(false);
   const [personalizationOpen, setPersonalizationOpen] = useState(false);
+  // Begriffsnetz läuft jetzt als eigene Route /begriffsnetz unter dem
+  // globalen AppFrame. Wouter's setLocation navigiert dorthin.
+  const [, setLocation] = useLocation();
 
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
@@ -566,7 +568,6 @@ export default function Home() {
       if (e.key === 'Escape') {
         if (shortcutsOpen)      { setShortcutsOpen(false); return; }
         if (notesOpen)          { setNotesOpen(false); return; }
-        if (conceptGraphOpen)   { setConceptGraphOpen(false); return; }
         if (enkiduOpen)         { setEnkiduOpen(false); return; }
         if (searchOpen)         { setSearchOpen(false); setSearchQuery(''); return; }
         if (chatOpen)           { setChatOpen(false); return; }
@@ -608,7 +609,7 @@ export default function Home() {
         case 't': setSidebarOpen(v => !v); break;
         case 'f': setFocusMode(v => { if (!v) setSidebarOpen(false); return !v; }); break;
         case 'e': setEnkiduOpen(v => !v); break;
-        case 'n': setConceptGraphOpen(v => !v); break;
+        case 'n': setLocation('/begriffsnetz'); break;
         case '?': setShortcutsOpen(v => !v); break;
       }
     };
@@ -616,10 +617,10 @@ export default function Home() {
     window.addEventListener('keydown', handler);
     return () => window.removeEventListener('keydown', handler);
   }, [
-    shortcutsOpen, notesOpen, conceptGraphOpen, enkiduOpen, searchOpen, chatOpen,
+    shortcutsOpen, notesOpen, enkiduOpen, searchOpen, chatOpen,
     fontMenuOpen, languageMenuOpen, headphonesMenuOpen, burgerMenuOpen,
     goNext, goPrev, currentId, toggleBookmark, toggleCompleted,
-    setDarkMode, setSidebarOpen, setEnkiduOpen, setConceptGraphOpen,
+    setDarkMode, setSidebarOpen, setEnkiduOpen, setLocation,
     setSearchOpen, setSearchQuery, setBurgerMenuOpen, setFocusMode,
   ]);
 
@@ -1455,13 +1456,14 @@ export default function Home() {
                     <Sparkles size={16} className="text-amber-500 flex-none" />
                     Enkidu — Begegnung
                   </button>
-                  <button
-                    onClick={() => { setConceptGraphOpen(true); setBurgerMenuOpen(false); }}
-                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
+                  <a
+                    href="/begriffsnetz"
+                    onClick={() => setBurgerMenuOpen(false)}
+                    className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors no-underline ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
                   >
                     <Network size={16} className="text-amber-500 flex-none" />
                     Begriffsnetz
-                  </button>
+                  </a>
                   <a
                     href="/resonanzen"
                     onClick={() => setBurgerMenuOpen(false)}
@@ -1658,8 +1660,8 @@ export default function Home() {
 
           {/* Concept Graph */}
           <button
-            onClick={() => setConceptGraphOpen(true)}
-            className={`p-1.5 rounded-md transition-colors hidden sm:flex ${conceptGraphOpen ? 'text-amber-500' : 'hover:bg-stone-200/50'}`}
+            onClick={() => setLocation('/begriffsnetz')}
+            className="p-1.5 rounded-md transition-colors hidden sm:flex hover:bg-stone-200/50"
             title="Begriffsnetz"
           >
             <Network size={16} />
@@ -2511,12 +2513,8 @@ export default function Home() {
         </Suspense>
       )}
 
-      {/* ─── Begriffsnetz ─────────────────────────────────── */}
-      {conceptGraphOpen && (
-        <Suspense fallback={<OverlayLoader />}>
-          <ConceptGraphPage onClose={() => setConceptGraphOpen(false)} />
-        </Suspense>
-      )}
+      {/* ─── Begriffsnetz läuft jetzt als eigene Route /begriffsnetz
+            unter dem globalen AppFrame, kein Modal-Mount mehr hier. ── */}
     </div>
   );
 }

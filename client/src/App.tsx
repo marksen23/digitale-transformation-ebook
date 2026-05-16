@@ -11,6 +11,7 @@ import AppFrame from "./components/AppFrame";
 // Resonanzen-Seite lazy laden — eigener Bundle-Chunk, FAQ-spezifisch.
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
 const PhilosophyPage = lazy(() => import("./pages/PhilosophyPage"));
+const ConceptGraphPage = lazy(() => import("./pages/ConceptGraphPage"));
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
@@ -32,6 +33,9 @@ function Router() {
       </Route>
       <Route path={"/philosophie"}>
         <Framed><Suspense fallback={fallback}><PhilosophyPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/begriffsnetz"}>
+        <Framed><Suspense fallback={fallback}><ConceptGraphPage /></Suspense></Framed>
       </Route>
       <Route path={"/admin/metrics"}>
         <Framed><Suspense fallback={fallback}><AdminLayout><AdminMetricsPage /></AdminLayout></Suspense></Framed>

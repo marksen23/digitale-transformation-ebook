@@ -10,7 +10,10 @@ const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
 
 interface ConceptGraphPageProps {
-  onClose: () => void;
+  /** Wenn vorhanden: Modal-Modus (alt) — × schließt das Overlay. Wenn
+   *  weggelassen: Route-Modus — die Seite läuft unter dem globalen
+   *  AppFrame (top: 48), kein eigener Schließen-Button. */
+  onClose?: () => void;
 }
 
 // ─── Leitmotiv geometry (theme-independent) ───────────────────────────────────
@@ -799,10 +802,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   const transform = `translate(${pan.x},${pan.y}) scale(${zoom})`;
 
+  // Route-Modus vs Modal-Modus. Route hat den globalen AppFrame oben
+  // (48 px hoch), Modal füllt den ganzen Viewport.
+  const isModal = typeof onClose === "function";
+  const TOP_OFFSET = isModal ? 0 : 48;
+
   return (
     <div
       style={{
-        position: "fixed", inset: 0, zIndex: 50,
+        position: "fixed",
+        top: TOP_OFFSET, right: 0, bottom: 0, left: 0,
+        zIndex: isModal ? 50 : undefined,
         background: C.void, color: C.text,
         fontFamily: C.serif, display: "flex", flexDirection: "column",
         overflowX: "hidden",
@@ -812,13 +822,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     >
       {/* Grain overlay */}
       <div style={{
-        position: "fixed", inset: 0, pointerEvents: "none", zIndex: 100, opacity: 0.6,
+        position: "fixed", top: TOP_OFFSET, right: 0, bottom: 0, left: 0, pointerEvents: "none", zIndex: 100, opacity: 0.6,
         backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
       }} />
 
       {/* Nav — zwei explizite Zeilen, kein flexWrap-Trick */}
       <nav style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 200,
+        position: "fixed", top: TOP_OFFSET, left: 0, right: 0, zIndex: 200,
         display: "flex", flexDirection: "column", gap: "0.4rem",
         padding: "0.65rem 1rem 0.6rem",
         borderBottom: `1px solid ${C.border}`,
@@ -1015,19 +1025,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </button>
           )}
 
-          {/* Close */}
-          <button
-            onClick={onClose}
-            title="Schließen"
-            style={{
-              fontFamily: "monospace", fontSize: "1.2rem", lineHeight: 1,
-              color: C.textDim, background: "none", border: "none",
-              cursor: "pointer", padding: "0.3rem 0.4rem",
-              transition: "color 0.2s", flexShrink: 0,
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = C.textBright)}
-            onMouseLeave={e => (e.currentTarget.style.color = C.textDim)}
-          >×</button>
+          {/* Close — nur im Modal-Modus. Im Route-Modus übernimmt der
+              globale AppFrame die Navigation, kein eigener × nötig. */}
+          {isModal && (
+            <button
+              onClick={onClose}
+              title="Schließen"
+              style={{
+                fontFamily: "monospace", fontSize: "1.2rem", lineHeight: 1,
+                color: C.textDim, background: "none", border: "none",
+                cursor: "pointer", padding: "0.3rem 0.4rem",
+                transition: "color 0.2s", flexShrink: 0,
+              }}
+              onMouseEnter={e => (e.currentTarget.style.color = C.textBright)}
+              onMouseLeave={e => (e.currentTarget.style.color = C.textDim)}
+            >×</button>
+          )}
         </div>
 
         {/* Zeile 2: Suche — immer volle Breite, kein CSS-Trick nötig */}

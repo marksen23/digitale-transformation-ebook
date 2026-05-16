@@ -22,9 +22,10 @@ const FRAME_HEIGHT = 48;
 interface NavItem { href: string; label: string; match: RegExp }
 
 const NAV: NavItem[] = [
-  { href: "/",            label: "Werk",        match: /^\/$/ },
-  { href: "/resonanzen",  label: "Wissen",      match: /^\/resonanzen/ },
-  { href: "/philosophie", label: "Philosophie", match: /^\/philosophie/ },
+  { href: "/",             label: "Werk",         match: /^\/$/ },
+  { href: "/resonanzen",   label: "Wissen",       match: /^\/resonanzen/ },
+  { href: "/philosophie",  label: "Philosophie",  match: /^\/philosophie/ },
+  { href: "/begriffsnetz", label: "Begriffsnetz", match: /^\/begriffsnetz/ },
 ];
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
