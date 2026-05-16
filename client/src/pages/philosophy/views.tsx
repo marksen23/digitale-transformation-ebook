@@ -27,7 +27,7 @@ import {
   yearToY, pointOnCubicBezier, seededRng,
   type Palette,
 } from "./shared";
-import { SERIF_BODY, TRACKED, ORNAMENT } from "@/lib/theme";
+import { SERIF_BODY, TRACKED, ORNAMENT, PAPER } from "@/lib/theme";
 import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
 import Ornament, { DropCap } from "@/components/Ornament";
 
@@ -1434,9 +1434,11 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
     return themeMatcher.matches(p);
   };
 
-  // Buchaufschlag-Farben — Pergament hell/dunkel
-  const pageBg = isDark ? "#1a1612" : "#f5efe2";
-  const pageInk = isDark ? "#c8c2b4" : "#3a3530";
+  // Buchaufschlag-Farben — aus zentralisierten PAPER-Tokens.
+  // Leicht warmer als bisher (f7f1e3 statt f5efe2) für mehr
+  // Inkunabel-Anmutung; die Tinte trägt mehr Sepia (3a3530 unverändert).
+  const pageBg = isDark ? PAPER.warmDark : PAPER.warmLight;
+  const pageInk = isDark ? PAPER.inkDark : PAPER.inkLight;
   const inkDim = isDark ? "#5a5040" : "#8a7a60";
   const spineColor = isDark ? "#0a0805" : "#a8966a";
 
@@ -1564,13 +1566,29 @@ function BookPage({ philosophers, layout, isMatch, selectedId, onSelect, title, 
       minHeight: 500,
       overflow: "hidden",
     }}>
-      {/* Seitenkopf */}
+      {/* Seitenkopf — Fleuron + gesperrter Titel im Geist alter Druckseiten.
+          Statt der ASCII-Striche eine echte Aldus-Blatt-Konstruktion. */}
       <div style={{
-        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.2em", textTransform: "uppercase",
-        color: inkDim, marginBottom: "0.5rem",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        gap: "0.7rem", marginBottom: "0.8rem",
         position: "relative", zIndex: 10,
       }}>
-        — {title} —
+        <span aria-hidden="true" style={{ flex: 1, height: 1, background: `linear-gradient(to right, transparent, ${inkDim}55 60%, ${inkDim}55)` }} />
+        <span style={{
+          fontFamily: MONO, fontSize: "0.85rem", color: inkDim, opacity: 0.7,
+          transform: "translateY(-1px)", lineHeight: 1,
+        }} aria-hidden="true">{ORNAMENT.leaf}</span>
+        <span style={{
+          fontFamily: MONO, fontSize: "0.55rem", letterSpacing: TRACKED.classic, textTransform: "uppercase",
+          color: inkDim, whiteSpace: "nowrap",
+        }}>
+          {title}
+        </span>
+        <span style={{
+          fontFamily: MONO, fontSize: "0.85rem", color: inkDim, opacity: 0.7,
+          transform: "translateY(-1px)", lineHeight: 1,
+        }} aria-hidden="true">{ORNAMENT.leafReversed}</span>
+        <span aria-hidden="true" style={{ flex: 1, height: 1, background: `linear-gradient(to left, transparent, ${inkDim}55 60%, ${inkDim}55)` }} />
       </div>
 
       {/* Fragmente */}

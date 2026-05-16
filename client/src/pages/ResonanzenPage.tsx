@@ -20,7 +20,8 @@ import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
+import Ornament, { DropCap } from "@/components/Ornament";
 
 type EndpointKey = ResonanzEntry["endpoint"] | "all";
 type StatusKey = "all" | "kuratiert";
@@ -904,13 +905,13 @@ export default function ResonanzenPage() {
                 }}
                 onClick={() => setExpandedId(id => id === entry.id ? null : entry.id)}
               >
-                <header style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.4rem", gap: "0.5rem", flexWrap: "wrap" }}>
-                  <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
+                <header style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem", gap: "0.5rem", flexWrap: "wrap" }}>
+                  <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
                     {ENDPOINT_LABEL[entry.endpoint]}
-                    {entry.status === "raw" && readingMode !== "surface" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>· ungeprüft</span>}
+                    {entry.status === "raw" && readingMode !== "surface" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>{ORNAMENT.middot} ungeprüft</span>}
                     {semanticMode && scoreById.has(entry.id) && (
                       <span style={{ color: "#5aacb8", marginLeft: "0.5rem" }}>
-                        · ≈ {(scoreById.get(entry.id)! * 100).toFixed(0)}%
+                        {ORNAMENT.middot} ≈ {(scoreById.get(entry.id)! * 100).toFixed(0)}%
                       </span>
                     )}
                   </span>
@@ -958,12 +959,32 @@ export default function ResonanzenPage() {
                 )}
 
                 {isExpanded ? (
-                  <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.6rem", marginTop: "0.4rem" }}>
-                    {entry.response.split(/\n\n+/).map((para, i) => (
-                      <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", color: C.text, lineHeight: 1.7, margin: "0 0 0.7rem" }}>
-                        {para.trim()}
-                      </p>
-                    ))}
+                  <div style={{ marginTop: "0.4rem" }}>
+                    {/* Klassischer Frage-Antwort-Trenner: Fleuron zwischen
+                        der gestellten Frage und der Resonanz-Antwort.
+                        Der ❦ markiert die typografische Schwelle, an der
+                        die KI-Stimme einsetzt — eine ehrlichere Geste als
+                        eine bloße horizontale Linie. */}
+                    <Ornament variant="rule" c={C} margin="0.2rem 0 0.9rem" />
+                    {entry.response.split(/\n\n+/).map((para, i) => {
+                      const trimmed = para.trim();
+                      // DropCap nur auf dem ersten Absatz, und nur wenn
+                      // der Absatz ausreichend Lesefläche hat (sonst
+                      // wirkt die Versalie überdimensioniert).
+                      if (i === 0 && trimmed.length > 80) {
+                        return (
+                          <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.95rem", color: C.text, lineHeight: 1.75, margin: "0 0 0.8rem" }}>
+                            <DropCap c={C}>{trimmed.charAt(0)}</DropCap>
+                            {trimmed.slice(1)}
+                          </p>
+                        );
+                      }
+                      return (
+                        <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", color: C.text, lineHeight: 1.7, margin: "0 0 0.7rem" }}>
+                          {trimmed}
+                        </p>
+                      );
+                    })}
                   </div>
                 ) : (
                   <div style={{ fontFamily: SERIF_BODY, fontSize: readingMode === "surface" ? "0.78rem" : "0.82rem", color: C.textDim, lineHeight: 1.6 }}>

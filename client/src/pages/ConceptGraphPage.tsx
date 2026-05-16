@@ -3,7 +3,8 @@ import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { loadResonanzenIndexLazy, groupResonanzenByNode, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
-import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT } from "@/lib/theme";
+import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORNAMENT, SERIF_BODY } from "@/lib/theme";
+import Ornament, { DropCap } from "@/components/Ornament";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -2108,25 +2109,33 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             scrollbarColor: `${C.border} transparent`,
           }}>
             {/* Category label */}
-            <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.2em", color: CAT_COLOR[selectedNode.category], textTransform: "uppercase", marginBottom: "0.6rem" }}>
+            <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: TRACKED.open, color: CAT_COLOR[selectedNode.category], textTransform: "uppercase", marginBottom: "0.6rem" }}>
               {categoryLabel(selectedNode.category)}
             </div>
 
-            {/* Title */}
-            <h2 style={{ fontFamily: C.serif, fontSize: "1.6rem", fontWeight: 400, fontStyle: "italic", color: C.textBright, lineHeight: 1.2, marginBottom: "1.2rem" }}>
+            {/* Title — Lese-Serif (Lora), klassische Italic-Anmutung */}
+            <h2 style={{ fontFamily: SERIF_BODY, fontSize: "1.7rem", fontWeight: 500, fontStyle: "italic", color: C.textBright, lineHeight: 1.18, marginBottom: "0.6rem", letterSpacing: "-0.01em" }}>
               {selectedNode.fullLabel}
             </h2>
 
-            {/* Description */}
-            <p style={{ fontSize: "0.92rem", lineHeight: 1.85, color: C.text, marginBottom: "1.5rem" }}>
-              {selectedNode.description}
+            {/* Klassischer Fleuron-Trenner unter dem Titel */}
+            <Ornament variant="rule" c={C} margin="0 0 1.2rem" />
+
+            {/* Description — mit DropCap für längere Beschreibungen */}
+            <p style={{ fontFamily: SERIF_BODY, fontSize: "0.95rem", lineHeight: 1.85, color: C.text, marginBottom: "1.5rem" }}>
+              {selectedNode.description.length > 80 ? (
+                <>
+                  <DropCap c={C}>{selectedNode.description.charAt(0)}</DropCap>
+                  {selectedNode.description.slice(1)}
+                </>
+              ) : selectedNode.description}
             </p>
 
             {/* Connected concepts */}
             {connectedNodes.length > 0 && (
               <>
-                <div style={{ height: 1, background: C.border, marginBottom: "1.2rem" }} />
-                <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem" }}>
+                <Ornament variant="asterism" c={C} margin="0 0 1.2rem" />
+                <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: TRACKED.open, color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem" }}>
                   Verbundene Begriffe
                 </div>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
