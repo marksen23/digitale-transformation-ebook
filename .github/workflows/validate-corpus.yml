@@ -189,8 +189,12 @@ jobs:
           DATE=$(date -u +%Y-%m-%d)
           git config user.name "corpus-guardian-bot"
           git config user.email "noreply@github.com"
-          # Snapshot + neu gebauten Index gemeinsam stagen
-          git add versions/ client/public/resonanzen-index.json client/public/resonanzen-embeddings.json client/public/resonanzen-holdout-baseline.json client/public/resonanzen-holdout-report.json 2>/dev/null || true
+          # Snapshot + neu gebauten Index gemeinsam stagen.
+          # -f weil die Index-Files im Repo via .gitignore vom Commit
+          # ausgeschlossen sind (Dev-Artefakte). In CI heben wir das auf,
+          # damit Netlify auch ohne eigenes Rebuild den frischen Index hat.
+          git add versions/
+          git add -f client/public/resonanzen-index.json client/public/resonanzen-embeddings.json client/public/resonanzen-holdout-baseline.json client/public/resonanzen-holdout-report.json 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "No snapshot/index changes to commit"
           else
