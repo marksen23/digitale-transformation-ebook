@@ -63,6 +63,19 @@ interface RenderStatus {
   deploys: RenderDeploy[];
 }
 
+interface ResonanzHealth {
+  githubTokenPresent: boolean;
+  repoOwner: string;
+  repoName: string;
+  repoBranch: string;
+  successCount: number;
+  failureCount: number;
+  skippedNoToken: number;
+  skippedSpamFilter: number;
+  lastSuccess: { id: string; ts: string; endpoint: string; anchor: string } | null;
+  lastFailure: { ts: string; endpoint: string; reason: string } | null;
+}
+
 type AsyncResult<T> = { state: "loading" } | { state: "ok"; data: T } | { state: "error"; error: string };
 
 async function fetchAdminJson<T>(path: string): Promise<AsyncResult<T>> {
@@ -91,11 +104,13 @@ export default function AdminHealthPage() {
   const [holdoutExpanded, setHoldoutExpanded] = useState(false);
   const [netlify, setNetlify] = useState<AsyncResult<NetlifyStatus>>({ state: "loading" });
   const [render, setRender] = useState<AsyncResult<RenderStatus>>({ state: "loading" });
+  const [ingest, setIngest] = useState<AsyncResult<ResonanzHealth>>({ state: "loading" });
 
   // Hosting-Status: Netlify + Render via Server-Proxies
   useEffect(() => {
     fetchAdminJson<NetlifyStatus>("/api/admin/netlify-status").then(setNetlify);
     fetchAdminJson<RenderStatus>("/api/admin/render-status").then(setRender);
+    fetchAdminJson<ResonanzHealth>("/api/admin/resonanz-health").then(setIngest);
   }, []);
 
   useEffect(() => {
@@ -165,6 +180,10 @@ export default function AdminHealthPage() {
             />
           </div>
         )}
+      </Section>
+
+      <Section title="Auto-Ingest — Resonanzen-Logger" c={C}>
+        <IngestPanel result={ingest} c={C} />
       </Section>
 
       <Section title="Netlify — Frontend-Deploys" c={C}>
@@ -388,6 +407,73 @@ export default function AdminHealthPage() {
           </a>
         </div>
       </Section>
+    </>
+  );
+}
+
+// ─── Ingest-Panel — Auto-Logging-Status ─────────────────────────────────
+
+function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: ReturnType<typeof useAdminTheme> }) {
+  if (result.state === "loading") {
+    return <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>frage Status …</p>;
+  }
+  if (result.state === "error") {
+    return <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>Fehler: {result.error}</p>;
+  }
+  const h = result.data;
+  const tokenOk = h.githubTokenPresent;
+  const hasActivity = h.successCount > 0 || h.failureCount > 0;
+  // Status-Diagnose: kaputt, wenn Token fehlt, oder wenn nur Fehler/Skips
+  const broken = !tokenOk || (hasActivity && h.successCount === 0);
+  const statusColor = broken ? "#c48282" : !hasActivity ? c.muted : "#7ab898";
+  const statusLabel = !tokenOk
+    ? "✗ Token fehlt"
+    : !hasActivity
+      ? "○ keine Aktivität seit Server-Start"
+      : broken
+        ? "⚠ schreibt nicht"
+        : "✓ aktiv";
+
+  return (
+    <>
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.8rem" }}>
+        <Stat label="Pipeline-Status" value={statusLabel} color={statusColor} c={c} />
+        <Stat label="Erfolgreich gelogged" value={h.successCount} color="#7ab898" c={c} />
+        <Stat label="Fehlgeschlagen" value={h.failureCount} color={h.failureCount > 0 ? "#c48282" : c.muted} c={c} />
+        <Stat label="Übersprungen (kein Token)" value={h.skippedNoToken} color={h.skippedNoToken > 0 ? "#c48282" : c.muted} c={c} />
+        <Stat label="Übersprungen (Spam)" value={h.skippedSpamFilter} color={c.muted} c={c} />
+      </div>
+      <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.4rem" }}>
+        Ziel-Repo: <span style={{ color: c.text }}>{h.repoOwner}/{h.repoName}</span> @ <span style={{ color: c.accent }}>{h.repoBranch}</span>
+      </div>
+      {h.lastSuccess && (
+        <div style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "0.5rem 0.7rem", marginBottom: "0.4rem" }}>
+          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#7ab898", marginBottom: "0.25rem" }}>
+            Letzter Erfolg
+          </div>
+          <div style={{ fontFamily: MONO, fontSize: "0.6rem", color: c.text }}>
+            {h.lastSuccess.endpoint} · {h.lastSuccess.anchor} · <span style={{ color: c.muted }}>{formatRelative(h.lastSuccess.ts)}</span>
+          </div>
+        </div>
+      )}
+      {h.lastFailure && (
+        <div style={{ background: c.surface, border: `1px solid #c48282`, padding: "0.5rem 0.7rem" }}>
+          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#c48282", marginBottom: "0.25rem" }}>
+            Letzter Fehler
+          </div>
+          <div style={{ fontFamily: MONO, fontSize: "0.6rem", color: c.text, marginBottom: "0.25rem" }}>
+            {h.lastFailure.endpoint} · <span style={{ color: c.muted }}>{formatRelative(h.lastFailure.ts)}</span>
+          </div>
+          <div style={{ fontFamily: SERIF, fontSize: "0.78rem", fontStyle: "italic", color: c.text, lineHeight: 1.4 }}>
+            {h.lastFailure.reason}
+          </div>
+        </div>
+      )}
+      {!tokenOk && (
+        <div style={{ fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic", color: c.textDim, marginTop: "0.4rem" }}>
+          <code style={{ fontFamily: MONO, color: c.accent }}>GITHUB_TOKEN</code> ist nicht in den Server-Env-Vars gesetzt — alle KI-Antworten werden still verworfen. Auf Render im Dashboard hinzufügen, dann Service neu starten.
+        </div>
+      )}
     </>
   );
 }

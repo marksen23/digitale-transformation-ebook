@@ -5,7 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
 import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
-import { logResonanz, analyseAnchor } from "./lib/resonanzLog.js";
+import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanzLog.js";
 
 // ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
 const CAT_DE: Record<string, string> = {
@@ -843,6 +843,25 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       return res.status(401).json({ ok: false, error: "Token ungültig oder fehlt." });
     }
     return res.json({ ok: true });
+  });
+
+  /**
+   * GET /api/admin/resonanz-health — Diagnostik für Auto-Ingest.
+   *
+   * Zeigt, ob der Logging-Pfad funktioniert:
+   *   - githubTokenPresent: ist die env var gesetzt?
+   *   - successCount/failureCount: wie viele Logs liefen / scheiterten
+   *   - skippedNoToken: wie oft wurde wegen fehlendem Token still verworfen
+   *   - lastSuccess/lastFailure: Details des letzten Events
+   *
+   * Wenn successCount=0 trotz aktiver KI-Nutzung, ist die Pipeline kaputt.
+   * Wenn skippedNoToken>0 fehlt das Token komplett.
+   */
+  app.get("/api/admin/resonanz-health", async (req, res) => {
+    if (!checkAdminToken(req)) {
+      return res.status(401).json({ error: "Nicht autorisiert" });
+    }
+    return res.json(getResonanzLogHealth());
   });
 
   // ─── Phase 2: Kuration ──────────────────────────────────────────────

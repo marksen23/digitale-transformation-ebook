@@ -141,6 +141,30 @@ function buildPath(id: string, endpoint: ResonanzEndpoint, anchor: string, ts: s
 // Heartbeat-Counter: alle 100 erfolgreichen Logs einmal info-Output,
 // damit man im Render-Log das System "leben sieht" ohne Spam.
 let _resonanzLogSuccessCount = 0;
+let _resonanzLogFailureCount = 0;
+let _resonanzLogSkippedNoToken = 0;
+let _resonanzLogSkippedSpam = 0;
+let _lastSuccess: { id: string; ts: string; endpoint: string; anchor: string } | null = null;
+let _lastFailure: { ts: string; endpoint: string; reason: string } | null = null;
+
+/**
+ * Health-Snapshot — exposed über /api/admin/resonanz-health.
+ * Erlaubt zu prüfen, ob der Auto-Ingest tatsächlich läuft.
+ */
+export function getResonanzLogHealth() {
+  return {
+    githubTokenPresent: !!process.env.GITHUB_TOKEN,
+    repoOwner: REPO_OWNER,
+    repoName: REPO_NAME,
+    repoBranch: REPO_BRANCH,
+    successCount: _resonanzLogSuccessCount,
+    failureCount: _resonanzLogFailureCount,
+    skippedNoToken: _resonanzLogSkippedNoToken,
+    skippedSpamFilter: _resonanzLogSkippedSpam,
+    lastSuccess: _lastSuccess,
+    lastFailure: _lastFailure,
+  };
+}
 
 /** Single attempt — innere PUT-Logik. Returns true=success | false=fail. */
 async function _putToGithub(
@@ -187,9 +211,11 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
     // Lokale Dev-Umgebung ohne Token: stiller Skip, kein Spam.
+    _resonanzLogSkippedNoToken++;
     return;
   }
   if (!passesSpamFilter(entry)) {
+    _resonanzLogSkippedSpam++;
     return;
   }
 
@@ -226,6 +252,7 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
     const result = await _putToGithub(token, url, body);
     if (result.ok) {
       _resonanzLogSuccessCount++;
+      _lastSuccess = { id, ts, endpoint: entry.endpoint, anchor: entry.anchor };
       if (_resonanzLogSuccessCount % 100 === 0) {
         console.info(`[resonanzLog] ${_resonanzLogSuccessCount} entries logged total`);
       }
@@ -235,6 +262,8 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
     if (!result.transient) break; // dauerhafter Fehler — nicht retry-sinnvoll
   }
   // Alle Versuche fehlgeschlagen oder dauerhafter Fehler — als error sichtbar machen
+  _resonanzLogFailureCount++;
+  _lastFailure = { ts: new Date().toISOString(), endpoint: entry.endpoint, reason: lastReason };
   console.error(`[resonanzLog] FAILED ${repoPath}: ${lastReason}`);
 }
 
