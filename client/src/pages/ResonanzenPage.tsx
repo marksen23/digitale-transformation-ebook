@@ -420,17 +420,13 @@ export default function ResonanzenPage() {
         paddingRight: "env(safe-area-inset-right, 0px)",
       }}
     >
-      {/* Header — kompakt, App-Frame-Style */}
+      {/* Header — kompakt, App-Frame-Style. Top-Right-Nav wurde entfernt,
+          weil der globale AppFrame oben bereits Werk + Philosophie + Wissen
+          verlinkt. */}
       <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: 960, margin: "0 auto" }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", gap: "1rem", flexWrap: "wrap" }}>
-          <h1 style={{ fontFamily: SERIF, fontSize: "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
-            Kollektives Wissen
-          </h1>
-          <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap", alignItems: "center" }}>
-            <Link href="/philosophie" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Philosophische Karte</Link>
-            <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>← Zum Werk</Link>
-          </div>
-        </div>
+        <h1 style={{ fontFamily: SERIF, fontSize: "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
+          Kollektives Wissen
+        </h1>
         <p style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.textDim, margin: "0.3rem 0 0", lineHeight: 1.4 }}>
           {index ? `${index.count} Begegnungen aus dem kollektiven Wissen — was die Leserschaft fragt, was sich darin sammelt.` : "lädt …"}
         </p>
