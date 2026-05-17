@@ -124,7 +124,7 @@ let _embeddingsPromise: Promise<EmbeddingsIndex | null> | null = null;
 export function loadEmbeddings(): Promise<EmbeddingsIndex | null> {
   if (_embeddingsCache) return Promise.resolve(_embeddingsCache);
   if (_embeddingsPromise) return _embeddingsPromise;
-  _embeddingsPromise = fetch("/resonanzen-embeddings.json", { cache: "force-cache" })
+  _embeddingsPromise = fetch("/resonanzen-embeddings.json", { cache: "no-cache" })
     .then(r => r.ok ? r.json() : null)
     .then(data => {
       _embeddingsCache = data;
