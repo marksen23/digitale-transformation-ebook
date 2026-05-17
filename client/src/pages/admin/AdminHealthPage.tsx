@@ -417,21 +417,21 @@ export default function AdminHealthPage() {
       <Section title="Repo & Snapshots" c={C}>
         <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", fontFamily: MONO, fontSize: "0.62rem" }}>
           <a
-            href="https://github.com/markus-schober/digitale-transformation-ebook/releases/tag/last-stable"
+            href="https://github.com/marksen23/digitale-transformation-ebook/releases/tag/last-stable"
             target="_blank" rel="noreferrer"
             style={{ color: C.accent, textDecoration: "none", letterSpacing: "0.05em" }}
           >
             ↗ last-stable Tag (GitHub)
           </a>
           <a
-            href="https://github.com/markus-schober/digitale-transformation-ebook/tree/main/versions"
+            href="https://github.com/marksen23/digitale-transformation-ebook/tree/main/versions"
             target="_blank" rel="noreferrer"
             style={{ color: C.accent, textDecoration: "none", letterSpacing: "0.05em" }}
           >
             ↗ Snapshots-Verzeichnis (versions/)
           </a>
           <a
-            href="https://github.com/markus-schober/digitale-transformation-ebook/actions"
+            href="https://github.com/marksen23/digitale-transformation-ebook/actions"
             target="_blank" rel="noreferrer"
             style={{ color: C.accent, textDecoration: "none", letterSpacing: "0.05em" }}
           >

@@ -29,6 +29,9 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   if (state === "checking") {
     return <AuthShell c={C}><p style={{ fontStyle: "italic", color: C.textDim }}>prüfe Zugang …</p></AuthShell>;
   }
+  // Hinweis zu "← Zum Werk"-Links: entfernt, weil der globale AppFrame
+  // (siehe AppFrame.tsx) oben bereits den Werk-Link anbietet — auch in
+  // den Auth-Gate-States.
   if (state === "missing") {
     return (
       <AuthShell c={C}>
@@ -36,7 +39,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <p style={authPStyle(C)}>
           Kein Token gefunden. Aufruf via <code style={{ fontFamily: MONO, fontSize: "0.85rem", color: C.accent }}>/admin?token=…</code>
         </p>
-        <Link href="/" style={backLinkStyle(C)}>← Zum Werk</Link>
       </AuthShell>
     );
   }
@@ -49,7 +51,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           onClick={resetToken}
           style={{ marginTop: "1rem", fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.5rem 1rem", cursor: "pointer" }}
         >Token zurücksetzen</button>
-        <Link href="/" style={backLinkStyle(C)}>← Zum Werk</Link>
       </AuthShell>
     );
   }
@@ -60,7 +61,6 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         <p style={authPStyle(C)}>
           <code style={{ fontFamily: MONO, fontSize: "0.85rem", color: C.accent }}>ADMIN_TOKEN</code> env var auf Render setzen.
         </p>
-        <Link href="/" style={backLinkStyle(C)}>← Zum Werk</Link>
       </AuthShell>
     );
   }
@@ -83,16 +83,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
           <h1 style={{ fontFamily: SERIF, fontSize: "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
             Admin
           </h1>
-          <div style={{ display: "flex", gap: "0.8rem", alignItems: "center", flexWrap: "wrap" }}>
-            <Link href="/philosophie" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Philosophie</Link>
-            <Link href="/resonanzen" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>Wissen</Link>
-            <Link href="/" style={{ color: C.accent, fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", textDecoration: "none" }}>← Werk</Link>
-            <button
-              onClick={resetToken}
-              title="Token zurücksetzen"
-              style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.35rem 0.7rem", cursor: "pointer" }}
-            >Logout</button>
-          </div>
+          {/* Cross-page Nav-Links wurden entfernt — der globale AppFrame
+              oben übernimmt die Navigation. Nur Logout bleibt admin-spezifisch. */}
+          <button
+            onClick={resetToken}
+            title="Token zurücksetzen"
+            style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.35rem 0.7rem", cursor: "pointer" }}
+          >Logout</button>
         </div>
         {/* Tab-Bar */}
         <nav style={{ display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
@@ -147,7 +144,4 @@ function authH1Style(c: Palette): React.CSSProperties {
 }
 function authPStyle(c: Palette): React.CSSProperties {
   return { fontStyle: "italic", color: c.textDim, marginBottom: "0.5rem", textAlign: "center" };
-}
-function backLinkStyle(c: Palette): React.CSSProperties {
-  return { marginTop: "2rem", color: c.accent, fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase" };
 }
