@@ -93,11 +93,29 @@ export async function appendToIndex(entry: IndexEntry): Promise<void> {
       try {
         currentIndex = JSON.parse(content);
       } catch {
-        // Korrupter Index — von null beginnen, Eintrag wird der einzige sein
-        console.warn("[indexUpdater] current index corrupt, replacing with single-entry version");
+        // Korrupter Index — Bail out, statt zu überschreiben.
+        // Mit fehlerhaftem Inhalt fortzufahren würde den ganzen Korpus
+        // mit einem 1-Entry-File ersetzen — passiert in der Praxis nicht
+        // ohne Eingriff. Wenn doch: lieber CI das vollständig neu bauen
+        // lassen als hier zu raten.
+        console.warn("[indexUpdater] current index corrupt, skipping append");
+        _appendFailureCount++;
+        _lastAppendError = { ts: new Date().toISOString(), reason: "current index corrupt" };
+        return;
       }
     } else if (getRes.status === 404) {
-      // Noch kein Index — neu anlegen ist OK, sha bleibt undefined
+      // Index existiert NICHT auf GitHub. Das ist normalerweise so, weil
+      // client/public/resonanzen-index.json historisch in .gitignore stand
+      // (lokales Build-Artefakt). Mit dem .gitignore-Fix wird ein commited
+      // Index erwartet. Wenn er trotzdem fehlt: KEINEN Fresh-1-Entry-Index
+      // anlegen — das würde den Live-Index auf der Site nicht ersetzen
+      // (die Site liest aus dem Netlify-Build), aber bei späteren Builds
+      // sähe es aus, als ob 118 Einträge plötzlich auf 1 geschrumpft sind.
+      // Stattdessen: skip mit Fehler-Log. CI baut den vollen Index neu.
+      console.warn("[indexUpdater] no index on GitHub yet — skipping append (waiting for CI to seed)");
+      _appendFailureCount++;
+      _lastAppendError = { ts: new Date().toISOString(), reason: "no index on GitHub yet (gitignore fix pending?)" };
+      return;
     } else {
       throw new Error(`GET index: ${getRes.status} ${getRes.statusText}`);
     }

@@ -115,5 +115,7 @@ client/public/__manus__/version.json
 .claude/worktrees/
 .claude/settings.local.json
 .manus-logs/
-/client/public/resonanzen-index.json
-/client/public/resonanzen-embeddings.json
+# resonanzen-index.json + embeddings.json sind absichtlich NICHT ignoriert.
+# Server-seitig (server/lib/indexUpdater.ts) wird der Index nach jeder
+# KI-Antwort via GitHub Contents API geupdatet — dazu muss er committed sein.
+# Build-time werden sie auch neu gebaut; lokale Diffs ggf. committen.
