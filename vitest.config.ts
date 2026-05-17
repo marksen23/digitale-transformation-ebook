@@ -7,6 +7,7 @@ export default defineConfig({
     include: [
       "client/src/lib/__tests__/**/*.test.ts",
       "scripts/__tests__/**/*.test.ts",
+      "server/__tests__/**/*.test.ts",
     ],
   },
   resolve: {
