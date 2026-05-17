@@ -691,7 +691,80 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
           <code style={{ fontFamily: MONO, color: c.accent }}>GITHUB_TOKEN</code> ist nicht in den Server-Env-Vars gesetzt — alle KI-Antworten werden still verworfen. Auf Render im Dashboard hinzufügen, dann Service neu starten.
         </div>
       )}
+      <TriggerRebuild c={c} />
     </>
+  );
+}
+
+/**
+ * TriggerRebuild — Self-Service-Button, der den validate-corpus-Workflow
+ * via /api/admin/trigger-rebuild dispatched. Bevölkert semantische Felder
+ * (related, nearDuplicates, werkVoiceScore, corpusVoiceScore) inkl.
+ * Buchtext-Embeddings, sofern GEMINI_API_KEY als Repo-Secret gesetzt ist.
+ */
+function TriggerRebuild({ c }: { c: ReturnType<typeof useAdminTheme> }) {
+  const [state, setState] = useState<"idle" | "loading" | "ok" | "error">("idle");
+  const [message, setMessage] = useState<string>("");
+  const [actionsUrl, setActionsUrl] = useState<string | null>(null);
+  async function trigger() {
+    setState("loading"); setMessage(""); setActionsUrl(null);
+    const t = localStorage.getItem("dt-admin-token");
+    try {
+      const res = await fetch("/api/admin/trigger-rebuild", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${t ?? ""}` },
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setState("ok");
+        setMessage(data.message ?? "Workflow triggered");
+        setActionsUrl(data.actionsUrl ?? null);
+      } else {
+        setState("error");
+        setMessage(`${data.error ?? `HTTP ${res.status}`}${data.hint ? ` · ${data.hint}` : ""}`);
+      }
+    } catch (err) {
+      setState("error");
+      setMessage(err instanceof Error ? err.message : "Verbindungsfehler");
+    }
+  }
+  return (
+    <div style={{ marginTop: "0.8rem", paddingTop: "0.7rem", borderTop: `1px solid ${c.border}` }}>
+      <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
+        <button
+          onClick={trigger}
+          disabled={state === "loading"}
+          style={{
+            fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
+            color: state === "loading" ? c.muted : c.accent,
+            background: "transparent",
+            border: `1px solid ${state === "loading" ? c.border : c.accent}`,
+            padding: "0.4rem 0.8rem", borderRadius: 6,
+            cursor: state === "loading" ? "not-allowed" : "pointer",
+            transition: "all 0.15s",
+          }}
+          title="Triggert validate-corpus.yml — rebuildet Index inkl. Embeddings"
+        >
+          {state === "loading" ? "wird getriggert …" : "↻ Index neu bauen"}
+        </button>
+        <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em" }}>
+          (Workflow-Dispatch — ~1-2 Min bis Commit auf main)
+        </span>
+      </div>
+      {state === "ok" && (
+        <div style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.6rem", color: "#7ab898" }}>
+          ✓ {message}
+          {actionsUrl && (
+            <> · <a href={actionsUrl} target="_blank" rel="noreferrer" style={{ color: c.accent }}>Workflow-Run öffnen ↗</a></>
+          )}
+        </div>
+      )}
+      {state === "error" && (
+        <div style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.6rem", color: "#c48282" }}>
+          ✗ {message}
+        </div>
+      )}
+    </div>
   );
 }
 

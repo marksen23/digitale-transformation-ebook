@@ -864,6 +864,66 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     return res.json(getResonanzLogHealth());
   });
 
+  /**
+   * POST /api/admin/trigger-rebuild — dispatches validate-corpus.yml
+   * über die GitHub Actions API. Bevölkert beim nächsten Run die
+   * Semantik-Felder (related, nearDuplicates, werkVoiceScore,
+   * corpusVoiceScore) inkl. Buchtext-Embeddings, sofern GEMINI_API_KEY
+   * als Repo-Secret gesetzt ist.
+   *
+   * Benötigt: GITHUB_TOKEN mit `actions:write` Scope (= `workflow` PAT).
+   */
+  app.post("/api/admin/trigger-rebuild", async (req, res) => {
+    if (!checkAdminToken(req)) {
+      return res.status(401).json({ error: "Nicht autorisiert" });
+    }
+    const token = process.env.GITHUB_TOKEN;
+    if (!token) {
+      return res.status(503).json({ ok: false, error: "GITHUB_TOKEN env var fehlt" });
+    }
+    const owner = process.env.GITHUB_REPO_OWNER ?? "marksen23";
+    const repo  = process.env.GITHUB_REPO_NAME ?? "digitale-transformation-ebook";
+    const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
+    try {
+      const dispatchRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/actions/workflows/validate-corpus.yml/dispatches`,
+        {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${token}`,
+            "Accept": "application/vnd.github+json",
+            "X-GitHub-Api-Version": "2022-11-28",
+            "User-Agent": "dt-admin-rebuild",
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ ref: branch }),
+        }
+      );
+      if (dispatchRes.status === 204) {
+        return res.json({
+          ok: true,
+          message: "Workflow triggered — neuer Run auf GitHub Actions sichtbar in ~5s",
+          actionsUrl: `https://github.com/${owner}/${repo}/actions/workflows/validate-corpus.yml`,
+        });
+      }
+      const errText = await dispatchRes.text().catch(() => "");
+      // Häufigster Fehler: Token-Scope. 403 mit "actions" hint = workflow-scope fehlt.
+      const hint = dispatchRes.status === 403 && errText.includes("workflow")
+        ? "GITHUB_TOKEN fehlt der workflow-Scope. Neuen PAT mit actions:write erzeugen."
+        : null;
+      return res.status(502).json({
+        ok: false,
+        error: `Dispatch fehlgeschlagen: HTTP ${dispatchRes.status} ${dispatchRes.statusText}`,
+        hint, detail: errText.slice(0, 300),
+      });
+    } catch (err) {
+      return res.status(502).json({
+        ok: false,
+        error: err instanceof Error ? err.message : "Verbindungsfehler",
+      });
+    }
+  });
+
   // ─── Phase 2: Kuration ──────────────────────────────────────────────
   // POST /api/admin/curate { id, status }     → Status-Wechsel
   // POST /api/admin/delete { id }             → Eintrag löschen
