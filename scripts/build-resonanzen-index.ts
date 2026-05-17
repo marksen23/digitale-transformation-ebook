@@ -533,10 +533,15 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
     return existing;
   }
 
-  console.log(`[build-resonanzen-index] computing ${toCompute.length} new embeddings (Gemini text-embedding-004)`);
+  // Free tier: 100 RPM. At BATCH=5 parallel calls, wait 3.5s between batches
+  // → ~86 RPM, safely under the limit. Paid tier needs no throttling, but
+  // the extra ~70s for 124 entries is acceptable in a build step.
   const BATCH = 5;
+  const BATCH_DELAY_MS = 3500;
+  console.log(`[build-resonanzen-index] computing ${toCompute.length} new embeddings (Gemini text-embedding-004, ${BATCH_DELAY_MS}ms between batches)`);
   let success = 0, failed = 0;
   for (let i = 0; i < toCompute.length; i += BATCH) {
+    if (i > 0) await new Promise(r => setTimeout(r, BATCH_DELAY_MS));
     const batch = toCompute.slice(i, i + BATCH);
     const results = await Promise.all(batch.map(async e => {
       // Embed prompt + response zusammen — semantischer Inhalt
