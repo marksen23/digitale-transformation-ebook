@@ -148,7 +148,7 @@ async function loadValidNodeIds(): Promise<Set<string>> {
   }
   const txt = fs.readFileSync(cgPath, "utf-8");
   const ids = new Set<string>();
-  const re = /\bid\s*:\s*["']([a-z0-9_+-]+)["']/g;
+  const re = /\bid\s*:\s*["']([a-z0-9äöüß_+-]+)["']/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(txt)) !== null) ids.add(m[1]);
   return ids;
