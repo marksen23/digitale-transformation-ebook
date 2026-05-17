@@ -213,6 +213,35 @@ async function main() {
 
   entries.sort((a, b) => b.ts.localeCompare(a.ts));
 
+  // ─── Preserve-Pass: semantische Felder aus bestehendem Index retten ─
+  // Wenn der Build ohne GEMINI_API_KEY läuft (z.B. lokales Dev), würden
+  // related[], nearDuplicates, werkVoiceScore, corpusVoiceScore beim Schreiben
+  // verloren gehen. Verhindert: existierenden Index lesen, pro-id die Felder
+  // übernehmen. Das Resultat: lokale Rebuilds zerstören die semantischen
+  // Verlinkungen nicht — die bleiben bis CI mit Key sie aktualisiert.
+  if (!GEMINI_API_KEY && fs.existsSync(OUTPUT)) {
+    try {
+      const existing = JSON.parse(fs.readFileSync(OUTPUT, "utf-8"));
+      const byId = new Map<string, ResonanzEntry>(
+        (existing.entries ?? []).map((e: ResonanzEntry) => [e.id, e])
+      );
+      let preserved = 0;
+      for (const e of entries) {
+        const old = byId.get(e.id);
+        if (!old) continue;
+        if (old.related?.length) { e.related = old.related; preserved++; }
+        if (old.nearDuplicates?.length) e.nearDuplicates = old.nearDuplicates;
+        if (typeof old.werkVoiceScore === "number") e.werkVoiceScore = old.werkVoiceScore;
+        if (typeof old.corpusVoiceScore === "number") e.corpusVoiceScore = old.corpusVoiceScore;
+      }
+      if (preserved > 0) {
+        console.log(`[build-resonanzen-index] preserved semantic fields for ${preserved} entries from existing index`);
+      }
+    } catch {
+      // Kein parsbarer existierender Index — egal, Build geht ohne Preserve durch
+    }
+  }
+
   // ─── Embeddings (optional, nur wenn GEMINI_API_KEY gesetzt) ─────────
   // Embeddings werden vor dem Index-Schreiben berechnet, damit Cross-Links
   // direkt mitgeschrieben werden können (vermeidet 2-Pass-Schreiben).
