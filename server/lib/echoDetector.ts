@@ -38,6 +38,14 @@ let fetchedAt = 0;
 let inflight: Promise<void> | null = null;
 let lastEchoCount = 0;
 
+/** Resets all module-level state. Only for use in tests. */
+export function _resetCacheForTest(): void {
+  cache = null;
+  fetchedAt = 0;
+  inflight = null;
+  lastEchoCount = 0;
+}
+
 async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), ms);

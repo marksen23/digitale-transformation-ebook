@@ -11,10 +11,15 @@
  *   - Fail-soft: wenn GITHUB_TOKEN fehlt oder API fehlschlägt → console.warn,
  *     keine Exception, User sieht nichts.
  */
-import crypto from "crypto";
 import { NODES } from "../../client/src/data/conceptGraph.js";
 import { detectEchoes, getEchoDetectorHealth } from "./echoDetector.js";
 import { appendToIndex, getIndexUpdaterHealth } from "./indexUpdater.js";
+import {
+  passesSpamFilter,
+  yamlString,
+  contentHash,
+  buildPath,
+} from "./resonanz-log-utils.js";
 
 // Bei Server-Start: Set aller validen Konzept-IDs aus dem Begriffsnetz.
 // Verwendet, um Tippfehler oder veraltete IDs in nodeIds beim Logging
@@ -43,15 +48,6 @@ const COPYRIGHT_NOTICE = "© 2026 Markus Oehring. Alle Rechte vorbehalten.";
 const LICENSE_ID = "personal-use-only";
 const LICENSE_URL = `https://github.com/${REPO_OWNER}/${REPO_NAME}/blob/main/LICENSE`;
 
-/** Spam-Filter: minimale Mindestanforderungen, damit Müll/Fehler nicht
- *  ins Korpus gelangen. Bewusst niedrig gesetzt — Approval-Flow filtert
- *  später inhaltlich. Hier nur „nicht-leerer Tausch" sicherstellen. */
-function passesSpamFilter(entry: ResonanzEntry): boolean {
-  if (!entry.prompt || entry.prompt.trim().length < 2)   return false;
-  if (!entry.response || entry.response.trim().length < 10) return false;
-  if (entry.response.toLowerCase().includes("keine antwort erhalten")) return false;
-  return true;
-}
 
 /** Erzeugt eine Crockford-ähnliche kurze ID: <ts-base36>-<rand-hex>. */
 function generateId(): string {
@@ -60,22 +56,7 @@ function generateId(): string {
   return `${ts}-${rand}`;
 }
 
-/** SHA-256-Hash über Prompt+Response (für Audit-Trail). */
-function contentHash(prompt: string, response: string): string {
-  const h = crypto.createHash("sha256");
-  h.update(prompt);
-  h.update("\n---\n");
-  h.update(response);
-  return h.digest("hex").slice(0, 16);
-}
 
-/** YAML-sicheres Quoten — nur einfache Strings. */
-function yamlString(s: string): string {
-  // Wenn keine kritischen Zeichen, kein Quote nötig
-  if (/^[a-zA-Z0-9_:.+/-]+$/.test(s)) return s;
-  // Sonst doppelte Quotes mit Escape
-  return `"${s.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
-}
 
 function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: string, echoIds: string[] = []): string {
   const frontmatter: string[] = [
@@ -127,26 +108,6 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
   return frontmatter.join("\n");
 }
 
-/**
- * Pfadkonvention — kategorisiert + breadcrumb-fähig:
- *   chapter:<chapterId>           → raw/chapter/<chapterId>/<date>-<id>.md
- *   analyse:<idA>+<idB>           → raw/analyse/<idA>+<idB>/<date>-<id>.md
- *   path-analyse:<from>+<to>      → raw/path-analyse/<from>+<to>/<date>-<id>.md
- *   translate:<chapterId>+<lang>  → raw/translate/<chapterId>+<lang>/<date>-<id>.md
- *   graph                         → raw/graph-chat/<date>-<id>.md
- *   enkidu                        → raw/enkidu/<date>-<id>.md
- */
-function buildPath(id: string, endpoint: ResonanzEndpoint, anchor: string, ts: string): string {
-  const date = ts.slice(0, 10); // YYYY-MM-DD
-  const colonIdx = anchor.indexOf(":");
-  const subdir = colonIdx > 0 ? anchor.slice(colonIdx + 1) : "";
-  // Defensive: nur erlaubte Zeichen im Subdir-Namen
-  const safeSubdir = subdir.replace(/[^a-zA-Z0-9+_-]/g, "_");
-  const dirPath = safeSubdir
-    ? `content/resonanzen/raw/${endpoint}/${safeSubdir}`
-    : `content/resonanzen/raw/${endpoint}`;
-  return `${dirPath}/${date}-${id}.md`;
-}
 
 // Heartbeat-Counter: alle 100 erfolgreichen Logs einmal info-Output,
 // damit man im Render-Log das System "leben sieht" ohne Spam.

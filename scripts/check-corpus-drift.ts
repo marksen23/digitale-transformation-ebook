@@ -16,32 +16,18 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import {
+  compareCounts,
+  detectDrift,
+  type Snapshot,
+  type DriftIssue,
+} from "./lib/corpus-drift-utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const VERSIONS_DIR = path.join(ROOT, "versions");
 const REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-drift-report.json");
-
-interface Snapshot {
-  date: string;
-  generatedAt: string;
-  commit: string;
-  filesChecked: number;
-  aggregates: {
-    byEndpoint: Record<string, number>;
-    byStatus: Record<string, number>;
-    orphanNodeIds: string[];
-  };
-  errors: number;
-  warnings: number;
-}
-
-interface DriftIssue {
-  level: "warning" | "alarm";
-  rule: string;
-  detail: string;
-}
 
 function loadSnapshots(): Snapshot[] {
   if (!fs.existsSync(VERSIONS_DIR)) return [];
@@ -52,56 +38,6 @@ function loadSnapshots(): Snapshot[] {
     try { return JSON.parse(fs.readFileSync(path.join(VERSIONS_DIR, f), "utf-8")); }
     catch { return null; }
   }).filter((s): s is Snapshot => s !== null);
-}
-
-function compareCounts(label: string, before: Record<string, number>, after: Record<string, number>): DriftIssue[] {
-  const issues: DriftIssue[] = [];
-  for (const key of Object.keys(before)) {
-    const b = before[key], a = after[key] ?? 0;
-    const delta = a - b;
-    const ratio = b > 0 ? Math.abs(delta) / b : 0;
-    if (delta < 0 && ratio > 0.3) {
-      issues.push({
-        level: ratio > 0.5 ? "alarm" : "warning",
-        rule: `${label}-shrink`,
-        detail: `${key}: ${b} → ${a} (-${Math.abs(delta)}, ${(ratio * 100).toFixed(0)}%)`,
-      });
-    }
-  }
-  return issues;
-}
-
-function detectDrift(prev: Snapshot, curr: Snapshot): DriftIssue[] {
-  const issues: DriftIssue[] = [];
-
-  // 1. Files-Total
-  const fileDelta = curr.filesChecked - prev.filesChecked;
-  if (fileDelta < -2) {
-    const ratio = prev.filesChecked > 0 ? Math.abs(fileDelta) / prev.filesChecked : 0;
-    issues.push({
-      level: ratio > 0.05 ? "alarm" : "warning",
-      rule: "files-shrink",
-      detail: `filesChecked: ${prev.filesChecked} → ${curr.filesChecked} (${fileDelta})`,
-    });
-  }
-
-  // 2. Endpoint-Verteilung
-  issues.push(...compareCounts("endpoint", prev.aggregates.byEndpoint, curr.aggregates.byEndpoint));
-
-  // 3. Status-Verteilung — published darf nie schrumpfen
-  const prevPub = prev.aggregates.byStatus.published ?? 0;
-  const currPub = curr.aggregates.byStatus.published ?? 0;
-  if (currPub < prevPub) {
-    issues.push({
-      level: "alarm",
-      rule: "published-shrink",
-      detail: `published-Einträge geschrumpft: ${prevPub} → ${currPub} — kuratiertes Korpus sollte nie kleiner werden`,
-    });
-  }
-  issues.push(...compareCounts("status", prev.aggregates.byStatus, curr.aggregates.byStatus));
-
-  // 4. Wachstum: monotones Wachsen ist immer OK, kein Drift
-  return issues;
 }
 
 function main() {

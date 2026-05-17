@@ -5,7 +5,7 @@
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
     "dev": "vite --host",
-    "build": "tsx scripts/build-resonanzen-index.ts && vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
+    "build": "tsx scripts/build-resonanzen-index.ts && tsx scripts/check-corpus-drift.ts; vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "build:resonanzen-index": "tsx scripts/build-resonanzen-index.ts",
     "sync:corpus": "tsx scripts/sync-corpus.ts",
     "sync:corpus:dry": "tsx scripts/sync-corpus.ts --dry-run",
@@ -16,7 +16,9 @@
     "icons": "node scripts/generate-icons.mjs",
     "audio": "node scripts/prepare-audio.mjs",
     "timestamps": "node scripts/generate-timestamps.mjs",
-    "snapshot:history": "tsx scripts/snapshot-history.ts"
+    "snapshot:history": "tsx scripts/snapshot-history.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
@@ -77,6 +79,8 @@
     "@builder.io/vite-plugin-jsx-loc": "^0.1.1",
     "@tailwindcss/typography": "^0.5.15",
     "@tailwindcss/vite": "^4.1.3",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@types/express": "4.17.21",
     "@types/google.maps": "^3.58.1",
     "@types/node": "^24.7.0",
@@ -86,6 +90,7 @@
     "add": "^2.0.6",
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.25.0",
+    "happy-dom": "^20.9.0",
     "pnpm": "^10.15.1",
     "postcss": "^8.4.47",
     "prettier": "^3.6.2",
