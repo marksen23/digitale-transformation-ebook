@@ -16,7 +16,9 @@
     "icons": "node scripts/generate-icons.mjs",
     "audio": "node scripts/prepare-audio.mjs",
     "timestamps": "node scripts/generate-timestamps.mjs",
-    "snapshot:history": "tsx scripts/snapshot-history.ts"
+    "snapshot:history": "tsx scripts/snapshot-history.ts",
+    "test": "vitest run",
+    "test:watch": "vitest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",
