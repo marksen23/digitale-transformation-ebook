@@ -1457,11 +1457,12 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
       display: "flex", flexDirection: "column",
       overflow: "hidden",
     }}>
-      {/* Themen-Toggle-Leiste + Buch-Steuerung (rechts ausgerichtet) */}
+      {/* Themen-Toggle-Leiste + Buch-Steuerung (rechts ausgerichtet).
+          Auf Mobile umbrechen statt horizontal scrollen — sonst sprengt
+          die Toolbar das Layout via intrinsic min-width. */}
       <div style={{
         display: "flex", gap: "0.3rem",
-        flexWrap: isMobile ? "nowrap" : "wrap",
-        overflowX: isMobile ? "auto" : "visible",
+        flexWrap: "wrap",
         padding: "0.5rem 0.7rem",
         background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.2)",
         borderBottom: `1px solid ${c.border}`,
@@ -1488,12 +1489,14 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
           marginLeft: "auto",
           display: "flex", gap: "0.3rem", alignItems: "center", flexShrink: 0,
         }}>
-          <span style={{
-            fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
-            color: inkDim, marginRight: "0.4rem", whiteSpace: "nowrap",
-          }} aria-hidden="true">
-            Hover ⇒ Zitat · Drag ⇒ verschieben · Wheel ⇒ Zoom
-          </span>
+          {!isMobile && (
+            <span style={{
+              fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+              color: inkDim, marginRight: "0.4rem", whiteSpace: "nowrap",
+            }} aria-hidden="true">
+              Hover ⇒ Zitat · Drag ⇒ verschieben · Wheel ⇒ Zoom
+            </span>
+          )}
           <button onClick={() => canvas.zoomBy(1.25)} aria-label="Zoom in" style={bookCtrlStyle(inkDim, pageInk)}>+</button>
           <button onClick={() => canvas.zoomBy(0.8)} aria-label="Zoom out" style={bookCtrlStyle(inkDim, pageInk)}>−</button>
           <button onClick={() => { canvas.resetView(); setOffsets(new Map()); }} aria-label="Reset" style={{ ...bookCtrlStyle(inkDim, pageInk), padding: "0 0.55rem", fontSize: "0.55rem" }}>RESET</button>

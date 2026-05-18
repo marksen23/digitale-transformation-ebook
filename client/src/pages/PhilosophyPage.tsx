@@ -351,9 +351,12 @@ export default function PhilosophyPage() {
         // Buch-View: Detail-Panel ausblenden, Buchaufschlag bekommt die
         // volle Breite — beide Seiten (Philosophen + Wissenschaftler)
         // werden gut lesbar. Hover-Overlay zeigt die jeweilige Phrase.
+        // minmax(0, ...) statt 1fr verhindert, dass intrinsisches Content-
+        // Min-Width die Spalte über den Viewport hinaus expandiert
+        // (sonst überfließt der Buchaufschlag auf Mobile auf >900 px).
         gridTemplateColumns: isMobile || viewMode === "book"
-          ? "1fr"
-          : "minmax(280px, 45%) 1fr",
+          ? "minmax(0, 1fr)"
+          : "minmax(280px, 45%) minmax(0, 1fr)",
         gap: isMobile ? 0 : "1.5rem",
       }}>
         {/* Visualisierung */}
