@@ -171,8 +171,52 @@ export default function AdminHealthPage() {
     return () => { cancelled = true; };
   }, []);
 
+  // Diagnose: wenn das Korpus voll ist aber keinerlei Embedding-abhängige
+  // Felder enthält, fehlt mit hoher Sicherheit das GEMINI_API_KEY-Secret
+  // in den GitHub-Actions-Settings. (Der Workflow läuft erfolgreich durch,
+  // skipped die Embedding-Berechnung still — der einzige sichtbare Effekt
+  // ist, dass Hold-out, Kohärenz, Spannungen und Drift leer bleiben.)
+  const missingEmbeddingsLikely = !!allEntries && allEntries.length > 20
+    && allEntries.every(e => !e.related?.length && typeof e.werkVoiceScore !== "number");
+
   return (
     <>
+      {missingEmbeddingsLikely && (
+        <div style={{
+          background: "rgba(232,200,112,0.08)",
+          border: `1px solid #e8c870`,
+          borderRadius: 6,
+          padding: "0.7rem 0.9rem",
+          marginBottom: "1rem",
+          fontFamily: SERIF,
+          fontSize: "0.88rem",
+          lineHeight: 1.55,
+          color: C.text,
+        }}>
+          <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#e8c870", marginBottom: "0.4rem" }}>
+            Diagnose
+          </div>
+          <p style={{ margin: 0, fontStyle: "italic" }}>
+            Der Korpus hat {allEntries?.length} Einträge, aber{" "}
+            <strong>keine semantischen Felder</strong> (<code style={{ fontFamily: MONO, color: C.accent }}>werkVoiceScore</code>,{" "}
+            <code style={{ fontFamily: MONO, color: C.accent }}>related[]</code>). Vermutlich fehlt
+            das <code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>-Secret
+            in den GitHub-Actions-Settings — der Workflow läuft erfolgreich, skipped aber die
+            Embedding-Berechnung still.
+          </p>
+          <p style={{ margin: "0.5rem 0 0", fontFamily: MONO, fontSize: "0.6rem", color: C.muted }}>
+            Setup: <a
+              href="https://github.com/marksen23/digitale-transformation-ebook/settings/secrets/actions"
+              target="_blank" rel="noreferrer"
+              style={{ color: C.accent, textDecoration: "none" }}
+            >Repo → Settings → Secrets and variables → Actions ↗</a>{" "}
+            · Name: <code style={{ color: C.accent }}>GEMINI_API_KEY</code> · Value: derselbe Key
+            wie auf Render. Danach „↻ Index neu bauen" drücken — die folgenden Sektionen
+            (Hold-out, Kohärenz, Spannungen) bekommen Daten.
+          </p>
+        </div>
+      )}
+
       <Section title="Server-Heartbeat" c={C}>
         {!heartbeat ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>pinge /api/admin/check …</p>
