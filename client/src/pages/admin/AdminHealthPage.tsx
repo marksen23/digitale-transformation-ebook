@@ -691,8 +691,21 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
           <code style={{ fontFamily: MONO, color: c.accent }}>GITHUB_TOKEN</code> ist nicht in den Server-Env-Vars gesetzt — alle KI-Antworten werden still verworfen. Auf Render im Dashboard hinzufügen, dann Service neu starten.
         </div>
       )}
-      <TriggerRebuild c={c} />
-      <WorkflowRuns c={c} />
+      <IngestRebuildSection c={c} />
+    </>
+  );
+}
+
+/**
+ * Verbindet TriggerRebuild + WorkflowRuns — nach erfolgreichem Trigger
+ * refresht die Runs-Liste sofort (nicht erst beim nächsten 30s-Interval).
+ */
+function IngestRebuildSection({ c }: { c: ReturnType<typeof useAdminTheme> }) {
+  const [refreshKey, setRefreshKey] = useState(0);
+  return (
+    <>
+      <TriggerRebuild c={c} onTriggered={() => setRefreshKey(k => k + 1)} />
+      <WorkflowRuns c={c} refreshKey={refreshKey} />
     </>
   );
 }
@@ -715,7 +728,7 @@ interface WorkflowRun {
  * Zeigt die letzten 5 validate-corpus.yml-Runs. Auto-refresh alle 30s,
  * damit ein laufender Rebuild seinen Status hier durchpulst.
  */
-function WorkflowRuns({ c }: { c: ReturnType<typeof useAdminTheme> }) {
+function WorkflowRuns({ c, refreshKey }: { c: ReturnType<typeof useAdminTheme>; refreshKey?: number }) {
   const [runs, setRuns] = useState<WorkflowRun[] | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -741,7 +754,8 @@ function WorkflowRuns({ c }: { c: ReturnType<typeof useAdminTheme> }) {
     load();
     const t = setInterval(load, 30_000);
     return () => clearInterval(t);
-  }, []);
+  // refreshKey bewirkt sofortigen reload nach TriggerRebuild
+  }, [refreshKey]);
 
   if (error) {
     return (
@@ -824,7 +838,7 @@ function WorkflowRuns({ c }: { c: ReturnType<typeof useAdminTheme> }) {
  * (related, nearDuplicates, werkVoiceScore, corpusVoiceScore) inkl.
  * Buchtext-Embeddings, sofern GEMINI_API_KEY als Repo-Secret gesetzt ist.
  */
-function TriggerRebuild({ c }: { c: ReturnType<typeof useAdminTheme> }) {
+function TriggerRebuild({ c, onTriggered }: { c: ReturnType<typeof useAdminTheme>; onTriggered?: () => void }) {
   const [state, setState] = useState<"idle" | "loading" | "ok" | "error">("idle");
   const [message, setMessage] = useState<string>("");
   const [actionsUrl, setActionsUrl] = useState<string | null>(null);
@@ -841,6 +855,10 @@ function TriggerRebuild({ c }: { c: ReturnType<typeof useAdminTheme> }) {
         setState("ok");
         setMessage(data.message ?? "Workflow triggered");
         setActionsUrl(data.actionsUrl ?? null);
+        // GitHub-API hat eine kurze Latenz bis der neue Run sichtbar wird.
+        // Nach 3s nochmal triggern damit der Run sicher gelistet ist.
+        setTimeout(() => onTriggered?.(), 500);
+        setTimeout(() => onTriggered?.(), 3000);
       } else {
         setState("error");
         setMessage(`${data.error ?? `HTTP ${res.status}`}${data.hint ? ` · ${data.hint}` : ""}`);
