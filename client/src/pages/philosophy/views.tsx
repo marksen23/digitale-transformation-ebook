@@ -1648,19 +1648,20 @@ function BookSpread({
         </div>
       </div>
 
-      {/* Zoom-Controls */}
-      <div style={{ position: "absolute", bottom: "0.6rem", left: "0.6rem", display: "flex", gap: "0.3rem", zIndex: 60 }}>
+      {/* Zoom-Controls + Hint — oben, damit sie ohne Scrollen erreichbar
+          sind. Wenn die Buchseiten unter den Viewport-Rand wachsen,
+          bleiben die Controls immer sichtbar. */}
+      <div style={{ position: "absolute", top: "0.5rem", left: "0.6rem", display: "flex", gap: "0.3rem", zIndex: 60 }}>
         <button onClick={() => canvas.zoomBy(1.25)} aria-label="Zoom in" style={bookCtrlStyle(inkDim, pageInk)}>+</button>
         <button onClick={() => canvas.zoomBy(0.8)} aria-label="Zoom out" style={bookCtrlStyle(inkDim, pageInk)}>−</button>
         <button onClick={() => { canvas.resetView(); setOffsets(new Map()); }} aria-label="Reset" style={{ ...bookCtrlStyle(inkDim, pageInk), padding: "0 0.55rem", fontSize: "0.55rem" }}>RESET</button>
       </div>
 
-      {/* Hint — unten rechts */}
       <div style={{
-        position: "absolute", bottom: "0.6rem", right: "0.6rem",
+        position: "absolute", top: "0.65rem", right: "0.7rem",
         fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", color: inkDim,
-        background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.5)",
-        padding: "0.3rem 0.5rem",
+        background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.55)",
+        padding: "0.3rem 0.55rem", borderRadius: 4,
         border: `1px solid ${inkDim}`,
         pointerEvents: "none", zIndex: 60,
       }}>
