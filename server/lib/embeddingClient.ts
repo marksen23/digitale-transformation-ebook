@@ -17,6 +17,12 @@ const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/
  *
  * Returnt null bei Fehler (Netzwerk, API, fehlender Key). Wirft nie.
  */
+// Diagnose-Counter: erste N Fehler ausführlich loggen, danach silent.
+// Verhindert Log-Spam bei systematischem Fehler (z.B. Key invalid → 401
+// auf jeden Call).
+let _embedFailLogged = 0;
+const EMBED_FAIL_LOG_LIMIT = 3;
+
 export async function fetchEmbedding(text: string): Promise<number[] | null> {
   const apiKey = process.env.GEMINI_API_KEY;
   if (!apiKey) return null;
@@ -26,10 +32,28 @@ export async function fetchEmbedding(text: string): Promise<number[] | null> {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 8000) }] } }),
     });
-    if (!res.ok) return null;
+    if (!res.ok) {
+      if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
+        _embedFailLogged++;
+        const body = await res.text().catch(() => "(no body)");
+        console.error(`[fetchEmbedding] ${res.status} ${res.statusText}: ${body.slice(0, 400)}`);
+      }
+      return null;
+    }
     const data = await res.json();
-    return Array.isArray(data.embedding?.values) ? data.embedding.values : null;
-  } catch {
+    if (!Array.isArray(data.embedding?.values)) {
+      if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
+        _embedFailLogged++;
+        console.error(`[fetchEmbedding] unexpected response shape: ${JSON.stringify(data).slice(0, 400)}`);
+      }
+      return null;
+    }
+    return data.embedding.values;
+  } catch (err) {
+    if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
+      _embedFailLogged++;
+      console.error(`[fetchEmbedding] network: ${err instanceof Error ? err.message : String(err)}`);
+    }
     return null;
   }
 }

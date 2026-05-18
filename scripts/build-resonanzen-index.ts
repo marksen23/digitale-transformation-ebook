@@ -495,6 +495,11 @@ function runHoldoutCheck(entries: ResonanzEntry[], embeddings: Record<string, nu
   console.log(`[build-resonanzen-index] holdout-report: checked=${holdout.length} stable=${stable} shifted=${shifted} drifted=${drifted}`);
 }
 
+// Modul-globaler Counter, damit wir nur die ersten N Fehler ausführlich loggen
+// (vermeidet Spam wenn alle 128 Calls denselben Fehler haben).
+let _embedFailLogged = 0;
+const EMBED_FAIL_LOG_LIMIT = 3;
+
 async function fetchEmbedding(text: string): Promise<number[] | null> {
   try {
     const res = await fetch(
@@ -505,10 +510,28 @@ async function fetchEmbedding(text: string): Promise<number[] | null> {
         body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 8000) }] } }),
       }
     );
-    if (!res.ok) return null;
+    if (!res.ok) {
+      if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
+        _embedFailLogged++;
+        const body = await res.text().catch(() => "(no body)");
+        console.error(`[fetchEmbedding] ${res.status} ${res.statusText}: ${body.slice(0, 400)}`);
+      }
+      return null;
+    }
     const data = await res.json();
-    return Array.isArray(data.embedding?.values) ? data.embedding.values : null;
-  } catch {
+    if (!Array.isArray(data.embedding?.values)) {
+      if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
+        _embedFailLogged++;
+        console.error(`[fetchEmbedding] unexpected response shape: ${JSON.stringify(data).slice(0, 400)}`);
+      }
+      return null;
+    }
+    return data.embedding.values;
+  } catch (err) {
+    if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
+      _embedFailLogged++;
+      console.error(`[fetchEmbedding] network: ${err instanceof Error ? err.message : String(err)}`);
+    }
     return null;
   }
 }
