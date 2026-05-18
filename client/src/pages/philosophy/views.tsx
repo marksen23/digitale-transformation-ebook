@@ -1414,6 +1414,12 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
 }) {
   const [theme, setTheme] = useState<string>("all");
 
+  // Pan/Zoom + Fragment-Offsets sind hier oben verankert (statt in
+  // BookSpread), damit die Controls in der Themen-Toggle-Leiste platziert
+  // werden können, ohne die Seitentitel ("❦ PHILOSOPHEN ❧") zu überdecken.
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 2.5 });
+  const [offsets, setOffsets] = useState<Map<string, { dx: number; dy: number }>>(new Map());
+
   // Aufteilung: links Philosophen (alles außer wissenschaft), rechts Wissenschaftler
   const leftPagePhils = useMemo(
     () => allPhilosophers.filter(p => p.tradition !== "wissenschaft" && p.signaturePhrase),
@@ -1451,7 +1457,7 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
       display: "flex", flexDirection: "column",
       overflow: "hidden",
     }}>
-      {/* Themen-Toggle-Leiste */}
+      {/* Themen-Toggle-Leiste + Buch-Steuerung (rechts ausgerichtet) */}
       <div style={{
         display: "flex", gap: "0.3rem",
         flexWrap: isMobile ? "nowrap" : "wrap",
@@ -1459,6 +1465,7 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
         padding: "0.5rem 0.7rem",
         background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.2)",
         borderBottom: `1px solid ${c.border}`,
+        alignItems: "center",
       }}>
         {BOOK_THEMES.map(t => {
           const active = theme === t.id;
@@ -1472,11 +1479,25 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
                 background: active ? "#f59e0b" : "none",
                 border: `1px solid ${active ? "#f59e0b" : inkDim}`,
                 padding: "0.4rem 0.65rem", cursor: "pointer", minHeight: 32,
-                whiteSpace: "nowrap", flexShrink: 0,
+                whiteSpace: "nowrap", flexShrink: 0, borderRadius: 4,
               }}
             >{t.label}</button>
           );
         })}
+        <div style={{
+          marginLeft: "auto",
+          display: "flex", gap: "0.3rem", alignItems: "center", flexShrink: 0,
+        }}>
+          <span style={{
+            fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+            color: inkDim, marginRight: "0.4rem", whiteSpace: "nowrap",
+          }} aria-hidden="true">
+            Hover ⇒ Zitat · Drag ⇒ verschieben · Wheel ⇒ Zoom
+          </span>
+          <button onClick={() => canvas.zoomBy(1.25)} aria-label="Zoom in" style={bookCtrlStyle(inkDim, pageInk)}>+</button>
+          <button onClick={() => canvas.zoomBy(0.8)} aria-label="Zoom out" style={bookCtrlStyle(inkDim, pageInk)}>−</button>
+          <button onClick={() => { canvas.resetView(); setOffsets(new Map()); }} aria-label="Reset" style={{ ...bookCtrlStyle(inkDim, pageInk), padding: "0 0.55rem", fontSize: "0.55rem" }}>RESET</button>
+        </div>
       </div>
 
       {/* Buch-Aufschlag mit Pan/Zoom + Hover-Overlay */}
@@ -1494,6 +1515,9 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
         spineColor={spineColor}
         isDark={isDark}
         isMobile={isMobile}
+        canvas={canvas}
+        offsets={offsets}
+        setOffsets={setOffsets}
       />
     </div>
   );
@@ -1517,6 +1541,7 @@ interface FragmentLayout { x: number; y: number; rotation: number; size: number 
 function BookSpread({
   leftPagePhils, rightPagePhils, leftLayout, rightLayout, isMatch,
   selectedId, onSelect, pageBg, pageInk, inkDim, spineColor, isDark, isMobile,
+  canvas, offsets, setOffsets,
 }: {
   leftPagePhils: Philosopher[]; rightPagePhils: Philosopher[];
   leftLayout: Map<string, FragmentLayout>; rightLayout: Map<string, FragmentLayout>;
@@ -1525,11 +1550,11 @@ function BookSpread({
   onSelect: (id: string) => void;
   pageBg: string; pageInk: string; inkDim: string; spineColor: string;
   isDark: boolean; isMobile: boolean;
+  canvas: ReturnType<typeof useInteractiveCanvas>;
+  offsets: Map<string, { dx: number; dy: number }>;
+  setOffsets: React.Dispatch<React.SetStateAction<Map<string, { dx: number; dy: number }>>>;
 }) {
-  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 2.5 });
   const [hoveredId, setHoveredId] = useState<string | null>(null);
-  // Fragment-Offsets in Container-Prozent (relativ zur Seite). Drag mutiert hier.
-  const [offsets, setOffsets] = useState<Map<string, { dx: number; dy: number }>>(new Map());
   const dragRef = useRef<{ id: string; startX: number; startY: number; pageEl: HTMLElement; baseDx: number; baseDy: number } | null>(null);
 
   // Hover-Quelle finden (Layout + page-key, damit das richtige Fragment glüht)
@@ -1648,25 +1673,8 @@ function BookSpread({
         </div>
       </div>
 
-      {/* Zoom-Controls + Hint — oben, damit sie ohne Scrollen erreichbar
-          sind. Wenn die Buchseiten unter den Viewport-Rand wachsen,
-          bleiben die Controls immer sichtbar. */}
-      <div style={{ position: "absolute", top: "0.5rem", left: "0.6rem", display: "flex", gap: "0.3rem", zIndex: 60 }}>
-        <button onClick={() => canvas.zoomBy(1.25)} aria-label="Zoom in" style={bookCtrlStyle(inkDim, pageInk)}>+</button>
-        <button onClick={() => canvas.zoomBy(0.8)} aria-label="Zoom out" style={bookCtrlStyle(inkDim, pageInk)}>−</button>
-        <button onClick={() => { canvas.resetView(); setOffsets(new Map()); }} aria-label="Reset" style={{ ...bookCtrlStyle(inkDim, pageInk), padding: "0 0.55rem", fontSize: "0.55rem" }}>RESET</button>
-      </div>
-
-      <div style={{
-        position: "absolute", top: "0.65rem", right: "0.7rem",
-        fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", color: inkDim,
-        background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.55)",
-        padding: "0.3rem 0.55rem", borderRadius: 4,
-        border: `1px solid ${inkDim}`,
-        pointerEvents: "none", zIndex: 60,
-      }}>
-        Hover ⇒ Zitat · Drag ⇒ verschieben · Wheel ⇒ Zoom
-      </div>
+      {/* Zoom-Controls + Hint sind jetzt in der Themen-Toggle-Leiste
+          (BookView), damit sie nicht die Seitentitel überlagern. */}
 
       {/* Hover-Lese-Overlay — zentriert, gross, modern */}
       {hovered && hovered.signaturePhrase && (
