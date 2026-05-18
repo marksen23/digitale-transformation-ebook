@@ -345,16 +345,21 @@ export default function PhilosophyPage() {
 
       {/* ─── Hauptbereich: Visualisierung + (Desktop: Detail-Panel) ─── */}
       <main style={{
-        maxWidth: 1400, margin: "0 auto",
+        maxWidth: viewMode === "book" ? "none" : 1400, margin: "0 auto",
         padding: isMobile ? "0.5rem 0.5rem 0" : "1rem",
         display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "minmax(280px, 45%) 1fr",
+        // Buch-View: Detail-Panel ausblenden, Buchaufschlag bekommt die
+        // volle Breite — beide Seiten (Philosophen + Wissenschaftler)
+        // werden gut lesbar. Hover-Overlay zeigt die jeweilige Phrase.
+        gridTemplateColumns: isMobile || viewMode === "book"
+          ? "1fr"
+          : "minmax(280px, 45%) 1fr",
         gap: isMobile ? 0 : "1.5rem",
       }}>
         {/* Visualisierung */}
         <section style={{
-          minHeight: isMobile ? "calc(100vh - 220px)" : 600,
-          height: isMobile ? "calc(100vh - 220px)" : "auto",
+          minHeight: isMobile ? "calc(100vh - 220px)" : viewMode === "book" ? "calc(100vh - 180px)" : 600,
+          height: isMobile ? "calc(100vh - 220px)" : viewMode === "book" ? "calc(100vh - 180px)" : "auto",
         }}>
           {viewMode === "timeline" ? (
             <Timeline
@@ -430,8 +435,10 @@ export default function PhilosophyPage() {
           )}
         </section>
 
-        {/* Detail-Panel — nur Desktop */}
-        {!isMobile && (
+        {/* Detail-Panel — nur Desktop, nicht im Buch-View (dort übernimmt
+            das Hover-Overlay die Aussage-Anzeige, und die volle Breite
+            gehört dem Buchaufschlag). */}
+        {!isMobile && viewMode !== "book" && (
           <section>
             {selected ? (
               <PhilosopherDetail philosopher={selected} c={C} onSelect={setSelectedId} />

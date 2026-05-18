@@ -14,7 +14,7 @@
  *
  * Gemeinsame Konstanten / Helpers liegen in shared.ts.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   TRADITIONS, SCIENCE_LINKS,
   RESONANZVERNUNFT_PFAD, POSITION_LABEL,
@@ -1479,88 +1479,272 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
         })}
       </div>
 
-      {/* Buch-Aufschlag */}
-      <div style={{
-        flex: 1,
-        display: "grid",
-        gridTemplateColumns: isMobile ? "1fr" : "1fr 14px 1fr",
-        gridTemplateRows: isMobile ? "auto auto" : "1fr",
-        gap: 0,
-        overflow: isMobile ? "auto" : "hidden",
-        background: pageBg,
-        position: "relative",
-      }}>
-        {/* Linke Seite — Philosophen */}
-        <BookPage
-          philosophers={leftPagePhils}
-          layout={leftLayout}
-          isMatch={isMatch}
-          selectedId={selectedId}
-          onSelect={onSelect}
-          title="Philosophen"
-          pageInk={pageInk}
-          inkDim={inkDim}
-        />
+      {/* Buch-Aufschlag mit Pan/Zoom + Hover-Overlay */}
+      <BookSpread
+        leftPagePhils={leftPagePhils}
+        rightPagePhils={rightPagePhils}
+        leftLayout={leftLayout}
+        rightLayout={rightLayout}
+        isMatch={isMatch}
+        selectedId={selectedId}
+        onSelect={onSelect}
+        pageBg={pageBg}
+        pageInk={pageInk}
+        inkDim={inkDim}
+        spineColor={spineColor}
+        isDark={isDark}
+        isMobile={isMobile}
+      />
+    </div>
+  );
+}
 
-        {/* Buchnaht — nur Desktop */}
-        {!isMobile && (
-          <div style={{
-            background: spineColor,
-            boxShadow: isDark
-              ? "inset 5px 0 8px -3px rgba(0,0,0,0.6), inset -5px 0 8px -3px rgba(0,0,0,0.6)"
-              : "inset 5px 0 8px -3px rgba(80,60,30,0.4), inset -5px 0 8px -3px rgba(80,60,30,0.4)",
-          }} />
-        )}
-        {/* Mobile Naht: oberhalb der rechten Seite eine horizontale Linie */}
-        {isMobile && (
-          <div style={{
-            height: 12, background: spineColor,
-            boxShadow: isDark
-              ? "inset 0 5px 8px -3px rgba(0,0,0,0.6), inset 0 -5px 8px -3px rgba(0,0,0,0.6)"
-              : "inset 0 5px 8px -3px rgba(80,60,30,0.4), inset 0 -5px 8px -3px rgba(80,60,30,0.4)",
-          }} />
-        )}
+// ─── Buch-Aufschlag mit interaktiver Canvas ──────────────────────────────
+//
+// Pan/Zoom des ganzen Aufschlags via useInteractiveCanvas.
+// Pro Fragment: Drag-to-move (eigener Offset), Hover öffnet ein
+// zentriertes Lese-Overlay mit der Phrase in grossen Lettern; das
+// Original-Fragment im Hintergrund glüht feuergold ("erleuchtet").
 
-        {/* Rechte Seite — Wissenschaftler */}
-        <BookPage
-          philosophers={rightPagePhils}
-          layout={rightLayout}
-          isMatch={isMatch}
-          selectedId={selectedId}
-          onSelect={onSelect}
-          title="Wissenschaftler"
-          pageInk={pageInk}
-          inkDim={inkDim}
-        />
+// Goldglow als zwei Schichten — eng + breit. text-shadow nutzt das volle
+// Doppel-Glow; filter:drop-shadow muss aus zwei separaten Aufrufen bestehen,
+// weil die Funktion nur EINE shadow-spec pro Aufruf akzeptiert.
+const GOLD_TEXT_SHADOW = "0 0 18px rgba(245,158,11,0.85), 0 0 38px rgba(245,158,11,0.45)";
+const GOLD_DROP_SHADOW = "drop-shadow(0 0 18px rgba(245,158,11,0.85)) drop-shadow(0 0 38px rgba(245,158,11,0.45))";
+
+interface FragmentLayout { x: number; y: number; rotation: number; size: number }
+
+function BookSpread({
+  leftPagePhils, rightPagePhils, leftLayout, rightLayout, isMatch,
+  selectedId, onSelect, pageBg, pageInk, inkDim, spineColor, isDark, isMobile,
+}: {
+  leftPagePhils: Philosopher[]; rightPagePhils: Philosopher[];
+  leftLayout: Map<string, FragmentLayout>; rightLayout: Map<string, FragmentLayout>;
+  isMatch: (p: Philosopher) => boolean;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+  pageBg: string; pageInk: string; inkDim: string; spineColor: string;
+  isDark: boolean; isMobile: boolean;
+}) {
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 2.5 });
+  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  // Fragment-Offsets in Container-Prozent (relativ zur Seite). Drag mutiert hier.
+  const [offsets, setOffsets] = useState<Map<string, { dx: number; dy: number }>>(new Map());
+  const dragRef = useRef<{ id: string; startX: number; startY: number; pageEl: HTMLElement; baseDx: number; baseDy: number } | null>(null);
+
+  // Hover-Quelle finden (Layout + page-key, damit das richtige Fragment glüht)
+  const hovered = hoveredId
+    ? [...leftPagePhils, ...rightPagePhils].find(p => p.id === hoveredId) ?? null
+    : null;
+
+  function startFragmentDrag(e: React.MouseEvent | React.TouchEvent, p: Philosopher) {
+    e.stopPropagation();
+    const pageEl = (e.currentTarget as HTMLElement).closest("[data-bookpage]") as HTMLElement | null;
+    if (!pageEl) return;
+    const point = "touches" in e ? e.touches[0] : (e as React.MouseEvent);
+    const cur = offsets.get(p.id) ?? { dx: 0, dy: 0 };
+    dragRef.current = { id: p.id, startX: point.clientX, startY: point.clientY, pageEl, baseDx: cur.dx, baseDy: cur.dy };
+  }
+
+  useEffect(() => {
+    function onMove(e: MouseEvent | TouchEvent) {
+      const d = dragRef.current;
+      if (!d) return;
+      const point = "touches" in e ? (e as TouchEvent).touches[0] : (e as MouseEvent);
+      const rect = d.pageEl.getBoundingClientRect();
+      // Delta in Prozent der Seitenbreite/-höhe, durch Zoom geteilt damit
+      // sich Drag-Geschwindigkeit nicht mit Zoom multipliziert
+      const dxPct = ((point.clientX - d.startX) / rect.width) * 100 / canvas.zoom;
+      const dyPct = ((point.clientY - d.startY) / rect.height) * 100 / canvas.zoom;
+      setOffsets(prev => new Map(prev).set(d.id, { dx: d.baseDx + dxPct, dy: d.baseDy + dyPct }));
+    }
+    function onEnd() { dragRef.current = null; }
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onEnd);
+    window.addEventListener("touchmove", onMove, { passive: true });
+    window.addEventListener("touchend", onEnd);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onEnd);
+      window.removeEventListener("touchmove", onMove);
+      window.removeEventListener("touchend", onEnd);
+    };
+  }, [canvas.zoom]);
+
+  return (
+    <div style={{ flex: 1, position: "relative", overflow: "hidden", background: pageBg }}>
+      {/* Pan-Zoom-Empfänger: das SVG-artige Wrapper hat die canvas.bind-
+          Events. Wir nutzen aber einen div, deshalb manuell die Wheel-
+          und Touch-Events weiterleiten — sie sind im hook bind, aber
+          React-Events sind kompatibel. */}
+      <div
+        onMouseDown={canvas.bind.onMouseDown as unknown as React.MouseEventHandler<HTMLDivElement>}
+        onMouseMove={canvas.bind.onMouseMove as unknown as React.MouseEventHandler<HTMLDivElement>}
+        onMouseUp={canvas.bind.onMouseUp}
+        onMouseLeave={canvas.bind.onMouseLeave}
+        onWheel={canvas.bind.onWheel as unknown as React.WheelEventHandler<HTMLDivElement>}
+        onTouchStart={canvas.bind.onTouchStart as unknown as React.TouchEventHandler<HTMLDivElement>}
+        onTouchMove={canvas.bind.onTouchMove as unknown as React.TouchEventHandler<HTMLDivElement>}
+        onTouchEnd={canvas.bind.onTouchEnd}
+        style={{
+          position: "absolute", inset: 0,
+          cursor: canvas.dragging ? "grabbing" : "grab",
+          touchAction: "none",
+        }}
+      >
+        <div style={{
+          width: "100%", height: "100%",
+          transform: canvas.transform,
+          transformOrigin: "center center",
+          display: "grid",
+          gridTemplateColumns: isMobile ? "1fr" : "1fr 14px 1fr",
+          gridTemplateRows: isMobile ? "auto 12px auto" : "1fr",
+        }}>
+          <BookPage
+            philosophers={leftPagePhils}
+            layout={leftLayout}
+            offsets={offsets}
+            isMatch={isMatch}
+            selectedId={selectedId}
+            hoveredId={hoveredId}
+            onHover={setHoveredId}
+            onDragStart={startFragmentDrag}
+            onSelect={onSelect}
+            title="Philosophen"
+            pageInk={pageInk}
+            inkDim={inkDim}
+          />
+          {/* Buchnaht */}
+          {!isMobile && (
+            <div style={{
+              background: spineColor,
+              boxShadow: isDark
+                ? "inset 5px 0 8px -3px rgba(0,0,0,0.6), inset -5px 0 8px -3px rgba(0,0,0,0.6)"
+                : "inset 5px 0 8px -3px rgba(80,60,30,0.4), inset -5px 0 8px -3px rgba(80,60,30,0.4)",
+            }} />
+          )}
+          {isMobile && (
+            <div style={{
+              background: spineColor,
+              boxShadow: isDark
+                ? "inset 0 5px 8px -3px rgba(0,0,0,0.6), inset 0 -5px 8px -3px rgba(0,0,0,0.6)"
+                : "inset 0 5px 8px -3px rgba(80,60,30,0.4), inset 0 -5px 8px -3px rgba(80,60,30,0.4)",
+            }} />
+          )}
+          <BookPage
+            philosophers={rightPagePhils}
+            layout={rightLayout}
+            offsets={offsets}
+            isMatch={isMatch}
+            selectedId={selectedId}
+            hoveredId={hoveredId}
+            onHover={setHoveredId}
+            onDragStart={startFragmentDrag}
+            onSelect={onSelect}
+            title="Wissenschaftler"
+            pageInk={pageInk}
+            inkDim={inkDim}
+          />
+        </div>
       </div>
 
-      {/* Hint — unten rechts, nicht oben (überlappte sonst die Themen-Toggles) */}
+      {/* Zoom-Controls */}
+      <div style={{ position: "absolute", bottom: "0.6rem", left: "0.6rem", display: "flex", gap: "0.3rem", zIndex: 60 }}>
+        <button onClick={() => canvas.zoomBy(1.25)} aria-label="Zoom in" style={bookCtrlStyle(inkDim, pageInk)}>+</button>
+        <button onClick={() => canvas.zoomBy(0.8)} aria-label="Zoom out" style={bookCtrlStyle(inkDim, pageInk)}>−</button>
+        <button onClick={() => { canvas.resetView(); setOffsets(new Map()); }} aria-label="Reset" style={{ ...bookCtrlStyle(inkDim, pageInk), padding: "0 0.55rem", fontSize: "0.55rem" }}>RESET</button>
+      </div>
+
+      {/* Hint — unten rechts */}
       <div style={{
         position: "absolute", bottom: "0.6rem", right: "0.6rem",
         fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", color: inkDim,
         background: isDark ? "rgba(0,0,0,0.3)" : "rgba(255,255,255,0.5)",
         padding: "0.3rem 0.5rem",
         border: `1px solid ${inkDim}`,
-        pointerEvents: "none",
+        pointerEvents: "none", zIndex: 60,
       }}>
-        wähle ein Thema · die Stimmen treten hervor
+        Hover ⇒ Zitat · Drag ⇒ verschieben · Wheel ⇒ Zoom
       </div>
+
+      {/* Hover-Lese-Overlay — zentriert, gross, modern */}
+      {hovered && hovered.signaturePhrase && (
+        <div
+          style={{
+            position: "absolute", inset: 0,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            pointerEvents: "none",
+            zIndex: 50,
+            padding: "2rem",
+          }}
+        >
+          <div style={{
+            maxWidth: "min(740px, 80%)",
+            background: isDark ? "rgba(12,10,9,0.78)" : "rgba(255,253,247,0.85)",
+            backdropFilter: "blur(8px) saturate(140%)",
+            WebkitBackdropFilter: "blur(8px) saturate(140%)",
+            border: `1px solid ${isDark ? "rgba(245,158,11,0.4)" : "rgba(180,83,9,0.35)"}`,
+            borderRadius: 14,
+            padding: "1.8rem 2.2rem",
+            boxShadow: "0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(245,158,11,0.18)",
+            textAlign: "center",
+          }}>
+            <p style={{
+              fontFamily: SERIF_BODY,
+              fontSize: "clamp(1.4rem, 3.2vw, 2.4rem)",
+              fontStyle: "italic",
+              fontWeight: 500,
+              lineHeight: 1.3,
+              color: isDark ? "#fafaf9" : "#1c1917",
+              margin: 0,
+              letterSpacing: "-0.005em",
+            }}>
+              „{hovered.signaturePhrase}"
+            </p>
+            <div style={{
+              marginTop: "1.1rem",
+              fontFamily: MONO, fontSize: "0.65rem",
+              letterSpacing: "0.22em", textTransform: "uppercase",
+              color: "#f59e0b",
+            }}>
+              ❦ {hovered.name} <span style={{ color: inkDim, marginLeft: "0.5rem" }}>{hovered.born}{hovered.died ? `–${hovered.died}` : "*"}</span>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
 
-function BookPage({ philosophers, layout, isMatch, selectedId, onSelect, title, pageInk, inkDim }: {
+function bookCtrlStyle(border: string, color: string): React.CSSProperties {
+  return {
+    fontFamily: MONO, fontSize: "0.78rem", letterSpacing: "0.1em",
+    color, background: "rgba(255,255,255,0.55)",
+    border: `1px solid ${border}`,
+    width: 28, height: 28, padding: 0,
+    cursor: "pointer", lineHeight: 1, borderRadius: 4,
+  };
+}
+
+function BookPage({
+  philosophers, layout, offsets, isMatch, selectedId, hoveredId,
+  onHover, onDragStart, onSelect, title, pageInk, inkDim,
+}: {
   philosophers: Philosopher[];
-  layout: Map<string, { x: number; y: number; rotation: number; size: number }>;
+  layout: Map<string, FragmentLayout>;
+  offsets: Map<string, { dx: number; dy: number }>;
   isMatch: (p: Philosopher) => boolean;
   selectedId: string | null;
+  hoveredId: string | null;
+  onHover: (id: string | null) => void;
+  onDragStart: (e: React.MouseEvent | React.TouchEvent, p: Philosopher) => void;
   onSelect: (id: string) => void;
   title: string;
   pageInk: string;
   inkDim: string;
 }) {
   return (
-    <div style={{
+    <div data-bookpage style={{
       position: "relative",
       padding: "1.2rem 1.5rem",
       minHeight: 500,
@@ -1599,29 +1783,44 @@ function BookPage({ philosophers, layout, isMatch, selectedId, onSelect, title, 
           const match = isMatch(p);
           const isSelected = selectedId === p.id;
           const isOnPath = PFAD_SET.has(p.id);
+          const isHovered = hoveredId === p.id;
+          const off = offsets.get(p.id);
+          const left = pos.x + (off?.dx ?? 0);
+          const top  = pos.y + (off?.dy ?? 0);
+          const baseScale = match ? pos.size + (isSelected ? 0.2 : 0) : pos.size * 0.85;
+          // Bei Hover: die Quelle „erleuchtet" — kräftiger, goldgelb,
+          // mit Drop-Shadow-Glow. Drag bricht den hover-state nicht.
+          const glowColor = isHovered ? "#f59e0b" : pageInk;
+          const glowFilter = isHovered ? GOLD_DROP_SHADOW : "none";
           return (
             <button
               key={p.id}
-              onClick={() => onSelect(p.id)}
+              onMouseEnter={() => onHover(p.id)}
+              onMouseLeave={() => onHover(null)}
+              onMouseDown={e => onDragStart(e, p)}
+              onTouchStart={e => onDragStart(e, p)}
+              onClick={e => { e.stopPropagation(); onSelect(p.id); }}
               title={`${p.name} (${p.born}${p.died ? `–${p.died}` : "*"})`}
               style={{
                 position: "absolute",
-                left: `${pos.x}%`, top: `${pos.y}%`,
-                transform: `translate(-50%, -50%) rotate(${pos.rotation}deg) scale(${match ? pos.size + (isSelected ? 0.2 : 0) : pos.size * 0.85})`,
+                left: `${left}%`, top: `${top}%`,
+                transform: `translate(-50%, -50%) rotate(${pos.rotation}deg) scale(${baseScale * (isHovered ? 1.18 : 1)})`,
                 background: "none", border: "none", padding: "0.3rem 0.5rem",
-                cursor: "pointer",
+                cursor: "grab",
                 fontFamily: "'Caveat', 'Cormorant Garamond', cursive",
                 fontSize: "1.15rem",
-                color: pageInk,
-                opacity: match ? (isSelected ? 1 : isOnPath ? 0.95 : 0.85) : 0.18,
+                color: glowColor,
+                opacity: match ? (isHovered ? 1 : isSelected ? 1 : isOnPath ? 0.95 : 0.85) : 0.18,
                 textAlign: "left",
                 lineHeight: 1.25,
                 maxWidth: "220px",
                 whiteSpace: "normal",
-                fontWeight: isOnPath ? 600 : 400,
-                transition: "opacity 0.4s ease, transform 0.4s ease",
-                zIndex: isSelected ? 50 : isOnPath ? 20 : match ? 10 : 1,
-                textShadow: isSelected ? "0 0 8px rgba(196,168,130,0.5)" : "none",
+                fontWeight: isOnPath || isHovered ? 600 : 400,
+                transition: "opacity 0.25s ease, color 0.25s ease, transform 0.25s ease",
+                zIndex: isHovered ? 60 : isSelected ? 50 : isOnPath ? 20 : match ? 10 : 1,
+                textShadow: isHovered ? GOLD_TEXT_SHADOW : isSelected ? "0 0 8px rgba(196,168,130,0.5)" : "none",
+                filter: glowFilter,
+                userSelect: "none",
               }}
             >
               "{p.signaturePhrase}"
@@ -1630,8 +1829,9 @@ function BookPage({ philosophers, layout, isMatch, selectedId, onSelect, title, 
                 fontFamily: "'Cormorant Garamond', serif",
                 fontStyle: "italic",
                 fontSize: "0.65rem",
-                color: inkDim,
+                color: isHovered ? "#f59e0b" : inkDim,
                 marginTop: "0.15rem",
+                opacity: isHovered ? 1 : 0.85,
               }}>— {p.name}</span>
             </button>
           );
