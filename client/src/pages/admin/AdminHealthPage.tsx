@@ -692,7 +692,129 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
         </div>
       )}
       <TriggerRebuild c={c} />
+      <WorkflowRuns c={c} />
     </>
+  );
+}
+
+interface WorkflowRun {
+  id: number;
+  runNumber: number;
+  status: string;
+  conclusion: string | null;
+  event: string;
+  displayTitle: string;
+  headSha: string;
+  createdAt: string;
+  updatedAt: string;
+  htmlUrl: string;
+  triggeringActor: string;
+}
+
+/**
+ * Zeigt die letzten 5 validate-corpus.yml-Runs. Auto-refresh alle 30s,
+ * damit ein laufender Rebuild seinen Status hier durchpulst.
+ */
+function WorkflowRuns({ c }: { c: ReturnType<typeof useAdminTheme> }) {
+  const [runs, setRuns] = useState<WorkflowRun[] | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  async function load() {
+    const t = localStorage.getItem("dt-admin-token");
+    try {
+      const res = await fetch("/api/admin/workflow-runs", {
+        headers: { "Authorization": `Bearer ${t ?? ""}` },
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        setRuns(data.runs);
+        setError(null);
+      } else {
+        setError(data.error ?? `HTTP ${res.status}`);
+      }
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Verbindungsfehler");
+    }
+  }
+
+  useEffect(() => {
+    load();
+    const t = setInterval(load, 30_000);
+    return () => clearInterval(t);
+  }, []);
+
+  if (error) {
+    return (
+      <div style={{ marginTop: "0.6rem", fontFamily: MONO, fontSize: "0.55rem", color: c.muted }}>
+        Workflow-Runs nicht abrufbar: {error}
+      </div>
+    );
+  }
+  if (!runs) {
+    return (
+      <div style={{ marginTop: "0.6rem", fontFamily: MONO, fontSize: "0.55rem", color: c.muted, fontStyle: "italic" }}>
+        lade Workflow-Runs …
+      </div>
+    );
+  }
+  if (runs.length === 0) {
+    return (
+      <div style={{ marginTop: "0.6rem", fontFamily: MONO, fontSize: "0.55rem", color: c.muted }}>
+        Noch keine Workflow-Runs.
+      </div>
+    );
+  }
+
+  return (
+    <div style={{ marginTop: "0.7rem" }}>
+      <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
+        Letzte 5 Workflow-Runs (validate-corpus)
+      </div>
+      <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+        {runs.map(r => {
+          const color = r.status === "in_progress" || r.status === "queued"
+            ? "#e8c870"
+            : r.conclusion === "success"
+              ? "#7ab898"
+              : r.conclusion === "failure"
+                ? "#c48282"
+                : c.muted;
+          const label = r.status !== "completed"
+            ? `⟳ ${r.status}`
+            : r.conclusion === "success" ? "✓ success"
+            : r.conclusion === "failure" ? "✗ failed"
+            : r.conclusion ?? "?";
+          return (
+            <a
+              key={r.id}
+              href={r.htmlUrl}
+              target="_blank" rel="noreferrer"
+              style={{
+                display: "block",
+                fontFamily: MONO, fontSize: "0.55rem",
+                textDecoration: "none",
+                padding: "0.3rem 0.5rem",
+                background: c.surface,
+                border: `1px solid ${c.border}`,
+                borderRadius: 4,
+              }}
+            >
+              <div style={{ display: "flex", justifyContent: "space-between", gap: "0.5rem", marginBottom: "0.15rem" }}>
+                <span style={{ color, letterSpacing: "0.1em", textTransform: "uppercase" }}>
+                  {label} · {r.event}
+                </span>
+                <span style={{ color: c.muted }}>
+                  #{r.runNumber} · {formatRelative(r.updatedAt)}
+                </span>
+              </div>
+              <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.72rem", color: c.text, lineHeight: 1.3 }}>
+                {r.displayTitle.length > 90 ? r.displayTitle.slice(0, 90) + "…" : r.displayTitle}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 

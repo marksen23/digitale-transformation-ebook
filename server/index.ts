@@ -924,6 +924,61 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     }
   });
 
+  /**
+   * GET /api/admin/workflow-runs — letzte N Runs von validate-corpus.yml.
+   * Damit das Admin-Panel zeigen kann, ob/wann der Workflow zuletzt
+   * erfolgreich lief — ohne dass User die GitHub-Actions-UI öffnen muss.
+   *
+   * Anonym abrufbar (public repo) — kein Token nötig, aber ein gesetzter
+   * Token erhöht das API-Rate-Limit von 60 auf 5000 calls/h.
+   */
+  app.get("/api/admin/workflow-runs", async (req, res) => {
+    if (!checkAdminToken(req)) {
+      return res.status(401).json({ error: "Nicht autorisiert" });
+    }
+    const owner = process.env.GITHUB_REPO_OWNER ?? "marksen23";
+    const repo  = process.env.GITHUB_REPO_NAME ?? "digitale-transformation-ebook";
+    const token = process.env.GITHUB_TOKEN;
+    const headers: Record<string, string> = {
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "User-Agent": "dt-admin-workflow-runs",
+    };
+    if (token) headers["Authorization"] = `Bearer ${token}`;
+    try {
+      const apiRes = await fetch(
+        `https://api.github.com/repos/${owner}/${repo}/actions/workflows/validate-corpus.yml/runs?per_page=5`,
+        { headers }
+      );
+      if (!apiRes.ok) {
+        return res.status(502).json({
+          ok: false,
+          error: `GitHub API: HTTP ${apiRes.status} ${apiRes.statusText}`,
+        });
+      }
+      const data = await apiRes.json();
+      const runs = (data.workflow_runs ?? []).map((r: any) => ({
+        id: r.id,
+        runNumber: r.run_number,
+        status: r.status,         // queued / in_progress / completed
+        conclusion: r.conclusion, // success / failure / cancelled / null
+        event: r.event,           // push / workflow_dispatch / etc.
+        displayTitle: r.display_title,
+        headSha: r.head_sha?.slice(0, 7),
+        createdAt: r.created_at,
+        updatedAt: r.updated_at,
+        htmlUrl: r.html_url,
+        triggeringActor: r.triggering_actor?.login,
+      }));
+      return res.json({ ok: true, runs });
+    } catch (err) {
+      return res.status(502).json({
+        ok: false,
+        error: err instanceof Error ? err.message : "Verbindungsfehler",
+      });
+    }
+  });
+
   // ─── Phase 2: Kuration ──────────────────────────────────────────────
   // POST /api/admin/curate { id, status }     → Status-Wechsel
   // POST /api/admin/delete { id }             → Eintrag löschen
