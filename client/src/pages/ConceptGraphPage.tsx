@@ -2174,72 +2174,82 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </>
             )}
 
-            {/* Resonanzen zu diesem Begriff — aus dem FAQ-Korpus.
-                Default-Minimal: max 3 sichtbar, "+ N weitere" zum Aufklappen.
-                Klick auf Eintrag → Deep-Link zu /resonanzen?id=<id>. */}
+            {/* Begegnungen aus dem Wissen — als eigener akzentuierter
+                Block am Ende der Begriff-Sidebar. Phase 3: 8 neueste
+                (vorher 3), prominent gerahmt, mit CTA "→ alle im
+                kollektiven Wissen". */}
             {selectedNode && resonanzenByNode && (() => {
-              const all = resonanzenByNode.get(selectedNode.id) ?? [];
+              const all = (resonanzenByNode.get(selectedNode.id) ?? [])
+                .slice()
+                .sort((a, b) => b.ts.localeCompare(a.ts));  // neueste zuerst
               if (all.length === 0) return null;
-              const visible = resonanzenExpanded ? all : all.slice(0, 3);
+              const TOP_N = 8;
+              const visible = all.slice(0, TOP_N);
+              const remaining = Math.max(0, all.length - TOP_N);
               return (
                 <>
-                  <div style={{ height: 1, background: C.border, margin: "1.5rem 0 1.2rem" }} />
-                  <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                    <span>Begegnungen aus dem Wissen</span>
-                    <span style={{ color: C.accent }}>{all.length}</span>
-                  </div>
-                  <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
-                    {visible.map(entry => (
-                      <a
-                        key={entry.id}
-                        href={`/resonanzen?id=${entry.id}`}
-                        style={{
-                          display: "block",
-                          background: C.deep, border: `1px solid ${C.border}`,
-                          padding: "0.5rem 0.7rem", textDecoration: "none",
-                          transition: "border-color 0.15s",
-                        }}
-                        onMouseEnter={e => (e.currentTarget.style.borderColor = C.accentDim)}
-                        onMouseLeave={e => (e.currentTarget.style.borderColor = C.border)}
-                      >
-                        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.2rem", gap: "0.3rem" }}>
-                          <span style={{ fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
-                            {ENDPOINT_LABEL[entry.endpoint]}
-                          </span>
-                          <time style={{ fontFamily: C.mono, fontSize: "0.5rem", color: C.muted }}>
-                            {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
-                          </time>
-                        </div>
-                        <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.78rem", color: C.text, lineHeight: 1.4 }}>
-                          {entry.prompt.length > 110 ? entry.prompt.slice(0, 110) + "…" : entry.prompt}
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-                  {all.length > 3 && (
-                    <div style={{ display: "flex", gap: "0.5rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
-                      <button
-                        onClick={() => setResonanzenExpanded(v => !v)}
-                        style={{
-                          fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                          color: C.muted, background: "none", border: `1px solid ${C.border}`,
-                          padding: "0.3rem 0.6rem", cursor: "pointer",
-                        }}
-                      >
-                        {resonanzenExpanded ? "einklappen" : `+ ${all.length - 3} weitere`}
-                      </button>
-                      <a
-                        href={`/resonanzen?tag=${selectedNode.id}`}
-                        style={{
-                          fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                          color: C.accent, background: "none", border: `1px solid ${C.accentDim}`,
-                          padding: "0.3rem 0.6rem", textDecoration: "none",
-                        }}
-                      >
-                        alle in FAQ →
-                      </a>
+                  <div style={{
+                    marginTop: "1.6rem",
+                    border: `1px solid ${C.border}`,
+                    borderLeft: `3px solid ${C.accent}`,
+                    borderRadius: "0 6px 6px 0",
+                    padding: "0.8rem 0.9rem",
+                    background: `linear-gradient(to bottom, ${C.accentDim}11, transparent 60%)`,
+                  }}>
+                    <div style={{ fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                      <span>❦ Begegnungen aus dem Wissen</span>
+                      <span style={{ color: C.muted, fontFamily: C.mono, fontSize: "0.55rem" }}>
+                        {visible.length}{remaining > 0 ? ` + ${remaining}` : ""}
+                      </span>
                     </div>
-                  )}
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+                      {visible.map(entry => (
+                        <a
+                          key={entry.id}
+                          href={`/resonanzen?id=${entry.id}`}
+                          style={{
+                            display: "block",
+                            background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4,
+                            padding: "0.45rem 0.6rem", textDecoration: "none",
+                            transition: "border-color 0.15s, background 0.15s",
+                          }}
+                          onMouseEnter={e => { e.currentTarget.style.borderColor = C.accentDim; e.currentTarget.style.background = C.deep; }}
+                          onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.surface; }}
+                        >
+                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.18rem", gap: "0.3rem" }}>
+                            <span style={{ fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
+                              {ENDPOINT_LABEL[entry.endpoint]}
+                            </span>
+                            <time style={{ fontFamily: C.mono, fontSize: "0.48rem", color: C.muted }}>
+                              {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
+                            </time>
+                          </div>
+                          <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem", color: C.text, lineHeight: 1.4 }}>
+                            {entry.prompt.length > 100 ? entry.prompt.slice(0, 100) + "…" : entry.prompt}
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                    <a
+                      href={`/resonanzen?tag=${selectedNode.id}`}
+                      style={{
+                        display: "flex", alignItems: "center", justifyContent: "space-between",
+                        marginTop: "0.7rem",
+                        fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase",
+                        color: C.accent, background: "none",
+                        border: `1px solid ${C.accentDim}`, borderRadius: 4,
+                        padding: "0.4rem 0.65rem", textDecoration: "none",
+                        transition: "all 0.15s",
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.background = `${C.accentDim}22`; e.currentTarget.style.color = C.textBright; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = C.accent; }}
+                    >
+                      <span>
+                        {remaining > 0 ? `${remaining} weitere im kollektiven Wissen` : "im kollektiven Wissen ansehen"}
+                      </span>
+                      <span style={{ fontSize: "0.75rem" }}>→</span>
+                    </a>
+                  </div>
                 </>
               );
             })()}
