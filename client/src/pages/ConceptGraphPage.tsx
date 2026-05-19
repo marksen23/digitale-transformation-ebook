@@ -5,6 +5,7 @@ import { loadResonanzenIndexLazy, groupResonanzenByNode, ENDPOINT_LABEL, ENDPOIN
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
 import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORNAMENT, SERIF_BODY } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
+import FocusOverlay from "@/components/FocusOverlay";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -2674,8 +2675,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           ersten Schritte macht (Knoten klickt, Cluster wählt, etc.). */}
       {(() => {
         if (!activeTool) return null;
-        // Sobald der User die ersten Daten produziert hat, ist das
-        // Overlay weg — die Result-Panels übernehmen.
         const hasWorkInProgress =
           (activeTool === "connect" && connectSource !== null) ||
           (activeTool === "path" && (pathNodes[0] !== null || pathResult !== null)) ||
@@ -2683,55 +2682,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           (activeTool === "dialog" && chatHistory.length > 0);
         if (hasWorkInProgress) return null;
         const config = {
-          connect:  { color: "#c4a882", emoji: "+",  title: "Eigene Verbindung",      sub: "Klick auf zwei Begriffe — sie werden mit einer User-Kante verbunden (max. 30).", hint: "Du kannst eine Notiz hinzufügen, warum diese Verbindung wichtig ist." },
-          path:     { color: "#7eb8c8", emoji: "◈",  title: "Pfad-Explorer",          sub: "Klick auf zwei Begriffe — der kürzeste und ein überraschender Pfad zwischen ihnen werden gezeigt.", hint: "Die KI analysiert die Bewegung beider Pfade philosophisch." },
-          analyse:  { color: "#5aacb8", emoji: "⚡", title: "Spannungsfeld-Analyse",   sub: "Klick auf 2–4 Begriffe — sie formen einen Cluster.", hint: "Starte die KI-Analyse, sobald deine Auswahl steht." },
+          connect:  { color: "#c4a882", emoji: "+",  title: "Eigene Verbindung",            sub: "Klick auf zwei Begriffe — sie werden mit einer User-Kante verbunden (max. 30).", hint: "Du kannst eine Notiz hinzufügen, warum diese Verbindung wichtig ist." },
+          path:     { color: "#7eb8c8", emoji: "◈",  title: "Pfad-Explorer",                sub: "Klick auf zwei Begriffe — der kürzeste und ein überraschender Pfad zwischen ihnen werden gezeigt.", hint: "Die KI analysiert die Bewegung beider Pfade philosophisch." },
+          analyse:  { color: "#5aacb8", emoji: "⚡", title: "Spannungsfeld-Analyse",         sub: "Klick auf 2–4 Begriffe — sie formen einen Cluster.", hint: "Starte die KI-Analyse, sobald deine Auswahl steht." },
           dialog:   { color: "#7ab898", emoji: "◎",  title: "Dialog mit dem Begriffsnetz", sub: "Frage frei zum Werk, zu den Konzepten oder ihren Beziehungen.", hint: "Die KI antwortet im Kontext des gesamten Begriffsnetzes." },
         }[activeTool]!;
         return (
-          <div style={{
-            position: "fixed",
-            top: 0, left: 0, right: 0, bottom: 0,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            pointerEvents: "none",
-            zIndex: 180,
-            padding: "2rem",
-          }}>
-            <div style={{
-              maxWidth: "min(560px, 80%)",
-              background: isDark ? "rgba(12,10,9,0.86)" : "rgba(255,253,247,0.92)",
-              backdropFilter: "blur(10px) saturate(140%)",
-              WebkitBackdropFilter: "blur(10px) saturate(140%)",
-              border: `1px solid ${config.color}66`,
-              borderRadius: 14,
-              padding: "1.5rem 1.9rem",
-              boxShadow: `0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px ${config.color}22`,
-              textAlign: "center",
-            }}>
-              <div style={{
-                fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.22em", textTransform: "uppercase",
-                color: config.color, marginBottom: "0.4rem",
-              }}>
-                <span style={{ fontSize: "0.95rem", marginRight: "0.45rem" }}>{config.emoji}</span>
-                {config.title}
-              </div>
-              <h2 style={{
-                fontFamily: SERIF_BODY,
-                fontSize: "clamp(1.05rem, 2vw, 1.45rem)",
-                fontStyle: "italic", fontWeight: 500,
-                color: C.textBright, margin: "0 0 0.7rem", lineHeight: 1.35,
-                letterSpacing: "-0.005em",
-              }}>
-                {config.sub}
-              </h2>
-              <p style={{
-                fontFamily: SERIF_BODY, fontSize: "0.82rem", fontStyle: "italic",
-                color: C.textDim, lineHeight: 1.55, margin: 0,
-              }}>
-                {config.hint}
-              </p>
-            </div>
-          </div>
+          <FocusOverlay
+            visible
+            accentColor={config.color}
+            label={`${config.emoji}  ${config.title}`}
+            title={config.sub}
+            subtitle={config.hint}
+            isDark={isDark}
+            c={C}
+            maxWidth="min(560px, 80%)"
+            zIndex={180}
+          />
         );
       })()}
 

@@ -30,6 +30,7 @@ import {
 import { SERIF_BODY, TRACKED, ORNAMENT, PAPER } from "@/lib/theme";
 import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
 import Ornament, { DropCap } from "@/components/Ornament";
+import FocusOverlay from "@/components/FocusOverlay";
 
 export function ToolbarBtn({ active, label, onClick, c }: { active: boolean; label: string; onClick: () => void; c: Palette }) {
   return (
@@ -1521,6 +1522,7 @@ export function BookView({ allPhilosophers, selectedId, onSelect, traditionFilte
         canvas={canvas}
         offsets={offsets}
         setOffsets={setOffsets}
+        c={c}
       />
     </div>
   );
@@ -1544,7 +1546,7 @@ interface FragmentLayout { x: number; y: number; rotation: number; size: number 
 function BookSpread({
   leftPagePhils, rightPagePhils, leftLayout, rightLayout, isMatch,
   selectedId, onSelect, pageBg, pageInk, inkDim, spineColor, isDark, isMobile,
-  canvas, offsets, setOffsets,
+  canvas, offsets, setOffsets, c,
 }: {
   leftPagePhils: Philosopher[]; rightPagePhils: Philosopher[];
   leftLayout: Map<string, FragmentLayout>; rightLayout: Map<string, FragmentLayout>;
@@ -1556,6 +1558,7 @@ function BookSpread({
   canvas: ReturnType<typeof useInteractiveCanvas>;
   offsets: Map<string, { dx: number; dy: number }>;
   setOffsets: React.Dispatch<React.SetStateAction<Map<string, { dx: number; dy: number }>>>;
+  c: Palette;
 }) {
   const [hoveredId, setHoveredId] = useState<string | null>(null);
   const dragRef = useRef<{ id: string; startX: number; startY: number; pageEl: HTMLElement; baseDx: number; baseDy: number } | null>(null);
@@ -1679,51 +1682,21 @@ function BookSpread({
       {/* Zoom-Controls + Hint sind jetzt in der Themen-Toggle-Leiste
           (BookView), damit sie nicht die Seitentitel überlagern. */}
 
-      {/* Hover-Lese-Overlay — zentriert, gross, modern */}
-      {hovered && hovered.signaturePhrase && (
-        <div
-          style={{
-            position: "absolute", inset: 0,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            pointerEvents: "none",
-            zIndex: 50,
-            padding: "2rem",
-          }}
-        >
-          <div style={{
-            maxWidth: "min(740px, 80%)",
-            background: isDark ? "rgba(12,10,9,0.78)" : "rgba(255,253,247,0.85)",
-            backdropFilter: "blur(8px) saturate(140%)",
-            WebkitBackdropFilter: "blur(8px) saturate(140%)",
-            border: `1px solid ${isDark ? "rgba(245,158,11,0.4)" : "rgba(180,83,9,0.35)"}`,
-            borderRadius: 14,
-            padding: "1.8rem 2.2rem",
-            boxShadow: "0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(245,158,11,0.18)",
-            textAlign: "center",
-          }}>
-            <p style={{
-              fontFamily: SERIF_BODY,
-              fontSize: "clamp(1.4rem, 3.2vw, 2.4rem)",
-              fontStyle: "italic",
-              fontWeight: 500,
-              lineHeight: 1.3,
-              color: isDark ? "#fafaf9" : "#1c1917",
-              margin: 0,
-              letterSpacing: "-0.005em",
-            }}>
-              „{hovered.signaturePhrase}"
-            </p>
-            <div style={{
-              marginTop: "1.1rem",
-              fontFamily: MONO, fontSize: "0.65rem",
-              letterSpacing: "0.22em", textTransform: "uppercase",
-              color: "#f59e0b",
-            }}>
-              ❦ {hovered.name} <span style={{ color: inkDim, marginLeft: "0.5rem" }}>{hovered.born}{hovered.died ? `–${hovered.died}` : "*"}</span>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Hover-Lese-Overlay — zentriert, gross, modern.
+          Verwendet die gemeinsame FocusOverlay-Komponente, damit
+          Buch-View + Begriffsnetz-Tool-Hint im selben typografischen
+          Vokabular sprechen. */}
+      <FocusOverlay
+        visible={!!(hovered && hovered.signaturePhrase)}
+        accentColor="#f59e0b"
+        label={hovered ? `❦ ${hovered.name}` : undefined}
+        labelSubtitle={hovered ? `${hovered.born}${hovered.died ? `–${hovered.died}` : "*"}` : undefined}
+        title={hovered?.signaturePhrase ? `„${hovered.signaturePhrase}"` : ""}
+        isDark={isDark}
+        c={c}
+        maxWidth="min(740px, 80%)"
+        zIndex={50}
+      />
     </div>
   );
 }
