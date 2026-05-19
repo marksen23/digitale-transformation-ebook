@@ -6,6 +6,7 @@ import { loadResonanzenIndexLazy, groupResonanzenByNode, ENDPOINT_LABEL, ENDPOIN
 import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORNAMENT, SERIF_BODY } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
+import SectionLabel from "@/components/SectionLabel";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -1784,9 +1785,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             overflowY: "auto",
             overscrollBehavior: "contain",
           }}>
-            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Kohärenzfelder
-            </div>
+            <SectionLabel c={C} tracking="tight" marginBottom="0.75rem">Kohärenzfelder</SectionLabel>
             {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
               const hidden = hiddenCats.has(cat);
               return (
@@ -2020,9 +2019,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 </table>
                 {/* Einstiegspunkte — top hubs by degree */}
                 <div style={{ marginTop: "0.55rem", borderTop: `1px solid ${C.border}`, paddingTop: "0.4rem" }}>
-                  <div style={{ fontSize: "0.45rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.35rem" }}>
-                    Einstiegspunkte
-                  </div>
+                  <SectionLabel c={C} size="xs" tracking="tight" marginBottom="0.35rem">Einstiegspunkte</SectionLabel>
                   {TOP_HUBS.map(hub => (
                     <button
                       key={hub.id}
@@ -2149,9 +2146,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             {connectedNodes.length > 0 && (
               <>
                 <Ornament variant="asterism" c={C} margin="0 0 1.2rem" />
-                <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: TRACKED.open, color: C.muted, textTransform: "uppercase", marginBottom: "0.8rem" }}>
-                  Verbundene Begriffe
-                </div>
+                <SectionLabel c={C} size="lg" tracking="open" marginBottom="0.8rem">Verbundene Begriffe</SectionLabel>
                 <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
                   {connectedNodes.map(cn => (
                     <button
@@ -2262,10 +2257,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
             {/* ── Lesepfad ── */}
             <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
-            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span>Lesepfad</span>
-              <span style={{ color: C.accent }}>{visitedNodes.length}</span>
-            </div>
+            <SectionLabel c={C} tracking="tight" count={visitedNodes.length} marginBottom="0.5rem">Lesepfad</SectionLabel>
             {visitedNodes.length === 0 ? (
               <div style={{ fontSize: "0.6rem", color: C.textDim, fontStyle: "italic" }}>Noch kein Konzept besucht</div>
             ) : (
@@ -2333,9 +2325,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           scrollbarWidth: "thin",
           scrollbarColor: `${C.border} transparent`,
         }}>
-          <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.7rem" }}>
-            Kohärenzfelder
-          </div>
+          <SectionLabel c={C} tracking="tight">Kohärenzfelder</SectionLabel>
           {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
             const hidden   = hiddenCats.has(cat);
             const isActive = activeCats.has(cat);
@@ -2566,9 +2556,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
           {/* ── Kompakte Legende im Mobile-Sheet ── */}
           <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem" }}>
-            <div style={{ fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.55rem" }}>
-              Kohärenzfelder
-            </div>
+            <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.55rem">Kohärenzfelder</SectionLabel>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" }}>
               {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
                 const hidden   = hiddenCats.has(cat);
