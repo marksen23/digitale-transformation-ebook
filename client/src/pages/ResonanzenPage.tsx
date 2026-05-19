@@ -22,6 +22,7 @@ import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
 import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
+import SectionLabel from "@/components/SectionLabel";
 import { analyzeCorpusCoherence } from "@/lib/corpusCoherence";
 
 type EndpointKey = ResonanzEntry["endpoint"] | "all";
@@ -654,7 +655,7 @@ export default function ResonanzenPage() {
           }}>
             {/* Endpoint-Pills */}
             <div>
-              <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Kategorie:</div>
+              <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.5rem">Kategorie:</SectionLabel>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
                 {(["all", "chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse"] as EndpointKey[]).map(key => {
                   const active = filterEndpoint === key;
@@ -681,7 +682,7 @@ export default function ResonanzenPage() {
             </div>
             {/* Status-Toggle */}
             <div>
-              <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>Kuration:</div>
+              <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.5rem">Kuration:</SectionLabel>
               <button
                 onClick={() => setFilterStatus(s => s === "all" ? "kuratiert" : "all")}
                 style={{
@@ -765,9 +766,9 @@ export default function ResonanzenPage() {
               padding: "0.7rem 0.9rem",
               marginBottom: "0.8rem",
             }}>
-              <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, marginBottom: "0.4rem" }}>
+              <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.4rem">
                 Philosophen zu „{filterTag}"
-              </div>
+              </SectionLabel>
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", alignItems: "baseline" }}>
                 {linkedPhils.map(p => (
                   <a
@@ -803,9 +804,9 @@ export default function ResonanzenPage() {
             fontSize: "0.92rem",
             lineHeight: 1.55,
           }}>
-            <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.7rem", fontStyle: "normal" }}>
+            <SectionLabel c={C} marginBottom="0.7rem">
               {index.count} Begegnungen warten auf eine Frage
-            </div>
+            </SectionLabel>
             Beginne mit einem Suchwort oben — oder wähle einen Begriff aus der
             Wortwolke darunter. Mit dem Filter rechts engst du die Suche auf
             Kategorien, Kuration oder verbundene Konzepte ein.
@@ -817,9 +818,9 @@ export default function ResonanzenPage() {
             den aktiven Filter hebt ihn auf. Hilft beim Verengen der Suche. */}
         {hasActiveQuery && endpointFacets.length > 1 && (
           <section style={{ marginBottom: "0.8rem" }}>
-            <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", marginBottom: "0.4rem" }}>
+            <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.4rem">
               Verteilung nach Kategorie:
-            </div>
+            </SectionLabel>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
               {endpointFacets.map(({ endpoint, count }) => {
                 const active = filterEndpoint === endpoint;
@@ -884,9 +885,9 @@ export default function ResonanzenPage() {
               textAlign: "center",
               color: C.textDim,
             }}>
-              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "0.6rem" }}>
+              <SectionLabel c={C} marginBottom="0.6rem">
                 keine Treffer
-              </div>
+              </SectionLabel>
               <p style={{ fontFamily: SERIF_BODY, fontStyle: "italic", fontSize: "0.92rem", lineHeight: 1.5, margin: 0 }}>
                 Keine Begegnungen mit diesen Filtern gefunden. Versuche ein anderes
                 Wort, deaktiviere einen Filter oder schalte auf semantische Suche.
