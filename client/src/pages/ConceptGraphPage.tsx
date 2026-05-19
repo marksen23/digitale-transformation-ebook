@@ -2103,15 +2103,21 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
         </div>{/* end SVG-Container */}
 
-        {/* ── Detail Panel (right sidebar on desktop only) ── */}
+        {/* ── LEFT Sidebar: Begriff-Details + Resonanzen + Lesepfad ──
+            Phase 2 Refactor: ehemals rechte Sidebar — Begriff-spezifischer
+            Inhalt wandert nach LINKS (visuell vor dem SVG), damit
+            Toggle-Panels (Kohärenzfelder, Leitmotive, Prinzipien) sich
+            rechts unabhängig vom selektierten Begriff anschauen + steuern
+            lassen. */}
         {selectedNode && (
-          <aside className="concept-detail-sidebar" style={{
+          <aside className="concept-left-sidebar" style={{
             width: "clamp(240px, 28vw, 320px)",
             background: C.deep,
-            borderLeft: `1px solid ${C.border}`,
+            borderRight: `1px solid ${C.border}`,
             overflowY: "auto",
             padding: "1.5rem 1.25rem",
             flexShrink: 0,
+            order: -1,  // CSS-grid-order: zwingt diese aside VOR den SVG-Container
             scrollbarWidth: "thin",
             scrollbarColor: `${C.border} transparent`,
           }}>
@@ -2238,104 +2244,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               );
             })()}
 
-            {/* ── Kategorien-Legende ─────────────────────────────────────────────
-                Aktive Kategorien (ausgewählter Begriff + verbundene Begriffe)
-                werden hervorgehoben. Alle Kategorien bleiben manuell schaltbar. */}
-            <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
-            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.7rem" }}>
-              Kohärenzfelder
-            </div>
-            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
-              const hidden   = hiddenCats.has(cat);
-              const isActive = activeCats.has(cat);
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setHiddenCats(prev => {
-                    const next = new Set(prev);
-                    if (next.has(cat)) next.delete(cat); else next.add(cat);
-                    return next;
-                  })}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "0.5rem",
-                    width: "100%", background: "none", border: "none",
-                    cursor: "pointer", padding: "0.28rem 0",
-                    transition: "opacity 0.15s",
-                  }}
-                >
-                  <span style={{
-                    width: 9, height: 9, borderRadius: "50%",
-                    background: hidden ? "transparent" : color,
-                    border: `1.5px solid ${hidden ? C.muted : color}`,
-                    flexShrink: 0,
-                    boxShadow: isActive && !hidden ? `0 0 7px ${color}66` : "none",
-                    opacity: hidden ? 0.45 : 1,
-                    transition: "all 0.2s",
-                  }} />
-                  <span style={{
-                    fontFamily: C.serif, fontStyle: "italic",
-                    fontSize: "0.82rem",
-                    color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
-                    flex: 1, textAlign: "left",
-                    transition: "color 0.2s",
-                  }}>
-                    {categoryLabel(cat)}
-                  </span>
-                  {hidden ? (
-                    <span style={{ fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.08em", color: C.muted, border: `1px solid ${C.border}`, padding: "0.04rem 0.28rem", borderRadius: 2 }}>
-                      aus
-                    </span>
-                  ) : isActive && (
-                    <span style={{
-                      width: 3, height: 3, borderRadius: "50%",
-                      background: color, flexShrink: 0,
-                    }} />
-                  )}
-                </button>
-              );
-            })}
-            {hiddenCats.size > 0 && (
-              <button
-                onClick={() => setHiddenCats(new Set())}
-                style={{
-                  marginTop: "0.65rem", width: "100%",
-                  fontFamily: C.mono, fontSize: "0.56rem", letterSpacing: "0.1em",
-                  textTransform: "uppercase", color: C.accent,
-                  background: "none", border: `1px solid ${C.accentDim}`,
-                  padding: "0.3rem 0.5rem", cursor: "pointer",
-                }}
-              >
-                Alle einblenden
-              </button>
-            )}
-            <LeitmotivLegendSection
-              c={C}
-              hiddenLeitmotive={hiddenLeitmotive}
-              activeLeitmotive={activeLeitmotive}
-              onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
-              onReset={() => setHiddenLeitmotive(new Set())}
-            />
-            <PrinzipLegendSection
-              c={C}
-              hiddenPrinzipien={hiddenPrinzipien}
-              onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
-                const n = new Set(prev);
-                const allHidden = memberIds.every(id => n.has(id));
-                if (allHidden) memberIds.forEach(id => n.delete(id));
-                else memberIds.forEach(id => n.add(id));
-                return n;
-              })}
-              onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
-              onReset={() => setHiddenPrinzipien(new Set())}
-            />
-            <UserEdgesLegendSection
-              c={C}
-              userEdges={userEdges}
-              showUserEdges={showUserEdges}
-              onToggleShow={() => setShowUserEdges(v => !v)}
-              onDelete={i => { const next = userEdges.filter((_, j) => j !== i); setUserEdges(next); saveUserEdges(next); }}
-              onClear={() => { setUserEdges([]); saveUserEdges([]); }}
-            />
+            {/* Kohärenzfelder + Leitmotive + Prinzipien + UserEdges wurden
+                in Phase 2 in die RECHTE Sidebar verlagert (always visible,
+                begriff-unabhängig). Die JSX-Blöcke siehe unten am Ende
+                des `.concept-graph-body`-Containers. */}
 
             {/* ── Lesepfad ── */}
             <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
@@ -2393,6 +2305,118 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </div>
           </aside>
         )}
+
+        {/* ── RIGHT Sidebar: Toggle-Panels — IMMER sichtbar ─────────────
+            Phase 2: aus der ehemaligen Detail-Sidebar herausgelöst, sodass
+            die Felder/Leitmotive/Prinzipien unabhängig von einer
+            Begriffs-Auswahl ein- und ausgeschaltet werden können. Wenn
+            ein Begriff aktiv ist, zeigt activeCats/activeLeitmotive die
+            relevanten Felder hervorgehoben. */}
+        <aside className="concept-right-sidebar" style={{
+          width: "clamp(200px, 20vw, 260px)",
+          background: C.deep,
+          borderLeft: `1px solid ${C.border}`,
+          overflowY: "auto",
+          padding: "1.5rem 1.1rem",
+          flexShrink: 0,
+          scrollbarWidth: "thin",
+          scrollbarColor: `${C.border} transparent`,
+        }}>
+          <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.7rem" }}>
+            Kohärenzfelder
+          </div>
+          {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
+            const hidden   = hiddenCats.has(cat);
+            const isActive = activeCats.has(cat);
+            return (
+              <button
+                key={cat}
+                onClick={() => setHiddenCats(prev => {
+                  const next = new Set(prev);
+                  if (next.has(cat)) next.delete(cat); else next.add(cat);
+                  return next;
+                })}
+                style={{
+                  display: "flex", alignItems: "center", gap: "0.5rem",
+                  width: "100%", background: "none", border: "none",
+                  cursor: "pointer", padding: "0.28rem 0",
+                  transition: "opacity 0.15s",
+                }}
+              >
+                <span style={{
+                  width: 9, height: 9, borderRadius: "50%",
+                  background: hidden ? "transparent" : color,
+                  border: `1.5px solid ${hidden ? C.muted : color}`,
+                  flexShrink: 0,
+                  boxShadow: isActive && !hidden ? `0 0 7px ${color}66` : "none",
+                  opacity: hidden ? 0.45 : 1,
+                  transition: "all 0.2s",
+                }} />
+                <span style={{
+                  fontFamily: C.serif, fontStyle: "italic",
+                  fontSize: "0.82rem",
+                  color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
+                  flex: 1, textAlign: "left",
+                  transition: "color 0.2s",
+                }}>
+                  {categoryLabel(cat)}
+                </span>
+                {hidden ? (
+                  <span style={{ fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.08em", color: C.muted, border: `1px solid ${C.border}`, padding: "0.04rem 0.28rem", borderRadius: 2 }}>
+                    aus
+                  </span>
+                ) : isActive && (
+                  <span style={{
+                    width: 3, height: 3, borderRadius: "50%",
+                    background: color, flexShrink: 0,
+                  }} />
+                )}
+              </button>
+            );
+          })}
+          {hiddenCats.size > 0 && (
+            <button
+              onClick={() => setHiddenCats(new Set())}
+              style={{
+                marginTop: "0.65rem", width: "100%",
+                fontFamily: C.mono, fontSize: "0.56rem", letterSpacing: "0.1em",
+                textTransform: "uppercase", color: C.accent,
+                background: "none", border: `1px solid ${C.accentDim}`,
+                padding: "0.3rem 0.5rem", cursor: "pointer", borderRadius: 4,
+              }}
+            >
+              Alle einblenden
+            </button>
+          )}
+          <LeitmotivLegendSection
+            c={C}
+            hiddenLeitmotive={hiddenLeitmotive}
+            activeLeitmotive={activeLeitmotive}
+            onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+            onReset={() => setHiddenLeitmotive(new Set())}
+          />
+          <PrinzipLegendSection
+            c={C}
+            hiddenPrinzipien={hiddenPrinzipien}
+            onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
+              const n = new Set(prev);
+              const allHidden = memberIds.every(id => n.has(id));
+              if (allHidden) memberIds.forEach(id => n.delete(id));
+              else memberIds.forEach(id => n.add(id));
+              return n;
+            })}
+            onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
+            onReset={() => setHiddenPrinzipien(new Set())}
+          />
+          <UserEdgesLegendSection
+            c={C}
+            userEdges={userEdges}
+            showUserEdges={showUserEdges}
+            onToggleShow={() => setShowUserEdges(v => !v)}
+            onDelete={i => { const next = userEdges.filter((_, j) => j !== i); setUserEdges(next); saveUserEdges(next); }}
+            onClear={() => { setUserEdges([]); saveUserEdges([]); }}
+          />
+        </aside>
       </div>
 
       {/* ── Mobile bottom sheet (detail panel on small screens) ── */}
@@ -3133,9 +3157,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           height: calc(100dvh - 5rem);
         }
 
-        /* Mobile (≤ 640 px): only bottom sheet, sidebar hidden */
+        /* Mobile (≤ 640 px): only bottom sheet, sidebars hidden */
         @media (max-width: 640px) {
           .concept-detail-sidebar { display: none !important; }
+          .concept-left-sidebar { display: none !important; }
+          .concept-right-sidebar { display: none !important; }
           .concept-kohaerenz-panel { display: none !important; }
           .concept-mobile-sheet {
             display: block !important;
