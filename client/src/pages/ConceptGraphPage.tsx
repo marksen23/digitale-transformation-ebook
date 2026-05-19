@@ -3227,11 +3227,35 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         @media (min-width: 641px) {
           .concept-mobile-sheet { display: none !important; }
           /* Tool-Panels (Pfad-Explorer / Spannungsfeld / Dialog) sitzen
-             absolute-positioniert. Auf Desktop nach rechts schieben,
-             damit sie NICHT die neue LEFT-Sidebar überlappen — sie sitzen
-             jetzt direkt rechts der LEFT-Sidebar im SVG-Bereich. */
+             im LEFT-Sidebar-Slot — gleiche Breite, gleicher Y-Bereich.
+             Wenn ein Tool aktiv ist und Ergebnis produziert, überlagert
+             es die LEFT-Sidebar an genau der Stelle, wo die Begriff-
+             Details sonst stehen. KI-Outputs leben in der Left-Sidebar-
+             Zone, wie vom User gewünscht. */
           .concept-workfunc-panel {
-            left: calc(clamp(240px, 28vw, 320px) + 1rem) !important;
+            position: fixed !important;
+            /* top = AppFrame (48px) + Concept-Nav (5rem) — sonst rutscht
+               das Panel 48 px zu hoch, weil position:fixed vom Viewport
+               aus rechnet (nicht von der Route). */
+            top: calc(48px + 5rem) !important;
+            left: 0 !important;
+            right: auto !important;
+            bottom: 0 !important;
+            width: clamp(240px, 28vw, 320px) !important;
+            max-width: none !important;
+            min-width: 0 !important;
+            max-height: none !important;
+            border-radius: 0 !important;
+            border-left: none !important;
+            border-top: none !important;
+            border-bottom: none !important;
+            border-right: 1px solid ${C.border} !important;
+            background: ${C.deep} !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            padding: 1.5rem 1.25rem !important;
+            overflow-y: auto;
+            z-index: 50;
           }
         }
       `}</style>
