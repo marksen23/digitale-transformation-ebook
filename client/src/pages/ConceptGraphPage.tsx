@@ -10,6 +10,7 @@ import SectionLabel from "@/components/SectionLabel";
 import ResonanzenBlock from "@/components/ResonanzenBlock";
 import CategoryLegendButton from "@/components/CategoryLegendButton";
 import LegendSection from "@/components/LegendSection";
+import ToolOutputPanel from "@/components/ToolOutputPanel";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -2468,19 +2469,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {/* ── Pfad-Explorer Ergebnispanel ──
           Wichtig: bottom-anchored, maxHeight + overflowY damit
           längere KI-Analysen nicht nach oben hinter den Header rutschen. */}
-      {pathMode && (
-        <div className="concept-workfunc-panel" style={{
-          position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
-          background: C.panelBg, border: `1px solid ${C.border}`,
-          backdropFilter: "blur(8px)", padding: "0.85rem 1rem",
-          maxWidth: 380, width: "calc(100vw - 2rem)",
-          maxHeight: "calc(100vh - 6rem)", overflowY: "auto",
-          fontFamily: C.mono, fontSize: "0.6rem",
-          borderRadius: 10,
-        }}>
-          <div style={{ color: "#7eb8c8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.6rem" }}>
+      <ToolOutputPanel c={C} background={C.panelBg} visible={pathMode} blur={8}>
+          <SectionLabel c={C} color="#7eb8c8" tracking="tight" marginBottom="0.6rem">
             Pfad-Explorer
-          </div>
+          </SectionLabel>
 
           {!pathNodes[0] && (
             <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim }}>
@@ -2600,20 +2592,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </div>
             );
           })()}
-        </div>
-      )}
+      </ToolOutputPanel>
 
       {/* ── Spannungsfeld-Analyse Panel ── */}
-      {analyseMode && (
-        <div className="concept-workfunc-panel" style={{
-          position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
-          background: C.panelBg, border: `1px solid ${C.border}`,
-          backdropFilter: "blur(10px)", padding: "0.9rem 1rem",
-          maxWidth: 380, width: "calc(100vw - 2rem)",
-          maxHeight: "calc(100vh - 6rem)", overflowY: "auto",
-          fontFamily: C.mono, fontSize: "0.6rem",
-          borderRadius: 10,
-        }}>
+      <ToolOutputPanel c={C} background={C.panelBg} visible={analyseMode} blur={10} padding="0.9rem 1rem">
           {(() => {
             const n = analyseNodes.length;
             const formInfo =
@@ -2624,10 +2606,16 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         { label: "Quadratur", stars: 3, hint: "Vierfeldschema" };
             return (
               <>
-                <div style={{ color: "#5aacb8", letterSpacing: "0.15em", textTransform: "uppercase", marginBottom: "0.3rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                  <span>{formInfo.label}{n >= 2 ? ` (${n})` : ""}</span>
-                  {n > 0 && <span style={{ color: C.muted, fontSize: "0.5rem" }}>{n}/4</span>}
-                </div>
+                <SectionLabel
+                  c={C}
+                  color="#5aacb8"
+                  tracking="tight"
+                  marginBottom="0.3rem"
+                  count={n > 0 ? `${n}/4` : undefined}
+                  countColor={C.muted}
+                >
+                  {formInfo.label}{n >= 2 ? ` (${n})` : ""}
+                </SectionLabel>
                 {n >= 2 && (
                   <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.7rem", color: C.muted, marginBottom: "0.6rem", display: "flex", gap: "0.4rem", alignItems: "baseline" }}>
                     <span style={{ color: "#5aacb8", letterSpacing: "0.1em" }}>{"★".repeat(formInfo.stars)}{"☆".repeat(4 - formInfo.stars)}</span>
@@ -2719,26 +2707,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               )}
             </div>
           )}
-        </div>
-      )}
+      </ToolOutputPanel>
 
       {/* ── Graph-Chat Panel ── */}
-      {chatOpen && (
-        <div className="concept-workfunc-panel" style={{
-          position: "absolute", left: "1rem", bottom: "1rem", zIndex: 50,
-          background: C.panelBg, border: `1px solid ${C.border}`,
-          backdropFilter: "blur(10px)",
-          width: "min(400px, calc(100vw - 2rem))",
-          maxHeight: "calc(100% - 5rem)",
-          display: "flex", flexDirection: "column",
-          fontFamily: C.mono,
-          borderRadius: 10,
-        }}>
+      <ToolOutputPanel c={C} background={C.panelBg} visible={chatOpen} flavor="column" blur={10}>
           {/* Header */}
           <div style={{ padding: "0.65rem 0.9rem 0.5rem", borderBottom: `1px solid ${C.border}`, flexShrink: 0 }}>
-            <div style={{ fontSize: "0.5rem", letterSpacing: "0.18em", color: "#7ab898", textTransform: "uppercase" }}>
+            <SectionLabel c={C} color="#7ab898" size="sm" tracking="tight" marginBottom="0">
               ◎ Dialog — Begriffsnetz
-            </div>
+            </SectionLabel>
           </div>
 
           {/* Message list */}
@@ -2822,8 +2799,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </button>
             </div>
           )}
-        </div>
-      )}
+      </ToolOutputPanel>
 
       {/* ── Notiz-Popup für neue Verbindung ── */}
       {notePopup && (
