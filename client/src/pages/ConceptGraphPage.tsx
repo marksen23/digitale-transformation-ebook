@@ -3226,6 +3226,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         /* Desktop (> 640 px): only right sidebar, bottom sheet hidden */
         @media (min-width: 641px) {
           .concept-mobile-sheet { display: none !important; }
+          /* Tool-Panels (Pfad-Explorer / Spannungsfeld / Dialog) sitzen
+             absolute-positioniert. Auf Desktop nach rechts schieben,
+             damit sie NICHT die neue LEFT-Sidebar überlappen — sie sitzen
+             jetzt direkt rechts der LEFT-Sidebar im SVG-Bereich. */
+          .concept-workfunc-panel {
+            left: calc(clamp(240px, 28vw, 320px) + 1rem) !important;
+          }
         }
       `}</style>
     </div>
