@@ -1,12 +1,13 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
-import { loadResonanzenIndexLazy, groupResonanzenByNode, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
 import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORNAMENT, SERIF_BODY } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
+import ResonanzCard from "@/components/ResonanzCard";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -2200,30 +2201,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     </div>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                       {visible.map(entry => (
-                        <a
-                          key={entry.id}
-                          href={`/resonanzen?id=${entry.id}`}
-                          style={{
-                            display: "block",
-                            background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4,
-                            padding: "0.45rem 0.6rem", textDecoration: "none",
-                            transition: "border-color 0.15s, background 0.15s",
-                          }}
-                          onMouseEnter={e => { e.currentTarget.style.borderColor = C.accentDim; e.currentTarget.style.background = C.deep; }}
-                          onMouseLeave={e => { e.currentTarget.style.borderColor = C.border; e.currentTarget.style.background = C.surface; }}
-                        >
-                          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.18rem", gap: "0.3rem" }}>
-                            <span style={{ fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
-                              {ENDPOINT_LABEL[entry.endpoint]}
-                            </span>
-                            <time style={{ fontFamily: C.mono, fontSize: "0.48rem", color: C.muted }}>
-                              {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
-                            </time>
-                          </div>
-                          <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem", color: C.text, lineHeight: 1.4 }}>
-                            {entry.prompt.length > 100 ? entry.prompt.slice(0, 100) + "…" : entry.prompt}
-                          </div>
-                        </a>
+                        <ResonanzCard key={entry.id} entry={entry} c={C} variant="framed" />
                       ))}
                     </div>
                     <a
@@ -2503,27 +2481,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                   {visible.map(entry => (
-                    <a
-                      key={entry.id}
-                      href={`/resonanzen?id=${entry.id}`}
-                      style={{
-                        display: "block",
-                        background: C.deep, border: `1px solid ${C.border}`,
-                        padding: "0.45rem 0.6rem", textDecoration: "none",
-                      }}
-                    >
-                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.18rem", gap: "0.3rem" }}>
-                        <span style={{ fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
-                          {ENDPOINT_LABEL[entry.endpoint]}
-                        </span>
-                        <time style={{ fontFamily: C.mono, fontSize: "0.5rem", color: C.muted }}>
-                          {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
-                        </time>
-                      </div>
-                      <div style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem", color: C.text, lineHeight: 1.4 }}>
-                        {entry.prompt.length > 100 ? entry.prompt.slice(0, 100) + "…" : entry.prompt}
-                      </div>
-                    </a>
+                    <ResonanzCard key={entry.id} entry={entry} c={C} variant="flat" />
                   ))}
                 </div>
                 <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
