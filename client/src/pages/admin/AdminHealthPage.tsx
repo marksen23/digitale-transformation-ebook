@@ -16,6 +16,7 @@ import { detectAnchorTensions, type TensionResult } from "@/lib/widerspruchs";
 import { analyzeCorpusCoherence, type CoherenceReport } from "@/lib/corpusCoherence";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import Skeleton from "@/components/Skeleton";
+import SectionLabel from "@/components/SectionLabel";
 import {
   Section, Stat, useAdminTheme, MONO, SERIF,
   loadOptionalJson, type ValidationReport, type DriftReport, type HoldoutReport,
@@ -193,9 +194,9 @@ export default function AdminHealthPage() {
           lineHeight: 1.55,
           color: C.text,
         }}>
-          <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#e8c870", marginBottom: "0.4rem" }}>
+          <SectionLabel c={C} color="#e8c870" tracking="tight" marginBottom="0.4rem">
             Diagnose
-          </div>
+          </SectionLabel>
           <p style={{ margin: 0, fontStyle: "italic" }}>
             Der Korpus hat {allEntries?.length} Einträge, aber{" "}
             <strong>keine semantischen Felder</strong> (<code style={{ fontFamily: MONO, color: C.accent }}>werkVoiceScore</code>,{" "}
@@ -562,9 +563,9 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
         <>
           {report.clusters.length > 0 && (
             <div style={{ marginTop: "0.5rem", marginBottom: "1.2rem" }}>
-              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
+              <SectionLabel c={c} tracking="tight" marginBottom="0.5rem">
                 Echo-Cluster ({report.clusters.length})
-              </div>
+              </SectionLabel>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
                 {report.clusters.slice(0, 6).map((cluster, i) => (
                   <div key={i} style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "0.6rem 0.8rem", borderRadius: 6 }}>
@@ -614,9 +615,9 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
 
           {report.topDrift.length > 0 && (
             <div>
-              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
+              <SectionLabel c={c} tracking="tight" marginBottom="0.5rem">
                 Werk-Drift-Kandidaten (niedrigste werkstreue-Scores)
-              </div>
+              </SectionLabel>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                 {report.topDrift.map(e => (
                   <a
@@ -709,9 +710,9 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
       )}
       {h.lastSuccess && (
         <div style={{ background: c.surface, border: `1px solid ${c.border}`, padding: "0.5rem 0.7rem", marginBottom: "0.4rem" }}>
-          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#7ab898", marginBottom: "0.25rem" }}>
+          <SectionLabel c={c} color="#7ab898" size="sm" tracking="tight" marginBottom="0.25rem">
             Letzter Erfolg
-          </div>
+          </SectionLabel>
           <div style={{ fontFamily: MONO, fontSize: "0.6rem", color: c.text }}>
             {h.lastSuccess.endpoint} · {h.lastSuccess.anchor} · <span style={{ color: c.muted }}>{formatRelative(h.lastSuccess.ts)}</span>
           </div>
@@ -719,9 +720,9 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
       )}
       {h.lastFailure && (
         <div style={{ background: c.surface, border: `1px solid #c48282`, padding: "0.5rem 0.7rem" }}>
-          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#c48282", marginBottom: "0.25rem" }}>
+          <SectionLabel c={c} color="#c48282" size="sm" tracking="tight" marginBottom="0.25rem">
             Letzter Fehler
-          </div>
+          </SectionLabel>
           <div style={{ fontFamily: MONO, fontSize: "0.6rem", color: c.text, marginBottom: "0.25rem" }}>
             {h.lastFailure.endpoint} · <span style={{ color: c.muted }}>{formatRelative(h.lastFailure.ts)}</span>
           </div>
@@ -825,9 +826,9 @@ function WorkflowRuns({ c, refreshKey }: { c: ReturnType<typeof useAdminTheme>; 
 
   return (
     <div style={{ marginTop: "0.7rem" }}>
-      <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
+      <SectionLabel c={c} size="sm" tracking="tight" marginBottom="0.4rem">
         Letzte 5 Workflow-Runs (validate-corpus)
-      </div>
+      </SectionLabel>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
         {runs.map(r => {
           const color = r.status === "in_progress" || r.status === "queued"
