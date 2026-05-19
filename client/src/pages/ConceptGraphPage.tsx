@@ -2415,20 +2415,39 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       )}
 
       {/* Hint text — Modus-abhängig, nur wenn nichts selektiert ist UND
-          kein Tool aktiv (für Tools übernimmt das ToolHintOverlay unten). */}
+          kein Tool aktiv (für Tools übernimmt das ToolHintOverlay unten).
+          Auf Mobile (<641px) kürzere, touch-angepasste Variante via CSS-
+          Switch (concept-hint-desktop vs concept-hint-mobile). */}
       {!selectedNode && !activeTool && (
-        <div style={{
-          position: "fixed", bottom: "1.2rem", left: "50%", transform: "translateX(-50%)",
-          fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
-          color: C.muted, pointerEvents: "none", whiteSpace: "nowrap",
-          zIndex: 150,
-        }}>
-          {viewMode === "matrix"
-            ? "Zellen anklicken — zeigt Verbindung zwischen zwei Konzepten"
-            : viewMode === "netz"
-              ? "Knoten ziehen · Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen"
-              : "Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen"}
-        </div>
+        <>
+          <div className="concept-hint-desktop" style={{
+            position: "fixed", bottom: "1.2rem", left: "50%", transform: "translateX(-50%)",
+            fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
+            color: C.muted, pointerEvents: "none", whiteSpace: "nowrap",
+            zIndex: 150,
+          }}>
+            {viewMode === "matrix"
+              ? "Zellen anklicken — zeigt Verbindung zwischen zwei Konzepten"
+              : viewMode === "netz"
+                ? "Knoten ziehen · Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen"
+                : "Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen"}
+          </div>
+          <div className="concept-hint-mobile" style={{
+            position: "fixed",
+            bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
+            left: "50%", transform: "translateX(-50%)",
+            maxWidth: "calc(100vw - 2rem)", textAlign: "center",
+            fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+            color: C.muted, pointerEvents: "none",
+            zIndex: 150,
+          }}>
+            {viewMode === "matrix"
+              ? "Zelle antippen für Verbindung"
+              : viewMode === "netz"
+                ? "Tippen · ziehen · pinch zum Zoomen"
+                : "Ziehen zum Verschieben · pinch zum Zoomen"}
+          </div>
+        </>
       )}
 
       {/* ── Tool-Hint-Overlay — zentriert, prominent ────────────────────
@@ -2937,10 +2956,16 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             margin-top: 5rem !important;
             height: calc(100dvh - 5rem) !important;
           }
+          /* Bottom-Hint: lange Desktop-Variante verstecken, kürzere
+             touch-angepasste Variante zeigen. */
+          .concept-hint-desktop { display: none !important; }
+          .concept-hint-mobile { display: block !important; }
         }
         /* Desktop (> 640 px): only right sidebar, bottom sheet hidden */
         @media (min-width: 641px) {
           .concept-mobile-sheet { display: none !important; }
+          .concept-hint-mobile { display: none !important; }
+          .concept-hint-desktop { display: block !important; }
           /* Tool-Panels (Pfad-Explorer / Spannungsfeld / Dialog) sitzen
              im LEFT-Sidebar-Slot — gleiche Breite, gleicher Y-Bereich.
              Wenn ein Tool aktiv ist und Ergebnis produziert, überlagert
