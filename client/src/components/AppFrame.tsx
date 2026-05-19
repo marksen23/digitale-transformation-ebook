@@ -82,8 +82,9 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         <Link
           href="/"
           aria-label="Zur Werk-Hauptseite"
+          className="appframe-tap"
           style={{
-            display: "flex", alignItems: "baseline", gap: "0.45rem",
+            display: "flex", alignItems: "center", gap: "0.45rem",
             fontFamily: MONO, fontSize: "0.6rem",
             letterSpacing: TRACKED.classic,
             color: C.accent, textTransform: "uppercase",
@@ -145,6 +146,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             href="/admin"
             aria-label="Admin"
             title="Admin / Kuration"
+            className="appframe-tap"
             style={{
               fontFamily: MONO, fontSize: "0.65rem",
               color: location.startsWith("/admin") ? C.accent : C.muted,
@@ -152,12 +154,14 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
               borderRadius: RADIUS.button,
               textDecoration: "none",
               transition: "color 0.15s",
+              display: "inline-flex", alignItems: "center", justifyContent: "center",
             }}
           >⚙</Link>
           <button
             onClick={() => toggleGlobalTheme()}
             aria-label={isDark ? "Hell-Modus" : "Dunkel-Modus"}
             title={isDark ? "Hell-Modus" : "Dunkel-Modus"}
+            className="appframe-tap"
             style={{
               fontFamily: MONO, fontSize: "0.85rem",
               color: C.accent, background: "transparent",
@@ -177,7 +181,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
               eingeblendet, weil das die schnellste Daumen-Reichweite ist. */}
           <button
             type="button"
-            className="appframe-burger"
+            className="appframe-burger appframe-tap"
             aria-label="Menü"
             aria-expanded={drawerOpen}
             aria-controls="appframe-drawer"
@@ -285,6 +289,17 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         .appframe-burger { display: inline-flex; }
         .appframe-nav-inline { display: none !important; }
         .appframe-hairline { display: none; }
+        /* Touch-Targets — Topbar-Primitives mindestens 44×44 px auf Mobile.
+           Folgt iOS Human Interface Guidelines (44pt) und Android Material
+           Design (48dp Empfehlung, 44 als untere Schranke akzeptabel). Die
+           inline width/height-Werte bleiben als visuelle Größe; min-height
+           und min-width wirken als Floor und vergrößern die Tap-Fläche. */
+        @media (max-width: 640px) {
+          .appframe-tap {
+            min-height: 44px;
+            min-width: 44px;
+          }
+        }
         @media (min-width: 641px) {
           .appframe-burger { display: none; }
           .appframe-nav-inline { display: flex !important; }
