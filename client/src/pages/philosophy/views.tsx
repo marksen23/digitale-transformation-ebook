@@ -31,6 +31,7 @@ import { SERIF_BODY, TRACKED, ORNAMENT, PAPER } from "@/lib/theme";
 import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
+import SectionLabel from "@/components/SectionLabel";
 
 export function ToolbarBtn({ active, label, onClick, c }: { active: boolean; label: string; onClick: () => void; c: Palette }) {
   return (
@@ -586,9 +587,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
       <Ornament variant="rule" c={c} margin="0 0 1.2rem" />
 
       <div style={{ marginBottom: "1.2rem", padding: "0.9rem 1.1rem", background: c.deep, borderLeft: `3px solid ${tradColor}`, borderRadius: "0 6px 6px 0" }}>
-        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: c.muted, marginBottom: "0.5rem" }}>
-          Bezug zu Resonanzvernunft
-        </div>
+        <SectionLabel c={c} size="sm" marginBottom="0.5rem">Bezug zu Resonanzvernunft</SectionLabel>
         <p style={{ fontFamily: SERIF_BODY, fontSize: "0.98rem", color: c.text, lineHeight: 1.65, margin: 0, fontStyle: "italic" }}>
           {useDropCap && <DropCap c={c}>{firstChar}</DropCap>}
           {restText}
@@ -598,9 +597,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
       <Ornament variant="asterism" c={c} margin="0.4rem 0 1rem" />
 
       <div style={{ marginBottom: "1.2rem" }}>
-        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: c.muted, marginBottom: "0.6rem" }}>
-          Hauptwerke <span style={{ color: c.accent }}>{philosopher.keyWorks.length}</span>
-        </div>
+        <SectionLabel c={c} size="sm" count={philosopher.keyWorks.length} marginBottom="0.6rem">Hauptwerke</SectionLabel>
         <ol style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           {[...philosopher.keyWorks].sort((a, b) => a.year - b.year).map((w, i) => (
             <li key={i} style={{ display: "grid", gridTemplateColumns: "auto 1fr", gap: "0.7rem", alignItems: "baseline" }}>
@@ -622,9 +619,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
         <div style={{ marginBottom: "1.1rem", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "0.8rem" }}>
           {philosopher.receives && philosopher.receives.length > 0 && (
             <div>
-              <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
-                rezipiert
-              </div>
+              <SectionLabel c={c} size="sm" tracking="open" marginBottom="0.4rem">rezipiert</SectionLabel>
               {philosopher.receives.map(id => (
                 <ConnectionLink key={id} id={id} c={c} onSelect={onSelect} />
               ))}
@@ -632,9 +627,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
           )}
           {philosopher.critiques && philosopher.critiques.length > 0 && (
             <div>
-              <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
-                kritisiert
-              </div>
+              <SectionLabel c={c} size="sm" tracking="open" marginBottom="0.4rem">kritisiert</SectionLabel>
               {philosopher.critiques.map(id => (
                 <ConnectionLink key={id} id={id} c={c} onSelect={onSelect} />
               ))}
@@ -645,9 +638,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
 
       {philosopher.scienceLinks && philosopher.scienceLinks.length > 0 && (
         <div style={{ marginBottom: "1.1rem" }}>
-          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
-            wissenschaftlich anschlussfähig
-          </div>
+          <SectionLabel c={c} size="sm" tracking="open" marginBottom="0.4rem">wissenschaftlich anschlussfähig</SectionLabel>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
             {philosopher.scienceLinks.map(id => {
               const s = getScienceLink(id);
@@ -669,9 +660,7 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
 
       {philosopher.concepts && philosopher.concepts.length > 0 && (
         <div>
-          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
-            verbundene Begriffe — zum Korpus springen
-          </div>
+          <SectionLabel c={c} size="sm" tracking="open" marginBottom="0.4rem">verbundene Begriffe — zum Korpus springen</SectionLabel>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
             {philosopher.concepts.map(conceptId => (
               <a
