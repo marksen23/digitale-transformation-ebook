@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react";
-import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
+import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, categoryLabel, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
@@ -3027,21 +3027,6 @@ function LeitmotivLegendSection({
         })}
     </LegendSection>
   );
-}
-
-function categoryLabel(cat: string): string {
-  const labels: Record<string, string> = {
-    core:           "Resonanzkern",
-    ontological:    "Daseinsfeld",
-    relational:     "Zwischenfeld",
-    language:       "Sprachfeld",
-    knowledge:      "Denkfeld",
-    temporal:       "Zeitraumfeld",
-    transformation: "Wandlungsfeld",
-    leitmotiv:      "Leitmotive",
-    prinzip:        "Erkenntnisprinzipien",
-  };
-  return labels[cat] ?? cat;
 }
 
 function PrinzipLegendSection({

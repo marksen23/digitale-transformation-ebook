@@ -63,6 +63,31 @@ export const CAT_COLOR: Record<NodeCategory, string> = {
   prinzip:        "#8ea8b8", // cool blue-silver — operational principles (meta-layer)
 };
 
+// ─── Deutsche Klartext-Bezeichnung pro Kategorie ──────────────────────────────
+// "core" → "Resonanzkern" usw. — diese Mapping ist Metadaten der Kategorie,
+// nicht View-Logik: dieselben Labels erscheinen in der Legende, in der
+// Detail-Card, im Mobile-Sheet und potentiell in /resonanzen oder Admin.
+export const CAT_LABEL: Record<NodeCategory, string> = {
+  core:           "Resonanzkern",
+  ontological:    "Daseinsfeld",
+  relational:     "Zwischenfeld",
+  language:       "Sprachfeld",
+  knowledge:      "Denkfeld",
+  temporal:       "Zeitraumfeld",
+  transformation: "Wandlungsfeld",
+  leitmotiv:      "Leitmotive",
+  prinzip:        "Erkenntnisprinzipien",
+};
+
+/**
+ * Sicherer Lookup mit Fallback — gibt das Label für eine NodeCategory zurück,
+ * oder den Roh-String wenn die Kategorie unbekannt ist (z.B. bei type-loose
+ * Aufrufen aus Konfigurations-Daten).
+ */
+export function categoryLabel(cat: NodeCategory | string): string {
+  return (CAT_LABEL as Record<string, string>)[cat] ?? cat;
+}
+
 // ─── Nodes ────────────────────────────────────────────────────────────────────
 export const NODES: ConceptNode[] = [
   // ── CORE ──────────────────────────────────────────────────────────────────
