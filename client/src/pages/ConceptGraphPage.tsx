@@ -874,7 +874,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             flexWrap erlaubt Umbruch auf Mobile, wenn die 4 Workfunc-Buttons
             nicht mehr in eine Reihe passen — sie springen dann unter den Header. */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap", rowGap: "0.4rem" }}>
-          <span style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>
+          <span className="concept-toolbar-title" style={{ fontFamily: C.mono, fontSize: "0.72rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", flexShrink: 0 }}>
             Begriffsnetz
           </span>
 
@@ -934,7 +934,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onMouseEnter={e => { if (!connectMode) { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; } }}
               onMouseLeave={e => { if (!connectMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
-              {connectMode ? "✕ Verbinden" : "+ Verbinden"}
+              {connectMode ? "✕" : "+"}<span className="concept-toolbar-label">{" "}Verbinden</span>
             </button>
           )}
 
@@ -955,7 +955,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onMouseEnter={e => { if (!pathMode) { e.currentTarget.style.color = "#7eb8c8"; e.currentTarget.style.borderColor = "#4a8898"; } }}
               onMouseLeave={e => { if (!pathMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
-              {pathMode ? "✕ Pfad" : "◈ Pfad"}
+              {pathMode ? "✕" : "◈"}<span className="concept-toolbar-label">{" "}Pfad</span>
             </button>
           )}
 
@@ -976,7 +976,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onMouseEnter={e => { if (!analyseMode) { e.currentTarget.style.color = "#5aacb8"; e.currentTarget.style.borderColor = "#3a8a96"; } }}
               onMouseLeave={e => { if (!analyseMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
-              {analyseMode ? "✕ Analyse" : "⚡ Analyse"}
+              {analyseMode ? "✕" : "⚡"}<span className="concept-toolbar-label">{" "}Analyse</span>
             </button>
           )}
 
@@ -997,7 +997,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onMouseEnter={e => { if (!chatOpen) { e.currentTarget.style.color = "#7ab898"; e.currentTarget.style.borderColor = "#4a9870"; } }}
               onMouseLeave={e => { if (!chatOpen) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
-              {chatOpen ? "✕ Dialog" : "◎ Dialog"}
+              {chatOpen ? "✕" : "◎"}<span className="concept-toolbar-label">{" "}Dialog</span>
             </button>
           )}
           </div>{/* /concept-workfunc-group */}
@@ -1021,7 +1021,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 e.currentTarget.style.borderColor = legendOpen ? C.accentDim : C.border;
               }}
             >
-              Legende
+              ≣<span className="concept-toolbar-label">{" "}Legende</span>
             </button>
           )}
 
@@ -2913,19 +2913,29 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             z-index: 165 !important;
             overflow-y: auto;
           }
-          /* Workfunc-Buttons in eigene Zeile — flex-basis 100% + order
-             pushed sie unter Titel/View-Switcher/Legende/Schließen,
-             damit deutsche Labels nicht den Header brechen. */
+          /* Workfunc-Buttons bleiben in der Header-Zeile, weil sie auf
+             Mobile nur als Icons gerendert werden (Labels werden via
+             .concept-toolbar-label ausgeblendet). */
           .concept-workfunc-group {
-            flex-basis: 100% !important;
-            order: 99 !important;
-            margin-left: 0 !important;
-            justify-content: flex-start !important;
+            margin-left: auto !important;
+            gap: 0.3rem !important;
           }
-          /* Header mehr Höhe, weil Workfunc-Bar als zweite Zeile */
+          /* Tool-Labels und Section-Titel verschwinden auf Mobile,
+             nur Icons (+, ◈, ⚡, ◎, ≣) bleiben sichtbar. Spart ~280 px
+             Headerbreite, sodass alle Buttons in eine Zeile passen. */
+          .concept-toolbar-label { display: none !important; }
+          .concept-toolbar-title { display: none !important; }
+          /* Workfunc-Buttons werden quadratischer, damit die Icons
+             zentriert wirken und nicht wie verkürzte Text-Buttons. */
+          .concept-workfunc-group > button {
+            min-width: 32px !important;
+            padding: 0.3rem 0.45rem !important;
+            font-size: 0.78rem !important;
+          }
+          /* Header-Höhe normal (eine Zeile) */
           .concept-graph-body {
-            margin-top: 7.2rem !important;
-            height: calc(100dvh - 7.2rem) !important;
+            margin-top: 5rem !important;
+            height: calc(100dvh - 5rem) !important;
           }
         }
         /* Desktop (> 640 px): only right sidebar, bottom sheet hidden */
