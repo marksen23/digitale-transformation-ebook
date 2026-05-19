@@ -8,6 +8,7 @@ import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
 import ResonanzenBlock from "@/components/ResonanzenBlock";
+import CategoryLegendButton from "@/components/CategoryLegendButton";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -1787,43 +1788,21 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             overscrollBehavior: "contain",
           }}>
             <SectionLabel c={C} tracking="tight" marginBottom="0.75rem">Kohärenzfelder</SectionLabel>
-            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
-              const hidden = hiddenCats.has(cat);
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setHiddenCats(prev => {
-                    const next = new Set(prev);
-                    if (next.has(cat)) next.delete(cat); else next.add(cat);
-                    return next;
-                  })}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "0.55rem",
-                    width: "100%", background: "none", border: "none",
-                    cursor: "pointer", padding: "0.3rem 0",
-                    transition: "opacity 0.15s",
-                  }}
-                >
-                  {/* Dot: filled = aktiv, leer = deaktiviert (Ghost-Modus) */}
-                  <span style={{
-                    width: 10, height: 10, borderRadius: "50%",
-                    background: hidden ? "transparent" : color,
-                    border: `1.5px solid ${hidden ? C.muted : color}`,
-                    flexShrink: 0, transition: "all 0.2s",
-                    opacity: hidden ? 0.45 : 1,
-                  }} />
-                  <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? C.muted : C.text, flex: 1, textAlign: "left", transition: "color 0.2s" }}>
-                    {categoryLabel(cat)}
-                  </span>
-                  {/* "aus"-Badge: zeigt explizit an, dass diese Ebene deaktiviert ist */}
-                  {hidden && (
-                    <span style={{ fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted, border: `1px solid ${C.border}`, padding: "0.05rem 0.3rem", borderRadius: 2 }}>
-                      aus
-                    </span>
-                  )}
-                </button>
-              );
-            })}
+            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
+              <CategoryLegendButton
+                key={cat}
+                label={categoryLabel(cat)}
+                color={color}
+                c={C}
+                hidden={hiddenCats.has(cat)}
+                onToggle={() => setHiddenCats(prev => {
+                  const next = new Set(prev);
+                  if (next.has(cat)) next.delete(cat); else next.add(cat);
+                  return next;
+                })}
+                size="md"
+              />
+            ))}
             {hiddenCats.size > 0 && (
               <button
                 onClick={() => setHiddenCats(new Set())}
@@ -2258,55 +2237,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           scrollbarColor: `${C.border} transparent`,
         }}>
           <SectionLabel c={C} tracking="tight">Kohärenzfelder</SectionLabel>
-          {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
-            const hidden   = hiddenCats.has(cat);
-            const isActive = activeCats.has(cat);
-            return (
-              <button
-                key={cat}
-                onClick={() => setHiddenCats(prev => {
-                  const next = new Set(prev);
-                  if (next.has(cat)) next.delete(cat); else next.add(cat);
-                  return next;
-                })}
-                style={{
-                  display: "flex", alignItems: "center", gap: "0.5rem",
-                  width: "100%", background: "none", border: "none",
-                  cursor: "pointer", padding: "0.28rem 0",
-                  transition: "opacity 0.15s",
-                }}
-              >
-                <span style={{
-                  width: 9, height: 9, borderRadius: "50%",
-                  background: hidden ? "transparent" : color,
-                  border: `1.5px solid ${hidden ? C.muted : color}`,
-                  flexShrink: 0,
-                  boxShadow: isActive && !hidden ? `0 0 7px ${color}66` : "none",
-                  opacity: hidden ? 0.45 : 1,
-                  transition: "all 0.2s",
-                }} />
-                <span style={{
-                  fontFamily: C.serif, fontStyle: "italic",
-                  fontSize: "0.82rem",
-                  color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
-                  flex: 1, textAlign: "left",
-                  transition: "color 0.2s",
-                }}>
-                  {categoryLabel(cat)}
-                </span>
-                {hidden ? (
-                  <span style={{ fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.08em", color: C.muted, border: `1px solid ${C.border}`, padding: "0.04rem 0.28rem", borderRadius: 2 }}>
-                    aus
-                  </span>
-                ) : isActive && (
-                  <span style={{
-                    width: 3, height: 3, borderRadius: "50%",
-                    background: color, flexShrink: 0,
-                  }} />
-                )}
-              </button>
-            );
-          })}
+          {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
+            <CategoryLegendButton
+              key={cat}
+              label={categoryLabel(cat)}
+              color={color}
+              c={C}
+              hidden={hiddenCats.has(cat)}
+              isActive={activeCats.has(cat)}
+              onToggle={() => setHiddenCats(prev => {
+                const next = new Set(prev);
+                if (next.has(cat)) next.delete(cat); else next.add(cat);
+                return next;
+              })}
+              size="sm"
+            />
+          ))}
           {hiddenCats.size > 0 && (
             <button
               onClick={() => setHiddenCats(new Set())}
@@ -2433,46 +2379,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem" }}>
             <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.55rem">Kohärenzfelder</SectionLabel>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" }}>
-              {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
-                const hidden   = hiddenCats.has(cat);
-                const isActive = activeCats.has(cat);
-                return (
-                  <button
-                    key={cat}
-                    onClick={() => setHiddenCats(prev => {
-                      const next = new Set(prev);
-                      if (next.has(cat)) next.delete(cat); else next.add(cat);
-                      return next;
-                    })}
-                    style={{
-                      display: "flex", alignItems: "center", gap: "0.38rem",
-                      background: "none", border: "none", cursor: "pointer",
-                      padding: "0.18rem 0",
-                      transition: "opacity 0.15s",
-                    }}
-                  >
-                    <span style={{
-                      width: 7, height: 7, borderRadius: "50%",
-                      background: hidden ? "transparent" : color,
-                      border: `1.5px solid ${hidden ? C.muted : color}`, flexShrink: 0,
-                      opacity: hidden ? 0.45 : 1,
-                      boxShadow: isActive && !hidden ? `0 0 5px ${color}55` : "none",
-                    }} />
-                    <span style={{
-                      fontFamily: C.serif, fontStyle: "italic", fontSize: "0.76rem",
-                      color: hidden ? C.muted : isActive ? C.textBright : C.textDim,
-                      transition: "color 0.2s",
-                    }}>
-                      {categoryLabel(cat)}
-                    </span>
-                    {hidden && (
-                      <span style={{ fontFamily: C.mono, fontSize: "0.46rem", color: C.muted, border: `1px solid ${C.border}`, padding: "0.03rem 0.22rem", borderRadius: 2 }}>
-                        aus
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
+              {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
+                <CategoryLegendButton
+                  key={cat}
+                  label={categoryLabel(cat)}
+                  color={color}
+                  c={C}
+                  hidden={hiddenCats.has(cat)}
+                  isActive={activeCats.has(cat)}
+                  onToggle={() => setHiddenCats(prev => {
+                    const next = new Set(prev);
+                    if (next.has(cat)) next.delete(cat); else next.add(cat);
+                    return next;
+                  })}
+                  size="xs"
+                />
+              ))}
             </div>
             {hiddenCats.size > 0 && (
               <button
