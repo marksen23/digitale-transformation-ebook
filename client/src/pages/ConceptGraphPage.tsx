@@ -9,6 +9,7 @@ import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
 import ResonanzenBlock from "@/components/ResonanzenBlock";
 import CategoryLegendButton from "@/components/CategoryLegendButton";
+import LegendSection from "@/components/LegendSection";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -1787,36 +1788,28 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             overflowY: "auto",
             overscrollBehavior: "contain",
           }}>
-            <SectionLabel c={C} tracking="tight" marginBottom="0.75rem">Kohärenzfelder</SectionLabel>
-            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
-              <CategoryLegendButton
-                key={cat}
-                label={categoryLabel(cat)}
-                color={color}
-                c={C}
-                hidden={hiddenCats.has(cat)}
-                onToggle={() => setHiddenCats(prev => {
-                  const next = new Set(prev);
-                  if (next.has(cat)) next.delete(cat); else next.add(cat);
-                  return next;
-                })}
-                size="md"
-              />
-            ))}
-            {hiddenCats.size > 0 && (
-              <button
-                onClick={() => setHiddenCats(new Set())}
-                style={{
-                  marginTop: "0.75rem", width: "100%",
-                  fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
-                  textTransform: "uppercase", color: C.accent,
-                  background: "none", border: `1px solid ${C.accentDim}`,
-                  padding: "0.3rem 0.5rem", cursor: "pointer",
-                }}
-              >
-                Alle einblenden
-              </button>
-            )}
+            <LegendSection
+              title="Kohärenzfelder"
+              c={C}
+              showReset={hiddenCats.size > 0}
+              onReset={() => setHiddenCats(new Set())}
+            >
+              {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
+                <CategoryLegendButton
+                  key={cat}
+                  label={categoryLabel(cat)}
+                  color={color}
+                  c={C}
+                  hidden={hiddenCats.has(cat)}
+                  onToggle={() => setHiddenCats(prev => {
+                    const next = new Set(prev);
+                    if (next.has(cat)) next.delete(cat); else next.add(cat);
+                    return next;
+                  })}
+                  size="md"
+                />
+              ))}
+            </LegendSection>
             <LeitmotivLegendSection
               c={C}
               hiddenLeitmotive={hiddenLeitmotive}
@@ -2236,37 +2229,29 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           scrollbarWidth: "thin",
           scrollbarColor: `${C.border} transparent`,
         }}>
-          <SectionLabel c={C} tracking="tight">Kohärenzfelder</SectionLabel>
-          {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
-            <CategoryLegendButton
-              key={cat}
-              label={categoryLabel(cat)}
-              color={color}
-              c={C}
-              hidden={hiddenCats.has(cat)}
-              isActive={activeCats.has(cat)}
-              onToggle={() => setHiddenCats(prev => {
-                const next = new Set(prev);
-                if (next.has(cat)) next.delete(cat); else next.add(cat);
-                return next;
-              })}
-              size="sm"
-            />
-          ))}
-          {hiddenCats.size > 0 && (
-            <button
-              onClick={() => setHiddenCats(new Set())}
-              style={{
-                marginTop: "0.65rem", width: "100%",
-                fontFamily: C.mono, fontSize: "0.56rem", letterSpacing: "0.1em",
-                textTransform: "uppercase", color: C.accent,
-                background: "none", border: `1px solid ${C.accentDim}`,
-                padding: "0.3rem 0.5rem", cursor: "pointer", borderRadius: 4,
-              }}
-            >
-              Alle einblenden
-            </button>
-          )}
+          <LegendSection
+            title="Kohärenzfelder"
+            c={C}
+            showReset={hiddenCats.size > 0}
+            onReset={() => setHiddenCats(new Set())}
+          >
+            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
+              <CategoryLegendButton
+                key={cat}
+                label={categoryLabel(cat)}
+                color={color}
+                c={C}
+                hidden={hiddenCats.has(cat)}
+                isActive={activeCats.has(cat)}
+                onToggle={() => setHiddenCats(prev => {
+                  const next = new Set(prev);
+                  if (next.has(cat)) next.delete(cat); else next.add(cat);
+                  return next;
+                })}
+                size="sm"
+              />
+            ))}
+          </LegendSection>
           <LeitmotivLegendSection
             c={C}
             hiddenLeitmotive={hiddenLeitmotive}
@@ -2377,8 +2362,14 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
           {/* ── Kompakte Legende im Mobile-Sheet ── */}
           <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem" }}>
-            <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.55rem">Kohärenzfelder</SectionLabel>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" }}>
+            <LegendSection
+              title="Kohärenzfelder"
+              c={C}
+              compact
+              layout="wrap"
+              showReset={hiddenCats.size > 0}
+              onReset={() => setHiddenCats(new Set())}
+            >
               {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
                 <CategoryLegendButton
                   key={cat}
@@ -2395,21 +2386,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   size="xs"
                 />
               ))}
-            </div>
-            {hiddenCats.size > 0 && (
-              <button
-                onClick={() => setHiddenCats(new Set())}
-                style={{
-                  marginTop: "0.5rem",
-                  fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.1em",
-                  textTransform: "uppercase", color: C.accent,
-                  background: "none", border: `1px solid ${C.accentDim}`,
-                  padding: "0.22rem 0.5rem", cursor: "pointer",
-                }}
-              >
-                Alle einblenden
-              </button>
-            )}
+            </LegendSection>
             <LeitmotivLegendSection
               c={C}
               hiddenLeitmotive={hiddenLeitmotive}
@@ -3027,17 +3004,16 @@ function LeitmotivLegendSection({
 }) {
   const lmNodes = NODES.filter(n => n.category === "leitmotiv");
   return (
-    <>
-      <div style={{
-        fontFamily: c.mono, fontSize: compact ? "0.54rem" : "0.58rem",
-        letterSpacing: "0.15em", color: c.muted, textTransform: "uppercase",
-        marginBottom: compact ? "0.5rem" : "0.7rem", marginTop: compact ? "0.6rem" : 0,
-        borderTop: compact ? `1px solid ${c.border}` : "none", paddingTop: compact ? "0.6rem" : 0,
-      }}>
-        Leitmotive
-      </div>
-      <div style={compact ? { display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" } : {}}>
-        {lmNodes.map(node => {
+    <LegendSection
+      title="Leitmotive"
+      c={c}
+      compact={compact}
+      showSeparator={compact}
+      layout={compact ? "wrap" : "stack"}
+      showReset={hiddenLeitmotive.size > 0}
+      onReset={onReset}
+    >
+      {lmNodes.map(node => {
           const hidden   = hiddenLeitmotive.has(node.id);
           const isActive = activeLeitmotive.has(node.id);
           return (
@@ -3073,18 +3049,7 @@ function LeitmotivLegendSection({
             </button>
           );
         })}
-      </div>
-      {hiddenLeitmotive.size > 0 && (
-        <button onClick={onReset} style={{
-          marginTop: "0.5rem", width: compact ? "auto" : "100%", fontFamily: c.mono,
-          fontSize: compact ? "0.54rem" : "0.56rem", letterSpacing: "0.1em",
-          textTransform: "uppercase", color: c.accent, background: "none",
-          border: `1px solid ${c.accentDim}`, padding: "0.25rem 0.5rem", cursor: "pointer",
-        }}>
-          Alle einblenden
-        </button>
-      )}
-    </>
+    </LegendSection>
   );
 }
 
@@ -3114,17 +3079,17 @@ function PrinzipLegendSection({
   compact?: boolean;
 }) {
   return (
-    <>
-      <div style={{
-        fontFamily: c.mono, fontSize: compact ? "0.54rem" : "0.58rem",
-        letterSpacing: "0.15em", color: c.muted, textTransform: "uppercase",
-        marginBottom: compact ? "0.5rem" : "0.7rem", marginTop: compact ? "0.6rem" : "0.9rem",
-        borderTop: `1px solid ${c.border}`, paddingTop: compact ? "0.6rem" : "0.7rem",
-      }}>
-        Erkenntnisprinzipien
-      </div>
-      <div>
-        {PRINZIP_GROUPS.map(group => {
+    <LegendSection
+      title="Erkenntnisprinzipien"
+      c={c}
+      compact={compact}
+      showSeparator
+      resetColor={PR_GLOW}
+      resetBorderColor={PR_COLOR}
+      showReset={hiddenPrinzipien.size > 0}
+      onReset={onReset}
+    >
+      {PRINZIP_GROUPS.map(group => {
           const allHidden = group.memberIds.every(id => hiddenPrinzipien.has(id));
           return (
             <div key={group.id} style={{ marginBottom: compact ? "0.3rem" : "0.55rem" }}>
@@ -3183,18 +3148,7 @@ function PrinzipLegendSection({
             </div>
           );
         })}
-      </div>
-      {hiddenPrinzipien.size > 0 && (
-        <button onClick={onReset} style={{
-          marginTop: "0.5rem", width: compact ? "auto" : "100%", fontFamily: c.mono,
-          fontSize: compact ? "0.54rem" : "0.56rem", letterSpacing: "0.1em",
-          textTransform: "uppercase", color: PR_GLOW, background: "none",
-          border: `1px solid ${PR_COLOR}`, padding: "0.25rem 0.5rem", cursor: "pointer",
-        }}>
-          Alle einblenden
-        </button>
-      )}
-    </>
+    </LegendSection>
   );
 }
 
