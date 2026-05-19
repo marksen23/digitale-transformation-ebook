@@ -387,6 +387,36 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setNotePopup(null);
   }, [viewMode]);
 
+  // ─── Tool-Exklusivität ────────────────────────────────────────────────
+  // Nur EIN Werkzeug aktiv (verbinden / pfad / analyse / dialog). Wenn ein
+  // anderes geöffnet wird, schließt das vorherige automatisch + Menü-
+  // Link geht auf inaktiv. Verhindert überlappende Tool-Fenster.
+  type Tool = "connect" | "path" | "analyse" | "dialog" | null;
+  const activeTool: Tool =
+    connectMode ? "connect" :
+    pathMode ? "path" :
+    analyseMode ? "analyse" :
+    chatOpen ? "dialog" : null;
+
+  const activateTool = useCallback((tool: Tool) => {
+    // Alle Tool-States nullen, dann das gewünschte aktivieren
+    connectModeRef.current = false; setConnectMode(false);
+    connectSourceRef.current = null; setConnectSource(null);
+    pathModeRef.current = false; setPathMode(false);
+    pathNodesRef.current = [null, null]; setPathNodes([null, null]);
+    setPathResult(null); setPathAnalysis(null); setPathAnalysisError(null);
+    analyseModeRef.current = false; setAnalyseMode(false);
+    analyseNodesRef.current = []; setAnalyseNodes([]);
+    setAnalyseResult(null); setAnalyseError(null);
+    setChatOpen(false);
+    setNotePopup(null);
+
+    if (tool === "connect") { connectModeRef.current = true; setConnectMode(true); }
+    else if (tool === "path") { pathModeRef.current = true; setPathMode(true); }
+    else if (tool === "analyse") { analyseModeRef.current = true; setAnalyseMode(true); }
+    else if (tool === "dialog") { setChatOpen(true); }
+  }, []);
+
   // Clamp zoom
   const clampZoom = (z: number) => Math.max(0.4, Math.min(2.8, z));
 
@@ -884,12 +914,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           {/* Connect mode button — nur im Netz-Modus */}
           {viewMode === "netz" && (
             <button
-              onClick={() => {
-                const next = !connectMode;
-                connectModeRef.current = next;
-                setConnectMode(next);
-                if (!next) { connectSourceRef.current = null; setConnectSource(null); }
-              }}
+              onClick={() => activateTool(activeTool === "connect" ? null : "connect")}
               title={connectMode ? "Verbinden-Modus beenden" : "Eigene Verbindung hinzufügen (max. 30)"}
               style={{
                 fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
@@ -910,23 +935,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           {/* Pfad-Explorer button */}
           {viewMode !== "matrix" && (
             <button
-              onClick={() => {
-                const next = !pathMode;
-                pathModeRef.current = next;
-                setPathMode(next);
-                if (!next) {
-                  pathNodesRef.current = [null, null];
-                  setPathNodes([null, null]);
-                  setPathResult(null);
-                }
-                // Deactivate connect mode when entering path mode
-                if (next && connectModeRef.current) {
-                  connectModeRef.current = false;
-                  setConnectMode(false);
-                  connectSourceRef.current = null;
-                  setConnectSource(null);
-                }
-              }}
+              onClick={() => activateTool(activeTool === "path" ? null : "path")}
               title={pathMode ? "Pfad-Explorer beenden" : "Pfad zwischen zwei Konzepten finden"}
               style={{
                 fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
@@ -947,22 +956,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           {/* Spannungsfeld-Analyse button */}
           {viewMode !== "matrix" && (
             <button
-              onClick={() => {
-                const next = !analyseMode;
-                analyseModeRef.current = next;
-                setAnalyseMode(next);
-                if (!next) {
-                  analyseNodesRef.current = [];
-                  setAnalyseNodes([]);
-                  setAnalyseResult(null);
-                  setAnalyseError(null);
-                }
-                // Deactivate other modes
-                if (next) {
-                  if (connectModeRef.current) { connectModeRef.current = false; setConnectMode(false); connectSourceRef.current = null; setConnectSource(null); }
-                  if (pathModeRef.current) { pathModeRef.current = false; setPathMode(false); pathNodesRef.current = [null, null]; setPathNodes([null, null]); setPathResult(null); }
-                }
-              }}
+              onClick={() => activateTool(activeTool === "analyse" ? null : "analyse")}
               title={analyseMode ? "Spannungsfeld-Analyse beenden" : "Spannungsfeld zweier Konzepte analysieren (KI)"}
               style={{
                 fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
@@ -983,7 +977,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           {/* Graph-Chat button */}
           {viewMode !== "matrix" && (
             <button
-              onClick={() => setChatOpen(o => !o)}
+              onClick={() => activateTool(activeTool === "dialog" ? null : "dialog")}
               title={chatOpen ? "Dialog schließen" : "Freier Dialog über das Begriffsnetz (KI)"}
               style={{
                 fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
@@ -2622,8 +2616,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         </div>
       )}
 
-      {/* Hint text — Modus-abhängig, nur wenn nichts selektiert ist */}
-      {!selectedNode && (
+      {/* Hint text — Modus-abhängig, nur wenn nichts selektiert ist UND
+          kein Tool aktiv (für Tools übernimmt das ToolHintOverlay unten). */}
+      {!selectedNode && !activeTool && (
         <div style={{
           position: "fixed", bottom: "1.2rem", left: "50%", transform: "translateX(-50%)",
           fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
@@ -2637,6 +2632,74 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               : "Hintergrund ziehen zum Verschieben · Scrollen zum Zoomen"}
         </div>
       )}
+
+      {/* ── Tool-Hint-Overlay — zentriert, prominent ────────────────────
+          Wenn ein Tool aktiv ist + noch keine Auswahl getroffen wurde,
+          erscheint eine zentrale Anleitung in der Bildmitte (wie das
+          Buch-View-Zitat-Overlay). Verschwindet sobald der User die
+          ersten Schritte macht (Knoten klickt, Cluster wählt, etc.). */}
+      {(() => {
+        if (!activeTool) return null;
+        // Sobald der User die ersten Daten produziert hat, ist das
+        // Overlay weg — die Result-Panels übernehmen.
+        const hasWorkInProgress =
+          (activeTool === "connect" && connectSource !== null) ||
+          (activeTool === "path" && (pathNodes[0] !== null || pathResult !== null)) ||
+          (activeTool === "analyse" && analyseNodes.length > 0) ||
+          (activeTool === "dialog" && chatHistory.length > 0);
+        if (hasWorkInProgress) return null;
+        const config = {
+          connect:  { color: "#c4a882", emoji: "+",  title: "Eigene Verbindung",      sub: "Klick auf zwei Begriffe — sie werden mit einer User-Kante verbunden (max. 30).", hint: "Du kannst eine Notiz hinzufügen, warum diese Verbindung wichtig ist." },
+          path:     { color: "#7eb8c8", emoji: "◈",  title: "Pfad-Explorer",          sub: "Klick auf zwei Begriffe — der kürzeste und ein überraschender Pfad zwischen ihnen werden gezeigt.", hint: "Die KI analysiert die Bewegung beider Pfade philosophisch." },
+          analyse:  { color: "#5aacb8", emoji: "⚡", title: "Spannungsfeld-Analyse",   sub: "Klick auf 2–4 Begriffe — sie formen einen Cluster.", hint: "Starte die KI-Analyse, sobald deine Auswahl steht." },
+          dialog:   { color: "#7ab898", emoji: "◎",  title: "Dialog mit dem Begriffsnetz", sub: "Frage frei zum Werk, zu den Konzepten oder ihren Beziehungen.", hint: "Die KI antwortet im Kontext des gesamten Begriffsnetzes." },
+        }[activeTool]!;
+        return (
+          <div style={{
+            position: "fixed",
+            top: 0, left: 0, right: 0, bottom: 0,
+            display: "flex", alignItems: "center", justifyContent: "center",
+            pointerEvents: "none",
+            zIndex: 180,
+            padding: "2rem",
+          }}>
+            <div style={{
+              maxWidth: "min(560px, 80%)",
+              background: isDark ? "rgba(12,10,9,0.86)" : "rgba(255,253,247,0.92)",
+              backdropFilter: "blur(10px) saturate(140%)",
+              WebkitBackdropFilter: "blur(10px) saturate(140%)",
+              border: `1px solid ${config.color}66`,
+              borderRadius: 14,
+              padding: "1.5rem 1.9rem",
+              boxShadow: `0 20px 60px rgba(0,0,0,0.35), 0 0 0 1px ${config.color}22`,
+              textAlign: "center",
+            }}>
+              <div style={{
+                fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.22em", textTransform: "uppercase",
+                color: config.color, marginBottom: "0.4rem",
+              }}>
+                <span style={{ fontSize: "0.95rem", marginRight: "0.45rem" }}>{config.emoji}</span>
+                {config.title}
+              </div>
+              <h2 style={{
+                fontFamily: SERIF_BODY,
+                fontSize: "clamp(1.05rem, 2vw, 1.45rem)",
+                fontStyle: "italic", fontWeight: 500,
+                color: C.textBright, margin: "0 0 0.7rem", lineHeight: 1.35,
+                letterSpacing: "-0.005em",
+              }}>
+                {config.sub}
+              </h2>
+              <p style={{
+                fontFamily: SERIF_BODY, fontSize: "0.82rem", fontStyle: "italic",
+                color: C.textDim, lineHeight: 1.55, margin: 0,
+              }}>
+                {config.hint}
+              </p>
+            </div>
+          </div>
+        );
+      })()}
 
 
       {/* ── Pfad-Explorer Ergebnispanel ──
