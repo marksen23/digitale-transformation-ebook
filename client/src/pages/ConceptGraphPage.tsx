@@ -7,7 +7,7 @@ import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORN
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
-import ResonanzCard from "@/components/ResonanzCard";
+import ResonanzenBlock from "@/components/ResonanzenBlock";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -2171,62 +2171,16 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </>
             )}
 
-            {/* Begegnungen aus dem Wissen — als eigener akzentuierter
-                Block am Ende der Begriff-Sidebar. Phase 3: 8 neueste
-                (vorher 3), prominent gerahmt, mit CTA "→ alle im
-                kollektiven Wissen". */}
-            {selectedNode && resonanzenByNode && (() => {
-              const all = (resonanzenByNode.get(selectedNode.id) ?? [])
-                .slice()
-                .sort((a, b) => b.ts.localeCompare(a.ts));  // neueste zuerst
-              if (all.length === 0) return null;
-              const TOP_N = 8;
-              const visible = all.slice(0, TOP_N);
-              const remaining = Math.max(0, all.length - TOP_N);
-              return (
-                <>
-                  <div style={{
-                    marginTop: "1.6rem",
-                    border: `1px solid ${C.border}`,
-                    borderLeft: `3px solid ${C.accent}`,
-                    borderRadius: "0 6px 6px 0",
-                    padding: "0.8rem 0.9rem",
-                    background: `linear-gradient(to bottom, ${C.accentDim}11, transparent 60%)`,
-                  }}>
-                    <div style={{ fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.18em", color: C.accent, textTransform: "uppercase", marginBottom: "0.6rem", display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
-                      <span>❦ Begegnungen aus dem Wissen</span>
-                      <span style={{ color: C.muted, fontFamily: C.mono, fontSize: "0.55rem" }}>
-                        {visible.length}{remaining > 0 ? ` + ${remaining}` : ""}
-                      </span>
-                    </div>
-                    <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                      {visible.map(entry => (
-                        <ResonanzCard key={entry.id} entry={entry} c={C} variant="framed" />
-                      ))}
-                    </div>
-                    <a
-                      href={`/resonanzen?tag=${selectedNode.id}`}
-                      style={{
-                        display: "flex", alignItems: "center", justifyContent: "space-between",
-                        marginTop: "0.7rem",
-                        fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase",
-                        color: C.accent, background: "none",
-                        border: `1px solid ${C.accentDim}`, borderRadius: 4,
-                        padding: "0.4rem 0.65rem", textDecoration: "none",
-                        transition: "all 0.15s",
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.background = `${C.accentDim}22`; e.currentTarget.style.color = C.textBright; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = C.accent; }}
-                    >
-                      <span>
-                        {remaining > 0 ? `${remaining} weitere im kollektiven Wissen` : "im kollektiven Wissen ansehen"}
-                      </span>
-                      <span style={{ fontSize: "0.75rem" }}>→</span>
-                    </a>
-                  </div>
-                </>
-              );
-            })()}
+            {/* Begegnungen aus dem Wissen — eigener akzentuierter Block
+                am Ende der Begriff-Sidebar (8 neueste, gerahmt). */}
+            {selectedNode && resonanzenByNode && (
+              <ResonanzenBlock
+                entries={resonanzenByNode.get(selectedNode.id) ?? []}
+                nodeId={selectedNode.id}
+                c={C}
+                variant="framed"
+              />
+            )}
 
             {/* Kohärenzfelder + Leitmotive + Prinzipien + UserEdges wurden
                 in Phase 2 in die RECHTE Sidebar verlagert (always visible,
@@ -2463,54 +2417,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </div>
           )}
 
-          {/* ── Resonanzen zu diesem Begriff (Mobile) — Deep-Links zum
-                kollektiven Wissen. Spiegelt die Desktop-Sidebar-Section. */}
-          {resonanzenByNode && (() => {
-            const all = resonanzenByNode.get(selectedNode.id) ?? [];
-            if (all.length === 0) return null;
-            const visible = resonanzenExpanded ? all : all.slice(0, 3);
-            return (
-              <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem", marginBottom: "0.6rem" }}>
-                <div style={{
-                  fontFamily: C.mono, fontSize: "0.54rem", letterSpacing: "0.15em",
-                  color: C.muted, textTransform: "uppercase", marginBottom: "0.55rem",
-                  display: "flex", justifyContent: "space-between", alignItems: "baseline",
-                }}>
-                  <span>Begegnungen aus dem Wissen</span>
-                  <span style={{ color: C.accent }}>{all.length}</span>
-                </div>
-                <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-                  {visible.map(entry => (
-                    <ResonanzCard key={entry.id} entry={entry} c={C} variant="flat" />
-                  ))}
-                </div>
-                <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
-                  {all.length > 3 && (
-                    <button
-                      onClick={() => setResonanzenExpanded(v => !v)}
-                      style={{
-                        fontFamily: C.mono, fontSize: "0.52rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                        color: C.muted, background: "none", border: `1px solid ${C.border}`,
-                        padding: "0.28rem 0.55rem", cursor: "pointer",
-                      }}
-                    >
-                      {resonanzenExpanded ? "einklappen" : `+ ${all.length - 3} weitere`}
-                    </button>
-                  )}
-                  <a
-                    href={`/resonanzen?tag=${selectedNode.id}`}
-                    style={{
-                      fontFamily: C.mono, fontSize: "0.52rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                      color: C.accent, background: "none", border: `1px solid ${C.accentDim}`,
-                      padding: "0.28rem 0.55rem", textDecoration: "none",
-                    }}
-                  >
-                    alle im Wissen →
-                  </a>
-                </div>
-              </div>
-            );
-          })()}
+          {/* ── Resonanzen zu diesem Begriff (Mobile) ── */}
+          {resonanzenByNode && (
+            <ResonanzenBlock
+              entries={resonanzenByNode.get(selectedNode.id) ?? []}
+              nodeId={selectedNode.id}
+              c={C}
+              variant="flat"
+              expanded={resonanzenExpanded}
+              onToggleExpand={() => setResonanzenExpanded(v => !v)}
+            />
+          )}
 
           {/* ── Kompakte Legende im Mobile-Sheet ── */}
           <div style={{ borderTop: `1px solid ${C.border}`, paddingTop: "0.75rem", marginTop: "0.4rem" }}>
