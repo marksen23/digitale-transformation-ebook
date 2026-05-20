@@ -2951,10 +2951,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             padding: 0.3rem 0.45rem !important;
             font-size: 0.78rem !important;
           }
-          /* Header-Höhe normal (eine Zeile) */
+          /* Nav-Höhe auf Mobile: Row 1 (Icon-Buttons + 0.65/0.6rem
+             Padding) + Row 2 (Suche, ~38 px) + Gap (0.4rem) ≈ 5.75rem.
+             Vorher 5rem → Legenden-Panel (top: 0.9rem im Body) hing 10 px
+             hinter der Nav fest. */
           .concept-graph-body {
-            margin-top: 5rem !important;
-            height: calc(100dvh - 5rem) !important;
+            margin-top: 5.75rem !important;
+            height: calc(100dvh - 5.75rem) !important;
           }
           /* Bottom-Hint: lange Desktop-Variante verstecken, kürzere
              touch-angepasste Variante zeigen. */
