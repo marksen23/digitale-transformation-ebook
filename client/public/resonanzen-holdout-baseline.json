@@ -1,0 +1,125 @@
+{
+  "generatedAt": "2026-05-20T22:08:46.562Z",
+  "baseline": {
+    "MP8OB1IU-F6C31DC7": {
+      "neighbors": [
+        "MOOVXCI4-822961D2",
+        "MPECAV23-5FAD4249",
+        "MOHM21Y5-A3B5F539"
+      ],
+      "computedAt": "2026-05-20T22:08:46.555Z"
+    },
+    "MP756UV9-FF3838F7": {
+      "neighbors": [
+        "MP74X3EJ-72CDDB9F",
+        "MP74VXSM-5DEA06F3",
+        "MOHST017-5C4320E1"
+      ],
+      "computedAt": "2026-05-20T22:08:46.556Z"
+    },
+    "MP74VXSM-5DEA06F3": {
+      "neighbors": [
+        "MP756UV9-FF3838F7",
+        "MP74X3EJ-72CDDB9F",
+        "MOHAREIB-E15E7BF8"
+      ],
+      "computedAt": "2026-05-20T22:08:46.556Z"
+    },
+    "MP2LIW43-E8ADC59E": {
+      "neighbors": [
+        "MP2LJCJB-EA58EC28",
+        "MOJ7Q5HM-89F62E3F",
+        "MOQ5IKR5-C67AAC15"
+      ],
+      "computedAt": "2026-05-20T22:08:46.557Z"
+    },
+    "MOQ5EOBY-82AD9EEE": {
+      "neighbors": [
+        "MPARZ5F0-A9FD6F70",
+        "MOHV84M5-1825A399",
+        "MOP0S479-373A2268"
+      ],
+      "computedAt": "2026-05-20T22:08:46.557Z"
+    },
+    "MOOU3TYC-FE290C2B": {
+      "neighbors": [
+        "MOOJUW0R-CE8E0F2F",
+        "MOPEYJKU-C4711B5F",
+        "MOOU6X9D-4A49EE98"
+      ],
+      "computedAt": "2026-05-20T22:08:46.558Z"
+    },
+    "MOOJX57H-967D3B48": {
+      "neighbors": [
+        "MOOJUW0R-CE8E0F2F",
+        "MOOUF9G2-17673BD9",
+        "MOOJYUM5-27711091"
+      ],
+      "computedAt": "2026-05-20T22:08:46.558Z"
+    },
+    "MON69DI9-D63A7910": {
+      "neighbors": [
+        "MPAH317T-242EECA7",
+        "MOHV84M5-1825A399",
+        "MOHAI60S-B7B04552"
+      ],
+      "computedAt": "2026-05-20T22:08:46.559Z"
+    },
+    "MOHV84M5-1825A399": {
+      "neighbors": [
+        "MOHLZBVK-2FBBAD2F",
+        "MOJ7Q5HM-89F62E3F",
+        "MOP0LEAL-E2568DCC"
+      ],
+      "computedAt": "2026-05-20T22:08:46.559Z"
+    },
+    "MOHST017-5C4320E1": {
+      "neighbors": [
+        "MP2LJCJB-EA58EC28",
+        "MOP0LEAL-E2568DCC",
+        "MOPFJTND-AAE76B2B"
+      ],
+      "computedAt": "2026-05-20T22:08:46.560Z"
+    },
+    "MOHDE0UP-E1D209AD": {
+      "neighbors": [
+        "MOHDAOFD-2C20D4F5",
+        "MOHDLJ25-7A6B620C",
+        "MOHDW91N-D9BDFDB1"
+      ],
+      "computedAt": "2026-05-20T22:08:46.560Z"
+    },
+    "MOHCN98S-2540F4DF": {
+      "neighbors": [
+        "MOHCIS4R-69B0D47B",
+        "MP756UV9-FF3838F7",
+        "MOHV84M5-1825A399"
+      ],
+      "computedAt": "2026-05-20T22:08:46.561Z"
+    },
+    "MOHB6DLO-355115A6": {
+      "neighbors": [
+        "MOHB8QCN-0E2E8408",
+        "MOHBB5U1-12DE437D",
+        "MOHBHF0D-0E814866"
+      ],
+      "computedAt": "2026-05-20T22:08:46.562Z"
+    },
+    "MOHAUYTH-CD1E3227": {
+      "neighbors": [
+        "MOP0UF96-1A0ACB35",
+        "MOHV84M5-1825A399",
+        "MOOZHCUT-4B86F8AD"
+      ],
+      "computedAt": "2026-05-20T22:08:46.562Z"
+    },
+    "MOHAREIB-E15E7BF8": {
+      "neighbors": [
+        "MOOK20R3-62E609BA",
+        "MOHAN4AO-7A201C56",
+        "MOHMET94-3799557A"
+      ],
+      "computedAt": "2026-05-20T22:08:46.562Z"
+    }
+  }
+}
