@@ -21,6 +21,7 @@ import { Link, useLocation } from "wouter";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { toggleGlobalTheme } from "@/lib/globalTheme";
 import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT } from "@/lib/theme";
+import InstallButton from "@/components/InstallButton";
 
 const FRAME_HEIGHT = 48;
 
@@ -142,6 +143,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
 
         {/* Symbolleiste rechts */}
         <div style={{ display: "flex", gap: "0.3rem", marginLeft: "auto", alignItems: "center" }}>
+          <InstallButton variant="icon" />
           <Link
             href="/admin"
             aria-label="Admin"
