@@ -312,6 +312,20 @@ function getInstructions(platform: InstallPlatform): InstructionContent {
           "Tipp: In Chrome oder Edge auf dem Mac kannst du stattdessen auf den Install-Knopf in der Adressleiste klicken — dort funktioniert auch der Ein-Klick-Pfad.",
       };
 
+    case "android-chrome":
+      return {
+        title: "Auf Android mit Chrome installieren",
+        intro:
+          "Der direkte Install-Prompt ist gerade nicht verfügbar — möglicherweise wurde er kürzlich abgelehnt (90 Tage Cooldown) oder der Service Worker ist noch nicht aktiv. So geht es manuell:",
+        steps: [
+          <>Tippe in Chrome auf das <b>Drei-Punkte-Menü</b> <span style={{ fontFamily: "monospace" }}>(⋮)</span> oben rechts.</>,
+          <>Wähle <b>„App installieren"</b> oder <b>„Zur Startseite hinzufügen"</b> (je nach Chrome-Version).</>,
+          <>Bestätige die Installation. Die App erscheint im App-Drawer mit eigenem Icon und Splash-Screen.</>,
+        ],
+        footnote:
+          "Tipp: Lade die Seite einmal neu und warte ca. 30 Sekunden — manchmal feuert Chrome den Install-Prompt verzögert, sobald der Service Worker aktiv ist. Dann erscheint dieser Knopf als echter Ein-Klick-Install.",
+      };
+
     case "android-firefox":
       return {
         title: "Auf Android mit Firefox installieren",
@@ -322,6 +336,20 @@ function getInstructions(platform: InstallPlatform): InstructionContent {
         ],
         footnote:
           "Tipp: In Chrome auf Android wird der Install-Knopf direkt funktionieren — versuche es dort für den Ein-Tap-Pfad.",
+      };
+
+    case "desktop-chrome":
+      return {
+        title: "Auf dem Desktop mit Chrome / Edge installieren",
+        intro:
+          "Der direkte Install-Prompt ist gerade nicht verfügbar — entweder wurde er kürzlich abgelehnt oder der Service Worker ist noch nicht bereit. So geht es manuell:",
+        steps: [
+          <>Schau in die <b>Adressleiste</b>: ganz rechts erscheint oft ein kleines <b>Install-Icon</b> <span style={{ fontFamily: "monospace" }}>(⊕)</span> oder Monitor-mit-Pfeil-Symbol. Ein Klick installiert direkt.</>,
+          <>Alternativ: Öffne das <b>Drei-Punkte-Menü</b> oben rechts → <b>„Resonanzvernunft installieren"</b> oder <b>„App installieren"</b>.</>,
+          <>Die App startet danach in einem eigenständigen Fenster — wie eine native Anwendung.</>,
+        ],
+        footnote:
+          "Tipp: Bei vielen Browsern ist nach einigen Sekunden ein direkter Ein-Klick-Install möglich. Lade die Seite einmal neu und versuche es erneut.",
       };
 
     case "desktop-firefox":

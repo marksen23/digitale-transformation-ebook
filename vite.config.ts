@@ -161,20 +161,33 @@ const plugins = [
     registerType: "autoUpdate",
     includeAssets: ["icons/*.png", "favicon.ico"],
     manifest: {
-      name: "Digitale Transformation – Trilogie",
-      short_name: "DT Trilogie",
+      // `id` ist Chrome's eindeutiger App-Identifier — bleibt stabil
+      // auch wenn start_url sich später ändert. Empfohlen von Google,
+      // damit der Browser eine bereits installierte Instanz wiederfindet
+      // statt eine zweite Kopie zu installieren.
+      id: "/?source=pwa",
+      name: "Resonanzvernunft — Digitale Transformation",
+      short_name: "Resonanzvernunft",
       description:
         "Ebook-Trilogie zur digitalen Transformation: offline lesbar, mit Glossar, Übersetzung und Q&A.",
       lang: "de",
-      start_url: "/",
+      start_url: "/?source=pwa",
       scope: "/",
       display: "standalone",
+      // display_override: Browser darf modernere Display-Modi probieren
+      // (window-controls-overlay = native-app-Gefühl auf Desktop), fällt
+      // graceful auf standalone zurück wenn nicht unterstützt.
+      display_override: ["window-controls-overlay", "standalone", "minimal-ui"],
       orientation: "portrait",
-      background_color: "#1e1b4b",
+      background_color: "#0c0a09",
       theme_color: "#b45309",
+      categories: ["books", "education"],
       icons: [
-        { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png" },
-        { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png" },
+        // Chrome braucht mindestens ein 192px-Icon mit purpose="any" für
+        // Installierbarkeit. Beide PNGs explizit als "any" markiert, plus
+        // eine maskable-Variante für Android-Adaptive-Icons.
+        { src: "/icons/icon-192.png", sizes: "192x192", type: "image/png", purpose: "any" },
+        { src: "/icons/icon-512.png", sizes: "512x512", type: "image/png", purpose: "any" },
         {
           src: "/icons/icon-maskable-512.png",
           sizes: "512x512",
@@ -230,7 +243,13 @@ const plugins = [
       ],
     },
     devOptions: {
-      enabled: false,
+      // PWA-Install im Dev-Modus aktivieren — so feuert
+      // beforeinstallprompt auch auf localhost, und der Ein-Klick-
+      // Install-Pfad lässt sich vor Deploy lokal verifizieren.
+      // Workbox-Caching im Dev kann gelegentlich stale Assets liefern;
+      // bei Bedarf Service Worker in DevTools unregistrieren.
+      enabled: true,
+      type: "module",
     },
   }),
 ];

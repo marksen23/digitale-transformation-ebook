@@ -29,7 +29,10 @@ export type InstallPlatform =
   | "ready"               // beforeinstallprompt verfügbar → Ein-Klick
   | "ios"                 // iOS Safari (oder Chrome/Firefox in WKWebView)
   | "macos-safari"        // macOS Safari
+  | "android-chrome"      // Chrome/Edge auf Android, aber BIP fehlt
+                          // (SW noch nicht aktiv, oder vorher dismissed)
   | "android-firefox"     // Firefox auf Android
+  | "desktop-chrome"      // Chrome/Edge auf Desktop, aber BIP fehlt
   | "desktop-firefox"     // Firefox Desktop (kein Install-Support)
   | "manual";             // Unbekannt — generischer Fallback
 
@@ -60,6 +63,13 @@ export function detectInstallPlatform(hasPrompt: boolean): DetectResult {
   // Android Firefox: kein BIP, aber Browser-Menü kann installieren
   if (os === "android" && isFirefox) return { platform: "android-firefox", os };
 
+  // Android Chrome/Edge OHNE BIP-Event — der Browser unterstützt PWA-
+  // Install grundsätzlich, das Event ist aber (noch) nicht gefeuert
+  // (SW noch nicht aktiv, Engagement-Heuristik nicht erfüllt, oder
+  // Site wurde in den letzten ~90 Tagen schon dismissed). Wir leiten
+  // den User auf den manuellen Pfad über das Drei-Punkte-Menü.
+  if (os === "android") return { platform: "android-chrome", os };
+
   // macOS Safari: Datei → Zum Dock hinzufügen (Safari 17+)
   if (os === "macos" && /Safari/.test(ua) && !/Chrome|Edg|CriOS|FxiOS/.test(ua)) {
     return { platform: "macos-safari", os };
@@ -68,6 +78,12 @@ export function detectInstallPlatform(hasPrompt: boolean): DetectResult {
   // Firefox Desktop: kein PWA-Install
   if ((os === "windows" || os === "linux" || os === "macos") && isFirefox) {
     return { platform: "desktop-firefox", os };
+  }
+
+  // Chrome/Edge auf Desktop ohne BIP — gleiche Logik wie android-chrome,
+  // aber mit Address-Bar-Install-Icon-Hinweis statt Drei-Punkte-Menü.
+  if (os === "windows" || os === "linux" || os === "macos") {
+    return { platform: "desktop-chrome", os };
   }
 
   return { platform: "manual", os };
