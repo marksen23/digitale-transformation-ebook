@@ -6,6 +6,7 @@
 dist/
 build/
 *.dist
+dev-dist/
 
 # Environment variables
 .env
