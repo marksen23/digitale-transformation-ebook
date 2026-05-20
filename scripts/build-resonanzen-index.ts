@@ -33,7 +33,11 @@ const REPO_OWNER  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
 const REPO_NAME   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
 const REPO_BRANCH = process.env.GITHUB_REPO_BRANCH ?? "main";
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // optional
-const GEMINI_API_KEY = process.env.GEMINI_API_KEY; // optional — falls nicht gesetzt, Embeddings werden geskippt
+// Trim → handhabt versehentlich mitkopierte Whitespace beim Setzen des
+// Secrets (häufige Falle: Copy aus Browser inklusive führendem/abschließendem
+// Newline). Leere Strings werden zu undefined, damit der !GEMINI_API_KEY-
+// Check klar wirkt.
+const GEMINI_API_KEY = (process.env.GEMINI_API_KEY ?? "").trim() || undefined;
 
 interface ResonanzEntry {
   id: string;
@@ -247,6 +251,12 @@ async function main() {
   // direkt mitgeschrieben werden können (vermeidet 2-Pass-Schreiben).
   let embeddings: Record<string, number[]> | null = null;
   if (GEMINI_API_KEY && entries.length > 0) {
+    // Diagnose-Zeile: Key vorhanden? Länge? Erste/letzte 3 Zeichen?
+    // Wichtig: NIE den vollständigen Key loggen. Diese Maskierung reicht
+    // aber für den User um zu erkennen ob das Secret korrekt durchgereicht
+    // wurde (typische Gemini-Keys sind ~39 chars und beginnen mit "AIza").
+    const masked = `${GEMINI_API_KEY.slice(0, 3)}...${GEMINI_API_KEY.slice(-3)}`;
+    console.log(`[build-resonanzen-index] GEMINI_API_KEY OK (len=${GEMINI_API_KEY.length}, masked=${masked})`);
     embeddings = await buildEmbeddings(entries);
     // Buchtext-Kapitel als zweite Werkstreue-Referenz embedden. Schreibt
     // chapter:*-IDs in dieselbe Map; computeCrossLinks unten extrahiert
@@ -586,6 +596,21 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
 
   fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
   console.log(`[build-resonanzen-index] wrote ${success} new embeddings (${failed} failed) to ${EMBEDDINGS_OUTPUT}`);
+
+  // Loud-Fail wenn KEY gesetzt war aber NICHTS funktioniert hat. Vorher
+  // schluckte der Script das still und der Workflow lief auf "success" —
+  // der User sah einen grünen Haken aber keine semantischen Felder im
+  // Korpus. Lieber rot färben, damit der Fehler in der Action-Übersicht
+  // sichtbar ist.
+  if (success === 0 && failed > 0) {
+    console.error(
+      `[build-resonanzen-index] FATAL: 0 erfolgreiche Embedding-Calls bei ${failed} Versuchen. ` +
+      `Wahrscheinliche Ursachen: ungültiger GEMINI_API_KEY, abgelaufene Free-Tier-Quota, ` +
+      `oder Gemini hat den text-embedding-004-Endpoint entfernt. ` +
+      `Siehe die ersten Fetch-Fehler oben für Details.`
+    );
+    process.exit(2);
+  }
   return existing;
 }
 

@@ -200,11 +200,14 @@ export default function AdminHealthPage() {
           <p style={{ margin: 0, fontStyle: "italic" }}>
             Der Korpus hat {allEntries?.length} Einträge, aber{" "}
             <strong>keine semantischen Felder</strong> (<code style={{ fontFamily: MONO, color: C.accent }}>werkVoiceScore</code>,{" "}
-            <code style={{ fontFamily: MONO, color: C.accent }}>related[]</code>). Vermutlich fehlt
-            das <code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>-Secret
-            in den GitHub-Actions-Settings — der Workflow läuft erfolgreich, skipped aber die
-            Embedding-Berechnung still.
+            <code style={{ fontFamily: MONO, color: C.accent }}>related[]</code>). Mögliche Ursachen:
           </p>
+          <ol style={{ margin: "0.5rem 0", paddingLeft: "1.2rem", fontStyle: "italic" }}>
+            <li><code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>-Secret fehlt
+              in den GitHub-Actions-Settings.</li>
+            <li>Secret ist gesetzt, hat aber Whitespace (Copy-Paste-Falle) oder ist falscher Key.</li>
+            <li>Free-Tier-Quota überschritten (100 RPM für text-embedding-004).</li>
+          </ol>
           <p style={{ margin: "0.5rem 0 0", fontFamily: MONO, fontSize: "0.6rem", color: C.muted }}>
             Setup: <a
               href="https://github.com/marksen23/digitale-transformation-ebook/settings/secrets/actions"
@@ -212,8 +215,12 @@ export default function AdminHealthPage() {
               style={{ color: C.accent, textDecoration: "none" }}
             >Repo → Settings → Secrets and variables → Actions ↗</a>{" "}
             · Name: <code style={{ color: C.accent }}>GEMINI_API_KEY</code> · Value: derselbe Key
-            wie auf Render. Danach „↻ Index neu bauen" drücken — die folgenden Sektionen
-            (Hold-out, Kohärenz, Spannungen) bekommen Daten.
+            wie auf Render (keine Anführungszeichen, keine umrandenden Spaces). Danach „↻ Index neu
+            bauen" drücken — der Workflow loggt jetzt erkennbar{" "}
+            <code style={{ color: C.accent }}>GEMINI_API_KEY OK (len=…, masked=AIz…xyz)</code> bei
+            Erfolg und{" "}
+            <code style={{ color: C.accent }}>FATAL: 0 erfolgreiche Embedding-Calls</code> bei
+            Fehlschlag (rot in den Action-Logs sichtbar).
           </p>
         </div>
       )}

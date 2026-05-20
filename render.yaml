@@ -13,3 +13,11 @@ services:
         sync: false
       - key: GEMINI_API_KEY
         sync: false
+      # GITHUB_TOKEN — Pflicht für Live-Append. Ohne dieses Token kann der
+      # Server keine neuen KI-Antworten in content/resonanzen/raw/ und in
+      # client/public/resonanzen-index.json schreiben → KI-Ausgaben werden
+      # nicht in den Korpus übernommen. Personal Access Token mit "repo"-
+      # Scope erstellen unter https://github.com/settings/tokens und im
+      # Render-Dashboard manuell hinterlegen (sync: false).
+      - key: GITHUB_TOKEN
+        sync: false
