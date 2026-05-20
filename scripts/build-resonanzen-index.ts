@@ -39,6 +39,13 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // optional
 // Check klar wirkt.
 const GEMINI_API_KEY = (process.env.GEMINI_API_KEY ?? "").trim() || undefined;
 
+// Embedding-Modell — wenn Google den Endpoint umbenennt/entfernt, hier
+// updaten. Historie:
+//   - "text-embedding-004"     ← bis ~04/2026 verwendet, dann 404 v1beta
+//   - "gemini-embedding-001"   ← aktuelles Standard-Modell (seit 2026)
+// Aktueller Status: https://ai.google.dev/gemini-api/docs/embeddings
+const GEMINI_EMBED_MODEL = process.env.GEMINI_EMBED_MODEL?.trim() || "gemini-embedding-001";
+
 interface ResonanzEntry {
   id: string;
   ts: string;
@@ -513,11 +520,16 @@ const EMBED_FAIL_LOG_LIMIT = 3;
 async function fetchEmbedding(text: string): Promise<number[] | null> {
   try {
     const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${GEMINI_API_KEY}`,
+      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBED_MODEL}:embedContent?key=${GEMINI_API_KEY}`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ content: { parts: [{ text: text.slice(0, 8000) }] } }),
+        body: JSON.stringify({
+          // gemini-embedding-001 verlangt das model-Feld zusätzlich zur URL;
+          // bei text-embedding-004 war es optional. Beide akzeptieren es.
+          model: `models/${GEMINI_EMBED_MODEL}`,
+          content: { parts: [{ text: text.slice(0, 8000) }] },
+        }),
       }
     );
     if (!res.ok) {
@@ -571,7 +583,7 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
   // the extra ~70s for 124 entries is acceptable in a build step.
   const BATCH = 5;
   const BATCH_DELAY_MS = 3500;
-  console.log(`[build-resonanzen-index] computing ${toCompute.length} new embeddings (Gemini text-embedding-004, ${BATCH_DELAY_MS}ms between batches)`);
+  console.log(`[build-resonanzen-index] computing ${toCompute.length} new embeddings (Gemini ${GEMINI_EMBED_MODEL}, ${BATCH_DELAY_MS}ms between batches)`);
   let success = 0, failed = 0;
   for (let i = 0; i < toCompute.length; i += BATCH) {
     if (i > 0) await new Promise(r => setTimeout(r, BATCH_DELAY_MS));
@@ -608,7 +620,7 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
     const msg =
       `0 erfolgreiche Embedding-Calls bei ${failed} Versuchen. ` +
       `Wahrscheinliche Ursachen: ungültiger GEMINI_API_KEY, abgelaufene Free-Tier-Quota, ` +
-      `oder Gemini hat den text-embedding-004-Endpoint entfernt. ` +
+      `oder Gemini hat den ${GEMINI_EMBED_MODEL}-Endpoint entfernt (siehe https://ai.google.dev/gemini-api/docs/embeddings). ` +
       `Siehe die ersten Fetch-Fehler oben für Details.`;
     if (required) {
       console.error(`[build-resonanzen-index] FATAL: ${msg}`);
