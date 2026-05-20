@@ -182,6 +182,10 @@ jobs:
           GITHUB_REPO_BRANCH: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Embeddings sind im CI Pflicht — wenn 0 Calls erfolgreich, Build
+          # rot färben (sonst sah man bisher grünen Haken bei leerem Index).
+          # Netlify-Builds setzen das Flag NICHT → dort soft-fail.
+          EMBEDDINGS_REQUIRED: "1"
 
       - name: Commit snapshot + index + tag last-stable
         if: success()

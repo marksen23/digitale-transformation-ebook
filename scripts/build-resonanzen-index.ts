@@ -597,19 +597,27 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
   fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
   console.log(`[build-resonanzen-index] wrote ${success} new embeddings (${failed} failed) to ${EMBEDDINGS_OUTPUT}`);
 
-  // Loud-Fail wenn KEY gesetzt war aber NICHTS funktioniert hat. Vorher
-  // schluckte der Script das still und der Workflow lief auf "success" —
-  // der User sah einen grünen Haken aber keine semantischen Felder im
-  // Korpus. Lieber rot färben, damit der Fehler in der Action-Übersicht
-  // sichtbar ist.
+  // Loud-Fail wenn KEY gesetzt war aber NICHTS funktioniert hat — aber NUR
+  // wenn explizit angefordert (EMBEDDINGS_REQUIRED=1). Der CI-Workflow
+  // validate-corpus.yml setzt das Flag, damit ein stilles "0 Embeddings"
+  // dort rot wird. Netlify-Builds setzen es nicht — der committete Index
+  // reicht für den statischen Site-Build, ein Embedding-Fehler darf den
+  // Frontend-Deploy nicht blockieren.
   if (success === 0 && failed > 0) {
-    console.error(
-      `[build-resonanzen-index] FATAL: 0 erfolgreiche Embedding-Calls bei ${failed} Versuchen. ` +
+    const required = (process.env.EMBEDDINGS_REQUIRED ?? "").trim() === "1";
+    const msg =
+      `0 erfolgreiche Embedding-Calls bei ${failed} Versuchen. ` +
       `Wahrscheinliche Ursachen: ungültiger GEMINI_API_KEY, abgelaufene Free-Tier-Quota, ` +
       `oder Gemini hat den text-embedding-004-Endpoint entfernt. ` +
-      `Siehe die ersten Fetch-Fehler oben für Details.`
-    );
-    process.exit(2);
+      `Siehe die ersten Fetch-Fehler oben für Details.`;
+    if (required) {
+      console.error(`[build-resonanzen-index] FATAL: ${msg}`);
+      process.exit(2);
+    } else {
+      console.warn(
+        `[build-resonanzen-index] WARN: ${msg} (EMBEDDINGS_REQUIRED nicht gesetzt — Build läuft weiter)`,
+      );
+    }
   }
   return existing;
 }
