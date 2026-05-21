@@ -1,0 +1,233 @@
+{
+  "generatedAt": "2026-05-21T06:56:13.421Z",
+  "checked": 16,
+  "stable": 16,
+  "shifted": 0,
+  "drifted": 0,
+  "details": [
+    {
+      "id": "MPF4FISZ-67000E01",
+      "baseline": [
+        "MP8UIMZW-BADE77E5",
+        "MPEV1D2J-55138734",
+        "MP497SNT-5E1D2074"
+      ],
+      "current": [
+        "MP8UIMZW-BADE77E5",
+        "MPEV1D2J-55138734",
+        "MP497SNT-5E1D2074"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MP8OB1IU-F6C31DC7",
+      "baseline": [
+        "MOOVXCI4-822961D2",
+        "MPECAV23-5FAD4249",
+        "MOHM21Y5-A3B5F539"
+      ],
+      "current": [
+        "MOOVXCI4-822961D2",
+        "MPECAV23-5FAD4249",
+        "MOHM21Y5-A3B5F539"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MP756UV9-FF3838F7",
+      "baseline": [
+        "MP74X3EJ-72CDDB9F",
+        "MP74VXSM-5DEA06F3",
+        "MOHST017-5C4320E1"
+      ],
+      "current": [
+        "MP74X3EJ-72CDDB9F",
+        "MP74VXSM-5DEA06F3",
+        "MOHST017-5C4320E1"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MP74VXSM-5DEA06F3",
+      "baseline": [
+        "MP756UV9-FF3838F7",
+        "MP74X3EJ-72CDDB9F",
+        "MOHAREIB-E15E7BF8"
+      ],
+      "current": [
+        "MP756UV9-FF3838F7",
+        "MP74X3EJ-72CDDB9F",
+        "MOHAREIB-E15E7BF8"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MP2LIW43-E8ADC59E",
+      "baseline": [
+        "MP2LJCJB-EA58EC28",
+        "MOJ7Q5HM-89F62E3F",
+        "MOQ5IKR5-C67AAC15"
+      ],
+      "current": [
+        "MP2LJCJB-EA58EC28",
+        "MOJ7Q5HM-89F62E3F",
+        "MOQ5IKR5-C67AAC15"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOQ5EOBY-82AD9EEE",
+      "baseline": [
+        "MPARZ5F0-A9FD6F70",
+        "MOHV84M5-1825A399",
+        "MOP0S479-373A2268"
+      ],
+      "current": [
+        "MPARZ5F0-A9FD6F70",
+        "MOHV84M5-1825A399",
+        "MOP0S479-373A2268"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOOU3TYC-FE290C2B",
+      "baseline": [
+        "MOOJUW0R-CE8E0F2F",
+        "MOPEYJKU-C4711B5F",
+        "MOOU6X9D-4A49EE98"
+      ],
+      "current": [
+        "MOOJUW0R-CE8E0F2F",
+        "MOPEYJKU-C4711B5F",
+        "MOOU6X9D-4A49EE98"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOOJX57H-967D3B48",
+      "baseline": [
+        "MOOJUW0R-CE8E0F2F",
+        "MOOUF9G2-17673BD9",
+        "MOOJYUM5-27711091"
+      ],
+      "current": [
+        "MOOJUW0R-CE8E0F2F",
+        "MOOUF9G2-17673BD9",
+        "MOOJYUM5-27711091"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MON69DI9-D63A7910",
+      "baseline": [
+        "MPAH317T-242EECA7",
+        "MOHV84M5-1825A399",
+        "MOHAI60S-B7B04552"
+      ],
+      "current": [
+        "MPAH317T-242EECA7",
+        "MOHV84M5-1825A399",
+        "MOHAI60S-B7B04552"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOHV84M5-1825A399",
+      "baseline": [
+        "MOHLZBVK-2FBBAD2F",
+        "MOJ7Q5HM-89F62E3F",
+        "MOP0LEAL-E2568DCC"
+      ],
+      "current": [
+        "MOHLZBVK-2FBBAD2F",
+        "MOJ7Q5HM-89F62E3F",
+        "MOP0LEAL-E2568DCC"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOHST017-5C4320E1",
+      "baseline": [
+        "MP2LJCJB-EA58EC28",
+        "MOP0LEAL-E2568DCC",
+        "MOPFJTND-AAE76B2B"
+      ],
+      "current": [
+        "MP2LJCJB-EA58EC28",
+        "MOP0LEAL-E2568DCC",
+        "MOPFJTND-AAE76B2B"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOHDE0UP-E1D209AD",
+      "baseline": [
+        "MOHDAOFD-2C20D4F5",
+        "MOHDLJ25-7A6B620C",
+        "MOHDW91N-D9BDFDB1"
+      ],
+      "current": [
+        "MOHDAOFD-2C20D4F5",
+        "MOHDLJ25-7A6B620C",
+        "MOHDW91N-D9BDFDB1"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOHCN98S-2540F4DF",
+      "baseline": [
+        "MOHCIS4R-69B0D47B",
+        "MP756UV9-FF3838F7",
+        "MOHV84M5-1825A399"
+      ],
+      "current": [
+        "MOHCIS4R-69B0D47B",
+        "MP756UV9-FF3838F7",
+        "MOHV84M5-1825A399"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOHB6DLO-355115A6",
+      "baseline": [
+        "MOHB8QCN-0E2E8408",
+        "MOHBB5U1-12DE437D",
+        "MOHBHF0D-0E814866"
+      ],
+      "current": [
+        "MOHB8QCN-0E2E8408",
+        "MOHBB5U1-12DE437D",
+        "MOHBHF0D-0E814866"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOHAUYTH-CD1E3227",
+      "baseline": [
+        "MOP0UF96-1A0ACB35",
+        "MOHV84M5-1825A399",
+        "MOOZHCUT-4B86F8AD"
+      ],
+      "current": [
+        "MOP0UF96-1A0ACB35",
+        "MOHV84M5-1825A399",
+        "MOOZHCUT-4B86F8AD"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MOHAREIB-E15E7BF8",
+      "baseline": [
+        "MOOK20R3-62E609BA",
+        "MOHAN4AO-7A201C56",
+        "MOHMET94-3799557A"
+      ],
+      "current": [
+        "MOOK20R3-62E609BA",
+        "MOHAN4AO-7A201C56",
+        "MOHMET94-3799557A"
+      ],
+      "overlap": 3
+    }
+  ]
+}
