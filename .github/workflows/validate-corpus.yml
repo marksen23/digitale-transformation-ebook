@@ -189,6 +189,22 @@ jobs:
           # Netlify-Builds setzen das Flag NICHT → dort soft-fail.
           EMBEDDINGS_REQUIRED: "1"
 
+      # Embeddings/Index als Artifact uploaden — auch wenn der Commit-Step
+      # später fehlschlägt. So lässt sich der lokal generierte State
+      # vom Runner herunterladen und inspizieren, statt nur Logs zu raten.
+      - name: Upload rebuilt index + embeddings as artifact
+        if: always()
+        uses: actions/upload-artifact@330a01c490aca151604b8cf639adc76d48f6c5d4  # v5
+        with:
+          name: corpus-state
+          path: |
+            client/public/resonanzen-index.json
+            client/public/resonanzen-embeddings.json
+            client/public/resonanzen-holdout-baseline.json
+            client/public/resonanzen-holdout-report.json
+          retention-days: 7
+          if-no-files-found: warn
+
       - name: Commit snapshot + index + tag last-stable
         if: success()
         run: |
@@ -221,6 +237,10 @@ jobs:
           done
           echo "=== Staged diff (numstat): ==="
           git diff --cached --numstat | head -10 || true
+          echo "=== git status: ==="
+          git status --short
+          echo "=== git remote: ==="
+          git remote -v
           if git diff --cached --quiet; then
             echo "No snapshot/index changes to commit"
           else
@@ -239,11 +259,26 @@ jobs:
             # Race-Schutz: wenn main inzwischen gewachsen ist, rebase
             # vor dem Push, damit der Snapshot nicht in einer Push-Race
             # verloren geht.
+            PUSH_OK=false
             for i in 1 2 3; do
-              git pull --rebase origin main && git push origin main && break
-              echo "push attempt $i fehlgeschlagen, retry …"
+              echo "--- Push attempt $i ---"
+              if git pull --rebase origin main && git push origin main; then
+                PUSH_OK=true
+                echo "[push] SUCCESS on attempt $i"
+                break
+              fi
+              echo "[push] FAILED on attempt $i — retrying in $((2 * i))s"
               sleep $((2 * i))
             done
+            # Wenn alle 3 Push-Versuche scheitern, Workflow rot färben.
+            # Vorher: Loop endete still, Workflow blieb grün, der User
+            # merkte nie dass nichts auf main ankam.
+            if [ "$PUSH_OK" != "true" ]; then
+              echo "::error::Snapshot+Index konnte nicht nach main gepusht werden (3 Versuche fehlgeschlagen)."
+              echo "Mögliche Ursachen: Branch-Protection, fehlende contents:write-Permission,"
+              echo "oder Race mit nebenläufigem Bot-Push."
+              exit 1
+            fi
           fi
           # Tag last-stable überschreiben (force, damit immer auf neuestem stable steht)
           git tag -f last-stable-$DATE
