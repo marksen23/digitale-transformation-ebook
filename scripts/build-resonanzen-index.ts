@@ -301,6 +301,31 @@ async function main() {
     JSON.stringify({ generatedAt: new Date().toISOString(), count: entries.length, entries }, null, 2)
   );
   console.log(`[build-resonanzen-index] wrote ${entries.length} entries to ${OUTPUT}`);
+
+  // ─── Final-Telemetrie: was steht effektiv im Index? ──────────────────
+  // Wenn dieser Block "0 / 0 / 0" zeigt obwohl GEMINI_API_KEY OK gemeldet
+  // wurde, ist irgendwo zwischen fetch und JSON-Write etwas verloren
+  // gegangen — z.B. Response-Shape unerwartet, oder Embedding-File
+  // existiert lokal aber computeCrossLinks fand keine Matches.
+  const withEmbedding = embeddings ? entries.filter(e => embeddings![e.id]).length : 0;
+  const withRelated = entries.filter(e => Array.isArray(e.related) && e.related.length > 0).length;
+  const withWerkVoice = entries.filter(e => typeof e.werkVoiceScore === "number").length;
+  const withCorpusVoice = entries.filter(e => typeof e.corpusVoiceScore === "number").length;
+  console.log(
+    `[build-resonanzen-index] FINAL: ${withEmbedding}/${entries.length} mit Embedding · ` +
+    `${withRelated} mit related[] · ${withWerkVoice} mit werkVoiceScore · ` +
+    `${withCorpusVoice} mit corpusVoiceScore`,
+  );
+
+  // Datei-Stats für Debug, falls der CI-Commit-Step "no changes" meldet
+  const indexStat = fs.statSync(OUTPUT);
+  console.log(`[build-resonanzen-index] OUTPUT size: ${indexStat.size} bytes`);
+  if (fs.existsSync(EMBEDDINGS_OUTPUT)) {
+    const embStat = fs.statSync(EMBEDDINGS_OUTPUT);
+    console.log(`[build-resonanzen-index] EMBEDDINGS_OUTPUT size: ${embStat.size} bytes`);
+  } else {
+    console.log(`[build-resonanzen-index] EMBEDDINGS_OUTPUT does not exist`);
+  }
 }
 
 function cosineSim(a: number[], b: number[]): number {
@@ -517,6 +542,8 @@ function runHoldoutCheck(entries: ResonanzEntry[], embeddings: Record<string, nu
 let _embedFailLogged = 0;
 const EMBED_FAIL_LOG_LIMIT = 3;
 
+let _embedSuccessLogged = false;
+
 async function fetchEmbedding(text: string): Promise<number[] | null> {
   try {
     const res = await fetch(
@@ -547,6 +574,13 @@ async function fetchEmbedding(text: string): Promise<number[] | null> {
         console.error(`[fetchEmbedding] unexpected response shape: ${JSON.stringify(data).slice(0, 400)}`);
       }
       return null;
+    }
+    if (!_embedSuccessLogged) {
+      _embedSuccessLogged = true;
+      console.log(
+        `[fetchEmbedding] first success: ${data.embedding.values.length}-dim vector ` +
+        `(model=${GEMINI_EMBED_MODEL}, first 3 values=${data.embedding.values.slice(0, 3).join(", ")}…)`
+      );
     }
     return data.embedding.values;
   } catch (err) {

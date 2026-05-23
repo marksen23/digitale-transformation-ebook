@@ -200,8 +200,27 @@ jobs:
           # ausgeschlossen sind (Dev-Artefakte). In CI heben wir das auf,
           # damit Netlify auch ohne eigenes Rebuild den frischen Index hat.
           git add versions/
-          git add -f client/public/resonanzen-index.json client/public/resonanzen-embeddings.json client/public/resonanzen-holdout-baseline.json client/public/resonanzen-holdout-report.json 2>/dev/null || true
-          git add client/public/resonanzen-drift-report.json 2>/dev/null || true
+          # Diagnose: zeige welche Dateien existieren, bevor wir sie adden.
+          # Vorher wurde 2>/dev/null || true verwendet, das jeden "file
+          # nicht gefunden"-Fehler still schluckte — Resultat: workflow
+          # "green" trotz fehlender Embeddings-File auf der Remote.
+          echo "=== Files vor git add: ==="
+          ls -la client/public/resonanzen-*.json 2>&1 || echo "(keine resonanzen-*.json Files)"
+          # Jeden File einzeln adden mit klarem Logging.
+          for f in \
+              client/public/resonanzen-index.json \
+              client/public/resonanzen-embeddings.json \
+              client/public/resonanzen-holdout-baseline.json \
+              client/public/resonanzen-holdout-report.json \
+              client/public/resonanzen-drift-report.json; do
+            if [ -f "$f" ]; then
+              git add -f "$f" && echo "[git add] OK: $f"
+            else
+              echo "[git add] SKIP (not found): $f"
+            fi
+          done
+          echo "=== Staged diff (numstat): ==="
+          git diff --cached --numstat | head -10 || true
           if git diff --cached --quiet; then
             echo "No snapshot/index changes to commit"
           else
