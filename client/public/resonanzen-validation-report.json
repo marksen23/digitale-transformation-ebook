@@ -1,20 +1,20 @@
 {
-  "generatedAt": "2026-05-17T21:57:20.063Z",
-  "filesChecked": 124,
+  "generatedAt": "2026-05-23T07:29:48.045Z",
+  "filesChecked": 136,
   "errors": 0,
   "warnings": 0,
   "issues": [],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 42,
+      "analyse": 50,
       "chapter": 21,
       "enkidu": 20,
       "graph-chat": 20,
-      "path-analyse": 19,
+      "path-analyse": 23,
       "translate": 2
     },
     "byStatus": {
-      "raw": 121,
+      "raw": 133,
       "published": 3
     },
     "orphanNodeIds": []
