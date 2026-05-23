@@ -223,18 +223,26 @@ jobs:
           echo "=== Files vor git add: ==="
           ls -la client/public/resonanzen-*.json 2>&1 || echo "(keine resonanzen-*.json Files)"
           # Jeden File einzeln adden mit klarem Logging.
+          # WICHTIG: alle vom Build geschriebenen Files MÜSSEN hier rein,
+          # sonst stranded git pull --rebase mit "You have unstaged changes"
+          # und der Push schlägt fehl (passiert: 2026-05-23 Run 70436097442).
           for f in \
               client/public/resonanzen-index.json \
               client/public/resonanzen-embeddings.json \
               client/public/resonanzen-holdout-baseline.json \
               client/public/resonanzen-holdout-report.json \
-              client/public/resonanzen-drift-report.json; do
+              client/public/resonanzen-drift-report.json \
+              client/public/resonanzen-validation-report.json \
+              client/public/resonanzen-chapter-hashes.json; do
             if [ -f "$f" ]; then
               git add -f "$f" && echo "[git add] OK: $f"
             else
               echo "[git add] SKIP (not found): $f"
             fi
           done
+          # validation-output.txt ist nur Temp-Log von Step 6, gehört nicht
+          # ins Repo — explizit entfernen, damit pull --rebase nicht stolpert.
+          rm -f validation-output.txt
           echo "=== Staged diff (numstat): ==="
           git diff --cached --numstat | head -10 || true
           echo "=== git status: ==="
@@ -262,7 +270,11 @@ jobs:
             PUSH_OK=false
             for i in 1 2 3; do
               echo "--- Push attempt $i ---"
-              if git pull --rebase origin main && git push origin main; then
+              # --autostash: falls trotz aller Vorsicht noch ein File dirty
+            # liegt (z.B. Drift-Check schreibt drift-report.json nach dem
+            # Stage-Loop), wird es vor dem Rebase auto-gestashed und danach
+            # wieder appliziert. Belt-and-Suspenders.
+            if git pull --rebase --autostash origin main && git push origin main; then
                 PUSH_OK=true
                 echo "[push] SUCCESS on attempt $i"
                 break
