@@ -7,6 +7,7 @@ import ErrorBoundary from "./components/ErrorBoundary";
 import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import AppFrame from "./components/AppFrame";
+import InstallBanner from "./components/InstallBanner";
 
 // Resonanzen-Seite lazy laden — eigener Bundle-Chunk, FAQ-spezifisch.
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
@@ -66,6 +67,7 @@ function App() {
       >
         <TooltipProvider>
           <Toaster />
+          <InstallBanner />
           <Router />
         </TooltipProvider>
       </ThemeProvider>
