@@ -18,7 +18,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import PageNav from "@/components/PageNav";
 import {
-  TRADITIONS, SCIENCE_LINKS,
+  TRADITIONS,
   RESONANZVERNUNFT_PFAD,
   philosophersByBirth, getPhilosopher, getTradition,
   type TraditionId,
@@ -443,32 +443,6 @@ export default function PhilosophyPage() {
           </section>
         )}
       </main>
-
-      {/* ─── Wissenschaftliche Anschlüsse ─── */}
-      <section style={{
-        maxWidth: 1400, margin: "2rem auto 0",
-        padding: isMobile ? "1.5rem 0.8rem 8rem" : "1.5rem 1rem 4rem",
-        borderTop: `1px solid ${C.border}`,
-      }}>
-        <h2 style={{ fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.18em", color: C.muted, textTransform: "uppercase", marginBottom: "1rem", fontWeight: 400 }}>
-          Wissenschaftliche Anschlüsse
-        </h2>
-        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))", gap: "1rem" }}>
-          {SCIENCE_LINKS.map(s => (
-            <div key={s.id} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "1rem 1.2rem" }}>
-              <h3 style={{ fontFamily: SERIF, fontSize: "1.05rem", fontStyle: "italic", color: C.textBright, fontWeight: 400, margin: "0 0 0.5rem 0" }}>
-                {s.name}
-              </h3>
-              <p style={{ fontFamily: SERIF, fontSize: "0.85rem", color: C.text, lineHeight: 1.5, margin: "0 0 0.7rem 0" }}>
-                {s.description}
-              </p>
-              <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, letterSpacing: "0.05em" }}>
-                exemplarisch: {s.exemplars.join(" · ")}
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ─── Mobile Bottom-Sheet ─── */}
       {isMobile && (
