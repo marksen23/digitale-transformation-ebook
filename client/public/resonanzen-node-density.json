@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T06:02:34.186Z",
+  "generatedAt": "2026-05-24T08:25:12.880Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 20,
@@ -116,9 +116,9 @@
       }
     },
     "gegenwart": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
-        "analyse": 2
+        "analyse": 3
       }
     },
     "dialog": {
@@ -239,10 +239,10 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
+        "analyse": 2,
+        "path-analyse": 1
       }
     },
     "transformatives-drittes": {
