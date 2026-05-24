@@ -154,6 +154,8 @@ export default function Home() {
   // PWA Install Prompt
   const [installPrompt, setInstallPrompt] = useState<Event | null>(null);
   const [isInstalled, setIsInstalled] = useState(false);
+  const [isIos, setIsIos] = useState(false);
+  const [iosInstallOpen, setIosInstallOpen] = useState(false);
 
   // Service-Worker-Update-Toast
   const [swNeedsRefresh, setSwNeedsRefresh] = useState(false);
@@ -189,12 +191,16 @@ export default function Home() {
     return () => observer.disconnect();
   }, [setDarkMode]);
 
-  // PWA Install Prompt abfangen
+  // PWA Install Prompt abfangen + Platform-Detection
   useEffect(() => {
-    // Prüfe ob bereits installiert (standalone/fullscreen)
+    // Standalone-Check (bereits installiert)
     const isStandalone = window.matchMedia('(display-mode: standalone)').matches
       || (navigator as any).standalone === true;
-    if (isStandalone) setIsInstalled(true);
+    if (isStandalone) { setIsInstalled(true); return; }
+
+    // iOS-Detection: kein beforeinstallprompt, aber A2HS über Share-Menü möglich
+    const ios = /iPhone|iPad|iPod/i.test(navigator.userAgent) && !('MSStream' in window);
+    setIsIos(ios);
 
     const handler = (e: Event) => {
       e.preventDefault();
@@ -210,6 +216,17 @@ export default function Home() {
       window.removeEventListener('appinstalled', onInstalled);
     };
   }, []);
+
+  const handleInstall = useCallback(async () => {
+    if (installPrompt && 'prompt' in installPrompt) {
+      (installPrompt as any).prompt();
+      const result = await (installPrompt as any).userChoice;
+      if (result.outcome === 'accepted') setIsInstalled(true);
+      setInstallPrompt(null);
+    } else if (isIos) {
+      setIosInstallOpen(true);
+    }
+  }, [installPrompt, isIos]);
 
   // Print/PDF-Schutz: Hinweis statt Inhalt anzeigen
   useEffect(() => {
@@ -831,19 +848,9 @@ export default function Home() {
               <BookOpen size={16} className="inline mr-2 -mt-0.5" />
               Lesen
             </button>
-            {!isInstalled && (
+            {!isInstalled && (installPrompt || isIos) && (
               <button
-                onClick={async () => {
-                  if (installPrompt && 'prompt' in installPrompt) {
-                    (installPrompt as any).prompt();
-                    const result = await (installPrompt as any).userChoice;
-                    if (result.outcome === 'accepted') setIsInstalled(true);
-                    setInstallPrompt(null);
-                  } else {
-                    // Fallback für iOS Safari (kein beforeinstallprompt)
-                    alert('Tippe auf „Teilen" ➜ „Zum Home-Bildschirm" um die App zu installieren.');
-                  }
-                }}
+                onClick={handleInstall}
                 className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
               >
                 <Smartphone size={16} />
@@ -1421,19 +1428,9 @@ export default function Home() {
                     <BookOpen size={16} className="text-amber-500 flex-none" />
                     Beginnen zu Lesen
                   </button>
-                  {!isInstalled && (
+                  {!isInstalled && (installPrompt || isIos) && (
                     <button
-                      onClick={async () => {
-                        setBurgerMenuOpen(false);
-                        if (installPrompt && 'prompt' in installPrompt) {
-                          (installPrompt as any).prompt();
-                          const result = await (installPrompt as any).userChoice;
-                          if (result.outcome === 'accepted') setIsInstalled(true);
-                          setInstallPrompt(null);
-                        } else {
-                          alert('Tippe auf \u201eTeilen\u201c \u27a1 \u201eZum Home-Bildschirm\u201c um die App zu installieren.');
-                        }
-                      }}
+                      onClick={() => { setBurgerMenuOpen(false); handleInstall(); }}
                       className={`w-full text-left px-4 py-2.5 text-sm flex items-center gap-3 transition-colors ${darkMode ? 'text-stone-200 hover:bg-stone-700' : 'text-stone-700 hover:bg-stone-100'}`}
                     >
                       <Smartphone size={16} className="text-amber-500 flex-none" />
@@ -2515,6 +2512,93 @@ export default function Home() {
 
       {/* ─── Begriffsnetz läuft jetzt als eigene Route /begriffsnetz
             unter dem globalen AppFrame, kein Modal-Mount mehr hier. ── */}
+
+      {/* ─── iOS Install Guide Modal ──────────────────────────────── */}
+      <AnimatePresence>
+        {iosInstallOpen && (
+          <motion.div
+            key="ios-install-modal"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[200] flex items-end sm:items-center justify-center p-4"
+            onClick={() => setIosInstallOpen(false)}
+          >
+            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+            <motion.div
+              initial={{ y: 60, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: 60, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+              onClick={e => e.stopPropagation()}
+              className={`relative z-10 w-full max-w-sm rounded-2xl shadow-2xl p-6 ${darkMode ? 'bg-stone-900 text-stone-100' : 'bg-white text-stone-800'}`}
+            >
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-amber-500/20 flex items-center justify-center flex-none">
+                  <Smartphone size={20} className="text-amber-500" />
+                </div>
+                <div>
+                  <p className="font-semibold text-base">App installieren</p>
+                  <p className={`text-xs ${darkMode ? 'text-stone-400' : 'text-stone-500'}`}>iOS Safari · 3 Schritte</p>
+                </div>
+              </div>
+
+              <ol className="space-y-3 mb-6">
+                {[
+                  {
+                    step: 1,
+                    text: 'Tippe unten auf das Teilen-Symbol',
+                    icon: (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-amber-500">
+                        <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" />
+                        <polyline points="16 6 12 2 8 6" />
+                        <line x1="12" y1="2" x2="12" y2="15" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    step: 2,
+                    text: 'Scrolle und wähle „Zum Home-Bildschirm"',
+                    icon: (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-amber-500">
+                        <rect x="3" y="3" width="18" height="18" rx="2" />
+                        <line x1="12" y1="8" x2="12" y2="16" />
+                        <line x1="8" y1="12" x2="16" y2="12" />
+                      </svg>
+                    ),
+                  },
+                  {
+                    step: 3,
+                    text: 'Tippe oben rechts auf „Hinzufügen"',
+                    icon: (
+                      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" className="w-5 h-5 text-amber-500">
+                        <polyline points="20 6 9 17 4 12" />
+                      </svg>
+                    ),
+                  },
+                ].map(({ step, text, icon }) => (
+                  <li key={step} className="flex items-start gap-3">
+                    <span className={`flex-none w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold mt-0.5 ${darkMode ? 'bg-stone-700 text-stone-300' : 'bg-stone-100 text-stone-600'}`}>
+                      {step}
+                    </span>
+                    <div className="flex items-center gap-2 flex-1 text-sm">
+                      {icon}
+                      <span>{text}</span>
+                    </div>
+                  </li>
+                ))}
+              </ol>
+
+              <button
+                onClick={() => setIosInstallOpen(false)}
+                className="w-full py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-white font-semibold text-sm transition-colors"
+              >
+                Verstanden
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
