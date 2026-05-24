@@ -1,0 +1,349 @@
+{
+  "generatedAt": "2026-05-24T05:50:17.126Z",
+  "perNode": {
+    "resonanzvernunft": {
+      "count": 20,
+      "endpoints": {
+        "path-analyse": 14,
+        "analyse": 6
+      }
+    },
+    "resonanz": {
+      "count": 12,
+      "endpoints": {
+        "path-analyse": 11,
+        "analyse": 1
+      }
+    },
+    "vernunft": {
+      "count": 15,
+      "endpoints": {
+        "path-analyse": 6,
+        "analyse": 9
+      }
+    },
+    "zwischen": {
+      "count": 15,
+      "endpoints": {
+        "analyse": 7,
+        "path-analyse": 8
+      }
+    },
+    "sprache": {
+      "count": 6,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 3
+      }
+    },
+    "dasein": {
+      "count": 5,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 2
+      }
+    },
+    "stimme": {
+      "count": 5,
+      "endpoints": {
+        "path-analyse": 4,
+        "analyse": 1
+      }
+    },
+    "schweigen": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      }
+    },
+    "echo": {
+      "count": 5,
+      "endpoints": {
+        "analyse": 4,
+        "path-analyse": 1
+      }
+    },
+    "klang": {
+      "count": 3,
+      "endpoints": {
+        "analyse": 3
+      }
+    },
+    "erkenntnis": {
+      "count": 7,
+      "endpoints": {
+        "analyse": 4,
+        "path-analyse": 3
+      }
+    },
+    "wahrheit": {
+      "count": 8,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 5
+      }
+    },
+    "denken": {
+      "count": 6,
+      "endpoints": {
+        "analyse": 4,
+        "path-analyse": 2
+      }
+    },
+    "bewusstsein": {
+      "count": 6,
+      "endpoints": {
+        "path-analyse": 4,
+        "analyse": 2
+      }
+    },
+    "moment": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      }
+    },
+    "zeit": {
+      "count": 0,
+      "endpoints": {}
+    },
+    "raum": {
+      "count": 3,
+      "endpoints": {
+        "analyse": 3
+      }
+    },
+    "gegenwart": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 2
+      }
+    },
+    "dialog": {
+      "count": 3,
+      "endpoints": {
+        "analyse": 2,
+        "path-analyse": 1
+      }
+    },
+    "ich-du": {
+      "count": 4,
+      "endpoints": {
+        "analyse": 4
+      }
+    },
+    "antwort": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      }
+    },
+    "sein": {
+      "count": 6,
+      "endpoints": {
+        "analyse": 4,
+        "path-analyse": 2
+      }
+    },
+    "werden": {
+      "count": 1,
+      "endpoints": {
+        "path-analyse": 1
+      }
+    },
+    "existenz": {
+      "count": 0,
+      "endpoints": {}
+    },
+    "wesen": {
+      "count": 4,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 2
+      }
+    },
+    "selbst": {
+      "count": 9,
+      "endpoints": {
+        "path-analyse": 5,
+        "analyse": 4
+      }
+    },
+    "andere": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 2
+      }
+    },
+    "welt": {
+      "count": 7,
+      "endpoints": {
+        "analyse": 4,
+        "path-analyse": 3
+      }
+    },
+    "freiheit": {
+      "count": 6,
+      "endpoints": {
+        "path-analyse": 4,
+        "analyse": 2
+      }
+    },
+    "öffnung": {
+      "count": 4,
+      "endpoints": {
+        "path-analyse": 4
+      }
+    },
+    "spannung": {
+      "count": 9,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 7
+      }
+    },
+    "lm-spiegel": {
+      "count": 4,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 1
+      }
+    },
+    "lm-begegnung": {
+      "count": 3,
+      "endpoints": {
+        "analyse": 3
+      }
+    },
+    "lm-scheitern": {
+      "count": 1,
+      "endpoints": {
+        "analyse": 1
+      }
+    },
+    "lm-grenze": {
+      "count": 8,
+      "endpoints": {
+        "analyse": 5,
+        "path-analyse": 3
+      }
+    },
+    "lm-verwandlung": {
+      "count": 12,
+      "endpoints": {
+        "path-analyse": 7,
+        "analyse": 5
+      }
+    },
+    "dazwischenintelligenz": {
+      "count": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      }
+    },
+    "transformatives-drittes": {
+      "count": 1,
+      "endpoints": {
+        "path-analyse": 1
+      }
+    },
+    "entfremdung": {
+      "count": 1,
+      "endpoints": {
+        "analyse": 1
+      }
+    },
+    "echo-kammer": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 2
+      }
+    },
+    "gelassenheit": {
+      "count": 3,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 2
+      }
+    },
+    "transaufklaerung": {
+      "count": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      }
+    },
+    "resonanzimperativ": {
+      "count": 0,
+      "endpoints": {}
+    },
+    "unverfuegbarkeit": {
+      "count": 6,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 3
+      }
+    },
+    "weltfaltung": {
+      "count": 3,
+      "endpoints": {
+        "analyse": 3
+      }
+    },
+    "schatten": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 2
+      }
+    },
+    "licht": {
+      "count": 1,
+      "endpoints": {
+        "analyse": 1
+      }
+    },
+    "raumfaltung": {
+      "count": 2,
+      "endpoints": {
+        "analyse": 2
+      }
+    },
+    "wirklichkeit": {
+      "count": 3,
+      "endpoints": {
+        "analyse": 3
+      }
+    },
+    "moeglichkeit": {
+      "count": 1,
+      "endpoints": {
+        "analyse": 1
+      }
+    },
+    "schattenlicht": {
+      "count": 0,
+      "endpoints": {}
+    },
+    "wirklichkeit-moeglichkeit": {
+      "count": 0,
+      "endpoints": {}
+    }
+  },
+  "stats": {
+    "minCount": 0,
+    "maxCount": 20,
+    "median": 3,
+    "totalNodes": 52,
+    "zeroResonanceNodes": [
+      "zeit",
+      "existenz",
+      "resonanzimperativ",
+      "schattenlicht",
+      "wirklichkeit-moeglichkeit"
+    ]
+  }
+}

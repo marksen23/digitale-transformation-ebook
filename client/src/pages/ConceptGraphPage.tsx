@@ -2,6 +2,7 @@ import { useState, useEffect, useRef, useCallback, useMemo } from "react";
 import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, categoryLabel, PRINZIP_GROUPS, PRINZIP_PAIRS, type ConceptNode, type NodeCategory, type UserEdge, loadUserEdges, saveUserEdges } from "@/data/conceptGraph";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { loadNodeDensity, densityRatio, type NodeDensityFile } from "@/lib/nodeDensity";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
 import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORNAMENT, SERIF_BODY } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
@@ -249,6 +250,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   // View mode + animated layout transitions
   const [viewMode, setViewMode] = useState<"netz" | "cluster" | "baum" | "matrix">("netz");
+  // Heatmap-Modus: Knoten werden per Resonanz-Dichte opaque/transparent.
+  // Additive Schicht (kombinierbar mit allen vier Layout-Modi). Lade-Stand
+  // der density.json wird einmal beim Mount gefetched.
+  const [heatmapMode, setHeatmapMode] = useState(false);
+  const [nodeDensity, setNodeDensity] = useState<NodeDensityFile | null>(null);
   const [viewPositions, setViewPositions] = useState<Map<string, {x: number, y: number}>>(new Map());
   const viewModeRef = useRef<"netz" | "cluster" | "baum" | "matrix">("netz");
   const transitionRef = useRef<number | null>(null);
@@ -298,6 +304,15 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       if (idx) setResonanzenEntries(idx.entries);
     });
   }, []);
+  // Density beim ersten Heatmap-Klick lazy laden — bei Inactive-Default
+  // hat das keinen Bandbreiten-Cost. Cache ist im Modul-Singleton.
+  useEffect(() => {
+    if (heatmapMode && !nodeDensity) {
+      loadNodeDensity().then(d => {
+        if (d) setNodeDensity(d);
+      });
+    }
+  }, [heatmapMode, nodeDensity]);
   const resonanzenByNode = useMemo(
     () => resonanzenEntries ? groupResonanzenByNode(resonanzenEntries) : null,
     [resonanzenEntries]
@@ -909,6 +924,29 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 </button>
               );
             })}
+            {/* Heatmap-Toggle — additive Schicht, kombinierbar mit allen
+                View-Modi. Färbt Knoten per Resonanz-Dichte (blass =
+                blinder Fleck, intensiv = oft adressiert). */}
+            <button
+              key="heatmap"
+              onClick={() => setHeatmapMode(v => !v)}
+              title={heatmapMode ? "Heatmap deaktivieren" : "Heatmap — Resonanz-Dichte sichtbar machen (blinde Flecken)"}
+              style={{
+                fontFamily: C.mono, fontSize: "0.75rem",
+                width: 26, height: 26,
+                background: heatmapMode ? "rgba(126,184,200,0.18)" : "none",
+                border: `1px solid ${heatmapMode ? "#7eb8c8" : C.border}`,
+                color: heatmapMode ? "#7eb8c8" : C.muted,
+                cursor: "pointer", padding: 0,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                transition: "all 0.15s", borderRadius: 6,
+                marginLeft: "0.4rem",  // visueller Trenner vom Layout-Modus-Set
+              }}
+              onMouseEnter={e => { if (!heatmapMode) { e.currentTarget.style.color = C.text; e.currentTarget.style.borderColor = C.muted; } }}
+              onMouseLeave={e => { if (!heatmapMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+            >
+              ◌
+            </button>
           </div>
 
           {/* Workfunc-Buttons als gruppierter Container — auf Mobile per CSS
@@ -1359,7 +1397,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const isDim = state === "dim";
               const isNear = isDim && nearIds.has(node.id);
 
-              const fillOpacity =
+              const baseFillOpacity =
                 isGhost     ? 0.04 :
                 isFocus     ? 1 :
                 isConnected ? 0.85 :
@@ -1369,8 +1407,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
               const fill = isFocus ? catColor : C.surface;
               const strokeColor = isGhost ? C.border : isFocus ? catColor : isConnected ? catColor : isNear ? catColor : isDim ? C.border : catColor;
-              const strokeOpacity = isGhost ? 0.10 : isFocus ? 1 : isConnected ? 0.7 : isNear ? 0.40 : isDim ? 0.3 : 0.5;
+              const baseStrokeOpacity = isGhost ? 0.10 : isFocus ? 1 : isConnected ? 0.7 : isNear ? 0.40 : isDim ? 0.3 : 0.5;
               const strokeWidth = isFocus ? 2.5 : isConnected ? 1.8 : 1.2;
+
+              // Heatmap-Modus: multipliziere Fill+Stroke-Opacity mit der
+              // Resonanz-Dichte (0..1). Knoten ohne Resonanzen werden
+              // sehr blass (10 %), Knoten mit Max-Dichte bleiben voll.
+              // Focus-Node bleibt voll opaque (UX-Stabilität bei Selektion).
+              const heatmapFactor = (heatmapMode && !isFocus && !isGhost)
+                ? 0.1 + 0.9 * densityRatio(nodeDensity, node.id)
+                : 1;
+              const fillOpacity = baseFillOpacity * heatmapFactor;
+              const strokeOpacity = baseStrokeOpacity * (heatmapMode && !isFocus && !isGhost ? heatmapFactor : 1);
 
               const labelColor = isGhost ? C.muted : isFocus
                 ? C.void
@@ -2160,6 +2208,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 begriff-unabhängig). Die JSX-Blöcke siehe unten am Ende
                 des `.concept-graph-body`-Containers. */}
 
+            {/* Blinde Flecken im Heatmap-Modus jetzt in der RIGHT-Sidebar
+                (immer sichtbar, unabhängig von Selektion) — siehe unten. */}
+
             {/* ── Lesepfad ── */}
             <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
             <SectionLabel c={C} tracking="tight" count={visitedNodes.length} marginBottom="0.5rem">Lesepfad</SectionLabel>
@@ -2230,6 +2281,54 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           scrollbarWidth: "thin",
           scrollbarColor: `${C.border} transparent`,
         }}>
+          {/* Blinde-Flecken-Liste — nur sichtbar wenn Heatmap aktiv UND
+              es überhaupt Knoten ohne Resonanz gibt. Sitzt oben in der
+              RIGHT-Sidebar (vor Kohärenzfelder), weil es eine handlungs-
+              orientierte Anregung ist: "hier könntest du als nächstes
+              eine Resonanz erzeugen". */}
+          {heatmapMode && nodeDensity && nodeDensity.stats.zeroResonanceNodes.length > 0 && (
+            <div style={{ marginBottom: "1.2rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>
+              <SectionLabel
+                c={C}
+                color="#7eb8c8"
+                tracking="tight"
+                count={nodeDensity.stats.zeroResonanceNodes.length}
+                marginBottom="0.5rem"
+              >
+                ◌ Blinde Flecken
+              </SectionLabel>
+              <div style={{ fontSize: "0.62rem", color: C.textDim, fontStyle: "italic", marginBottom: "0.6rem", lineHeight: 1.5 }}>
+                Knoten ohne KI-Resonanz. Klick → Auswahl + Pfad-Explorer.
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.18rem" }}>
+                {nodeDensity.stats.zeroResonanceNodes.map(nid => {
+                  const n = NODE_MAP.get(nid);
+                  if (!n) return null;
+                  return (
+                    <button
+                      key={nid}
+                      onClick={() => {
+                        setSelectedId(nid);
+                        activateTool("path");
+                      }}
+                      style={{
+                        fontFamily: C.serif, fontSize: "0.78rem",
+                        color: CAT_COLOR[n.category],
+                        background: "none", border: "none",
+                        padding: "0.35rem 0.5rem", textAlign: "left",
+                        cursor: "pointer", borderLeft: `2px solid ${CAT_COLOR[n.category]}55`,
+                        transition: "all 0.15s", minHeight: 32,
+                      }}
+                      onMouseEnter={e => { e.currentTarget.style.background = "rgba(126,184,200,0.08)"; e.currentTarget.style.borderLeftColor = "#7eb8c8"; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.borderLeftColor = `${CAT_COLOR[n.category]}55`; }}
+                    >
+                      {n.fullLabel || n.label.replace("\n", " ")}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          )}
           <LegendSection
             title="Kohärenzfelder"
             c={C}

@@ -49,6 +49,13 @@ export default function ResonanzenPage() {
     initParams.get("status") === "kuratiert" ? "kuratiert" : "all"
   );
   const [filterTag, setFilterTag] = useState<string | null>(initParams.get("tag"));
+  // Relevanz-Filter: Echo (nearDuplicates > 0) vs. Novelty (peripheral
+  // semantic position) vs. alles. Deep-linkbar via ?relevanz=echos|novelty.
+  type RelevanzKey = "all" | "echos" | "novelty";
+  const [filterRelevanz, setFilterRelevanz] = useState<RelevanzKey>(
+    initParams.get("relevanz") === "echos" ? "echos" :
+    initParams.get("relevanz") === "novelty" ? "novelty" : "all"
+  );
   const [search, setSearch] = useState(initParams.get("q") ?? "");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   // Permalink-Modus: ?id=ABC im URL beim Mount → zeigt nur diesen einen
@@ -181,19 +188,21 @@ export default function ResonanzenPage() {
     update("endpoint", filterEndpoint);
     update("status", filterStatus === "kuratiert" ? "kuratiert" : null);
     update("tag", filterTag);
+    update("relevanz", filterRelevanz === "all" ? null : filterRelevanz);
     // 'id' nur bei expliziter Wahl beibehalten (initial Deep-Link)
     const newSearch = params.toString();
     const target = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
     if (target !== window.location.pathname + window.location.search) {
       window.history.replaceState({}, "", target);
     }
-  }, [search, filterEndpoint, filterStatus, filterTag]);
+  }, [search, filterEndpoint, filterStatus, filterTag, filterRelevanz]);
 
   // Anzahl aktiver Filter (für "Filter (N aktiv)"-Affordance)
   const activeFilterCount =
     (filterEndpoint !== "all" ? 1 : 0) +
     (filterStatus === "kuratiert" ? 1 : 0) +
-    (filterTag ? 1 : 0);
+    (filterTag ? 1 : 0) +
+    (filterRelevanz !== "all" ? 1 : 0);
 
   // Semantische Suche ausführen (debounced via Button-Click)
   const runSemanticSearch = async () => {
@@ -239,6 +248,8 @@ export default function ResonanzenPage() {
       if (filterEndpoint !== "all" && e.endpoint !== filterEndpoint) return false;
       if (filterStatus === "kuratiert" && e.status === "raw") return false;
       if (filterTag && !e.nodeIds.includes(filterTag)) return false;
+      if (filterRelevanz === "echos" && (!e.nearDuplicates || e.nearDuplicates.length === 0)) return false;
+      if (filterRelevanz === "novelty" && !e.novelty) return false;
       return true;
     };
 
@@ -258,7 +269,7 @@ export default function ResonanzenPage() {
       }
       return true;
     });
-  }, [index, filterEndpoint, filterStatus, filterTag, search, semanticMode, semanticResults, permalinkId]);
+  }, [index, filterEndpoint, filterStatus, filterTag, filterRelevanz, search, semanticMode, semanticResults, permalinkId]);
 
   // Score-Map für semantische Anzeige (Eintrag → Cosine-Score)
   const scoreById = useMemo(() => {
@@ -302,6 +313,7 @@ export default function ResonanzenPage() {
     || filterTag !== null
     || filterEndpoint !== "all"
     || filterStatus === "kuratiert"
+    || filterRelevanz !== "all"
     || (semanticMode && semanticResults !== null)
     || permalinkId !== null;
 
@@ -696,6 +708,40 @@ export default function ResonanzenPage() {
                 {filterStatus === "kuratiert" ? "✓ Nur kuratiert" : "Alle (auch ungeprüft)"}
               </button>
             </div>
+            {/* Relevanz-Filter: Echos vs. Neue Erkenntnisse vs. alles.
+                Aus dem build-step kommen nearDuplicates (Cosine ≥0.88) und
+                novelty (max-Cosine <0.70). Wir mappen das auf drei Filter-
+                Pills, die der User kombiniert mit den anderen Filtern
+                anwenden kann. */}
+            <div>
+              <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.5rem">Relevanz:</SectionLabel>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                {([
+                  { key: "all" as const,     label: "Alle",              color: C.accent,     descr: "Standard — alle Einträge" },
+                  { key: "novelty" as const, label: "❖ Neue Erkenntnis", color: "#7eb8c8",    descr: "Semantisch peripher (Cosine <0.70)" },
+                  { key: "echos" as const,   label: "◉ Echos",           color: C.muted,      descr: "Near-Duplikate (Cosine ≥0.88)" },
+                ]).map(opt => {
+                  const active = filterRelevanz === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      onClick={() => setFilterRelevanz(opt.key)}
+                      title={opt.descr}
+                      style={{
+                        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: active ? "#080808" : opt.color,
+                        background: active ? opt.color : "none",
+                        border: `1px solid ${active ? opt.color : C.border}`,
+                        padding: "0.5rem 0.8rem", cursor: "pointer", minHeight: 44,
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
             {/* Tags */}
             {topTags.length > 0 && (
               <div>
@@ -914,6 +960,14 @@ export default function ResonanzenPage() {
               .map(rid => index!.entries.find(e => e.id === rid))
               .filter((e): e is ResonanzEntry => !!e)
               .slice(0, readingMode === "research" ? 5 : 3);
+            // Echo-Einträge: andere Resonanzen die diese Aussage im Kern
+            // wiederholen (Cosine ≥0.88, vom Build-Step in nearDuplicates).
+            // Separat vom related[]-Block weil semantisch anders: Echo =
+            // "wiederholt", related = "verwandter Faden". Beide werden
+            // nur in der expanded Card (depth/research) angezeigt.
+            const echoEntries = (entry.nearDuplicates ?? [])
+              .map(eid => index!.entries.find(e => e.id === eid))
+              .filter((e): e is ResonanzEntry => !!e);
             return (
               <article
                 key={entry.id}
@@ -935,6 +989,16 @@ export default function ResonanzenPage() {
                   <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
                     {ENDPOINT_LABEL[entry.endpoint]}
                     {entry.status === "raw" && readingMode !== "surface" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>{ORNAMENT.middot} ungeprüft</span>}
+                    {entry.novelty && (
+                      <span title="Neue Erkenntnis — semantisch peripher (max Cosine zu anderen <0.70)" style={{ color: "#7eb8c8", marginLeft: "0.5rem" }}>
+                        {ORNAMENT.middot} ❖ neu
+                      </span>
+                    )}
+                    {entry.nearDuplicates && entry.nearDuplicates.length > 0 && (
+                      <span title={`Echo — ähnelt ${entry.nearDuplicates.length} anderen Einträgen (Cosine ≥0.88)`} style={{ color: C.muted, marginLeft: "0.5rem" }}>
+                        {ORNAMENT.middot} ◉ Echo ({entry.nearDuplicates.length})
+                      </span>
+                    )}
                     {semanticMode && scoreById.has(entry.id) && (
                       <span style={{ color: "#5aacb8", marginLeft: "0.5rem" }}>
                         {ORNAMENT.middot} ≈ {(scoreById.get(entry.id)! * 100).toFixed(0)}%
@@ -1083,6 +1147,56 @@ export default function ResonanzenPage() {
                         </div>
                       </>
                     )}
+                  </div>
+                )}
+
+                {/* Echo-Cluster — andere Einträge, die diese Aussage im Kern
+                    wiederholen (Cosine ≥0.88). Visuell abgesetzt vom related[]-
+                    Block weil semantisch anders: Echo = "ist dasselbe", related =
+                    "ist verwandt". Nur in expanded card sichtbar. */}
+                {readingMode !== "surface" && expandedId === entry.id && echoEntries.length > 0 && (
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    style={{
+                      borderTop: `1px solid ${C.border}`,
+                      paddingTop: "0.5rem", marginTop: "0.5rem",
+                      borderLeft: `2px solid ${C.accentDim}`,
+                      paddingLeft: "0.6rem",
+                      background: `linear-gradient(to right, ${C.accentDim}11, transparent 30%)`,
+                    }}
+                  >
+                    <div style={{
+                      fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em",
+                      textTransform: "uppercase", color: C.accent, marginBottom: "0.4rem",
+                    }}>
+                      ◉ Echos dieser Aussage — {echoEntries.length} nahezu identische Begegnungen
+                    </div>
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                      {echoEntries.map(r => (
+                        <button
+                          key={r.id}
+                          onClick={() => {
+                            setExpandedId(r.id);
+                            requestAnimationFrame(() => {
+                              document.getElementById(`entry-${r.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
+                            });
+                          }}
+                          style={{
+                            fontFamily: SERIF, fontStyle: "italic", fontSize: "0.74rem",
+                            color: C.textDim, textAlign: "left", background: "none",
+                            border: "none", padding: "0.25rem 0", cursor: "pointer",
+                            display: "flex", gap: "0.4rem", alignItems: "baseline",
+                          }}
+                        >
+                          <span style={{ color: ENDPOINT_COLOR[r.endpoint], fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", flexShrink: 0 }}>
+                            {ENDPOINT_LABEL[r.endpoint].slice(0, 5)}
+                          </span>
+                          <span style={{ flex: 1, color: C.text }}>
+                            {r.prompt.length > 90 ? r.prompt.slice(0, 90) + "…" : r.prompt}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
 

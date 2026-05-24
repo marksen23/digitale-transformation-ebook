@@ -25,6 +25,7 @@ const OUTPUT = path.join(ROOT, "client/public/resonanzen-index.json");
 const EMBEDDINGS_OUTPUT = path.join(ROOT, "client/public/resonanzen-embeddings.json");
 const HOLDOUT_BASELINE_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-baseline.json");
 const HOLDOUT_REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-report.json");
+const NODE_DENSITY_OUTPUT = path.join(ROOT, "client/public/resonanzen-node-density.json");
 const HOLDOUT_MIN_CORPUS_SIZE = 30;
 const HOLDOUT_MODULO = 10;          // ≈10% Stichprobe
 const HOLDOUT_TOP_NEIGHBORS = 3;
@@ -46,6 +47,15 @@ const GEMINI_API_KEY = (process.env.GEMINI_API_KEY ?? "").trim() || undefined;
 // Aktueller Status: https://ai.google.dev/gemini-api/docs/embeddings
 const GEMINI_EMBED_MODEL = process.env.GEMINI_EMBED_MODEL?.trim() || "gemini-embedding-001";
 
+// Novelty-Schwelle: Einträge deren maximale Cosine zu anderen unter diesem
+// Wert liegt gelten als "peripheral / neue Erkenntnis". Empirisch kalibriert
+// auf gemini-embedding-001 + deutscher Philosophie-Korpus: Median max-Cosine
+// ist ~0.78, 0.70 isoliert die ~10-15% peripherst-gelegenen Einträge.
+// User's Vorschlag 0.65 zu aggressiv (würde fast nie greifen).
+const NOVELTY_THRESHOLD = parseFloat(
+  process.env.NOVELTY_THRESHOLD ?? "0.70"
+);
+
 interface ResonanzEntry {
   id: string;
   ts: string;
@@ -66,6 +76,16 @@ interface ResonanzEntry {
    * symmetrisch). Sortiert nach Score absteigend.
    */
   nearDuplicates?: string[];
+  /**
+   * Novelty-Flag: true wenn die maximale Cosine zu allen anderen Einträgen
+   * < NOVELTY_THRESHOLD (Default 0.70) liegt. Solche Einträge sind semantisch
+   * peripher — neue Themen / unverbundene Regionen / blinde-Flecken-
+   * Kandidaten. Komplementär zu nearDuplicates (Echo-Markierung):
+   *   - Echo:    nearDuplicates.length > 0  (≥0.88)
+   *   - Mitte:   ohne flag                  (0.70–0.87)
+   *   - Novelty: novelty === true           (<0.70)
+   */
+  novelty?: boolean;
   /**
    * Werkstreue-Score: 0–1, wie nah dieser Eintrag am semantischen Zentrum
    * der approved/published Einträge liegt. Werte < 0.55 deuten auf Drift
@@ -302,6 +322,12 @@ async function main() {
   );
   console.log(`[build-resonanzen-index] wrote ${entries.length} entries to ${OUTPUT}`);
 
+  // ─── Node-Density: Aggregat für Blind-Spot-Heatmap im Begriffsnetz ──
+  // Pro Knoten zählen wir wie oft er als nodeId-Anker in Resonanzen auftaucht.
+  // Knoten mit count=0 sind "blinde Flecken" — strukturelle Lücken im
+  // Werk, die das Frontend in der Heatmap-View sichtbar machen kann.
+  writeNodeDensity(entries);
+
   // ─── Final-Telemetrie: was steht effektiv im Index? ──────────────────
   // Wenn dieser Block "0 / 0 / 0" zeigt obwohl GEMINI_API_KEY OK gemeldet
   // wurde, ist irgendwo zwischen fetch und JSON-Write etwas verloren
@@ -311,10 +337,13 @@ async function main() {
   const withRelated = entries.filter(e => Array.isArray(e.related) && e.related.length > 0).length;
   const withWerkVoice = entries.filter(e => typeof e.werkVoiceScore === "number").length;
   const withCorpusVoice = entries.filter(e => typeof e.corpusVoiceScore === "number").length;
+  const withNovelty = entries.filter(e => e.novelty === true).length;
+  const withEchoes = entries.filter(e => Array.isArray(e.nearDuplicates) && e.nearDuplicates.length > 0).length;
   console.log(
     `[build-resonanzen-index] FINAL: ${withEmbedding}/${entries.length} mit Embedding · ` +
     `${withRelated} mit related[] · ${withWerkVoice} mit werkVoiceScore · ` +
-    `${withCorpusVoice} mit corpusVoiceScore`,
+    `${withCorpusVoice} mit corpusVoiceScore · ` +
+    `${withNovelty} novelty · ${withEchoes} Echoes`,
   );
 
   // Datei-Stats für Debug, falls der CI-Commit-Step "no changes" meldet
@@ -326,6 +355,71 @@ async function main() {
   } else {
     console.log(`[build-resonanzen-index] EMBEDDINGS_OUTPUT does not exist`);
   }
+}
+
+/** Extrahiert alle node-ids aus client/src/data/conceptGraph.ts per Regex.
+ *  Selbes Pattern wie scripts/validate-resonanzen.ts:loadValidNodeIds.
+ *  Robuster wäre Import, aber tsx ohne TS-Loader-Setup macht das mühsam. */
+function loadAllNodeIds(): string[] {
+  const cgPath = path.join(ROOT, "client/src/data/conceptGraph.ts");
+  if (!fs.existsSync(cgPath)) return [];
+  const txt = fs.readFileSync(cgPath, "utf-8");
+  const ids: string[] = [];
+  const seen = new Set<string>();
+  const re = /\bid\s*:\s*["']([a-z0-9äöüß_+-]+)["']/g;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(txt)) !== null) {
+    if (!seen.has(m[1])) { seen.add(m[1]); ids.push(m[1]); }
+  }
+  return ids;
+}
+
+/** Schreibt resonanzen-node-density.json — Resonanz-Dichte pro Konzeptgraph-
+ *  Knoten plus globaler Stats. Wird vom Frontend in der Heatmap-View des
+ *  Begriffsnetzes als Opacity-Skala gelesen. */
+function writeNodeDensity(entries: ResonanzEntry[]): void {
+  const allNodeIds = loadAllNodeIds();
+  if (allNodeIds.length === 0) {
+    console.warn("[build-resonanzen-index] writeNodeDensity: no node-ids gefunden, skip");
+    return;
+  }
+
+  // Zähler initialisieren — JEDER Knoten muss im Output sein, auch mit 0.
+  const perNode: Record<string, { count: number; endpoints: Record<string, number> }> = {};
+  for (const id of allNodeIds) perNode[id] = { count: 0, endpoints: {} };
+
+  for (const e of entries) {
+    for (const id of e.nodeIds ?? []) {
+      if (!perNode[id]) continue;  // unknown id (sollte validator vorher fangen)
+      perNode[id].count++;
+      perNode[id].endpoints[e.endpoint] = (perNode[id].endpoints[e.endpoint] ?? 0) + 1;
+    }
+  }
+
+  const counts = allNodeIds.map(id => perNode[id].count);
+  const sorted = [...counts].sort((a, b) => a - b);
+  const median = sorted.length === 0 ? 0
+    : sorted.length % 2 === 1 ? sorted[(sorted.length - 1) / 2]
+    : Math.round((sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2);
+  const minCount = sorted[0] ?? 0;
+  const maxCount = sorted[sorted.length - 1] ?? 0;
+  const zeroResonanceNodes = allNodeIds.filter(id => perNode[id].count === 0);
+
+  const out = {
+    generatedAt: new Date().toISOString(),
+    perNode,
+    stats: {
+      minCount, maxCount, median,
+      totalNodes: allNodeIds.length,
+      zeroResonanceNodes,
+    },
+  };
+  fs.writeFileSync(NODE_DENSITY_OUTPUT, JSON.stringify(out, null, 2));
+  console.log(
+    `[build-resonanzen-index] node-density: ${allNodeIds.length} Knoten, ` +
+    `min=${minCount} max=${maxCount} median=${median}, ` +
+    `${zeroResonanceNodes.length} blinde Flecken`
+  );
 }
 
 function cosineSim(a: number[], b: number[]): number {
@@ -402,6 +496,14 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     const dups = scored.filter(s => s.score >= NEAR_DUP_THRESHOLD);
     if (dups.length > 0) {
       entry.nearDuplicates = dups.map(s => s.id);
+    }
+    // Novelty-Flag: kein Nachbar über NOVELTY_THRESHOLD → semantisch peripher.
+    // `scored` enthält nur Items ≥ MIN_SCORE (0.5); wenn dort kein Top-Wert
+    // ≥ NOVELTY_THRESHOLD ist, gibt es per Definition KEINEN Eintrag im Korpus
+    // mit hoher Ähnlichkeit zu diesem hier → neue Erkenntnis.
+    const topScore = scored.length > 0 ? scored[0].score : 0;
+    if (topScore < NOVELTY_THRESHOLD) {
+      entry.novelty = true;
     }
     // werkVoiceScore — Cosine zum Centroid der kuratierten Einträge
     if (centroid) {

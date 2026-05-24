@@ -23,6 +23,16 @@ export interface ResonanzEntry {
    */
   nearDuplicates?: string[];
   /**
+   * Novelty-Flag: true wenn die maximale Cosine zu allen anderen Einträgen
+   * < NOVELTY_THRESHOLD (Default 0.70) liegt — semantisch peripherer Eintrag.
+   * Komplementär zu nearDuplicates:
+   *   Echo:    nearDuplicates.length > 0  (≥0.88)
+   *   Mitte:   keines der beiden Flags    (0.70–0.87)
+   *   Novelty: novelty === true           (<0.70)
+   * Wird im Build-Step gesetzt (scripts/build-resonanzen-index.ts).
+   */
+  novelty?: boolean;
+  /**
    * Werkstreue-Score: Cosine-Similarity zum Centroid der approved/published
    * Einträge. 0–1. < 0.55 = Drift-Verdacht (off-voice / themenfremd).
    * Undefined wenn zu wenig kuratierte Einträge als Referenz vorhanden.

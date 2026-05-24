@@ -202,6 +202,7 @@ jobs:
             client/public/resonanzen-embeddings.json
             client/public/resonanzen-holdout-baseline.json
             client/public/resonanzen-holdout-report.json
+            client/public/resonanzen-node-density.json
           retention-days: 7
           if-no-files-found: warn
 
@@ -233,7 +234,8 @@ jobs:
               client/public/resonanzen-holdout-report.json \
               client/public/resonanzen-drift-report.json \
               client/public/resonanzen-validation-report.json \
-              client/public/resonanzen-chapter-hashes.json; do
+              client/public/resonanzen-chapter-hashes.json \
+              client/public/resonanzen-node-density.json; do
             if [ -f "$f" ]; then
               git add -f "$f" && echo "[git add] OK: $f"
             else
