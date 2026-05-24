@@ -212,7 +212,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [hiddenCats, setHiddenCats] = useState<Set<NodeCategory>>(new Set());
   const [hiddenLeitmotive, setHiddenLeitmotive] = useState<Set<string>>(new Set());
   const [hiddenPrinzipien, setHiddenPrinzipien] = useState<Set<string>>(new Set());
-  const [legendOpen, setLegendOpen] = useState(false);
 
   // Touch tracking
   const dragRef      = useRef<{ sx: number; sy: number; px: number; py: number } | null>(null);
@@ -676,7 +675,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       return prev === id ? null : id;
     });
     setSearchQuery("");
-    setLegendOpen(false);
   }, []);
 
   // ── Mobile sheet drag — global move/end listeners ─────────────────────────
@@ -1002,29 +1000,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           )}
           </div>{/* /concept-workfunc-group */}
 
-          {/* Legend toggle — only shown when no node is selected (sidebar carries the legend then) */}
-          {!selectedId && (
-            <button
-              onClick={() => setLegendOpen(o => !o)}
-              title="Legende / Kohärenzfelder"
-              style={{
-                fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
-                textTransform: "uppercase", color: legendOpen ? C.accent : C.muted,
-                background: legendOpen ? "rgba(196,168,130,0.08)" : "none",
-                border: `1px solid ${legendOpen ? C.accentDim : C.border}`,
-                padding: "0.3rem 0.7rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
-              }}
-              onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = legendOpen ? C.accent : C.muted;
-                e.currentTarget.style.borderColor = legendOpen ? C.accentDim : C.border;
-              }}
-            >
-              Legende
-            </button>
-          )}
-
           {/* Close — nur im Modal-Modus. Im Route-Modus übernimmt der
               globale AppFrame die Navigation, kein eigener × nötig. */}
           {isModal && (
@@ -1117,7 +1092,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               setConnectSource(null);
               return;
             }
-            setSelectedId(null); setSearchQuery(""); setLegendOpen(false);
+            setSelectedId(null); setSearchQuery("");
           }}
           preserveAspectRatio="xMidYMid meet"
         >
@@ -1775,104 +1750,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
           </g>
         </svg>
-
-        {/* ── Legende — absolut oben rechts im Graph-Canvas ── */}
-        {legendOpen && (
-          <div style={{
-            position: "absolute", top: "0.9rem", right: "0.9rem", zIndex: 20,
-            background: C.deep, border: `1px solid ${C.border}`,
-            padding: "0.9rem 1rem", minWidth: 190,
-            backdropFilter: "blur(8px)",
-            pointerEvents: "auto",
-            // Höhe auf verfügbaren Raum begrenzen — verhindert Ausbrechen nach unten
-            maxHeight: "calc(100% - 1.8rem)",
-            overflowY: "auto",
-            overscrollBehavior: "contain",
-          }}>
-            <div style={{ fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", marginBottom: "0.75rem" }}>
-              Kohärenzfelder
-            </div>
-            {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => {
-              const hidden = hiddenCats.has(cat);
-              return (
-                <button
-                  key={cat}
-                  onClick={() => setHiddenCats(prev => {
-                    const next = new Set(prev);
-                    if (next.has(cat)) next.delete(cat); else next.add(cat);
-                    return next;
-                  })}
-                  style={{
-                    display: "flex", alignItems: "center", gap: "0.55rem",
-                    width: "100%", background: "none", border: "none",
-                    cursor: "pointer", padding: "0.3rem 0",
-                    transition: "opacity 0.15s",
-                  }}
-                >
-                  {/* Dot: filled = aktiv, leer = deaktiviert (Ghost-Modus) */}
-                  <span style={{
-                    width: 10, height: 10, borderRadius: "50%",
-                    background: hidden ? "transparent" : color,
-                    border: `1.5px solid ${hidden ? C.muted : color}`,
-                    flexShrink: 0, transition: "all 0.2s",
-                    opacity: hidden ? 0.45 : 1,
-                  }} />
-                  <span style={{ fontFamily: C.serif, fontStyle: "italic", fontSize: "0.85rem", color: hidden ? C.muted : C.text, flex: 1, textAlign: "left", transition: "color 0.2s" }}>
-                    {categoryLabel(cat)}
-                  </span>
-                  {/* "aus"-Badge: zeigt explizit an, dass diese Ebene deaktiviert ist */}
-                  {hidden && (
-                    <span style={{ fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted, border: `1px solid ${C.border}`, padding: "0.05rem 0.3rem", borderRadius: 2 }}>
-                      aus
-                    </span>
-                  )}
-                </button>
-              );
-            })}
-            {hiddenCats.size > 0 && (
-              <button
-                onClick={() => setHiddenCats(new Set())}
-                style={{
-                  marginTop: "0.75rem", width: "100%",
-                  fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
-                  textTransform: "uppercase", color: C.accent,
-                  background: "none", border: `1px solid ${C.accentDim}`,
-                  padding: "0.3rem 0.5rem", cursor: "pointer",
-                }}
-              >
-                Alle einblenden
-              </button>
-            )}
-            <LeitmotivLegendSection
-              c={C}
-              hiddenLeitmotive={hiddenLeitmotive}
-              activeLeitmotive={new Set()}
-              onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
-              onReset={() => setHiddenLeitmotive(new Set())}
-            />
-            <PrinzipLegendSection
-              c={C}
-              hiddenPrinzipien={hiddenPrinzipien}
-              onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
-                const n = new Set(prev);
-                const allHidden = memberIds.every(id => n.has(id));
-                if (allHidden) memberIds.forEach(id => n.delete(id));
-                else memberIds.forEach(id => n.add(id));
-                return n;
-              })}
-              onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
-              onReset={() => setHiddenPrinzipien(new Set())}
-            />
-            <UserEdgesLegendSection
-              c={C}
-              userEdges={userEdges}
-              showUserEdges={showUserEdges}
-              onToggleShow={() => setShowUserEdges(v => !v)}
-              onDelete={i => { const next = userEdges.filter((_, j) => j !== i); setUserEdges(next); saveUserEdges(next); }}
-              onClear={() => { setUserEdges([]); saveUserEdges([]); }}
-            />
-          </div>
-        )}
 
         {/* ── Matrix Overlay — ersetzt SVG-Graphen im Matrix-Modus ── */}
         {viewMode === "matrix" && (() => {
