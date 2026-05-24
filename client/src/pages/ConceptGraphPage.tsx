@@ -187,6 +187,68 @@ function dijkstraSurprisingPath(src: string, tgt: string): string[] | null {
   return null;
 }
 
+/** BFS-Distanzen von src zu allen erreichbaren Knoten. Reuses ADJACENCY
+ *  Map oben (Konzept-Kanten + Leitmotiv-Resonanzen). Returnt eine Map
+ *  id → Schritte. Für isolierte Knoten ohne Nachbarn ist die Map leer. */
+function bfsAllDistances(src: string): Map<string, number> {
+  const dist = new Map<string, number>();
+  dist.set(src, 0);
+  const queue: string[] = [src];
+  while (queue.length) {
+    const cur = queue.shift()!;
+    const d = dist.get(cur)!;
+    for (const n of Array.from(ADJACENCY.get(cur) ?? new Set<string>())) {
+      if (dist.has(n)) continue;
+      dist.set(n, d + 1);
+      queue.push(n);
+    }
+  }
+  return dist;
+}
+
+/** Für einen blinden Fleck (count=0): finde besten Analyse-Partner und
+ *  besten Pfad-Ziel-Knoten via Graph-Walk + Density.
+ *  - analysePartner: hochdichter Graph-Nachbar (kontext-reich angeschlossen)
+ *  - pathTarget:    hochdichter Hub in graph-distance ≥3 (überraschende Brücke)
+ *  Fallback wenn ohne Nachbarn / ohne ferne Hubs: höchstdichter Knoten. */
+function suggestExplorations(
+  blindId: string,
+  density: { perNode: Record<string, { count: number; endpoints: Record<string, number> }>; stats: { maxCount: number; median: number } },
+): { analysePartner: string | null; analysePartnerCount: number; pathTarget: string | null; pathTargetDistance: number } {
+  const neighbors = Array.from(ADJACENCY.get(blindId) ?? new Set<string>());
+  // Kandidaten für Analyse: direkte Graph-Nachbarn mit count > 0
+  const neighborCandidates = neighbors
+    .map(id => ({ id, count: density.perNode[id]?.count ?? 0 }))
+    .filter(c => c.count > 0)
+    .sort((a, b) => b.count - a.count);
+
+  let analysePartner: string | null = neighborCandidates[0]?.id ?? null;
+  let analysePartnerCount = neighborCandidates[0]?.count ?? 0;
+
+  // Fallback: kein hilfreicher Nachbar → höchstdichter Knoten global
+  if (!analysePartner) {
+    const hubCandidates = Object.entries(density.perNode)
+      .filter(([id]) => id !== blindId)
+      .map(([id, v]) => ({ id, count: v.count }))
+      .sort((a, b) => b.count - a.count);
+    if (hubCandidates[0]) {
+      analysePartner = hubCandidates[0].id;
+      analysePartnerCount = hubCandidates[0].count;
+    }
+  }
+
+  // Pfad-Ziel: hoher count + graph-distance ≥3 (überraschende Verbindung)
+  const distances = bfsAllDistances(blindId);
+  const minDensityForPath = Math.max(density.stats.median, 1);
+  const pathCandidates = Array.from(distances.entries())
+    .filter(([id, d]) => d >= 3 && id !== blindId && (density.perNode[id]?.count ?? 0) >= minDensityForPath)
+    .sort((a, b) => b[1] - a[1]);  // distantester zuerst
+  const pathTarget = pathCandidates[0]?.[0] ?? null;
+  const pathTargetDistance = pathCandidates[0]?.[1] ?? 0;
+
+  return { analysePartner, analysePartnerCount, pathTarget, pathTargetDistance };
+}
+
 // ─── Pre-computed graph metrics (concept-to-concept edges only) ───────────────
 // Leitmotiv edges are excluded: they're structurally a separate resonance layer,
 // not concept-to-concept relationships, so including them would skew statistics.
@@ -2298,32 +2360,104 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 ◌ Blinde Flecken
               </SectionLabel>
               <div style={{ fontSize: "0.62rem", color: C.textDim, fontStyle: "italic", marginBottom: "0.6rem", lineHeight: 1.5 }}>
-                Knoten ohne KI-Resonanz. Klick → Auswahl + Pfad-Explorer.
+                Knoten ohne KI-Resonanz. Klick aktiviert den vorgeschlagenen Tool-Modus.
               </div>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.18rem" }}>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
                 {nodeDensity.stats.zeroResonanceNodes.map(nid => {
                   const n = NODE_MAP.get(nid);
                   if (!n) return null;
+                  // Generiere konkrete Explorations-Vorschläge: bester Cluster-
+                  // Partner + entferntester High-Density-Knoten für Pfad-
+                  // Analyse. Reuse von ADJACENCY + BFS-Helpern oben.
+                  const sug = suggestExplorations(nid, nodeDensity);
+                  const partnerNode = sug.analysePartner ? NODE_MAP.get(sug.analysePartner) : null;
+                  const targetNode  = sug.pathTarget    ? NODE_MAP.get(sug.pathTarget)    : null;
+                  const partnerLabel = partnerNode ? (partnerNode.fullLabel || partnerNode.label.replace("\n", " ")) : "";
+                  const targetLabel  = targetNode  ? (targetNode.fullLabel  || targetNode.label.replace("\n", " "))  : "";
                   return (
-                    <button
-                      key={nid}
-                      onClick={() => {
-                        setSelectedId(nid);
-                        activateTool("path");
-                      }}
-                      style={{
-                        fontFamily: C.serif, fontSize: "0.78rem",
-                        color: CAT_COLOR[n.category],
-                        background: "none", border: "none",
-                        padding: "0.35rem 0.5rem", textAlign: "left",
-                        cursor: "pointer", borderLeft: `2px solid ${CAT_COLOR[n.category]}55`,
-                        transition: "all 0.15s", minHeight: 32,
-                      }}
-                      onMouseEnter={e => { e.currentTarget.style.background = "rgba(126,184,200,0.08)"; e.currentTarget.style.borderLeftColor = "#7eb8c8"; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.borderLeftColor = `${CAT_COLOR[n.category]}55`; }}
-                    >
-                      {n.fullLabel || n.label.replace("\n", " ")}
-                    </button>
+                    <div key={nid} style={{
+                      borderLeft: `2px solid ${CAT_COLOR[n.category]}55`,
+                      paddingLeft: "0.5rem",
+                    }}>
+                      {/* Knoten-Name als selektierender Klick (selber wie vorher) */}
+                      <button
+                        onClick={() => setSelectedId(nid)}
+                        style={{
+                          fontFamily: C.serif, fontSize: "0.78rem",
+                          color: CAT_COLOR[n.category],
+                          background: "none", border: "none",
+                          padding: "0.2rem 0", textAlign: "left",
+                          cursor: "pointer", display: "block", width: "100%",
+                          transition: "color 0.15s",
+                          marginBottom: "0.18rem",
+                        }}
+                        onMouseEnter={e => { e.currentTarget.style.color = "#7eb8c8"; }}
+                        onMouseLeave={e => { e.currentTarget.style.color = CAT_COLOR[n.category]; }}
+                      >
+                        {n.fullLabel || n.label.replace("\n", " ")}
+                      </button>
+                      {/* Mini-Action-Buttons: Vorschläge mit pre-selektierten Knoten.
+                          Klick → Tool aktiviert + Knoten in den Tool-States.
+                          font-size + min-height bewusst kleiner (sekundäre Aktion). */}
+                      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
+                        {sug.analysePartner && partnerLabel && (
+                          <button
+                            onClick={() => {
+                              // Reihenfolge wichtig: activateTool() nullt
+                              // alle Tool-States — also erst aktivieren,
+                              // DANN pre-fillen.
+                              activateTool("analyse");
+                              setSelectedId(nid);
+                              setAnalyseNodes([nid, sug.analysePartner!]);
+                              analyseNodesRef.current = [nid, sug.analysePartner!];
+                            }}
+                            title={`${partnerLabel} ist mit ${n.fullLabel || n.label.replace("\n"," ")} verbunden und hat ${sug.analysePartnerCount} Resonanzen — das Spannungsfeld würde Brücken zwischen aktivem und unangetastetem Material schlagen.`}
+                            style={{
+                              fontFamily: C.mono, fontSize: "0.54rem",
+                              letterSpacing: "0.08em", textTransform: "uppercase",
+                              color: "#5aacb8",
+                              background: "rgba(90,172,184,0.06)",
+                              border: "1px solid rgba(90,172,184,0.4)",
+                              padding: "0.28rem 0.5rem", cursor: "pointer",
+                              borderRadius: 4,
+                              transition: "all 0.15s",
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.background = "rgba(90,172,184,0.16)"; e.currentTarget.style.borderColor = "#5aacb8"; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = "rgba(90,172,184,0.06)"; e.currentTarget.style.borderColor = "rgba(90,172,184,0.4)"; }}
+                          >
+                            ⚡ Analyse × {partnerLabel}
+                          </button>
+                        )}
+                        {sug.pathTarget && targetLabel && (
+                          <button
+                            onClick={() => {
+                              // Reihenfolge wichtig: activateTool() nullt
+                              // alle Tool-States — also erst aktivieren,
+                              // DANN pre-fillen.
+                              activateTool("path");
+                              setSelectedId(nid);
+                              setPathNodes([nid, sug.pathTarget!]);
+                              pathNodesRef.current = [nid, sug.pathTarget!];
+                            }}
+                            title={`${targetLabel} ist ${sug.pathTargetDistance} Schritte entfernt mit hoher Dichte (${nodeDensity.perNode[sug.pathTarget]?.count ?? 0} Resonanzen) — ein Pfad würde zeigen, wie ${n.fullLabel || n.label.replace("\n"," ")} sich in den Hauptdiskurs einreiht.`}
+                            style={{
+                              fontFamily: C.mono, fontSize: "0.54rem",
+                              letterSpacing: "0.08em", textTransform: "uppercase",
+                              color: "#7eb8c8",
+                              background: "rgba(126,184,200,0.06)",
+                              border: "1px solid rgba(126,184,200,0.4)",
+                              padding: "0.28rem 0.5rem", cursor: "pointer",
+                              borderRadius: 4,
+                              transition: "all 0.15s",
+                            }}
+                            onMouseEnter={e => { e.currentTarget.style.background = "rgba(126,184,200,0.16)"; e.currentTarget.style.borderColor = "#7eb8c8"; }}
+                            onMouseLeave={e => { e.currentTarget.style.background = "rgba(126,184,200,0.06)"; e.currentTarget.style.borderColor = "rgba(126,184,200,0.4)"; }}
+                          >
+                            ◈ Pfad → {targetLabel}
+                          </button>
+                        )}
+                      </div>
+                    </div>
                   );
                 })}
               </div>
