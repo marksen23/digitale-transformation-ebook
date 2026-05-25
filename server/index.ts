@@ -1029,7 +1029,11 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
     if (!token) return { ok: false, error: "GITHUB_TOKEN fehlt" };
     const url = `https://api.github.com/repos/${owner}/${repo}/contents/${path}`;
-    const body: Record<string, unknown> = { message, sha, branch };
+    // Bei leerem sha: GitHub interpretiert als CREATE. Bei vorhandenem sha:
+    // UPDATE/DELETE. Damit kann derselbe Helper auch neue Master-Files
+    // erzeugen (Phase 4) ohne separate "create"-Branch.
+    const body: Record<string, unknown> = { message, branch };
+    if (sha) body.sha = sha;
     if (op === "update" && newContent !== null) {
       body.content = Buffer.from(newContent, "utf-8").toString("base64");
     }
@@ -1098,6 +1102,229 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     );
     if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
     return res.json({ ok: true, id, oldStatus, newStatus: status, path: file.path });
+  });
+
+  // ─── Master-Synthese (Phase 4) ────────────────────────────────────────
+  // Lädt alle Varianten zu einem Anker, ruft Claude für eine konsolidierte
+  // Synthese, schreibt das Master-File nach content/resonanzen/master/.
+  // Manual-Trigger only — kein Auto-Run, weil User-Curation entscheidet.
+
+  /** Slug-Variante des Anchors für Dateinamen (analyse:a+b → analyse_a-b).
+   *  Doppelpunkte sind in Windows-Pfaden nicht erlaubt, deshalb der Swap. */
+  function slugifyAnchor(anchor: string): string {
+    return anchor.replace(/:/g, "_").replace(/\+/g, "-");
+  }
+
+  /** Lädt alle Varianten eines Ankers über die GitHub Tree-API.
+   *  Returnt parsed entries (frontmatter + body), sortiert nach ts asc. */
+  async function loadAnchorVariants(endpoint: string, anchor: string): Promise<Array<{
+    id: string; ts: string; prompt: string; response: string; path: string;
+  }>> {
+    const token = process.env.GITHUB_TOKEN;
+    const owner = process.env.GITHUB_REPO_OWNER ?? "marksen23";
+    const repo = process.env.GITHUB_REPO_NAME ?? "digitale-transformation-ebook";
+    const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
+    if (!token) return [];
+
+    const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`, {
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", Accept: "application/vnd.github+json" },
+    });
+    if (!treeRes.ok) return [];
+    const treeData = await treeRes.json();
+    interface TreeBlobEntry { type: string; path: string }
+    const blobs = (treeData.tree ?? []) as TreeBlobEntry[];
+
+    // Anker-Pfad enthält den slug (analyse:a+b+c → analyse/a+b+c/<ts>-<id>.md)
+    // Wir suchen alle raw/-Files unter dem entsprechenden Anker-Ordner.
+    const anchorBody = anchor.split(":")[1] ?? anchor;
+    const prefix = `content/resonanzen/raw/${endpoint}/${anchorBody}/`;
+    const candidatePaths = blobs.filter(b =>
+      b.type === "blob" && b.path.startsWith(prefix) && b.path.endsWith(".md")
+    ).map(b => b.path);
+
+    // Raw fetchen + parsen
+    const variants: Array<{ id: string; ts: string; prompt: string; response: string; path: string }> = [];
+    for (const p of candidatePaths) {
+      const rawUrl = `https://raw.githubusercontent.com/${owner}/${repo}/${branch}/${p}`;
+      const rawRes = await fetch(rawUrl);
+      if (!rawRes.ok) continue;
+      const md = await rawRes.text();
+      // Frontmatter + Body parsen (gleiches Pattern wie scripts/build-resonanzen-index.ts)
+      const m = md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
+      if (!m) continue;
+      const fm = m[1];
+      const body = m[2];
+      const idMatch = fm.match(/^id:\s*["']?([^"'\n]+)["']?\s*$/m);
+      const tsMatch = fm.match(/^ts:\s*["']?([^"'\n]+)["']?\s*$/m);
+      const isMasterMatch = fm.match(/^is_master:\s*true\s*$/m);
+      if (!idMatch || !tsMatch) continue;
+      if (isMasterMatch) continue;  // master nicht als Variante!
+      // ## Frage und ## Antwort extrahieren
+      const sections = body.split(/^##\s+/m);
+      let prompt = "", response = "";
+      for (const s of sections) {
+        if (/^Frage\s*\n/.test(s)) prompt = s.replace(/^Frage\s*\n+/, "").trim();
+        else if (/^Antwort\s*\n/.test(s)) response = s.replace(/^Antwort\s*\n+/, "").trim();
+      }
+      variants.push({ id: idMatch[1], ts: tsMatch[1], prompt, response, path: p });
+    }
+    variants.sort((a, b) => a.ts.localeCompare(b.ts));
+    return variants;
+  }
+
+  /** Lädt existierenden Master (falls vorhanden) für inkrementelle Synthese.
+   *  Returnt { content, sha, bodyText } oder null. */
+  async function loadMaster(endpoint: string, anchor: string): Promise<{ content: string; sha: string; bodyText: string } | null> {
+    const token = process.env.GITHUB_TOKEN;
+    const owner = process.env.GITHUB_REPO_OWNER ?? "marksen23";
+    const repo = process.env.GITHUB_REPO_NAME ?? "digitale-transformation-ebook";
+    const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
+    if (!token) return null;
+
+    const masterPath = `content/resonanzen/master/${endpoint}/${slugifyAnchor(anchor)}.md`;
+    const url = `https://api.github.com/repos/${owner}/${repo}/contents/${masterPath}?ref=${branch}`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", Accept: "application/vnd.github+json" },
+    });
+    if (!res.ok) return null;
+    const data = await res.json();
+    const content = Buffer.from(data.content, "base64").toString("utf-8");
+    const bodyMatch = content.match(/^---\n[\s\S]*?\n---\n?([\s\S]*)$/);
+    return { content, sha: data.sha, bodyText: bodyMatch ? bodyMatch[1] : "" };
+  }
+
+  const MASTER_SYNTHESIS_SYSTEM = `Du bist Co-Autor an "Resonanzvernunft", einem deutschen Philosophie-Werk zur digitalen Transformation. Du erhältst mehrere KI-generierte Varianten einer Analyse zum gleichen Begriffs-Cluster.
+
+DEINE AUFGABE:
+1. Extrahiere alle UNIQUE Aussagen aus allen Varianten.
+2. Synthetisiere sie zu einem kohärenten Text — fließende Prosa, dichter philosophischer Duktus, im Geist der Resonanzvernunft.
+3. JEDE INFORMATION DARF NUR EINMAL VORKOMMEN. Duplikate / Paraphrasen werden zusammengefasst.
+4. Widersprüche zwischen Varianten: explizit markieren in einem separaten Abschnitt "Divergenzen" — kein Glätten, kein Verdrängen.
+5. Stil: keine Listen, keine Aufzählungen. 3-5 prosaische Absätze für die Synthese. Sprache präzise, ohne Akademismus, philosophisch tragend.
+
+OUTPUT-FORMAT (exakt einhalten — Markdown):
+
+## Synthese
+
+[3-5 Absätze prosaischer Synthese — die konsolidierte Antwort auf die Frage]
+
+## Divergenzen
+
+[Nur wenn vorhanden: konkrete widersprüchliche Aussagen mit Variante-k-Markierung. Sonst Abschnitt weglassen.]
+
+## Offene Frage
+
+[Eine einzige offene Schlussfrage, die das gemeinsame Anliegen weiterträgt]`;
+
+  function buildSynthesisUserPrompt(
+    variants: Array<{ id: string; ts: string; prompt: string; response: string }>,
+    existingMaster: { bodyText: string } | null,
+  ): string {
+    const parts: string[] = [];
+    if (existingMaster) {
+      parts.push(
+        "--- BISHERIGER MASTER (zu aktualisieren — neue Varianten unten integrieren) ---",
+        existingMaster.bodyText,
+        "",
+      );
+    }
+    variants.forEach((v, i) => {
+      const dateOnly = v.ts.split("T")[0];
+      parts.push(
+        `--- VARIANTE ${i + 1} (${dateOnly}, id=${v.id}) ---`,
+        `**Frage:** ${v.prompt}`,
+        ``,
+        `**Antwort:** ${v.response}`,
+        ``,
+      );
+    });
+    return parts.join("\n");
+  }
+
+  app.post("/api/admin/synthesize-master", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { anchor, endpoint } = req.body as { anchor?: string; endpoint?: string };
+    if (!anchor || !endpoint) return res.status(400).json({ error: "anchor + endpoint fehlt" });
+    if (anchor === "graph" || !anchor.includes(":")) {
+      return res.status(400).json({ error: "Anker für graph-chat ist nicht synthetisierbar" });
+    }
+
+    // Claude verfügbar?
+    const { callClaude, isClaudeAvailable, getClaudeModel } = await import("./lib/claudeClient.js");
+    if (!isClaudeAvailable()) {
+      return res.status(503).json({ error: "ANTHROPIC_API_KEY nicht gesetzt — Synthese deaktiviert" });
+    }
+
+    // 1. Varianten laden
+    const variants = await loadAnchorVariants(endpoint, anchor);
+    if (variants.length < 2) {
+      return res.status(400).json({ error: `Anker '${anchor}' hat nur ${variants.length} Variante(n) — Synthese benötigt ≥2` });
+    }
+
+    // 2. Existierenden Master laden (für inkrementelle Synthese)
+    const existingMaster = await loadMaster(endpoint, anchor);
+
+    // 3. Claude aufrufen
+    const synthesisText = await callClaude({
+      system: MASTER_SYNTHESIS_SYSTEM,
+      user: buildSynthesisUserPrompt(variants, existingMaster),
+      maxTokens: 6000,
+      temperature: 0.7,
+    });
+    if (!synthesisText) {
+      return res.status(502).json({ error: "Claude-Aufruf fehlgeschlagen — siehe Server-Logs" });
+    }
+
+    // 4. Master-MD bauen (Frontmatter + Body)
+    const now = new Date().toISOString();
+    const masterId = `MASTER-${Buffer.from(anchor + now).toString("hex").slice(0, 8).toUpperCase()}`;
+    const variantIds = variants.map(v => v.id);
+    const auditEvent = `  - event: ${existingMaster ? "re-synthesized" : "synthesized"}\n    ts: ${now}\n    actor: admin\n    source_ids: [${variantIds.join(", ")}]`;
+    const masterMd = [
+      `---`,
+      `id: ${masterId}`,
+      `ts: ${now}`,
+      `created_at: ${now}`,
+      `endpoint: ${endpoint}`,
+      `anchor: ${anchor}`,
+      `is_master: true`,
+      `master_of: [${variantIds.join(", ")}]`,
+      `variant_count: ${variants.length}`,
+      `nodeIds: [${(anchor.split(":")[1] ?? "").split("+").join(", ")}]`,
+      `status: published`,
+      `llm: ${getClaudeModel()}`,
+      `audit_trail:`,
+      auditEvent,
+      `---`,
+      ``,
+      `## Frage`,
+      ``,
+      `Synthese von ${variants.length} Varianten zu: ${anchor}`,
+      ``,
+      `## Antwort`,
+      ``,
+      synthesisText,
+      ``,
+    ].join("\n");
+
+    // 5. Schreiben (create wenn neu, update wenn existing)
+    const masterPath = `content/resonanzen/master/${endpoint}/${slugifyAnchor(anchor)}.md`;
+    const writeRes = await writeOrDeleteFile(
+      "update",
+      masterPath,
+      existingMaster?.sha ?? "",
+      masterMd,
+      `synthesize-master(${anchor}): ${variants.length} variants → ${existingMaster ? "re-" : ""}master`,
+    );
+    if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
+
+    return res.json({
+      ok: true,
+      anchor, endpoint, variantCount: variants.length,
+      path: masterPath, masterId,
+      wasUpdate: !!existingMaster,
+      synthesisPreview: synthesisText.slice(0, 500),
+    });
   });
 
   app.post("/api/admin/delete", async (req, res) => {

@@ -21,8 +21,31 @@ import { callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import Skeleton from "@/components/Skeleton";
 import {
-  Section, Stat, useAdminTheme, computeStats, MONO, SERIF, type Palette,
+  Section, Stat, useAdminTheme, computeStats, MONO, SERIF,
+  loadOptionalJson, type Palette,
 } from "./adminShared";
+
+/** Anchor-Cluster vom Build-Step (scripts/build-resonanzen-index.ts:
+ *  writeAnchorClusters). Jeder Cluster = ein Anker mit ≥2 Varianten ODER
+ *  mit Master. Wird in der Synthese-Sektion unten gerendert. */
+interface AnchorClustersFile {
+  generatedAt: string;
+  clusters: Array<{
+    anchor: string;
+    endpoint: string;
+    variantIds: string[];
+    lastVariantTs: string;
+    masterId: string | null;
+    masterTs: string | null;
+    masterStale: boolean;
+  }>;
+  stats: {
+    totalAnchors: number;
+    withMultipleVariants: number;
+    withMaster: number;
+    staleMasters: number;
+  };
+}
 
 const STATUS_FILTERS = ["all", "raw", "pending", "approved", "published", "rejected"] as const;
 type StatusFilter = typeof STATUS_FILTERS[number];
@@ -47,9 +70,44 @@ export default function AdminCurationPage() {
   const [bulkProgress, setBulkProgress] = useState<{ done: number; total: number; status: string } | null>(null);
   const [bulkConfirmDelete, setBulkConfirmDelete] = useState(false);
 
+  // Master-Synthese (Phase 4) — Anker-Cluster + pro-Cluster-Loading
+  const [anchorClusters, setAnchorClusters] = useState<AnchorClustersFile | null>(null);
+  const [synthLoading, setSynthLoading] = useState<Set<string>>(new Set());
+  const [synthPreview, setSynthPreview] = useState<{ anchor: string; text: string } | null>(null);
+
   useEffect(() => {
     loadResonanzenIndex().then(setIndex).catch(() => null);
+    loadOptionalJson<AnchorClustersFile>("/resonanzen-anchor-clusters.json")
+      .then(setAnchorClusters);
   }, []);
+
+  /** Triggert Master-Synthese für einen Anker via /api/admin/synthesize-master.
+   *  Bei Erfolg: zeigt Preview, refresht anchor-clusters.json (mit delay damit
+   *  der Server-Side-Commit Zeit hat zum Propagieren). */
+  async function synthesizeMaster(anchor: string, endpoint: string) {
+    setSynthLoading(s => new Set(s).add(anchor));
+    const result = await callAdminAction<{ ok: boolean; synthesisPreview?: string; wasUpdate?: boolean; variantCount?: number }>("synthesize-master", { anchor, endpoint });
+    setSynthLoading(s => { const n = new Set(s); n.delete(anchor); return n; });
+    if (result.ok && result.data) {
+      setSynthPreview({ anchor, text: result.data.synthesisPreview ?? "(kein Preview vom Server)" });
+      setActionFeedback({
+        id: "_synth",
+        ok: true,
+        msg: `Master ${result.data.wasUpdate ? "aktualisiert" : "erzeugt"} aus ${result.data.variantCount} Varianten`,
+      });
+      // Refresh anchor-clusters nach kurzer Verzögerung (CI hat noch nicht
+      // gelaufen, aber die Datei selbst wurde server-side neu geschrieben).
+      // Die echte anchor-clusters.json kommt erst beim nächsten Build,
+      // aber der User sieht die Bestätigung im Toast/Preview.
+      setTimeout(() => {
+        loadOptionalJson<AnchorClustersFile>("/resonanzen-anchor-clusters.json?_t=" + Date.now())
+          .then(d => d && setAnchorClusters(d));
+      }, 1500);
+    } else {
+      setActionFeedback({ id: "_synth", ok: false, msg: result.error ?? "Synthese fehlgeschlagen" });
+    }
+    setTimeout(() => setActionFeedback(null), 5000);
+  }
 
   const stats = useMemo(() => index ? computeStats(index.entries) : null, [index]);
 
@@ -343,6 +401,107 @@ export default function AdminCurationPage() {
           </div>
         )}
       </Section>
+
+      {/* Anker-Cluster — Anker mit ≥2 Varianten, kandidat für Master-Synthese
+          (Phase 4). Liest aus resonanzen-anchor-clusters.json. */}
+      {anchorClusters && anchorClusters.clusters.length > 0 && (
+        <Section title="Anker-Cluster — Fragen mit mehreren Varianten" c={C}>
+          <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.88rem", color: C.textDim, lineHeight: 1.5, marginTop: 0, marginBottom: "0.9rem" }}>
+            {anchorClusters.stats.withMultipleVariants} Anker mit ≥2 Varianten ·{" "}
+            {anchorClusters.stats.withMaster} mit Master
+            {anchorClusters.stats.staleMasters > 0 && (
+              <span style={{ color: "#c48282" }}> · {anchorClusters.stats.staleMasters} stale</span>
+            )}
+            . Klick „⚡ Master synthetisieren" konsolidiert die Varianten
+            via Claude zu einem Master-Dokument, in dem jede Information
+            nur einmal vorkommt.
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+            {anchorClusters.clusters.filter(c => c.variantIds.length >= 2 || c.masterId).map(c => {
+              const isLoading = synthLoading.has(c.anchor);
+              const hasMaster = !!c.masterId;
+              const masterDate = c.masterTs ? new Date(c.masterTs) : null;
+              const ageDays = masterDate ? Math.floor((Date.now() - masterDate.getTime()) / 86400000) : null;
+              return (
+                <div key={c.anchor} style={{
+                  background: c.masterStale ? "rgba(196,130,130,0.06)" : C.surface,
+                  border: `1px solid ${c.masterStale ? "#c48282" : C.border}`,
+                  borderLeft: `3px solid ${c.masterStale ? "#c48282" : hasMaster ? "#7ab898" : "#7eb8c8"}`,
+                  padding: "0.6rem 0.8rem",
+                  display: "flex", alignItems: "center", gap: "0.7rem", flexWrap: "wrap",
+                }}>
+                  <div style={{ flex: "1 1 200px", minWidth: 0 }}>
+                    <div style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.05em", color: C.text, marginBottom: "0.18rem", wordBreak: "break-all" }}>
+                      {c.anchor}
+                    </div>
+                    <div style={{ fontFamily: MONO, fontSize: "0.52rem", color: C.muted }}>
+                      {c.endpoint} · {c.variantIds.length} Varianten
+                      {hasMaster && ageDays !== null && (
+                        <>
+                          {" · "}
+                          {c.masterStale ? (
+                            <span style={{ color: "#c48282" }}>Master STALE (vor {ageDays} Tag{ageDays === 1 ? "" : "en"})</span>
+                          ) : (
+                            <span style={{ color: "#7ab898" }}>✓ Master vor {ageDays} Tag{ageDays === 1 ? "" : "en"}</span>
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </div>
+                  <button
+                    onClick={() => void synthesizeMaster(c.anchor, c.endpoint)}
+                    disabled={isLoading || c.variantIds.length < 2}
+                    title={c.variantIds.length < 2
+                      ? "Mindestens 2 Varianten nötig"
+                      : hasMaster ? "Master neu synthetisieren (~10-30 Sek)" : "Erste Synthese starten (~10-30 Sek)"}
+                    style={{
+                      fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: isLoading ? C.muted : hasMaster ? "#c48282" : "#7eb8c8",
+                      background: hasMaster ? "rgba(196,130,130,0.06)" : "rgba(126,184,200,0.08)",
+                      border: `1px solid ${hasMaster ? "rgba(196,130,130,0.4)" : "rgba(126,184,200,0.5)"}`,
+                      padding: "0.5rem 0.8rem",
+                      cursor: isLoading || c.variantIds.length < 2 ? "wait" : "pointer",
+                      opacity: isLoading || c.variantIds.length < 2 ? 0.5 : 1,
+                      minHeight: 36, flexShrink: 0,
+                    }}
+                  >
+                    {isLoading ? "Claude denkt …" : hasMaster ? "↻ neu synthetisieren" : "⚡ Master synthetisieren"}
+                  </button>
+                </div>
+              );
+            })}
+          </div>
+          {/* Synthese-Preview-Overlay nach Erfolg */}
+          {synthPreview && (
+            <div style={{
+              marginTop: "1rem", padding: "0.9rem 1.1rem",
+              background: "rgba(122,184,152,0.06)",
+              border: "1px solid rgba(122,184,152,0.4)",
+              borderLeft: "3px solid #7ab898",
+            }}>
+              <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.5rem", flexWrap: "wrap" }}>
+                <div style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#7ab898" }}>
+                  ◆ Master-Preview · {synthPreview.anchor}
+                </div>
+                <button
+                  onClick={() => setSynthPreview(null)}
+                  style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, background: "none", border: "none", cursor: "pointer" }}
+                >
+                  ✕ schließen
+                </button>
+              </div>
+              <div style={{ fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic", color: C.text, lineHeight: 1.55, whiteSpace: "pre-wrap" }}>
+                {synthPreview.text}
+                {synthPreview.text.length >= 500 && "…"}
+              </div>
+              <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, marginTop: "0.6rem", marginBottom: 0 }}>
+                Master ist auf GitHub gepushed, erscheint auf /resonanzen nach dem nächsten CI-Build (~2-3 Min).
+              </p>
+            </div>
+          )}
+        </Section>
+      )}
 
       <Section title="Korpus-Verwaltung" c={C}>
         {/* Auto-Select-Vorschlag — surfaces top-N raw-Einträge nach

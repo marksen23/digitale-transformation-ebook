@@ -56,6 +56,20 @@ export default function ResonanzenPage() {
     initParams.get("relevanz") === "echos" ? "echos" :
     initParams.get("relevanz") === "novelty" ? "novelty" : "all"
   );
+
+  // Anker-Cluster mit Master ausgeklappt — pro Anker zeigen wir per
+  // Default nur den Master, Variantes nur wenn User explizit aufklappt
+  // (Set<anchor>). Deep-linkbar via ?showVariants=<anchor>.
+  const [showVariantsFor, setShowVariantsFor] = useState<Set<string>>(
+    () => new Set((initParams.get("showVariants") ?? "").split(",").filter(Boolean))
+  );
+  const toggleVariantsFor = (anchor: string) => {
+    setShowVariantsFor(prev => {
+      const next = new Set(prev);
+      if (next.has(anchor)) next.delete(anchor); else next.add(anchor);
+      return next;
+    });
+  };
   const [search, setSearch] = useState(initParams.get("q") ?? "");
   const [expandedId, setExpandedId] = useState<string | null>(null);
   // Permalink-Modus: ?id=ABC im URL beim Mount → zeigt nur diesen einen
@@ -189,13 +203,14 @@ export default function ResonanzenPage() {
     update("status", filterStatus === "kuratiert" ? "kuratiert" : null);
     update("tag", filterTag);
     update("relevanz", filterRelevanz === "all" ? null : filterRelevanz);
+    update("showVariants", showVariantsFor.size > 0 ? Array.from(showVariantsFor).join(",") : null);
     // 'id' nur bei expliziter Wahl beibehalten (initial Deep-Link)
     const newSearch = params.toString();
     const target = newSearch ? `${window.location.pathname}?${newSearch}` : window.location.pathname;
     if (target !== window.location.pathname + window.location.search) {
       window.history.replaceState({}, "", target);
     }
-  }, [search, filterEndpoint, filterStatus, filterTag, filterRelevanz]);
+  }, [search, filterEndpoint, filterStatus, filterTag, filterRelevanz, showVariantsFor]);
 
   // Anzahl aktiver Filter (für "Filter (N aktiv)"-Affordance)
   const activeFilterCount =
@@ -237,9 +252,22 @@ export default function ResonanzenPage() {
   // Im semantischen Modus mit Resultat-Cache: zeige in dieser Sortierung
   // nur die rangierten Treffer (gefiltert durch Endpoint/Status/Tag).
   // Sonst: klassischer Volltext-Filter.
+  // Anker → Master-Eintrag (für Filter-Logik: Variantes ausblenden wenn
+  // Master vorhanden, außer User hat aufgeklappt oder Permalink auf Variante).
+  const mastersByAnchor = useMemo(() => {
+    const m = new Map<string, ResonanzEntry>();
+    if (index) {
+      for (const e of index.entries) {
+        if (e.is_master && e.anchor) m.set(e.anchor, e);
+      }
+    }
+    return m;
+  }, [index]);
+
   const filtered = useMemo(() => {
     if (!index) return [];
-    // Permalink-Modus: nur den einen gemeinten Eintrag rendern
+    // Permalink-Modus: nur den einen gemeinten Eintrag rendern (auch wenn
+    // er eine Variante mit Master ist — explizite User-Anfrage hat Vorrang).
     if (permalinkId && !search.trim() && filterEndpoint === "all" && !filterTag && filterStatus !== "kuratiert" && !semanticMode) {
       const target = index.entries.find(e => e.id === permalinkId);
       return target ? [target] : [];
@@ -250,6 +278,12 @@ export default function ResonanzenPage() {
       if (filterTag && !e.nodeIds.includes(filterTag)) return false;
       if (filterRelevanz === "echos" && (!e.nearDuplicates || e.nearDuplicates.length === 0)) return false;
       if (filterRelevanz === "novelty" && !e.novelty) return false;
+      // Master-Filter: wenn Anker einen Master hat UND dies eine Variante
+      // ist UND User hat nicht aufgeklappt → Variante ausblenden. Master
+      // selbst läuft durch.
+      if (e.anchor && mastersByAnchor.has(e.anchor) && !e.is_master && !showVariantsFor.has(e.anchor)) {
+        return false;
+      }
       return true;
     };
 
@@ -269,7 +303,7 @@ export default function ResonanzenPage() {
       }
       return true;
     });
-  }, [index, filterEndpoint, filterStatus, filterTag, filterRelevanz, search, semanticMode, semanticResults, permalinkId]);
+  }, [index, filterEndpoint, filterStatus, filterTag, filterRelevanz, search, semanticMode, semanticResults, permalinkId, mastersByAnchor, showVariantsFor]);
 
   // Score-Map für semantische Anzeige (Eintrag → Cosine-Score)
   const scoreById = useMemo(() => {
@@ -974,8 +1008,9 @@ export default function ResonanzenPage() {
                 id={`entry-${entry.id}`}
                 style={{
                   marginBottom: "0.7rem",
-                  background: C.surface,
-                  border: `1px solid ${C.border}`,
+                  background: entry.is_master ? `${C.accent}06` : C.surface,
+                  // Master-Cards: 2px-Accent-Border statt 1px (Hervorhebung)
+                  border: entry.is_master ? `2px solid ${C.accent}` : `1px solid ${C.border}`,
                   borderRadius: RADIUS.card,
                   boxShadow: SHADOW.card,
                   padding: "0.9rem 1rem",
@@ -988,6 +1023,11 @@ export default function ResonanzenPage() {
                 <header style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem", gap: "0.5rem", flexWrap: "wrap" }}>
                   <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
                     {ENDPOINT_LABEL[entry.endpoint]}
+                    {entry.is_master && (
+                      <span title={`Master-Synthese aus ${entry.variant_count ?? entry.master_of?.length ?? 0} Varianten`} style={{ color: "#7ab898", marginLeft: "0.5rem", fontWeight: 600 }}>
+                        {ORNAMENT.middot} ◆ MASTER · {entry.variant_count ?? entry.master_of?.length ?? 0} Varianten
+                      </span>
+                    )}
                     {entry.status === "raw" && readingMode !== "surface" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>{ORNAMENT.middot} ungeprüft</span>}
                     {entry.novelty && (
                       <span title="Neue Erkenntnis — semantisch peripher (max Cosine zu anderen <0.70)" style={{ color: "#7eb8c8", marginLeft: "0.5rem" }}>
@@ -1261,6 +1301,58 @@ export default function ResonanzenPage() {
                     <div>id: {entry.id}</div>
                     <div>anchor: {entry.anchor}</div>
                     <div>status: {entry.status}</div>
+                  </div>
+                )}
+
+                {/* Master-Footer: Toggle für „Varianten anzeigen" */}
+                {entry.is_master && entry.anchor && (
+                  <div
+                    onClick={e => e.stopPropagation()}
+                    style={{
+                      borderTop: `1px solid ${C.accentDim}`,
+                      marginTop: "0.7rem", paddingTop: "0.5rem",
+                      display: "flex", justifyContent: "space-between",
+                      alignItems: "center", flexWrap: "wrap", gap: "0.5rem",
+                    }}
+                  >
+                    <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, letterSpacing: "0.08em" }}>
+                      Synthese aus {entry.variant_count ?? entry.master_of?.length ?? 0} Varianten
+                      {entry.ts && ` · ${new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}`}
+                    </span>
+                    <button
+                      onClick={() => toggleVariantsFor(entry.anchor)}
+                      style={{
+                        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
+                        textTransform: "uppercase",
+                        color: showVariantsFor.has(entry.anchor) ? C.muted : C.accent,
+                        background: "none",
+                        border: `1px solid ${showVariantsFor.has(entry.anchor) ? C.border : C.accentDim}`,
+                        padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 32,
+                      }}
+                    >
+                      {showVariantsFor.has(entry.anchor) ? "↑ Varianten ausblenden" : `↻ ${entry.variant_count ?? entry.master_of?.length ?? 0} Varianten anzeigen`}
+                    </button>
+                  </div>
+                )}
+
+                {/* Bei aufgeklappten Varianten + Variant-Entry: Visual Marker
+                    dass dies eine Variante zu einem Master ist. */}
+                {!entry.is_master && entry.anchor && mastersByAnchor.has(entry.anchor) && (
+                  <div style={{
+                    marginTop: "0.5rem", paddingTop: "0.4rem",
+                    borderTop: `1px dashed ${C.border}`,
+                    fontFamily: MONO, fontSize: "0.5rem",
+                    color: C.muted, letterSpacing: "0.05em",
+                  }}>
+                    Variante von Anker <code style={{ color: C.accent }}>{entry.anchor}</code>
+                    {" — "}
+                    <a
+                      href={`#entry-${mastersByAnchor.get(entry.anchor)!.id}`}
+                      onClick={e => { e.stopPropagation(); }}
+                      style={{ color: C.accent, textDecoration: "none" }}
+                    >
+                      ↑ zum Master
+                    </a>
                   </div>
                 )}
               </article>

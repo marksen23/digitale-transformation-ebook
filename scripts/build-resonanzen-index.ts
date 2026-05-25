@@ -27,6 +27,7 @@ const HOLDOUT_BASELINE_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdou
 const HOLDOUT_REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-report.json");
 const NODE_DENSITY_OUTPUT = path.join(ROOT, "client/public/resonanzen-node-density.json");
 const LINK_PREDICTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-link-predictions.json");
+const ANCHOR_CLUSTERS_OUTPUT = path.join(ROOT, "client/public/resonanzen-anchor-clusters.json");
 const HOLDOUT_MIN_CORPUS_SIZE = 30;
 const HOLDOUT_MODULO = 10;          // ≈10% Stichprobe
 const HOLDOUT_TOP_NEIGHBORS = 3;
@@ -87,6 +88,10 @@ interface ResonanzEntry {
    *   - Novelty: novelty === true           (<0.70)
    */
   novelty?: boolean;
+  /** Master-Marker für synthetisierte Einträge (Phase 4). */
+  is_master?: boolean;
+  master_of?: string[];
+  variant_count?: number;
   /**
    * Werkstreue-Score: 0–1, wie nah dieser Eintrag am semantischen Zentrum
    * der approved/published Einträge liegt. Werte < 0.55 deuten auf Drift
@@ -239,6 +244,17 @@ async function main() {
         prompt,
         response,
         contextMeta: (fm.context_meta as Record<string, unknown>) ?? {},
+        // Master-Felder (Phase 4): wenn Frontmatter is_master: true setzt,
+        // sind diese Felder vom Synthese-Endpunkt gesetzt.
+        ...(fm.is_master === true || fm.is_master === "true"
+          ? {
+              is_master: true,
+              master_of: Array.isArray(fm.master_of) ? fm.master_of.map(String) : [],
+              variant_count: typeof fm.variant_count === "number" ? fm.variant_count :
+                             typeof fm.variant_count === "string" ? parseInt(fm.variant_count, 10) || 0 :
+                             (Array.isArray(fm.master_of) ? fm.master_of.length : 0),
+            }
+          : {}),
       });
     }
   }
@@ -329,6 +345,7 @@ async function main() {
   // Werk, die das Frontend in der Heatmap-View sichtbar machen kann.
   writeNodeDensity(entries);
   writeLinkPredictions(entries);
+  writeAnchorClusters(entries);
 
   // ─── Final-Telemetrie: was steht effektiv im Index? ──────────────────
   // Wenn dieser Block "0 / 0 / 0" zeigt obwohl GEMINI_API_KEY OK gemeldet
@@ -519,6 +536,93 @@ function writeLinkPredictions(entries: ResonanzEntry[]): void {
   );
 }
 
+/** Aggregiert pro Anker (analyse:a+b+c, path-analyse:x+y) wie viele
+ *  Varianten existieren und ob/wann ein Master synthetisiert wurde.
+ *  → resonanzen-anchor-clusters.json
+ *
+ *  Wird im /admin von der Anker-Cluster-Sektion gelesen: zeigt User
+ *  alle Anker mit ≥2 Varianten + ob Master existiert + ob Master stale
+ *  (= neuere Variante als der Master). */
+function writeAnchorClusters(entries: ResonanzEntry[]): void {
+  // Map<anchor, { endpoint, variants[], master? }>
+  type Cluster = {
+    anchor: string;
+    endpoint: string;
+    variantIds: string[];
+    lastVariantTs: string;
+    masterId: string | null;
+    masterTs: string | null;
+    masterStale: boolean;
+  };
+  const byAnchor: Map<string, Cluster> = new Map();
+
+  for (const e of entries) {
+    if (!e.anchor) continue;
+    // Skip generic anchors die nicht durch nodeIds verfeinert sind
+    // (z.B. "graph" vom graph-chat — der ist nicht versioniert sinnvoll).
+    if (e.anchor === "graph" || !e.anchor.includes(":")) continue;
+
+    let cluster = byAnchor.get(e.anchor);
+    if (!cluster) {
+      cluster = {
+        anchor: e.anchor,
+        endpoint: e.endpoint,
+        variantIds: [],
+        lastVariantTs: "",
+        masterId: null,
+        masterTs: null,
+        masterStale: false,
+      };
+      byAnchor.set(e.anchor, cluster);
+    }
+
+    if (e.is_master) {
+      cluster.masterId = e.id;
+      cluster.masterTs = e.ts;
+    } else {
+      cluster.variantIds.push(e.id);
+      if (e.ts > cluster.lastVariantTs) cluster.lastVariantTs = e.ts;
+    }
+  }
+
+  // Master-stale-Berechnung: Master ist veraltet wenn eine Variante
+  // NACH der Master-Generierung dazukam.
+  for (const c of byAnchor.values()) {
+    if (c.masterTs && c.lastVariantTs && c.lastVariantTs > c.masterTs) {
+      c.masterStale = true;
+    }
+  }
+
+  // Nur Anker mit ≥2 Varianten ODER mit Master sind interessant
+  // (Single-Variant-Anker brauchen keine Synthese-Aktion).
+  const clusters = Array.from(byAnchor.values())
+    .filter(c => c.variantIds.length >= 2 || c.masterId !== null)
+    .sort((a, b) => {
+      // Sortierung: stale-master zuerst (need action),
+      // dann nach variantCount desc, dann nach lastVariantTs desc.
+      if (a.masterStale !== b.masterStale) return a.masterStale ? -1 : 1;
+      if (b.variantIds.length !== a.variantIds.length) return b.variantIds.length - a.variantIds.length;
+      return (b.lastVariantTs ?? "").localeCompare(a.lastVariantTs ?? "");
+    });
+
+  const out = {
+    generatedAt: new Date().toISOString(),
+    clusters,
+    stats: {
+      totalAnchors: byAnchor.size,
+      withMultipleVariants: clusters.filter(c => c.variantIds.length >= 2).length,
+      withMaster: clusters.filter(c => c.masterId !== null).length,
+      staleMasters: clusters.filter(c => c.masterStale).length,
+    },
+  };
+  fs.writeFileSync(ANCHOR_CLUSTERS_OUTPUT, JSON.stringify(out, null, 2));
+  console.log(
+    `[build-resonanzen-index] anchor-clusters: ${out.stats.totalAnchors} total, ` +
+    `${out.stats.withMultipleVariants} mit ≥2 Varianten, ` +
+    `${out.stats.withMaster} mit Master (${out.stats.staleMasters} stale)`
+  );
+}
+
 function cosineSim(a: number[], b: number[]): number {
   if (a.length !== b.length) return 0;
   let dot = 0, na = 0, nb = 0;
@@ -581,6 +685,11 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     const scored: Array<{ id: string; score: number }> = [];
     for (const other of entries) {
       if (other.id === entry.id) continue;
+      // Master + Variante des gleichen Ankers sind PER DEFINITION
+      // semantisch verwandt (Master ist Synthese der Varianten) —
+      // sie als nearDuplicates oder related zu flaggen wäre Rauschen.
+      if (entry.anchor && other.anchor === entry.anchor &&
+          (entry.is_master || other.is_master)) continue;
       const ov = embeddings[other.id];
       if (!ov) continue;
       const score = cosineSim(v, ov);

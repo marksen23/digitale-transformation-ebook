@@ -83,11 +83,13 @@ export function useAdminAuth(): {
   return { state, token, error, resetToken };
 }
 
-/** Generischer Caller für /api/admin/{path} mit Bearer-Auth. */
-export async function callAdminAction(
-  action: "curate" | "delete",
+/** Generischer Caller für /api/admin/{path} mit Bearer-Auth.
+ *  Generisch über T → bei erfolgreichem Call ist data: T verfügbar.
+ *  Bei Fehler ist data === undefined, error gesetzt. */
+export async function callAdminAction<T = unknown>(
+  action: "curate" | "delete" | "synthesize-master",
   body: Record<string, unknown>,
-): Promise<{ ok: boolean; error?: string }> {
+): Promise<{ ok: boolean; data?: T; error?: string }> {
   const t = localStorage.getItem(ADMIN_TOKEN_KEY);
   if (!t) return { ok: false, error: "Token fehlt" };
   try {
@@ -97,7 +99,9 @@ export async function callAdminAction(
       body: JSON.stringify(body),
     });
     const data = await res.json().catch(() => ({}));
-    return res.ok ? { ok: true } : { ok: false, error: data.error ?? `${res.status}` };
+    return res.ok
+      ? { ok: true, data: data as T }
+      : { ok: false, error: data.error ?? `${res.status}` };
   } catch (err) {
     return { ok: false, error: err instanceof Error ? err.message : String(err) };
   }

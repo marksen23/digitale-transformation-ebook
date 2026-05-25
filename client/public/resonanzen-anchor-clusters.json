@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-05-25T23:39:41.678Z",
+  "clusters": [
+    {
+      "anchor": "chapter:teil7",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MON6GME8-A2CB2CF7",
+        "MON69DI9-D63A7910",
+        "MON68U82-B67D8CA5",
+        "MON646UY-E4326634",
+        "MON602G2-9C9A59E5"
+      ],
+      "lastVariantTs": "2026-05-01T17:19:21.440Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "chapter:teil6",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MP8O6ND9-133F3FFB",
+        "MP8O4O23-B2B71E51",
+        "MP8O3GQD-92E9E9C7",
+        "MP0Q5FDJ-F2C015AF"
+      ],
+      "lastVariantTs": "2026-05-16T18:18:38.925Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "chapter:band3-kap4",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MP756UV9-FF3838F7",
+        "MP74X3EJ-72CDDB9F",
+        "MP74VXSM-5DEA06F3"
+      ],
+      "lastVariantTs": "2026-05-15T16:39:09.765Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "chapter:teil4",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MOPY7TLU-566F01C0",
+        "MOPY5F6J-9469E3BE",
+        "MOPL410P-D988678B"
+      ],
+      "lastVariantTs": "2026-05-03T15:51:52.482Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "chapter:band3-kap5",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MOHC8GKH-8E301C89",
+        "MOHC5VWC-1EB0E6AA",
+        "MOHC41N2-21D1E505"
+      ],
+      "lastVariantTs": "2026-04-27T15:14:21.282Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:dialog+ich-du",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MPAH317T-242EECA7",
+        "MPAGOCGB-FB54D923"
+      ],
+      "lastVariantTs": "2026-05-18T00:35:25.289Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:lm-begegnung+resonanzvernunft+selbst",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MP2LJCJB-EA58EC28",
+        "MP2LIW43-E8ADC59E"
+      ],
+      "lastVariantTs": "2026-05-12T12:17:55.511Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "chapter:teil5",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MOOK96F0-C8AEFE68",
+        "MOOK5A30-F596F31D"
+      ],
+      "lastVariantTs": "2026-05-02T16:33:14.940Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    }
+  ],
+  "stats": {
+    "totalAnchors": 84,
+    "withMultipleVariants": 8,
+    "withMaster": 0,
+    "staleMasters": 0
+  }
+}

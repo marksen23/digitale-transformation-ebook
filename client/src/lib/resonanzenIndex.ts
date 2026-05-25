@@ -33,6 +33,18 @@ export interface ResonanzEntry {
    */
   novelty?: boolean;
   /**
+   * Master-Marker: true wenn dieser Eintrag eine SYNTHESE mehrerer
+   * Varianten ist (vom /api/admin/synthesize-master generiert).
+   * In dem Fall sind master_of + variant_count zusätzlich gesetzt.
+   * Frontend filtert die Varianten dieses Ankers aus dem Default-View
+   * raus und zeigt nur den Master + "N Varianten anzeigen"-Link.
+   */
+  is_master?: boolean;
+  /** IDs der Varianten die zur Synthese beigetragen haben. */
+  master_of?: string[];
+  /** Anzahl der Varianten zum Synthese-Zeitpunkt. */
+  variant_count?: number;
+  /**
    * Werkstreue-Score: Cosine-Similarity zum Centroid der approved/published
    * Einträge. 0–1. < 0.55 = Drift-Verdacht (off-voice / themenfremd).
    * Undefined wenn zu wenig kuratierte Einträge als Referenz vorhanden.
