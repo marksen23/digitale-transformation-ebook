@@ -1,0 +1,540 @@
+{
+  "generatedAt": "2026-05-25T05:52:40.198Z",
+  "minCooccurrence": 2,
+  "candidates": [
+    {
+      "source": "vernunft",
+      "target": "zwischen",
+      "cooccurrence": 5,
+      "endpoints": {
+        "path-analyse": 4,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MPBI57AL-76627781",
+        "MOQ7OBNT-57882C8D",
+        "MOP0LEAL-E2568DCC",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "selbst",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPF4FISZ-67000E01",
+        "MPEV1D2J-55138734",
+        "MP2LJCJB-EA58EC28",
+        "MP2LIW43-E8ADC59E"
+      ]
+    },
+    {
+      "source": "denken",
+      "target": "resonanzvernunft",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPF4FISZ-67000E01",
+        "MP497SNT-5E1D2074",
+        "MOHLZBVK-2FBBAD2F"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "zwischen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MOQIJIOJ-61E8F0F4",
+        "MOOZHCUT-4B86F8AD"
+      ]
+    },
+    {
+      "source": "lm-grenze",
+      "target": "vernunft",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MPBI57AL-76627781",
+        "MOPHZPQ7-B63879B5"
+      ]
+    },
+    {
+      "source": "stimme",
+      "target": "zwischen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MP0QMSOR-C6EC1B5A",
+        "MOQIJIOJ-61E8F0F4",
+        "MOQID47V-A12862EA"
+      ]
+    },
+    {
+      "source": "lm-verwandlung",
+      "target": "stimme",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MOQIJIOJ-61E8F0F4",
+        "MOQID47V-A12862EA",
+        "MOHVDNEU-D3F7EEB5"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "lm-grenze",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPJXEFVC-49A699FA",
+        "MPEV1D2J-55138734"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "welt",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPJXEFVC-49A699FA",
+        "MPCV5LR8-9AD1527C"
+      ]
+    },
+    {
+      "source": "dazwischenintelligenz",
+      "target": "gegenwart",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPJUHM1L-0BA3DF6E",
+        "MPJEBNX3-042F2A69"
+      ]
+    },
+    {
+      "source": "denken",
+      "target": "echo",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPF4WM18-FF4843F1",
+        "MP497SNT-5E1D2074"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPF4FISZ-67000E01",
+        "MPEV1D2J-55138734"
+      ]
+    },
+    {
+      "source": "selbst",
+      "target": "vernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPF4FISZ-67000E01",
+        "MPEV1D2J-55138734"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "freiheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MOQIGG2B-2F0C3F5D"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "vernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MOOMJDPP-1F336D7D"
+      ]
+    },
+    {
+      "source": "lm-grenze",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MP8UIMZW-BADE77E5"
+      ]
+    },
+    {
+      "source": "lm-grenze",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "transaufklaerung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "transaufklaerung",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPEV1D2J-55138734",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "moment",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPCV5LR8-9AD1527C",
+        "MP0X2MFM-53C89506"
+      ]
+    },
+    {
+      "source": "selbst",
+      "target": "wahrheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPCUVOK6-27CB8359",
+        "MOLNG57A-2F155772"
+      ]
+    },
+    {
+      "source": "dialog",
+      "target": "ich-du",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPAH317T-242EECA7",
+        "MPAGOCGB-FB54D923"
+      ]
+    },
+    {
+      "source": "dasein",
+      "target": "lm-grenze",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MP8UIMZW-BADE77E5",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
+      "source": "lm-grenze",
+      "target": "resonanz",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MP8UIMZW-BADE77E5",
+        "MOQ4WD8F-429C644B"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "spannung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MP8UIMZW-BADE77E5",
+        "MOPFJTND-AAE76B2B"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "welt",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MP495QL6-F5FD1AE1",
+        "MOOMPCI0-262176C2"
+      ]
+    },
+    {
+      "source": "lm-begegnung",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MP2LJCJB-EA58EC28",
+        "MP2LIW43-E8ADC59E"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "sprache",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MP0QMSOR-C6EC1B5A",
+        "MOUA3PLK-548F1A0A"
+      ]
+    },
+    {
+      "source": "lm-spiegel",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MOUKLLK4-C38517C1",
+        "MOP0S479-373A2268"
+      ]
+    },
+    {
+      "source": "lm-verwandlung",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQIJIOJ-61E8F0F4",
+        "MOQID47V-A12862EA"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "öffnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQIJIOJ-61E8F0F4",
+        "MOQID47V-A12862EA"
+      ]
+    },
+    {
+      "source": "stimme",
+      "target": "öffnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQIJIOJ-61E8F0F4",
+        "MOQID47V-A12862EA"
+      ]
+    },
+    {
+      "source": "erkenntnis",
+      "target": "lm-verwandlung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MOQIHEM5-82D69E4F",
+        "MOIXN7OL-B18642AC"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "sein",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "wahrheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "sein",
+      "target": "vernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "sein",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "unverfuegbarkeit",
+      "target": "vernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "unverfuegbarkeit",
+      "target": "wahrheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "wahrheit",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "spannung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MOOZHCUT-4B86F8AD",
+        "MOOMJDPP-1F336D7D"
+      ]
+    }
+  ],
+  "stats": {
+    "totalPairs": 231,
+    "candidatesCount": 42,
+    "existingEdges": 116,
+    "maxCooccurrence": 5
+  }
+}
