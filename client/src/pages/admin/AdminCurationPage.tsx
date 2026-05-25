@@ -2,12 +2,16 @@
  * AdminCurationPage (/admin) — Korpus-Verwaltung mit Status-Filter,
  * Eintragsliste und Action-Buttons (publish/approve/pending/reject/delete).
  *
+ * Bulk-Curation-Erweiterung (2026-05): Tastatur-Shortcuts + Multi-Select
+ * + Auto-Select-Vorschlag nach corpusVoiceScore, damit werkVoiceScore
+ * endlich seine ≥10-Kuratiert-Schwelle erreicht (aktuell nur 3 published).
+ *
  * Nutzt:
  *   - useAdminAuth() (für Token-Status, indirekt via AdminLayout vorgegeben)
- *   - callAdminAction() für die API-Calls
+ *   - callAdminAction() für die API-Calls (jetzt auch parallelisiert mit Throttle)
  *   - DeleteConfirm-Modal für Lösch-Bestätigung
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   loadResonanzenIndex,
   ENDPOINT_LABEL, ENDPOINT_COLOR,
@@ -23,6 +27,10 @@ import {
 const STATUS_FILTERS = ["all", "raw", "pending", "approved", "published", "rejected"] as const;
 type StatusFilter = typeof STATUS_FILTERS[number];
 
+/** Max parallele PUTs zur GitHub-Contents-API. 3 ist konservativ —
+ *  vermeidet 5xx-Spikes bei Bulk-Operationen über >20 Einträge. */
+const BULK_CONCURRENCY = 3;
+
 export default function AdminCurationPage() {
   const C = useAdminTheme();
 
@@ -32,6 +40,12 @@ export default function AdminCurationPage() {
   const [confirmDelete, setConfirmDelete] = useState<ResonanzEntry | null>(null);
   const [actionFeedback, setActionFeedback] = useState<{ id: string; ok: boolean; msg: string } | null>(null);
   const [showAllEntries, setShowAllEntries] = useState(false);
+
+  // Bulk-Curation-State
+  const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
+  const [focusedIndex, setFocusedIndex] = useState<number>(-1);
+  const [bulkProgress, setBulkProgress] = useState<{ done: number; total: number; status: string } | null>(null);
+  const [bulkConfirmDelete, setBulkConfirmDelete] = useState(false);
 
   useEffect(() => {
     loadResonanzenIndex().then(setIndex).catch(() => null);
@@ -44,6 +58,33 @@ export default function AdminCurationPage() {
     if (statusFilter === "all") return index.entries;
     return index.entries.filter(e => e.status === statusFilter);
   }, [index, statusFilter]);
+
+  const visibleEntries = useMemo(
+    () => showAllEntries ? filteredEntries : filteredEntries.slice(0, 20),
+    [filteredEntries, showAllEntries],
+  );
+  const visibleEntriesRef = useRef(visibleEntries);
+  visibleEntriesRef.current = visibleEntries;
+
+  // Bei Filter-Wechsel: Selektion + Fokus zurücksetzen, sonst werden
+  // unsichtbare Einträge mit-selektiert.
+  useEffect(() => {
+    setSelectedIds(new Set());
+    setFocusedIndex(-1);
+  }, [statusFilter]);
+
+  // Auto-Select: top-N raw-Einträge nach corpusVoiceScore (Buchstreue).
+  // werkVoiceScore wäre die bessere Referenz, ist aber gated bis ≥10 publish
+  // — also chicken-and-egg. corpusVoiceScore funktioniert ab Build-1.
+  const topCuratable = useMemo(() => {
+    if (!index) return [] as ResonanzEntry[];
+    return index.entries
+      .filter(e => e.status === "raw" && typeof e.corpusVoiceScore === "number")
+      .sort((a, b) => (b.corpusVoiceScore ?? 0) - (a.corpusVoiceScore ?? 0))
+      .slice(0, 10);
+  }, [index]);
+
+  // ─── API-Calls ─────────────────────────────────────────────────────────────
 
   async function curateEntry(id: string, newStatus: string) {
     setCurationLoading(s => new Set(s).add(id));
@@ -81,6 +122,163 @@ export default function AdminCurationPage() {
     setTimeout(() => setActionFeedback(null), 3500);
   }
 
+  /** Bulk-Curate: führt curate-API-Calls für alle IDs parallel mit
+   *  BULK_CONCURRENCY-Limit aus. Aktualisiert Index inkrementell sobald
+   *  jede Antwort kommt. Fehler werden gezählt aber nicht abgebrochen. */
+  async function bulkCurate(ids: string[], newStatus: string) {
+    if (ids.length === 0) return;
+    setBulkProgress({ done: 0, total: ids.length, status: newStatus });
+    let done = 0;
+    let failed = 0;
+
+    // Simple concurrency-limited Promise.all
+    const queue = [...ids];
+    const runNext = async (): Promise<void> => {
+      const id = queue.shift();
+      if (!id) return;
+      try {
+        const result = await callAdminAction("curate", { id, status: newStatus });
+        if (result.ok) {
+          setIndex(curr => curr ? {
+            ...curr,
+            entries: curr.entries.map(e => e.id === id ? { ...e, status: newStatus as ResonanzEntry["status"] } : e),
+          } : curr);
+        } else {
+          failed++;
+        }
+      } catch {
+        failed++;
+      }
+      done++;
+      setBulkProgress({ done, total: ids.length, status: newStatus });
+      await runNext();
+    };
+    await Promise.all(Array.from({ length: Math.min(BULK_CONCURRENCY, ids.length) }, () => runNext()));
+
+    setBulkProgress(null);
+    setSelectedIds(new Set());
+    setActionFeedback({
+      id: "_bulk", ok: failed === 0,
+      msg: failed === 0
+        ? `${ids.length}× ${newStatus}`
+        : `${ids.length - failed}/${ids.length} ${newStatus} (${failed} fehlgeschlagen)`,
+    });
+    setTimeout(() => setActionFeedback(null), 4500);
+  }
+
+  async function bulkDelete(ids: string[]) {
+    if (ids.length === 0) return;
+    setBulkProgress({ done: 0, total: ids.length, status: "delete" });
+    let done = 0; let failed = 0;
+    const queue = [...ids];
+    const runNext = async (): Promise<void> => {
+      const id = queue.shift();
+      if (!id) return;
+      try {
+        const result = await callAdminAction("delete", { id });
+        if (result.ok) {
+          setIndex(curr => curr ? {
+            ...curr,
+            count: curr.count - 1,
+            entries: curr.entries.filter(e => e.id !== id),
+          } : curr);
+        } else {
+          failed++;
+        }
+      } catch {
+        failed++;
+      }
+      done++;
+      setBulkProgress({ done, total: ids.length, status: "delete" });
+      await runNext();
+    };
+    await Promise.all(Array.from({ length: Math.min(BULK_CONCURRENCY, ids.length) }, () => runNext()));
+
+    setBulkProgress(null);
+    setSelectedIds(new Set());
+    setBulkConfirmDelete(false);
+    setActionFeedback({
+      id: "_bulk", ok: failed === 0,
+      msg: failed === 0
+        ? `${ids.length}× gelöscht`
+        : `${ids.length - failed}/${ids.length} gelöscht (${failed} fehlgeschlagen)`,
+    });
+    setTimeout(() => setActionFeedback(null), 4500);
+  }
+
+  // ─── Keyboard-Shortcuts ───────────────────────────────────────────────────
+
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      // Inputs/Textareas nicht beeinflussen
+      const target = e.target as HTMLElement;
+      if (target?.tagName === "INPUT" || target?.tagName === "TEXTAREA" || target?.isContentEditable) return;
+      if (bulkProgress) return;  // während Bulk-Run alles blockieren
+      const visible = visibleEntriesRef.current;
+      const fIdx = focusedIndex;
+
+      // Navigation
+      if (e.key === "j" || e.key === "ArrowDown") {
+        e.preventDefault();
+        setFocusedIndex(i => Math.min((i < 0 ? -1 : i) + 1, visible.length - 1));
+        return;
+      }
+      if (e.key === "k" || e.key === "ArrowUp") {
+        e.preventDefault();
+        setFocusedIndex(i => Math.max((i <= 0 ? 0 : i) - 1, 0));
+        return;
+      }
+      // Selektion
+      if (e.key === " " && fIdx >= 0) {
+        e.preventDefault();
+        const id = visible[fIdx]?.id;
+        if (id) toggleSelection(id);
+        return;
+      }
+      // Select all visible (raw)
+      if ((e.metaKey || e.ctrlKey) && e.key === "a") {
+        e.preventDefault();
+        const allRawIds = visible.filter(en => en.status === "raw").map(en => en.id);
+        setSelectedIds(new Set(allRawIds));
+        return;
+      }
+      // Escape: clear selection
+      if (e.key === "Escape") {
+        e.preventDefault();
+        setSelectedIds(new Set());
+        return;
+      }
+      // Status-Aktionen: wenn Selektion → bulk, sonst nur fokussierter Eintrag
+      const actionable = selectedIds.size > 0
+        ? Array.from(selectedIds)
+        : (fIdx >= 0 ? [visible[fIdx]?.id].filter(Boolean) as string[] : []);
+      if (actionable.length === 0) return;
+
+      if (e.key === "p") { e.preventDefault(); void bulkCurate(actionable, "published"); return; }
+      if (e.key === "a") { e.preventDefault(); void bulkCurate(actionable, "approved"); return; }
+      if (e.key === "r") { e.preventDefault(); void bulkCurate(actionable, "rejected"); return; }
+      if (e.key === "x") { e.preventDefault(); setBulkConfirmDelete(true); return; }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [selectedIds, focusedIndex, bulkProgress]);
+
+  function toggleSelection(id: string) {
+    setSelectedIds(prev => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id); else next.add(id);
+      return next;
+    });
+  }
+
+  // Scroll-into-view bei Keyboard-Navigation, sonst läuft der Fokus
+  // ausserhalb des sichtbaren Bereichs ohne dass der User es merkt.
+  useEffect(() => {
+    if (focusedIndex < 0) return;
+    const el = document.getElementById(`curation-entry-${focusedIndex}`);
+    el?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  }, [focusedIndex]);
+
   if (!index || !stats) {
     return (
       <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
@@ -105,6 +303,7 @@ export default function AdminCurationPage() {
   const publishedCount = stats.byStatus["published"] ?? 0;
   const approvedCount = stats.byStatus["approved"] ?? 0;
   const kuratiertCount = publishedCount + approvedCount;
+  const needsForWerkVoice = Math.max(0, 10 - kuratiertCount);
 
   return (
     <>
@@ -128,9 +327,71 @@ export default function AdminCurationPage() {
             />
           ))}
         </div>
+
+        {/* werkVoiceScore-Unlock-Hint: ≥10 kuratiert sind die Schwelle, ab
+            der der Build-Step werkVoiceScore (Centroid kuratierter Einträge)
+            berechnet — bis dahin bleibt diese Diagnose dunkel. */}
+        {needsForWerkVoice > 0 && (
+          <div style={{
+            marginTop: "0.8rem",
+            fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic",
+            color: C.textDim, lineHeight: 1.5,
+          }}>
+            <strong style={{ color: C.accent }}>{needsForWerkVoice} weitere kuratierte Einträge</strong>{" "}
+            (approved oder published) bis <code style={{ fontFamily: MONO, color: C.accent }}>werkVoiceScore</code>{" "}
+            für alle 136 Einträge berechnet wird (Schwelle ≥10).
+          </div>
+        )}
       </Section>
 
       <Section title="Korpus-Verwaltung" c={C}>
+        {/* Auto-Select-Vorschlag — surfaces top-N raw-Einträge nach
+            corpusVoiceScore als Bulk-Kuratierung-Kandidaten. */}
+        {topCuratable.length > 0 && (
+          <div style={{
+            marginBottom: "0.8rem",
+            padding: "0.7rem 0.9rem",
+            background: "rgba(126,184,200,0.06)",
+            border: "1px solid rgba(126,184,200,0.3)",
+            borderRadius: 4,
+            display: "flex", alignItems: "center", gap: "0.7rem", flexWrap: "wrap",
+          }}>
+            <div style={{ flex: "1 1 200px", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
+              <strong style={{ color: "#7eb8c8" }}>Vorschlag:</strong> Top {topCuratable.length} raw-Einträge nach
+              Buchstreue (corpusVoiceScore) wählen, ohne einzeln anklicken.
+            </div>
+            <button
+              onClick={() => setSelectedIds(new Set(topCuratable.map(e => e.id)))}
+              style={{
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+                textTransform: "uppercase", color: "#7eb8c8",
+                background: "rgba(126,184,200,0.08)",
+                border: "1px solid rgba(126,184,200,0.5)",
+                padding: "0.5rem 0.8rem", cursor: "pointer", minHeight: 36,
+              }}
+            >
+              ✓ Top {topCuratable.length} wählen
+            </button>
+          </div>
+        )}
+
+        {/* Tastatur-Shortcuts-Hint */}
+        <div style={{
+          marginBottom: "0.8rem",
+          fontFamily: MONO, fontSize: "0.58rem",
+          letterSpacing: "0.05em", color: C.muted, lineHeight: 1.7,
+        }}>
+          Tastatur:{" "}
+          <kbd style={kbdStyle(C)}>j</kbd>/<kbd style={kbdStyle(C)}>k</kbd> Navigieren ·{" "}
+          <kbd style={kbdStyle(C)}>Space</kbd> Markieren ·{" "}
+          <kbd style={kbdStyle(C)}>Ctrl+A</kbd> Alle raw ·{" "}
+          <kbd style={kbdStyle(C)}>p</kbd> Publish ·{" "}
+          <kbd style={kbdStyle(C)}>a</kbd> Approve ·{" "}
+          <kbd style={kbdStyle(C)}>r</kbd> Reject ·{" "}
+          <kbd style={kbdStyle(C)}>x</kbd> Delete ·{" "}
+          <kbd style={kbdStyle(C)}>Esc</kbd> Auswahl löschen
+        </div>
+
         {/* Status-Filter-Pills */}
         <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.8rem" }}>
           {STATUS_FILTERS.map(s => {
@@ -160,55 +421,87 @@ export default function AdminCurationPage() {
         ) : (
           <>
             <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-              {(showAllEntries ? filteredEntries : filteredEntries.slice(0, 20)).map(entry => {
+              {visibleEntries.map((entry, idx) => {
                 const isLoading = curationLoading.has(entry.id);
                 const fb = actionFeedback?.id === entry.id ? actionFeedback : null;
+                const isSelected = selectedIds.has(entry.id);
+                const isFocused = idx === focusedIndex;
                 return (
-                  <div key={entry.id} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "0.7rem 0.9rem" }}>
-                    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.3rem", gap: "0.5rem", flexWrap: "wrap" }}>
-                      <div style={{ display: "flex", gap: "0.4rem", alignItems: "baseline" }}>
-                        <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
-                          {ENDPOINT_LABEL[entry.endpoint]}
-                        </span>
-                        <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: entry.status === "published" ? "#7ab898" : entry.status === "rejected" ? "#c48282" : C.muted }}>
-                          · {entry.status}
-                        </span>
+                  <div
+                    key={entry.id}
+                    id={`curation-entry-${idx}`}
+                    style={{
+                      background: isSelected ? `${C.accent}11` : C.surface,
+                      border: `1px solid ${isFocused ? C.accent : isSelected ? C.accentDim : C.border}`,
+                      borderLeft: `3px solid ${isSelected ? C.accent : isFocused ? C.accentDim : "transparent"}`,
+                      padding: "0.7rem 0.9rem",
+                      display: "flex", gap: "0.7rem",
+                      transition: "all 0.1s",
+                    }}
+                  >
+                    {/* Checkbox */}
+                    <input
+                      type="checkbox"
+                      checked={isSelected}
+                      onChange={() => toggleSelection(entry.id)}
+                      aria-label={`Eintrag ${entry.id} auswählen`}
+                      style={{
+                        marginTop: "0.25rem", cursor: "pointer",
+                        accentColor: C.accent,
+                        width: 18, height: 18, flexShrink: 0,
+                      }}
+                    />
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.3rem", gap: "0.5rem", flexWrap: "wrap" }}>
+                        <div style={{ display: "flex", gap: "0.4rem", alignItems: "baseline" }}>
+                          <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
+                            {ENDPOINT_LABEL[entry.endpoint]}
+                          </span>
+                          <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: entry.status === "published" ? "#7ab898" : entry.status === "rejected" ? "#c48282" : C.muted }}>
+                            · {entry.status}
+                          </span>
+                          {typeof entry.corpusVoiceScore === "number" && (
+                            <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: entry.corpusVoiceScore >= 0.65 ? "#7ab898" : entry.corpusVoiceScore >= 0.55 ? C.accent : "#c48282" }} title="corpusVoiceScore (Buchstreue)">
+                              · {(entry.corpusVoiceScore * 100).toFixed(0)}%
+                            </span>
+                          )}
+                        </div>
+                        <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
+                          {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
+                        </time>
                       </div>
-                      <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
-                        {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
-                      </time>
-                    </div>
-                    <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text, lineHeight: 1.4, marginBottom: "0.5rem" }}>
-                      {entry.prompt.length > 130 ? entry.prompt.slice(0, 130) + "…" : entry.prompt}
-                    </div>
-
-                    {/* Action-Bar */}
-                    <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap", alignItems: "center" }}>
-                      {entry.status !== "published" && (
-                        <ActionBtn label="✓ Publish" color="#7ab898" disabled={isLoading} onClick={() => curateEntry(entry.id, "published")} />
-                      )}
-                      {entry.status !== "approved" && entry.status !== "published" && (
-                        <ActionBtn label="✓ Approve" color="#5aacb8" disabled={isLoading} onClick={() => curateEntry(entry.id, "approved")} />
-                      )}
-                      {entry.status !== "pending" && entry.status !== "raw" && (
-                        <ActionBtn label="↺ Pending" color={C.accent} disabled={isLoading} onClick={() => curateEntry(entry.id, "pending")} />
-                      )}
-                      {entry.status !== "rejected" && (
-                        <ActionBtn label="✕ Reject" color="#c48282" disabled={isLoading} onClick={() => curateEntry(entry.id, "rejected")} />
-                      )}
-                      <ActionBtn label="🗑 Löschen" color="#c48282" disabled={isLoading} onClick={() => setConfirmDelete(entry)} variant="outline" />
-                      <a
-                        href={`/resonanzen?id=${entry.id}`}
-                        target="_blank" rel="noreferrer"
-                        style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, padding: "0.4rem 0.5rem", textDecoration: "none", marginLeft: "auto" }}
-                      >↗ Wissen</a>
-                    </div>
-
-                    {fb && (
-                      <div style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.55rem", color: fb.ok ? "#7ab898" : "#c48282" }}>
-                        {fb.ok ? "✓" : "✕"} {fb.msg}
+                      <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text, lineHeight: 1.4, marginBottom: "0.5rem" }}>
+                        {entry.prompt.length > 130 ? entry.prompt.slice(0, 130) + "…" : entry.prompt}
                       </div>
-                    )}
+
+                      {/* Action-Bar (per-entry) */}
+                      <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap", alignItems: "center" }}>
+                        {entry.status !== "published" && (
+                          <ActionBtn label="✓ Publish" color="#7ab898" disabled={isLoading} onClick={() => curateEntry(entry.id, "published")} />
+                        )}
+                        {entry.status !== "approved" && entry.status !== "published" && (
+                          <ActionBtn label="✓ Approve" color="#5aacb8" disabled={isLoading} onClick={() => curateEntry(entry.id, "approved")} />
+                        )}
+                        {entry.status !== "pending" && entry.status !== "raw" && (
+                          <ActionBtn label="↺ Pending" color={C.accent} disabled={isLoading} onClick={() => curateEntry(entry.id, "pending")} />
+                        )}
+                        {entry.status !== "rejected" && (
+                          <ActionBtn label="✕ Reject" color="#c48282" disabled={isLoading} onClick={() => curateEntry(entry.id, "rejected")} />
+                        )}
+                        <ActionBtn label="🗑 Löschen" color="#c48282" disabled={isLoading} onClick={() => setConfirmDelete(entry)} variant="outline" />
+                        <a
+                          href={`/resonanzen?id=${entry.id}`}
+                          target="_blank" rel="noreferrer"
+                          style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, padding: "0.4rem 0.5rem", textDecoration: "none", marginLeft: "auto" }}
+                        >↗ Wissen</a>
+                      </div>
+
+                      {fb && (
+                        <div style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.55rem", color: fb.ok ? "#7ab898" : "#c48282" }}>
+                          {fb.ok ? "✓" : "✕"} {fb.msg}
+                        </div>
+                      )}
+                    </div>
                   </div>
                 );
               })}
@@ -225,7 +518,63 @@ export default function AdminCurationPage() {
         )}
       </Section>
 
-      {/* Confirmation-Dialog für Delete */}
+      {/* Sticky Bulk-Action-Bar — nur wenn Auswahl aktiv */}
+      {selectedIds.size > 0 && !bulkProgress && (
+        <div style={{
+          position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 200,
+          background: C.deep,
+          borderTop: `2px solid ${C.accent}`,
+          padding: "0.8rem 1rem calc(0.8rem + env(safe-area-inset-bottom, 0px))",
+          display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap",
+          boxShadow: "0 -4px 20px rgba(0,0,0,0.4)",
+        }}>
+          <div style={{ fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.accent, flexShrink: 0 }}>
+            {selectedIds.size} ausgewählt
+          </div>
+          <ActionBtn label="✓ Publish alle" color="#7ab898" onClick={() => void bulkCurate(Array.from(selectedIds), "published")} />
+          <ActionBtn label="✓ Approve alle" color="#5aacb8" onClick={() => void bulkCurate(Array.from(selectedIds), "approved")} />
+          <ActionBtn label="↺ Pending alle" color={C.accent} onClick={() => void bulkCurate(Array.from(selectedIds), "pending")} />
+          <ActionBtn label="✕ Reject alle" color="#c48282" onClick={() => void bulkCurate(Array.from(selectedIds), "rejected")} />
+          <ActionBtn label="🗑 Löschen alle" color="#c48282" variant="outline" onClick={() => setBulkConfirmDelete(true)} />
+          <button
+            onClick={() => setSelectedIds(new Set())}
+            style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.45rem 0.6rem", cursor: "pointer", minHeight: 36, marginLeft: "auto" }}
+          >
+            Esc abbrechen
+          </button>
+        </div>
+      )}
+
+      {/* Bulk-Progress-Overlay */}
+      {bulkProgress && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 300,
+          background: "rgba(0,0,0,0.6)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          backdropFilter: "blur(4px)",
+        }}>
+          <div style={{
+            background: C.deep, border: `1px solid ${C.accent}`,
+            padding: "1.5rem 2rem", borderRadius: 8, minWidth: 280, textAlign: "center",
+          }}>
+            <div style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.accent, marginBottom: "0.7rem" }}>
+              Bulk-{bulkProgress.status}
+            </div>
+            <div style={{ fontFamily: SERIF, fontSize: "1.5rem", color: C.text, marginBottom: "0.4rem" }}>
+              {bulkProgress.done} / {bulkProgress.total}
+            </div>
+            <div style={{ width: "100%", height: 4, background: C.surface, borderRadius: 2, overflow: "hidden" }}>
+              <div style={{
+                width: `${(bulkProgress.done / bulkProgress.total) * 100}%`,
+                height: "100%", background: C.accent,
+                transition: "width 0.2s",
+              }} />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Confirmation-Dialog für Single-Delete */}
       {confirmDelete && (
         <DeleteConfirm
           entry={confirmDelete}
@@ -235,8 +584,64 @@ export default function AdminCurationPage() {
           theme={{ deep: C.deep, border: C.border, muted: C.muted, text: C.text }}
         />
       )}
+
+      {/* Confirmation-Dialog für Bulk-Delete */}
+      {bulkConfirmDelete && (
+        <div style={{
+          position: "fixed", inset: 0, zIndex: 400,
+          background: "rgba(0,0,0,0.7)",
+          display: "flex", alignItems: "center", justifyContent: "center",
+          backdropFilter: "blur(4px)", padding: "1rem",
+        }}>
+          <div style={{
+            background: C.deep, border: `1px solid #c48282`,
+            padding: "1.4rem 1.6rem", borderRadius: 8, maxWidth: 440,
+          }}>
+            <div style={{ fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.15em", textTransform: "uppercase", color: "#c48282", marginBottom: "0.7rem" }}>
+              {selectedIds.size}× Löschen — irreversibel
+            </div>
+            <p style={{ fontFamily: SERIF, fontSize: "0.92rem", fontStyle: "italic", color: C.text, lineHeight: 1.5, marginTop: 0 }}>
+              <strong>{selectedIds.size}</strong> Einträge werden dauerhaft aus dem Korpus
+              entfernt (raw-Markdown + Index). Diese Aktion kann nicht rückgängig
+              gemacht werden.
+            </p>
+            <div style={{ display: "flex", gap: "0.6rem", justifyContent: "flex-end", marginTop: "1rem" }}>
+              <button
+                onClick={() => setBulkConfirmDelete(false)}
+                style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.5rem 0.9rem", cursor: "pointer", minHeight: 36 }}
+              >Abbrechen</button>
+              <button
+                onClick={() => void bulkDelete(Array.from(selectedIds))}
+                style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#080808", background: "#c48282", border: "1px solid #c48282", padding: "0.5rem 0.9rem", cursor: "pointer", minHeight: 36 }}
+              >🗑 Wirklich löschen</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Bulk-Action-Feedback-Toast (für non-error _bulk) */}
+      {actionFeedback?.id === "_bulk" && (
+        <div style={{
+          position: "fixed", bottom: "5rem", left: "50%", transform: "translateX(-50%)",
+          background: actionFeedback.ok ? "#7ab898" : "#c48282",
+          color: "#080808", padding: "0.6rem 1rem", borderRadius: 4, zIndex: 250,
+          fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.1em",
+          boxShadow: "0 4px 16px rgba(0,0,0,0.4)",
+        }}>
+          {actionFeedback.ok ? "✓" : "⚠"} {actionFeedback.msg}
+        </div>
+      )}
     </>
   );
+}
+
+function kbdStyle(C: Palette): React.CSSProperties {
+  return {
+    fontFamily: MONO, fontSize: "0.62rem",
+    background: C.surface, color: C.text,
+    border: `1px solid ${C.border}`,
+    padding: "0.05rem 0.35rem", borderRadius: 3,
+  };
 }
 
 // ─── ActionBtn (lokal, kompakte Variante) ─────────────────────────────────
