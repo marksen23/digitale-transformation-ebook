@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-05-24T08:25:12.875Z",
+  "generatedAt": "2026-05-25T05:41:32.452Z",
   "checked": 16,
-  "stable": 16,
-  "shifted": 0,
+  "stable": 15,
+  "shifted": 1,
   "drifted": 0,
   "details": [
     {
@@ -14,10 +14,10 @@
       ],
       "current": [
         "MP8UIMZW-BADE77E5",
-        "MPEV1D2J-55138734",
-        "MP497SNT-5E1D2074"
+        "MPK0H3SM-B25CFBB3",
+        "MPEV1D2J-55138734"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MP8OB1IU-F6C31DC7",

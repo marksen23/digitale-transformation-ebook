@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-24T08:25:12.880Z",
+  "generatedAt": "2026-05-25T05:41:32.457Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 20,
@@ -92,10 +92,10 @@
       }
     },
     "bewusstsein": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 2
+        "analyse": 3,
+        "path-analyse": 4
       }
     },
     "moment": {
@@ -116,9 +116,9 @@
       }
     },
     "gegenwart": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 3
+        "analyse": 4
       }
     },
     "dialog": {
@@ -135,9 +135,9 @@
       }
     },
     "antwort": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
-        "analyse": 1,
+        "analyse": 2,
         "path-analyse": 1
       }
     },
@@ -173,15 +173,15 @@
       }
     },
     "andere": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
-        "analyse": 2
+        "analyse": 3
       }
     },
     "welt": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "path-analyse": 3
       }
     },
@@ -225,9 +225,9 @@
       }
     },
     "lm-grenze": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "analyse": 5,
+        "analyse": 6,
         "path-analyse": 3
       }
     },
@@ -239,9 +239,9 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 2,
+        "analyse": 3,
         "path-analyse": 1
       }
     },
@@ -336,7 +336,7 @@
   "stats": {
     "minCount": 0,
     "maxCount": 20,
-    "median": 3,
+    "median": 4,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "zeit",
