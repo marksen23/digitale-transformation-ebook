@@ -17,6 +17,7 @@ import { analyzeCorpusCoherence, type CoherenceReport } from "@/lib/corpusCohere
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import Skeleton from "@/components/Skeleton";
 import SectionLabel from "@/components/SectionLabel";
+import { NODES, CAT_COLOR } from "@/data/conceptGraph";
 import {
   Section, Stat, useAdminTheme, MONO, SERIF,
   loadOptionalJson, type ValidationReport, type DriftReport, type HoldoutReport,
@@ -90,6 +91,28 @@ interface ResonanzHealth {
   };
 }
 
+/** Edge-Kandidaten vom Build-Step (scripts/build-resonanzen-index.ts:
+ *  writeLinkPredictions). Begriffspaare die in Resonanz-Einträgen oft
+ *  gemeinsam als nodeIds auftauchen, aber keine direkte Concept-Graph-
+ *  Kante haben. → potentielle Erweiterung von conceptGraph.ts EDGES. */
+interface LinkPredictionsFile {
+  generatedAt: string;
+  minCooccurrence: number;
+  candidates: Array<{
+    source: string;
+    target: string;
+    cooccurrence: number;
+    endpoints: Record<string, number>;
+    sampleEntryIds: string[];
+  }>;
+  stats: {
+    totalPairs: number;
+    candidatesCount: number;
+    existingEdges: number;
+    maxCooccurrence: number;
+  };
+}
+
 type AsyncResult<T> = { state: "loading" } | { state: "ok"; data: T } | { state: "error"; error: string };
 
 async function fetchAdminJson<T>(path: string): Promise<AsyncResult<T>> {
@@ -111,6 +134,10 @@ export default function AdminHealthPage() {
   const [validationReport, setValidationReport] = useState<ValidationReport | null>(null);
   const [driftReport, setDriftReport] = useState<DriftReport | null>(null);
   const [holdoutReport, setHoldoutReport] = useState<HoldoutReport | null>(null);
+  // Link-Predictions: Begriffspaare die in Resonanzen oft zusammen auftauchen
+  // aber keine Concept-Graph-Kante haben → Edge-Kandidaten zum Review.
+  const [linkPredictions, setLinkPredictions] = useState<LinkPredictionsFile | null>(null);
+  const [linkPredExpanded, setLinkPredExpanded] = useState(false);
   const [heartbeat, setHeartbeat] = useState<Heartbeat | null>(null);
   const [reportsLoaded, setReportsLoaded] = useState(false);
   const [tensions, setTensions] = useState<TensionResult | null>(null);
@@ -135,6 +162,7 @@ export default function AdminHealthPage() {
       loadOptionalJson<ValidationReport>("/resonanzen-validation-report.json").then(setValidationReport),
       loadOptionalJson<DriftReport>("/resonanzen-drift-report.json").then(setDriftReport),
       loadOptionalJson<HoldoutReport>("/resonanzen-holdout-report.json").then(setHoldoutReport),
+      loadOptionalJson<LinkPredictionsFile>("/resonanzen-link-predictions.json").then(setLinkPredictions),
     ]).then(() => setReportsLoaded(true));
   }, []);
 
@@ -422,6 +450,108 @@ export default function AdminHealthPage() {
               </>
             )}
           </>
+        )}
+      </Section>
+
+      {/* Edge-Kandidaten — Begriffspaare die oft zusammen als nodeIds
+          in Resonanzen auftauchen, aber im Concept-Graph keine direkte
+          Kante haben. Wird vom build-resonanzen-index.ts:writeLinkPredictions
+          generiert (resonanzen-link-predictions.json). */}
+      <Section title="Edge-Kandidaten — Begriffe die zusammen klingen, aber nicht verbunden sind" c={C}>
+        {!reportsLoaded ? (
+          <Skeleton height={48} subtle />
+        ) : linkPredictions && linkPredictions.candidates.length > 0 ? (() => {
+          const visible = linkPredExpanded ? linkPredictions.candidates : linkPredictions.candidates.slice(0, 10);
+          // Quick-Lookup für Node-Labels + Kategorien
+          const nodeLabel = (id: string): string => {
+            const n = NODES.find(x => x.id === id);
+            return n ? (n.fullLabel || n.label.replace("\n", " ")) : id;
+          };
+          const nodeCat = (id: string): string | undefined => NODES.find(x => x.id === id)?.category;
+          return (
+            <>
+              <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.textDim, lineHeight: 1.5, marginTop: 0, marginBottom: "0.8rem" }}>
+                <strong>{linkPredictions.stats.candidatesCount}</strong> Paare mit ≥{linkPredictions.minCooccurrence} gemeinsamen
+                Resonanzen, aber ohne Kante im <code style={{ fontFamily: MONO, color: C.accent }}>conceptGraph.ts</code>.
+                Empirische Brücken die der Werk-Graph noch nicht abbildet. Klick auf einen Pfeil → Pfad-Tool im Begriffsnetz.
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+                {visible.map((c, idx) => {
+                  const srcCat = nodeCat(c.source);
+                  const tgtCat = nodeCat(c.target);
+                  const srcColor = srcCat ? (CAT_COLOR as Record<string, string>)[srcCat] : C.muted;
+                  const tgtColor = tgtCat ? (CAT_COLOR as Record<string, string>)[tgtCat] : C.muted;
+                  return (
+                    <div key={`${c.source}-${c.target}-${idx}`} style={{
+                      display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap",
+                      padding: "0.5rem 0.7rem",
+                      background: c.cooccurrence >= 4 ? "rgba(126,184,200,0.06)" : C.surface,
+                      border: `1px solid ${c.cooccurrence >= 4 ? "rgba(126,184,200,0.3)" : C.border}`,
+                      borderLeft: `3px solid ${c.cooccurrence >= 4 ? "#7eb8c8" : C.border}`,
+                    }}>
+                      <span style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", color: srcColor }}>
+                        {nodeLabel(c.source)}
+                      </span>
+                      <span style={{ fontFamily: MONO, fontSize: "0.7rem", color: C.muted }}>↔</span>
+                      <span style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", color: tgtColor }}>
+                        {nodeLabel(c.target)}
+                      </span>
+                      <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.cooccurrence >= 4 ? "#7eb8c8" : C.muted, marginLeft: "auto" }}>
+                        {c.cooccurrence}× zusammen
+                      </span>
+                      <a
+                        href={`/begriffsnetz?from=${c.source}&to=${c.target}`}
+                        target="_blank" rel="noreferrer"
+                        title={`Pfad-Analyse im Begriffsnetz · ${Object.entries(c.endpoints).map(([k, v]) => `${k}=${v}`).join(", ")}`}
+                        style={{
+                          fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+                          textTransform: "uppercase", color: "#7eb8c8",
+                          textDecoration: "none",
+                          padding: "0.3rem 0.5rem",
+                          border: "1px solid rgba(126,184,200,0.4)",
+                          minHeight: 28,
+                        }}
+                      >
+                        ◈ Pfad ↗
+                      </a>
+                    </div>
+                  );
+                })}
+              </div>
+              {linkPredictions.candidates.length > 10 && (
+                <button
+                  onClick={() => setLinkPredExpanded(v => !v)}
+                  style={{
+                    marginTop: "0.7rem",
+                    fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
+                    textTransform: "uppercase", color: C.muted,
+                    background: "none", border: `1px solid ${C.border}`,
+                    padding: "0.5rem 0.8rem", cursor: "pointer", minHeight: 36,
+                  }}
+                >
+                  {linkPredExpanded
+                    ? "einklappen"
+                    : `+ ${linkPredictions.candidates.length - 10} weitere zeigen`}
+                </button>
+              )}
+              <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, marginTop: "0.8rem", lineHeight: 1.5 }}>
+                Aufnahme ins Werk: <code style={{ color: C.accent }}>client/src/data/conceptGraph.ts</code> →
+                <code style={{ color: C.accent }}> EDGES</code>-Array erweitern mit{" "}
+                <code style={{ color: C.accent }}>{`{ source: "…", target: "…", weight: "secondary" }`}</code>.
+                {linkPredictions.stats.existingEdges} Kanten existieren bereits · max Co-Occurrence: {linkPredictions.stats.maxCooccurrence}× ·
+                Letzter Check: {new Date(linkPredictions.generatedAt).toLocaleString("de-DE")}
+              </p>
+            </>
+          );
+        })() : linkPredictions ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            Keine Edge-Kandidaten gefunden — alle in Resonanzen häufig gemeinsam auftretenden
+            Begriffspaare haben bereits eine Kante im Concept-Graph.
+          </p>
+        ) : (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            link-predictions.json nicht verfügbar (älterer Build oder Workflow-Run pending).
+          </p>
         )}
       </Section>
 

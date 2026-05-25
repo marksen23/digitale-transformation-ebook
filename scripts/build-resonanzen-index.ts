@@ -26,6 +26,7 @@ const EMBEDDINGS_OUTPUT = path.join(ROOT, "client/public/resonanzen-embeddings.j
 const HOLDOUT_BASELINE_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-baseline.json");
 const HOLDOUT_REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-report.json");
 const NODE_DENSITY_OUTPUT = path.join(ROOT, "client/public/resonanzen-node-density.json");
+const LINK_PREDICTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-link-predictions.json");
 const HOLDOUT_MIN_CORPUS_SIZE = 30;
 const HOLDOUT_MODULO = 10;          // ≈10% Stichprobe
 const HOLDOUT_TOP_NEIGHBORS = 3;
@@ -327,6 +328,7 @@ async function main() {
   // Knoten mit count=0 sind "blinde Flecken" — strukturelle Lücken im
   // Werk, die das Frontend in der Heatmap-View sichtbar machen kann.
   writeNodeDensity(entries);
+  writeLinkPredictions(entries);
 
   // ─── Final-Telemetrie: was steht effektiv im Index? ──────────────────
   // Wenn dieser Block "0 / 0 / 0" zeigt obwohl GEMINI_API_KEY OK gemeldet
@@ -419,6 +421,101 @@ function writeNodeDensity(entries: ResonanzEntry[]): void {
     `[build-resonanzen-index] node-density: ${allNodeIds.length} Knoten, ` +
     `min=${minCount} max=${maxCount} median=${median}, ` +
     `${zeroResonanceNodes.length} blinde Flecken`
+  );
+}
+
+/** Extrahiert alle existierenden Kanten aus conceptGraph.ts: EDGES,
+ *  LEITMOTIV_EDGES und PRINZIP_PAIRS. Selbes Regex-Pattern wie
+ *  loadAllNodeIds. Returnt Set<"a|b"> mit kanonisch sortiertem Key,
+ *  damit Pair-Lookups symmetrisch sind. */
+function loadExistingEdges(): Set<string> {
+  const cgPath = path.join(ROOT, "client/src/data/conceptGraph.ts");
+  if (!fs.existsSync(cgPath)) return new Set();
+  const txt = fs.readFileSync(cgPath, "utf-8");
+  const edges = new Set<string>();
+  // Pattern matched { source: "x", target: "y" } in EDGES + LEITMOTIV_EDGES.
+  const reEdge = /source:\s*["']([a-z0-9äöüß_+-]+)["']\s*,\s*target:\s*["']([a-z0-9äöüß_+-]+)["']/g;
+  let m: RegExpExecArray | null;
+  while ((m = reEdge.exec(txt)) !== null) {
+    const [a, b] = [m[1], m[2]].sort();
+    edges.add(`${a}|${b}`);
+  }
+  // Pattern matched PRINZIP_PAIRS: { a: "x", b: "y" } oder ähnlich.
+  // Wir nutzen das memberIds-Array aus PRINZIP_GROUPS:
+  //   memberIds: ["weltfaltung", "raumfaltung"]
+  // Alle Paare innerhalb einer Gruppe gelten als verbunden.
+  const reMembers = /memberIds:\s*\[\s*((?:["'][a-z0-9äöüß_+-]+["']\s*,?\s*)+)\]/g;
+  while ((m = reMembers.exec(txt)) !== null) {
+    const ids = m[1].match(/["']([a-z0-9äöüß_+-]+)["']/g)
+      ?.map(s => s.replace(/["']/g, "")) ?? [];
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const [a, b] = [ids[i], ids[j]].sort();
+        edges.add(`${a}|${b}`);
+      }
+    }
+  }
+  return edges;
+}
+
+/** Berechnet Edge-Vorschläge: Begriffspaare die oft GEMEINSAM in einer
+ *  Resonanz auftauchen, aber im Concept-Graph KEINE direkte Kante haben.
+ *  Hohe Co-Occurrence + fehlende Kante = struktureller blinder Fleck im
+ *  Graph, den die KI-Resonanzen empirisch füllen. */
+function writeLinkPredictions(entries: ResonanzEntry[]): void {
+  const MIN_COOCCURRENCE = parseInt(process.env.LINK_PRED_MIN_COOC ?? "2", 10);
+  const existingEdges = loadExistingEdges();
+
+  // Co-Occurrence-Counter: Map<"a|b", { count, endpoints }>
+  type Cell = { count: number; endpoints: Record<string, number>; entryIds: string[] };
+  const co: Map<string, Cell> = new Map();
+  for (const e of entries) {
+    const ids = (e.nodeIds ?? []).slice().sort();
+    for (let i = 0; i < ids.length; i++) {
+      for (let j = i + 1; j < ids.length; j++) {
+        const key = `${ids[i]}|${ids[j]}`;
+        let cell = co.get(key);
+        if (!cell) {
+          cell = { count: 0, endpoints: {}, entryIds: [] };
+          co.set(key, cell);
+        }
+        cell.count++;
+        cell.endpoints[e.endpoint] = (cell.endpoints[e.endpoint] ?? 0) + 1;
+        if (cell.entryIds.length < 5) cell.entryIds.push(e.id);
+      }
+    }
+  }
+
+  // Kandidaten: oft co-occurrent + keine existierende Kante
+  const candidates = Array.from(co.entries())
+    .filter(([key, cell]) => cell.count >= MIN_COOCCURRENCE && !existingEdges.has(key))
+    .map(([key, cell]) => {
+      const [source, target] = key.split("|");
+      return {
+        source, target,
+        cooccurrence: cell.count,
+        endpoints: cell.endpoints,
+        sampleEntryIds: cell.entryIds,
+      };
+    })
+    .sort((a, b) => b.cooccurrence - a.cooccurrence);
+
+  const out = {
+    generatedAt: new Date().toISOString(),
+    minCooccurrence: MIN_COOCCURRENCE,
+    candidates,
+    stats: {
+      totalPairs: co.size,
+      candidatesCount: candidates.length,
+      existingEdges: existingEdges.size,
+      maxCooccurrence: candidates[0]?.cooccurrence ?? 0,
+    },
+  };
+  fs.writeFileSync(LINK_PREDICTIONS_OUTPUT, JSON.stringify(out, null, 2));
+  console.log(
+    `[build-resonanzen-index] link-predictions: ${candidates.length} Kandidaten ` +
+    `(MIN_COOC=${MIN_COOCCURRENCE}, max=${out.stats.maxCooccurrence}, ` +
+    `existingEdges=${existingEdges.size}, totalPairs=${co.size})`
   );
 }
 
