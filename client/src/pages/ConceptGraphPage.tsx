@@ -281,7 +281,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [hiddenCats, setHiddenCats] = useState<Set<NodeCategory>>(new Set());
   const [hiddenLeitmotive, setHiddenLeitmotive] = useState<Set<string>>(new Set());
   const [hiddenPrinzipien, setHiddenPrinzipien] = useState<Set<string>>(new Set());
-  const [legendOpen, setLegendOpen] = useState(false);
+  // legendOpen-State entfernt — die Legende ist permanent in der
+  // RIGHT-Sidebar; ein Toggle wäre redundant.
 
   // Touch tracking
   const dragRef      = useRef<{ sx: number; sy: number; px: number; py: number } | null>(null);
@@ -789,7 +790,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       return prev === id ? null : id;
     });
     setSearchQuery("");
-    setLegendOpen(false);
+    // setLegendOpen entfernt — die Legende ist permanent in der Sidebar.
   }, []);
 
   // ── Mobile sheet drag — global move/end listeners ─────────────────────────
@@ -1102,28 +1103,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           )}
           </div>{/* /concept-workfunc-group */}
 
-          {/* Legend toggle — only shown when no node is selected (sidebar carries the legend then) */}
-          {!selectedId && (
-            <button
-              onClick={() => setLegendOpen(o => !o)}
-              title="Legende / Kohärenzfelder"
-              style={{
-                fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
-                textTransform: "uppercase", color: legendOpen ? C.accent : C.muted,
-                background: legendOpen ? "rgba(196,168,130,0.08)" : "none",
-                border: `1px solid ${legendOpen ? C.accentDim : C.border}`,
-                padding: "0.3rem 0.7rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
-              }}
-              onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
-              onMouseLeave={e => {
-                e.currentTarget.style.color = legendOpen ? C.accent : C.muted;
-                e.currentTarget.style.borderColor = legendOpen ? C.accentDim : C.border;
-              }}
-            >
-              ≣<span className="concept-toolbar-label">{" "}Legende</span>
-            </button>
-          )}
+          {/* Legend-Toggle entfernt — die Legende ist permanent in der
+              RIGHT-Sidebar (Kohärenzfelder / Leitmotive / Erkenntnisprinzipien)
+              und im Mobile-Sheet untergebracht. Ein eigener Top-Bar-Button
+              wäre redundant und nahm visuell Platz weg. */}
 
           {/* Close — nur im Modal-Modus. Im Route-Modus übernimmt der
               globale AppFrame die Navigation, kein eigener × nötig. */}
@@ -1217,7 +1200,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               setConnectSource(null);
               return;
             }
-            setSelectedId(null); setSearchQuery(""); setLegendOpen(false);
+            setSelectedId(null); setSearchQuery("");
           }}
           preserveAspectRatio="xMidYMid meet"
         >
@@ -1886,71 +1869,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           </g>
         </svg>
 
-        {/* ── Legende — absolut oben rechts im Graph-Canvas ── */}
-        {legendOpen && (
-          <div style={{
-            position: "absolute", top: "0.9rem", right: "0.9rem", zIndex: 20,
-            background: C.deep, border: `1px solid ${C.border}`,
-            padding: "0.9rem 1rem", minWidth: 190,
-            backdropFilter: "blur(8px)",
-            pointerEvents: "auto",
-            // Höhe auf verfügbaren Raum begrenzen — verhindert Ausbrechen nach unten
-            maxHeight: "calc(100% - 1.8rem)",
-            overflowY: "auto",
-            overscrollBehavior: "contain",
-          }}>
-            <LegendSection
-              title="Kohärenzfelder"
-              c={C}
-              showReset={hiddenCats.size > 0}
-              onReset={() => setHiddenCats(new Set())}
-            >
-              {(Object.entries(CAT_COLOR) as [NodeCategory, string][]).filter(([cat]) => cat !== "leitmotiv" && cat !== "prinzip").map(([cat, color]) => (
-                <CategoryLegendButton
-                  key={cat}
-                  label={categoryLabel(cat)}
-                  color={color}
-                  c={C}
-                  hidden={hiddenCats.has(cat)}
-                  onToggle={() => setHiddenCats(prev => {
-                    const next = new Set(prev);
-                    if (next.has(cat)) next.delete(cat); else next.add(cat);
-                    return next;
-                  })}
-                  size="md"
-                />
-              ))}
-            </LegendSection>
-            <LeitmotivLegendSection
-              c={C}
-              hiddenLeitmotive={hiddenLeitmotive}
-              activeLeitmotive={new Set()}
-              onToggle={id => setHiddenLeitmotive(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
-              onReset={() => setHiddenLeitmotive(new Set())}
-            />
-            <PrinzipLegendSection
-              c={C}
-              hiddenPrinzipien={hiddenPrinzipien}
-              onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
-                const n = new Set(prev);
-                const allHidden = memberIds.every(id => n.has(id));
-                if (allHidden) memberIds.forEach(id => n.delete(id));
-                else memberIds.forEach(id => n.add(id));
-                return n;
-              })}
-              onToggleMember={id => setHiddenPrinzipien(prev => { const n = new Set(prev); n.has(id) ? n.delete(id) : n.add(id); return n; })}
-              onReset={() => setHiddenPrinzipien(new Set())}
-            />
-            <UserEdgesLegendSection
-              c={C}
-              userEdges={userEdges}
-              showUserEdges={showUserEdges}
-              onToggleShow={() => setShowUserEdges(v => !v)}
-              onDelete={i => { const next = userEdges.filter((_, j) => j !== i); setUserEdges(next); saveUserEdges(next); }}
-              onClear={() => { setUserEdges([]); saveUserEdges([]); }}
-            />
-          </div>
-        )}
+        {/* Floating-Legenden-Panel entfernt — die Legende lebt jetzt
+            permanent in der RIGHT-Sidebar (siehe unten) und im Mobile-
+            Sheet. Das duplizierende Floating-Panel + sein Toggle-Button
+            in der Toolbar nahmen nur visuell Platz weg. */}
 
         {/* ── Matrix Overlay — ersetzt SVG-Graphen im Matrix-Modus ── */}
         {viewMode === "matrix" && (() => {
