@@ -28,6 +28,7 @@ function notifyIndexStale() {
 }
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import ActionLogPanel from "@/components/admin/ActionLogPanel";
+import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
 import {
   Section, Stat, useAdminTheme, computeStats, MONO, SERIF,
@@ -523,6 +524,10 @@ export default function AdminCurationPage() {
           {index.generatedAt ? ` · zuletzt erzeugt ${new Date(index.generatedAt).toLocaleString("de-DE")}` : ""}
         </p>
       </div>
+
+      {/* F2: Werkstatt-Brief — kuratorische Leitsätze aus
+          content/werkstatt/leitsaetze.md, deterministisch pro Kalendertag. */}
+      <WerkstattEpigraph c={C} />
 
       {/* F1: Aktions-Protokoll — Erfolge und Misslungenes bleiben sichtbar,
           beide gleichermaßen ernstgenommen. „Wir verwandeln uns dort, wo wir versagen." */}
