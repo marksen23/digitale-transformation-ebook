@@ -19,12 +19,20 @@
  *     ❦ Begegnungen aus dem Wissen
  *   </SectionLabel>
  */
-import { MONO, TRACKED, type Palette } from "@/lib/theme";
+import { MONO, TRACKED, SEMANTIC, type Palette } from "@/lib/theme";
+
+/** Semantische Variante (Sprint D4) — Konsumenten geben Bedeutung an,
+ *  nicht Pixel. Resolvet auf konkrete Farbe basierend auf SEMANTIC-Tokens.
+ *  Eskaliert von Farb-Variante zur Variant-API: einheitliche Sprache. */
+type SectionVariant = "default" | "werk" | "arbeit" | "wachstum" | "warnung";
 
 interface SectionLabelProps {
   children: React.ReactNode;
   c: Palette;
-  /** Farbe des Labels. Default: c.muted (typische Beschriftungs-Töne). */
+  /** D4: bevorzugte API — semantische Variante. Wenn nicht gesetzt:
+   *  fallback auf `color`-Prop für Backward-Kompatibilität. */
+  variant?: SectionVariant;
+  /** @deprecated D4: nutze `variant` stattdessen. Bleibt für Migration. */
   color?: string;
   /** Optionaler Count rechts (z.B. Anzahl Werke, Begegnungen). */
   count?: number | string;
@@ -49,9 +57,24 @@ const SIZES = {
   lg: "0.65rem",
 } as const;
 
+/** Resolvet eine SectionVariant zu einer konkreten Farbe.
+ *  default → palette.muted (das eigentliche Default für Labels).
+ *  Andere Varianten → SEMANTIC-Tokens. */
+function resolveVariantColor(variant: SectionVariant, c: Palette): string {
+  switch (variant) {
+    case "werk":     return SEMANTIC.werk;
+    case "arbeit":   return SEMANTIC.arbeit;
+    case "wachstum": return SEMANTIC.wachstum;
+    case "warnung":  return SEMANTIC.warnung;
+    case "default":
+    default:         return c.muted;
+  }
+}
+
 export default function SectionLabel({
   children,
   c,
+  variant,
   color,
   count,
   countColor,
@@ -61,7 +84,9 @@ export default function SectionLabel({
   marginTop = "0",
   style,
 }: SectionLabelProps) {
-  const labelColor = color ?? c.muted;
+  // D4: variant gewinnt vor color (color ist deprecated, aber bleibt
+  // gültig für Migration). Wenn weder noch: c.muted.
+  const labelColor = variant ? resolveVariantColor(variant, c) : (color ?? c.muted);
   const cColor = countColor ?? c.accent;
   return (
     <div
