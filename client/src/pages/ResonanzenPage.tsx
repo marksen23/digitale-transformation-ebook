@@ -689,8 +689,8 @@ export default function ResonanzenPage() {
             Filter-Section länger als der Viewport wird. */}
         {filtersExpanded && (
           <section style={{
-            display: "flex", flexDirection: "column", gap: "0.8rem",
-            padding: "1rem",
+            display: "flex", flexDirection: "column", gap: "0.6rem",
+            padding: "0.8rem 1rem",
             background: `${C.deep}f5`,
             backdropFilter: "blur(8px)",
             WebkitBackdropFilter: "blur(8px)",
@@ -699,108 +699,105 @@ export default function ResonanzenPage() {
             maxHeight: "min(60vh, 480px)",
             overflowY: "auto",
           }}>
-            {/* Endpoint-Pills */}
-            <div>
-              <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.5rem">Kategorie:</SectionLabel>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-                {(["all", "chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse"] as EndpointKey[]).map(key => {
-                  const active = filterEndpoint === key;
-                  const label = key === "all" ? "Alle" : ENDPOINT_LABEL[key];
-                  const count = key === "all" ? (index?.count ?? 0) : (endpointCounts[key] ?? 0);
-                  const color = key === "all" ? C.accent : ENDPOINT_COLOR[key];
-                  return (
-                    <button
-                      key={key}
-                      onClick={() => setFilterEndpoint(key)}
-                      style={{
-                        fontFamily: MONO, fontSize: "0.58rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                        color: active ? "#080808" : color,
-                        background: active ? color : "none",
-                        border: `1px solid ${color}`,
-                        padding: "0.5rem 0.7rem", cursor: "pointer", minHeight: 36,
-                      }}
-                    >
-                      {label} <span style={{ opacity: 0.7 }}>({count})</span>
-                    </button>
-                  );
-                })}
-              </div>
+            {/* R1: Filter-Sektion verschlankt — Inline-Mono-Labels statt
+                separater SectionLabel-Reihen. Spart ~30% vertikalen Platz
+                und liest sich wie eine klassische Filter-Zeile, nicht wie
+                vier nested Sub-Sections. */}
+
+            {/* Quelle (Endpoint) — leiser, kleinere Pills */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", alignItems: "center" }}>
+              <FilterInlineLabel c={C}>Quelle:</FilterInlineLabel>
+              {(["all", "chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse"] as EndpointKey[]).map(key => {
+                const active = filterEndpoint === key;
+                const label = key === "all" ? "Alle" : ENDPOINT_LABEL[key];
+                const count = key === "all" ? (index?.count ?? 0) : (endpointCounts[key] ?? 0);
+                const color = key === "all" ? C.accent : ENDPOINT_COLOR[key];
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setFilterEndpoint(key)}
+                    style={{
+                      fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em", textTransform: "uppercase",
+                      color: active ? "#080808" : color,
+                      background: active ? color : "none",
+                      border: `1px solid ${color}`,
+                      padding: "0.35rem 0.55rem", cursor: "pointer", minHeight: 30,
+                      borderRadius: 3,
+                    }}
+                  >
+                    {label} <span style={{ opacity: 0.7 }}>({count})</span>
+                  </button>
+                );
+              })}
             </div>
-            {/* Status-Toggle */}
-            <div>
-              <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.5rem">Kuration:</SectionLabel>
+
+            {/* Kuration + Relevanz — in EINER Zeile (vorher zwei Sub-Sections) */}
+            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", alignItems: "center" }}>
+              <FilterInlineLabel c={C}>Status:</FilterInlineLabel>
               <button
                 onClick={() => setFilterStatus(s => s === "all" ? "kuratiert" : "all")}
                 style={{
-                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                  fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em", textTransform: "uppercase",
                   color: filterStatus === "kuratiert" ? "#080808" : C.muted,
                   background: filterStatus === "kuratiert" ? C.accent : "none",
                   border: `1px solid ${filterStatus === "kuratiert" ? C.accent : C.border}`,
-                  padding: "0.5rem 0.8rem", cursor: "pointer", minHeight: 44,
+                  padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
                 }}
               >
-                {filterStatus === "kuratiert" ? "✓ Nur kuratiert" : "Alle (auch ungeprüft)"}
+                {filterStatus === "kuratiert" ? "✓ Nur kuratiert" : "Alle"}
               </button>
+
+              <span style={{ width: 1, height: 14, background: C.border, margin: "0 0.3rem" }} />
+              <FilterInlineLabel c={C}>Relevanz:</FilterInlineLabel>
+              {([
+                { key: "all" as const,     label: "Alle",              color: C.muted,   descr: "Standard — alle Einträge" },
+                { key: "novelty" as const, label: "❖ Neue",            color: "#5aacb8", descr: "Semantisch peripher (Cosine <0.70)" },
+                { key: "echos" as const,   label: "◉ Echos",           color: C.muted,   descr: "Near-Duplikate (Cosine ≥0.88)" },
+              ]).map(opt => {
+                const active = filterRelevanz === opt.key;
+                return (
+                  <button
+                    key={opt.key}
+                    onClick={() => setFilterRelevanz(opt.key)}
+                    title={opt.descr}
+                    style={{
+                      fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em",
+                      textTransform: "uppercase",
+                      color: active ? "#080808" : opt.color,
+                      background: active ? opt.color : "none",
+                      border: `1px solid ${active ? opt.color : C.border}`,
+                      padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
+                    }}
+                  >
+                    {opt.label}
+                  </button>
+                );
+              })}
             </div>
-            {/* Relevanz-Filter: Echos vs. Neue Erkenntnisse vs. alles.
-                Aus dem build-step kommen nearDuplicates (Cosine ≥0.88) und
-                novelty (max-Cosine <0.70). Wir mappen das auf drei Filter-
-                Pills, die der User kombiniert mit den anderen Filtern
-                anwenden kann. */}
-            <div>
-              <SectionLabel c={C} size="sm" tracking="tight" marginBottom="0.5rem">Relevanz:</SectionLabel>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
-                {([
-                  { key: "all" as const,     label: "Alle",              color: C.accent,     descr: "Standard — alle Einträge" },
-                  { key: "novelty" as const, label: "❖ Neue Erkenntnis", color: "#5aacb8",    descr: "Semantisch peripher (Cosine <0.70)" },
-                  { key: "echos" as const,   label: "◉ Echos",           color: C.muted,      descr: "Near-Duplikate (Cosine ≥0.88)" },
-                ]).map(opt => {
-                  const active = filterRelevanz === opt.key;
-                  return (
-                    <button
-                      key={opt.key}
-                      onClick={() => setFilterRelevanz(opt.key)}
-                      title={opt.descr}
-                      style={{
-                        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
-                        textTransform: "uppercase",
-                        color: active ? "#080808" : opt.color,
-                        background: active ? opt.color : "none",
-                        border: `1px solid ${active ? opt.color : C.border}`,
-                        padding: "0.5rem 0.8rem", cursor: "pointer", minHeight: 44,
-                      }}
-                    >
-                      {opt.label}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+
             {/* Tags */}
             {topTags.length > 0 && (
-              <div>
-                <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.12em", textTransform: "uppercase", marginBottom: "0.5rem" }}>
-                  Tags:{filterTag && <span style={{ marginLeft: "0.5rem", color: C.accent }}>aktiv: {filterTag}</span>}
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
-                  {filterTag && (
-                    <button
-                      onClick={() => setFilterTag(null)}
-                      style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.accent, background: "rgba(196,168,130,0.1)", border: `1px solid ${C.accentDim}`, padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 32 }}
-                    >
-                      ✕ {filterTag} entfernen
-                    </button>
-                  )}
-                  {!filterTag && topTags.map(({ tag, count }) => (
-                    <button
-                      key={tag}
-                      onClick={() => setFilterTag(tag)}
-                      style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 32 }}
-                    >
-                      {tag} <span style={{ opacity: 0.6 }}>{count}</span>
-                    </button>
-                  ))}
-                </div>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", alignItems: "center" }}>
+                <FilterInlineLabel c={C}>
+                  Tags{filterTag && <span style={{ marginLeft: "0.4rem", color: C.accent, textTransform: "none" }}>aktiv: {filterTag}</span>}:
+                </FilterInlineLabel>
+                {filterTag && (
+                  <button
+                    onClick={() => setFilterTag(null)}
+                    style={{ fontFamily: MONO, fontSize: "0.52rem", color: C.accent, background: "rgba(196,168,130,0.1)", border: `1px solid ${C.accentDim}`, padding: "0.3rem 0.55rem", cursor: "pointer", minHeight: 28, borderRadius: 3 }}
+                  >
+                    ✕ {filterTag}
+                  </button>
+                )}
+                {!filterTag && topTags.map(({ tag, count }) => (
+                  <button
+                    key={tag}
+                    onClick={() => setFilterTag(tag)}
+                    style={{ fontFamily: MONO, fontSize: "0.52rem", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.3rem 0.55rem", cursor: "pointer", minHeight: 28, borderRadius: 3 }}
+                  >
+                    {tag} <span style={{ opacity: 0.6 }}>{count}</span>
+                  </button>
+                ))}
               </div>
             )}
           </section>
@@ -1432,5 +1429,20 @@ function highlightTerm(text: string, term: string): React.ReactNode {
     ) : (
       <span key={i}>{part}</span>
     )
+  );
+}
+
+// ─── FilterInlineLabel (Sprint R1) ────────────────────────────────────────
+// Mono-Caps-Mini-Label für Inline-Filter-Zeilen statt eigener SectionLabel-
+// Reihen. Spart vertikalen Platz — die Pills sitzen direkt rechts davon.
+function FilterInlineLabel({ c, children }: { c: Palette; children: React.ReactNode }) {
+  return (
+    <span style={{
+      fontFamily: MONO, fontSize: "0.48rem", letterSpacing: "0.1em",
+      textTransform: "uppercase", color: c.muted,
+      marginRight: "0.15rem", flexShrink: 0,
+    }}>
+      {children}
+    </span>
   );
 }
