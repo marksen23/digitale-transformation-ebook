@@ -5,7 +5,7 @@ created_at: 2026-05-03T22:17:38.040Z
 endpoint: path-analyse
 model: gemini-2.5-flash
 anchor: path-analyse:resonanz+transformatives-drittes
-nodeIds: [lm-verwandlung, resonanz, resonanzvernunft, transformatives-drittes]
+nodeIds: [ lm-verwandlung, resonanz, resonanzvernunft, transformatives-drittes ]
 status: raw
 content_hash: 7accea5d9feb3803
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
@@ -19,12 +19,18 @@ audit_trail:
 context_meta:
   from: resonanz
   to: transformatives-drittes
-  shortest_path: ["resonanz","resonanzvernunft","transformatives-drittes"]
-  surprising_path: ["resonanz","lm-verwandlung","transformatives-drittes"]
+  shortest_path: [ "resonanz", "resonanzvernunft", "transformatives-drittes" ]
+  surprising_path: [ "resonanz", "lm-verwandlung", "transformatives-drittes" ]
   shortest_length: 3
   surprising_length: 3
   variant: compare
   paths_identical: false
+ai_score: 2
+ai_score_reason: Thematisch passend, aber stilistisch fremd durch Nummerierung,
+  Schulbuch-Erklärduktus („offenbart die vielschichtige Architektur") und
+  fehlende dichterische Verdichtung.
+ai_score_at: 2026-05-26T11:25:38.720Z
+ai_score_model: claude-sonnet-4-5
 ---
 
 ## Frage
