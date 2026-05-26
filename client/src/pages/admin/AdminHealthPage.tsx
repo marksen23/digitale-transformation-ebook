@@ -117,6 +117,30 @@ interface CorpusMapFile {
  *  writeLinkPredictions). Begriffspaare die in Resonanz-Einträgen oft
  *  gemeinsam als nodeIds auftauchen, aber keine direkte Concept-Graph-
  *  Kante haben. → potentielle Erweiterung von conceptGraph.ts EDGES. */
+/** Korpus-Timeline (Feature I — Coherence-Dashboard). Aggregierte
+ *  Zeitreihe aus versions/snapshot-*.json + aktuellem Index. */
+interface TimelineBucket {
+  date: string;
+  totalEntries: number;
+  byStatus: Record<string, number>;
+  byEndpoint: Record<string, number>;
+  publishedRatio?: number;
+  medianWerkVoice?: number;
+  medianCorpusVoice?: number;
+  echoRatio?: number;
+  noveltyRatio?: number;
+}
+interface TimelineFile {
+  generatedAt: string;
+  buckets: TimelineBucket[];
+  stats: {
+    totalSnapshots: number;
+    avgGrowthPerDay: number;
+    latestEchoRatio: number | null;
+    latestNoveltyRatio: number | null;
+  };
+}
+
 interface LinkPredictionsFile {
   generatedAt: string;
   minCooccurrence: number;
@@ -163,6 +187,7 @@ export default function AdminHealthPage() {
   // Korpus-Landkarte (UMAP-2D der Embeddings)
   const [corpusMap, setCorpusMap] = useState<CorpusMapFile | null>(null);
   const [mapHoverPoint, setMapHoverPoint] = useState<CorpusMapFile["points"][number] | null>(null);
+  const [timeline, setTimeline] = useState<TimelineFile | null>(null);
   const [heartbeat, setHeartbeat] = useState<Heartbeat | null>(null);
   const [reportsLoaded, setReportsLoaded] = useState(false);
   const [tensions, setTensions] = useState<TensionResult | null>(null);
@@ -189,6 +214,7 @@ export default function AdminHealthPage() {
       loadOptionalJson<HoldoutReport>("/resonanzen-holdout-report.json").then(setHoldoutReport),
       loadOptionalJson<LinkPredictionsFile>("/resonanzen-link-predictions.json").then(setLinkPredictions),
       loadOptionalJson<CorpusMapFile>("/resonanzen-corpus-map.json").then(setCorpusMap),
+      loadOptionalJson<TimelineFile>("/resonanzen-timeline.json").then(setTimeline),
     ]).then(() => setReportsLoaded(true));
   }, []);
 
@@ -507,6 +533,20 @@ export default function AdminHealthPage() {
             </>
           );
         })()}
+      </Section>
+
+      {/* Kohärenz-über-Zeit (Tier-1-3-Roadmap, Feature I).
+          Multi-Line-Chart: Median-Werk-Voice + Echo-Ratio + Novelty-Ratio
+          + Growth über Zeit, aus versions/snapshot-*.json + aktuellem
+          Index aggregiert. */}
+      <Section title="Kohärenz über Zeit" c={C}>
+        {!timeline || timeline.buckets.length === 0 ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            Timeline noch leer — beim nächsten Build wird die Aggregation aus versions/snapshot-*.json gebaut.
+          </p>
+        ) : (
+          <TimelineChart timeline={timeline} c={C} />
+        )}
       </Section>
 
       <Section title="Korpus-Kohärenz — Echos & Werk-Drift" c={C}>
@@ -1412,3 +1452,108 @@ function formatRelative(iso: string | null): string {
   if (dd < 7) return `vor ${dd} Tagen`;
   return d.toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" });
 }
+
+// ─── TimelineChart (Tier-1-3-Roadmap, Feature I) ─────────────────────────
+// Multi-Line-SVG-Chart aus den Timeline-Buckets. Lines: totalEntries,
+// medianWerkVoice (skaliert), echoRatio, noveltyRatio. Tooltip via Hover.
+function TimelineChart({ timeline, c }: { timeline: TimelineFile; c: ReturnType<typeof useAdminTheme> }) {
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null);
+  const W = 700, H = 240, PAD_L = 50, PAD_R = 20, PAD_T = 20, PAD_B = 40;
+  const innerW = W - PAD_L - PAD_R;
+  const innerH = H - PAD_T - PAD_B;
+  const buckets = timeline.buckets;
+  if (buckets.length < 2) {
+    return <p style={{ fontStyle: 'italic', color: c.textDim }}>Mindestens 2 Snapshots nötig für Trend.</p>;
+  }
+  const maxTotal = Math.max(...buckets.map(b => b.totalEntries), 10);
+  const tx = (i: number) => PAD_L + (i / (buckets.length - 1)) * innerW;
+  const ty = (v: number, max: number) => PAD_T + (1 - v / max) * innerH;
+
+  // Lines: Werk-Voice (0..1) auf rechter Skala; Total (0..maxTotal) auf linker
+  const linePoints = (key: 'medianWerkVoice' | 'echoRatio' | 'noveltyRatio') =>
+    buckets.map((b, i) => {
+      const v = b[key];
+      if (typeof v !== 'number') return null;
+      return { x: tx(i), y: ty(v, 1) };
+    });
+  const totalPoints = buckets.map((b, i) => ({ x: tx(i), y: ty(b.totalEntries, maxTotal) }));
+  const polyTotal = totalPoints.map(p => p.x + ',' + p.y).join(' ');
+  const polyWerk  = linePoints('medianWerkVoice').filter(p => p !== null).map(p => p!.x + ',' + p!.y).join(' ');
+  const polyEcho  = linePoints('echoRatio').filter(p => p !== null).map(p => p!.x + ',' + p!.y).join(' ');
+  const polyNov   = linePoints('noveltyRatio').filter(p => p !== null).map(p => p!.x + ',' + p!.y).join(' ');
+
+  const hov = hoverIdx !== null ? buckets[hoverIdx] : null;
+
+  return (
+    <div>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '0.6rem', fontFamily: MONO, fontSize: '0.55rem', color: c.muted }}>
+        <Legend color={c.accent} label='total Einträge' />
+        <Legend color='#7eb8c8' label='median werkVoice' />
+        <Legend color='#c4a882' label='echo-Anteil' />
+        <Legend color='#7ab898' label='novelty-Anteil' />
+      </div>
+      <svg viewBox={'0 0 ' + W + ' ' + H} width='100%' style={{ maxWidth: W, background: c.surface, border: '1px solid ' + c.border }}>
+        {/* Y-axis Total (left) */}
+        {[0, 0.25, 0.5, 0.75, 1].map(f => (
+          <g key={'l' + f}>
+            <line x1={PAD_L} x2={W - PAD_R} y1={PAD_T + f * innerH} y2={PAD_T + f * innerH} stroke={c.border} strokeDasharray='2,3' opacity={0.4} />
+            <text x={PAD_L - 5} y={PAD_T + f * innerH + 3} fontSize='9' fill={c.muted} textAnchor='end' fontFamily={MONO as string}>
+              {Math.round(maxTotal * (1 - f))}
+            </text>
+          </g>
+        ))}
+        {/* Y-axis Ratio (right) */}
+        {[0, 0.25, 0.5, 0.75, 1].map(f => (
+          <text key={'r' + f} x={W - PAD_R + 5} y={PAD_T + f * innerH + 3} fontSize='9' fill={c.muted} fontFamily={MONO as string}>
+            {(1 - f).toFixed(2)}
+          </text>
+        ))}
+        {/* X-axis Dates */}
+        {buckets.map((b, i) => i % Math.max(1, Math.floor(buckets.length / 6)) === 0 && (
+          <text key={'d' + i} x={tx(i)} y={H - PAD_B + 14} fontSize='9' fill={c.muted} textAnchor='middle' fontFamily={MONO as string}>
+            {b.date.slice(5)}
+          </text>
+        ))}
+        {/* Lines */}
+        {polyTotal && <polyline points={polyTotal} fill='none' stroke={c.accent} strokeWidth={1.5} />}
+        {polyWerk  && <polyline points={polyWerk}  fill='none' stroke='#7eb8c8' strokeWidth={1.5} />}
+        {polyEcho  && <polyline points={polyEcho}  fill='none' stroke='#c4a882' strokeWidth={1.5} />}
+        {polyNov   && <polyline points={polyNov}   fill='none' stroke='#7ab898' strokeWidth={1.5} />}
+        {/* Hover-Markers */}
+        {buckets.map((b, i) => (
+          <rect key={'h' + i} x={tx(i) - 12} y={PAD_T} width={24} height={innerH}
+            fill='transparent' onMouseEnter={() => setHoverIdx(i)} onMouseLeave={() => setHoverIdx(null)} />
+        ))}
+        {hov && (
+          <g>
+            <line x1={tx(hoverIdx!)} x2={tx(hoverIdx!)} y1={PAD_T} y2={PAD_T + innerH} stroke={c.text} strokeDasharray='2,2' opacity={0.5} />
+            <circle cx={tx(hoverIdx!)} cy={ty(hov.totalEntries, maxTotal)} r={3} fill={c.accent} />
+          </g>
+        )}
+      </svg>
+      {hov && (
+        <div style={{ marginTop: '0.5rem', padding: '0.5rem 0.7rem', background: c.deep, border: '1px solid ' + c.border, fontFamily: MONO, fontSize: '0.55rem', color: c.text, lineHeight: 1.6 }}>
+          <strong>{hov.date}</strong> · {hov.totalEntries} Einträge
+          {typeof hov.medianWerkVoice === 'number' && ' · medWerk ' + hov.medianWerkVoice.toFixed(2)}
+          {typeof hov.echoRatio === 'number' && ' · echo ' + (hov.echoRatio * 100).toFixed(0) + '%'}
+          {typeof hov.noveltyRatio === 'number' && ' · novelty ' + (hov.noveltyRatio * 100).toFixed(0) + '%'}
+        </div>
+      )}
+      <p style={{ marginTop: '0.6rem', fontFamily: MONO, fontSize: '0.5rem', color: c.muted, lineHeight: 1.6 }}>
+        Ø-Wachstum: {timeline.stats.avgGrowthPerDay} Einträge/Tag · {timeline.buckets.length} Snapshots ·{' '}
+        latest: echo {timeline.stats.latestEchoRatio !== null ? (timeline.stats.latestEchoRatio * 100).toFixed(0) + '%' : '–'} ·
+        novelty {timeline.stats.latestNoveltyRatio !== null ? (timeline.stats.latestNoveltyRatio * 100).toFixed(0) + '%' : '–'}
+      </p>
+    </div>
+  );
+}
+
+function Legend({ color, label }: { color: string; label: string }) {
+  return (
+    <span style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}>
+      <span style={{ width: 10, height: 2, background: color }} />
+      {label}
+    </span>
+  );
+}
+

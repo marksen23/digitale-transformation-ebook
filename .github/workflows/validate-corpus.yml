@@ -188,7 +188,7 @@ jobs:
 
       - name: Rebuild resonanzen-index.json
         if: success()
-        run: pnpm tsx scripts/build-resonanzen-index.ts
+        run: pnpm tsx scripts/build-resonanzen-index.ts && pnpm tsx scripts/build-corpus-timeline.ts
         env:
           GITHUB_REPO_OWNER: ${{ github.repository_owner }}
           GITHUB_REPO_NAME:  ${{ github.event.repository.name }}
@@ -218,6 +218,7 @@ jobs:
             client/public/resonanzen-anchor-clusters.json
             client/public/resonanzen-corpus-map.json
             client/public/werk-chunks.json
+            client/public/resonanzen-timeline.json
           retention-days: 7
           if-no-files-found: warn
 
@@ -254,7 +255,8 @@ jobs:
               client/public/resonanzen-link-predictions.json \
               client/public/resonanzen-anchor-clusters.json \
               client/public/resonanzen-corpus-map.json \
-              client/public/werk-chunks.json; do
+              client/public/werk-chunks.json \
+              client/public/resonanzen-timeline.json; do
             if [ -f "$f" ]; then
               git add -f "$f" && echo "[git add] OK: $f"
             else
