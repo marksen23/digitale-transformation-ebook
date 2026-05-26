@@ -21,6 +21,11 @@ audit_trail:
     actor: admin
     from: raw
     to: published
+  - event: status-changed
+    ts: 2026-05-26T11:57:33.468Z
+    actor: admin
+    from: published
+    to: published
 context_meta:
   nodeA_label: Resonanzvernunft
   nodeB_label: Denken
