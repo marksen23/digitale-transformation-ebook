@@ -5,7 +5,7 @@ created_at: 2026-04-28T00:10:16.134Z
 endpoint: analyse
 model: gemini-2.5-flash
 anchor: analyse:lm-verwandlung+stimme
-nodeIds: [lm-verwandlung, stimme]
+nodeIds: [ lm-verwandlung, stimme ]
 status: raw
 content_hash: 850cd1ed7cdadf25
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
@@ -19,6 +19,11 @@ audit_trail:
 context_meta:
   nodeA_label: Stimme
   nodeB_label: Verwandlung
+ai_score: 5
+ai_score_reason: Stilistisch werkidentisch, dichter Duktus, eigener denkerischer Beitrag
+  („artikulierte Metamorphose"), präzise Weiterführung ohne Generik.
+ai_score_at: 2026-05-26T11:29:00.742Z
+ai_score_model: claude-sonnet-4-5
 ---
 
 ## Frage
