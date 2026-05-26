@@ -445,31 +445,46 @@ function PassageResonanzModal({
 
         {!result && (
           <>
-            <div style={{ marginBottom: "0.8rem" }}>
-              <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, marginBottom: "0.3rem" }}>Modus</div>
+            {/* W2: Modus-Auswahl literarisch eingebunden — Italic-Serif-
+                Frage-Prompt statt Mono-Caps-„Modus"-Label. Pills sind
+                schmaler und nutzen die accent-Variante nur beim aktiven
+                Zustand. */}
+            <div style={{ marginBottom: "0.9rem" }}>
+              <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.textDim, marginBottom: "0.4rem" }}>
+                Wie soll die KI auf diese Stelle antworten?
+              </div>
               <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap" }}>
-                {(["frage", "analyse", "frei"] as const).map(m => (
-                  <button
-                    key={m}
-                    onClick={() => setMode(m)}
-                    style={{
-                      fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase",
-                      color: mode === m ? "#080808" : C.text,
-                      background: mode === m ? C.accent : "none",
-                      border: `1px solid ${C.accent}`,
-                      padding: "0.4rem 0.6rem", cursor: "pointer",
-                    }}
-                  >
-                    {m === "frage" ? "Frage stellen" : m === "analyse" ? "Analysieren" : "Freier Impuls"}
-                  </button>
-                ))}
+                {([
+                  { key: "frage" as const,    label: "Eine Frage formulieren" },
+                  { key: "analyse" as const,  label: "Analysieren" },
+                  { key: "frei" as const,     label: "Eigener Impuls" },
+                ]).map(opt => {
+                  const active = mode === opt.key;
+                  return (
+                    <button
+                      key={opt.key}
+                      onClick={() => setMode(opt.key)}
+                      style={{
+                        fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em", textTransform: "uppercase",
+                        color: active ? "#080808" : C.muted,
+                        background: active ? C.accent : "none",
+                        border: `1px solid ${active ? C.accent : C.border}`,
+                        padding: "0.35rem 0.6rem", cursor: "pointer",
+                        borderRadius: 3, minHeight: 30,
+                        transition: "all 0.15s",
+                      }}
+                    >
+                      {opt.label}
+                    </button>
+                  );
+                })}
               </div>
             </div>
 
             {mode === "frei" && (
-              <div style={{ marginBottom: "0.8rem" }}>
-                <label style={{ display: "block", fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, marginBottom: "0.3rem" }}>
-                  Eigene Frage / Impuls
+              <div style={{ marginBottom: "0.9rem" }}>
+                <label style={{ display: "block", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.textDim, marginBottom: "0.4rem" }}>
+                  Welcher Impuls treibt dich an dieser Stelle?
                 </label>
                 <textarea
                   value={userPrompt}
@@ -478,9 +493,10 @@ function PassageResonanzModal({
                   placeholder="Was möchtest du an dieser Stelle wissen?"
                   style={{
                     width: "100%", boxSizing: "border-box",
-                    fontFamily: SERIF, fontSize: "0.9rem", color: C.text,
-                    background: C.deep, border: `1px solid ${C.border}`,
-                    padding: "0.5rem", resize: "vertical",
+                    fontFamily: SERIF, fontStyle: "italic", fontSize: "0.92rem", color: C.text,
+                    background: C.deep, border: `1px solid ${C.border}`, borderRadius: 3,
+                    padding: "0.6rem 0.7rem", resize: "vertical", lineHeight: 1.5,
+                    outline: "none",
                   }}
                 />
               </div>
