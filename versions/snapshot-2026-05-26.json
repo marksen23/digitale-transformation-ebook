@@ -1,9 +1,8 @@
 {
-  "generatedAt": "2026-05-26T08:11:05.926Z",
+  "date": "2026-05-26",
+  "generatedAt": "2026-05-26T08:11:06.622Z",
+  "commit": "dae44c968aa5f0a70b9180fa4df6dce3019000e6",
   "filesChecked": 140,
-  "errors": 0,
-  "warnings": 0,
-  "issues": [],
   "aggregates": {
     "byEndpoint": {
       "analyse": 53,
@@ -18,5 +17,7 @@
       "published": 10
     },
     "orphanNodeIds": []
-  }
+  },
+  "errors": 0,
+  "warnings": 0
 }
