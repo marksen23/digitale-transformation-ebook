@@ -2184,31 +2184,60 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             lassen. */}
         {selectedNode && (
           <aside className="concept-left-sidebar" style={{
-            width: "clamp(240px, 28vw, 320px)",
+            width: "clamp(220px, 26vw, 300px)",
             background: C.deep,
             borderRight: `1px solid ${C.border}`,
             overflowY: "auto",
-            padding: "1.5rem 1.25rem",
+            padding: "1.2rem 1.1rem",
             flexShrink: 0,
             order: -1,  // CSS-grid-order: zwingt diese aside VOR den SVG-Container
             scrollbarWidth: "thin",
             scrollbarColor: `${C.border} transparent`,
           }}>
+            {/* Lesepfad-Breadcrumb (B2): wenn ≥2 Knoten besucht, zeigen
+                wir eine kompakte Folge oben statt der Section am Ende.
+                Klick auf einen Eintrag springt dorthin zurück. */}
+            {visitedNodes.length >= 2 && (
+              <div style={{
+                fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.05em",
+                color: C.muted, marginBottom: "0.6rem", lineHeight: 1.5,
+                opacity: 0.7,
+              }}>
+                {visitedNodes.slice(-5).map((vid, i, arr) => {
+                  const vNode = NODE_MAP.get(vid);
+                  if (!vNode) return null;
+                  const isLast = i === arr.length - 1;
+                  return (
+                    <span key={`${vid}-${i}`}>
+                      <button
+                        onClick={() => setSelectedId(vid)}
+                        style={{ background: "none", border: "none", padding: 0, cursor: "pointer", fontFamily: "inherit", fontSize: "inherit", letterSpacing: "inherit", color: isLast ? C.accent : C.muted }}
+                      >
+                        {vNode.label.replace("\n", " ")}
+                      </button>
+                      {!isLast && <span style={{ margin: "0 0.3rem" }}>·</span>}
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+
             {/* Category label */}
-            <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: TRACKED.open, color: CAT_COLOR[selectedNode.category], textTransform: "uppercase", marginBottom: "0.6rem" }}>
+            <div style={{ fontFamily: C.mono, fontSize: "0.56rem", letterSpacing: TRACKED.open, color: CAT_COLOR[selectedNode.category], textTransform: "uppercase", marginBottom: "0.4rem" }}>
               {categoryLabel(selectedNode.category)}
             </div>
 
-            {/* Title — Lese-Serif (Lora), klassische Italic-Anmutung */}
-            <h2 style={{ fontFamily: SERIF_BODY, fontSize: "1.7rem", fontWeight: 500, fontStyle: "italic", color: C.textBright, lineHeight: 1.18, marginBottom: "0.6rem", letterSpacing: "-0.01em" }}>
+            {/* Title (B2: 1.35rem statt 1.7rem — leiser, mehr Platz für Inhalt) */}
+            <h2 style={{ fontFamily: SERIF_BODY, fontSize: "1.35rem", fontWeight: 500, fontStyle: "italic", color: C.textBright, lineHeight: 1.2, marginBottom: "0.8rem", letterSpacing: "-0.005em" }}>
               {selectedNode.fullLabel}
             </h2>
 
-            {/* Klassischer Fleuron-Trenner unter dem Titel */}
-            <Ornament variant="rule" c={C} margin="0 0 1.2rem" />
+            {/* B2: nur EIN Ornament — der Asterism vor „Verbundene Begriffe"
+                war redundant. Klassischer Rule-Trenner unter dem Titel reicht. */}
+            <Ornament variant="rule" c={C} margin="0 0 1rem" />
 
             {/* Description — mit DropCap für längere Beschreibungen */}
-            <p style={{ fontFamily: SERIF_BODY, fontSize: "0.95rem", lineHeight: 1.85, color: C.text, marginBottom: "1.5rem" }}>
+            <p style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", lineHeight: 1.75, color: C.text, marginBottom: "1.2rem" }}>
               {selectedNode.description.length > 80 ? (
                 <>
                   <DropCap c={C}>{selectedNode.description.charAt(0)}</DropCap>
@@ -2220,19 +2249,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             {/* Connected concepts */}
             {connectedNodes.length > 0 && (
               <>
-                <Ornament variant="asterism" c={C} margin="0 0 1.2rem" />
-                <SectionLabel c={C} size="lg" tracking="open" marginBottom="0.8rem">Verbundene Begriffe</SectionLabel>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
+                <SectionLabel c={C} size="sm" tracking="tight" count={connectedNodes.length} marginBottom="0.5rem">Verbundene Begriffe</SectionLabel>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginBottom: "1rem" }}>
                   {connectedNodes.map(cn => (
                     <button
                       key={cn.id}
                       onClick={() => setSelectedId(cn.id)}
                       style={{
                         fontFamily: C.serif, fontStyle: "italic",
-                        fontSize: "0.82rem", color: C.accent,
+                        fontSize: "0.78rem", color: C.accent,
                         background: "none",
                         border: `1px solid ${C.accentDim}`,
-                        padding: "0.2rem 0.6rem",
+                        padding: "0.18rem 0.55rem",
                         cursor: "pointer", transition: "all 0.15s",
                       }}
                       onMouseEnter={e => { e.currentTarget.style.background = "rgba(196,168,130,0.08)"; e.currentTarget.style.color = C.textBright; }}
@@ -2264,49 +2292,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             {/* Blinde Flecken im Heatmap-Modus jetzt in der RIGHT-Sidebar
                 (immer sichtbar, unabhängig von Selektion) — siehe unten. */}
 
-            {/* ── Lesepfad ── */}
-            <div style={{ height: 1, background: C.border, margin: "1.6rem 0 1.1rem" }} />
-            <SectionLabel c={C} tracking="tight" count={visitedNodes.length} marginBottom="0.5rem">Lesepfad</SectionLabel>
-            {visitedNodes.length === 0 ? (
-              <div style={{ fontSize: "0.6rem", color: C.textDim, fontStyle: "italic" }}>Noch kein Konzept besucht</div>
-            ) : (
-              <>
-                {visitedNodes.map((vid, i) => {
-                  const vNode = NODE_MAP.get(vid);
-                  if (!vNode) return null;
-                  return (
-                    <div key={`${vid}-${i}`} style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: "0.25rem" }}>
-                      <button
-                        onClick={() => setSelectedId(vid)}
-                        style={{ background: "none", border: "none", padding: 0, cursor: "pointer", textAlign: "left", fontSize: "0.62rem", color: vid === selectedId ? C.accent : C.text }}
-                      >
-                        {vNode.label.replace("\n", " ")}
-                      </button>
-                      <button
-                        onClick={() => setVisitedNodes(vp => vp.filter((_, j) => j !== i))}
-                        style={{ background: "none", border: "none", padding: "0 0 0 0.5rem", cursor: "pointer", fontSize: "0.55rem", color: C.muted, lineHeight: 1 }}
-                        title="Entfernen"
-                      >×</button>
-                    </div>
-                  );
-                })}
-                <button
-                  onClick={() => setVisitedNodes([])}
-                  style={{ marginTop: "0.5rem", background: "none", border: `1px solid ${C.border}`, padding: "0.25rem 0.6rem", cursor: "pointer", fontFamily: C.mono, fontSize: "0.52rem", color: C.muted, letterSpacing: "0.1em" }}
-                >
-                  Lesepfad löschen
-                </button>
-              </>
-            )}
+            {/* B2: Die alte „Lesepfad"-Section ist nach oben als kompakter
+                Breadcrumb gewandert (siehe Anfang der Sidebar). „Lesepfad
+                löschen" steht jetzt minimalistisch neben dem Close. */}
 
-            {/* Close detail */}
-            <div style={{ marginTop: "1.8rem" }}>
+            {/* Close + Lesepfad-Reset (B2) */}
+            <div style={{ marginTop: "1.5rem", display: "flex", gap: "0.4rem", flexWrap: "wrap" }}>
               <button
                 onClick={() => setSelectedId(null)}
                 style={{
-                  fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.12em",
+                  fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.1em",
                   textTransform: "uppercase", color: C.muted, background: "none",
-                  border: `1px solid ${C.border}`, padding: "0.4rem 0.8rem",
+                  border: `1px solid ${C.border}`, padding: "0.35rem 0.7rem",
                   cursor: "pointer", transition: "all 0.15s",
                 }}
                 onMouseEnter={e => { e.currentTarget.style.color = C.text; e.currentTarget.style.borderColor = C.muted; }}
@@ -2314,6 +2311,21 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               >
                 Schließen
               </button>
+              {visitedNodes.length > 0 && (
+                <button
+                  onClick={() => setVisitedNodes([])}
+                  title="Lesepfad-Breadcrumb dieser Session zurücksetzen"
+                  style={{
+                    fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em",
+                    color: C.muted, background: "none",
+                    border: "none", padding: "0.35rem 0.4rem",
+                    cursor: "pointer", textDecoration: "underline", textDecorationStyle: "dotted",
+                    textUnderlineOffset: "3px", opacity: 0.7,
+                  }}
+                >
+                  Lesepfad löschen
+                </button>
+              )}
             </div>
           </aside>
         )}
