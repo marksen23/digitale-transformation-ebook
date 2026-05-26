@@ -169,8 +169,16 @@ export default function WerkPage() {
   const tocChapters = ebook.chapters.filter(c => c.content && c.content.length >= 200);
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 200px", gap: "2.5rem", alignItems: "start" }}>
+    <div className="werk-page" style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
+      <style>{`
+        .werk-page .werk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 2.5rem; align-items: start; }
+        .werk-page .werk-toc { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding-left: 1rem; border-left: 1px solid currentColor; opacity: 0.7; }
+        @media (max-width: 768px) {
+          .werk-page .werk-grid { grid-template-columns: 1fr; gap: 1.2rem; }
+          .werk-page .werk-toc { position: static; max-height: 220px; padding-left: 0; border-left: none; border-top: 1px solid currentColor; padding-top: 0.7rem; opacity: 0.6; order: 2; }
+        }
+      `}</style>
+      <div className="werk-grid">
         {/* ── Main Reading Column — klassische Buchsatz-Breite 36rem ── */}
         <article style={{ minWidth: 0, maxWidth: "36rem", marginLeft: "auto", marginRight: "auto" }}>
           <header style={{ marginBottom: "1.5rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
@@ -224,28 +232,33 @@ export default function WerkPage() {
             )}
           </div>
 
-          {/* Floating Selection Action — schwebt unten links wenn Auswahl aktiv */}
+          {/* Floating Selection Action — schwebt unten zentriert wenn Auswahl aktiv.
+              D5: bottom-Offset respektiert iOS-Selection-Toolbar (max(2rem, env(safe-area-inset-bottom))). */}
           {selection && (
             <button
               onClick={() => setModalOpen(true)}
               style={{
-                position: "fixed", left: "50%", bottom: "2rem", transform: "translateX(-50%)",
+                position: "fixed", left: "50%",
+                bottom: "max(2rem, calc(env(safe-area-inset-bottom, 0px) + 1rem))",
+                transform: "translateX(-50%)",
                 zIndex: 100,
                 fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase",
                 color: "#080808", background: C.accent,
-                border: "none", padding: "0.7rem 1.2rem",
+                border: "none", padding: "0.75rem 1.2rem",
                 borderRadius: 4, cursor: "pointer",
                 boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
                 minHeight: 44,
+                maxWidth: "calc(100vw - 2rem)", whiteSpace: "nowrap",
+                overflow: "hidden", textOverflow: "ellipsis",
               }}
             >
-              ◇ Resonanz an dieser Stelle erzeugen ({selection.text.length} Zeichen)
+              ◇ Resonanz erzeugen <span style={{ opacity: 0.7 }}>({selection.text.length} Z.)</span>
             </button>
           )}
         </article>
 
         {/* ── TOC Sidebar ────────────────────────────────────────── */}
-        <nav style={{ position: "sticky", top: "1rem", maxHeight: "calc(100vh - 2rem)", overflowY: "auto", paddingLeft: "1rem", borderLeft: `1px solid ${C.border}` }}>
+        <nav className="werk-toc" style={{ color: C.border }}>
           <SectionLabel c={C} color={C.muted} size="sm" tracking="tight">Inhalt</SectionLabel>
           <ul style={{ listStyle: "none", padding: 0, margin: "0.5rem 0 0", display: "flex", flexDirection: "column", gap: "0.25rem" }}>
             {tocChapters.map(ch => {
