@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T08:11:10.911Z",
+  "generatedAt": "2026-05-26T10:40:39.681Z",
   "clusters": [
     {
       "anchor": "chapter:teil7",
@@ -107,7 +107,7 @@
     }
   ],
   "stats": {
-    "totalAnchors": 84,
+    "totalAnchors": 85,
     "withMultipleVariants": 8,
     "withMaster": 0,
     "staleMasters": 0

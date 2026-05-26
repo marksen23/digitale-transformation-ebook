@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T08:11:10.909Z",
+  "generatedAt": "2026-05-26T10:40:39.679Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 20,
@@ -106,13 +106,15 @@
       }
     },
     "zeit": {
-      "count": 0,
-      "endpoints": {}
+      "count": 1,
+      "endpoints": {
+        "analyse": 1
+      }
     },
     "raum": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 3
+        "analyse": 4
       }
     },
     "gegenwart": {
@@ -339,7 +341,6 @@
     "median": 4,
     "totalNodes": 52,
     "zeroResonanceNodes": [
-      "zeit",
       "existenz",
       "resonanzimperativ",
       "schattenlicht",
