@@ -576,7 +576,9 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
             </span>
           )}
         </div>
-        <h2 style={{ fontFamily: SERIF_BODY, fontSize: "1.7rem", fontStyle: "italic", color: c.textBright, margin: 0, fontWeight: 500, lineHeight: 1.15, letterSpacing: "-0.01em" }}>
+        {/* B2-parallel: h2 von 1.7rem auf 1.4rem reduziert — gleicher
+            Schritt wie Begriffsnetz-Sidebar, ruhigere Titel-Wertigkeit. */}
+        <h2 style={{ fontFamily: SERIF_BODY, fontSize: "1.4rem", fontStyle: "italic", color: c.textBright, margin: 0, fontWeight: 500, lineHeight: 1.2, letterSpacing: "-0.005em" }}>
           {philosopher.name}
         </h2>
         <div style={{ fontFamily: MONO, fontSize: "0.68rem", color: c.muted, marginTop: "0.3rem", letterSpacing: TRACKED.tight }}>
@@ -594,7 +596,9 @@ export function PhilosopherDetail({ philosopher, c, onSelect }: { philosopher: P
         </p>
       </div>
 
-      <Ornament variant="asterism" c={c} margin="0.4rem 0 1rem" />
+      {/* B2-parallel: Asterism entfernt — der Rule oben + die Sections-
+          Trenner via SectionLabel reichen typografisch aus. Weniger
+          Ornament-Dichte = mehr Lese-Ruhe. */}
 
       <div style={{ marginBottom: "1.2rem" }}>
         <SectionLabel c={c} size="sm" count={philosopher.keyWorks.length} marginBottom="0.6rem">Hauptwerke</SectionLabel>
