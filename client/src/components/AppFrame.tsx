@@ -165,25 +165,22 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
 
         {/* Symbolleiste rechts */}
         <div style={{ display: "flex", gap: "0.3rem", marginLeft: "auto", alignItems: "center" }}>
-          {/* Locale-Switcher: DE/EN — tausch nur unter Beibehaltung des Pfads */}
+          {/* Locale-Switcher D3: visuell entrümpelt — keine Border, kein Pill,
+              kein Mono-Caps. Nur ein dezenter Italic-Mini-Link rechts. */}
           <a
             href={switchLocaleHref(locale === "en" ? "de" : "en")}
             aria-label={locale === "en" ? "Sprache wechseln zu Deutsch" : "Switch to English"}
             title={locale === "en" ? "Deutsch" : "English"}
-            className="appframe-tap"
             style={{
-              fontFamily: MONO, fontSize: "0.55rem",
-              letterSpacing: TRACKED.tight,
+              fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.05em",
               color: C.muted,
-              padding: "0.35rem 0.5rem",
+              padding: "0.35rem 0.4rem",
               textDecoration: "none",
-              border: `1px solid ${C.border}`,
-              borderRadius: RADIUS.button,
-              minHeight: 30, display: "inline-flex", alignItems: "center", justifyContent: "center",
-              transition: "color 0.15s, border-color 0.15s",
+              opacity: 0.55,
+              transition: "opacity 0.15s",
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = C.accent)}
-            onMouseLeave={e => (e.currentTarget.style.color = C.muted)}
+            onMouseEnter={e => (e.currentTarget.style.opacity = "1")}
+            onMouseLeave={e => (e.currentTarget.style.opacity = "0.55")}
           >
             {locale === "en" ? "DE" : "EN"}
           </a>

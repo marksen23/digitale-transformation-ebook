@@ -185,6 +185,10 @@ export default function WerkPage() {
                 {currentChapter.subtitle}
               </p>
             )}
+            {/* D3: Werkzeug-Dropdown statt permanent sichtbarer Links —
+                ein dezenter Italic-Link „Werkzeuge ▾", aufgeklappt:
+                PDF, Quer-Links, Sprache. Reading bleibt ruhig. */}
+            <WerkzeugeDropdown C={C} isDark={isDark} />
           </header>
 
           {/* Lesebereich */}
@@ -500,6 +504,49 @@ function PassageResonanzModal({
           </>
         )}
       </div>
+    </div>
+  );
+}
+
+// ─── WerkzeugeDropdown (Sprint D3) ────────────────────────────────────────
+// Subtle Disclosure unter dem Werk-Header. Geschlossen: dezenter Italic-Link
+// „Werkzeuge ▾". Aufgeklappt: PDF-Download + Quer-Links zu Werkzeug-Seiten.
+// Ersetzt die zuvor permanent sichtbaren Sidebar-Links + PDF-Download.
+function WerkzeugeDropdown({ C, isDark: _isDark }: { C: Palette; isDark: boolean }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div style={{ marginTop: "0.6rem" }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          fontFamily: SERIF, fontStyle: "italic", fontSize: "0.75rem",
+          color: C.textDim, background: "none", border: "none",
+          padding: 0, cursor: "pointer",
+          textDecoration: "underline", textDecorationStyle: "dotted",
+          textUnderlineOffset: "3px",
+        }}
+      >
+        Werkzeuge {open ? "▴" : "▾"}
+      </button>
+      {open && (
+        <div style={{
+          marginTop: "0.5rem", padding: "0.7rem 0.9rem",
+          background: C.surface, border: `1px solid ${C.border}`,
+          display: "flex", flexDirection: "column", gap: "0.35rem",
+          fontFamily: SERIF, fontSize: "0.85rem",
+        }}>
+          <a
+            href="/exports/resonanzvernunft.pdf"
+            download="resonanzvernunft.pdf"
+            style={{ color: C.accent, textDecoration: "none" }}
+          >
+            ↓ Werk als PDF herunterladen
+          </a>
+          <Link to="/begriffsnetz" style={{ color: C.textDim, textDecoration: "none" }}>↪ Begriffsnetz öffnen</Link>
+          <Link to="/resonanzen" style={{ color: C.textDim, textDecoration: "none" }}>↪ Resonanzen-Korpus</Link>
+          <Link to="/mein-werk" style={{ color: C.textDim, textDecoration: "none" }}>↪ Mein Werk (Lese-Trajektorie)</Link>
+        </div>
+      )}
     </div>
   );
 }

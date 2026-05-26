@@ -125,30 +125,10 @@ export default function ResonanzDetailPage() {
         ))}
       </div>
 
-      {/* BibTeX */}
-      <section style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}` }}>
-        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem", flexWrap: "wrap", gap: "0.5rem" }}>
-          <SectionLabel c={C} size="sm" tracking="open">BibTeX zitieren</SectionLabel>
-          <button
-            onClick={copyBibtex}
-            style={{
-              fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase",
-              color: bibtexCopied ? "#7ab898" : C.accent,
-              background: "none",
-              border: `1px solid ${bibtexCopied ? "#7ab898" : C.accent}`,
-              padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 32,
-            }}
-          >
-            {bibtexCopied ? "✓ kopiert" : "📋 kopieren"}
-          </button>
-        </div>
-        <pre style={{
-          fontFamily: MONO, fontSize: "0.6rem", color: C.text,
-          background: C.deep, border: `1px solid ${C.border}`,
-          padding: "0.7rem 0.9rem", overflow: "auto", lineHeight: 1.5, margin: 0,
-          whiteSpace: "pre-wrap", wordBreak: "break-word",
-        }}>{bib}</pre>
-      </section>
+      {/* BibTeX — D3: Disclosure-Pattern. Geschlossen by default,
+          Akademiker klappen auf wenn nötig. Statt großem Code-Block
+          ein dezenter Italic-Link „Zitieren ▾". */}
+      <BibtexDisclosure C={C} bib={bib} onCopy={copyBibtex} copied={bibtexCopied} />
 
       {/* Permalink */}
       <section style={{ marginTop: "1rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
@@ -161,5 +141,55 @@ export default function ResonanzDetailPage() {
         <Link to="/begriffsnetz" style={{ color: C.muted, textDecoration: "none" }}>↪ Begriffsnetz</Link>
       </nav>
     </article>
+  );
+}
+
+// ─── BibtexDisclosure (Sprint D3) ────────────────────────────────────────
+// Disclosure-Pattern für BibTeX. Geschlossen zeigt nur einen Italic-Link
+// „Zitieren ▾". Aufgeklappt: der monospace-Block + Copy-Button.
+function BibtexDisclosure({ C, bib, onCopy, copied }: {
+  C: Palette; bib: string; onCopy: () => void; copied: boolean;
+}) {
+  const [open, setOpen] = useState(false);
+  return (
+    <section style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}` }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem",
+          color: C.textDim, background: "none", border: "none",
+          padding: 0, cursor: "pointer",
+          textDecoration: "underline", textDecorationStyle: "dotted",
+          textUnderlineOffset: "3px",
+        }}
+      >
+        Zitieren {open ? "▴" : "▾"}
+      </button>
+      {open && (
+        <div style={{ marginTop: "0.7rem" }}>
+          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.4rem" }}>
+            <button
+              onClick={onCopy}
+              style={{
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                color: copied ? "#7ab898" : C.muted,
+                background: "none",
+                border: `1px solid ${copied ? "#7ab898" : C.border}`,
+                padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 30,
+              }}
+            >
+              {copied ? "✓ kopiert" : "BibTeX kopieren"}
+            </button>
+          </div>
+          <pre style={{
+            fontFamily: MONO, fontSize: "0.6rem", color: C.text,
+            background: C.deep, border: `1px solid ${C.border}`,
+            padding: "0.7rem 0.9rem", overflow: "auto", lineHeight: 1.5, margin: 0,
+            whiteSpace: "pre-wrap", wordBreak: "break-word",
+          }}>{bib}</pre>
+        </div>
+      )}
+    </section>
   );
 }

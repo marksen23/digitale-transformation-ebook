@@ -2811,11 +2811,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       </p>
                     ))}
                     {pathCitedChunks.length > 0 && (
-                      <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted }}>
-                        <div style={{ marginBottom: "0.3rem", color: "#5aacb8" }}>QUELLEN IM WERK</div>
+                      <div style={{ marginTop: "0.8rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.serif, fontSize: "0.72rem", fontStyle: "italic", color: C.textDim, lineHeight: 1.55 }}>
                         {pathCitedChunks.map(c => (
-                          <div key={c.id} style={{ marginBottom: "0.2rem", color: C.textDim }}>
-                            ↩ <span style={{ color: C.text }}>{c.partTitle}</span> · {c.chapterTitle} <span style={{ opacity: 0.5 }}>[{c.id.slice(0, 8)}]</span>
+                          <div key={c.id} style={{ marginBottom: "0.15rem" }} title={`chunkId: ${c.id}`}>
+                            ↩ {c.partTitle} · {c.chapterTitle}
                           </div>
                         ))}
                       </div>
@@ -2944,11 +2943,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     </p>
                   ))}
                   {analyseCitedChunks.length > 0 && (
-                    <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted }}>
-                      <div style={{ marginBottom: "0.3rem", color: "#5aacb8" }}>QUELLEN IM WERK</div>
+                    <div style={{ marginTop: "0.8rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.serif, fontSize: "0.72rem", fontStyle: "italic", color: C.textDim, lineHeight: 1.55 }}>
                       {analyseCitedChunks.map(c => (
-                        <div key={c.id} style={{ marginBottom: "0.2rem", color: C.textDim }}>
-                          ↩ <span style={{ color: C.text }}>{c.partTitle}</span> · {c.chapterTitle} <span style={{ opacity: 0.5 }}>[{c.id.slice(0, 8)}]</span>
+                        <div key={c.id} style={{ marginBottom: "0.15rem" }} title={`chunkId: ${c.id}`}>
+                          ↩ {c.partTitle} · {c.chapterTitle}
                         </div>
                       ))}
                     </div>
@@ -2991,7 +2989,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         {para.trim()}
                       </p>
                     ))}
-                    {/* Feature B: pro AI-Turn ein "In Korpus aufnehmen"-Button */}
+                    {/* Feature B: pro AI-Turn ein "In Korpus aufnehmen"-Hint.
+                        D3: subtle reveal — kein Border, kein Mono-Caps; nur
+                        ein dezenter Italic-Link, mint nach Persistenz. */}
                     {(() => {
                       const persisted = persistedTurns.has(i);
                       const loading = persistingTurn === i;
@@ -3000,19 +3000,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                           onClick={() => !persisted && !loading && void persistDialogTurn(i)}
                           disabled={persisted || loading}
                           style={{
-                            fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.08em",
-                            textTransform: "uppercase",
-                            color: persisted ? "#7ab898" : "#7ab898",
+                            fontFamily: C.serif, fontStyle: "italic", fontSize: "0.65rem",
+                            color: persisted ? "#7ab898" : C.muted,
                             background: "none",
-                            border: `1px solid ${persisted ? "#7ab898" : "#7ab898"}`,
-                            padding: "0.2rem 0.4rem",
+                            border: "none",
+                            padding: "0 0 0 0.1rem",
                             cursor: persisted || loading ? "default" : "pointer",
-                            opacity: loading ? 0.5 : 1,
-                            marginTop: "0.2rem",
+                            opacity: loading ? 0.5 : 0.7,
+                            marginTop: "0.15rem",
+                            textDecoration: persisted ? "none" : "underline",
+                            textDecorationStyle: "dotted",
+                            textUnderlineOffset: "3px",
                           }}
                           title={persisted ? "Bereits ins Korpus aufgenommen" : "Diesen Turn als endpoint=dialog in den Korpus aufnehmen"}
+                          onMouseEnter={e => { if (!persisted && !loading) e.currentTarget.style.opacity = "1"; }}
+                          onMouseLeave={e => { if (!persisted && !loading) e.currentTarget.style.opacity = "0.7"; }}
                         >
-                          {persisted ? "✓ im Korpus" : loading ? "speichert …" : "◇ in Korpus aufnehmen"}
+                          {persisted ? "✓ im Korpus" : loading ? "speichert …" : "→ behalten"}
                         </button>
                       );
                     })()}
