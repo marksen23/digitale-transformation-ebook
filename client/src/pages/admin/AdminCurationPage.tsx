@@ -19,6 +19,7 @@ import {
   type ResonanzEntry, type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
 import { callAdminAction } from "@/lib/adminAuth";
+import { recordAction } from "@/lib/adminActionLog";
 
 /** Triggert cross-Tab + intra-Tab Index-Refresh. Wird nach jeder
  *  Admin-Mutation (curate/delete/pre-score/synthesize) aufgerufen. */
@@ -26,6 +27,7 @@ function notifyIndexStale() {
   broadcastIndexStale();
 }
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
+import ActionLogPanel from "@/components/admin/ActionLogPanel";
 import Skeleton from "@/components/Skeleton";
 import {
   Section, Stat, useAdminTheme, computeStats, MONO, SERIF,
@@ -123,6 +125,11 @@ export default function AdminCurationPage() {
     setSynthLoading(s => new Set(s).add(anchor));
     const result = await callAdminAction<{ ok: boolean; synthesisPreview?: string; wasUpdate?: boolean; variantCount?: number }>("synthesize-master", { anchor, endpoint });
     setSynthLoading(s => { const n = new Set(s); n.delete(anchor); return n; });
+    recordAction({
+      type: "synthesize-master", targetId: anchor, ok: result.ok,
+      reason: result.ok ? undefined : (result.error ?? "Synthese-Fehler"),
+      payload: { endpoint, wasUpdate: result.data?.wasUpdate, variantCount: result.data?.variantCount },
+    });
     if (result.ok && result.data) {
       setSynthPreview({ anchor, text: result.data.synthesisPreview ?? "(kein Preview vom Server)" });
       setActionFeedback({
@@ -203,16 +210,24 @@ export default function AdminCurationPage() {
                 : e
             ),
           } : curr);
+          recordAction({ type: "pre-score", targetId: id, ok: true, payload: { score: sc } });
         } else {
           failed++;
+          recordAction({ type: "pre-score", targetId: id, ok: false, reason: result.error ?? "Score-Fehler" });
         }
-      } catch {
+      } catch (err) {
         failed++;
+        recordAction({ type: "pre-score", targetId: id, ok: false, reason: err instanceof Error ? err.message : String(err) });
       }
       done++;
       setPreScoreProgress({ done, total: ids.length });
     }
     setPreScoreProgress(null);
+    // Bulk-Sammel-Eintrag für Übersicht im Log (zusätzlich zu den Einzel-Logs).
+    recordAction({
+      type: "bulk-pre-score", targetCount: ids.length, ok: failed === 0,
+      reason: failed > 0 ? `${failed} von ${ids.length} fehlgeschlagen` : undefined,
+    });
     setActionFeedback({
       id: "_pre_score",
       ok: failed === 0,
@@ -256,6 +271,12 @@ export default function AdminCurationPage() {
     setActionFeedback(null);
     const result = await callAdminAction("curate", { id, status: newStatus });
     setCurationLoading(s => { const n = new Set(s); n.delete(id); return n; });
+    // F1: jede Mutation ins persistente Audit-Log — Erfolg UND Versagen.
+    recordAction({
+      type: "curate", targetId: id, ok: result.ok,
+      reason: result.ok ? undefined : (result.error ?? "Unbekannter Fehler"),
+      payload: { newStatus },
+    });
     if (result.ok) {
       setIndex(curr => curr ? {
         ...curr,
@@ -274,6 +295,10 @@ export default function AdminCurationPage() {
     setActionFeedback(null);
     const result = await callAdminAction("delete", { id });
     setCurationLoading(s => { const n = new Set(s); n.delete(id); return n; });
+    recordAction({
+      type: "delete", targetId: id, ok: result.ok,
+      reason: result.ok ? undefined : (result.error ?? "Unbekannter Fehler"),
+    });
     if (result.ok) {
       notifyIndexStale();
       setIndex(curr => curr ? {
@@ -310,11 +335,14 @@ export default function AdminCurationPage() {
             ...curr,
             entries: curr.entries.map(e => e.id === id ? { ...e, status: newStatus as ResonanzEntry["status"] } : e),
           } : curr);
+          recordAction({ type: "curate", targetId: id, ok: true, payload: { newStatus } });
         } else {
           failed++;
+          recordAction({ type: "curate", targetId: id, ok: false, reason: result.error ?? "Server-Fehler", payload: { newStatus } });
         }
-      } catch {
+      } catch (err) {
         failed++;
+        recordAction({ type: "curate", targetId: id, ok: false, reason: err instanceof Error ? err.message : String(err), payload: { newStatus } });
       }
       done++;
       setBulkProgress({ done, total: ids.length, status: newStatus });
@@ -324,6 +352,11 @@ export default function AdminCurationPage() {
 
     setBulkProgress(null);
     setSelectedIds(new Set());
+    recordAction({
+      type: "bulk-curate", targetCount: ids.length, ok: failed === 0,
+      reason: failed > 0 ? `${failed} von ${ids.length} fehlgeschlagen` : undefined,
+      payload: { newStatus },
+    });
     if (failed < ids.length) notifyIndexStale();
     setActionFeedback({
       id: "_bulk", ok: failed === 0,
@@ -350,11 +383,14 @@ export default function AdminCurationPage() {
             count: curr.count - 1,
             entries: curr.entries.filter(e => e.id !== id),
           } : curr);
+          recordAction({ type: "delete", targetId: id, ok: true });
         } else {
           failed++;
+          recordAction({ type: "delete", targetId: id, ok: false, reason: result.error ?? "Server-Fehler" });
         }
-      } catch {
+      } catch (err) {
         failed++;
+        recordAction({ type: "delete", targetId: id, ok: false, reason: err instanceof Error ? err.message : String(err) });
       }
       done++;
       setBulkProgress({ done, total: ids.length, status: "delete" });
@@ -365,6 +401,10 @@ export default function AdminCurationPage() {
     setBulkProgress(null);
     setSelectedIds(new Set());
     setBulkConfirmDelete(false);
+    recordAction({
+      type: "bulk-delete", targetCount: ids.length, ok: failed === 0,
+      reason: failed > 0 ? `${failed} von ${ids.length} fehlgeschlagen` : undefined,
+    });
     if (failed < ids.length) notifyIndexStale();
     setActionFeedback({
       id: "_bulk", ok: failed === 0,
@@ -483,6 +523,10 @@ export default function AdminCurationPage() {
           {index.generatedAt ? ` · zuletzt erzeugt ${new Date(index.generatedAt).toLocaleString("de-DE")}` : ""}
         </p>
       </div>
+
+      {/* F1: Aktions-Protokoll — Erfolge und Misslungenes bleiben sichtbar,
+          beide gleichermaßen ernstgenommen. „Wir verwandeln uns dort, wo wir versagen." */}
+      <ActionLogPanel c={C} />
 
       <Section title="Übersicht — Status-Verteilung" c={C}>
         <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem" }}>
