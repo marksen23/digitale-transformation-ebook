@@ -259,7 +259,15 @@ export default function WerkPage() {
           </ul>
           <div style={{ marginTop: "1rem", paddingTop: "0.8rem", borderTop: `1px solid ${C.border}`, fontFamily: MONO, fontSize: "0.55rem", letterSpacing: TRACKED.open, color: C.muted }}>
             <Link to="/begriffsnetz" style={{ color: C.muted, textDecoration: "none", display: "block", marginBottom: "0.3rem" }}>↪ Begriffsnetz</Link>
-            <Link to="/resonanzen" style={{ color: C.muted, textDecoration: "none", display: "block" }}>↪ Resonanzen</Link>
+            <Link to="/resonanzen" style={{ color: C.muted, textDecoration: "none", display: "block", marginBottom: "0.3rem" }}>↪ Resonanzen</Link>
+            <Link to="/mein-werk" style={{ color: C.muted, textDecoration: "none", display: "block", marginBottom: "0.6rem" }}>↪ Mein Werk</Link>
+            <a
+              href="/exports/resonanzvernunft.pdf"
+              download="resonanzvernunft.pdf"
+              style={{ color: C.accent, textDecoration: "none", display: "block", borderTop: `1px dashed ${C.border}`, paddingTop: "0.5rem" }}
+            >
+              ↓ Werk als PDF herunterladen
+            </a>
           </div>
         </nav>
       </div>
