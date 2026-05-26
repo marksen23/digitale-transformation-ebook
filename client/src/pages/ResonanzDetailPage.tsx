@@ -1,0 +1,165 @@
+/**
+ * ResonanzDetailPage (/resonanz/:id) — Tier-1-3-Roadmap, Feature H.
+ *
+ * Permalink-Seite für eine einzelne Resonanz — zitierfähig.
+ * Enthält:
+ *   - Vollständiger Antworttext mit Frontmatter-Metadata
+ *   - BibTeX-Box (kopierbar)
+ *   - JSON-LD-Schema-Tag im Head (via React effect)
+ *   - Open-Graph-Tags (statisch via injected meta)
+ *   - Link zurück zum Werk-Anker (falls passage_chunk_id existiert)
+ */
+import { useEffect, useMemo, useState } from "react";
+import { useRoute, Link } from "wouter";
+import { useTheme } from "@/contexts/ThemeContext";
+import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
+import { toBibtex, toJsonLd } from "@/lib/bibtex";
+import SectionLabel from "@/components/SectionLabel";
+
+export default function ResonanzDetailPage() {
+  const { theme } = useTheme();
+  const C: Palette = theme === "dark" ? C_DARK : C_LIGHT;
+  const [, params] = useRoute<{ id: string }>("/resonanz/:id");
+  const [entry, setEntry] = useState<ResonanzEntry | null>(null);
+  const [notFound, setNotFound] = useState(false);
+  const [bibtexCopied, setBibtexCopied] = useState(false);
+
+  useEffect(() => {
+    loadResonanzenIndex().then(idx => {
+      const e = idx.entries.find(x => x.id === params?.id);
+      if (e) setEntry(e); else setNotFound(true);
+    }).catch(() => setNotFound(true));
+  }, [params?.id]);
+
+  // JSON-LD injection für SEO / Google Scholar
+  useEffect(() => {
+    if (!entry) return;
+    const script = document.createElement("script");
+    script.type = "application/ld+json";
+    script.textContent = JSON.stringify(toJsonLd(entry));
+    document.head.appendChild(script);
+    // Title-Tag setzen
+    const prevTitle = document.title;
+    document.title = `${entry.id} — Resonanzvernunft`;
+    // OG-Tags
+    const ogTags: HTMLMetaElement[] = [];
+    const ogPairs: Array<[string, string]> = [
+      ["og:title", `${entry.id} — Resonanzvernunft`],
+      ["og:description", entry.response.slice(0, 200)],
+      ["og:type", "article"],
+      ["og:url", `https://digitale-transformation-ebook.netlify.app/resonanz/${entry.id}`],
+    ];
+    for (const [prop, content] of ogPairs) {
+      const m = document.createElement("meta");
+      m.setAttribute("property", prop);
+      m.setAttribute("content", content);
+      document.head.appendChild(m);
+      ogTags.push(m);
+    }
+    return () => {
+      script.remove();
+      ogTags.forEach(t => t.remove());
+      document.title = prevTitle;
+    };
+  }, [entry]);
+
+  const bib = useMemo(() => entry ? toBibtex(entry) : "", [entry]);
+
+  function copyBibtex() {
+    if (!bib) return;
+    navigator.clipboard.writeText(bib).then(() => {
+      setBibtexCopied(true);
+      setTimeout(() => setBibtexCopied(false), 2000);
+    });
+  }
+
+  if (notFound) {
+    return (
+      <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem", fontFamily: SERIF, color: C.text }}>
+        <h1>Eintrag nicht gefunden</h1>
+        <p>Diese Resonanz existiert (noch) nicht im Index. <Link to="/resonanzen" style={{ color: C.accent }}>← zurück zur Übersicht</Link></p>
+      </div>
+    );
+  }
+  if (!entry) {
+    return <div style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
+  }
+
+  const chunkId = typeof entry.contextMeta?.passage_chunk_id === "string" ? entry.contextMeta.passage_chunk_id : null;
+  const chapter = typeof entry.contextMeta?.chapter === "string" ? entry.contextMeta.chapter : null;
+
+  return (
+    <article style={{ maxWidth: 800, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
+      <header style={{ marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>
+        <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint], marginBottom: "0.3rem" }}>
+          {ENDPOINT_LABEL[entry.endpoint]} · {entry.id}
+        </div>
+        <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.6rem", color: C.textBright, lineHeight: 1.3 }}>
+          {entry.prompt.slice(0, 140)}{entry.prompt.length > 140 ? "…" : ""}
+        </h1>
+        <div style={{ marginTop: "0.5rem", display: "flex", flexWrap: "wrap", gap: "0.7rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
+          <span>📅 {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "long", day: "numeric" })}</span>
+          <span>· status: {entry.status}</span>
+          {entry.nodeIds.length > 0 && <span>· {entry.nodeIds.length} Knoten</span>}
+          {typeof entry.werkVoiceScore === "number" && <span>· werkVoice {entry.werkVoiceScore.toFixed(2)}</span>}
+        </div>
+      </header>
+
+      {chunkId && (
+        <div style={{ marginBottom: "1rem", padding: "0.6rem 0.8rem", background: `${C.accent}08`, borderLeft: `3px solid ${C.accent}`, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
+          Verankert in einer Werkpassage —
+          {chapter ? <Link to={`/werk/${chapter}`} style={{ marginLeft: "0.3rem", color: C.accent, textDecoration: "underline" }}>↩ zur Passage im Werk</Link> : null}
+        </div>
+      )}
+
+      <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.textDim, marginBottom: "0.7rem", fontSize: "0.9rem" }}>
+        <strong>Frage:</strong> {entry.prompt}
+      </div>
+
+      <div style={{ marginBottom: "2rem" }}>
+        {entry.response.split(/\n\n+/).map((para, i) => (
+          <p key={i} style={{ fontFamily: SERIF, fontSize: "1rem", lineHeight: 1.65, color: C.text, margin: "0 0 0.8rem" }}>
+            {para.trim()}
+          </p>
+        ))}
+      </div>
+
+      {/* BibTeX */}
+      <section style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}` }}>
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.5rem", flexWrap: "wrap", gap: "0.5rem" }}>
+          <SectionLabel c={C} size="sm" tracking="open">BibTeX zitieren</SectionLabel>
+          <button
+            onClick={copyBibtex}
+            style={{
+              fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase",
+              color: bibtexCopied ? "#7ab898" : C.accent,
+              background: "none",
+              border: `1px solid ${bibtexCopied ? "#7ab898" : C.accent}`,
+              padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 32,
+            }}
+          >
+            {bibtexCopied ? "✓ kopiert" : "📋 kopieren"}
+          </button>
+        </div>
+        <pre style={{
+          fontFamily: MONO, fontSize: "0.6rem", color: C.text,
+          background: C.deep, border: `1px solid ${C.border}`,
+          padding: "0.7rem 0.9rem", overflow: "auto", lineHeight: 1.5, margin: 0,
+          whiteSpace: "pre-wrap", wordBreak: "break-word",
+        }}>{bib}</pre>
+      </section>
+
+      {/* Permalink */}
+      <section style={{ marginTop: "1rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
+        <div>Permalink: <code>{`https://digitale-transformation-ebook.netlify.app/resonanz/${entry.id}`}</code></div>
+      </section>
+
+      <nav style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}`, display: "flex", gap: "1rem", fontFamily: MONO, fontSize: "0.6rem" }}>
+        <Link to="/resonanzen" style={{ color: C.muted, textDecoration: "none" }}>← alle Resonanzen</Link>
+        <Link to="/werk" style={{ color: C.muted, textDecoration: "none" }}>↪ Werk lesen</Link>
+        <Link to="/begriffsnetz" style={{ color: C.muted, textDecoration: "none" }}>↪ Begriffsnetz</Link>
+      </nav>
+    </article>
+  );
+}
