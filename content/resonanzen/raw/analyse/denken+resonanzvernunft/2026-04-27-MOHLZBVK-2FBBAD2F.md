@@ -6,7 +6,7 @@ endpoint: analyse
 model: gemini-2.5-flash
 anchor: analyse:denken+resonanzvernunft
 nodeIds: [ denken, resonanzvernunft ]
-status: raw
+status: published
 content_hash: f20518673edec76a
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
@@ -16,12 +16,18 @@ audit_trail:
     ts: 2026-04-27T19:47:11.456Z
     actor: system
     content_hash: f20518673edec76a
+  - event: status-changed
+    ts: 2026-05-26T11:57:02.029Z
+    actor: admin
+    from: raw
+    to: published
 context_meta:
   nodeA_label: Resonanzvernunft
   nodeB_label: Denken
 ai_score: 5
-ai_score_reason: Dichter, prosaischer Duktus werktreu; „Schöpfkelle des Verstehens",
-  „selbst-reflektive Immanenz" — eigener denkerischer Beitrag, der weiterführt.
+ai_score_reason: Dichter, prosaischer Duktus werktreu; „Schöpfkelle des
+  Verstehens", „selbst-reflektive Immanenz" — eigener denkerischer Beitrag, der
+  weiterführt.
 ai_score_at: 2026-05-26T11:29:33.562Z
 ai_score_model: claude-sonnet-4-5
 ---
