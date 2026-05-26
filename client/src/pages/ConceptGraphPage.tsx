@@ -3344,6 +3344,8 @@ function LeitmotivLegendSection({
       layout={compact ? "wrap" : "stack"}
       showReset={hiddenLeitmotive.size > 0}
       onReset={onReset}
+      collapsible={!compact}
+      defaultCollapsed={hiddenLeitmotive.size === 0 && activeLeitmotive.size === 0}
     >
       {lmNodes.map(node => {
           const hidden   = hiddenLeitmotive.has(node.id);
@@ -3405,6 +3407,8 @@ function PrinzipLegendSection({
       resetBorderColor={PR_COLOR}
       showReset={hiddenPrinzipien.size > 0}
       onReset={onReset}
+      collapsible={!compact}
+      defaultCollapsed={hiddenPrinzipien.size === 0}
     >
       {PRINZIP_GROUPS.map(group => {
           const allHidden = group.memberIds.every(id => hiddenPrinzipien.has(id));

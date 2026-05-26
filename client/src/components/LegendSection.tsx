@@ -29,6 +29,7 @@
  *     {…group buttons…}
  *   </LegendSection>
  */
+import { useState } from "react";
 import type { Palette } from "@/lib/theme";
 import { MONO } from "@/lib/theme";
 
@@ -48,6 +49,11 @@ interface LegendSectionProps {
   resetBorderColor?: string;
   /** Layout der inneren Items: "stack" (vertical, default) oder "wrap" (horizontal, für compact). */
   layout?: "stack" | "wrap";
+  /** RIGHT-Sidebar-Refactor: kollabier-Pattern. Wenn true: nur Title +
+   *  Chevron sichtbar, Children werden ein-/ausgeklappt. */
+  collapsible?: boolean;
+  /** Default-Zustand bei collapsible=true. */
+  defaultCollapsed?: boolean;
   children: React.ReactNode;
 }
 
@@ -61,29 +67,52 @@ export default function LegendSection({
   resetColor,
   resetBorderColor,
   layout = "stack",
+  collapsible = false,
+  defaultCollapsed = false,
   children,
 }: LegendSectionProps) {
   const rColor = resetColor ?? c.accent;
   const rBorder = resetBorderColor ?? c.accentDim;
+  const [collapsed, setCollapsed] = useState(defaultCollapsed && collapsible);
+
+  // Wenn collapsible: Title als Button mit Chevron, sonst statisches Div.
+  const titleStyle: React.CSSProperties = {
+    fontFamily: MONO,
+    fontSize: compact ? "0.54rem" : "0.58rem",
+    letterSpacing: "0.15em",
+    color: c.muted,
+    textTransform: "uppercase",
+    marginBottom: collapsed ? 0 : (compact ? "0.5rem" : "0.7rem"),
+    marginTop: showSeparator ? (compact ? "0.6rem" : "0.9rem") : 0,
+    borderTop: showSeparator ? `1px solid ${c.border}` : "none",
+    paddingTop: showSeparator ? (compact ? "0.6rem" : "0.7rem") : 0,
+  };
+
   return (
     <>
-      <div style={{
-        fontFamily: MONO,
-        fontSize: compact ? "0.54rem" : "0.58rem",
-        letterSpacing: "0.15em",
-        color: c.muted,
-        textTransform: "uppercase",
-        marginBottom: compact ? "0.5rem" : "0.7rem",
-        marginTop: showSeparator ? (compact ? "0.6rem" : "0.9rem") : 0,
-        borderTop: showSeparator ? `1px solid ${c.border}` : "none",
-        paddingTop: showSeparator ? (compact ? "0.6rem" : "0.7rem") : 0,
-      }}>
-        {title}
-      </div>
-      <div style={layout === "wrap" ? { display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" } : {}}>
-        {children}
-      </div>
-      {showReset && onReset && (
+      {collapsible ? (
+        <button
+          onClick={() => setCollapsed(v => !v)}
+          aria-expanded={!collapsed}
+          style={{
+            ...titleStyle,
+            background: "none", border: "none", padding: 0, cursor: "pointer",
+            width: "100%", textAlign: "left",
+            display: "flex", alignItems: "center", justifyContent: "space-between",
+          }}
+        >
+          <span>{title}</span>
+          <span style={{ marginLeft: "0.5rem", opacity: 0.7 }}>{collapsed ? "▸" : "▾"}</span>
+        </button>
+      ) : (
+        <div style={titleStyle}>{title}</div>
+      )}
+      {!collapsed && (
+        <div style={layout === "wrap" ? { display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" } : {}}>
+          {children}
+        </div>
+      )}
+      {showReset && onReset && !collapsed && (
         <button
           onClick={onReset}
           style={{
