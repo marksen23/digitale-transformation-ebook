@@ -480,8 +480,11 @@ export default function ResonanzenPage() {
         {/* Reading-Mode-Toggle: phänomenologisch-responsive Verdichtung.
             Default 'depth'. 'surface' ist für Schnelldurchsicht, 'research'
             zeigt alles inkl. Provenance. Verdichtung wirkt auf Eintragsliste. */}
-        <div style={{ marginTop: "1rem", display: "flex", gap: "0.4rem", flexWrap: "wrap", alignItems: "center" }}>
-          <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.1em", textTransform: "uppercase", marginRight: "0.4rem" }}>Tiefe:</span>
+        {/* R2: Reading-Mode-Toggle Pills auf das nach R1 etablierte
+            kompakte Format gebracht (28-30px statt 36px Mindesthöhe,
+            0.52rem statt 0.55rem Font). */}
+        <div style={{ marginTop: "1rem", display: "flex", gap: "0.35rem", flexWrap: "wrap", alignItems: "center" }}>
+          <FilterInlineLabel c={C}>Tiefe:</FilterInlineLabel>
           {(["surface", "depth", "research"] as ReadingMode[]).map(m => {
             const active = readingMode === m;
             const label = m === "surface" ? "Oberfläche" : m === "depth" ? "Vertiefung" : "Forschung";
@@ -490,11 +493,12 @@ export default function ResonanzenPage() {
                 key={m}
                 onClick={() => setReadingMode(m)}
                 style={{
-                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+                  fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em", textTransform: "uppercase",
                   color: active ? C.textBright : C.muted,
                   background: active ? C.deep : "none",
                   border: `1px solid ${active ? C.accentDim : C.border}`,
-                  padding: "0.4rem 0.7rem", cursor: "pointer", minHeight: 36,
+                  padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30,
+                  borderRadius: 3,
                   transition: "all 0.15s",
                 }}
               >{label}</button>

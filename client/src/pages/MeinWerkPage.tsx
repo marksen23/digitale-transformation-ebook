@@ -129,7 +129,7 @@ export default function MeinWerkPage() {
           {/* Pfad-Vorschlag */}
           {pathSuggestion && (
             <section style={{ marginBottom: "1.5rem", padding: "0.9rem 1rem", background: `${C.accent}08`, borderLeft: `3px solid ${C.accent}` }}>
-              <SectionLabel c={C} size="sm" tracking="open" color={C.accent}>Pfad-Vorschlag</SectionLabel>
+              <SectionLabel c={C} size="sm" tracking="open" variant="werk">Pfad-Vorschlag</SectionLabel>
               <p style={{ marginTop: "0.4rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.92rem", color: C.text, lineHeight: 1.55 }}>
                 Du warst oft bei <strong>{nodeLabel(pathSuggestion.from)}</strong>, aber <strong>{nodeLabel(pathSuggestion.to)}</strong> hast du noch nicht besucht. Eine Pfad-Analyse zwischen beiden könnte zeigen, wie sie zusammenhängen.
               </p>
@@ -196,7 +196,7 @@ export default function MeinWerkPage() {
 
       {/* Settings */}
       <section style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}` }}>
-        <SectionLabel c={C} size="sm" tracking="open" color={C.muted}>Einstellungen</SectionLabel>
+        <SectionLabel c={C} size="sm" tracking="open" variant="default">Einstellungen</SectionLabel>
         <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", marginTop: "0.5rem", fontFamily: MONO, fontSize: "0.65rem" }}>
           <label style={{ display: "flex", alignItems: "center", gap: "0.5rem", color: C.text, cursor: "pointer" }}>
             <input type="checkbox" checked={!t.optOut} onChange={handleOptOutToggle} />
