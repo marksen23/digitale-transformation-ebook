@@ -60,14 +60,18 @@ const AI_SCORE_FILTER_LABEL: Record<AiScoreFilter, string> = {
   lt3:        "AI ≤2",
 };
 
-/** Farb-Mapping pro AI-Score 1-5. */
+/** Farb-Mapping pro AI-Score 1-5 (Design-Tightening D1).
+ *  Kollabiert von 5 Hues auf 3 SEMANTIC-Klassen:
+ *    1-2 = WARNUNG (rust)
+ *    3   = neutral (muted)
+ *    4-5 = WACHSTUM (mint)
+ *  Die Zahl selbst (1-5) bleibt sichtbar — Differenzierung wandert vom
+ *  Hue in die Numerik. */
 function aiScoreColor(s: number | undefined): string {
-  if (s === 5) return "#7ab898";  // grün — werktreu
-  if (s === 4) return "#5aacb8";  // cyan
-  if (s === 3) return "#d4af6f";  // gold-amber
-  if (s === 2) return "#c89870";  // amber-rot
-  if (s === 1) return "#c48282";  // rot — stilfremd
-  return "#666";
+  if (s === undefined) return "#888";
+  if (s >= 4) return "#7ab898";  // WACHSTUM
+  if (s <= 2) return "#c48282";  // WARNUNG
+  return "#888";                  // neutral für 3
 }
 
 /** Max parallele PUTs zur GitHub-Contents-API. 3 ist konservativ —
@@ -520,7 +524,7 @@ export default function AdminCurationPage() {
                 <div key={c.anchor} style={{
                   background: c.masterStale ? "rgba(196,130,130,0.06)" : C.surface,
                   border: `1px solid ${c.masterStale ? "#c48282" : C.border}`,
-                  borderLeft: `3px solid ${c.masterStale ? "#c48282" : hasMaster ? "#7ab898" : "#7eb8c8"}`,
+                  borderLeft: `3px solid ${c.masterStale ? "#c48282" : hasMaster ? "#7ab898" : "#5aacb8"}`,
                   padding: "0.6rem 0.8rem",
                   display: "flex", alignItems: "center", gap: "0.7rem", flexWrap: "wrap",
                 }}>
@@ -551,7 +555,7 @@ export default function AdminCurationPage() {
                     style={{
                       fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
                       textTransform: "uppercase",
-                      color: isLoading ? C.muted : hasMaster ? "#c48282" : "#7eb8c8",
+                      color: isLoading ? C.muted : hasMaster ? "#c48282" : "#5aacb8",
                       background: hasMaster ? "rgba(196,130,130,0.06)" : "rgba(126,184,200,0.08)",
                       border: `1px solid ${hasMaster ? "rgba(196,130,130,0.4)" : "rgba(126,184,200,0.5)"}`,
                       padding: "0.5rem 0.8rem",
@@ -611,7 +615,7 @@ export default function AdminCurationPage() {
             disabled={!!preScoreProgress || ungescoredCandidates.length === 0}
             style={{
               fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
-              textTransform: "uppercase", color: "#7eb8c8",
+              textTransform: "uppercase", color: "#5aacb8",
               background: "rgba(126,184,200,0.08)",
               border: "1px solid rgba(126,184,200,0.5)",
               padding: "0.55rem 0.85rem", cursor: preScoreProgress ? "wait" : "pointer",
@@ -649,7 +653,7 @@ export default function AdminCurationPage() {
               <div style={{
                 position: "absolute", left: 0, top: 0, bottom: 0,
                 width: `${100 * preScoreProgress.done / preScoreProgress.total}%`,
-                background: "#7eb8c8", transition: "width 0.2s",
+                background: "#5aacb8", transition: "width 0.2s",
               }} />
             </div>
           )}
@@ -669,14 +673,14 @@ export default function AdminCurationPage() {
             display: "flex", alignItems: "center", gap: "0.7rem", flexWrap: "wrap",
           }}>
             <div style={{ flex: "1 1 200px", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
-              <strong style={{ color: "#7eb8c8" }}>Vorschlag:</strong> Top {topCuratable.length} raw-Einträge nach
+              <strong style={{ color: "#5aacb8" }}>Vorschlag:</strong> Top {topCuratable.length} raw-Einträge nach
               Buchstreue (corpusVoiceScore) wählen, ohne einzeln anklicken.
             </div>
             <button
               onClick={() => setSelectedIds(new Set(topCuratable.map(e => e.id)))}
               style={{
                 fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
-                textTransform: "uppercase", color: "#7eb8c8",
+                textTransform: "uppercase", color: "#5aacb8",
                 background: "rgba(126,184,200,0.08)",
                 border: "1px solid rgba(126,184,200,0.5)",
                 padding: "0.5rem 0.8rem", cursor: "pointer", minHeight: 36,

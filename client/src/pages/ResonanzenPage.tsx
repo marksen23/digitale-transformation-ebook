@@ -752,7 +752,7 @@ export default function ResonanzenPage() {
               <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem" }}>
                 {([
                   { key: "all" as const,     label: "Alle",              color: C.accent,     descr: "Standard — alle Einträge" },
-                  { key: "novelty" as const, label: "❖ Neue Erkenntnis", color: "#7eb8c8",    descr: "Semantisch peripher (Cosine <0.70)" },
+                  { key: "novelty" as const, label: "❖ Neue Erkenntnis", color: "#5aacb8",    descr: "Semantisch peripher (Cosine <0.70)" },
                   { key: "echos" as const,   label: "◉ Echos",           color: C.muted,      descr: "Near-Duplikate (Cosine ≥0.88)" },
                 ]).map(opt => {
                   const active = filterRelevanz === opt.key;
@@ -1030,7 +1030,7 @@ export default function ResonanzenPage() {
                     )}
                     {entry.status === "raw" && readingMode !== "surface" && <span style={{ color: C.muted, marginLeft: "0.5rem" }}>{ORNAMENT.middot} ungeprüft</span>}
                     {entry.novelty && (
-                      <span title="Neue Erkenntnis — semantisch peripher (max Cosine zu anderen <0.70)" style={{ color: "#7eb8c8", marginLeft: "0.5rem" }}>
+                      <span title="Neue Erkenntnis — semantisch peripher (max Cosine zu anderen <0.70)" style={{ color: "#5aacb8", marginLeft: "0.5rem" }}>
                         {ORNAMENT.middot} ❖ neu
                       </span>
                     )}

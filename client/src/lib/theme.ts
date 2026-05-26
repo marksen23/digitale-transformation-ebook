@@ -56,6 +56,30 @@ export const C_LIGHT: Palette = {
 };
 
 /**
+ * SEMANTIC-Token (Design-Tightening Sprint D1, 2026-05-26).
+ *
+ * Ersetzt die proliferation von 14+ Akzentfarben durch 4 semantische
+ * Klassen. Konsumenten geben Bedeutung statt Pixel an, der Werkton
+ * bleibt ruhig.
+ *
+ *   WERK     — Anker, Permalinks, Hauptaktion (= palette.accent)
+ *   ARBEIT   — Alle KI-Tools (Analyse, Pfad, Dialog, Resonanz)
+ *   WACHSTUM — Positive Übergänge (published, approved, im-Korpus, success)
+ *   WARNUNG  — Fehler, rejected, drift, stale
+ *
+ * Verwendung in ENDPOINT_COLOR, aiScoreColor, SectionLabel-Variants.
+ * Frühere ad-hoc-Hues (mint #7eb8c8, violet #9b87b8, gold #c4a882, etc.)
+ * werden auf diese Klassen kollabiert.
+ */
+export const SEMANTIC = {
+  werk:     "#f59e0b",  // amber-500 — = palette accent
+  arbeit:   "#5aacb8",  // cyan — KI-Tools, Analyse, Dialog
+  wachstum: "#7ab898",  // mint — Erfolg, published, approved
+  warnung:  "#c48282",  // rust — Fehler, rejected, drift
+} as const;
+export type SemanticVariant = keyof typeof SEMANTIC;
+
+/**
  * Gemeinsame Font-Stacks für alle Sub-Pages.
  *
  * SERIF — bisher 'EB Garamond italic' (literarisch-warm). Jetzt 'Inter'

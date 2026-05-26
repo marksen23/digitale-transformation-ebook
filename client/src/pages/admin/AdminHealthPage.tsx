@@ -431,10 +431,10 @@ export default function AdminHealthPage() {
         ) : (() => {
           const ENDPOINT_COLOR_LOCAL: Record<string, string> = {
             "analyse": "#5aacb8",
-            "path-analyse": "#7eb8c8",
+            "path-analyse": "#5aacb8",
             "graph-chat": "#7ab898",
             "chapter": "#c8a87a",
-            "enkidu": "#c4a882",
+            "enkidu": "#f59e0b",
             "translate": "#9a88b8",
           };
           const PAD = 30;
@@ -669,7 +669,7 @@ export default function AdminHealthPage() {
                       padding: "0.5rem 0.7rem",
                       background: c.cooccurrence >= 4 ? "rgba(126,184,200,0.06)" : C.surface,
                       border: `1px solid ${c.cooccurrence >= 4 ? "rgba(126,184,200,0.3)" : C.border}`,
-                      borderLeft: `3px solid ${c.cooccurrence >= 4 ? "#7eb8c8" : C.border}`,
+                      borderLeft: `3px solid ${c.cooccurrence >= 4 ? "#5aacb8" : C.border}`,
                     }}>
                       <span style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", color: srcColor }}>
                         {nodeLabel(c.source)}
@@ -678,7 +678,7 @@ export default function AdminHealthPage() {
                       <span style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", color: tgtColor }}>
                         {nodeLabel(c.target)}
                       </span>
-                      <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.cooccurrence >= 4 ? "#7eb8c8" : C.muted, marginLeft: "auto" }}>
+                      <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.cooccurrence >= 4 ? "#5aacb8" : C.muted, marginLeft: "auto" }}>
                         {c.cooccurrence}× zusammen
                       </span>
                       <a
@@ -687,7 +687,7 @@ export default function AdminHealthPage() {
                         title={`Pfad-Analyse im Begriffsnetz · ${Object.entries(c.endpoints).map(([k, v]) => `${k}=${v}`).join(", ")}`}
                         style={{
                           fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
-                          textTransform: "uppercase", color: "#7eb8c8",
+                          textTransform: "uppercase", color: "#5aacb8",
                           textDecoration: "none",
                           padding: "0.3rem 0.5rem",
                           border: "1px solid rgba(126,184,200,0.4)",
@@ -1488,8 +1488,8 @@ function TimelineChart({ timeline, c }: { timeline: TimelineFile; c: ReturnType<
     <div>
       <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.6rem', marginBottom: '0.6rem', fontFamily: MONO, fontSize: '0.55rem', color: c.muted }}>
         <Legend color={c.accent} label='total Einträge' />
-        <Legend color='#7eb8c8' label='median werkVoice' />
-        <Legend color='#c4a882' label='echo-Anteil' />
+        <Legend color='#5aacb8' label='median werkVoice' />
+        <Legend color='#f59e0b' label='echo-Anteil' />
         <Legend color='#7ab898' label='novelty-Anteil' />
       </div>
       <svg viewBox={'0 0 ' + W + ' ' + H} width='100%' style={{ maxWidth: W, background: c.surface, border: '1px solid ' + c.border }}>
@@ -1516,8 +1516,8 @@ function TimelineChart({ timeline, c }: { timeline: TimelineFile; c: ReturnType<
         ))}
         {/* Lines */}
         {polyTotal && <polyline points={polyTotal} fill='none' stroke={c.accent} strokeWidth={1.5} />}
-        {polyWerk  && <polyline points={polyWerk}  fill='none' stroke='#7eb8c8' strokeWidth={1.5} />}
-        {polyEcho  && <polyline points={polyEcho}  fill='none' stroke='#c4a882' strokeWidth={1.5} />}
+        {polyWerk  && <polyline points={polyWerk}  fill='none' stroke='#5aacb8' strokeWidth={1.5} />}
+        {polyEcho  && <polyline points={polyEcho}  fill='none' stroke='#f59e0b' strokeWidth={1.5} />}
         {polyNov   && <polyline points={polyNov}   fill='none' stroke='#7ab898' strokeWidth={1.5} />}
         {/* Hover-Markers */}
         {buckets.map((b, i) => (

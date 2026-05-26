@@ -1054,8 +1054,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 fontFamily: C.mono, fontSize: "0.75rem",
                 width: 26, height: 26,
                 background: heatmapMode ? "rgba(126,184,200,0.18)" : "none",
-                border: `1px solid ${heatmapMode ? "#7eb8c8" : C.border}`,
-                color: heatmapMode ? "#7eb8c8" : C.muted,
+                border: `1px solid ${heatmapMode ? "#5aacb8" : C.border}`,
+                color: heatmapMode ? "#5aacb8" : C.muted,
                 cursor: "pointer", padding: 0,
                 display: "flex", alignItems: "center", justifyContent: "center",
                 transition: "all 0.15s", borderRadius: 6,
@@ -1103,13 +1103,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               style={{
                 fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
                 textTransform: "uppercase",
-                color: pathMode ? "#7eb8c8" : C.muted,
+                color: pathMode ? "#5aacb8" : C.muted,
                 background: pathMode ? "rgba(126,184,200,0.08)" : "none",
                 border: `1px solid ${pathMode ? "#4a8898" : C.border}`,
                 padding: "0.3rem 0.65rem", cursor: "pointer",
                 transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
               }}
-              onMouseEnter={e => { if (!pathMode) { e.currentTarget.style.color = "#7eb8c8"; e.currentTarget.style.borderColor = "#4a8898"; } }}
+              onMouseEnter={e => { if (!pathMode) { e.currentTarget.style.color = "#5aacb8"; e.currentTarget.style.borderColor = "#4a8898"; } }}
               onMouseLeave={e => { if (!pathMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
               {pathMode ? "✕" : "◈"}<span className="concept-toolbar-label">{" "}Pfad</span>
@@ -1461,7 +1461,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               const isSamePath = pathResult.shortest.join() === pathResult.surprising.join();
               return (
                 <g>
-                  {!isSamePath && renderPath(pathResult.surprising, "#7eb8c8", 0.55, 2.2)}
+                  {!isSamePath && renderPath(pathResult.surprising, "#5aacb8", 0.55, 2.2)}
                   {renderPath(pathResult.shortest, "#e8d090", 0.80, 2.8)}
                 </g>
               );
@@ -1584,7 +1584,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     <circle
                       cx={x} cy={y} r={node.r + 11}
                       fill="none"
-                      stroke="#7eb8c8"
+                      stroke="#5aacb8"
                       strokeWidth={1.5}
                       strokeDasharray="5 4"
                       opacity={0.85}
@@ -2047,7 +2047,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   {([
                     ["Verbindungen", String(degree), C.accent],
                     ["Spannungsfelder", `${crossCat}`, "#a882c4"],
-                    ["Eigene", String(ownEdges), "#7eb8c8"],
+                    ["Eigene", String(ownEdges), "#5aacb8"],
                   ] as [string, string, string][]).map(([label, val, color]) => (
                     <tr key={label}>
                       <td style={{ fontSize: "0.52rem", color: C.textDim, paddingBottom: "0.22rem", paddingRight: "0.5rem" }}>{label}</td>
@@ -2069,7 +2069,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     {([
                       ["Verbindungen", String(CONCEPT_EDGE_COUNT), C.accent],
                       ["Spannungsfelder", `${CROSS_CAT_EDGE_COUNT} (${crossPct}%)`, "#a882c4"],
-                      ["Eigene", `${userEdges.length} / 30`, "#7eb8c8"],
+                      ["Eigene", `${userEdges.length} / 30`, "#5aacb8"],
                       ["Besucht", String(visitedNodes.length), C.textDim],
                     ] as [string, string, string][]).map(([label, val, color]) => (
                       <tr key={label}>
@@ -2330,7 +2330,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             <div style={{ marginBottom: "1.2rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>
               <SectionLabel
                 c={C}
-                color="#7eb8c8"
+                color="#5aacb8"
                 tracking="tight"
                 count={nodeDensity.stats.zeroResonanceNodes.length}
                 marginBottom="0.5rem"
@@ -2369,7 +2369,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                           transition: "color 0.15s",
                           marginBottom: "0.18rem",
                         }}
-                        onMouseEnter={e => { e.currentTarget.style.color = "#7eb8c8"; }}
+                        onMouseEnter={e => { e.currentTarget.style.color = "#5aacb8"; }}
                         onMouseLeave={e => { e.currentTarget.style.color = CAT_COLOR[n.category]; }}
                       >
                         {n.fullLabel || n.label.replace("\n", " ")}
@@ -2421,14 +2421,14 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                             style={{
                               fontFamily: C.mono, fontSize: "0.54rem",
                               letterSpacing: "0.08em", textTransform: "uppercase",
-                              color: "#7eb8c8",
+                              color: "#5aacb8",
                               background: "rgba(126,184,200,0.06)",
                               border: "1px solid rgba(126,184,200,0.4)",
                               padding: "0.28rem 0.5rem", cursor: "pointer",
                               borderRadius: 4,
                               transition: "all 0.15s",
                             }}
-                            onMouseEnter={e => { e.currentTarget.style.background = "rgba(126,184,200,0.16)"; e.currentTarget.style.borderColor = "#7eb8c8"; }}
+                            onMouseEnter={e => { e.currentTarget.style.background = "rgba(126,184,200,0.16)"; e.currentTarget.style.borderColor = "#5aacb8"; }}
                             onMouseLeave={e => { e.currentTarget.style.background = "rgba(126,184,200,0.06)"; e.currentTarget.style.borderColor = "rgba(126,184,200,0.4)"; }}
                           >
                             ◈ Pfad → {targetLabel}
@@ -2675,8 +2675,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           (activeTool === "dialog" && chatHistory.length > 0);
         if (hasWorkInProgress) return null;
         const config = {
-          connect:  { color: "#c4a882", emoji: "+",  title: "Eigene Verbindung",            sub: "Klick auf zwei Begriffe — sie werden mit einer User-Kante verbunden (max. 30).", hint: "Du kannst eine Notiz hinzufügen, warum diese Verbindung wichtig ist." },
-          path:     { color: "#7eb8c8", emoji: "◈",  title: "Pfad-Explorer",                sub: "Klick auf zwei Begriffe — der kürzeste und ein überraschender Pfad zwischen ihnen werden gezeigt.", hint: "Die KI analysiert die Bewegung beider Pfade philosophisch." },
+          connect:  { color: "#f59e0b", emoji: "+",  title: "Eigene Verbindung",            sub: "Klick auf zwei Begriffe — sie werden mit einer User-Kante verbunden (max. 30).", hint: "Du kannst eine Notiz hinzufügen, warum diese Verbindung wichtig ist." },
+          path:     { color: "#5aacb8", emoji: "◈",  title: "Pfad-Explorer",                sub: "Klick auf zwei Begriffe — der kürzeste und ein überraschender Pfad zwischen ihnen werden gezeigt.", hint: "Die KI analysiert die Bewegung beider Pfade philosophisch." },
           analyse:  { color: "#5aacb8", emoji: "⚡", title: "Spannungsfeld-Analyse",         sub: "Klick auf 2–4 Begriffe — sie formen einen Cluster.", hint: "Starte die KI-Analyse, sobald deine Auswahl steht." },
           dialog:   { color: "#7ab898", emoji: "◎",  title: "Dialog mit dem Begriffsnetz", sub: "Frage frei zum Werk, zu den Konzepten oder ihren Beziehungen.", hint: "Die KI antwortet im Kontext des gesamten Begriffsnetzes." },
         }[activeTool]!;
@@ -2700,7 +2700,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           Wichtig: bottom-anchored, maxHeight + overflowY damit
           längere KI-Analysen nicht nach oben hinter den Header rutschen. */}
       <ToolOutputPanel c={C} background={C.panelBg} visible={pathMode} blur={8}>
-          <SectionLabel c={C} color="#7eb8c8" tracking="tight" marginBottom="0.6rem">
+          <SectionLabel c={C} color="#5aacb8" tracking="tight" marginBottom="0.6rem">
             Pfad-Explorer
           </SectionLabel>
 
@@ -2735,7 +2735,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   )}
                 </div>
                 <div>
-                  <div style={{ color: "#7eb8c8", letterSpacing: "0.1em", marginBottom: "0.3rem" }}>
+                  <div style={{ color: "#5aacb8", letterSpacing: "0.1em", marginBottom: "0.3rem" }}>
                     Überraschender Pfad{same ? " (identisch)" : ` (${pathResult.surprising.length - 1} ${pathResult.surprising.length - 1 === 1 ? "Schritt" : "Schritte"})`}
                   </div>
                   {same ? (
@@ -2769,7 +2769,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   return (
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
                       <div style={{ fontFamily: C.mono, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.1em", display: "flex", gap: "0.3rem" }}>
-                        <span style={{ color: "#7eb8c8" }}>{"★".repeat(stars)}{"☆".repeat(4 - stars)}</span>
+                        <span style={{ color: "#5aacb8" }}>{"★".repeat(stars)}{"☆".repeat(4 - stars)}</span>
                         <span>{variant}</span>
                       </div>
                       <button
@@ -2784,8 +2784,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                           fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
                           textTransform: "uppercase",
                           color: pathAnalysisLoading ? C.muted : "#080808",
-                          background: pathAnalysisLoading ? "transparent" : "#7eb8c8",
-                          border: `1px solid #7eb8c8`,
+                          background: pathAnalysisLoading ? "transparent" : "#5aacb8",
+                          border: `1px solid #5aacb8`,
                           padding: "0.3rem 0.7rem",
                           cursor: pathAnalysisLoading ? "not-allowed" : "pointer",
                           transition: "all 0.15s",
@@ -2812,7 +2812,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     ))}
                     {pathCitedChunks.length > 0 && (
                       <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted }}>
-                        <div style={{ marginBottom: "0.3rem", color: "#7eb8c8" }}>QUELLEN IM WERK</div>
+                        <div style={{ marginBottom: "0.3rem", color: "#5aacb8" }}>QUELLEN IM WERK</div>
                         {pathCitedChunks.map(c => (
                           <div key={c.id} style={{ marginBottom: "0.2rem", color: C.textDim }}>
                             ↩ <span style={{ color: C.text }}>{c.partTitle}</span> · {c.chapterTitle} <span style={{ opacity: 0.5 }}>[{c.id.slice(0, 8)}]</span>
@@ -2945,7 +2945,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   ))}
                   {analyseCitedChunks.length > 0 && (
                     <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted }}>
-                      <div style={{ marginBottom: "0.3rem", color: "#7eb8c8" }}>QUELLEN IM WERK</div>
+                      <div style={{ marginBottom: "0.3rem", color: "#5aacb8" }}>QUELLEN IM WERK</div>
                       {analyseCitedChunks.map(c => (
                         <div key={c.id} style={{ marginBottom: "0.2rem", color: C.textDim }}>
                           ↩ <span style={{ color: C.text }}>{c.partTitle}</span> · {c.chapterTitle} <span style={{ opacity: 0.5 }}>[{c.id.slice(0, 8)}]</span>
@@ -3002,9 +3002,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                           style={{
                             fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.08em",
                             textTransform: "uppercase",
-                            color: persisted ? "#7ab898" : "#9b87b8",
+                            color: persisted ? "#7ab898" : "#7ab898",
                             background: "none",
-                            border: `1px solid ${persisted ? "#7ab898" : "#9b87b8"}`,
+                            border: `1px solid ${persisted ? "#7ab898" : "#7ab898"}`,
                             padding: "0.2rem 0.4rem",
                             cursor: persisted || loading ? "default" : "pointer",
                             opacity: loading ? 0.5 : 1,

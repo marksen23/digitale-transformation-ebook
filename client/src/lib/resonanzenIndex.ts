@@ -228,15 +228,28 @@ export const ENDPOINT_LABEL: Record<ResonanzEntry["endpoint"], string> = {
   "dialog":       "Dialog-Festhaltung",
 };
 
+/**
+ * Endpoint-Farbcodierung (Design-Tightening D1).
+ *
+ * Vorher: 8 distinkte Hues — visuelles Konfetti, Endpoint-Unterscheidung
+ * war keine echte Information sondern Stilrauschen.
+ *
+ * Jetzt: kollabiert auf 2 SEMANTIC-Klassen.
+ *   - WERK (amber): chapter, passage — alles am Werktext verankert
+ *   - ARBEIT (cyan): alle KI-Endpoints — analyse, path-analyse,
+ *     graph-chat, dialog, enkidu, translate
+ *
+ * Endpoint-Unterscheidung wandert in die Typografie (ENDPOINT_LABEL).
+ */
 export const ENDPOINT_COLOR: Record<ResonanzEntry["endpoint"], string> = {
-  "chapter":      "#f59e0b",  // accent
-  "enkidu":       "#9a7e5a",
-  "analyse":      "#5aacb8",
-  "graph-chat":   "#7ab898",
-  "translate":    "#c89870",
-  "path-analyse": "#7eb8c8",
-  "passage":      "#c4a882",  // werk-gold
-  "dialog":       "#9b87b8",  // dialog-violet
+  "chapter":      "#f59e0b",  // WERK
+  "passage":      "#f59e0b",  // WERK
+  "enkidu":       "#5aacb8",  // ARBEIT
+  "analyse":      "#5aacb8",  // ARBEIT
+  "graph-chat":   "#5aacb8",  // ARBEIT
+  "translate":    "#5aacb8",  // ARBEIT
+  "path-analyse": "#5aacb8",  // ARBEIT
+  "dialog":       "#5aacb8",  // ARBEIT
 };
 
 // ─── Wortwolken-Aggregation ─────────────────────────────────────────────────
