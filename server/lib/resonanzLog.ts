@@ -21,7 +21,7 @@ import { appendToIndex, getIndexUpdaterHealth } from "./indexUpdater.js";
 // herauszufiltern (Vorbeugung gegen Korpus-Drift).
 const VALID_NODE_IDS = new Set(NODES.map(n => n.id));
 
-export type ResonanzEndpoint = "chapter" | "analyse" | "graph-chat" | "enkidu" | "translate" | "path-analyse";
+export type ResonanzEndpoint = "chapter" | "analyse" | "graph-chat" | "enkidu" | "translate" | "path-analyse" | "passage";
 
 export interface ResonanzEntry {
   endpoint: ResonanzEndpoint;

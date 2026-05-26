@@ -13,6 +13,7 @@ import InstallBanner from "./components/InstallBanner";
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
 const PhilosophyPage = lazy(() => import("./pages/PhilosophyPage"));
 const ConceptGraphPage = lazy(() => import("./pages/ConceptGraphPage"));
+const WerkPage = lazy(() => import("./pages/WerkPage"));
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
@@ -37,6 +38,9 @@ function Router() {
       </Route>
       <Route path={"/begriffsnetz"}>
         <Framed><Suspense fallback={fallback}><ConceptGraphPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/werk/:chapter?"}>
+        <Framed><Suspense fallback={fallback}><WerkPage /></Suspense></Framed>
       </Route>
       <Route path={"/admin/metrics"}>
         <Framed><Suspense fallback={fallback}><AdminLayout><AdminMetricsPage /></AdminLayout></Suspense></Framed>

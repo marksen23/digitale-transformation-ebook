@@ -7,7 +7,7 @@ import { STOPWORDS_DE } from "./stopwords-de";
 export interface ResonanzEntry {
   id: string;
   ts: string;
-  endpoint: "chapter" | "enkidu" | "analyse" | "graph-chat" | "translate" | "path-analyse";
+  endpoint: "chapter" | "enkidu" | "analyse" | "graph-chat" | "translate" | "path-analyse" | "passage";
   anchor: string;
   nodeIds: string[];
   status: "raw" | "pending" | "approved" | "published" | "rejected";
@@ -224,6 +224,7 @@ export const ENDPOINT_LABEL: Record<ResonanzEntry["endpoint"], string> = {
   "graph-chat":   "Begriffsnetz-Dialog",
   "translate":    "Übersetzung",
   "path-analyse": "Pfad-Analyse",
+  "passage":      "Passagen-Resonanz",
 };
 
 export const ENDPOINT_COLOR: Record<ResonanzEntry["endpoint"], string> = {
@@ -233,6 +234,7 @@ export const ENDPOINT_COLOR: Record<ResonanzEntry["endpoint"], string> = {
   "graph-chat":   "#7ab898",
   "translate":    "#c89870",
   "path-analyse": "#7eb8c8",
+  "passage":      "#c4a882",  // werk-gold
 };
 
 // ─── Wortwolken-Aggregation ─────────────────────────────────────────────────
