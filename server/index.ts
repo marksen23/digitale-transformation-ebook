@@ -863,6 +863,56 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     }
   });
 
+  // ─── Dialog-Persist (Tier-1-3-Roadmap, Feature B) ────────────────────
+  // Multi-Turn-Dialogs laufen über das existierende /api/graph-chat,
+  // dessen Sessions clientseitig im LocalStorage gehalten werden. Wenn
+  // der Reader einen gelungenen Turn ins Korpus aufnehmen will, wird
+  // er hier persistiert — als endpoint="dialog" mit der gesamten
+  // Vorgeschichte in contextMeta.dialog_history.
+  app.post("/api/dialog/persist", rateLimiter('dialog-persist', 30, 60 * 60_000), async (req, res) => {
+    const { sessionId, focus, turns, focusedNodeIds } = req.body as {
+      sessionId?: string;
+      focus?: string;
+      focusedNodeIds?: string[];
+      turns?: Array<{ role: "user" | "model"; text: string }>;
+    };
+    if (!Array.isArray(turns) || turns.length < 2) {
+      return res.status(400).json({ error: "Mindestens 2 Turns (1 User + 1 Antwort) nötig" });
+    }
+    if (turns.length > 24) {
+      return res.status(400).json({ error: "Zu viele Turns — Limit 24" });
+    }
+
+    // Der letzte Turn muss eine Model-Antwort sein (das ist, was persistiert wird)
+    const lastTurn = turns[turns.length - 1];
+    if (lastTurn.role !== "model") {
+      return res.status(400).json({ error: "Letzter Turn muss eine Model-Antwort sein" });
+    }
+
+    // Letzte User-Anfrage als Prompt (für FAQ-Aggregation sinnvoller als
+    // die gesamte History)
+    const lastUserTurn = [...turns].reverse().find(t => t.role === "user");
+    if (!lastUserTurn) return res.status(400).json({ error: "Keine User-Anfrage gefunden" });
+
+    const anchor = focus ? `dialog:${focus.slice(0, 40)}` : "dialog:freier";
+    void logResonanz({
+      endpoint: "dialog",
+      anchor,
+      nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
+      prompt: lastUserTurn.text,
+      response: lastTurn.text,
+      model: "gemini-2.5-flash",
+      contextMeta: {
+        session_id: sessionId ?? null,
+        turn_count: turns.length,
+        dialog_history: turns.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),
+        focus: focus ?? null,
+      },
+    });
+
+    return res.json({ ok: true, anchor, turnCount: turns.length });
+  });
+
   // ─── Passage-Resonanz (Tier-1-3-Roadmap, Feature A) ────────────────────
   // Reader markiert eine Stelle im Werktext → erzeugt eine Resonanz die
   // explizit an diesen Chunk verankert ist. Resonanz landet als

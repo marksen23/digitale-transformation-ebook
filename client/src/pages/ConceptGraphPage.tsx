@@ -389,12 +389,44 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // damit jeder neue Knoten frisch mit der Default-Anzeige startet.
   useEffect(() => { setResonanzenExpanded(false); }, [selectedId]);
 
-  // Graph-Chat
+  // Graph-Chat (= Multi-Turn-Dialog, Tier-1-3-Roadmap Feature B)
   const [chatOpen, setChatOpen] = useState(false);
   const [chatHistory, setChatHistory] = useState<Array<{ role: "user" | "model"; text: string }>>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
+  // Persist-Tracking: welche AI-Turns sind schon ins Korpus aufgenommen?
+  // Indizes referenzieren die chatHistory. Persistierter Eintrag erscheint
+  // nach CI-Build (~2-3 Min) auf /resonanzen als endpoint="dialog".
+  const [persistedTurns, setPersistedTurns] = useState<Set<number>>(new Set());
+  const [persistingTurn, setPersistingTurn] = useState<number | null>(null);
   const chatEndRef = useRef<HTMLDivElement>(null);
+
+  /** Schickt die Dialog-History bis inkl. turnIndex an /api/dialog/persist. */
+  async function persistDialogTurn(turnIndex: number) {
+    setPersistingTurn(turnIndex);
+    try {
+      const turns = chatHistory.slice(0, turnIndex + 1);
+      const focusedNodeIds = selectedId ? [selectedId] : [];
+      const focus = focusedNodeIds.length > 0 ? focusedNodeIds.join("+") : undefined;
+      const sessionId = typeof window !== "undefined"
+        ? (localStorage.getItem("dialog-session-id") ?? (() => {
+            const id = `s${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
+            localStorage.setItem("dialog-session-id", id);
+            return id;
+          })())
+        : undefined;
+      const r = await fetch("/api/dialog/persist", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ sessionId, focus, focusedNodeIds, turns }),
+      });
+      if (r.ok) {
+        setPersistedTurns(prev => new Set(prev).add(turnIndex));
+      }
+    } finally {
+      setPersistingTurn(null);
+    }
+  }
 
   // Cluster-Analyse starten (manueller Trigger via Button im Panel).
   // Nimmt die aktuelle analyseNodes-Liste (2-5 Konzepte), schickt sie an
@@ -2948,6 +2980,31 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         {para.trim()}
                       </p>
                     ))}
+                    {/* Feature B: pro AI-Turn ein "In Korpus aufnehmen"-Button */}
+                    {(() => {
+                      const persisted = persistedTurns.has(i);
+                      const loading = persistingTurn === i;
+                      return (
+                        <button
+                          onClick={() => !persisted && !loading && void persistDialogTurn(i)}
+                          disabled={persisted || loading}
+                          style={{
+                            fontFamily: C.mono, fontSize: "0.48rem", letterSpacing: "0.08em",
+                            textTransform: "uppercase",
+                            color: persisted ? "#7ab898" : "#9b87b8",
+                            background: "none",
+                            border: `1px solid ${persisted ? "#7ab898" : "#9b87b8"}`,
+                            padding: "0.2rem 0.4rem",
+                            cursor: persisted || loading ? "default" : "pointer",
+                            opacity: loading ? 0.5 : 1,
+                            marginTop: "0.2rem",
+                          }}
+                          title={persisted ? "Bereits ins Korpus aufgenommen" : "Diesen Turn als endpoint=dialog in den Korpus aufnehmen"}
+                        >
+                          {persisted ? "✓ im Korpus" : loading ? "speichert …" : "◇ in Korpus aufnehmen"}
+                        </button>
+                      );
+                    })()}
                   </div>
                 )}
               </div>
