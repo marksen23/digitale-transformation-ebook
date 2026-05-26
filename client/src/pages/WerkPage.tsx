@@ -318,40 +318,56 @@ function ParagraphBlock({
         style={{
           fontFamily: SERIF_BODY, fontSize: "1.05rem", lineHeight: 1.65,
           color: C.text, margin: 0,
-          paddingRight: count > 0 ? "2.5rem" : 0,
+          paddingRight: count > 0 ? "1.8rem" : 0,
         }}
       >
         {text}
       </p>
+      {/* W1: Reverse-Lookup-Indikator subtiler — kein Border-Pill mehr,
+          nur ein Italic-Mini-Hinweis im Margin. Liest sich wie eine
+          klassische Fußnoten-Markierung statt wie ein Filter-Button. */}
       {count > 0 && (
         <button
           onClick={onToggle}
           title={`${count} Resonanz${count === 1 ? "" : "en"} an dieser Stelle`}
+          aria-expanded={isExpanded}
           style={{
-            position: "absolute", top: 0, right: 0,
-            fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
-            color: C.accent, background: "none",
-            border: `1px solid ${C.accent}`,
-            padding: "0.15rem 0.4rem",
+            position: "absolute", top: "0.1rem", right: 0,
+            fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
+            color: isExpanded ? C.accent : C.muted,
+            background: "none", border: "none",
+            padding: "0.1rem 0.25rem",
             cursor: "pointer",
-            opacity: isExpanded ? 1 : 0.7,
+            opacity: isExpanded ? 1 : 0.75,
+            transition: "opacity 0.15s, color 0.15s",
+            lineHeight: 1,
           }}
+          onMouseEnter={e => { if (!isExpanded) { e.currentTarget.style.opacity = "1"; e.currentTarget.style.color = String(C.accent); } }}
+          onMouseLeave={e => { if (!isExpanded) { e.currentTarget.style.opacity = "0.75"; e.currentTarget.style.color = String(C.muted); } }}
         >
-          ◇ {count}
+          {isExpanded ? "◆" : "◇"} {count}
         </button>
       )}
+      {/* W1: Expanded-Block als Fußnoten-Italic statt Mono-Caps-Label.
+          Konsistent mit D3 „QUELLEN IM WERK"-Pattern. */}
       {isExpanded && resonanzen && (
-        <div style={{ marginTop: "0.5rem", padding: "0.6rem 0.8rem", background: `${C.accent}08`, borderLeft: `2px solid ${C.accent}` }}>
-          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.accent, marginBottom: "0.4rem" }}>
-            Resonanzen an dieser Stelle
-          </div>
+        <div style={{ marginTop: "0.6rem", paddingLeft: "0.9rem", borderLeft: `2px solid ${C.accent}66` }}>
           {resonanzen.map(r => (
-            <div key={r.id} style={{ marginBottom: "0.5rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text, lineHeight: 1.5 }}>
-              <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, marginBottom: "0.15rem" }}>
-                {new Date(r.ts).toLocaleDateString("de-DE")} · {r.status}
-              </div>
+            <div key={r.id} style={{ marginBottom: "0.7rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text, lineHeight: 1.55 }}>
               {r.response.slice(0, 280)}{r.response.length > 280 ? "…" : ""}
-              <a href={`/resonanzen?id=${r.id}`} style={{ marginLeft: "0.4rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>↗ voller Eintrag</a>
+              <span style={{ display: "block", marginTop: "0.2rem", fontSize: "0.65rem", color: C.muted, fontStyle: "italic" }}>
+                — {new Date(r.ts).toLocaleDateString("de-DE", { month: "long", day: "numeric", year: "numeric" })}
+                {r.status !== "published" && r.status !== "approved" && (
+                  <span title="Status" style={{ marginLeft: "0.4rem", opacity: 0.7 }}>· {r.status}</span>
+                )}
+                <a
+                  href={`/resonanz/${r.id}`}
+                  style={{ marginLeft: "0.5rem", color: C.muted, textDecoration: "underline", textDecorationStyle: "dotted", textUnderlineOffset: "3px" }}
+                  title="Permalink-Seite mit vollem Text + Zitier-Daten öffnen"
+                >
+                  ↗ ansehen
+                </a>
+              </span>
             </div>
           ))}
         </div>
