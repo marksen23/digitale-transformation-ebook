@@ -352,6 +352,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [analyseResult, setAnalyseResult] = useState<string | null>(null);
   const [analyseLoading, setAnalyseLoading] = useState(false);
   const [analyseError, setAnalyseError] = useState<string | null>(null);
+  // Werk-Text-RAG (Feature D): citedChunks pro Analyse-Run, von der API
+  // mitgeliefert. Erscheinen als „Quellen im Werk"-Footer unterhalb der
+  // Analyse-Ausgabe — verlinken zukünftig auf /werk-Anker (Feature A).
+  const [analyseCitedChunks, setAnalyseCitedChunks] = useState<Array<{ id: string; chapter: string; partTitle: string; chapterTitle: string }>>([]);
+  const [pathCitedChunks, setPathCitedChunks] = useState<Array<{ id: string; chapter: string; partTitle: string; chapterTitle: string }>>([]);
   const analyseModeRef = useRef(false);
   const analyseNodesRef = useRef<string[]>([]);
 
@@ -402,6 +407,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setAnalyseLoading(true);
     setAnalyseError(null);
     setAnalyseResult(null);
+    setAnalyseCitedChunks([]);
     fetch("/api/analyse-cluster", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -415,7 +421,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       .then(data => {
         setAnalyseLoading(false);
         if (data.error) setAnalyseError(data.error);
-        else setAnalyseResult(data.analysis ?? null);
+        else {
+          setAnalyseResult(data.analysis ?? null);
+          setAnalyseCitedChunks(Array.isArray(data.citedChunks) ? data.citedChunks : []);
+        }
       })
       .catch(err => {
         setAnalyseLoading(false);
@@ -431,6 +440,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setPathAnalysisLoading(true);
     setPathAnalysisError(null);
     setPathAnalysis(null);
+    setPathCitedChunks([]);
     const samePath = surprising.length === shortest.length && shortest.every((id, i) => id === surprising[i]);
     const body: { from: string; to: string; shortest: string[]; surprising?: string[] } = { from, to, shortest };
     if (surprising.length >= 3 && surprising.length <= 5 && !samePath) {
@@ -445,7 +455,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       .then(data => {
         setPathAnalysisLoading(false);
         if (data.error) setPathAnalysisError(data.error);
-        else setPathAnalysis(data.analysis ?? null);
+        else {
+          setPathAnalysis(data.analysis ?? null);
+          setPathCitedChunks(Array.isArray(data.citedChunks) ? data.citedChunks : []);
+        }
       })
       .catch(err => {
         setPathAnalysisLoading(false);
@@ -2754,6 +2767,16 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         {para.trim()}
                       </p>
                     ))}
+                    {pathCitedChunks.length > 0 && (
+                      <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted }}>
+                        <div style={{ marginBottom: "0.3rem", color: "#7eb8c8" }}>QUELLEN IM WERK</div>
+                        {pathCitedChunks.map(c => (
+                          <div key={c.id} style={{ marginBottom: "0.2rem", color: C.textDim }}>
+                            ↩ <span style={{ color: C.text }}>{c.partTitle}</span> · {c.chapterTitle} <span style={{ opacity: 0.5 }}>[{c.id.slice(0, 8)}]</span>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
 
@@ -2877,6 +2900,16 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       {para.trim()}
                     </p>
                   ))}
+                  {analyseCitedChunks.length > 0 && (
+                    <div style={{ marginTop: "0.5rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.mono, fontSize: "0.5rem", letterSpacing: "0.08em", color: C.muted }}>
+                      <div style={{ marginBottom: "0.3rem", color: "#7eb8c8" }}>QUELLEN IM WERK</div>
+                      {analyseCitedChunks.map(c => (
+                        <div key={c.id} style={{ marginBottom: "0.2rem", color: C.textDim }}>
+                          ↩ <span style={{ color: C.text }}>{c.partTitle}</span> · {c.chapterTitle} <span style={{ opacity: 0.5 }}>[{c.id.slice(0, 8)}]</span>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               )}
             </div>

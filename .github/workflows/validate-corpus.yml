@@ -175,6 +175,17 @@ jobs:
       # Embeddings werden nur generiert, wenn GEMINI_API_KEY als Secret
       # vorliegt; ohne fällt der Index auf Lexical-Search zurück (ohne
       # related-Cross-Links, aber funktional vollständig).
+      # Werk-Text-Chunks (Tier-1-3-Roadmap, Feature D — RAG-Foundation):
+      # paragraph-level Embeddings des Buchtexts, retrievable im Server
+      # über server/lib/werkRetrieval.ts. Inkrementell — nur neue Chunks
+      # bekommen API-Calls.
+      - name: Rebuild werk-chunks.json (RAG-Index)
+        if: success()
+        run: pnpm tsx scripts/build-werk-chunks.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_EMBED_MODEL: gemini-embedding-001
+
       - name: Rebuild resonanzen-index.json
         if: success()
         run: pnpm tsx scripts/build-resonanzen-index.ts
@@ -206,6 +217,7 @@ jobs:
             client/public/resonanzen-link-predictions.json
             client/public/resonanzen-anchor-clusters.json
             client/public/resonanzen-corpus-map.json
+            client/public/werk-chunks.json
           retention-days: 7
           if-no-files-found: warn
 
@@ -241,7 +253,8 @@ jobs:
               client/public/resonanzen-node-density.json \
               client/public/resonanzen-link-predictions.json \
               client/public/resonanzen-anchor-clusters.json \
-              client/public/resonanzen-corpus-map.json; do
+              client/public/resonanzen-corpus-map.json \
+              client/public/werk-chunks.json; do
             if [ -f "$f" ]; then
               git add -f "$f" && echo "[git add] OK: $f"
             else

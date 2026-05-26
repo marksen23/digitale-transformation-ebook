@@ -6,6 +6,30 @@ import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
 import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
 import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanzLog.js";
+import { buildWerkContext, type RetrievedPassage } from "./lib/werkRetrieval.js";
+
+// ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
+// Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
+// die Antwort am Werktext verankert ist (statt frei zu paraphrasieren).
+// Graceful degraded — wenn keine Embeddings vorliegen, kommt original
+// Prompt unverändert zurück.
+async function withWerkContext(prompt: string, queryHint: string, topK = 4): Promise<{
+  enrichedPrompt: string;
+  passages: RetrievedPassage[];
+}> {
+  const { passages, contextBlock } = await buildWerkContext(queryHint, topK);
+  if (passages.length === 0) {
+    return { enrichedPrompt: prompt, passages: [] };
+  }
+  const enriched = [
+    contextBlock,
+    "ANWEISUNG: Beziehe dich beim Antworten auf den oben gegebenen Werktext. Zitiere relevante Passagen mit ihrer chunkId in eckigen Klammern, z.B. [a1b2c3d4e5f6]. Erfinde keine IDs — nur tatsächlich vorhandene aus dem Kontext oben.",
+    "",
+    "--- AUFGABE ---",
+    prompt,
+  ].join("\n");
+  return { enrichedPrompt: enriched, passages };
+}
 
 // ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
 const CAT_DE: Record<string, string> = {
@@ -543,7 +567,10 @@ ${text}`;
       return;
     }
 
-    const prompt = buildClusterPrompt(nodes);
+    const rawPrompt = buildClusterPrompt(nodes);
+    // Werk-Text-RAG (Feature D): retrieve relevante Passagen via Knoten-Labels
+    const ragQuery = nodes.map(n => n.fullLabel).join(" ") + " " + nodes.map(n => n.description).join(" ");
+    const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
 
     try {
       const response = await fetch(
@@ -552,7 +579,7 @@ ${text}`;
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
             generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
           }),
         }
@@ -571,7 +598,7 @@ ${text}`;
 
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      res.json({ analysis });
+      res.json({ analysis, citedChunks: passages.map(p => ({ id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle })) });
       void logResonanz({
         endpoint: "analyse",
         anchor: clusterAnchor(ids),
@@ -582,6 +609,7 @@ ${text}`;
         contextMeta: {
           cluster_size: nodes.length,
           node_labels: nodes.map(n => n.fullLabel),
+          werk_passages: passages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
         },
       });
     } catch (err: unknown) {
@@ -698,13 +726,17 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       && shortest.every((id, i) => id === surprising[i]);
     const useCompare = surprising && surprising.length >= 3 && !samePath;
 
-    const prompt = useCompare
+    const rawPrompt = useCompare
       ? buildComparePathPrompt(shortest, surprising!)
       : buildSinglePathPrompt(shortest);
 
     const descriptor = useCompare
       ? `Pfad-Vergleich: ${buildPathDescriptor(shortest)} vs. ${buildPathDescriptor(surprising!)}`
       : `Pfad-Analyse: ${buildPathDescriptor(shortest)}`;
+
+    // Werk-Text-RAG (Feature D)
+    const ragQuery = allIds.map(id => nodeSrv.get(id)?.fullLabel ?? id).join(" ");
+    const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
 
     try {
       const response = await fetch(
@@ -713,7 +745,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
             generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
           }),
         }
@@ -729,7 +761,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       }
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      res.json({ analysis, variant: useCompare ? "compare" : "single" });
+      res.json({ analysis, variant: useCompare ? "compare" : "single", citedChunks: passages.map(p => ({ id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle })) });
 
       const sortedEndpoints = [from, to].sort();
       void logResonanz({
@@ -748,6 +780,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
           surprising_length: surprising?.length ?? null,
           variant: useCompare ? "compare" : "single",
           paths_identical: samePath ?? false,
+          werk_passages: passages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
         },
       });
       return;
@@ -780,6 +813,12 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       { role: "user", parts: [{ text: message }] },
     ];
 
+    // Werk-Text-RAG (Feature D): retrieve passend zur aktuellen User-Nachricht
+    const { passages: chatPassages, contextBlock: chatWerkContext } = await buildWerkContext(message, 4);
+    const enrichedSystem = chatWerkContext
+      ? `${GRAPH_SYSTEM_PROMPT}\n\n${chatWerkContext}\n\nZitiere relevante Werkpassagen via [chunkId] aus dem obigen Block. Erfinde keine IDs.`
+      : GRAPH_SYSTEM_PROMPT;
+
     try {
       const response = await fetch(
         `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
@@ -787,7 +826,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            systemInstruction: { parts: [{ text: GRAPH_SYSTEM_PROMPT }] },
+            systemInstruction: { parts: [{ text: enrichedSystem }] },
             contents,
             generationConfig: { temperature: 0.85, maxOutputTokens: 3000 },
           }),
@@ -805,7 +844,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
 
       const data = await response.json();
       const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      res.json({ reply });
+      res.json({ reply, citedChunks: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle })) });
       void logResonanz({
         endpoint: "graph-chat",
         anchor: "graph",
@@ -814,6 +853,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
         model: "gemini-2.5-flash",
         contextMeta: {
           historyLength: recentHistory.length,
+          werk_passages: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
         },
       });
       return;
