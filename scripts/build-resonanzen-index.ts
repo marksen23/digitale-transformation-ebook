@@ -108,6 +108,15 @@ interface ResonanzEntry {
    * konform aber thematisch fern vom Buch.
    */
   corpusVoiceScore?: number;
+  /**
+   * AI-Pre-Score (Tier-1-3-Roadmap, Feature E): 1-5-Bewertung der
+   * Werktreue durch Claude. Wird via /api/admin/pre-score gesetzt und
+   * ins Frontmatter geschrieben. Hier nur durchgereicht.
+   */
+  ai_score?: number;
+  ai_score_reason?: string;
+  ai_score_at?: string;
+  ai_score_model?: string;
 }
 
 interface TreeEntry { path: string; type: "blob" | "tree"; }
@@ -256,6 +265,18 @@ async function main() {
                              (Array.isArray(fm.master_of) ? fm.master_of.length : 0),
             }
           : {}),
+        // AI-Pre-Score (Feature E) — durchreichen falls vorhanden
+        ...(fm.ai_score !== undefined ? (() => {
+          const n = typeof fm.ai_score === "number" ? fm.ai_score : parseInt(String(fm.ai_score), 10);
+          return Number.isFinite(n) && n >= 1 && n <= 5
+            ? {
+                ai_score: n,
+                ai_score_reason: fm.ai_score_reason ? String(fm.ai_score_reason) : undefined,
+                ai_score_at: fm.ai_score_at ? String(fm.ai_score_at) : undefined,
+                ai_score_model: fm.ai_score_model ? String(fm.ai_score_model) : undefined,
+              }
+            : {};
+        })() : {}),
       });
     }
   }

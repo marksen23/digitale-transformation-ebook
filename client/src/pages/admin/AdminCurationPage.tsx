@@ -50,6 +50,26 @@ interface AnchorClustersFile {
 const STATUS_FILTERS = ["all", "raw", "pending", "approved", "published", "rejected"] as const;
 type StatusFilter = typeof STATUS_FILTERS[number];
 
+const AI_SCORE_FILTERS = ["all", "ungescored", "ge4", "ge3", "lt3"] as const;
+type AiScoreFilter = typeof AI_SCORE_FILTERS[number];
+const AI_SCORE_FILTER_LABEL: Record<AiScoreFilter, string> = {
+  all:        "AI-Score: alle",
+  ungescored: "AI: ungescored",
+  ge4:        "AI ≥4",
+  ge3:        "AI ≥3",
+  lt3:        "AI ≤2",
+};
+
+/** Farb-Mapping pro AI-Score 1-5. */
+function aiScoreColor(s: number | undefined): string {
+  if (s === 5) return "#7ab898";  // grün — werktreu
+  if (s === 4) return "#5aacb8";  // cyan
+  if (s === 3) return "#d4af6f";  // gold-amber
+  if (s === 2) return "#c89870";  // amber-rot
+  if (s === 1) return "#c48282";  // rot — stilfremd
+  return "#666";
+}
+
 /** Max parallele PUTs zur GitHub-Contents-API. 3 ist konservativ —
  *  vermeidet 5xx-Spikes bei Bulk-Operationen über >20 Einträge. */
 const BULK_CONCURRENCY = 3;
@@ -59,6 +79,10 @@ export default function AdminCurationPage() {
 
   const [index, setIndex] = useState<ResonanzIndex | null>(null);
   const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
+  const [aiScoreFilter, setAiScoreFilter] = useState<AiScoreFilter>("all");
+  // AI-Pre-Score-Bulk-Progress (Feature E) — analog bulkProgress, eigene State
+  // weil parallel zu Curation-Bulk laufen kann (verschieden Endpoints).
+  const [preScoreProgress, setPreScoreProgress] = useState<{ done: number; total: number } | null>(null);
   const [curationLoading, setCurationLoading] = useState<Set<string>>(new Set());
   const [confirmDelete, setConfirmDelete] = useState<ResonanzEntry | null>(null);
   const [actionFeedback, setActionFeedback] = useState<{ id: string; ok: boolean; msg: string } | null>(null);
@@ -113,9 +137,79 @@ export default function AdminCurationPage() {
 
   const filteredEntries = useMemo(() => {
     if (!index) return [];
-    if (statusFilter === "all") return index.entries;
-    return index.entries.filter(e => e.status === statusFilter);
-  }, [index, statusFilter]);
+    let xs = index.entries;
+    if (statusFilter !== "all") xs = xs.filter(e => e.status === statusFilter);
+    if (aiScoreFilter !== "all") {
+      xs = xs.filter(e => {
+        const s = e.ai_score;
+        if (aiScoreFilter === "ungescored") return typeof s !== "number";
+        if (typeof s !== "number") return false;
+        if (aiScoreFilter === "ge4") return s >= 4;
+        if (aiScoreFilter === "ge3") return s >= 3;
+        if (aiScoreFilter === "lt3") return s <= 2;
+        return true;
+      });
+    }
+    return xs;
+  }, [index, statusFilter, aiScoreFilter]);
+
+  /** raw/pending-Einträge ohne AI-Score — Kandidaten für Bulk-Pre-Score. */
+  const ungescoredCandidates = useMemo(() => {
+    if (!index) return [] as ResonanzEntry[];
+    return index.entries.filter(e =>
+      (e.status === "raw" || e.status === "pending") && typeof e.ai_score !== "number"
+    );
+  }, [index]);
+
+  /** Einträge mit AI-Score ≥4 (potenzielle Bulk-Approve-Kandidaten). */
+  const highScoreRawCandidates = useMemo(() => {
+    if (!index) return [] as ResonanzEntry[];
+    return index.entries.filter(e =>
+      e.status === "raw" && typeof e.ai_score === "number" && e.ai_score >= 4
+    );
+  }, [index]);
+
+  /** Bulk-AI-Pre-Score: rate eine Liste von IDs nacheinander. */
+  async function preScoreBulk(ids: string[]) {
+    if (ids.length === 0) return;
+    setPreScoreProgress({ done: 0, total: ids.length });
+    // Wir rufen den Server pro ID einzeln auf, damit wir progress streamen
+    // können. Server limitiert sich selber per Sleep zwischen Calls.
+    let done = 0;
+    let failed = 0;
+    for (const id of ids) {
+      try {
+        const result = await callAdminAction<{ ok: boolean; score?: number; reason?: string }>("pre-score", { id });
+        if (result.ok && result.data) {
+          const sc = result.data.score;
+          const rs = result.data.reason;
+          setIndex(curr => curr ? {
+            ...curr,
+            entries: curr.entries.map(e =>
+              e.id === id && typeof sc === "number"
+                ? { ...e, ai_score: sc as 1|2|3|4|5, ai_score_reason: rs }
+                : e
+            ),
+          } : curr);
+        } else {
+          failed++;
+        }
+      } catch {
+        failed++;
+      }
+      done++;
+      setPreScoreProgress({ done, total: ids.length });
+    }
+    setPreScoreProgress(null);
+    setActionFeedback({
+      id: "_pre_score",
+      ok: failed === 0,
+      msg: failed === 0
+        ? `${ids.length} Einträge bewertet`
+        : `${ids.length - failed}/${ids.length} bewertet (${failed} Fehler)`,
+    });
+    setTimeout(() => setActionFeedback(null), 5000);
+  }
 
   const visibleEntries = useMemo(
     () => showAllEntries ? filteredEntries : filteredEntries.slice(0, 20),
@@ -129,7 +223,7 @@ export default function AdminCurationPage() {
   useEffect(() => {
     setSelectedIds(new Set());
     setFocusedIndex(-1);
-  }, [statusFilter]);
+  }, [statusFilter, aiScoreFilter]);
 
   // Auto-Select: top-N raw-Einträge nach corpusVoiceScore (Buchstreue).
   // werkVoiceScore wäre die bessere Referenz, ist aber gated bis ≥10 publish
@@ -503,6 +597,65 @@ export default function AdminCurationPage() {
         </Section>
       )}
 
+      {/* AI-Pre-Score-Section (Tier-1-3-Roadmap, Feature E):
+          Bewertet raw/pending-Einträge via Claude auf einer 1-5-Skala.
+          Beschleunigt die Werk-Voice-Reifung (Bulk-Approve nach AI-Score). */}
+      <Section title="AI-Pre-Score — Werktreue automatisch bewerten" c={C}>
+        <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.88rem", color: C.textDim, lineHeight: 1.55, marginTop: 0, marginBottom: "0.9rem" }}>
+          Claude liest jeden Eintrag und vergibt 1–5 Punkte für Werktreue (stilistisch + thematisch).
+          Bulk-Run dauert ~3-5 s pro Eintrag. Danach: Filter „AI ≥4" → Bulk-Approve.
+        </p>
+        <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap" }}>
+          <button
+            onClick={() => void preScoreBulk(ungescoredCandidates.map(e => e.id))}
+            disabled={!!preScoreProgress || ungescoredCandidates.length === 0}
+            style={{
+              fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+              textTransform: "uppercase", color: "#7eb8c8",
+              background: "rgba(126,184,200,0.08)",
+              border: "1px solid rgba(126,184,200,0.5)",
+              padding: "0.55rem 0.85rem", cursor: preScoreProgress ? "wait" : "pointer",
+              opacity: ungescoredCandidates.length === 0 ? 0.4 : 1,
+              minHeight: 36,
+            }}
+          >
+            {preScoreProgress
+              ? `Claude bewertet … (${preScoreProgress.done}/${preScoreProgress.total})`
+              : `⚡ AI-Pre-Score laufen lassen (${ungescoredCandidates.length} ungescored)`}
+          </button>
+          {highScoreRawCandidates.length > 0 && (
+            <button
+              onClick={() => setSelectedIds(new Set(highScoreRawCandidates.map(e => e.id)))}
+              title="Alle raw-Einträge mit AI-Score ≥4 als Bulk-Approve-Selektion vorbereiten"
+              style={{
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+                textTransform: "uppercase", color: "#7ab898",
+                background: "rgba(122,184,152,0.08)",
+                border: "1px solid rgba(122,184,152,0.5)",
+                padding: "0.55rem 0.85rem", cursor: "pointer", minHeight: 36,
+              }}
+            >
+              ✓ Top {highScoreRawCandidates.length} (Score ≥4) auswählen
+            </button>
+          )}
+          {preScoreProgress && (
+            <div style={{
+              flex: "1 1 200px",
+              height: 6,
+              background: C.surface,
+              border: `1px solid ${C.border}`,
+              position: "relative", overflow: "hidden",
+            }}>
+              <div style={{
+                position: "absolute", left: 0, top: 0, bottom: 0,
+                width: `${100 * preScoreProgress.done / preScoreProgress.total}%`,
+                background: "#7eb8c8", transition: "width 0.2s",
+              }} />
+            </div>
+          )}
+        </div>
+      </Section>
+
       <Section title="Korpus-Verwaltung" c={C}>
         {/* Auto-Select-Vorschlag — surfaces top-N raw-Einträge nach
             corpusVoiceScore als Bulk-Kuratierung-Kandidaten. */}
@@ -549,6 +702,29 @@ export default function AdminCurationPage() {
           <kbd style={kbdStyle(C)}>r</kbd> Reject ·{" "}
           <kbd style={kbdStyle(C)}>x</kbd> Delete ·{" "}
           <kbd style={kbdStyle(C)}>Esc</kbd> Auswahl löschen
+        </div>
+
+        {/* AI-Score-Filter-Pills (Feature E) */}
+        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
+          {AI_SCORE_FILTERS.map(f => {
+            const active = aiScoreFilter === f;
+            const col = f === "ge4" ? "#7ab898" : f === "ge3" ? "#5aacb8" : f === "lt3" ? "#c48282" : f === "ungescored" ? "#888" : C.muted;
+            return (
+              <button
+                key={f}
+                onClick={() => setAiScoreFilter(f)}
+                style={{
+                  fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase",
+                  color: active ? "#080808" : col,
+                  background: active ? col : "none",
+                  border: `1px solid ${col}`,
+                  padding: "0.4rem 0.6rem", cursor: "pointer", minHeight: 28,
+                }}
+              >
+                {AI_SCORE_FILTER_LABEL[f]}
+              </button>
+            );
+          })}
         </div>
 
         {/* Status-Filter-Pills */}
@@ -622,6 +798,20 @@ export default function AdminCurationPage() {
                           {typeof entry.corpusVoiceScore === "number" && (
                             <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: entry.corpusVoiceScore >= 0.65 ? "#7ab898" : entry.corpusVoiceScore >= 0.55 ? C.accent : "#c48282" }} title="corpusVoiceScore (Buchstreue)">
                               · {(entry.corpusVoiceScore * 100).toFixed(0)}%
+                            </span>
+                          )}
+                          {typeof entry.ai_score === "number" && (
+                            <span
+                              style={{
+                                fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+                                color: aiScoreColor(entry.ai_score),
+                                border: `1px solid ${aiScoreColor(entry.ai_score)}`,
+                                padding: "0.05rem 0.3rem",
+                                marginLeft: "0.15rem",
+                              }}
+                              title={entry.ai_score_reason ? `AI-Score ${entry.ai_score}/5 — ${entry.ai_score_reason}` : `AI-Score ${entry.ai_score}/5`}
+                            >
+                              AI {entry.ai_score}
                             </span>
                           )}
                         </div>

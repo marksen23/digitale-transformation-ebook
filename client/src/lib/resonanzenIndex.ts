@@ -58,6 +58,20 @@ export interface ResonanzEntry {
    * stilistisch konform aber thematisch fern vom Buch.
    */
   corpusVoiceScore?: number;
+  /**
+   * AI-Pre-Score (Tier-1-3-Roadmap, Feature E): 1-5-Bewertung der
+   * Werktreue durch Claude. Wird via /api/admin/pre-score gesetzt.
+   * - 5: stilistisch indistinguishable
+   * - 4: werktreu, leicht generisch
+   * - 3: Form korrekt, KI-Duktus dominiert
+   * - 2: themenpassend, stilfremd
+   * - 1: off-topic / stilfremd
+   * Erlaubt Bulk-Approve mit Schwellwert in /admin/curation.
+   */
+  ai_score?: 1 | 2 | 3 | 4 | 5;
+  ai_score_reason?: string;
+  ai_score_at?: string;
+  ai_score_model?: string;
 }
 
 export interface ResonanzIndex {

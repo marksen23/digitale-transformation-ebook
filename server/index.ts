@@ -1104,6 +1104,117 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     return res.json({ ok: true, id, oldStatus, newStatus: status, path: file.path });
   });
 
+  // ─── AI-Pre-Score (Tier-1-3-Roadmap, Feature E) ──────────────────────────
+  // Bewertet einen oder mehrere raw/pending-Einträge auf einer 1-5-Skala
+  // gegen das stilistische und thematische Profil des Werks. Schreibt
+  // ai_score + ai_score_reason ins Frontmatter, das der Build-Step in
+  // den Index aufnimmt. Erlaubt im UI Bulk-Approve via Schwellwert.
+  //
+  // Manual-Trigger only — verbraucht Claude-API. Bei Bulk-Run mit Concurrency
+  // 3 (analog Curation-Bulk).
+
+  const PRE_SCORE_SYSTEM = `Du bewertest KI-generierte Resonanzen für das deutsche Philosophiewerk „Resonanzvernunft — Digitale Transformation" von Marc Sennen.
+
+Werk-Profil: dichter philosophischer Duktus, mediale Anthropologie, Heidegger/Resonanz/Aufklärung-Bezüge, prosaisch (keine Listen), präzise ohne Akademismus. Zentrale Begriffe: Resonanz, Dasein, Werden, Zwischen, Leerstelle, Antlitz, Geviert, Kairos, Antwort, Begegnung.
+
+Bewerte den vorgelegten KI-Output stilistisch und thematisch auf einer 5-stufigen Skala:
+
+5: Stilistisch indistinguishable vom Werk; bringt einen eigenen denkerischen Beitrag, der die Frage weiterführt.
+4: Werktreu, gut formuliert; eine oder zwei Wendungen klingen leicht generisch.
+3: Resonanz-Form korrekt, aber der typische KI-Erklärungs-Duktus dominiert; thematisch passend.
+2: Themenpassend, aber stilistisch fremd (Aufzählungen, Schulbuch-Ton, „Es ist wichtig zu betonen").
+1: Off-topic, generisch, stilfremd, oder bricht in Listen/Bullets aus.
+
+OUTPUT-FORMAT (STRIKT — exakt zwei Zeilen, sonst nichts):
+SCORE: <1-5>
+BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
+
+  function parsePreScore(text: string): { score: number; reason: string } | null {
+    const scoreMatch = text.match(/SCORE:\s*([1-5])/i);
+    const reasonMatch = text.match(/BEGR(?:Ü|UE|U)NDUNG:\s*([\s\S]+?)(?:\n|$)/i);
+    if (!scoreMatch) return null;
+    return {
+      score: parseInt(scoreMatch[1], 10),
+      reason: (reasonMatch?.[1] ?? "").trim().slice(0, 240) || "(keine Begründung)",
+    };
+  }
+
+  /** Bewertet einen einzelnen Eintrag, schreibt das Ergebnis ins Frontmatter. */
+  async function preScoreSingle(id: string): Promise<{ ok: boolean; score?: number; reason?: string; error?: string }> {
+    const { callClaude, isClaudeAvailable, getClaudeModel } = await import("./lib/claudeClient.js");
+    if (!isClaudeAvailable()) return { ok: false, error: "ANTHROPIC_API_KEY fehlt" };
+
+    const file = await findEntryFile(id);
+    if (!file) return { ok: false, error: `Eintrag ${id} nicht gefunden` };
+
+    // Extrahiere Frage + Antwort aus dem Body. Pattern wie loadAnchorVariants.
+    const mBody = file.content.match(/^---\n[\s\S]*?\n---\n?([\s\S]*)$/);
+    const body = mBody?.[1] ?? "";
+    const sections = body.split(/^##\s+/m);
+    let prompt = "", response = "";
+    for (const s of sections) {
+      if (/^Frage\s*\n/.test(s)) prompt = s.replace(/^Frage\s*\n+/, "").trim();
+      else if (/^Antwort\s*\n/.test(s)) response = s.replace(/^Antwort\s*\n+/, "").trim();
+    }
+    if (!response) return { ok: false, error: "Kein Antwort-Section gefunden" };
+
+    const userPrompt = `**Frage:** ${prompt || "(keine Frage notiert)"}\n\n**KI-Antwort:** ${response}\n\nBewerte diese Antwort.`;
+    const raw = await callClaude({
+      system: PRE_SCORE_SYSTEM, user: userPrompt,
+      maxTokens: 200, temperature: 0.2,
+    });
+    if (!raw) return { ok: false, error: "Claude-Call fehlgeschlagen" };
+    const parsed = parsePreScore(raw);
+    if (!parsed) return { ok: false, error: `Score-Format nicht erkannt: ${raw.slice(0, 120)}` };
+
+    const now = new Date().toISOString();
+    const model = getClaudeModel();
+    let newContent: string;
+    try {
+      newContent = await mutateFrontmatter(file.content, doc => {
+        doc.set("ai_score", parsed.score);
+        doc.set("ai_score_reason", parsed.reason);
+        doc.set("ai_score_at", now);
+        doc.set("ai_score_model", model);
+      });
+    } catch (err) {
+      return { ok: false, error: `Frontmatter-Update fehlgeschlagen: ${err instanceof Error ? err.message : err}` };
+    }
+
+    const writeRes = await writeOrDeleteFile(
+      "update", file.path, file.sha, newContent,
+      `pre-score(${id}): ${parsed.score}/5`
+    );
+    if (!writeRes.ok) return { ok: false, error: writeRes.error };
+    return { ok: true, score: parsed.score, reason: parsed.reason };
+  }
+
+  app.post("/api/admin/pre-score", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { id, ids } = req.body as { id?: string; ids?: string[] };
+
+    if (id && !ids) {
+      const result = await preScoreSingle(id);
+      if (!result.ok) return res.status(502).json({ error: result.error });
+      return res.json({ ok: true, id, score: result.score, reason: result.reason });
+    }
+    if (ids && Array.isArray(ids)) {
+      if (ids.length === 0) return res.status(400).json({ error: "ids leer" });
+      if (ids.length > 200) return res.status(400).json({ error: "Bulk-Limit: max 200 IDs/Call" });
+      // Sequenziell — Claude-Rate-Limits sind sensibler als GitHub-PUTs
+      const results: Array<{ id: string; ok: boolean; score?: number; reason?: string; error?: string }> = [];
+      for (const eid of ids) {
+        const r = await preScoreSingle(eid);
+        results.push({ id: eid, ...r });
+        // Tiny gap zwischen Calls — sanfte Drosselung
+        await new Promise(r2 => setTimeout(r2, 200));
+      }
+      const succeeded = results.filter(r => r.ok).length;
+      return res.json({ ok: true, total: ids.length, succeeded, failed: ids.length - succeeded, results });
+    }
+    return res.status(400).json({ error: "id oder ids erforderlich" });
+  });
+
   // ─── Master-Synthese (Phase 4) ────────────────────────────────────────
   // Lädt alle Varianten zu einem Anker, ruft Claude für eine konsolidierte
   // Synthese, schreibt das Master-File nach content/resonanzen/master/.
