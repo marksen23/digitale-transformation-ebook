@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, TRACKED, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, TRACKED, PAPER, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
@@ -72,6 +72,16 @@ function paragraphsForChapter(content: string): string[] {
 export default function WerkPage() {
   const { theme } = useTheme();
   const C: Palette = theme === "dark" ? C_DARK : C_LIGHT;
+  const isDark = theme === "dark";
+
+  // D2: Reading-Modus bekommt Pergament-warmen Hintergrund + ruhige Tinte.
+  // Wird beim Mount auf <html> gesetzt und beim Unmount restauriert, damit
+  // andere Pages ihren stone-Hintergrund behalten.
+  useEffect(() => {
+    const prev = document.body.style.background;
+    document.body.style.background = isDark ? PAPER.warmDark : PAPER.warmLight;
+    return () => { document.body.style.background = prev; };
+  }, [isDark]);
   const [match, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
 
@@ -159,10 +169,10 @@ export default function WerkPage() {
   const tocChapters = ebook.chapters.filter(c => c.content && c.content.length >= 200);
 
   return (
-    <div style={{ maxWidth: 1100, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
-      <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 240px", gap: "2rem", alignItems: "start" }}>
-        {/* ── Main Reading Column ────────────────────────────────── */}
-        <article style={{ minWidth: 0 }}>
+    <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
+      <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 200px", gap: "2.5rem", alignItems: "start" }}>
+        {/* ── Main Reading Column — klassische Buchsatz-Breite 36rem ── */}
+        <article style={{ minWidth: 0, maxWidth: "36rem", marginLeft: "auto", marginRight: "auto" }}>
           <header style={{ marginBottom: "1.5rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
             <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, marginBottom: "0.3rem" }}>
               {currentChapter?.partTitle ?? ebook.meta.title}
@@ -257,18 +267,8 @@ export default function WerkPage() {
               );
             })}
           </ul>
-          <div style={{ marginTop: "1rem", paddingTop: "0.8rem", borderTop: `1px solid ${C.border}`, fontFamily: MONO, fontSize: "0.55rem", letterSpacing: TRACKED.open, color: C.muted }}>
-            <Link to="/begriffsnetz" style={{ color: C.muted, textDecoration: "none", display: "block", marginBottom: "0.3rem" }}>↪ Begriffsnetz</Link>
-            <Link to="/resonanzen" style={{ color: C.muted, textDecoration: "none", display: "block", marginBottom: "0.3rem" }}>↪ Resonanzen</Link>
-            <Link to="/mein-werk" style={{ color: C.muted, textDecoration: "none", display: "block", marginBottom: "0.6rem" }}>↪ Mein Werk</Link>
-            <a
-              href="/exports/resonanzvernunft.pdf"
-              download="resonanzvernunft.pdf"
-              style={{ color: C.accent, textDecoration: "none", display: "block", borderTop: `1px dashed ${C.border}`, paddingTop: "0.5rem" }}
-            >
-              ↓ Werk als PDF herunterladen
-            </a>
-          </div>
+          {/* Werkzeug-Links + PDF werden in D3 in einen
+              „Werkzeuge ▾"-Dropdown unter dem Werk-Header verschoben. */}
         </nav>
       </div>
 

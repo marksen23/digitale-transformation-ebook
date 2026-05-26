@@ -24,7 +24,18 @@ import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT } from "@/lib/theme";
 import InstallButton from "@/components/InstallButton";
 import { useT, useLocale, switchLocaleHref } from "@/i18n";
 
-const FRAME_HEIGHT = 48;
+const FRAME_HEIGHT_TOOL = 48;
+const FRAME_HEIGHT_READING = 40;
+
+/** Erkennt Lesemodi anhand der URL (D2). Reading-Modi haben kompakteren
+ *  Frame + geringeren Opacity-Konflikt mit dem Buchtext. */
+function isReadingPath(path: string): boolean {
+  if (path === "/" || path === "/en") return true;
+  if (path.startsWith("/werk")) return true;
+  if (path.startsWith("/en/werk")) return true;
+  if (path.startsWith("/resonanz/")) return true;
+  return false;
+}
 
 interface NavItem { href: string; i18nKey: string; match: RegExp }
 
@@ -42,6 +53,8 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const t = useT();
   const locale = useLocale();
+  const isReading = isReadingPath(location);
+  const FRAME_HEIGHT = isReading ? FRAME_HEIGHT_READING : FRAME_HEIGHT_TOOL;
 
   // Drawer schließt automatisch nach Navigation
   useEffect(() => {
@@ -58,7 +71,11 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
     return () => window.removeEventListener("keydown", onKey);
   }, [drawerOpen]);
 
-  const headerBg = isDark ? "rgba(12,10,9,0.94)" : "rgba(250,250,249,0.94)";
+  // D2: Reading-Modi bekommen leicht zurückgenommenen Header (mehr Lese-Ruhe),
+  // Tool-Modi bleiben opak. Backdrop-Filter sorgt für lesbaren Kontrast.
+  const headerBg = isDark
+    ? (isReading ? "rgba(12,10,9,0.82)" : "rgba(12,10,9,0.94)")
+    : (isReading ? "rgba(250,250,249,0.82)" : "rgba(250,250,249,0.94)");
   const backdropColor = isDark ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.15)";
 
   return (
@@ -342,4 +359,6 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const APP_FRAME_HEIGHT = FRAME_HEIGHT;
+// Konsumenten, die sticky/anchor-offset brauchen, kalkulieren mit dem
+// Tool-Frame-Maximum — sonst springt das Layout zwischen Pages.
+export const APP_FRAME_HEIGHT = FRAME_HEIGHT_TOOL;
