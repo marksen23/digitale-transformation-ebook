@@ -28,6 +28,7 @@ const HOLDOUT_REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-
 const NODE_DENSITY_OUTPUT = path.join(ROOT, "client/public/resonanzen-node-density.json");
 const LINK_PREDICTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-link-predictions.json");
 const ANCHOR_CLUSTERS_OUTPUT = path.join(ROOT, "client/public/resonanzen-anchor-clusters.json");
+const CORPUS_MAP_OUTPUT = path.join(ROOT, "client/public/resonanzen-corpus-map.json");
 const HOLDOUT_MIN_CORPUS_SIZE = 30;
 const HOLDOUT_MODULO = 10;          // ≈10% Stichprobe
 const HOLDOUT_TOP_NEIGHBORS = 3;
@@ -320,6 +321,28 @@ async function main() {
     computeCrossLinks(entries, embeddings);
     const linkCount = entries.reduce((s, e) => s + (e.related?.length ?? 0), 0);
     console.log(`[build-resonanzen-index] computed ${linkCount} cross-links`);
+  }
+
+  // ─── Korpus-Landkarte (UMAP 2D-Projektion der Embeddings) ───────────
+  // Reduziert den 3072-dim Embedding-Raum auf 2D-Koordinaten pro Eintrag,
+  // damit man auf /admin/health die thematischen Cluster + Außenseiter
+  // visuell erkennt. Nur sinnvoll wenn ≥10 Embeddings vorliegen.
+  // Embeddings können auch aus EMBEDDINGS_OUTPUT-File geladen werden wenn
+  // GEMINI_API_KEY fehlt — UMAP braucht keinen API-Call, nur die Vektoren.
+  let mapEmbeddings = embeddings;
+  if (!mapEmbeddings && fs.existsSync(EMBEDDINGS_OUTPUT)) {
+    try {
+      const data = JSON.parse(fs.readFileSync(EMBEDDINGS_OUTPUT, "utf-8"));
+      mapEmbeddings = data.embeddings ?? null;
+      if (mapEmbeddings) {
+        console.log(`[build-resonanzen-index] corpus-map: ${Object.keys(mapEmbeddings).length} existierende Embeddings geladen (für UMAP)`);
+      }
+    } catch {
+      // ignore
+    }
+  }
+  if (mapEmbeddings) {
+    await writeCorpusMap(entries, mapEmbeddings);
   }
 
   // ─── Hold-out-Konsistenz: Anti-Drift-Mechanismus ─────────────────────
@@ -621,6 +644,95 @@ function writeAnchorClusters(entries: ResonanzEntry[]): void {
     `${out.stats.withMultipleVariants} mit ≥2 Varianten, ` +
     `${out.stats.withMaster} mit Master (${out.stats.staleMasters} stale)`
   );
+}
+
+/** UMAP-2D-Projektion der Embeddings → Korpus-Landkarte für /admin/health.
+ *  Mini-Library (umap-js), deterministischer Seed für stabile Builds.
+ *  Skaliert auf [0..1000] x [0..1000] Koordinatensystem (SVG-friendly).
+ *  Außenseiter-Marker: distance to centroid > 2σ (z-score basiert). */
+async function writeCorpusMap(
+  entries: ResonanzEntry[],
+  embeddings: Record<string, number[]>,
+): Promise<void> {
+  // Nur Einträge mit Embedding nehmen (Chapter-Embeddings raus,
+  // die haben chapter:-prefix und keine entry-Repräsentation)
+  const eligible = entries.filter(e => embeddings[e.id]);
+  if (eligible.length < 10) {
+    console.log(`[build-resonanzen-index] corpus-map: zu wenig Embeddings (${eligible.length} < 10) — skip`);
+    return;
+  }
+
+  const { UMAP } = await import("umap-js");
+  const vectors = eligible.map(e => embeddings[e.id]);
+
+  // UMAP-Parameter konservativ: nNeighbors=15 ist Standard, minDist=0.1
+  // hält Cluster sichtbar, nComponents=2 für 2D-Scatter.
+  const umap = new UMAP({
+    nComponents: 2,
+    nNeighbors: Math.min(15, eligible.length - 1),
+    minDist: 0.1,
+    spread: 1.0,
+    random: seededRandom(42),
+  });
+  const projected = umap.fit(vectors);
+
+  // Auf [0..1000] skalieren (SVG-friendly Koordinaten)
+  const xs = projected.map(p => p[0]);
+  const ys = projected.map(p => p[1]);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const spanX = Math.max(maxX - minX, 1e-6);
+  const spanY = Math.max(maxY - minY, 1e-6);
+
+  // Centroid + σ für Außenseiter-Erkennung (z-score-basiert)
+  const cx = xs.reduce((s, x) => s + x, 0) / xs.length;
+  const cy = ys.reduce((s, y) => s + y, 0) / ys.length;
+  const dists = projected.map(p => Math.hypot(p[0] - cx, p[1] - cy));
+  const meanDist = dists.reduce((s, d) => s + d, 0) / dists.length;
+  const sigmaDist = Math.sqrt(
+    dists.reduce((s, d) => s + (d - meanDist) ** 2, 0) / dists.length
+  );
+  const outlierThreshold = meanDist + 2 * sigmaDist;
+
+  const points = eligible.map((e, i) => ({
+    id: e.id,
+    endpoint: e.endpoint,
+    x: Math.round(((projected[i][0] - minX) / spanX) * 1000),
+    y: Math.round(((projected[i][1] - minY) / spanY) * 1000),
+    isOutlier: dists[i] > outlierThreshold,
+    isMaster: !!e.is_master,
+    promptPreview: e.prompt.slice(0, 80),
+  }));
+
+  const out = {
+    generatedAt: new Date().toISOString(),
+    method: "umap-js",
+    params: { nComponents: 2, nNeighbors: Math.min(15, eligible.length - 1), minDist: 0.1, seed: 42 },
+    points,
+    stats: {
+      total: points.length,
+      outliers: points.filter(p => p.isOutlier).length,
+      byEndpoint: points.reduce((acc: Record<string, number>, p) => {
+        acc[p.endpoint] = (acc[p.endpoint] ?? 0) + 1;
+        return acc;
+      }, {}),
+    },
+  };
+  fs.writeFileSync(CORPUS_MAP_OUTPUT, JSON.stringify(out, null, 2));
+  console.log(
+    `[build-resonanzen-index] corpus-map: ${points.length} Punkte projiziert, ` +
+    `${out.stats.outliers} Außenseiter (>2σ vom Centroid)`
+  );
+}
+
+/** Seeded RNG für UMAP-Determinismus — sonst springen die Koordinaten
+ *  bei jedem Build und Diff-Visualisierung wird unmöglich. */
+function seededRandom(seed: number): () => number {
+  let s = seed;
+  return () => {
+    s = (s * 1664525 + 1013904223) % 0x100000000;
+    return s / 0x100000000;
+  };
 }
 
 function cosineSim(a: number[], b: number[]): number {

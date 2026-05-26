@@ -91,6 +91,28 @@ interface ResonanzHealth {
   };
 }
 
+/** UMAP-2D-Projektion der Korpus-Embeddings (Phase 5). Vom Build-Step
+ *  generiert via umap-js. Pro Punkt: id, endpoint, x/y in [0..1000],
+ *  isOutlier (>2σ vom Centroid), promptPreview für Tooltip. */
+interface CorpusMapFile {
+  generatedAt: string;
+  method: string;
+  params: { nComponents: number; nNeighbors: number; minDist: number; seed: number };
+  points: Array<{
+    id: string;
+    endpoint: string;
+    x: number; y: number;
+    isOutlier: boolean;
+    isMaster: boolean;
+    promptPreview: string;
+  }>;
+  stats: {
+    total: number;
+    outliers: number;
+    byEndpoint: Record<string, number>;
+  };
+}
+
 /** Edge-Kandidaten vom Build-Step (scripts/build-resonanzen-index.ts:
  *  writeLinkPredictions). Begriffspaare die in Resonanz-Einträgen oft
  *  gemeinsam als nodeIds auftauchen, aber keine direkte Concept-Graph-
@@ -138,6 +160,9 @@ export default function AdminHealthPage() {
   // aber keine Concept-Graph-Kante haben → Edge-Kandidaten zum Review.
   const [linkPredictions, setLinkPredictions] = useState<LinkPredictionsFile | null>(null);
   const [linkPredExpanded, setLinkPredExpanded] = useState(false);
+  // Korpus-Landkarte (UMAP-2D der Embeddings)
+  const [corpusMap, setCorpusMap] = useState<CorpusMapFile | null>(null);
+  const [mapHoverPoint, setMapHoverPoint] = useState<CorpusMapFile["points"][number] | null>(null);
   const [heartbeat, setHeartbeat] = useState<Heartbeat | null>(null);
   const [reportsLoaded, setReportsLoaded] = useState(false);
   const [tensions, setTensions] = useState<TensionResult | null>(null);
@@ -163,6 +188,7 @@ export default function AdminHealthPage() {
       loadOptionalJson<DriftReport>("/resonanzen-drift-report.json").then(setDriftReport),
       loadOptionalJson<HoldoutReport>("/resonanzen-holdout-report.json").then(setHoldoutReport),
       loadOptionalJson<LinkPredictionsFile>("/resonanzen-link-predictions.json").then(setLinkPredictions),
+      loadOptionalJson<CorpusMapFile>("/resonanzen-corpus-map.json").then(setCorpusMap),
     ]).then(() => setReportsLoaded(true));
   }, []);
 
@@ -365,6 +391,122 @@ export default function AdminHealthPage() {
             )}
           </>
         )}
+      </Section>
+
+      {/* Korpus-Landkarte — UMAP-2D-Projektion der Embeddings. Zeigt
+          thematische Cluster + Außenseiter im 3072-dim Embedding-Raum
+          als SVG-Scatter. Build-time generiert via umap-js, Datei:
+          resonanzen-corpus-map.json. */}
+      <Section title="Korpus-Landkarte (UMAP-2D)" c={C}>
+        {!corpusMap ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+            corpus-map.json nicht verfügbar — entweder älterer Build oder Korpus &lt;10 Embeddings.
+          </p>
+        ) : (() => {
+          const ENDPOINT_COLOR_LOCAL: Record<string, string> = {
+            "analyse": "#5aacb8",
+            "path-analyse": "#7eb8c8",
+            "graph-chat": "#7ab898",
+            "chapter": "#c8a87a",
+            "enkidu": "#c4a882",
+            "translate": "#9a88b8",
+          };
+          const PAD = 30;
+          const SIZE = 520;
+          // x/y → SVG-Koordinaten (Punkte sind in [0..1000])
+          const tx = (x: number) => PAD + (x / 1000) * (SIZE - 2 * PAD);
+          const ty = (y: number) => PAD + (y / 1000) * (SIZE - 2 * PAD);
+
+          return (
+            <>
+              <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.textDim, lineHeight: 1.5, marginTop: 0, marginBottom: "0.9rem" }}>
+                {corpusMap.stats.total} Einträge projiziert via {corpusMap.method} ({corpusMap.params.nNeighbors} Nachbarn) ·{" "}
+                <strong style={{ color: "#c48282" }}>{corpusMap.stats.outliers} Außenseiter</strong> (Distanz vom Centroid &gt;2σ).
+                Nähe in der Karte = semantische Nähe im 3072-dim Embedding-Raum.
+                Klick auf einen Punkt öffnet den Eintrag.
+              </p>
+
+              {/* Endpoint-Legende */}
+              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", marginBottom: "0.8rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.05em" }}>
+                {Object.entries(corpusMap.stats.byEndpoint).map(([ep, count]) => (
+                  <span key={ep} style={{ display: "flex", alignItems: "center", gap: "0.3rem", color: C.muted }}>
+                    <span style={{ width: 9, height: 9, borderRadius: "50%", background: ENDPOINT_COLOR_LOCAL[ep] ?? C.muted }} />
+                    {ep} <span style={{ color: C.text }}>({count})</span>
+                  </span>
+                ))}
+                <span style={{ display: "flex", alignItems: "center", gap: "0.3rem", color: C.muted, marginLeft: "auto" }}>
+                  <span style={{ width: 9, height: 9, borderRadius: "50%", background: "transparent", border: "1.5px solid #c48282" }} />
+                  Außenseiter
+                </span>
+              </div>
+
+              <div style={{ position: "relative" }}>
+                <svg
+                  viewBox={`0 0 ${SIZE} ${SIZE}`}
+                  style={{
+                    width: "100%", maxWidth: SIZE, height: "auto",
+                    background: C.surface, border: `1px solid ${C.border}`,
+                    display: "block",
+                  }}
+                >
+                  {/* Faint center crosshair */}
+                  <line x1={SIZE / 2} y1={PAD} x2={SIZE / 2} y2={SIZE - PAD} stroke={C.border} strokeDasharray="2 3" opacity={0.3} />
+                  <line x1={PAD} y1={SIZE / 2} x2={SIZE - PAD} y2={SIZE / 2} stroke={C.border} strokeDasharray="2 3" opacity={0.3} />
+
+                  {corpusMap.points.map(p => {
+                    const color = ENDPOINT_COLOR_LOCAL[p.endpoint] ?? C.muted;
+                    const isHover = mapHoverPoint?.id === p.id;
+                    const r = p.isMaster ? 6 : p.isOutlier ? 5 : 3.5;
+                    return (
+                      <a
+                        key={p.id}
+                        href={`/resonanzen?id=${p.id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                        <circle
+                          cx={tx(p.x)} cy={ty(p.y)}
+                          r={isHover ? r + 2 : r}
+                          fill={p.isOutlier ? "transparent" : color}
+                          stroke={p.isOutlier ? "#c48282" : p.isMaster ? "#7ab898" : color}
+                          strokeWidth={p.isOutlier || p.isMaster ? 1.5 : 0.5}
+                          opacity={isHover ? 1 : 0.75}
+                          onMouseEnter={() => setMapHoverPoint(p)}
+                          onMouseLeave={() => setMapHoverPoint(null)}
+                          style={{ cursor: "pointer", transition: "all 0.12s" }}
+                        />
+                      </a>
+                    );
+                  })}
+                </svg>
+                {/* Hover-Tooltip */}
+                {mapHoverPoint && (
+                  <div style={{
+                    position: "absolute", pointerEvents: "none",
+                    top: 8, right: 8,
+                    background: C.deep, border: `1px solid ${C.border}`,
+                    padding: "0.5rem 0.7rem", maxWidth: 260,
+                    fontFamily: MONO, fontSize: "0.55rem", color: C.text,
+                    letterSpacing: "0.04em",
+                  }}>
+                    <div style={{ color: ENDPOINT_COLOR_LOCAL[mapHoverPoint.endpoint] ?? C.accent, marginBottom: "0.3rem" }}>
+                      {mapHoverPoint.endpoint}
+                      {mapHoverPoint.isMaster && <span style={{ color: "#7ab898" }}> · ◆ MASTER</span>}
+                      {mapHoverPoint.isOutlier && <span style={{ color: "#c48282" }}> · Außenseiter</span>}
+                    </div>
+                    <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem", color: C.text, lineHeight: 1.4 }}>
+                      {mapHoverPoint.promptPreview}
+                      {mapHoverPoint.promptPreview.length >= 80 && "…"}
+                    </div>
+                  </div>
+                )}
+              </div>
+              <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, marginTop: "0.6rem", marginBottom: 0 }}>
+                Seed {corpusMap.params.seed} (deterministic) · minDist {corpusMap.params.minDist} · Letzter Build: {new Date(corpusMap.generatedAt).toLocaleString("de-DE")}
+              </p>
+            </>
+          );
+        })()}
       </Section>
 
       <Section title="Korpus-Kohärenz — Echos & Werk-Drift" c={C}>

@@ -205,6 +205,7 @@ jobs:
             client/public/resonanzen-node-density.json
             client/public/resonanzen-link-predictions.json
             client/public/resonanzen-anchor-clusters.json
+            client/public/resonanzen-corpus-map.json
           retention-days: 7
           if-no-files-found: warn
 
@@ -239,7 +240,8 @@ jobs:
               client/public/resonanzen-chapter-hashes.json \
               client/public/resonanzen-node-density.json \
               client/public/resonanzen-link-predictions.json \
-              client/public/resonanzen-anchor-clusters.json; do
+              client/public/resonanzen-anchor-clusters.json \
+              client/public/resonanzen-corpus-map.json; do
             if [ -f "$f" ]; then
               git add -f "$f" && echo "[git add] OK: $f"
             else
