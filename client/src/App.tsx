@@ -14,6 +14,7 @@ const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
 const PhilosophyPage = lazy(() => import("./pages/PhilosophyPage"));
 const ConceptGraphPage = lazy(() => import("./pages/ConceptGraphPage"));
 const WerkPage = lazy(() => import("./pages/WerkPage"));
+const MeinWerkPage = lazy(() => import("./pages/MeinWerkPage"));
 const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
@@ -41,6 +42,9 @@ function Router() {
       </Route>
       <Route path={"/werk/:chapter?"}>
         <Framed><Suspense fallback={fallback}><WerkPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/mein-werk"}>
+        <Framed><Suspense fallback={fallback}><MeinWerkPage /></Suspense></Framed>
       </Route>
       <Route path={"/admin/metrics"}>
         <Framed><Suspense fallback={fallback}><AdminLayout><AdminMetricsPage /></AdminLayout></Suspense></Framed>

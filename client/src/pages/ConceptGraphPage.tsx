@@ -3,6 +3,7 @@ import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, categoryLabel, PRINZIP_GROUPS
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadNodeDensity, densityRatio, type NodeDensityFile } from "@/lib/nodeDensity";
+import { track as trackTrajectory } from "@/lib/trajectory";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
 import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORNAMENT, SERIF_BODY } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
@@ -274,7 +275,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   // Interaction state
   const [hoveredId,  setHoveredId]  = useState<string | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedIdRaw] = useState<string | null>(null);
+  // Trajectory-Tracking (Feature C): jeder Node-Visit wird gezählt
+  const setSelectedId = useCallback((next: string | null | ((prev: string | null) => string | null)) => {
+    setSelectedIdRaw(prev => {
+      const resolved = typeof next === "function" ? next(prev) : next;
+      if (resolved && resolved !== prev) {
+        try { trackTrajectory({ type: "node-visit", nodeId: resolved }); } catch {}
+      }
+      return resolved;
+    });
+  }, []);
 
   // Search + filter
   const [searchQuery, setSearchQuery] = useState("");

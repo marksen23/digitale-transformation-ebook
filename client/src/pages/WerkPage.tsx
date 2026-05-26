@@ -19,6 +19,7 @@ import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, TRACKED, type Palette } from 
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { track as trackTrajectory } from "@/lib/trajectory";
 
 interface EbookChapter {
   id: string;
@@ -138,11 +139,9 @@ export default function WerkPage() {
       let el: HTMLElement | null = anchorNode?.parentElement ?? null;
       while (el && !el.dataset?.chunkId) el = el.parentElement;
       if (!el?.dataset.chunkId) { setSelection(null); return; }
-      setSelection({
-        chunkId: el.dataset.chunkId,
-        text,
-        chapterTitle: currentChapter?.title ?? "",
-      });
+      const cid = el.dataset.chunkId;
+      setSelection({ chunkId: cid, text, chapterTitle: currentChapter?.title ?? "" });
+      try { trackTrajectory({ type: "passage-select", chunkId: cid, text }); } catch {}
     }
     document.addEventListener("mouseup", onMouseUp);
     document.addEventListener("touchend", onMouseUp);
