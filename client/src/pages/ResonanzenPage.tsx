@@ -188,6 +188,17 @@ export default function ResonanzenPage() {
     loadEmbeddings().then(emb => {
       setEmbeddingsAvailable(emb !== null && Object.keys(emb.embeddings ?? {}).length > 0);
     });
+
+    // S1: Cross-Tab/Cross-Page-Auto-Refresh — wenn Admin-Actions den Index
+    // mutieren, dispatchen sie ein „resonanzen-index-stale"-Event. Wir hören
+    // hier zu und reloaden den Index automatisch ohne manuellen Refresh.
+    const onStale = () => {
+      void loadResonanzenIndex().then(idx => setIndex(idx)).catch(() => null);
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("resonanzen-index-stale", onStale);
+      return () => window.removeEventListener("resonanzen-index-stale", onStale);
+    }
   }, []);
 
   // URL-Sync: Such-Term + aktive Filter spiegeln in Query-Params (shareable Deep-Links)

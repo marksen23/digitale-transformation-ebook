@@ -47,6 +47,11 @@ let _appendSuccessCount = 0;
 let _appendFailureCount = 0;
 let _lastAppend: { id: string; ts: string } | null = null;
 let _lastAppendError: { ts: string; reason: string } | null = null;
+// S1: separate Counter für remove + update — Live-Sync-Operations
+let _mutateSuccessCount = 0;
+let _mutateFailureCount = 0;
+let _lastMutate: { op: "remove" | "update"; id: string; ts: string } | null = null;
+let _lastMutateError: { ts: string; reason: string; op: string } | null = null;
 
 export function getIndexUpdaterHealth() {
   return {
@@ -54,7 +59,128 @@ export function getIndexUpdaterHealth() {
     appendFailureCount: _appendFailureCount,
     lastAppend: _lastAppend,
     lastAppendError: _lastAppendError,
+    mutateSuccessCount: _mutateSuccessCount,
+    mutateFailureCount: _mutateFailureCount,
+    lastMutate: _lastMutate,
+    lastMutateError: _lastMutateError,
   };
+}
+
+// ─── Shared GitHub-IO-Helpers (S1) ───────────────────────────────────────
+// Vorher: append-Logik inline. Jetzt: gemeinsame Lese/Schreib-Pfade,
+// damit remove + update dieselbe SHA-Behandlung + Retry-Semantik haben.
+
+async function fetchIndex(token: string): Promise<{ index: IndexFile; sha: string | null }> {
+  const url = `${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${INDEX_PATH}?ref=${REPO_BRANCH}`;
+  const res = await fetch(url, {
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "User-Agent": "dt-index-updater",
+    },
+  });
+  if (res.status === 404) {
+    return { index: { generatedAt: new Date().toISOString(), count: 0, entries: [] }, sha: null };
+  }
+  if (!res.ok) {
+    throw new Error(`GET index: ${res.status} ${res.statusText}`);
+  }
+  const data = await res.json();
+  const content = Buffer.from(data.content, "base64").toString("utf-8");
+  return { index: JSON.parse(content), sha: data.sha };
+}
+
+async function putIndex(token: string, index: IndexFile, sha: string | null, message: string): Promise<"ok" | "conflict" | "error"> {
+  const newContent = JSON.stringify(index, null, 2);
+  const putRes = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${INDEX_PATH}`, {
+    method: "PUT",
+    headers: {
+      "Authorization": `Bearer ${token}`,
+      "Accept": "application/vnd.github+json",
+      "X-GitHub-Api-Version": "2022-11-28",
+      "Content-Type": "application/json",
+      "User-Agent": "dt-index-updater",
+    },
+    body: JSON.stringify({
+      message,
+      content: Buffer.from(newContent, "utf-8").toString("base64"),
+      branch: REPO_BRANCH,
+      ...(sha ? { sha } : {}),
+    }),
+  });
+  if (putRes.ok) return "ok";
+  if (putRes.status === 409) return "conflict";
+  const txt = await putRes.text().catch(() => "");
+  throw new Error(`PUT index: ${putRes.status} ${putRes.statusText} — ${txt.slice(0, 150)}`);
+}
+
+/**
+ * Entfernt einen Eintrag aus dem live-Index. Wird von /api/admin/delete
+ * aufgerufen, damit gelöschte Einträge SOFORT vom Frontend verschwinden
+ * (nicht erst nach dem nächsten CI-Build).
+ */
+export async function removeFromIndex(id: string): Promise<void> {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return;
+  try {
+    const { index, sha } = await fetchIndex(token);
+    const before = index.entries.length;
+    const filtered = index.entries.filter(e => e.id !== id);
+    if (filtered.length === before) {
+      // ID nicht im Index — no-op, kein Fehler (z.B. wenn CI schon weg)
+      _mutateSuccessCount++;
+      _lastMutate = { op: "remove", id, ts: new Date().toISOString() };
+      return;
+    }
+    const updated: IndexFile = { ...index, entries: filtered, count: filtered.length };
+    const result = await putIndex(token, updated, sha, `index: remove ${id}`);
+    if (result === "conflict") {
+      console.info(`[indexUpdater] remove SHA-conflict ${id} — CI may have raced, skipping`);
+    }
+    _mutateSuccessCount++;
+    _lastMutate = { op: "remove", id, ts: new Date().toISOString() };
+  } catch (err) {
+    _mutateFailureCount++;
+    const reason = err instanceof Error ? err.message : String(err);
+    _lastMutateError = { ts: new Date().toISOString(), reason, op: "remove" };
+    console.error(`[indexUpdater] removeFromIndex FAILED for ${id}: ${reason}`);
+  }
+}
+
+/**
+ * Aktualisiert einen Eintrag im live-Index mit partial-Patch. Wird von
+ * /api/admin/curate (status-Wechsel) + /api/admin/pre-score (ai_score)
+ * aufgerufen.
+ */
+export async function updateInIndex(id: string, patch: Partial<IndexEntry> & Record<string, unknown>): Promise<void> {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return;
+  try {
+    const { index, sha } = await fetchIndex(token);
+    const i = index.entries.findIndex(e => e.id === id);
+    if (i === -1) {
+      // ID nicht im Index — z.B. brandneuer Eintrag, der noch nicht
+      // appended wurde. No-op, kein Fehler.
+      _mutateSuccessCount++;
+      _lastMutate = { op: "update", id, ts: new Date().toISOString() };
+      return;
+    }
+    const newEntries = [...index.entries];
+    newEntries[i] = { ...newEntries[i], ...patch } as IndexEntry;
+    const updated: IndexFile = { ...index, entries: newEntries };
+    const result = await putIndex(token, updated, sha, `index: update ${id}`);
+    if (result === "conflict") {
+      console.info(`[indexUpdater] update SHA-conflict ${id} — CI may have raced, skipping`);
+    }
+    _mutateSuccessCount++;
+    _lastMutate = { op: "update", id, ts: new Date().toISOString() };
+  } catch (err) {
+    _mutateFailureCount++;
+    const reason = err instanceof Error ? err.message : String(err);
+    _lastMutateError = { ts: new Date().toISOString(), reason, op: "update" };
+    console.error(`[indexUpdater] updateInIndex FAILED for ${id}: ${reason}`);
+  }
 }
 
 /**

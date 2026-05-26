@@ -80,9 +80,12 @@ export interface ResonanzIndex {
   entries: ResonanzEntry[];
 }
 
-/** Lädt den Index als statisches Asset von Netlify/lokalem Dev-Server. */
+/** Lädt den Index als statisches Asset von Netlify/lokalem Dev-Server.
+ *  S1: cache-bust via Timestamp-Query, damit Browser/CDN-Caches keine
+ *  stale-Versionen liefern nach Admin-Mutationen. */
 export async function loadResonanzenIndex(): Promise<ResonanzIndex> {
-  const res = await fetch("/resonanzen-index.json", { cache: "no-cache" });
+  const url = `/resonanzen-index.json?_=${Date.now()}`;
+  const res = await fetch(url, { cache: "no-store" });
   if (!res.ok) {
     throw new Error(`Index nicht gefunden (${res.status})`);
   }
@@ -93,19 +96,91 @@ export async function loadResonanzenIndex(): Promise<ResonanzIndex> {
  * Lazy + cached Loader — für Komponenten, die den Index ggf. nicht brauchen.
  * Schluckt Fehler still (returnt null), damit das Begriffsnetz auch ohne
  * verfügbaren FAQ-Index funktioniert.
+ *
+ * S1: invalidateResonanzenIndexCache() für nach Admin-Mutationen. Plus
+ * automatisches Refresh wenn das Window-Event "resonanzen-index-stale"
+ * gefeuert wird.
  */
 let _indexCache: ResonanzIndex | null = null;
 let _indexPromise: Promise<ResonanzIndex | null> | null = null;
+
 export function loadResonanzenIndexLazy(): Promise<ResonanzIndex | null> {
   if (_indexCache) return Promise.resolve(_indexCache);
   if (_indexPromise) return _indexPromise;
   _indexPromise = loadResonanzenIndex()
     .then(idx => {
       _indexCache = idx;
+      // groupResonanzenByNode/Anchor invalidieren sich automatisch via
+      // src === entries-Check beim nächsten Call (anderes Array-Identity).
       return idx;
     })
     .catch(() => null);
   return _indexPromise;
+}
+
+/** Erzwingt einen Re-Fetch beim nächsten loadResonanzenIndexLazy.
+ *  Wird von Admin-Actions + dem Stale-Event aufgerufen. */
+export function invalidateResonanzenIndexCache(): void {
+  _indexCache = null;
+  _indexPromise = null;
+  // Embedding-Cache bleibt — embeddings sind invariant, ein gelöschter
+  // Eintrag verschwindet einfach aus der ranking-Liste durch Index-Filter.
+}
+
+// Auto-listen auf Window-Event: jede Komponente, die einen Index-Refresh
+// braucht, dispatched window.dispatchEvent(new Event("resonanzen-index-stale")).
+//
+// S1: zusätzlich CROSS-TAB-Sync via BroadcastChannel + storage-event-Fallback.
+// Wenn der User /admin in einem Tab und /resonanzen in einem anderen offen
+// hat, propagiert die Admin-Action automatisch ins andere Tab.
+const STALE_EVENT = "resonanzen-index-stale";
+const STALE_CHANNEL = "resonanzen-sync";
+const STALE_STORAGE_KEY = "resonanzen-index-stale-at";
+
+let _broadcastChannel: BroadcastChannel | null = null;
+if (typeof window !== "undefined") {
+  window.addEventListener(STALE_EVENT, () => {
+    invalidateResonanzenIndexCache();
+  });
+
+  // Cross-Tab via BroadcastChannel (modern Browsers)
+  try {
+    _broadcastChannel = new BroadcastChannel(STALE_CHANNEL);
+    _broadcastChannel.addEventListener("message", e => {
+      if (e.data?.type === "stale") {
+        invalidateResonanzenIndexCache();
+        // Wieder als Window-Event weiterreichen, damit Page-Listener
+        // (ResonanzenPage, WerkPage, ConceptGraphPage) re-fetchen.
+        window.dispatchEvent(new Event(STALE_EVENT));
+      }
+    });
+  } catch {
+    // BroadcastChannel nicht verfügbar → Fallback via storage-event unten
+  }
+
+  // Fallback für Browsers ohne BroadcastChannel: storage-event triggert
+  // wenn andere Tabs in den localStorage schreiben.
+  window.addEventListener("storage", e => {
+    if (e.key === STALE_STORAGE_KEY) {
+      invalidateResonanzenIndexCache();
+      window.dispatchEvent(new Event(STALE_EVENT));
+    }
+  });
+}
+
+/** Sendet den Stale-Pulse intra-Tab + cross-Tab. Wird von Admin-Actions
+ *  + dem PassageResonanzModal auf Erfolg aufgerufen. */
+export function broadcastIndexStale(): void {
+  if (typeof window === "undefined") return;
+  // Lokal: Window-Event triggern (Listener im selben Tab)
+  window.dispatchEvent(new Event(STALE_EVENT));
+  // Cross-Tab: BroadcastChannel + storage-event-Bump
+  try {
+    _broadcastChannel?.postMessage({ type: "stale", ts: Date.now() });
+  } catch { /* ignore */ }
+  try {
+    localStorage.setItem(STALE_STORAGE_KEY, String(Date.now()));
+  } catch { /* ignore (private mode etc.) */ }
 }
 
 /**

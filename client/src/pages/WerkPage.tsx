@@ -18,7 +18,7 @@ import { useLocation, useRoute, Link } from "wouter";
 import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, TRACKED, PAPER, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
-import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { loadResonanzenIndexLazy, broadcastIndexStale, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { track as trackTrajectory } from "@/lib/trajectory";
 
 interface EbookChapter {
@@ -96,6 +96,15 @@ export default function WerkPage() {
     fetch("/ebook_structured.json").then(r => r.json()).then(setEbook).catch(() => null);
     fetch("/werk-chunks.json").then(r => r.json()).then(setChunks).catch(() => null);
     loadResonanzenIndexLazy().then(idx => idx && setResonanzen(idx.entries));
+    // S1: Auto-Refresh nach Admin-Mutationen (z.B. Passage-Resonanz wurde
+    // im selben Browser-Window erzeugt oder gelöscht).
+    const onStale = () => {
+      loadResonanzenIndexLazy().then(idx => idx && setResonanzen(idx.entries));
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("resonanzen-index-stale", onStale);
+      return () => window.removeEventListener("resonanzen-index-stale", onStale);
+    }
   }, []);
 
   // Map chunkId → matching Resonanzen (via passage_chunk_id im contextMeta)
@@ -404,6 +413,11 @@ function PassageResonanzModal({
         setError(data.error ?? `HTTP ${res.status}`);
       } else {
         setResult({ entryId: data.entryId, response: data.response });
+        // S1: Server appendet asynchron via logResonanz → indexUpdater
+        // (~1-2 sec für GitHub-PUT). Nach 2s den Stale-Pulse senden, damit
+        // WerkPage die Reverse-Lookup-◇N-Indikatoren refresht (intra-tab
+        // + cross-tab via BroadcastChannel).
+        setTimeout(() => broadcastIndexStale(), 2000);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : "Verbindungsfehler");

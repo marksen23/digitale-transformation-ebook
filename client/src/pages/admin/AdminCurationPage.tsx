@@ -15,9 +15,16 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import {
   loadResonanzenIndex,
   ENDPOINT_LABEL, ENDPOINT_COLOR,
+  broadcastIndexStale,
   type ResonanzEntry, type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
 import { callAdminAction } from "@/lib/adminAuth";
+
+/** Triggert cross-Tab + intra-Tab Index-Refresh. Wird nach jeder
+ *  Admin-Mutation (curate/delete/pre-score/synthesize) aufgerufen. */
+function notifyIndexStale() {
+  broadcastIndexStale();
+}
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import Skeleton from "@/components/Skeleton";
 import {
@@ -130,6 +137,7 @@ export default function AdminCurationPage() {
       setTimeout(() => {
         loadOptionalJson<AnchorClustersFile>("/resonanzen-anchor-clusters.json?_t=" + Date.now())
           .then(d => d && setAnchorClusters(d));
+        notifyIndexStale();  // S1: Master erscheint im Index (via CI) — andere Pages refreshen
       }, 1500);
     } else {
       setActionFeedback({ id: "_synth", ok: false, msg: result.error ?? "Synthese fehlgeschlagen" });
@@ -212,6 +220,7 @@ export default function AdminCurationPage() {
         ? `${ids.length} Einträge bewertet`
         : `${ids.length - failed}/${ids.length} bewertet (${failed} Fehler)`,
     });
+    if (failed < ids.length) notifyIndexStale();
     setTimeout(() => setActionFeedback(null), 5000);
   }
 
@@ -253,6 +262,7 @@ export default function AdminCurationPage() {
         entries: curr.entries.map(e => e.id === id ? { ...e, status: newStatus as ResonanzEntry["status"] } : e),
       } : curr);
       setActionFeedback({ id, ok: true, msg: `Status → ${newStatus}` });
+      notifyIndexStale();
     } else {
       setActionFeedback({ id, ok: false, msg: result.error ?? "Fehler" });
     }
@@ -265,6 +275,7 @@ export default function AdminCurationPage() {
     const result = await callAdminAction("delete", { id });
     setCurationLoading(s => { const n = new Set(s); n.delete(id); return n; });
     if (result.ok) {
+      notifyIndexStale();
       setIndex(curr => curr ? {
         ...curr,
         count: curr.count - 1,
@@ -313,6 +324,7 @@ export default function AdminCurationPage() {
 
     setBulkProgress(null);
     setSelectedIds(new Set());
+    if (failed < ids.length) notifyIndexStale();
     setActionFeedback({
       id: "_bulk", ok: failed === 0,
       msg: failed === 0
@@ -353,6 +365,7 @@ export default function AdminCurationPage() {
     setBulkProgress(null);
     setSelectedIds(new Set());
     setBulkConfirmDelete(false);
+    if (failed < ids.length) notifyIndexStale();
     setActionFeedback({
       id: "_bulk", ok: failed === 0,
       msg: failed === 0

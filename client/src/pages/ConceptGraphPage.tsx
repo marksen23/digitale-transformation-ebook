@@ -382,6 +382,16 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     loadResonanzenIndexLazy().then(idx => {
       if (idx) setResonanzenEntries(idx.entries);
     });
+    // S1: Cross-Page-Auto-Refresh nach Admin-Mutationen.
+    const onStale = () => {
+      loadResonanzenIndexLazy().then(idx => {
+        if (idx) setResonanzenEntries(idx.entries);
+      });
+    };
+    if (typeof window !== "undefined") {
+      window.addEventListener("resonanzen-index-stale", onStale);
+      return () => window.removeEventListener("resonanzen-index-stale", onStale);
+    }
   }, []);
   // Density beim ersten Heatmap-Klick lazy laden — bei Inactive-Default
   // hat das keinen Bandbreiten-Cost. Cache ist im Modul-Singleton.

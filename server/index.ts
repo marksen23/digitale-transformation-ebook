@@ -7,6 +7,7 @@ import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, Standard
 import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
 import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanzLog.js";
 import { buildWerkContext, type RetrievedPassage } from "./lib/werkRetrieval.js";
+import { removeFromIndex, updateInIndex } from "./lib/indexUpdater.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -1316,6 +1317,8 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       `curate(${id}): ${oldStatus} → ${status}`
     );
     if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
+    // S1: live-Index synchronisieren — status-Patch sofort sichtbar.
+    void updateInIndex(id, { status });
     return res.json({ ok: true, id, oldStatus, newStatus: status, path: file.path });
   });
 
@@ -1401,6 +1404,13 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       `pre-score(${id}): ${parsed.score}/5`
     );
     if (!writeRes.ok) return { ok: false, error: writeRes.error };
+    // S1: live-Index synchronisieren — AI-Score sofort im Filter/Badge sichtbar.
+    void updateInIndex(id, {
+      ai_score: parsed.score,
+      ai_score_reason: parsed.reason,
+      ai_score_at: now,
+      ai_score_model: model,
+    } as Record<string, unknown>);
     return { ok: true, score: parsed.score, reason: parsed.reason };
   }
 
@@ -1666,6 +1676,9 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       `admin-delete: ${id} (${file.path.split("/").slice(-2, -1)[0] ?? "unknown"})`
     );
     if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
+    // S1: live-Index synchronisieren — gelöschter Eintrag verschwindet sofort
+    // aus resonanzen-index.json, nicht erst nach dem nächsten CI-Build.
+    void removeFromIndex(id);
     return res.json({ ok: true, id, path: file.path });
   });
 
