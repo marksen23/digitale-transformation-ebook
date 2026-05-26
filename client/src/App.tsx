@@ -32,6 +32,17 @@ function Router() {
   return (
     <Switch>
       <Route path={"/"} component={Home} />
+      <Route path={"/en"} component={Home} />
+      {/* English locale routes — same components, locale resolved from URL prefix. */}
+      <Route path={"/en/resonanzen"}>
+        <Framed><Suspense fallback={fallback}><ResonanzenPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/en/philosophie"}>
+        <Framed><Suspense fallback={fallback}><PhilosophyPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/en/begriffsnetz"}>
+        <Framed><Suspense fallback={fallback}><ConceptGraphPage /></Suspense></Framed>
+      </Route>
       <Route path={"/resonanzen"}>
         <Framed><Suspense fallback={fallback}><ResonanzenPage /></Suspense></Framed>
       </Route>

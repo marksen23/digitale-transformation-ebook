@@ -22,16 +22,17 @@ import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { toggleGlobalTheme } from "@/lib/globalTheme";
 import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT } from "@/lib/theme";
 import InstallButton from "@/components/InstallButton";
+import { useT, useLocale, switchLocaleHref } from "@/i18n";
 
 const FRAME_HEIGHT = 48;
 
-interface NavItem { href: string; label: string; match: RegExp }
+interface NavItem { href: string; i18nKey: string; match: RegExp }
 
 const NAV: NavItem[] = [
-  { href: "/",             label: "Werk",         match: /^\/$/ },
-  { href: "/resonanzen",   label: "Wissen",       match: /^\/resonanzen/ },
-  { href: "/philosophie",  label: "Philosophie",  match: /^\/philosophie/ },
-  { href: "/begriffsnetz", label: "Begriffsnetz", match: /^\/begriffsnetz/ },
+  { href: "/",             i18nKey: "nav.werk",         match: /^\/$/ },
+  { href: "/resonanzen",   i18nKey: "nav.resonanzen",   match: /^\/resonanzen/ },
+  { href: "/philosophie",  i18nKey: "nav.philosophie",  match: /^\/philosophie/ },
+  { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
 ];
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
@@ -39,6 +40,8 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   const C = isDark ? C_DARK : C_LIGHT;
   const [location] = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const t = useT();
+  const locale = useLocale();
 
   // Drawer schließt automatisch nach Navigation
   useEffect(() => {
@@ -114,10 +117,12 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         <nav className="appframe-nav-inline" style={{ display: "flex", gap: "0.2rem" }}>
           {NAV.map(item => {
             const active = item.match.test(location);
+            // Locale-Prefixed href: /werk → /en/werk wenn locale=en
+            const href = locale === "en" ? (item.href === "/" ? "/en" : `/en${item.href}`) : item.href;
             return (
               <Link
                 key={item.href}
-                href={item.href}
+                href={href}
                 style={{
                   position: "relative",
                   fontFamily: MONO, fontSize: "0.58rem",
@@ -135,7 +140,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                   borderRadius: 0,
                 }}
               >
-                {item.label}
+                {t(item.i18nKey)}
               </Link>
             );
           })}
@@ -143,6 +148,28 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
 
         {/* Symbolleiste rechts */}
         <div style={{ display: "flex", gap: "0.3rem", marginLeft: "auto", alignItems: "center" }}>
+          {/* Locale-Switcher: DE/EN — tausch nur unter Beibehaltung des Pfads */}
+          <a
+            href={switchLocaleHref(locale === "en" ? "de" : "en")}
+            aria-label={locale === "en" ? "Sprache wechseln zu Deutsch" : "Switch to English"}
+            title={locale === "en" ? "Deutsch" : "English"}
+            className="appframe-tap"
+            style={{
+              fontFamily: MONO, fontSize: "0.55rem",
+              letterSpacing: TRACKED.tight,
+              color: C.muted,
+              padding: "0.35rem 0.5rem",
+              textDecoration: "none",
+              border: `1px solid ${C.border}`,
+              borderRadius: RADIUS.button,
+              minHeight: 30, display: "inline-flex", alignItems: "center", justifyContent: "center",
+              transition: "color 0.15s, border-color 0.15s",
+            }}
+            onMouseEnter={e => (e.currentTarget.style.color = C.accent)}
+            onMouseLeave={e => (e.currentTarget.style.color = C.muted)}
+          >
+            {locale === "en" ? "DE" : "EN"}
+          </a>
           <InstallButton variant="icon" />
           <Link
             href="/admin"
@@ -229,10 +256,11 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
       >
         {NAV.map(item => {
           const active = item.match.test(location);
+          const href = locale === "en" ? (item.href === "/" ? "/en" : `/en${item.href}`) : item.href;
           return (
             <Link
               key={item.href}
-              href={item.href}
+              href={href}
               style={{
                 display: "block",
                 fontFamily: MONO, fontSize: "0.85rem",
@@ -246,7 +274,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                 transition: "background 0.15s, color 0.15s",
               }}
             >
-              {item.label}
+              {t(item.i18nKey)}
             </Link>
           );
         })}

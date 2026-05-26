@@ -815,9 +815,17 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
 
     // Werk-Text-RAG (Feature D): retrieve passend zur aktuellen User-Nachricht
     const { passages: chatPassages, contextBlock: chatWerkContext } = await buildWerkContext(message, 4);
+
+    // i18n (Feature F): wenn Client EN-Locale signalisiert, antworte EN
+    const acceptLang = (req.headers["accept-language"] ?? "").toString();
+    const referer = (req.headers["referer"] ?? "").toString();
+    const isEnglish = /\/en(\/|$|\?)/.test(referer) || /^en/i.test(acceptLang.split(",")[0]?.trim() ?? "");
+    const langAddition = isEnglish
+      ? "\n\nIMPORTANT: Respond in English. The user's interface is set to English."
+      : "";
     const enrichedSystem = chatWerkContext
-      ? `${GRAPH_SYSTEM_PROMPT}\n\n${chatWerkContext}\n\nZitiere relevante Werkpassagen via [chunkId] aus dem obigen Block. Erfinde keine IDs.`
-      : GRAPH_SYSTEM_PROMPT;
+      ? `${GRAPH_SYSTEM_PROMPT}\n\n${chatWerkContext}\n\nZitiere relevante Werkpassagen via [chunkId] aus dem obigen Block. Erfinde keine IDs.${langAddition}`
+      : GRAPH_SYSTEM_PROMPT + langAddition;
 
     try {
       const response = await fetch(
