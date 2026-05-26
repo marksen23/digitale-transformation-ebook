@@ -791,43 +791,48 @@ export default function AdminCurationPage() {
                       }}
                     />
                     <div style={{ flex: 1, minWidth: 0 }}>
+                      {/* A1: Card-Header neu sortiert — Endpoint+Status links (Quelle/Zustand),
+                          Scores+Datum rechts (Bewertung/Provenienz). Trenn-Geste statt
+                          gleichgewichtige Reihe. */}
                       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.3rem", gap: "0.5rem", flexWrap: "wrap" }}>
-                        <div style={{ display: "flex", gap: "0.4rem", alignItems: "baseline" }}>
-                          <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
+                        <div style={{ display: "flex", gap: "0.35rem", alignItems: "baseline" }}>
+                          <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint] }}>
                             {ENDPOINT_LABEL[entry.endpoint]}
                           </span>
                           <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: entry.status === "published" ? "#7ab898" : entry.status === "rejected" ? "#c48282" : C.muted }}>
                             · {entry.status}
                           </span>
-                          {typeof entry.corpusVoiceScore === "number" && (
-                            <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: entry.corpusVoiceScore >= 0.65 ? "#7ab898" : entry.corpusVoiceScore >= 0.55 ? C.accent : "#c48282" }} title="corpusVoiceScore (Buchstreue)">
-                              · {(entry.corpusVoiceScore * 100).toFixed(0)}%
-                            </span>
-                          )}
+                        </div>
+                        <div style={{ display: "flex", gap: "0.3rem", alignItems: "baseline" }}>
                           {typeof entry.ai_score === "number" && (
                             <span
                               style={{
-                                fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+                                fontFamily: MONO, fontSize: "0.48rem", letterSpacing: "0.06em",
                                 color: aiScoreColor(entry.ai_score),
-                                border: `1px solid ${aiScoreColor(entry.ai_score)}`,
-                                padding: "0.05rem 0.3rem",
-                                marginLeft: "0.15rem",
+                                padding: 0,
                               }}
                               title={entry.ai_score_reason ? `AI-Score ${entry.ai_score}/5 — ${entry.ai_score_reason}` : `AI-Score ${entry.ai_score}/5`}
                             >
-                              AI {entry.ai_score}
+                              AI {entry.ai_score}/5
                             </span>
                           )}
+                          {typeof entry.corpusVoiceScore === "number" && (
+                            <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: entry.corpusVoiceScore >= 0.65 ? "#7ab898" : entry.corpusVoiceScore >= 0.55 ? C.accent : "#c48282" }} title="corpusVoiceScore (Buchstreue)">
+                              · BV {(entry.corpusVoiceScore * 100).toFixed(0)}%
+                            </span>
+                          )}
+                          <time style={{ fontFamily: MONO, fontSize: "0.48rem", color: C.muted, marginLeft: "0.2rem" }}>
+                            {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
+                          </time>
                         </div>
-                        <time style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted }}>
-                          {new Date(entry.ts).toLocaleDateString("de-DE", { year: "numeric", month: "short", day: "numeric" })}
-                        </time>
                       </div>
                       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text, lineHeight: 1.4, marginBottom: "0.5rem" }}>
                         {entry.prompt.length > 130 ? entry.prompt.slice(0, 130) + "…" : entry.prompt}
                       </div>
 
-                      {/* Action-Bar (per-entry) */}
+                      {/* Action-Bar (per-entry).
+                          A1: Permalink-Pfeil als Italic-Text-Link separat (Navigation,
+                          nicht Aktion) — visuell anders gewichtet als die Status-Aktionen. */}
                       <div style={{ display: "flex", gap: "0.3rem", flexWrap: "wrap", alignItems: "center" }}>
                         {entry.status !== "published" && (
                           <ActionBtn label="✓ Publish" color="#7ab898" disabled={isLoading} onClick={() => curateEntry(entry.id, "published")} />
@@ -845,8 +850,9 @@ export default function AdminCurationPage() {
                         <a
                           href={`/resonanzen?id=${entry.id}`}
                           target="_blank" rel="noreferrer"
-                          style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, padding: "0.4rem 0.5rem", textDecoration: "none", marginLeft: "auto" }}
-                        >↗ Wissen</a>
+                          style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.7rem", color: C.muted, padding: "0 0.3rem", textDecoration: "underline", textDecorationStyle: "dotted", textUnderlineOffset: "3px", marginLeft: "auto" }}
+                          title="Eintrag auf /resonanzen öffnen"
+                        >↗ ansehen</a>
                       </div>
 
                       {fb && (
