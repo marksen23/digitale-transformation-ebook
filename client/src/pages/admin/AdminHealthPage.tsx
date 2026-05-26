@@ -305,6 +305,14 @@ export default function AdminHealthPage() {
         </div>
       )}
 
+      {/* H1: AdminHealthPage in 4 thematische Gruppen unterteilt mit
+          GroupHeader (H2-Style mit Akzent-Hairline). Ersetzt die ehemals
+          13 unstrukturierten Sections durch eine klare Hierarchie:
+          Hosting → Qualität → Visualisierungen → Meta. */}
+      <HealthTOC c={C} />
+
+      <GroupHeader c={C} label="Hosting · Was läuft?" anchor="hosting" />
+
       <Section title="Server-Heartbeat" c={C}>
         {!heartbeat ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>pinge /api/admin/check …</p>
@@ -343,6 +351,8 @@ export default function AdminHealthPage() {
       <Section title="Render — Backend-Service" c={C}>
         <RenderPanel result={render} c={C} />
       </Section>
+
+      <GroupHeader c={C} label="Qualität · Wie steht's um die Substanz?" anchor="qualitaet" />
 
       <Section title="Korpus-Health (Validation)" c={C}>
         {!reportsLoaded ? (
@@ -423,6 +433,8 @@ export default function AdminHealthPage() {
           thematische Cluster + Außenseiter im 3072-dim Embedding-Raum
           als SVG-Scatter. Build-time generiert via umap-js, Datei:
           resonanzen-corpus-map.json. */}
+      <GroupHeader c={C} label="Visualisierungen · Wo wächst was?" anchor="visualisierungen" />
+
       <Section title="Korpus-Landkarte (UMAP-2D)" c={C}>
         {!corpusMap ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
@@ -777,6 +789,8 @@ export default function AdminHealthPage() {
           </p>
         )}
       </Section>
+
+      <GroupHeader c={C} label="Meta · Repo & Snapshots" anchor="meta" />
 
       <Section title="Repo & Snapshots" c={C}>
         <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem", fontFamily: MONO, fontSize: "0.62rem" }}>
@@ -1557,3 +1571,61 @@ function Legend({ color, label }: { color: string; label: string }) {
   );
 }
 
+
+// ─── GroupHeader (Sprint H1) ──────────────────────────────────────────────
+// Thematische Gruppe-Überschrift zwischen den Section-Clustern auf der
+// AdminHealthPage. Größer und ruhiger als ein Section-Header (h2 wäre
+// hierarchie-verwirrend), mit Akzent-Hairline und Anchor-ID für Quick-Jumps.
+function GroupHeader({ c, label, anchor }: { c: ReturnType<typeof useAdminTheme>; label: string; anchor: string }) {
+  return (
+    <div id={anchor} style={{
+      marginTop: "2.2rem", marginBottom: "0.6rem",
+      paddingTop: "1.2rem",
+      borderTop: `2px solid ${c.accent}`,
+      scrollMarginTop: "5rem",  // damit Anchor-Sprung nicht unter dem AppFrame steht
+    }}>
+      <div style={{
+        fontFamily: SERIF, fontStyle: "italic",
+        fontSize: "0.95rem", color: c.accent,
+        letterSpacing: "0.01em", lineHeight: 1.3,
+      }}>
+        {label}
+      </div>
+    </div>
+  );
+}
+
+// ─── HealthTOC (Sprint H1) ────────────────────────────────────────────────
+// Sticky Quick-Jump-Nav am Seitenanfang. Vier Gruppen-Anker als kompakte
+// Mono-Caps-Pills. Nur Desktop (>=768px) — auf Mobile wäre die Sticky-Bar
+// zu viel Bildschirm-Verbrauch.
+function HealthTOC({ c }: { c: ReturnType<typeof useAdminTheme> }) {
+  return (
+    <nav
+      className="health-toc"
+      style={{
+        position: "sticky", top: "3.4rem", zIndex: 40,
+        display: "flex", gap: "0.4rem", flexWrap: "wrap",
+        padding: "0.6rem 0.8rem",
+        background: `${c.deep}f0`,
+        backdropFilter: "blur(8px)",
+        WebkitBackdropFilter: "blur(8px)",
+        border: `1px solid ${c.border}`,
+        marginBottom: "1.5rem",
+        fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase",
+      }}
+    >
+      <span style={{ color: c.muted, marginRight: "0.4rem" }}>↪ Springe zu:</span>
+      <a href="#hosting" style={{ color: c.accent, textDecoration: "none" }}>Hosting</a>
+      <span style={{ color: c.muted }}>·</span>
+      <a href="#qualitaet" style={{ color: c.accent, textDecoration: "none" }}>Qualität</a>
+      <span style={{ color: c.muted }}>·</span>
+      <a href="#visualisierungen" style={{ color: c.accent, textDecoration: "none" }}>Visualisierungen</a>
+      <span style={{ color: c.muted }}>·</span>
+      <a href="#meta" style={{ color: c.accent, textDecoration: "none" }}>Meta</a>
+      <style>{`
+        @media (max-width: 768px) { .health-toc { display: none !important; } }
+      `}</style>
+    </nav>
+  );
+}
