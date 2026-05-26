@@ -185,22 +185,15 @@ export default function PhilosophyPage() {
 
         {/* Toolbar: View-Mode-Toggle + Filter-Toggle (Mobile) + Pfad-Toggle */}
         <div style={{ display: "flex", gap: "0.4rem", alignItems: "center", flexWrap: "wrap", marginTop: "0.6rem" }}>
-          {/* View-Mode — horizontal scrollbar auf Mobile (7 Sichten passen sonst nicht in 375px) */}
-          <div style={{
-            display: "flex", gap: 0,
-            border: `1px solid ${C.border}`,
-            overflowX: isMobile ? "auto" : "visible",
-            maxWidth: isMobile ? "100%" : "none",
-            WebkitOverflowScrolling: "touch",
-          }}>
+          {/* View-Mode P1: primäre Sichten (Strahl, Netz) sind immer
+              sichtbar — die fünf experimentellen Sichten liegen hinter
+              einem „Mehr ▾"-Disclosure. Reduziert Toolbar-Lärm von
+              7 Pills auf 2+1. Tasten 1-7 funktionieren weiter. */}
+          <div style={{ display: "flex", gap: 0, border: `1px solid ${C.border}`, flexShrink: 0 }}>
             <ToolbarBtn active={viewMode === "timeline"} label="Strahl" onClick={() => setViewMode("timeline")} c={C} />
             <ToolbarBtn active={viewMode === "network"} label="Netz" onClick={() => setViewMode("network")} c={C} />
-            <ToolbarBtn active={viewMode === "constellation"} label="Sternbild" onClick={() => setViewMode("constellation")} c={C} />
-            <ToolbarBtn active={viewMode === "spotlight"} label="Spotlight" onClick={() => setViewMode("spotlight")} c={C} />
-            <ToolbarBtn active={viewMode === "book"} label="Buch" onClick={() => setViewMode("book")} c={C} />
-            <ToolbarBtn active={viewMode === "roots"} label="Wurzeln" onClick={() => setViewMode("roots")} c={C} />
-            <ToolbarBtn active={viewMode === "river"} label="Fluss" onClick={() => setViewMode("river")} c={C} />
           </div>
+          <MoreViewsDisclosure viewMode={viewMode} setViewMode={setViewMode} c={C} />
 
           {/* Filter-Toggle (Mobile: kollabiert, Desktop: immer offen) */}
           {isMobile ? (
@@ -474,6 +467,89 @@ export default function PhilosophyPage() {
       )}
 
       <PageNav scrollContainer={scrollRef} />
+    </div>
+  );
+}
+
+// ─── MoreViewsDisclosure (Sprint P1) ─────────────────────────────────────
+// Disclosure-Toggle für die 5 experimentellen Sichten (Sternbild, Spotlight,
+// Buch, Wurzeln, Fluss). Hält die Toolbar ruhig, weil die meisten User die
+// primären Strahl/Netz-Sichten brauchen.
+type SecondaryView = "constellation" | "spotlight" | "book" | "roots" | "river";
+const SECONDARY_VIEWS: Array<{ mode: SecondaryView; label: string; emoji: string }> = [
+  { mode: "constellation", label: "Sternbild", emoji: "✦" },
+  { mode: "spotlight",     label: "Spotlight", emoji: "◉" },
+  { mode: "book",          label: "Buch",      emoji: "❦" },
+  { mode: "roots",         label: "Wurzeln",   emoji: "⌥" },
+  { mode: "river",         label: "Fluss",     emoji: "~" },
+];
+
+function MoreViewsDisclosure({
+  viewMode, setViewMode, c,
+}: {
+  viewMode: ViewMode;
+  setViewMode: (v: ViewMode) => void;
+  c: Palette;
+}) {
+  const [open, setOpen] = useState(false);
+  const activeSecondary = SECONDARY_VIEWS.find(v => v.mode === viewMode);
+
+  // Wenn der User eine sekundäre Sicht aktiv hat aber nicht aufgeklappt,
+  // zeigen wir das aktive Label inline statt nur „Mehr ▾".
+  return (
+    <div style={{ position: "relative" }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
+          textTransform: "uppercase",
+          color: activeSecondary ? c.accent : c.muted,
+          background: activeSecondary ? `${c.accent}10` : "none",
+          border: `1px solid ${activeSecondary ? c.accent : c.border}`,
+          padding: "0.5rem 0.7rem", cursor: "pointer", minHeight: 36,
+          display: "flex", alignItems: "center", gap: "0.3rem",
+        }}
+        aria-expanded={open}
+        title="Weitere Sichten"
+      >
+        {activeSecondary ? `${activeSecondary.emoji} ${activeSecondary.label}` : "Mehr"} {open ? "▴" : "▾"}
+      </button>
+      {open && (
+        <div
+          onMouseLeave={() => setOpen(false)}
+          style={{
+            position: "absolute", top: "calc(100% + 4px)", left: 0,
+            zIndex: 60,
+            background: c.surface, border: `1px solid ${c.border}`,
+            boxShadow: "0 4px 14px rgba(0,0,0,0.18)",
+            display: "flex", flexDirection: "column", minWidth: 140,
+          }}
+        >
+          {SECONDARY_VIEWS.map(v => {
+            const active = viewMode === v.mode;
+            return (
+              <button
+                key={v.mode}
+                onClick={() => { setViewMode(v.mode); setOpen(false); }}
+                style={{
+                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: active ? c.accent : c.text,
+                  background: active ? `${c.accent}10` : "none",
+                  border: "none", borderBottom: `1px solid ${c.border}`,
+                  padding: "0.55rem 0.8rem", cursor: "pointer", textAlign: "left",
+                  display: "flex", alignItems: "center", gap: "0.4rem",
+                }}
+                onMouseEnter={e => { if (!active) e.currentTarget.style.background = c.deep; }}
+                onMouseLeave={e => { if (!active) e.currentTarget.style.background = "none"; }}
+              >
+                <span style={{ width: 14, color: c.muted }}>{v.emoji}</span>
+                {v.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }
