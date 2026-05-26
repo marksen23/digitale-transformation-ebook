@@ -21,6 +21,11 @@ audit_trail:
     actor: admin
     from: raw
     to: published
+  - event: status-changed
+    ts: 2026-05-26T11:56:59.736Z
+    actor: admin
+    from: published
+    to: published
 context_meta:
   nodeA_label: Stimme
   nodeB_label: Verwandlung
