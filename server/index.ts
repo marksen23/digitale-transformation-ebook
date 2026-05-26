@@ -6,7 +6,7 @@ import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
 import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
 import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanzLog.js";
-import { buildWerkContext, type RetrievedPassage } from "./lib/werkRetrieval.js";
+import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
 import { removeFromIndex, updateInIndex } from "./lib/indexUpdater.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
@@ -24,7 +24,13 @@ async function withWerkContext(prompt: string, queryHint: string, topK = 4): Pro
   }
   const enriched = [
     contextBlock,
-    "ANWEISUNG: Beziehe dich beim Antworten auf den oben gegebenen Werktext. Zitiere relevante Passagen mit ihrer chunkId in eckigen Klammern, z.B. [a1b2c3d4e5f6]. Erfinde keine IDs — nur tatsächlich vorhandene aus dem Kontext oben.",
+    "ANWEISUNG: Beziehe dich beim Antworten auf den obigen autorisierten Kontext.",
+    "  - Werk-Passagen sind aus dem Buchtext direkt — zitiere via [chunkId], z.B. [a1b2c3d4e5f6].",
+    "  - 'Frühere Begegnungen' sind bereits kuratierte Resonanzen aus dem Korpus — wenn eine ältere",
+    "    Antwort die aktuelle Frage schon teilweise berührt, baue darauf auf und zitiere sie via",
+    "    ihrer Resonanz-ID (z.B. [MPF4WM18-FF4843F1]). Wiederhole NICHT in voller Länge, sondern",
+    "    verweise und erweitere.",
+    "  - Erfinde keine IDs — nur tatsächlich vorhandene aus dem Kontext oben.",
     "",
     "--- AUFGABE ---",
     prompt,
@@ -599,7 +605,7 @@ ${text}`;
 
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      res.json({ analysis, citedChunks: passages.map(p => ({ id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle })) });
+      res.json({ analysis, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
       void logResonanz({
         endpoint: "analyse",
         anchor: clusterAnchor(ids),
@@ -762,7 +768,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       }
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      res.json({ analysis, variant: useCompare ? "compare" : "single", citedChunks: passages.map(p => ({ id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle })) });
+      res.json({ analysis, variant: useCompare ? "compare" : "single", citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
 
       const sortedEndpoints = [from, to].sort();
       void logResonanz({
@@ -825,7 +831,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       ? "\n\nIMPORTANT: Respond in English. The user's interface is set to English."
       : "";
     const enrichedSystem = chatWerkContext
-      ? `${GRAPH_SYSTEM_PROMPT}\n\n${chatWerkContext}\n\nZitiere relevante Werkpassagen via [chunkId] aus dem obigen Block. Erfinde keine IDs.${langAddition}`
+      ? `${GRAPH_SYSTEM_PROMPT}\n\n${chatWerkContext}\n\nZitiere Werk-Passagen via [chunkId] und kuratierte Resonanzen via [resonanzId] aus dem obigen Block. Bei „bereits beantworteten" Fragen — baue auf der älteren Antwort auf statt sie zu wiederholen. Erfinde keine IDs.${langAddition}`
       : GRAPH_SYSTEM_PROMPT + langAddition;
 
     try {
@@ -1319,6 +1325,10 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
     // S1: live-Index synchronisieren — status-Patch sofort sichtbar.
     void updateInIndex(id, { status });
+    // R1: Retrieval-Pool invalidieren — wenn dieser Eintrag jetzt
+    // published/approved (oder es nicht mehr ist), ändert sich was retrieved
+    // werden kann.
+    invalidateResonanzRetrievalCache();
     return res.json({ ok: true, id, oldStatus, newStatus: status, path: file.path });
   });
 
@@ -1679,6 +1689,9 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     // S1: live-Index synchronisieren — gelöschter Eintrag verschwindet sofort
     // aus resonanzen-index.json, nicht erst nach dem nächsten CI-Build.
     void removeFromIndex(id);
+    // R1: Retrieval-Cache invalidieren — gelöschter Eintrag darf nicht mehr
+    // als Quelle in neue Antworten einfließen.
+    invalidateResonanzRetrievalCache();
     return res.json({ ok: true, id, path: file.path });
   });
 

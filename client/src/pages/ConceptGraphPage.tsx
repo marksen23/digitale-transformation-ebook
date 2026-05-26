@@ -363,11 +363,17 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [analyseResult, setAnalyseResult] = useState<string | null>(null);
   const [analyseLoading, setAnalyseLoading] = useState(false);
   const [analyseError, setAnalyseError] = useState<string | null>(null);
-  // Werk-Text-RAG (Feature D): citedChunks pro Analyse-Run, von der API
-  // mitgeliefert. Erscheinen als „Quellen im Werk"-Footer unterhalb der
-  // Analyse-Ausgabe — verlinken zukünftig auf /werk-Anker (Feature A).
-  const [analyseCitedChunks, setAnalyseCitedChunks] = useState<Array<{ id: string; chapter: string; partTitle: string; chapterTitle: string }>>([]);
-  const [pathCitedChunks, setPathCitedChunks] = useState<Array<{ id: string; chapter: string; partTitle: string; chapterTitle: string }>>([]);
+  // Werk-Text-RAG (Feature D + R1): citedChunks pro Analyse-Run, von der API
+  // mitgeliefert. Mit source="werk"|"resonanz" — zwei Quellen-Typen.
+  // Erscheinen als „Quellen"-Footer unter der Analyse-Ausgabe.
+  interface CitedSource {
+    source?: "werk" | "resonanz";
+    id: string;
+    chapter?: string; partTitle?: string; chapterTitle?: string;
+    endpoint?: string; prompt?: string;
+  }
+  const [analyseCitedChunks, setAnalyseCitedChunks] = useState<CitedSource[]>([]);
+  const [pathCitedChunks, setPathCitedChunks] = useState<CitedSource[]>([]);
   const analyseModeRef = useRef(false);
   const analyseNodesRef = useRef<string[]>([]);
 
@@ -2881,8 +2887,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     {pathCitedChunks.length > 0 && (
                       <div style={{ marginTop: "0.8rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.serif, fontSize: "0.72rem", fontStyle: "italic", color: C.textDim, lineHeight: 1.55 }}>
                         {pathCitedChunks.map(c => (
-                          <div key={c.id} style={{ marginBottom: "0.15rem" }} title={`chunkId: ${c.id}`}>
-                            ↩ {c.partTitle} · {c.chapterTitle}
+                          <div key={c.id} style={{ marginBottom: "0.15rem" }} title={`${c.source ?? "werk"}: ${c.id}`}>
+                            {c.source === "resonanz"
+                              ? <>↩ frühere Begegnung <a href={`/resonanz/${c.id}`} style={{ color: C.accent, textDecoration: "underline", textDecorationStyle: "dotted" }}>{c.prompt?.slice(0, 60)}{(c.prompt?.length ?? 0) > 60 ? "…" : ""}</a></>
+                              : <>↩ {c.partTitle} · {c.chapterTitle}</>}
                           </div>
                         ))}
                       </div>
