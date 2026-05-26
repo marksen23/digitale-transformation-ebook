@@ -1068,53 +1068,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </button>
           </div>
 
-          {/* Workfunc-Buttons als gruppierter Container — auf Mobile per CSS
-              in eigene Zeile gezwungen, damit die langen deutschen Labels
-              nicht den Header überlaufen lassen. */}
+          {/* Workfunc-Buttons (B1: KI-Tools links priorisiert, Verbinden als
+              sekundär rechts, mit vertikalem Trenner zwischen den Gruppen).
+              Auf Mobile per CSS in eigene Zeile gezwungen. */}
           <div className="concept-workfunc-group" style={{
-            display: "flex", gap: "0.4rem", marginLeft: "auto", flexWrap: "wrap",
+            display: "flex", gap: "0.4rem", marginLeft: "auto", flexWrap: "wrap", alignItems: "center",
           }}>
-          {/* Connect mode button — nur im Netz-Modus */}
-          {viewMode === "netz" && (
-            <button
-              onClick={() => activateTool(activeTool === "connect" ? null : "connect")}
-              title={connectMode ? "Verbinden-Modus beenden" : "Eigene Verbindung hinzufügen (max. 30)"}
-              style={{
-                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: connectMode ? C.accent : C.muted,
-                background: connectMode ? "rgba(196,168,130,0.08)" : "none",
-                border: `1px solid ${connectMode ? C.accentDim : C.border}`,
-                padding: "0.3rem 0.65rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
-              }}
-              onMouseEnter={e => { if (!connectMode) { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; } }}
-              onMouseLeave={e => { if (!connectMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
-            >
-              {connectMode ? "✕" : "+"}<span className="concept-toolbar-label">{" "}Verbinden</span>
-            </button>
-          )}
-
-          {/* Pfad-Explorer button */}
-          {viewMode !== "matrix" && (
-            <button
-              onClick={() => activateTool(activeTool === "path" ? null : "path")}
-              title={pathMode ? "Pfad-Explorer beenden" : "Pfad zwischen zwei Konzepten finden"}
-              style={{
-                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
-                textTransform: "uppercase",
-                color: pathMode ? "#5aacb8" : C.muted,
-                background: pathMode ? "rgba(126,184,200,0.08)" : "none",
-                border: `1px solid ${pathMode ? "#4a8898" : C.border}`,
-                padding: "0.3rem 0.65rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
-              }}
-              onMouseEnter={e => { if (!pathMode) { e.currentTarget.style.color = "#5aacb8"; e.currentTarget.style.borderColor = "#4a8898"; } }}
-              onMouseLeave={e => { if (!pathMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
-            >
-              {pathMode ? "✕" : "◈"}<span className="concept-toolbar-label">{" "}Pfad</span>
-            </button>
-          )}
+          {/* KI-Tool-Gruppe (Hauptaktionen) — Analyse, Dialog, Pfad. ARBEIT/WACHSTUM-cyan. */}
 
           {/* Spannungsfeld-Analyse button */}
           {viewMode !== "matrix" && (
@@ -1155,6 +1115,59 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onMouseLeave={e => { if (!chatOpen) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
             >
               {chatOpen ? "✕" : "◎"}<span className="concept-toolbar-label">{" "}Dialog</span>
+            </button>
+          )}
+
+          {/* Pfad-Explorer button */}
+          {viewMode !== "matrix" && (
+            <button
+              onClick={() => activateTool(activeTool === "path" ? null : "path")}
+              title={pathMode ? "Pfad-Explorer beenden" : "Pfad zwischen zwei Konzepten finden"}
+              style={{
+                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: pathMode ? "#5aacb8" : C.muted,
+                background: pathMode ? "rgba(126,184,200,0.08)" : "none",
+                border: `1px solid ${pathMode ? "#4a8898" : C.border}`,
+                padding: "0.3rem 0.65rem", cursor: "pointer",
+                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
+              }}
+              onMouseEnter={e => { if (!pathMode) { e.currentTarget.style.color = "#5aacb8"; e.currentTarget.style.borderColor = "#4a8898"; } }}
+              onMouseLeave={e => { if (!pathMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+            >
+              {pathMode ? "✕" : "◈"}<span className="concept-toolbar-label">{" "}Pfad</span>
+            </button>
+          )}
+
+          {/* Vertikaler Trenner zwischen KI-Tools und strukturellen Tools.
+              Auf Mobile (wrap-Layout) per concept-toolbar-divider via CSS
+              versteckt — der Wrap übernimmt visuell die Trennung. */}
+          {viewMode === "netz" && (
+            <span
+              className="concept-toolbar-divider"
+              aria-hidden="true"
+              style={{ width: 1, height: 18, background: C.border, margin: "0 0.2rem", flexShrink: 0 }}
+            />
+          )}
+
+          {/* Connect mode — strukturelle Aktion, sekundär. Nur im Netz-Modus. */}
+          {viewMode === "netz" && (
+            <button
+              onClick={() => activateTool(activeTool === "connect" ? null : "connect")}
+              title={connectMode ? "Verbinden-Modus beenden" : "Eigene Verbindung hinzufügen (max. 30)"}
+              style={{
+                fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: connectMode ? C.accent : C.muted,
+                background: connectMode ? "rgba(196,168,130,0.08)" : "none",
+                border: `1px solid ${connectMode ? C.accentDim : C.border}`,
+                padding: "0.3rem 0.65rem", cursor: "pointer",
+                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
+              }}
+              onMouseEnter={e => { if (!connectMode) { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; } }}
+              onMouseLeave={e => { if (!connectMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
+            >
+              {connectMode ? "✕" : "+"}<span className="concept-toolbar-label">{" "}Verbinden</span>
             </button>
           )}
           </div>{/* /concept-workfunc-group */}
@@ -2660,6 +2673,39 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           </div>
         </>
       )}
+
+      {/* ── First-Time-Empty-State (B1) ─────────────────────────────────
+          Dezenter Onboarding-Hint im Bildzentrum, wenn:
+          - kein Knoten selektiert / gehovert
+          - kein Tool aktiv
+          - keine Suche läuft
+          - keine Pfad/Cluster-Ergebnisse stehen
+          Verschwindet beim ersten Knoten-Klick oder Tool-Aktivieren.
+          Subtle Italic-Hint, nicht aufdringlich — der Lesemodus-Geist. */}
+      {(() => {
+        const isEmpty =
+          !selectedId && !hoveredId && !activeTool && !searchQuery.trim() &&
+          pathNodes[0] === null && analyseNodes.length === 0;
+        if (!isEmpty) return null;
+        // Nur im Netz-Modus (im Cluster/Baum/Matrix sieht der User Struktur, kein Hint nötig)
+        if (viewMode !== "netz") return null;
+        return (
+          <div style={{
+            position: "absolute", left: "50%", top: "calc(50% + 40px)",
+            transform: "translate(-50%, -50%)", zIndex: 30,
+            fontFamily: C.serif, fontStyle: "italic",
+            fontSize: "0.9rem", color: C.muted,
+            textAlign: "center", lineHeight: 1.6,
+            pointerEvents: "none", maxWidth: "min(420px, 80%)",
+            opacity: 0.55, letterSpacing: "0.01em",
+          }}>
+            Klick einen Knoten, um Verbindungen zu sehen.<br />
+            <span style={{ fontSize: "0.78rem" }}>
+              Oder wähle <span style={{ color: "#5aacb8" }}>⚡ Analyse</span> · <span style={{ color: "#7ab898" }}>◎ Dialog</span> · <span style={{ color: "#5aacb8" }}>◈ Pfad</span> oben.
+            </span>
+          </div>
+        );
+      })()}
 
       {/* ── Tool-Hint-Overlay — zentriert, prominent ────────────────────
           Wenn ein Tool aktiv ist + noch keine Auswahl getroffen wurde,
