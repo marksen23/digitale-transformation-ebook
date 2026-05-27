@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T10:40:39.679Z",
+  "generatedAt": "2026-05-27T06:53:43.723Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 20,
@@ -16,22 +16,23 @@
       }
     },
     "vernunft": {
-      "count": 15,
+      "count": 13,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 4,
         "analyse": 9
       }
     },
     "zwischen": {
-      "count": 15,
+      "count": 12,
       "endpoints": {
         "analyse": 7,
-        "path-analyse": 8
+        "path-analyse": 5
       }
     },
     "sprache": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 3,
         "analyse": 3
       }
@@ -44,17 +45,16 @@
       }
     },
     "stimme": {
-      "count": 5,
+      "count": 4,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 3,
         "analyse": 1
       }
     },
     "schweigen": {
-      "count": 2,
+      "count": 1,
       "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
+        "analyse": 1
       }
     },
     "echo": {
@@ -65,8 +65,9 @@
       }
     },
     "klang": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 3
       }
     },
@@ -92,10 +93,10 @@
       }
     },
     "bewusstsein": {
-      "count": 7,
+      "count": 6,
       "endpoints": {
         "analyse": 3,
-        "path-analyse": 4
+        "path-analyse": 3
       }
     },
     "moment": {
@@ -124,10 +125,9 @@
       }
     },
     "dialog": {
-      "count": 3,
+      "count": 2,
       "endpoints": {
-        "analyse": 2,
-        "path-analyse": 1
+        "analyse": 2
       }
     },
     "ich-du": {
@@ -144,10 +144,10 @@
       }
     },
     "sein": {
-      "count": 6,
+      "count": 5,
       "endpoints": {
         "analyse": 4,
-        "path-analyse": 2
+        "path-analyse": 1
       }
     },
     "werden": {
@@ -157,8 +157,10 @@
       }
     },
     "existenz": {
-      "count": 0,
-      "endpoints": {}
+      "count": 1,
+      "endpoints": {
+        "analyse": 1
+      }
     },
     "wesen": {
       "count": 4,
@@ -168,10 +170,10 @@
       }
     },
     "selbst": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 5,
-        "analyse": 4
+        "analyse": 6,
+        "path-analyse": 4
       }
     },
     "andere": {
@@ -188,16 +190,16 @@
       }
     },
     "freiheit": {
-      "count": 6,
+      "count": 4,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 2,
         "analyse": 2
       }
     },
     "öffnung": {
-      "count": 4,
+      "count": 3,
       "endpoints": {
-        "path-analyse": 4
+        "path-analyse": 3
       }
     },
     "spannung": {
@@ -208,15 +210,16 @@
       }
     },
     "lm-spiegel": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 4,
         "analyse": 1
       }
     },
     "lm-begegnung": {
-      "count": 3,
+      "count": 5,
       "endpoints": {
+        "path-analyse": 2,
         "analyse": 3
       }
     },
@@ -227,16 +230,16 @@
       }
     },
     "lm-grenze": {
-      "count": 9,
+      "count": 8,
       "endpoints": {
         "analyse": 6,
-        "path-analyse": 3
+        "path-analyse": 2
       }
     },
     "lm-verwandlung": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "path-analyse": 7,
+        "path-analyse": 8,
         "analyse": 5
       }
     },
@@ -273,26 +276,28 @@
       }
     },
     "transaufklaerung": {
-      "count": 3,
+      "count": 1,
       "endpoints": {
-        "path-analyse": 2,
         "analyse": 1
       }
     },
     "resonanzimperativ": {
-      "count": 0,
-      "endpoints": {}
+      "count": 1,
+      "endpoints": {
+        "analyse": 1
+      }
     },
     "unverfuegbarkeit": {
-      "count": 6,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 2,
         "analyse": 3
       }
     },
     "weltfaltung": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 3
       }
     },
@@ -315,14 +320,16 @@
       }
     },
     "wirklichkeit": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 3
       }
     },
     "moeglichkeit": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 1
       }
     },
@@ -341,8 +348,6 @@
     "median": 4,
     "totalNodes": 52,
     "zeroResonanceNodes": [
-      "existenz",
-      "resonanzimperativ",
       "schattenlicht",
       "wirklichkeit-moeglichkeit"
     ]

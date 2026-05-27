@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-26T10:40:39.681Z",
+  "generatedAt": "2026-05-27T06:53:43.725Z",
   "clusters": [
     {
       "anchor": "chapter:teil7",
@@ -70,6 +70,30 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:freier",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MPMU7YZH-2C9CBFE8",
+        "MPMTT6GB-1AF44EE4"
+      ],
+      "lastVariantTs": "2026-05-26T16:16:24.797Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "path-analyse:lm-begegnung+lm-verwandlung",
+      "endpoint": "path-analyse",
+      "variantIds": [
+        "MPMTLD4Y-B5FD9EFB",
+        "MPMSSG1X-8451DE38"
+      ],
+      "lastVariantTs": "2026-05-26T15:58:50.050Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "analyse:dialog+ich-du",
       "endpoint": "analyse",
       "variantIds": [
@@ -107,8 +131,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 85,
-    "withMultipleVariants": 8,
+    "totalAnchors": 92,
+    "withMultipleVariants": 10,
     "withMaster": 0,
     "staleMasters": 0
   }

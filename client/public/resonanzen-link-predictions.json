@@ -1,38 +1,7 @@
 {
-  "generatedAt": "2026-05-26T10:40:39.680Z",
+  "generatedAt": "2026-05-27T06:53:43.725Z",
   "minCooccurrence": 2,
   "candidates": [
-    {
-      "source": "vernunft",
-      "target": "zwischen",
-      "cooccurrence": 5,
-      "endpoints": {
-        "path-analyse": 4,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MPBI57AL-76627781",
-        "MOQ7OBNT-57882C8D",
-        "MOP0LEAL-E2568DCC",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
-      "target": "selbst",
-      "cooccurrence": 4,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPF4FISZ-67000E01",
-        "MPEV1D2J-55138734",
-        "MP2LJCJB-EA58EC28",
-        "MP2LIW43-E8ADC59E"
-      ]
-    },
     {
       "source": "denken",
       "target": "resonanzvernunft",
@@ -48,71 +17,43 @@
       ]
     },
     {
-      "source": "freiheit",
-      "target": "zwischen",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MOQIJIOJ-61E8F0F4",
-        "MOOZHCUT-4B86F8AD"
-      ]
-    },
-    {
-      "source": "lm-grenze",
-      "target": "vernunft",
+      "source": "resonanzvernunft",
+      "target": "selbst",
       "cooccurrence": 3,
       "endpoints": {
         "path-analyse": 1,
         "analyse": 2
       },
       "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MPBI57AL-76627781",
-        "MOPHZPQ7-B63879B5"
+        "MPF4FISZ-67000E01",
+        "MP2LJCJB-EA58EC28",
+        "MP2LIW43-E8ADC59E"
       ]
     },
     {
-      "source": "stimme",
+      "source": "vernunft",
       "target": "zwischen",
       "cooccurrence": 3,
       "endpoints": {
-        "path-analyse": 3
+        "analyse": 1,
+        "path-analyse": 2
       },
       "sampleEntryIds": [
-        "MP0QMSOR-C6EC1B5A",
-        "MOQIJIOJ-61E8F0F4",
-        "MOQID47V-A12862EA"
+        "MPBI57AL-76627781",
+        "MOQ7OBNT-57882C8D",
+        "MOP0LEAL-E2568DCC"
       ]
     },
     {
-      "source": "lm-verwandlung",
-      "target": "stimme",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MOQIJIOJ-61E8F0F4",
-        "MOQID47V-A12862EA",
-        "MOHVDNEU-D3F7EEB5"
-      ]
-    },
-    {
-      "source": "bewusstsein",
-      "target": "lm-grenze",
+      "source": "lm-begegnung",
+      "target": "lm-verwandlung",
       "cooccurrence": 2,
       "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
+        "path-analyse": 2
       },
       "sampleEntryIds": [
-        "MPJXEFVC-49A699FA",
-        "MPEV1D2J-55138734"
+        "MPMTLD4Y-B5FD9EFB",
+        "MPMSSG1X-8451DE38"
       ]
     },
     {
@@ -154,103 +95,6 @@
     },
     {
       "source": "bewusstsein",
-      "target": "resonanzvernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPF4FISZ-67000E01",
-        "MPEV1D2J-55138734"
-      ]
-    },
-    {
-      "source": "selbst",
-      "target": "vernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPF4FISZ-67000E01",
-        "MPEV1D2J-55138734"
-      ]
-    },
-    {
-      "source": "bewusstsein",
-      "target": "freiheit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MOQIGG2B-2F0C3F5D"
-      ]
-    },
-    {
-      "source": "freiheit",
-      "target": "vernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MOOMJDPP-1F336D7D"
-      ]
-    },
-    {
-      "source": "lm-grenze",
-      "target": "resonanzvernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MP8UIMZW-BADE77E5"
-      ]
-    },
-    {
-      "source": "lm-grenze",
-      "target": "selbst",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MP0ZE9C8-A9D02716"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
-      "target": "transaufklaerung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "transaufklaerung",
-      "target": "zwischen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPEV1D2J-55138734",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "bewusstsein",
       "target": "moment",
       "cooccurrence": 2,
       "endpoints": {
@@ -273,6 +117,18 @@
       "sampleEntryIds": [
         "MPCUVOK6-27CB8359",
         "MOLNG57A-2F155772"
+      ]
+    },
+    {
+      "source": "lm-grenze",
+      "target": "vernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPBI57AL-76627781",
+        "MOPHZPQ7-B63879B5"
       ]
     },
     {
@@ -361,6 +217,18 @@
       ]
     },
     {
+      "source": "stimme",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MP0QMSOR-C6EC1B5A",
+        "MOQID47V-A12862EA"
+      ]
+    },
+    {
       "source": "lm-spiegel",
       "target": "resonanzvernunft",
       "cooccurrence": 2,
@@ -371,42 +239,6 @@
       "sampleEntryIds": [
         "MOUKLLK4-C38517C1",
         "MOP0S479-373A2268"
-      ]
-    },
-    {
-      "source": "lm-verwandlung",
-      "target": "zwischen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQIJIOJ-61E8F0F4",
-        "MOQID47V-A12862EA"
-      ]
-    },
-    {
-      "source": "resonanz",
-      "target": "öffnung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQIJIOJ-61E8F0F4",
-        "MOQID47V-A12862EA"
-      ]
-    },
-    {
-      "source": "stimme",
-      "target": "öffnung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQIJIOJ-61E8F0F4",
-        "MOQID47V-A12862EA"
       ]
     },
     {
@@ -423,99 +255,16 @@
       ]
     },
     {
-      "source": "resonanzvernunft",
-      "target": "sein",
+      "source": "lm-verwandlung",
+      "target": "stimme",
       "cooccurrence": 2,
       "endpoints": {
-        "path-analyse": 2
+        "path-analyse": 1,
+        "analyse": 1
       },
       "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
-      "target": "wahrheit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "sein",
-      "target": "vernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "sein",
-      "target": "zwischen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "unverfuegbarkeit",
-      "target": "vernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "unverfuegbarkeit",
-      "target": "wahrheit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
-      ]
-    },
-    {
-      "source": "wahrheit",
-      "target": "zwischen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077"
+        "MOQID47V-A12862EA",
+        "MOHVDNEU-D3F7EEB5"
       ]
     },
     {
@@ -532,9 +281,9 @@
     }
   ],
   "stats": {
-    "totalPairs": 232,
-    "candidatesCount": 42,
+    "totalPairs": 211,
+    "candidatesCount": 22,
     "existingEdges": 116,
-    "maxCooccurrence": 5
+    "maxCooccurrence": 3
   }
 }
