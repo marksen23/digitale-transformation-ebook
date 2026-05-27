@@ -36,8 +36,11 @@ const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
 
 const VALID_ENDPOINTS = new Set([
   "chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse",
+  // Tier-1-3-Roadmap: zwei neue Endpoint-Typen
+  "passage",  // Feature A — In-Text-Resonanz aus Werkpassage
+  "dialog",   // Feature B — Multi-Turn-Dialog Persist
 ]);
-const VALID_STATUS = new Set(["raw", "pending", "approved", "published"]);
+const VALID_STATUS = new Set(["raw", "pending", "approved", "published", "rejected"]);
 
 interface ValidationIssue {
   level: "error" | "warning";
