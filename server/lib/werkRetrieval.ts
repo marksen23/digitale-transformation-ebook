@@ -403,6 +403,87 @@ export async function retrieveRelevantCorpusMultiQuery(
 }
 
 /**
+ * R4: LLM-Re-Ranking. Nimmt einen Pool von Cosine-Kandidaten (typisch 15)
+ * und lässt Claude die top-K relevantesten herauspicken — basierend auf
+ * dem tatsächlichen Inhalt, nicht nur Vektor-Distanz.
+ *
+ * Vorteil: catches Fälle wo Cosine semantische Nähe behauptet aber das
+ * Werk-Material thematisch fern ist. Auch: dämpft R3-Über-Expansion
+ * (wenn Multi-Query zu lockere Treffer liefert).
+ *
+ * Opt-in via RAG_RERANK=1 (kostet 1 extra Claude-Call ~800ms).
+ * Bei Claude-Fehler: fallback auf Cosine-Order.
+ */
+export async function rerankWithClaude(
+  query: string,
+  candidates: RetrievedPassage[],
+  finalTopK: number,
+): Promise<RetrievedPassage[]> {
+  if (process.env.RAG_RERANK !== "1") return candidates.slice(0, finalTopK);
+  if (candidates.length <= finalTopK) return candidates;
+  try {
+    const { callClaude, isClaudeAvailable } = await import("./claudeClient.js");
+    if (!isClaudeAvailable()) return candidates.slice(0, finalTopK);
+
+    // Kompakte Beschreibung pro Kandidat — kurzer Snippet, damit der
+    // Claude-Call nicht explodiert. Für resonanz: Frage+kurze Antwort;
+    // für werk: erste 250 chars des Chunks.
+    const candidateBlock = candidates.map((c, i) => {
+      const snippet = c.source === "resonanz"
+        ? `(frühere Frage: "${(c.prompt ?? "").slice(0, 120)}") ${(c.text ?? "").slice(0, 220)}`
+        : `${(c.text ?? "").slice(0, 250)}`;
+      return `[${i + 1}] (${c.source}, id=${c.id}): ${snippet}`;
+    }).join("\n\n");
+
+    const system = `Du bist ein präziser Retrieval-Reranker für ein deutsches Philosophiewerk. Aus einer Liste von Kandidaten wählst du die ${finalTopK} relevantesten für eine User-Anfrage aus — basierend darauf, wie direkt jeder Kandidat zur tatsächlich gestellten Frage Stellung nimmt.
+
+ANTWORT-FORMAT (STRIKT — exakt eine Zeile mit JSON-Array):
+[<index1>, <index2>, ..., <index${finalTopK}>]
+
+Beispiel für ${finalTopK} Treffer: [3, 7, 1, 11, 5]
+Keine Erklärung, keine Markdown, kein Vorspann.`;
+
+    const user = `ANFRAGE: ${query}
+
+KANDIDATEN:
+${candidateBlock}
+
+Wähle die ${finalTopK} relevantesten Indizes.`;
+
+    const text = await callClaude({ system, user, maxTokens: 100, temperature: 0.1 });
+    if (!text) return candidates.slice(0, finalTopK);
+
+    // Parse JSON-Array
+    const m = text.match(/\[\s*[\d,\s]+\]/);
+    if (!m) return candidates.slice(0, finalTopK);
+    const indices = JSON.parse(m[0]) as number[];
+    if (!Array.isArray(indices)) return candidates.slice(0, finalTopK);
+
+    const picked: RetrievedPassage[] = [];
+    const seen = new Set<number>();
+    for (const idx of indices) {
+      if (typeof idx !== "number" || idx < 1 || idx > candidates.length) continue;
+      if (seen.has(idx)) continue;
+      seen.add(idx);
+      picked.push(candidates[idx - 1]);
+      if (picked.length >= finalTopK) break;
+    }
+    // Fall: Claude hat zu wenige Indizes geliefert — top-K mit Cosine-Order auffüllen
+    if (picked.length < finalTopK) {
+      for (const c of candidates) {
+        if (picked.includes(c)) continue;
+        picked.push(c);
+        if (picked.length >= finalTopK) break;
+      }
+    }
+    return picked;
+  } catch (err) {
+    console.warn(`[rerankWithClaude] failed, fallback to cosine: ${err instanceof Error ? err.message : err}`);
+    return candidates.slice(0, finalTopK);
+  }
+}
+
+/**
  * One-Shot-Helper für KI-Endpunkte: retrieved + formatted in einem Call.
  * R1: jetzt zieht aus BEIDEN Quellen (Werk + Resonanzen). Default 3+2,
  * aber konfigurierbar. R3: nutzt Multi-Query, wenn expansion verfügbar.
@@ -414,13 +495,33 @@ export async function buildWerkContext(query: string, topK = 5): Promise<{
   passages: RetrievedPassage[];
   contextBlock: string;
   expandedQueries?: string[];
+  reranked?: boolean;
 }> {
   // Default-Mix: 60% Werk, 40% Resonanzen — der Buchtext bleibt primär,
   // die Resonanzen ergänzen mit Dialog-Tiefe.
   const topKWerk = Math.max(1, Math.round(topK * 0.6));
   const topKResonanz = Math.max(1, topK - topKWerk);
-  const { passages, expandedQueries } = await retrieveRelevantCorpusMultiQuery(query, topKWerk, topKResonanz);
-  return { passages, contextBlock: formatWerkContext(passages), expandedQueries };
+
+  // R4: wenn Reranking aktiv, holen wir größeren Cosine-Pool (×3),
+  // damit Claude echte Auswahl hat. Sonst direkt top-K.
+  const rerankEnabled = process.env.RAG_RERANK === "1";
+  const overFetch = rerankEnabled ? 3 : 1;
+  const { passages: candidates, expandedQueries } = await retrieveRelevantCorpusMultiQuery(
+    query,
+    topKWerk * overFetch,
+    topKResonanz * overFetch,
+  );
+
+  let finalPassages = candidates;
+  let reranked = false;
+  if (rerankEnabled && candidates.length > topK) {
+    finalPassages = await rerankWithClaude(query, candidates, topK);
+    reranked = finalPassages !== candidates;
+  } else {
+    finalPassages = candidates.slice(0, topK);
+  }
+
+  return { passages: finalPassages, contextBlock: formatWerkContext(finalPassages), expandedQueries, reranked };
 }
 
 /** Liefert eine flache Lookup-Map id → Chunk für die KI-Antwort-Renderer
