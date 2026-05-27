@@ -133,16 +133,32 @@ function buildPool(includeResonanzInRetrieval: (id: string) => boolean): Pool | 
 
 interface RankItem { source: "werk" | "resonanz"; id: string; score: number; meta?: WerkChunk | ResonanzEntry }
 
+/**
+ * Eval-Retrieval spiegelt JETZT die Produktion (server/lib/werkRetrieval.ts
+ * retrieveRelevantCorpus): getrennte top-K für Werk und Resonanz, dann mergen.
+ *
+ * Default-Mix: 60% Werk, 40% Resonanz — wie buildWerkContext es macht.
+ */
 function retrieveTopK(pool: Pool, qVec: number[], topK: number): RankItem[] {
-  const all: RankItem[] = [];
+  // Mix 60/40 mit min 1 pro Source (analog buildWerkContext)
+  const topKWerk = Math.max(1, Math.round(topK * 0.6));
+  const topKReso = Math.max(1, topK - topKWerk);
+
+  const werkScored: RankItem[] = [];
   for (const c of pool.werkChunks) {
-    all.push({ source: "werk", id: c.id, score: cosine(qVec, c.embedding) * 1.05, meta: c });
+    werkScored.push({ source: "werk", id: c.id, score: cosine(qVec, c.embedding) * 1.05, meta: c });
   }
+  werkScored.sort((a, b) => b.score - a.score);
+
+  const resoScored: RankItem[] = [];
   for (const e of pool.resoEntries) {
-    all.push({ source: "resonanz", id: e.id, score: cosine(qVec, e.embedding), meta: e });
+    resoScored.push({ source: "resonanz", id: e.id, score: cosine(qVec, e.embedding), meta: e });
   }
-  all.sort((a, b) => b.score - a.score);
-  return all.slice(0, topK);
+  resoScored.sort((a, b) => b.score - a.score);
+
+  const merged = [...werkScored.slice(0, topKWerk), ...resoScored.slice(0, topKReso)];
+  merged.sort((a, b) => b.score - a.score);
+  return merged;
 }
 
 // ─── Metriken ────────────────────────────────────────────────────────────
@@ -150,16 +166,17 @@ function retrieveTopK(pool: Pool, qVec: number[], topK: number): RankItem[] {
 interface AutoQueryResult {
   queryId: string;
   prompt: string;
-  selfRecall: boolean;
+  // (selfRecall entfernt — Pool exkludiert die Query-Resonanz, daher per
+  // Konstruktion immer false. Tote Metrik, irreführend.)
   siblingRecallCount: number;
   siblingRecallExpected: number;
   nodeOverlapAvg: number;
+  sourceMix: { werk: number; resonanz: number };
   topResults: Array<{ source: string; id: string; score: number }>;
 }
 
-function evalSelfRecall(entry: ResonanzEntry & { embedding: number[] }, pool: Pool): AutoQueryResult {
+function evalRetrieval(entry: ResonanzEntry & { embedding: number[] }, pool: Pool): AutoQueryResult {
   const top = retrieveTopK(pool, entry.embedding, TOP_K);
-  const selfRecall = top.some(r => r.source === "resonanz" && r.id === entry.id);
   const expectedSiblings = entry.related ?? [];
   const siblingRecallCount = expectedSiblings.filter(sid => top.some(r => r.source === "resonanz" && r.id === sid)).length;
   // Node-Overlap: durchschnittlich-geteilte nodeIds zwischen entry und top-K-Resonanzen
@@ -172,13 +189,17 @@ function evalSelfRecall(entry: ResonanzEntry & { embedding: number[] }, pool: Po
     overlaps.push(shared);
   }
   const nodeOverlapAvg = overlaps.length > 0 ? overlaps.reduce((s, n) => s + n, 0) / overlaps.length : 0;
+  const sourceMix = {
+    werk: top.filter(r => r.source === "werk").length,
+    resonanz: top.filter(r => r.source === "resonanz").length,
+  };
   return {
     queryId: entry.id,
     prompt: entry.prompt.slice(0, 120),
-    selfRecall,
     siblingRecallCount,
     siblingRecallExpected: expectedSiblings.length,
     nodeOverlapAvg: Number(nodeOverlapAvg.toFixed(2)),
+    sourceMix,
     topResults: top.map(r => ({ source: r.source, id: r.id, score: Number(r.score.toFixed(3)) })),
   };
 }
@@ -242,7 +263,7 @@ async function main() {
   for (const entry of curated) {
     const pool = buildPool(id => id !== entry.id);
     if (!pool) break;
-    autoResults.push(evalSelfRecall({ ...entry, embedding: emb.embeddings[entry.id] }, pool));
+    autoResults.push(evalRetrieval({ ...entry, embedding: emb.embeddings[entry.id] }, pool));
   }
 
   const autoStats = (() => {
@@ -252,11 +273,20 @@ async function main() {
     const siblingRecallRate = withSiblings.length === 0 ? 0 :
       withSiblings.reduce((s, r) => s + (r.siblingRecallCount / r.siblingRecallExpected), 0) / withSiblings.length;
     const nodeOverlapAvg = autoResults.reduce((s, r) => s + r.nodeOverlapAvg, 0) / autoResults.length;
+    // Source-Mix: durchschnittlich werk-Anteil pro Antwort
+    const werkTotal = autoResults.reduce((s, r) => s + r.sourceMix.werk, 0);
+    const resoTotal = autoResults.reduce((s, r) => s + r.sourceMix.resonanz, 0);
+    const sourceMixWerk = werkTotal / (werkTotal + resoTotal);
     return {
       total: autoResults.length,
       siblingRecallAvg: Number(siblingRecallRate.toFixed(3)),
       nodeOverlapAvg: Number(nodeOverlapAvg.toFixed(2)),
       withSiblingsCount: withSiblings.length,
+      sourceMix: {
+        werkPct: Number((sourceMixWerk * 100).toFixed(1)),
+        werkTotal,
+        resoTotal,
+      },
     };
   })();
 
@@ -316,6 +346,7 @@ async function main() {
     console.log(`   Total Queries:          ${autoStats.total}`);
     console.log(`   Sibling-Recall Ø:       ${(autoStats.siblingRecallAvg * 100).toFixed(1)}%  (über ${autoStats.withSiblingsCount} Einträge mit ≥1 erwartetem Geschwister)`);
     console.log(`   Node-Overlap Ø in top5: ${autoStats.nodeOverlapAvg} gemeinsame nodeIds`);
+    console.log(`   Source-Mix in top-5:    ${autoStats.sourceMix.werkPct}% Werk · ${(100 - autoStats.sourceMix.werkPct).toFixed(1)}% Resonanz`);
   }
   if (manualStats) {
     console.log("\n🎯 MANUAL-MODE (eval/manual-queries.json mit Live-Embedding):");

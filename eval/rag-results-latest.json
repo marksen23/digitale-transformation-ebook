@@ -1,26 +1,148 @@
 {
-  "generatedAt": "2026-05-27T00:57:28.232Z",
+  "generatedAt": "2026-05-27T08:04:01.652Z",
   "config": {
     "topK": 5,
     "embedModel": "gemini-embedding-001",
-    "autoQueries": 10,
+    "autoQueries": 79,
     "manualQueries": 0
   },
   "autoStats": {
-    "total": 10,
-    "siblingRecallAvg": 0.2,
-    "nodeOverlapAvg": 0.32,
-    "withSiblingsCount": 10
+    "total": 79,
+    "siblingRecallAvg": 0.387,
+    "nodeOverlapAvg": 0.54,
+    "withSiblingsCount": 79,
+    "sourceMix": {
+      "werkPct": 60,
+      "werkTotal": 237,
+      "resoTotal": 158
+    }
   },
   "manualStats": null,
   "autoResults": [
     {
+      "queryId": "MPMSSG1X-8451DE38",
+      "prompt": "Pfad-Analyse: Begegnung → Resonanzvernunft → Verwandlung",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.918
+        },
+        {
+          "source": "resonanz",
+          "id": "MOP0LEAL-E2568DCC",
+          "score": 0.916
+        },
+        {
+          "source": "werk",
+          "id": "c2b5b5b33cec",
+          "score": 0.847
+        },
+        {
+          "source": "werk",
+          "id": "61a890561bea",
+          "score": 0.832
+        },
+        {
+          "source": "werk",
+          "id": "d226821289cc",
+          "score": 0.83
+        }
+      ]
+    },
+    {
+      "queryId": "MPMJC8TR-592D4EF0",
+      "prompt": "Pfad-Analyse: Wahrheit → Spiegel → Resonanz → Schwingung",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOQ5A1GS-413BDE6F",
+          "score": 0.878
+        },
+        {
+          "source": "resonanz",
+          "id": "MOLNG57A-2F155772",
+          "score": 0.871
+        },
+        {
+          "source": "werk",
+          "id": "c2b5b5b33cec",
+          "score": 0.822
+        },
+        {
+          "source": "werk",
+          "id": "0a0504b7a952",
+          "score": 0.822
+        },
+        {
+          "source": "werk",
+          "id": "fccb762323f9",
+          "score": 0.815
+        }
+      ]
+    },
+    {
+      "queryId": "MPMI3ZF2-2F83F425",
+      "prompt": "Spannungsfeld: Zeitlichkeit ↔ Spielraum",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.876
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHMIET1-6D429A85",
+          "score": 0.876
+        },
+        {
+          "source": "werk",
+          "id": "bed180b4f42d",
+          "score": 0.853
+        },
+        {
+          "source": "werk",
+          "id": "cebc62ef35fc",
+          "score": 0.847
+        },
+        {
+          "source": "werk",
+          "id": "9cd6b90ea2b1",
+          "score": 0.821
+        }
+      ]
+    },
+    {
       "queryId": "MPK0H3SM-B25CFBB3",
       "prompt": "Pfad-Vergleich: Existenz → Dasein → Resonanzvernunft → Verwandlung vs. Existenz → Scheitern → Werden → Verwandlung",
-      "selfRecall": false,
-      "siblingRecallCount": 1,
+      "siblingRecallCount": 2,
       "siblingRecallExpected": 5,
       "nodeOverlapAvg": 0,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
       "topResults": [
         {
           "source": "resonanz",
@@ -29,33 +151,340 @@
         },
         {
           "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.849
+          "id": "MP8UIMZW-BADE77E5",
+          "score": 0.927
+        },
+        {
+          "source": "werk",
+          "id": "fccb762323f9",
+          "score": 0.818
+        },
+        {
+          "source": "werk",
+          "id": "51d652e66f62",
+          "score": 0.796
+        },
+        {
+          "source": "werk",
+          "id": "c2b5b5b33cec",
+          "score": 0.795
+        }
+      ]
+    },
+    {
+      "queryId": "MPJXEFVC-49A699FA",
+      "prompt": "Quadratur: Bewusstsein · Welt · Das Andere / Die Anderen · Grenze",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPBI57AL-76627781",
+          "score": 0.92
         },
         {
           "source": "resonanz",
-          "id": "MP74X3EJ-72CDDB9F",
-          "score": 0.837
+          "id": "MPCV5LR8-9AD1527C",
+          "score": 0.913
+        },
+        {
+          "source": "werk",
+          "id": "0a0504b7a952",
+          "score": 0.833
+        },
+        {
+          "source": "werk",
+          "id": "c2b5b5b33cec",
+          "score": 0.829
+        },
+        {
+          "source": "werk",
+          "id": "cba5cb733717",
+          "score": 0.825
+        }
+      ]
+    },
+    {
+      "queryId": "MPJUHM1L-0BA3DF6E",
+      "prompt": "Triade: Gegenwart · Dazwischenintelligenz · Antwort / Responsivität",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.936
+        },
+        {
+          "source": "resonanz",
+          "id": "MOQ5IKR5-C67AAC15",
+          "score": 0.903
+        },
+        {
+          "source": "werk",
+          "id": "da10d44c9239",
+          "score": 0.857
+        },
+        {
+          "source": "werk",
+          "id": "132590f9259f",
+          "score": 0.853
+        },
+        {
+          "source": "werk",
+          "id": "61a890561bea",
+          "score": 0.849
+        }
+      ]
+    },
+    {
+      "queryId": "MPJEBNX3-042F2A69",
+      "prompt": "Spannungsfeld: Gegenwart ↔ Dazwischenintelligenz",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPJUHM1L-0BA3DF6E",
+          "score": 0.936
         },
         {
           "source": "resonanz",
           "id": "MOHV84M5-1825A399",
-          "score": 0.805
+          "score": 0.891
+        },
+        {
+          "source": "werk",
+          "id": "da10d44c9239",
+          "score": 0.876
+        },
+        {
+          "source": "werk",
+          "id": "d226821289cc",
+          "score": 0.847
+        },
+        {
+          "source": "werk",
+          "id": "132590f9259f",
+          "score": 0.844
+        }
+      ]
+    },
+    {
+      "queryId": "MPH4R3SE-C224ACED",
+      "prompt": "Triade: Das Zwischen · Wirklichkeit · Grenze",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOPHZPQ7-B63879B5",
+          "score": 0.877
         },
         {
           "source": "resonanz",
-          "id": "MP2LIW43-E8ADC59E",
-          "score": 0.798
+          "id": "MOOZHCUT-4B86F8AD",
+          "score": 0.873
+        },
+        {
+          "source": "werk",
+          "id": "333e5dc88601",
+          "score": 0.811
+        },
+        {
+          "source": "werk",
+          "id": "132590f9259f",
+          "score": 0.806
+        },
+        {
+          "source": "werk",
+          "id": "83e4ac396ed5",
+          "score": 0.804
+        }
+      ]
+    },
+    {
+      "queryId": "MPF4WM18-FF4843F1",
+      "prompt": "Quadratur: Denken · Echo-Kammer · Echo · Schweigen",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPBI57AL-76627781",
+          "score": 0.888
+        },
+        {
+          "source": "resonanz",
+          "id": "MPCV5LR8-9AD1527C",
+          "score": 0.888
+        },
+        {
+          "source": "werk",
+          "id": "b56b37010ec7",
+          "score": 0.837
+        },
+        {
+          "source": "werk",
+          "id": "2af0f0e854f3",
+          "score": 0.821
+        },
+        {
+          "source": "werk",
+          "id": "cba5cb733717",
+          "score": 0.82
+        }
+      ]
+    },
+    {
+      "queryId": "MPEV1D2J-55138734",
+      "prompt": "Pfad-Vergleich: Transaufklärung → Vernunft → Resonanzvernunft → Das Zwischen → Grenze vs. Transaufklärung → Bewusstsein ",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MP8UIMZW-BADE77E5",
+          "score": 0.924
+        },
+        {
+          "source": "resonanz",
+          "id": "MP0ZE9C8-A9D02716",
+          "score": 0.921
+        },
+        {
+          "source": "werk",
+          "id": "61a890561bea",
+          "score": 0.81
+        },
+        {
+          "source": "werk",
+          "id": "fccb762323f9",
+          "score": 0.809
+        },
+        {
+          "source": "werk",
+          "id": "cba5cb733717",
+          "score": 0.807
+        }
+      ]
+    },
+    {
+      "queryId": "MPCV5LR8-9AD1527C",
+      "prompt": "Quadratur: Moment · Bewusstsein · Schwingung · Welt",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.913
+        },
+        {
+          "source": "resonanz",
+          "id": "MPBI57AL-76627781",
+          "score": 0.892
+        },
+        {
+          "source": "werk",
+          "id": "9cd6b90ea2b1",
+          "score": 0.815
+        },
+        {
+          "source": "werk",
+          "id": "c2b5b5b33cec",
+          "score": 0.813
+        },
+        {
+          "source": "werk",
+          "id": "f37708380c63",
+          "score": 0.811
+        }
+      ]
+    },
+    {
+      "queryId": "MPBI57AL-76627781",
+      "prompt": "Quadratur: Vernunft · Grenze · Scheitern · Das Zwischen",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.92
+        },
+        {
+          "source": "resonanz",
+          "id": "MPCV5LR8-9AD1527C",
+          "score": 0.892
+        },
+        {
+          "source": "werk",
+          "id": "cba5cb733717",
+          "score": 0.826
+        },
+        {
+          "source": "werk",
+          "id": "a329de22ef42",
+          "score": 0.824
+        },
+        {
+          "source": "werk",
+          "id": "333e5dc88601",
+          "score": 0.817
         }
       ]
     },
     {
       "queryId": "MPARZ5F0-A9FD6F70",
       "prompt": "Triade: Einsicht · Vernunft · Antwort / Responsivität",
-      "selfRecall": false,
-      "siblingRecallCount": 1,
+      "siblingRecallCount": 2,
       "siblingRecallExpected": 5,
       "nodeOverlapAvg": 0,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
       "topResults": [
         {
           "source": "resonanz",
@@ -64,303 +493,289 @@
         },
         {
           "source": "resonanz",
-          "id": "MOHV84M5-1825A399",
-          "score": 0.855
+          "id": "MOQ5IKR5-C67AAC15",
+          "score": 0.903
         },
         {
-          "source": "resonanz",
-          "id": "MOP0S479-373A2268",
-          "score": 0.841
+          "source": "werk",
+          "id": "333e5dc88601",
+          "score": 0.854
         },
         {
-          "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.827
+          "source": "werk",
+          "id": "132590f9259f",
+          "score": 0.84
         },
         {
-          "source": "resonanz",
-          "id": "MP74X3EJ-72CDDB9F",
-          "score": 0.814
+          "source": "werk",
+          "id": "c2b5b5b33cec",
+          "score": 0.84
         }
       ]
     },
     {
-      "queryId": "MP74X3EJ-72CDDB9F",
-      "prompt": "nur meine konkrete Frage ist gewesen wie das genau gemeint ist mit die Wahrheit wird zur Antwort und die Antwort zu Verw",
-      "selfRecall": false,
-      "siblingRecallCount": 0,
+      "queryId": "MPAH317T-242EECA7",
+      "prompt": "Spannungsfeld: Dialog ↔ Ich–Du-Beziehung",
+      "siblingRecallCount": 2,
       "siblingRecallExpected": 5,
-      "nodeOverlapAvg": 0,
+      "nodeOverlapAvg": 1.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
       "topResults": [
         {
           "source": "resonanz",
-          "id": "MOOMPCI0-262176C2",
-          "score": 0.848
+          "id": "MPAGOCGB-FB54D923",
+          "score": 0.963
         },
         {
           "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.846
+          "id": "MOHAGNGB-5330902E",
+          "score": 0.931
+        },
+        {
+          "source": "werk",
+          "id": "eed541c959a6",
+          "score": 0.839
+        },
+        {
+          "source": "werk",
+          "id": "0ca9aa7581e4",
+          "score": 0.824
+        },
+        {
+          "source": "werk",
+          "id": "ccd414493472",
+          "score": 0.82
+        }
+      ]
+    },
+    {
+      "queryId": "MPAGOCGB-FB54D923",
+      "prompt": "Spannungsfeld: Dialog ↔ Ich–Du-Beziehung",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 1.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPAH317T-242EECA7",
+          "score": 0.963
         },
         {
           "source": "resonanz",
-          "id": "MOHV84M5-1825A399",
-          "score": 0.845
+          "id": "MOHAGNGB-5330902E",
+          "score": 0.93
         },
         {
-          "source": "resonanz",
-          "id": "MPK0H3SM-B25CFBB3",
+          "source": "werk",
+          "id": "51d652e66f62",
+          "score": 0.838
+        },
+        {
+          "source": "werk",
+          "id": "0a0504b7a952",
           "score": 0.837
         },
         {
-          "source": "resonanz",
-          "id": "MP2LIW43-E8ADC59E",
-          "score": 0.818
+          "source": "werk",
+          "id": "61a890561bea",
+          "score": 0.825
         }
       ]
     },
     {
-      "queryId": "MP2LIW43-E8ADC59E",
-      "prompt": "Triade: Begegnung · Selbst · Resonanzvernunft",
-      "selfRecall": false,
-      "siblingRecallCount": 1,
+      "queryId": "MP9FAM1L-8970F371",
+      "prompt": "Spannungsfeld: Welt ↔ Entfremdung",
+      "siblingRecallCount": 2,
       "siblingRecallExpected": 5,
-      "nodeOverlapAvg": 0.6,
+      "nodeOverlapAvg": 0.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
       "topResults": [
         {
-          "source": "resonanz",
-          "id": "MPARZ5F0-A9FD6F70",
-          "score": 0.914
+          "source": "werk",
+          "id": "0c06195efe06",
+          "score": 0.88
         },
         {
           "source": "resonanz",
-          "id": "MOHV84M5-1825A399",
-          "score": 0.892
+          "id": "MOHM21Y5-A3B5F539",
+          "score": 0.866
+        },
+        {
+          "source": "werk",
+          "id": "4bb4b9f58d13",
+          "score": 0.85
+        },
+        {
+          "source": "werk",
+          "id": "d61c2ee7339c",
+          "score": 0.85
         },
         {
           "source": "resonanz",
-          "id": "MOP0S479-373A2268",
-          "score": 0.873
-        },
-        {
-          "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.848
-        },
-        {
-          "source": "resonanz",
-          "id": "MOPEYJKU-C4711B5F",
-          "score": 0.827
+          "id": "MOOZHCUT-4B86F8AD",
+          "score": 0.842
         }
       ]
     },
     {
-      "queryId": "MOPFJTND-AAE76B2B",
-      "prompt": "Pfad-Analyse: Spannung → Resonanz → Resonanzvernunft",
-      "selfRecall": false,
-      "siblingRecallCount": 1,
-      "siblingRecallExpected": 5,
-      "nodeOverlapAvg": 0.8,
-      "topResults": [
-        {
-          "source": "resonanz",
-          "id": "MOOMPCI0-262176C2",
-          "score": 0.906
-        },
-        {
-          "source": "resonanz",
-          "id": "MOHV84M5-1825A399",
-          "score": 0.872
-        },
-        {
-          "source": "resonanz",
-          "id": "MPK0H3SM-B25CFBB3",
-          "score": 0.849
-        },
-        {
-          "source": "resonanz",
-          "id": "MP2LIW43-E8ADC59E",
-          "score": 0.848
-        },
-        {
-          "source": "resonanz",
-          "id": "MP74X3EJ-72CDDB9F",
-          "score": 0.846
-        }
-      ]
-    },
-    {
-      "queryId": "MOPEYJKU-C4711B5F",
-      "prompt": "Spannungsfeld: Bewusstsein ↔ Sein",
-      "selfRecall": false,
+      "queryId": "MP8UIMZW-BADE77E5",
+      "prompt": "Pfad-Vergleich: Dasein → Resonanzvernunft → Resonanz → Spannung vs. Dasein → Wesen → Grenze → Spannung",
       "siblingRecallCount": 2,
       "siblingRecallExpected": 5,
       "nodeOverlapAvg": 0,
-      "topResults": [
-        {
-          "source": "resonanz",
-          "id": "MOHV84M5-1825A399",
-          "score": 0.845
-        },
-        {
-          "source": "resonanz",
-          "id": "MOP0S479-373A2268",
-          "score": 0.836
-        },
-        {
-          "source": "resonanz",
-          "id": "MP2LIW43-E8ADC59E",
-          "score": 0.827
-        },
-        {
-          "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.799
-        },
-        {
-          "source": "resonanz",
-          "id": "MPARZ5F0-A9FD6F70",
-          "score": 0.787
-        }
-      ]
-    },
-    {
-      "queryId": "MOP0S479-373A2268",
-      "prompt": "Spannungsfeld: Resonanzvernunft ↔ Spiegel",
-      "selfRecall": false,
-      "siblingRecallCount": 2,
-      "siblingRecallExpected": 5,
-      "nodeOverlapAvg": 0.6,
-      "topResults": [
-        {
-          "source": "resonanz",
-          "id": "MOHV84M5-1825A399",
-          "score": 0.876
-        },
-        {
-          "source": "resonanz",
-          "id": "MP2LIW43-E8ADC59E",
-          "score": 0.873
-        },
-        {
-          "source": "resonanz",
-          "id": "MPARZ5F0-A9FD6F70",
-          "score": 0.841
-        },
-        {
-          "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.841
-        },
-        {
-          "source": "resonanz",
-          "id": "MOPEYJKU-C4711B5F",
-          "score": 0.836
-        }
-      ]
-    },
-    {
-      "queryId": "MOOMPCI0-262176C2",
-      "prompt": "Pfad-Vergleich: Welt → Resonanz → Resonanzvernunft → Vernunft vs. Welt → Verwandlung → Resonanzvernunft → Vernunft",
-      "selfRecall": false,
-      "siblingRecallCount": 0,
-      "siblingRecallExpected": 5,
-      "nodeOverlapAvg": 0.6,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
       "topResults": [
         {
           "source": "resonanz",
           "id": "MPK0H3SM-B25CFBB3",
-          "score": 0.928
+          "score": 0.927
         },
         {
           "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.906
+          "id": "MPEV1D2J-55138734",
+          "score": 0.924
         },
         {
-          "source": "resonanz",
-          "id": "MP74X3EJ-72CDDB9F",
-          "score": 0.848
-        },
-        {
-          "source": "resonanz",
-          "id": "MOP0S479-373A2268",
+          "source": "werk",
+          "id": "53e7f4b168a8",
           "score": 0.813
         },
         {
-          "source": "resonanz",
-          "id": "MOOK5A30-F596F31D",
-          "score": 0.812
+          "source": "werk",
+          "id": "fccb762323f9",
+          "score": 0.809
+        },
+        {
+          "source": "werk",
+          "id": "51d652e66f62",
+          "score": 0.808
         }
       ]
     },
     {
-      "queryId": "MOOK5A30-F596F31D",
-      "prompt": "Hello",
-      "selfRecall": false,
-      "siblingRecallCount": 1,
+      "queryId": "MP8OB1IU-F6C31DC7",
+      "prompt": "Spannungsfeld: Weltfaltung ↔ Wirklichkeit",
+      "siblingRecallCount": 2,
       "siblingRecallExpected": 5,
-      "nodeOverlapAvg": 0,
+      "nodeOverlapAvg": 1.5,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
       "topResults": [
         {
           "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.825
+          "id": "MOOVXCI4-822961D2",
+          "score": 0.887
         },
         {
           "source": "resonanz",
-          "id": "MOHV84M5-1825A399",
-          "score": 0.818
+          "id": "MPH4R3SE-C224ACED",
+          "score": 0.864
+        },
+        {
+          "source": "werk",
+          "id": "4945013b9d62",
+          "score": 0.836
+        },
+        {
+          "source": "werk",
+          "id": "9b6eafae21ce",
+          "score": 0.836
+        },
+        {
+          "source": "werk",
+          "id": "98ba0b8dddb5",
+          "score": 0.836
+        }
+      ]
+    },
+    {
+      "queryId": "MP8O6ND9-133F3FFB",
+      "prompt": "Bitte fortsetzen: Deine Antworten werden nicht vollständig ausgegeben",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "werk",
+          "id": "9cd6b90ea2b1",
+          "score": 0.811
+        },
+        {
+          "source": "werk",
+          "id": "3ee1f8689e78",
+          "score": 0.804
+        },
+        {
+          "source": "werk",
+          "id": "731009c0dbac",
+          "score": 0.8
         },
         {
           "source": "resonanz",
-          "id": "MOOMPCI0-262176C2",
-          "score": 0.812
+          "id": "MOHCN98S-2540F4DF",
+          "score": 0.778
         },
         {
           "source": "resonanz",
-          "id": "MP74X3EJ-72CDDB9F",
+          "id": "MP8O4O23-B2B71E51",
+          "score": 0.777
+        }
+      ]
+    },
+    {
+      "queryId": "MP8O4O23-B2B71E51",
+      "prompt": "...",
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "sourceMix": {
+        "werk": 3,
+        "resonanz": 2
+      },
+      "topResults": [
+        {
+          "source": "werk",
+          "id": "731009c0dbac",
+          "score": 0.933
+        },
+        {
+          "source": "werk",
+          "id": "d32e5c8ec4d3",
+          "score": 0.906
+        },
+        {
+          "source": "werk",
+          "id": "577fed3bc3d2",
+          "score": 0.896
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHLZBVK-2FBBAD2F",
           "score": 0.808
         },
         {
           "source": "resonanz",
           "id": "MP2LIW43-E8ADC59E",
-          "score": 0.795
-        }
-      ]
-    },
-    {
-      "queryId": "MOHV84M5-1825A399",
-      "prompt": "Spannungsfeld: Resonanzvernunft ↔ Zwischen",
-      "selfRecall": false,
-      "siblingRecallCount": 1,
-      "siblingRecallExpected": 5,
-      "nodeOverlapAvg": 0.6,
-      "topResults": [
-        {
-          "source": "resonanz",
-          "id": "MP2LIW43-E8ADC59E",
-          "score": 0.892
-        },
-        {
-          "source": "resonanz",
-          "id": "MOP0S479-373A2268",
-          "score": 0.876
-        },
-        {
-          "source": "resonanz",
-          "id": "MOPFJTND-AAE76B2B",
-          "score": 0.872
-        },
-        {
-          "source": "resonanz",
-          "id": "MPARZ5F0-A9FD6F70",
-          "score": 0.855
-        },
-        {
-          "source": "resonanz",
-          "id": "MOPEYJKU-C4711B5F",
-          "score": 0.845
+          "score": 0.801
         }
       ]
     }
