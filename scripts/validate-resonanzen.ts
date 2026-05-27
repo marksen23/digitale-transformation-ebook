@@ -223,6 +223,13 @@ function checkAnchorFormat(endpoint: string, anchor: string): string | null {
     if (anchor !== "graph") return "expected 'graph'";
   } else if (endpoint === "enkidu") {
     if (anchor !== "enkidu") return "expected 'enkidu'";
+  } else if (endpoint === "passage") {
+    // Feature A: passage:<chunkId-8char-hex> (= erste 8 chars von sha1)
+    if (!/^passage:[a-f0-9]{8}$/.test(anchor)) return "expected passage:<chunkId-8>";
+  } else if (endpoint === "dialog") {
+    // Feature B: dialog:<focus> oder dialog:freier — focus ist beliebig
+    // (entweder Knoten-IDs joined mit '+', oder 'freier').
+    if (!/^dialog:[a-zäöüß0-9_+-]+$/i.test(anchor)) return "expected dialog:<focus> or dialog:freier";
   }
   return null;
 }
