@@ -141,6 +141,17 @@ interface TimelineFile {
   };
 }
 
+/** R6: Citation-Spur — vom Server in-memory getrackt. */
+interface CitationStats {
+  totalAnswers: number;
+  totalAnswersWithCitation: number;
+  citationRate: number;
+  byChunk: Array<{ id: string; cited: number; retrieved: number; lastCitedAt: string | null }>;
+  byResonanz: Array<{ id: string; cited: number; retrieved: number; lastCitedAt: string | null }>;
+  topCited: Array<{ source: string; id: string; cited: number }>;
+  retrievedButCold: Array<{ source: string; id: string; retrieved: number }>;
+}
+
 interface LinkPredictionsFile {
   generatedAt: string;
   minCooccurrence: number;
@@ -199,12 +210,15 @@ export default function AdminHealthPage() {
   const [netlify, setNetlify] = useState<AsyncResult<NetlifyStatus>>({ state: "loading" });
   const [render, setRender] = useState<AsyncResult<RenderStatus>>({ state: "loading" });
   const [ingest, setIngest] = useState<AsyncResult<ResonanzHealth>>({ state: "loading" });
+  // R6: Citation-Stats — in-memory am Server, reset bei Render-Redeploy
+  const [citationStats, setCitationStats] = useState<AsyncResult<CitationStats>>({ state: "loading" });
 
   // Hosting-Status: Netlify + Render via Server-Proxies
   useEffect(() => {
     fetchAdminJson<NetlifyStatus>("/api/admin/netlify-status").then(setNetlify);
     fetchAdminJson<RenderStatus>("/api/admin/render-status").then(setRender);
     fetchAdminJson<ResonanzHealth>("/api/admin/resonanz-health").then(setIngest);
+    fetchAdminJson<CitationStats>("/api/admin/citation-stats").then(setCitationStats);
   }, []);
 
   useEffect(() => {
@@ -433,6 +447,12 @@ export default function AdminHealthPage() {
           thematische Cluster + Außenseiter im 3072-dim Embedding-Raum
           als SVG-Scatter. Build-time generiert via umap-js, Datei:
           resonanzen-corpus-map.json. */}
+      {/* R6: Citation-Spur — direkt nach Hold-out-Konsistenz, weil
+          beide Sektionen RAG-Qualität messen. */}
+      <Section title="Citation-Spur · Was die KI tatsächlich zitiert" c={C}>
+        <CitationStatsPanel state={citationStats} c={C} />
+      </Section>
+
       <GroupHeader c={C} label="Visualisierungen · Wo wächst was?" anchor="visualisierungen" />
 
       <Section title="Korpus-Landkarte (UMAP-2D)" c={C}>
@@ -1627,5 +1647,100 @@ function HealthTOC({ c }: { c: ReturnType<typeof useAdminTheme> }) {
         @media (max-width: 768px) { .health-toc { display: none !important; } }
       `}</style>
     </nav>
+  );
+}
+
+// ─── CitationStatsPanel (Sprint R6) ───────────────────────────────────────
+// Zeigt die Citation-Spur: Top-zitierte Werk-Chunks + Resonanzen, und
+// retrieved-but-cold (häufig retrieved aber nie zitiert — verschlafenes
+// Material). In-memory am Server, reset bei Redeploy — dieser Hinweis
+// steht oben rechts.
+function CitationStatsPanel({ state, c }: { state: AsyncResult<CitationStats>; c: ReturnType<typeof useAdminTheme> }) {
+  if (state.state === "loading") {
+    return <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>lädt Citation-Daten …</p>;
+  }
+  if (state.state === "error") {
+    return <p style={{ fontStyle: "italic", color: "#c48282", fontSize: "0.85rem" }}>Fehler: {state.error}</p>;
+  }
+  const s = state.data;
+  if (s.totalAnswers === 0) {
+    return (
+      <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: c.textDim, margin: 0 }}>
+        Noch keine KI-Antworten seit dem letzten Server-Start protokolliert.
+        Sobald eine Analyse/Pfad/Dialog-Anfrage durchläuft, erscheinen hier die zitierten Quellen.
+      </p>
+    );
+  }
+  const ratePct = (s.citationRate * 100).toFixed(0);
+  const rateColor = s.citationRate >= 0.6 ? "#7ab898" : s.citationRate >= 0.3 ? "#d4af6f" : "#c48282";
+  return (
+    <div>
+      <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: c.textDim, lineHeight: 1.5, marginTop: 0, marginBottom: "0.9rem" }}>
+        Seit Server-Start sind <strong style={{ color: c.text }}>{s.totalAnswers}</strong> KI-Antworten gelaufen.
+        Davon enthielten <strong style={{ color: rateColor }}>{s.totalAnswersWithCitation} ({ratePct}%)</strong> mindestens
+        eine validierte Quellen-Zitation. <em>(In-memory — bei Redeploy resettet.)</em>
+      </p>
+
+      <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: "1rem", marginTop: "0.5rem" }}>
+        {/* Top-Zitierte */}
+        <div>
+          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
+            Top-zitierte Quellen
+          </div>
+          {s.topCited.length === 0 ? (
+            <p style={{ fontStyle: "italic", color: c.muted, fontSize: "0.75rem", margin: 0 }}>noch keine Zitationen</p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+              {s.topCited.slice(0, 10).map(item => (
+                <div key={`${item.source}:${item.id}`} style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "baseline",
+                  background: c.surface, padding: "0.3rem 0.5rem", border: `1px solid ${c.border}`,
+                  fontFamily: MONO, fontSize: "0.55rem",
+                }}>
+                  <span style={{ color: item.source === "werk" ? "#f59e0b" : "#5aacb8", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {item.source === "werk" ? "WERK" : "RESO"} {item.id.slice(0, 12)}
+                  </span>
+                  <span style={{ color: c.text, fontWeight: 500 }}>{item.cited}×</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Retrieved-but-Cold */}
+        <div>
+          <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: "#c48282", marginBottom: "0.4rem" }}>
+            Verschlafene Quellen
+            <span style={{ marginLeft: "0.4rem", color: c.muted, fontSize: "0.45rem", textTransform: "none" }}>(≥3× retrieved, nie zitiert)</span>
+          </div>
+          {s.retrievedButCold.length === 0 ? (
+            <p style={{ fontStyle: "italic", color: c.muted, fontSize: "0.75rem", margin: 0 }}>
+              alle retrieved Quellen wurden mindestens einmal zitiert
+            </p>
+          ) : (
+            <div style={{ display: "flex", flexDirection: "column", gap: "0.25rem" }}>
+              {s.retrievedButCold.slice(0, 10).map(item => (
+                <div key={`${item.source}:${item.id}`} style={{
+                  display: "flex", justifyContent: "space-between", alignItems: "baseline",
+                  background: c.surface, padding: "0.3rem 0.5rem",
+                  border: "1px dashed #c48282",
+                  fontFamily: MONO, fontSize: "0.55rem",
+                }}>
+                  <span style={{ color: c.muted, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
+                    {item.source === "werk" ? "WERK" : "RESO"} {item.id.slice(0, 12)}
+                  </span>
+                  <span style={{ color: "#c48282" }}>{item.retrieved}× retrieved</span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      <p style={{ marginTop: "0.8rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.75rem", color: c.muted, lineHeight: 1.5 }}>
+        „Verschlafene Quellen" sind ein Signal: sie kommen ins Retrieval, aber die KI baut sie nicht in die Antwort ein.
+        Entweder ist der Chunk thematisch isoliert, das Embedding-Modell überschätzt seine Relevanz, oder die Prompt-
+        Anleitung weist die Zitation falsch an.
+      </p>
+    </div>
   );
 }

@@ -8,6 +8,7 @@ import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
 import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanzLog.js";
 import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
 import { removeFromIndex, updateInIndex } from "./lib/indexUpdater.js";
+import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -22,6 +23,8 @@ async function withWerkContext(prompt: string, queryHint: string, topK = 4): Pro
   if (passages.length === 0) {
     return { enrichedPrompt: prompt, passages: [] };
   }
+  // R6: jede retrieval-instance zählen (auch wenn nicht zitiert wird).
+  recordRetrieved(passages.map(p => ({ source: p.source, id: p.id })));
   const enriched = [
     contextBlock,
     "ANWEISUNG: Beziehe dich beim Antworten auf den obigen autorisierten Kontext.",
@@ -605,6 +608,9 @@ ${text}`;
 
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      // R6: parse [chunkId]/[resonanzId]-Anker aus der Antwort, validiere
+      // gegen retrieved-Liste, inkrementiere Citation-Counter.
+      recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
       res.json({ analysis, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
       void logResonanz({
         endpoint: "analyse",
@@ -768,6 +774,8 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       }
       const data = await response.json();
       const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      // R6: Citation-Tracking
+      recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
       res.json({ analysis, variant: useCompare ? "compare" : "single", citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
 
       const sortedEndpoints = [from, to].sort();
@@ -859,7 +867,11 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
 
       const data = await response.json();
       const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
-      res.json({ reply, citedChunks: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle })) });
+      // R6: Citation-Tracking. chatPassages haben einen source-Tag aus R1.
+      recordCitations(reply, chatPassages.map(p => ({ source: p.source, id: p.id })));
+      // graph-chat: chatPassages haben kein .source-Property direkt im
+      // citedChunks-payload — fügen wir hinzu für Frontend-Konsistenz.
+      res.json({ reply, citedChunks: chatPassages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
       void logResonanz({
         endpoint: "graph-chat",
         anchor: "graph",
@@ -1671,6 +1683,14 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       wasUpdate: !!existingMaster,
       synthesisPreview: synthesisText.slice(0, 500),
     });
+  });
+
+  // R6: Citation-Stats — read-only Diagnose-Endpunkt für AdminHealthPage.
+  // Zeigt welche Werk-Chunks + Resonanzen tatsächlich von der KI zitiert
+  // werden und welche „verschlafen" (retrieved aber nie zitiert).
+  app.get("/api/admin/citation-stats", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    return res.json(getCitationStats());
   });
 
   app.post("/api/admin/delete", async (req, res) => {
