@@ -1,0 +1,67 @@
+{
+  "schema": 1,
+  "description": "Hand-kuratierte RAG-Eval-Queries. Werden von scripts/eval-rag.ts geladen wenn GEMINI_API_KEY verfügbar ist (für Live-Embedding der Query). Jede Query trägt erwartete Quell-IDs aus dem Korpus (chunkIds aus werk-chunks.json oder Resonanz-IDs aus resonanzen-index.json).",
+  "queries": [
+    {
+      "query": "Was bedeutet Resonanz im Werk?",
+      "category": "kernbegriff",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.55,
+      "note": "Erwartet: Resonanz-zentrierte Kapitel aus Band III + frühere Begegnungen zum Begriff. Konkrete IDs offen — Eval prüft hier nur min_score-Threshold."
+    },
+    {
+      "query": "Wie verhält sich Vernunft zur Resonanz?",
+      "category": "spannungsfeld",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.55,
+      "note": "Erwartet: Teil V (Resonanzvernunft) + Cluster-Analysen zu vernunft+resonanz."
+    },
+    {
+      "query": "Was ist die digitale Transformation aus phänomenologischer Sicht?",
+      "category": "werkstitel",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.5
+    },
+    {
+      "query": "Welche Rolle spielt Gilgamesch im Werk?",
+      "category": "narratologie",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.55,
+      "note": "Erwartet: Band I-Kapitel + Enkidu-Resonanzen."
+    },
+    {
+      "query": "Wo berührt sich das Werk mit Heidegger?",
+      "category": "philosophie-anschluss",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.5
+    },
+    {
+      "query": "Was ist Begegnung und was unterscheidet sie von Information?",
+      "category": "spannungsfeld",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.5
+    },
+    {
+      "query": "Wie definiert das Werk Leerstelle?",
+      "category": "kernbegriff",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.5,
+      "note": "Leerstelle ist ein wenig-besuchter Knoten (Blind-Spot-Heatmap zeigt das) — Test ob Retrieval ihn trotzdem findet."
+    },
+    {
+      "query": "Was sagt Kant über die Maschinenvernunft?",
+      "category": "philosophie-anschluss",
+      "expected_werk_chunks": [],
+      "expected_resonanzen": [],
+      "min_score": 0.5,
+      "note": "Erwartet: Band II + Kant-bezogene Analysen."
+    }
+  ]
+}

@@ -120,3 +120,7 @@ client/public/__manus__/version.json
 # Server-seitig (server/lib/indexUpdater.ts) wird der Index nach jeder
 # KI-Antwort via GitHub Contents API geupdatet — dazu muss er committed sein.
 # Build-time werden sie auch neu gebaut; lokale Diffs ggf. committen.
+
+# RAG-Eval-Reports — nur latest committen, timestamped sind transient
+eval/rag-results-2*.json
+!eval/rag-results-latest.json

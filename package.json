@@ -19,7 +19,8 @@
     "icons": "node scripts/generate-icons.mjs",
     "audio": "node scripts/prepare-audio.mjs",
     "timestamps": "node scripts/generate-timestamps.mjs",
-    "snapshot:history": "tsx scripts/snapshot-history.ts"
+    "snapshot:history": "tsx scripts/snapshot-history.ts",
+    "eval:rag": "tsx scripts/eval-rag.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.90.0",

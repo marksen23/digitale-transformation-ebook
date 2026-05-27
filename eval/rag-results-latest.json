@@ -1,0 +1,369 @@
+{
+  "generatedAt": "2026-05-27T00:57:28.232Z",
+  "config": {
+    "topK": 5,
+    "embedModel": "gemini-embedding-001",
+    "autoQueries": 10,
+    "manualQueries": 0
+  },
+  "autoStats": {
+    "total": 10,
+    "siblingRecallAvg": 0.2,
+    "nodeOverlapAvg": 0.32,
+    "withSiblingsCount": 10
+  },
+  "manualStats": null,
+  "autoResults": [
+    {
+      "queryId": "MPK0H3SM-B25CFBB3",
+      "prompt": "Pfad-Vergleich: Existenz → Dasein → Resonanzvernunft → Verwandlung vs. Existenz → Scheitern → Werden → Verwandlung",
+      "selfRecall": false,
+      "siblingRecallCount": 1,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOOMPCI0-262176C2",
+          "score": 0.928
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.849
+        },
+        {
+          "source": "resonanz",
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.837
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.805
+        },
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.798
+        }
+      ]
+    },
+    {
+      "queryId": "MPARZ5F0-A9FD6F70",
+      "prompt": "Triade: Einsicht · Vernunft · Antwort / Responsivität",
+      "selfRecall": false,
+      "siblingRecallCount": 1,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.914
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.855
+        },
+        {
+          "source": "resonanz",
+          "id": "MOP0S479-373A2268",
+          "score": 0.841
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.827
+        },
+        {
+          "source": "resonanz",
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.814
+        }
+      ]
+    },
+    {
+      "queryId": "MP74X3EJ-72CDDB9F",
+      "prompt": "nur meine konkrete Frage ist gewesen wie das genau gemeint ist mit die Wahrheit wird zur Antwort und die Antwort zu Verw",
+      "selfRecall": false,
+      "siblingRecallCount": 0,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOOMPCI0-262176C2",
+          "score": 0.848
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.846
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.845
+        },
+        {
+          "source": "resonanz",
+          "id": "MPK0H3SM-B25CFBB3",
+          "score": 0.837
+        },
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.818
+        }
+      ]
+    },
+    {
+      "queryId": "MP2LIW43-E8ADC59E",
+      "prompt": "Triade: Begegnung · Selbst · Resonanzvernunft",
+      "selfRecall": false,
+      "siblingRecallCount": 1,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0.6,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPARZ5F0-A9FD6F70",
+          "score": 0.914
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.892
+        },
+        {
+          "source": "resonanz",
+          "id": "MOP0S479-373A2268",
+          "score": 0.873
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.848
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPEYJKU-C4711B5F",
+          "score": 0.827
+        }
+      ]
+    },
+    {
+      "queryId": "MOPFJTND-AAE76B2B",
+      "prompt": "Pfad-Analyse: Spannung → Resonanz → Resonanzvernunft",
+      "selfRecall": false,
+      "siblingRecallCount": 1,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0.8,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOOMPCI0-262176C2",
+          "score": 0.906
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.872
+        },
+        {
+          "source": "resonanz",
+          "id": "MPK0H3SM-B25CFBB3",
+          "score": 0.849
+        },
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.848
+        },
+        {
+          "source": "resonanz",
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.846
+        }
+      ]
+    },
+    {
+      "queryId": "MOPEYJKU-C4711B5F",
+      "prompt": "Spannungsfeld: Bewusstsein ↔ Sein",
+      "selfRecall": false,
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.845
+        },
+        {
+          "source": "resonanz",
+          "id": "MOP0S479-373A2268",
+          "score": 0.836
+        },
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.827
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.799
+        },
+        {
+          "source": "resonanz",
+          "id": "MPARZ5F0-A9FD6F70",
+          "score": 0.787
+        }
+      ]
+    },
+    {
+      "queryId": "MOP0S479-373A2268",
+      "prompt": "Spannungsfeld: Resonanzvernunft ↔ Spiegel",
+      "selfRecall": false,
+      "siblingRecallCount": 2,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0.6,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.876
+        },
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.873
+        },
+        {
+          "source": "resonanz",
+          "id": "MPARZ5F0-A9FD6F70",
+          "score": 0.841
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.841
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPEYJKU-C4711B5F",
+          "score": 0.836
+        }
+      ]
+    },
+    {
+      "queryId": "MOOMPCI0-262176C2",
+      "prompt": "Pfad-Vergleich: Welt → Resonanz → Resonanzvernunft → Vernunft vs. Welt → Verwandlung → Resonanzvernunft → Vernunft",
+      "selfRecall": false,
+      "siblingRecallCount": 0,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0.6,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MPK0H3SM-B25CFBB3",
+          "score": 0.928
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.906
+        },
+        {
+          "source": "resonanz",
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.848
+        },
+        {
+          "source": "resonanz",
+          "id": "MOP0S479-373A2268",
+          "score": 0.813
+        },
+        {
+          "source": "resonanz",
+          "id": "MOOK5A30-F596F31D",
+          "score": 0.812
+        }
+      ]
+    },
+    {
+      "queryId": "MOOK5A30-F596F31D",
+      "prompt": "Hello",
+      "selfRecall": false,
+      "siblingRecallCount": 1,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.825
+        },
+        {
+          "source": "resonanz",
+          "id": "MOHV84M5-1825A399",
+          "score": 0.818
+        },
+        {
+          "source": "resonanz",
+          "id": "MOOMPCI0-262176C2",
+          "score": 0.812
+        },
+        {
+          "source": "resonanz",
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.808
+        },
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.795
+        }
+      ]
+    },
+    {
+      "queryId": "MOHV84M5-1825A399",
+      "prompt": "Spannungsfeld: Resonanzvernunft ↔ Zwischen",
+      "selfRecall": false,
+      "siblingRecallCount": 1,
+      "siblingRecallExpected": 5,
+      "nodeOverlapAvg": 0.6,
+      "topResults": [
+        {
+          "source": "resonanz",
+          "id": "MP2LIW43-E8ADC59E",
+          "score": 0.892
+        },
+        {
+          "source": "resonanz",
+          "id": "MOP0S479-373A2268",
+          "score": 0.876
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPFJTND-AAE76B2B",
+          "score": 0.872
+        },
+        {
+          "source": "resonanz",
+          "id": "MPARZ5F0-A9FD6F70",
+          "score": 0.855
+        },
+        {
+          "source": "resonanz",
+          "id": "MOPEYJKU-C4711B5F",
+          "score": 0.845
+        }
+      ]
+    }
+  ],
+  "manualResults": []
+}
