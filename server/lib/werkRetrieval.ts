@@ -179,6 +179,50 @@ export async function retrieveRelevantWerkPassages(
 }
 
 /**
+ * R3: Query-Rewriting via Gemini Flash. Erzeugt 3 paraphrasierte
+ * Alternativen zur User-Anfrage, sodass das Retrieval verschiedene
+ * Begriffs-Aspekte abdeckt — nicht nur exakte Lexem-Matches.
+ *
+ * Default-On wenn GEMINI_API_KEY gesetzt. Deaktivierbar via
+ * RAG_QUERY_EXPANSION=0.
+ *
+ * Returns die Original-Query + bis zu 3 Paraphrasen. Bei API-Fehler:
+ * nur Original — graceful degradation.
+ */
+export async function expandQuery(query: string): Promise<string[]> {
+  const apiKey = process.env.GEMINI_API_KEY;
+  if (!apiKey || process.env.RAG_QUERY_EXPANSION === "0") return [query];
+  if (query.length > 600) return [query];  // bei sehr langen Anfragen lohnt Paraphrase nicht
+  try {
+    const prompt = `Du bist Suchhilfe für ein deutsches Philosophiewerk. Generiere genau 3 alternative Formulierungen für die folgende Anfrage. Jede Alternative soll einen anderen Begriffs-Aspekt oder eine andere Ebene betonen (z.B. abstrakter, konkreter, technischer, poetischer). Keine Erklärung, keine Aufzählung — exakt 3 Zeilen, je eine Alternative pro Zeile.
+
+Anfrage: ${query}
+
+Alternativen:`;
+    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        generationConfig: { temperature: 0.6, maxOutputTokens: 250 },
+      }),
+    });
+    if (!res.ok) return [query];
+    const data = await res.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) return [query];
+    const alts = text.split("\n")
+      .map((l: string) => l.replace(/^[-\d.\s)]+/, "").trim())  // strip Aufzählungs-Präfixe
+      .filter((l: string) => l.length > 5 && l.length < 400)
+      .slice(0, 3);
+    return [query, ...alts];
+  } catch (err) {
+    console.warn(`[expandQuery] failed: ${err instanceof Error ? err.message : err}`);
+    return [query];
+  }
+}
+
+/**
  * R1: Vereinte Retrieval-Strategie — Werk-Chunks UND kuratierte Resonanzen
  * gemeinsam scoren. Sortiert nach Cosine, aber mit milder Score-Anhebung
  * für Werk-Quellen (×1.05), damit der Buchtext bei Score-Gleichstand
@@ -298,9 +342,70 @@ export function formatWerkContext(passages: RetrievedPassage[]): string {
 }
 
 /**
+ * R3: Multi-Query Retrieval — eine Anfrage in mehrere paraphrasierte
+ * Anfragen expandieren, jede separat retrieven, top-K mergen + dedup.
+ *
+ * Vorteil: erfasst Anfragen, die das Werk anders ausdrückt als der Reader.
+ * „Was ist Resonanz?" → expandiert zu „antwortendes Beziehungs-Modell",
+ * „Schwingung zwischen Subjekt und Objekt", etc. — Werk-Chunks ohne das
+ * Wort „Resonanz" werden trotzdem gefunden.
+ *
+ * Default-on wenn GEMINI_API_KEY gesetzt + RAG_QUERY_EXPANSION≠"0".
+ */
+export async function retrieveRelevantCorpusMultiQuery(
+  query: string,
+  topKWerk = 3,
+  topKResonanz = 2,
+): Promise<{ passages: RetrievedPassage[]; expandedQueries: string[] }> {
+  const queries = await expandQuery(query);
+  // Wenn keine Expansion stattfand (keine API/disabled), Singletrack.
+  if (queries.length === 1) {
+    const passages = await retrieveRelevantCorpus(queries[0], topKWerk, topKResonanz);
+    return { passages, expandedQueries: queries };
+  }
+
+  // Pro Sub-Query: kleinerer top-K (sonst explodiert das merged-set).
+  // Faustregel: pro Query 60% des Final-top-K, damit Dedup-merge
+  // genug Material zum Aussortieren hat.
+  const subWerk = Math.max(2, Math.ceil(topKWerk * 0.7));
+  const subReso = Math.max(1, Math.ceil(topKResonanz * 0.7));
+
+  // Best-of-score-per-ID-Strategie: ein Eintrag, der nur in einer
+  // Sub-Query auftaucht, bekommt seinen besten Score; ein Eintrag,
+  // der in mehreren auftaucht, bekommt einen Bonus (×1.08) — weil
+  // Konsens über Paraphrasen ein starkes Signal ist.
+  const bestById = new Map<string, { passage: RetrievedPassage; hits: number }>();
+  for (const q of queries) {
+    const sub = await retrieveRelevantCorpus(q, subWerk, subReso);
+    for (const r of sub) {
+      const existing = bestById.get(r.id);
+      if (!existing) {
+        bestById.set(r.id, { passage: r, hits: 1 });
+      } else {
+        existing.hits++;
+        if (r.score > existing.passage.score) {
+          existing.passage = { ...r, score: r.score };
+        }
+      }
+    }
+  }
+  // Konsens-Bonus + Final-Sort
+  const merged: RetrievedPassage[] = [];
+  bestById.forEach(({ passage, hits }) => {
+    const consensusBonus = hits >= 2 ? Math.pow(1.08, hits - 1) : 1;
+    merged.push({ ...passage, score: passage.score * consensusBonus });
+  });
+  merged.sort((a, b) => b.score - a.score);
+  return {
+    passages: merged.slice(0, topKWerk + topKResonanz),
+    expandedQueries: queries,
+  };
+}
+
+/**
  * One-Shot-Helper für KI-Endpunkte: retrieved + formatted in einem Call.
  * R1: jetzt zieht aus BEIDEN Quellen (Werk + Resonanzen). Default 3+2,
- * aber konfigurierbar.
+ * aber konfigurierbar. R3: nutzt Multi-Query, wenn expansion verfügbar.
  *
  * Wenn keine Embeddings verfügbar: returnt leerer String → Endpunkt
  * läuft ohne Kontext (graceful fallback).
@@ -308,13 +413,14 @@ export function formatWerkContext(passages: RetrievedPassage[]): string {
 export async function buildWerkContext(query: string, topK = 5): Promise<{
   passages: RetrievedPassage[];
   contextBlock: string;
+  expandedQueries?: string[];
 }> {
   // Default-Mix: 60% Werk, 40% Resonanzen — der Buchtext bleibt primär,
   // die Resonanzen ergänzen mit Dialog-Tiefe.
   const topKWerk = Math.max(1, Math.round(topK * 0.6));
   const topKResonanz = Math.max(1, topK - topKWerk);
-  const passages = await retrieveRelevantCorpus(query, topKWerk, topKResonanz);
-  return { passages, contextBlock: formatWerkContext(passages) };
+  const { passages, expandedQueries } = await retrieveRelevantCorpusMultiQuery(query, topKWerk, topKResonanz);
+  return { passages, contextBlock: formatWerkContext(passages), expandedQueries };
 }
 
 /** Liefert eine flache Lookup-Map id → Chunk für die KI-Antwort-Renderer

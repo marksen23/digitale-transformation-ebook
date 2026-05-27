@@ -18,10 +18,11 @@ import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citati
 async function withWerkContext(prompt: string, queryHint: string, topK = 4): Promise<{
   enrichedPrompt: string;
   passages: RetrievedPassage[];
+  expandedQueries?: string[];
 }> {
-  const { passages, contextBlock } = await buildWerkContext(queryHint, topK);
+  const { passages, contextBlock, expandedQueries } = await buildWerkContext(queryHint, topK);
   if (passages.length === 0) {
-    return { enrichedPrompt: prompt, passages: [] };
+    return { enrichedPrompt: prompt, passages: [], expandedQueries };
   }
   // R6: jede retrieval-instance zählen (auch wenn nicht zitiert wird).
   recordRetrieved(passages.map(p => ({ source: p.source, id: p.id })));
@@ -38,7 +39,7 @@ async function withWerkContext(prompt: string, queryHint: string, topK = 4): Pro
     "--- AUFGABE ---",
     prompt,
   ].join("\n");
-  return { enrichedPrompt: enriched, passages };
+  return { enrichedPrompt: enriched, passages, expandedQueries };
 }
 
 // ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
