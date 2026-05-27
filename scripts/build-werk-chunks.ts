@@ -32,8 +32,15 @@ const OUTPUT     = path.join(ROOT, "client/public/werk-chunks.json");
 const GEMINI_API_KEY    = (process.env.GEMINI_API_KEY ?? "").trim() || undefined;
 const GEMINI_EMBED_MODEL = (process.env.GEMINI_EMBED_MODEL ?? "").trim() || "gemini-embedding-001";
 
+// R2: feinere Chunks für präziseres Retrieval.
+// Vorher: bis 1800 char/Chunk (~93 Chunks total) — zu grob, ein Chunk
+// matched auf zu viele unterschiedliche Anfragen mittelmäßig.
+// Jetzt: Satz-Window-Chunking innerhalb jedes Absatzes — 3-Satz-Fenster
+// mit 1-Satz-Overlap, ~250-500 chars pro Chunk, ~300 Chunks total.
 const MIN_CHUNK_CHARS = 80;
-const MAX_CHUNK_CHARS = 1800;
+const MAX_CHUNK_CHARS = 600;
+const WINDOW_SENTENCES = 3;
+const WINDOW_STRIDE = 2;     // 1-Satz-Overlap zwischen aufeinander folgenden Fenstern
 
 interface WerkChunk {
   id: string;          // sha1(text).slice(0,12)
@@ -58,22 +65,45 @@ function sha1Short(s: string): string {
   return crypto.createHash("sha1").update(s).digest("hex").slice(0, 12);
 }
 
-/** Splittet Absatz in Sätze, gruppiert zu Chunks ≤ MAX_CHUNK_CHARS. */
+/** R2: Satz-Window-Chunking. Teilt einen Absatz in überlappende
+ *  3-Satz-Fenster mit 1-Satz-Overlap. Jedes Fenster ist ein Chunk.
+ *
+ *  - Kürzere Absätze (≤3 Sätze) → ein einziger Chunk = der Absatz.
+ *  - Lange Sätze (>MAX_CHUNK_CHARS) werden als Solo-Chunk gerendert,
+ *    auch wenn das den max-char-Bound bricht — lieber ein langer Satz
+ *    als ein abgeschnittener.
+ *
+ *  Sentence-Splitting: heuristisch an [.!?]+space+Großbuchstabe oder
+ *  Zeilenende. Deutsche Abkürzungen (z.B. „z.B.", „bzw.") wären
+ *  edge-cases, aber im Korpus selten genug.
+ */
 function splitParagraphIntoChunks(paragraph: string): string[] {
-  if (paragraph.length <= MAX_CHUNK_CHARS) return [paragraph];
-  const sentences = paragraph.split(/(?<=[\.\!\?])\s+/);
-  const chunks: string[] = [];
-  let buf = "";
-  for (const sent of sentences) {
-    if (buf.length + sent.length + 1 > MAX_CHUNK_CHARS && buf) {
-      chunks.push(buf.trim());
-      buf = sent;
-    } else {
-      buf = buf ? buf + " " + sent : sent;
-    }
+  // 1. Sätze isolieren
+  const sentences = paragraph
+    .replace(/([.!?])\s+(?=[A-ZÄÖÜ«„])/g, "$1​")
+    .split("​")
+    .map(s => s.trim())
+    .filter(s => s.length >= 10);
+
+  if (sentences.length === 0) return [paragraph];
+  if (sentences.length <= WINDOW_SENTENCES) {
+    // Kurzer Absatz → ein Chunk
+    return [sentences.join(" ")];
   }
-  if (buf.trim()) chunks.push(buf.trim());
-  return chunks;
+
+  // 2. Sliding Window
+  const chunks: string[] = [];
+  let i = 0;
+  while (i < sentences.length) {
+    const end = Math.min(i + WINDOW_SENTENCES, sentences.length);
+    const window = sentences.slice(i, end).join(" ");
+    if (window.length >= MIN_CHUNK_CHARS) {
+      chunks.push(window);
+    }
+    if (end >= sentences.length) break;
+    i += WINDOW_STRIDE;
+  }
+  return chunks.length > 0 ? chunks : [sentences.join(" ")];
 }
 
 interface Chapter { id: string; part: string; partTitle?: string; title?: string; content: string }
