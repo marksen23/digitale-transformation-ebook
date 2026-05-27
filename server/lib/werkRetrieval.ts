@@ -16,6 +16,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { fetchEmbedding, cosineSim } from "./embeddingClient.js";
+import { enrichQueryWithNodes } from "./queryEnrichment.js";
 
 const __filename = fileURLToPath(import.meta.url);
 // Up von server/lib/ ist zwei Ebenen
@@ -237,7 +238,14 @@ export async function retrieveRelevantCorpus(
   topKResonanz = 2,
 ): Promise<RetrievedPassage[]> {
   if (!query?.trim()) return [];
-  const qVec = await fetchEmbedding(query);
+  // R7: Query mit Konzept-Definitionen anreichern, falls erkannte Node-IDs/Labels
+  // im Prompt vorkommen. Bei strukturellen Templates (Pfad-Analyse: A → B → C)
+  // ist das der entscheidende Hebel für semantische Tiefe im Embedding.
+  const { enriched, matchedNodes } = enrichQueryWithNodes(query);
+  if (matchedNodes.length > 0) {
+    console.log(`[retrieveRelevantCorpus] R7 enriched query with ${matchedNodes.length} node defs: ${matchedNodes.join(", ")}`);
+  }
+  const qVec = await fetchEmbedding(enriched);
   if (!qVec) return [];
 
   const out: RetrievedPassage[] = [];
