@@ -292,7 +292,7 @@ async function main() {
 
   // ─── Manual-Mode (nur wenn GEMINI_API_KEY gesetzt) ─────────────────────
   let manualResults: ManualQueryResult[] = [];
-  let manualStats: { total: number; meetsMinScore: number; avgTopScore: number } | null = null;
+  let manualStats: { total: number; meetsMinScore: number; avgTopScore: number; expectedChunksRecall: number; expectedResoRecall: number } | null = null;
 
   if (fs.existsSync(MANUAL_PATH) && GEMINI_API_KEY) {
     const manualFile = JSON.parse(fs.readFileSync(MANUAL_PATH, "utf-8")) as { queries: ManualQuery[] };
@@ -305,11 +305,18 @@ async function main() {
         if (r) manualResults.push(r);
         await new Promise(r => setTimeout(r, 120));  // sanfte Rate-Limit-Drosselung
       }
+      // Recall-Werte über die expected_*-Mengen (für die Queries die expected_*-IDs tragen)
+      const withExpectedChunks = manualResults.filter(r => r.expectedChunksTotal > 0);
+      const withExpectedReso = manualResults.filter(r => r.expectedResoTotal > 0);
       manualStats = {
         total: manualResults.length,
         meetsMinScore: manualResults.filter(r => r.meetsMinScore).length,
         avgTopScore: manualResults.length === 0 ? 0 :
           Number((manualResults.reduce((s, r) => s + r.topScore, 0) / manualResults.length).toFixed(3)),
+        expectedChunksRecall: withExpectedChunks.length === 0 ? 0 :
+          Number((withExpectedChunks.reduce((s, r) => s + (r.expectedChunksHit / r.expectedChunksTotal), 0) / withExpectedChunks.length).toFixed(3)),
+        expectedResoRecall: withExpectedReso.length === 0 ? 0 :
+          Number((withExpectedReso.reduce((s, r) => s + (r.expectedResoHit / r.expectedResoTotal), 0) / withExpectedReso.length).toFixed(3)),
       };
     }
   } else if (!GEMINI_API_KEY) {
@@ -353,10 +360,15 @@ async function main() {
     console.log(`   Total Queries:          ${manualStats.total}`);
     console.log(`   meetsMinScore:          ${manualStats.meetsMinScore}/${manualStats.total}`);
     console.log(`   Top-Score Ø:            ${manualStats.avgTopScore}`);
+    console.log(`   Expected-Werk-Recall Ø: ${(manualStats.expectedChunksRecall * 100).toFixed(1)}%  (von ${manualResults.filter(r => r.expectedChunksTotal > 0).length} Queries mit expected_werk_chunks)`);
+    console.log(`   Expected-Reso-Recall Ø: ${(manualStats.expectedResoRecall * 100).toFixed(1)}%  (von ${manualResults.filter(r => r.expectedResoTotal > 0).length} Queries mit expected_resonanzen)`);
     console.log("\n   Per Query:");
     for (const r of manualResults) {
       const indicator = r.meetsMinScore ? "✓" : "✕";
-      console.log(`   ${indicator} "${r.query.slice(0, 50)}…" topScore=${r.topScore.toFixed(2)}`);
+      const hits = r.expectedChunksTotal + r.expectedResoTotal > 0
+        ? ` · expected ${r.expectedChunksHit + r.expectedResoHit}/${r.expectedChunksTotal + r.expectedResoTotal}`
+        : "";
+      console.log(`   ${indicator} "${r.query.slice(0, 50)}…" topScore=${r.topScore.toFixed(2)}${hits}`);
     }
   }
   console.log(`\n📁 Voller Report: ${path.relative(ROOT, outFile)}`);

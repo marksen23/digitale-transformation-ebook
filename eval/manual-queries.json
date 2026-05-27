@@ -1,65 +1,65 @@
 {
   "schema": 1,
-  "description": "Hand-kuratierte RAG-Eval-Queries. Werden von scripts/eval-rag.ts geladen wenn GEMINI_API_KEY verfügbar ist (für Live-Embedding der Query). Jede Query trägt erwartete Quell-IDs aus dem Korpus (chunkIds aus werk-chunks.json oder Resonanz-IDs aus resonanzen-index.json).",
+  "description": "Hand-kuratierte RAG-Eval-Queries. Werden von scripts/eval-rag.ts geladen wenn GEMINI_API_KEY verfügbar ist (für Live-Embedding der Query). Jede Query trägt erwartete Quell-IDs aus dem Korpus (chunkIds aus werk-chunks.json oder Resonanz-IDs aus resonanzen-index.json). Die expected_* Listen wurden via scripts/find-manual-expected.ts initial befüllt (Stichwort-Scoring über text + prompt+response). Bei jedem Eval-Lauf prüft die Eval, ob diese IDs im top-K retrieved werden.",
   "queries": [
     {
       "query": "Was bedeutet Resonanz im Werk?",
       "category": "kernbegriff",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["c1bf410111ab", "0b5f2f106a05", "2ff02dd05bc9"],
+      "expected_resonanzen": ["MOPFJTND-AAE76B2B", "MOOMPCI0-262176C2", "MPMJC8TR-592D4EF0"],
       "min_score": 0.55,
-      "note": "Erwartet: Resonanz-zentrierte Kapitel aus Band III + frühere Begegnungen zum Begriff. Konkrete IDs offen — Eval prüft hier nur min_score-Threshold."
+      "note": "Erwartet: Resonanz-zentrierte Kapitel aus Band III + frühere Begegnungen zum Begriff."
     },
     {
       "query": "Wie verhält sich Vernunft zur Resonanz?",
       "category": "spannungsfeld",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["0b5f2f106a05", "c1bf410111ab", "ba706ca2d04c"],
+      "expected_resonanzen": ["MOOMPCI0-262176C2", "MOPFJTND-AAE76B2B", "MOP0LEAL-E2568DCC"],
       "min_score": 0.55,
       "note": "Erwartet: Teil V (Resonanzvernunft) + Cluster-Analysen zu vernunft+resonanz."
     },
     {
       "query": "Was ist die digitale Transformation aus phänomenologischer Sicht?",
       "category": "werkstitel",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["0b5f2f106a05", "61a890561bea", "c2b5b5b33cec"],
+      "expected_resonanzen": ["MP0X62X5-535AF7A8", "MOHC8GKH-8E301C89", "MP0ZE9C8-A9D02716"],
       "min_score": 0.5
     },
     {
       "query": "Welche Rolle spielt Gilgamesch im Werk?",
       "category": "narratologie",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["075426700d30", "d05def975fad", "353a2e311c42"],
+      "expected_resonanzen": ["MOOUGMII-D6D90141", "MOHV99XP-6917F19F", "MOHB4ILW-65B37C41"],
       "min_score": 0.55,
       "note": "Erwartet: Band I-Kapitel + Enkidu-Resonanzen."
     },
     {
       "query": "Wo berührt sich das Werk mit Heidegger?",
       "category": "philosophie-anschluss",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["bf2da7ded62c", "88aae1752212", "7051727a3cda"],
+      "expected_resonanzen": ["MOQ5IKR5-C67AAC15", "MP0ZE9C8-A9D02716", "MOLNG57A-2F155772"],
       "min_score": 0.5
     },
     {
       "query": "Was ist Begegnung und was unterscheidet sie von Information?",
       "category": "spannungsfeld",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["ba2d0be15a56", "d226821289cc", "a3a317d172f9"],
+      "expected_resonanzen": ["MP2LIW43-E8ADC59E", "MOJ7Q5HM-89F62E3F", "MP2LJCJB-EA58EC28"],
       "min_score": 0.5
     },
     {
       "query": "Wie definiert das Werk Leerstelle?",
       "category": "kernbegriff",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["72f2ca48ee12", "0f63797a9ca5", "2813fe92a3e4"],
+      "expected_resonanzen": ["MPF4WM18-FF4843F1", "MPMI3ZF2-2F83F425", "MPBI57AL-76627781"],
       "min_score": 0.5,
       "note": "Leerstelle ist ein wenig-besuchter Knoten (Blind-Spot-Heatmap zeigt das) — Test ob Retrieval ihn trotzdem findet."
     },
     {
       "query": "Was sagt Kant über die Maschinenvernunft?",
       "category": "philosophie-anschluss",
-      "expected_werk_chunks": [],
-      "expected_resonanzen": [],
+      "expected_werk_chunks": ["0b5f2f106a05", "47de98a1e4b3", "728785177f9a"],
+      "expected_resonanzen": ["MOPFJTND-AAE76B2B", "MOP0LEAL-E2568DCC", "MPBI57AL-76627781"],
       "min_score": 0.5,
       "note": "Erwartet: Band II + Kant-bezogene Analysen."
     }
