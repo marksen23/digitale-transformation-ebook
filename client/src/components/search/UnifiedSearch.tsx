@@ -43,6 +43,8 @@ interface UnifiedSearchProps {
   /** Wenn true: Dropdown immer rendern (auch ohne Eingabe — z.B. History) */
   alwaysOpen?: boolean;
   locale?: string;
+  /** Externes Ref auf das Input-Element (zum Fokussieren aus dem Parent) */
+  inputRef?: React.RefObject<HTMLInputElement | null>;
 }
 
 export function UnifiedSearch({
@@ -61,11 +63,13 @@ export function UnifiedSearch({
   limit = 5,
   alwaysOpen = false,
   locale,
+  inputRef: externalInputRef,
 }: UnifiedSearchProps) {
   const [query, setQuery] = useState("");
   const [filters, setFilters] = useState<ActiveFilters>(initialFilters);
   const [cursor, setCursor] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const localInputRef = useRef<HTMLInputElement>(null);
+  const inputRef = externalInputRef ?? localInputRef;
 
   const history = useSearchHistory(scopeId);
 

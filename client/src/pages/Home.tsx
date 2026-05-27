@@ -14,6 +14,9 @@ const EnkiduPage      = lazy(() => import('./EnkiduPage'));
 import { useLocation } from 'wouter';
 import { useSpeechRecognition } from '@/hooks/useSpeech';
 import { useAudioPlayer, type VoiceGender } from '@/hooks/useAudioPlayer';
+import { UnifiedSearch } from '@/components/search/UnifiedSearch';
+import { createChaptersSource } from '@/lib/search/sources/chapters';
+import type { SearchHit } from '@/lib/search/types';
 
 // ─── Helpers ────────────────────────────────────────────────────────
 function useLocalStorage<T>(key: string, fallback: T | (() => T)) {
@@ -83,8 +86,8 @@ export default function Home() {
   const translationCache = useRef<Map<string, string>>(new Map());
   const [translationTick, setTranslationTick] = useState(0);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [searchResults, setSearchResults] = useState<Chapter[]>([]);
+  // M2 Such-Vereinheitlichung: UnifiedSearch übernimmt query+results intern.
+  // searchOpen bleibt als On/Off-Steuerung für den slide-down Container.
   const [bookmarks, setBookmarks] = useLocalStorage<string[]>('ebook-bookmarks', []);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [readProgress, setReadProgress] = useState(0);
@@ -303,16 +306,8 @@ export default function Home() {
   }, [currentId]);
 
 
-  // Search
-  useEffect(() => {
-    if (!ebook || !searchQuery.trim()) { setSearchResults([]); return; }
-    const q = searchQuery.toLowerCase();
-    const results = ebook.chapters.filter(ch =>
-      ch.content.toLowerCase().includes(q) || ch.title.toLowerCase().includes(q)
-    );
-    setSearchResults(results);
-  }, [searchQuery, ebook]);
-
+  // M2: useEffect-Filter entfällt — UnifiedSearch filtert intern via
+  // createChaptersSource(ebook). Nur noch der Auto-Focus beim Öffnen bleibt.
   useEffect(() => {
     if (searchOpen) setTimeout(() => searchInputRef.current?.focus(), 100);
   }, [searchOpen]);
@@ -539,7 +534,6 @@ export default function Home() {
           setBuchSchwelle(null);
           setCurrentId(id);
           setSearchOpen(false);
-          setSearchQuery('');
         }, 2500);
         return;
       }
@@ -547,7 +541,6 @@ export default function Home() {
     setCurrentId(id);
     setSidebarOpen(false);
     setSearchOpen(false);
-    setSearchQuery('');
   }, [currentId, ebook, setCurrentId]);
 
   const toggleBookmark = useCallback((id: string) => {
@@ -569,7 +562,7 @@ export default function Home() {
         if (shortcutsOpen)      { setShortcutsOpen(false); return; }
         if (notesOpen)          { setNotesOpen(false); return; }
         if (enkiduOpen)         { setEnkiduOpen(false); return; }
-        if (searchOpen)         { setSearchOpen(false); setSearchQuery(''); return; }
+        if (searchOpen)         { setSearchOpen(false); return; }
         if (chatOpen)           { setChatOpen(false); return; }
         if (fontMenuOpen)       { setFontMenuOpen(false); return; }
         if (languageMenuOpen)   { setLanguageMenuOpen(false); return; }
@@ -621,7 +614,7 @@ export default function Home() {
     fontMenuOpen, languageMenuOpen, headphonesMenuOpen, burgerMenuOpen,
     goNext, goPrev, currentId, toggleBookmark, toggleCompleted,
     setDarkMode, setSidebarOpen, setEnkiduOpen, setLocation,
-    setSearchOpen, setSearchQuery, setBurgerMenuOpen, setFocusMode,
+    setSearchOpen, setBurgerMenuOpen, setFocusMode,
   ]);
 
   // Globaler Click-Handler: alle Dropdown-Overlays bei Klick auf Hintergrund schließen.
@@ -1985,37 +1978,20 @@ export default function Home() {
             className={`flex-none border-b z-20 overflow-hidden ${darkMode ? 'bg-stone-900 border-stone-800' : 'bg-white border-stone-200'}`}
           >
             <div className="p-3 max-w-2xl mx-auto">
-              <input
-                ref={searchInputRef}
-                type="text"
-                placeholder="Im Ebook suchen..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className={`w-full px-4 py-2 rounded-lg text-sm border focus:outline-none focus:ring-2 focus:ring-amber-500/50 ${
-                  darkMode ? 'bg-stone-800 border-stone-700 text-stone-200 placeholder:text-stone-500' : 'bg-stone-50 border-stone-200 text-stone-800 placeholder:text-stone-400'
-                }`}
+              {/* M2: UnifiedSearch übernimmt Input + Dropdown + Highlights.
+                  key={searchOpen} resettet den internen Query-State beim
+                  Schließen+erneut-Öffnen, was dem alten Verhalten entspricht. */}
+              <UnifiedSearch
+                key={searchOpen ? 'open' : 'closed'}
+                scope="page"
+                scopeId="reader"
+                sources={[createChaptersSource(ebook)]}
+                onSelect={(hit: SearchHit) => navigateTo(hit.id)}
+                onEscape={() => setSearchOpen(false)}
+                placeholder="Im Ebook suchen …"
+                autoFocus
+                inputRef={searchInputRef}
               />
-              {searchQuery && (
-                <div className="mt-2 max-h-64 overflow-y-auto space-y-1">
-                  {searchResults.length === 0 ? (
-                    <p className="text-xs text-stone-500 px-2 py-1">Keine Ergebnisse</p>
-                  ) : (
-                    searchResults.map(ch => (
-                      <button
-                        key={ch.id}
-                        onClick={() => navigateTo(ch.id)}
-                        className={`w-full text-left px-3 py-2 rounded text-xs hover:bg-amber-500/10 transition-colors ${darkMode ? 'hover:text-amber-400' : 'hover:text-amber-700'}`}
-                      >
-                        <span className="font-medium">{ch.title}</span>
-                        <span className={`block mt-0.5 ${darkMode ? 'text-stone-500' : 'text-stone-400'}`}>
-                          {highlightMatch(ch.content, searchQuery).slice(0, 140)}
-                        </span>
-                      </button>
-                    ))
-                  )}
-                  <p className="text-xs text-stone-500 px-2">{searchResults.length} Treffer</p>
-                </div>
-              )}
             </div>
           </motion.div>
         )}
