@@ -20,6 +20,7 @@ const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
 const AdminHealthPage = lazy(() => import("./pages/admin/AdminHealthPage"));
+const DevSearchPage = lazy(() => import("./pages/DevSearchPage"));
 
 // Wrapper: Sub-Pages laufen alle unter dem globalen AppFrame.
 // Home (/) bleibt aussen vor — seine eigene Reading-UI bestimmt das Frame.
@@ -69,6 +70,9 @@ function Router() {
       </Route>
       <Route path={"/admin"}>
         <Framed><Suspense fallback={fallback}><AdminLayout><AdminCurationPage /></AdminLayout></Suspense></Framed>
+      </Route>
+      <Route path={"/dev/search"}>
+        <Framed><Suspense fallback={fallback}><DevSearchPage /></Suspense></Framed>
       </Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}
