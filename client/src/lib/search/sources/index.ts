@@ -11,3 +11,4 @@
 export { createChaptersSource } from "./chapters";
 export { conceptsSource } from "./concepts";
 export { philosophersSource } from "./philosophers";
+export { resonanzenSource } from "./resonanzen";

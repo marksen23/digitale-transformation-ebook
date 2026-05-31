@@ -7,7 +7,13 @@
  * (prompt-Feld) — was die Leserschaft *fragt*, nicht was die KI antwortet.
  */
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link } from "wouter";
+import { Link, useLocation as useWouterLocation } from "wouter";
+import { UnifiedSearch } from "@/components/search/UnifiedSearch";
+import {
+  resonanzenSource, conceptsSource, philosophersSource, createChaptersSource,
+} from "@/lib/search/sources";
+import type { SearchHit, SearchSource } from "@/lib/search/types";
+import { useEbook } from "@/hooks/useEbook";
 import WordCloud from "@/components/enkidu/WordCloud";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import {
@@ -37,6 +43,14 @@ export default function ResonanzenPage() {
   const isDark = useEbookTheme();
   const C = isDark ? C_DARK : C_LIGHT;
   const [scrollRef, setScrollRef] = useState<HTMLElement | null>(null);
+  const [, navigate] = useWouterLocation();
+  // M4: extended Sources für "Weiterführend"-Treffer in der UnifiedSearch.
+  // Werk-Source braucht Ebook (lazy-loaded), die anderen sind Singletons.
+  const ebook = useEbook();
+  const extendedSources = useMemo<SearchSource[]>(
+    () => [createChaptersSource(ebook), conceptsSource, philosophersSource],
+    [ebook]
+  );
 
   const [index, setIndex] = useState<ResonanzIndex | null>(null);
   const [loadError, setLoadError] = useState<string | null>(null);
@@ -533,36 +547,40 @@ export default function ResonanzenPage() {
             borderBottom: `1px solid ${C.border}`,
           }}
         >
+          {/* M4: UnifiedSearch — primary = Resonanzen (kuratiert, prompt-fokussiert,
+              keine related/echo-Falsch-Positive). extended = Werk + Begriffe +
+              Philosophen unter "Weiterführend"-Trennlinie, mit Deep-Link-Navigation.
+              Semantik-Toggle bleibt als opt-in Power-User-Feature daneben. */}
           <div style={{ display: "flex", gap: "0.5rem", alignItems: "stretch", flexWrap: "wrap" }}>
-            <input
-              ref={searchInputRef}
-              type="text"
-              value={search}
-              onChange={e => {
-                setSearch(e.target.value);
-                if (semanticResults) setSemanticResults(null);
-              }}
-              onFocus={() => setSearchFocused(true)}
-              onBlur={() => setTimeout(() => setSearchFocused(false), 200)}
-              onKeyDown={e => {
-                if (e.key === "Enter") {
-                  if (search.trim().length >= 2) addToHistory(search);
-                  if (semanticMode) runSemanticSearch();
-                }
-              }}
-              placeholder={semanticMode ? "Semantische Suche — Enter drücken …" : "Suchen im kollektiven Wissen … (Tastenkürzel: /)"}
-              style={{
-                flex: 1, minWidth: 200,
-                fontFamily: SERIF,
-                fontSize: "1rem",
-                background: C.surface, color: C.textBright,
-                border: `1px solid ${search ? C.accentDim : C.border}`,
-                borderRadius: RADIUS.button,
-                padding: "0.9rem 1.1rem", outline: "none",
-                minHeight: 56,
-                transition: TRANSITION,
-              }}
-            />
+            <div style={{ flex: 1, minWidth: 200 }}>
+              <UnifiedSearch
+                scope="page"
+                scopeId="resonanzen"
+                sources={[resonanzenSource]}
+                extendedSources={extendedSources}
+                inputRef={searchInputRef}
+                onQueryChange={q => {
+                  setSearch(q);
+                  if (semanticResults) setSemanticResults(null);
+                  if (q.trim().length >= 2) addToHistory(q);
+                }}
+                onSelect={(hit: SearchHit) => {
+                  if (hit.type === "resonanz") {
+                    setExpandedId(hit.id);
+                    setPermalinkId(hit.id);
+                    // Scroll wird vom Permalink-Effekt erledigt
+                  } else if (hit.type === "chapter") {
+                    navigate(`/?chapter=${encodeURIComponent(hit.id)}`);
+                  } else if (hit.type === "concept") {
+                    navigate(`/begriffsnetz?node=${encodeURIComponent(hit.id)}`);
+                  } else if (hit.type === "philosopher") {
+                    navigate(`/philosophie?id=${encodeURIComponent(hit.id)}`);
+                  }
+                }}
+                placeholder="Im kollektiven Wissen suchen … (Tastenkürzel: /)"
+                limit={6}
+              />
+            </div>
             {embeddingsAvailable && (
               <button
                 onClick={() => {
@@ -579,27 +597,14 @@ export default function ResonanzenPage() {
                   background: semanticMode ? "#5aacb8" : "none",
                   border: `1px solid #5aacb8`,
                   padding: "0 1rem",
-                  minHeight: 56, minWidth: 110,
+                  minHeight: 40, minWidth: 110,
                   cursor: semanticLoading ? "wait" : "pointer",
                   opacity: semanticLoading ? 0.5 : 1,
                 }}
-                title="Toggle: Volltext-Match vs. semantische Ähnlichkeit"
+                title="Toggle: Volltext-Match vs. semantische Ähnlichkeit (Enter im Suchfeld)"
               >
                 {semanticLoading ? "…" : semanticMode ? "✓ semantisch" : "≈ semantisch"}
               </button>
-            )}
-            {search && (
-              <button
-                onClick={() => { setSearch(""); setSemanticResults(null); setSemanticError(null); }}
-                aria-label="Suche zurücksetzen"
-                style={{
-                  fontFamily: MONO, fontSize: "1rem",
-                  color: C.muted, background: "none",
-                  border: `1px solid ${C.border}`,
-                  minHeight: 56, minWidth: 56,
-                  cursor: "pointer",
-                }}
-              >×</button>
             )}
           </div>
 
