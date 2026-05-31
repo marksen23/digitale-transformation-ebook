@@ -1678,6 +1678,21 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     />
                   )}
 
+                  {/* M7: Such-Highlight Hintergrund — gelber Fill (passend zur
+                      <mark>-Hervorhebung in den Dropdown-Treffern, bg-amber-300/40).
+                      Wird VOR der Node-circle gerendert, damit die Kategorie-Farbe
+                      vorne bleibt aber der gelbe Ton durchscheint. */}
+                  {searchHighlightId === node.id && (
+                    <circle
+                      cx={x}
+                      cy={y}
+                      r={node.r + 2}
+                      fill="#fcd34d"
+                      fillOpacity={0.55}
+                      stroke="none"
+                      style={{ pointerEvents: "none" }}
+                    />
+                  )}
                   {/* Node circle */}
                   <circle
                     cx={x}
@@ -1690,7 +1705,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     strokeOpacity={strokeOpacity}
                   />
                   {/* M7: Such-Highlight-Ring — 4s nach Auswahl im Dropdown.
-                      Amber-Farbe matched mit der Suchfeld-Border-Color. */}
+                      Orange-Farbe matched mit der Suchfeld-Border-Color. */}
                   {searchHighlightId === node.id && (
                     <circle
                       cx={x}

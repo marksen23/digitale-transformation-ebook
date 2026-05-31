@@ -102,7 +102,10 @@ export function UnifiedSearch({
   const handleSelect = useCallback((hit: SearchHit) => {
     history.push(query);
     onSelect(hit);
-  }, [history, query, onSelect]);
+    // Dropdown automatisch schließen: Query leeren (Dropdown rendert nur bei
+    // nicht-leerem Query). Parent-State wird via onQueryChange synchron geleert.
+    setQuery("");
+  }, [history, query, onSelect, setQuery]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
