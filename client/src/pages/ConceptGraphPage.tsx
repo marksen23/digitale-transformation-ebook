@@ -292,6 +292,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   // Search + filter
   const [searchQuery, setSearchQuery] = useState("");
+  // M7-Verbesserung: kurzlebige Markierung des per Suche angewählten Knotens.
+  // Wird für ~4s mit amber-Ring umrandet, passend zur Suchfeld-Farbe.
+  const [searchHighlightId, setSearchHighlightId] = useState<string | null>(null);
   const [hiddenCats, setHiddenCats] = useState<Set<NodeCategory>>(new Set());
   const [hiddenLeitmotive, setHiddenLeitmotive] = useState<Set<string>>(new Set());
   const [hiddenPrinzipien, setHiddenPrinzipien] = useState<Set<string>>(new Set());
@@ -1241,7 +1244,19 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               scopeId="conceptgraph"
               sources={[conceptsSource]}
               onQueryChange={q => { setSearchQuery(q); setSelectedId(null); }}
-              onSelect={(hit: SearchHit) => { setSelectedId(hit.id); setSearchQuery(""); }}
+              onSelect={(hit: SearchHit) => {
+                setSelectedId(hit.id);
+                setSearchQuery("");
+                // Amber-Ring für 4 Sek setzen (deutet die Such-Auswahl an)
+                setSearchHighlightId(hit.id);
+                window.setTimeout(() => setSearchHighlightId(prev => prev === hit.id ? null : prev), 4000);
+                // SVG auf den Knoten zentrieren — falls nicht bereits im Sichtfeld
+                const pos = getPos(hit.id);
+                const rect = svgRef.current?.getBoundingClientRect();
+                if (rect && pos) {
+                  setPanSync({ x: rect.width / 2 - pos.x * zoomRef.current, y: rect.height / 2 - pos.y * zoomRef.current });
+                }
+              }}
               placeholder="Begriff suchen …"
               limit={8}
             />
@@ -1674,6 +1689,35 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     strokeWidth={strokeWidth}
                     strokeOpacity={strokeOpacity}
                   />
+                  {/* M7: Such-Highlight-Ring — 4s nach Auswahl im Dropdown.
+                      Amber-Farbe matched mit der Suchfeld-Border-Color. */}
+                  {searchHighlightId === node.id && (
+                    <circle
+                      cx={x}
+                      cy={y}
+                      r={node.r + 6}
+                      fill="none"
+                      stroke="#f59e0b"
+                      strokeWidth={2.5}
+                      strokeOpacity={0.9}
+                      style={{ pointerEvents: "none" }}
+                    >
+                      <animate
+                        attributeName="r"
+                        from={node.r + 14}
+                        to={node.r + 6}
+                        dur="0.6s"
+                        fill="freeze"
+                      />
+                      <animate
+                        attributeName="stroke-opacity"
+                        from={0}
+                        to={0.9}
+                        dur="0.6s"
+                        fill="freeze"
+                      />
+                    </circle>
+                  )}
 
                   {/* Label */}
                   {lines.length === 1 ? (

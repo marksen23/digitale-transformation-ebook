@@ -44,7 +44,7 @@ export function GlobalSearchOverlay({
       aria-label="Globale Suche"
     >
       <div
-        className="w-full max-w-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 rounded-xl shadow-2xl p-4"
+        className="w-full max-w-2xl bg-white dark:bg-stone-900 rounded-xl shadow-2xl p-4"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-2">

@@ -81,7 +81,7 @@ export function ChipBuilder({
   }
 
   return (
-    <div className="flex items-center gap-1.5 w-full px-2 py-1.5 rounded-lg border border-stone-200 dark:border-stone-700 bg-white dark:bg-stone-900 focus-within:border-amber-500/60 focus-within:ring-2 focus-within:ring-amber-500/20 flex-wrap">
+    <div className="flex items-center gap-1.5 w-full px-2 py-1.5 rounded-md border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 focus-within:border-amber-500 transition-colors flex-wrap">
       {visibleChips.map(c => (
         <span
           key={`${c.groupId}::${c.value}`}
