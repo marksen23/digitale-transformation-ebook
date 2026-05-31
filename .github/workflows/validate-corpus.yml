@@ -186,6 +186,13 @@ jobs:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           GEMINI_EMBED_MODEL: gemini-embedding-001
 
+      - name: Rebuild Search-Index (concepts + philosophers Embeddings)
+        if: success()
+        run: pnpm tsx scripts/build-search-index.ts
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_EMBED_MODEL: gemini-embedding-001
+
       - name: Rebuild resonanzen-index.json
         if: success()
         run: pnpm tsx scripts/build-resonanzen-index.ts && pnpm tsx scripts/build-corpus-timeline.ts && pnpm tsx scripts/build-werk-pdf.ts
@@ -219,6 +226,8 @@ jobs:
             client/public/resonanzen-corpus-map.json
             client/public/werk-chunks.json
             client/public/resonanzen-timeline.json
+            client/public/concepts-embeddings.json
+            client/public/philosophers-embeddings.json
             client/public/exports/resonanzvernunft.pdf
           retention-days: 7
           if-no-files-found: warn
@@ -258,6 +267,8 @@ jobs:
               client/public/resonanzen-corpus-map.json \
               client/public/werk-chunks.json \
               client/public/resonanzen-timeline.json \
+              client/public/concepts-embeddings.json \
+              client/public/philosophers-embeddings.json \
               client/public/exports/resonanzvernunft.pdf; do
             if [ -f "$f" ]; then
               git add -f "$f" && echo "[git add] OK: $f"
