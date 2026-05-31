@@ -11,7 +11,7 @@
  *   - Enter wählt aktuellen Treffer (ruft onSelect)
  *   - Esc ruft onEscape (Parent entscheidet — schließt oder leert)
  */
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ChipBuilder } from "./ChipBuilder";
 import { SearchDropdown } from "./SearchDropdown";
 import { useHybridSearch } from "@/hooks/useHybridSearch";
@@ -28,7 +28,17 @@ interface UnifiedSearchProps {
   scope: SearchScope;
   /** Eindeutige Scope-ID für Historie (z.B. 'reader', 'resonanzen', 'global') */
   scopeId: string;
+  /**
+   * Primäre Such-Quellen — diese passen direkt zur Page (z.B. nur Begriffe
+   * im Begriffsnetz). Treffer erscheinen oben, klar markiert.
+   */
   sources: SearchSource[];
+  /**
+   * Optionale weiterführende Quellen — Treffer erscheinen unter einer
+   * "Weiterführend"-Trennlinie. Für Sub-Pages, die auf zusätzliche
+   * Kontext-Quellen verweisen wollen (z.B. Werk-Kapitel im Begriffsnetz).
+   */
+  extendedSources?: SearchSource[];
   filterGroups?: FilterGroup[];
   initialFilters?: ActiveFilters;
   onFiltersChange?: (next: ActiveFilters) => void;
@@ -53,6 +63,7 @@ export function UnifiedSearch({
   scope,
   scopeId,
   sources,
+  extendedSources,
   filterGroups = [],
   initialFilters = {},
   onFiltersChange,
@@ -85,9 +96,18 @@ export function UnifiedSearch({
     onFiltersChange?.(next);
   }, [onFiltersChange]);
 
+  // Primary + extended Sources tier-getagged zusammenführen. Ein useHybridSearch
+  // Call sortiert dann tier-first (primary vor extended), und SearchDropdown
+  // rendert mit "Weiterführend"-Trennlinie.
+  const allSources = useMemo<SearchSource[]>(() => {
+    const primary = sources.map(s => ({ ...s, tier: "primary" as const }));
+    const extended = (extendedSources ?? []).map(s => ({ ...s, tier: "extended" as const }));
+    return [...primary, ...extended];
+  }, [sources, extendedSources]);
+
   const { hits, loading, semanticPending } = useHybridSearch({
     query,
-    sources,
+    sources: allSources,
     filters,
     limit,
     enableSemantic,
@@ -159,7 +179,7 @@ export function UnifiedSearch({
           cursor={cursor}
           onSelect={handleSelect}
           onCursorChange={setCursor}
-          sources={sources}
+          sources={allSources}
           loading={loading}
           semanticPending={semanticPending}
         />

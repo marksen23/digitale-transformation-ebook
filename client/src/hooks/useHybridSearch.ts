@@ -14,7 +14,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ActiveFilters, SearchContext, SearchHit, SearchSource } from "@/lib/search/types";
-import { mergeHits } from "@/lib/search/score";
+import { mergeHits, tierRank } from "@/lib/search/score";
 
 interface UseHybridSearchOpts {
   query: string;
@@ -68,14 +68,20 @@ export function useHybridSearch(opts: UseHybridSearchOpts): UseHybridSearchResul
       setLoading(true);
       const allLex: SearchHit[] = [];
       for (const src of sources) {
+        const tier = src.tier ?? "primary";
         try {
           const r = await Promise.resolve(src.search(query, ctx));
-          for (const h of r) allLex.push({ ...h, mode: "lex" as const });
+          for (const h of r) allLex.push({ ...h, mode: "lex" as const, tier });
         } catch { /* Source-Fehler ignoriert — andere Sources liefern weiter */ }
       }
       if (cancelled || reqId !== reqIdRef.current) return;
-      // Pro Source-Type top-N
-      allLex.sort((a, b) => b.score - a.score);
+      // Tier-first: primary immer vor extended; innerhalb Tier nach Score.
+      // (Lex-Hits haben hier noch keinen Mix-Bonus — der greift erst nach
+      // sem-Merge in mergeHits.)
+      allLex.sort((a, b) => {
+        const t = tierRank(a) - tierRank(b);
+        return t !== 0 ? t : b.score - a.score;
+      });
       setHits(allLex.slice(0, limit * sources.length));
       setLoading(false);
     }
@@ -91,9 +97,10 @@ export function useHybridSearch(opts: UseHybridSearchOpts): UseHybridSearchResul
         const allSem: SearchHit[] = [];
         for (const src of sources) {
           if (!src.semanticSearch) continue;
+          const tier = src.tier ?? "primary";
           try {
             const r = await src.semanticSearch(query, ctx);
-            for (const h of r) allSem.push({ ...h, mode: "sem" as const });
+            for (const h of r) allSem.push({ ...h, mode: "sem" as const, tier });
           } catch { /* ignore */ }
         }
         if (cancelled || reqId !== reqIdRef.current) return;

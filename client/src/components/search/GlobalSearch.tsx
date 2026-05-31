@@ -15,9 +15,7 @@ import { useLocation } from "wouter";
 import { GlobalSearchOverlay } from "./GlobalSearchOverlay";
 import { useGlobalHotkey } from "@/hooks/useGlobalHotkey";
 import { useEbook } from "@/hooks/useEbook";
-import { createChaptersSource } from "@/lib/search/sources/chapters";
-import { conceptsSource } from "@/lib/search/sources/concepts";
-import { philosophersSource } from "@/lib/search/sources/philosophers";
+import { createChaptersSource, conceptsSource, philosophersSource } from "@/lib/search/sources";
 import type { SearchHit, SearchSource } from "@/lib/search/types";
 
 export function GlobalSearch() {

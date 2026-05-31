@@ -39,36 +39,35 @@ export function SearchDropdown({
   semanticPending,
   emptyMessage = "Keine Ergebnisse",
 }: SearchDropdownProps) {
-  const grouped = useMemo(() => {
-    const out: Record<SearchHitType, SearchHit[]> = {
-      chapter: [], resonanz: [], concept: [], philosopher: [], curation: [],
-    };
-    for (const h of hits) out[h.type].push(h);
-    return out;
-  }, [hits]);
-
-  // Source-Reihenfolge für Sektion-Display
-  const orderedTypes = useMemo(() => {
-    const seen = new Set<SearchHitType>();
-    const ordered: SearchHitType[] = [];
-    for (const s of sources) {
-      if (!seen.has(s.type) && grouped[s.type].length > 0) {
-        seen.add(s.type);
-        ordered.push(s.type);
+  // hits sind bereits tier-first sortiert (siehe useHybridSearch / mergeHits),
+  // also genügt ein Single-Pass: jedes Mal wenn (tier, type) wechselt,
+  // hängen wir einen Header (und ggf. die "Weiterführend"-Trennlinie) an.
+  // sources-Prop bleibt drin als Anker, falls TYPE_LABELS später per-Source
+  // angepasst wird.
+  void sources;
+  const flatRender = useMemo(() => {
+    const rows: Array<
+      | { type: "header"; label: string }
+      | { type: "tierDivider" }
+      | { type: "hit"; hit: SearchHit; idx: number }
+    > = [];
+    let flatIdx = 0;
+    let lastTier: "primary" | "extended" | null = null;
+    let lastType: SearchHitType | null = null;
+    for (const h of hits) {
+      const tier = h.tier ?? "primary";
+      if (tier === "extended" && lastTier !== "extended") {
+        rows.push({ type: "tierDivider" });
       }
+      if (h.type !== lastType || tier !== lastTier) {
+        rows.push({ type: "header", label: TYPE_LABELS[h.type] });
+      }
+      rows.push({ type: "hit", hit: h, idx: flatIdx++ });
+      lastTier = tier;
+      lastType = h.type;
     }
-    return ordered;
-  }, [sources, grouped]);
-
-  // Flat-Index berechnen für Cursor
-  let flatIdx = 0;
-  const flatRender: Array<{ type: "header"; label: string } | { type: "hit"; hit: SearchHit; idx: number }> = [];
-  for (const t of orderedTypes) {
-    flatRender.push({ type: "header", label: TYPE_LABELS[t] });
-    for (const h of grouped[t]) {
-      flatRender.push({ type: "hit", hit: h, idx: flatIdx++ });
-    }
-  }
+    return rows;
+  }, [hits]);
 
   if (!query.trim()) {
     return null;
@@ -82,6 +81,17 @@ export function SearchDropdown({
         <p className="text-xs text-stone-500 px-2 py-1">{emptyMessage}</p>
       ) : (
         flatRender.map((row, ri) => {
+          if (row.type === "tierDivider") {
+            return (
+              <div key={`d-${ri}`} className="flex items-center gap-2 px-2 pt-3 pb-1">
+                <span className="flex-1 h-px bg-stone-200 dark:bg-stone-700" aria-hidden />
+                <span className="text-[10px] uppercase tracking-wider text-stone-400 dark:text-stone-500">
+                  Weiterführend
+                </span>
+                <span className="flex-1 h-px bg-stone-200 dark:bg-stone-700" aria-hidden />
+              </div>
+            );
+          }
           if (row.type === "header") {
             return (
               <div key={`h-${ri}`} className="text-[10px] uppercase tracking-wider text-stone-500 dark:text-stone-400 px-2 pt-1">

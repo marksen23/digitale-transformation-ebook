@@ -24,8 +24,9 @@ import {
   type TraditionId,
 } from "@/data/philosophyMap";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
-import { philosophersSource } from "@/lib/search/sources/philosophers";
+import { philosophersSource, conceptsSource } from "@/lib/search/sources";
 import type { SearchHit } from "@/lib/search/types";
+import { useLocation as useWouterLocation } from "wouter";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import {
   ToolbarBtn, FilterPill,
@@ -64,6 +65,7 @@ export default function PhilosophyPage() {
     return id && getPhilosopher(id) ? id : null;
   }, []);
   const [selectedId, setSelectedId] = useState<string | null>(initialId);
+  const [, navigate] = useWouterLocation();
   const [traditionFilter, setTraditionFilter] = useState<TraditionId | "all">("all");
   const [showPath, setShowPath] = useState(true);
   const [viewMode, setViewMode] = useState<ViewMode>("timeline");
@@ -290,8 +292,16 @@ export default function PhilosophyPage() {
                 scope="page"
                 scopeId="philosophie"
                 sources={[philosophersSource]}
+                extendedSources={[conceptsSource]}
                 onQueryChange={setSearch}
-                onSelect={(hit: SearchHit) => { setSelectedId(hit.id); setSearch(""); }}
+                onSelect={(hit: SearchHit) => {
+                  if (hit.type === "philosopher") {
+                    setSelectedId(hit.id);
+                    setSearch("");
+                  } else if (hit.type === "concept") {
+                    navigate(`/begriffsnetz?node=${encodeURIComponent(hit.id)}`);
+                  }
+                }}
                 placeholder="Philosoph suchen …"
                 limit={8}
               />

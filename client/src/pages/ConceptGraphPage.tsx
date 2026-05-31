@@ -10,8 +10,9 @@ import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
-import { conceptsSource } from "@/lib/search/sources/concepts";
+import { conceptsSource, philosophersSource } from "@/lib/search/sources";
 import type { SearchHit } from "@/lib/search/types";
+import { useLocation as useWouterLocation } from "wouter";
 import ResonanzenBlock from "@/components/ResonanzenBlock";
 import CategoryLegendButton from "@/components/CategoryLegendButton";
 import LegendSection from "@/components/LegendSection";
@@ -271,6 +272,9 @@ const TOP_HUBS = NODES
 export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const isDark = useEbookTheme();
   const C: Palette = isDark ? C_DARK : C_LIGHT;
+
+  // Navigation für extended Such-Treffer (z.B. Philosoph → Philosophie-Seite)
+  const [, navigate] = useWouterLocation();
 
   // Pan / Zoom state
   const [pan,  setPan]  = useState({ x: 0, y: 0 });
@@ -1243,18 +1247,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               scope="page"
               scopeId="conceptgraph"
               sources={[conceptsSource]}
+              extendedSources={[philosophersSource]}
               onQueryChange={q => { setSearchQuery(q); setSelectedId(null); }}
               onSelect={(hit: SearchHit) => {
-                setSelectedId(hit.id);
-                setSearchQuery("");
-                // Amber-Ring für 4 Sek setzen (deutet die Such-Auswahl an)
-                setSearchHighlightId(hit.id);
-                window.setTimeout(() => setSearchHighlightId(prev => prev === hit.id ? null : prev), 4000);
-                // SVG auf den Knoten zentrieren — falls nicht bereits im Sichtfeld
-                const pos = getPos(hit.id);
-                const rect = svgRef.current?.getBoundingClientRect();
-                if (rect && pos) {
-                  setPanSync({ x: rect.width / 2 - pos.x * zoomRef.current, y: rect.height / 2 - pos.y * zoomRef.current });
+                if (hit.type === "concept") {
+                  // Primary: Knoten im Graph selektieren + zentrieren
+                  setSelectedId(hit.id);
+                  setSearchQuery("");
+                  setSearchHighlightId(hit.id);
+                  window.setTimeout(() => setSearchHighlightId(prev => prev === hit.id ? null : prev), 4000);
+                  const pos = getPos(hit.id);
+                  const rect = svgRef.current?.getBoundingClientRect();
+                  if (rect && pos) {
+                    setPanSync({ x: rect.width / 2 - pos.x * zoomRef.current, y: rect.height / 2 - pos.y * zoomRef.current });
+                  }
+                } else if (hit.type === "philosopher") {
+                  // Extended: Sprung auf die Philosophie-Seite mit Deep-Link
+                  navigate(`/philosophie?id=${encodeURIComponent(hit.id)}`);
                 }
               }}
               placeholder="Begriff suchen …"

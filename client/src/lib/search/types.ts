@@ -29,6 +29,14 @@ export interface SearchHit {
   anchor?: string;
   /** Modus: 'lex' (Substring) oder 'sem' (Embedding) — für Badge-Anzeige */
   mode?: "lex" | "sem";
+  /**
+   * Tier:
+   *   primary  = passt direkt zur aktiven Page (z.B. concepts im Begriffsnetz)
+   *   extended = weiterführende Treffer aus anderen Quellen (z.B. Werk-Kapitel,
+   *              die den Begriff erwähnen). Erscheinen unter "Weiterführend".
+   * Default: primary.
+   */
+  tier?: "primary" | "extended";
 }
 
 export interface SearchSource {
@@ -44,6 +52,8 @@ export interface SearchSource {
    * Wenn nicht definiert, läuft nur die lex-Suche.
    */
   semanticSearch?(q: string, ctx: SearchContext): Promise<SearchHit[]>;
+  /** Tier-Marker — wird in useHybridSearch auf die Hits propagiert. */
+  tier?: "primary" | "extended";
 }
 
 export interface SearchContext {

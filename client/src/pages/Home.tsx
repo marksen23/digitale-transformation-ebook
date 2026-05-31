@@ -15,7 +15,7 @@ import { useLocation } from 'wouter';
 import { useSpeechRecognition } from '@/hooks/useSpeech';
 import { useAudioPlayer, type VoiceGender } from '@/hooks/useAudioPlayer';
 import { UnifiedSearch } from '@/components/search/UnifiedSearch';
-import { createChaptersSource } from '@/lib/search/sources/chapters';
+import { createChaptersSource } from '@/lib/search/sources';
 import type { SearchHit } from '@/lib/search/types';
 
 // ─── Helpers ────────────────────────────────────────────────────────
