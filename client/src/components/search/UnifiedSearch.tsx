@@ -45,6 +45,8 @@ interface UnifiedSearchProps {
   locale?: string;
   /** Externes Ref auf das Input-Element (zum Fokussieren aus dem Parent) */
   inputRef?: React.RefObject<HTMLInputElement | null>;
+  /** Wird auf jeden Query-Change aufgerufen — z.B. um Graph-Färbung zu steuern. */
+  onQueryChange?: (q: string) => void;
 }
 
 export function UnifiedSearch({
@@ -64,8 +66,13 @@ export function UnifiedSearch({
   alwaysOpen = false,
   locale,
   inputRef: externalInputRef,
+  onQueryChange,
 }: UnifiedSearchProps) {
-  const [query, setQuery] = useState("");
+  const [query, _setQuery] = useState("");
+  const setQuery = useCallback((q: string) => {
+    _setQuery(q);
+    onQueryChange?.(q);
+  }, [onQueryChange]);
   const [filters, setFilters] = useState<ActiveFilters>(initialFilters);
   const [cursor, setCursor] = useState(0);
   const localInputRef = useRef<HTMLInputElement>(null);

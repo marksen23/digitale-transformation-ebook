@@ -9,6 +9,9 @@ import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORN
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
+import { UnifiedSearch } from "@/components/search/UnifiedSearch";
+import { conceptsSource } from "@/lib/search/sources/concepts";
+import type { SearchHit } from "@/lib/search/types";
 import ResonanzenBlock from "@/components/ResonanzenBlock";
 import CategoryLegendButton from "@/components/CategoryLegendButton";
 import LegendSection from "@/components/LegendSection";
@@ -1211,38 +1214,25 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           )}
         </div>
 
-        {/* Zeile 2: Suche — immer volle Breite, kein CSS-Trick nötig */}
+        {/* Zeile 2: Suche — M3: UnifiedSearch ersetzt das alte Input.
+            searchQuery bleibt als State für die Graph-Färbung; via
+            onQueryChange synchronisiert. Klick im Dropdown selektiert
+            den Knoten direkt. */}
         <div style={{ display: "flex", alignItems: "center", gap: "0.5rem" }}>
-          <div style={{ flex: 1, position: "relative", maxWidth: 400 }}>
-            <input
-              type="text"
-              value={searchQuery}
-              onChange={e => { setSearchQuery(e.target.value); setSelectedId(null); }}
+          <div style={{ flex: 1, maxWidth: 400 }}>
+            <UnifiedSearch
+              scope="page"
+              scopeId="conceptgraph"
+              sources={[conceptsSource]}
+              onQueryChange={q => { setSearchQuery(q); setSelectedId(null); }}
+              onSelect={(hit: SearchHit) => { setSelectedId(hit.id); setSearchQuery(""); }}
               placeholder="Begriff suchen …"
-              style={{
-                width: "100%", background: C.surface,
-                border: `1px solid ${searchQuery ? C.accentDim : C.border}`,
-                color: C.textBright, fontFamily: C.serif, fontStyle: "italic",
-                fontSize: "0.88rem", padding: "0.3rem 1.8rem 0.3rem 0.7rem",
-                outline: "none", transition: "border-color 0.2s", boxSizing: "border-box",
-              }}
-              onFocus={e => (e.currentTarget.style.borderColor = C.accentDim)}
-              onBlur={e => (e.currentTarget.style.borderColor = searchQuery ? C.accentDim : C.border)}
+              limit={8}
             />
-            {searchQuery && (
-              <button
-                onClick={() => setSearchQuery("")}
-                style={{
-                  position: "absolute", right: "0.4rem", top: "50%", transform: "translateY(-50%)",
-                  background: "none", border: "none", color: C.muted, cursor: "pointer",
-                  fontFamily: "monospace", fontSize: "0.85rem", lineHeight: 1, padding: "0.1rem",
-                }}
-              >×</button>
-            )}
           </div>
           {searchQuery && (
             <span style={{ fontFamily: C.mono, fontSize: "0.6rem", color: C.accentDim, flexShrink: 0 }}>
-              {searchMatchIds.size} Treffer
+              {searchMatchIds.size} im Graph
             </span>
           )}
         </div>

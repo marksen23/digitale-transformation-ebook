@@ -23,6 +23,9 @@ import {
   philosophersByBirth, getPhilosopher, getTradition,
   type TraditionId,
 } from "@/data/philosophyMap";
+import { UnifiedSearch } from "@/components/search/UnifiedSearch";
+import { philosophersSource } from "@/lib/search/sources/philosophers";
+import type { SearchHit } from "@/lib/search/types";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import {
   ToolbarBtn, FilterPill,
@@ -279,38 +282,23 @@ export default function PhilosophyPage() {
         {/* Filter-Pills + Suchfeld (Mobile: kollabierbar; Desktop: immer offen) */}
         {(filtersExpanded || !isMobile) && (
           <>
-            {/* Suchfeld */}
-            <div style={{ marginTop: "0.6rem", display: "flex", alignItems: "center", gap: "0.4rem" }}>
-              <input
-                type="text"
-                value={search}
-                onChange={e => setSearch(e.target.value)}
+            {/* M3: UnifiedSearch ersetzt das alte Input. search-State bleibt
+                via onQueryChange synchronisiert (filtert die Liste/Timeline).
+                Klick im Dropdown → setSelectedId für Detail-Panel-Anzeige. */}
+            <div style={{ marginTop: "0.6rem" }}>
+              <UnifiedSearch
+                scope="page"
+                scopeId="philosophie"
+                sources={[philosophersSource]}
+                onQueryChange={setSearch}
+                onSelect={(hit: SearchHit) => { setSelectedId(hit.id); setSearch(""); }}
                 placeholder="Philosoph suchen …"
-                style={{
-                  flex: 1,
-                  fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic",
-                  color: C.text, background: C.surface,
-                  border: `1px solid ${C.border}`,
-                  padding: "0.55rem 0.8rem", outline: "none",
-                  minHeight: 36,
-                }}
+                limit={8}
               />
-              {search && (
-                <button
-                  onClick={() => setSearch("")}
-                  aria-label="Suche löschen"
-                  style={{
-                    fontFamily: MONO, fontSize: "0.6rem",
-                    color: C.muted, background: "none",
-                    border: `1px solid ${C.border}`,
-                    padding: "0.4rem 0.7rem", cursor: "pointer", minHeight: 36,
-                  }}
-                >×</button>
-              )}
               {searchLower && (
-                <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, whiteSpace: "nowrap" }}>
-                  {visible.length} Treffer
-                </span>
+                <div style={{ marginTop: "0.3rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
+                  {visible.length} in Liste
+                </div>
               )}
             </div>
 
