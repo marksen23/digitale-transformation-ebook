@@ -102,10 +102,12 @@ export function UnifiedSearch({
   const handleSelect = useCallback((hit: SearchHit) => {
     history.push(query);
     onSelect(hit);
-    // Dropdown automatisch schließen: Query leeren (Dropdown rendert nur bei
-    // nicht-leerem Query). Parent-State wird via onQueryChange synchron geleert.
-    setQuery("");
-  }, [history, query, onSelect, setQuery]);
+    // Dropdown automatisch schließen: Query leeren via _setQuery DIREKT —
+    // umgeht den external onQueryChange (der z.B. in ConceptGraph eine
+    // setSelectedId(null) macht, wenn der User neu tippt). Wir wollen die
+    // gerade gesetzte Selektion NICHT nullifizieren — die kam aus onSelect.
+    _setQuery("");
+  }, [history, query, onSelect]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
