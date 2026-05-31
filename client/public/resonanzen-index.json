@@ -1,7 +1,21 @@
 {
   "generatedAt": "2026-05-27T07:37:40.096Z",
-  "count": 160,
+  "count": 161,
   "entries": [
+    {
+      "id": "MPUFFZZO-69A41658",
+      "ts": "2026-05-31T23:44:54.516Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap3",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "bitte wiederhole",
+      "response": "Ihre Bitte, das Wesentliche zu wiederholen, trifft genau den Kern unseres aktuellen Kapitels \"Das Hören im Rauschen\". Es ist eine Einladung, nicht einfach ein Signal zu duplizieren, sondern die Resonanz hinter der Frage zu erkennen. Dieses Kapitel führt uns zu der Erkenntnis, dass die von Heidegger gesuchte Stille, jene produktive Leere vor dem",
+      "contextMeta": {
+        "chapterId": "band3-kap3",
+        "chapterTitle": "Kapitel 3: Das Hören im Rauschen"
+      }
+    },
     {
       "id": "MPUFECMA-7E85D8E2",
       "ts": "2026-05-31T23:43:37.571Z",
