@@ -6,7 +6,7 @@ endpoint: path-analyse
 model: gemini-2.5-flash
 anchor: path-analyse:resonanz+transformatives-drittes
 nodeIds: [ lm-verwandlung, resonanz, resonanzvernunft, transformatives-drittes ]
-status: raw
+status: published
 content_hash: 7accea5d9feb3803
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
@@ -16,6 +16,11 @@ audit_trail:
     ts: 2026-05-03T22:17:38.040Z
     actor: system
     content_hash: 7accea5d9feb3803
+  - event: status-changed
+    ts: 2026-05-31T19:52:55.819Z
+    actor: admin
+    from: raw
+    to: published
 context_meta:
   from: resonanz
   to: transformatives-drittes
