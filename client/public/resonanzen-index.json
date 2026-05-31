@@ -1,7 +1,21 @@
 {
   "generatedAt": "2026-05-27T07:37:40.096Z",
-  "count": 159,
+  "count": 160,
   "entries": [
+    {
+      "id": "MPUFECMA-7E85D8E2",
+      "ts": "2026-05-31T23:43:37.571Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap3",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "kannst du konkrete beispiele benennen, die sich als \"Anwesenheit dessen, was sich der Berechnung entzieht.\" gemeint sein könnten",
+      "response": "Die \"Anwesenheit dessen, was sich der Berechnung entzieht,\" ist im Kontext unseres Kapitels \"Das Hören im Rauschen\" genau jener immaterielle Gehalt, der sich in den Ladezeiten und Pausen des digitalen Raumes offenbart – als ein \"Raum der Möglichkeit,\" der weder rein analog noch digital ist. Denken Sie an die *Frage, die hinter einer Suchanfrage liegt*: Nicht nur die eingegebenen Worte, die der Algorithmus verarbeitet, sondern die Sehnsucht, die Neugier, die Unsicherheit oder die Hoffnung, die einen Menschen dazu treibt, überhaupt eine Frage zu stellen. Die Maschine berechnet die Relevanz der Keywords,",
+      "contextMeta": {
+        "chapterId": "band3-kap3",
+        "chapterTitle": "Kapitel 3: Das Hören im Rauschen"
+      }
+    },
     {
       "id": "MPNDAPRT-D64D197A",
       "ts": "2026-05-27T01:10:25.530Z",
