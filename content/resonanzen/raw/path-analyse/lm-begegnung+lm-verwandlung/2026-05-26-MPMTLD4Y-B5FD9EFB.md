@@ -5,10 +5,17 @@ created_at: 2026-05-26T15:58:50.050Z
 endpoint: path-analyse
 model: gemini-2.5-flash
 anchor: path-analyse:lm-begegnung+lm-verwandlung
-nodeIds: [lm-begegnung, lm-verwandlung, resonanzvernunft]
-status: raw
+nodeIds: [ lm-begegnung, lm-verwandlung, resonanzvernunft ]
+status: published
 content_hash: 3cc4e62920f69244
-echoes_of: [MOP0LEAL-E2568DCC, MOPFJTND-AAE76B2B, MPAS5OM5-A1F522F4, MOQIHEM5-82D69E4F, MOOMPCI0-262176C2]
+echoes_of:
+  [
+    MOP0LEAL-E2568DCC,
+    MOPFJTND-AAE76B2B,
+    MPAS5OM5-A1F522F4,
+    MOQIHEM5-82D69E4F,
+    MOOMPCI0-262176C2
+  ]
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
 license_url: https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE
@@ -17,10 +24,15 @@ audit_trail:
     ts: 2026-05-26T15:58:50.050Z
     actor: system
     content_hash: 3cc4e62920f69244
+  - event: status-changed
+    ts: 2026-05-31T19:52:49.695Z
+    actor: admin
+    from: raw
+    to: published
 context_meta:
   from: lm-begegnung
   to: lm-verwandlung
-  shortest_path: ["lm-begegnung","resonanzvernunft","lm-verwandlung"]
+  shortest_path: [ "lm-begegnung", "resonanzvernunft", "lm-verwandlung" ]
   shortest_length: 3
   variant: single
   paths_identical: false
