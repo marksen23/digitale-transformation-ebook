@@ -23,6 +23,7 @@ import { toggleGlobalTheme } from "@/lib/globalTheme";
 import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT } from "@/lib/theme";
 import InstallButton from "@/components/InstallButton";
 import { useT, useLocale, switchLocaleHref } from "@/i18n";
+import { GlobalSearch } from "@/components/search/GlobalSearch";
 
 const FRAME_HEIGHT_TOOL = 48;
 const FRAME_HEIGHT_READING = 40;
@@ -352,6 +353,10 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           .appframe-drawer-backdrop { display: none; }
         }
       `}</style>
+
+      {/* M7: Globale Cmd/Ctrl+K-Suche — durchsucht Werk-Kapitel, Begriffe,
+          Philosophen. "/" als Browser-konfliktfreier Fallback. Esc schließt. */}
+      <GlobalSearch />
     </>
   );
 }

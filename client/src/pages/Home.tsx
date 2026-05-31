@@ -177,6 +177,21 @@ export default function Home() {
       .finally(() => setLoading(false));
   }, []);
 
+  // M7: ?chapter=<id> Deep-Link — wird von der globalen Cmd-K-Suche genutzt.
+  // Wenn der Param gesetzt ist und das Kapitel existiert, dorthin navigieren.
+  useEffect(() => {
+    if (!ebook) return;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('chapter');
+    if (id && ebook.chapters.some(c => c.id === id)) {
+      setCurrentId(id);
+      // Param entfernen damit Refresh nicht wieder dorthin springt
+      const u = new URL(window.location.href);
+      u.searchParams.delete('chapter');
+      window.history.replaceState(null, '', u.toString());
+    }
+  }, [ebook]);
+
   // Dark mode class — bidirektional mit globalTheme. Wenn jemand
   // anderes (z.B. PageNav auf Sub-Page → toggleGlobalTheme) die
   // `dark`-Klasse ändert, übernehmen wir das hier; und umgekehrt.

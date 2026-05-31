@@ -387,6 +387,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Lazy geladen, kein blockierender Effect — Sidebar funktioniert auch ohne.
   const [resonanzenEntries, setResonanzenEntries] = useState<ResonanzEntry[] | null>(null);
   const [resonanzenExpanded, setResonanzenExpanded] = useState(false);
+
+  // M7: ?node=<id> Deep-Link für Cmd-K-Sprung aus der globalen Suche.
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get("node");
+    if (id && NODES.some(n => n.id === id)) {
+      setSelectedId(id);
+      const u = new URL(window.location.href);
+      u.searchParams.delete("node");
+      window.history.replaceState(null, "", u.toString());
+    }
+    // Nur beim Mount — nicht bei jeder Navigation re-trigger
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   useEffect(() => {
     loadResonanzenIndexLazy().then(idx => {
       if (idx) setResonanzenEntries(idx.entries);
