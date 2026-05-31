@@ -2001,6 +2001,7 @@ export default function Home() {
                 scope="page"
                 scopeId="reader"
                 sources={[createChaptersSource(ebook)]}
+                enableSemantic
                 onSelect={(hit: SearchHit) => navigateTo(hit.id)}
                 onEscape={() => setSearchOpen(false)}
                 placeholder="Im Ebook suchen …"

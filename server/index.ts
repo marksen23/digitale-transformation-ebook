@@ -1853,9 +1853,14 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     if (text.length > 8000) {
       return res.status(400).json({ error: "text zu lang (max 8000 Zeichen)." });
     }
+    // M6: Modell muss zu den Korpus-Embeddings passen (siehe CLAUDE.md +
+    // GEMINI_EMBED_MODEL ENV). Default gemini-embedding-001 (3072-dim).
+    // Vorher war hier text-embedding-004 (768-dim) hartcodiert — das passte
+    // nicht zu den Korpus-Vektoren, ergo lieferte cosine 0 (still failing).
+    const embedModel = process.env.GEMINI_EMBED_MODEL ?? "gemini-embedding-001";
     try {
       const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/text-embedding-004:embedContent?key=${apiKey}`,
+        `https://generativelanguage.googleapis.com/v1beta/models/${embedModel}:embedContent?key=${apiKey}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },

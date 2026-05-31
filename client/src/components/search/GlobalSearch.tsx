@@ -49,6 +49,7 @@ export function GlobalSearch() {
       onClose={() => setOpen(false)}
       sources={sources}
       onSelect={handleSelect}
+      enableSemantic
     />
   );
 }

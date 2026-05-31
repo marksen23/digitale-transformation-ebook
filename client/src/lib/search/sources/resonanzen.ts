@@ -17,7 +17,8 @@
 import type { SearchHit, SearchSource } from "@/lib/search/types";
 import { extractSnippet } from "@/lib/search/highlight";
 import { lexScore } from "@/lib/search/score";
-import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { loadResonanzenIndexLazy, loadEmbeddings, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { getQueryEmbedding, cosineSim } from "@/lib/search/queryEmbedding";
 
 // Loader-State: lazy + cached
 let cache: ResonanzEntry[] | null = null;
@@ -73,5 +74,39 @@ export const resonanzenSource: SearchSource = {
     }
     hits.sort((a, b) => b.score - a.score);
     return hits;
+  },
+  /**
+   * Semantische Suche: Query-Embedding via /api/embed (Gemini), dann
+   * Cosine gegen die pre-computed Embeddings aller kuratierten Resonanzen.
+   *
+   * Fällt auf [] zurück wenn /api/embed nicht verfügbar oder Embeddings
+   * fehlen — Lex-Pfad bleibt davon unberührt.
+   */
+  async semanticSearch(q, ctx) {
+    if (!q.trim()) return [];
+    const [entries, queryVec, embIdx] = await Promise.all([
+      getEntries(),
+      getQueryEmbedding(q),
+      loadEmbeddings(),
+    ]);
+    if (!entries || !queryVec || !embIdx) return [];
+    const hits: SearchHit[] = [];
+    for (const e of entries) {
+      const vec = embIdx.embeddings[e.id];
+      if (!vec) continue;
+      const score = cosineSim(queryVec, vec);
+      if (score < 0.4) continue;  // Hard cutoff — alles darunter ist Rauschen
+      hits.push({
+        id: e.id,
+        type: "resonanz",
+        title: (e.prompt ?? "").slice(0, 120),
+        snippet: extractSnippet(e.response ?? e.prompt ?? "", q, 60).slice(0, 200),
+        score,
+        payload: e,
+        anchor: e.id,
+      });
+    }
+    hits.sort((a, b) => b.score - a.score);
+    return hits.slice(0, ctx.limit);
   },
 };

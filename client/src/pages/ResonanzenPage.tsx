@@ -558,6 +558,7 @@ export default function ResonanzenPage() {
                 scopeId="resonanzen"
                 sources={[resonanzenSource]}
                 extendedSources={extendedSources}
+                enableSemantic
                 inputRef={searchInputRef}
                 onQueryChange={q => {
                   setSearch(q);
