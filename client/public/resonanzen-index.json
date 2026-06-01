@@ -1,7 +1,21 @@
 {
   "generatedAt": "2026-05-27T07:37:40.096Z",
-  "count": 201,
+  "count": 202,
   "entries": [
+    {
+      "id": "MPVCLR8S-F523777E",
+      "ts": "2026-06-01T15:13:10.446Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:glossar",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "He",
+      "response": "Die Figur Martin Heideggers spielt eine zentrale Rolle im dritten Band der Trilogie \"Die Digitale Transformation\" und liefert entscheidende Konzepte für die Grundlegung der Resonanzvernunft. Wie im \"Glossar der philosophischen Begriffe\" ausgeführt, ist sein Begriff des \"Daseins\" fundamental: Der Mensch wird nicht als isoliertes Subjekt verstanden, das einer Welt von Objekten gegenübersteht, sondern als \"in-der-Welt-seiend\". Dieses existenzielle Verständnis des Menschseins, das untrennbar mit seiner Welt und seinen Mitmenschen verknüpft ist, bildet die ontologische Basis für jede echte \"Begegnung\" und ist somit eine Voraussetzung für die \"Resonanzvernunft\" als Epistemologie und Ethik des Zwischen.\n\nDarüber hinaus sind Heideggers Konzepte der \"Eigentlichkeit\" und \"Gelassenheit\" von großer Bedeutung für das Werk, insbesondere im Kontext der digitalen Transformation. \"Eigentlichkeit\" beschreibt den Modus, in dem das Dasein sich selbst ergreift und nicht im anonymen \"Man\" aufgeht – eine Haltung, die in der digitalen Gegenwart durch algorithmische Vorentscheidung und die Gefahr der \"Echo-Kammer\" ständig bedroht ist. Die \"Gelassenheit\" hingegen bietet eine Haltung gegenüber der Technologie: die Fähigkeit, die Dinge sein zu lassen, anstatt sie beherrschen zu wollen. Diese Haltung ermöglicht es, sich nicht von der digitalen Technik vereinnahmen zu lassen, sondern sie als Medium für \"Begegnung\" und \"Frage\" zu nutzen, anstatt sich ihrer algorithmischen Monologik zu unterwerfen.\n\nIm Gesamtwerk liefert Heidegger somit eine tiefgehende philosophische Grundlage, um das Verhältnis von Mensch und Maschine jenseits einer rein instrumentellen oder technokratischen Perspektive zu denken. Seine Konzepte helfen, die Bedingungen für eine authentische Existenz in der digitalisierten Welt zu erkunden und die Voraussetzungen für eine \"Dazwischenintelligenz\" zu schaffen, die nicht auf Berechnung, sondern auf \"Widerständigkeit\", \"Irritierbarkeit\" und \"Offenheit des Ausgangs\" beruht, und die somit dem Anspruch der \"Resonanzvernunft\" gerecht wird.",
+      "contextMeta": {
+        "chapterId": "glossar",
+        "chapterTitle": "Glossar der philosophischen Begriffe"
+      }
+    },
     {
       "id": "MPUU5523-0E325028",
       "ts": "2026-06-01T06:36:22.107Z",
