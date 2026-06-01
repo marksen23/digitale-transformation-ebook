@@ -12,7 +12,7 @@ import { UnifiedSearch } from "@/components/search/UnifiedSearch";
 import {
   resonanzenSource, conceptsSource, philosophersSource, createChaptersSource,
 } from "@/lib/search/sources";
-import type { SearchHit, SearchSource } from "@/lib/search/types";
+import type { ActiveFilters, FilterGroup, SearchHit, SearchSource } from "@/lib/search/types";
 import { useEbook } from "@/hooks/useEbook";
 import WordCloud from "@/components/enkidu/WordCloud";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
@@ -465,6 +465,52 @@ export default function ResonanzenPage() {
     return counts;
   }, [index]);
 
+  // M4-Followup: Chip-Builder-Filter. filterGroups beschreiben die
+  // Auswahlmöglichkeiten, activeFilters spiegelt die existing setter-States,
+  // handleFiltersChange übersetzt zurück.
+  const filterGroups = useMemo<FilterGroup[]>(() => {
+    type ConcreteEndpoint = Exclude<EndpointKey, "all">;
+    const endpointKeys: ConcreteEndpoint[] = ["chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse", "passage", "dialog"];
+    return [
+      {
+        id: "endpoint", label: "Quelle", multi: false,
+        options: endpointKeys
+          .filter(k => (endpointCounts[k] ?? 0) > 0)
+          .map(k => ({ value: k, label: ENDPOINT_LABEL[k] ?? k, count: endpointCounts[k] })),
+      },
+      {
+        id: "status", label: "Status", multi: false,
+        options: [{ value: "kuratiert", label: "Nur kuratiert" }],
+      },
+      {
+        id: "relevanz", label: "Relevanz", multi: false,
+        options: [
+          { value: "novelty", label: "❖ Neue Erkenntnisse" },
+          { value: "echos", label: "◉ Echos" },
+        ],
+      },
+      ...(topTags.length > 0 ? [{
+        id: "tag", label: "Tag", multi: false,
+        options: topTags.map(({ tag, count }) => ({ value: tag, label: tag, count })),
+      }] : []),
+    ];
+  }, [endpointCounts, topTags]);
+
+  const activeFilters = useMemo<ActiveFilters>(() => ({
+    endpoint: filterEndpoint !== "all" ? [filterEndpoint] : [],
+    status: filterStatus === "kuratiert" ? ["kuratiert"] : [],
+    relevanz: filterRelevanz !== "all" ? [filterRelevanz] : [],
+    tag: filterTag ? [filterTag] : [],
+  }), [filterEndpoint, filterStatus, filterRelevanz, filterTag]);
+
+  const handleFiltersChange = (next: ActiveFilters) => {
+    const ep = (next.endpoint?.[0] as EndpointKey | undefined) ?? "all";
+    setFilterEndpoint(ep);
+    setFilterStatus(next.status?.[0] === "kuratiert" ? "kuratiert" : "all");
+    setFilterRelevanz((next.relevanz?.[0] as RelevanzKey | undefined) ?? "all");
+    setFilterTag(next.tag?.[0] ?? null);
+  };
+
   if (loadError) {
     return (
       <div style={{ position: "fixed", inset: 0, background: C.void, color: C.text, fontFamily: SERIF, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
@@ -558,6 +604,9 @@ export default function ResonanzenPage() {
                 scopeId="resonanzen"
                 sources={[resonanzenSource]}
                 extendedSources={extendedSources}
+                filterGroups={filterGroups}
+                filters={activeFilters}
+                onFiltersChange={handleFiltersChange}
                 enableSemantic
                 inputRef={searchInputRef}
                 onQueryChange={q => {
@@ -687,142 +736,24 @@ export default function ResonanzenPage() {
                 : search.trim() ? `${filtered.length} Treffer von ${index?.count ?? 0}`
                 : `${index?.count ?? 0} Begegnungen insgesamt`}
             </span>
-            {/* Filter-Toggle mit Active-Count */}
-            <button
-              onClick={() => setFiltersExpanded(v => !v)}
-              style={{
-                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: activeFilterCount > 0 ? C.accent : C.muted,
-                background: "none",
-                border: `1px solid ${activeFilterCount > 0 ? C.accentDim : C.border}`,
-                padding: "0.4rem 0.7rem", cursor: "pointer",
-                minHeight: 36,
-              }}
-              aria-expanded={filtersExpanded}
-            >
-              {filtersExpanded ? "▾" : "▸"} Filter{activeFilterCount > 0 ? ` (${activeFilterCount} aktiv)` : ""}
-            </button>
+            {/* Filter sind jetzt als Chips im UnifiedSearch oben — kein
+                separater Toggle mehr nötig. activeFilterCount bleibt als
+                Info, falls Power-User per URL filtert. */}
+            {activeFilterCount > 0 && (
+              <span style={{
+                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
+                textTransform: "uppercase", color: C.accent,
+              }}>
+                {activeFilterCount} Filter aktiv
+              </span>
+            )}
           </div>
         </section>
 
-        {/* ═══ KOLLABIERBARE FILTER ═══ Teil des Sticky-Blocks; bei Expand
-            scrollen sie mit der Suche mit. Max-Height + overflow falls die
-            Filter-Section länger als der Viewport wird. */}
-        {filtersExpanded && (
-          <section style={{
-            display: "flex", flexDirection: "column", gap: "0.6rem",
-            padding: "0.8rem 1rem",
-            background: `${C.deep}f5`,
-            backdropFilter: "blur(8px)",
-            WebkitBackdropFilter: "blur(8px)",
-            border: `1px solid ${C.border}`,
-            borderTop: "none",
-            maxHeight: "min(60vh, 480px)",
-            overflowY: "auto",
-          }}>
-            {/* R1: Filter-Sektion verschlankt — Inline-Mono-Labels statt
-                separater SectionLabel-Reihen. Spart ~30% vertikalen Platz
-                und liest sich wie eine klassische Filter-Zeile, nicht wie
-                vier nested Sub-Sections. */}
-
-            {/* Quelle (Endpoint) — leiser, kleinere Pills */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", alignItems: "center" }}>
-              <FilterInlineLabel c={C}>Quelle:</FilterInlineLabel>
-              {(["all", "chapter", "enkidu", "analyse", "graph-chat", "translate", "path-analyse"] as EndpointKey[]).map(key => {
-                const active = filterEndpoint === key;
-                const label = key === "all" ? "Alle" : ENDPOINT_LABEL[key];
-                const count = key === "all" ? (index?.count ?? 0) : (endpointCounts[key] ?? 0);
-                const color = key === "all" ? C.accent : ENDPOINT_COLOR[key];
-                return (
-                  <button
-                    key={key}
-                    onClick={() => setFilterEndpoint(key)}
-                    style={{
-                      fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em", textTransform: "uppercase",
-                      color: active ? "#080808" : color,
-                      background: active ? color : "none",
-                      border: `1px solid ${color}`,
-                      padding: "0.35rem 0.55rem", cursor: "pointer", minHeight: 30,
-                      borderRadius: 3,
-                    }}
-                  >
-                    {label} <span style={{ opacity: 0.7 }}>({count})</span>
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Kuration + Relevanz — in EINER Zeile (vorher zwei Sub-Sections) */}
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", alignItems: "center" }}>
-              <FilterInlineLabel c={C}>Status:</FilterInlineLabel>
-              <button
-                onClick={() => setFilterStatus(s => s === "all" ? "kuratiert" : "all")}
-                style={{
-                  fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em", textTransform: "uppercase",
-                  color: filterStatus === "kuratiert" ? "#080808" : C.muted,
-                  background: filterStatus === "kuratiert" ? C.accent : "none",
-                  border: `1px solid ${filterStatus === "kuratiert" ? C.accent : C.border}`,
-                  padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
-                }}
-              >
-                {filterStatus === "kuratiert" ? "✓ Nur kuratiert" : "Alle"}
-              </button>
-
-              <span style={{ width: 1, height: 14, background: C.border, margin: "0 0.3rem" }} />
-              <FilterInlineLabel c={C}>Relevanz:</FilterInlineLabel>
-              {([
-                { key: "all" as const,     label: "Alle",              color: C.muted,   descr: "Standard — alle Einträge" },
-                { key: "novelty" as const, label: "❖ Neue",            color: "#5aacb8", descr: "Semantisch peripher (Cosine <0.70)" },
-                { key: "echos" as const,   label: "◉ Echos",           color: C.muted,   descr: "Near-Duplikate (Cosine ≥0.88)" },
-              ]).map(opt => {
-                const active = filterRelevanz === opt.key;
-                return (
-                  <button
-                    key={opt.key}
-                    onClick={() => setFilterRelevanz(opt.key)}
-                    title={opt.descr}
-                    style={{
-                      fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.08em",
-                      textTransform: "uppercase",
-                      color: active ? "#080808" : opt.color,
-                      background: active ? opt.color : "none",
-                      border: `1px solid ${active ? opt.color : C.border}`,
-                      padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
-                    }}
-                  >
-                    {opt.label}
-                  </button>
-                );
-              })}
-            </div>
-
-            {/* Tags */}
-            {topTags.length > 0 && (
-              <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem", alignItems: "center" }}>
-                <FilterInlineLabel c={C}>
-                  Tags{filterTag && <span style={{ marginLeft: "0.4rem", color: C.accent, textTransform: "none" }}>aktiv: {filterTag}</span>}:
-                </FilterInlineLabel>
-                {filterTag && (
-                  <button
-                    onClick={() => setFilterTag(null)}
-                    style={{ fontFamily: MONO, fontSize: "0.52rem", color: C.accent, background: "rgba(196,168,130,0.1)", border: `1px solid ${C.accentDim}`, padding: "0.3rem 0.55rem", cursor: "pointer", minHeight: 28, borderRadius: 3 }}
-                  >
-                    ✕ {filterTag}
-                  </button>
-                )}
-                {!filterTag && topTags.map(({ tag, count }) => (
-                  <button
-                    key={tag}
-                    onClick={() => setFilterTag(tag)}
-                    style={{ fontFamily: MONO, fontSize: "0.52rem", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "0.3rem 0.55rem", cursor: "pointer", minHeight: 28, borderRadius: 3 }}
-                  >
-                    {tag} <span style={{ opacity: 0.6 }}>{count}</span>
-                  </button>
-                ))}
-              </div>
-            )}
-          </section>
-        )}
+        {/* M4-Followup: Die alte kollabierbare Filter-Section wurde durch
+            den Chip-Builder im UnifiedSearch oben ersetzt. Endpoint, Status,
+            Relevanz und Tags sind dort als ↹ Chips wählbar — viel weniger
+            visueller Lärm als die vorher ~25 Filter-Buttons. */}
         </div>
         {/* ═══ ENDE STICKY-BLOCK ═══ */}
 

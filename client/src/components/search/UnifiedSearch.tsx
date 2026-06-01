@@ -41,6 +41,13 @@ interface UnifiedSearchProps {
   extendedSources?: SearchSource[];
   filterGroups?: FilterGroup[];
   initialFilters?: ActiveFilters;
+  /**
+   * Controlled-Mode: wenn gesetzt, überschreibt diesen Wert den internen
+   * Filter-State. Pflicht-Kombination mit onFiltersChange. Wird genutzt,
+   * wenn der Parent eigene Quellen für Filter-Änderungen hat (z.B.
+   * Klick auf einen Tag in einer Resonanz-Card setzt filterTag von außen).
+   */
+  filters?: ActiveFilters;
   onFiltersChange?: (next: ActiveFilters) => void;
   onSelect: (hit: SearchHit) => void;
   onEscape?: () => void;
@@ -66,6 +73,7 @@ export function UnifiedSearch({
   extendedSources,
   filterGroups = [],
   initialFilters = {},
+  filters: controlledFilters,
   onFiltersChange,
   onSelect,
   onEscape,
@@ -84,7 +92,9 @@ export function UnifiedSearch({
     _setQuery(q);
     onQueryChange?.(q);
   }, [onQueryChange]);
-  const [filters, setFilters] = useState<ActiveFilters>(initialFilters);
+  const [internalFilters, setInternalFilters] = useState<ActiveFilters>(initialFilters);
+  // Controlled wenn filters-Prop gesetzt; sonst internal state.
+  const filters = controlledFilters ?? internalFilters;
   const [cursor, setCursor] = useState(0);
   const localInputRef = useRef<HTMLInputElement>(null);
   const inputRef = externalInputRef ?? localInputRef;
@@ -92,9 +102,9 @@ export function UnifiedSearch({
   const history = useSearchHistory(scopeId);
 
   const handleFiltersChange = useCallback((next: ActiveFilters) => {
-    setFilters(next);
+    if (controlledFilters === undefined) setInternalFilters(next);
     onFiltersChange?.(next);
-  }, [onFiltersChange]);
+  }, [controlledFilters, onFiltersChange]);
 
   // Primary + extended Sources tier-getagged zusammenführen. Ein useHybridSearch
   // Call sortiert dann tier-first (primary vor extended), und SearchDropdown
