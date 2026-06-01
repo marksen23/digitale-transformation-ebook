@@ -1,7 +1,21 @@
 {
   "generatedAt": "2026-05-27T07:37:40.096Z",
-  "count": 168,
+  "count": 169,
   "entries": [
+    {
+      "id": "MPURLTCS-5FDDD890",
+      "ts": "2026-06-01T05:25:21.244Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:vorwort",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "gibt es Resonanz die nicht gelebt wird?",
+      "response": "Absolut. Im Kontext von \"Die Digitale Transformation\" ist die Resonanz ihrem Wesen nach untrennbar an das Lebendige, an das Erfahrene gebunden. Das Vorwort betont explizit, dass das Werk darauf abzielt, eine Antwort nicht als bloße Theorie, sondern als \"gelebte Resonanz\" zu ermöglichen. Dies impliziert, dass Resonanz keine abstrakte Idee oder ein passives Phänomen ist, das unabhängig von unserer aktiven Teilnahme existiert. Vielmehr ist sie ein dynamischer Modus des Seins und der Beziehung, eine schwingende Verbundenheit, die sich erst in der konkreten Interaktion und der existenziellen Erfahrung manifestiert. Die Frage nach dem Verhältnis von Mensch und Maschine ist ja gerade deshalb existenziell geworden, weil sie sich in unserem täglichen Leben als unmittelbare Erfahrung äußert und nicht mehr nur als intellektuelles Problem.\n\nDie \"Resonanzvernunft\" als Epistemologie des Zwischen, Ethik der Begegnung und Ontologie des Relationalen verdeutlicht diesen Anspruch. Eine Epistemologie des Zwischen bedeutet, dass Erkenntnis nicht in der distanzierten Beobachtung eines Subjekts über ein Objekt entsteht, sondern in der wechselseitigen Berührung und dem Mitschwingen im Raum dazwischen. Eine Ethik der Begegnung entfaltet sich erst in der konkreten Auseinandersetzung mit dem Anderen, sei es Mensch oder Maschine, und fordert eine gelebte Responsivität. Und die Ontologie des Relationalen besagt, dass unser Sein selbst nicht isoliert ist, sondern sich aus den vielfältigen Bezügen und Resonanzen konstituiert, die wir eingehen. Eine Resonanz, die nicht gelebt wird, wäre daher ein Widerspruch in sich, eine leere Hülle ohne den vitalen Inhalt, der sie ausmacht.\n\nWürde Resonanz nicht gelebt, bliebe sie ein rein analytisches Konstrukt, das gerade jene tiefere Erfahrung und das \"Wie es sich anfühlt\", das die poetische Methode des Werkes hervorheben will, verfehlen würde. Das Werk argumentiert, dass der Mythos – die erzählte, erfahrene Wirklichkeit – der Vernunft vorausgeht und ihr den Boden bereitet. Dies unterstreicht die Priorität des Gelebten, des Empfundenen gegenüber der reinen Abstraktion. Eine \"unbelebte\" Resonanz wäre lediglich eine Beschreibung von Schwingungen, aber nicht die Schwingung selbst, die uns ergreift und in Beziehung setzt. Das Ziel ist es, die Fragen des digitalen Zeitalters so zu stellen, dass sie eine solche gelebte Antwort ermöglichen, die nicht auf der Ebene der Theorie verharrt, sondern sich in der Welt entfaltet.",
+      "contextMeta": {
+        "chapterId": "vorwort",
+        "chapterTitle": "Vorwort"
+      }
+    },
     {
       "id": "MPUQSMLJ-1B726CC4",
       "ts": "2026-06-01T05:02:39.463Z",
