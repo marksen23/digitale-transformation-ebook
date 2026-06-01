@@ -133,15 +133,16 @@ export default function InstallBanner() {
       aria-label="App-Installation"
       style={{
         position: "fixed",
-        // top sitzt unter dem AppFrame (48 px), damit die Topbar
-        // sichtbar bleibt. Auf Pages ohne AppFrame (Home) macht's
-        // nichts, da das Banner-z-index > Home-Content liegt.
-        top: `calc(48px + env(safe-area-inset-top, 0px))`,
+        // Bottom-Sheet-Pattern: keine Kollision mit dynamischen Top-Bars
+        // (AppFrame 40/48px, Home-Reader-Topbar, ResonanzenPage-Sticky-Hero).
+        // Vorher saß der Banner bei top: 48px hartkodiert — auf Mobile/Reader
+        // brach das Layout, das Banner wirkte als würde es nach oben verschwinden.
+        bottom: 0,
         left: 0, right: 0, zIndex: 250,
         background: isDark ? "rgba(28,25,23,0.97)" : "rgba(255,253,247,0.99)",
-        borderBottom: `1px solid ${C.accentDim}`,
-        boxShadow: "0 4px 16px rgba(0,0,0,0.18)",
-        padding: "0.7rem 1rem",
+        borderTop: `1px solid ${C.accentDim}`,
+        boxShadow: "0 -4px 16px rgba(0,0,0,0.18)",
+        padding: `0.7rem 1rem calc(0.7rem + env(safe-area-inset-bottom, 0px))`,
         display: "flex", flexWrap: "wrap", alignItems: "center", gap: "0.8rem",
         backdropFilter: "blur(12px) saturate(140%)",
         WebkitBackdropFilter: "blur(12px) saturate(140%)",
@@ -205,7 +206,7 @@ export default function InstallBanner() {
       </div>
       <style>{`
         @keyframes install-banner-slide-in {
-          from { transform: translateY(-100%); opacity: 0; }
+          from { transform: translateY(100%); opacity: 0; }
           to   { transform: translateY(0); opacity: 1; }
         }
       `}</style>
