@@ -15,6 +15,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { ActiveFilters, SearchContext, SearchHit, SearchSource } from "@/lib/search/types";
 import { mergeHits, tierRank } from "@/lib/search/score";
+import { getSemanticStatus } from "@/lib/search/queryEmbedding";
 
 interface UseHybridSearchOpts {
   query: string;
@@ -33,6 +34,9 @@ interface UseHybridSearchResult {
   hits: SearchHit[];
   loading: boolean;
   semanticPending: boolean;
+  /** true wenn semantische Suche aktiviert ist, aber /api/embed wiederholt
+   *  fehlschlägt (Billing-Block / kein Key) → UI zeigt dezenten Hinweis. */
+  semanticDegraded: boolean;
 }
 
 export function useHybridSearch(opts: UseHybridSearchOpts): UseHybridSearchResult {
@@ -50,6 +54,7 @@ export function useHybridSearch(opts: UseHybridSearchOpts): UseHybridSearchResul
   const [hits, setHits] = useState<SearchHit[]>([]);
   const [semanticPending, setSemanticPending] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [semanticDegraded, setSemanticDegraded] = useState(false);
 
   const ctx = useMemo<SearchContext>(() => ({ filters, limit, locale }), [filters, limit, locale]);
 
@@ -106,6 +111,10 @@ export function useHybridSearch(opts: UseHybridSearchOpts): UseHybridSearchResul
         if (cancelled || reqId !== reqIdRef.current) return;
         setHits(prev => mergeHits(prev, allSem, false));
         setSemanticPending(false);
+        // Nach dem Sem-Call: Degradations-Status aus queryEmbedding lesen.
+        // Wenn alle Sem-Sources 0 Treffer lieferten UND /api/embed wiederholt
+        // fehlschlug, ist die Semantik aus → Hinweis anzeigen.
+        setSemanticDegraded(getSemanticStatus().degraded);
 
         // Final-Sort nach Pause
         sortTimerRef.current = window.setTimeout(() => {
@@ -124,5 +133,5 @@ export function useHybridSearch(opts: UseHybridSearchOpts): UseHybridSearchResul
     };
   }, [query, sources, ctx, limit, enableSemantic, semanticDebounceMs, finalSortPauseMs]);
 
-  return { hits, loading, semanticPending };
+  return { hits, loading, semanticPending, semanticDegraded };
 }

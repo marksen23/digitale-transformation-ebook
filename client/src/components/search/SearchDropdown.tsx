@@ -17,6 +17,9 @@ interface SearchDropdownProps {
   sources: SearchSource[];
   loading?: boolean;
   semanticPending?: boolean;
+  /** true wenn die semantische Suche temporär ausgefallen ist (Billing/Key) —
+   *  dezenter Hinweis statt stiller Leere. */
+  semanticDegraded?: boolean;
   emptyMessage?: string;
 }
 
@@ -37,6 +40,7 @@ export function SearchDropdown({
   sources,
   loading,
   semanticPending,
+  semanticDegraded,
   emptyMessage = "Keine Ergebnisse",
 }: SearchDropdownProps) {
   // hits sind bereits tier-first sortiert (siehe useHybridSearch / mergeHits),
@@ -131,6 +135,15 @@ export function SearchDropdown({
       )}
       {semanticPending && hits.length > 0 && (
         <p className="text-[10px] text-stone-400 italic px-2">…semantisch lädt nach</p>
+      )}
+      {/* M4-Followup: dezenter Degradations-Hinweis. Erscheint nur, wenn die
+          semantische Suche wiederholt fehlschlug — der Reader sieht weiterhin
+          Volltext-Treffer, weiß aber, dass die sinnverwandte Schicht gerade
+          fehlt (statt sich zu wundern, warum "Sein" kein "Dasein" findet). */}
+      {semanticDegraded && (
+        <p className="text-[10px] text-amber-700/70 dark:text-amber-400/60 italic px-2 pt-1 border-t border-stone-100 dark:border-stone-800 mt-1">
+          ↺ Sinnverwandte Suche zurzeit nicht verfügbar — es werden nur Volltext-Treffer gezeigt.
+        </p>
       )}
       {hits.length > 0 && (
         <p className="text-xs text-stone-500 px-2">{hits.length} Treffer</p>

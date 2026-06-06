@@ -14,6 +14,32 @@ const inflight = new Map<string, Promise<number[] | null>>();
 const cache = new Map<string, number[] | null>();
 const MAX_CACHE = 50;
 
+// Degradations-Tracking: wenn /api/embed wiederholt mit Server-Fehler (502/503,
+// z.B. Billing-Block / kein Key) antwortet, ist die semantische Suche temporär
+// aus. Wir merken uns das, damit die UI einen dezenten Hinweis zeigen kann
+// statt stiller Leere. Wird bei jedem Erfolg zurückgesetzt.
+let _semFailStreak = 0;
+let _semDegradedSince = 0;
+const SEM_DEGRADED_THRESHOLD = 2;   // ab 2 Fehlern in Folge gilt: degradiert
+
+export interface SemanticStatus {
+  degraded: boolean;
+  since: number;   // Timestamp des Übergangs in degraded, 0 wenn nicht degradiert
+}
+
+export function getSemanticStatus(): SemanticStatus {
+  return { degraded: _semFailStreak >= SEM_DEGRADED_THRESHOLD, since: _semDegradedSince };
+}
+
+function noteSemFailure() {
+  _semFailStreak++;
+  if (_semFailStreak === SEM_DEGRADED_THRESHOLD) _semDegradedSince = Date.now();
+}
+function noteSemSuccess() {
+  _semFailStreak = 0;
+  _semDegradedSince = 0;
+}
+
 export async function getQueryEmbedding(query: string): Promise<number[] | null> {
   const q = query.trim();
   if (!q) return null;
@@ -27,9 +53,15 @@ export async function getQueryEmbedding(query: string): Promise<number[] | null>
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ text: q }),
       });
-      if (!res.ok) return null;
+      if (!res.ok) {
+        // 5xx / 503 = Server-/Key-/Billing-Problem → Degradation tracken.
+        // 4xx (z.B. 400 zu langer Text) NICHT als Degradation werten.
+        if (res.status >= 500) noteSemFailure();
+        return null;
+      }
       const data = await res.json();
       const vec = Array.isArray(data.embedding) ? (data.embedding as number[]) : null;
+      if (vec) noteSemSuccess();
       // FIFO-Verdrängung wenn Cache zu groß
       if (cache.size >= MAX_CACHE) {
         const first = cache.keys().next().value;
@@ -38,6 +70,7 @@ export async function getQueryEmbedding(query: string): Promise<number[] | null>
       cache.set(q, vec);
       return vec;
     } catch {
+      noteSemFailure();   // Netzwerk-Fehler
       return null;
     } finally {
       inflight.delete(q);

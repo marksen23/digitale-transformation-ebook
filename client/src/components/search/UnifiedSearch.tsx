@@ -115,7 +115,7 @@ export function UnifiedSearch({
     return [...primary, ...extended];
   }, [sources, extendedSources]);
 
-  const { hits, loading, semanticPending } = useHybridSearch({
+  const { hits, loading, semanticPending, semanticDegraded } = useHybridSearch({
     query,
     sources: allSources,
     filters,
@@ -192,6 +192,7 @@ export function UnifiedSearch({
           sources={allSources}
           loading={loading}
           semanticPending={semanticPending}
+          semanticDegraded={enableSemantic && semanticDegraded}
         />
       )}
       {!query.trim() && alwaysOpen && history.history.length > 0 && (
