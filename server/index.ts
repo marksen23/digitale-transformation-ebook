@@ -9,7 +9,7 @@ import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanz
 import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
 import { removeFromIndex, updateInIndex } from "./lib/indexUpdater.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
-import { fetchEmbedding, getKeys } from "./lib/embeddingClient.js";
+import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -131,21 +131,38 @@ async function startServer() {
   app.use(express.static(staticPath));
 
   // ─── Health / Diagnose-Endpunkt ───────────────────────────────────
+  // M4: prüft jetzt das EMBEDDING-Modell (nicht nur Generation), weil die
+  // semantische Suche daran hängt. Klassifiziert Billing-Block (403 dunning)
+  // explizit, damit das Health-Dashboard die Ursache benennen kann.
   app.get("/api/health", async (_req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    const keys = getKeys();
+    if (keys.length === 0) {
       return res.status(200).json({
         status: "degraded",
         server: "ok",
         gemini: "not_configured",
-        message: "GEMINI_API_KEY ist nicht als Environment-Variable gesetzt.",
+        embedding: "not_configured",
+        message: "Kein Embedding-Key (GEMINI_API_KEY[S]/FALLBACK) gesetzt.",
       });
     }
 
-    // Kurzer Ping an Gemini, um Key-Gültigkeit zu prüfen
+    // Embedding-Probe (die semantische Suche hängt daran) — Multi-Key.
+    const probe = await probeEmbedding();
+    // embedding-Status menschenlesbar aus der Klassifikation des Primärkeys
+    // bzw. dem Gesamtergebnis ableiten.
+    const embedding =
+      probe.ok ? "ok"
+      : probe.primaryClass === "billing" ? "billing_block"
+      : probe.primaryClass === "auth" ? "auth_error"
+      : probe.primaryClass === "quota" ? "quota_exhausted"
+      : "unreachable";
+
+    // Zusätzlich: kurzer Generation-Ping (manche KI-Features nutzen das,
+    // unabhängig vom Embedding-Modell — z.B. graph-chat).
+    let gemini: string = "unknown";
     try {
-      const testResponse = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+      const gen = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${keys[probe.workingKeyIndex >= 0 ? probe.workingKeyIndex : 0]}`,
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -155,21 +172,23 @@ async function startServer() {
           }),
         }
       );
-      if (testResponse.ok) {
-        return res.json({ status: "ok", server: "ok", gemini: "ok" });
-      }
-      const errBody = await testResponse.text();
-      return res.json({
-        status: "degraded",
-        server: "ok",
-        gemini: "error",
-        gemini_status: testResponse.status,
-        gemini_detail: errBody.slice(0, 300),
-      });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err);
-      return res.json({ status: "degraded", server: "ok", gemini: "unreachable", error: message });
+      gemini = gen.ok ? "ok" : "error";
+    } catch {
+      gemini = "unreachable";
     }
+
+    return res.json({
+      status: probe.ok ? "ok" : "degraded",
+      server: "ok",
+      gemini,
+      embedding,
+      embedding_dim: probe.dim,            // 3072 bei gemini-embedding-001
+      keys_available: probe.keysAvailable,
+      working_key_index: probe.workingKeyIndex,  // -1 = alle tot, 0 = primär, >0 = Fallback aktiv
+      ...(embedding === "billing_block" ? {
+        message: "GCP-Projekt-Billing gesperrt (403 dunning). GEMINI_API_KEY_FALLBACK auf anderem Projekt setzen.",
+      } : {}),
+    });
   });
 
   // ─── Enkidu KI API (Gemini) ──────────────────────────────────────

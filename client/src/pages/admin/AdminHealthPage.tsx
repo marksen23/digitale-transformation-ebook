@@ -185,6 +185,42 @@ async function fetchAdminJson<T>(path: string): Promise<AsyncResult<T>> {
   }
 }
 
+// M4: Live-Embedding-Health vom /api/health-Endpoint.
+interface EmbedHealth {
+  status?: string;
+  embedding?: string;        // ok | billing_block | auth_error | quota_exhausted | unreachable | not_configured
+  embedding_dim?: number;
+  keys_available?: number;
+  working_key_index?: number;
+  message?: string;
+}
+
+// Per-Datei-Status der vier statischen Embedding-Dateien.
+interface EmbedFileStatus {
+  name: string;
+  path: string;
+  exists: boolean;
+  count: number | null;       // Anzahl embeddeter Einträge
+  generatedAt: string | null;
+  ageHours: number | null;
+}
+
+/** Normalisiert eine geladene Embedding-Datei zu {count, generatedAt}. */
+function describeEmbedFile(name: string, path: string, data: unknown): EmbedFileStatus {
+  if (!data || typeof data !== "object") {
+    return { name, path, exists: false, count: null, generatedAt: null, ageHours: null };
+  }
+  const d = data as Record<string, unknown>;
+  // werk-chunks.json: { embeddedCount, generatedAt }
+  // *-embeddings.json: { embeddings: {id: vec}, generatedAt }
+  let count: number | null = null;
+  if (typeof d.embeddedCount === "number") count = d.embeddedCount;
+  else if (d.embeddings && typeof d.embeddings === "object") count = Object.keys(d.embeddings as object).length;
+  const generatedAt = typeof d.generatedAt === "string" ? d.generatedAt : null;
+  const ageHours = generatedAt ? (Date.now() - new Date(generatedAt).getTime()) / 3_600_000 : null;
+  return { name, path, exists: true, count, generatedAt, ageHours };
+}
+
 export default function AdminHealthPage() {
   const C = useAdminTheme();
 
@@ -212,6 +248,9 @@ export default function AdminHealthPage() {
   const [ingest, setIngest] = useState<AsyncResult<ResonanzHealth>>({ state: "loading" });
   // R6: Citation-Stats — in-memory am Server, reset bei Render-Redeploy
   const [citationStats, setCitationStats] = useState<AsyncResult<CitationStats>>({ state: "loading" });
+  // M4: Live-Embedding-Health (/api/health Embedding-Probe) + Per-Datei-Status
+  const [embedHealth, setEmbedHealth] = useState<EmbedHealth | null>(null);
+  const [embedFiles, setEmbedFiles] = useState<EmbedFileStatus[] | null>(null);
 
   // Hosting-Status: Netlify + Render via Server-Proxies
   useEffect(() => {
@@ -219,6 +258,24 @@ export default function AdminHealthPage() {
     fetchAdminJson<RenderStatus>("/api/admin/render-status").then(setRender);
     fetchAdminJson<ResonanzHealth>("/api/admin/resonanz-health").then(setIngest);
     fetchAdminJson<CitationStats>("/api/admin/citation-stats").then(setCitationStats);
+  }, []);
+
+  // M4: Live-Embedding-Health (/api/health, public) + Per-Datei-Status.
+  useEffect(() => {
+    fetch("/api/health")
+      .then(r => r.ok ? r.json() : null)
+      .then((d: EmbedHealth | null) => { if (d) setEmbedHealth(d); })
+      .catch(() => { /* degradiert — Panel zeigt "unbekannt" */ });
+
+    const files: Array<[string, string]> = [
+      ["Werk-Chunks", "/werk-chunks.json"],
+      ["Resonanzen", "/resonanzen-embeddings.json"],
+      ["Begriffe", "/concepts-embeddings.json"],
+      ["Philosophen", "/philosophers-embeddings.json"],
+    ];
+    Promise.all(files.map(([name, path]) =>
+      loadOptionalJson<unknown>(path).then(data => describeEmbedFile(name, path, data))
+    )).then(setEmbedFiles);
   }, []);
 
   useEffect(() => {
@@ -350,6 +407,61 @@ export default function AdminHealthPage() {
               color={C.muted}
               c={C}
             />
+          </div>
+        )}
+      </Section>
+
+      <Section title="Embedding-Pipeline" c={C}>
+        {/* M4: Live-Status der Embedding-API (Multi-Key-Failover) + die vier
+            statischen Embedding-Dateien. Macht einen Billing-Block sofort
+            sichtbar, statt erst über einen roten CI-Run. */}
+        {(() => {
+          const e = embedHealth?.embedding;
+          const label =
+            e === "ok" ? "✓ online"
+            : e === "billing_block" ? "✕ Billing gesperrt (403 dunning)"
+            : e === "auth_error" ? "✕ Key ungültig"
+            : e === "quota_exhausted" ? "⚠ Quota erschöpft"
+            : e === "not_configured" ? "— kein Key gesetzt"
+            : e === "unreachable" ? "✕ nicht erreichbar"
+            : "lädt …";
+          const color = e === "ok" ? "#7ab898" : e === "quota_exhausted" ? C.accent : e === undefined ? C.muted : "#c48282";
+          const ki = embedHealth?.working_key_index;
+          const keyLabel = ki == null ? "—" : ki < 0 ? "alle tot" : ki === 0 ? "primär" : `Fallback #${ki}`;
+          return (
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "0.8rem", marginBottom: "1rem" }}>
+              <Stat label="Embedding-API" value={label} color={color} c={C} />
+              <Stat label="Keys verfügbar" value={String(embedHealth?.keys_available ?? "—")} color={C.muted} c={C} />
+              <Stat label="Aktiver Key" value={keyLabel} color={ki && ki > 0 ? C.accent : C.muted} c={C} />
+              <Stat label="Vektor-Dim" value={embedHealth?.embedding_dim ? String(embedHealth.embedding_dim) : "—"} color={embedHealth?.embedding_dim === 3072 ? "#7ab898" : C.muted} c={C} />
+            </div>
+          );
+        })()}
+        {embedHealth?.message && (
+          <p style={{ fontStyle: "italic", color: "#e8c870", fontSize: "0.82rem", marginBottom: "1rem" }}>
+            {embedHealth.message}
+          </p>
+        )}
+        {!embedFiles ? (
+          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>lade Embedding-Dateien …</p>
+        ) : (
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))", gap: "0.6rem" }}>
+            {embedFiles.map(f => (
+              <div key={f.path} style={{
+                border: `1px solid ${f.exists ? C.border : "#c48282"}`,
+                padding: "0.6rem 0.7rem",
+                background: f.exists ? "transparent" : "rgba(196,130,130,0.06)",
+              }}>
+                <div style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase", color: f.exists ? C.text : "#c48282", marginBottom: "0.3rem" }}>
+                  {f.exists ? "◆" : "○"} {f.name}
+                </div>
+                <div style={{ fontFamily: MONO, fontSize: "0.7rem", color: C.muted }}>
+                  {f.exists
+                    ? <>{f.count ?? "?"} Vektoren{f.ageHours != null && <> · {f.ageHours < 24 ? `${Math.round(f.ageHours)}h` : `${Math.round(f.ageHours / 24)}d`} alt</>}</>
+                    : "fehlt — Build lief nie erfolgreich"}
+                </div>
+              </div>
+            ))}
           </div>
         )}
       </Section>

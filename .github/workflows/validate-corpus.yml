@@ -214,6 +214,15 @@ jobs:
           # Netlify-Builds setzen das Flag NICHT → dort soft-fail.
           EMBEDDINGS_REQUIRED: "1"
 
+      # M4: Wenn ein Embedding-Build-Step fehlschlug, eine prominente
+      # ::error::-Annotation mit der wahrscheinlichen Ursache + Remedy
+      # ausgeben. Macht den Billing-Block in der CI-UI sofort lesbar, statt
+      # ihn nur in den Logs zu verstecken.
+      - name: Annotate embedding failure
+        if: failure()
+        run: |
+          echo "::error title=Embedding-Pipeline fehlgeschlagen::Wahrscheinliche Ursache: GCP-Projekt-Billing gesperrt (403 dunning / PERMISSION_DENIED) oder ungültiger Key. Remedy: GEMINI_API_KEY_FALLBACK als Repo-Secret auf einem zahlungsfähigen GCP-Projekt setzen (selbes Modell → vektorkompatibel), oder Billing des Primärprojekts begleichen. Live-Status: /admin/health → Embedding-Pipeline."
+
       # Embeddings/Index als Artifact uploaden — auch wenn der Commit-Step
       # später fehlschlägt. So lässt sich der lokal generierte State
       # vom Runner herunterladen und inspizieren, statt nur Logs zu raten.

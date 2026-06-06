@@ -173,6 +173,45 @@ export async function fetchEmbedding(
   return null;
 }
 
+export interface EmbedProbe {
+  /** true wenn mindestens ein Key ein Embedding liefert. */
+  ok: boolean;
+  /** Anzahl konfigurierter Keys (getKeys().length). */
+  keysAvailable: number;
+  /** Index des funktionierenden Keys, oder -1. */
+  workingKeyIndex: number;
+  /** Klassifikation des ERSTEN Keys (für Diagnose, auch bei Erfolg eines späteren). */
+  primaryClass: EmbedErrorClass;
+  /** Dimension des gelieferten Vektors (zur Modell-Konsistenzprüfung), oder 0. */
+  dim: number;
+}
+
+/**
+ * Diagnose-Probe für /api/health: versucht ein Mini-Embedding pro Key (ohne
+ * Retry, ohne Backoff — schnell). Exponiert die Fehler-Klassifikation, die
+ * fetchEmbedding intern verschluckt, sodass das Health-Dashboard zwischen
+ * Billing-Block / Auth / Quota / transient unterscheiden kann.
+ */
+export async function probeEmbedding(): Promise<EmbedProbe> {
+  const keys = getKeys();
+  const probe: EmbedProbe = {
+    ok: false, keysAvailable: keys.length, workingKeyIndex: -1,
+    primaryClass: "ok", dim: 0,
+  };
+  if (keys.length === 0) return probe;
+  for (let i = 0; i < keys.length; i++) {
+    const { values, cls } = await callOnce(keys[i], "probe");
+    if (i === 0) probe.primaryClass = cls;
+    if (cls === "ok" && values) {
+      probe.ok = true;
+      probe.workingKeyIndex = i;
+      probe.dim = values.length;
+      return probe;
+    }
+  }
+  return probe;
+}
+
 /**
  * Cosine-Ähnlichkeit zweier gleich-dimensionierter Vektoren. 0 bei
  * Null-Norm (vermeidet NaN).
