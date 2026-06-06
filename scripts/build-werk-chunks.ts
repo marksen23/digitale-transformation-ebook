@@ -212,6 +212,23 @@ async function main() {
   }
 
   const embeddedCount = allChunks.filter(c => Array.isArray(c.embedding)).length;
+
+  // M3: Preserve-on-failure. Wenn diese Runde KEINE Embeddings produzieren
+  // konnte (embeddedCount===0), aber zuvor welche existierten (reuse-pool
+  // nicht leer), würde ein Write die guten Vektoren mit einer leeren Datei
+  // überschreiben. Das passiert konkret, wenn Chunk-IDs sich änderten
+  // (Re-Chunking) UND die API down ist (Billing-Block) — der reuse-pool
+  // matched dann nicht und alle neuen Calls scheitern.
+  if (embeddedCount === 0 && existingMap.size > 0) {
+    console.error(
+      `[build-werk-chunks] ABBRUCH: 0 Embeddings diese Runde, aber ${existingMap.size} existierten. ` +
+      `Bestehende werk-chunks.json wird NICHT überschrieben (Datenschutz). ` +
+      `Ursache wahrscheinlich: Embedding-API down (Billing-Block / alle Keys tot).`
+    );
+    // Bei EMBEDDINGS_REQUIRED hart abbrechen → Workflow rot, Commit-Step skipped.
+    process.exit(process.env.EMBEDDINGS_REQUIRED === "1" ? 2 : 0);
+  }
+
   const out: WerkChunkFile = {
     generatedAt: new Date().toISOString(),
     model: GEMINI_EMBED_MODEL,
@@ -227,5 +244,7 @@ async function main() {
 
 main().catch(err => {
   console.error(`[build-werk-chunks] FAILED: ${err instanceof Error ? err.stack : err}`);
-  process.exit(0);
+  // M3: bei EMBEDDINGS_REQUIRED harte Fehler rot färben (analog
+  // build-resonanzen-index), sonst fail-soft (lokales Dev bleibt grün).
+  process.exit(process.env.EMBEDDINGS_REQUIRED === "1" ? 1 : 0);
 });
