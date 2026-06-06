@@ -17,8 +17,10 @@ on:
       - "content/resonanzen/**"
       - "scripts/validate-resonanzen.ts"
       - "scripts/build-resonanzen-index.ts"
+      - "scripts/build-search-index.ts"
       - "scripts/check-corpus-drift.ts"
       - "client/src/data/conceptGraph.ts"
+      - "client/src/data/philosophyMap.ts"
   workflow_dispatch:  # manuell triggerbar zum Auf-Verlangen-Check
 
 jobs:
