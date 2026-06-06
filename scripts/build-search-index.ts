@@ -19,7 +19,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { NODES } from "../client/src/data/conceptGraph.js";
 import { philosophersByBirth, getTradition } from "../client/src/data/philosophyMap.js";
-import { fetchEmbedding } from "../server/lib/embeddingClient.js";
+import { fetchEmbedding as sharedFetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
+
+// M2: Build-Zeit unkritisch → höhere Retry-Toleranz als der Server.
+const fetchEmbedding = (text: string) => sharedFetchEmbedding(text, { maxRetries: 3 });
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -61,8 +64,9 @@ async function embedAll(
 }
 
 async function main(): Promise<void> {
-  if (!process.env.GEMINI_API_KEY) {
-    console.warn("[build-search-index] GEMINI_API_KEY nicht gesetzt — Skip.");
+  // M2: getKeys() statt GEMINI_API_KEY direkt — läuft auch bei Fallback-only-Config.
+  if (getKeys().length === 0) {
+    console.warn("[build-search-index] kein Embedding-Key (GEMINI_API_KEY[S]/FALLBACK) — Skip.");
     process.exit(0);
   }
 
