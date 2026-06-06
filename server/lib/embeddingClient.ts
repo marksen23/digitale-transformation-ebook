@@ -67,6 +67,10 @@ export function classifyError(status: number, body: string): EmbedErrorClass {
     return /dunning|PERMISSION_DENIED|billing/i.test(body) ? "billing" : "auth";
   }
   if (status === 401) return "auth";
+  // 400 ist normalerweise transient (Bad Request), ABER Gemini gibt für einen
+  // ungültigen Key ebenfalls 400 mit API_KEY_INVALID/INVALID_ARGUMENT zurück —
+  // das ist ein Auth-Fehler (Key tot → rotieren, nicht retryen).
+  if (status === 400 && /API_KEY_INVALID|api key not valid/i.test(body)) return "auth";
   return "transient";
 }
 

@@ -22,6 +22,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { fetchEmbedding as sharedFetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname  = path.dirname(__filename);
@@ -29,8 +30,11 @@ const ROOT       = path.resolve(__dirname, "..");
 const EBOOK_PATH = path.join(ROOT, "client/public/ebook_structured.json");
 const OUTPUT     = path.join(ROOT, "client/public/werk-chunks.json");
 
-const GEMINI_API_KEY    = (process.env.GEMINI_API_KEY ?? "").trim() || undefined;
 const GEMINI_EMBED_MODEL = (process.env.GEMINI_EMBED_MODEL ?? "").trim() || "gemini-embedding-001";
+
+// M2: fetchEmbedding zentral (Multi-Key-Failover + Retry). Build-Zeit
+// unkritisch → höhere Retry-Toleranz als der Server.
+const fetchEmbedding = (text: string) => sharedFetchEmbedding(text, { maxRetries: 3 });
 
 // R2: feinere Chunks für präziseres Retrieval.
 // Vorher: bis 1800 char/Chunk (~93 Chunks total) — zu grob, ein Chunk
@@ -139,30 +143,6 @@ function chunkChapter(ch: Chapter): WerkChunk[] {
   return out;
 }
 
-async function fetchEmbedding(text: string): Promise<number[] | null> {
-  if (!GEMINI_API_KEY) return null;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBED_MODEL}:embedContent?key=${GEMINI_API_KEY}`;
-  try {
-    const res = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        model: `models/${GEMINI_EMBED_MODEL}`,
-        content: { parts: [{ text: text.slice(0, 8000) }] },
-      }),
-    });
-    if (!res.ok) {
-      console.warn(`[build-werk-chunks] embed ${res.status}: ${(await res.text()).slice(0, 200)}`);
-      return null;
-    }
-    const data = await res.json();
-    return Array.isArray(data.embedding?.values) ? data.embedding.values : null;
-  } catch (err) {
-    console.warn(`[build-werk-chunks] embed net error: ${err instanceof Error ? err.message : err}`);
-    return null;
-  }
-}
-
 async function main() {
   console.log(`[build-werk-chunks] reading ${EBOOK_PATH}`);
   if (!fs.existsSync(EBOOK_PATH)) {
@@ -206,8 +186,9 @@ async function main() {
 
   // Embedden — sequentiell mit kurzer Pause, damit Rate-Limit gerecht
   let added = 0, reused = 0, failed = 0;
-  if (!GEMINI_API_KEY) {
-    console.log("[build-werk-chunks] GEMINI_API_KEY fehlt — schreibe Chunks ohne Embeddings");
+  const hasKeys = getKeys().length > 0;
+  if (!hasKeys) {
+    console.log("[build-werk-chunks] kein Embedding-Key (GEMINI_API_KEY[S]/FALLBACK) — schreibe Chunks ohne Embeddings");
   }
   for (let i = 0; i < allChunks.length; i++) {
     const c = allChunks[i];
@@ -217,7 +198,7 @@ async function main() {
       reused++;
       continue;
     }
-    if (!GEMINI_API_KEY) continue;
+    if (!hasKeys) continue;
     const vec = await fetchEmbedding(c.text);
     if (vec) {
       c.embedding = vec;

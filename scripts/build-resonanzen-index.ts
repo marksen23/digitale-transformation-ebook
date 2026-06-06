@@ -17,6 +17,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
+import { fetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -37,11 +38,9 @@ const REPO_OWNER  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
 const REPO_NAME   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
 const REPO_BRANCH = process.env.GITHUB_REPO_BRANCH ?? "main";
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN; // optional
-// Trim → handhabt versehentlich mitkopierte Whitespace beim Setzen des
-// Secrets (häufige Falle: Copy aus Browser inklusive führendem/abschließendem
-// Newline). Leere Strings werden zu undefined, damit der !GEMINI_API_KEY-
-// Check klar wirkt.
-const GEMINI_API_KEY = (process.env.GEMINI_API_KEY ?? "").trim() || undefined;
+// M2: Key-Handling lebt jetzt zentral in embeddingClient.getKeys()
+// (Multi-Key-Failover). Gates hier nutzen getKeys().length statt einer
+// lokalen GEMINI_API_KEY-Const.
 
 // Embedding-Modell — wenn Google den Endpoint umbenennt/entfernt, hier
 // updaten. Historie:
@@ -289,7 +288,7 @@ async function main() {
   // verloren gehen. Verhindert: existierenden Index lesen, pro-id die Felder
   // übernehmen. Das Resultat: lokale Rebuilds zerstören die semantischen
   // Verlinkungen nicht — die bleiben bis CI mit Key sie aktualisiert.
-  if (!GEMINI_API_KEY && fs.existsSync(OUTPUT)) {
+  if (getKeys().length === 0 && fs.existsSync(OUTPUT)) {
     try {
       const existing = JSON.parse(fs.readFileSync(OUTPUT, "utf-8"));
       const byId = new Map<string, ResonanzEntry>(
@@ -316,13 +315,12 @@ async function main() {
   // Embeddings werden vor dem Index-Schreiben berechnet, damit Cross-Links
   // direkt mitgeschrieben werden können (vermeidet 2-Pass-Schreiben).
   let embeddings: Record<string, number[]> | null = null;
-  if (GEMINI_API_KEY && entries.length > 0) {
-    // Diagnose-Zeile: Key vorhanden? Länge? Erste/letzte 3 Zeichen?
-    // Wichtig: NIE den vollständigen Key loggen. Diese Maskierung reicht
-    // aber für den User um zu erkennen ob das Secret korrekt durchgereicht
-    // wurde (typische Gemini-Keys sind ~39 chars und beginnen mit "AIza").
-    const masked = `${GEMINI_API_KEY.slice(0, 3)}...${GEMINI_API_KEY.slice(-3)}`;
-    console.log(`[build-resonanzen-index] GEMINI_API_KEY OK (len=${GEMINI_API_KEY.length}, masked=${masked})`);
+  const _keys = getKeys();
+  if (_keys.length > 0 && entries.length > 0) {
+    // Diagnose-Zeile: wie viele Keys, primärer maskiert? NIE vollständig loggen.
+    const primary = _keys[0];
+    const masked = `${primary.slice(0, 3)}...${primary.slice(-3)}`;
+    console.log(`[build-resonanzen-index] ${_keys.length} Embedding-Key(s) verfügbar (primär len=${primary.length}, masked=${masked})`);
     embeddings = await buildEmbeddings(entries);
     // Buchtext-Kapitel als zweite Werkstreue-Referenz embedden. Schreibt
     // chapter:*-IDs in dieselbe Map; computeCrossLinks unten extrahiert
@@ -978,60 +976,10 @@ function runHoldoutCheck(entries: ResonanzEntry[], embeddings: Record<string, nu
   console.log(`[build-resonanzen-index] holdout-report: checked=${holdout.length} stable=${stable} shifted=${shifted} drifted=${drifted}`);
 }
 
-// Modul-globaler Counter, damit wir nur die ersten N Fehler ausführlich loggen
-// (vermeidet Spam wenn alle 128 Calls denselben Fehler haben).
-let _embedFailLogged = 0;
-const EMBED_FAIL_LOG_LIMIT = 3;
-
-let _embedSuccessLogged = false;
-
-async function fetchEmbedding(text: string): Promise<number[] | null> {
-  try {
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBED_MODEL}:embedContent?key=${GEMINI_API_KEY}`,
-      {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          // gemini-embedding-001 verlangt das model-Feld zusätzlich zur URL;
-          // bei text-embedding-004 war es optional. Beide akzeptieren es.
-          model: `models/${GEMINI_EMBED_MODEL}`,
-          content: { parts: [{ text: text.slice(0, 8000) }] },
-        }),
-      }
-    );
-    if (!res.ok) {
-      if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
-        _embedFailLogged++;
-        const body = await res.text().catch(() => "(no body)");
-        console.error(`[fetchEmbedding] ${res.status} ${res.statusText}: ${body.slice(0, 400)}`);
-      }
-      return null;
-    }
-    const data = await res.json();
-    if (!Array.isArray(data.embedding?.values)) {
-      if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
-        _embedFailLogged++;
-        console.error(`[fetchEmbedding] unexpected response shape: ${JSON.stringify(data).slice(0, 400)}`);
-      }
-      return null;
-    }
-    if (!_embedSuccessLogged) {
-      _embedSuccessLogged = true;
-      console.log(
-        `[fetchEmbedding] first success: ${data.embedding.values.length}-dim vector ` +
-        `(model=${GEMINI_EMBED_MODEL}, first 3 values=${data.embedding.values.slice(0, 3).join(", ")}…)`
-      );
-    }
-    return data.embedding.values;
-  } catch (err) {
-    if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
-      _embedFailLogged++;
-      console.error(`[fetchEmbedding] network: ${err instanceof Error ? err.message : String(err)}`);
-    }
-    return null;
-  }
-}
+// M2: fetchEmbedding lebt jetzt zentral in server/lib/embeddingClient.ts
+// (Multi-Key-Failover + Retry). Hier nur noch importiert. Build-Scripts
+// setzen höhere Retry-Toleranz als der Server, da Build-Zeit unkritisch.
+const embedWithRetry = (text: string) => fetchEmbedding(text, { maxRetries: 3 });
 
 async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string, number[]>> {
   // Inkrementell: bestehende Embeddings laden, nur fehlende neu berechnen
@@ -1066,7 +1014,7 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
     const results = await Promise.all(batch.map(async e => {
       // Embed prompt + response zusammen — semantischer Inhalt
       const text = `${e.prompt}\n\n${e.response}`;
-      const vec = await fetchEmbedding(text);
+      const vec = await embedWithRetry(text);
       return { id: e.id, vec };
     }));
     for (const { id, vec } of results) {
@@ -1178,14 +1126,14 @@ async function buildChapterEmbeddings(existing: Record<string, number[]>): Promi
 
     let vec: number[] | null = null;
     if (ch.content.length <= CHUNK_SIZE) {
-      vec = await fetchEmbedding(ch.content);
+      vec = await embedWithRetry(ch.content);
     } else {
       // Chunks: gewichteter Mittelwert
       const chunks: string[] = [];
       for (let i = 0; i < ch.content.length; i += CHUNK_SIZE) {
         chunks.push(ch.content.slice(i, i + CHUNK_SIZE));
       }
-      const chunkVecs = await Promise.all(chunks.map(c => fetchEmbedding(c)));
+      const chunkVecs = await Promise.all(chunks.map(c => embedWithRetry(c)));
       const validVecs = chunkVecs.map((v, i) => ({ v, w: chunks[i].length }))
         .filter((x): x is { v: number[]; w: number } => x.v !== null);
       if (validVecs.length === 0) {

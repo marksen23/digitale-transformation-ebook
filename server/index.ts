@@ -9,6 +9,7 @@ import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanz
 import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
 import { removeFromIndex, updateInIndex } from "./lib/indexUpdater.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
+import { fetchEmbedding, getKeys } from "./lib/embeddingClient.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -1837,13 +1838,15 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
   });
 
   // ─── Embedding-Endpoint für semantische Korpus-Suche ─────────────────
-  // Wraps Gemini text-embedding-004 für die Resonanzen-FAQ-Suche.
-  // Frontend ruft /api/embed mit einer Anfrage, bekommt 768-dim Vektor,
-  // vergleicht client-seitig mit den im Korpus-Index hinterlegten
-  // Embeddings (Cosine-Similarity).
+  // Frontend ruft /api/embed mit einer Anfrage, bekommt einen 3072-dim
+  // gemini-embedding-001-Vektor und vergleicht client-seitig mit den im
+  // Korpus-Index hinterlegten Embeddings (Cosine-Similarity).
+  //
+  // M2: nutzt jetzt den shared embeddingClient → Multi-Key-Failover greift
+  // auch hier (GEMINI_API_KEY_FALLBACK rotiert ein, wenn der Primärkey
+  // billing/auth-blockiert ist). maxRetries knapp (2) wegen Request-Timeout.
   app.post("/api/embed", rateLimiter('embed', 60, 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (getKeys().length === 0) {
       return res.status(503).json({ error: "Embedding-API nicht konfiguriert." });
     }
     const { text } = req.body as { text: string };
@@ -1853,41 +1856,14 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     if (text.length > 8000) {
       return res.status(400).json({ error: "text zu lang (max 8000 Zeichen)." });
     }
-    // M6: Modell muss zu den Korpus-Embeddings passen (siehe CLAUDE.md +
-    // GEMINI_EMBED_MODEL ENV). Default gemini-embedding-001 (3072-dim).
-    // Vorher war hier text-embedding-004 (768-dim) hartcodiert — das passte
-    // nicht zu den Korpus-Vektoren, ergo lieferte cosine 0 (still failing).
-    const embedModel = process.env.GEMINI_EMBED_MODEL ?? "gemini-embedding-001";
-    try {
-      const response = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${embedModel}:embedContent?key=${apiKey}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            content: { parts: [{ text }] },
-          }),
-        }
-      );
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("Embed Gemini error:", response.status, errText);
-        let detail: string;
-        try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
-        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
-        return res.status(502).json({ error: detail });
-      }
-      const data = await response.json();
-      const values = data.embedding?.values;
-      if (!Array.isArray(values)) {
-        return res.status(502).json({ error: "Embedding-Antwort fehlerhaft." });
-      }
-      return res.json({ embedding: values });
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : String(err);
-      console.error("Embed API error:", message);
-      return res.status(502).json({ error: `API-Fehler: ${message}` });
+    const values = await fetchEmbedding(text, { maxRetries: 2 });
+    if (!Array.isArray(values)) {
+      // Alle Keys erschöpft (billing/auth/quota/transient) — der Client
+      // degradiert dann auf Lex-only. Detail-Klassifikation steht im
+      // Server-Log (embeddingClient loggt erste N Fehler mit Klasse).
+      return res.status(502).json({ error: "Embedding konnte nicht berechnet werden (alle Keys erschöpft)." });
     }
+    return res.json({ embedding: values });
   });
 
   // ─── PDF-Download mit professioneller Formatierung ─────────────────
