@@ -30,6 +30,8 @@ import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import ActionLogPanel from "@/components/admin/ActionLogPanel";
 import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
+import { UnifiedSearch } from "@/components/search/UnifiedSearch";
+import type { ActiveFilters, FilterGroup, SearchSource } from "@/lib/search/types";
 import {
   Section, Stat, useAdminTheme, computeStats, MONO, SERIF,
   loadOptionalJson, type Palette,
@@ -172,6 +174,45 @@ export default function AdminCurationPage() {
     }
     return xs;
   }, [index, statusFilter, aiScoreFilter]);
+
+  // M5: Filter-Groups für Chip-Builder im UnifiedSearch (hideTextInput-Modus).
+  // "all"-Wert ist implizit (leere Auswahl = alle), daher aus Optionsliste raus.
+  const filterGroups = useMemo<FilterGroup[]>(() => {
+    if (!index || !stats) return [];
+    return [
+      {
+        id: "status", label: "Status", multi: false,
+        options: STATUS_FILTERS
+          .filter(s => s !== "all")
+          .map(s => ({ value: s, label: s, count: stats.byStatus[s] ?? 0 })),
+      },
+      {
+        id: "ai_score", label: "AI-Score", multi: false,
+        options: AI_SCORE_FILTERS
+          .filter(s => s !== "all")
+          .map(s => ({ value: s, label: AI_SCORE_FILTER_LABEL[s] })),
+      },
+    ];
+  }, [index, stats]);
+
+  const activeFilters = useMemo<ActiveFilters>(() => ({
+    status: statusFilter !== "all" ? [statusFilter] : [],
+    ai_score: aiScoreFilter !== "all" ? [aiScoreFilter] : [],
+  }), [statusFilter, aiScoreFilter]);
+
+  const handleFiltersChange = (next: ActiveFilters) => {
+    setStatusFilter((next.status?.[0] as StatusFilter | undefined) ?? "all");
+    setAiScoreFilter((next.ai_score?.[0] as AiScoreFilter | undefined) ?? "all");
+    setShowAllEntries(false);
+  };
+
+  // Dummy-Source: UnifiedSearch verlangt ein nicht-leeres sources-Array,
+  // aber im hideTextInput-Modus läuft keine Lex/Sem-Suche. Wir verwenden
+  // den Wrapper rein für ChipBuilder + FilterPopover.
+  const dummySource = useMemo<SearchSource>(() => ({
+    id: "noop", type: "curation", label: "—",
+    search: () => [],
+  }), []);
 
   /** raw/pending-Einträge ohne AI-Score — Kandidaten für Bulk-Pre-Score. */
   const ungescoredCandidates = useMemo(() => {
@@ -770,51 +811,19 @@ export default function AdminCurationPage() {
           <kbd style={kbdStyle(C)}>Esc</kbd> Auswahl löschen
         </div>
 
-        {/* AI-Score-Filter-Pills (Feature E) */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.5rem" }}>
-          {AI_SCORE_FILTERS.map(f => {
-            const active = aiScoreFilter === f;
-            const col = f === "ge4" ? "#7ab898" : f === "ge3" ? "#5aacb8" : f === "lt3" ? "#c48282" : f === "ungescored" ? "#888" : C.muted;
-            return (
-              <button
-                key={f}
-                onClick={() => setAiScoreFilter(f)}
-                style={{
-                  fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase",
-                  color: active ? "#080808" : col,
-                  background: active ? col : "none",
-                  border: `1px solid ${col}`,
-                  padding: "0.4rem 0.6rem", cursor: "pointer", minHeight: 28,
-                }}
-              >
-                {AI_SCORE_FILTER_LABEL[f]}
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Status-Filter-Pills */}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "0.8rem" }}>
-          {STATUS_FILTERS.map(s => {
-            const count = s === "all" ? index.count : (stats.byStatus[s] ?? 0);
-            const active = statusFilter === s;
-            const color = s === "published" ? "#7ab898" : s === "approved" ? "#5aacb8" : s === "pending" ? C.accent : s === "rejected" ? "#c48282" : C.muted;
-            return (
-              <button
-                key={s}
-                onClick={() => { setStatusFilter(s); setShowAllEntries(false); }}
-                style={{
-                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                  color: active ? "#080808" : color,
-                  background: active ? color : "none",
-                  border: `1px solid ${color}`,
-                  padding: "0.5rem 0.7rem", cursor: "pointer", minHeight: 36,
-                }}
-              >
-                {s} ({count})
-              </button>
-            );
-          })}
+        {/* M5: Status + AI-Score als Chip-Builder.
+            Ersetzt die vorher zwei separaten Pill-Rows (~30 Buttons). */}
+        <div style={{ marginBottom: "0.8rem" }}>
+          <UnifiedSearch
+            scope="page"
+            scopeId="admin-curation"
+            sources={[dummySource]}
+            filterGroups={filterGroups}
+            filters={activeFilters}
+            onFiltersChange={handleFiltersChange}
+            hideTextInput
+            onSelect={() => { /* nicht relevant im Chip-only-Modus */ }}
+          />
         </div>
 
         {filteredEntries.length === 0 ? (
