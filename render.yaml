@@ -18,6 +18,13 @@ services:
         sync: false
       - key: GEMINI_API_KEY
         sync: false
+      # Multi-Key-Failover (M5): optionaler zweiter Embedding-Key auf einem
+      # anderen GCP-Projekt mit eigenem Billing. Wird vom shared
+      # embeddingClient automatisch eingewechselt, wenn der Primärkey
+      # billing/auth-blockiert ist (403 dunning). Selbes Modell →
+      # vektorkompatibel. Leer lassen, wenn kein Fallback existiert.
+      - key: GEMINI_API_KEY_FALLBACK
+        sync: false
       # GITHUB_TOKEN — Pflicht für Live-Append. Ohne dieses Token kann der
       # Server keine neuen KI-Antworten in content/resonanzen/raw/ und in
       # client/public/resonanzen-index.json schreiben → KI-Ausgaben werden

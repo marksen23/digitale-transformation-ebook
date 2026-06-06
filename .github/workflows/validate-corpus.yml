@@ -186,6 +186,9 @@ jobs:
         run: pnpm tsx scripts/build-werk-chunks.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          # Multi-Key-Failover (M5): zweiter Key auf anderem GCP-Projekt mit
+          # eigenem Billing. Vektorkompatibel (selbes Modell). Leer = ignoriert.
+          GEMINI_API_KEY_FALLBACK: ${{ secrets.GEMINI_API_KEY_FALLBACK }}
           GEMINI_EMBED_MODEL: gemini-embedding-001
 
       - name: Rebuild Search-Index (concepts + philosophers Embeddings)
@@ -193,6 +196,7 @@ jobs:
         run: pnpm tsx scripts/build-search-index.ts
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_FALLBACK: ${{ secrets.GEMINI_API_KEY_FALLBACK }}
           GEMINI_EMBED_MODEL: gemini-embedding-001
 
       - name: Rebuild resonanzen-index.json
@@ -204,6 +208,7 @@ jobs:
           GITHUB_REPO_BRANCH: ${{ github.ref_name }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_FALLBACK: ${{ secrets.GEMINI_API_KEY_FALLBACK }}
           # Embeddings sind im CI Pflicht — wenn 0 Calls erfolgreich, Build
           # rot färben (sonst sah man bisher grünen Haken bei leerem Index).
           # Netlify-Builds setzen das Flag NICHT → dort soft-fail.

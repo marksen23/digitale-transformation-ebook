@@ -74,7 +74,8 @@ Browser (Netlify)                  Render-Server (Express)
 
 | Variable | Wo gesetzt | Pflicht? | Sym­ptome wenn falsch |
 |----------|-----------|----------|------------------|
-| `GEMINI_API_KEY` | Render Env, GitHub Repo-Secrets | ja | Keine Embeddings; bei CI: rote Action mit „FATAL 0 erfolgreiche Embedding-Calls" |
+| `GEMINI_API_KEY` | Render Env, GitHub Repo-Secrets | ja | Keine Embeddings; bei CI: rote Action mit „FATAL 0 erfolgreiche Embedding-Calls". Bei `403 dunning / PERMISSION_DENIED`: GCP-Projekt-Billing gesperrt → `GEMINI_API_KEY_FALLBACK` setzen. |
+| `GEMINI_API_KEY_FALLBACK` | Render Env, GitHub Repo-Secrets | nein | Zweiter Key auf anderem GCP-Projekt (eigenes Billing). Der shared `embeddingClient` rotiert automatisch darauf, wenn der Primärkey billing/auth-blockiert ist. SELBES Modell → vektorkompatibel. Auch Komma-Liste via `GEMINI_API_KEYS` möglich. |
 | `GITHUB_TOKEN` (PAT mit `repo` scope) | Render Env | ja für Live-Append | Server-Logs: `[resonanzLog] skipped (no token)`. KI-Outputs landen nicht im Korpus. Heartbeat auf `/admin/health` zeigt `githubTokenPresent: false`. |
 | `ANTHROPIC_API_KEY` | Render Env | ja | 500-Fehler bei jeder KI-Anfrage |
 | `EMBEDDINGS_REQUIRED` | nur im CI gesetzt (Workflow-YAML) | nein | Wenn 1 + 0 Embeddings: Workflow rot. Wenn 0/leer: Soft-warn auf Netlify-Build. |
