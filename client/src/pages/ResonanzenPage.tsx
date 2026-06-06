@@ -18,7 +18,6 @@ import WordCloud from "@/components/enkidu/WordCloud";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import {
   loadResonanzenIndex, extractCorpusKeywords,
-  loadEmbeddings, fetchQueryEmbedding, rankBySimilarity,
   ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry, type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
@@ -119,40 +118,9 @@ export default function ResonanzenPage() {
     return () => window.removeEventListener("keydown", handler);
   }, []);
 
-  // Such-Historie: letzte 5 erfolgreiche Suchen im localStorage
-  const [searchHistory, setSearchHistory] = useState<string[]>(() => {
-    try {
-      const raw = localStorage.getItem("wissen-search-history");
-      if (raw) {
-        const arr = JSON.parse(raw);
-        if (Array.isArray(arr)) return arr.slice(0, 5);
-      }
-    } catch { /* ignore */ }
-    return [];
-  });
-  const [searchFocused, setSearchFocused] = useState(false);
-  function addToHistory(term: string) {
-    const t = term.trim();
-    if (t.length < 2) return;
-    setSearchHistory(prev => {
-      const filtered = prev.filter(x => x !== t);
-      const next = [t, ...filtered].slice(0, 5);
-      try { localStorage.setItem("wissen-search-history", JSON.stringify(next)); } catch { /* ignore */ }
-      return next;
-    });
-  }
-  function clearHistory() {
-    setSearchHistory([]);
-    try { localStorage.removeItem("wissen-search-history"); } catch { /* ignore */ }
-  }
-
-  // Semantische Suche — Toggle + Status. Embeddings werden lazy geladen,
-  // Query-Embedding via /api/embed pro Suchvorgang.
-  const [semanticMode, setSemanticMode] = useState(false);
-  const [semanticLoading, setSemanticLoading] = useState(false);
-  const [semanticResults, setSemanticResults] = useState<Array<{ id: string; score: number }> | null>(null);
-  const [semanticError, setSemanticError] = useState<string | null>(null);
-  const [embeddingsAvailable, setEmbeddingsAvailable] = useState<boolean | null>(null);
+  // M8: Such-Historie + Semantik-Toggle entfernt — beides läuft jetzt
+  // automatisch im UnifiedSearch. History via useSearchHistory(scopeId),
+  // Semantik default-on via enableSemantic+resonanzenSource.semanticSearch.
 
   // Admin-Inline-Löschen: nur sichtbar wenn Token gesetzt + Server-validiert
   const { state: adminState } = useAdminAuth();
@@ -198,10 +166,8 @@ export default function ResonanzenPage() {
         }
       })
       .catch(err => setLoadError(err instanceof Error ? err.message : String(err)));
-    // Pre-fetch embeddings (lazy, im Hintergrund)
-    loadEmbeddings().then(emb => {
-      setEmbeddingsAvailable(emb !== null && Object.keys(emb.embeddings ?? {}).length > 0);
-    });
+    // M8: Pre-fetch embeddings entfällt — resonanzenSource lädt sie lazy
+    // bei der ersten semantischen Suche.
 
     // S1: Cross-Tab/Cross-Page-Auto-Refresh — wenn Admin-Actions den Index
     // mutieren, dispatchen sie ein „resonanzen-index-stale"-Event. Wir hören
@@ -244,35 +210,6 @@ export default function ResonanzenPage() {
     (filterTag ? 1 : 0) +
     (filterRelevanz !== "all" ? 1 : 0);
 
-  // Semantische Suche ausführen (debounced via Button-Click)
-  const runSemanticSearch = async () => {
-    const q = search.trim();
-    if (!q || !index) return;
-    setSemanticLoading(true);
-    setSemanticError(null);
-    setSemanticResults(null);
-    try {
-      const [queryVec, embeddings] = await Promise.all([
-        fetchQueryEmbedding(q),
-        loadEmbeddings(),
-      ]);
-      if (!queryVec) {
-        setSemanticError("Query-Embedding konnte nicht berechnet werden.");
-        return;
-      }
-      if (!embeddings || Object.keys(embeddings.embeddings).length === 0) {
-        setSemanticError("Korpus-Embeddings nicht verfügbar.");
-        return;
-      }
-      const ranked = rankBySimilarity(queryVec, index.entries, embeddings.embeddings, 20);
-      setSemanticResults(ranked.map(r => ({ id: r.entry.id, score: r.score })));
-    } catch (err) {
-      setSemanticError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setSemanticLoading(false);
-    }
-  };
-
   // ─── Filter + Suche ─────────────────────────────────────────────────────
   // Im semantischen Modus mit Resultat-Cache: zeige in dieser Sortierung
   // nur die rangierten Treffer (gefiltert durch Endpoint/Status/Tag).
@@ -293,7 +230,7 @@ export default function ResonanzenPage() {
     if (!index) return [];
     // Permalink-Modus: nur den einen gemeinten Eintrag rendern (auch wenn
     // er eine Variante mit Master ist — explizite User-Anfrage hat Vorrang).
-    if (permalinkId && !search.trim() && filterEndpoint === "all" && !filterTag && filterStatus !== "kuratiert" && !semanticMode) {
+    if (permalinkId && !search.trim() && filterEndpoint === "all" && !filterTag && filterStatus !== "kuratiert") {
       const target = index.entries.find(e => e.id === permalinkId);
       return target ? [target] : [];
     }
@@ -312,13 +249,6 @@ export default function ResonanzenPage() {
       return true;
     };
 
-    if (semanticMode && semanticResults) {
-      const byId = new Map(index.entries.map(e => [e.id, e]));
-      return semanticResults
-        .map(r => byId.get(r.id))
-        .filter((e): e is ResonanzEntry => !!e && passes(e));
-    }
-
     const term = search.trim().toLowerCase();
     return index.entries.filter(e => {
       if (!passes(e)) return false;
@@ -328,14 +258,7 @@ export default function ResonanzenPage() {
       }
       return true;
     });
-  }, [index, filterEndpoint, filterStatus, filterTag, filterRelevanz, search, semanticMode, semanticResults, permalinkId, mastersByAnchor, showVariantsFor]);
-
-  // Score-Map für semantische Anzeige (Eintrag → Cosine-Score)
-  const scoreById = useMemo(() => {
-    const m = new Map<string, number>();
-    if (semanticResults) for (const r of semanticResults) m.set(r.id, r.score);
-    return m;
-  }, [semanticResults]);
+  }, [index, filterEndpoint, filterStatus, filterTag, filterRelevanz, search, permalinkId, mastersByAnchor, showVariantsFor]);
 
   // Wortwolke: aus allen Einträgen (oder kuratiert nur) — nicht der gefilterten
   // Liste, weil die Wolke einen Gesamteindruck geben soll, kein Such-Echo
@@ -373,7 +296,6 @@ export default function ResonanzenPage() {
     || filterEndpoint !== "all"
     || filterStatus === "kuratiert"
     || filterRelevanz !== "all"
-    || (semanticMode && semanticResults !== null)
     || permalinkId !== null;
 
   // Beim ersten User-Eingriff (Suche tippen oder Filter setzen) verlässt
@@ -384,40 +306,26 @@ export default function ResonanzenPage() {
     }
   }, [search, filterTag, filterEndpoint, filterStatus, permalinkId]);
 
-  // Live-Vorschläge beim Tippen: aus dem Keyword-Pool die Wörter holen,
-  // die den Tipp-Anfang enthalten. Max 6 Vorschläge, Stopp wenn user >2
-  // Zeichen länger als Vorschlag tippt.
-  const suggestions = useMemo(() => {
-    const term = search.trim().toLowerCase();
-    if (term.length < 2) return [];
-    if (semanticMode) return [];   // Semantik-Modus hat eigene Resultats-UX
-    const exact = keywords.find(k => k.word.toLowerCase() === term);
-    if (exact) return [];          // exakter Treffer — keine Suggestions mehr
-    return keywords
-      .filter(k => k.word.toLowerCase().includes(term) && k.word.toLowerCase() !== term)
-      .slice(0, 6);
-  }, [search, keywords, semanticMode]);
+  // M8: Live-Vorschläge entfernt — der UnifiedSearch-Dropdown listet
+  // selbst die Treffer mit Highlight, eine zweite Suggestion-Liste war
+  // redundant.
 
   // Default-Limit für Ergebnis-Listing — wird via "+ mehr zeigen" erhöht
   const [resultsLimit, setResultsLimit] = useState(20);
   // Bei jeder neuen Suche Limit zurücksetzen
-  useEffect(() => { setResultsLimit(20); }, [search, filterEndpoint, filterStatus, filterTag, semanticMode]);
+  useEffect(() => { setResultsLimit(20); }, [search, filterEndpoint, filterStatus, filterTag]);
 
   // Endpoint-Facets: pro Endpoint zählen, wieviele Treffer es OHNE den
   // Endpoint-Filter gäbe — damit der User entscheiden kann, wohin er
   // seine Suche verengt. Wird im Such-Hero über der Sort-Toolbar gezeigt.
   const endpointFacets = useMemo(() => {
     if (!index) return [] as Array<{ endpoint: ResonanzEntry["endpoint"]; count: number }>;
-    // Wenn semantischer Modus: nutze semanticResults als Pool
-    const pool = semanticMode && semanticResults
-      ? (semanticResults.map(r => index.entries.find(e => e.id === r.id)).filter(Boolean) as ResonanzEntry[])
-      : index.entries;
     // Apply same passes WITHOUT endpoint filter
     const term = search.trim().toLowerCase();
-    const matched = pool.filter(e => {
+    const matched = index.entries.filter(e => {
       if (filterStatus === "kuratiert" && e.status === "raw") return false;
       if (filterTag && !e.nodeIds.includes(filterTag)) return false;
-      if (term && !semanticMode) {
+      if (term) {
         const hay = (e.prompt + "\n" + e.response + "\n" + e.anchor).toLowerCase();
         if (!hay.includes(term)) return false;
       }
@@ -428,7 +336,7 @@ export default function ResonanzenPage() {
     return (Object.entries(counts) as Array<[ResonanzEntry["endpoint"], number]>)
       .sort((a, b) => b[1] - a[1])
       .map(([endpoint, count]) => ({ endpoint, count }));
-  }, [index, search, filterStatus, filterTag, semanticMode, semanticResults]);
+  }, [index, search, filterStatus, filterTag]);
 
   // Sortierung der Ergebnisse — Default 'date' (neueste zuerst)
   type ResultSort = "date" | "relevance" | "length";
@@ -597,143 +505,43 @@ export default function ResonanzenPage() {
               keine related/echo-Falsch-Positive). extended = Werk + Begriffe +
               Philosophen unter "Weiterführend"-Trennlinie, mit Deep-Link-Navigation.
               Semantik-Toggle bleibt als opt-in Power-User-Feature daneben. */}
-          <div style={{ display: "flex", gap: "0.5rem", alignItems: "stretch", flexWrap: "wrap" }}>
-            <div style={{ flex: 1, minWidth: 200 }}>
-              <UnifiedSearch
-                scope="page"
-                scopeId="resonanzen"
-                sources={[resonanzenSource]}
-                extendedSources={extendedSources}
-                filterGroups={filterGroups}
-                filters={activeFilters}
-                onFiltersChange={handleFiltersChange}
-                enableSemantic
-                inputRef={searchInputRef}
-                onQueryChange={q => {
-                  setSearch(q);
-                  if (semanticResults) setSemanticResults(null);
-                  if (q.trim().length >= 2) addToHistory(q);
-                }}
-                onSelect={(hit: SearchHit) => {
-                  if (hit.type === "resonanz") {
-                    setExpandedId(hit.id);
-                    setPermalinkId(hit.id);
-                    // Scroll wird vom Permalink-Effekt erledigt
-                  } else if (hit.type === "chapter") {
-                    navigate(`/?chapter=${encodeURIComponent(hit.id)}`);
-                  } else if (hit.type === "concept") {
-                    navigate(`/begriffsnetz?node=${encodeURIComponent(hit.id)}`);
-                  } else if (hit.type === "philosopher") {
-                    navigate(`/philosophie?id=${encodeURIComponent(hit.id)}`);
-                  }
-                }}
-                placeholder="Im kollektiven Wissen suchen … (Tastenkürzel: /)"
-                limit={6}
-              />
-            </div>
-            {embeddingsAvailable && (
-              <button
-                onClick={() => {
-                  const next = !semanticMode;
-                  setSemanticMode(next);
-                  setSemanticResults(null);
-                  setSemanticError(null);
-                  if (next && search.trim()) runSemanticSearch();
-                }}
-                disabled={semanticLoading}
-                style={{
-                  fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
-                  color: semanticMode ? "#080808" : "#5aacb8",
-                  background: semanticMode ? "#5aacb8" : "none",
-                  border: `1px solid #5aacb8`,
-                  padding: "0 1rem",
-                  minHeight: 40, minWidth: 110,
-                  cursor: semanticLoading ? "wait" : "pointer",
-                  opacity: semanticLoading ? 0.5 : 1,
-                }}
-                title="Toggle: Volltext-Match vs. semantische Ähnlichkeit (Enter im Suchfeld)"
-              >
-                {semanticLoading ? "…" : semanticMode ? "✓ semantisch" : "≈ semantisch"}
-              </button>
-            )}
-          </div>
+          <UnifiedSearch
+            scope="page"
+            scopeId="resonanzen"
+            sources={[resonanzenSource]}
+            extendedSources={extendedSources}
+            filterGroups={filterGroups}
+            filters={activeFilters}
+            onFiltersChange={handleFiltersChange}
+            enableSemantic
+            inputRef={searchInputRef}
+            onQueryChange={setSearch}
+            onSelect={(hit: SearchHit) => {
+              if (hit.type === "resonanz") {
+                setExpandedId(hit.id);
+                setPermalinkId(hit.id);
+              } else if (hit.type === "chapter") {
+                navigate(`/?chapter=${encodeURIComponent(hit.id)}`);
+              } else if (hit.type === "concept") {
+                navigate(`/begriffsnetz?node=${encodeURIComponent(hit.id)}`);
+              } else if (hit.type === "philosopher") {
+                navigate(`/philosophie?id=${encodeURIComponent(hit.id)}`);
+              }
+            }}
+            placeholder="Im kollektiven Wissen suchen … (Tastenkürzel: /)"
+            limit={6}
+          />
 
-          {/* Live-Vorschläge — beim Tippen werden Korpus-Wörter angezeigt,
-              die das Tipp-Fragment enthalten. Klick übernimmt das Wort. */}
-          {/* Such-Historie — nur wenn Input fokussiert + leer */}
-          {searchFocused && search.trim().length === 0 && searchHistory.length > 0 && (
-            <div style={{
-              marginTop: "0.4rem",
-              display: "flex", flexWrap: "wrap", gap: "0.3rem",
-              alignItems: "center",
-            }}>
-              <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", marginRight: "0.2rem" }}>
-                zuletzt gesucht:
-              </span>
-              {searchHistory.map(h => (
-                <button
-                  key={h}
-                  onClick={() => setSearch(h)}
-                  style={{
-                    fontFamily: SERIF, fontSize: "0.78rem",
-                    color: C.text, background: C.deep,
-                    border: `1px solid ${C.border}`,
-                    padding: "0.25rem 0.55rem",
-                    cursor: "pointer", minHeight: 28,
-                  }}
-                >↺ {h}</button>
-              ))}
-              <button
-                onClick={clearHistory}
-                aria-label="Historie löschen"
-                style={{
-                  fontFamily: MONO, fontSize: "0.55rem",
-                  color: C.muted, background: "none",
-                  border: "none", padding: "0.25rem 0.4rem",
-                  cursor: "pointer", textDecoration: "underline",
-                }}
-              >leeren</button>
-            </div>
-          )}
-
-          {suggestions.length > 0 && (
-            <div style={{
-              marginTop: "0.4rem",
-              display: "flex", flexWrap: "wrap", gap: "0.3rem",
-              alignItems: "center",
-            }}>
-              <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", marginRight: "0.2rem" }}>
-                meinst du:
-              </span>
-              {suggestions.map(s => (
-                <button
-                  key={s.word}
-                  onClick={() => { setSearch(s.word); setSemanticResults(null); }}
-                  style={{
-                    fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
-                    color: C.accent, background: "none",
-                    border: `1px solid ${C.border}`,
-                    padding: "0.25rem 0.55rem",
-                    cursor: "pointer", minHeight: 28,
-                  }}
-                >
-                  {s.word}
-                  <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, marginLeft: "0.3rem", letterSpacing: "0.05em" }}>
-                    {s.count}
-                  </span>
-                </button>
-              ))}
-            </div>
-          )}
+          {/* M8: Such-Historie, Live-Vorschläge und Semantik-Toggle entfernt.
+              History läuft jetzt im UnifiedSearch-Dropdown (zuletzt-Pills wenn
+              Suchfeld leer). Suggestions sind redundant zum Live-Dropdown.
+              Semantik ist via enableSemantic+resonanzenSource always-on
+              (Hybrid mit Lex + Sem parallel). */}
 
           {/* Live-Counter / Status */}
           <div style={{ marginTop: "0.5rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", color: C.muted, display: "flex", justifyContent: "space-between", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
             <span>
-              {semanticMode && semanticLoading ? "Embedding wird berechnet …"
-                : semanticMode && semanticError ? <span style={{ color: "#c48282" }}>{semanticError}</span>
-                : semanticMode && semanticResults ? `Top ${semanticResults.length} nach Ähnlichkeit`
-                : semanticMode ? "Suchbegriff + Enter drücken"
-                : search.trim() ? `${filtered.length} Treffer von ${index?.count ?? 0}`
+              {search.trim() ? `${filtered.length} Treffer von ${index?.count ?? 0}`
                 : `${index?.count ?? 0} Begegnungen insgesamt`}
             </span>
             {/* Filter sind jetzt als Chips im UnifiedSearch oben — kein
@@ -774,7 +582,6 @@ export default function ResonanzenPage() {
                 height={260}
                 onWordClick={(word) => {
                   setSearch(word);
-                  setSemanticResults(null);
                   if (typeof window !== "undefined") window.scrollTo({ top: 0, behavior: "smooth" });
                 }}
               />
@@ -988,11 +795,9 @@ export default function ResonanzenPage() {
                         {ORNAMENT.middot} ◉ Echo ({entry.nearDuplicates.length})
                       </span>
                     )}
-                    {semanticMode && scoreById.has(entry.id) && (
-                      <span style={{ color: "#5aacb8", marginLeft: "0.5rem" }}>
-                        {ORNAMENT.middot} ≈ {(scoreById.get(entry.id)! * 100).toFixed(0)}%
-                      </span>
-                    )}
+                    {/* M8: Cosine-Score-Badge entfällt — Resonanzen-Liste
+                        zeigt nur Volltext-Treffer; semantische Treffer landen
+                        im UnifiedSearch-Dropdown mit eigenem ↺-Marker. */}
                   </span>
                   <div style={{ display: "flex", gap: "0.5rem", alignItems: "baseline" }}>
                     {readingMode !== "surface" && (
@@ -1018,7 +823,7 @@ export default function ResonanzenPage() {
                 </header>
 
                 <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.textBright, lineHeight: 1.5, marginBottom: "0.4rem" }}>
-                  {!semanticMode && search.trim() ? highlightTerm(entry.prompt, search) : entry.prompt}
+                  {search.trim() ? highlightTerm(entry.prompt, search) : entry.prompt}
                 </div>
 
                 {/* Tags — nur in depth/research, mit Mode-abhängigem Limit */}
@@ -1069,7 +874,7 @@ export default function ResonanzenPage() {
                   <div style={{ fontFamily: SERIF_BODY, fontSize: readingMode === "surface" ? "0.78rem" : "0.82rem", color: C.textDim, lineHeight: 1.6 }}>
                     {(() => {
                       const excerpt = entry.response.slice(0, excerptLen).trim() + (entry.response.length > excerptLen ? "…" : "");
-                      return !semanticMode && search.trim() ? highlightTerm(excerpt, search) : excerpt;
+                      return search.trim() ? highlightTerm(excerpt, search) : excerpt;
                     })()}
                   </div>
                 )}
