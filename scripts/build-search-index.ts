@@ -47,6 +47,16 @@ async function embedAll(
     await new Promise(r => setTimeout(r, 150));
   }
   console.log(`[build-search-index] ${label}: ${okCount} ok · ${failCount} failed`);
+  // Fail-fast wie build-resonanzen-index: 0 Erfolge bei nicht-leerem Input
+  // bedeutet API down (Key tot, Quota erschöpft, Billing-Block). Wir werfen,
+  // damit der Workflow rot wird und KEINE leere Datei eine gute überschreibt.
+  if (items.length > 0 && okCount === 0) {
+    throw new Error(
+      `[build-search-index] FATAL: 0 erfolgreiche Embedding-Calls bei ${items.length} Versuchen (${label}). ` +
+      `Wahrscheinliche Ursachen: ungültiger/zahlungsgesperrter GEMINI_API_KEY (403 PERMISSION_DENIED / dunning), ` +
+      `erschöpfte Quota, oder Modell-Endpoint entfernt. Siehe Fetch-Fehler oben.`
+    );
+  }
   return out;
 }
 
