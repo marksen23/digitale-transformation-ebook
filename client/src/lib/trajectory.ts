@@ -25,6 +25,10 @@ export interface Trajectory {
   expandedResonanzen: Record<string, string>;  // resonanzId → ts
   selectedPassages: Record<string, { selectionText: string; ts: string }>;
   dialogSessions: number;
+  /** Weiterdenken-Fäden: Anzahl der Fortsetzungs-Schritte (Mensch + KI),
+   *  die der Leser an Schlussfragen angehängt hat. Misst, wie oft jemand
+   *  eine offene Frage tatsächlich weitergetragen hat. */
+  weiterdenkenSteps: number;
   optOut: boolean;
 }
 
@@ -32,7 +36,8 @@ export type TrackEvent =
   | { type: "node-visit"; nodeId: string }
   | { type: "resonanz-expand"; entryId: string }
   | { type: "passage-select"; chunkId: string; text: string }
-  | { type: "dialog-end" };
+  | { type: "dialog-end" }
+  | { type: "weiterdenken-step" };
 
 let _cache: Trajectory | null = null;
 let _lastWriteAt = 0;
@@ -42,7 +47,7 @@ function emptyTrajectory(): Trajectory {
   return {
     v: VERSION, startedAt: now, lastActiveAt: now,
     visitedNodes: {}, expandedResonanzen: {}, selectedPassages: {},
-    dialogSessions: 0, optOut: false,
+    dialogSessions: 0, weiterdenkenSteps: 0, optOut: false,
   };
 }
 
@@ -54,6 +59,9 @@ export function getTrajectory(): Trajectory {
     if (!raw) { _cache = emptyTrajectory(); return _cache; }
     const parsed = JSON.parse(raw) as Trajectory;
     if (parsed.v !== VERSION) { _cache = emptyTrajectory(); return _cache; }
+    // Backfill additiv hinzugefügter Felder (kein VERSION-Bump → bestehende
+    // Trajektorien bleiben erhalten, statt zurückgesetzt zu werden).
+    if (typeof parsed.weiterdenkenSteps !== "number") parsed.weiterdenkenSteps = 0;
     _cache = parsed;
     return parsed;
   } catch {
@@ -79,7 +87,7 @@ function throttle(): boolean {
 export function track(event: TrackEvent): void {
   const t = getTrajectory();
   if (t.optOut) return;
-  if (!throttle() && event.type !== "passage-select" && event.type !== "dialog-end") return;
+  if (!throttle() && event.type !== "passage-select" && event.type !== "dialog-end" && event.type !== "weiterdenken-step") return;
   const now = new Date().toISOString();
   switch (event.type) {
     case "node-visit": {
@@ -97,6 +105,10 @@ export function track(event: TrackEvent): void {
     }
     case "dialog-end": {
       t.dialogSessions++;
+      break;
+    }
+    case "weiterdenken-step": {
+      t.weiterdenkenSteps = (t.weiterdenkenSteps ?? 0) + 1;
       break;
     }
   }
@@ -139,6 +151,7 @@ export function getStats(): {
   passageCount: number;
   expandedCount: number;
   dialogSessions: number;
+  weiterdenkenSteps: number;
   daysActive: number;
 } {
   const t = getTrajectory();
@@ -152,6 +165,7 @@ export function getStats(): {
     passageCount: Object.keys(t.selectedPassages).length,
     expandedCount: Object.keys(t.expandedResonanzen).length,
     dialogSessions: t.dialogSessions,
+    weiterdenkenSteps: t.weiterdenkenSteps ?? 0,
     daysActive,
   };
 }

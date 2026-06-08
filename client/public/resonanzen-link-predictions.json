@@ -1,7 +1,77 @@
 {
-  "generatedAt": "2026-05-27T07:37:40.102Z",
+  "generatedAt": "2026-06-08T13:52:16.438Z",
   "minCooccurrence": 2,
   "candidates": [
+    {
+      "source": "resonanzvernunft",
+      "target": "selbst",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPUNXFU1-3B1F056A",
+        "MPF4FISZ-67000E01",
+        "MP2LJCJB-EA58EC28",
+        "MP2LIW43-E8ADC59E"
+      ]
+    },
+    {
+      "source": "dasein",
+      "target": "resonanz",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPUQSMLJ-1B726CC4",
+        "MPUFUBU5-A4BC72BE",
+        "MP8UIMZW-BADE77E5"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "sprache",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MPUO08SE-67E0912A",
+        "MP0QMSOR-C6EC1B5A",
+        "MOUA3PLK-548F1A0A"
+      ]
+    },
+    {
+      "source": "erkenntnis",
+      "target": "lm-verwandlung",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPUNXFU1-3B1F056A",
+        "MOQIHEM5-82D69E4F",
+        "MOIXN7OL-B18642AC"
+      ]
+    },
+    {
+      "source": "lm-spiegel",
+      "target": "resonanzvernunft",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPUNXFU1-3B1F056A",
+        "MOUKLLK4-C38517C1",
+        "MOP0S479-373A2268"
+      ]
+    },
     {
       "source": "denken",
       "target": "resonanzvernunft",
@@ -17,20 +87,6 @@
       ]
     },
     {
-      "source": "resonanzvernunft",
-      "target": "selbst",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPF4FISZ-67000E01",
-        "MP2LJCJB-EA58EC28",
-        "MP2LIW43-E8ADC59E"
-      ]
-    },
-    {
       "source": "vernunft",
       "target": "zwischen",
       "cooccurrence": 3,
@@ -42,6 +98,131 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "moment",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPURYS56-11F5308C",
+        "MPCV5LR8-9AD1527C"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPURYS56-11F5308C",
+        "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "sein",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPUQSMLJ-1B726CC4",
+        "MOQ7OBNT-57882C8D"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPUQSMLJ-1B726CC4",
+        "MOQ7OBNT-57882C8D"
+      ]
+    },
+    {
+      "source": "echo",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPUO08SE-67E0912A",
+        "MP497SNT-5E1D2074"
+      ]
+    },
+    {
+      "source": "gelassenheit",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPUO08SE-67E0912A",
+        "MOQIHEM5-82D69E4F"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "lm-verwandlung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPUO08SE-67E0912A",
+        "MOUBETTU-F31C5206"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "sprache",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPUO08SE-67E0912A",
+        "MOUBIHOK-27900555"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "dasein",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPUFUBU5-A4BC72BE",
+        "MPF4FISZ-67000E01"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "resonanz",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPUFUBU5-A4BC72BE",
+        "MP0X2MFM-53C89506"
       ]
     },
     {
@@ -205,18 +386,6 @@
       ]
     },
     {
-      "source": "resonanz",
-      "target": "sprache",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MP0QMSOR-C6EC1B5A",
-        "MOUA3PLK-548F1A0A"
-      ]
-    },
-    {
       "source": "stimme",
       "target": "zwischen",
       "cooccurrence": 2,
@@ -226,32 +395,6 @@
       "sampleEntryIds": [
         "MP0QMSOR-C6EC1B5A",
         "MOQID47V-A12862EA"
-      ]
-    },
-    {
-      "source": "lm-spiegel",
-      "target": "resonanzvernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MOUKLLK4-C38517C1",
-        "MOP0S479-373A2268"
-      ]
-    },
-    {
-      "source": "erkenntnis",
-      "target": "lm-verwandlung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MOQIHEM5-82D69E4F",
-        "MOIXN7OL-B18642AC"
       ]
     },
     {
@@ -281,9 +424,9 @@
     }
   ],
   "stats": {
-    "totalPairs": 211,
-    "candidatesCount": 22,
+    "totalPairs": 236,
+    "candidatesCount": 33,
     "existingEdges": 116,
-    "maxCooccurrence": 3
+    "maxCooccurrence": 4
   }
 }

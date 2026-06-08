@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-05-27T07:37:33.546Z",
-  "filesChecked": 159,
+  "generatedAt": "2026-06-08T13:51:12.111Z",
+  "filesChecked": 202,
   "errors": 0,
   "warnings": 0,
   "issues": [],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 56,
-      "chapter": 21,
+      "analyse": 57,
+      "chapter": 28,
       "dialog": 3,
-      "enkidu": 23,
+      "enkidu": 54,
       "graph-chat": 26,
-      "path-analyse": 28,
+      "path-analyse": 32,
       "translate": 2
     },
     "byStatus": {
-      "published": 77,
-      "raw": 80,
+      "published": 107,
+      "raw": 93,
       "approved": 2
     },
     "orphanNodeIds": []

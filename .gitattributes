@@ -1,0 +1,4 @@
+# Shell-Scripts MÜSSEN LF-Zeilenenden haben — sie laufen auf Linux (Netlify,
+# GitHub-Actions, Render). CRLF würde den Interpreter brechen. Erzwingt LF
+# unabhängig von der Windows-autocrlf-Einstellung des Entwicklers.
+*.sh text eol=lf

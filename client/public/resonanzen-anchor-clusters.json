@@ -1,6 +1,21 @@
 {
-  "generatedAt": "2026-05-27T07:37:40.103Z",
+  "generatedAt": "2026-06-08T13:52:16.439Z",
   "clusters": [
+    {
+      "anchor": "chapter:band3-kap3",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MPUFP1VW-298D0A73",
+        "MPUFM0YN-83C71BAB",
+        "MPUFGY4Z-44206712",
+        "MPUFFZZO-69A41658",
+        "MPUFECMA-7E85D8E2"
+      ],
+      "lastVariantTs": "2026-05-31T23:51:56.877Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
     {
       "anchor": "chapter:teil7",
       "endpoint": "chapter",
@@ -131,8 +146,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 92,
-    "withMultipleVariants": 10,
+    "totalAnchors": 100,
+    "withMultipleVariants": 11,
     "withMaster": 0,
     "staleMasters": 0
   }

@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-05-27T07:37:40.101Z",
+  "generatedAt": "2026-06-08T13:52:16.437Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 20,
+      "count": 23,
       "endpoints": {
-        "path-analyse": 14,
+        "path-analyse": 17,
         "analyse": 6
       }
     },
     "resonanz": {
-      "count": 12,
+      "count": 16,
       "endpoints": {
-        "path-analyse": 11,
-        "analyse": 1
+        "path-analyse": 14,
+        "analyse": 2
       }
     },
     "vernunft": {
@@ -23,25 +23,25 @@
       }
     },
     "zwischen": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "analyse": 7,
-        "path-analyse": 5
+        "path-analyse": 6,
+        "analyse": 7
       }
     },
     "sprache": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
+        "path-analyse": 4,
         "dialog": 1,
-        "path-analyse": 3,
         "analyse": 3
       }
     },
     "dasein": {
-      "count": 5,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 3,
-        "analyse": 2
+        "path-analyse": 4,
+        "analyse": 3
       }
     },
     "stimme": {
@@ -58,24 +58,24 @@
       }
     },
     "echo": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "analyse": 4,
-        "path-analyse": 1
+        "path-analyse": 2,
+        "analyse": 4
       }
     },
     "klang": {
-      "count": 4,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 1,
+        "path-analyse": 3,
         "analyse": 3
       }
     },
     "erkenntnis": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "analyse": 4,
-        "path-analyse": 3
+        "path-analyse": 4,
+        "analyse": 4
       }
     },
     "wahrheit": {
@@ -93,17 +93,17 @@
       }
     },
     "bewusstsein": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "analyse": 3,
+        "analyse": 4,
         "path-analyse": 3
       }
     },
     "moment": {
-      "count": 2,
+      "count": 4,
       "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
+        "path-analyse": 3,
+        "analyse": 1
       }
     },
     "zeit": {
@@ -144,10 +144,10 @@
       }
     },
     "sein": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "analyse": 4,
-        "path-analyse": 1
+        "path-analyse": 2,
+        "analyse": 4
       }
     },
     "werden": {
@@ -170,10 +170,10 @@
       }
     },
     "selbst": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "analyse": 6,
-        "path-analyse": 4
+        "path-analyse": 5,
+        "analyse": 6
       }
     },
     "andere": {
@@ -190,9 +190,9 @@
       }
     },
     "freiheit": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 3,
         "analyse": 2
       }
     },
@@ -210,9 +210,9 @@
       }
     },
     "lm-spiegel": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 5,
         "analyse": 1
       }
     },
@@ -237,9 +237,9 @@
       }
     },
     "lm-verwandlung": {
-      "count": 13,
+      "count": 15,
       "endpoints": {
-        "path-analyse": 8,
+        "path-analyse": 10,
         "analyse": 5
       }
     },
@@ -269,10 +269,10 @@
       }
     },
     "gelassenheit": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 1,
-        "path-analyse": 2
+        "path-analyse": 3,
+        "analyse": 1
       }
     },
     "transaufklaerung": {
@@ -288,9 +288,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 5,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 4,
         "analyse": 3
       }
     },
@@ -344,7 +344,7 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 20,
+    "maxCount": 23,
     "median": 4,
     "totalNodes": 52,
     "zeroResonanceNodes": [

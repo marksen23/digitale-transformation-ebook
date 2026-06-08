@@ -13,6 +13,8 @@ import { UnifiedSearch } from "@/components/search/UnifiedSearch";
 import { conceptsSource, philosophersSource } from "@/lib/search/sources";
 import type { SearchHit } from "@/lib/search/types";
 import { useLocation as useWouterLocation } from "wouter";
+import WeiterdenkenThread from "@/components/WeiterdenkenThread";
+import { extractClosingQuestion } from "@/lib/closingQuestion";
 import ResonanzenBlock from "@/components/ResonanzenBlock";
 import CategoryLegendButton from "@/components/CategoryLegendButton";
 import LegendSection from "@/components/LegendSection";
@@ -3101,6 +3103,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       ))}
                     </div>
                   )}
+                  {/* Weiterdenken: die Schlussfrage der Analyse als Saatkorn eines
+                      rekursiven Fadens. key bindet den Faden an das aktuelle
+                      Resultat — neue Analyse = frischer Faden. */}
+                  {(() => {
+                    const q = extractClosingQuestion(analyseResult);
+                    if (!q) return null;
+                    return (
+                      <WeiterdenkenThread
+                        key={analyseResult.slice(0, 64)}
+                        c={C}
+                        initialQuestion={q}
+                        focus={analyseNodes.join("+") || undefined}
+                        focusedNodeIds={analyseNodes}
+                      />
+                    );
+                  })()}
                 </div>
               )}
             </div>
