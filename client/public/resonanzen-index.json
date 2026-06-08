@@ -88,7 +88,7 @@
       "endpoint": "dialog",
       "anchor": "dialog:weiterdenken",
       "nodeIds": [],
-      "status": "raw",
+      "status": "published",
       "prompt": "Was bleibt vom Selbst, wenn die Maschine zu antworten beginnt?",
       "response": "Das Selbst, einst Anker im Ozean des Unbeantworteten, muss sich neu verorten, sobald die künstliche Echoquelle nicht nur widerspiegelt, sondern eigene Melodien anstimmt. Vielleicht liegt seine verbleibende Essenz",
       "contextMeta": {
