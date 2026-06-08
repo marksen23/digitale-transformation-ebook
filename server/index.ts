@@ -1158,7 +1158,7 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
 
     // Chunk-Lookup für Kapiteltitel + Nachbar-Chunks
     const { getChunkLookup } = await import("./lib/werkRetrieval.js");
-    const lookup = getChunkLookup();
+    const lookup = await getChunkLookup();
     const chunk = lookup.get(chunkId);
     const chapterTitle = chunk?.chapterTitle ?? "(unbekanntes Kapitel)";
 

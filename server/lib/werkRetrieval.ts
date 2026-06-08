@@ -51,6 +51,95 @@ const CHUNKS_PATH = resolveDataPath("client/public/werk-chunks.json");
 const RESONANZ_INDEX_PATH = resolveDataPath("client/public/resonanzen-index.json");
 const RESONANZ_EMB_PATH = resolveDataPath("client/public/resonanzen-embeddings.json");
 
+/**
+ * GitHub-Raw als PRIMÄRE Korpus-Quelle (Deploy-Entkopplung).
+ *
+ * Der CI-Bot (validate-corpus.yml) committet die neu berechneten Embeddings
+ * + Index nach client/public/ auf main. Würde der Server diese NUR von der
+ * lokalen Platte lesen, bräuchte jede Korpus-Erweiterung (jeder neue
+ * kuratierte Eintrag → Selbstlern-Loop) einen Render-Redeploy, damit der
+ * RAG sie sieht. Stattdessen liest der Server live von raw.githubusercontent
+ * mit kurzem TTL-Cache — frisch ohne Redeploy, und Render kann aggressive
+ * Build-Filter fahren (nur server/** triggert Builds). Lokale Platte bleibt
+ * Fallback (Dev / offline / GitHub-Ausfall).
+ */
+const REPO_OWNER = process.env.CORPUS_REPO_OWNER || "marksen23";
+const REPO_NAME = process.env.CORPUS_REPO_NAME || "digitale-transformation-ebook";
+const REPO_BRANCH = process.env.CORPUS_REPO_BRANCH || "main";
+const RAW_BASE = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/client/public`;
+const CHUNKS_URL = `${RAW_BASE}/werk-chunks.json`;
+const RESONANZ_INDEX_URL = `${RAW_BASE}/resonanzen-index.json`;
+const RESONANZ_EMB_URL = `${RAW_BASE}/resonanzen-embeddings.json`;
+
+// Werk-Chunks ändern sich nur bei (seltenem) Re-Chunking → langer TTL.
+// Resonanzen wachsen laufend (Live-Append + Kuratierung) → kurzer TTL.
+const CHUNKS_TTL_MS = 60 * 60 * 1000;       // 60 min
+const RESONANZ_TTL_MS = 10 * 60 * 1000;     // 10 min
+const FETCH_TIMEOUT_MS = 30 * 1000;         // werk-chunks.json ist groß (~MB)
+
+interface JsonCacheEntry { data: unknown; fetchedAt: number; inflight: Promise<unknown> | null; }
+const _jsonCache = new Map<string, JsonCacheEntry>();
+
+async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    return await fetch(url, { signal: ctrl.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
+/**
+ * Lädt eine Korpus-JSON mit TTL-Cache. Reihenfolge: (1) GitHub-Raw,
+ * (2) lokale Platte als Fallback, (3) fail-soft = letzten guten Cache
+ * behalten. Inflight-Dedup verhindert parallele Doppel-Fetches.
+ */
+async function loadJsonCached(
+  localPath: string, rawUrl: string, ttlMs: number, label: string,
+): Promise<unknown | null> {
+  const now = Date.now();
+  const entry = _jsonCache.get(rawUrl);
+  if (entry && entry.data != null && now - entry.fetchedAt < ttlMs) return entry.data;
+  if (entry?.inflight) return entry.inflight;
+
+  const inflight = (async (): Promise<unknown | null> => {
+    // 1. GitHub-Raw (primär — frisch ohne Redeploy)
+    try {
+      const res = await fetchWithTimeout(rawUrl, FETCH_TIMEOUT_MS);
+      if (res.ok) {
+        const json = await res.json();
+        _jsonCache.set(rawUrl, { data: json, fetchedAt: Date.now(), inflight: null });
+        console.log(`[werkRetrieval] ${label}: GitHub-Raw geladen`);
+        return json;
+      }
+      console.warn(`[werkRetrieval] ${label}: GitHub-Raw HTTP ${res.status} — Fallback lokale Platte`);
+    } catch (err) {
+      console.warn(`[werkRetrieval] ${label}: GitHub-Raw fehlgeschlagen (${err instanceof Error ? err.message : err}) — Fallback lokale Platte`);
+    }
+    // 2. Lokale Platte (Dev / offline / GitHub-Ausfall)
+    try {
+      if (fs.existsSync(localPath)) {
+        const json = JSON.parse(fs.readFileSync(localPath, "utf-8"));
+        _jsonCache.set(rawUrl, { data: json, fetchedAt: Date.now(), inflight: null });
+        console.log(`[werkRetrieval] ${label}: lokale Platte geladen (${localPath})`);
+        return json;
+      }
+      console.warn(`[werkRetrieval] ${label}: weder GitHub-Raw noch lokale Platte (${localPath})`);
+    } catch (err) {
+      console.error(`[werkRetrieval] ${label}: disk-load failed: ${err instanceof Error ? err.message : err}`);
+    }
+    // 3. Fail-soft: letzten guten Cache behalten
+    const prev = _jsonCache.get(rawUrl);
+    if (prev?.data != null) { prev.inflight = null; return prev.data; }
+    _jsonCache.delete(rawUrl);
+    return null;
+  })();
+
+  _jsonCache.set(rawUrl, { data: entry?.data ?? null, fetchedAt: entry?.fetchedAt ?? 0, inflight });
+  return inflight;
+}
+
 export interface WerkChunk {
   id: string;
   chapter: string;
@@ -70,31 +159,14 @@ interface WerkChunksFile {
   chunks: WerkChunk[];
 }
 
-let _cache: WerkChunksFile | null = null;
-let _loaded = false;
-
-function loadChunks(): WerkChunksFile | null {
-  if (_loaded) return _cache;
-  _loaded = true;
-  try {
-    if (!fs.existsSync(CHUNKS_PATH)) {
-      console.warn(`[werkRetrieval] werk-chunks.json nicht gefunden bei ${CHUNKS_PATH}`);
-      return null;
-    }
-    const raw = fs.readFileSync(CHUNKS_PATH, "utf-8");
-    _cache = JSON.parse(raw);
-    const withEmb = (_cache?.chunks ?? []).filter(c => Array.isArray(c.embedding)).length;
-    console.log(`[werkRetrieval] geladen: ${_cache?.chunks.length} chunks, ${withEmb} mit embedding (model=${_cache?.model})`);
-    return _cache;
-  } catch (err) {
-    console.error(`[werkRetrieval] load failed: ${err instanceof Error ? err.message : err}`);
-    return null;
-  }
+async function loadChunks(): Promise<WerkChunksFile | null> {
+  const f = await loadJsonCached(CHUNKS_PATH, CHUNKS_URL, CHUNKS_TTL_MS, "werk-chunks") as WerkChunksFile | null;
+  return f ?? null;
 }
 
 /** Schlägt eine Chunk-Liste mit Embedding für Cosine-Vergleich auf. */
-function embeddedChunks(): WerkChunk[] {
-  const f = loadChunks();
+async function embeddedChunks(): Promise<WerkChunk[]> {
+  const f = await loadChunks();
   if (!f) return [];
   return f.chunks.filter(c => Array.isArray(c.embedding) && c.embedding!.length > 0);
 }
@@ -129,21 +201,27 @@ interface ResonanzEmbCache {
     prompt: string; response: string; ts: string;
   }>;
 }
-let _resonanzCache: ResonanzEmbCache | null = null;
-let _resonanzLoaded = false;
+// Derived-Cache: die aus index+embeddings gebauten Maps. Eigener TTL,
+// damit wir nicht bei jedem Retrieval-Call die Maps neu materialisieren.
+let _resonanzDerived: ResonanzEmbCache | null = null;
+let _resonanzDerivedAt = 0;
 
-function loadResonanzCorpus(): ResonanzEmbCache | null {
-  if (_resonanzLoaded) return _resonanzCache;
-  _resonanzLoaded = true;
+async function loadResonanzCorpus(): Promise<ResonanzEmbCache | null> {
+  const now = Date.now();
+  if (_resonanzDerived && now - _resonanzDerivedAt < RESONANZ_TTL_MS) return _resonanzDerived;
   try {
-    if (!fs.existsSync(RESONANZ_EMB_PATH) || !fs.existsSync(RESONANZ_INDEX_PATH)) {
-      console.warn(`[werkRetrieval] resonanzen-{index,embeddings}.json nicht gefunden — Resonanz-Retrieval deaktiviert`);
-      return null;
-    }
-    const embFile = JSON.parse(fs.readFileSync(RESONANZ_EMB_PATH, "utf-8")) as { embeddings: Record<string, number[]> };
-    const idxFile = JSON.parse(fs.readFileSync(RESONANZ_INDEX_PATH, "utf-8")) as {
+    const embFile = await loadJsonCached(
+      RESONANZ_EMB_PATH, RESONANZ_EMB_URL, RESONANZ_TTL_MS, "resonanzen-embeddings",
+    ) as { embeddings: Record<string, number[]> } | null;
+    const idxFile = await loadJsonCached(
+      RESONANZ_INDEX_PATH, RESONANZ_INDEX_URL, RESONANZ_TTL_MS, "resonanzen-index",
+    ) as {
       entries: Array<{ id: string; endpoint: string; anchor: string; nodeIds: string[]; status: string; prompt: string; response: string; ts: string }>;
-    };
+    } | null;
+    if (!embFile?.embeddings || !idxFile?.entries) {
+      console.warn(`[werkRetrieval] resonanz-corpus unvollständig — ${_resonanzDerived ? "behalte alten Cache" : "Resonanz-Retrieval deaktiviert"}`);
+      return _resonanzDerived;  // fail-soft
+    }
     const embMap = new Map<string, number[]>(Object.entries(embFile.embeddings));
     const metaMap = new Map<string, ResonanzEmbCache["meta"] extends Map<string, infer V> ? V : never>();
     for (const e of idxFile.entries ?? []) {
@@ -156,20 +234,25 @@ function loadResonanzCorpus(): ResonanzEmbCache | null {
         status: e.status, prompt: e.prompt, response: e.response, ts: e.ts,
       });
     }
-    _resonanzCache = { embeddings: embMap, meta: metaMap };
+    _resonanzDerived = { embeddings: embMap, meta: metaMap };
+    _resonanzDerivedAt = now;
     console.log(`[werkRetrieval] resonanzen geladen: ${metaMap.size} kuratierte (von ${idxFile.entries?.length ?? 0} total) für Retrieval`);
-    return _resonanzCache;
+    return _resonanzDerived;
   } catch (err) {
     console.error(`[werkRetrieval] Resonanz-Korpus-Load failed: ${err instanceof Error ? err.message : err}`);
-    return null;
+    return _resonanzDerived;  // fail-soft
   }
 }
 
 /** Bei Hot-Reload (nach Curation-Wechsel etc.) den Cache invalidieren —
- *  damit ein eben „approved"-Eintrag sofort retrievebar wird. */
+ *  damit ein eben „approved"-Eintrag sofort retrievebar wird. Leert
+ *  zusätzlich den Raw-JSON-Cache, damit sofort frisch von GitHub gezogen
+ *  wird (statt auf den TTL-Ablauf zu warten). */
 export function invalidateResonanzRetrievalCache(): void {
-  _resonanzLoaded = false;
-  _resonanzCache = null;
+  _resonanzDerived = null;
+  _resonanzDerivedAt = 0;
+  _jsonCache.delete(RESONANZ_EMB_URL);
+  _jsonCache.delete(RESONANZ_INDEX_URL);
 }
 
 /**
@@ -182,7 +265,7 @@ export async function retrieveRelevantWerkPassages(
   topK = 5,
 ): Promise<RetrievedPassage[]> {
   if (!query?.trim()) return [];
-  const chunks = embeddedChunks();
+  const chunks = await embeddedChunks();
   if (chunks.length === 0) return [];
 
   const qVec = await fetchEmbedding(query);
@@ -276,7 +359,7 @@ export async function retrieveRelevantCorpus(
   const out: RetrievedPassage[] = [];
 
   // Werk-Passages
-  const chunks = embeddedChunks();
+  const chunks = await embeddedChunks();
   if (chunks.length > 0) {
     const werkScored: RetrievedPassage[] = [];
     for (const c of chunks) {
@@ -295,7 +378,7 @@ export async function retrieveRelevantCorpus(
   }
 
   // Resonanzen — nur kuratierte (published/approved)
-  const reso = loadResonanzCorpus();
+  const reso = await loadResonanzCorpus();
   if (reso && reso.meta.size > 0) {
     const resoScored: RetrievedPassage[] = [];
     reso.meta.forEach((meta, id) => {
@@ -559,9 +642,9 @@ export async function buildWerkContext(query: string, topK = 5): Promise<{
 
 /** Liefert eine flache Lookup-Map id → Chunk für die KI-Antwort-Renderer
  *  (Frontend-Code parsed [chunkId]-Anker und braucht die Quelle). */
-export function getChunkLookup(): Map<string, WerkChunk> {
+export async function getChunkLookup(): Promise<Map<string, WerkChunk>> {
   const map = new Map<string, WerkChunk>();
-  const f = loadChunks();
+  const f = await loadChunks();
   if (!f) return map;
   for (const c of f.chunks) map.set(c.id, c);
   return map;

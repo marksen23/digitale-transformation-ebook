@@ -9,6 +9,25 @@ services:
     # Frontend baut Netlify.
     buildCommand: npm install --legacy-peer-deps && npm run build:server
     startCommand: node dist/index.js
+    # Build-Filter: Render baut NUR neu, wenn server-relevante Dateien sich
+    # ändern. Korpus-Daten (client/public/*.json), Frontend und Doku triggern
+    # KEINEN Server-Redeploy mehr — der Server zieht die Korpus-Embeddings
+    # jetzt live von GitHub-Raw mit TTL-Cache (werkRetrieval.ts), braucht also
+    # keinen Redeploy, um neue kuratierte Einträge zu sehen. Spart Build-
+    # Minuten + verhindert Deploy-Churn bei jedem Live-Append-Commit auf main.
+    buildFilters:
+      paths:
+        - server/**
+        - package.json
+        - package-lock.json
+        - pnpm-lock.yaml
+        - tsconfig.json
+        - render.yaml
+      ignoredPaths:
+        - client/**
+        - content/**
+        - scripts/**
+        - "**/*.md"
     envVars:
       - key: NODE_ENV
         value: production
