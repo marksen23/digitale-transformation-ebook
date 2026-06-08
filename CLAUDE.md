@@ -132,6 +132,57 @@ Server-Bundle:
 buildCommand: npm install --legacy-peer-deps && npm run build:server
 ```
 
+### 6. „Netlify-Deploy-Kosten explodieren / Gemini-Quota wird bei jedem Deploy verbraucht"
+
+**Exakt derselbe Fehler wie #5, nur für Netlify.** Die `netlify.toml`-
+`command` darf **nicht** `pnpm build` sein — das rechnet bei JEDEM Deploy
+den ganzen Korpus + alle Embeddings (Gemini-Calls!) + das PDF neu, obwohl
+die GitHub-Action das längst getan und die JSONs nach `client/public/`
+committet hat. Netlify braucht nur den Frontend-Build:
+
+```toml
+[build]
+  command = "pnpm install && pnpm build:frontend"   # = nur vite build
+```
+
+`vite` kopiert die committeten Korpus-JSONs aus `client/public/` nach
+`dist/public` — kein Neurechnen nötig. Zusätzlich überspringt
+`scripts/netlify-ignore.sh` (als `ignore =` in netlify.toml) Deploys ganz,
+wenn ein Commit nichts Frontend-Relevantes ändert (nur `server/`,
+`scripts/`, `content/`, `*.md`). Korpus-Daten-Updates unter
+`client/public/*.json` deployen weiterhin. (Behoben 2026-06-08.)
+
+### 7. „corpus-guardian-bot kann nicht auf main pushen (GH006 protected branch)"
+
+Wenn `main` eine **Branch-Protection mit PR-Pflicht** hat (`required_pull_request_reviews`
++ `required_status_checks`), scheitert der CI-Commit-Step mit
+`GH006: Protected branch update failed ... Changes must be made through a
+pull request`. Der Bot nutzt den Actions-`GITHUB_TOKEN` (kein Admin) und ist
+der PR-Pflicht unterworfen. **Admin/Owner-Pushes gehen durch** (`enforce_admins:
+false`) — deshalb funktionieren manuelle Pushes, aber der Bot nicht.
+
+Die ganze Auto-Pipeline (Live-Append, Tages-Snapshot, CI-Rebuild) ist auf
+**direkte Bot-Pushes** ausgelegt — PR-Pflicht ist damit unvereinbar (niemand
+reviewt jeden Snapshot). Fix (eine Variante wählen):
+
+- **Empfohlen** — die zwei blockierenden Anforderungen entfernen, force-push-
+  Schutz behalten:
+  ```bash
+  gh api -X DELETE repos/<owner>/<repo>/branches/main/protection/required_pull_request_reviews
+  gh api -X DELETE repos/<owner>/<repo>/branches/main/protection/required_status_checks
+  ```
+  Oder per UI: Settings → Branches → `main`-Regel → Häkchen weg bei „Require a
+  pull request" + „Require status checks", „Allow force pushes" aus lassen.
+- **Strenger** — Workflow auf Admin-PAT-Push umbauen (PAT-Secret + `git push`
+  mit dem PAT; Admin bypasst `enforce_admins: false`). Behält PR-Pflicht für
+  Menschen.
+
+Notfall-Workaround wenn Embeddings im Runner gebaut, aber nicht gepusht
+wurden: Artifact `corpus-state` des Runs herunterladen
+(`gh run download <id> -n corpus-state`), die JSONs nach `client/public/`
+kopieren und per Owner-Push committen. (Aufgetreten 2026-06-08 nach
+Billing-Reaktivierung.)
+
 ---
 
 ## Korpus-Datenfluss
@@ -144,14 +195,26 @@ KI-Endpoint (POST /api/analyse)
   → server/lib/indexUpdater.ts hängt minimalen Eintrag an
      client/public/resonanzen-index.json an (ohne Embeddings)
   → Push auf main triggert .github/workflows/validate-corpus.yml
+     → scripts/build-werk-chunks.ts (RAG-Chunks + Embeddings)
+     → scripts/build-search-index.ts (concepts + philosophers Embeddings
+        → client/public/{concepts,philosophers}-embeddings.json)
      → scripts/build-resonanzen-index.ts (FULL rebuild)
         - Holt alle MD-Files via GitHub-Tree-API
         - Berechnet Embeddings via Gemini (gemini-embedding-001, 3072-dim)
         - computeCrossLinks(): related[], nearDuplicates[], werkVoiceScore, corpusVoiceScore
         - Hold-out-Check (Anti-Drift-Mechanismus)
      → Commit von corpus-guardian-bot zurück auf main
-  → Netlify rebuilds Frontend mit neuem Index → Live
+        (braucht direkten Push-Zugriff — siehe Fallstrick #7)
+  → Netlify rebuildet NUR das Frontend (vite, kein Korpus-Rebuild — siehe
+     Fallstrick #6) und serviert die committeten JSONs → Live
 ```
+
+Alle Embeddings sind `gemini-embedding-001`, **3072-dim**. Ein Modellwechsel
+erzeugt einen inkompatiblen Vektorraum → Re-Embed des ganzen Korpus nötig.
+Vektorkompatibler Failover = zweiter Key auf anderem GCP-Projekt
+(`GEMINI_API_KEY_FALLBACK`), SELBES Modell. Der shared `embeddingClient`
+rotiert automatisch; Live-Status auf `/admin/health` → „Embedding-Pipeline"
+(klassifiziert Billing-Block / Quota / Auth).
 
 `werkVoiceScore` braucht ≥10 Einträge mit `status: approved`/`published`. Aktuell nur 3 — daher 0/136 mit werkVoiceScore.
 
@@ -170,10 +233,32 @@ KI-Endpoint (POST /api/analyse)
 - `server/lib/resonanzLog.ts` — GitHub-Write für rohe MD-Einträge
 - `server/lib/indexUpdater.ts` — Inkrementeller Index-Append
 - `server/lib/echoDetector.ts` — At-Ingest-Cosine-Vergleich gegen bestehende
-- `server/lib/embeddingClient.ts` — Shared Gemini-Embedding-Client
+- `server/lib/embeddingClient.ts` — Shared Gemini-Embedding-Client mit
+  **Multi-Key-Failover** (`getKeys`, `classifyError`, Retry/Backoff,
+  Key-Rotation) + `probeEmbedding()` für `/api/health`. EINZIGE Quelle für
+  Embeddings — alle Scripts + `/api/embed` importieren von hier.
 - `scripts/build-resonanzen-index.ts` — Full-Rebuild-Skript (CI + lokal)
+- `scripts/build-werk-chunks.ts` — RAG-Chunk-Index (mit Preserve-on-failure)
+- `scripts/build-search-index.ts` — concepts + philosophers Embeddings (Phase B)
 - `scripts/validate-resonanzen.ts` — Schema-/Anchor-/Hash-Wächter
 - `scripts/check-corpus-drift.ts` — Aggregat-Drift-Detector
+- `scripts/netlify-ignore.sh` — Build-Ignore-Hook (überspringt Netlify-Deploys
+  ohne Frontend-Relevanz — siehe Fallstrick #6)
+
+### Vereinheitlichte Suche (UnifiedSearch)
+
+Eine gemeinsame Such-Architektur über alle Seiten (Reader, Begriffsnetz,
+Philosophie, Wissen) + globales Cmd-K. Hybrid: lexikalisch sofort,
+semantisch (Embedding) nach 300 ms — kein Toggle.
+
+- `client/src/components/search/UnifiedSearch.tsx` — Hauptkomponente
+  (ChipBuilder-Filter + Live-Dropdown + Tier-Sortierung primary/extended)
+- `client/src/components/search/GlobalSearch.tsx` — Cmd-K-Overlay (im AppFrame)
+- `client/src/hooks/useHybridSearch.ts` — Lex+Sem-Orchestrierung
+- `client/src/lib/search/sources/*.ts` — pro Quelle ein Adapter (chapters,
+  resonanzen, concepts, philosophers); `index.ts` = Barrel-Export
+- `client/src/lib/search/queryEmbedding.ts` — Query-Embedding-Cache +
+  Degradations-Tracking (zeigt Hinweis wenn Semantik ausfällt)
 
 ---
 
