@@ -7,6 +7,7 @@
     "dev": "vite --host",
     "build": "tsx scripts/build-werk-chunks.ts && tsx scripts/build-resonanzen-index.ts && tsx scripts/build-corpus-timeline.ts && tsx scripts/build-werk-pdf.ts && vite build && esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "build:pdf": "tsx scripts/build-werk-pdf.ts",
+    "build:frontend": "vite build",
     "build:server": "esbuild server/index.ts --platform=node --packages=external --bundle --format=esm --outdir=dist",
     "build:werk-chunks": "tsx scripts/build-werk-chunks.ts",
     "build:resonanzen-index": "tsx scripts/build-resonanzen-index.ts",

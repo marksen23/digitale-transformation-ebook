@@ -1,7 +1,17 @@
 [build]
-  command = "pnpm install && pnpm build"
+  # NUR Frontend bauen. Der Korpus + alle Embeddings + das PDF werden bereits
+  # von der GitHub-Action (validate-corpus.yml) gebaut und als JSONs nach
+  # client/public/ committet — vite kopiert sie nach dist/public. Netlify muss
+  # das NICHT erneut rechnen. Vorher lief hier das volle `pnpm build`
+  # (Gemini-Calls + Korpus-Fetch + PDF-Gen) bei JEDEM Deploy → ~100s+ und
+  # Gemini-Quota-Verbrauch. Jetzt: ~40s reiner vite-Build, null Gemini-Calls.
+  command = "pnpm install && pnpm build:frontend"
   publish = "dist/public"
   functions = "dist/functions"
+  # Build-Ignore: überspringt den Deploy, wenn ein Commit nichts
+  # Frontend-Relevantes ändert (nur server/, scripts/, content/, *.md).
+  # Spart Build-Minuten bei reinen Backend-/Korpus-Raw-/Doku-Commits.
+  ignore = "bash scripts/netlify-ignore.sh"
 
 [build.environment]
   NODE_VERSION = "24"
