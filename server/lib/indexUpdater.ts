@@ -149,6 +149,25 @@ export async function removeFromIndex(id: string): Promise<void> {
 }
 
 /**
+ * Lädt den live-Index von GitHub (read-only). Für Auto-Kuratierung & Co.,
+ * die die vom Build berechneten Scores (corpusVoiceScore, werkVoiceScore,
+ * nearDuplicates, novelty, ai_score) pro Eintrag brauchen. Die Felder sind
+ * im IndexEntry-Typ nicht deklariert (build-time), aber im JSON vorhanden —
+ * der Aufrufer liest sie über eine eigene, reichere Sicht.
+ */
+export async function loadIndex(): Promise<IndexEntry[] | null> {
+  const token = process.env.GITHUB_TOKEN;
+  if (!token) return null;
+  try {
+    const { index } = await fetchIndex(token);
+    return index.entries;
+  } catch (err) {
+    console.error(`[indexUpdater] loadIndex FAILED: ${err instanceof Error ? err.message : err}`);
+    return null;
+  }
+}
+
+/**
  * Aktualisiert einen Eintrag im live-Index mit partial-Patch. Wird von
  * /api/admin/curate (status-Wechsel) + /api/admin/pre-score (ai_score)
  * aufgerufen.

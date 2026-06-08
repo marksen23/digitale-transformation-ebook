@@ -80,6 +80,7 @@ Browser (Netlify)                  Render-Server (Express)
 | `ANTHROPIC_API_KEY` | Render Env | ja | 500-Fehler bei jeder KI-Anfrage |
 | `EMBEDDINGS_REQUIRED` | nur im CI gesetzt (Workflow-YAML) | nein | Wenn 1 + 0 Embeddings: Workflow rot. Wenn 0/leer: Soft-warn auf Netlify-Build. |
 | `GEMINI_EMBED_MODEL` | optional ENV-Overwrite | nein | Default `gemini-embedding-001`. Falls Google das Modell deprecaten: hier umschalten ohne Code-Change. |
+| `AUTO_CURATE_*` | optional Render Env | nein | Schwellen für `/api/admin/auto-curate`: `AI_MIN` (4), `CORPUS_MIN` (0.55), `AI_REJECT` (2), `CORPUS_REJECT` (0.30), `WERK_MIN` (0.55). Niedriger = aggressivere Auto-Freigabe. Default konservativ. |
 
 ---
 
@@ -217,6 +218,24 @@ rotiert automatisch; Live-Status auf `/admin/health` → „Embedding-Pipeline"
 (klassifiziert Billing-Block / Quota / Auth).
 
 `werkVoiceScore` braucht ≥10 Einträge mit `status: approved`/`published`. Aktuell nur 3 — daher 0/136 mit werkVoiceScore.
+
+### Selbst-Erweiterung (RAG-Rückkopplung + Auto-Kuratierung)
+
+Der Server-RAG (`server/lib/werkRetrieval.ts:125`) zieht **nur kuratierte**
+Einträge (`approved`/`published`) als Kontext — `raw`/`rejected` werden
+bewusst NICHT zurückgefüttert (Schutz vor Model-Collapse / Echo-
+Verstärkung). Jede KI-Ausgabe wird zwar eingebettet + drift-geprüft +
+cross-verlinkt, fließt aber erst nach Kuratierung in die KI-eigene RAG.
+
+`POST /api/admin/auto-curate` (mode `preview`/`apply`) skaliert den
+`raw → approved`-Schritt sicher: Gate = `ai_score` (Claude) +
+`corpusVoiceScore` (Cosine zum **Buchtext** — Drift-Anker, der unabhängig
+von der Korpus-Größe funktioniert und nicht mit der KI mitwandert) + kein
+Echo + keine `novelty`. `werkVoiceScore` wird zusätzlich genutzt, sobald
+≥10 kuratierte da sind. `preview` = read-only Vorschau, `apply` = bewertet
+fehlende ai_scores nach + setzt Status (audit_trail `actor: "auto-curate"`).
+Schwellen via `AUTO_CURATE_*`-ENV. UI: `/admin` → „Auto-Kuratierung".
+Voll-automatischer Cron-Modus bewusst offen, bis `werkVoiceScore` verfügbar.
 
 ---
 
