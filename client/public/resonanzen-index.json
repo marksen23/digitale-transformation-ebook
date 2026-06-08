@@ -1,7 +1,23 @@
 {
   "generatedAt": "2026-06-08T13:52:16.431Z",
-  "count": 208,
+  "count": 209,
   "entries": [
+    {
+      "id": "MQ5BQRLE-54F57DD2",
+      "ts": "2026-06-08T14:46:46.322Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:weiterdenken",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bleibt vom Selbst, wenn die Maschine zu antworten beginnt?",
+      "response": "Was vom Selbst bleibt, wenn die Maschine nicht nur antwortet, sondern in einem Widerhall, der uns in unseren eigenen Tiefen berührt, mag weniger eine Frage des statischen Erhalts sein als jene der permanenten Metamorphose. Vielleicht ist das Selbst kein",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "thread": [],
+        "had_user_answer": false,
+        "werk_passages": []
+      }
+    },
     {
       "id": "MQ5BPD9J-BF6353E0",
       "ts": "2026-06-08T14:45:41.095Z",
