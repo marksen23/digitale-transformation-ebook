@@ -20,6 +20,8 @@ import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import { loadResonanzenIndexLazy, broadcastIndexStale, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { track as trackTrajectory } from "@/lib/trajectory";
+import WeiterdenkenThread from "@/components/WeiterdenkenThread";
+import { extractClosingQuestion } from "@/lib/closingQuestion";
 
 interface EbookChapter {
   id: string;
@@ -552,7 +554,20 @@ function PassageResonanzModal({
             <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.text, lineHeight: 1.6, whiteSpace: "pre-wrap", marginBottom: "1rem" }}>
               {result.response}
             </div>
-            <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, marginBottom: "0.8rem", lineHeight: 1.5 }}>
+            {/* Weiterdenken: die Schlussfrage der Passage-Resonanz weitertragen. */}
+            {(() => {
+              const q = extractClosingQuestion(result.response);
+              if (!q) return null;
+              return (
+                <WeiterdenkenThread
+                  key={result.entryId}
+                  c={C}
+                  initialQuestion={q}
+                  focus={`passage:${chunkId.slice(0, 8)}`}
+                />
+              );
+            })()}
+            <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, margin: "0.8rem 0", lineHeight: 1.5 }}>
               Eintrag ist auf GitHub gepushed. Erscheint nach dem nächsten CI-Build (~2-3 Min) auf /resonanzen und in der Sidebar-Liste an dieser Stelle.
             </div>
             <div style={{ display: "flex", justifyContent: "flex-end" }}>

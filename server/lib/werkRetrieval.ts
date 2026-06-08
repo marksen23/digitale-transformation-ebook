@@ -19,12 +19,37 @@ import { fetchEmbedding, cosineSim } from "./embeddingClient.js";
 import { enrichQueryWithNodes } from "./queryEnrichment.js";
 
 const __filename = fileURLToPath(import.meta.url);
-// Up von server/lib/ ist zwei Ebenen
-const ROOT = path.resolve(path.dirname(__filename), "..", "..");
-const CHUNKS_PATH = path.join(ROOT, "client/public/werk-chunks.json");
+const __dir = path.dirname(__filename);
+
+/**
+ * Robuste Pfad-Auflösung für die committeten Korpus-JSONs unter
+ * client/public/. KRITISCH: in DEV liegt dieser Code in server/lib/
+ * (zwei Ebenen unter Root), im PROD-Build ist aber ALLES in dist/index.js
+ * gebündelt (eine Ebene). Eine feste "../.."-Annahme zeigt im Prod-Build
+ * eine Ebene zu hoch → Datei nicht gefunden → RAG liefert still 0 Passagen
+ * (genau dieser Bug machte die KI-Antworten in Produktion ungeerdet).
+ *
+ * Daher: mehrere Kandidaten probieren, ersten existierenden nehmen.
+ * process.cwd() (Render startet `node dist/index.js` aus dem Repo-Root)
+ * deckt Prod ab; die __dir-Varianten decken Dev + alternative Layouts ab.
+ */
+function resolveDataPath(rel: string): string {
+  const candidates = [
+    path.resolve(process.cwd(), rel),               // Render-CWD = Repo-Root; Dev meist auch
+    path.resolve(__dir, "..", "..", rel),           // Dev: server/lib → Root
+    path.resolve(__dir, "..", rel),                 // Prod-Bundle: dist → Root
+    path.resolve(__dir, rel),                       // Fallback: gleiche Ebene
+  ];
+  for (const c of candidates) {
+    try { if (fs.existsSync(c)) return c; } catch { /* ignore */ }
+  }
+  return candidates[0];  // nichts gefunden → erster Kandidat (loadX loggt dann die Warnung)
+}
+
+const CHUNKS_PATH = resolveDataPath("client/public/werk-chunks.json");
 // R1: Zweite Retrieval-Quelle — der bestehende Resonanzen-Korpus.
-const RESONANZ_INDEX_PATH = path.join(ROOT, "client/public/resonanzen-index.json");
-const RESONANZ_EMB_PATH = path.join(ROOT, "client/public/resonanzen-embeddings.json");
+const RESONANZ_INDEX_PATH = resolveDataPath("client/public/resonanzen-index.json");
+const RESONANZ_EMB_PATH = resolveDataPath("client/public/resonanzen-embeddings.json");
 
 export interface WerkChunk {
   id: string;

@@ -59,6 +59,30 @@ interface AnchorClustersFile {
   };
 }
 
+interface AutoCurateItem {
+  id: string;
+  decision: "approve" | "reject" | "review";
+  reason: string;
+  prompt: string;
+  ai_score: number | null;
+  corpusVoiceScore: number | null;
+  werkVoiceScore: number | null;
+  echoCount: number;
+  novelty: boolean;
+}
+interface AutoCurateResult {
+  mode: "preview" | "apply";
+  thresholds: Record<string, number>;
+  candidateCount: number;
+  counts: { approve: number; reject: number; review: number };
+  unscored: number;
+  scored: number;
+  approve: AutoCurateItem[];
+  reject: AutoCurateItem[];
+  review: AutoCurateItem[];
+  applied?: Array<{ id: string; to: string; ok: boolean; error?: string }>;
+}
+
 const STATUS_FILTERS = ["all", "raw", "pending", "approved", "published", "rejected"] as const;
 type StatusFilter = typeof STATUS_FILTERS[number];
 
@@ -114,6 +138,11 @@ export default function AdminCurationPage() {
   const [anchorClusters, setAnchorClusters] = useState<AnchorClustersFile | null>(null);
   const [synthLoading, setSynthLoading] = useState<Set<string>>(new Set());
   const [synthPreview, setSynthPreview] = useState<{ anchor: string; text: string } | null>(null);
+
+  // Auto-Kuratierung — kontrollierte Selbst-Erweiterung
+  const [autoCurate, setAutoCurate] = useState<AutoCurateResult | null>(null);
+  const [autoCurateLoading, setAutoCurateLoading] = useState<"preview" | "apply" | null>(null);
+  const [autoCurateError, setAutoCurateError] = useState<string | null>(null);
 
   useEffect(() => {
     loadResonanzenIndex().then(setIndex).catch(() => null);
@@ -307,6 +336,25 @@ export default function AdminCurationPage() {
   }, [index]);
 
   // ─── API-Calls ─────────────────────────────────────────────────────────────
+
+  async function runAutoCurate(mode: "preview" | "apply") {
+    setAutoCurateLoading(mode);
+    setAutoCurateError(null);
+    const result = await callAdminAction<AutoCurateResult>("auto-curate", { mode, limit: 100 });
+    setAutoCurateLoading(null);
+    if (!result.ok || !result.data) {
+      setAutoCurateError(result.error ?? "Auto-Kuratierung fehlgeschlagen");
+      return;
+    }
+    setAutoCurate(result.data);
+    if (mode === "apply") {
+      recordAction({ type: "curate", targetId: "auto-curate", ok: true,
+        payload: { approved: result.data.counts.approve, rejected: result.data.counts.reject } });
+      // Index neu laden, damit die Status-Änderungen sichtbar werden.
+      loadResonanzenIndex().then(setIndex).catch(() => null);
+      broadcastIndexStale();
+    }
+  }
 
   async function curateEntry(id: string, newStatus: string) {
     setCurationLoading(s => new Set(s).add(id));
@@ -599,6 +647,71 @@ export default function AdminCurationPage() {
             <strong style={{ color: C.accent }}>{needsForWerkVoice} weitere kuratierte Einträge</strong>{" "}
             (approved oder published) bis <code style={{ fontFamily: MONO, color: C.accent }}>werkVoiceScore</code>{" "}
             für alle 136 Einträge berechnet wird (Schwelle ≥10).
+          </div>
+        )}
+      </Section>
+
+      {/* Auto-Kuratierung — kontrollierte Selbst-Erweiterung */}
+      <Section title="Auto-Kuratierung — Korpus sicher selbst erweitern" c={C}>
+        <div style={{ fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic", color: C.textDim, lineHeight: 1.5, marginBottom: "0.8rem" }}>
+          Klassifiziert raw/pending-Einträge in <strong style={{ color: "#7ab898" }}>freigeben</strong> ·{" "}
+          <strong style={{ color: "#c48282" }}>ablehnen</strong> · <strong style={{ color: C.accent }}>zur Prüfung</strong>.
+          Gate: ai_score + corpusVoiceScore (Buchtext-Anker) + kein Echo, keine novelty. Nur klar-Gutes wird auto-freigegeben.
+        </div>
+        <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
+          <button
+            onClick={() => runAutoCurate("preview")}
+            disabled={autoCurateLoading !== null}
+            style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accent, background: "none", border: `1px solid ${C.accent}`, padding: "0.5rem 0.8rem", cursor: autoCurateLoading ? "wait" : "pointer", minHeight: 36, opacity: autoCurateLoading ? 0.5 : 1 }}
+          >
+            {autoCurateLoading === "preview" ? "… prüfe" : "Auto-Kuratierung prüfen"}
+          </button>
+          {autoCurate && autoCurate.counts.approve + autoCurate.counts.reject > 0 && (
+            <button
+              onClick={() => runAutoCurate("apply")}
+              disabled={autoCurateLoading !== null}
+              style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: "#080808", background: "#7ab898", border: "1px solid #7ab898", padding: "0.5rem 0.8rem", cursor: autoCurateLoading ? "wait" : "pointer", minHeight: 36, opacity: autoCurateLoading ? 0.5 : 1 }}
+            >
+              {autoCurateLoading === "apply" ? "… übernehme (bewertet nach)" : `Vorschlag übernehmen (${autoCurate.counts.approve}↑ ${autoCurate.counts.reject}↓)`}
+            </button>
+          )}
+        </div>
+        {autoCurateError && <div style={{ fontFamily: MONO, fontSize: "0.6rem", color: "#c48282", marginBottom: "0.6rem" }}>{autoCurateError}</div>}
+        {autoCurate && (
+          <div>
+            <div style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap", fontFamily: MONO, fontSize: "0.62rem", marginBottom: "0.7rem" }}>
+              <span style={{ color: "#7ab898" }}>↑ {autoCurate.counts.approve} freigeben</span>
+              <span style={{ color: "#c48282" }}>↓ {autoCurate.counts.reject} ablehnen</span>
+              <span style={{ color: C.accent }}>? {autoCurate.counts.review} zur Prüfung</span>
+              {autoCurate.unscored > 0 && autoCurate.mode === "preview" && (
+                <span style={{ color: C.muted }}>· {autoCurate.unscored} nicht bewertet (Apply bewertet nach)</span>
+              )}
+              {autoCurate.mode === "apply" && <span style={{ color: "#7ab898" }}>✓ übernommen{autoCurate.scored > 0 ? ` (${autoCurate.scored} frisch bewertet)` : ""}</span>}
+            </div>
+            {/* Begründungen pro Kategorie — kompakt, scroll-bar */}
+            {(["approve", "reject", "review"] as const).map(cat => {
+              const items = autoCurate[cat];
+              if (items.length === 0) return null;
+              const col = cat === "approve" ? "#7ab898" : cat === "reject" ? "#c48282" : C.accent;
+              const label = cat === "approve" ? "FREIGEBEN" : cat === "reject" ? "ABLEHNEN" : "ZUR PRÜFUNG";
+              return (
+                <details key={cat} style={{ marginBottom: "0.4rem" }}>
+                  <summary style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", color: col, cursor: "pointer" }}>
+                    {label} · {items.length}
+                  </summary>
+                  <div style={{ maxHeight: 220, overflowY: "auto", marginTop: "0.4rem", paddingLeft: "0.5rem", borderLeft: `2px solid ${col}` }}>
+                    {items.map(it => (
+                      <div key={it.id} style={{ marginBottom: "0.4rem", fontFamily: SERIF, fontSize: "0.74rem", color: C.text, lineHeight: 1.4 }}>
+                        <span style={{ fontStyle: "italic" }}>{it.prompt}…</span>
+                        <span style={{ display: "block", fontFamily: MONO, fontSize: "0.52rem", color: C.muted }}>
+                          {it.reason} · ai {it.ai_score ?? "—"} · corpusVoice {it.corpusVoiceScore != null ? it.corpusVoiceScore.toFixed(2) : "—"}{it.echoCount > 0 ? ` · echo ${it.echoCount}` : ""}{it.novelty ? " · novelty" : ""}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </details>
+              );
+            })}
           </div>
         )}
       </Section>

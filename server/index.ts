@@ -7,7 +7,7 @@ import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, Standard
 import { NODES, EDGES } from "../client/src/data/conceptGraph.js";
 import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanzLog.js";
 import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
-import { removeFromIndex, updateInIndex } from "./lib/indexUpdater.js";
+import { removeFromIndex, updateInIndex, loadIndex } from "./lib/indexUpdater.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 
@@ -1061,10 +1061,16 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
             contents,
-            // 1400 war zu knapp: die Reflexion wurde mitten im Satz
-            // abgeschnitten, bevor die Schlussfrage kam → nextQuestion leer.
-            // 2600 gibt 1–2 dichten Absätzen + Frage genug Raum.
-            generationConfig: { temperature: 0.85, maxOutputTokens: 2600 },
+            // gemini-2.5-flash verbraucht standardmäßig "Thinking"-Tokens, die
+            // vom maxOutputTokens-Budget abgehen → bei 1400 blieben nur ~70
+            // Tokens sichtbarer Text, abgeschnitten vor der Schlussfrage.
+            // thinkingBudget: 0 schaltet das Reasoning ab (für 1–2 Absätze
+            // Prosa nicht nötig) → das volle Budget fließt in die Antwort.
+            generationConfig: {
+              temperature: 0.85,
+              maxOutputTokens: 2200,
+              thinkingConfig: { thinkingBudget: 0 },
+            },
           }),
         }
       );
@@ -1464,6 +1470,38 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     return `---\n${newFm}\n---\n${m[2]}`;
   }
 
+  // Gemeinsame Status-Mutationskette — von /api/admin/curate (actor "admin")
+  // und /api/admin/auto-curate (actor "auto-curate") genutzt. Schreibt status
+  // ins MD-Frontmatter + audit_trail, synct live-Index, invalidiert RAG-Cache.
+  async function curateEntryStatus(
+    id: string, status: string, actor: string,
+  ): Promise<{ ok: true; oldStatus: string; path: string } | { ok: false; code: number; error: string }> {
+    const file = await findEntryFile(id);
+    if (!file) return { ok: false, code: 404, error: `Eintrag ${id} nicht gefunden` };
+    let oldStatus = "raw";
+    let newContent: string;
+    try {
+      newContent = await mutateFrontmatter(file.content, doc => {
+        oldStatus = String(doc.get("status") ?? "raw");
+        doc.set("status", status);
+        const trail = doc.get("audit_trail") as { add?: (item: unknown) => void } | undefined;
+        const newEvent = { event: "status-changed", ts: new Date().toISOString(), actor, from: oldStatus, to: status };
+        if (trail && typeof trail.add === "function") trail.add(newEvent);
+        else doc.set("audit_trail", [newEvent]);
+      });
+    } catch (err) {
+      return { ok: false, code: 500, error: `Frontmatter-Update fehlgeschlagen: ${err instanceof Error ? err.message : err}` };
+    }
+    const writeRes = await writeOrDeleteFile(
+      "update", file.path, file.sha, newContent,
+      `curate(${id}): ${oldStatus} → ${status}${actor === "admin" ? "" : ` [${actor}]`}`
+    );
+    if (!writeRes.ok) return { ok: false, code: 502, error: writeRes.error ?? "Schreibfehler" };
+    void updateInIndex(id, { status });        // S1: live-Index synchron
+    invalidateResonanzRetrievalCache();         // R1: Retrieval-Pool invalidieren
+    return { ok: true, oldStatus, path: file.path };
+  }
+
   app.post("/api/admin/curate", async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
     const { id, status } = req.body as { id?: string; status?: string };
@@ -1471,47 +1509,9 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     if (!status || !VALID_STATUS_VALUES.has(status)) {
       return res.status(400).json({ error: `status muss eines von ${Array.from(VALID_STATUS_VALUES).join("|")} sein` });
     }
-
-    const file = await findEntryFile(id);
-    if (!file) return res.status(404).json({ error: `Eintrag ${id} nicht gefunden` });
-
-    let oldStatus = "raw";
-    let newContent: string;
-    try {
-      newContent = await mutateFrontmatter(file.content, doc => {
-        oldStatus = String(doc.get("status") ?? "raw");
-        doc.set("status", status);
-        // audit_trail erweitern: yaml.Document hält die Sequenz als Node mit .add()
-        const trail = doc.get("audit_trail") as { add?: (item: unknown) => void } | undefined;
-        const newEvent = {
-          event: "status-changed",
-          ts: new Date().toISOString(),
-          actor: "admin",
-          from: oldStatus,
-          to: status,
-        };
-        if (trail && typeof trail.add === "function") {
-          trail.add(newEvent);
-        } else {
-          doc.set("audit_trail", [newEvent]);
-        }
-      });
-    } catch (err) {
-      return res.status(500).json({ error: `Frontmatter-Update fehlgeschlagen: ${err instanceof Error ? err.message : err}` });
-    }
-
-    const writeRes = await writeOrDeleteFile(
-      "update", file.path, file.sha, newContent,
-      `curate(${id}): ${oldStatus} → ${status}`
-    );
-    if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
-    // S1: live-Index synchronisieren — status-Patch sofort sichtbar.
-    void updateInIndex(id, { status });
-    // R1: Retrieval-Pool invalidieren — wenn dieser Eintrag jetzt
-    // published/approved (oder es nicht mehr ist), ändert sich was retrieved
-    // werden kann.
-    invalidateResonanzRetrievalCache();
-    return res.json({ ok: true, id, oldStatus, newStatus: status, path: file.path });
+    const r = await curateEntryStatus(id, status, "admin");
+    if (!r.ok) return res.status(r.code).json({ error: r.error });
+    return res.json({ ok: true, id, oldStatus: r.oldStatus, newStatus: status, path: r.path });
   });
 
   // ─── AI-Pre-Score (Tier-1-3-Roadmap, Feature E) ──────────────────────────
@@ -1630,6 +1630,119 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       return res.json({ ok: true, total: ids.length, succeeded, failed: ids.length - succeeded, results });
     }
     return res.status(400).json({ error: "id oder ids erforderlich" });
+  });
+
+  // ─── Auto-Kuratierung — kontrollierte Selbst-Erweiterung ─────────────────
+  // Klassifiziert raw/pending-Einträge in approve / reject / review anhand
+  // verfügbarer Qualitäts-/Drift-Signale und gibt die klar-guten frei (und
+  // lehnt die klar-schlechten ab) — alles Unsichere bleibt beim Menschen.
+  //
+  // Gate-Philosophie (siehe Plan): werkVoiceScore ist beim kleinen Korpus
+  // blind (braucht ≥10 kuratierte), daher trägt corpusVoiceScore (Cosine zum
+  // BUCHTEXT — statischer, menschlich-autorisierter Drift-Anker) den Schutz
+  // gegen die Selbst-Amplifikations-Schleife. werkVoiceScore wird zusätzlich
+  // genutzt, sobald vorhanden.
+  //
+  // mode=preview → read-only (klassifiziert nur bereits bewertete Einträge).
+  // mode=apply   → bewertet fehlende ai_scores nach, dann approve/reject.
+
+  const AUTO_CURATE = {
+    aiMin:        parseFloat(process.env.AUTO_CURATE_AI_MIN ?? "4"),
+    corpusMin:    parseFloat(process.env.AUTO_CURATE_CORPUS_MIN ?? "0.55"),
+    aiReject:     parseFloat(process.env.AUTO_CURATE_AI_REJECT ?? "2"),
+    corpusReject: parseFloat(process.env.AUTO_CURATE_CORPUS_REJECT ?? "0.30"),
+    werkMin:      parseFloat(process.env.AUTO_CURATE_WERK_MIN ?? "0.55"),
+  };
+
+  interface ScoredEntry {
+    id: string; status: string; prompt: string;
+    ai_score?: number; corpusVoiceScore?: number; werkVoiceScore?: number;
+    novelty?: boolean; nearDuplicates?: string[];
+  }
+
+  function classifyForAutoCurate(e: ScoredEntry): { decision: "approve" | "reject" | "review"; reason: string } {
+    const ai = e.ai_score, cv = e.corpusVoiceScore, wv = e.werkVoiceScore;
+    const echoCount = e.nearDuplicates?.length ?? 0;
+    // Harte Ablehnung zuerst (Sicherheit: nichts klar Schlechtes durchlassen)
+    if (ai !== undefined && ai <= AUTO_CURATE.aiReject) return { decision: "reject", reason: `ai_score ${ai} ≤ ${AUTO_CURATE.aiReject}` };
+    if (cv !== undefined && cv < AUTO_CURATE.corpusReject) return { decision: "reject", reason: `corpusVoice ${cv.toFixed(2)} < ${AUTO_CURATE.corpusReject} (buch-fern)` };
+    // Freigabe verlangt ALLE positiven Signale vorhanden
+    if (ai === undefined) return { decision: "review", reason: "noch nicht bewertet (Pre-Score nötig)" };
+    if (cv === undefined) return { decision: "review", reason: "kein corpusVoiceScore (kein Drift-Anker)" };
+    if (echoCount > 0) return { decision: "review", reason: `Echo (${echoCount} Near-Duplikate)` };
+    if (e.novelty === true) return { decision: "review", reason: "novelty/peripher — Mensch entscheidet" };
+    if (ai >= AUTO_CURATE.aiMin && cv >= AUTO_CURATE.corpusMin && (wv === undefined || wv >= AUTO_CURATE.werkMin)) {
+      return { decision: "approve", reason: `ai ${ai} · corpusVoice ${cv.toFixed(2)}${wv !== undefined ? ` · werkVoice ${wv.toFixed(2)}` : ""}` };
+    }
+    return { decision: "review", reason: `unter Schwelle (ai ${ai} / corpusVoice ${cv.toFixed(2)})` };
+  }
+
+  app.post("/api/admin/auto-curate", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { mode, limit } = req.body as { mode?: string; limit?: number };
+    if (mode !== "preview" && mode !== "apply") {
+      return res.status(400).json({ error: 'mode muss "preview" oder "apply" sein' });
+    }
+    const cap = Math.min(Math.max(1, Number(limit) || 50), 200);
+
+    const entries = await loadIndex();
+    if (!entries) return res.status(503).json({ error: "Index nicht ladbar (GITHUB_TOKEN fehlt?)" });
+
+    const candidates = (entries as unknown as ScoredEntry[])
+      .filter(e => e.status === "raw" || e.status === "pending")
+      .slice(0, cap);
+
+    // apply: fehlende ai_scores zuerst nachbewerten (preview bleibt read-only).
+    let scored = 0;
+    if (mode === "apply") {
+      for (const e of candidates) {
+        if (e.ai_score === undefined) {
+          const r = await preScoreSingle(e.id);
+          if (r.ok && typeof r.score === "number") { e.ai_score = r.score; scored++; }
+          await new Promise(r2 => setTimeout(r2, 200));
+        }
+      }
+    }
+
+    const classified = candidates.map(e => {
+      const { decision, reason } = classifyForAutoCurate(e);
+      return {
+        id: e.id, decision, reason,
+        prompt: (e.prompt ?? "").slice(0, 100),
+        ai_score: e.ai_score ?? null,
+        corpusVoiceScore: e.corpusVoiceScore ?? null,
+        werkVoiceScore: e.werkVoiceScore ?? null,
+        echoCount: e.nearDuplicates?.length ?? 0,
+        novelty: e.novelty ?? false,
+      };
+    });
+    const approve = classified.filter(c => c.decision === "approve");
+    const reject = classified.filter(c => c.decision === "reject");
+    const review = classified.filter(c => c.decision === "review");
+    const unscored = classified.filter(c => c.ai_score === null).length;
+
+    const applied: Array<{ id: string; to: string; ok: boolean; error?: string }> = [];
+    if (mode === "apply") {
+      for (const c of approve) {
+        const r = await curateEntryStatus(c.id, "approved", "auto-curate");
+        applied.push({ id: c.id, to: "approved", ok: r.ok, ...(r.ok ? {} : { error: r.error }) });
+      }
+      for (const c of reject) {
+        const r = await curateEntryStatus(c.id, "rejected", "auto-curate");
+        applied.push({ id: c.id, to: "rejected", ok: r.ok, ...(r.ok ? {} : { error: r.error }) });
+      }
+    }
+
+    return res.json({
+      mode,
+      thresholds: AUTO_CURATE,
+      candidateCount: candidates.length,
+      counts: { approve: approve.length, reject: reject.length, review: review.length },
+      unscored,           // nur im preview relevant: so viele bräuchten erst Pre-Score
+      scored,             // im apply: so viele wurden frisch bewertet
+      approve, reject, review,
+      ...(mode === "apply" ? { applied } : {}),
+    });
   });
 
   // ─── Master-Synthese (Phase 4) ────────────────────────────────────────
