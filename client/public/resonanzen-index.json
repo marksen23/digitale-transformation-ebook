@@ -1,7 +1,41 @@
 {
   "generatedAt": "2026-06-08T13:52:16.431Z",
-  "count": 248,
+  "count": 249,
   "entries": [
+    {
+      "id": "MQ5TUQ9P-EF8C6D4B",
+      "ts": "2026-06-08T23:13:44.318Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bedeutet Resonanz im Verh�ltnis zur Entfremdung?",
+      "response": "Das Verhältnis von Resonanz und Entfremdung ist ein zentrales Spannungsfeld im vorliegenden Werk und wird nicht als bloßer Gegensatz verstanden, sondern in einer tieferen, dialektischen Beziehung. Wie bereits in einer früheren Antwort [MP9FAM1L-8970F371] erwähnt, ist die \"Entfremdung\" nach Hartmut Rosa ein \"stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet\" [fd3c7631edb2]. Sie ist nicht die Negation der Welt, sondern eine spezifische, verarmte Art, *in* ihr zu sein – ein \"dunkles Echo der Welt, das durch seine Leere erst die Möglichkeit einer erfüllten Antwort – der Resonanz – hörbar macht.\"\n\nDie \"Resonanz\" hingegen ist der \"Grundmodus des Lebendigen\" und das Herzstück der \"Resonanzvernunft\". Sie ist nicht einfach eine Eigenschaft einer Beziehung, sondern das \"Beziehungsgeschehen selbst – vor jeder Subjekt-Objekt-Trennung\" [567ba07a0bfc]. Resonanz setzt \"Eigenfrequenz\" und \"Ansprechbarkeit\" voraus; sie ist ein lebendiges \"Antwort / Responsivität\"-Geschehen, das eine \"Öffnung\" des \"Selbst\" gegenüber \"Das Andere / Die Anderen\" und der \"Welt\" erfordert. Wo die Entfremdung ein Ausbleiben von Berührung und Antwort darstellt, ist Resonanz das aktive Sich-Einlassen, das Mitschwingen und die transformative Rückkehr im \"Echo\".\n\nDer entscheidende Punkt, der über eine einfache Dichotomie hinausgeht, ist die Aussage, dass die Entfremdung \"nicht das Gegenteil der Resonanz, sondern der Boden, auf dem Resonanz wachsen kann\" [fd3c7631edb2]. Das bedeutet, dass die Erfahrung des Stummseins der Welt, des Nicht-Berührt-Werdens und des Ausbleibens von Antwort, erst die tiefe Sehnsucht und das Bewusstsein für die Möglichkeit von Resonanz weckt. Sie ist der \"Schatten\", der das \"Licht\" der Resonanz überhaupt erst als solches erkennbar macht. Ohne die Erfahrung der Entfremdung würde die Würde und die transformative Kraft der Resonanz möglicherweise nicht in ihrer Tiefe erfahrbar.\n\nIn diesem Sinne ist die Entfremdung nicht etwas, das es zu überwinden gilt im Sinne eines vollständigen Verschwindens, sondern eine existentielle Bedingung, die als Hintergrund und Potenzial für die ständige Neusuche nach Resonanz dient. Sie ist eine \"Spannung\", die das \"Werden\" und die \"Freiheit\" des Menschen in seinem \"Dasein\" anregt. Kann die bewusste Erfahrung von Entfremdung uns nicht gerade dazu anspornen, die Bedingungen für Resonanz noch bewusster zu schaffen und zu bewahren?",
+      "contextMeta": {
+        "historyLength": 0,
+        "werk_passages": [
+          {
+            "id": "4cc0ca00e047",
+            "chapter": "glossar",
+            "score": 0.897
+          },
+          {
+            "id": "fd3c7631edb2",
+            "chapter": "glossar",
+            "score": 0.889
+          },
+          {
+            "id": "MP9FAM1L-8970F371",
+            "score": 0.842
+          },
+          {
+            "id": "567ba07a0bfc",
+            "chapter": "teil5",
+            "score": 0.803
+          }
+        ]
+      }
+    },
     {
       "id": "MQ5TTE84-08EB6321",
       "ts": "2026-06-08T23:12:42.053Z",
