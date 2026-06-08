@@ -208,6 +208,12 @@ KI-Endpoint (POST /api/analyse)
         (braucht direkten Push-Zugriff — siehe Fallstrick #7)
   → Netlify rebuildet NUR das Frontend (vite, kein Korpus-Rebuild — siehe
      Fallstrick #6) und serviert die committeten JSONs → Live
+  → Render redeployt NICHT (render.yaml buildFilters ignorieren client/**,
+     content/**, scripts/**, *.md). Der Server liest werk-chunks +
+     resonanzen-{index,embeddings}.json LIVE von GitHub-Raw mit TTL-Cache
+     (werkRetrieval.ts: werk 60 min, resonanzen 10 min; lokale Platte =
+     Fallback). Neue kuratierte Einträge erreichen den RAG also ohne
+     Redeploy — Selbstlern-Loop schließt sich deploy-frei.
 ```
 
 Alle Embeddings sind `gemini-embedding-001`, **3072-dim**. Ein Modellwechsel
