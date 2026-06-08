@@ -1,7 +1,21 @@
 {
   "generatedAt": "2026-06-08T13:52:16.431Z",
-  "count": 230,
+  "count": 231,
   "entries": [
+    {
+      "id": "MQ5JSSB0-16C72539",
+      "ts": "2026-06-08T18:32:17.484Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bedeutet Resonanz als Grundmodus des Lebendigen?",
+      "response": "Resonanz als \"Grundmodus des Lebendigen\" zu verstehen, bedeutet, die Existenz nicht als isoliertes oder passives Dasein zu begreifen, sondern als ein dynamisches, wechselseitiges Beziehungsverhältnis zur Welt. Es ist weit mehr als eine bloße Reaktion auf äußere Reize. Vielmehr setzt Resonanz eine \"Eigenfrequenz\" voraus: Ein Lebewesen muss eine innere Gestimmtheit, eine eigene Schwingung besitzen, um überhaupt in ein Mitschwingen mit dem Anderen treten zu können. Wer keine eigene Frequenz hat, ist nicht ansprechbar und kann folglich nicht in wirkliche Resonanz geraten, sondern wird bestenfalls passiv bewegt oder bleibt stumm.\n\nDiese Fähigkeit zur \"Ansprechbarkeit\" ist fundamental. Sie ermöglicht ein \"Antwort-Geschehen\", das sich im \"Zwischen\" von \"Selbst\" und \"Welt\", von \"Ich\" und \"Du\" entfaltet. In diesem Sinne ist Resonanz konstitutiv für das \"Werden\" des \"Selbst\". Das \"Ich\" entsteht nicht vor der Beziehung, sondern in ihr, im lebendigen Widerhall des \"Anderen\", wie es auch die \"Ich-Du-Beziehung\" bei Buber betont. Resonanz ist somit ein aktiver Vollzug, ein fortwährendes Sich-Einlassen und Verwandeln, das weit über bloße Informationsverarbeitung hinausgeht.\n\nDer Grundmodus der Resonanz impliziert, dass das \"Sein\" des Menschen immer ein \"Sein-mit\" ist, ein Eingebettetsein in eine \"Welt\", die als Horizont unserer Existenz und nicht nur als Kulisse begriffen wird. Die \"Öffnung\" für das, was sich uns entgegenstellt und uns fordert – die \"Gegenwart\" als Gegen-wart – ist eine Bedingung dieser resonanten Weltbeziehung. Wo diese Öffnung fehlt, wo die Eigenfrequenz verstummt oder die Ansprechbarkeit verloren geht, entsteht \"Entfremdung\" – ein stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet. Die Resonanz ist somit die lebendige Kraft, die unser \"Dasein\" als in-der-Welt-sein überhaupt erst auszeichnet.\n\nWie aber können wir diese tiefe, transformative Qualität der Resonanz bewahren, wenn die digitale Welt oft dazu neigt, uns in isolierende \"Echo-Kammern\" zu locken, die Schwingung ohne wirkliche Transformation erzeugen?",
+      "contextMeta": {
+        "historyLength": 0,
+        "werk_passages": []
+      }
+    },
     {
       "id": "MQ5JRFRP-1662EB1A",
       "ts": "2026-06-08T18:31:14.582Z",
