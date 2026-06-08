@@ -1061,10 +1061,16 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
             contents,
-            // 1400 war zu knapp: die Reflexion wurde mitten im Satz
-            // abgeschnitten, bevor die Schlussfrage kam → nextQuestion leer.
-            // 2600 gibt 1–2 dichten Absätzen + Frage genug Raum.
-            generationConfig: { temperature: 0.85, maxOutputTokens: 2600 },
+            // gemini-2.5-flash verbraucht standardmäßig "Thinking"-Tokens, die
+            // vom maxOutputTokens-Budget abgehen → bei 1400 blieben nur ~70
+            // Tokens sichtbarer Text, abgeschnitten vor der Schlussfrage.
+            // thinkingBudget: 0 schaltet das Reasoning ab (für 1–2 Absätze
+            // Prosa nicht nötig) → das volle Budget fließt in die Antwort.
+            generationConfig: {
+              temperature: 0.85,
+              maxOutputTokens: 2200,
+              thinkingConfig: { thinkingBudget: 0 },
+            },
           }),
         }
       );
