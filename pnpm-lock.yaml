@@ -173,9 +173,6 @@ importers:
       wouter:
         specifier: 3.7.1
         version: 3.7.1(patch_hash=4e16e6ff3fde7d6c1024d3e0c8605dc9eb6afb690d0d49958c2f449091813072)(react@19.2.5)
-      yaml:
-        specifier: ^2.8.4
-        version: 2.8.4
       zod:
         specifier: ^4.1.12
         version: 4.3.6
@@ -255,6 +252,9 @@ importers:
       workbox-window:
         specifier: ^7.4.0
         version: 7.4.0
+      yaml:
+        specifier: ^2.8.4
+        version: 2.8.4
 
 packages:
 
