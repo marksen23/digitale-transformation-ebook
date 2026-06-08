@@ -1061,7 +1061,10 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: system }] },
             contents,
-            generationConfig: { temperature: 0.85, maxOutputTokens: 1400 },
+            // 1400 war zu knapp: die Reflexion wurde mitten im Satz
+            // abgeschnitten, bevor die Schlussfrage kam → nextQuestion leer.
+            // 2600 gibt 1–2 dichten Absätzen + Frage genug Raum.
+            generationConfig: { temperature: 0.85, maxOutputTokens: 2600 },
           }),
         }
       );
