@@ -1,7 +1,21 @@
 {
   "generatedAt": "2026-06-08T13:52:16.431Z",
-  "count": 241,
+  "count": 242,
   "entries": [
+    {
+      "id": "MQ5K7UE1-BD2343A8",
+      "ts": "2026-06-08T18:44:00.025Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bedeutet Resonanz als Grundmodus des Lebendigen?",
+      "response": "Resonanz als Grundmodus des Lebendigen bedeutet, dass das Leben in seinem Kern nicht als eine isolierte Einheit existiert, die auf eine externe Welt reagiert, sondern sich in einer ständigen, dynamischen und wechselseitigen Beziehung zu ihr entfaltet. Es ist eine tiefere Form der Verbundenheit, die weit über bloße Interaktion oder mechanische Reaktion hinausgeht.\n\nIm Zentrum dieser Vorstellung steht die Einsicht, dass \"Resonanz\" eine \"Eigenfrequenz\" voraussetzt. Das Lebendige ist nicht nur empfangend, sondern bringt sich selbst in diese Beziehung ein. Nur wer für etwas ansprechbar ist, wer eine innere \"Stimme\" hat, kann wirklich in \"Schwingung\" geraten und sich auf das \"Andere\" einlassen. Dieser Modus ist somit zutiefst relational: Das \"Ich\" konstituiert sich im \"Ich-Du-Beziehung\" und das \"Selbst\" im \"Echo\" des Gegenübers. Es ist ein Geschehen im \"Zwischen\", das den Raum für die Begegnung öffnet, in der \"Antwort / Responsivität\" nicht nur eine Reaktion, sondern ein aufrichtiges Eintreten in das Gespräch ist.\n\nDieser \"Grundmodus\" ist untrennbar mit dem \"Werden\" verbunden. Resonanz ist kein statischer Zustand, sondern ein dynamischer Prozess, der beide Seiten – das resonierende Subjekt und die resonante Welt – verändert. Sie ist eine Form der \"Öffnung\", die das \"Dasein\" als ein In-der-Welt-sein begreift, das sich ständig neu zu seinem Sein verhalten muss. Wenn diese lebendige Verbindung abbricht oder ausbleibt, entsteht \"Entfremdung\" – ein stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet. Die \"Resonanzvernunft\" baut auf dieser Einsicht auf, indem sie Vernunft nicht als isoliertes Kalkül, sondern als ein lebendiges, responsives Urteilsvermögen versteht, das sich im \"Dialog\" entfaltet.\n\nDoch in einer Welt, die oft die \"Echo-Kammer\" der bloßen Wiederholung begünstigt, wie bewahren und kultivieren wir die \"Eigenfrequenz\" und \"Ansprechbarkeit\", die \"Resonanz\" als \"Grundmodus des Lebendigen\" auszeichnet?",
+      "contextMeta": {
+        "historyLength": 0,
+        "werk_passages": []
+      }
+    },
     {
       "id": "MQ5K6GR6-D7B53D9B",
       "ts": "2026-06-08T18:42:55.698Z",
