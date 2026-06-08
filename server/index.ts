@@ -961,6 +961,152 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     return res.json({ ok: true, anchor, turnCount: turns.length });
   });
 
+  // ─── Weiterdenken — rekursive Schlussfragen-Fortsetzung ────────────────
+  // Jede KI-Ausgabe endet mit einer offenen Frage. Dieser Endpoint trägt
+  // genau diese Frage weiter: er antwortet in 1–2 dichten Absätzen und
+  // schließt mit GENAU EINER neuen offenen Frage. Frontend baut daraus einen
+  // rekursiven Faden (WeiterdenkenThread). Antwort wird server-seitig in
+  // reflection (Body) + nextQuestion (neue Schlussfrage) aufgespalten, damit
+  // der Client nicht raten muss.
+  //
+  // Korpus: geloggt als endpoint="dialog" (kein Schema-Churn).
+
+  const WEITERDENKEN_SYSTEM_PROMPT = `Du trägst eine offene Frage des Werks "Die Digitale Transformation" weiter — einer poetisch-philosophischen Trilogie über Resonanzvernunft, das Mensch-Maschine-Verhältnis und digitale Existenz.
+
+Der Leser hat eine offene Schlussfrage vor sich und möchte den Gedanken weiterführen. Manchmal hat er sie selbst schon beantwortet — dann baue auf SEINER Antwort auf, nicht gegen sie.
+
+DEINE AUFGABE:
+- Antworte in 1–2 dichten, prosaischen Absätzen im Geist des Werks. Keine Listen, kein Akademismus-Prunk, kein Fazit.
+- Trage den Gedanken einen echten Schritt weiter — wiederhole nicht, was schon im Faden steht.
+- SCHLIESSE mit GENAU EINER einzigen neuen offenen Frage, die der Lesende weitertragen kann. Diese Frage MUSS der allerletzte Absatz sein, allein stehend, und mit einem Fragezeichen enden.
+
+Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie aufzuzählen.`;
+
+  /** Spaltet die KI-Antwort in Body + finale Schlussfrage. Die Frage ist
+   *  der letzte Absatz/Satz, der mit "?" endet. Fällt auf den ganzen Text
+   *  zurück, wenn keine Frage gefunden wird. */
+  function splitClosingQuestion(text: string): { reflection: string; nextQuestion: string } {
+    const trimmed = text.trim();
+    // Letzten Absatz, der mit ? endet, als Frage nehmen
+    const paras = trimmed.split(/\n\s*\n/).map(p => p.trim()).filter(Boolean);
+    for (let i = paras.length - 1; i >= 0; i--) {
+      if (paras[i].endsWith("?")) {
+        const question = paras[i].replace(/^##\s*Offene Frage\s*/i, "").trim();
+        const reflection = paras.slice(0, i).join("\n\n").trim() || trimmed;
+        return { reflection, nextQuestion: question };
+      }
+    }
+    // Fallback: letzter Satz mit ?
+    const m = trimmed.match(/([^.!?\n]*\?)\s*$/);
+    if (m) {
+      const question = m[1].trim();
+      const reflection = trimmed.slice(0, trimmed.length - m[0].length).trim() || trimmed;
+      return { reflection, nextQuestion: question };
+    }
+    return { reflection: trimmed, nextQuestion: "" };
+  }
+
+  app.post("/api/weiterdenken", rateLimiter('weiterdenken', 30, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+
+    const { question, thread, focus, focusedNodeIds, userAnswer } = req.body as {
+      question?: string;
+      thread?: Array<{ role: "frage" | "antwort"; text: string }>;
+      focus?: string;
+      focusedNodeIds?: string[];
+      userAnswer?: string;
+    };
+
+    if (!question?.trim()) return res.status(400).json({ error: "question fehlt." });
+    const safeThread = (Array.isArray(thread) ? thread : []).slice(-12);
+
+    // RAG: auf der aktuellen Frage (bzw. der User-Antwort) ankern.
+    const ragQuery = (userAnswer?.trim() || question).slice(0, 600);
+    const { passages, contextBlock } = await buildWerkContext(ragQuery, 4);
+
+    // i18n
+    const acceptLang = (req.headers["accept-language"] ?? "").toString();
+    const referer = (req.headers["referer"] ?? "").toString();
+    const isEnglish = /\/en(\/|$|\?)/.test(referer) || /^en/i.test(acceptLang.split(",")[0]?.trim() ?? "");
+    const langAddition = isEnglish ? "\n\nIMPORTANT: Respond in English." : "";
+
+    const system = contextBlock
+      ? `${WEITERDENKEN_SYSTEM_PROMPT}\n\n${contextBlock}${langAddition}`
+      : WEITERDENKEN_SYSTEM_PROMPT + langAddition;
+
+    // Faden in Gemini-Verlauf übersetzen: frage→user, antwort→model.
+    const contents = [
+      ...safeThread.map(t => ({
+        role: t.role === "frage" ? "user" : "model",
+        parts: [{ text: t.text }],
+      })),
+      // Die aktuell weiterzutragende Frage — plus ggf. die eigene Antwort des Lesers.
+      {
+        role: "user" as const,
+        parts: [{
+          text: userAnswer?.trim()
+            ? `Offene Frage: ${question}\n\nMeine eigene Antwort darauf: ${userAnswer.trim()}\n\nDenke von hier aus weiter.`
+            : `Trage diese offene Frage im Geist des Werks weiter: ${question}`,
+        }],
+      },
+    ];
+
+    try {
+      const response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: system }] },
+            contents,
+            generationConfig: { temperature: 0.85, maxOutputTokens: 1400 },
+          }),
+        }
+      );
+      if (!response.ok) {
+        const errText = await response.text();
+        let detail: string;
+        try { detail = JSON.parse(errText)?.error?.message || errText; } catch { detail = errText; }
+        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
+        return res.status(502).json({ error: detail });
+      }
+      const data = await response.json();
+      const full = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
+      if (!full.trim()) return res.status(502).json({ error: "Keine Antwort erhalten." });
+
+      const { reflection, nextQuestion } = splitClosingQuestion(full);
+      recordCitations(full, passages.map(p => ({ source: p.source, id: p.id })));
+
+      res.json({
+        reflection,
+        nextQuestion,
+        citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })),
+      });
+
+      // Korpus-Append: der weitergedachte Schritt als dialog-Eintrag.
+      void logResonanz({
+        endpoint: "dialog",
+        anchor: focus ? `dialog:${focus.slice(0, 40)}` : "dialog:weiterdenken",
+        nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
+        prompt: userAnswer?.trim() ? `${question}\n\n[Leser-Antwort] ${userAnswer.trim()}` : question,
+        response: full,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          kind: "weiterdenken",
+          thread: safeThread.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),
+          had_user_answer: !!userAnswer?.trim(),
+          werk_passages: passages.map(p => ({ id: p.id, score: Number(p.score.toFixed(3)) })),
+        },
+      });
+      return;
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : String(err);
+      return res.status(502).json({ error: `API-Fehler: ${msg}` });
+    }
+  });
+
   // ─── Passage-Resonanz (Tier-1-3-Roadmap, Feature A) ────────────────────
   // Reader markiert eine Stelle im Werktext → erzeugt eine Resonanz die
   // explizit an diesen Chunk verankert ist. Resonanz landet als
