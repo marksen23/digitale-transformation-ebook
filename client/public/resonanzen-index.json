@@ -1,7 +1,21 @@
 {
   "generatedAt": "2026-06-08T13:52:16.431Z",
-  "count": 228,
+  "count": 229,
   "entries": [
+    {
+      "id": "MQ5JM1HD-9047C82F",
+      "ts": "2026-06-08T18:27:02.785Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bedeutet Resonanz als Grundmodus des Lebendigen?",
+      "response": "Resonanz als Grundmodus des Lebendigen bedeutet, dass das Leben selbst in seinem tiefsten Wesen ein Schwingen, ein Angesprochen-Werden und ein Antworten ist. Es ist mehr als eine passive Reaktion auf äußere Reize; es ist ein aktives Antwortgeschehen, das eine innere Gestimmtheit oder Haltung voraussetzt – die sogenannte \"Eigenfrequenz\". Wer keine Eigenfrequenz hat, wer nicht aus sich selbst heraus schwingt, kann auch nicht in Resonanz geraten. Es ist die Fähigkeit, für etwas \"ansprechbar\" zu sein, sich zu \"öffnen\" und sich berühren zu lassen, die lebendige Existenz im eigentlichen Sinne ausmacht.\n\nDiese Grundgestimmtheit manifestiert sich nicht im isolierten Subjekt, sondern stets im \"Zwischen\" – jenem produktiven Raum, in dem Begegnung stattfindet. Das \"Ich\" konstituiert sich erst in der \"Ich-Du-Beziehung\", im Widerhall des \"Anderen\". Das Sein ist in diesem Sinne immer \"Sein-mit\", ein In-der-Welt-Sein, das sich beständig zu seiner \"Welt\" und ihren Anforderungen verhält. Lebendig sein heißt daher, im \"Werden\" zu sein, sich fortwährend im Austausch mit dem Umfeld zu befinden, zu empfangen und zu geben, zu lauschen und zu antworten. Die Abwesenheit dieser responsiven Lebendigkeit hingegen führt zur \"Entfremdung\", einem stummen Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet.\n\nDamit ist Resonanz die fundamentale Schwingung, die der \"Resonanzvernunft\" zugrunde liegt. Sie ist nicht nur ein Modus des Erkennens, sondern ein Modus der Existenz selbst. Die \"Stimme\", die \"Schwingung\", das \"Echo\" – all das sind nicht bloße Metaphern, sondern sinnliche und existenzielle Ausdrucksformen dieses Grundmodus. Bevor wir etwas intellektuell fassen, hat es uns bereits berührt, in Schwingung versetzt. Das Lebendige ist also in seinem Kern ein schwingendes, resonantes Gefüge, das sich ständig neu im Angesprochen-Werden und Antworten entfaltet.\n\nWie können wir in einer immer komplexer werdenden Welt, die von digitalen \"Echo-Kammern\" und der Versuchung der Abschottung bedroht ist, diese grundlegende \"Ansprechbarkeit\" und \"Eigenfrequenz\" des Lebendigen bewahren und kultivieren?",
+      "contextMeta": {
+        "historyLength": 0,
+        "werk_passages": []
+      }
+    },
     {
       "id": "MQ5JL9TM-83E39C42",
       "ts": "2026-06-08T18:26:26.938Z",
