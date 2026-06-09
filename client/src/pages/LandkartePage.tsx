@@ -286,7 +286,7 @@ export default function LandkartePage() {
                       const key = pairKey(selNode.id, c.other);
                       return (
                         <div key={c.other} style={{ display: "flex", alignItems: "center", gap: "0.3rem", flexWrap: "wrap" }}>
-                          <button onClick={() => setSelected(c.other)} style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.accent, background: "none", border: `1px dashed ${C.accent}`, borderRadius: 3, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+                          <button onClick={() => setSelected(c.other)} style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.accentText, background: "none", border: `1px dashed ${C.accent}`, borderRadius: 3, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
                             {nodeById.get(c.other)?.fullLabel ?? c.other} · {c.count}
                           </button>
                           {isAdmin && (
@@ -356,7 +356,7 @@ function Metric({ C, label, value }: { C: Palette; label: string; value: string 
 function linkBtn(C: Palette): React.CSSProperties {
   return {
     marginTop: "0.6rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase",
-    color: C.accent, background: "none", border: `1px solid ${C.accentDim}`,
+    color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`,
     padding: "0.4rem 0.6rem", cursor: "pointer", borderRadius: 3, minHeight: 32,
   };
 }

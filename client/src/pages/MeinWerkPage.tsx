@@ -102,7 +102,7 @@ export default function MeinWerkPage() {
 
       {t.optOut ? (
         <div style={{ padding: "1rem", border: `1px dashed ${C.border}`, color: C.muted, fontStyle: "italic" }}>
-          Trajektorie ist deaktiviert. <button onClick={handleOptOutToggle} style={{ background: "none", border: "none", color: C.accent, cursor: "pointer", textDecoration: "underline" }}>Wieder aktivieren</button>
+          Trajektorie ist deaktiviert. <button onClick={handleOptOutToggle} style={{ background: "none", border: "none", color: C.accentText, cursor: "pointer", textDecoration: "underline" }}>Wieder aktivieren</button>
         </div>
       ) : (
         <>

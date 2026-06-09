@@ -198,7 +198,7 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
 
   return (
     <div style={{ marginTop: "0.9rem", paddingTop: "0.7rem", borderTop: `1px solid ${c.border}` }}>
-      <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.accent, marginBottom: "0.55rem" }}>
+      <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: c.accentText, marginBottom: "0.55rem" }}>
         ⥁ Weiterdenken
       </div>
 
@@ -304,7 +304,7 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
             {justSaved ? "✓ gesichert" : savedId ? "✦ aktualisieren" : "✦ Faden sichern"}
           </button>
           {justSaved && (
-            <a href="/mein-werk" style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.7rem", color: c.accent, textDecoration: "underline", textDecorationStyle: "dotted" }}>
+            <a href="/mein-werk" style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.7rem", color: c.accentText, textDecoration: "underline", textDecorationStyle: "dotted" }}>
               in Mein Werk ansehen
             </a>
           )}

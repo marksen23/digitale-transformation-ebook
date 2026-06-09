@@ -37,7 +37,7 @@ export default function OnboardingHint() {
   return (
     <div style={{ maxWidth: 900, margin: "0.9rem auto 0", padding: "0 1.5rem" }}>
       <div style={{ position: "relative", border: `1px solid ${C.border}`, background: `${C.accent}0c`, borderRadius: 8, padding: "0.9rem 2.2rem 0.9rem 1.1rem" }}>
-        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: C.accent, marginBottom: "0.35rem" }}>
+        <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: C.accentText, marginBottom: "0.35rem" }}>
           {ORNAMENT.leaf} Willkommen
         </div>
         <p style={{ margin: 0, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.9rem", color: C.text, lineHeight: 1.55 }}>
@@ -51,7 +51,7 @@ export default function OnboardingHint() {
               onClick={dismiss}
               style={{
                 fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase",
-                color: C.accent, textDecoration: "none",
+                color: C.accentText, textDecoration: "none",
                 border: `1px solid ${C.accentDim}`, borderRadius: 3,
                 padding: "0.35rem 0.6rem", minHeight: 30, display: "inline-flex", alignItems: "center",
               }}

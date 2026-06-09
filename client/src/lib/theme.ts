@@ -23,6 +23,11 @@ export interface Palette {
   textBright: string;  // strongest text (H1, hover)
   accent: string;      // primary accent (buttons, links, highlights)
   accentDim: string;   // accent at lower opacity (borders, halos)
+  /** Akzent als VORDERGRUND-TEXT auf der Seitenfläche (Links, Akzent-Labels).
+   *  Theme-bewusst: hell = dunkleres Amber (#b45309, WCAG-AA auf Creme, 4.8:1),
+   *  dunkel = #f59e0b (liest auf dunkel, 9.2:1). NICHT für Füllungen nutzen —
+   *  `accent` (heller) gibt dort den besseren Kontrast mit dunklem Text. */
+  accentText: string;
 }
 
 // Werte folgen Tailwind's stone-Palette (Home.tsx-Sprache) und ergänzen
@@ -40,6 +45,7 @@ export const C_DARK: Palette = {
   textBright: "#fafaf9", // stone-50
   accent: "#f59e0b",     // amber-500
   accentDim: "#b45309",  // amber-700
+  accentText: "#f59e0b", // dunkel: amber-500 liest auf void (9.2:1)
 };
 
 export const C_LIGHT: Palette = {
@@ -53,6 +59,7 @@ export const C_LIGHT: Palette = {
   textBright: "#1c1917", // stone-900
   accent: "#f59e0b",     // amber-500
   accentDim: "#b45309",  // amber-700
+  accentText: "#b45309", // hell: amber-700 statt -500 → WCAG-AA als Text (4.8:1)
 };
 
 /**
