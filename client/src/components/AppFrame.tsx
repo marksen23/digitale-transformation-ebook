@@ -318,7 +318,11 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           Wird via CSS-Variable verfügbar gemacht, damit Sub-Seiten mit
           eigenem position:fixed-Container (PhilosophyPage, ResonanzenPage,
           ConceptGraphPage) das berücksichtigen können. */}
-      <div
+      {/* A11y (Phase 6): Skip-to-content — erstes fokussierbares Element,
+          nur bei Tastatur-Fokus sichtbar (siehe .skip-link in index.css). */}
+      <a href="#main" className="skip-link">Zum Inhalt springen</a>
+      <main
+        id="main"
         style={{
           paddingTop: `calc(${FRAME_HEIGHT}px + env(safe-area-inset-top, 0px))`,
           minHeight: "100dvh",
@@ -326,7 +330,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         }}
       >
         {children}
-      </div>
+      </main>
 
       {/* CSS-Switch zwischen Mobile (Hamburger + Drawer) und Desktop (Inline-Nav).
           640px-Breakpoint folgt dem Tailwind-`sm:`-Default und matched mit den
