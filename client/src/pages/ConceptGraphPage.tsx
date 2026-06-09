@@ -20,6 +20,7 @@ import CategoryLegendButton from "@/components/CategoryLegendButton";
 import LegendSection from "@/components/LegendSection";
 import ToolOutputPanel from "@/components/ToolOutputPanel";
 import CitedSourcesFooter from "@/components/CitedSourcesFooter";
+import { loadPromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -351,6 +352,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [connectSource, setConnectSource] = useState<string | null>(null);
   const [userEdges, setUserEdges] = useState<UserEdge[]>(() => loadUserEdges());
   const [showUserEdges, setShowUserEdges] = useState(true);
+  // Phase 5b: server-persistierte, in den Kanon erhobene Verbindungen
+  // (concept-edges.json) — geteiltes Netz-Wachstum, von allen gesehen.
+  const [promotedEdges, setPromotedEdges] = useState<PromotedEdge[]>([]);
+  useEffect(() => { loadPromotedEdges().then(setPromotedEdges); }, []);
   const [notePopup, setNotePopup] = useState<{ sourceId: string; targetId: string } | null>(null);
   const [noteInput, setNoteInput] = useState("");
   const connectModeRef = useRef(false);
@@ -1509,6 +1514,39 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   opacity={opacity}
                   strokeLinecap="round"
                 />
+              );
+            })}
+
+            {/* ── Erhobene Kanten (Phase 5b) — in den Kanon gewachsen.
+                   Solide Akzent-Kurven über dem statischen Rückgrat, von allen
+                   Lesern gesehen (server-persistiert). ── */}
+            {promotedEdges.map((edge, i) => {
+              const src = NODE_MAP.get(edge.source);
+              const tgt = NODE_MAP.get(edge.target);
+              if (!src || !tgt) return null;
+              const srcPos = getPos(edge.source);
+              const tgtPos = getPos(edge.target);
+              const mx = (srcPos.x + tgtPos.x) / 2;
+              const my = (srcPos.y + tgtPos.y) / 2;
+              const dx = tgtPos.x - srcPos.x;
+              const dy = tgtPos.y - srcPos.y;
+              const len = Math.hypot(dx, dy) || 1;
+              const curveAmount = Math.min(len * 0.12, 22);
+              const cx = mx + (-dy / len) * curveAmount;
+              const cy_ = my + (dx / len) * curveAmount;
+              const active = focusId === edge.source || focusId === edge.target;
+              return (
+                <path
+                  key={`promoted-${i}`}
+                  d={`M ${srcPos.x} ${srcPos.y} Q ${cx} ${cy_} ${tgtPos.x} ${tgtPos.y}`}
+                  fill="none"
+                  stroke={C.accent}
+                  strokeWidth={active ? 2 : 1.4}
+                  opacity={active ? 0.85 : 0.5}
+                  strokeLinecap="round"
+                >
+                  <title>{`${src.fullLabel} — ${tgt.fullLabel}${edge.note ? `: ${edge.note}` : ""} (in den Kanon erhoben)`}</title>
+                </path>
               );
             })}
 
