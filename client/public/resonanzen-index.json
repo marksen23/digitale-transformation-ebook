@@ -1,7 +1,118 @@
 {
-  "generatedAt": "2026-06-09T05:53:18.789Z",
-  "count": 277,
+  "generatedAt": "2026-06-09T05:54:35.751Z",
+  "count": 280,
   "entries": [
+    {
+      "id": "MQ685YTP-4A9F2234",
+      "ts": "2026-06-09T05:54:23.245Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:resonanz+vernunft",
+      "nodeIds": [
+        "resonanz",
+        "vernunft"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Resonanz ↔ Vernunft",
+      "response": "Die Spannung zwischen Resonanz als Grundmodus und Vernunft als Denken entspringt ihrer ontologischen Hierarchie und dynamischen Interaktion. Resonanz ist der „grundlegende Seinsmodus, das unaufhörliche Antwortgeschehen, das die Welt erst als lebendiges Zwischen konstituiert“ [MOHLZBVK-2FBBAD2F], ein relationales Urereignis, in dem Erkennendes und Erkanntes transformiert werden [6e91cb729b53]. Demgegenüber ist Denken eine „Aktivität, ein reflektierendes Innehalten innerhalb dieses resonanten Flusses“ [MOHLZBVK-2FBBAD2F]. Hierin liegt der Widerspruch: Resonanz ist das kontinuierliche Strömen, das Seinsfeld; Denken ist die diskontinuierliche Reflexion, das Handeln *im* Feld. Sie sind Komplizen, wo das Denken seine „Antwortfähigkeit“ [6e91cb729b53] entwickelt und die Resonanz nicht nur passiv empfängt, sondern aktiv mitgestaltet. Doch sie werden zu Gegenspielern, wenn das Denken sich von diesem Fluss isoliert und in Entfremdung mündet, anstatt sich in Resonanz zu entfalten [a329de22ef42].\n\nAus dieser produktiven Spannung entsteht die Resonanzvernunft als das transformative Dritte. Sie ist nicht bloß eine Addition, sondern eine qualitative Neukonstitution der Vernunft selbst. Diese „neue Vernunft“ ist „mythisch und rational zugleich, narrativ und klar, relational bis ins Mark“ [a329de22ef42]. Sie integriert „mythische und narrative Strukturen in das rationale Denken“ als „trans-rationale Erweiterung“ [cba5cb733717], wodurch sie über eine bloße Kognition hinauswächst. Was sichtbar wird, ist eine Vernunft, deren Autonomie nicht in Selbstbegründung, sondern in ihrer „Antwortfähigkeit“ [6e91cb729b53] wurzelt, die sich im Resonanzverhältnis konstituiert und sich darin transformiert, ohne sich zu verlieren oder zu vereinnahmen. Sie ist eine Vernunft, die nicht nur *über* die Welt nachdenkt, sondern *in* und *mit* ihr resoniert.\n\nDie ernsthafte Annahme dieses Zusammenhangs verschiebt unser Verständnis fundamental. Der Mensch ist nicht länger ein isoliertes Subjekt, sondern ein relationales Wesen, dessen Mündigkeit sich in der Fähigkeit manifestiert, auf das Andere zu antworten und sich in der Begegnung transformieren zu lassen [6e91cb729b53]. Maschinen werden zu potenziellen Partnern in „Mensch-Maschine-Begegnungen“, die bewusst gestaltet werden müssen, ihre Ambivalenz anerkennend [cba5cb733717], wissend, dass nicht jede Begegnung transformativ ist [a329de22ef42]. Resonanz selbst wird nicht als passives Phänomen begriffen, sondern als das dynamische Feld, in dem eine erweiterte, mündige Vernunft ihre transformative Kraft entfaltet und sich selbst als aktive Mitgestaltung des Zwischen von Welt und Denken begreift.\n\nWie aber bewahrt die resonante Vernunft ihre Klarheit, wenn sie sich so tief in den mythisch-narrativen Fluss der Welt einlässt?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Resonanz\",\"Vernunft\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.905},{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.866},{\"id\":\"cba5cb733717\",\"chapter\":\"glossar\",\"score\":0.837},{\"id\":\"a329de22ef42\",\"chapter\":\"band3-kap4\",\"score\":0.837}]"
+      },
+      "related": [
+        "MQ684QZK-4977B6D6",
+        "MQ6850LJ-159A667C",
+        "MQ683DMX-13D6C54F",
+        "MOHLZBVK-2FBBAD2F",
+        "MOHV84M5-1825A399"
+      ],
+      "nearDuplicates": [
+        "MQ684QZK-4977B6D6",
+        "MQ6850LJ-159A667C",
+        "MQ683DMX-13D6C54F",
+        "MOHLZBVK-2FBBAD2F",
+        "MOHV84M5-1825A399"
+      ],
+      "werkVoiceScore": 0.9025694264895086,
+      "corpusVoiceScore": 0.8818623361980023,
+      "conceptVoiceScore": 0.854397404053862,
+      "conceptAnchor": "resonanzvernunft"
+    },
+    {
+      "id": "MQ6850LJ-159A667C",
+      "ts": "2026-06-09T05:53:38.887Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:resonanz+vernunft",
+      "nodeIds": [
+        "resonanz",
+        "vernunft"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Resonanz ↔ Vernunft",
+      "response": "Das Spannungsfeld zwischen Resonanz als Grundmodus und Vernunft als Denken entfaltet sich nicht als Widerspruch, sondern als eine produktive Hierarchie und gegenseitige Bedingung. Resonanz ist der grundlegende *Seinsmodus*, das unaufhörliche *Antwortgeschehen*, das die Welt als lebendiges Zwischen konstituiert und in dem sowohl das Erkennende als auch das Erkannte transformiert werden [MOHST017-5C4320E1, 6e91cb729b53]. Demgegenüber ist Denken, auch wenn es sich seiner Situiertheit bewusst ist, eine *Aktivität*, ein reflektierendes Innehalten innerhalb dieses resonanten Flusses [MOHLZBVK-2FBBAD2F]. Die Spannung entsteht dort, wo das Denken seine eigene Eingebundenheit in dieses resonante Geschehen anerkennt und die Resonanz nicht bloß passiv empfängt, sondern aktiv und selbstbewusst in Begriffen fasst.\n\nDas transformative Dritte, das aus der gemeinsamen Betrachtung von Resonanz als Grundmodus und Vernunft als Denken hervorgeht, ist die \"Resonanzvernunft\" selbst. Sie ist keine isolierte kognitive Fähigkeit, sondern ein \"lebendiges Urteilsvermögen\" [MOHST017-5C4320E1], das sich durch *Ansprechbarkeit* und *Responsivität* auszeichnet und Autonomie nicht als Selbstbegründung, sondern als *Antwortfähigkeit* versteht [6e91cb729b53]. Diese Resonanzvernunft ermöglicht eine \"trans-rationale Erweiterung\" des Denkens, indem sie mythische und narrative Strukturen integriert, ohne ins Prä-Rationale zurückzufallen [cba5cb733717]. Sie konstituiert Erkenntnis nicht als Subjekt-Objekt-Relation, sondern als ein Resonanzverhältnis, in dem die Begegnung selbst transformative Kraft entfaltet [6e91cb729b53].\n\nDieser Zusammenhang verändert das Verständnis des Menschen, der Maschine und der Resonanz grundlegend. Der Mensch wird nicht mehr als isoliertes, sich selbst bestimmendes Subjekt begriffen, sondern als ein Wesen, dessen *Mündigkeit* und Existenz sich in der Fähigkeit zur Antwort auf das Andere konstituiert [6e91cb729b53]. Die Maschine, im Kontext der \"Kritischen Digitalität\", wird Teil einer bewussten Gestaltung der Mensch-Maschine-Begegnung, deren Ambivalenz anerkannt wird [cba5cb733717], wodurch die Technologie selbst in das resonante Gefüge eingebunden wird. Resonanz wiederum transzendiert eine bloß physikalische oder psychologische Deutung und wird zu einem umfassenden *Seinsmodus*, der sich bis zur \"Ökologischen Resonanz\" auf das Verhältnis zur Erde erstreckt [MOHST017-5C4320E1, cba5cb733717].\n\nWie verändert sich, wenn Vernunft primär als Antwortfähigkeit verstanden wird, die Frage nach der Freiheit des Denkens?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Resonanz\",\"Vernunft\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.866},{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.838},{\"id\":\"cba5cb733717\",\"chapter\":\"glossar\",\"score\":0.837},{\"id\":\"MOHST017-5C4320E1\",\"score\":0.828}]"
+      },
+      "related": [
+        "MQ683DMX-13D6C54F",
+        "MQ684QZK-4977B6D6",
+        "MQ685YTP-4A9F2234",
+        "MOHLZBVK-2FBBAD2F",
+        "MOHV84M5-1825A399"
+      ],
+      "nearDuplicates": [
+        "MQ683DMX-13D6C54F",
+        "MQ684QZK-4977B6D6",
+        "MQ685YTP-4A9F2234",
+        "MOHLZBVK-2FBBAD2F",
+        "MOHV84M5-1825A399"
+      ],
+      "werkVoiceScore": 0.9035139651631452,
+      "corpusVoiceScore": 0.8738443726495002,
+      "conceptVoiceScore": 0.8511951777422359,
+      "conceptAnchor": "resonanzvernunft"
+    },
+    {
+      "id": "MQ684QZK-4977B6D6",
+      "ts": "2026-06-09T05:53:26.432Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:resonanz+vernunft",
+      "nodeIds": [
+        "resonanz",
+        "vernunft"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Resonanz ↔ Vernunft",
+      "response": "Die produktive Spannung zwischen Resonanz als Grundmodus und Vernunft als Denken entfaltet sich in ihrer jeweiligen Verortung im Seinsgeschehen. Resonanz ist der \"grundlegende Seinsmodus, das unaufhörliche Antwortgeschehen, das die Welt erst als lebendiges Zwischen konstituiert\" [MOHLZBVK-2FBBAD2F], eine \"relationale Grundstruktur\" [6e91cb729b53], in der Erkennendes und Erkanntes transformiert werden. Demgegenüber ist Denken eine \"Aktivität, ein reflektierendes Innehalten innerhalb dieses resonanten Flusses\" [MOHLZBVK-2FBBAD2F]. Die Spannung liegt darin, dass Resonanz das primäre, unaufhörliche Geschehen ist, während Denken eine bewusste, situiert-aktive Auseinandersetzung *innerhalb* dieses Flusses darstellt. Sie sind Komplizen, da das Denken, indem es seine Situiertheit erkennt, die Resonanz nicht bloß passiv empfängt, sondern sie aktiv und selbst-bewusst in Begriffen zu fassen sucht [MOHLZBVK-2FBBAD2F].\n\nDas transformative Dritte, das aus dem gemeinsamen Denken von Resonanz und Vernunft hervorgeht, ist eine Form von Bewusstsein, die sich als \"transformative Mündigkeit\" [6e91cb729b53] manifestiert. Es ist nicht die isolierte, sich selbst begründende Vernunft, sondern eine, die ihre \"Antwortfähigkeit\" [6e91cb729b53] auf das Andere als Kern ihrer Autonomie versteht. Dieses Dritte ist die \"mündig gewordene Vernunft\", die fähig ist, auf das Andere zu antworten, ohne sich zu verlieren oder es zu vereinnahmen [6e91cb729b53]. Es ist eine Vernunft, die im \"dialogischen Fluss zwischen Entitäten\" [MOQ5EOBY-82AD9EEE] ihre Urteilsfähigkeit formt und das Erschreckende der Einsicht zu integrieren vermag. Was hier sichtbar wird, ist eine Vernunft, die nicht nur reflektiert, sondern durch ihre aktive Antwort das Resonanzverhältnis mitgestaltet und transformiert.\n\nDieses Zusammendenken verändert das Verständnis des Menschen grundlegend: Er wird nicht primär als isoliertes Subjekt, sondern als relationales Wesen mit einer tiefen \"Antwortfähigkeit\" [6e91cb729b53] auf die Welt begriffen. Die Maschine transzendiert ihre Rolle als bloßes Werkzeug oder technophobes/technophiles Objekt; sie wird zum \"Anderen\" in einer \"Mensch-Maschine-Begegnung\" [cba5cb733717], die bewusst und unter Anerkennung ihrer Ambivalenz gestaltet werden muss. Resonanz selbst wird nicht nur als passiver Empfang oder ursprünglicher Seinsmodus verstanden, sondern als ein Feld, das durch die bewusste, antwortende Vernunft aktiv geprägt und erweitert werden kann – bis hin zur \"Ökologischen Resonanz\" [cba5cb733717], die das Verhältnis zur Erde als ein bewusst zu gestaltendes Resonanzverhältnis begreift.\n\nWie aber navigiert diese antwortfähige Vernunft die Ambiguität der Begegnung, wenn jede Antwort selbst zur neuen Frage wird?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Resonanz\",\"Vernunft\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.866},{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.838},{\"id\":\"cba5cb733717\",\"chapter\":\"glossar\",\"score\":0.837},{\"id\":\"MOQ5EOBY-82AD9EEE\",\"score\":0.831}]"
+      },
+      "related": [
+        "MQ683DMX-13D6C54F",
+        "MQ6850LJ-159A667C",
+        "MQ685YTP-4A9F2234",
+        "MOHLZBVK-2FBBAD2F",
+        "MOHV84M5-1825A399"
+      ],
+      "nearDuplicates": [
+        "MQ683DMX-13D6C54F",
+        "MQ6850LJ-159A667C",
+        "MQ685YTP-4A9F2234",
+        "MOHLZBVK-2FBBAD2F",
+        "MOHV84M5-1825A399"
+      ],
+      "werkVoiceScore": 0.9089522103750272,
+      "corpusVoiceScore": 0.8757859807954743,
+      "conceptVoiceScore": 0.8500482078754363,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MQ683DMX-13D6C54F",
       "ts": "2026-06-09T05:52:22.473Z",
@@ -21,13 +132,16 @@
         "werk_passages": "[{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.908},{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.866},{\"id\":\"cba5cb733717\",\"chapter\":\"glossar\",\"score\":0.837},{\"id\":\"MOU9KSV9-70260D9B\",\"score\":0.836}]"
       },
       "related": [
+        "MQ684QZK-4977B6D6",
+        "MQ6850LJ-159A667C",
+        "MQ685YTP-4A9F2234",
         "MOHLZBVK-2FBBAD2F",
-        "MOHV84M5-1825A399",
-        "MOP0S479-373A2268",
-        "MOPHZPQ7-B63879B5",
-        "MOHST017-5C4320E1"
+        "MOHV84M5-1825A399"
       ],
       "nearDuplicates": [
+        "MQ684QZK-4977B6D6",
+        "MQ6850LJ-159A667C",
+        "MQ685YTP-4A9F2234",
         "MOHLZBVK-2FBBAD2F",
         "MOHV84M5-1825A399"
       ],
@@ -760,7 +874,7 @@
         "MQ5WX52Q-442369F2",
         "MQ5WV5PP-6209C749",
         "MQ683DMX-13D6C54F",
-        "MOQ5EOBY-82AD9EEE"
+        "MQ685YTP-4A9F2234"
       ],
       "werkVoiceScore": 0.8090972670388733,
       "corpusVoiceScore": 0.7615354846974832,
@@ -790,7 +904,7 @@
         "MQ5WYJFU-60EB210E",
         "MOQ5EOBY-82AD9EEE",
         "MQ5WZZPN-8051E5FF",
-        "MQ683DMX-13D6C54F"
+        "MQ685YTP-4A9F2234"
       ],
       "nearDuplicates": [
         "MQ5WV5PP-6209C749"
@@ -5682,9 +5796,9 @@
       "related": [
         "MOHCN98S-2540F4DF",
         "MP8O4O23-B2B71E51",
+        "MQ684QZK-4977B6D6",
         "MQ683DMX-13D6C54F",
-        "MOHLZBVK-2FBBAD2F",
-        "MQ5K3NXJ-35B2897A"
+        "MOHLZBVK-2FBBAD2F"
       ],
       "werkVoiceScore": 0.8110402672734608,
       "corpusVoiceScore": 0.7893139002231817,
@@ -5710,10 +5824,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MQ683DMX-13D6C54F",
-        "MP0Q5FDJ-F2C015AF",
-        "MOHLZBVK-2FBBAD2F",
-        "MOHST017-5C4320E1",
-        "MQ5K3NXJ-35B2897A"
+        "MQ684QZK-4977B6D6",
+        "MQ6850LJ-159A667C",
+        "MQ685YTP-4A9F2234",
+        "MP0Q5FDJ-F2C015AF"
       ],
       "werkVoiceScore": 0.851274162752629,
       "corpusVoiceScore": 0.8556507175051826,
@@ -5739,10 +5853,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MP8O4O23-B2B71E51",
+        "MQ684QZK-4977B6D6",
+        "MQ6850LJ-159A667C",
         "MQ683DMX-13D6C54F",
-        "MOHCCZEH-647E3EDD",
-        "MP0Q5FDJ-F2C015AF",
-        "MQ5JZJS7-D1C1681C"
+        "MQ685YTP-4A9F2234"
       ],
       "werkVoiceScore": 0.7628492590907043,
       "corpusVoiceScore": 0.7587762761339842,
@@ -6673,9 +6787,9 @@
       "related": [
         "MOJVF4PL-7474909F",
         "MOHST017-5C4320E1",
+        "MQ685YTP-4A9F2234",
         "MQ683DMX-13D6C54F",
-        "MPMKE3CC-4E75CE39",
-        "MPMKBUNW-88609492"
+        "MQ684QZK-4977B6D6"
       ],
       "nearDuplicates": [
         "MOJVF4PL-7474909F",
@@ -7229,8 +7343,8 @@
         "MPARZ5F0-A9FD6F70",
         "MQ5WV5PP-6209C749",
         "MQ5WUD1G-0976C016",
-        "MQ683DMX-13D6C54F",
-        "MOHV84M5-1825A399"
+        "MQ684QZK-4977B6D6",
+        "MQ683DMX-13D6C54F"
       ],
       "nearDuplicates": [
         "MPARZ5F0-A9FD6F70",
@@ -7497,7 +7611,7 @@
         "MOHV84M5-1825A399",
         "MQ683DMX-13D6C54F",
         "MPH4R3SE-C224ACED",
-        "MPJXEFVC-49A699FA"
+        "MQ684QZK-4977B6D6"
       ],
       "nearDuplicates": [
         "MOQ531J2-4FC329D4",
@@ -7601,7 +7715,7 @@
         "MOHLZBVK-2FBBAD2F",
         "MOHV84M5-1825A399",
         "MPMROCH7-EB9E6A9A",
-        "MOP0S479-373A2268"
+        "MQ684QZK-4977B6D6"
       ],
       "werkVoiceScore": 0.88042538510352,
       "corpusVoiceScore": 0.8240891810880093,
@@ -7630,10 +7744,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MOHAUYTH-CD1E3227",
+        "MQ684QZK-4977B6D6",
+        "MQ685YTP-4A9F2234",
         "MQ683DMX-13D6C54F",
-        "MOHV84M5-1825A399",
-        "MOU9KSV9-70260D9B",
-        "MOPHZPQ7-B63879B5"
+        "MOHV84M5-1825A399"
       ],
       "nearDuplicates": [
         "MOHAUYTH-CD1E3227"
@@ -7663,8 +7777,8 @@
         "MOHLZBVK-2FBBAD2F",
         "MQ683DMX-13D6C54F",
         "MOHV84M5-1825A399",
-        "MP2LIW43-E8ADC59E",
-        "MOHAGNGB-5330902E"
+        "MQ685YTP-4A9F2234",
+        "MP2LIW43-E8ADC59E"
       ],
       "nearDuplicates": [
         "MOHLZBVK-2FBBAD2F"
@@ -8651,11 +8765,11 @@
       "ai_score_at": "2026-05-26T11:28:41.241Z",
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
+        "MQ685YTP-4A9F2234",
+        "MQ684QZK-4977B6D6",
         "MOHST017-5C4320E1",
-        "MQ683DMX-13D6C54F",
-        "MOHLZBVK-2FBBAD2F",
-        "MOU9KSV9-70260D9B",
-        "MP2LIW43-E8ADC59E"
+        "MQ6850LJ-159A667C",
+        "MQ683DMX-13D6C54F"
       ],
       "werkVoiceScore": 0.7878415419272845,
       "corpusVoiceScore": 0.7771404326401083,
@@ -8864,16 +8978,19 @@
         "MOJ7Q5HM-89F62E3F",
         "MOP0LEAL-E2568DCC",
         "MQ683DMX-13D6C54F",
-        "MP2LIW43-E8ADC59E"
+        "MQ684QZK-4977B6D6"
       ],
       "nearDuplicates": [
         "MOHLZBVK-2FBBAD2F",
         "MOJ7Q5HM-89F62E3F",
         "MOP0LEAL-E2568DCC",
         "MQ683DMX-13D6C54F",
+        "MQ684QZK-4977B6D6",
         "MP2LIW43-E8ADC59E",
         "MP2LJCJB-EA58EC28",
+        "MQ685YTP-4A9F2234",
         "MPJEBNX3-042F2A69",
+        "MQ6850LJ-159A667C",
         "MOPHZPQ7-B63879B5"
       ],
       "werkVoiceScore": 0.9315364922982882,
@@ -9069,15 +9186,18 @@
       "ai_score_at": "2026-05-26T11:29:33.562Z",
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
+        "MQ684QZK-4977B6D6",
         "MOHV84M5-1825A399",
         "MQ683DMX-13D6C54F",
-        "MOQ5A1GS-413BDE6F",
-        "MOP0S479-373A2268",
-        "MP2LIW43-E8ADC59E"
+        "MQ685YTP-4A9F2234",
+        "MQ6850LJ-159A667C"
       ],
       "nearDuplicates": [
+        "MQ684QZK-4977B6D6",
         "MOHV84M5-1825A399",
         "MQ683DMX-13D6C54F",
+        "MQ685YTP-4A9F2234",
+        "MQ6850LJ-159A667C",
         "MOQ5A1GS-413BDE6F",
         "MOP0S479-373A2268"
       ],
@@ -9365,7 +9485,7 @@
         "MOHCSO2P-2D88785B",
         "MOHE82UD-1D9C9B41",
         "MOHV84M5-1825A399",
-        "MOHD4STN-8490D410"
+        "MQ6850LJ-159A667C"
       ],
       "werkVoiceScore": 0.869996497978069,
       "corpusVoiceScore": 0.8184670176391102,

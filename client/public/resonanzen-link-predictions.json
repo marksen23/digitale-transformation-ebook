@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T05:53:18.798Z",
+  "generatedAt": "2026-06-09T05:54:35.761Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -17,6 +17,22 @@
         "MQ5XK9H2-8A6837CC",
         "MQ5XJ3VO-378AA1AB",
         "MQ5XH5A8-5FDB52C7"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "vernunft",
+      "cooccurrence": 5,
+      "endpoints": {
+        "analyse": 4,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MQ685YTP-4A9F2234",
+        "MQ6850LJ-159A667C",
+        "MQ684QZK-4977B6D6",
+        "MQ683DMX-13D6C54F",
+        "MOOMPCI0-262176C2"
       ]
     },
     {
@@ -128,19 +144,6 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
-      ]
-    },
-    {
-      "source": "resonanz",
-      "target": "vernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MQ683DMX-13D6C54F",
-        "MOOMPCI0-262176C2"
       ]
     },
     {
