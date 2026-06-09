@@ -1,7 +1,134 @@
 {
-  "generatedAt": "2026-06-09T04:57:37.781Z",
-  "count": 270,
+  "generatedAt": "2026-06-09T05:21:27.311Z",
+  "count": 273,
   "entries": [
+    {
+      "id": "MQ66ZDIF-61148F8E",
+      "ts": "2026-06-09T05:21:16.071Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bedeutet Resonanz im Verhaeltnis zur Entfremdung?",
+      "response": "Das Verhältnis von Resonanz und Entfremdung ist ein zentrales Spannungsfeld in \"Die Digitale Transformation\", das die Lebendigkeit unseres Weltverhältnisses grundiert. Resonanz, verstanden als der \"Grundmodus des Lebendigen\" [Resonanz], ist ein \"lebendiges Antwortgeschehen zwischen Selbst und Welt\" [Resonanzvernunft]. Sie setzt eine \"Eigenfrequenz\" [Resonanz] voraus und die Fähigkeit, für etwas \"ansprechbar\" [Resonanz] zu sein – ein Geschehen im \"Zwischen\" [Das Zwischen], das Berührung und Verwandlung einschließt. Die Entfremdung hingegen ist das Stummwerden dieses Zwischenraums. Sie wird treffend als \"ein stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet\" [fd3c7631edb2] beschrieben.\n\nDoch das Werk geht über eine bloße Dichotomie hinaus. Die Entfremdung ist nicht einfach das Gegenteil der Resonanz. Vielmehr wird sie als \"der Boden, auf dem Resonanz wachsen kann\" [fd3c7631edb2] verstanden. In diesem Sinne ist Entfremdung nicht die Negation der \"Welt\" [Daseinsfeld], sondern eine spezifische, verarmte Art, *in* ihr zu sein [resonanzId]. Die Stille der Entfremdung, das Ausbleiben einer Antwort, erzeugt eine Leere, die erst die Sehnsucht und die Möglichkeit einer erfüllten Antwort – der Resonanz – hörbar macht. Das Schweigen [Sprachfeld] der Entfremdung kann so den Raum öffnen, in dem das Ungesagte gehört und eine neue \"Stimme\" [Sprachfeld] gefunden werden kann.\n\nDiese Perspektive deutet darauf hin, dass die Entfremdung nicht einfach zu überwinden ist, sondern eine notwendige Bedingung für die Tiefe und Authentizität resonanter Erfahrung sein kann. Resonanz ist kein Zustand, der statisch erreicht wird, sondern ein ständiges \"Werden\" [Daseinsfeld], das \"Zeit\", \"Widerstand\" und \"das Risiko des Scheiterns\" [206c2c639b1a] braucht. Die Entfremdung bietet diesen Widerstand, diese Herausforderung. Sie erfordert eine \"Öffnung\" [Wandlungsfeld] des \"Selbst\" [Zwischenfeld] und eine tiefere \"Ansprechbarkeit\" [Antwort / Responsivität] gegenüber \"Das Andere / Die Anderen\" [Zwischenfeld], um das stumme Weltverhältnis in ein lebendiges Antwortgeschehen zu verwandeln.\n\nSo ist die Entfremdung weniger ein Endzustand als vielmehr ein schmerzhaftes Vorzeichen, das auf die Notwendigkeit von Resonanz verweist. Sie mahnt uns, unsere \"Ansprechbarkeit\" und \"Eigenfrequenz\" zu überprüfen, und fordert uns auf, das \"Sein\" [Daseinsfeld] nicht als gegeben, sondern als ein ständiges \"Sein-mit\" [Sein] zu begreifen. Wie können wir in einer zunehmend digitalisierten Welt, die sowohl Entfremdung als auch Echo-Kammern fördern kann, diese fruchtbare Spannung zwischen Stille und Klang bewusst gestalten, um echte Resonanz zu ermöglichen?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"4cc0ca00e047\",\"chapter\":\"glossar\",\"score\":0.897},{\"id\":\"fd3c7631edb2\",\"chapter\":\"glossar\",\"score\":0.889},{\"id\":\"MP9FAM1L-8970F371\",\"score\":0.841},{\"id\":\"206c2c639b1a\",\"chapter\":\"band3-kap4\",\"score\":0.806}]"
+      },
+      "related": [
+        "MQ5TTE84-08EB6321",
+        "MQ5TUQ9P-EF8C6D4B",
+        "MP9FAM1L-8970F371",
+        "MQ5KBJMQ-5C523141",
+        "MQ5JU3IG-CEA68B2F"
+      ],
+      "nearDuplicates": [
+        "MQ5TTE84-08EB6321",
+        "MQ5TUQ9P-EF8C6D4B",
+        "MP9FAM1L-8970F371"
+      ],
+      "werkVoiceScore": 0.8728515960347759,
+      "corpusVoiceScore": 0.845661212976759,
+      "conceptVoiceScore": 0.8388394572118721,
+      "conceptAnchor": "entfremdung"
+    },
+    {
+      "id": "MQ66YLSR-E54A179A",
+      "ts": "2026-06-09T05:20:40.155Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bedeutet Resonanz als Grundmodus des Lebendigen?",
+      "response": "Resonanz als \"Grundmodus des Lebendigen\" zu begreifen, bedeutet, das Wesen des Lebens nicht in isolierten Einheiten, sondern in einem fundamentalen Beziehungsgeschehen zu verorten. Es ist mehr als eine bloße Reaktion auf äußere Impulse; es ist eine existenzielle Art der Verbundenheit, die eine innere Verfasstheit des Lebendigen voraussetzt. Diese innere Verfasstheit wird als \"Eigenfrequenz\" bezeichnet: Wer keine eigene Frequenz hat, kann nicht schwingen, kann nicht wirklich in Resonanz treten. Es ist die einzigartige Melodie des Selbst, die erst die Möglichkeit schafft, auf bestimmte Weisen berührt zu werden und zu antworten.\n\nDie \"Eigenfrequenz\" des Lebendigen ist dabei kein statisches Merkmal, sondern konstituiert sich und entwickelt sich im dialogischen Verhältnis zur Welt und zum \"Anderen\". Wie die \"Ich-Du-Beziehung\" betont, entsteht das \"Selbst\" erst im Widerhall des Du. Resonanz ist somit ein aktiver Vorgang, der eine \"Ansprechbarkeit\" voraussetzt – die Fähigkeit und Bereitschaft, sich von etwas berühren zu lassen, es in sich widerhallen zu lassen und daraufhin eine eigene, veränderte Schwingung als \"Antwort\" zurückzugeben. Hier zeigt sich, dass Resonanz nicht passives Empfangen ist, sondern ein dynamisches, transformatives Geschehen, das das Lebendige prägt und fortwährend gestaltet.\n\nDieses resonante \"Antwortgeschehen\" findet immer im \"Zwischen\" statt, jenem produktiven Raum, der weder dem Selbst noch der Welt allein gehört. Es ist ein Geschehen, das \"Öffnung\" erfordert – die Bereitschaft, sich dem Unverfügbaren auszusetzen und sich vom Anderen affizieren zu lassen. Nur in dieser Haltung kann das \"Ungesagte\" hörbar werden, und nur so kann sich das \"Wesen\" des Menschen als \"ansprechbar zu sein\" entfalten. Resonanz ist somit der Kern des \"Werdens\", ein kontinuierlicher Prozess, in dem das Lebendige sich in Beziehung zur Welt immer wieder neu konstituiert und transformiert.\n\nWenn Resonanz der Grundmodus des Lebendigen ist, was bedeutet es dann für unsere Existenz, wenn die digitale Welt uns zunehmend in Algorithmen und Datenstrukturen fasst, die oft nur auf Reaktion und Wiederholung statt auf transformatives \"Antwortgeschehen\" ausgelegt sind?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9cd6b90ea2b1\",\"chapter\":\"schlussreflexion\",\"score\":0.787},{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.786},{\"id\":\"MPURLTCS-5FDDD890\",\"score\":0.785},{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.753}]"
+      },
+      "related": [
+        "MQ5JSSB0-16C72539",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5K97KT-75E9B3B8",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5JM1HD-9047C82F"
+      ],
+      "nearDuplicates": [
+        "MQ5JSSB0-16C72539",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5K97KT-75E9B3B8",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5JM1HD-9047C82F",
+        "MQ5JVGU3-EC732AC1",
+        "MQ5JRFRP-1662EB1A",
+        "MQ5JWSCZ-DA570048",
+        "MQ5K3NXJ-35B2897A",
+        "MQ5KMIN6-678A65B4",
+        "MQ66YAQY-1EC79621",
+        "MQ5K7UE1-BD2343A8",
+        "MQ5JZJS7-D1C1681C",
+        "MQ5KC1TP-0424F50A",
+        "MQ5JU3IG-CEA68B2F",
+        "MQ5K6GR6-D7B53D9B",
+        "MQ5K5256-50E71A1B",
+        "MQ5JY6XE-E3DF189F",
+        "MQ5K0ULD-2A29618C",
+        "MQ5KBJMQ-5C523141"
+      ],
+      "werkVoiceScore": 0.8753053625490976,
+      "corpusVoiceScore": 0.8024582288980561,
+      "conceptVoiceScore": 0.8720128346555658,
+      "conceptAnchor": "resonanz"
+    },
+    {
+      "id": "MQ66YAQY-1EC79621",
+      "ts": "2026-06-09T05:20:25.840Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was bedeutet Resonanz als Grundmodus des Lebendigen?",
+      "response": "Resonanz als „Grundmodus des Lebendigen“ bedeutet, dass das Schwingen, das Mitschwingen, das Aufeinander-Antworten nicht bloß eine mögliche Form der Interaktion ist, sondern die tiefste und wesentlichste Art und Weise, wie Lebendiges überhaupt existiert und sich zur Welt verhält. Es ist der konstitutive Herzschlag allen Seins, der dem bloßen Vorhandensein eine lebendige Qualität verleiht. Das Werk hebt hervor, dass Resonanz eben keine passive „Reaktion“ ist, die mechanisch auf einen Reiz erfolgt. Stattdessen setzt sie eine „Eigenfrequenz“ voraus – eine innere Verfasstheit, eine einzigartige Schwingung, die erst die Möglichkeit schafft, überhaupt für etwas „ansprechbar“ zu sein und in eine wechselseitige Beziehung zu treten. Ohne diese innere Bereitschaft und Fähigkeit kann keine echte Resonanz entstehen.\n\nDiese aktive und ermöglichende Qualität der Resonanz ist das Herzstück der „Resonanzvernunft“, die Vernunft nicht im isolierten Subjekt, sondern als „lebendiges Antwortgeschehen zwischen Selbst und Welt“ versteht. Resonanz geschieht immer „im Zwischen“, einem produktiven Ort der Begegnung, der weder in mir noch in dir, sondern zwischen uns entsteht. Es ist die Haltung der „Öffnung“, die diese Berührung erst möglich macht – die Bereitschaft, sich von der Welt „berühren“ zu lassen und selbst eine Antwort zu geben. Dies ist ein aktiver Vollzug, der über bloßes Verstehen oder Kalkulieren hinausgeht und das „Wesen“ des Menschen als ansprechbares Wesen konstituiert.\n\nIn diesem Sinne ist Resonanz die dynamische Lebensader, die uns mit der „Welt“ verbindet und unser „Dasein“ als „Sein-mit“ bestimmt. Die „Antwort / Responsivität“ ist dabei nicht nur eine Folge, sondern ein wesentlicher Aspekt der Resonanz selbst – ein tiefes, existenzielles Eingehen auf das, was uns begegnet. Die Abwesenheit dieser resonanten Verbundenheit führt zur „Entfremdung“, einem stummen Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet. Die Möglichkeit, Resonanz als Grundmodus zu erleben und zu pflegen, ist somit nicht nur eine Frage der Erkenntnis, sondern der Existenz selbst.\n\nWie können wir in einer zunehmend digitalisierten Welt, die oft auf schnelle Reaktionen und Informationsüberflutung setzt, die „Eigenfrequenz“ und „Ansprechbarkeit“ bewahren und kultivieren, die für diesen tiefen Grundmodus des Lebendigen unerlässlich sind?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9cd6b90ea2b1\",\"chapter\":\"schlussreflexion\",\"score\":0.787},{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.786},{\"id\":\"MPURLTCS-5FDDD890\",\"score\":0.785},{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.753}]"
+      },
+      "related": [
+        "MQ5K97KT-75E9B3B8",
+        "MQ5JM1HD-9047C82F",
+        "MQ5KC1TP-0424F50A",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5K7UE1-BD2343A8"
+      ],
+      "nearDuplicates": [
+        "MQ5K97KT-75E9B3B8",
+        "MQ5JM1HD-9047C82F",
+        "MQ5KC1TP-0424F50A",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5K7UE1-BD2343A8",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5JWSCZ-DA570048",
+        "MQ5KMIN6-678A65B4",
+        "MQ5JRFRP-1662EB1A",
+        "MQ5JSSB0-16C72539",
+        "MQ66YLSR-E54A179A",
+        "MQ5JZJS7-D1C1681C",
+        "MQ5K3NXJ-35B2897A",
+        "MQ5JVGU3-EC732AC1",
+        "MQ5JU3IG-CEA68B2F",
+        "MQ5K5256-50E71A1B",
+        "MQ5K6GR6-D7B53D9B",
+        "MQ5K0ULD-2A29618C",
+        "MQ5JY6XE-E3DF189F",
+        "MQ5KBJMQ-5C523141"
+      ],
+      "werkVoiceScore": 0.8628457751686271,
+      "corpusVoiceScore": 0.8038638216704554,
+      "conceptVoiceScore": 0.8737720153865112,
+      "conceptAnchor": "resonanz"
+    },
     {
       "id": "MQ5XNFSV-CD34905C",
       "ts": "2026-06-09T01:00:02.623Z",
@@ -676,13 +803,14 @@
       },
       "related": [
         "MQ5TTE84-08EB6321",
+        "MQ66ZDIF-61148F8E",
         "MP9FAM1L-8970F371",
         "MQ5JSSB0-16C72539",
-        "MQ5K5256-50E71A1B",
-        "MQ5KMIN6-678A65B4"
+        "MQ5K5256-50E71A1B"
       ],
       "nearDuplicates": [
-        "MQ5TTE84-08EB6321"
+        "MQ5TTE84-08EB6321",
+        "MQ66ZDIF-61148F8E"
       ],
       "werkVoiceScore": 0.8334699580194492,
       "corpusVoiceScore": 0.8242350028447074,
@@ -703,13 +831,14 @@
         "werk_passages": "[{\"id\":\"MP9FAM1L-8970F371\",\"score\":0.909},{\"id\":\"4cc0ca00e047\",\"chapter\":\"glossar\",\"score\":0.897},{\"id\":\"fd3c7631edb2\",\"chapter\":\"glossar\",\"score\":0.889},{\"id\":\"MP74X3EJ-72CDDB9F\",\"score\":0.772}]"
       },
       "related": [
+        "MQ66ZDIF-61148F8E",
         "MQ5TUQ9P-EF8C6D4B",
         "MP9FAM1L-8970F371",
         "MQ5KBJMQ-5C523141",
-        "MQ5K0ULD-2A29618C",
-        "MQ5JU3IG-CEA68B2F"
+        "MQ5K0ULD-2A29618C"
       ],
       "nearDuplicates": [
+        "MQ66ZDIF-61148F8E",
         "MQ5TUQ9P-EF8C6D4B"
       ],
       "werkVoiceScore": 0.849240282998908,
@@ -735,16 +864,18 @@
         "MQ5K7UE1-BD2343A8",
         "MQ5KAM5L-409E9F8E",
         "MQ5K97KT-75E9B3B8",
-        "MQ5JWSCZ-DA570048"
+        "MQ66YAQY-1EC79621"
       ],
       "nearDuplicates": [
         "MQ5JM1HD-9047C82F",
         "MQ5K7UE1-BD2343A8",
         "MQ5KAM5L-409E9F8E",
         "MQ5K97KT-75E9B3B8",
+        "MQ66YAQY-1EC79621",
         "MQ5JWSCZ-DA570048",
         "MQ5JRFRP-1662EB1A",
         "MQ5JSSB0-16C72539",
+        "MQ66YLSR-E54A179A",
         "MQ5KC1TP-0424F50A",
         "MQ5JZJS7-D1C1681C",
         "MQ5JVGU3-EC732AC1",
@@ -776,13 +907,14 @@
         "werk_passages": "[]"
       },
       "related": [
+        "MQ66YAQY-1EC79621",
         "MQ5KAM5L-409E9F8E",
         "MQ5K7UE1-BD2343A8",
         "MQ5K97KT-75E9B3B8",
-        "MQ5K288P-1A9D3ECE",
-        "MQ5JM1HD-9047C82F"
+        "MQ5K288P-1A9D3ECE"
       ],
       "nearDuplicates": [
+        "MQ66YAQY-1EC79621",
         "MQ5KAM5L-409E9F8E",
         "MQ5K7UE1-BD2343A8",
         "MQ5K97KT-75E9B3B8",
@@ -792,6 +924,7 @@
         "MQ5KMIN6-678A65B4",
         "MQ5JRFRP-1662EB1A",
         "MQ5JVGU3-EC732AC1",
+        "MQ66YLSR-E54A179A",
         "MQ5JWSCZ-DA570048",
         "MQ5K3NXJ-35B2897A",
         "MQ5K6GR6-D7B53D9B",
@@ -833,6 +966,8 @@
         "MQ5K288P-1A9D3ECE",
         "MQ5JY6XE-E3DF189F",
         "MQ5JWSCZ-DA570048",
+        "MQ66YAQY-1EC79621",
+        "MQ66YLSR-E54A179A",
         "MQ5JSSB0-16C72539",
         "MQ5K3NXJ-35B2897A",
         "MQ5K97KT-75E9B3B8",
@@ -881,12 +1016,14 @@
         "MQ5JSSB0-16C72539",
         "MQ5JRFRP-1662EB1A",
         "MQ5K6GR6-D7B53D9B",
+        "MQ66YLSR-E54A179A",
         "MQ5K288P-1A9D3ECE",
         "MQ5JVGU3-EC732AC1",
         "MQ5KMIN6-678A65B4",
         "MQ5K5256-50E71A1B",
         "MQ5JZJS7-D1C1681C",
         "MQ5KC1TP-0424F50A",
+        "MQ66YAQY-1EC79621",
         "MQ5K3NXJ-35B2897A",
         "MQ5JY6XE-E3DF189F",
         "MQ5JU3IG-CEA68B2F",
@@ -914,16 +1051,18 @@
       "related": [
         "MQ5JWSCZ-DA570048",
         "MQ5JM1HD-9047C82F",
+        "MQ66YAQY-1EC79621",
         "MQ5K7UE1-BD2343A8",
-        "MQ5KAM5L-409E9F8E",
-        "MQ5K288P-1A9D3ECE"
+        "MQ5KAM5L-409E9F8E"
       ],
       "nearDuplicates": [
         "MQ5JWSCZ-DA570048",
         "MQ5JM1HD-9047C82F",
+        "MQ66YAQY-1EC79621",
         "MQ5K7UE1-BD2343A8",
         "MQ5KAM5L-409E9F8E",
         "MQ5K288P-1A9D3ECE",
+        "MQ66YLSR-E54A179A",
         "MQ5K3NXJ-35B2897A",
         "MQ5JSSB0-16C72539",
         "MQ5KMIN6-678A65B4",
@@ -961,13 +1100,14 @@
         "MQ5KAM5L-409E9F8E",
         "MQ5K97KT-75E9B3B8",
         "MQ5JRFRP-1662EB1A",
-        "MQ5KMIN6-678A65B4"
+        "MQ66YAQY-1EC79621"
       ],
       "nearDuplicates": [
         "MQ5JM1HD-9047C82F",
         "MQ5KAM5L-409E9F8E",
         "MQ5K97KT-75E9B3B8",
         "MQ5JRFRP-1662EB1A",
+        "MQ66YAQY-1EC79621",
         "MQ5KMIN6-678A65B4",
         "MQ5JWSCZ-DA570048",
         "MQ5KC1TP-0424F50A",
@@ -975,6 +1115,7 @@
         "MQ5K3NXJ-35B2897A",
         "MQ5JSSB0-16C72539",
         "MQ5JZJS7-D1C1681C",
+        "MQ66YLSR-E54A179A",
         "MQ5K6GR6-D7B53D9B",
         "MQ5JVGU3-EC732AC1",
         "MQ5K5256-50E71A1B",
@@ -1019,9 +1160,11 @@
         "MQ5K3NXJ-35B2897A",
         "MQ5K7UE1-BD2343A8",
         "MQ5K5256-50E71A1B",
+        "MQ66YLSR-E54A179A",
         "MQ5JVGU3-EC732AC1",
         "MQ5JY6XE-E3DF189F",
         "MQ5KMIN6-678A65B4",
+        "MQ66YAQY-1EC79621",
         "MQ5KC1TP-0424F50A",
         "MQ5JZJS7-D1C1681C",
         "MQ5JU3IG-CEA68B2F",
@@ -1063,7 +1206,9 @@
         "MQ5K6GR6-D7B53D9B",
         "MQ5K7UE1-BD2343A8",
         "MQ5JSSB0-16C72539",
+        "MQ66YLSR-E54A179A",
         "MQ5JZJS7-D1C1681C",
+        "MQ66YAQY-1EC79621",
         "MQ5KMIN6-678A65B4",
         "MQ5K3NXJ-35B2897A",
         "MQ5JVGU3-EC732AC1",
@@ -1107,7 +1252,9 @@
         "MQ5KAM5L-409E9F8E",
         "MQ5K7UE1-BD2343A8",
         "MQ5K6GR6-D7B53D9B",
+        "MQ66YLSR-E54A179A",
         "MQ5JVGU3-EC732AC1",
+        "MQ66YAQY-1EC79621",
         "MQ5JRFRP-1662EB1A",
         "MQ5JSSB0-16C72539",
         "MQ5JZJS7-D1C1681C",
@@ -1139,19 +1286,21 @@
       "related": [
         "MQ5JRFRP-1662EB1A",
         "MQ5JM1HD-9047C82F",
+        "MQ66YAQY-1EC79621",
         "MQ5KAM5L-409E9F8E",
-        "MQ5K97KT-75E9B3B8",
-        "MQ5JWSCZ-DA570048"
+        "MQ5K97KT-75E9B3B8"
       ],
       "nearDuplicates": [
         "MQ5JRFRP-1662EB1A",
         "MQ5JM1HD-9047C82F",
+        "MQ66YAQY-1EC79621",
         "MQ5KAM5L-409E9F8E",
         "MQ5K97KT-75E9B3B8",
         "MQ5JWSCZ-DA570048",
         "MQ5JSSB0-16C72539",
         "MQ5JY6XE-E3DF189F",
         "MQ5K3NXJ-35B2897A",
+        "MQ66YLSR-E54A179A",
         "MQ5KC1TP-0424F50A",
         "MQ5K7UE1-BD2343A8",
         "MQ5K6GR6-D7B53D9B",
@@ -1183,13 +1332,15 @@
       },
       "related": [
         "MQ5JU3IG-CEA68B2F",
+        "MQ66YAQY-1EC79621",
+        "MQ66YLSR-E54A179A",
         "MQ5KBJMQ-5C523141",
-        "MQ5K97KT-75E9B3B8",
-        "MQ5JZJS7-D1C1681C",
-        "MQ5JWSCZ-DA570048"
+        "MQ5K97KT-75E9B3B8"
       ],
       "nearDuplicates": [
         "MQ5JU3IG-CEA68B2F",
+        "MQ66YAQY-1EC79621",
+        "MQ66YLSR-E54A179A",
         "MQ5KBJMQ-5C523141",
         "MQ5K97KT-75E9B3B8",
         "MQ5JZJS7-D1C1681C",
@@ -1242,8 +1393,10 @@
         "MQ5JVGU3-EC732AC1",
         "MQ5KC1TP-0424F50A",
         "MQ5JWSCZ-DA570048",
+        "MQ66YAQY-1EC79621",
         "MQ5K7UE1-BD2343A8",
         "MQ5KMIN6-678A65B4",
+        "MQ66YLSR-E54A179A",
         "MQ5JRFRP-1662EB1A",
         "MQ5K3NXJ-35B2897A",
         "MQ5K288P-1A9D3ECE",
@@ -1288,9 +1441,11 @@
         "MQ5K97KT-75E9B3B8",
         "MQ5K6GR6-D7B53D9B",
         "MQ5KAM5L-409E9F8E",
+        "MQ66YLSR-E54A179A",
         "MQ5JVGU3-EC732AC1",
         "MQ5JSSB0-16C72539",
         "MQ5JRFRP-1662EB1A",
+        "MQ66YAQY-1EC79621",
         "MQ5K5256-50E71A1B",
         "MQ5KC1TP-0424F50A",
         "MQ5JZJS7-D1C1681C",
@@ -1334,9 +1489,11 @@
         "MQ5K7UE1-BD2343A8",
         "MQ5JSSB0-16C72539",
         "MQ5K3NXJ-35B2897A",
+        "MQ66YAQY-1EC79621",
         "MQ5K6GR6-D7B53D9B",
         "MQ5JRFRP-1662EB1A",
         "MQ5KMIN6-678A65B4",
+        "MQ66YLSR-E54A179A",
         "MQ5JZJS7-D1C1681C",
         "MQ5JVGU3-EC732AC1",
         "MQ5JY6XE-E3DF189F",
@@ -1368,16 +1525,18 @@
         "MQ5K97KT-75E9B3B8",
         "MQ5JM1HD-9047C82F",
         "MQ5JRFRP-1662EB1A",
-        "MQ5JZJS7-D1C1681C"
+        "MQ66YLSR-E54A179A"
       ],
       "nearDuplicates": [
         "MQ5KAM5L-409E9F8E",
         "MQ5K97KT-75E9B3B8",
         "MQ5JM1HD-9047C82F",
         "MQ5JRFRP-1662EB1A",
+        "MQ66YLSR-E54A179A",
         "MQ5JZJS7-D1C1681C",
         "MQ5K3NXJ-35B2897A",
         "MQ5KMIN6-678A65B4",
+        "MQ66YAQY-1EC79621",
         "MQ5KC1TP-0424F50A",
         "MQ5K288P-1A9D3ECE",
         "MQ5JWSCZ-DA570048",
@@ -1410,14 +1569,16 @@
       },
       "related": [
         "MQ5K0ULD-2A29618C",
+        "MQ66YLSR-E54A179A",
         "MQ5KBJMQ-5C523141",
-        "MQ5JSSB0-16C72539",
-        "MQ5K97KT-75E9B3B8",
-        "MQ5K288P-1A9D3ECE"
+        "MQ66YAQY-1EC79621",
+        "MQ5JSSB0-16C72539"
       ],
       "nearDuplicates": [
         "MQ5K0ULD-2A29618C",
+        "MQ66YLSR-E54A179A",
         "MQ5KBJMQ-5C523141",
+        "MQ66YAQY-1EC79621",
         "MQ5JSSB0-16C72539",
         "MQ5K97KT-75E9B3B8",
         "MQ5K288P-1A9D3ECE",
@@ -1455,13 +1616,14 @@
         "werk_passages": "[]"
       },
       "related": [
+        "MQ66YLSR-E54A179A",
         "MQ5KAM5L-409E9F8E",
         "MQ5K288P-1A9D3ECE",
         "MQ5K97KT-75E9B3B8",
-        "MQ5JWSCZ-DA570048",
-        "MQ5JM1HD-9047C82F"
+        "MQ5JWSCZ-DA570048"
       ],
       "nearDuplicates": [
+        "MQ66YLSR-E54A179A",
         "MQ5KAM5L-409E9F8E",
         "MQ5K288P-1A9D3ECE",
         "MQ5K97KT-75E9B3B8",
@@ -1471,6 +1633,7 @@
         "MQ5K6GR6-D7B53D9B",
         "MQ5K7UE1-BD2343A8",
         "MQ5KMIN6-678A65B4",
+        "MQ66YAQY-1EC79621",
         "MQ5K3NXJ-35B2897A",
         "MQ5K5256-50E71A1B",
         "MQ5JVGU3-EC732AC1",
@@ -1515,7 +1678,9 @@
         "MQ5K97KT-75E9B3B8",
         "MQ5JSSB0-16C72539",
         "MQ5JWSCZ-DA570048",
+        "MQ66YAQY-1EC79621",
         "MQ5K6GR6-D7B53D9B",
+        "MQ66YLSR-E54A179A",
         "MQ5KMIN6-678A65B4",
         "MQ5KC1TP-0424F50A",
         "MQ5K3NXJ-35B2897A",
@@ -1548,13 +1713,14 @@
         "MQ5KAM5L-409E9F8E",
         "MQ5K7UE1-BD2343A8",
         "MQ5K97KT-75E9B3B8",
-        "MQ5JRFRP-1662EB1A",
-        "MQ5JWSCZ-DA570048"
+        "MQ66YAQY-1EC79621",
+        "MQ5JRFRP-1662EB1A"
       ],
       "nearDuplicates": [
         "MQ5KAM5L-409E9F8E",
         "MQ5K7UE1-BD2343A8",
         "MQ5K97KT-75E9B3B8",
+        "MQ66YAQY-1EC79621",
         "MQ5JRFRP-1662EB1A",
         "MQ5JWSCZ-DA570048",
         "MQ5K288P-1A9D3ECE",
@@ -1563,6 +1729,7 @@
         "MQ5K6GR6-D7B53D9B",
         "MQ5JSSB0-16C72539",
         "MQ5K3NXJ-35B2897A",
+        "MQ66YLSR-E54A179A",
         "MQ5JZJS7-D1C1681C",
         "MQ5KC1TP-0424F50A",
         "MQ5K5256-50E71A1B",
@@ -1593,10 +1760,10 @@
       },
       "related": [
         "MQ5JVGU3-EC732AC1",
+        "MQ66YLSR-E54A179A",
         "MQ5JRFRP-1662EB1A",
         "MQ5KC1TP-0424F50A",
-        "MQ5JZJS7-D1C1681C",
-        "MQ5KAM5L-409E9F8E"
+        "MQ5JZJS7-D1C1681C"
       ],
       "werkVoiceScore": 0.8491109092924367,
       "corpusVoiceScore": 0.8001168772810445,
@@ -3543,7 +3710,7 @@
         "MQ5K0ULD-2A29618C",
         "MQ5JU3IG-CEA68B2F",
         "MQ5JWSCZ-DA570048",
-        "MQ5KC1TP-0424F50A"
+        "MQ66YAQY-1EC79621"
       ],
       "nearDuplicates": [
         "MQ5KBJMQ-5C523141",
@@ -5257,11 +5424,14 @@
       "ai_score_at": "2026-05-26T11:16:49.166Z",
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
+        "MQ66ZDIF-61148F8E",
         "MQ5TTE84-08EB6321",
         "MQ5TUQ9P-EF8C6D4B",
         "MOHM21Y5-A3B5F539",
-        "MOOZHCUT-4B86F8AD",
-        "MPMROCH7-EB9E6A9A"
+        "MOOZHCUT-4B86F8AD"
+      ],
+      "nearDuplicates": [
+        "MQ66ZDIF-61148F8E"
       ],
       "werkVoiceScore": 0.8800647694954019,
       "corpusVoiceScore": 0.8118187412488284,
@@ -5538,9 +5708,9 @@
       "related": [
         "MP756UV9-FF3838F7",
         "MP74X3EJ-72CDDB9F",
+        "MQ66ZDIF-61148F8E",
         "MQ5TTE84-08EB6321",
-        "MOHAREIB-E15E7BF8",
-        "MOIXN434-9D5CBFC0"
+        "MOHAREIB-E15E7BF8"
       ],
       "werkVoiceScore": 0.8665776640606474,
       "corpusVoiceScore": 0.8272952107217729,

@@ -1,22 +1,22 @@
 {
   "date": "2026-06-09",
-  "generatedAt": "2026-06-09T04:56:46.721Z",
-  "commit": "67dfa031133c72ee8a659bdb3e2a54aa3fe8f4e7",
-  "filesChecked": 270,
+  "generatedAt": "2026-06-09T05:20:48.814Z",
+  "commit": "81c4ee54962a05851723dc75eae69e36451aca59",
+  "filesChecked": 271,
   "aggregates": {
     "byEndpoint": {
       "analyse": 58,
       "chapter": 28,
       "dialog": 44,
       "enkidu": 55,
-      "graph-chat": 47,
+      "graph-chat": 48,
       "path-analyse": 36,
       "translate": 2
     },
     "byStatus": {
       "published": 119,
       "rejected": 3,
-      "raw": 146,
+      "raw": 147,
       "approved": 2
     },
     "orphanNodeIds": []
