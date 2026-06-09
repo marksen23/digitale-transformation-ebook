@@ -1,10 +1,12 @@
 {
-  "generatedAt": "2026-06-09T05:22:44.638Z",
+  "generatedAt": "2026-06-09T05:43:49.142Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
       "endpoint": "dialog",
       "variantIds": [
+        "MQ67RC88-9D183BCA",
+        "MQ67R74M-A1AA4B53",
         "MQ5JL9TM-83E39C42",
         "MQ5IO9GO-C29E0F4E",
         "MQ5C9KIC-83A23F97",
@@ -28,7 +30,7 @@
         "MQ5BMN6X-42C6D4EF",
         "MQ5BF409-A842738E"
       ],
-      "lastVariantTs": "2026-06-08T18:26:26.938Z",
+      "lastVariantTs": "2026-06-09T05:43:00.776Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
