@@ -346,7 +346,36 @@ function ParagraphBlock({
   resonanzen?: ResonanzEntry[]; isExpanded: boolean; onToggle: () => void;
   fontScale?: number; bodyFont?: string;
 }) {
-  const count = resonanzen?.length ?? 0;
+  // Kanon-Akkretion (Phase 5): kuratierte Erkenntnisse (approved/published) sind
+  // „Weiterführungen" — sie haben den Schutzwall passiert und lagern sich als
+  // Kanon an die Stelle an. Rohe Einträge bleiben „Spuren" (faint).
+  const all = resonanzen ?? [];
+  const curated = all.filter(r => r.status === "approved" || r.status === "published");
+  const others = all.filter(r => r.status !== "approved" && r.status !== "published");
+  const count = all.length;
+  const hasCurated = curated.length > 0;
+
+  function renderEntry(r: ResonanzEntry, emphasized: boolean) {
+    return (
+      <div key={r.id} style={{ marginBottom: "0.7rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: emphasized ? C.text : C.textDim, lineHeight: 1.55, opacity: emphasized ? 1 : 0.88 }}>
+        {r.response.slice(0, 280)}{r.response.length > 280 ? "…" : ""}
+        <span style={{ display: "block", marginTop: "0.2rem", fontSize: "0.65rem", color: C.muted, fontStyle: "italic" }}>
+          — {new Date(r.ts).toLocaleDateString("de-DE", { month: "long", day: "numeric", year: "numeric" })}
+          {!emphasized && r.status !== "published" && r.status !== "approved" && (
+            <span title="Status" style={{ marginLeft: "0.4rem", opacity: 0.7 }}>· {r.status}</span>
+          )}
+          <a
+            href={`/resonanz/${r.id}`}
+            style={{ marginLeft: "0.5rem", color: emphasized ? C.accent : C.muted, textDecoration: "underline", textDecorationStyle: "dotted", textUnderlineOffset: "3px" }}
+            title="Permalink-Seite mit vollem Text + Zitier-Daten öffnen"
+          >
+            ↗ ansehen
+          </a>
+        </span>
+      </div>
+    );
+  }
+
   return (
     <div style={{ position: "relative", marginBottom: "1.2rem" }}>
       <p
@@ -365,47 +394,49 @@ function ParagraphBlock({
       {count > 0 && (
         <button
           onClick={onToggle}
-          title={`${count} Gedanke${count === 1 ? "" : "n"} knüpfen an dieser Stelle an`}
+          title={hasCurated
+            ? `${curated.length} Weiterführung${curated.length === 1 ? "" : "en"}${others.length > 0 ? ` · ${others.length} Spur${others.length === 1 ? "" : "en"}` : ""} an dieser Stelle`
+            : `${count} Gedanke${count === 1 ? "" : "n"} knüpfen an dieser Stelle an`}
           aria-expanded={isExpanded}
           style={{
             position: "absolute", top: "0.1rem", right: 0,
             fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
-            color: isExpanded ? C.accent : C.muted,
+            color: (isExpanded || hasCurated) ? C.accent : C.muted,
             background: "none", border: "none",
             padding: "0.1rem 0.25rem",
             cursor: "pointer",
-            opacity: isExpanded ? 1 : 0.75,
+            opacity: isExpanded ? 1 : (hasCurated ? 0.9 : 0.75),
             transition: "opacity 0.15s, color 0.15s",
             lineHeight: 1,
           }}
           onMouseEnter={e => { if (!isExpanded) { e.currentTarget.style.opacity = "1"; e.currentTarget.style.color = String(C.accent); } }}
-          onMouseLeave={e => { if (!isExpanded) { e.currentTarget.style.opacity = "0.75"; e.currentTarget.style.color = String(C.muted); } }}
+          onMouseLeave={e => { if (!isExpanded) { e.currentTarget.style.opacity = hasCurated ? "0.9" : "0.75"; e.currentTarget.style.color = String(hasCurated ? C.accent : C.muted); } }}
         >
-          {isExpanded ? "◆" : "◇"} {count}
+          {(isExpanded || hasCurated) ? "◆" : "◇"} {count}
         </button>
       )}
       {/* W1: Expanded-Block als Fußnoten-Italic statt Mono-Caps-Label.
           Konsistent mit D3 „QUELLEN IM WERK"-Pattern. */}
-      {isExpanded && resonanzen && (
+      {isExpanded && all.length > 0 && (
         <div style={{ marginTop: "0.6rem", paddingLeft: "0.9rem", borderLeft: `2px solid ${C.accent}66` }}>
-          {resonanzen.map(r => (
-            <div key={r.id} style={{ marginBottom: "0.7rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text, lineHeight: 1.55 }}>
-              {r.response.slice(0, 280)}{r.response.length > 280 ? "…" : ""}
-              <span style={{ display: "block", marginTop: "0.2rem", fontSize: "0.65rem", color: C.muted, fontStyle: "italic" }}>
-                — {new Date(r.ts).toLocaleDateString("de-DE", { month: "long", day: "numeric", year: "numeric" })}
-                {r.status !== "published" && r.status !== "approved" && (
-                  <span title="Status" style={{ marginLeft: "0.4rem", opacity: 0.7 }}>· {r.status}</span>
-                )}
-                <a
-                  href={`/resonanz/${r.id}`}
-                  style={{ marginLeft: "0.5rem", color: C.muted, textDecoration: "underline", textDecorationStyle: "dotted", textUnderlineOffset: "3px" }}
-                  title="Permalink-Seite mit vollem Text + Zitier-Daten öffnen"
-                >
-                  ↗ ansehen
-                </a>
-              </span>
-            </div>
-          ))}
+          {curated.length > 0 && (
+            <>
+              <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.accent, marginBottom: "0.4rem" }}>
+                ❦ Weiterführungen
+              </div>
+              {curated.map(r => renderEntry(r, true))}
+            </>
+          )}
+          {others.length > 0 && (
+            <>
+              {curated.length > 0 && (
+                <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, margin: "0.6rem 0 0.4rem" }}>
+                  weitere Spuren
+                </div>
+              )}
+              {others.map(r => renderEntry(r, false))}
+            </>
+          )}
         </div>
       )}
     </div>
