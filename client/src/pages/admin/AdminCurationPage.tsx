@@ -28,6 +28,7 @@ function notifyIndexStale() {
 }
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import ActionLogPanel from "@/components/admin/ActionLogPanel";
+import ProposeConceptPanel from "@/components/admin/ProposeConceptPanel";
 import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
@@ -651,6 +652,9 @@ export default function AdminCurationPage() {
           </div>
         )}
       </Section>
+
+      {/* Begriffsnetz-Wachstum: neue Begriffe vorschlagen (Phase 5c) */}
+      <ProposeConceptPanel C={C} />
 
       {/* Auto-Kuratierung — kontrollierte Selbst-Erweiterung */}
       <Section title="Auto-Kuratierung — Korpus sicher selbst erweitern" c={C}>

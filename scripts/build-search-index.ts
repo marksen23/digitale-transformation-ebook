@@ -78,6 +78,23 @@ async function main(): Promise<void> {
       id: n.id,
       text: `${n.fullLabel ?? n.label}: ${n.description}`,
     }));
+  // Phase 5c: in den Kanon erhobene neue Begriffe (concept-nodes.json) mit-
+  // embedden → conceptVoiceScore (5a) bezieht sie automatisch ein.
+  try {
+    const dynPath = path.join(ROOT, "client/public/concept-nodes.json");
+    if (fs.existsSync(dynPath)) {
+      const dyn = JSON.parse(fs.readFileSync(dynPath, "utf-8")) as { nodes?: Array<{ id: string; fullLabel?: string; label?: string; description?: string }> };
+      let added = 0;
+      for (const n of dyn.nodes ?? []) {
+        if (!n.description?.trim() || conceptItems.some(c => c.id === n.id)) continue;
+        conceptItems.push({ id: n.id, text: `${n.fullLabel ?? n.label}: ${n.description}` });
+        added++;
+      }
+      if (added > 0) console.log(`[build-search-index] + ${added} dynamische Begriffe (concept-nodes.json)`);
+    }
+  } catch (err) {
+    console.warn(`[build-search-index] concept-nodes.json nicht ladbar: ${err instanceof Error ? err.message : err}`);
+  }
   console.log(`[build-search-index] concepts: ${conceptItems.length} zu embedden`);
   const conceptEmbeddings = await embedAll(conceptItems, "concepts");
   fs.writeFileSync(CONCEPTS_OUT, JSON.stringify({

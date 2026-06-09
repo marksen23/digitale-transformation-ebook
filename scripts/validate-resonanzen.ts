@@ -154,6 +154,16 @@ async function loadValidNodeIds(): Promise<Set<string>> {
   const re = /\bid\s*:\s*["']([a-z0-9äöüß_+-]+)["']/g;
   let m: RegExpExecArray | null;
   while ((m = re.exec(txt)) !== null) ids.add(m[1]);
+  // Phase 5c: in den Kanon erhobene neue Begriffe (concept-nodes.json) als
+  // gültige nodeIds anerkennen — sonst gälten Einträge, die sie referenzieren,
+  // als „orphan".
+  try {
+    const dynPath = path.join(ROOT, "client/public/concept-nodes.json");
+    if (fs.existsSync(dynPath)) {
+      const dyn = JSON.parse(fs.readFileSync(dynPath, "utf-8")) as { nodes?: Array<{ id?: string }> };
+      for (const n of dyn.nodes ?? []) if (n.id) ids.add(n.id);
+    }
+  } catch { /* fail-soft: dynamische Knoten optional */ }
   return ids;
 }
 
