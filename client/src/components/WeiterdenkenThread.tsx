@@ -18,9 +18,11 @@ import { useMemo, useState } from "react";
 import type { Palette } from "@/lib/theme";
 import { MONO, SERIF } from "@/lib/theme";
 import { track } from "@/lib/trajectory";
+import CitedSourcesFooter, { type CitedSource } from "@/components/CitedSourcesFooter";
+import { saveThread, type ThreadStep } from "@/lib/threadStore";
 
 type EntryKind = "frage" | "leser" | "ki";
-interface Entry { kind: EntryKind; text: string }
+interface Entry { kind: EntryKind; text: string; citedChunks?: CitedSource[] }
 
 interface WeiterdenkenThreadProps {
   c: Palette;
@@ -29,13 +31,23 @@ interface WeiterdenkenThreadProps {
   /** Anchor-Fokus (z.B. nodeIds joined mit "+") für RAG + Korpus-Log. */
   focus?: string;
   focusedNodeIds?: string[];
+  /** Resume: vorbestehende Schritte eines gespeicherten Fadens. */
+  initialEntries?: Entry[];
+  /** Resume: id des gespeicherten Fadens (Updates statt Duplikat). */
+  threadId?: string;
 }
 
-export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedNodeIds }: WeiterdenkenThreadProps) {
-  const [entries, setEntries] = useState<Entry[]>([{ kind: "frage", text: initialQuestion.trim() }]);
+export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedNodeIds, initialEntries, threadId }: WeiterdenkenThreadProps) {
+  const [entries, setEntries] = useState<Entry[]>(
+    initialEntries && initialEntries.length > 0
+      ? initialEntries
+      : [{ kind: "frage", text: initialQuestion.trim() }],
+  );
   const [draft, setDraft] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [savedId, setSavedId] = useState<string | null>(threadId ?? null);
+  const [justSaved, setJustSaved] = useState(false);
 
   const last = entries[entries.length - 1];
 
@@ -74,11 +86,13 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
       if (!res.ok) { setError(data.error ?? `Fehler ${res.status}`); return; }
       const reflection = String(data.reflection ?? "").trim();
       const nextQuestion = String(data.nextQuestion ?? "").trim();
+      const cited: CitedSource[] = Array.isArray(data.citedChunks) ? data.citedChunks : [];
       setEntries(prev => {
-        const next = [...prev, { kind: "ki" as const, text: reflection || "(keine Reflexion)" }];
+        const next: Entry[] = [...prev, { kind: "ki" as const, text: reflection || "(keine Reflexion)", citedChunks: cited }];
         if (nextQuestion) next.push({ kind: "frage", text: nextQuestion });
         return next;
       });
+      setJustSaved(false);
       track({ type: "weiterdenken-step" });
     } catch (err) {
       setError(err instanceof Error ? err.message : String(err));
@@ -92,8 +106,32 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
     if (!text || lastQuestionIdx < 0) return;
     setEntries(prev => [...prev, { kind: "leser", text }]);
     setDraft("");
+    setJustSaved(false);
     track({ type: "weiterdenken-step" });
   }
+
+  /** Faden in „Mein Werk" sichern — fortsetzbar + wiederauffindbar. */
+  function handleSave() {
+    const steps: ThreadStep[] = entries.map(e => ({
+      kind: e.kind,
+      text: e.text,
+      werkAnchors: (e.citedChunks ?? [])
+        .filter(s => s.source !== "resonanz")
+        .map(s => ({ chunkId: s.id, partTitle: s.partTitle, chapterTitle: s.chapterTitle })),
+    }));
+    const saved = saveThread({
+      id: savedId ?? undefined,
+      rootQuestion: initialQuestion.trim() || entries[0]?.text || "",
+      steps,
+      focus,
+      focusedNodeIds,
+    });
+    setSavedId(saved.id);
+    setJustSaved(true);
+  }
+
+  /** Faden hat mind. einen weitergesponnenen Schritt (nicht nur die Saat-Frage). */
+  const hasProgress = entries.length > 1;
 
   return (
     <div style={{ marginTop: "0.9rem", paddingTop: "0.7rem", borderTop: `1px solid ${c.border}` }}>
@@ -131,6 +169,9 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
                   {para.trim()}
                 </p>
               ))}
+              {!isLeser && e.citedChunks && e.citedChunks.length > 0 && (
+                <CitedSourcesFooter sources={e.citedChunks} c={c} />
+              )}
             </div>
           );
         })}
@@ -183,6 +224,29 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
           </div>
         )}
       </div>
+
+      {/* Faden sichern — wiederauffindbar + fortsetzbar in „Mein Werk". */}
+      {hasProgress && (
+        <div style={{ marginTop: "0.7rem", paddingTop: "0.5rem", borderTop: `1px dashed ${c.border}`, display: "flex", alignItems: "center", gap: "0.5rem" }}>
+          <button
+            onClick={handleSave}
+            style={{
+              fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
+              color: justSaved ? "#7ab898" : c.textDim,
+              background: "none", border: `1px solid ${justSaved ? "#7ab898" : c.border}`,
+              padding: "0.35rem 0.65rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
+            }}
+            title={savedId ? "Gespeicherten Faden aktualisieren" : "Faden in Mein Werk sichern"}
+          >
+            {justSaved ? "✓ gesichert" : savedId ? "✦ aktualisieren" : "✦ Faden sichern"}
+          </button>
+          {justSaved && (
+            <a href="/mein-werk" style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.7rem", color: c.accent, textDecoration: "underline", textDecorationStyle: "dotted" }}>
+              in Mein Werk ansehen
+            </a>
+          )}
+        </div>
+      )}
     </div>
   );
 }

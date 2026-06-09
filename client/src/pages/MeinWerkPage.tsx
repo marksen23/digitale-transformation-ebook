@@ -12,10 +12,14 @@ import { NODES } from "@/data/conceptGraph";
 import { useTheme } from "@/contexts/ThemeContext";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import SectionLabel from "@/components/SectionLabel";
+import WeiterdenkenThread from "@/components/WeiterdenkenThread";
 import {
   getTrajectory, getStats, topNodes, unvisitedFrom,
   resetTrajectory, setOptOut, type Trajectory,
 } from "@/lib/trajectory";
+import {
+  listThreads, openQuestions, deleteThread, type SavedThread,
+} from "@/lib/threadStore";
 
 export default function MeinWerkPage() {
   const { theme } = useTheme();
@@ -23,8 +27,22 @@ export default function MeinWerkPage() {
   const [, navigate] = useLocation();
   const [t, setT] = useState<Trajectory | null>(null);
   const [confirmReset, setConfirmReset] = useState(false);
+  const [threads, setThreads] = useState<SavedThread[]>([]);
+  const [openQ, setOpenQ] = useState<Array<{ threadId: string; question: string; updatedAt: string }>>([]);
+  const [expandedThread, setExpandedThread] = useState<string | null>(null);
 
-  useEffect(() => { setT(getTrajectory()); }, []);
+  function refreshThreads() {
+    setThreads(listThreads());
+    setOpenQ(openQuestions());
+  }
+
+  useEffect(() => { setT(getTrajectory()); refreshThreads(); }, []);
+
+  function handleDeleteThread(id: string) {
+    deleteThread(id);
+    if (expandedThread === id) setExpandedThread(null);
+    refreshThreads();
+  }
 
   const stats = useMemo(() => t ? getStats() : null, [t]);
   const top = useMemo(() => topNodes(8), [t]);
@@ -97,9 +115,77 @@ export default function MeinWerkPage() {
               <Stat label="Passagen markiert"   value={stats.passageCount} C={C} />
               <Stat label="Resonanzen geöffnet" value={stats.expandedCount} C={C} />
               <Stat label="Dialoge geführt"     value={stats.dialogSessions} C={C} />
+              <Stat label="Weitergedacht"       value={stats.weiterdenkenSteps} C={C} />
               <Stat label="Tage aktiv"          value={stats.daysActive} C={C} />
             </div>
           </section>
+
+          {/* Meine Gedankengänge — gespeicherte Weiterdenken-Fäden + offene Fragen */}
+          {(threads.length > 0 || openQ.length > 0) && (
+            <section style={{ marginBottom: "1.5rem" }}>
+              <SectionLabel c={C} size="sm" tracking="open" variant="arbeit">Meine Gedankengänge</SectionLabel>
+              <p style={{ marginTop: "0.3rem", fontFamily: SERIF, fontStyle: "italic", color: C.textDim, fontSize: "0.85rem", lineHeight: 1.5 }}>
+                Fäden, die du an offenen Fragen weitergesponnen hast — fortsetzbar, jederzeit.
+              </p>
+
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem", marginTop: "0.6rem" }}>
+                {threads.map(thread => {
+                  const isOpen = expandedThread === thread.id;
+                  const lastIsQuestion = thread.steps[thread.steps.length - 1]?.kind === "frage";
+                  return (
+                    <div key={thread.id} style={{ border: `1px solid ${C.border}`, background: C.deep, padding: "0.6rem 0.7rem" }}>
+                      <div style={{ display: "flex", justifyContent: "space-between", gap: "0.6rem", alignItems: "flex-start" }}>
+                        <div style={{ flex: 1 }}>
+                          <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.86rem", color: C.textBright, lineHeight: 1.45 }}>
+                            {thread.rootQuestion}
+                          </div>
+                          <div style={{ fontFamily: MONO, fontSize: "0.5rem", color: C.muted, marginTop: "0.25rem", letterSpacing: "0.06em" }}>
+                            {thread.steps.length} Schritte · {new Date(thread.updatedAt).toLocaleDateString("de-DE", { day: "numeric", month: "short" })}
+                            {lastIsQuestion ? " · offene Frage" : ""}
+                          </div>
+                        </div>
+                        <div style={{ display: "flex", gap: "0.3rem", flexShrink: 0 }}>
+                          <button onClick={() => setExpandedThread(isOpen ? null : thread.id)} style={miniBtn(C, C.accent)}>
+                            {isOpen ? "schließen" : "fortsetzen"}
+                          </button>
+                          <button onClick={() => handleDeleteThread(thread.id)} style={miniBtn(C, "#c48282")} title="Faden löschen">⌫</button>
+                        </div>
+                      </div>
+                      {isOpen && (
+                        <WeiterdenkenThread
+                          c={C}
+                          initialQuestion={thread.rootQuestion}
+                          initialEntries={thread.steps.map(s => ({ kind: s.kind, text: s.text }))}
+                          threadId={thread.id}
+                          focus={thread.focus}
+                          focusedNodeIds={thread.focusedNodeIds}
+                        />
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+
+              {openQ.length > 0 && (
+                <div style={{ marginTop: "0.9rem" }}>
+                  <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: "0.35rem" }}>
+                    Offene Fragen — warten auf dich
+                  </div>
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                    {openQ.map(q => (
+                      <button
+                        key={q.threadId}
+                        onClick={() => setExpandedThread(q.threadId)}
+                        style={{ textAlign: "left", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.8rem", color: C.textDim, background: "none", border: `1px dashed ${C.border}`, borderLeft: `2px solid ${C.accentDim}`, padding: "0.4rem 0.6rem", cursor: "pointer", lineHeight: 1.45 }}
+                      >
+                        {q.question}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </section>
+          )}
 
           {/* Top-Knoten */}
           {top.length > 0 && (
@@ -237,6 +323,14 @@ export default function MeinWerkPage() {
       </section>
     </div>
   );
+}
+
+function miniBtn(C: Palette, color: string): React.CSSProperties {
+  return {
+    fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase",
+    color, background: "none", border: `1px solid ${color}`,
+    padding: "0.3rem 0.5rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
+  };
 }
 
 function Stat({ label, value, C }: { label: string; value: number; C: Palette }) {

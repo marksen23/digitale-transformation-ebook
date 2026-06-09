@@ -19,6 +19,7 @@ import ResonanzenBlock from "@/components/ResonanzenBlock";
 import CategoryLegendButton from "@/components/CategoryLegendButton";
 import LegendSection from "@/components/LegendSection";
 import ToolOutputPanel from "@/components/ToolOutputPanel";
+import CitedSourcesFooter from "@/components/CitedSourcesFooter";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -446,7 +447,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
   // Graph-Chat (= Multi-Turn-Dialog, Tier-1-3-Roadmap Feature B)
   const [chatOpen, setChatOpen] = useState(false);
-  const [chatHistory, setChatHistory] = useState<Array<{ role: "user" | "model"; text: string }>>([]);
+  const [chatHistory, setChatHistory] = useState<Array<{ role: "user" | "model"; text: string; citedChunks?: CitedSource[] }>>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
   // Persist-Tracking: welche AI-Turns sind schon ins Korpus aufgenommen?
@@ -794,7 +795,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       });
       const data = await r.json();
       const reply = data.reply ?? data.error ?? "Keine Antwort.";
-      setChatHistory(h => [...h, { role: "model", text: reply }]);
+      const cited: CitedSource[] = Array.isArray(data.citedChunks) ? data.citedChunks : [];
+      setChatHistory(h => [...h, { role: "model", text: reply, citedChunks: cited }]);
     } catch {
       setChatHistory(h => [...h, { role: "model", text: "Verbindungsfehler — bitte erneut versuchen." }]);
     } finally {
@@ -2960,17 +2962,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         {para.trim()}
                       </p>
                     ))}
-                    {pathCitedChunks.length > 0 && (
-                      <div style={{ marginTop: "0.8rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.serif, fontSize: "0.72rem", fontStyle: "italic", color: C.textDim, lineHeight: 1.55 }}>
-                        {pathCitedChunks.map(c => (
-                          <div key={c.id} style={{ marginBottom: "0.15rem" }} title={`${c.source ?? "werk"}: ${c.id}`}>
-                            {c.source === "resonanz"
-                              ? <>↩ frühere Begegnung <a href={`/resonanz/${c.id}`} style={{ color: C.accent, textDecoration: "underline", textDecorationStyle: "dotted" }}>{c.prompt?.slice(0, 60)}{(c.prompt?.length ?? 0) > 60 ? "…" : ""}</a></>
-                              : <>↩ {c.partTitle} · {c.chapterTitle}</>}
-                          </div>
-                        ))}
-                      </div>
-                    )}
+                    <CitedSourcesFooter sources={pathCitedChunks} c={C} serifFont={C.serif} />
                   </div>
                 )}
 
@@ -3094,15 +3086,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       {para.trim()}
                     </p>
                   ))}
-                  {analyseCitedChunks.length > 0 && (
-                    <div style={{ marginTop: "0.8rem", paddingTop: "0.5rem", borderTop: `1px dashed ${C.border}`, fontFamily: C.serif, fontSize: "0.72rem", fontStyle: "italic", color: C.textDim, lineHeight: 1.55 }}>
-                      {analyseCitedChunks.map(c => (
-                        <div key={c.id} style={{ marginBottom: "0.15rem" }} title={`chunkId: ${c.id}`}>
-                          ↩ {c.partTitle} · {c.chapterTitle}
-                        </div>
-                      ))}
-                    </div>
-                  )}
+                  <CitedSourcesFooter sources={analyseCitedChunks} c={C} serifFont={C.serif} />
                   {/* Weiterdenken: die Schlussfrage der Analyse als Saatkorn eines
                       rekursiven Fadens. key bindet den Faden an das aktuelle
                       Resultat — neue Analyse = frischer Faden. */}
@@ -3157,6 +3141,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         {para.trim()}
                       </p>
                     ))}
+                    {/* Quellen im Werk — was diese Antwort geerdet hat. */}
+                    <CitedSourcesFooter sources={msg.citedChunks ?? []} c={C} serifFont={C.serif} />
                     {/* Feature B: pro AI-Turn ein "In Korpus aufnehmen"-Hint.
                         D3: subtle reveal — kein Border, kein Mono-Caps; nur
                         ein dezenter Italic-Link, mint nach Persistenz. */}
