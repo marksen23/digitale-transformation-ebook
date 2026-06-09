@@ -206,6 +206,12 @@ export default function WerkPage() {
     [chapterChunks],
   );
 
+  // Standard-eBook-Verhalten: bei Kapitelwechsel an den Seitenanfang scrollen
+  // (sonst bleibt man mitten im neuen Kapitel hängen — „läuft nicht rund").
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: "auto" });
+  }, [currentChapter?.id]);
+
   // Fallback: rekonstruiere paragraphs lokal falls werk-chunks.json fehlt
   const fallbackParagraphs = useMemo(() => {
     if (chapterChunks.length > 0 || !currentChapter) return [];
@@ -242,6 +248,11 @@ export default function WerkPage() {
 
   // Nur Kapitel mit Inhalt im Navigations-Sidebar listen
   const tocChapters = ebook.chapters.filter(c => c.content && c.content.length >= 200);
+
+  // Lineares Blättern (Standard-eBook): vorheriges / nächstes Kapitel.
+  const tocIdx = tocChapters.findIndex(c => c.id === currentChapter?.id);
+  const prevCh = tocIdx > 0 ? tocChapters[tocIdx - 1] : null;
+  const nextCh = tocIdx >= 0 && tocIdx < tocChapters.length - 1 ? tocChapters[tocIdx + 1] : null;
 
   return (
     <div className="werk-page" style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
@@ -311,6 +322,24 @@ export default function WerkPage() {
               <p style={{ fontStyle: "italic", color: C.muted }}>Kein Inhalt für dieses Kapitel verfügbar.</p>
             )}
           </div>
+
+          {/* Lineares Blättern — vorheriges / nächstes Kapitel (Standard-eBook). */}
+          {(prevCh || nextCh) && (
+            <nav aria-label="Kapitel-Navigation" style={{ display: "flex", justifyContent: "space-between", gap: "0.8rem", marginTop: "2.5rem", paddingTop: "1.2rem", borderTop: `1px solid ${C.border}` }}>
+              {prevCh ? (
+                <button onClick={() => navigate(`/werk/${prevCh.id}`)} style={chapterNavBtn(C, "prev")}>
+                  <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, display: "block" }}>← Zurück</span>
+                  <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>{prevCh.title}</span>
+                </button>
+              ) : <span />}
+              {nextCh ? (
+                <button onClick={() => navigate(`/werk/${nextCh.id}`)} style={chapterNavBtn(C, "next")}>
+                  <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, display: "block" }}>Weiter →</span>
+                  <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>{nextCh.title}</span>
+                </button>
+              ) : <span />}
+            </nav>
+          )}
 
           {/* Floating Selection Action — schwebt unten zentriert wenn Auswahl aktiv.
               D5: bottom-Offset respektiert iOS-Selection-Toolbar (max(2rem, env(safe-area-inset-bottom))). */}
@@ -383,6 +412,14 @@ export default function WerkPage() {
 }
 
 // ─── ParagraphBlock ─────────────────────────────────────────────────────
+
+function chapterNavBtn(C: Palette, dir: "prev" | "next"): React.CSSProperties {
+  return {
+    flex: 1, maxWidth: "48%", textAlign: dir === "next" ? "right" : "left",
+    background: "none", border: `1px solid ${C.border}`, borderRadius: 6,
+    padding: "0.6rem 0.85rem", cursor: "pointer", minHeight: 44,
+  };
+}
 
 function ParagraphBlock({
   C, chunkId, text, resonanzen, isExpanded, onToggle, fontScale = 1, bodyFont = SERIF_BODY,
