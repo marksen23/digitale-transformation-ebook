@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T06:53:37.883Z",
+  "generatedAt": "2026-06-09T06:56:12.953Z",
   "filesChecked": 287,
   "errors": 0,
   "warnings": 0,
@@ -15,10 +15,10 @@
       "translate": 2
     },
     "byStatus": {
-      "published": 118,
+      "published": 110,
       "rejected": 2,
-      "raw": 163,
-      "approved": 4
+      "raw": 153,
+      "approved": 22
     },
     "orphanNodeIds": []
   }
