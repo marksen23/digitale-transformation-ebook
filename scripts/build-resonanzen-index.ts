@@ -24,6 +24,7 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const OUTPUT = path.join(ROOT, "client/public/resonanzen-index.json");
 const EMBEDDINGS_OUTPUT = path.join(ROOT, "client/public/resonanzen-embeddings.json");
+const CONCEPTS_EMB = path.join(ROOT, "client/public/concepts-embeddings.json");
 const HOLDOUT_BASELINE_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-baseline.json");
 const HOLDOUT_REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-report.json");
 const NODE_DENSITY_OUTPUT = path.join(ROOT, "client/public/resonanzen-node-density.json");
@@ -107,6 +108,15 @@ interface ResonanzEntry {
    * konform aber thematisch fern vom Buch.
    */
   corpusVoiceScore?: number;
+  /**
+   * Begriffsstreue-Score: 0–1, max Cosine zu allen Begriffs-Embeddings des
+   * Begriffsnetzes (concepts-embeddings.json). Dritter, menschlich-autorisierter
+   * Anker des triangulierten Schutzwalls neben corpusVoiceScore (Prosa). Fragt:
+   * greift der Eintrag die BEGRIFFSSTRUKTUR des Werks (nicht nur den Wortlaut)?
+   * conceptAnchor = id des nächstliegenden Begriffs (Anschlussstelle im Netz).
+   */
+  conceptVoiceScore?: number;
+  conceptAnchor?: string;
   /**
    * AI-Pre-Score (Tier-1-3-Roadmap, Feature E): 1-5-Bewertung der
    * Werktreue durch Claude. Wird via /api/admin/pre-score gesetzt und
@@ -302,6 +312,8 @@ async function main() {
         if (old.nearDuplicates?.length) e.nearDuplicates = old.nearDuplicates;
         if (typeof old.werkVoiceScore === "number") e.werkVoiceScore = old.werkVoiceScore;
         if (typeof old.corpusVoiceScore === "number") e.corpusVoiceScore = old.corpusVoiceScore;
+        if (typeof old.conceptVoiceScore === "number") e.conceptVoiceScore = old.conceptVoiceScore;
+        if (typeof old.conceptAnchor === "string") e.conceptAnchor = old.conceptAnchor;
       }
       if (preserved > 0) {
         console.log(`[build-resonanzen-index] preserved semantic fields for ${preserved} entries from existing index`);
@@ -398,12 +410,13 @@ async function main() {
   const withRelated = entries.filter(e => Array.isArray(e.related) && e.related.length > 0).length;
   const withWerkVoice = entries.filter(e => typeof e.werkVoiceScore === "number").length;
   const withCorpusVoice = entries.filter(e => typeof e.corpusVoiceScore === "number").length;
+  const withConceptVoice = entries.filter(e => typeof e.conceptVoiceScore === "number").length;
   const withNovelty = entries.filter(e => e.novelty === true).length;
   const withEchoes = entries.filter(e => Array.isArray(e.nearDuplicates) && e.nearDuplicates.length > 0).length;
   console.log(
     `[build-resonanzen-index] FINAL: ${withEmbedding}/${entries.length} mit Embedding · ` +
     `${withRelated} mit related[] · ${withWerkVoice} mit werkVoiceScore · ` +
-    `${withCorpusVoice} mit corpusVoiceScore · ` +
+    `${withCorpusVoice} mit corpusVoiceScore · ${withConceptVoice} mit conceptVoiceScore · ` +
     `${withNovelty} novelty · ${withEchoes} Echoes`,
   );
 
@@ -810,6 +823,25 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     console.log(`[build-resonanzen-index] corpusVoiceScore: ${chapterVecs.length} Kapitel-Embeddings als Referenz`);
   }
 
+  // Begriffs-Embeddings für conceptVoiceScore — dritter Anker des
+  // triangulierten Schutzwalls (Begriffsstruktur statt Prosa). Separate Datei
+  // (concepts-embeddings.json, vom build-search-index erzeugt). Fail-soft:
+  // fehlt sie, bleibt conceptVoiceScore einfach undefined.
+  let conceptIds: string[] = [];
+  let conceptVecs: number[][] = [];
+  try {
+    if (fs.existsSync(CONCEPTS_EMB)) {
+      const cf = JSON.parse(fs.readFileSync(CONCEPTS_EMB, "utf-8")) as { embeddings?: Record<string, number[]> };
+      conceptIds = Object.keys(cf.embeddings ?? {});
+      conceptVecs = conceptIds.map(id => cf.embeddings![id]);
+      if (conceptVecs.length > 0) {
+        console.log(`[build-resonanzen-index] conceptVoiceScore: ${conceptVecs.length} Begriffs-Embeddings als Referenz`);
+      }
+    }
+  } catch (err) {
+    console.warn(`[build-resonanzen-index] concepts-embeddings nicht ladbar — conceptVoiceScore übersprungen: ${err instanceof Error ? err.message : err}`);
+  }
+
   for (const entry of entries) {
     const v = embeddings[entry.id];
     if (!v) continue;
@@ -854,6 +886,17 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
         if (c > maxCos) maxCos = c;
       }
       entry.corpusVoiceScore = Math.max(0, Math.min(1, maxCos));
+    }
+    // conceptVoiceScore — max Cosine zu allen Begriffs-Embeddings
+    // (Begriffsstreue) + conceptAnchor = nächstliegender Begriff.
+    if (conceptVecs.length > 0) {
+      let maxCos = 0; let bestId: string | undefined;
+      for (let i = 0; i < conceptVecs.length; i++) {
+        const c = cosineSim(v, conceptVecs[i]);
+        if (c > maxCos) { maxCos = c; bestId = conceptIds[i]; }
+      }
+      entry.conceptVoiceScore = Math.max(0, Math.min(1, maxCos));
+      if (bestId) entry.conceptAnchor = bestId;
     }
   }
 

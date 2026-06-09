@@ -80,7 +80,7 @@ Browser (Netlify)                  Render-Server (Express)
 | `ANTHROPIC_API_KEY` | Render Env | ja | 500-Fehler bei jeder KI-Anfrage |
 | `EMBEDDINGS_REQUIRED` | nur im CI gesetzt (Workflow-YAML) | nein | Wenn 1 + 0 Embeddings: Workflow rot. Wenn 0/leer: Soft-warn auf Netlify-Build. |
 | `GEMINI_EMBED_MODEL` | optional ENV-Overwrite | nein | Default `gemini-embedding-001`. Falls Google das Modell deprecaten: hier umschalten ohne Code-Change. |
-| `AUTO_CURATE_*` | optional Render Env | nein | Schwellen für `/api/admin/auto-curate`: `AI_MIN` (4), `CORPUS_MIN` (0.55), `AI_REJECT` (2), `CORPUS_REJECT` (0.30), `WERK_MIN` (0.55). Niedriger = aggressivere Auto-Freigabe. Default konservativ. |
+| `AUTO_CURATE_*` | optional Render Env | nein | Schwellen für `/api/admin/auto-curate`: `AI_MIN` (4), `CORPUS_MIN` (0.55), `AI_REJECT` (2), `CORPUS_REJECT` (0.30), `WERK_MIN` (0.55), `CONCEPT_MIN` (0.68), `CONCEPT_REJECT` (0.62). Niedriger = aggressivere Auto-Freigabe. Default konservativ. `CONCEPT_*` = dritter (Begriffs-)Anker des triangulierten Schutzwalls. |
 
 ---
 
@@ -242,6 +242,22 @@ Echo + keine `novelty`. `werkVoiceScore` wird zusätzlich genutzt, sobald
 fehlende ai_scores nach + setzt Status (audit_trail `actor: "auto-curate"`).
 Schwellen via `AUTO_CURATE_*`-ENV. UI: `/admin` → „Auto-Kuratierung".
 Voll-automatischer Cron-Modus bewusst offen, bis `werkVoiceScore` verfügbar.
+
+**Triangulierter Schutzwall (Phase 5):** Neben dem Werk-Prosa-Anker
+(`corpusVoiceScore`) gibt es einen dritten, menschlich-autorisierten Anker:
+`conceptVoiceScore` = max Cosine zur **Begriffsstruktur** des Begriffsnetzes
+(`concepts-embeddings.json`). Frage: greift der Eintrag die *Begriffe + ihre
+Relationen* (nicht nur den Wortlaut)? Berechnet im CI-Rebuild
+(`build-resonanzen-index.ts:computeCrossLinks`, analog corpusVoiceScore),
+`conceptAnchor` = nächstliegender Begriff. Im Gate ist er **korroborierend**
+(härtet den Wall — Eintrag muss Prosa- UND Begriffs-Nähe zeigen), graceful bei
+Abwesenheit. **Ehrlicher Befund** (`scripts/verify-concept-voice.mjs`, lokal
+gegen die committeten Embeddings): aktuell korreliert er mit `corpusVoiceScore`
+(Median-Differenz −0.06, **null** divergente begriffs-nah/prosa-fern-Fälle) —
+er liberalisiert also (noch) nicht, sondern bestätigt. Die „unverfügbare
+Entwicklung" (begriffs-nah, prosa-fern) ist damit **instrumentiert**: sobald
+solche Einträge auftauchen, zeigt das Verify-Script sie, und der Anker kann von
+korroborierend (AND) auf liberalisierend (OR) umgestellt werden.
 
 ---
 

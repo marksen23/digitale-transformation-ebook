@@ -1652,29 +1652,44 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     aiReject:     parseFloat(process.env.AUTO_CURATE_AI_REJECT ?? "2"),
     corpusReject: parseFloat(process.env.AUTO_CURATE_CORPUS_REJECT ?? "0.30"),
     werkMin:      parseFloat(process.env.AUTO_CURATE_WERK_MIN ?? "0.55"),
+    // Triangulierter Schutzwall (Phase 5): conceptVoiceScore (Cosine zur
+    // BEGRIFFSSTRUKTUR) als dritter, korroborierender Anker. Empirisch korreliert
+    // er aktuell mit corpusVoiceScore (Verteilung p25≈0.71/median≈0.76, siehe
+    // scripts/verify-concept-voice.mjs) — er LIBERALISIERT also nicht, sondern
+    // HÄRTET den Wall: ein Eintrag muss Prosa- UND Begriffs-Nähe zeigen. Graceful:
+    // wenn conceptVoiceScore fehlt (vor CI-Rebuild), blockt er nicht.
+    conceptMin:    parseFloat(process.env.AUTO_CURATE_CONCEPT_MIN ?? "0.68"),
+    conceptReject: parseFloat(process.env.AUTO_CURATE_CONCEPT_REJECT ?? "0.62"),
   };
 
   interface ScoredEntry {
     id: string; status: string; prompt: string;
     ai_score?: number; corpusVoiceScore?: number; werkVoiceScore?: number;
+    conceptVoiceScore?: number;
     novelty?: boolean; nearDuplicates?: string[];
   }
 
   function classifyForAutoCurate(e: ScoredEntry): { decision: "approve" | "reject" | "review"; reason: string } {
-    const ai = e.ai_score, cv = e.corpusVoiceScore, wv = e.werkVoiceScore;
+    const ai = e.ai_score, cv = e.corpusVoiceScore, wv = e.werkVoiceScore, cn = e.conceptVoiceScore;
     const echoCount = e.nearDuplicates?.length ?? 0;
     // Harte Ablehnung zuerst (Sicherheit: nichts klar Schlechtes durchlassen)
     if (ai !== undefined && ai <= AUTO_CURATE.aiReject) return { decision: "reject", reason: `ai_score ${ai} ≤ ${AUTO_CURATE.aiReject}` };
     if (cv !== undefined && cv < AUTO_CURATE.corpusReject) return { decision: "reject", reason: `corpusVoice ${cv.toFixed(2)} < ${AUTO_CURATE.corpusReject} (buch-fern)` };
+    if (cn !== undefined && cn < AUTO_CURATE.conceptReject) return { decision: "reject", reason: `conceptVoice ${cn.toFixed(2)} < ${AUTO_CURATE.conceptReject} (begriffs-fern)` };
     // Freigabe verlangt ALLE positiven Signale vorhanden
     if (ai === undefined) return { decision: "review", reason: "noch nicht bewertet (Pre-Score nötig)" };
     if (cv === undefined) return { decision: "review", reason: "kein corpusVoiceScore (kein Drift-Anker)" };
     if (echoCount > 0) return { decision: "review", reason: `Echo (${echoCount} Near-Duplikate)` };
     if (e.novelty === true) return { decision: "review", reason: "novelty/peripher — Mensch entscheidet" };
-    if (ai >= AUTO_CURATE.aiMin && cv >= AUTO_CURATE.corpusMin && (wv === undefined || wv >= AUTO_CURATE.werkMin)) {
-      return { decision: "approve", reason: `ai ${ai} · corpusVoice ${cv.toFixed(2)}${wv !== undefined ? ` · werkVoice ${wv.toFixed(2)}` : ""}` };
+    // Triangulierter Anker: ai + Prosa-Nähe + (Begriffs-Nähe, wenn vorhanden) +
+    // (Werk-Stimme, wenn vorhanden). conceptVoice härtet, blockt aber nicht bei
+    // Abwesenheit (vor dem nächsten CI-Rebuild noch nicht berechnet).
+    if (ai >= AUTO_CURATE.aiMin && cv >= AUTO_CURATE.corpusMin
+        && (cn === undefined || cn >= AUTO_CURATE.conceptMin)
+        && (wv === undefined || wv >= AUTO_CURATE.werkMin)) {
+      return { decision: "approve", reason: `ai ${ai} · corpusVoice ${cv.toFixed(2)}${cn !== undefined ? ` · conceptVoice ${cn.toFixed(2)}` : ""}${wv !== undefined ? ` · werkVoice ${wv.toFixed(2)}` : ""}` };
     }
-    return { decision: "review", reason: `unter Schwelle (ai ${ai} / corpusVoice ${cv.toFixed(2)})` };
+    return { decision: "review", reason: `unter Schwelle (ai ${ai} / corpusVoice ${cv.toFixed(2)}${cn !== undefined ? ` / conceptVoice ${cn.toFixed(2)}` : ""})` };
   }
 
   app.post("/api/admin/auto-curate", async (req, res) => {
@@ -1711,6 +1726,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
         prompt: (e.prompt ?? "").slice(0, 100),
         ai_score: e.ai_score ?? null,
         corpusVoiceScore: e.corpusVoiceScore ?? null,
+        conceptVoiceScore: e.conceptVoiceScore ?? null,
         werkVoiceScore: e.werkVoiceScore ?? null,
         echoCount: e.nearDuplicates?.length ?? 0,
         novelty: e.novelty ?? false,

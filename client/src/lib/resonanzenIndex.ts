@@ -59,6 +59,14 @@ export interface ResonanzEntry {
    */
   corpusVoiceScore?: number;
   /**
+   * Begriffsstreue-Score: max Cosine zu den Begriffs-Embeddings des
+   * Begriffsnetzes. Dritter Anker des triangulierten Schutzwalls (Phase 5):
+   * greift der Eintrag die BEGRIFFSSTRUKTUR (nicht nur den Wortlaut)?
+   * conceptAnchor = nächstliegender Begriff (Anschlussstelle im Netz).
+   */
+  conceptVoiceScore?: number;
+  conceptAnchor?: string;
+  /**
    * AI-Pre-Score (Tier-1-3-Roadmap, Feature E): 1-5-Bewertung der
    * Werktreue durch Claude. Wird via /api/admin/pre-score gesetzt.
    * - 5: stilistisch indistinguishable

@@ -66,6 +66,7 @@ interface AutoCurateItem {
   prompt: string;
   ai_score: number | null;
   corpusVoiceScore: number | null;
+  conceptVoiceScore: number | null;
   werkVoiceScore: number | null;
   echoCount: number;
   novelty: boolean;
@@ -704,7 +705,7 @@ export default function AdminCurationPage() {
                       <div key={it.id} style={{ marginBottom: "0.4rem", fontFamily: SERIF, fontSize: "0.74rem", color: C.text, lineHeight: 1.4 }}>
                         <span style={{ fontStyle: "italic" }}>{it.prompt}…</span>
                         <span style={{ display: "block", fontFamily: MONO, fontSize: "0.52rem", color: C.muted }}>
-                          {it.reason} · ai {it.ai_score ?? "—"} · corpusVoice {it.corpusVoiceScore != null ? it.corpusVoiceScore.toFixed(2) : "—"}{it.echoCount > 0 ? ` · echo ${it.echoCount}` : ""}{it.novelty ? " · novelty" : ""}
+                          {it.reason} · ai {it.ai_score ?? "—"} · corpusVoice {it.corpusVoiceScore != null ? it.corpusVoiceScore.toFixed(2) : "—"}{it.conceptVoiceScore != null ? ` · conceptVoice ${it.conceptVoiceScore.toFixed(2)}` : ""}{it.echoCount > 0 ? ` · echo ${it.echoCount}` : ""}{it.novelty ? " · novelty" : ""}
                         </span>
                       </div>
                     ))}
