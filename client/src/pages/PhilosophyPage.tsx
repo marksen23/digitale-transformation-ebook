@@ -251,7 +251,7 @@ export default function PhilosophyPage() {
                   title="Was ist der Resonanzvernunft-Pfad?"
                   style={{
                     fontFamily: MONO, fontSize: "0.65rem",
-                    color: C.accent, background: "none",
+                    color: C.accentText, background: "none",
                     border: `1px solid ${C.border}`,
                     width: 22, height: 22, padding: 0,
                     cursor: "pointer", borderRadius: "50%",

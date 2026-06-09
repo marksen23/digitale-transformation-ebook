@@ -421,7 +421,7 @@ function ParagraphBlock({
         <div style={{ marginTop: "0.6rem", paddingLeft: "0.9rem", borderLeft: `2px solid ${C.accent}66` }}>
           {curated.length > 0 && (
             <>
-              <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.accent, marginBottom: "0.4rem" }}>
+              <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.accentText, marginBottom: "0.4rem" }}>
                 ❦ Weiterführungen
               </div>
               {curated.map(r => renderEntry(r, true))}
@@ -503,7 +503,7 @@ function PassageResonanzModal({
           maxHeight: "85vh", overflowY: "auto",
         }}
       >
-        <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.accent, marginBottom: "0.4rem" }}>
+        <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.accentText, marginBottom: "0.4rem" }}>
           ◇ Passage-Resonanz · {chapterTitle}
         </div>
 
@@ -752,7 +752,7 @@ function WerkzeugeDropdown({ C, isDark: _isDark }: { C: Palette; isDark: boolean
           <a
             href="/exports/resonanzvernunft.pdf"
             download="resonanzvernunft.pdf"
-            style={{ color: C.accent, textDecoration: "none" }}
+            style={{ color: C.accentText, textDecoration: "none" }}
           >
             ↓ Werk als PDF herunterladen
           </a>

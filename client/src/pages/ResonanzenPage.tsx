@@ -423,7 +423,7 @@ export default function ResonanzenPage() {
     return (
       <div style={{ position: "fixed", inset: 0, background: C.void, color: C.text, fontFamily: SERIF, padding: "2rem", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center" }}>
         <p style={{ fontStyle: "italic", color: C.textDim }}>Wissens-Index nicht erreichbar: {loadError}</p>
-        <Link href="/" style={{ marginTop: "1rem", color: C.accent, fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
+        <Link href="/" style={{ marginTop: "1rem", color: C.accentText, fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase" }}>← Zum Werk</Link>
       </div>
     );
   }
@@ -550,7 +550,7 @@ export default function ResonanzenPage() {
             {activeFilterCount > 0 && (
               <span style={{
                 fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em",
-                textTransform: "uppercase", color: C.accent,
+                textTransform: "uppercase", color: C.accentText,
               }}>
                 {activeFilterCount} Filter aktiv
               </span>
@@ -612,7 +612,7 @@ export default function ResonanzenPage() {
                     href={`/philosophie?id=${p.id}`}
                     style={{
                       fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem",
-                      color: C.accent, textDecoration: "none",
+                      color: C.accentText, textDecoration: "none",
                       borderBottom: `1px dotted ${C.accentDim}`,
                     }}
                   >
@@ -961,7 +961,7 @@ export default function ResonanzenPage() {
                   >
                     <div style={{
                       fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em",
-                      textTransform: "uppercase", color: C.accent, marginBottom: "0.4rem",
+                      textTransform: "uppercase", color: C.accentText, marginBottom: "0.4rem",
                     }}>
                       ◉ Echos dieser Aussage — {echoEntries.length} nahezu identische Begegnungen
                     </div>
@@ -1098,12 +1098,12 @@ export default function ResonanzenPage() {
                     fontFamily: MONO, fontSize: "0.5rem",
                     color: C.muted, letterSpacing: "0.05em",
                   }}>
-                    Variante von Anker <code style={{ color: C.accent }}>{entry.anchor}</code>
+                    Variante von Anker <code style={{ color: C.accentText }}>{entry.anchor}</code>
                     {" — "}
                     <a
                       href={`#entry-${mastersByAnchor.get(entry.anchor)!.id}`}
                       onClick={e => { e.stopPropagation(); }}
-                      style={{ color: C.accent, textDecoration: "none" }}
+                      style={{ color: C.accentText, textDecoration: "none" }}
                     >
                       ↑ zum Master
                     </a>
@@ -1120,7 +1120,7 @@ export default function ResonanzenPage() {
                 onClick={() => setResultsLimit(l => l + 20)}
                 style={{
                   fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
-                  color: C.accent,
+                  color: C.accentText,
                   background: "none",
                   border: `1px solid ${C.accentDim}`,
                   padding: "0.7rem 1.2rem", cursor: "pointer", minHeight: 40,
@@ -1136,7 +1136,7 @@ export default function ResonanzenPage() {
         <footer style={{ marginTop: "3rem", paddingTop: "1.5rem", borderTop: `1px solid ${C.border}`, fontFamily: MONO, fontSize: "0.5rem", color: C.muted, letterSpacing: "0.1em", textAlign: "center" }}>
           Index zuletzt erzeugt: {index ? new Date(index.generatedAt).toLocaleString("de-DE") : "—"}
           <br />
-          © Markus Oehring · Inhalte unterliegen der <a href="https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE" style={{ color: C.accent, textDecoration: "underline" }}>Werk-Lizenz</a>
+          © Markus Oehring · Inhalte unterliegen der <a href="https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE" style={{ color: C.accentText, textDecoration: "underline" }}>Werk-Lizenz</a>
         </footer>
       </main>
 

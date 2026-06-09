@@ -78,7 +78,7 @@ export default function ResonanzDetailPage() {
     return (
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem", fontFamily: SERIF, color: C.text }}>
         <h1>Eintrag nicht gefunden</h1>
-        <p>Diese Resonanz existiert (noch) nicht im Index. <Link to="/resonanzen" style={{ color: C.accent }}>← zurück zur Übersicht</Link></p>
+        <p>Diese Resonanz existiert (noch) nicht im Index. <Link to="/resonanzen" style={{ color: C.accentText }}>← zurück zur Übersicht</Link></p>
       </div>
     );
   }
@@ -109,7 +109,7 @@ export default function ResonanzDetailPage() {
       {chunkId && (
         <div style={{ marginBottom: "1rem", padding: "0.6rem 0.8rem", background: `${C.accent}08`, borderLeft: `3px solid ${C.accent}`, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
           Verankert in einer Werkpassage —
-          {chapter ? <Link to={`/werk/${chapter}`} style={{ marginLeft: "0.3rem", color: C.accent, textDecoration: "underline" }}>↩ zur Passage im Werk</Link> : null}
+          {chapter ? <Link to={`/werk/${chapter}`} style={{ marginLeft: "0.3rem", color: C.accentText, textDecoration: "underline" }}>↩ zur Passage im Werk</Link> : null}
         </div>
       )}
 
