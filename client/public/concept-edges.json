@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T10:34:01.532Z",
+  "generatedAt": "2026-06-09T10:49:07.748Z",
   "edges": [
     {
       "source": "stimme",
@@ -13,6 +13,13 @@
       "target": "lm-grenze",
       "evidence": 3,
       "createdAt": "2026-06-09T10:34:01.532Z",
+      "actor": "admin"
+    },
+    {
+      "source": "bewusstsein",
+      "target": "moment",
+      "evidence": 2,
+      "createdAt": "2026-06-09T10:49:07.748Z",
       "actor": "admin"
     }
   ]
