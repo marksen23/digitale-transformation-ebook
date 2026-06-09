@@ -20,6 +20,7 @@ import { MONO, SERIF } from "@/lib/theme";
 import { track } from "@/lib/trajectory";
 import CitedSourcesFooter, { type CitedSource } from "@/components/CitedSourcesFooter";
 import { saveThread, type ThreadStep } from "@/lib/threadStore";
+import { splitClosing } from "@/lib/closingQuestion";
 
 type EntryKind = "frage" | "leser" | "ki";
 interface Entry { kind: EntryKind; text: string; citedChunks?: CitedSource[] }
@@ -70,35 +71,90 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
     const question = entries[lastQuestionIdx].text;
     setLoading(true);
     setError(null);
+    const body = JSON.stringify({
+      question,
+      thread: buildThreadPayload(lastQuestionIdx),
+      focus, focusedNodeIds,
+      ...(userAnswer ? { userAnswer } : {}),
+    });
+
+    // 1) Streaming (SSE) — Reflexion erscheint token-weise. Am Stream-Ende
+    //    Client-seitig in Reflexion + Schlussfrage gespalten.
+    let streamStarted = false;
     try {
-      const res = await fetch("/api/weiterdenken", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          question,
-          thread: buildThreadPayload(lastQuestionIdx),
-          focus,
-          focusedNodeIds,
-          ...(userAnswer ? { userAnswer } : {}),
-        }),
+      const res = await fetch("/api/weiterdenken/stream", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body,
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) { setError(data.error ?? `Fehler ${res.status}`); return; }
-      const reflection = String(data.reflection ?? "").trim();
-      const nextQuestion = String(data.nextQuestion ?? "").trim();
-      const cited: CitedSource[] = Array.isArray(data.citedChunks) ? data.citedChunks : [];
-      setEntries(prev => {
-        const next: Entry[] = [...prev, { kind: "ki" as const, text: reflection || "(keine Reflexion)", citedChunks: cited }];
-        if (nextQuestion) next.push({ kind: "frage", text: nextQuestion });
-        return next;
-      });
-      setJustSaved(false);
-      track({ type: "weiterdenken-step" });
-    } catch (err) {
-      setError(err instanceof Error ? err.message : String(err));
-    } finally {
-      setLoading(false);
+      if (res.ok && res.body) {
+        streamStarted = true;
+        setEntries(prev => [...prev, { kind: "ki" as const, text: "" }]);  // Platzhalter (= letzter Eintrag)
+        const reader = res.body.getReader();
+        const dec = new TextDecoder();
+        let buf = "", acc = "";
+        let cited: CitedSource[] = [];
+        let streamError: string | null = null;
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value, { stream: true });
+          const lines = buf.split("\n");
+          buf = lines.pop() ?? "";
+          for (const line of lines) {
+            const t = line.trim();
+            if (!t.startsWith("data:")) continue;
+            const json = t.slice(5).trim();
+            if (!json) continue;
+            try {
+              const ev = JSON.parse(json) as { delta?: string; done?: boolean; citedChunks?: CitedSource[]; error?: string };
+              if (typeof ev.delta === "string") {
+                acc += ev.delta;
+                setEntries(prev => { const c = [...prev]; c[c.length - 1] = { kind: "ki", text: acc, citedChunks: cited }; return c; });
+              } else if (ev.done) {
+                cited = Array.isArray(ev.citedChunks) ? ev.citedChunks : [];
+              } else if (ev.error) {
+                streamError = String(ev.error);
+              }
+            } catch { /* partieller Frame */ }
+          }
+        }
+        const { reflection, nextQuestion } = splitClosing(acc);
+        setEntries(prev => {
+          const c = [...prev];
+          c[c.length - 1] = { kind: "ki", text: reflection || acc || streamError || "(keine Reflexion)", citedChunks: cited };
+          if (nextQuestion) c.push({ kind: "frage", text: nextQuestion });
+          return c;
+        });
+        if (streamError && !acc) setError(streamError);
+        setJustSaved(false);
+        track({ type: "weiterdenken-step" });
+      }
+    } catch { streamStarted = false; }
+
+    // 2) Fallback: nicht-gestreamter Endpoint (nur wenn Streaming nie startete)
+    if (!streamStarted) {
+      try {
+        const res = await fetch("/api/weiterdenken", {
+          method: "POST", headers: { "Content-Type": "application/json" }, body,
+        });
+        const data = await res.json().catch(() => ({}));
+        if (!res.ok) { setError(data.error ?? `Fehler ${res.status}`); }
+        else {
+          const reflection = String(data.reflection ?? "").trim();
+          const nextQuestion = String(data.nextQuestion ?? "").trim();
+          const cited: CitedSource[] = Array.isArray(data.citedChunks) ? data.citedChunks : [];
+          setEntries(prev => {
+            const next: Entry[] = [...prev, { kind: "ki" as const, text: reflection || "(keine Reflexion)", citedChunks: cited }];
+            if (nextQuestion) next.push({ kind: "frage", text: nextQuestion });
+            return next;
+          });
+          setJustSaved(false);
+          track({ type: "weiterdenken-step" });
+        }
+      } catch (err) {
+        setError(err instanceof Error ? err.message : String(err));
+      }
     }
+    setLoading(false);
   }
 
   function selbstDenken() {

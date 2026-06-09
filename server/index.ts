@@ -1206,6 +1206,108 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     }
   });
 
+  // ─── Weiterdenken Streaming (Phase 3, SSE) ───────────────────────────────
+  // Additive Streaming-Variante von /api/weiterdenken. Streamt den rohen Text
+  // token-weise; der Client spaltet am Stream-Ende in reflection + nextQuestion
+  // (lib/closingQuestion.splitClosing, spiegelt splitClosingQuestion hier).
+  app.post("/api/weiterdenken/stream", rateLimiter('weiterdenken', 30, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+    const { question, thread, focus, focusedNodeIds, userAnswer } = req.body as {
+      question?: string;
+      thread?: Array<{ role: "frage" | "antwort"; text: string }>;
+      focus?: string; focusedNodeIds?: string[]; userAnswer?: string;
+    };
+    if (!question?.trim()) return res.status(400).json({ error: "question fehlt." });
+    const safeThread = (Array.isArray(thread) ? thread : []).slice(-12);
+    const ragQuery = (userAnswer?.trim() || question).slice(0, 600);
+    const { passages, contextBlock } = await buildWerkContext(ragQuery, 4);
+    const acceptLang = (req.headers["accept-language"] ?? "").toString();
+    const referer = (req.headers["referer"] ?? "").toString();
+    const isEnglish = /\/en(\/|$|\?)/.test(referer) || /^en/i.test(acceptLang.split(",")[0]?.trim() ?? "");
+    const langAddition = isEnglish ? "\n\nIMPORTANT: Respond in English." : "";
+    const system = contextBlock
+      ? `${WEITERDENKEN_SYSTEM_PROMPT}\n\n${contextBlock}${langAddition}`
+      : WEITERDENKEN_SYSTEM_PROMPT + langAddition;
+    const contents = [
+      ...safeThread.map(t => ({ role: t.role === "frage" ? "user" : "model", parts: [{ text: t.text }] })),
+      {
+        role: "user" as const,
+        parts: [{
+          text: userAnswer?.trim()
+            ? `Offene Frage: ${question}\n\nMeine eigene Antwort darauf: ${userAnswer.trim()}\n\nDenke von hier aus weiter.`
+            : `Trage diese offene Frage im Geist des Werks weiter: ${question}`,
+        }],
+      },
+    ];
+
+    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+    res.setHeader("Cache-Control", "no-cache, no-transform");
+    res.setHeader("Connection", "keep-alive");
+    res.setHeader("X-Accel-Buffering", "no");
+    res.flushHeaders();
+    const send = (obj: unknown) => res.write(`data: ${JSON.stringify(obj)}\n\n`);
+
+    try {
+      const upstream = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: system }] },
+            contents,
+            generationConfig: { temperature: 0.85, maxOutputTokens: 2200, thinkingConfig: { thinkingBudget: 0 } },
+          }),
+        }
+      );
+      if (!upstream.ok || !upstream.body) {
+        send({ error: upstream.status === 429 ? "Zu viele Anfragen — bitte kurz warten." : `Fehler ${upstream.status}` });
+        return res.end();
+      }
+      const reader = upstream.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "", full = "";
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+        for (const line of lines) {
+          const t = line.trim();
+          if (!t.startsWith("data:")) continue;
+          const json = t.slice(5).trim();
+          if (!json || json === "[DONE]") continue;
+          try {
+            const chunk = JSON.parse(json);
+            const delta = chunk?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (typeof delta === "string" && delta) { full += delta; send({ delta }); }
+          } catch { /* partieller Frame */ }
+        }
+      }
+      if (!full.trim()) full = "(keine Reflexion)";
+      send({ done: true, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
+      res.end();
+      void logResonanz({
+        endpoint: "dialog",
+        anchor: focus ? `dialog:${focus.slice(0, 40)}` : "dialog:weiterdenken",
+        nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
+        prompt: userAnswer?.trim() ? `${question}\n\n[Leser-Antwort] ${userAnswer.trim()}` : question,
+        response: full,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          kind: "weiterdenken", streamed: true,
+          thread: safeThread.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),
+          had_user_answer: !!userAnswer?.trim(),
+          werk_passages: passages.map(p => ({ id: p.id, score: Number(p.score.toFixed(3)) })),
+        },
+      });
+    } catch (err: unknown) {
+      try { send({ error: `API-Fehler: ${err instanceof Error ? err.message : String(err)}` }); res.end(); } catch { /* geschlossen */ }
+    }
+  });
+
   // ─── Passage-Resonanz (Tier-1-3-Roadmap, Feature A) ────────────────────
   // Reader markiert eine Stelle im Werktext → erzeugt eine Resonanz die
   // explizit an diesen Chunk verankert ist. Resonanz landet als
