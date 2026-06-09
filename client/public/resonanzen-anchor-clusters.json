@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T00:32:27.654Z",
+  "generatedAt": "2026-06-09T04:57:37.791Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
@@ -29,6 +29,35 @@
         "MQ5BF409-A842738E"
       ],
       "lastVariantTs": "2026-06-08T18:26:26.938Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:erkenntnis+lm-verwandlung",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MQ5XNFSV-CD34905C",
+        "MQ5XLW2D-D3E90BBC",
+        "MQ5XK9H2-8A6837CC",
+        "MQ5XJ3VO-378AA1AB",
+        "MQ5XH5A8-5FDB52C7",
+        "MQ5XFLFO-F0DBB89E",
+        "MQ5XE42V-D185B8D7",
+        "MQ5XCH3V-67EF85C8",
+        "MQ5XB7XF-18E49106",
+        "MQ5X9PGR-F8698E7E",
+        "MQ5X7QW6-F6E03538",
+        "MQ5X6P2M-52F9B16D",
+        "MQ5X56G4-537343C8",
+        "MQ5X3C75-D543C13F",
+        "MQ5X1ZYV-9D7A29CC",
+        "MQ5WZZPN-8051E5FF",
+        "MQ5WYJFU-60EB210E",
+        "MQ5WX52Q-442369F2",
+        "MQ5WV5PP-6209C749"
+      ],
+      "lastVariantTs": "2026-06-09T01:00:02.623Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
@@ -117,6 +146,18 @@
       "masterStale": false
     },
     {
+      "anchor": "analyse:erkenntnis+lm-verwandlung",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MQ5WUD1G-0976C016",
+        "MOIXN7OL-B18642AC"
+      ],
+      "lastVariantTs": "2026-06-09T00:37:26.020Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "dialog:freier",
       "endpoint": "dialog",
       "variantIds": [
@@ -178,8 +219,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 104,
-    "withMultipleVariants": 12,
+    "totalAnchors": 106,
+    "withMultipleVariants": 14,
     "withMaster": 0,
     "staleMasters": 0
   }

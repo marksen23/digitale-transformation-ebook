@@ -1,10 +1,38 @@
 {
-  "generatedAt": "2026-06-09T00:32:27.645Z",
-  "checked": 32,
-  "stable": 23,
+  "generatedAt": "2026-06-09T04:57:37.781Z",
+  "checked": 34,
+  "stable": 24,
   "shifted": 8,
-  "drifted": 1,
+  "drifted": 2,
   "details": [
+    {
+      "id": "MQ5WZZPN-8051E5FF",
+      "baseline": [
+        "MQ5WYJFU-60EB210E",
+        "MQ5X1ZYV-9D7A29CC",
+        "MQ5WX52Q-442369F2"
+      ],
+      "current": [
+        "MQ5WYJFU-60EB210E",
+        "MQ5X1ZYV-9D7A29CC",
+        "MQ5WX52Q-442369F2"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MQ5WPJ3V-CF0A30C7",
+      "baseline": [
+        "MOQIHEM5-82D69E4F",
+        "MPMTLD4Y-B5FD9EFB",
+        "MPMSSG1X-8451DE38"
+      ],
+      "current": [
+        "MOQIHEM5-82D69E4F",
+        "MPMTLD4Y-B5FD9EFB",
+        "MPMSSG1X-8451DE38"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MQ5KC1TP-0424F50A",
       "baseline": [
@@ -308,10 +336,10 @@
       ],
       "current": [
         "MPARZ5F0-A9FD6F70",
-        "MOHV84M5-1825A399",
-        "MOP0S479-373A2268"
+        "MQ5WV5PP-6209C749",
+        "MQ5WUD1G-0976C016"
       ],
-      "overlap": 3
+      "overlap": 1
     },
     {
       "id": "MOOU3TYC-FE290C2B",

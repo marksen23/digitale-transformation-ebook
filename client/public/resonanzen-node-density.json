@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-09T00:32:27.652Z",
+  "generatedAt": "2026-06-09T04:57:37.789Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 23,
+      "count": 24,
       "endpoints": {
-        "path-analyse": 17,
+        "path-analyse": 18,
         "analyse": 6
       }
     },
@@ -72,10 +72,11 @@
       }
     },
     "erkenntnis": {
-      "count": 8,
+      "count": 29,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 4
+        "dialog": 19,
+        "analyse": 5,
+        "path-analyse": 5
       }
     },
     "wahrheit": {
@@ -238,10 +239,11 @@
       }
     },
     "lm-verwandlung": {
-      "count": 15,
+      "count": 36,
       "endpoints": {
-        "path-analyse": 10,
-        "analyse": 5
+        "dialog": 19,
+        "analyse": 6,
+        "path-analyse": 11
       }
     },
     "dazwischenintelligenz": {
@@ -346,7 +348,7 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 23,
+    "maxCount": 36,
     "median": 4,
     "totalNodes": 52,
     "zeroResonanceNodes": [

@@ -1,7 +1,24 @@
 {
-  "generatedAt": "2026-06-09T00:32:27.653Z",
+  "generatedAt": "2026-06-09T04:57:37.791Z",
   "minCooccurrence": 2,
   "candidates": [
+    {
+      "source": "erkenntnis",
+      "target": "lm-verwandlung",
+      "cooccurrence": 24,
+      "endpoints": {
+        "dialog": 19,
+        "analyse": 2,
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MQ5XNFSV-CD34905C",
+        "MQ5XLW2D-D3E90BBC",
+        "MQ5XK9H2-8A6837CC",
+        "MQ5XJ3VO-378AA1AB",
+        "MQ5XH5A8-5FDB52C7"
+      ]
+    },
     {
       "source": "resonanzvernunft",
       "target": "selbst",
@@ -69,20 +86,6 @@
         "MPUO08SE-67E0912A",
         "MP0QMSOR-C6EC1B5A",
         "MOUA3PLK-548F1A0A"
-      ]
-    },
-    {
-      "source": "erkenntnis",
-      "target": "lm-verwandlung",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPUNXFU1-3B1F056A",
-        "MOQIHEM5-82D69E4F",
-        "MOIXN7OL-B18642AC"
       ]
     },
     {
@@ -526,6 +529,6 @@
     "totalPairs": 251,
     "candidatesCount": 41,
     "existingEdges": 116,
-    "maxCooccurrence": 4
+    "maxCooccurrence": 24
   }
 }

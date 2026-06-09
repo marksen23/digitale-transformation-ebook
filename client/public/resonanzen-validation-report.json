@@ -1,23 +1,23 @@
 {
-  "generatedAt": "2026-06-09T00:31:48.442Z",
-  "filesChecked": 249,
+  "generatedAt": "2026-06-09T04:56:45.877Z",
+  "filesChecked": 270,
   "errors": 0,
   "warnings": 0,
   "issues": [],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 57,
+      "analyse": 58,
       "chapter": 28,
-      "dialog": 25,
+      "dialog": 44,
       "enkidu": 55,
       "graph-chat": 47,
-      "path-analyse": 35,
+      "path-analyse": 36,
       "translate": 2
     },
     "byStatus": {
       "published": 119,
       "rejected": 3,
-      "raw": 125,
+      "raw": 146,
       "approved": 2
     },
     "orphanNodeIds": []
