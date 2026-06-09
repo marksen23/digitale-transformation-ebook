@@ -109,15 +109,30 @@ export default function WerkPage() {
     }
   }, []);
 
-  // Map chunkId → matching Resonanzen (via passage_chunk_id im contextMeta)
+  // Map chunkId → Einträge, die an dieser Werk-Stelle andocken. Zwei Arten von
+  // Anschlussstellen (Roadmap „Das wachsende Werk", Phase 2):
+  //   1. Direkte Passage-Resonanzen   — contextMeta.passage_chunk_id
+  //   2. RAG-Anschlussstellen         — contextMeta.werk_passages[].id
+  //      (Dialog/Weiterdenken zogen diese Passage als Werk-Kontext heran →
+  //      sichtbar machen, WO im Werk sich Gedanken weiterspinnen).
   const resonanzenByChunk = useMemo(() => {
     const map = new Map<string, ResonanzEntry[]>();
     if (!resonanzen) return map;
+    const pushOnce = (cid: string, e: ResonanzEntry) => {
+      if (!cid) return;
+      const arr = map.get(cid);
+      if (arr) { if (!arr.some(x => x.id === e.id)) arr.push(e); }
+      else map.set(cid, [e]);
+    };
     for (const e of resonanzen) {
       const cid = e.contextMeta?.passage_chunk_id;
-      if (typeof cid === "string" && cid) {
-        const arr = map.get(cid);
-        if (arr) arr.push(e); else map.set(cid, [e]);
+      if (typeof cid === "string") pushOnce(cid, e);
+      const wp = e.contextMeta?.werk_passages;
+      if (Array.isArray(wp)) {
+        for (const p of wp) {
+          const pid = (p as { id?: unknown })?.id;
+          if (typeof pid === "string") pushOnce(pid, e);
+        }
       }
     }
     return map;
@@ -340,7 +355,7 @@ function ParagraphBlock({
       {count > 0 && (
         <button
           onClick={onToggle}
-          title={`${count} Resonanz${count === 1 ? "" : "en"} an dieser Stelle`}
+          title={`${count} Gedanke${count === 1 ? "" : "n"} knüpfen an dieser Stelle an`}
           aria-expanded={isExpanded}
           style={{
             position: "absolute", top: "0.1rem", right: 0,
