@@ -64,6 +64,39 @@ interface CitedSelection {
 
 // ─── Helpers ─────────────────────────────────────────────────────────────
 
+/** Grober Satz-Splitter — genügt, um den 1-Satz-Overlap zwischen aufeinander
+ *  folgenden RAG-Chunks zu erkennen (beide Chunks teilen denselben Quelltext,
+ *  also liefert derselbe Splitter identische Satz-Strings). */
+function splitSentencesForDisplay(text: string): string[] {
+  return (text.match(/[^.!?…]+[.!?…]+["'»)\]]*\s*/g) ?? [text])
+    .map(s => s.trim())
+    .filter(Boolean);
+}
+
+/** Ent-überlappt eine geordnete Liste von Chunk-Texten für die ANZEIGE:
+ *  entfernt aus jedem Chunk die führenden Sätze, die bereits am Ende des
+ *  vorigen Chunks standen (Sliding-Window-Overlap aus build-werk-chunks.ts).
+ *  Robust gegen Lücken (kein gemeinsamer Satz → k=0 → unverändert). */
+function deoverlapTexts(texts: string[]): string[] {
+  const out: string[] = [];
+  let prevSentences: string[] = [];
+  for (const text of texts) {
+    const cur = splitSentencesForDisplay(text);
+    let k = 0;
+    const maxK = Math.min(prevSentences.length, cur.length);
+    for (let cand = maxK; cand >= 1; cand--) {
+      let match = true;
+      for (let j = 0; j < cand; j++) {
+        if (cur[j] !== prevSentences[prevSentences.length - cand + j]) { match = false; break; }
+      }
+      if (match) { k = cand; break; }
+    }
+    out.push(cur.slice(k).join(" "));
+    prevSentences = cur;  // Overlap-Vergleich gegen den ORIGINAL-Chunk
+  }
+  return out;
+}
+
 /** Splittet Kapitel-Content in dieselben Chunks wie build-werk-chunks.ts
  *  produziert hat. Pragmatisches Re-Implement: Absätze trennen, die kurzen
  *  filtern. Falls werk-chunks.json verfügbar ist, machen wir Matching per
@@ -163,6 +196,16 @@ export default function WerkPage() {
       .sort((a, b) => a.position - b.position);
   }, [currentChapter, chunks]);
 
+  // BUGFIX (Lesequalität): werk-chunks.json nutzt ein Sliding-Window mit
+  // 1-Satz-Overlap (gut für RAG-Recall). Beim VERBATIM-Rendern als Lese-Absätze
+  // erschien dadurch der letzte Satz jedes Chunks am Anfang des nächsten doppelt
+  // („Seiten brechen ab"). Hier ent-überlappen wir die ANZEIGE auf Satz-Ebene;
+  // die chunkId pro Absatz (für den Passage-Resonanz-Hook) bleibt unverändert.
+  const chapterDisplay = useMemo(
+    () => deoverlapTexts(chapterChunks.map(c => c.text)),
+    [chapterChunks],
+  );
+
   // Fallback: rekonstruiere paragraphs lokal falls werk-chunks.json fehlt
   const fallbackParagraphs = useMemo(() => {
     if (chapterChunks.length > 0 || !currentChapter) return [];
@@ -235,15 +278,17 @@ export default function WerkPage() {
           {/* Lesebereich */}
           <div style={{ position: "relative" }}>
             {chapterChunks.length > 0 ? (
-              chapterChunks.map(chunk => {
+              chapterChunks.map((chunk, ci) => {
                 const reso = resonanzenByChunk.get(chunk.id);
                 const isExpanded = expandedChunk === chunk.id;
+                const displayText = chapterDisplay[ci] ?? chunk.text;
+                if (!displayText.trim()) return null;  // vollständig vom Vorgänger überlappt
                 return (
                   <ParagraphBlock
                     key={chunk.id}
                     C={C}
                     chunkId={chunk.id}
-                    text={chunk.text}
+                    text={displayText}
                     resonanzen={reso}
                     isExpanded={isExpanded}
                     onToggle={() => setExpandedChunk(isExpanded ? null : chunk.id)}
