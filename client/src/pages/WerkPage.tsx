@@ -22,6 +22,10 @@ import { loadResonanzenIndexLazy, broadcastIndexStale, type ResonanzEntry } from
 import { track as trackTrajectory } from "@/lib/trajectory";
 import WeiterdenkenThread from "@/components/WeiterdenkenThread";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
+import {
+  useReadingSettings, bodyFont, type ReadingSettings,
+  FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
+} from "@/lib/readingSettings";
 
 interface EbookChapter {
   id: string;
@@ -75,6 +79,8 @@ export default function WerkPage() {
   const { theme } = useTheme();
   const C: Palette = theme === "dark" ? C_DARK : C_LIGHT;
   const isDark = theme === "dark";
+  const { settings: reading, update: updateReading, reset: resetReading } = useReadingSettings();
+  const readBodyFont = bodyFont(reading);
 
   // D2: Reading-Modus bekommt Pergament-warmen Hintergrund + ruhige Tinte.
   // Wird beim Mount auf <html> gesetzt und beim Unmount restauriert, damit
@@ -206,7 +212,7 @@ export default function WerkPage() {
       `}</style>
       <div className="werk-grid">
         {/* ── Main Reading Column — klassische Buchsatz-Breite 36rem ── */}
-        <article style={{ minWidth: 0, maxWidth: "36rem", marginLeft: "auto", marginRight: "auto" }}>
+        <article style={{ minWidth: 0, maxWidth: `${reading.measure}rem`, marginLeft: "auto", marginRight: "auto" }}>
           <header style={{ marginBottom: "1.5rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
             <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, marginBottom: "0.3rem" }}>
               {currentChapter?.partTitle ?? ebook.meta.title}
@@ -223,6 +229,7 @@ export default function WerkPage() {
                 ein dezenter Italic-Link „Werkzeuge ▾", aufgeklappt:
                 PDF, Quer-Links, Sprache. Reading bleibt ruhig. */}
             <WerkzeugeDropdown C={C} isDark={isDark} />
+            <ReadingControls C={C} settings={reading} update={updateReading} reset={resetReading} />
           </header>
 
           {/* Lesebereich */}
@@ -240,6 +247,8 @@ export default function WerkPage() {
                     resonanzen={reso}
                     isExpanded={isExpanded}
                     onToggle={() => setExpandedChunk(isExpanded ? null : chunk.id)}
+                    fontScale={reading.fontScale}
+                    bodyFont={readBodyFont}
                   />
                 );
               })
@@ -247,7 +256,7 @@ export default function WerkPage() {
               // Fallback ohne werk-chunks.json — Paragraphs ohne IDs, kein
               // Resonanz-Hook möglich (Selection bricht stumm ab)
               fallbackParagraphs.map((para, i) => (
-                <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "1.05rem", lineHeight: 1.65, color: C.text, margin: "0 0 1rem" }}>
+                <p key={i} style={{ fontFamily: readBodyFont, fontSize: `${1.05 * reading.fontScale}rem`, lineHeight: 1.65, color: C.text, margin: "0 0 1rem" }}>
                   {para}
                 </p>
               ))
@@ -331,10 +340,11 @@ export default function WerkPage() {
 // ─── ParagraphBlock ─────────────────────────────────────────────────────
 
 function ParagraphBlock({
-  C, chunkId, text, resonanzen, isExpanded, onToggle,
+  C, chunkId, text, resonanzen, isExpanded, onToggle, fontScale = 1, bodyFont = SERIF_BODY,
 }: {
   C: Palette; chunkId: string; text: string;
   resonanzen?: ResonanzEntry[]; isExpanded: boolean; onToggle: () => void;
+  fontScale?: number; bodyFont?: string;
 }) {
   const count = resonanzen?.length ?? 0;
   return (
@@ -342,7 +352,7 @@ function ParagraphBlock({
       <p
         data-chunk-id={chunkId}
         style={{
-          fontFamily: SERIF_BODY, fontSize: "1.05rem", lineHeight: 1.65,
+          fontFamily: bodyFont, fontSize: `${1.05 * fontScale}rem`, lineHeight: 1.65,
           color: C.text, margin: 0,
           paddingRight: count > 0 ? "1.8rem" : 0,
         }}
@@ -592,6 +602,90 @@ function PassageResonanzModal({
             </div>
           </>
         )}
+      </div>
+    </div>
+  );
+}
+
+// ─── ReadingControls (Phase 6) — Lese-Komfort-Regler ──────────────────────
+// Dezente Disclosure „Aa Lesen ▾": Schriftgröße, Zeilenbreite, Serif/Sans.
+// Persistenz via useReadingSettings (localStorage). Kein Server.
+function ReadingControls({
+  C, settings, update, reset,
+}: {
+  C: Palette;
+  settings: ReadingSettings;
+  update: (patch: Partial<ReadingSettings>) => void;
+  reset: () => void;
+}) {
+  const [open, setOpen] = useState(false);
+  const STEP_F = 0.05, STEP_M = 2;
+  const round2 = (n: number) => Math.round(n * 100) / 100;
+  return (
+    <div style={{ marginTop: "0.5rem" }}>
+      <button
+        onClick={() => setOpen(o => !o)}
+        style={{
+          fontFamily: SERIF, fontStyle: "italic", fontSize: "0.75rem",
+          color: C.textDim, background: "none", border: "none", padding: 0, cursor: "pointer",
+          textDecoration: "underline", textDecorationStyle: "dotted", textUnderlineOffset: "3px",
+        }}
+      >
+        Aa Lesen {open ? "▴" : "▾"}
+      </button>
+      {open && (
+        <div style={{
+          marginTop: "0.5rem", padding: "0.7rem 0.9rem",
+          background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4,
+          display: "flex", flexDirection: "column", gap: "0.6rem", maxWidth: 320,
+        }}>
+          <Stepper C={C} label="Schriftgröße" value={`${Math.round(settings.fontScale * 100)}%`}
+            onMinus={() => update({ fontScale: round2(Math.max(FONT_SCALE_MIN, settings.fontScale - STEP_F)) })}
+            onPlus={() => update({ fontScale: round2(Math.min(FONT_SCALE_MAX, settings.fontScale + STEP_F)) })} />
+          <Stepper C={C} label="Zeilenbreite" value={`${settings.measure} rem`}
+            onMinus={() => update({ measure: Math.max(MEASURE_MIN, settings.measure - STEP_M) })}
+            onPlus={() => update({ measure: Math.min(MEASURE_MAX, settings.measure + STEP_M) })} />
+          <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.6rem" }}>
+            <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted }}>Schriftart</span>
+            <div style={{ display: "flex", gap: "0.3rem" }}>
+              {([["serif", true], ["sans", false]] as Array<[string, boolean]>).map(([label, val]) => {
+                const active = settings.serifBody === val;
+                return (
+                  <button key={label} onClick={() => update({ serifBody: val })} style={{
+                    fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase",
+                    color: active ? "#080808" : C.muted, background: active ? C.accent : "none",
+                    border: `1px solid ${active ? C.accent : C.border}`, borderRadius: 3,
+                    padding: "0.3rem 0.5rem", cursor: "pointer", minHeight: 30,
+                  }}>{label}</button>
+                );
+              })}
+            </div>
+          </div>
+          <button onClick={reset} style={{
+            alignSelf: "flex-start", fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: C.muted, background: "none", border: "none", padding: 0, cursor: "pointer", textDecoration: "underline",
+          }}>zurücksetzen</button>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function Stepper({ C, label, value, onMinus, onPlus }: {
+  C: Palette; label: string; value: string; onMinus: () => void; onPlus: () => void;
+}) {
+  const btn: React.CSSProperties = {
+    fontFamily: MONO, fontSize: "0.85rem", lineHeight: 1, color: C.text,
+    background: "none", border: `1px solid ${C.border}`, borderRadius: 3,
+    width: 30, height: 30, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
+  };
+  return (
+    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: "0.6rem" }}>
+      <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted }}>{label}</span>
+      <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+        <button onClick={onMinus} style={btn} aria-label={`${label} verkleinern`}>−</button>
+        <span style={{ fontFamily: MONO, fontSize: "0.65rem", color: C.textDim, minWidth: 48, textAlign: "center" }}>{value}</span>
+        <button onClick={onPlus} style={btn} aria-label={`${label} vergrößern`}>+</button>
       </div>
     </div>
   );
