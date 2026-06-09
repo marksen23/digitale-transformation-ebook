@@ -1,4 +1,12 @@
 {
-  "generatedAt": "2026-06-09T00:00:00.000Z",
-  "edges": []
+  "generatedAt": "2026-06-09T10:09:06.122Z",
+  "edges": [
+    {
+      "source": "stimme",
+      "target": "zwischen",
+      "evidence": 2,
+      "createdAt": "2026-06-09T10:09:06.122Z",
+      "actor": "admin"
+    }
+  ]
 }
