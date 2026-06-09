@@ -203,7 +203,10 @@ export default function LandkartePage() {
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 280px", gap: "1.5rem", alignItems: "start" }}>
         {/* ── Karte ── */}
         <div style={{ background: C.deep, border: `1px solid ${C.border}`, borderRadius: 6, overflow: "hidden" }}>
-          <svg viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`} width="100%" height="auto" preserveAspectRatio="xMidYMid meet" style={{ display: "block" }}>
+          <svg viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`} width="100%" height="auto" preserveAspectRatio="xMidYMid meet"
+            role="group" aria-roledescription="Wissens-Landkarte"
+            aria-label="Wissens-Landkarte — Begriffe als Konstellation, Größe nach gesammelten Erkenntnissen. Begriffe lassen sich anklicken; die Liste rechts bietet eine textuelle Alternative."
+            style={{ display: "block" }}>
             {/* Kanonische Kanten (stabiles Rückgrat) */}
             {EDGES.map((ed, i) => {
               const s = nodeById.get(ed.source); const t = nodeById.get(ed.target);

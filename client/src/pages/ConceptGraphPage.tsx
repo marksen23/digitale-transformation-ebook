@@ -1385,6 +1385,9 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           ref={svgRef}
           width="100%"
           height="100%"
+          role="group"
+          aria-roledescription="Begriffsnetz-Visualisierung"
+          aria-label="Begriffsnetz — interaktive Karte der Werkbegriffe. Für Tastatur-Zugang zu einzelnen Begriffen die Suche (Cmd/Strg + K) nutzen."
           style={{ flex: 1, display: "block", cursor: draggingNodeId ? "grabbing" : dragRef.current ? "grabbing" : "grab", touchAction: "none" }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
