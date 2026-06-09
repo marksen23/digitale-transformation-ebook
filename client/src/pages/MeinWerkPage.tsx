@@ -88,6 +88,12 @@ export default function MeinWerkPage() {
 
   if (!t || !stats) return <div style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
 
+  // Erstbesucher ohne jede Aktivität: statt einer Wand aus Nullen ein sanfter
+  // Empty-State mit Orientierung (Phase 6).
+  const isEmpty = stats.visitedCount === 0 && stats.passageCount === 0
+    && stats.expandedCount === 0 && stats.dialogSessions === 0
+    && stats.weiterdenkenSteps === 0 && threads.length === 0;
+
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
       <header style={{ marginBottom: "1.5rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
@@ -104,6 +110,21 @@ export default function MeinWerkPage() {
         <div style={{ padding: "1rem", border: `1px dashed ${C.border}`, color: C.muted, fontStyle: "italic" }}>
           Trajektorie ist deaktiviert. <button onClick={handleOptOutToggle} style={{ background: "none", border: "none", color: C.accentText, cursor: "pointer", textDecoration: "underline" }}>Wieder aktivieren</button>
         </div>
+      ) : isEmpty ? (
+        <section style={{ border: `1px solid ${C.border}`, background: `${C.accent}08`, borderRadius: 8, padding: "1.4rem 1.3rem" }}>
+          <SectionLabel c={C} size="sm" tracking="open" variant="werk">Noch nichts gesammelt</SectionLabel>
+          <p style={{ marginTop: "0.4rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.95rem", color: C.text, lineHeight: 1.6 }}>
+            Diese Seite füllt sich mit deinem Weg durchs Werk — besuchte Begriffe, markierte Passagen,
+            geführte Dialoge und weitergesponnene Gedankenfäden. Beginne irgendwo:
+          </p>
+          <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginTop: "0.7rem" }}>
+            {[["/werk", "Das Werk lesen"], ["/begriffsnetz", "Begriffsnetz erkunden"], ["/landkarte", "Wissens-Landkarte"]].map(([href, label]) => (
+              <button key={href} onClick={() => navigate(href)} style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`, borderRadius: 3, padding: "0.4rem 0.65rem", cursor: "pointer", minHeight: 32 }}>
+                {label}
+              </button>
+            ))}
+          </div>
+        </section>
       ) : (
         <>
           {/* Stats */}
