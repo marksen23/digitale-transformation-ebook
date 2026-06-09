@@ -22,10 +22,11 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import {
   NODES, EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H,
-  type ConceptNode,
+  type ConceptNode, type NodeCategory,
 } from "@/data/conceptGraph";
 import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadPromotedEdges, invalidatePromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
+import { loadDynamicNodes, type DynamicConceptNode } from "@/lib/dynamicNodes";
 import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import SectionLabel from "@/components/SectionLabel";
 
@@ -45,6 +46,7 @@ export default function LandkartePage() {
   const [curatedOnly, setCuratedOnly] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
   const [promoted, setPromoted] = useState<PromotedEdge[]>([]);
+  const [dynamic, setDynamic] = useState<DynamicConceptNode[]>([]);
   const [promoting, setPromoting] = useState<string | null>(null);
   const [promoteMsg, setPromoteMsg] = useState<string | null>(null);
   const { state: adminState } = useAdminAuth();
@@ -53,7 +55,18 @@ export default function LandkartePage() {
   useEffect(() => {
     loadResonanzenIndexLazy().then(idx => idx && setAllEntries(idx.entries));
     loadPromotedEdges().then(setPromoted);
+    loadDynamicNodes().then(setDynamic);
   }, []);
+
+  // Statische + dynamische (in den Kanon erhobene) Begriffe mergen.
+  const dynamicIds = useMemo(() => new Set(dynamic.map(d => d.id)), [dynamic]);
+  const allNodes = useMemo<ConceptNode[]>(() => [
+    ...NODES,
+    ...dynamic.map(d => ({
+      id: d.id, label: d.label, fullLabel: d.fullLabel, description: d.description,
+      category: d.category as NodeCategory, x: d.x, y: d.y, r: d.r,
+    })),
+  ], [dynamic]);
 
   // Erhobene Kanten als Paar-Set — für „bereits kanonisch"-Ausschluss.
   const promotedPairs = useMemo(() => {
@@ -77,7 +90,7 @@ export default function LandkartePage() {
     }
   }
 
-  const nodeById = useMemo(() => new Map<string, ConceptNode>(NODES.map(n => [n.id, n])), []);
+  const nodeById = useMemo(() => new Map<string, ConceptNode>(allNodes.map(n => [n.id, n])), [allNodes]);
 
   const curatedCount = useMemo(
     () => (allEntries ?? []).filter(e => CURATED.has(e.status)).length,
@@ -166,7 +179,8 @@ export default function LandkartePage() {
           <input type="checkbox" checked={curatedOnly} onChange={() => { setCuratedOnly(v => !v); setSelected(null); }} />
           nur gesicherte Erkenntnisse ({curatedCount})
         </label>
-        <Metric C={C} label="Begriffe berührt" value={`${engagedCount} / ${NODES.length}`} />
+        <Metric C={C} label="Begriffe berührt" value={`${engagedCount} / ${allNodes.length}`} />
+        {dynamic.length > 0 && <Metric C={C} label="neue Begriffe" value={dynamic.length} />}
         <Metric C={C} label="werdende Verbindungen" value={emerging.length} />
         <Metric C={C} label="erhobene Kanten" value={promoted.length} />
         <Metric C={C} label="Erkenntnisse im Bild" value={entries.length} />
@@ -221,23 +235,29 @@ export default function LandkartePage() {
                   strokeDasharray="4 4" />
               );
             })}
-            {/* Knoten */}
-            {NODES.map(n => {
+            {/* Knoten (statisch + dynamisch). Neue Begriffe (Phase 5c) erhalten
+                einen gestrichelten Ring als Markierung des Netz-Wachstums. */}
+            {allNodes.map(n => {
               const eng = engagement.get(n.id) ?? 0;
               const isSel = selected === n.id;
+              const isDyn = dynamicIds.has(n.id);
               const halo = eng > 0 ? n.r + 4 + 26 * (eng / maxEngagement) : 0;
               const col = CAT_COLOR[n.category];
               return (
                 <g key={n.id} style={{ cursor: "pointer" }} onClick={() => setSelected(isSel ? null : n.id)}>
                   {halo > 0 && <circle cx={n.x} cy={n.y} r={halo} fill={col} opacity={0.12} />}
+                  {isDyn && (
+                    <circle cx={n.x} cy={n.y} r={n.r * 0.6 + 4} fill="none"
+                      stroke={C.accent} strokeWidth={1.2} strokeDasharray="3 3" opacity={0.8} />
+                  )}
                   <circle cx={n.x} cy={n.y} r={n.r * 0.6}
                     fill={eng > 0 ? col : C.surface}
                     stroke={isSel ? C.textBright : col} strokeWidth={isSel ? 2.5 : 1}
                     opacity={eng > 0 ? 0.92 : 0.45} />
-                  {(eng > 0 || isSel) && (
+                  {(eng > 0 || isSel || isDyn) && (
                     <text x={n.x} y={n.y + n.r * 0.6 + 11} textAnchor="middle"
-                      style={{ fontFamily: SERIF, fontSize: 11, fill: isSel ? C.textBright : C.textDim, pointerEvents: "none" }}>
-                      {n.fullLabel}{eng > 0 ? ` (${eng})` : ""}
+                      style={{ fontFamily: SERIF, fontSize: 11, fill: isSel ? C.textBright : (isDyn ? C.accent : C.textDim), pointerEvents: "none" }}>
+                      {n.fullLabel}{eng > 0 ? ` (${eng})` : ""}{isDyn ? " ✦" : ""}
                     </text>
                   )}
                 </g>

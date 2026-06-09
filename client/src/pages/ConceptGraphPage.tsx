@@ -21,6 +21,7 @@ import LegendSection from "@/components/LegendSection";
 import ToolOutputPanel from "@/components/ToolOutputPanel";
 import CitedSourcesFooter from "@/components/CitedSourcesFooter";
 import { loadPromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
+import { loadDynamicNodes, type DynamicConceptNode } from "@/lib/dynamicNodes";
 import { consumeSSE } from "@/lib/sseClient";
 
 const PR_COLOR = "#8ea8b8";
@@ -357,6 +358,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // (concept-edges.json) — geteiltes Netz-Wachstum, von allen gesehen.
   const [promotedEdges, setPromotedEdges] = useState<PromotedEdge[]>([]);
   useEffect(() => { loadPromotedEdges().then(setPromotedEdges); }, []);
+  // Phase 5c: in den Kanon erhobene neue Begriffe (concept-nodes.json) — als
+  // additive Sicht-Schicht gerendert (Position aus dem Record), ohne die
+  // Drag-/Hit-Logik der statischen Knoten zu berühren.
+  const [dynamicNodes, setDynamicNodes] = useState<DynamicConceptNode[]>([]);
+  useEffect(() => { loadDynamicNodes().then(setDynamicNodes); }, []);
   const [notePopup, setNotePopup] = useState<{ sourceId: string; targetId: string } | null>(null);
   const [noteInput, setNoteInput] = useState("");
   const connectModeRef = useRef(false);
@@ -1670,6 +1676,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             })}
 
             {/* ── Nodes (concept layer — skip leitmotiv & prinzip, rendered separately) ── */}
+            {/* Dynamische Knoten (Phase 5c) — in den Kanon erhobene neue Begriffe.
+                Additive Schicht: gestrichelter Akzent-Ring + ✦-Label an der
+                gespeicherten Position. Read-only (kein Drag/Analyse-Hit). */}
+            {dynamicNodes.map(dn => {
+              const col = CAT_COLOR[dn.category as NodeCategory] ?? C.accent;
+              return (
+                <g key={`dyn-${dn.id}`} style={{ pointerEvents: "none" }}>
+                  <circle cx={dn.x} cy={dn.y} r={dn.r * 0.6 + 4} fill="none" stroke={C.accent} strokeWidth={1.2} strokeDasharray="3 3" opacity={0.85}>
+                    <title>{`${dn.fullLabel} — neuer Begriff (Evidenz ${dn.evidence}, Anker ${dn.anchorId})`}</title>
+                  </circle>
+                  <circle cx={dn.x} cy={dn.y} r={dn.r * 0.6} fill={col} opacity={0.85} />
+                  <text x={dn.x} y={dn.y + dn.r * 0.6 + 12} textAnchor="middle" style={{ fontFamily: C.serif, fontSize: 11, fill: C.accent, pointerEvents: "none" }}>
+                    {dn.fullLabel} ✦
+                  </text>
+                </g>
+              );
+            })}
             {NODES.map(node => {
               if (node.category === "leitmotiv") return null; // rendered in leitmotiv pass below
               if (node.category === "prinzip")   return null; // rendered in prinzip pass below
