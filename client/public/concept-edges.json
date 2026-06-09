@@ -1,11 +1,18 @@
 {
-  "generatedAt": "2026-06-09T10:09:06.122Z",
+  "generatedAt": "2026-06-09T10:34:01.532Z",
   "edges": [
     {
       "source": "stimme",
       "target": "zwischen",
       "evidence": 2,
       "createdAt": "2026-06-09T10:09:06.122Z",
+      "actor": "admin"
+    },
+    {
+      "source": "freiheit",
+      "target": "lm-grenze",
+      "evidence": 3,
+      "createdAt": "2026-06-09T10:34:01.532Z",
       "actor": "admin"
     }
   ]
