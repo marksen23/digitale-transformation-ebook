@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T05:54:35.761Z",
+  "generatedAt": "2026-06-09T05:55:54.046Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
@@ -65,6 +65,22 @@
       "masterStale": false
     },
     {
+      "anchor": "analyse:resonanz+vernunft",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MQ686ZDY-57367863",
+        "MQ686S1T-A20495CF",
+        "MQ685YTP-4A9F2234",
+        "MQ6850LJ-159A667C",
+        "MQ684QZK-4977B6D6",
+        "MQ683DMX-13D6C54F"
+      ],
+      "lastVariantTs": "2026-06-09T05:55:10.630Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:band3-kap3",
       "endpoint": "chapter",
       "variantIds": [
@@ -90,20 +106,6 @@
         "MON602G2-9C9A59E5"
       ],
       "lastVariantTs": "2026-05-01T17:19:21.440Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
-      "anchor": "analyse:resonanz+vernunft",
-      "endpoint": "analyse",
-      "variantIds": [
-        "MQ685YTP-4A9F2234",
-        "MQ6850LJ-159A667C",
-        "MQ684QZK-4977B6D6",
-        "MQ683DMX-13D6C54F"
-      ],
-      "lastVariantTs": "2026-06-09T05:54:23.245Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false

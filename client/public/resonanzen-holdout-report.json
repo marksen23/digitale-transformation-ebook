@@ -1,10 +1,24 @@
 {
-  "generatedAt": "2026-06-09T05:54:35.751Z",
-  "checked": 34,
+  "generatedAt": "2026-06-09T05:55:54.035Z",
+  "checked": 35,
   "stable": 23,
-  "shifted": 9,
+  "shifted": 10,
   "drifted": 2,
   "details": [
+    {
+      "id": "MQ686ZDY-57367863",
+      "baseline": [
+        "MQ685YTP-4A9F2234",
+        "MQ683DMX-13D6C54F",
+        "MQ686S1T-A20495CF"
+      ],
+      "current": [
+        "MQ685YTP-4A9F2234",
+        "MQ683DMX-13D6C54F",
+        "MQ686S1T-A20495CF"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MQ5WZZPN-8051E5FF",
       "baseline": [
@@ -393,9 +407,9 @@
       "current": [
         "MOHLZBVK-2FBBAD2F",
         "MOJ7Q5HM-89F62E3F",
-        "MOP0LEAL-E2568DCC"
+        "MQ686ZDY-57367863"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MOHST017-5C4320E1",
