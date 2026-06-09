@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T06:40:23.183Z",
+  "generatedAt": "2026-06-09T06:54:12.546Z",
   "buckets": [
     {
       "date": "2026-05-03",
@@ -230,10 +230,10 @@
       "date": "2026-06-09",
       "totalEntries": 287,
       "byStatus": {
-        "raw": 163,
-        "published": 119,
-        "rejected": 3,
-        "approved": 2
+        "raw": 153,
+        "published": 112,
+        "approved": 20,
+        "rejected": 2
       },
       "byEndpoint": {
         "graph-chat": 56,
@@ -244,8 +244,8 @@
         "chapter": 28,
         "translate": 2
       },
-      "publishedRatio": 0.4146341463414634,
-      "medianWerkVoice": 0.8654284262364401,
+      "publishedRatio": 0.3902439024390244,
+      "medianWerkVoice": 0.865187841626881,
       "medianCorpusVoice": 0.816226030614286,
       "echoRatio": 0.6341463414634146,
       "noveltyRatio": 0

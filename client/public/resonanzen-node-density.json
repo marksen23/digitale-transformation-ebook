@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-06-09T06:40:22.622Z",
+  "generatedAt": "2026-06-09T06:54:12.111Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 24,
+      "count": 23,
       "endpoints": {
-        "path-analyse": 18,
+        "path-analyse": 17,
         "analyse": 6
       }
     },
@@ -72,11 +72,11 @@
       }
     },
     "erkenntnis": {
-      "count": 29,
+      "count": 28,
       "endpoints": {
         "dialog": 19,
         "analyse": 5,
-        "path-analyse": 5
+        "path-analyse": 4
       }
     },
     "wahrheit": {
@@ -172,10 +172,10 @@
       }
     },
     "selbst": {
-      "count": 11,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 5,
-        "analyse": 6
+        "analyse": 6,
+        "path-analyse": 4
       }
     },
     "andere": {
@@ -192,9 +192,9 @@
       }
     },
     "freiheit": {
-      "count": 7,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 4,
         "analyse": 2
       }
     },
@@ -212,9 +212,9 @@
       }
     },
     "lm-spiegel": {
-      "count": 6,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 4,
         "analyse": 1
       }
     },
@@ -239,11 +239,11 @@
       }
     },
     "lm-verwandlung": {
-      "count": 36,
+      "count": 35,
       "endpoints": {
         "dialog": 19,
         "analyse": 6,
-        "path-analyse": 11
+        "path-analyse": 10
       }
     },
     "dazwischenintelligenz": {
@@ -348,7 +348,7 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 36,
+    "maxCount": 35,
     "median": 4,
     "totalNodes": 52,
     "zeroResonanceNodes": [

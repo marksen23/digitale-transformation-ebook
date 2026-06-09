@@ -1,15 +1,15 @@
 {
-  "generatedAt": "2026-06-09T06:40:22.623Z",
+  "generatedAt": "2026-06-09T06:54:12.112Z",
   "minCooccurrence": 2,
   "candidates": [
     {
       "source": "erkenntnis",
       "target": "lm-verwandlung",
-      "cooccurrence": 24,
+      "cooccurrence": 23,
       "endpoints": {
         "dialog": 19,
         "analyse": 2,
-        "path-analyse": 3
+        "path-analyse": 2
       },
       "sampleEntryIds": [
         "MQ5XNFSV-CD34905C",
@@ -33,21 +33,6 @@
         "MQ685YTP-4A9F2234",
         "MQ6850LJ-159A667C",
         "MQ684QZK-4977B6D6"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
-      "target": "selbst",
-      "cooccurrence": 4,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPUNXFU1-3B1F056A",
-        "MPF4FISZ-67000E01",
-        "MP2LJCJB-EA58EC28",
-        "MP2LIW43-E8ADC59E"
       ]
     },
     {
@@ -105,20 +90,6 @@
       ]
     },
     {
-      "source": "lm-spiegel",
-      "target": "resonanzvernunft",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPUNXFU1-3B1F056A",
-        "MOUKLLK4-C38517C1",
-        "MOP0S479-373A2268"
-      ]
-    },
-    {
       "source": "denken",
       "target": "resonanzvernunft",
       "cooccurrence": 3,
@@ -130,6 +101,20 @@
         "MPF4FISZ-67000E01",
         "MP497SNT-5E1D2074",
         "MOHLZBVK-2FBBAD2F"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "selbst",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MPF4FISZ-67000E01",
+        "MP2LJCJB-EA58EC28",
+        "MP2LIW43-E8ADC59E"
       ]
     },
     {
@@ -516,6 +501,19 @@
       ]
     },
     {
+      "source": "lm-spiegel",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MOUKLLK4-C38517C1",
+        "MOP0S479-373A2268"
+      ]
+    },
+    {
       "source": "lm-verwandlung",
       "target": "stimme",
       "cooccurrence": 2,
@@ -542,9 +540,9 @@
     }
   ],
   "stats": {
-    "totalPairs": 251,
+    "totalPairs": 244,
     "candidatesCount": 42,
     "existingEdges": 116,
-    "maxCooccurrence": 24
+    "maxCooccurrence": 23
   }
 }
