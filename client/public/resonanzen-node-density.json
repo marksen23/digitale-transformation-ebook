@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T13:52:16.437Z",
+  "generatedAt": "2026-06-09T00:27:19.856Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 23,
@@ -9,9 +9,9 @@
       }
     },
     "resonanz": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
-        "path-analyse": 14,
+        "path-analyse": 15,
         "analyse": 2
       }
     },
@@ -23,9 +23,9 @@
       }
     },
     "zwischen": {
-      "count": 13,
+      "count": 15,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 8,
         "analyse": 7
       }
     },
@@ -65,9 +65,9 @@
       }
     },
     "klang": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 4,
         "analyse": 3
       }
     },
@@ -100,9 +100,9 @@
       }
     },
     "moment": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 4,
         "analyse": 1
       }
     },
@@ -113,8 +113,9 @@
       }
     },
     "raum": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 4
       }
     },
@@ -144,9 +145,9 @@
       }
     },
     "sein": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 3,
         "analyse": 4
       }
     },
@@ -163,9 +164,9 @@
       }
     },
     "wesen": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 3,
         "analyse": 2
       }
     },
@@ -183,23 +184,23 @@
       }
     },
     "welt": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "analyse": 5,
-        "path-analyse": 3
+        "path-analyse": 4,
+        "analyse": 5
       }
     },
     "freiheit": {
-      "count": 5,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 5,
         "analyse": 2
       }
     },
     "öffnung": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "path-analyse": 3
+        "path-analyse": 4
       }
     },
     "spannung": {
@@ -230,10 +231,10 @@
       }
     },
     "lm-grenze": {
-      "count": 8,
+      "count": 10,
       "endpoints": {
-        "analyse": 6,
-        "path-analyse": 2
+        "path-analyse": 4,
+        "analyse": 6
       }
     },
     "lm-verwandlung": {
@@ -263,8 +264,9 @@
       }
     },
     "echo-kammer": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 2
       }
     },
@@ -288,9 +290,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 7,
+      "count": 9,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 6,
         "analyse": 3
       }
     },

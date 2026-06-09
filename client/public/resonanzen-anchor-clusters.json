@@ -1,6 +1,38 @@
 {
-  "generatedAt": "2026-06-08T13:52:16.439Z",
+  "generatedAt": "2026-06-09T00:27:19.858Z",
   "clusters": [
+    {
+      "anchor": "dialog:weiterdenken",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MQ5JL9TM-83E39C42",
+        "MQ5IO9GO-C29E0F4E",
+        "MQ5C9KIC-83A23F97",
+        "MQ5C887R-40278B91",
+        "MQ5C6W1B-D938FD1A",
+        "MQ5C5K4T-05B8AA83",
+        "MQ5C48T7-410C35C7",
+        "MQ5C2WMP-EB2A6071",
+        "MQ5C1KZ4-D6D52E94",
+        "MQ5C0980-C55D71E7",
+        "MQ5BYWCV-3C2528F8",
+        "MQ5BXK98-6A342B60",
+        "MQ5BX1ZO-4BCAEB11",
+        "MQ5BW774-2D00BE70",
+        "MQ5BUVA9-8E6E03AD",
+        "MQ5BTJKN-600F219C",
+        "MQ5BS3W0-008C85CA",
+        "MQ5BQRLE-54F57DD2",
+        "MQ5BPD9J-BF6353E0",
+        "MQ5BNZGK-DC882397",
+        "MQ5BMN6X-42C6D4EF",
+        "MQ5BF409-A842738E"
+      ],
+      "lastVariantTs": "2026-06-08T18:26:26.938Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
     {
       "anchor": "chapter:band3-kap3",
       "endpoint": "chapter",
@@ -146,8 +178,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 100,
-    "withMultipleVariants": 11,
+    "totalAnchors": 104,
+    "withMultipleVariants": 12,
     "withMaster": 0,
     "staleMasters": 0
   }

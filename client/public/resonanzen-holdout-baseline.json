@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T13:52:16.431Z",
+  "generatedAt": "2026-06-09T00:27:19.849Z",
   "baseline": {
     "MPF4FISZ-67000E01": {
       "neighbors": [
@@ -200,6 +200,62 @@
         "MPMKE3CC-4E75CE39"
       ],
       "computedAt": "2026-06-08T13:52:16.419Z"
+    },
+    "MQ5KC1TP-0424F50A": {
+      "neighbors": [
+        "MQ5KAM5L-409E9F8E",
+        "MQ5K7UE1-BD2343A8",
+        "MQ5K97KT-75E9B3B8"
+      ],
+      "computedAt": "2026-06-09T00:27:19.822Z"
+    },
+    "MQ5K5256-50E71A1B": {
+      "neighbors": [
+        "MQ5JWSCZ-DA570048",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5K97KT-75E9B3B8"
+      ],
+      "computedAt": "2026-06-09T00:27:19.823Z"
+    },
+    "MQ5K3NXJ-35B2897A": {
+      "neighbors": [
+        "MQ5K97KT-75E9B3B8",
+        "MQ5JY6XE-E3DF189F",
+        "MQ5JWSCZ-DA570048"
+      ],
+      "computedAt": "2026-06-09T00:27:19.824Z"
+    },
+    "MQ5JZJS7-D1C1681C": {
+      "neighbors": [
+        "MQ5KAM5L-409E9F8E",
+        "MQ5K97KT-75E9B3B8",
+        "MQ5JM1HD-9047C82F"
+      ],
+      "computedAt": "2026-06-09T00:27:19.825Z"
+    },
+    "MQ5CMPJB-3D705D06": {
+      "neighbors": [
+        "MQ5B3FJP-CD835FC2",
+        "MPEV1D2J-55138734",
+        "MPAS5OM5-A1F522F4"
+      ],
+      "computedAt": "2026-06-09T00:27:19.826Z"
+    },
+    "MQ5BQRLE-54F57DD2": {
+      "neighbors": [
+        "MQ5C5K4T-05B8AA83",
+        "MQ5BW774-2D00BE70",
+        "MQ5BS3W0-008C85CA"
+      ],
+      "computedAt": "2026-06-09T00:27:19.827Z"
+    },
+    "MQ5BPD9J-BF6353E0": {
+      "neighbors": [
+        "MQ5BYWCV-3C2528F8",
+        "MQ5BTJKN-600F219C",
+        "MQ5BNZGK-DC882397"
+      ],
+      "computedAt": "2026-06-09T00:27:19.828Z"
     }
   }
 }

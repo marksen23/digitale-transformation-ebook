@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-08T13:52:16.438Z",
+  "generatedAt": "2026-06-09T00:27:19.858Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -15,6 +15,33 @@
         "MPF4FISZ-67000E01",
         "MP2LJCJB-EA58EC28",
         "MP2LIW43-E8ADC59E"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "moment",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C",
+        "MPCV5LR8-9AD1527C"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C",
+        "MPUQSMLJ-1B726CC4"
       ]
     },
     {
@@ -102,27 +129,99 @@
     },
     {
       "source": "klang",
-      "target": "moment",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPURYS56-11F5308C",
-        "MPCV5LR8-9AD1527C"
-      ]
-    },
-    {
-      "source": "resonanz",
       "target": "unverfuegbarkeit",
       "cooccurrence": 2,
       "endpoints": {
         "path-analyse": 2
       },
       "sampleEntryIds": [
-        "MPURYS56-11F5308C",
-        "MPUQSMLJ-1B726CC4"
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C"
+      ]
+    },
+    {
+      "source": "moment",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "wesen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MQ5B3FJP-CD835FC2",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MQ5B3FJP-CD835FC2",
+        "MOOZHCUT-4B86F8AD"
+      ]
+    },
+    {
+      "source": "sein",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MQ5B3FJP-CD835FC2",
+        "MOQ7OBNT-57882C8D"
+      ]
+    },
+    {
+      "source": "unverfuegbarkeit",
+      "target": "öffnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MQ5B3FJP-CD835FC2",
+        "MOQIAGXM-397A1F22"
+      ]
+    },
+    {
+      "source": "wesen",
+      "target": "öffnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MQ5B3FJP-CD835FC2",
+        "MP0ZE9C8-A9D02716"
       ]
     },
     {
@@ -424,8 +523,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 236,
-    "candidatesCount": 33,
+    "totalPairs": 251,
+    "candidatesCount": 41,
     "existingEdges": 116,
     "maxCooccurrence": 4
   }
