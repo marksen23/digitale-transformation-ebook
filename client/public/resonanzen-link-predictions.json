@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T05:43:49.142Z",
+  "generatedAt": "2026-06-09T05:53:18.798Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -128,6 +128,19 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "vernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MQ683DMX-13D6C54F",
+        "MOOMPCI0-262176C2"
       ]
     },
     {
@@ -527,7 +540,7 @@
   ],
   "stats": {
     "totalPairs": 251,
-    "candidatesCount": 41,
+    "candidatesCount": 42,
     "existingEdges": 116,
     "maxCooccurrence": 24
   }
