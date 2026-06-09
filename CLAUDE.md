@@ -303,6 +303,41 @@ JSON-Schichten lagern sich an:
 - `scripts/netlify-ignore.sh` — Build-Ignore-Hook (überspringt Netlify-Deploys
   ohne Frontend-Relevanz — siehe Fallstrick #6)
 
+### „Das wachsende Werk" — Roadmap-Feature-Flächen (Phasen 1–6, abgeschlossen)
+
+Selbstlern-/Wachstums-Features. Alle **additiv**: kanonische Kerne (Buchtext,
+`conceptGraph.ts` NODES/EDGES) bleiben unberührt, neue Erkenntnisse/Begriffe
+lagern sich an.
+
+- **Streaming (SSE, Phase 3):** alle vier KI-Flächen streamen token-weise.
+  Server: additive Endpunkte `/api/{graph-chat,weiterdenken,analyse-cluster,
+  analyse-path}/stream` + geteilter `server/lib/geminiStream.ts`
+  (`streamGeminiSSE`). Client: `client/src/lib/sseClient.ts` (`consumeSSE`) +
+  inline-Reader in ConceptGraphPage/WeiterdenkenThread. **KRITISCH:** SSE-Header
+  `Cache-Control: no-store` (nicht `no-cache` — sonst cacht Netlify-Edge leere
+  POST-Antworten). Citation- + Schlussfrage-Split laufen NACH Stream-Ende;
+  automatischer Fallback auf die nicht-gestreamten JSON-Endpunkte.
+- **Weiterdenken-Fäden (Phase 1):** `client/src/lib/threadStore.ts`
+  (localStorage), `WeiterdenkenThread.tsx`, `closingQuestion.ts` (`splitClosing`).
+  Speicher-/Wiederfind-UI in „Mein Werk" (`MeinWerkPage.tsx`).
+- **Quellen-Footer (Phase 1):** `client/src/components/CitedSourcesFooter.tsx`
+  (geteilt: Analyse/Pfad/Dialog/Weiterdenken).
+- **Werk-Anschlussstellen (Phase 2):** Reader-Naht-Indikator in `WerkPage.tsx`
+  via `contextMeta.werk_passages`; Kanon-Akkretion (kuratierte = „Weiterführungen").
+- **Wissens-Landkarte (Phase 4):** `client/src/pages/LandkartePage.tsx` (Route
+  `/landkarte`) — Begriffsnetz × Korpus, Korpus-Gravitation, werdende Verbindungen.
+- **Wachsendes Netz (Phase 5b/5c):** Kanten — `server/lib/conceptEdges.ts` +
+  `client/src/lib/promotedEdges.ts` (`concept-edges.json`); Knoten —
+  `server/lib/conceptNodes.ts` + `client/src/lib/dynamicNodes.ts`
+  (`concept-nodes.json`) + `components/admin/ProposeConceptPanel.tsx`
+  (`/api/admin/propose-concept`). Schutzwall siehe Selbst-Erweiterungs-Abschnitt.
+- **Lese-Komfort (Phase 6):** `client/src/lib/readingSettings.ts` + „Aa Lesen"-
+  Regler in `WerkPage.tsx`.
+- **Onboarding/A11y (Phase 6):** `OnboardingHint.tsx`; `theme.ts:accentText`
+  (theme-bewusster WCAG-AA-Akzenttext: hell #b45309, dunkel #f59e0b); Skip-Link +
+  globaler `:focus-visible` + `<main>` in AppFrame/index.css; Begriffsnetz-Knoten
+  tastatur-fokussierbar (tabIndex/role/aria-label/Enter).
+
 ### Vereinheitlichte Suche (UnifiedSearch)
 
 Eine gemeinsame Such-Architektur über alle Seiten (Reader, Begriffsnetz,
@@ -356,5 +391,21 @@ das, was auf `origin/main` liegt. Was offen ist, steht in **TODO** oder in
 GitHub-Issues. Was kürzlich gefixt wurde, steht im `git log` der letzten 20
 Commits.
 
-Aktuell (Stand des letzten Commits in dieser Datei): siehe `git log -10` für
-den Bilanz-Status der letzten Embedding/CI/Netlify/Render-Fixes.
+Aktuell (Stand 2026-06-09): Die Roadmap **„Das wachsende Werk" (Phasen 1–6) ist
+abgeschlossen und live** — siehe den gleichnamigen Datei-Pfade-Abschnitt für die
+Feature-Flächen (Streaming, Weiterdenken-Fäden, Wissens-Landkarte, triangulierter
+Schutzwall, wachsendes Netz/Kanten+Knoten, Kanon-Akkretion, Lese-Komfort/A11y/
+Onboarding). Dazu: Render liest den Korpus live von GitHub-Raw (deploy-frei,
+Fallstrick-Abschnitt #5/#6) und der Netlify-Frontend-Deploy hing zwischenzeitlich
+am Billing (Fallstrick #4).
+
+**Korpus-abhängige Reife:** Viele Wachstums-Features zeigen erst mit mehr
+**kuratierten** Einträgen volle Wirkung (`werkVoiceScore` braucht ≥10; die
+Landkarte-Gravitation, conceptVoiceScore-Evidenz und 5c-Begriffs-Evidenz skalieren
+mit dem kuratierten Korpus — aktuell nur ~3 published). Nächster organischer
+Schritt ist daher **Kuratierung** (`/admin` → Auto-Kuratierung/Bulk), nicht weiterer
+Code. Offene Code-Optionen: `accentText` auf Admin-Seiten, Auto-Begriffs-Kandidaten
+aus dem Korpus (5c-Erweiterung), Reset-Aktion im Wissen-Empty-State.
+
+Was kürzlich passierte: siehe `git log -30` (Roadmap-Commits + die
+Embedding/CI/Netlify/Render-Fixes).
