@@ -1514,6 +1514,20 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     return res.json({ ok: true, id, oldStatus: r.oldStatus, newStatus: status, path: r.path });
   });
 
+  // ─── Begriffsnetz-Wachstum (Phase 5b) ─────────────────────────────────────
+  // Erhebt eine werdende Verbindung (aus der Wissens-Landkarte) in den Kanon —
+  // server-persistiert nach client/public/concept-edges.json, von allen Lesern
+  // gesehen. Admin-gegated; jede Kante trägt Provenienz.
+  app.post("/api/admin/promote-edge", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { source, target, note, evidence } = req.body as { source?: string; target?: string; note?: string; evidence?: number };
+    if (!source || !target) return res.status(400).json({ error: "source und target erforderlich" });
+    const { promoteEdge } = await import("./lib/conceptEdges.js");
+    const r = await promoteEdge({ source, target, note, evidence, actor: "admin" });
+    if (!r.ok) return res.status(502).json({ error: r.error });
+    return res.json({ ok: true, already: r.already ?? false, source, target });
+  });
+
   // ─── AI-Pre-Score (Tier-1-3-Roadmap, Feature E) ──────────────────────────
   // Bewertet einen oder mehrere raw/pending-Einträge auf einer 1-5-Skala
   // gegen das stilistische und thematische Profil des Werks. Schreibt

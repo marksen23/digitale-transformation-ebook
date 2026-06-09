@@ -25,6 +25,8 @@ import {
   type ConceptNode,
 } from "@/data/conceptGraph";
 import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { loadPromotedEdges, invalidatePromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
+import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import SectionLabel from "@/components/SectionLabel";
 
 const CURATED = new Set(["approved", "published"]);
@@ -42,10 +44,38 @@ export default function LandkartePage() {
   const [allEntries, setAllEntries] = useState<ResonanzEntry[] | null>(null);
   const [curatedOnly, setCuratedOnly] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
+  const [promoted, setPromoted] = useState<PromotedEdge[]>([]);
+  const [promoting, setPromoting] = useState<string | null>(null);
+  const [promoteMsg, setPromoteMsg] = useState<string | null>(null);
+  const { state: adminState } = useAdminAuth();
+  const isAdmin = adminState === "ok";
 
   useEffect(() => {
     loadResonanzenIndexLazy().then(idx => idx && setAllEntries(idx.entries));
+    loadPromotedEdges().then(setPromoted);
   }, []);
+
+  // Erhobene Kanten als Paar-Set — für „bereits kanonisch"-Ausschluss.
+  const promotedPairs = useMemo(() => {
+    const s = new Set<string>();
+    for (const e of promoted) s.add(pairKey(e.source, e.target));
+    return s;
+  }, [promoted]);
+
+  async function handlePromote(a: string, b: string, evidence: number) {
+    const key = pairKey(a, b);
+    setPromoting(key);
+    setPromoteMsg(null);
+    const r = await callAdminAction("promote-edge", { source: a, target: b, evidence });
+    setPromoting(null);
+    if (r.ok) {
+      setPromoteMsg(`„${nodeById.get(a)?.fullLabel ?? a} — ${nodeById.get(b)?.fullLabel ?? b}" in den Kanon erhoben.`);
+      invalidatePromotedEdges();
+      loadPromotedEdges().then(setPromoted);
+    } else {
+      setPromoteMsg(`Fehler: ${r.error ?? "unbekannt"}`);
+    }
+  }
 
   const nodeById = useMemo(() => new Map<string, ConceptNode>(NODES.map(n => [n.id, n])), []);
 
@@ -86,7 +116,7 @@ export default function LandkartePage() {
       for (let i = 0; i < ids.length; i++) {
         for (let j = i + 1; j < ids.length; j++) {
           const k = pairKey(ids[i], ids[j]);
-          if (canonicalPairs.has(k)) continue;
+          if (canonicalPairs.has(k) || promotedPairs.has(k)) continue;
           co.set(k, (co.get(k) ?? 0) + 1);
         }
       }
@@ -95,7 +125,7 @@ export default function LandkartePage() {
       .filter(([, n]) => n >= MIN_CO)
       .map(([k, n]) => { const [a, b] = k.split("|"); return { a, b, count: n }; })
       .sort((x, y) => y.count - x.count);
-  }, [entries, canonicalPairs, nodeById]);
+  }, [entries, canonicalPairs, promotedPairs, nodeById]);
   const maxEmerging = useMemo(() => Math.max(1, ...emerging.map(e => e.count)), [emerging]);
 
   const engagedCount = engagement.size;
@@ -138,8 +168,15 @@ export default function LandkartePage() {
         </label>
         <Metric C={C} label="Begriffe berührt" value={`${engagedCount} / ${NODES.length}`} />
         <Metric C={C} label="werdende Verbindungen" value={emerging.length} />
+        <Metric C={C} label="erhobene Kanten" value={promoted.length} />
         <Metric C={C} label="Erkenntnisse im Bild" value={entries.length} />
       </div>
+
+      {promoteMsg && (
+        <div style={{ marginBottom: "1rem", padding: "0.5rem 0.8rem", background: `${C.accent}14`, borderLeft: `3px solid ${C.accent}`, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
+          {promoteMsg}
+        </div>
+      )}
 
       {!curatedOnly && curatedCount < 10 && (
         <div style={{ marginBottom: "1rem", padding: "0.5rem 0.8rem", background: `${C.accent}10`, borderLeft: `3px solid ${C.accentDim}`, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim, lineHeight: 1.5 }}>
@@ -160,6 +197,16 @@ export default function LandkartePage() {
               return (
                 <line key={`c${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
                   stroke={C.border} strokeWidth={ed.weight === "primary" ? 1.4 : 0.8} strokeOpacity={0.6} />
+              );
+            })}
+            {/* Erhobene Kanten (Phase 5b) — in den Kanon gewachsen: solide,
+                Akzent, etwas kräftiger als das statische Rückgrat. */}
+            {promoted.map((e, i) => {
+              const s = nodeById.get(e.source); const t = nodeById.get(e.target);
+              if (!s || !t) return null;
+              return (
+                <line key={`p${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
+                  stroke={C.accent} strokeWidth={1.8} strokeOpacity={0.7} />
               );
             })}
             {/* Werdende Verbindungen (gestrichelt, Akzent) */}
@@ -211,12 +258,27 @@ export default function LandkartePage() {
               {selectedEmerging.length > 0 && (
                 <div style={{ marginTop: "1rem" }}>
                   <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: "0.35rem" }}>Werdende Verbindungen</div>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem" }}>
-                    {selectedEmerging.map(c => (
-                      <button key={c.other} onClick={() => setSelected(c.other)} style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.accent, background: "none", border: `1px dashed ${C.accent}`, borderRadius: 3, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
-                        {nodeById.get(c.other)?.fullLabel ?? c.other} · {c.count}
-                      </button>
-                    ))}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem" }}>
+                    {selectedEmerging.map(c => {
+                      const key = pairKey(selNode.id, c.other);
+                      return (
+                        <div key={c.other} style={{ display: "flex", alignItems: "center", gap: "0.3rem", flexWrap: "wrap" }}>
+                          <button onClick={() => setSelected(c.other)} style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.accent, background: "none", border: `1px dashed ${C.accent}`, borderRadius: 3, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+                            {nodeById.get(c.other)?.fullLabel ?? c.other} · {c.count}
+                          </button>
+                          {isAdmin && (
+                            <button
+                              onClick={() => void handlePromote(selNode.id, c.other, c.count)}
+                              disabled={promoting === key}
+                              title="Diese werdende Verbindung in den Kanon erheben (server-persistiert)"
+                              style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.void, background: C.accent, border: "none", borderRadius: 3, padding: "0.25rem 0.45rem", cursor: promoting === key ? "wait" : "pointer", opacity: promoting === key ? 0.6 : 1 }}
+                            >
+                              {promoting === key ? "…" : "↑ erheben"}
+                            </button>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
