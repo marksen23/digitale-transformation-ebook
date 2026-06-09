@@ -45,6 +45,7 @@ const NAV: NavItem[] = [
   { href: "/resonanzen",   i18nKey: "nav.resonanzen",   match: /^\/resonanzen/ },
   { href: "/philosophie",  i18nKey: "nav.philosophie",  match: /^\/philosophie/ },
   { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
+  { href: "/landkarte",    i18nKey: "nav.landkarte",    match: /^\/landkarte/ },
 ];
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
