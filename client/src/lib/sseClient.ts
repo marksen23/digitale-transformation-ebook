@@ -31,6 +31,7 @@ export async function consumeSSE(
     let buf = "", acc = "";
     let cited: unknown[] = [];
     let error: string | null = null;
+    let sawEvent = false;  // irgendein gültiges SSE-Event gesehen?
     for (;;) {
       const { done, value } = await reader.read();
       if (done) break;
@@ -44,12 +45,15 @@ export async function consumeSSE(
         if (!json) continue;
         try {
           const ev = JSON.parse(json) as { delta?: string; done?: boolean; citedChunks?: unknown[]; error?: string };
-          if (typeof ev.delta === "string") { acc += ev.delta; onDelta(acc); }
-          else if (ev.done) { cited = Array.isArray(ev.citedChunks) ? ev.citedChunks : []; }
-          else if (ev.error) { error = String(ev.error); }
+          if (typeof ev.delta === "string") { sawEvent = true; acc += ev.delta; onDelta(acc); }
+          else if (ev.done) { sawEvent = true; cited = Array.isArray(ev.citedChunks) ? ev.citedChunks : []; }
+          else if (ev.error) { sawEvent = true; error = String(ev.error); }
         } catch { /* partieller Frame */ }
       }
     }
+    // Leerer Stream (z.B. eine gecachte 0-Byte-Edge-Antwort) → ok:false,
+    // damit der Aufrufer auf den nicht-gestreamten Endpoint zurückfällt.
+    if (!sawEvent) return { full: "", citedChunks: [], error: null, ok: false };
     return { full: acc, citedChunks: cited, error, ok: true };
   } catch {
     return { full: "", citedChunks: [], error: null, ok: false };

@@ -826,6 +826,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         let buf = "", acc = "";
         let cited: CitedSource[] = [];
         let streamError: string | null = null;
+        let sawEvent = false;
         const flush = () => setChatHistory(h => {
           const c = [...h];
           c[c.length - 1] = { role: "model", text: acc || "…", citedChunks: cited };
@@ -845,18 +846,23 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             try {
               const ev = JSON.parse(json) as { delta?: string; done?: boolean; citedChunks?: CitedSource[]; error?: string };
               if (typeof ev.delta === "string") {
-                acc += ev.delta; flush();
+                sawEvent = true; acc += ev.delta; flush();
                 setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 0);
               } else if (ev.done) {
+                sawEvent = true;
                 cited = Array.isArray(ev.citedChunks) ? ev.citedChunks : [];
                 flush();
               } else if (ev.error) {
-                streamError = String(ev.error);
+                sawEvent = true; streamError = String(ev.error);
               }
             } catch { /* partieller Frame — buffer trägt Rest */ }
           }
         }
-        if (!acc) {
+        if (!sawEvent) {
+          // Leerer (gecachter) Stream → Platzhalter entfernen, Fallback nutzen.
+          setChatHistory(h => h.slice(0, -1));
+          streamStarted = false;
+        } else if (!acc) {
           const fin = streamError ?? "Keine Antwort.";
           setChatHistory(h => { const c = [...h]; c[c.length - 1] = { role: "model", text: fin }; return c; });
         }

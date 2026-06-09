@@ -24,7 +24,11 @@ export function sseSend(res: Response, obj: unknown): void {
 
 export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<string | null> {
   res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-  res.setHeader("Cache-Control", "no-cache, no-transform");
+  // no-store (nicht no-cache!): no-cache erlaubt Speichern + Revalidieren, und
+  // Netlify Edge servierte dann intermittierend eine leere gecachte Antwort
+  // (Netlify-Vary: query ignoriert den POST-Body). no-store verbietet Speichern.
+  res.setHeader("Cache-Control", "no-store, no-transform");
+  res.setHeader("Netlify-CDN-Cache-Control", "no-store");
   res.setHeader("Connection", "keep-alive");
   res.setHeader("X-Accel-Buffering", "no");
   res.flushHeaders();

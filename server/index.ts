@@ -1012,7 +1012,8 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       : GRAPH_SYSTEM_PROMPT + langAddition;
 
     res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
+    res.setHeader("Cache-Control", "no-store, no-transform");
+    res.setHeader("Netlify-CDN-Cache-Control", "no-store");
     res.setHeader("Connection", "keep-alive");
     res.setHeader("X-Accel-Buffering", "no");  // Proxies bitten, nicht zu puffern
     res.flushHeaders();
@@ -1315,7 +1316,8 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     ];
 
     res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-cache, no-transform");
+    res.setHeader("Cache-Control", "no-store, no-transform");
+    res.setHeader("Netlify-CDN-Cache-Control", "no-store");
     res.setHeader("Connection", "keep-alive");
     res.setHeader("X-Accel-Buffering", "no");
     res.flushHeaders();

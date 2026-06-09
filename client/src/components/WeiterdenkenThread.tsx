@@ -93,6 +93,7 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
         let buf = "", acc = "";
         let cited: CitedSource[] = [];
         let streamError: string | null = null;
+        let sawEvent = false;
         for (;;) {
           const { done, value } = await reader.read();
           if (done) break;
@@ -107,26 +108,32 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
             try {
               const ev = JSON.parse(json) as { delta?: string; done?: boolean; citedChunks?: CitedSource[]; error?: string };
               if (typeof ev.delta === "string") {
-                acc += ev.delta;
+                sawEvent = true; acc += ev.delta;
                 setEntries(prev => { const c = [...prev]; c[c.length - 1] = { kind: "ki", text: acc, citedChunks: cited }; return c; });
               } else if (ev.done) {
-                cited = Array.isArray(ev.citedChunks) ? ev.citedChunks : [];
+                sawEvent = true; cited = Array.isArray(ev.citedChunks) ? ev.citedChunks : [];
               } else if (ev.error) {
-                streamError = String(ev.error);
+                sawEvent = true; streamError = String(ev.error);
               }
             } catch { /* partieller Frame */ }
           }
         }
-        const { reflection, nextQuestion } = splitClosing(acc);
-        setEntries(prev => {
-          const c = [...prev];
-          c[c.length - 1] = { kind: "ki", text: reflection || acc || streamError || "(keine Reflexion)", citedChunks: cited };
-          if (nextQuestion) c.push({ kind: "frage", text: nextQuestion });
-          return c;
-        });
-        if (streamError && !acc) setError(streamError);
-        setJustSaved(false);
-        track({ type: "weiterdenken-step" });
+        if (!sawEvent) {
+          // Leerer (gecachter) Stream → Platzhalter entfernen, Fallback nutzen.
+          setEntries(prev => prev.slice(0, -1));
+          streamStarted = false;
+        } else {
+          const { reflection, nextQuestion } = splitClosing(acc);
+          setEntries(prev => {
+            const c = [...prev];
+            c[c.length - 1] = { kind: "ki", text: reflection || acc || streamError || "(keine Reflexion)", citedChunks: cited };
+            if (nextQuestion) c.push({ kind: "frage", text: nextQuestion });
+            return c;
+          });
+          if (streamError && !acc) setError(streamError);
+          setJustSaved(false);
+          track({ type: "weiterdenken-step" });
+        }
       }
     } catch { streamStarted = false; }
 
