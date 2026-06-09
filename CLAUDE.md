@@ -81,6 +81,7 @@ Browser (Netlify)                  Render-Server (Express)
 | `EMBEDDINGS_REQUIRED` | nur im CI gesetzt (Workflow-YAML) | nein | Wenn 1 + 0 Embeddings: Workflow rot. Wenn 0/leer: Soft-warn auf Netlify-Build. |
 | `GEMINI_EMBED_MODEL` | optional ENV-Overwrite | nein | Default `gemini-embedding-001`. Falls Google das Modell deprecaten: hier umschalten ohne Code-Change. |
 | `AUTO_CURATE_*` | optional Render Env | nein | Schwellen für `/api/admin/auto-curate`: `AI_MIN` (4), `CORPUS_MIN` (0.55), `AI_REJECT` (2), `CORPUS_REJECT` (0.30), `WERK_MIN` (0.55), `CONCEPT_MIN` (0.68), `CONCEPT_REJECT` (0.62). Niedriger = aggressivere Auto-Freigabe. Default konservativ. `CONCEPT_*` = dritter (Begriffs-)Anker des triangulierten Schutzwalls. |
+| `CONCEPT_NEW_*` | optional Render Env | nein | Schutzwall für **neue Begriffe** (`/api/admin/propose-concept`, Phase 5c): `DISTINCT_MIN` (0.10 — min. Distinktheit `1−maxCosine` zu bestehenden Begriffen, kein Beinah-Duplikat), `EVIDENCE_SIM` (0.70 — Cosine-Schwelle, ab der eine kuratierte Resonanz den Begriff „trägt"), `EVIDENCE_MIN` (1 — min. Anzahl tragender kuratierter Erkenntnisse). Höher = strenger. |
 
 ---
 
@@ -258,6 +259,22 @@ er liberalisiert also (noch) nicht, sondern bestätigt. Die „unverfügbare
 Entwicklung" (begriffs-nah, prosa-fern) ist damit **instrumentiert**: sobald
 solche Einträge auftauchen, zeigt das Verify-Script sie, und der Anker kann von
 korroborierend (AND) auf liberalisierend (OR) umgestellt werden.
+
+**Wachsendes Netz (Phase 5b/5c):** Das Begriffsnetz selbst wächst durch
+**Anlagerung**, nie durch Überschreiben — `conceptGraph.ts` (`NODES`/`EDGES`)
+bleibt der handgesetzte kanonische Kern. Zwei additive, server-persistierte
+JSON-Schichten lagern sich an:
+- **Kanten** (5b): `client/public/concept-edges.json` — werdende Verbindungen aus
+  der Landkarte, admin-erhoben (`server/lib/conceptEdges.ts`, `promoteEdge`).
+- **Knoten** (5c): `client/public/concept-nodes.json` — neue Begriffe/
+  Wortschöpfungen, admin-vorgeschlagen (`server/lib/conceptNodes.ts`,
+  `/api/admin/propose-concept`). Schutzwall: **Distinktheit** (`1−maxCosine` zu
+  bestehenden Begriffen) + **Korpus-Evidenz** (Zahl kuratierter Resonanzen, die
+  den Begriff semantisch tragen) + menschliche Autorisierung. Position
+  deterministisch am Anker-Begriff. `build-search-index.ts` embeddet neue
+  Begriffe mit → `conceptVoiceScore` bezieht sie ein; `validate-resonanzen.ts`
+  erkennt sie als gültige `nodeId`. Konsumenten (`ConceptGraphPage`,
+  `LandkartePage`) mergen statisch + dynamisch (`client/src/lib/dynamicNodes.ts`).
 
 ---
 
