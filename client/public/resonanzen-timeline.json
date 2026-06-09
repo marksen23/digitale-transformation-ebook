@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T06:58:36.510Z",
+  "generatedAt": "2026-06-09T07:01:42.687Z",
   "buckets": [
     {
       "date": "2026-05-03",
@@ -231,8 +231,8 @@
       "totalEntries": 287,
       "byStatus": {
         "raw": 153,
-        "published": 112,
-        "approved": 20,
+        "published": 114,
+        "approved": 18,
         "rejected": 2
       },
       "byEndpoint": {
@@ -244,7 +244,7 @@
         "chapter": 28,
         "translate": 2
       },
-      "publishedRatio": 0.3902439024390244,
+      "publishedRatio": 0.397212543554007,
       "medianWerkVoice": 0.865187841626881,
       "medianCorpusVoice": 0.816226030614286,
       "echoRatio": 0.6341463414634146,
