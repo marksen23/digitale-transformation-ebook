@@ -911,6 +911,96 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     }
   });
 
+  // ─── Graph-Chat Streaming (Phase 3, SSE) ─────────────────────────────────
+  // Additive Streaming-Variante: gleicher Prompt/RAG/Logging wie /api/graph-chat,
+  // aber Gemini streamGenerateContent → Text erscheint token-weise. Der
+  // bestehende JSON-Endpoint bleibt unberührt (Fallback im Client). Schlussfrage-
+  // /Citation-Verarbeitung läuft NACH Stream-Ende auf dem vollständigen Text.
+  app.post("/api/graph-chat/stream", rateLimiter('graph-chat', 30, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+    const { message, history } = req.body as {
+      message: string; history: Array<{ role: "user" | "model"; text: string }>;
+    };
+    if (!message?.trim()) return res.status(400).json({ error: "Nachricht fehlt." });
+
+    const recentHistory = (history ?? []).slice(-20);
+    const contents = [
+      ...recentHistory.map(h => ({ role: h.role, parts: [{ text: h.text }] })),
+      { role: "user", parts: [{ text: message }] },
+    ];
+    const { passages: chatPassages, contextBlock: chatWerkContext } = await buildWerkContext(message, 4);
+    const acceptLang = (req.headers["accept-language"] ?? "").toString();
+    const referer = (req.headers["referer"] ?? "").toString();
+    const isEnglish = /\/en(\/|$|\?)/.test(referer) || /^en/i.test(acceptLang.split(",")[0]?.trim() ?? "");
+    const langAddition = isEnglish ? "\n\nIMPORTANT: Respond in English. The user's interface is set to English." : "";
+    const enrichedSystem = chatWerkContext
+      ? `${GRAPH_SYSTEM_PROMPT}\n\n${chatWerkContext}\n\nZitiere Werk-Passagen via [chunkId] und kuratierte Resonanzen via [resonanzId] aus dem obigen Block. Bei „bereits beantworteten" Fragen — baue auf der älteren Antwort auf statt sie zu wiederholen. Erfinde keine IDs.${langAddition}`
+      : GRAPH_SYSTEM_PROMPT + langAddition;
+
+    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
+    res.setHeader("Cache-Control", "no-cache, no-transform");
+    res.setHeader("Connection", "keep-alive");
+    res.setHeader("X-Accel-Buffering", "no");  // Proxies bitten, nicht zu puffern
+    res.flushHeaders();
+    const send = (obj: unknown) => res.write(`data: ${JSON.stringify(obj)}\n\n`);
+
+    try {
+      const upstream = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${apiKey}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: enrichedSystem }] },
+            contents,
+            generationConfig: { temperature: 0.85, maxOutputTokens: 3000 },
+          }),
+        }
+      );
+      if (!upstream.ok || !upstream.body) {
+        send({ error: upstream.status === 429 ? "Zu viele Anfragen — bitte kurz warten." : `Fehler ${upstream.status}` });
+        return res.end();
+      }
+      const reader = upstream.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = "";
+      let full = "";
+      for (;;) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split("\n");
+        buffer = lines.pop() ?? "";
+        for (const line of lines) {
+          const t = line.trim();
+          if (!t.startsWith("data:")) continue;
+          const json = t.slice(5).trim();
+          if (!json || json === "[DONE]") continue;
+          try {
+            const chunk = JSON.parse(json);
+            const delta = chunk?.candidates?.[0]?.content?.parts?.[0]?.text;
+            if (typeof delta === "string" && delta) { full += delta; send({ delta }); }
+          } catch { /* Frame über Lese-Grenze gesplittet → buffer trägt Rest */ }
+        }
+      }
+      if (!full.trim()) full = "Keine Antwort erhalten.";
+      recordCitations(full, chatPassages.map(p => ({ source: p.source, id: p.id })));
+      send({ done: true, citedChunks: chatPassages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
+      res.end();
+      void logResonanz({
+        endpoint: "graph-chat", anchor: "graph", prompt: message, response: full,
+        model: "gemini-2.5-flash",
+        contextMeta: {
+          historyLength: recentHistory.length, streamed: true,
+          werk_passages: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
+        },
+      });
+    } catch (err: unknown) {
+      try { send({ error: `API-Fehler: ${err instanceof Error ? err.message : String(err)}` }); res.end(); } catch { /* schon geschlossen */ }
+    }
+  });
+
   // ─── Dialog-Persist (Tier-1-3-Roadmap, Feature B) ────────────────────
   // Multi-Turn-Dialogs laufen über das existierende /api/graph-chat,
   // dessen Sessions clientseitig im LocalStorage gehalten werden. Wenn

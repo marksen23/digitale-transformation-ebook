@@ -781,28 +781,86 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const sendChat = useCallback(async (msg: string) => {
     const text = msg.trim();
     if (!text || chatLoading) return;
-    const userMsg = { role: "user" as const, text };
-    const nextHistory = [...chatHistory, userMsg];
-    setChatHistory(nextHistory);
+    const historyForApi = chatHistory;  // vor dem Anhängen der User-Nachricht
+    setChatHistory(h => [...h, { role: "user" as const, text }]);
     setChatInput("");
     setChatLoading(true);
     setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 50);
+
+    // 1) Streaming (SSE) — Text erscheint token-weise. Jeder Fehler → Fallback.
+    let streamStarted = false;
     try {
-      const r = await fetch("/api/graph-chat", {
+      const r = await fetch("/api/graph-chat/stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, history: chatHistory }),
+        body: JSON.stringify({ message: text, history: historyForApi }),
       });
-      const data = await r.json();
-      const reply = data.reply ?? data.error ?? "Keine Antwort.";
-      const cited: CitedSource[] = Array.isArray(data.citedChunks) ? data.citedChunks : [];
-      setChatHistory(h => [...h, { role: "model", text: reply, citedChunks: cited }]);
+      if (r.ok && r.body) {
+        streamStarted = true;
+        setChatHistory(h => [...h, { role: "model" as const, text: "", citedChunks: [] as CitedSource[] }]);
+        const reader = r.body.getReader();
+        const dec = new TextDecoder();
+        let buf = "", acc = "";
+        let cited: CitedSource[] = [];
+        let streamError: string | null = null;
+        const flush = () => setChatHistory(h => {
+          const c = [...h];
+          c[c.length - 1] = { role: "model", text: acc || "…", citedChunks: cited };
+          return c;
+        });
+        for (;;) {
+          const { done, value } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value, { stream: true });
+          const lines = buf.split("\n");
+          buf = lines.pop() ?? "";
+          for (const line of lines) {
+            const t = line.trim();
+            if (!t.startsWith("data:")) continue;
+            const json = t.slice(5).trim();
+            if (!json) continue;
+            try {
+              const ev = JSON.parse(json) as { delta?: string; done?: boolean; citedChunks?: CitedSource[]; error?: string };
+              if (typeof ev.delta === "string") {
+                acc += ev.delta; flush();
+                setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 0);
+              } else if (ev.done) {
+                cited = Array.isArray(ev.citedChunks) ? ev.citedChunks : [];
+                flush();
+              } else if (ev.error) {
+                streamError = String(ev.error);
+              }
+            } catch { /* partieller Frame — buffer trägt Rest */ }
+          }
+        }
+        if (!acc) {
+          const fin = streamError ?? "Keine Antwort.";
+          setChatHistory(h => { const c = [...h]; c[c.length - 1] = { role: "model", text: fin }; return c; });
+        }
+      }
     } catch {
-      setChatHistory(h => [...h, { role: "model", text: "Verbindungsfehler — bitte erneut versuchen." }]);
-    } finally {
-      setChatLoading(false);
-      setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 80);
+      streamStarted = false;
     }
+
+    // 2) Fallback: nicht-gestreamter Endpoint (nur wenn Streaming nie startete)
+    if (!streamStarted) {
+      try {
+        const r = await fetch("/api/graph-chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message: text, history: historyForApi }),
+        });
+        const data = await r.json();
+        const reply = data.reply ?? data.error ?? "Keine Antwort.";
+        const cited: CitedSource[] = Array.isArray(data.citedChunks) ? data.citedChunks : [];
+        setChatHistory(h => [...h, { role: "model", text: reply, citedChunks: cited }]);
+      } catch {
+        setChatHistory(h => [...h, { role: "model", text: "Verbindungsfehler — bitte erneut versuchen." }]);
+      }
+    }
+
+    setChatLoading(false);
+    setTimeout(() => chatEndRef.current?.scrollIntoView({ behavior: "smooth" }), 80);
   }, [chatHistory, chatLoading]);
 
   // ── Node click handler ─────────────────────────────────────────────────────
