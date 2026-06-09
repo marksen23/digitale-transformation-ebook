@@ -21,6 +21,7 @@ import LegendSection from "@/components/LegendSection";
 import ToolOutputPanel from "@/components/ToolOutputPanel";
 import CitedSourcesFooter from "@/components/CitedSourcesFooter";
 import { loadPromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
+import { consumeSSE } from "@/lib/sseClient";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -492,7 +493,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // Cluster-Analyse starten (manueller Trigger via Button im Panel).
   // Nimmt die aktuelle analyseNodes-Liste (2-5 Konzepte), schickt sie an
   // /api/analyse-cluster, schreibt das Resultat in analyseResult.
-  const runClusterAnalysis = useCallback(() => {
+  const runClusterAnalysis = useCallback(async () => {
     const ids = analyseNodesRef.current;
     if (ids.length < 2 || ids.length > 4) return;
     const nodes = ids.map(id => NODE_MAP.get(id)).filter(Boolean);
@@ -501,34 +502,41 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     setAnalyseError(null);
     setAnalyseResult(null);
     setAnalyseCitedChunks([]);
-    fetch("/api/analyse-cluster", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nodes: nodes.map(n => ({
-          id: n!.id, label: n!.label, fullLabel: n!.fullLabel, description: n!.description,
-        })),
-      }),
-    })
-      .then(r => r.json())
-      .then(data => {
-        setAnalyseLoading(false);
-        if (data.error) setAnalyseError(data.error);
-        else {
-          setAnalyseResult(data.analysis ?? null);
-          setAnalyseCitedChunks(Array.isArray(data.citedChunks) ? data.citedChunks : []);
-        }
-      })
-      .catch(err => {
-        setAnalyseLoading(false);
-        setAnalyseError(err instanceof Error ? err.message : "Verbindungsfehler");
+    const body = { nodes: nodes.map(n => ({ id: n!.id, label: n!.label, fullLabel: n!.fullLabel, description: n!.description })) };
+
+    // 1) Streaming — Text erscheint progressiv. ok=false → Fallback.
+    const r = await consumeSSE("/api/analyse-cluster/stream", body, full => setAnalyseResult(full));
+    if (r.ok) {
+      setAnalyseLoading(false);
+      if (r.error && !r.full) setAnalyseError(r.error);
+      else {
+        setAnalyseResult(r.full || "Keine Antwort erhalten.");
+        setAnalyseCitedChunks(r.citedChunks as CitedSource[]);
+      }
+      return;
+    }
+    // 2) Fallback: nicht-gestreamter Endpoint
+    try {
+      const resp = await fetch("/api/analyse-cluster", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
       });
+      const data = await resp.json();
+      setAnalyseLoading(false);
+      if (data.error) setAnalyseError(data.error);
+      else {
+        setAnalyseResult(data.analysis ?? null);
+        setAnalyseCitedChunks(Array.isArray(data.citedChunks) ? data.citedChunks : []);
+      }
+    } catch (err) {
+      setAnalyseLoading(false);
+      setAnalyseError(err instanceof Error ? err.message : "Verbindungsfehler");
+    }
   }, []);
 
   // Pfad-Analyse starten — KI-Reflexion über shortest + (optional) surprising.
   // Wird nur enabled, wenn shortest 3-5 Knoten lang ist (siehe UI-Button-Logik).
   // Server entscheidet automatisch zwischen Einzelpfad und Vergleichs-Variante.
-  const runPathAnalysis = useCallback((from: string, to: string, shortest: string[], surprising: string[]) => {
+  const runPathAnalysis = useCallback(async (from: string, to: string, shortest: string[], surprising: string[]) => {
     if (shortest.length < 3 || shortest.length > 5) return;
     setPathAnalysisLoading(true);
     setPathAnalysisError(null);
@@ -539,24 +547,34 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     if (surprising.length >= 3 && surprising.length <= 5 && !samePath) {
       body.surprising = surprising;
     }
-    fetch("/api/analyse-path", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(body),
-    })
-      .then(r => r.json())
-      .then(data => {
-        setPathAnalysisLoading(false);
-        if (data.error) setPathAnalysisError(data.error);
-        else {
-          setPathAnalysis(data.analysis ?? null);
-          setPathCitedChunks(Array.isArray(data.citedChunks) ? data.citedChunks : []);
-        }
-      })
-      .catch(err => {
-        setPathAnalysisLoading(false);
-        setPathAnalysisError(err instanceof Error ? err.message : "Verbindungsfehler");
+
+    // 1) Streaming — ok=false → Fallback.
+    const r = await consumeSSE("/api/analyse-path/stream", body, full => setPathAnalysis(full));
+    if (r.ok) {
+      setPathAnalysisLoading(false);
+      if (r.error && !r.full) setPathAnalysisError(r.error);
+      else {
+        setPathAnalysis(r.full || "Keine Antwort erhalten.");
+        setPathCitedChunks(r.citedChunks as CitedSource[]);
+      }
+      return;
+    }
+    // 2) Fallback: nicht-gestreamter Endpoint
+    try {
+      const resp = await fetch("/api/analyse-path", {
+        method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body),
       });
+      const data = await resp.json();
+      setPathAnalysisLoading(false);
+      if (data.error) setPathAnalysisError(data.error);
+      else {
+        setPathAnalysis(data.analysis ?? null);
+        setPathCitedChunks(Array.isArray(data.citedChunks) ? data.citedChunks : []);
+      }
+    } catch (err) {
+      setPathAnalysisLoading(false);
+      setPathAnalysisError(err instanceof Error ? err.message : "Verbindungsfehler");
+    }
   }, []);
 
   // Beim Wechsel des View-Modus alle Arbeitsfunktions-Panels schließen,
@@ -3186,7 +3204,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   {/* Weiterdenken: die Schlussfrage der Analyse als Saatkorn eines
                       rekursiven Fadens. key bindet den Faden an das aktuelle
                       Resultat — neue Analyse = frischer Faden. */}
-                  {(() => {
+                  {!analyseLoading && (() => {
                     const q = extractClosingQuestion(analyseResult);
                     if (!q) return null;
                     return (

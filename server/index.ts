@@ -827,6 +827,79 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     }
   });
 
+  // ─── Analyse/Pfad Streaming (Phase 3, SSE) ───────────────────────────────
+  // Additive Streaming-Varianten — gleiche Prompts/RAG/Logging wie die
+  // JSON-Endpoints, aber token-weise via streamGeminiSSE. JSON-Pfade bleiben
+  // unberührt (Client-Fallback).
+  app.post("/api/analyse-cluster/stream", rateLimiter('analyse-cluster', 15, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    const { nodes } = req.body as { nodes: NodeMeta[] };
+    if (!Array.isArray(nodes) || nodes.length < 2 || nodes.length > 4) return res.status(400).json({ error: "Cluster-Analyse braucht 2 bis 4 Knoten." });
+    for (const n of nodes) if (!n?.id || !n?.fullLabel) return res.status(400).json({ error: "Jeder Knoten braucht id und fullLabel." });
+    const ids = nodes.map(n => n.id);
+    if (new Set(ids).size !== ids.length) return res.status(400).json({ error: "Alle Konzepte müssen verschieden sein." });
+
+    const rawPrompt = buildClusterPrompt(nodes);
+    const ragQuery = nodes.map(n => n.fullLabel).join(" ") + " " + nodes.map(n => n.description).join(" ");
+    const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
+
+    const { streamGeminiSSE, sseSend } = await import("./lib/geminiStream.js");
+    const full = await streamGeminiSSE(res, {
+      apiKey,
+      contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
+      generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
+    });
+    if (full === null) return;
+    const analysis = full.trim() || "Keine Antwort erhalten.";
+    recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
+    sseSend(res, { done: true, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
+    res.end();
+    void logResonanz({
+      endpoint: "analyse", anchor: clusterAnchor(ids), nodeIds: [...ids].sort(),
+      prompt: clusterDescriptor(nodes), response: analysis, model: "gemini-2.5-flash",
+      contextMeta: { cluster_size: nodes.length, node_labels: nodes.map(n => n.fullLabel), streamed: true, werk_passages: passages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })) },
+    });
+  });
+
+  app.post("/api/analyse-path/stream", rateLimiter('analyse-path', 15, 60 * 60_000), async (req, res) => {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    const { shortest, surprising, from, to } = req.body as { shortest: string[]; surprising?: string[]; from: string; to: string };
+    if (!Array.isArray(shortest) || shortest.length < 3 || shortest.length > 5) return res.status(400).json({ error: "Pfad muss zwischen 3 und 5 Knoten lang sein." });
+    if (surprising !== undefined && (!Array.isArray(surprising) || surprising.length < 3 || surprising.length > 5)) return res.status(400).json({ error: "Surprising-Pfad (falls vorhanden) muss 3 bis 5 Knoten lang sein." });
+    const allIds = Array.from(new Set([...shortest, ...(surprising ?? [])]));
+    for (const id of allIds) if (!nodeSrv.has(id)) return res.status(400).json({ error: `Unbekannter Knoten: ${id}` });
+    if (!from || !to || !nodeSrv.has(from) || !nodeSrv.has(to)) return res.status(400).json({ error: "from und to müssen valide Knoten-IDs sein." });
+
+    const samePath = surprising && shortest.length === surprising.length && shortest.every((id, i) => id === surprising[i]);
+    const useCompare = surprising && surprising.length >= 3 && !samePath;
+    const rawPrompt = useCompare ? buildComparePathPrompt(shortest, surprising!) : buildSinglePathPrompt(shortest);
+    const descriptor = useCompare
+      ? `Pfad-Vergleich: ${buildPathDescriptor(shortest)} vs. ${buildPathDescriptor(surprising!)}`
+      : `Pfad-Analyse: ${buildPathDescriptor(shortest)}`;
+    const ragQuery = allIds.map(id => nodeSrv.get(id)?.fullLabel ?? id).join(" ");
+    const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
+
+    const { streamGeminiSSE, sseSend } = await import("./lib/geminiStream.js");
+    const full = await streamGeminiSSE(res, {
+      apiKey,
+      contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
+      generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
+    });
+    if (full === null) return;
+    const analysis = full.trim() || "Keine Antwort erhalten.";
+    recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
+    sseSend(res, { done: true, variant: useCompare ? "compare" : "single", citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
+    res.end();
+    const sortedEndpoints = [from, to].sort();
+    void logResonanz({
+      endpoint: "path-analyse", anchor: `path-analyse:${sortedEndpoints[0]}+${sortedEndpoints[1]}`,
+      nodeIds: [...allIds].sort(), prompt: descriptor, response: analysis, model: "gemini-2.5-flash",
+      contextMeta: { from, to, shortest_path: shortest, surprising_path: surprising ?? null, shortest_length: shortest.length, surprising_length: surprising?.length ?? null, variant: useCompare ? "compare" : "single", paths_identical: samePath ?? false, streamed: true, werk_passages: passages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })) },
+    });
+  });
+
   // ─── Graph-Chat: freier Gemini-Dialog über das gesamte Begriffsnetz ──
   app.post("/api/graph-chat", rateLimiter('graph-chat', 30, 60 * 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
