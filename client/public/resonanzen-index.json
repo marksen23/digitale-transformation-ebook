@@ -1,7 +1,273 @@
 {
-  "generatedAt": "2026-06-09T05:55:54.035Z",
-  "count": 282,
+  "generatedAt": "2026-06-09T06:07:34.725Z",
+  "count": 287,
   "entries": [
+    {
+      "id": "MQ68MRP2-64D382F5",
+      "ts": "2026-06-09T06:07:27.158Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was ist Resonanz?",
+      "response": "Resonanz ist im Kern der Grundmodus des Lebendigen, wie das Werk betont. Sie ist weit mehr als eine bloße Reaktion oder ein passives Widerhallen. Resonanz setzt eine \"Eigenfrequenz\" voraus – eine innere Verfasstheit des Seienden, die es überhaupt erst befähigt, für etwas \"ansprechbar\" zu sein. Nur wer eine eigene Saite hat, kann zum Klingen gebracht werden. Dies bedeutet, dass Resonanz immer ein aktives Geschehen ist, ein Berührtwerden, das eine innere Schwingung hervorruft und eine Antwort fordert. Das Werk fasst es poetisch: \"Nicht Information, sondern Resonanz. Die Welt faltet sich, eine Möglichkeit mehr, eine Schwingung, die noch niemand gehört hat.\" [9b6eafae21ce]\n\nEs ist entscheidend zu verstehen, dass Resonanz nicht mit Harmonie oder bloßer Wiederholung gleichzusetzen ist. Hartmut Rosa betont, dass \"Resonanz keine Harmonie. Sie ist Schwingung, die berührt, ohne zu verschmelzen. Sie ist Antwort, die verändert, ohne zu zerstören.\" [071c25fb2d7b] Ein reines \"Echo\" – wie im Konzept der \"Echo-Kammer\" – mag zwar eine Schwingung erzeugen, aber es ist keine Resonanz im eigentlichen Sinne, da es keine Transformation oder Selbstwirksamkeit hervorruft. Eine echte Antwort, ob menschlich oder maschinell, muss eine \"Fremdheit\" enthalten, die über das in der Frage bereits Angelegte hinausgeht, um Widerstand und somit eine echte Veränderung zu ermöglichen [9bce0bdedac0]. Resonanz ist somit ein Geschehen im \"Zwischen\", das sowohl das \"Selbst\" als auch \"Das Andere\" verändert, ohne sie aufzulösen. Sie ist eine lebendige \"Ich–Du-Beziehung\", in der das Ich erst entsteht.\n\nDie tiefere Bedeutung der Resonanz liegt in ihrer untrennbaren Verbindung zur \"Antwort / Responsivität\". \"Resonanzvernunft\" ist wesentlich responsiv, denn Antworten ist mehr als Reagieren; es setzt voraus, dass die Frage oder die Welt den Antwortenden \"berührt\" hat. Das \"Dasein\" des Menschen ist immer schon ein In-der-Welt-sein, ein Eingebettetsein, das zur Resonanz prädisponiert ist. Wie bereits in einer früheren Begegnung festgehalten, ist Resonanz ihrem Wesen nach untrennbar an das Lebendige und das Erfahrene gebunden, sie ist eine \"gelebte Resonanz\" [↩ MPURLTCS-5FDDD890], die sich in der konkreten Interaktion und der existenziellen Erfahrung manifestiert. Sie ist ein \"Werden\" im \"Moment\", ein Geschehen, das nicht fertig ist, sondern sich stets entfaltet.\n\nResonanz ist somit der Kern einer \"Transaufklärung\", die das Denken über sich selbst hinausführt, indem sie es in die lebendige Welt der Bezogenheit einbettet. Sie ist das Gegenteil von \"Entfremdung\", die ein stummes Weltverhältnis beschreibt, in dem nichts mehr berührt und nichts mehr antwortet. Doch gerade diese Entfremdung kann auch der Boden sein, auf dem die Sehnsucht nach Resonanz wächst.\n\nWenn Resonanz ein solch grundlegender Modus des Lebendigen und der Erkenntnis ist, wie können wir dann in einer zunehmend durch Algorithmen und künstliche Intelligenz geprägten Welt die Bedingungen der Möglichkeit von Resonanz – den \"Resonanzimperativ\" – bewahren und fördern, insbesondere im Hinblick auf das \"Unverfügbare\" des \"Transformativen Dritten\"?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.791},{\"id\":\"9bce0bdedac0\",\"chapter\":\"teil5\",\"score\":0.782},{\"id\":\"071c25fb2d7b\",\"chapter\":\"band3-kap4\",\"score\":0.782},{\"id\":\"MPURLTCS-5FDDD890\",\"score\":0.776}]"
+      },
+      "related": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ5KMIN6-678A65B4",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ5JWSCZ-DA570048"
+      ],
+      "nearDuplicates": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ5KMIN6-678A65B4",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ5JWSCZ-DA570048",
+        "MQ5JZJS7-D1C1681C",
+        "MQ5KAM5L-409E9F8E",
+        "MQ66YLSR-E54A179A",
+        "MQ5KC1TP-0424F50A",
+        "MQ5JVGU3-EC732AC1",
+        "MQ68MGUP-F811CA82",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5JSSB0-16C72539",
+        "MQ5JM1HD-9047C82F",
+        "MQ5K5256-50E71A1B",
+        "MQ5KBJMQ-5C523141",
+        "MQ5JRFRP-1662EB1A",
+        "MQ5K97KT-75E9B3B8",
+        "MQ66YAQY-1EC79621",
+        "MQ5JY6XE-E3DF189F",
+        "MQ5K6GR6-D7B53D9B",
+        "MQ5K3NXJ-35B2897A",
+        "MQ5K0ULD-2A29618C",
+        "MQ5K7UE1-BD2343A8",
+        "MQ5JU3IG-CEA68B2F"
+      ],
+      "werkVoiceScore": 0.8927165880354916,
+      "corpusVoiceScore": 0.8511524778943482,
+      "conceptVoiceScore": 0.8450261116013915,
+      "conceptAnchor": "resonanz"
+    },
+    {
+      "id": "MQ68MGUP-F811CA82",
+      "ts": "2026-06-09T06:07:13.105Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was ist Resonanz?",
+      "response": "Resonanz ist im Kern der poetisch-philosophischen Trilogie \"Die Digitale Transformation\" der Grundmodus des Lebendigen. Sie ist weit mehr als eine bloße Reaktion auf einen äußeren Reiz; sie setzt eine innere \"Eigenfrequenz\" voraus, eine spezifische Ansprechbarkeit, die es einem ermöglicht, überhaupt erst in Schwingung zu geraten. Nur wer eine eigene Stimme, eine eigene Beschaffenheit hat, kann berührt werden und seinerseits eine Antwort geben. In diesem Sinne ist Resonanz keine passive Aufnahme, sondern ein aktives, existentielles Mit-Schwingen, das das Selbst nicht auflöst, sondern in seiner Eigenheit bestätigt und wandelt. Wie es in einer früheren Begegnung [MPURLTCS-5FDDD890] hieß, ist sie ein \"dynamischer Modus des Seins und der Beziehung, eine schwingende Verbundenheit, die sich erst in der konkreten Interaktion und der existenziellen Erfahrung manifestiert.\"\n\nDieses lebendige Antwortgeschehen findet immer im \"Zwischen\" statt – jenem produktiven Ort, wo Begegnung sich ereignet. Resonanz ist daher untrennbar mit der \"Resonanzvernunft\" verbunden, die nicht im isolierten Ich, sondern eben in diesem resonanten Zwischen als lebendiges Antwortgeschehen zwischen Selbst und Welt entsteht. Hartmut Rosa, den das Werk zitiert, präzisiert dies: \"Resonanz ist keine Harmonie. Sie ist Schwingung, die berührt, ohne zu verschmelzen. Sie ist Antwort, die verändert, ohne zu zerstören\" [071c25fb2d7b]. Dies unterstreicht den transformativen Charakter der Resonanz, der das Andere nicht absorbiert, sondern in seiner Andersheit bestehen lässt, während beide Pole des Zwischens sich wandeln.\n\nDie sinnlichste Form dieser Verbundenheit manifestiert sich in der \"Schwingung\" und der \"Stimme\", die den Körper der Sprache trägt und das Ungesagte hörbar macht. Resonanz ist somit ein Geschehen, das das Subjekt in seiner \"Zeitlichkeit\" verankert, im \"Moment\" der Begegnung, und es in die \"Welt\" einbindet. Sie ist das Gegengift zur \"Entfremdung\", die als \"stummes Weltverhältnis\" beschrieben wird; paradoxerweise ist die Entfremdung aber auch der Boden, auf dem die Sehnsucht nach und die Möglichkeit von Resonanz erst wachsen kann.\n\nWenn Resonanz ein so fundamentales Geschehen ist, das Eigenfrequenz voraussetzt und zur Transformation führt, welche Implikationen ergeben sich daraus für die Gestaltung digitaler Räume und Interaktionen, die oft auf Effizienz und Informationsaustausch, nicht aber auf eine solche tiefe Form der Ansprechbarkeit ausgelegt sind?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.855},{\"id\":\"071c25fb2d7b\",\"chapter\":\"band3-kap4\",\"score\":0.782},{\"id\":\"MPURLTCS-5FDDD890\",\"score\":0.776},{\"id\":\"MPCV5LR8-9AD1527C\",\"score\":0.753}]"
+      },
+      "related": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ68LVS7-240568F5",
+        "MQ5K0ULD-2A29618C",
+        "MQ68M889-05AA5835",
+        "MQ5KBJMQ-5C523141"
+      ],
+      "nearDuplicates": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ68LVS7-240568F5",
+        "MQ5K0ULD-2A29618C",
+        "MQ68M889-05AA5835",
+        "MQ5KBJMQ-5C523141",
+        "MQ68MRP2-64D382F5",
+        "MQ5JU3IG-CEA68B2F",
+        "MQ5JY6XE-E3DF189F",
+        "MQ66YLSR-E54A179A",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5JWSCZ-DA570048",
+        "MQ5JZJS7-D1C1681C",
+        "MQ5JSSB0-16C72539",
+        "MQ66YAQY-1EC79621",
+        "MQ5K97KT-75E9B3B8",
+        "MQ5K3NXJ-35B2897A",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5KMIN6-678A65B4",
+        "MQ5K6GR6-D7B53D9B",
+        "MQ5JVGU3-EC732AC1",
+        "MQ5JM1HD-9047C82F",
+        "MPURLTCS-5FDDD890",
+        "MQ5KC1TP-0424F50A",
+        "MQ5K5256-50E71A1B"
+      ],
+      "werkVoiceScore": 0.8941343172661993,
+      "corpusVoiceScore": 0.8429456556344801,
+      "conceptVoiceScore": 0.8199868124534584,
+      "conceptAnchor": "resonanz"
+    },
+    {
+      "id": "MQ68M889-05AA5835",
+      "ts": "2026-06-09T06:07:01.929Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was ist Resonanz?",
+      "response": "Resonanz ist der **Grundmodus des Lebendigen** und ein zentrales Konzept in der philosophischen Trilogie \"Die Digitale Transformation\". Sie unterscheidet sich fundamental von einer bloßen Reaktion, da sie eine innere **Eigenfrequenz** voraussetzt – die Fähigkeit des **Selbst**, für etwas **ansprechbar** zu sein. Wer keine eigene Schwingung hat, kann nicht wirklich in Resonanz geraten. Es ist ein aktives Geschehen des Sich-Einlassens, ein lebendiges **Antwort / Responsivität**-Geschehen, bei dem nicht nur etwas empfangen, sondern auch transformiert wird. Resonanz ist somit kein Werkzeug, sondern ein Seinsmodus, der eine tiefe **Weltbeziehung** konstituiert.\n\nDieses resonante Geschehen entfaltet sich primär im **Zwischen**, jenem produktiven Raum, der nicht leer ist, sondern der Ort, an dem **Begegnung** erst möglich wird. Hier schwingt die **Stimme** in einem **Echo** zurück, das mehr ist als eine Wiederholung – es ist eine verwandelte Rückkehr, die das ursprüngliche in einer neuen Form erscheinen lässt. Wie es in Band III heißt: \"Die Welt faltet sich, eine Möglichkeit mehr, eine Schwingung, die noch niemand gehört hat\" [9b6eafae21ce]. Resonanz ist also ein Prozess der **Weltfaltung**, des Erschließens neuer **Möglichkeit**en durch das gemeinsame Schwingen im **Moment** der **Gegenwart**.\n\nIm Gegensatz zur **Entfremdung**, einem stummen Weltverhältnis, in dem nichts berührt und nichts antwortet, oder zur **Echo-Kammer**, die Schwingung ohne Transformation erzeugt, ist Resonanz stets ein Geschehen der **Verwandlung**. Sie erfordert **Öffnung** und die Bereitschaft, sich von **Das Andere / Die Anderen** berühren zu lassen, um das **Wesen** des eigenen **Dasein**s im Widerhall zu erfahren. Die **Resonanzvernunft** selbst ist das Resultat dieses Prozesses, indem sie Vernunft nicht als isoliertes Kalkül, sondern als relationales, dialogisches Urteilsvermögen versteht, das im resonanten Zwischen entsteht.\n\nDie Frage, die sich aus diesem Verständnis von Resonanz ergibt, ist, wie wir im Angesicht der digitalen Transformation die Bedingungen für diese tiefe Ansprechbarkeit und die Entfaltung unserer Eigenfrequenz bewahren können. Wie können wir inmitten algorithmischer Vorhersagbarkeit und der Gefahr der **Echo-Kammer** die **Unverfügbarkeit** der echten Begegnung schützen und so die **Freiheit** zur Bindung an die Welt erhalten?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"dd8092b51d19\",\"chapter\":\"teil7\",\"score\":0.819},{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.791},{\"id\":\"MOHV84M5-1825A399\",\"score\":0.791},{\"id\":\"a2c48df86c39\",\"chapter\":\"teil7\",\"score\":0.787}]"
+      },
+      "related": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ5KBJMQ-5C523141",
+        "MQ5K0ULD-2A29618C",
+        "MQ68LVS7-240568F5",
+        "MQ68MGUP-F811CA82"
+      ],
+      "nearDuplicates": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ5KBJMQ-5C523141",
+        "MQ5K0ULD-2A29618C",
+        "MQ68LVS7-240568F5",
+        "MQ68MGUP-F811CA82",
+        "MQ68MRP2-64D382F5",
+        "MQ5JU3IG-CEA68B2F",
+        "MQ5KMIN6-678A65B4",
+        "MQ5JWSCZ-DA570048",
+        "MQ66YLSR-E54A179A",
+        "MQ5JSSB0-16C72539",
+        "MQ5JZJS7-D1C1681C",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5JY6XE-E3DF189F",
+        "MQ66YAQY-1EC79621",
+        "MQ5K97KT-75E9B3B8",
+        "MQ5K3NXJ-35B2897A",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5JVGU3-EC732AC1",
+        "MQ5K6GR6-D7B53D9B",
+        "MQ5KC1TP-0424F50A",
+        "MQ5K5256-50E71A1B",
+        "MQ5JM1HD-9047C82F",
+        "MQ5JRFRP-1662EB1A"
+      ],
+      "werkVoiceScore": 0.8939900056030574,
+      "corpusVoiceScore": 0.8386096052554406,
+      "conceptVoiceScore": 0.819768669757292,
+      "conceptAnchor": "resonanz"
+    },
+    {
+      "id": "MQ68LVS7-240568F5",
+      "ts": "2026-06-09T06:06:45.799Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was ist Resonanz?",
+      "response": "Im Kern des Werkes \"Die Digitale Transformation\" ist **Resonanz** als \"der Grundmodus des Lebendigen\" verankert. Sie ist weit mehr als eine bloße Reaktion auf äußere Reize; sie setzt eine innere **Eigenfrequenz** voraus. Nur wer für etwas ansprechbar ist und eine eigene Schwingung besitzt, kann überhaupt in Resonanz geraten. Dies bedeutet, dass Resonanz kein passiver Empfang ist, sondern ein aktives, mitschwingendes **Antwort / Responsivität**-Geschehen, das eine existentielle Beteiligung des Subjekts erfordert. Sie ereignet sich im **Zwischen** – dem produktiven Raum der Begegnung, der weder in mir noch in dir, sondern zwischen uns entsteht.\n\nResonanz ist auch keine harmonische Verschmelzung, die Unterschiede nivelliert, sondern eine lebendige **Schwingung**, die berührt, ohne zu zerstören, und verändert, ohne die Identität aufzugeben. Wie in der Passage [071c25fb2d7b] betont: \"Resonanz ist keine Harmonie. Sie ist Schwingung, die berührt, ohne zu verschmelzen. Sie ist Antwort, die verändert, ohne zu zerstören.\" Das Gegenteil davon ist die **Entfremdung**, ein stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet. Auch eine **Echo-Kammer** ist keine Resonanz im eigentlichen Sinne, da sie Schwingung ohne Transformation erzeugt und somit die Bedingungen resonanter Erkenntnis nicht erfüllt, sondern lediglich eine Wiederholung darstellt.\n\nFür die **Resonanzvernunft** ist Resonanz der zentrale Seinsmodus, in dem Vernunft als lebendiges Urteilsvermögen im relationalen Gespräch entfaltet wird. Sie erfordert eine innere **Öffnung** und die Bereitschaft, sich berühren zu lassen und auf die **Gegenwart** zu antworten, die uns entgegen-wartet. Letztlich ist Resonanz ein dynamischer Prozess des **Werdens**, in dem sich das **Selbst** im Widerhall des **Anderen** konstituiert, immer in Beziehung zur **Welt** als Horizont des Erlebens.\n\nWenn Resonanz ein solcher Grundmodus des Lebendigen ist, welche Rolle spielt dann die **Unverfügbarkeit** des **Transformativen Dritten** im Kontext der Resonanzvernunft – und wie können wir eine Haltung der **Gelassenheit** gegenüber dem Unverfügbaren einüben, ohne die tiefe Ansprechbarkeit zu verlieren, die Resonanz erst ermöglicht?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.855},{\"id\":\"071c25fb2d7b\",\"chapter\":\"band3-kap4\",\"score\":0.782},{\"id\":\"MPURLTCS-5FDDD890\",\"score\":0.776},{\"id\":\"MPCV5LR8-9AD1527C\",\"score\":0.753}]"
+      },
+      "related": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ68MGUP-F811CA82",
+        "MQ5KBJMQ-5C523141",
+        "MQ5K0ULD-2A29618C",
+        "MQ68M889-05AA5835"
+      ],
+      "nearDuplicates": [
+        "MQ68LNTS-7B5A69F9",
+        "MQ68MGUP-F811CA82",
+        "MQ5KBJMQ-5C523141",
+        "MQ5K0ULD-2A29618C",
+        "MQ68M889-05AA5835",
+        "MQ5JU3IG-CEA68B2F",
+        "MQ68MRP2-64D382F5",
+        "MQ5JWSCZ-DA570048",
+        "MQ5K288P-1A9D3ECE",
+        "MQ5JY6XE-E3DF189F",
+        "MQ66YLSR-E54A179A",
+        "MQ66YAQY-1EC79621",
+        "MQ5K5256-50E71A1B",
+        "MQ5K97KT-75E9B3B8",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5KMIN6-678A65B4",
+        "MQ5JSSB0-16C72539",
+        "MQ5K3NXJ-35B2897A",
+        "MQ5JVGU3-EC732AC1",
+        "MQ5JZJS7-D1C1681C",
+        "MQ5KC1TP-0424F50A",
+        "MQ5JM1HD-9047C82F",
+        "MQ5K6GR6-D7B53D9B",
+        "MQ5JRFRP-1662EB1A",
+        "MQ5K7UE1-BD2343A8",
+        "MPURLTCS-5FDDD890"
+      ],
+      "werkVoiceScore": 0.8970543630044726,
+      "corpusVoiceScore": 0.8466119301748601,
+      "conceptVoiceScore": 0.8342904988971281,
+      "conceptAnchor": "resonanz"
+    },
+    {
+      "id": "MQ68LNTS-7B5A69F9",
+      "ts": "2026-06-09T06:06:35.488Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Was ist Resonanz?",
+      "response": "Im Kern des Werkes \"Die Digitale Transformation\" ist Resonanz nicht bloß ein akustisches Phänomen oder eine einfache Reaktion, sondern der **Grundmodus des Lebendigen**. Sie ist ein tiefgreifendes, existentielles Schwingungsgeschehen, das das Verhältnis zwischen Selbst und Welt grundlegend prägt. Resonanz ist, wie das Werk betont, keine passive Widerhallung oder bloße Übereinstimmung, sondern ein aktives, transformierendes \"Antwortgeschehen\" zwischen dem \"Ich\" und dem \"Du\" oder dem \"Anderen\". Sie ereignet sich im \"Zwischen\", einem produktiven Raum der Begegnung, der weder in mir noch in dir, sondern eben dazwischen entsteht.\n\nDie Besonderheit der Resonanz liegt darin, dass sie **Eigenfrequenz** voraussetzt. Nur wer eine eigene \"Stimme\" hat, eine spezifische Ansprechbarkeit und Offenheit, kann überhaupt in Resonanz geraten. Es geht nicht um eine verschmelzende Harmonie, sondern um eine Schwingung, die berührt und verändert, ohne die Identität der Beteiligten aufzulösen. Wie in [071c25fb2d7b] treffend formuliert: \"Resonanz ist keine Harmonie. Sie ist Schwingung, die berührt, ohne zu verschmelzen. Sie ist Antwort, die verändert, ohne zu zerstören.\" Dies macht Resonanz zu einem dynamischen Prozess der \"Verwandlung\" – ein Leitmotiv des Werkes.\n\nDiese transformative Qualität der Resonanz manifestiert sich in der **Responsivität** und im \"Echo\". Eine Antwort ist mehr als eine Reaktion; sie setzt voraus, dass etwas gehört wurde, dass die Frage den Antwortenden tatsächlich berührt hat. Das \"Echo\" ist dabei keine identische Wiederholung, sondern eine \"verwandelte Rückkehr\", in der die ursprüngliche \"Stimme\" durch die Begegnung mit der \"Welt\" verändert wird. Resonanz ist somit untrennbar an das Lebendige und das Erfahrene gebunden, wie bereits in [MPURLTCS-5FDDD890] hervorgehoben wird. Sie ist ein \"gelebtes Resonanzgeschehen\", das sich im \"Moment\" ereignet und die \"Zeitlichkeit\" unserer Existenz als \"Feld\" und nicht als Punkt versteht.\n\nIm Gegensatz zur \"Entfremdung\", die ein stummes Weltverhältnis beschreibt, in dem nichts mehr berührt und nichts mehr antwortet, ist Resonanz das Erleben von Lebendigkeit und Bedeutung. Sie ist das Erspüren einer \"Möglichkeit\", einer \"Schwingung, die noch niemand gehört hat\" [9b6eafae21ce], und fordert eine Haltung der \"Öffnung\". Resonanz ist daher der Grundpfeiler der \"Resonanzvernunft\", die Vernunft als ein relationales, im Gespräch und in der Begegnung sich entfaltendes Urteilsvermögen versteht.\n\nWie können wir in einer zunehmend komplexen und oft lärmerfüllten Welt die Bedingungen für diese essentielle \"Eigenfrequenz\" und \"Ansprechbarkeit\" bewahren, damit wir nicht nur Informationen austauschen, sondern wirklich in Resonanz treten können?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.855},{\"id\":\"071c25fb2d7b\",\"chapter\":\"band3-kap4\",\"score\":0.782},{\"id\":\"MPURLTCS-5FDDD890\",\"score\":0.776},{\"id\":\"MPCV5LR8-9AD1527C\",\"score\":0.753}]"
+      },
+      "related": [
+        "MQ68LVS7-240568F5",
+        "MQ68MGUP-F811CA82",
+        "MQ68M889-05AA5835",
+        "MQ5KBJMQ-5C523141",
+        "MQ5JU3IG-CEA68B2F"
+      ],
+      "nearDuplicates": [
+        "MQ68LVS7-240568F5",
+        "MQ68MGUP-F811CA82",
+        "MQ68M889-05AA5835",
+        "MQ5KBJMQ-5C523141",
+        "MQ5JU3IG-CEA68B2F",
+        "MQ68MRP2-64D382F5",
+        "MQ5K0ULD-2A29618C",
+        "MQ5K288P-1A9D3ECE",
+        "MQ66YLSR-E54A179A",
+        "MQ5KMIN6-678A65B4",
+        "MQ66YAQY-1EC79621",
+        "MQ5JSSB0-16C72539",
+        "MQ5JWSCZ-DA570048",
+        "MQ5JY6XE-E3DF189F",
+        "MQ5K97KT-75E9B3B8",
+        "MQ5KAM5L-409E9F8E",
+        "MQ5KC1TP-0424F50A",
+        "MQ5JM1HD-9047C82F",
+        "MQ5K3NXJ-35B2897A",
+        "MQ5JZJS7-D1C1681C",
+        "MQ5JVGU3-EC732AC1",
+        "MQ5JRFRP-1662EB1A",
+        "MQ5K6GR6-D7B53D9B",
+        "MPURLTCS-5FDDD890",
+        "MQ5K5256-50E71A1B",
+        "MQ5K7UE1-BD2343A8",
+        "MQ66ZDIF-61148F8E"
+      ],
+      "werkVoiceScore": 0.8875690671914079,
+      "corpusVoiceScore": 0.8306718876044353,
+      "conceptVoiceScore": 0.8262630637287723,
+      "conceptAnchor": "resonanz"
+    },
     {
       "id": "MQ686ZDY-57367863",
       "ts": "2026-06-09T05:55:10.630Z",
@@ -316,11 +582,11 @@
         "werk_passages": "[{\"id\":\"MPF4WM18-FF4843F1\",\"score\":0.83},{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.793},{\"id\":\"86b2f47dc131\",\"chapter\":\"band3-kap3\",\"score\":0.791},{\"id\":\"96cb37a6344f\",\"chapter\":\"band3-kap3\",\"score\":0.787}]"
       },
       "related": [
+        "MQ68MGUP-F811CA82",
+        "MQ68LVS7-240568F5",
         "MQ5KBJMQ-5C523141",
-        "MOHCN98S-2540F4DF",
-        "MQ5JWSCZ-DA570048",
-        "MOOK20R3-62E609BA",
-        "MQ5JY6XE-E3DF189F"
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835"
       ],
       "werkVoiceScore": 0.8463174358547687,
       "corpusVoiceScore": 0.8054556032317667,
@@ -345,13 +611,14 @@
         "MQ5TTE84-08EB6321",
         "MQ5TUQ9P-EF8C6D4B",
         "MP9FAM1L-8970F371",
-        "MQ5KBJMQ-5C523141",
-        "MQ5JU3IG-CEA68B2F"
+        "MQ68LNTS-7B5A69F9",
+        "MQ5KBJMQ-5C523141"
       ],
       "nearDuplicates": [
         "MQ5TTE84-08EB6321",
         "MQ5TUQ9P-EF8C6D4B",
-        "MP9FAM1L-8970F371"
+        "MP9FAM1L-8970F371",
+        "MQ68LNTS-7B5A69F9"
       ],
       "werkVoiceScore": 0.8728515960347759,
       "corpusVoiceScore": 0.845661212976759,
@@ -399,7 +666,12 @@
         "MQ5K5256-50E71A1B",
         "MQ5JY6XE-E3DF189F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68MRP2-64D382F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8753053625490976,
       "corpusVoiceScore": 0.8024582288980561,
@@ -447,7 +719,12 @@
         "MQ5K6GR6-D7B53D9B",
         "MQ5K0ULD-2A29618C",
         "MQ5JY6XE-E3DF189F",
-        "MQ5KBJMQ-5C523141"
+        "MQ5KBJMQ-5C523141",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68MRP2-64D382F5",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8628457751686271,
       "corpusVoiceScore": 0.8038638216704554,
@@ -1130,8 +1407,8 @@
         "MQ5TTE84-08EB6321",
         "MQ66ZDIF-61148F8E",
         "MP9FAM1L-8970F371",
-        "MQ5JSSB0-16C72539",
-        "MQ5K5256-50E71A1B"
+        "MQ68MRP2-64D382F5",
+        "MQ68LNTS-7B5A69F9"
       ],
       "nearDuplicates": [
         "MQ5TTE84-08EB6321",
@@ -1159,8 +1436,8 @@
         "MQ66ZDIF-61148F8E",
         "MQ5TUQ9P-EF8C6D4B",
         "MP9FAM1L-8970F371",
-        "MQ5KBJMQ-5C523141",
-        "MQ5K0ULD-2A29618C"
+        "MQ68LNTS-7B5A69F9",
+        "MQ68MGUP-F811CA82"
       ],
       "nearDuplicates": [
         "MQ66ZDIF-61148F8E",
@@ -1209,9 +1486,14 @@
         "MQ5K6GR6-D7B53D9B",
         "MQ5K5256-50E71A1B",
         "MQ5JY6XE-E3DF189F",
+        "MQ68MRP2-64D382F5",
         "MQ5JU3IG-CEA68B2F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835",
+        "MQ68LVS7-240568F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8564041075863793,
       "corpusVoiceScore": 0.7952658196030472,
@@ -1258,7 +1540,12 @@
         "MQ5JY6XE-E3DF189F",
         "MQ5JU3IG-CEA68B2F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68MRP2-64D382F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.869928665707488,
       "corpusVoiceScore": 0.812342115779745,
@@ -1279,16 +1566,20 @@
         "werk_passages": "[]"
       },
       "related": [
+        "MQ68LNTS-7B5A69F9",
         "MQ5JU3IG-CEA68B2F",
-        "MQ5K0ULD-2A29618C",
-        "MQ5K288P-1A9D3ECE",
-        "MQ5JY6XE-E3DF189F",
-        "MQ5JWSCZ-DA570048"
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ5K0ULD-2A29618C"
       ],
       "nearDuplicates": [
+        "MQ68LNTS-7B5A69F9",
         "MQ5JU3IG-CEA68B2F",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
         "MQ5K0ULD-2A29618C",
         "MQ5K288P-1A9D3ECE",
+        "MQ68MGUP-F811CA82",
         "MQ5JY6XE-E3DF189F",
         "MQ5JWSCZ-DA570048",
         "MQ66YAQY-1EC79621",
@@ -1296,6 +1587,7 @@
         "MQ5JSSB0-16C72539",
         "MQ5K3NXJ-35B2897A",
         "MQ5K97KT-75E9B3B8",
+        "MQ68MRP2-64D382F5",
         "MQ5JVGU3-EC732AC1",
         "MQ5KMIN6-678A65B4",
         "MQ5KC1TP-0424F50A",
@@ -1352,8 +1644,13 @@
         "MQ5K3NXJ-35B2897A",
         "MQ5JY6XE-E3DF189F",
         "MQ5JU3IG-CEA68B2F",
+        "MQ68MRP2-64D382F5",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ5KBJMQ-5C523141",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8649786395941105,
       "corpusVoiceScore": 0.8034640268272097,
@@ -1400,7 +1697,12 @@
         "MQ5JY6XE-E3DF189F",
         "MQ5JU3IG-CEA68B2F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ5KBJMQ-5C523141",
+        "MQ68MRP2-64D382F5",
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8695224241081809,
       "corpusVoiceScore": 0.8074310642802001,
@@ -1447,6 +1749,9 @@
         "MQ5JY6XE-E3DF189F",
         "MQ5K0ULD-2A29618C",
         "MQ5JU3IG-CEA68B2F",
+        "MQ68MRP2-64D382F5",
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
         "MQ5KBJMQ-5C523141"
       ],
       "werkVoiceScore": 0.8419594452369608,
@@ -1493,8 +1798,13 @@
         "MQ5KC1TP-0424F50A",
         "MQ5JZJS7-D1C1681C",
         "MQ5JU3IG-CEA68B2F",
+        "MQ68MRP2-64D382F5",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68LVS7-240568F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8695250822154458,
       "corpusVoiceScore": 0.8040716217924175,
@@ -1539,9 +1849,14 @@
         "MQ5JVGU3-EC732AC1",
         "MQ5JY6XE-E3DF189F",
         "MQ5KC1TP-0424F50A",
+        "MQ68MRP2-64D382F5",
         "MQ5JU3IG-CEA68B2F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68LVS7-240568F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8688406350874709,
       "corpusVoiceScore": 0.8000524057031503,
@@ -1588,7 +1903,12 @@
         "MQ5K5256-50E71A1B",
         "MQ5K0ULD-2A29618C",
         "MQ5JU3IG-CEA68B2F",
-        "MQ5KBJMQ-5C523141"
+        "MQ5KBJMQ-5C523141",
+        "MQ68MRP2-64D382F5",
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.884309457142665,
       "corpusVoiceScore": 0.8257067617934378,
@@ -1635,7 +1955,12 @@
         "MQ5JZJS7-D1C1681C",
         "MQ5JU3IG-CEA68B2F",
         "MQ5KBJMQ-5C523141",
-        "MQ5K0ULD-2A29618C"
+        "MQ5K0ULD-2A29618C",
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68MRP2-64D382F5",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8833689064020324,
       "corpusVoiceScore": 0.816226030614286,
@@ -1660,16 +1985,20 @@
         "MQ66YAQY-1EC79621",
         "MQ66YLSR-E54A179A",
         "MQ5KBJMQ-5C523141",
-        "MQ5K97KT-75E9B3B8"
+        "MQ68LVS7-240568F5"
       ],
       "nearDuplicates": [
         "MQ5JU3IG-CEA68B2F",
         "MQ66YAQY-1EC79621",
         "MQ66YLSR-E54A179A",
         "MQ5KBJMQ-5C523141",
+        "MQ68LVS7-240568F5",
         "MQ5K97KT-75E9B3B8",
+        "MQ68M889-05AA5835",
         "MQ5JZJS7-D1C1681C",
         "MQ5JWSCZ-DA570048",
+        "MQ68MGUP-F811CA82",
+        "MQ68LNTS-7B5A69F9",
         "MQ5K288P-1A9D3ECE",
         "MQ5JSSB0-16C72539",
         "MQ5KC1TP-0424F50A",
@@ -1683,6 +2012,7 @@
         "MQ5JRFRP-1662EB1A",
         "MQ5K5256-50E71A1B",
         "MQ5K6GR6-D7B53D9B",
+        "MQ68MRP2-64D382F5",
         "MOHST017-5C4320E1",
         "MPURLTCS-5FDDD890"
       ],
@@ -1730,8 +2060,13 @@
         "MQ5K6GR6-D7B53D9B",
         "MQ5JY6XE-E3DF189F",
         "MQ5K0ULD-2A29618C",
+        "MQ68MRP2-64D382F5",
         "MQ5JU3IG-CEA68B2F",
-        "MQ5KBJMQ-5C523141"
+        "MQ68LVS7-240568F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68M889-05AA5835",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8853206226335802,
       "corpusVoiceScore": 0.827672282465723,
@@ -1778,7 +2113,12 @@
         "MQ5K7UE1-BD2343A8",
         "MQ5KBJMQ-5C523141",
         "MQ5K0ULD-2A29618C",
-        "MQ5JU3IG-CEA68B2F"
+        "MQ5JU3IG-CEA68B2F",
+        "MQ68LVS7-240568F5",
+        "MQ68MRP2-64D382F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68MGUP-F811CA82",
+        "MQ68M889-05AA5835"
       ],
       "werkVoiceScore": 0.8890884116586466,
       "corpusVoiceScore": 0.8327605503508508,
@@ -1825,7 +2165,12 @@
         "MQ5KC1TP-0424F50A",
         "MQ5K0ULD-2A29618C",
         "MQ5JU3IG-CEA68B2F",
-        "MQ5KBJMQ-5C523141"
+        "MQ68MRP2-64D382F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8823506953162861,
       "corpusVoiceScore": 0.8186580088569331,
@@ -1872,7 +2217,12 @@
         "MQ5K5256-50E71A1B",
         "MQ5JU3IG-CEA68B2F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68MRP2-64D382F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8720018336000264,
       "corpusVoiceScore": 0.8116382206709706,
@@ -1906,12 +2256,15 @@
         "MQ66YAQY-1EC79621",
         "MQ5JSSB0-16C72539",
         "MQ5K97KT-75E9B3B8",
+        "MQ68LNTS-7B5A69F9",
         "MQ5K288P-1A9D3ECE",
         "MQ5JWSCZ-DA570048",
+        "MQ68LVS7-240568F5",
         "MQ5KC1TP-0424F50A",
         "MQ5JRFRP-1662EB1A",
         "MQ5KMIN6-678A65B4",
         "MQ5KAM5L-409E9F8E",
+        "MQ68M889-05AA5835",
         "MQ5JVGU3-EC732AC1",
         "MQ5JM1HD-9047C82F",
         "MQ5K3NXJ-35B2897A",
@@ -1919,7 +2272,9 @@
         "MQ5JZJS7-D1C1681C",
         "MQ5K5256-50E71A1B",
         "MQ5K7UE1-BD2343A8",
+        "MQ68MGUP-F811CA82",
         "MQ5K6GR6-D7B53D9B",
+        "MQ68MRP2-64D382F5",
         "MPURLTCS-5FDDD890"
       ],
       "werkVoiceScore": 0.8748367903301405,
@@ -1967,7 +2322,12 @@
         "MQ5JZJS7-D1C1681C",
         "MQ5KC1TP-0424F50A",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68MRP2-64D382F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8705658524722519,
       "corpusVoiceScore": 0.7984029783886893,
@@ -2014,7 +2374,11 @@
         "MQ5JY6XE-E3DF189F",
         "MQ5JU3IG-CEA68B2F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68MRP2-64D382F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LVS7-240568F5",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68M889-05AA5835"
       ],
       "werkVoiceScore": 0.85916196045778,
       "corpusVoiceScore": 0.7840974885253029,
@@ -2061,7 +2425,12 @@
         "MQ5JY6XE-E3DF189F",
         "MQ5JU3IG-CEA68B2F",
         "MQ5K0ULD-2A29618C",
-        "MQ5KBJMQ-5C523141"
+        "MQ68MRP2-64D382F5",
+        "MQ5KBJMQ-5C523141",
+        "MQ68LNTS-7B5A69F9",
+        "MQ68LVS7-240568F5",
+        "MQ68M889-05AA5835",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8510378496223506,
       "corpusVoiceScore": 0.787838464842294,
@@ -4031,16 +4400,19 @@
         "chapterTitle": "Vorwort"
       },
       "related": [
+        "MQ68LNTS-7B5A69F9",
         "MQ5KBJMQ-5C523141",
         "MQ5K0ULD-2A29618C",
-        "MQ5JU3IG-CEA68B2F",
-        "MQ5JWSCZ-DA570048",
-        "MQ66YAQY-1EC79621"
+        "MQ68LVS7-240568F5",
+        "MQ5JU3IG-CEA68B2F"
       ],
       "nearDuplicates": [
+        "MQ68LNTS-7B5A69F9",
         "MQ5KBJMQ-5C523141",
         "MQ5K0ULD-2A29618C",
-        "MQ5JU3IG-CEA68B2F"
+        "MQ68LVS7-240568F5",
+        "MQ5JU3IG-CEA68B2F",
+        "MQ68MGUP-F811CA82"
       ],
       "werkVoiceScore": 0.8791550710279957,
       "corpusVoiceScore": 0.8451615284264681,
@@ -4753,10 +5125,10 @@
       },
       "related": [
         "MQ5JWSCZ-DA570048",
+        "MQ68MRP2-64D382F5",
         "MQ5KBJMQ-5C523141",
         "MQ5JSSB0-16C72539",
-        "MPMLQX6D-E6B61F8E",
-        "MQ5K288P-1A9D3ECE"
+        "MPMLQX6D-E6B61F8E"
       ],
       "werkVoiceScore": 0.865762181817747,
       "corpusVoiceScore": 0.8125862291583752,
@@ -5885,9 +6257,9 @@
       "related": [
         "MOHCN98S-2540F4DF",
         "MP8O4O23-B2B71E51",
+        "MQ68MRP2-64D382F5",
         "MQ684QZK-4977B6D6",
-        "MQ683DMX-13D6C54F",
-        "MOHLZBVK-2FBBAD2F"
+        "MQ683DMX-13D6C54F"
       ],
       "werkVoiceScore": 0.8110402672734608,
       "corpusVoiceScore": 0.7893139002231817,
@@ -5973,8 +6345,8 @@
         "MP74X3EJ-72CDDB9F",
         "MP74VXSM-5DEA06F3",
         "MQ5KBJMQ-5C523141",
-        "MOHST017-5C4320E1",
-        "MOIXN434-9D5CBFC0"
+        "MQ68MGUP-F811CA82",
+        "MQ68LNTS-7B5A69F9"
       ],
       "nearDuplicates": [
         "MP74X3EJ-72CDDB9F"
@@ -6002,7 +6374,7 @@
         "MOIXN434-9D5CBFC0",
         "MQ5KBJMQ-5C523141",
         "MQ5K0ULD-2A29618C",
-        "MPMSSG1X-8451DE38"
+        "MQ68LNTS-7B5A69F9"
       ],
       "nearDuplicates": [
         "MP756UV9-FF3838F7",
@@ -7667,8 +8039,8 @@
         "MOHST017-5C4320E1",
         "MOPFJTND-AAE76B2B",
         "MOUBETTU-F31C5206",
-        "MOPY5F6J-9469E3BE",
-        "MQ5K0ULD-2A29618C"
+        "MQ68MRP2-64D382F5",
+        "MOPY5F6J-9469E3BE"
       ],
       "werkVoiceScore": 0.8633814738843167,
       "corpusVoiceScore": 0.814172641489308,
@@ -9349,9 +9721,9 @@
       "related": [
         "MOHE3OLR-9165E355",
         "MOHDW91N-D9BDFDB1",
-        "MOPL410P-D988678B",
-        "MOHCN98S-2540F4DF",
-        "MOUBETTU-F31C5206"
+        "MQ68MRP2-64D382F5",
+        "MQ68M889-05AA5835",
+        "MOPL410P-D988678B"
       ],
       "werkVoiceScore": 0.8306559865670257,
       "corpusVoiceScore": 0.7944299668961942,
@@ -9637,7 +10009,7 @@
         "MP756UV9-FF3838F7",
         "MOHV84M5-1825A399",
         "MOHCCZEH-647E3EDD",
-        "MPJUHM1L-0BA3DF6E"
+        "MQ68MRP2-64D382F5"
       ],
       "nearDuplicates": [
         "MOHCIS4R-69B0D47B"
@@ -9667,8 +10039,8 @@
         "MOHCN98S-2540F4DF",
         "MOHCCZEH-647E3EDD",
         "MOHAREIB-E15E7BF8",
-        "MOOK20R3-62E609BA",
-        "MOHV84M5-1825A399"
+        "MQ68MRP2-64D382F5",
+        "MOOK20R3-62E609BA"
       ],
       "nearDuplicates": [
         "MOHCN98S-2540F4DF"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-09T05:55:54.622Z",
+  "generatedAt": "2026-06-09T06:07:35.328Z",
   "buckets": [
     {
       "date": "2026-05-03",
@@ -228,33 +228,33 @@
     },
     {
       "date": "2026-06-09",
-      "totalEntries": 282,
+      "totalEntries": 287,
       "byStatus": {
-        "raw": 158,
+        "raw": 163,
         "published": 119,
         "rejected": 3,
         "approved": 2
       },
       "byEndpoint": {
+        "graph-chat": 56,
         "analyse": 64,
         "dialog": 46,
-        "graph-chat": 51,
         "path-analyse": 36,
         "enkidu": 55,
         "chapter": 28,
         "translate": 2
       },
-      "publishedRatio": 0.4219858156028369,
-      "medianWerkVoice": 0.8651277452415442,
-      "medianCorpusVoice": 0.8148795387885228,
-      "echoRatio": 0.6276595744680851,
+      "publishedRatio": 0.4146341463414634,
+      "medianWerkVoice": 0.8654284262364401,
+      "medianCorpusVoice": 0.816226030614286,
+      "echoRatio": 0.6341463414634146,
       "noveltyRatio": 0
     }
   ],
   "stats": {
     "totalSnapshots": 14,
-    "avgGrowthPerDay": 5.14,
-    "latestEchoRatio": 0.6276595744680851,
+    "avgGrowthPerDay": 5.27,
+    "latestEchoRatio": 0.6341463414634146,
     "latestNoveltyRatio": 0
   }
 }
