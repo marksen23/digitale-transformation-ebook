@@ -22,6 +22,7 @@ import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { toggleGlobalTheme } from "@/lib/globalTheme";
 import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT } from "@/lib/theme";
 import InstallButton from "@/components/InstallButton";
+import OnboardingHint from "@/components/OnboardingHint";
 import { useT, useLocale, switchLocaleHref } from "@/i18n";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 
@@ -329,6 +330,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           ["--app-frame-h" as string]: `calc(${FRAME_HEIGHT}px + env(safe-area-inset-top, 0px))`,
         }}
       >
+        <OnboardingHint />
         {children}
       </main>
 
