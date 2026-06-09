@@ -85,10 +85,6 @@ export function listThreads(): SavedThread[] {
   return [...read().threads].sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
 }
 
-export function getThread(id: string): SavedThread | null {
-  return read().threads.find(t => t.id === id) ?? null;
-}
-
 /**
  * Upsert: ohne id wird ein neuer Faden angelegt (id zurückgegeben), mit id der
  * bestehende überschrieben. Gibt den gespeicherten Faden zurück.
@@ -133,8 +129,4 @@ export function openQuestions(): Array<{ threadId: string; question: string; upd
     .filter(t => t.steps.length > 0 && t.steps[t.steps.length - 1].kind === "frage")
     .map(t => ({ threadId: t.id, question: t.steps[t.steps.length - 1].text, updatedAt: t.updatedAt }))
     .sort((a, b) => b.updatedAt.localeCompare(a.updatedAt));
-}
-
-export function threadCount(): number {
-  return read().threads.length;
 }

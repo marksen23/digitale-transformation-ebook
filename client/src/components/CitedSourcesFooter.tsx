@@ -28,11 +28,9 @@ interface CitedSourcesFooterProps {
   c: { border: string; textDim: string; accent: string };
   /** Schriftart-Override (ConceptGraphPage nutzt seine eigene Serife). */
   serifFont?: string;
-  /** Optionales Mini-Label über der Liste, z.B. „Quellen im Werk". */
-  label?: string;
 }
 
-export default function CitedSourcesFooter({ sources, c, serifFont = SERIF, label }: CitedSourcesFooterProps) {
+export default function CitedSourcesFooter({ sources, c, serifFont = SERIF }: CitedSourcesFooterProps) {
   if (!sources || sources.length === 0) return null;
   return (
     <div
@@ -47,9 +45,6 @@ export default function CitedSourcesFooter({ sources, c, serifFont = SERIF, labe
         lineHeight: 1.55,
       }}
     >
-      {label && (
-        <div style={{ fontSize: "0.62rem", opacity: 0.85, marginBottom: "0.3rem" }}>{label}</div>
-      )}
       {sources.map(s => (
         <div key={s.id} style={{ marginBottom: "0.15rem" }} title={`${s.source ?? "werk"}: ${s.id}`}>
           {s.source === "resonanz" ? (
