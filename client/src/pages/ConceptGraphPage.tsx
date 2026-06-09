@@ -1387,7 +1387,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           height="100%"
           role="group"
           aria-roledescription="Begriffsnetz-Visualisierung"
-          aria-label="Begriffsnetz — interaktive Karte der Werkbegriffe. Für Tastatur-Zugang zu einzelnen Begriffen die Suche (Cmd/Strg + K) nutzen."
+          aria-label="Begriffsnetz — interaktive Karte der Werkbegriffe. Einzelne Begriffe sind per Tab-Taste erreichbar und mit Enter aktivierbar; alternativ die Suche (Cmd/Strg + K)."
           style={{ flex: 1, display: "block", cursor: draggingNodeId ? "grabbing" : dragRef.current ? "grabbing" : "grab", touchAction: "none" }}
           onMouseDown={onMouseDown}
           onMouseMove={onMouseMove}
@@ -1742,8 +1742,19 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               return (
                 <g
                   key={node.id}
-                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined }}
+                  tabIndex={isGhost ? -1 : 0}
+                  role="button"
+                  aria-label={node.fullLabel}
+                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined, outline: "none" }}
                   onClick={isGhost ? undefined : e => handleNodeClick(e, node.id)}
+                  onKeyDown={isGhost ? undefined : e => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleNodeClick(e as unknown as React.MouseEvent, node.id);
+                    }
+                  }}
+                  onFocus={() => setHoveredId(node.id)}
+                  onBlur={() => setHoveredId(null)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   onMouseDown={(e) => {
@@ -1950,8 +1961,19 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               return (
                 <g
                   key={node.id}
-                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined }}
+                  tabIndex={isGhost ? -1 : 0}
+                  role="button"
+                  aria-label={node.fullLabel}
+                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined, outline: "none" }}
                   onClick={isGhost ? undefined : e => handleNodeClick(e, node.id)}
+                  onKeyDown={isGhost ? undefined : e => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleNodeClick(e as unknown as React.MouseEvent, node.id);
+                    }
+                  }}
+                  onFocus={() => setHoveredId(node.id)}
+                  onBlur={() => setHoveredId(null)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   onMouseDown={(e) => {
@@ -2089,8 +2111,19 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               return (
                 <g
                   key={node.id}
-                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined }}
+                  tabIndex={isGhost ? -1 : 0}
+                  role="button"
+                  aria-label={node.fullLabel}
+                  style={{ cursor: isGhost ? "default" : "pointer", pointerEvents: isGhost ? "none" : undefined, outline: "none" }}
                   onClick={isGhost ? undefined : e => handleNodeClick(e, node.id)}
+                  onKeyDown={isGhost ? undefined : e => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      handleNodeClick(e as unknown as React.MouseEvent, node.id);
+                    }
+                  }}
+                  onFocus={() => setHoveredId(node.id)}
+                  onBlur={() => setHoveredId(null)}
                   onMouseEnter={() => setHoveredId(node.id)}
                   onMouseLeave={() => setHoveredId(null)}
                   onMouseDown={(e) => {
