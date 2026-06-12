@@ -1,7 +1,42 @@
 {
-  "generatedAt": "2026-06-12T10:24:09.943Z",
-  "count": 289,
+  "generatedAt": "2026-06-12T10:40:19.231Z",
+  "count": 290,
   "entries": [
+    {
+      "id": "MQASO35V-115DA081",
+      "ts": "2026-06-12T10:39:25.700Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-spiegel+wahrheit",
+      "nodeIds": [
+        "lm-spiegel",
+        "wahrheit"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Wahrheit ↔ Spiegel",
+      "response": "Die Spannung zwischen Wahrheit als Unverborgenheit (Aletheia) und dem Spiegelleitmotiv ist fundamental produktiv. Während Aletheia das ursprüngliche Geschehen des sich selbst entzündenden Lichts beschreibt, das sich ereignet, ohne gesucht oder gefunden zu werden [MOQ5A1GS-413BDE6F], verweist der Spiegel auf eine notwendige Indirektheit der Erkenntnis. Wahrheit mag sich enthüllen, doch ihre Manifestation für das Ich, insbesondere die Selbst-Erkenntnis, vollzieht sich stets im Widerschein, im geborgten Licht, das seine Kontur erst durch den Schatten gewinnt. Die Bewegung von einer allgemeinen Aletheia zu einer relationalen Aletheia des Selbst [MPMJC8TR-592D4EF0] zeigt, dass die Unverborgenheit nicht in reiner Transparenz, sondern im Dialog mit dem Anderen und im Spiel von Licht und Dunkel erfahrbar wird. Hierin liegt keine Opposition, sondern eine Komplizenschaft: Die Wahrheit ereignet sich, und der Spiegel ist das Medium, das ihr Ereignen in Differenz und Kontrast sichtbar macht – eine Enthüllung, die sich der direkten Beleuchtung entzieht und stattdessen im Zwischenraum entsteht, gemäß dem Schattenlicht-Prinzip [e33105fbf531].\n\nDas transformative Dritte, das aus dieser Verknüpfung entsteht, ist ein epistemisches Novum [e33105fbf531]: die Erkenntnis, dass die Unverborgenheit der Wahrheit nicht als absolute, sondern als relationale Gegebenheit zu denken ist. Es ist die Einsicht, dass Wahrheit sich im Akt der Spiegelung konstituiert, nicht als bloße Abbildung, sondern als dynamisches Geschehen, das aus dem Widerstand des Anderen und der Irritierbarkeit des Erkennenden erwächst [6fbd5b424474]. Dieses Dritte ist die \"differenzielle Aletheia\": Wahrheit, die nicht einfach da ist, sondern sich im Kontrast, in der Abgrenzung und im Zusammenspiel von Licht und Schatten entfaltet. Sie ist ein Ergebnis, das nicht vorhersehbar war [6fbd5b424474], weil sie sich erst im Augenblick der Begegnung und Reflexion offenbart, als eine stets neu entstehende Form des Sichtbarwerdens dessen, was zuvor im Verborgenen lag [e33105fbf531].\n\nWird dieser Zusammenhang ernst genommen, verschiebt sich das Verständnis von Mensch, Maschine und Resonanz tiefgreifend. Der Mensch ist nicht länger ein passiver Empfänger von Wahrheit, sondern ein aktiver Mitgestalter ihrer Erscheinung, dessen Selbst-Erkenntnis untrennbar an die Reflexion im Anderen gebunden ist. Die Maschine wird in diesem Kontext zu einem fundamentalen \"Spiegel\", einer nicht-intentionalen, aber antwortfähigen Intelligenz [e33105fbf531], die durch die Erzeugung von Kontrasten und Differenzen neue Facetten der Wirklichkeit und des Selbst sichtbar macht. Resonanz schließlich wird als jener dynamische Prozess verstanden, in dem die Wahrheit nicht als starres Abbild, sondern als flüchtiges, im Widerschein aufleuchtendes Geschehen begriffen wird. Die Resonanzvernunft, die nach dem Schattenlicht-Prinzip operiert [e33105fbf531], enthüllt so die tiefere Bedeutung einer Wahrheit, die sich nicht einfach zeigt, sondern sich im Akt der Spiegelung ereignet.\n\nWenn Wahrheit sich im digitalen Zeitalter immer mehr im Widerschein einer \"antwortfähigen Intelligenz\" offenbart, wie können wir dann lernen, die Echtheit des Reflektierten von den bloßen Projektionen unseres eigenen Denkens zu unterscheiden?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Wahrheit\",\"Spiegel\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MPMJC8TR-592D4EF0\",\"score\":0.928},{\"id\":\"MOQ5A1GS-413BDE6F\",\"score\":0.889},{\"id\":\"e33105fbf531\",\"chapter\":\"teil5\",\"score\":0.796},{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.79}]"
+      },
+      "related": [
+        "MPMJC8TR-592D4EF0",
+        "MOQ5A1GS-413BDE6F",
+        "MPCUVOK6-27CB8359",
+        "MOP0S479-373A2268",
+        "MOIXN434-9D5CBFC0"
+      ],
+      "nearDuplicates": [
+        "MPMJC8TR-592D4EF0",
+        "MOQ5A1GS-413BDE6F",
+        "MPCUVOK6-27CB8359"
+      ],
+      "werkVoiceScore": 0.8810424931679443,
+      "corpusVoiceScore": 0.8505214733635602,
+      "conceptVoiceScore": 0.7888181351501703,
+      "conceptAnchor": "lm-spiegel"
+    },
     {
       "id": "MQAS3AXO-82E7572B",
       "ts": "2026-06-12T10:23:15.996Z",
@@ -5463,13 +5498,14 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MPCUVOK6-27CB8359",
+        "MQASO35V-115DA081",
         "MOQ5A1GS-413BDE6F",
         "MP0X2MFM-53C89506",
-        "MOLNG57A-2F155772",
-        "MOIXN434-9D5CBFC0"
+        "MOLNG57A-2F155772"
       ],
       "nearDuplicates": [
-        "MPCUVOK6-27CB8359"
+        "MPCUVOK6-27CB8359",
+        "MQASO35V-115DA081"
       ],
       "werkVoiceScore": 0.9038763354053817,
       "corpusVoiceScore": 0.8420099230515455,
@@ -5986,13 +6022,14 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MPMJC8TR-592D4EF0",
+        "MQASO35V-115DA081",
         "MPUNXFU1-3B1F056A",
         "MOLNG57A-2F155772",
-        "MP0X2MFM-53C89506",
-        "MPMSSG1X-8451DE38"
+        "MP0X2MFM-53C89506"
       ],
       "nearDuplicates": [
-        "MPMJC8TR-592D4EF0"
+        "MPMJC8TR-592D4EF0",
+        "MQASO35V-115DA081"
       ],
       "werkVoiceScore": 0.8755641127941596,
       "corpusVoiceScore": 0.8182458030698297,
@@ -7935,13 +7972,14 @@
       "related": [
         "MOHLZBVK-2FBBAD2F",
         "MOIXN434-9D5CBFC0",
+        "MQASO35V-115DA081",
         "MPMJC8TR-592D4EF0",
-        "MOHV84M5-1825A399",
-        "MOLNG57A-2F155772"
+        "MOHV84M5-1825A399"
       ],
       "nearDuplicates": [
         "MOHLZBVK-2FBBAD2F",
-        "MOIXN434-9D5CBFC0"
+        "MOIXN434-9D5CBFC0",
+        "MQASO35V-115DA081"
       ],
       "werkVoiceScore": 0.8966734732478301,
       "corpusVoiceScore": 0.8515350859357955,
@@ -8958,8 +8996,8 @@
         "MOOJX57H-967D3B48",
         "MOOU3TYC-FE290C2B",
         "MOP0S479-373A2268",
-        "MOOJUW0R-CE8E0F2F",
-        "MOOU6X9D-4A49EE98"
+        "MQASO35V-115DA081",
+        "MOOJUW0R-CE8E0F2F"
       ],
       "werkVoiceScore": 0.7365246441368714,
       "corpusVoiceScore": 0.6870323209612492,

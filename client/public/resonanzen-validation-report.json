@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-06-12T10:23:37.290Z",
-  "filesChecked": 289,
+  "generatedAt": "2026-06-12T10:39:46.608Z",
+  "filesChecked": 290,
   "errors": 0,
   "warnings": 0,
   "issues": [],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 64,
+      "analyse": 65,
       "chapter": 28,
       "dialog": 46,
       "enkidu": 55,
@@ -17,7 +17,7 @@
     "byStatus": {
       "published": 114,
       "rejected": 2,
-      "raw": 155,
+      "raw": 156,
       "approved": 18
     },
     "orphanNodeIds": []

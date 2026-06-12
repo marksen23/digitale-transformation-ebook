@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T10:24:09.951Z",
+  "generatedAt": "2026-06-12T10:40:19.239Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 23,
@@ -80,10 +80,10 @@
       }
     },
     "wahrheit": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "path-analyse": 3,
-        "analyse": 5
+        "analyse": 6,
+        "path-analyse": 3
       }
     },
     "denken": {
@@ -212,10 +212,10 @@
       }
     },
     "lm-spiegel": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 1
+        "analyse": 2,
+        "path-analyse": 4
       }
     },
     "lm-begegnung": {
