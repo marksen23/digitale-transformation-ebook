@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T10:21:26.381Z",
+  "generatedAt": "2026-06-12T10:24:09.952Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -38,11 +38,12 @@
     {
       "source": "moment",
       "target": "zwischen",
-      "cooccurrence": 3,
+      "cooccurrence": 4,
       "endpoints": {
-        "path-analyse": 3
+        "path-analyse": 4
       },
       "sampleEntryIds": [
+        "MQAS3AXO-82E7572B",
         "MQARZJDV-82F077DD",
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C"
@@ -142,6 +143,18 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "lm-begegnung",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MQAS3AXO-82E7572B",
+        "MQARZJDV-82F077DD"
       ]
     },
     {
@@ -542,7 +555,7 @@
   ],
   "stats": {
     "totalPairs": 247,
-    "candidatesCount": 42,
+    "candidatesCount": 43,
     "existingEdges": 116,
     "maxCooccurrence": 23
   }

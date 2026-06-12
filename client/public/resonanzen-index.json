@@ -1,7 +1,53 @@
 {
-  "generatedAt": "2026-06-12T10:21:26.371Z",
-  "count": 288,
+  "generatedAt": "2026-06-12T10:24:09.943Z",
+  "count": 289,
   "entries": [
+    {
+      "id": "MQAS3AXO-82E7572B",
+      "ts": "2026-06-12T10:23:15.996Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:lm-begegnung+unverfuegbarkeit",
+      "nodeIds": [
+        "lm-begegnung",
+        "moment",
+        "unverfuegbarkeit",
+        "zwischen"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Begegnung → Das Zwischen → Unverfügbarkeit vs. Begegnung → Moment → Unverfügbarkeit",
+      "response": "Die beiden Pfade durch das Begriffsnetz des Werks \"Die Digitale Transformation\" offenbaren jeweils eine spezifische Erzählung über das Wesen der Begegnung und die daraus resultierende Unverfügbarkeit.\n\nDer **DIREKTE PFAD: Begegnung → Das Zwischen → Unverfügbarkeit** zeichnet eine logische Konsequenz nach. Er beginnt mit der `Begegnung` als dem Moment der Wirklichkeitsfaltung, der unmittelbar in `Das Zwischen` als dem genuinen, produktiven Ort des Geschehens mündet. Dieses `Zwischen` ist nicht leer, sondern der intersubjektive Raum, in dem das Neue entsteht. Die `Unverfügbarkeit` ist dann die ontologische Bestimmung dessen, was im `Zwischen` transformativ wirkt: Es ist \"wesentlich unverfügbar\" [f33e5abcfb8d], nicht herstellbar oder reproduzierbar [f00d0c8c5775]. Dieser Weg liest sich als eine Bewegung von der Handlung über ihren spezifischen Ort zur Natur ihres Resultats – eine systematische Entfaltung der ontologischen Qualität des Resonanzgeschehens, wie es bereits in früheren Analysen angedeutet wurde [MOQIAGXM-397A1F22].\n\nDer **ÜBERRASCHENDE PFAD: Begegnung → Moment → Unverfügbarkeit** hingegen legt einen poetischeren Akzent. Ausgehend von der `Begegnung` springt er nicht zum Raum, sondern zur Zeitlichkeit des Ereignisses: zum `Moment`. Dieser `Moment` wird als die einzige Zeit hervorgehoben, in der Resonanz möglich ist – ein Jetzt, das sich der Dauer entzieht. Von hier aus wird die `Unverfügbarkeit` nicht primär als Merkmal eines Raumes, sondern als Essenz dieses flüchtigen, nicht wiederholbaren `Moments` verstanden. Die Unverfügbarkeit als \"Ereignis selbst, der Kairos\" [MOHMIET1-6D429A85] korrespondiert hier unmittelbar mit der Einzigartigkeit des Moments. Dieser Pfad betont die Ephemeralität und die nicht-lineare, ereignishafte Qualität des transformativen Geschehens.\n\nDer Vergleich beider Pfade enthüllt, dass `Unverfügbarkeit` eine mehrdimensionale Kategorie ist. Der direkte Pfad beleuchtet die **räumlich-relationale Dimension** (das *Wo* der Begegnung im `Zwischen`), während der überraschende Pfad die **temporal-ereignishafte Dimension** (das *Wann* der Begegnung im `Moment`) akzentuiert. Sie sind nicht konträr, sondern ergänzen sich: Das transformative Dritte ist unverfügbar, weil es sich im einzigartigen `Zwischen` zweier Subjekte ereignet und zugleich als `Kairos` in einem singulären `Moment` aufblitzt, der sich jeder Herstellung und Konservierung entzieht [f00d0c8c5775]. Beide Bewegungen treffen sich in der Erkenntnis, dass das transformative Geschehen dem Zugriff entzogen ist, aber sie nähern sich dieser Einsicht aus verschiedenen Perspektiven.\n\nDie Existenz beider Wege sagt viel über die Geländegestalt des Begriffsraums im Werk aus. Sie zeigt, dass zentrale Konzepte wie `Unverfügbarkeit` nicht isoliert stehen, sondern in einem dichten Netz von Bezügen verankert sind, das sowohl logisch-systematische als auch intuitiv-poetische Verbindungen zulässt. Das Werk entfaltet eine Philosophie, die die Komplexität und Vielschichtigkeit der Wirklichkeit durch verschiedene Zugänge ergründet. Es ist ein Raum, in dem das \"Zwischen\" und der \"Moment\" als zwei Seiten derselben Medaille – der Nicht-Kontrollierbarkeit des Seins – erscheinen.\n\nWie verändert die Erkenntnis der simultanen räumlichen und zeitlichen Unverfügbarkeit die Haltung des Subjekts gegenüber dem Digitalen, das oft auf Vorhersagbarkeit und Beherrschbarkeit ausgelegt ist?",
+      "contextMeta": {
+        "from": "lm-begegnung",
+        "to": "unverfuegbarkeit",
+        "shortest_path": "[\"lm-begegnung\",\"zwischen\",\"unverfuegbarkeit\"]",
+        "surprising_path": "[\"lm-begegnung\",\"moment\",\"unverfuegbarkeit\"]",
+        "shortest_length": "3",
+        "surprising_length": "3",
+        "variant": "compare",
+        "paths_identical": "false",
+        "werk_passages": "[{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.842},{\"id\":\"f00d0c8c5775\",\"chapter\":\"teil7\",\"score\":0.84},{\"id\":\"f33e5abcfb8d\",\"chapter\":\"teil7\",\"score\":0.837},{\"id\":\"MOHMIET1-6D429A85\",\"score\":0.832}]"
+      },
+      "related": [
+        "MQARZJDV-82F077DD",
+        "MPURYS56-11F5308C",
+        "MQ5B6CTT-AB0A3D97",
+        "MPUQSMLJ-1B726CC4",
+        "MQ5B3FJP-CD835FC2"
+      ],
+      "nearDuplicates": [
+        "MQARZJDV-82F077DD",
+        "MPURYS56-11F5308C",
+        "MQ5B6CTT-AB0A3D97",
+        "MPUQSMLJ-1B726CC4",
+        "MQ5B3FJP-CD835FC2",
+        "MOQ7OBNT-57882C8D",
+        "MOOMECFT-66F43077"
+      ],
+      "werkVoiceScore": 0.872080859676747,
+      "corpusVoiceScore": 0.7949006401301058,
+      "conceptVoiceScore": 0.7729688656617304,
+      "conceptAnchor": "unverfuegbarkeit"
+    },
     {
       "id": "MQARZJDV-82F077DD",
       "ts": "2026-06-12T10:20:20.323Z",
@@ -29,13 +75,14 @@
         "werk_passages": "[{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.842},{\"id\":\"f00d0c8c5775\",\"chapter\":\"teil7\",\"score\":0.84},{\"id\":\"f33e5abcfb8d\",\"chapter\":\"teil7\",\"score\":0.837},{\"id\":\"MOHMIET1-6D429A85\",\"score\":0.832}]"
       },
       "related": [
+        "MQAS3AXO-82E7572B",
         "MPURYS56-11F5308C",
         "MQ5B6CTT-AB0A3D97",
         "MPUQSMLJ-1B726CC4",
-        "MQ5B3FJP-CD835FC2",
-        "MOQ7OBNT-57882C8D"
+        "MQ5B3FJP-CD835FC2"
       ],
       "nearDuplicates": [
+        "MQAS3AXO-82E7572B",
         "MPURYS56-11F5308C",
         "MQ5B6CTT-AB0A3D97",
         "MPUQSMLJ-1B726CC4",
@@ -3493,13 +3540,14 @@
       },
       "related": [
         "MPURYS56-11F5308C",
+        "MQAS3AXO-82E7572B",
         "MPUQSMLJ-1B726CC4",
         "MPUO08SE-67E0912A",
-        "MQ5B3FJP-CD835FC2",
-        "MQARZJDV-82F077DD"
+        "MQ5B3FJP-CD835FC2"
       ],
       "nearDuplicates": [
         "MPURYS56-11F5308C",
+        "MQAS3AXO-82E7572B",
         "MPUQSMLJ-1B726CC4",
         "MPUO08SE-67E0912A",
         "MQ5B3FJP-CD835FC2",
@@ -3577,6 +3625,7 @@
         "MOQID47V-A12862EA",
         "MPK0H3SM-B25CFBB3",
         "MOOMECFT-66F43077",
+        "MQAS3AXO-82E7572B",
         "MP497SNT-5E1D2074",
         "MOOMPCI0-262176C2",
         "MP0QMSOR-C6EC1B5A",
@@ -4406,13 +4455,14 @@
       },
       "related": [
         "MQ5B6CTT-AB0A3D97",
+        "MQAS3AXO-82E7572B",
         "MQARZJDV-82F077DD",
         "MPUQSMLJ-1B726CC4",
-        "MQ5B3FJP-CD835FC2",
-        "MPUO08SE-67E0912A"
+        "MQ5B3FJP-CD835FC2"
       ],
       "nearDuplicates": [
         "MQ5B6CTT-AB0A3D97",
+        "MQAS3AXO-82E7572B",
         "MQARZJDV-82F077DD",
         "MPUQSMLJ-1B726CC4",
         "MQ5B3FJP-CD835FC2",
@@ -4499,13 +4549,14 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MP8UIMZW-BADE77E5",
-        "MQ5B3FJP-CD835FC2",
-        "MOQ7OBNT-57882C8D"
+        "MQAS3AXO-82E7572B",
+        "MQ5B3FJP-CD835FC2"
       ],
       "nearDuplicates": [
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MP8UIMZW-BADE77E5",
+        "MQAS3AXO-82E7572B",
         "MQ5B3FJP-CD835FC2",
         "MOQ7OBNT-57882C8D",
         "MPF4FISZ-67000E01",
@@ -7605,8 +7656,8 @@
         "MOOK20R3-62E609BA",
         "MOHMIET1-6D429A85",
         "MPURYS56-11F5308C",
-        "MPUQSMLJ-1B726CC4",
-        "MOHV84M5-1825A399"
+        "MQAS3AXO-82E7572B",
+        "MPUQSMLJ-1B726CC4"
       ],
       "nearDuplicates": [
         "MOOK20R3-62E609BA",
@@ -7732,6 +7783,7 @@
         "MOUA3PLK-548F1A0A",
         "MP497SNT-5E1D2074",
         "MP8UIMZW-BADE77E5",
+        "MQAS3AXO-82E7572B",
         "MPEV1D2J-55138734",
         "MPF4FISZ-67000E01",
         "MQARZJDV-82F077DD",
@@ -8747,6 +8799,7 @@
         "MP0QMSOR-C6EC1B5A",
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
+        "MQAS3AXO-82E7572B",
         "MQARZJDV-82F077DD"
       ],
       "werkVoiceScore": 0.8895049977094343,
