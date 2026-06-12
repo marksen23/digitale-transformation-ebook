@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T10:15:44.691Z",
+  "generatedAt": "2026-06-12T10:21:26.381Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -33,6 +33,19 @@
         "MQ685YTP-4A9F2234",
         "MQ6850LJ-159A667C",
         "MQ684QZK-4977B6D6"
+      ]
+    },
+    {
+      "source": "moment",
+      "target": "zwischen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MQARZJDV-82F077DD",
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C"
       ]
     },
     {
@@ -145,18 +158,6 @@
     },
     {
       "source": "klang",
-      "target": "zwischen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MQ5B6CTT-AB0A3D97",
-        "MPURYS56-11F5308C"
-      ]
-    },
-    {
-      "source": "moment",
       "target": "zwischen",
       "cooccurrence": 2,
       "endpoints": {
@@ -540,7 +541,7 @@
     }
   ],
   "stats": {
-    "totalPairs": 244,
+    "totalPairs": 247,
     "candidatesCount": 42,
     "existingEdges": 116,
     "maxCooccurrence": 23

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T10:15:44.689Z",
+  "generatedAt": "2026-06-12T10:21:26.379Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 23,
@@ -23,9 +23,9 @@
       }
     },
     "zwischen": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "path-analyse": 8,
+        "path-analyse": 9,
         "analyse": 7
       }
     },
@@ -101,9 +101,9 @@
       }
     },
     "moment": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 5,
         "analyse": 1
       }
     },
@@ -219,9 +219,9 @@
       }
     },
     "lm-begegnung": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 3,
         "analyse": 3
       }
     },
@@ -292,9 +292,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 7,
         "analyse": 3
       }
     },

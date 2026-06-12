@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-12T10:15:44.692Z",
+  "generatedAt": "2026-06-12T10:21:26.381Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
@@ -237,7 +237,7 @@
     }
   ],
   "stats": {
-    "totalAnchors": 107,
+    "totalAnchors": 108,
     "withMultipleVariants": 15,
     "withMaster": 0,
     "staleMasters": 0
