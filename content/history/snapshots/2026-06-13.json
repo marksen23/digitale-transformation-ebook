@@ -1,0 +1,185 @@
+{
+  "ts": "2026-06-13T06:58:11.384Z",
+  "schema_version": 1,
+  "total_files": 290,
+  "corpus_hash": "sha256:6e5831756e42c4e9",
+  "counts_by_endpoint": {
+    "analyse": 65,
+    "chapter": 28,
+    "dialog": 46,
+    "enkidu": 55,
+    "graph-chat": 56,
+    "path-analyse": 38,
+    "translate": 2
+  },
+  "status_distribution": {
+    "published": 114,
+    "rejected": 2,
+    "raw": 156,
+    "approved": 18
+  },
+  "top_anchors": [
+    {
+      "key": "graph",
+      "count": 56
+    },
+    {
+      "key": "enkidu",
+      "count": 55
+    },
+    {
+      "key": "dialog:weiterdenken",
+      "count": 24
+    },
+    {
+      "key": "dialog:erkenntnis+lm-verwandlung",
+      "count": 19
+    },
+    {
+      "key": "analyse:resonanz+vernunft",
+      "count": 6
+    },
+    {
+      "key": "chapter:band3-kap3",
+      "count": 5
+    },
+    {
+      "key": "chapter:teil7",
+      "count": 5
+    },
+    {
+      "key": "chapter:teil6",
+      "count": 4
+    },
+    {
+      "key": "chapter:band3-kap4",
+      "count": 3
+    },
+    {
+      "key": "chapter:band3-kap5",
+      "count": 3
+    },
+    {
+      "key": "chapter:teil4",
+      "count": 3
+    },
+    {
+      "key": "analyse:dialog+ich-du",
+      "count": 2
+    },
+    {
+      "key": "analyse:erkenntnis+lm-verwandlung",
+      "count": 2
+    },
+    {
+      "key": "analyse:lm-begegnung+resonanzvernunft+selbst",
+      "count": 2
+    },
+    {
+      "key": "chapter:teil5",
+      "count": 2
+    },
+    {
+      "key": "dialog:freier",
+      "count": 2
+    },
+    {
+      "key": "path-analyse:lm-begegnung+lm-verwandlung",
+      "count": 2
+    },
+    {
+      "key": "path-analyse:lm-begegnung+unverfuegbarkeit",
+      "count": 2
+    },
+    {
+      "key": "analyse:andere+bewusstsein+lm-grenze+welt",
+      "count": 1
+    },
+    {
+      "key": "analyse:andere+spannung",
+      "count": 1
+    }
+  ],
+  "top_tags": [
+    {
+      "key": "lm-verwandlung",
+      "count": 35
+    },
+    {
+      "key": "erkenntnis",
+      "count": 28
+    },
+    {
+      "key": "resonanz",
+      "count": 23
+    },
+    {
+      "key": "resonanzvernunft",
+      "count": 23
+    },
+    {
+      "key": "vernunft",
+      "count": 19
+    },
+    {
+      "key": "zwischen",
+      "count": 17
+    },
+    {
+      "key": "unverfuegbarkeit",
+      "count": 11
+    },
+    {
+      "key": "lm-grenze",
+      "count": 10
+    },
+    {
+      "key": "selbst",
+      "count": 10
+    },
+    {
+      "key": "welt",
+      "count": 9
+    },
+    {
+      "key": "spannung",
+      "count": 9
+    },
+    {
+      "key": "wahrheit",
+      "count": 9
+    },
+    {
+      "key": "sprache",
+      "count": 8
+    },
+    {
+      "key": "bewusstsein",
+      "count": 7
+    },
+    {
+      "key": "dasein",
+      "count": 7
+    },
+    {
+      "key": "klang",
+      "count": 7
+    },
+    {
+      "key": "moment",
+      "count": 7
+    },
+    {
+      "key": "sein",
+      "count": 7
+    },
+    {
+      "key": "lm-begegnung",
+      "count": 7
+    },
+    {
+      "key": "denken",
+      "count": 6
+    }
+  ]
+}
