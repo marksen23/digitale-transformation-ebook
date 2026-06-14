@@ -5,7 +5,7 @@ import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } fr
 import { loadNodeDensity, densityRatio, type NodeDensityFile } from "@/lib/nodeDensity";
 import { track as trackTrajectory } from "@/lib/trajectory";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
-import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, ORNAMENT, SERIF_BODY } from "@/lib/theme";
+import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, SERIF_BODY } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
@@ -2326,7 +2326,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
           {selectedNode && nodeMetrics ? (() => {
             const { degree, crossCat, ownEdges } = nodeMetrics;
-            const integrationPct = degree > 0 ? Math.round((crossCat / degree) * 100) : 0;
             return (
               <table style={{ width: "100%", borderCollapse: "collapse" }}>
                 <tbody>
@@ -2344,7 +2343,6 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               </table>
             );
           })() : (() => {
-            const ownPct = Math.round((userEdges.length / 30) * 100);
             const crossPct = CONCEPT_EDGE_COUNT > 0
               ? Math.round((CROSS_CAT_EDGE_COUNT / CONCEPT_EDGE_COUNT) * 100)
               : 0;

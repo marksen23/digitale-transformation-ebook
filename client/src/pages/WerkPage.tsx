@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, TRACKED, PAPER, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, PAPER, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import { loadResonanzenIndexLazy, broadcastIndexStale, type ResonanzEntry } from "@/lib/resonanzenIndex";
@@ -123,7 +123,7 @@ export default function WerkPage() {
     document.body.style.background = isDark ? PAPER.warmDark : PAPER.warmLight;
     return () => { document.body.style.background = prev; };
   }, [isDark]);
-  const [match, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
+  const [, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
 
   const [ebook, setEbook] = useState<EbookFile | null>(null);

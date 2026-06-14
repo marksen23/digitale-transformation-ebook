@@ -5,7 +5,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, StandardFonts, rgb, degrees } from "pdf-lib";
 import { NODES, EDGES, CANVAS_W, CANVAS_H } from "../client/src/data/conceptGraph.js";
-import { logResonanz, analyseAnchor, getResonanzLogHealth } from "./lib/resonanzLog.js";
+import { logResonanz, getResonanzLogHealth } from "./lib/resonanzLog.js";
 import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
 import { removeFromIndex, updateInIndex, loadIndex } from "./lib/indexUpdater.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
@@ -576,7 +576,7 @@ ${text}`;
     return `Quadratur: ${nodes.map(n => n.fullLabel).join(" · ")}`;
   }
 
-  async function handleClusterAnalysis(req: express.Request, res: express.Response, nodes: NodeMeta[]): Promise<void> {
+  async function handleClusterAnalysis(_req: express.Request, res: express.Response, nodes: NodeMeta[]): Promise<void> {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
       res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
@@ -2659,7 +2659,6 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       const FONT_SIZE = 10.5;
       const LINE_HEIGHT = FONT_SIZE * 1.6;
       const HEADING_SIZE = 16;
-      const SUBHEADING_SIZE = 13;
       const H3_SIZE = 12;
       const H4_SIZE = 11;
 
@@ -2877,7 +2876,6 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       // ── 3. INHALTSVERZEICHNIS (Platzhalter — wird sp\u00e4ter bef\u00fcllt) ──
       // Wir reservieren Seiten f\u00fcr das Inhaltsverzeichnis und bef\u00fcllen sie am Ende
       // mit den richtigen Seitenzahlen.
-      const tocPageStartIndex = pdf.getPageCount();
       const tocEntries: { title: string; pageNum: number; level: number; indent: number }[] = [];
       // Reserviere 2 Seiten f\u00fcrs Inhaltsverzeichnis (reicht f\u00fcr ~60 Eintr\u00e4ge)
       const tocPage1 = pdf.addPage([PAGE_W, PAGE_H]);

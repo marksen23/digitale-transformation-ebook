@@ -1666,7 +1666,7 @@ function TimelineChart({ timeline, c }: { timeline: TimelineFile; c: ReturnType<
         {polyEcho  && <polyline points={polyEcho}  fill='none' stroke='#f59e0b' strokeWidth={1.5} />}
         {polyNov   && <polyline points={polyNov}   fill='none' stroke='#7ab898' strokeWidth={1.5} />}
         {/* Hover-Markers */}
-        {buckets.map((b, i) => (
+        {buckets.map((_b, i) => (
           <rect key={'h' + i} x={tx(i) - 12} y={PAD_T} width={24} height={innerH}
             fill='transparent' onMouseEnter={() => setHoverIdx(i)} onMouseLeave={() => setHoverIdx(null)} />
         ))}

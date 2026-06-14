@@ -16,7 +16,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import {
-  TRADITIONS, SCIENCE_LINKS,
+  TRADITIONS,
   RESONANZVERNUNFT_PFAD, POSITION_LABEL,
   getPhilosopher, getTradition, getScienceLink,
   type Philosopher, type TraditionId,
@@ -1022,7 +1022,6 @@ export function ConstellationView({ philosophers, allPhilosophers, selectedId, o
           const isConnected = selectedPhil && (
             selectedPhil.receives?.includes(p.id) || selectedPhil.critiques?.includes(p.id)
           );
-          const tradColor = TRADITIONS.find(t => t.id === p.tradition)?.color ?? "#aaa";
 
           // Stern-Eigenschaften
           const baseRadius = isOnPath ? 5 : 3.5;
@@ -2250,7 +2249,6 @@ export function RiverView({ philosophers, allPhilosophers, selectedId, onSelect,
   const waterDeep = isDark ? "#0a1822" : "#5a8aa8";
   const waterLight = isDark ? "#1a3a5a" : "#a8c8d8";
   const bgColor = isDark ? "#04080c" : "#e8f0f5";
-  const settlementBg = isDark ? "#1a1612" : "#fdf8f0";
   const settlementInk = isDark ? "#c8c2b4" : "#3a3530";
 
   return (

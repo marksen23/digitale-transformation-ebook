@@ -15,7 +15,6 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
-import SectionLabel from "@/components/SectionLabel";
 
 export default function ResonanzDetailPage() {
   const { theme } = useTheme();

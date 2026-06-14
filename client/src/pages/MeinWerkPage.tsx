@@ -346,7 +346,7 @@ export default function MeinWerkPage() {
   );
 }
 
-function miniBtn(C: Palette, color: string): React.CSSProperties {
+function miniBtn(_C: Palette, color: string): React.CSSProperties {
   return {
     fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase",
     color, background: "none", border: `1px solid ${color}`,

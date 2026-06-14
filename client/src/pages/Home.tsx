@@ -2,8 +2,8 @@ import { useState, useEffect, useCallback, useRef, useMemo, lazy, Suspense, type
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Menu, X, Download, Search,
-  BookOpen, Sun, Moon, ChevronUp, Type, Minus, Plus, Bookmark,
-  MessageCircleQuestion, Send, Loader2, Languages, Sparkles, Smartphone,
+  BookOpen, Sun, Moon, ChevronUp, Bookmark,
+  MessageCircleQuestion, Send, Loader2, Sparkles, Smartphone,
   PanelLeftClose, PanelLeft, Mic, MicOff,
   SkipBack, SkipForward, Play, Pause, Headphones, Network, PenLine, CheckCircle2,
   Maximize2, Minimize2, ChevronRight, SlidersHorizontal,
@@ -958,9 +958,6 @@ export default function Home() {
     // Sort alphabetically (German collation)
     entries.sort((a, b) => a.term.localeCompare(b.term, 'de'));
 
-    // Extract intro text (lines before the first definition entry)
-    const introEnd = entries[0] ? chapter.content.indexOf(entries[0].term) : -1;
-    const intro = introEnd > 0 ? chapter.content.slice(0, introEnd).trim() : '';
 
     // Group entries by first letter
     const grouped = new Map<string, typeof entries>();
@@ -1302,16 +1299,6 @@ export default function Home() {
         </div>
       </motion.article>
     );
-  };
-
-  const highlightMatch = (text: string, query: string) => {
-    if (!query) return text;
-    const idx = text.toLowerCase().indexOf(query.toLowerCase());
-    if (idx === -1) return text;
-    const start = Math.max(0, idx - 60);
-    const end = Math.min(text.length, idx + query.length + 60);
-    const snippet = (start > 0 ? '...' : '') + text.slice(start, end) + (end < text.length ? '...' : '');
-    return snippet;
   };
 
   return (

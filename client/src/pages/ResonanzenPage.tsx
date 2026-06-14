@@ -94,14 +94,6 @@ export default function ResonanzenPage() {
   // Variations-Cluster (Cosine ≥0.88) — separat von related[]. Default
   // im depth-Mode eingeklappt mit Counter, in research-Mode ausgeklappt.
   const [showVariationsFor, setShowVariationsFor] = useState<string | null>(null);
-  // Phase 3: Filter-Bar kollabierbar (Default-Minimal).
-  // Wenn beim Mount schon Filter via URL aktiv sind, sofort aufklappen —
-  // sonst bliebe ein gesetzter Filter unsichtbar hinter "▸ Filter (1 aktiv)".
-  const [filtersExpanded, setFiltersExpanded] = useState(() => {
-    return (initParams.get("endpoint") && initParams.get("endpoint") !== "all")
-      || initParams.get("status") === "kuratiert"
-      || !!initParams.get("tag");
-  });
 
   // Such-Input-Ref für '/'-Tastenkürzel
   const searchInputRef = useRef<HTMLInputElement | null>(null);
