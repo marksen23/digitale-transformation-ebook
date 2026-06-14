@@ -510,8 +510,9 @@ export default function ResonanzenPage() {
             onQueryChange={setSearch}
             onSelect={(hit: SearchHit) => {
               if (hit.type === "resonanz") {
-                setExpandedId(hit.id);
-                setPermalinkId(hit.id);
+                // Zuverlässig zur Permalink-Seite navigieren statt brüchigem
+                // In-Page-Scroll (Ziel ist sonst evtl. nicht gerendert).
+                navigate(`/resonanz/${encodeURIComponent(hit.id)}`);
               } else if (hit.type === "chapter") {
                 navigate(`/?chapter=${encodeURIComponent(hit.id)}`);
               } else if (hit.type === "concept") {
@@ -910,13 +911,7 @@ export default function ResonanzenPage() {
                           {variationSiblings.map(s => (
                             <button
                               key={s.id}
-                              onClick={() => {
-                                setExpandedId(s.id);
-                                setShowVariationsFor(null);
-                                requestAnimationFrame(() => {
-                                  document.getElementById(`entry-${s.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                                });
-                              }}
+                              onClick={() => navigate(`/resonanz/${encodeURIComponent(s.id)}`)}
                               style={{
                                 fontFamily: SERIF, fontStyle: "italic", fontSize: "0.78rem",
                                 color: C.textDim, textAlign: "left", background: "none",
@@ -961,12 +956,7 @@ export default function ResonanzenPage() {
                       {echoEntries.map(r => (
                         <button
                           key={r.id}
-                          onClick={() => {
-                            setExpandedId(r.id);
-                            requestAnimationFrame(() => {
-                              document.getElementById(`entry-${r.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                            });
-                          }}
+                          onClick={() => navigate(`/resonanz/${encodeURIComponent(r.id)}`)}
                           style={{
                             fontFamily: SERIF, fontStyle: "italic", fontSize: "0.74rem",
                             color: C.textDim, textAlign: "left", background: "none",
@@ -1015,13 +1005,7 @@ export default function ResonanzenPage() {
                           {relatedEntries.map(r => (
                             <button
                               key={r.id}
-                              onClick={() => {
-                                setExpandedId(r.id);
-                                setShowRelatedFor(null);
-                                requestAnimationFrame(() => {
-                                  document.getElementById(`entry-${r.id}`)?.scrollIntoView({ behavior: "smooth", block: "start" });
-                                });
-                              }}
+                              onClick={() => navigate(`/resonanz/${encodeURIComponent(r.id)}`)}
                               style={{
                                 fontFamily: SERIF, fontStyle: "italic", fontSize: "0.74rem",
                                 color: C.textDim, textAlign: "left", background: "none",

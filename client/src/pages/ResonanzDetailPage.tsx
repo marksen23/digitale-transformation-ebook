@@ -21,15 +21,28 @@ export default function ResonanzDetailPage() {
   const C: Palette = theme === "dark" ? C_DARK : C_LIGHT;
   const [, params] = useRoute<{ id: string }>("/resonanz/:id");
   const [entry, setEntry] = useState<ResonanzEntry | null>(null);
+  const [allEntries, setAllEntries] = useState<ResonanzEntry[]>([]);
   const [notFound, setNotFound] = useState(false);
   const [bibtexCopied, setBibtexCopied] = useState(false);
 
   useEffect(() => {
     loadResonanzenIndex().then(idx => {
+      setAllEntries(idx.entries);
       const e = idx.entries.find(x => x.id === params?.id);
-      if (e) setEntry(e); else setNotFound(true);
+      if (e) { setEntry(e); setNotFound(false); } else setNotFound(true);
     }).catch(() => setNotFound(true));
   }, [params?.id]);
+
+  // Verwandte + Echo-Einträge auflösen (für die Weiterführungs-Navigation).
+  const byId = useMemo(() => new Map(allEntries.map(e => [e.id, e])), [allEntries]);
+  const related = useMemo(
+    () => (entry?.related ?? []).map(id => byId.get(id)).filter((e): e is ResonanzEntry => !!e),
+    [entry, byId],
+  );
+  const echoes = useMemo(
+    () => (entry?.nearDuplicates ?? []).map(id => byId.get(id)).filter((e): e is ResonanzEntry => !!e),
+    [entry, byId],
+  );
 
   // JSON-LD injection für SEO / Google Scholar
   useEffect(() => {
@@ -129,8 +142,31 @@ export default function ResonanzDetailPage() {
           ein dezenter Italic-Link „Zitieren ▾". */}
       <BibtexDisclosure C={C} bib={bib} onCopy={copyBibtex} copied={bibtexCopied} />
 
+      {/* Weiterführungen — verwandte Begegnungen + Echos, jeweils als
+          zuverlässiger Permalink-Link (der Faden läuft hier weiter). */}
+      {(related.length > 0 || echoes.length > 0) && (
+        <section style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}` }}>
+          {related.length > 0 && (
+            <div style={{ marginBottom: echoes.length > 0 ? "1.2rem" : 0 }}>
+              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: "0.5rem" }}>Verwandte Begegnungen</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+                {related.map(r => <RelatedLink key={r.id} C={C} entry={r} />)}
+              </div>
+            </div>
+          )}
+          {echoes.length > 0 && (
+            <div>
+              <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em", textTransform: "uppercase", color: C.accentText, marginBottom: "0.5rem" }}>◉ Echos — nahezu identische Begegnungen</div>
+              <div style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}>
+                {echoes.map(r => <RelatedLink key={r.id} C={C} entry={r} />)}
+              </div>
+            </div>
+          )}
+        </section>
+      )}
+
       {/* Permalink */}
-      <section style={{ marginTop: "1rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
+      <section style={{ marginTop: "1.5rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
         <div>Permalink: <code>{`https://digitale-transformation-ebook.netlify.app/resonanz/${entry.id}`}</code></div>
       </section>
 
@@ -140,6 +176,29 @@ export default function ResonanzDetailPage() {
         <Link to="/begriffsnetz" style={{ color: C.muted, textDecoration: "none" }}>↪ Begriffsnetz</Link>
       </nav>
     </article>
+  );
+}
+
+// ─── RelatedLink — zuverlässiger Permalink-Link zu einer weiterführenden Begegnung
+function RelatedLink({ C, entry }: { C: Palette; entry: ResonanzEntry }) {
+  return (
+    <Link
+      to={`/resonanz/${entry.id}`}
+      style={{
+        display: "flex", gap: "0.5rem", alignItems: "baseline",
+        fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem",
+        color: C.text, textDecoration: "none",
+        border: `1px solid ${C.border}`, borderRadius: 4, padding: "0.45rem 0.6rem",
+      }}
+    >
+      <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", color: ENDPOINT_COLOR[entry.endpoint], flexShrink: 0 }}>
+        {ENDPOINT_LABEL[entry.endpoint].slice(0, 5)}
+      </span>
+      <span style={{ flex: 1 }}>
+        {entry.prompt.length > 100 ? entry.prompt.slice(0, 100) + "…" : entry.prompt}
+      </span>
+      <span style={{ color: C.accentText, flexShrink: 0 }}>→</span>
+    </Link>
   );
 }
 
