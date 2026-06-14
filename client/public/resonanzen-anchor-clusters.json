@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T22:03:39.106Z",
+  "generatedAt": "2026-06-14T22:17:19.905Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
@@ -164,6 +164,18 @@
       "masterStale": false
     },
     {
+      "anchor": "translate:vorwort+es",
+      "endpoint": "translate",
+      "variantIds": [
+        "MQECFWWB-B98391B5",
+        "MQEBZ0Y1-E3BCB35C"
+      ],
+      "lastVariantTs": "2026-06-14T22:16:15.179Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "path-analyse:lm-begegnung+unverfuegbarkeit",
       "endpoint": "path-analyse",
       "variantIds": [
@@ -250,7 +262,7 @@
   ],
   "stats": {
     "totalAnchors": 111,
-    "withMultipleVariants": 16,
+    "withMultipleVariants": 17,
     "withMaster": 0,
     "staleMasters": 0
   }
