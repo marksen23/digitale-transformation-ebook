@@ -1,7 +1,63 @@
 {
-  "generatedAt": "2026-06-12T10:40:19.231Z",
-  "count": 290,
+  "generatedAt": "2026-06-14T22:03:39.095Z",
+  "count": 292,
   "entries": [
+    {
+      "id": "MQEBZ0Y1-E3BCB35C",
+      "ts": "2026-06-14T22:03:07.273Z",
+      "endpoint": "translate",
+      "anchor": "translate:vorwort+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Vorwort von de nach es",
+      "response": "Esta obra surgió en una época en la que la cuestión de la\nrelación entre el ser humano y la máquina ha dejado de ser una\ncuestión académica. Se ha convertido en una cuestión existencial\n– para todo aquel que por la mañana enciende una pantalla\ny por la noche constata que el día ha transcurrido sin él.\nLos tres volúmenes de la trilogía intentan no responder a esta\npregunta, sino trasladarla: las grandes tradiciones filosóficas\n– Mito, Ilustración, Filosofía existencial – en un lenguaje que\nesté a la altura de la actualidad digital. El método es poético,\nporque la experiencia de la transformación digital se sustrae a la\nprosa puramente analítica. Quien solo explica cómo funcionan\nlos algoritmos no comprende cómo se siente ser conocido por ellos.\nLas partes IV a VII – el análisis de los leitmotivs y las tres críticas\nde la razón resonante (Resonanzvernunft) – proporcionan el marco\nteórico que la poesía por sí sola no puede sostener. Despliegan\nlo que está condensado en los versos: una epistemología del entre,\nuna ética del encuentro y una ontología de lo relacional. Que esta\nteoría surja de la poesía y no al revés, no es casualidad –\nes la tesis de la obra: El mito precede a la razón\ny le prepara el terreno.\nLa obra no está concluida. No pretende responder a las preguntas\nde la era digital. Pretende plantearlas de tal manera\nque una respuesta sea posible – no como teoría, sino\ncomo resonancia vivida.",
+      "contextMeta": {
+        "chapterId": "vorwort",
+        "chapterTitle": "Vorwort",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "1534"
+      },
+      "related": [
+        "MOOK5A30-F596F31D",
+        "MPUFGY4Z-44206712",
+        "MP0Q5FDJ-F2C015AF",
+        "MOU9T6C8-9C5E3BEC",
+        "MOHST017-5C4320E1"
+      ],
+      "werkVoiceScore": 0.8091616747495537,
+      "corpusVoiceScore": 0.9324428775936482,
+      "conceptVoiceScore": 0.663222379790785,
+      "conceptAnchor": "transaufklaerung"
+    },
+    {
+      "id": "MQEBYB8T-FBE280B8",
+      "ts": "2026-06-14T22:02:33.965Z",
+      "endpoint": "translate",
+      "anchor": "translate:band2-epilog+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Epilog: Ein neuer Ausgang von de nach es",
+      "response": "La Ilustración (Aufklärung) no termina, se transforma. Como la\nmariposa surge de la oruga, así de la antigua razón (Vernunft)\nsurge una nueva sabiduría.\nKant habló de la salida de la minoría de edad (Unmündigkeit) autoimpuesta.\nNosotros estamos ante la salida de la minoría de edad tecnológica.\nNo hacia atrás, a la vela, no hacia adelante, a la máquina, sino\nhacia la luz que une a ambas.\nEl nuevo ser humano no es ni máquina ni animal, sino el\nser que transita entre ambos, que comprende a ambos, que a ambos\nintegra.\nSapere aude – ten el valor de usar tu entendimiento ampliado:\nel entendimiento que calcula, y el entendimiento que\nsiente, el entendimiento que analiza, y el entendimiento que\nsueña.\nEn esta ampliación reside el futuro de la humanidad: no en la\nsuperación de la tecnología, sino en su humanización,\nno en la sumisión a la máquina, sino en su\nliberación para el ser humano.\nLa salida comienza de nuevo – cada día, con cada decisión,\ncon cada valor hacia la mayoría de edad (Mündigkeit) en la era de la razón maquínica (Maschinenvernunft).",
+      "contextMeta": {
+        "chapterId": "band2-epilog",
+        "chapterTitle": "Epilog: Ein neuer Ausgang",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "1066"
+      },
+      "related": [
+        "MQEBZ0Y1-E3BCB35C",
+        "MOHDW91N-D9BDFDB1",
+        "MQ67R74M-A1AA4B53",
+        "MPMU7YZH-2C9CBFE8",
+        "MPMU67V4-938B932C"
+      ],
+      "werkVoiceScore": 0.7516126961928724,
+      "corpusVoiceScore": 0.9091316299305275,
+      "conceptVoiceScore": 0.690546213023446,
+      "conceptAnchor": "transaufklaerung"
+    },
     {
       "id": "MQASO35V-115DA081",
       "ts": "2026-06-12T10:39:25.700Z",
@@ -7346,10 +7402,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MPUFGY4Z-44206712",
+        "MQEBZ0Y1-E3BCB35C",
         "MOHV84M5-1825A399",
         "MQ67R74M-A1AA4B53",
-        "MP0X62X5-535AF7A8",
-        "MPUFP1VW-298D0A73"
+        "MP0X62X5-535AF7A8"
       ],
       "werkVoiceScore": 0.7966960179368959,
       "corpusVoiceScore": 0.8478470017492521,
