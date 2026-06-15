@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T19:02:38.701Z",
+  "generatedAt": "2026-06-15T21:12:33.245Z",
   "buckets": [
     {
       "date": "2026-05-03",
@@ -290,8 +290,8 @@
       "date": "2026-06-15",
       "totalEntries": 300,
       "byStatus": {
-        "raw": 166,
-        "published": 114,
+        "published": 124,
+        "raw": 156,
         "approved": 18,
         "rejected": 2
       },
@@ -304,8 +304,8 @@
         "enkidu": 55,
         "chapter": 28
       },
-      "publishedRatio": 0.38,
-      "medianWerkVoice": 0.8635662477390376,
+      "publishedRatio": 0.41333333333333333,
+      "medianWerkVoice": 0.8627975033644719,
       "medianCorpusVoice": 0.8184010643522657,
       "echoRatio": 0.6466666666666666,
       "noveltyRatio": 0
