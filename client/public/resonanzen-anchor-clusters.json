@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-15T18:57:21.620Z",
+  "generatedAt": "2026-06-15T19:02:38.091Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
@@ -68,6 +68,7 @@
       "anchor": "translate:vorwort+es",
       "endpoint": "translate",
       "variantIds": [
+        "MQFKW3OR-F80FC59E",
         "MQFKQYEK-459A46CA",
         "MQFKQGLN-E1712F18",
         "MQELRMGC-8FD0C115",
@@ -77,7 +78,7 @@
         "MQECFWWB-B98391B5",
         "MQEBZ0Y1-E3BCB35C"
       ],
-      "lastVariantTs": "2026-06-15T18:56:33.453Z",
+      "lastVariantTs": "2026-06-15T19:00:33.580Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false

@@ -1,7 +1,45 @@
 {
-  "generatedAt": "2026-06-15T18:57:21.610Z",
-  "count": 299,
+  "generatedAt": "2026-06-15T19:02:38.080Z",
+  "count": 300,
   "entries": [
+    {
+      "id": "MQFKW3OR-F80FC59E",
+      "ts": "2026-06-15T19:00:33.580Z",
+      "endpoint": "translate",
+      "anchor": "translate:vorwort+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Vorwort von de nach es",
+      "response": "Esta obra surgió en un tiempo en el que la pregunta sobre la\nrelación entre el ser humano y la máquina ha dejado de ser una\npregunta académica. Se ha convertido en una pregunta existencial\n– para todo aquel que por la mañana enciende una pantalla\ny por la noche constata que el día ha transcurrido sin él.\nLos tres volúmenes de la trilogía intentan no responder a esta pregunta,\nsino transformarla: convertir las grandes\ntradiciones filosóficas – mito, Ilustración,\nfilosofía existencial – en un lenguaje que esté a la altura de la\nactualidad digital. El método es poético, porque\nla experiencia de la transformación digital se sustrae a la prosa\npuramente analítica. Quien solo explica cómo funcionan los algoritmos\nno comprende cómo se siente ser conocido por ellos.\n\nLas partes IV a VII – el análisis de los leitmotiv y las tres críticas\nde la razón de resonancia (Resonanzvernunft) – proporcionan el marco teórico que la\npoesía por sí sola no puede sostener. Desarrollan lo que está\ncondensado en los versos: una epistemología de lo intermedio, una ética del\nencuentro y una ontología de lo relacional. Que esta teoría\nsurja de la poesía y no al revés, no es casualidad –\nes la tesis de la obra: el mito precede a la razón\ny le prepara el terreno.\n\nLa obra no está terminada. No pretende responder a las preguntas\nde la era digital. Pretende plantearlas de tal manera\nque una respuesta sea posible – no como teoría, sino\ncomo resonancia vivida.",
+      "contextMeta": {
+        "chapterId": "vorwort",
+        "chapterTitle": "Vorwort",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "1534"
+      },
+      "related": [
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQECFWWB-B98391B5",
+        "MQELRFJB-A690B522",
+        "MQELRCEO-E799EFBF"
+      ],
+      "nearDuplicates": [
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQECFWWB-B98391B5",
+        "MQELRFJB-A690B522",
+        "MQELRCEO-E799EFBF",
+        "MQELRA75-F17396BE",
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
+      ],
+      "werkVoiceScore": 0.8093437101928619,
+      "corpusVoiceScore": 0.9317910720706849,
+      "conceptVoiceScore": 0.6637042944677733,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MQFKQYEK-459A46CA",
       "ts": "2026-06-15T18:56:33.453Z",
@@ -23,13 +61,14 @@
         "MQELRFJB-A690B522",
         "MQECFWWB-B98391B5",
         "MQELRCEO-E799EFBF",
-        "MQELRA75-F17396BE"
+        "MQFKW3OR-F80FC59E"
       ],
       "nearDuplicates": [
         "MQELRMGC-8FD0C115",
         "MQELRFJB-A690B522",
         "MQECFWWB-B98391B5",
         "MQELRCEO-E799EFBF",
+        "MQFKW3OR-F80FC59E",
         "MQELRA75-F17396BE",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
@@ -69,7 +108,8 @@
         "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
         "MQELRA75-F17396BE",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKW3OR-F80FC59E"
       ],
       "werkVoiceScore": 0.8252582152194413,
       "corpusVoiceScore": 0.9507363576651564,
@@ -95,13 +135,14 @@
       "related": [
         "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
+        "MQFKW3OR-F80FC59E",
         "MQELRFJB-A690B522",
-        "MQELRCEO-E799EFBF",
-        "MQELRA75-F17396BE"
+        "MQELRCEO-E799EFBF"
       ],
       "nearDuplicates": [
         "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
+        "MQFKW3OR-F80FC59E",
         "MQELRFJB-A690B522",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
@@ -133,13 +174,14 @@
         "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
         "MQECFWWB-B98391B5",
-        "MQELRCEO-E799EFBF",
-        "MQELRA75-F17396BE"
+        "MQFKW3OR-F80FC59E",
+        "MQELRCEO-E799EFBF"
       ],
       "nearDuplicates": [
         "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
         "MQECFWWB-B98391B5",
+        "MQFKW3OR-F80FC59E",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
         "MQEBZ0Y1-E3BCB35C",
@@ -179,6 +221,7 @@
         "MQELRA75-F17396BE",
         "MQFKQYEK-459A46CA",
         "MQELRFJB-A690B522",
+        "MQFKW3OR-F80FC59E",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -217,6 +260,7 @@
         "MQELRFJB-A690B522",
         "MQELRMGC-8FD0C115",
         "MQEBZ0Y1-E3BCB35C",
+        "MQFKW3OR-F80FC59E",
         "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8077169003229672,
@@ -253,6 +297,7 @@
         "MQELRMGC-8FD0C115",
         "MQELRA75-F17396BE",
         "MQELRFJB-A690B522",
+        "MQFKW3OR-F80FC59E",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -291,6 +336,7 @@
         "MQELRMGC-8FD0C115",
         "MQFKQYEK-459A46CA",
         "MQELRFJB-A690B522",
+        "MQFKW3OR-F80FC59E",
         "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8091616747495537,
@@ -7668,9 +7714,9 @@
       "related": [
         "MPUFGY4Z-44206712",
         "MQFKQGLN-E1712F18",
+        "MQFKW3OR-F80FC59E",
         "MQELRCEO-E799EFBF",
-        "MQELRFJB-A690B522",
-        "MQELRA75-F17396BE"
+        "MQELRFJB-A690B522"
       ],
       "werkVoiceScore": 0.7966960179368959,
       "corpusVoiceScore": 0.8478470017492521,
