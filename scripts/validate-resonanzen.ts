@@ -23,6 +23,7 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
+import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -59,6 +60,7 @@ interface Report {
     byEndpoint: Record<string, number>;
     byStatus: Record<string, number>;
     orphanNodeIds: string[];
+    danglingLinks: number;
   };
 }
 
@@ -71,64 +73,9 @@ interface ParsedFile {
   response: string;
 }
 
-// ─── Helpers (gleich wie build-resonanzen-index.ts) ─────────────────────────
-
-function parseFrontmatter(md: string): { fm: Record<string, unknown>; body: string } {
-  const m = md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
-  if (!m) return { fm: {}, body: md };
-  const fmRaw = m[1];
-  const body = m[2];
-  const fm: Record<string, unknown> = {};
-  const lines = fmRaw.split("\n");
-  let i = 0;
-  while (i < lines.length) {
-    const line = lines[i];
-    if (!line.trim() || line.startsWith("#") || line.match(/^\s+/)) { i++; continue; }
-    const colon = line.indexOf(":");
-    if (colon < 0) { i++; continue; }
-    const key = line.slice(0, colon).trim();
-    const valueRaw = line.slice(colon + 1).trim();
-    if (valueRaw === "") {
-      const children: Record<string, string> = {};
-      i++;
-      while (i < lines.length && lines[i].match(/^\s+/) && !lines[i].match(/^\s+-/)) {
-        const childLine = lines[i].trim();
-        const cIdx = childLine.indexOf(":");
-        if (cIdx > 0) {
-          children[childLine.slice(0, cIdx).trim()] = stripQuotes(childLine.slice(cIdx + 1).trim());
-        }
-        i++;
-      }
-      fm[key] = children;
-      continue;
-    }
-    if (valueRaw.startsWith("[") && valueRaw.endsWith("]")) {
-      const inner = valueRaw.slice(1, -1).trim();
-      fm[key] = inner === "" ? [] : inner.split(",").map(s => stripQuotes(s.trim()));
-    } else {
-      fm[key] = stripQuotes(valueRaw);
-    }
-    i++;
-  }
-  return { fm, body };
-}
-
-function stripQuotes(s: string): string {
-  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
-    return s.slice(1, -1);
-  }
-  return s;
-}
-
-function extractFrageAntwort(body: string): { prompt: string; response: string } {
-  const sections = body.split(/^##\s+/m);
-  let prompt = "", response = "";
-  for (const section of sections) {
-    if (/^Frage\s*\n/.test(section)) prompt = section.replace(/^Frage\s*\n+/, "").trim();
-    else if (/^Antwort\s*\n/.test(section)) response = section.replace(/^Antwort\s*\n+/, "").trim();
-  }
-  return { prompt, response };
-}
+// ─── Helpers ────────────────────────────────────────────────────────────────
+// parseFrontmatter/stripQuotes/extractFrageAntwort kommen jetzt aus
+// ./lib/frontmatter.ts (geteilt mit build-resonanzen-index.ts, CRLF-robust).
 
 function contentHashFor(prompt: string, response: string): string {
   const h = crypto.createHash("sha256");
@@ -325,6 +272,43 @@ async function main() {
     if (status) byStatus[status] = (byStatus[status] ?? 0) + 1;
   }
 
+  // 8. Cross-Link-Integrität gegen den publizierten Index: related[] und
+  //    nearDuplicates[] (build-time gesetzt, leben im Index, nicht im MD)
+  //    müssen auf vorhandene, nicht-rejected Einträge zeigen. Der Build
+  //    filtert sie inzwischen (computeCrossLinks) — dieser Check fängt
+  //    Regressionen ab. Warning, kein harter Fail.
+  let danglingLinks = 0;
+  try {
+    const indexPath = path.join(ROOT, "client/public/resonanzen-index.json");
+    if (fs.existsSync(indexPath)) {
+      const idx = JSON.parse(fs.readFileSync(indexPath, "utf-8")) as {
+        entries?: Array<{ id: string; status?: string; related?: string[]; nearDuplicates?: string[] }>;
+      };
+      const idxEntries = idx.entries ?? [];
+      const statusById = new Map(idxEntries.map(e => [e.id, e.status ?? "raw"]));
+      for (const e of idxEntries) {
+        for (const field of ["related", "nearDuplicates"] as const) {
+          const arr = e[field];
+          if (!Array.isArray(arr)) continue;
+          for (const rid of arr) {
+            const st = statusById.get(rid);
+            if (st === undefined) {
+              danglingLinks++;
+              issues.push({ level: "warning", file: `index:${e.id}`, rule: "dangling-link",
+                detail: `${field} → '${rid}' nicht im Index` });
+            } else if (st === "rejected") {
+              danglingLinks++;
+              issues.push({ level: "warning", file: `index:${e.id}`, rule: "rejected-link",
+                detail: `${field} → '${rid}' zeigt auf rejected Eintrag` });
+            }
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.warn(`[validate-resonanzen] Index-Linkcheck übersprungen: ${err instanceof Error ? err.message : err}`);
+  }
+
   const errors = issues.filter(i => i.level === "error").length;
   const warnings = issues.filter(i => i.level === "warning").length;
 
@@ -338,6 +322,7 @@ async function main() {
       byEndpoint,
       byStatus,
       orphanNodeIds: [...orphanNodeIds].sort(),
+      danglingLinks,
     },
   };
 

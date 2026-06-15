@@ -226,6 +226,17 @@ rotiert automatisch; Live-Status auf `/admin/health` → „Embedding-Pipeline"
 
 `werkVoiceScore` braucht ≥10 Einträge mit `status: approved`/`published`. Aktuell nur 3 — daher 0/136 mit werkVoiceScore.
 
+**Chapter-Resonanzen-Policy (bewusst):** Einträge mit `endpoint: "chapter"`
+(Kapitel-Q&A aus `/api/ask` im WerkPage) werden **ohne `nodeIds`** geloggt —
+sie hängen an einem Kapitel (`anchor: chapter:<id>`), nicht an einem Begriff.
+Das ist korrekt, **kein Bug**: sie tragen daher nichts zur Begriffsnetz-/
+Landkarte-Gravitation bei (richtig — sie gehören an keinen Begriff). Erreichbar
+bleiben sie im Korpus-Browser über den `endpoint`-Filter + Permalink. **Kein
+künstliches nodeIds-Backfill** — das würde falsche Begriffs-Gravitation
+erzeugen. `related[]`/`nearDuplicates[]` werden im Build (`computeCrossLinks`)
+gegen `rejected` gefiltert und von `validate-resonanzen` (`danglingLinks`)
+gegen den Index geprüft.
+
 ### Selbst-Erweiterung (RAG-Rückkopplung + Auto-Kuratierung)
 
 Der Server-RAG (`server/lib/werkRetrieval.ts:125`) zieht **nur kuratierte**
@@ -371,6 +382,14 @@ semantisch (Embedding) nach 300 ms — kein Toggle.
   `git push origin <worktree-branch>:main`. Der `claude/...`-Branch auf
   origin existiert evtl. nicht oder ist veraltet — **Netlify Production
   Branch MUSS auf `main` stehen.**
+- **Prompt-Safety**: Nutzergesteuerter Text (Frage, Übersetzungstext,
+  Chat-Message, Passagen-Impuls) wird via `server/lib/promptSafety.ts`
+  (`wrapUntrusted` + `UNTRUSTED_RULE`) in `<USER_INPUT>`-Delimiter gerahmt;
+  Begriffs-`description`/`fullLabel` in Cluster-Prompts werden
+  **server-autoritativ** aus `nodeSrv` aufgelöst (nie Client-Text vertrauen).
+- **Frontmatter-Parser**: EINE Quelle — `scripts/lib/frontmatter.ts`
+  (CRLF-robust, von build + validate geteilt). Korpus-MDs sind via
+  `.gitattributes` auf LF gepinnt.
 
 ---
 

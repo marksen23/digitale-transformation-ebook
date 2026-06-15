@@ -2,3 +2,9 @@
 # GitHub-Actions, Render). CRLF würde den Interpreter brechen. Erzwingt LF
 # unabhängig von der Windows-autocrlf-Einstellung des Entwicklers.
 *.sh text eol=lf
+
+# Korpus-Markdown MUSS LF haben — die Frontmatter-Parser (scripts/lib/
+# frontmatter.ts) matchen `\n`, und der content_hash wird LF-basiert vom
+# Server berechnet. CRLF im Checkout (Windows-autocrlf) würde sonst
+# Fake-„missing field"-Fehler + Hash-Mismatches erzeugen.
+*.md text eol=lf

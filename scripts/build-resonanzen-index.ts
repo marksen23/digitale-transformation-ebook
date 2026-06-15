@@ -18,6 +18,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import { fetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
+import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -130,65 +131,8 @@ interface ResonanzEntry {
 
 interface TreeEntry { path: string; type: "blob" | "tree"; }
 
-function parseFrontmatter(md: string): { fm: Record<string, unknown>; body: string } {
-  const m = md.match(/^---\n([\s\S]*?)\n---\n?([\s\S]*)$/);
-  if (!m) return { fm: {}, body: md };
-  const fmRaw = m[1];
-  const body = m[2];
-  const fm: Record<string, unknown> = {};
-  const lines = fmRaw.split("\n");
-  let i = 0;
-  while (i < lines.length) {
-    const line = lines[i];
-    if (!line.trim() || line.startsWith("#") || line.match(/^\s+/)) { i++; continue; }
-    const colon = line.indexOf(":");
-    if (colon < 0) { i++; continue; }
-    const key = line.slice(0, colon).trim();
-    const valueRaw = line.slice(colon + 1).trim();
-    if (valueRaw === "") {
-      const children: Record<string, string> = {};
-      i++;
-      while (i < lines.length && lines[i].match(/^\s+/) && !lines[i].match(/^\s+-/)) {
-        const childLine = lines[i].trim();
-        const cIdx = childLine.indexOf(":");
-        if (cIdx > 0) {
-          children[childLine.slice(0, cIdx).trim()] = stripQuotes(childLine.slice(cIdx + 1).trim());
-        }
-        i++;
-      }
-      fm[key] = children;
-      continue;
-    }
-    if (valueRaw.startsWith("[") && valueRaw.endsWith("]")) {
-      const inner = valueRaw.slice(1, -1).trim();
-      fm[key] = inner === "" ? [] : inner.split(",").map(s => stripQuotes(s.trim()));
-    } else {
-      fm[key] = stripQuotes(valueRaw);
-    }
-    i++;
-  }
-  return { fm, body };
-}
-
-function stripQuotes(s: string): string {
-  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
-    return s.slice(1, -1);
-  }
-  return s;
-}
-
-function extractFrageAntwort(body: string): { prompt: string; response: string } {
-  const sections = body.split(/^##\s+/m);
-  let prompt = "", response = "";
-  for (const section of sections) {
-    if (/^Frage\s*\n/.test(section)) {
-      prompt = section.replace(/^Frage\s*\n+/, "").trim();
-    } else if (/^Antwort\s*\n/.test(section)) {
-      response = section.replace(/^Antwort\s*\n+/, "").trim();
-    }
-  }
-  return { prompt, response };
-}
+// parseFrontmatter/stripQuotes/extractFrageAntwort: siehe ./lib/frontmatter.ts
+// (geteilt mit validate-resonanzen.ts, CRLF-robust).
 
 async function fetchTree(): Promise<TreeEntry[]> {
   const url = `https://api.github.com/repos/${REPO_OWNER}/${REPO_NAME}/git/trees/${REPO_BRANCH}?recursive=1`;
@@ -848,6 +792,10 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
     const scored: Array<{ id: string; score: number }> = [];
     for (const other of entries) {
       if (other.id === entry.id) continue;
+      // Nicht auf rejected Einträge verlinken — sie verschwinden aus der
+      // sichtbaren Sicht, ein related/Echo-Link dorthin liefe ins Leere
+      // (die UI müsste ihn still droppen). Lieber gar nicht erzeugen.
+      if (other.status === "rejected") continue;
       // Master + Variante des gleichen Ankers sind PER DEFINITION
       // semantisch verwandt (Master ist Synthese der Varianten) —
       // sie als nearDuplicates oder related zu flaggen wäre Rauschen.

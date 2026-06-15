@@ -60,12 +60,23 @@ async function fetchEdges(token: string): Promise<{ file: EdgesFile; sha: string
   return { file: JSON.parse(content), sha: data.sha };
 }
 
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
 /**
  * Erhebt eine werdende Verbindung in den Kanon. Dedupt gegen bestehende
  * (sortiertes Paar) — doppeltes Promoten ist ein No-op-Erfolg.
+ *
+ * Robustheit (analog indexUpdater.mutateIndexWithRetry): bei 409
+ * (gleichzeitiger Schreiber — CI, anderer Promote) wird der frische SHA geholt,
+ * neu dedupt und erneut geschrieben, statt dem Aufrufer „erneut versuchen"
+ * zurückzugeben (das ging vorher verloren).
+ *
+ * `validIds` (optional): wenn gesetzt, müssen source UND target darin liegen
+ * (statische NODES ∪ dynamische Begriffe) — verhindert Kanten auf Unsinn-IDs.
  */
 export async function promoteEdge(input: {
   source: string; target: string; note?: string; evidence?: number; actor: string;
+  validIds?: Set<string>;
 }): Promise<{ ok: true; already?: boolean } | { ok: false; error: string }> {
   const token = process.env.GITHUB_TOKEN;
   if (!token) return { ok: false, error: "GITHUB_TOKEN fehlt — Kante nicht persistierbar" };
@@ -74,38 +85,49 @@ export async function promoteEdge(input: {
   const target = String(input.target ?? "").trim();
   if (!source || !target) return { ok: false, error: "source/target fehlt" };
   if (source === target) return { ok: false, error: "source und target identisch" };
-
-  try {
-    const { file, sha } = await fetchEdges(token);
-    const key = pairKey(source, target);
-    if (file.edges.some(e => pairKey(e.source, e.target) === key)) {
-      return { ok: true, already: true };
-    }
-    const edge: PromotedEdge = {
-      source, target,
-      ...(input.note ? { note: input.note.slice(0, 280) } : {}),
-      ...(typeof input.evidence === "number" ? { evidence: input.evidence } : {}),
-      createdAt: new Date().toISOString(),
-      actor: input.actor,
-    };
-    const updated: EdgesFile = { generatedAt: new Date().toISOString(), edges: [...file.edges, edge] };
-    const putRes = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${EDGES_PATH}`, {
-      method: "PUT",
-      headers: { ...authHeaders(token), "Content-Type": "application/json" },
-      body: JSON.stringify({
-        message: `concept-edges: promote ${source}—${target} [${input.actor}]`,
-        content: Buffer.from(JSON.stringify(updated, null, 2), "utf-8").toString("base64"),
-        branch: REPO_BRANCH,
-        ...(sha ? { sha } : {}),
-      }),
-    });
-    if (!putRes.ok) {
-      const txt = await putRes.text().catch(() => "");
-      if (putRes.status === 409) return { ok: false, error: "Schreibkonflikt (gleichzeitige Änderung) — erneut versuchen" };
-      return { ok: false, error: `PUT concept-edges: ${putRes.status} — ${txt.slice(0, 120)}` };
-    }
-    return { ok: true };
-  } catch (err) {
-    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+  if (input.validIds) {
+    if (!input.validIds.has(source)) return { ok: false, error: `unbekannter Begriff: ${source}` };
+    if (!input.validIds.has(target)) return { ok: false, error: `unbekannter Begriff: ${target}` };
   }
+
+  const key = pairKey(source, target);
+  const MAX_ATTEMPTS = 8;
+  for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
+    try {
+      const { file, sha } = await fetchEdges(token);
+      if (file.edges.some(e => pairKey(e.source, e.target) === key)) {
+        return { ok: true, already: true };
+      }
+      const edge: PromotedEdge = {
+        source, target,
+        ...(input.note ? { note: input.note.slice(0, 280) } : {}),
+        ...(typeof input.evidence === "number" ? { evidence: input.evidence } : {}),
+        createdAt: new Date().toISOString(),
+        actor: input.actor,
+      };
+      const updated: EdgesFile = { generatedAt: new Date().toISOString(), edges: [...file.edges, edge] };
+      const putRes = await fetch(`${GITHUB_API}/repos/${REPO_OWNER}/${REPO_NAME}/contents/${EDGES_PATH}`, {
+        method: "PUT",
+        headers: { ...authHeaders(token), "Content-Type": "application/json" },
+        body: JSON.stringify({
+          message: `concept-edges: promote ${source}—${target} [${input.actor}]`,
+          content: Buffer.from(JSON.stringify(updated, null, 2), "utf-8").toString("base64"),
+          branch: REPO_BRANCH,
+          ...(sha ? { sha } : {}),
+        }),
+      });
+      if (putRes.ok) return { ok: true };
+      if (putRes.status === 409) {
+        // SHA-Konflikt → frisch holen + neu dedupen + erneut PUT
+        await sleep(150 * (attempt + 1) + Math.floor(Math.random() * 150));
+        continue;
+      }
+      const txt = await putRes.text().catch(() => "");
+      return { ok: false, error: `PUT concept-edges: ${putRes.status} — ${txt.slice(0, 120)}` };
+    } catch (err) {
+      if (attempt === MAX_ATTEMPTS - 1) return { ok: false, error: err instanceof Error ? err.message : String(err) };
+      await sleep(150 * (attempt + 1));
+    }
+  }
+  return { ok: false, error: `Schreibkonflikt nach ${MAX_ATTEMPTS} Versuchen — bitte erneut versuchen` };
 }
