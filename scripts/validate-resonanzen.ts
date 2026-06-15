@@ -61,6 +61,7 @@ interface Report {
     byStatus: Record<string, number>;
     orphanNodeIds: string[];
     danglingLinks: number;
+    redundantDuplicates: number;
   };
 }
 
@@ -278,14 +279,34 @@ async function main() {
   //    filtert sie inzwischen (computeCrossLinks) — dieser Check fängt
   //    Regressionen ab. Warning, kein harter Fail.
   let danglingLinks = 0;
+  let redundantDuplicates = 0;
   try {
     const indexPath = path.join(ROOT, "client/public/resonanzen-index.json");
     if (fs.existsSync(indexPath)) {
       const idx = JSON.parse(fs.readFileSync(indexPath, "utf-8")) as {
-        entries?: Array<{ id: string; status?: string; related?: string[]; nearDuplicates?: string[] }>;
+        entries?: Array<{ id: string; status?: string; related?: string[]; nearDuplicates?: string[];
+          endpoint?: string; anchor?: string; prompt?: string }>;
       };
       const idxEntries = idx.entries ?? [];
       const statusById = new Map(idxEntries.map(e => [e.id, e.status ?? "raw"]));
+
+      // 8b. Dubletten-Wächter: exakte Wiederholungen (gleicher endpoint+anchor+
+      //     normalisierte Frage) sollten dank Ingest-Dedup (resonanzLog.ts) nicht
+      //     mehr anwachsen. Dieser Check macht eine Regression sofort sichtbar.
+      const norm = (s: string) => (s ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+      const dupGroups = new Map<string, string[]>();
+      for (const e of idxEntries) {
+        const k = `${e.endpoint ?? ""}|${e.anchor ?? ""}|${norm(e.prompt ?? "")}`;
+        (dupGroups.get(k) ?? dupGroups.set(k, []).get(k)!).push(e.id);
+      }
+      for (const [, idsInGroup] of dupGroups) {
+        if (idsInGroup.length > 1) {
+          redundantDuplicates += idsInGroup.length - 1;
+          issues.push({ level: "warning", file: `index:${idsInGroup[0]}`, rule: "duplicate-entries",
+            detail: `${idsInGroup.length}× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts` });
+        }
+      }
+
       for (const e of idxEntries) {
         for (const field of ["related", "nearDuplicates"] as const) {
           const arr = e[field];
@@ -323,6 +344,7 @@ async function main() {
       byStatus,
       orphanNodeIds: [...orphanNodeIds].sort(),
       danglingLinks,
+      redundantDuplicates,
     },
   };
 
