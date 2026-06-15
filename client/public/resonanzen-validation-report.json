@@ -1,9 +1,94 @@
 {
-  "generatedAt": "2026-06-15T21:14:34.609Z",
+  "generatedAt": "2026-06-15T23:34:51.853Z",
   "filesChecked": 300,
   "errors": 0,
-  "warnings": 0,
-  "issues": [],
+  "warnings": 14,
+  "issues": [
+    {
+      "level": "warning",
+      "file": "index:MQFKW3OR-F80FC59E",
+      "rule": "duplicate-entries",
+      "detail": "9× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQAS3AXO-82E7572B",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQ68MRP2-64D382F5",
+      "rule": "duplicate-entries",
+      "detail": "5× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQ686ZDY-57367863",
+      "rule": "duplicate-entries",
+      "detail": "6× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQ67RC88-9D183BCA",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQ66ZDIF-61148F8E",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQ66YLSR-E54A179A",
+      "rule": "duplicate-entries",
+      "detail": "20× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQ5IO9GO-C29E0F4E",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MQ5C9KIC-83A23F97",
+      "rule": "duplicate-entries",
+      "detail": "18× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MPUS5XUF-31B3455A",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MPMTLD4Y-B5FD9EFB",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MPAH317T-242EECA7",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MP2LJCJB-EA58EC28",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
+      "file": "index:MOHBQRVE-18720E78",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    }
+  ],
   "aggregates": {
     "byEndpoint": {
       "analyse": 65,
@@ -21,6 +106,7 @@
       "approved": 18
     },
     "orphanNodeIds": [],
-    "danglingLinks": 0
+    "danglingLinks": 0,
+    "redundantDuplicates": 62
   }
 }

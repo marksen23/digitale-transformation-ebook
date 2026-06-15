@@ -1,7 +1,7 @@
 {
   "date": "2026-06-15",
-  "generatedAt": "2026-06-15T21:14:35.495Z",
-  "commit": "7ed14362118444357946c61b5ac68576c4fd1efc",
+  "generatedAt": "2026-06-15T23:34:52.679Z",
+  "commit": "a15a8603859dd5214d6416904cb821f5cbd0172d",
   "filesChecked": 300,
   "aggregates": {
     "byEndpoint": {
@@ -20,8 +20,9 @@
       "approved": 18
     },
     "orphanNodeIds": [],
-    "danglingLinks": 0
+    "danglingLinks": 0,
+    "redundantDuplicates": 62
   },
   "errors": 0,
-  "warnings": 0
+  "warnings": 14
 }
