@@ -1,70 +1,9 @@
 {
-  "generatedAt": "2026-06-15T09:30:56.351Z",
-  "filesChecked": 297,
+  "generatedAt": "2026-06-15T18:56:48.546Z",
+  "filesChecked": 298,
   "errors": 0,
-  "warnings": 10,
-  "issues": [
-    {
-      "level": "warning",
-      "file": "index:MQASO35V-115DA081",
-      "rule": "rejected-link",
-      "detail": "related → 'MPCUVOK6-27CB8359' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQASO35V-115DA081",
-      "rule": "rejected-link",
-      "detail": "nearDuplicates → 'MPCUVOK6-27CB8359' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MPVCLR8S-F523777E",
-      "rule": "rejected-link",
-      "detail": "related → 'MPECAV23-5FAD4249' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MPUFUBU5-A4BC72BE",
-      "rule": "rejected-link",
-      "detail": "related → 'MPECAV23-5FAD4249' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MPUFUBU5-A4BC72BE",
-      "rule": "rejected-link",
-      "detail": "nearDuplicates → 'MPECAV23-5FAD4249' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MPMJC8TR-592D4EF0",
-      "rule": "rejected-link",
-      "detail": "related → 'MPCUVOK6-27CB8359' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MPMJC8TR-592D4EF0",
-      "rule": "rejected-link",
-      "detail": "nearDuplicates → 'MPCUVOK6-27CB8359' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MP8OB1IU-F6C31DC7",
-      "rule": "rejected-link",
-      "detail": "related → 'MPECAV23-5FAD4249' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MOQ7HGW3-608EA4FA",
-      "rule": "rejected-link",
-      "detail": "related → 'MPECAV23-5FAD4249' zeigt auf rejected Eintrag"
-    },
-    {
-      "level": "warning",
-      "file": "index:MOQ5IKR5-C67AAC15",
-      "rule": "rejected-link",
-      "detail": "nearDuplicates → 'MPECAV23-5FAD4249' zeigt auf rejected Eintrag"
-    }
-  ],
+  "warnings": 0,
+  "issues": [],
   "aggregates": {
     "byEndpoint": {
       "analyse": 65,
@@ -73,15 +12,15 @@
       "enkidu": 55,
       "graph-chat": 56,
       "path-analyse": 38,
-      "translate": 9
+      "translate": 10
     },
     "byStatus": {
       "published": 114,
       "rejected": 2,
-      "raw": 163,
+      "raw": 164,
       "approved": 18
     },
     "orphanNodeIds": [],
-    "danglingLinks": 10
+    "danglingLinks": 0
   }
 }

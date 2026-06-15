@@ -1,7 +1,81 @@
 {
-  "generatedAt": "2026-06-15T09:31:34.930Z",
-  "count": 297,
+  "generatedAt": "2026-06-15T18:57:21.610Z",
+  "count": 299,
   "entries": [
+    {
+      "id": "MQFKQYEK-459A46CA",
+      "ts": "2026-06-15T18:56:33.453Z",
+      "endpoint": "translate",
+      "anchor": "translate:vorwort+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Vorwort von de nach es",
+      "response": "Esta obra surgió en un tiempo en el que la pregunta sobre la\nrelación entre el ser humano y la máquina ha dejado de ser una\npregunta académica. Se ha convertido en una pregunta existencial\n– para cualquiera que enciende una pantalla por la mañana\ny por la noche constata que el día ha transcurrido sin él.\nLos tres volúmenes de la trilogía intentan esta pregunta\nno responderla, sino transformarla: las grandes\ntradiciones filosóficas – Mito, Ilustración,\nFilosofía de la Existencia – en un lenguaje que esté\na la altura del presente digital. El método es poético, porque\nla experiencia de la transformación digital se sustrae a la prosa\npuramente analítica. Quien solo explica cómo funcionan los algoritmos,\nno comprende cómo se siente ser conocido por ellos.\nLas partes IV a VII – el análisis de leitmotiv y las tres críticas\nde la razón resonante (Resonanzvernunft) – proporcionan el marco teórico que la\npoesía por sí sola no puede sostener. Despliegan lo que en los versos\nestá condensado: una epistemología de lo intermedio, una ética del\nencuentro y una ontología de lo relacional. Que esta teoría\nsurja de la poesía y no al revés, no es casualidad –\nes la tesis de la obra: El mito precede a la razón\ny le prepara el terreno.\nLa obra no está terminada. No pretende responder a las preguntas\nde la era digital. Pretende plantearlas de tal manera\nque una respuesta sea posible – no como teoría, sino\ncomo resonancia vivida.",
+      "contextMeta": {
+        "chapterId": "vorwort",
+        "chapterTitle": "Vorwort",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "1534"
+      },
+      "related": [
+        "MQELRMGC-8FD0C115",
+        "MQELRFJB-A690B522",
+        "MQECFWWB-B98391B5",
+        "MQELRCEO-E799EFBF",
+        "MQELRA75-F17396BE"
+      ],
+      "nearDuplicates": [
+        "MQELRMGC-8FD0C115",
+        "MQELRFJB-A690B522",
+        "MQECFWWB-B98391B5",
+        "MQELRCEO-E799EFBF",
+        "MQELRA75-F17396BE",
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
+      ],
+      "werkVoiceScore": 0.808332680657738,
+      "corpusVoiceScore": 0.9306767805430942,
+      "conceptVoiceScore": 0.662700791146717,
+      "conceptAnchor": "resonanzvernunft"
+    },
+    {
+      "id": "MQFKQGLN-E1712F18",
+      "ts": "2026-06-15T18:56:10.379Z",
+      "endpoint": "translate",
+      "anchor": "translate:vorwort+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Vorwort von de nach es",
+      "response": "Dieses Werk entstand in einer Zeit, in der die Frage nach dem\nVerhältnis von Mensch und Maschine aufgehört hat, eine\nakademische Frage zu sein. Sie ist zur existenziellen Frage\ngeworden – für jeden, der morgens einen Bildschirm einschaltet\nund abends feststellt, dass der Tag ohne ihn vergangen ist.\nDie drei Bände der Trilogie unternehmen den Versuch, diese Frage\nnicht zu beantworten, sondern zu überführen: die großen\nphilosophischen Traditionen – Mythos, Aufklärung,\nExistenzphilosophie – in eine Sprache zu verwandeln, die der\ndigitalen Gegenwart gewachsen ist. Die Methode ist poetisch, weil\ndie Erfahrung der digitalen Transformation sich der rein\nanalytischen Prosa entzieht. Wer nur erklärt, wie Algorithmen\nfunktionieren, versteht nicht, wie es sich anfühlt, von ihnen gekannt\nzu werden.\n\nDie Teile IV bis VII – die Leitmotiv-Analyse und die drei Kritiken\nder razón de resonancia (Resonanzvernunft) – liefern den theoretischen Rahmen, den die\nPoesie allein nicht tragen kann. Sie entfalten, was in den Versen\nverdichtet ist: eine Epistemologie des Zwischen, eine Ethik der\nBegegnung und eine Ontologie des Relationalen. Dass diese Theorie\naus der Dichtung hervorgeht und nicht umgekehrt, ist kein Zufall –\nes ist die These des Werks: Der Mythos geht der Vernunft voraus\nund bereitet ihr den Boden.\n\nDas Werk ist nicht abgeschlossen. Es beansprucht nicht, die Fragen\ndes digitalen Zeitalters zu beantworten. Es beansprucht, sie so zu\nstellen, dass eine Antwort möglich wird – nicht als Theorie, sondern\nals gelebte Resonanz.",
+      "contextMeta": {
+        "chapterId": "vorwort",
+        "chapterTitle": "Vorwort",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "1534"
+      },
+      "related": [
+        "MQELRCEO-E799EFBF",
+        "MQELRFJB-A690B522",
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQECFWWB-B98391B5"
+      ],
+      "nearDuplicates": [
+        "MQELRCEO-E799EFBF",
+        "MQELRFJB-A690B522",
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQECFWWB-B98391B5",
+        "MQELRA75-F17396BE",
+        "MQEBZ0Y1-E3BCB35C"
+      ],
+      "werkVoiceScore": 0.8252582152194413,
+      "corpusVoiceScore": 0.9507363576651564,
+      "conceptVoiceScore": 0.6764680985618274,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MQELRMGC-8FD0C115",
       "ts": "2026-06-15T02:37:18.060Z",
@@ -19,18 +93,20 @@
         "textLength": "1534"
       },
       "related": [
+        "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
         "MQELRFJB-A690B522",
         "MQELRCEO-E799EFBF",
-        "MQELRA75-F17396BE",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQELRA75-F17396BE"
       ],
       "nearDuplicates": [
+        "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
         "MQELRFJB-A690B522",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8074956470340302,
       "corpusVoiceScore": 0.9304945989888883,
@@ -54,18 +130,20 @@
         "textLength": "1534"
       },
       "related": [
+        "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
         "MQECFWWB-B98391B5",
         "MQELRCEO-E799EFBF",
-        "MQELRA75-F17396BE",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQELRA75-F17396BE"
       ],
       "nearDuplicates": [
+        "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
         "MQECFWWB-B98391B5",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8101582155840935,
       "corpusVoiceScore": 0.9331860133102933,
@@ -92,15 +170,17 @@
         "MQECFWWB-B98391B5",
         "MQELRMGC-8FD0C115",
         "MQELRA75-F17396BE",
-        "MQELRFJB-A690B522",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQFKQYEK-459A46CA",
+        "MQELRFJB-A690B522"
       ],
       "nearDuplicates": [
         "MQECFWWB-B98391B5",
         "MQELRMGC-8FD0C115",
         "MQELRA75-F17396BE",
+        "MQFKQYEK-459A46CA",
         "MQELRFJB-A690B522",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.80930086631045,
       "corpusVoiceScore": 0.9286677029587214,
@@ -126,16 +206,18 @@
       "related": [
         "MQECFWWB-B98391B5",
         "MQELRCEO-E799EFBF",
+        "MQFKQYEK-459A46CA",
         "MQELRFJB-A690B522",
-        "MQELRMGC-8FD0C115",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQELRMGC-8FD0C115"
       ],
       "nearDuplicates": [
         "MQECFWWB-B98391B5",
         "MQELRCEO-E799EFBF",
+        "MQFKQYEK-459A46CA",
         "MQELRFJB-A690B522",
         "MQELRMGC-8FD0C115",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8077169003229672,
       "corpusVoiceScore": 0.9291406402243277,
@@ -160,17 +242,19 @@
       },
       "related": [
         "MQELRCEO-E799EFBF",
+        "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
         "MQELRA75-F17396BE",
-        "MQELRFJB-A690B522",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQELRFJB-A690B522"
       ],
       "nearDuplicates": [
         "MQELRCEO-E799EFBF",
+        "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
         "MQELRA75-F17396BE",
         "MQELRFJB-A690B522",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.805951935056021,
       "corpusVoiceScore": 0.9281365204811614,
@@ -198,14 +282,16 @@
         "MQELRCEO-E799EFBF",
         "MQECFWWB-B98391B5",
         "MQELRMGC-8FD0C115",
-        "MQELRFJB-A690B522"
+        "MQFKQYEK-459A46CA"
       ],
       "nearDuplicates": [
         "MQELRA75-F17396BE",
         "MQELRCEO-E799EFBF",
         "MQECFWWB-B98391B5",
         "MQELRMGC-8FD0C115",
-        "MQELRFJB-A690B522"
+        "MQFKQYEK-459A46CA",
+        "MQELRFJB-A690B522",
+        "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8091616747495537,
       "corpusVoiceScore": 0.9324428775936482,
@@ -7581,10 +7667,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MPUFGY4Z-44206712",
+        "MQFKQGLN-E1712F18",
         "MQELRCEO-E799EFBF",
         "MQELRFJB-A690B522",
-        "MQELRA75-F17396BE",
-        "MQECFWWB-B98391B5"
+        "MQELRA75-F17396BE"
       ],
       "werkVoiceScore": 0.7966960179368959,
       "corpusVoiceScore": 0.8478470017492521,
