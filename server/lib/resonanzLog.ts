@@ -14,7 +14,7 @@
 import crypto from "crypto";
 import { NODES } from "../../client/src/data/conceptGraph.js";
 import { detectEchoes, getEchoDetectorHealth } from "./echoDetector.js";
-import { appendToIndex, getIndexUpdaterHealth } from "./indexUpdater.js";
+import { appendToIndex, getIndexUpdaterHealth, loadIndex } from "./indexUpdater.js";
 
 // Bei Server-Start: Set aller validen Konzept-IDs aus dem Begriffsnetz.
 // Verwendet, um Tippfehler oder veraltete IDs in nodeIds beim Logging
@@ -154,6 +154,7 @@ let _resonanzLogSuccessCount = 0;
 let _resonanzLogFailureCount = 0;
 let _resonanzLogSkippedNoToken = 0;
 let _resonanzLogSkippedSpam = 0;
+let _resonanzLogSkippedDuplicate = 0;
 let _lastSuccess: { id: string; ts: string; endpoint: string; anchor: string } | null = null;
 let _lastFailure: { ts: string; endpoint: string; reason: string } | null = null;
 
@@ -171,6 +172,7 @@ export function getResonanzLogHealth() {
     failureCount: _resonanzLogFailureCount,
     skippedNoToken: _resonanzLogSkippedNoToken,
     skippedSpamFilter: _resonanzLogSkippedSpam,
+    skippedDuplicate: _resonanzLogSkippedDuplicate,
     lastSuccess: _lastSuccess,
     lastFailure: _lastFailure,
     echoDetector: getEchoDetectorHealth(),
@@ -230,6 +232,31 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
     _resonanzLogSkippedSpam++;
     return;
   }
+
+  // ─── Ingest-Dedup (Ursache der Dubletten-Anlagerung) ─────────────────────
+  // Deterministische Wiederholungen (gleicher Endpoint + Anker + Frage) fluten
+  // sonst den Korpus: wiederholte Übersetzungen desselben Kapitels, mehrfach
+  // gestellte Fragen, Keep-Alive-/Bot-Pings landen jeweils als neuer Eintrag.
+  // Die embedding-basierte Echo-Erkennung greift hier NICHT zuverlässig, weil
+  // frische Einträge erst nach dem CI-Rebuild ein Embedding haben — sie sehen
+  // ihre eigenen jüngsten Klone nicht. Darum prüfen wir gegen den LIVE-Index
+  // (sofort aktuell via appendToIndex) auf exakte Wiederholung. Fail-open:
+  // bei Lade-/Netzwerkfehler lieber loggen als verlieren.
+  try {
+    const existing = await loadIndex();
+    if (existing) {
+      const norm = (s: string) => s.trim().replace(/\s+/g, " ").toLowerCase();
+      const p = norm(entry.prompt);
+      const dup = existing.find(e =>
+        e.endpoint === entry.endpoint && e.anchor === entry.anchor && norm(e.prompt ?? "") === p
+      );
+      if (dup) {
+        _resonanzLogSkippedDuplicate++;
+        console.info(`[resonanzLog] skip duplicate ${entry.endpoint} ${entry.anchor} — already ${dup.id}`);
+        return;
+      }
+    }
+  } catch { /* fail-open */ }
 
   // Defensive: nur valide nodeIds aus dem Begriffsnetz weiterreichen.
   // Verhindert, dass falsche IDs (Tippfehler, veraltete Schemata) im
