@@ -7,7 +7,7 @@ import { PDFDocument, PDFName, PDFString, PDFDict, PDFArray, PDFNumber, Standard
 import { NODES, EDGES, CANVAS_W, CANVAS_H } from "../client/src/data/conceptGraph.js";
 import { logResonanz, getResonanzLogHealth } from "./lib/resonanzLog.js";
 import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
-import { removeFromIndex, updateInIndex, loadIndex } from "./lib/indexUpdater.js";
+import { removeFromIndex, removeManyFromIndex, updateInIndex, updateManyInIndex, loadIndex } from "./lib/indexUpdater.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 
@@ -1696,10 +1696,73 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     return null;
   }
 
+  /**
+   * Wie findEntryFile, aber für VIELE IDs in einem Rutsch: holt den Git-Tree
+   * GENAU EINMAL (statt pro ID einen rekursiven Tree-Fetch) und löst dann die
+   * Contents (sha + content) je ID auf — begrenzt parallel. Vermeidet das
+   * N-fache Tree-Fetchen + Rate-Limit-Risiko bei Bulk-Operationen.
+   */
+  async function findEntryFiles(
+    ids: string[],
+  ): Promise<Map<string, { path: string; content: string; sha: string }>> {
+    const out = new Map<string, { path: string; content: string; sha: string }>();
+    const token = process.env.GITHUB_TOKEN;
+    const owner  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
+    const repo   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
+    const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
+    if (!token || ids.length === 0) return out;
+    const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`, {
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", Accept: "application/vnd.github+json" },
+    });
+    if (!treeRes.ok) return out;
+    const treeData = await treeRes.json();
+    interface TreeBlobEntry { type: string; path: string }
+    const blobs = ((treeData.tree ?? []) as TreeBlobEntry[]).filter(
+      e => e.type === "blob" && e.path.startsWith("content/resonanzen/") && e.path.endsWith(".md")
+    );
+    const resolveOne = async (id: string): Promise<void> => {
+      const candidates = blobs.filter(e => e.path.includes(id));
+      for (const c of candidates) {
+        const contentsRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${c.path}?ref=${branch}`, {
+          headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", Accept: "application/vnd.github+json" },
+        });
+        if (!contentsRes.ok) continue;
+        const data = await contentsRes.json();
+        const content = Buffer.from(data.content, "base64").toString("utf-8");
+        if (new RegExp(`^id:\\s*${id.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\\s*$`, "m").test(content)) {
+          out.set(id, { path: c.path, content, sha: data.sha });
+          return;
+        }
+      }
+    };
+    // Contents begrenzt parallel auflösen (lesend, kein Schreib-Konflikt)
+    const queue = [...ids];
+    const worker = async (): Promise<void> => {
+      for (let id = queue.shift(); id !== undefined; id = queue.shift()) await resolveOne(id);
+    };
+    await Promise.all(Array.from({ length: Math.min(6, ids.length) }, () => worker()));
+    return out;
+  }
+
+  /** Holt sha + content eines Files per Pfad (für Retry-Reload nach 409). */
+  async function getContentsByPath(path: string): Promise<{ sha: string; content: string } | null> {
+    const token = process.env.GITHUB_TOKEN;
+    const owner  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
+    const repo   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
+    const branch = process.env.GITHUB_REPO_BRANCH ?? "main";
+    if (!token) return null;
+    const r = await fetch(`https://api.github.com/repos/${owner}/${repo}/contents/${path}?ref=${branch}`, {
+      headers: { Authorization: `Bearer ${token}`, "User-Agent": "dt-admin", Accept: "application/vnd.github+json" },
+    });
+    if (!r.ok) return null;
+    const data = await r.json();
+    return { sha: data.sha, content: Buffer.from(data.content, "base64").toString("utf-8") };
+  }
+
   /** Schreibt File-Content zurück (PUT) oder löscht (DELETE) via Contents-API. */
   async function writeOrDeleteFile(
     op: "update" | "delete", path: string, sha: string, newContent: string | null, message: string,
-  ): Promise<{ ok: boolean; error?: string }> {
+  ): Promise<{ ok: boolean; error?: string; status?: number }> {
     const token = process.env.GITHUB_TOKEN;
     const owner  = process.env.GITHUB_REPO_OWNER  ?? "marksen23";
     const repo   = process.env.GITHUB_REPO_NAME   ?? "digitale-transformation-ebook";
@@ -1721,9 +1784,41 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     });
     if (!res.ok) {
       const txt = await res.text().catch(() => "");
-      return { ok: false, error: `${res.status}: ${txt.slice(0, 200)}` };
+      return { ok: false, error: `${res.status}: ${txt.slice(0, 200)}`, status: res.status };
     }
     return { ok: true };
+  }
+
+  /**
+   * writeOrDeleteFile mit Retry bei transienten Fehlern (409 SHA-Konflikt,
+   * 5xx, 403 secondary-rate-limit). Bei 409 wird der aktuelle SHA neu geholt
+   * und die Mutation neu auf den frischen Content angewandt (via reload).
+   * `reload` liefert {sha, content} neu — für MD-Writes, wo der Content vom
+   * SHA abhängt. Garantiert, dass auch unter Last jeder Write landet.
+   */
+  async function writeOrDeleteFileRetry(
+    op: "update" | "delete",
+    initial: { path: string; sha: string; content: string | null },
+    message: string,
+    reload: () => Promise<{ sha: string; content: string | null } | null>,
+    maxAttempts = 6,
+  ): Promise<{ ok: boolean; error?: string }> {
+    let { sha, content } = initial;
+    let lastErr = "unbekannt";
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const res = await writeOrDeleteFile(op, initial.path, sha, content, message);
+      if (res.ok) return { ok: true };
+      lastErr = res.error ?? "Schreibfehler";
+      const transient = res.status === 409 || res.status === 403 || (res.status ?? 0) >= 500;
+      if (!transient || attempt === maxAttempts - 1) return { ok: false, error: lastErr };
+      await new Promise(r => setTimeout(r, 200 * (attempt + 1) + Math.floor(Math.random() * 200)));
+      // SHA (und ggf. Content) frisch holen und Mutation neu anwenden
+      const fresh = await reload();
+      if (!fresh) return { ok: false, error: `${lastErr} (reload fehlgeschlagen)` };
+      sha = fresh.sha;
+      content = fresh.content;
+    }
+    return { ok: false, error: lastErr };
   }
 
   /** Modifiziert Frontmatter mit YAML-Library (Reihenfolge bleibt erhalten). */
@@ -1764,7 +1859,10 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
       `curate(${id}): ${oldStatus} → ${status}${actor === "admin" ? "" : ` [${actor}]`}`
     );
     if (!writeRes.ok) return { ok: false, code: 502, error: writeRes.error ?? "Schreibfehler" };
-    void updateInIndex(id, { status });        // S1: live-Index synchron
+    // S1: live-Index synchron — AWAIT (nicht fire-and-forget), damit der
+    // Schreibvorgang abgeschlossen ist, bevor wir antworten. updateInIndex
+    // hat jetzt Retry-on-conflict, verwirft also keine Updates mehr still.
+    await updateInIndex(id, { status });
     invalidateResonanzRetrievalCache();         // R1: Retrieval-Pool invalidieren
     return { ok: true, oldStatus, path: file.path };
   }
@@ -1779,6 +1877,67 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const r = await curateEntryStatus(id, status, "admin");
     if (!r.ok) return res.status(r.code).json({ error: r.error });
     return res.json({ ok: true, id, oldStatus: r.oldStatus, newStatus: status, path: r.path });
+  });
+
+  // Bulk-Curate: setzt für VIELE Einträge denselben Status — in EINEM
+  // Index-Schreibvorgang statt N parallele (die vorher um den SHA rannten und
+  // zu ~50% verloren gingen). MD-Writes laufen mit Retry-on-conflict, der
+  // Git-Tree wird nur einmal geholt. Antwort enthält per-ID-Resultate.
+  app.post("/api/admin/curate-bulk", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { ids, status } = req.body as { ids?: string[]; status?: string };
+    if (!Array.isArray(ids) || ids.length === 0) return res.status(400).json({ error: "ids[] fehlt" });
+    if (!status || !VALID_STATUS_VALUES.has(status)) {
+      return res.status(400).json({ error: `status muss eines von ${Array.from(VALID_STATUS_VALUES).join("|")} sein` });
+    }
+    const uniqueIds = Array.from(new Set(ids));
+    const fileMap = await findEntryFiles(uniqueIds);
+
+    const applyOne = async (id: string): Promise<{ id: string; ok: boolean; oldStatus?: string; error?: string }> => {
+      const file = fileMap.get(id);
+      if (!file) return { id, ok: false, error: "Eintrag nicht gefunden" };
+      let oldStatus = "raw";
+      const mutate = (content: string) => mutateFrontmatter(content, doc => {
+        oldStatus = String(doc.get("status") ?? "raw");
+        doc.set("status", status);
+        const trail = doc.get("audit_trail") as { add?: (item: unknown) => void } | undefined;
+        const ev = { event: "status-changed", ts: new Date().toISOString(), actor: "admin", from: oldStatus, to: status };
+        if (trail && typeof trail.add === "function") trail.add(ev);
+        else doc.set("audit_trail", [ev]);
+      });
+      let newContent: string;
+      try { newContent = await mutate(file.content); }
+      catch (err) { return { id, ok: false, error: `Frontmatter: ${err instanceof Error ? err.message : err}` }; }
+      const w = await writeOrDeleteFileRetry(
+        "update",
+        { path: file.path, sha: file.sha, content: newContent },
+        `curate(${id}): ${oldStatus} → ${status}`,
+        async () => {
+          const fresh = await getContentsByPath(file.path);
+          if (!fresh) return null;
+          return { sha: fresh.sha, content: await mutate(fresh.content) };
+        },
+      );
+      if (!w.ok) return { id, ok: false, error: w.error };
+      return { id, ok: true, oldStatus };
+    };
+
+    // MD-Writes begrenzt parallel (distinkte Files; Retry deckt 409 ab)
+    const results: { id: string; ok: boolean; oldStatus?: string; error?: string }[] = [];
+    const queue = [...uniqueIds];
+    const worker = async (): Promise<void> => {
+      for (let id = queue.shift(); id !== undefined; id = queue.shift()) {
+        results.push(await applyOne(id));
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(4, uniqueIds.length) }, () => worker()));
+
+    const okIds = results.filter(r => r.ok).map(r => r.id);
+    // EIN Index-Schreibvorgang für die ganze Charge (Retry-on-conflict)
+    const indexOk = await updateManyInIndex(okIds.map(id => ({ id, patch: { status } })));
+    invalidateResonanzRetrievalCache();
+    const failed = results.filter(r => !r.ok).length;
+    return res.json({ ok: failed === 0, total: uniqueIds.length, succeeded: okIds.length, failed, indexUpdated: indexOk, results });
   });
 
   // ─── Begriffsnetz-Wachstum (Phase 5b) ─────────────────────────────────────
@@ -2364,11 +2523,52 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
     // S1: live-Index synchronisieren — gelöschter Eintrag verschwindet sofort
     // aus resonanzen-index.json, nicht erst nach dem nächsten CI-Build.
-    void removeFromIndex(id);
+    await removeFromIndex(id);
     // R1: Retrieval-Cache invalidieren — gelöschter Eintrag darf nicht mehr
     // als Quelle in neue Antworten einfließen.
     invalidateResonanzRetrievalCache();
     return res.json({ ok: true, id, path: file.path });
+  });
+
+  // Bulk-Delete: löscht VIELE Einträge — Tree einmal geholt, MD-Deletes mit
+  // Retry, EIN Index-Schreibvorgang (statt N parallele, die zu ~50% verloren
+  // gingen).
+  app.post("/api/admin/delete-bulk", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { ids } = req.body as { ids?: string[] };
+    if (!Array.isArray(ids) || ids.length === 0) return res.status(400).json({ error: "ids[] fehlt" });
+    const uniqueIds = Array.from(new Set(ids));
+    const fileMap = await findEntryFiles(uniqueIds);
+
+    const deleteOne = async (id: string): Promise<{ id: string; ok: boolean; error?: string }> => {
+      const file = fileMap.get(id);
+      if (!file) return { id, ok: false, error: "Eintrag nicht gefunden" };
+      const w = await writeOrDeleteFileRetry(
+        "delete",
+        { path: file.path, sha: file.sha, content: null },
+        `admin-delete: ${id} (${file.path.split("/").slice(-2, -1)[0] ?? "unknown"})`,
+        async () => {
+          const fresh = await getContentsByPath(file.path);
+          return fresh ? { sha: fresh.sha, content: null } : null;
+        },
+      );
+      return w.ok ? { id, ok: true } : { id, ok: false, error: w.error };
+    };
+
+    const results: { id: string; ok: boolean; error?: string }[] = [];
+    const queue = [...uniqueIds];
+    const worker = async (): Promise<void> => {
+      for (let id = queue.shift(); id !== undefined; id = queue.shift()) {
+        results.push(await deleteOne(id));
+      }
+    };
+    await Promise.all(Array.from({ length: Math.min(4, uniqueIds.length) }, () => worker()));
+
+    const okIds = results.filter(r => r.ok).map(r => r.id);
+    const indexOk = await removeManyFromIndex(okIds);
+    invalidateResonanzRetrievalCache();
+    const failed = results.filter(r => !r.ok).length;
+    return res.json({ ok: failed === 0, total: uniqueIds.length, succeeded: okIds.length, failed, indexUpdated: indexOk, results });
   });
 
   // ─── Phase 3: Hosting-Health (Netlify + Render) ─────────────────────────

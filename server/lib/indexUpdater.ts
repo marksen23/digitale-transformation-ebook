@@ -115,36 +115,84 @@ async function putIndex(token: string, index: IndexFile, sha: string | null, mes
   throw new Error(`PUT index: ${putRes.status} ${putRes.statusText} — ${txt.slice(0, 150)}`);
 }
 
+const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
+
+/**
+ * Generischer Read-Modify-Write mit Retry-on-conflict für den live-Index.
+ *
+ * Holt den Index FRISCH (inkl. SHA), wendet `apply` an, schreibt zurück. Bei
+ * 409 (SHA-Konflikt — ein paralleler Schreiber wie CI, Live-Append oder ein
+ * anderer Bulk-Call kam zuvor) wird mit frischem SHA + neu angewandter Mutation
+ * erneut versucht (mit jitter-Backoff). Das GARANTIERT, dass die Mutation
+ * landet, statt sie wie vorher bei 409 still zu verwerfen — die Ursache der
+ * ~50%-Ausfälle bei Bulk-Operationen (mehrere parallele PUTs holten denselben
+ * SHA, nur einer gewann).
+ *
+ * `apply` gibt `null` zurück, wenn es nichts zu tun gibt (no-op) — dann wird
+ * nicht geschrieben.
+ */
+async function mutateIndexWithRetry(
+  token: string,
+  message: string,
+  apply: (index: IndexFile) => IndexFile | null,
+  maxAttempts = 10,
+): Promise<"ok" | "noop" | "failed"> {
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const { index, sha } = await fetchIndex(token);
+    const updated = apply(index);
+    if (updated === null) return "noop";
+    const result = await putIndex(token, updated, sha, message);
+    if (result === "ok") return "ok";
+    // conflict → frischen SHA holen + Mutation neu anwenden, nach Backoff
+    await sleep(150 * (attempt + 1) + Math.floor(Math.random() * 150));
+  }
+  return "failed";
+}
+
 /**
  * Entfernt einen Eintrag aus dem live-Index. Wird von /api/admin/delete
  * aufgerufen, damit gelöschte Einträge SOFORT vom Frontend verschwinden
  * (nicht erst nach dem nächsten CI-Build).
  */
-export async function removeFromIndex(id: string): Promise<void> {
+export async function removeFromIndex(id: string): Promise<boolean> {
+  return removeManyFromIndex([id]);
+}
+
+/**
+ * Entfernt mehrere Einträge in EINEM Index-Schreibvorgang (statt N parallele
+ * PUTs, die um den SHA rennen). Für Bulk-Delete. Retry-on-conflict garantiert,
+ * dass der Schreibvorgang landet, auch wenn parallel CI/Live-Append schreibt.
+ */
+export async function removeManyFromIndex(ids: string[]): Promise<boolean> {
   const token = process.env.GITHUB_TOKEN;
-  if (!token) return;
+  if (!token) return false;
+  if (ids.length === 0) return true;
+  const idSet = new Set(ids);
   try {
-    const { index, sha } = await fetchIndex(token);
-    const before = index.entries.length;
-    const filtered = index.entries.filter(e => e.id !== id);
-    if (filtered.length === before) {
-      // ID nicht im Index — no-op, kein Fehler (z.B. wenn CI schon weg)
-      _mutateSuccessCount++;
-      _lastMutate = { op: "remove", id, ts: new Date().toISOString() };
-      return;
-    }
-    const updated: IndexFile = { ...index, entries: filtered, count: filtered.length };
-    const result = await putIndex(token, updated, sha, `index: remove ${id}`);
-    if (result === "conflict") {
-      console.info(`[indexUpdater] remove SHA-conflict ${id} — CI may have raced, skipping`);
+    const res = await mutateIndexWithRetry(
+      token,
+      ids.length === 1 ? `index: remove ${ids[0]}` : `index: bulk remove ${ids.length} entries`,
+      (index) => {
+        const filtered = index.entries.filter(e => !idSet.has(e.id));
+        if (filtered.length === index.entries.length) return null; // keiner drin — no-op
+        return { ...index, entries: filtered, count: filtered.length };
+      },
+    );
+    if (res === "failed") {
+      _mutateFailureCount++;
+      _lastMutateError = { ts: new Date().toISOString(), reason: `remove ${ids.length}: Konflikt nach Retries`, op: "remove" };
+      console.error(`[indexUpdater] removeManyFromIndex EXHAUSTED retries for ${ids.length} ids`);
+      return false;
     }
     _mutateSuccessCount++;
-    _lastMutate = { op: "remove", id, ts: new Date().toISOString() };
+    _lastMutate = { op: "remove", id: ids.length === 1 ? ids[0] : `bulk(${ids.length})`, ts: new Date().toISOString() };
+    return true;
   } catch (err) {
     _mutateFailureCount++;
     const reason = err instanceof Error ? err.message : String(err);
     _lastMutateError = { ts: new Date().toISOString(), reason, op: "remove" };
-    console.error(`[indexUpdater] removeFromIndex FAILED for ${id}: ${reason}`);
+    console.error(`[indexUpdater] removeManyFromIndex FAILED: ${reason}`);
+    return false;
   }
 }
 
@@ -172,33 +220,57 @@ export async function loadIndex(): Promise<IndexEntry[] | null> {
  * /api/admin/curate (status-Wechsel) + /api/admin/pre-score (ai_score)
  * aufgerufen.
  */
-export async function updateInIndex(id: string, patch: Partial<IndexEntry> & Record<string, unknown>): Promise<void> {
+export async function updateInIndex(id: string, patch: Partial<IndexEntry> & Record<string, unknown>): Promise<boolean> {
+  return updateManyInIndex([{ id, patch }]);
+}
+
+/**
+ * Wendet mehrere Patches in EINEM Index-Schreibvorgang an (statt N parallele
+ * PUTs, die um den SHA rennen → vorher gingen ~50% verloren). Für Bulk-Curate.
+ * Retry-on-conflict garantiert, dass der Schreibvorgang landet.
+ *
+ * IDs, die (noch) nicht im Index stehen, werden still übersprungen (z.B.
+ * brandneue Einträge vor dem Append) — kein Fehler.
+ */
+export async function updateManyInIndex(
+  updates: { id: string; patch: Partial<IndexEntry> & Record<string, unknown> }[],
+): Promise<boolean> {
   const token = process.env.GITHUB_TOKEN;
-  if (!token) return;
+  if (!token) return false;
+  if (updates.length === 0) return true;
+  const patchById = new Map(updates.map(u => [u.id, u.patch]));
   try {
-    const { index, sha } = await fetchIndex(token);
-    const i = index.entries.findIndex(e => e.id === id);
-    if (i === -1) {
-      // ID nicht im Index — z.B. brandneuer Eintrag, der noch nicht
-      // appended wurde. No-op, kein Fehler.
-      _mutateSuccessCount++;
-      _lastMutate = { op: "update", id, ts: new Date().toISOString() };
-      return;
-    }
-    const newEntries = [...index.entries];
-    newEntries[i] = { ...newEntries[i], ...patch } as IndexEntry;
-    const updated: IndexFile = { ...index, entries: newEntries };
-    const result = await putIndex(token, updated, sha, `index: update ${id}`);
-    if (result === "conflict") {
-      console.info(`[indexUpdater] update SHA-conflict ${id} — CI may have raced, skipping`);
+    let applied = 0;
+    const res = await mutateIndexWithRetry(
+      token,
+      updates.length === 1 ? `index: update ${updates[0].id}` : `index: bulk update ${updates.length} entries`,
+      (index) => {
+        applied = 0;
+        const newEntries = index.entries.map(e => {
+          const patch = patchById.get(e.id);
+          if (!patch) return e;
+          applied++;
+          return { ...e, ...patch } as IndexEntry;
+        });
+        if (applied === 0) return null; // keine ID im Index — no-op
+        return { ...index, entries: newEntries };
+      },
+    );
+    if (res === "failed") {
+      _mutateFailureCount++;
+      _lastMutateError = { ts: new Date().toISOString(), reason: `update ${updates.length}: Konflikt nach Retries`, op: "update" };
+      console.error(`[indexUpdater] updateManyInIndex EXHAUSTED retries for ${updates.length} ids`);
+      return false;
     }
     _mutateSuccessCount++;
-    _lastMutate = { op: "update", id, ts: new Date().toISOString() };
+    _lastMutate = { op: "update", id: updates.length === 1 ? updates[0].id : `bulk(${applied})`, ts: new Date().toISOString() };
+    return true;
   } catch (err) {
     _mutateFailureCount++;
     const reason = err instanceof Error ? err.message : String(err);
     _lastMutateError = { ts: new Date().toISOString(), reason, op: "update" };
-    console.error(`[indexUpdater] updateInIndex FAILED for ${id}: ${reason}`);
+    console.error(`[indexUpdater] updateManyInIndex FAILED: ${reason}`);
+    return false;
   }
 }
 

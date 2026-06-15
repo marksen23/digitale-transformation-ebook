@@ -87,7 +87,7 @@ export function useAdminAuth(): {
  *  Generisch über T → bei erfolgreichem Call ist data: T verfügbar.
  *  Bei Fehler ist data === undefined, error gesetzt. */
 export async function callAdminAction<T = unknown>(
-  action: "curate" | "delete" | "synthesize-master" | "pre-score" | "auto-curate" | "promote-edge" | "propose-concept",
+  action: "curate" | "curate-bulk" | "delete" | "delete-bulk" | "synthesize-master" | "pre-score" | "auto-curate" | "promote-edge" | "propose-concept",
   body: Record<string, unknown>,
 ): Promise<{ ok: boolean; data?: T; error?: string }> {
   const t = localStorage.getItem(ADMIN_TOKEN_KEY);

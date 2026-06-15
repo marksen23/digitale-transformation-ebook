@@ -112,9 +112,20 @@ function aiScoreColor(s: number | undefined): string {
   return "#888";                  // neutral für 3
 }
 
-/** Max parallele PUTs zur GitHub-Contents-API. 3 ist konservativ —
- *  vermeidet 5xx-Spikes bei Bulk-Operationen über >20 Einträge. */
-const BULK_CONCURRENCY = 3;
+/** Chunk-Größe pro Bulk-Request. Der Server verarbeitet jede Charge mit
+ *  EINEM Index-Schreibvorgang + Retry-on-conflict, daher keine parallelen
+ *  client-seitigen Calls mehr (die vorher um den Index-SHA rannten → ~50%
+ *  Ausfälle). Chunks dienen nur der Fortschritts-Granularität. */
+const BULK_CHUNK_SIZE = 25;
+
+/** Per-ID-Resultat einer Bulk-Operation (curate-bulk / delete-bulk). */
+interface BulkActionResponse {
+  ok: boolean;
+  succeeded?: number;
+  failed?: number;
+  indexUpdated?: boolean;
+  results?: { id: string; ok: boolean; error?: string }[];
+}
 
 export default function AdminCurationPage() {
   const C = useAdminTheme();
@@ -406,41 +417,55 @@ export default function AdminCurationPage() {
     setTimeout(() => setActionFeedback(null), 3500);
   }
 
-  /** Bulk-Curate: führt curate-API-Calls für alle IDs parallel mit
-   *  BULK_CONCURRENCY-Limit aus. Aktualisiert Index inkrementell sobald
-   *  jede Antwort kommt. Fehler werden gezählt aber nicht abgebrochen. */
+  /** Bulk-Curate: schickt die IDs chunk-weise an den server-seitigen
+   *  /api/admin/curate-bulk-Endpoint. Jede Charge wird dort mit EINEM
+   *  Index-Schreibvorgang + Retry-on-conflict verarbeitet — kein paralleles
+   *  Rennen um den Index-SHA mehr (das war die Ursache der ~50% Ausfälle). */
   async function bulkCurate(ids: string[], newStatus: string) {
     if (ids.length === 0) return;
     setBulkProgress({ done: 0, total: ids.length, status: newStatus });
     let done = 0;
     let failed = 0;
+    const okSet = new Set<string>();
 
-    // Simple concurrency-limited Promise.all
-    const queue = [...ids];
-    const runNext = async (): Promise<void> => {
-      const id = queue.shift();
-      if (!id) return;
+    for (let i = 0; i < ids.length; i += BULK_CHUNK_SIZE) {
+      const chunk = ids.slice(i, i + BULK_CHUNK_SIZE);
       try {
-        const result = await callAdminAction("curate", { id, status: newStatus });
-        if (result.ok) {
-          setIndex(curr => curr ? {
-            ...curr,
-            entries: curr.entries.map(e => e.id === id ? { ...e, status: newStatus as ResonanzEntry["status"] } : e),
-          } : curr);
-          recordAction({ type: "curate", targetId: id, ok: true, payload: { newStatus } });
+        const result = await callAdminAction<BulkActionResponse>("curate-bulk", { ids: chunk, status: newStatus });
+        const perId = result.data?.results;
+        if (perId && perId.length) {
+          for (const r of perId) {
+            if (r.ok) {
+              okSet.add(r.id);
+              recordAction({ type: "curate", targetId: r.id, ok: true, payload: { newStatus } });
+            } else {
+              failed++;
+              recordAction({ type: "curate", targetId: r.id, ok: false, reason: r.error ?? "Server-Fehler", payload: { newStatus } });
+            }
+          }
         } else {
-          failed++;
-          recordAction({ type: "curate", targetId: id, ok: false, reason: result.error ?? "Server-Fehler", payload: { newStatus } });
+          // ganze Charge fehlgeschlagen (z.B. Auth/Netzwerk)
+          failed += chunk.length;
+          for (const id of chunk) {
+            recordAction({ type: "curate", targetId: id, ok: false, reason: result.error ?? "Server-Fehler", payload: { newStatus } });
+          }
         }
       } catch (err) {
-        failed++;
-        recordAction({ type: "curate", targetId: id, ok: false, reason: err instanceof Error ? err.message : String(err), payload: { newStatus } });
+        failed += chunk.length;
+        for (const id of chunk) {
+          recordAction({ type: "curate", targetId: id, ok: false, reason: err instanceof Error ? err.message : String(err), payload: { newStatus } });
+        }
       }
-      done++;
+      done = Math.min(ids.length, i + chunk.length);
       setBulkProgress({ done, total: ids.length, status: newStatus });
-      await runNext();
-    };
-    await Promise.all(Array.from({ length: Math.min(BULK_CONCURRENCY, ids.length) }, () => runNext()));
+    }
+
+    if (okSet.size) {
+      setIndex(curr => curr ? {
+        ...curr,
+        entries: curr.entries.map(e => okSet.has(e.id) ? { ...e, status: newStatus as ResonanzEntry["status"] } : e),
+      } : curr);
+    }
 
     setBulkProgress(null);
     setSelectedIds(new Set());
@@ -463,32 +488,46 @@ export default function AdminCurationPage() {
     if (ids.length === 0) return;
     setBulkProgress({ done: 0, total: ids.length, status: "delete" });
     let done = 0; let failed = 0;
-    const queue = [...ids];
-    const runNext = async (): Promise<void> => {
-      const id = queue.shift();
-      if (!id) return;
+    const okSet = new Set<string>();
+
+    for (let i = 0; i < ids.length; i += BULK_CHUNK_SIZE) {
+      const chunk = ids.slice(i, i + BULK_CHUNK_SIZE);
       try {
-        const result = await callAdminAction("delete", { id });
-        if (result.ok) {
-          setIndex(curr => curr ? {
-            ...curr,
-            count: curr.count - 1,
-            entries: curr.entries.filter(e => e.id !== id),
-          } : curr);
-          recordAction({ type: "delete", targetId: id, ok: true });
+        const result = await callAdminAction<BulkActionResponse>("delete-bulk", { ids: chunk });
+        const perId = result.data?.results;
+        if (perId && perId.length) {
+          for (const r of perId) {
+            if (r.ok) {
+              okSet.add(r.id);
+              recordAction({ type: "delete", targetId: r.id, ok: true });
+            } else {
+              failed++;
+              recordAction({ type: "delete", targetId: r.id, ok: false, reason: r.error ?? "Server-Fehler" });
+            }
+          }
         } else {
-          failed++;
-          recordAction({ type: "delete", targetId: id, ok: false, reason: result.error ?? "Server-Fehler" });
+          failed += chunk.length;
+          for (const id of chunk) {
+            recordAction({ type: "delete", targetId: id, ok: false, reason: result.error ?? "Server-Fehler" });
+          }
         }
       } catch (err) {
-        failed++;
-        recordAction({ type: "delete", targetId: id, ok: false, reason: err instanceof Error ? err.message : String(err) });
+        failed += chunk.length;
+        for (const id of chunk) {
+          recordAction({ type: "delete", targetId: id, ok: false, reason: err instanceof Error ? err.message : String(err) });
+        }
       }
-      done++;
+      done = Math.min(ids.length, i + chunk.length);
       setBulkProgress({ done, total: ids.length, status: "delete" });
-      await runNext();
-    };
-    await Promise.all(Array.from({ length: Math.min(BULK_CONCURRENCY, ids.length) }, () => runNext()));
+    }
+
+    if (okSet.size) {
+      setIndex(curr => curr ? {
+        ...curr,
+        count: curr.count - okSet.size,
+        entries: curr.entries.filter(e => !okSet.has(e.id)),
+      } : curr);
+    }
 
     setBulkProgress(null);
     setSelectedIds(new Set());
