@@ -302,9 +302,12 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
         <div style={{ borderTop: `1px solid ${C.border}`, marginTop: "0.4rem", paddingTop: "0.4rem" }}>
           {[
             { label: "Projektbeschreibung", href: "/projekt" },
+            { label: "Statistik", href: "/statistik" },
             { label: "Status", href: "/status" },
             { label: "Impressum", href: "/impressum" },
             { label: "Kontakt", href: "/kontakt" },
+            { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
+            { label: "Lizenz", href: "/lizenz" },
             { label: "Health", href: "/admin/health" },
             { label: "Adminbereich", href: "/admin" },
           ].map(l => (

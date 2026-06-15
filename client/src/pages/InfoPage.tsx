@@ -10,12 +10,14 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 
-type InfoKind = "projekt" | "impressum" | "kontakt";
+type InfoKind = "projekt" | "impressum" | "kontakt" | "nutzung" | "lizenz";
 
 const TITLES: Record<InfoKind, string> = {
   projekt: "Projektbeschreibung",
   impressum: "Impressum",
   kontakt: "Kontakt",
+  nutzung: "Nutzungsbedingungen",
+  lizenz: "Lizenz",
 };
 
 function Placeholder({ c, lines }: { c: Palette; lines: string[] }) {
@@ -37,6 +39,15 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
   const c: Palette = theme === "dark" ? C_DARK : C_LIGHT;
 
   const para: React.CSSProperties = { fontFamily: SERIF_BODY, fontSize: "1rem", lineHeight: 1.7, color: c.textDim, marginBottom: "1rem" };
+  const H2 = ({ children }: { children: React.ReactNode }) => (
+    <h2 style={{ fontFamily: SERIF, fontSize: "1.1rem", color: c.textBright, margin: "1.6rem 0 0.6rem" }}>{children}</h2>
+  );
+  const note: React.CSSProperties = {
+    border: `1px dashed ${c.border}`, borderRadius: 6, padding: "0.8rem 1rem", background: c.deep,
+    color: c.muted, fontFamily: MONO, fontSize: "0.7rem", lineHeight: 1.7, marginBottom: "1.2rem",
+  };
+  const a: React.CSSProperties = { color: c.accentText };
+  const REPO = "https://github.com/marksen23/digitale-transformation-ebook";
 
   return (
     <div
@@ -91,12 +102,134 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
         )}
 
         {kind === "kontakt" && (
-          <Placeholder c={c} lines={[
-            "E-Mail:    — kontakt@… —",
-            "",
-            "Für Fragen, Anmerkungen oder Mitwirkung am wachsenden Werk.",
-            "Kontaktformular / weitere Kanäle: — zu ergänzen —",
-          ]} />
+          <>
+            <p style={para}>
+              Für Fragen, Anmerkungen, Hinweise auf Fehler oder die Mitwirkung am wachsenden Werk
+              gibt es zwei Wege:
+            </p>
+            <H2>Per E-Mail</H2>
+            <Placeholder c={c} lines={["E-Mail:  — kontakt@… —  (vom Betreiber einzutragen)"]} />
+            <H2>Über GitHub</H2>
+            <p style={para}>
+              Öffentliche Diskussion, Fehlermeldungen und Vorschläge laufen am besten über die
+              Issues des Projekts:{" "}
+              <a href={`${REPO}/issues`} target="_blank" rel="noopener noreferrer" style={a}>
+                github.com/marksen23/…/issues ↗
+              </a>.
+            </p>
+            <p style={{ ...para, color: c.muted, fontSize: "0.9rem" }}>
+              Hinweis: Über die Reader-Funktionen (Kapitel-Frage, Begriffsnetz-Dialog, Enkidu)
+              erzeugte Eingaben können — ggf. anonymisiert — in den öffentlichen Korpus aufgenommen
+              werden. Details in der <a href="/lizenz" style={a}>Lizenz</a> und den{" "}
+              <a href="/nutzungsbedingungen" style={a}>Nutzungsbedingungen</a>.
+            </p>
+          </>
+        )}
+
+        {kind === "nutzung" && (
+          <>
+            <div style={note}>
+              ◇ Entwurf / Vorlage — diese Bedingungen sind ein sachlicher Ausgangstext und ersetzen
+              keine Rechtsberatung. Vor dem produktiven Einsatz bitte anwaltlich prüfen lassen.
+            </div>
+            <p style={para}>
+              Diese Nutzungsbedingungen regeln die Nutzung der Web-Anwendung „Resonanzvernunft —
+              Die Digitale Transformation" (nachfolgend „das Angebot"). Mit der Nutzung erklärst du
+              dich mit ihnen einverstanden.
+            </p>
+
+            <H2>1. Gegenstand</H2>
+            <p style={para}>
+              Das Angebot stellt einen Buchtext, ein interaktives Begriffsnetz, eine semantische
+              Korpus-Suche sowie KI-gestützte Funktionen (Kapitel-Frage, Übersetzung,
+              Begriffsnetz-Analyse, Enkidu-Begegnung) bereit. Die Nutzung erfolgt zu privaten,
+              nicht-kommerziellen Zwecken der Lektüre und individuellen Auseinandersetzung.
+            </p>
+
+            <H2>2. Nutzungsrechte am Werk</H2>
+            <p style={para}>
+              Sämtliche Inhalte sind urheberrechtlich geschützt. Umfang und Grenzen der erlaubten
+              Nutzung — insbesondere das Zitatrecht und die Verbote von Vervielfältigung, Bearbeitung
+              und maschinellem Training — ergeben sich aus der <a href="/lizenz" style={a}>Lizenz</a>,
+              die Bestandteil dieser Bedingungen ist.
+            </p>
+
+            <H2>3. KI-gestützte Funktionen</H2>
+            <p style={para}>
+              Antworten der KI-Funktionen werden maschinell erzeugt. Sie können unvollständig,
+              kontextabhängig oder fehlerhaft sein und stellen keine fachliche, rechtliche,
+              medizinische oder sonstige Beratung dar. Das Werk ist ein philosophisch-literarisches
+              Angebot; eine Gewähr für Richtigkeit oder Eignung für einen bestimmten Zweck wird nicht
+              übernommen.
+            </p>
+
+            <H2>4. Nutzerbeiträge und Korpus</H2>
+            <p style={para}>
+              Über die Reader-Funktionen erzeugte Eingaben und die daraus entstehenden KI-Antworten
+              können — gegebenenfalls anonymisiert und nach Kuratierung durch den Autor — in den
+              öffentlichen Korpus (<code>content/resonanzen/</code>) aufgenommen werden. Mit der
+              Nutzung räumst du das hierfür erforderliche, einfache Nutzungsrecht ein. Gib keine
+              personenbezogenen oder vertraulichen Daten in die Eingabefelder ein.
+            </p>
+
+            <H2>5. Unzulässige Nutzung</H2>
+            <p style={para}>
+              Untersagt sind insbesondere das automatisierte Auslesen (Scraping), die Nutzung der
+              Inhalte zum Training oder Fine-Tuning maschineller Lernmodelle außerhalb der
+              bereitgestellten Funktionen, sowie jede Beeinträchtigung der Verfügbarkeit oder
+              Integrität des Angebots.
+            </p>
+
+            <H2>6. Haftung</H2>
+            <p style={para}>
+              Das Angebot wird „wie besehen" und ohne Gewährleistung bereitgestellt. Eine Haftung für
+              Schäden aus der Nutzung wird, soweit gesetzlich zulässig, ausgeschlossen; unberührt
+              bleibt die Haftung für Vorsatz und grobe Fahrlässigkeit sowie nach zwingendem Recht.
+            </p>
+
+            <H2>7. Änderungen und anwendbares Recht</H2>
+            <p style={para}>
+              Diese Bedingungen können angepasst werden; maßgeblich ist die jeweils hier
+              veröffentlichte Fassung. Es gilt deutsches Recht. Sollten einzelne Bestimmungen
+              unwirksam sein, bleibt der übrige Text wirksam.
+            </p>
+          </>
+        )}
+
+        {kind === "lizenz" && (
+          <>
+            <p style={para}>
+              <strong style={{ color: c.text }}>Copyright © 2026 Markus Oehring. Alle Rechte
+              vorbehalten.</strong> Das Werk, der Quellcode der Reader-Anwendung und der Resonanz-Korpus
+              stehen unter einer eigenen Copyright-Lizenz. Maßgeblich ist die vollständige{" "}
+              <a href={`${REPO}/blob/main/LICENSE`} target="_blank" rel="noopener noreferrer" style={a}>
+                LICENSE-Datei im Repository ↗
+              </a>. Die folgende Übersicht fasst sie zusammen.
+            </p>
+
+            <H2>Erlaubt</H2>
+            <ul style={{ ...para, paddingLeft: "1.2rem" }}>
+              <li>Persönliche, private Nutzung zum Lesen, Hören und zur individuellen Auseinandersetzung.</li>
+              <li>Kurze Zitate (bis 100 Wörter) für akademische, kritische oder journalistische Zwecke — mit Quellenangabe (Oehring, Markus, 2026: Die Digitale Transformation).</li>
+              <li>Verlinkung, sowie Star-, Watch- und Issue-Funktionen auf GitHub und öffentliche Diskussion der Inhalte.</li>
+            </ul>
+
+            <H2>Nicht erlaubt (ohne schriftliche Genehmigung)</H2>
+            <ul style={{ ...para, paddingLeft: "1.2rem" }}>
+              <li>Vervielfältigung, Speicherung oder Weitergabe wesentlicher Teile des Werks.</li>
+              <li>Veröffentlichung von Auszügen über das Zitatrecht hinaus.</li>
+              <li>Bearbeitung, Übersetzung oder abgeleitete Werke (Re-Mixing, Adaption, Fortsetzung).</li>
+              <li>Jede kommerzielle Nutzung.</li>
+              <li>Nutzung zum Training/Fine-Tuning von KI-Modellen oder zur automatisierten Inhaltsverarbeitung — ausgenommen die in der Reader-Anwendung integrierten Funktionen.</li>
+            </ul>
+
+            <H2>Korpus &amp; History</H2>
+            <p style={para}>
+              Die KI-Antworten in <code>content/resonanzen/</code> und ihre Kuratierung sind Teil des
+              geschützten Werks. Forken und Klonen sind technische GitHub-Funktionen; jede so erzeugte
+              Kopie unterliegt vollumfänglich dieser Lizenz.
+            </p>
+          </>
         )}
 
         <SiteFooter c={c} />

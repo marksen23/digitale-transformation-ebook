@@ -9,6 +9,7 @@ import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, SER
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
+import SiteFooter from "@/components/SiteFooter";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
 import { conceptsSource, philosophersSource } from "@/lib/search/sources";
 import type { SearchHit } from "@/lib/search/types";
@@ -3610,6 +3611,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           }
         }
       `}</style>
+
+      {/* Schlanke Footer-Leiste — definiert den unteren Rand der Vollbild-Canvas
+          (kein voller Footer möglich). Theme-Palette statt lokalem C (anderer Typ). */}
+      <SiteFooter c={isDark ? THEME_DARK : THEME_LIGHT} variant="bar" />
     </div>
   );
 }

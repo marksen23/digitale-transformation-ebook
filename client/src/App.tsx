@@ -25,6 +25,7 @@ const DevSearchPage = lazy(() => import("./pages/DevSearchPage"));
 const LivePage = lazy(() => import("./pages/LivePage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const StatusPage = lazy(() => import("./pages/StatusPage"));
+const StatistikPage = lazy(() => import("./pages/StatistikPage"));
 const InfoPage = lazy(() => import("./pages/InfoPage"));
 
 // Wrapper: Sub-Pages laufen alle unter dem globalen AppFrame.
@@ -102,6 +103,15 @@ function Router() {
       </Route>
       <Route path={"/kontakt"}>
         <Framed><Suspense fallback={fallback}><InfoPage kind="kontakt" /></Suspense></Framed>
+      </Route>
+      <Route path={"/nutzungsbedingungen"}>
+        <Framed><Suspense fallback={fallback}><InfoPage kind="nutzung" /></Suspense></Framed>
+      </Route>
+      <Route path={"/lizenz"}>
+        <Framed><Suspense fallback={fallback}><InfoPage kind="lizenz" /></Suspense></Framed>
+      </Route>
+      <Route path={"/statistik"}>
+        <Framed><Suspense fallback={fallback}><StatistikPage /></Suspense></Framed>
       </Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

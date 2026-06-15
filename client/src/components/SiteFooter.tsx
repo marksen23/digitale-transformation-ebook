@@ -5,10 +5,14 @@
  * App-Scroll-Modell jede Seite in einen eigenen position:fixed-Scroll-Container
  * legt (index.css setzt html/body/#root auf overflow:hidden), kann der Footer
  * NICHT global in AppFrame stehen — er wird ans Content-Ende jedes
- * Scroll-Containers gerendert. Begriffsnetz (Vollbild-Canvas) bindet stattdessen
- * eine kompakte Link-Zeile in sein Menü ein.
+ * Scroll-Containers gerendert.
  *
- * Verwendung:  <SiteFooter c={C} />   (ans Ende des Seiteninhalts)
+ * Zwei Varianten:
+ *   - "full" (default): voller Footer mit Link-Gruppen (Doc-Seiten).
+ *   - "bar": schlanke einzeilige Leiste für Vollbild-Canvas (Begriffsnetz),
+ *     wo kein voller Footer passt — definiert den unteren Rand.
+ *
+ * Verwendung:  <SiteFooter c={C} />   bzw.  <SiteFooter c={C} variant="bar" />
  */
 import { Link } from "wouter";
 import type { Palette } from "@/lib/theme";
@@ -23,10 +27,9 @@ const GROUPS: { title: string; links: FooterLink[] }[] = [
     title: "Werk",
     links: [
       { label: "Projektbeschreibung", href: "/projekt" },
-      { label: "Werk lesen", href: "/werk" },
-      { label: "Wissen", href: "/resonanzen" },
       { label: "Live", href: "/live" },
       { label: "Blog", href: "/blog" },
+      { label: "Statistik", href: "/statistik" },
     ],
   },
   {
@@ -43,11 +46,24 @@ const GROUPS: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: "Impressum", href: "/impressum" },
       { label: "Kontakt", href: "/kontakt" },
+      { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
+      { label: "Lizenz", href: "/lizenz" },
     ],
   },
 ];
 
-export default function SiteFooter({ c }: { c: Palette }) {
+// Schlanke Leiste (Begriffsnetz): kompakte Auswahl der wichtigsten Links.
+const BAR_LINKS: FooterLink[] = [
+  { label: "Projekt", href: "/projekt" },
+  { label: "Statistik", href: "/statistik" },
+  { label: "Blog", href: "/blog" },
+  { label: "Impressum", href: "/impressum" },
+  { label: "Kontakt", href: "/kontakt" },
+  { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
+  { label: "Lizenz", href: "/lizenz" },
+];
+
+export default function SiteFooter({ c, variant = "full" }: { c: Palette; variant?: "full" | "bar" }) {
   const linkStyle: React.CSSProperties = {
     fontFamily: SERIF, fontSize: "0.82rem", color: c.textDim,
     textDecoration: "none", lineHeight: 1.9, display: "block",
@@ -55,6 +71,30 @@ export default function SiteFooter({ c }: { c: Palette }) {
   };
   const onEnter = (e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = c.accentText; };
   const onLeave = (e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = c.textDim; };
+
+  if (variant === "bar") {
+    const barLink: React.CSSProperties = {
+      fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.05em", color: c.muted,
+      textDecoration: "none", whiteSpace: "nowrap",
+    };
+    return (
+      <footer
+        role="contentinfo"
+        style={{
+          flexShrink: 0, zIndex: 200,
+          borderTop: `1px solid ${c.border}`, background: c.void,
+          padding: "0.4rem 1rem", display: "flex", flexWrap: "wrap", gap: "0.3rem 0.9rem",
+          alignItems: "center", justifyContent: "center",
+        }}
+      >
+        <span style={{ ...barLink, color: c.accentText }}>❦</span>
+        {BAR_LINKS.map(l => (
+          <Link key={l.href} href={l.href} style={barLink}
+                onMouseEnter={onEnter as never} onMouseLeave={onLeave as never}>{l.label}</Link>
+        ))}
+      </footer>
+    );
+  }
 
   return (
     <footer
@@ -89,7 +129,7 @@ export default function SiteFooter({ c }: { c: Palette }) {
       }}>
         <span style={{ color: c.accentText }}>❦</span>
         <span>Resonanzvernunft — Die Digitale Transformation</span>
-        <span style={{ opacity: 0.6 }}>· Markus Oehring</span>
+        <span style={{ opacity: 0.6 }}>· Markus Oehring · © 2026</span>
       </div>
     </footer>
   );
