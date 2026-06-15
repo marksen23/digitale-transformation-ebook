@@ -1,0 +1,49 @@
+name: CI (check + test)
+
+# Schneller Code-Quality-Gate: tsc (pnpm check) + vitest (pnpm test).
+# KEINE Gemini-Calls, keine Schreibrechte — rein verifizierend, ~1-2 min.
+#
+# Läuft NUR bei echten CODE-Änderungen. Bewusst client/src/** statt client/**:
+# der Korpus-Bot committet ständig nach client/public/*.json (Snapshots,
+# Index) + content/resonanzen/** (AI-Logs) — diese Daten-Auto-Commits sollen
+# KEINEN CI-Lauf triggern (der Korpus wird von validate-corpus.yml geprüft).
+on:
+  push:
+    branches: [main]
+    paths:
+      - "client/src/**"
+      - "server/**"
+      - "scripts/**"
+      - "shared/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "tsconfig.json"
+      - "vitest.config.ts"
+      - "vite.config.ts"
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      # Action-SHAs gepinnt (Repo-Policy: keine Tag-Refs). Gleiche Versionen
+      # wie validate-corpus.yml.
+      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1  # v4
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5
+        with:
+          node-version: "24"
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: Typecheck (tsc --noEmit)
+        run: pnpm check
+      - name: Unit-Tests (vitest)
+        run: pnpm test
