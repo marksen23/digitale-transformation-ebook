@@ -788,6 +788,11 @@ export default function ResonanzenPage() {
                         {ORNAMENT.middot} ◉ Echo ({entry.nearDuplicates.length})
                       </span>
                     )}
+                    {entry.related === undefined && (
+                      <span title="Neu hinzugekommen — Querbezüge, Echos und Einordnung werden beim nächsten Korpus-Rebuild berechnet." style={{ color: C.muted, marginLeft: "0.5rem", opacity: 0.85 }}>
+                        {ORNAMENT.middot} ↻ wird eingeordnet
+                      </span>
+                    )}
                     {/* M8: Cosine-Score-Badge entfällt — Resonanzen-Liste
                         zeigt nur Volltext-Treffer; semantische Treffer landen
                         im UnifiedSearch-Dropdown mit eigenem ↺-Marker. */}

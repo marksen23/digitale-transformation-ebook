@@ -69,9 +69,17 @@ export default function ResonanzCard({
         }}>
           {ENDPOINT_LABEL[entry.endpoint]}
         </span>
-        <time style={{ fontFamily: MONO, fontSize: size, color: c.muted }}>
-          {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
-        </time>
+        <span style={{ display: "flex", alignItems: "baseline", gap: "0.3rem" }}>
+          {entry.related === undefined && (
+            <span
+              title="Neu hinzugekommen — Querbezüge und Einordnung werden beim nächsten Korpus-Rebuild berechnet."
+              style={{ fontFamily: MONO, fontSize: size, color: c.muted, opacity: 0.85 }}
+            >↻ neu</span>
+          )}
+          <time style={{ fontFamily: MONO, fontSize: size, color: c.muted }}>
+            {new Date(entry.ts).toLocaleDateString("de-DE", { month: "short", day: "numeric" })}
+          </time>
+        </span>
       </div>
       <div style={{
         fontFamily: SERIF, fontStyle: "italic", fontSize: "0.76rem",
