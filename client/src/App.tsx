@@ -22,6 +22,10 @@ const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
 const AdminHealthPage = lazy(() => import("./pages/admin/AdminHealthPage"));
 const DevSearchPage = lazy(() => import("./pages/DevSearchPage"));
+const LivePage = lazy(() => import("./pages/LivePage"));
+const BlogPage = lazy(() => import("./pages/BlogPage"));
+const StatusPage = lazy(() => import("./pages/StatusPage"));
+const InfoPage = lazy(() => import("./pages/InfoPage"));
 
 // Wrapper: Sub-Pages laufen alle unter dem globalen AppFrame.
 // Home (/) bleibt aussen vor — seine eigene Reading-UI bestimmt das Frame.
@@ -80,6 +84,24 @@ function Router() {
       </Route>
       <Route path={"/dev/search"}>
         <Framed><Suspense fallback={fallback}><DevSearchPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/live"}>
+        <Framed><Suspense fallback={fallback}><LivePage /></Suspense></Framed>
+      </Route>
+      <Route path={"/blog"}>
+        <Framed><Suspense fallback={fallback}><BlogPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/status"}>
+        <Framed><Suspense fallback={fallback}><StatusPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/projekt"}>
+        <Framed><Suspense fallback={fallback}><InfoPage kind="projekt" /></Suspense></Framed>
+      </Route>
+      <Route path={"/impressum"}>
+        <Framed><Suspense fallback={fallback}><InfoPage kind="impressum" /></Suspense></Framed>
+      </Route>
+      <Route path={"/kontakt"}>
+        <Framed><Suspense fallback={fallback}><InfoPage kind="kontakt" /></Suspense></Framed>
       </Route>
       <Route path={"/404"} component={NotFound} />
       {/* Final fallback route */}

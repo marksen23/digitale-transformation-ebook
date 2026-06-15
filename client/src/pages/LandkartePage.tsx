@@ -20,6 +20,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import SiteFooter from "@/components/SiteFooter";
 import {
   NODES, EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H,
   type ConceptNode, type NodeCategory,
@@ -162,6 +163,14 @@ export default function LandkartePage() {
   const selNode = selected ? nodeById.get(selected) : null;
 
   return (
+    <div
+      data-scroll
+      style={{
+        position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
+        overflowY: "auto", WebkitOverflowScrolling: "touch", background: C.void, color: C.text,
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}
+    >
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
       <header style={{ marginBottom: "1rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
         <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.7rem", color: C.textBright }}>Wissens-Landkarte</h1>
@@ -340,6 +349,8 @@ export default function LandkartePage() {
           )}
         </div>
       </div>
+      <SiteFooter c={C} />
+    </div>
     </div>
   );
 }

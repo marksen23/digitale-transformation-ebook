@@ -26,6 +26,7 @@ import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
 import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
+import SiteFooter from "@/components/SiteFooter";
 import Ornament, { DropCap } from "@/components/Ornament";
 import SectionLabel from "@/components/SectionLabel";
 import { analyzeCorpusCoherence } from "@/lib/corpusCoherence";
@@ -1143,6 +1144,10 @@ export default function ResonanzenPage() {
           ✕ {deleteError}
         </div>
       )}
+
+      <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 1.1rem" }}>
+        <SiteFooter c={C} />
+      </div>
 
       {/* Floating-Werkzeuge — auf jeder Sub-Seite gleich */}
       <PageNav scrollContainer={scrollRef} />

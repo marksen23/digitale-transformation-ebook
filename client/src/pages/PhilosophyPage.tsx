@@ -28,6 +28,7 @@ import { philosophersSource, conceptsSource } from "@/lib/search/sources";
 import type { SearchHit } from "@/lib/search/types";
 import { useLocation as useWouterLocation } from "wouter";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import SiteFooter from "@/components/SiteFooter";
 import {
   ToolbarBtn, FilterPill,
   Timeline, NetworkView, ConstellationView, SpotlightView,
@@ -463,6 +464,10 @@ export default function PhilosophyPage() {
           c={C}
         />
       )}
+
+      <div style={{ maxWidth: 1400, margin: "0 auto", padding: "0 1rem" }}>
+        <SiteFooter c={C} />
+      </div>
 
       <PageNav scrollContainer={scrollRef} />
     </div>

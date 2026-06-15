@@ -47,6 +47,8 @@ const NAV: NavItem[] = [
   { href: "/philosophie",  i18nKey: "nav.philosophie",  match: /^\/philosophie/ },
   { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
   { href: "/landkarte",    i18nKey: "nav.landkarte",    match: /^\/landkarte/ },
+  { href: "/live",         i18nKey: "nav.live",         match: /^\/live/ },
+  { href: "/blog",         i18nKey: "nav.blog",         match: /^\/blog/ },
 ];
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
@@ -295,6 +297,30 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             </Link>
           );
         })}
+        {/* Sekundär-/Footer-Links — auch auf Vollbild-Seiten (Begriffsnetz)
+            über das Menü erreichbar, wo kein angehängter Footer passt. */}
+        <div style={{ borderTop: `1px solid ${C.border}`, marginTop: "0.4rem", paddingTop: "0.4rem" }}>
+          {[
+            { label: "Projektbeschreibung", href: "/projekt" },
+            { label: "Status", href: "/status" },
+            { label: "Impressum", href: "/impressum" },
+            { label: "Kontakt", href: "/kontakt" },
+            { label: "Health", href: "/admin/health" },
+            { label: "Adminbereich", href: "/admin" },
+          ].map(l => (
+            <Link
+              key={l.href}
+              href={l.href}
+              style={{
+                display: "block", fontFamily: MONO, fontSize: "0.72rem",
+                letterSpacing: TRACKED.tight, color: C.muted,
+                padding: "0.55rem 1.25rem", textDecoration: "none",
+              }}
+            >
+              {l.label}
+            </Link>
+          ))}
+        </div>
       </div>
 
       {/* Backdrop unter dem Drawer — schließt bei Tap. Liegt zwischen

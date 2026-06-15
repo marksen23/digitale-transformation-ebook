@@ -18,6 +18,7 @@ import { useLocation, useRoute, Link } from "wouter";
 import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, PAPER, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
+import SiteFooter from "@/components/SiteFooter";
 import { loadResonanzenIndexLazy, broadcastIndexStale, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { track as trackTrajectory } from "@/lib/trajectory";
 import WeiterdenkenThread from "@/components/WeiterdenkenThread";
@@ -413,6 +414,8 @@ export default function WerkPage() {
               „Werkzeuge ▾"-Dropdown unter dem Werk-Header verschoben. */}
         </nav>
       </div>
+
+      <SiteFooter c={C} />
 
       {modalOpen && selection && currentChapter && (
         <PassageResonanzModal
