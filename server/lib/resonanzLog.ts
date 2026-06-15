@@ -53,6 +53,31 @@ function passesSpamFilter(entry: ResonanzEntry): boolean {
   return true;
 }
 
+/** Normalisiert eine Frage für den Dedup-Vergleich. */
+function normPrompt(s: string): string {
+  return (s ?? "").trim().replace(/\s+/g, " ").toLowerCase();
+}
+
+/**
+ * In-Memory-Wächter gegen GLEICHZEITIGE identische Requests (selber Prozess).
+ * Schließt das TOCTOU-Fenster des index-basierten Checks: parallele gleiche
+ * Anfragen lesen den Live-Index alle, bevor einer schreibt — und entkämen so
+ * der Dedup. Der erste Request markiert den Key SYNCHRON (vor jedem await), die
+ * parallelen sehen ihn sofort. TTL überbrückt zusätzlich die Index-Propagation.
+ */
+const _recentDedupKeys = new Map<string, number>(); // key → expiry ms
+const RECENT_DEDUP_TTL_MS = 5 * 60 * 1000;
+function markAndCheckRecent(key: string): boolean {
+  const now = Date.now();
+  if (_recentDedupKeys.size > 1000) {
+    for (const [k, exp] of Array.from(_recentDedupKeys.entries())) if (exp <= now) _recentDedupKeys.delete(k);
+  }
+  const exp = _recentDedupKeys.get(key);
+  if (exp && exp > now) return true; // bereits in Bearbeitung/kürzlich gesehen
+  _recentDedupKeys.set(key, now + RECENT_DEDUP_TTL_MS);
+  return false;
+}
+
 /** Erzeugt eine Crockford-ähnliche kurze ID: <ts-base36>-<rand-hex>. */
 function generateId(): string {
   const ts = Date.now().toString(36).toUpperCase();
@@ -237,18 +262,26 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
   // Deterministische Wiederholungen (gleicher Endpoint + Anker + Frage) fluten
   // sonst den Korpus: wiederholte Übersetzungen desselben Kapitels, mehrfach
   // gestellte Fragen, Keep-Alive-/Bot-Pings landen jeweils als neuer Eintrag.
-  // Die embedding-basierte Echo-Erkennung greift hier NICHT zuverlässig, weil
-  // frische Einträge erst nach dem CI-Rebuild ein Embedding haben — sie sehen
-  // ihre eigenen jüngsten Klone nicht. Darum prüfen wir gegen den LIVE-Index
-  // (sofort aktuell via appendToIndex) auf exakte Wiederholung. Fail-open:
-  // bei Lade-/Netzwerkfehler lieber loggen als verlieren.
+  const dedupKey = `${entry.endpoint}|${entry.anchor}|${normPrompt(entry.prompt)}`;
+
+  // Stufe 1 — synchron, gegen GLEICHZEITIGE identische Requests (selber Prozess).
+  if (markAndCheckRecent(dedupKey)) {
+    _resonanzLogSkippedDuplicate++;
+    console.info(`[resonanzLog] skip duplicate (in-flight) ${entry.endpoint} ${entry.anchor}`);
+    return;
+  }
+
+  // Stufe 2 — gegen den LIVE-Index (überlebt Prozess-Neustarts; deckt
+  // Wiederholungen ab, die älter als der In-Memory-TTL sind). Die embedding-
+  // basierte Echo-Erkennung greift hier NICHT zuverlässig, weil frische Einträge
+  // erst nach dem CI-Rebuild ein Embedding haben — sie sehen ihre eigenen
+  // jüngsten Klone nicht. Fail-open: bei Lade-/Netzwerkfehler lieber loggen.
   try {
     const existing = await loadIndex();
     if (existing) {
-      const norm = (s: string) => s.trim().replace(/\s+/g, " ").toLowerCase();
-      const p = norm(entry.prompt);
+      const p = normPrompt(entry.prompt);
       const dup = existing.find(e =>
-        e.endpoint === entry.endpoint && e.anchor === entry.anchor && norm(e.prompt ?? "") === p
+        e.endpoint === entry.endpoint && e.anchor === entry.anchor && normPrompt(e.prompt ?? "") === p
       );
       if (dup) {
         _resonanzLogSkippedDuplicate++;
@@ -324,7 +357,10 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
     lastReason = result.reason;
     if (!result.transient) break; // dauerhafter Fehler — nicht retry-sinnvoll
   }
-  // Alle Versuche fehlgeschlagen oder dauerhafter Fehler — als error sichtbar machen
+  // Alle Versuche fehlgeschlagen oder dauerhafter Fehler — als error sichtbar machen.
+  // In-Memory-Dedup-Key freigeben, damit ein späterer Retry nicht fälschlich als
+  // Dublette geblockt wird (der Eintrag wurde ja nie geschrieben).
+  _recentDedupKeys.delete(dedupKey);
   _resonanzLogFailureCount++;
   _lastFailure = { ts: new Date().toISOString(), endpoint: entry.endpoint, reason: lastReason };
   console.error(`[resonanzLog] FAILED ${repoPath}: ${lastReason}`);
