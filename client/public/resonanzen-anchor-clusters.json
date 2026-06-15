@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-14T22:17:19.905Z",
+  "generatedAt": "2026-06-15T02:38:00.867Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
@@ -60,6 +60,22 @@
         "MQ5WV5PP-6209C749"
       ],
       "lastVariantTs": "2026-06-09T01:00:02.623Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "translate:vorwort+es",
+      "endpoint": "translate",
+      "variantIds": [
+        "MQELRMGC-8FD0C115",
+        "MQELRFJB-A690B522",
+        "MQELRCEO-E799EFBF",
+        "MQELRA75-F17396BE",
+        "MQECFWWB-B98391B5",
+        "MQEBZ0Y1-E3BCB35C"
+      ],
+      "lastVariantTs": "2026-06-15T02:37:18.060Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
@@ -159,18 +175,6 @@
         "MOHC41N2-21D1E505"
       ],
       "lastVariantTs": "2026-04-27T15:14:21.282Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
-      "anchor": "translate:vorwort+es",
-      "endpoint": "translate",
-      "variantIds": [
-        "MQECFWWB-B98391B5",
-        "MQEBZ0Y1-E3BCB35C"
-      ],
-      "lastVariantTs": "2026-06-14T22:16:15.179Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-06-14T22:16:40.763Z",
-  "filesChecked": 293,
+  "generatedAt": "2026-06-15T02:37:25.709Z",
+  "filesChecked": 295,
   "errors": 0,
   "warnings": 0,
   "issues": [],
@@ -12,12 +12,12 @@
       "enkidu": 55,
       "graph-chat": 56,
       "path-analyse": 38,
-      "translate": 5
+      "translate": 7
     },
     "byStatus": {
       "published": 114,
       "rejected": 2,
-      "raw": 159,
+      "raw": 161,
       "approved": 18
     },
     "orphanNodeIds": []
