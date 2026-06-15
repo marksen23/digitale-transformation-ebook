@@ -13,7 +13,7 @@
  * einen ◇N-Indikator. Klick auf den Indikator klappt eine Mini-Liste
  * der zugehörigen Resonanzen unter dem Absatz aus.
  */
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
 import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, PAPER, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
@@ -206,10 +206,16 @@ export default function WerkPage() {
     [chapterChunks],
   );
 
+  // Eigener Scroll-Container — die App-weite index.css setzt overflow:hidden
+  // auf html/body/#root (Reader-Vollbild-UX, kein Mobile-Overscroll). Reine
+  // Flow-Seiten würden sonst geclippt + „eingefroren". Wir scrollen also IN
+  // diesem Ref, nicht auf window.
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   // Standard-eBook-Verhalten: bei Kapitelwechsel an den Seitenanfang scrollen
   // (sonst bleibt man mitten im neuen Kapitel hängen — „läuft nicht rund").
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: "auto" });
+    scrollRef.current?.scrollTo({ top: 0, behavior: "auto" });
   }, [currentChapter?.id]);
 
   // Fallback: rekonstruiere paragraphs lokal falls werk-chunks.json fehlt
@@ -255,6 +261,16 @@ export default function WerkPage() {
   const nextCh = tocIdx >= 0 && tocIdx < tocChapters.length - 1 ? tocChapters[tocIdx + 1] : null;
 
   return (
+    <div
+      ref={scrollRef}
+      data-scroll
+      style={{
+        position: "fixed", top: "var(--app-frame-h, 40px)", left: 0, right: 0, bottom: 0,
+        overflowY: "auto", WebkitOverflowScrolling: "touch",
+        background: isDark ? PAPER.warmDark : PAPER.warmLight,
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}
+    >
     <div className="werk-page" style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
       <style>{`
         .werk-page .werk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 2.5rem; align-items: start; }
@@ -407,6 +423,7 @@ export default function WerkPage() {
           onClose={() => { setModalOpen(false); setSelection(null); }}
         />
       )}
+    </div>
     </div>
   );
 }
