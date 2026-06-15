@@ -16,6 +16,8 @@
     "start": "node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
     "format": "prettier --write .",
     "icons": "node scripts/generate-icons.mjs",
     "audio": "node scripts/prepare-audio.mjs",
