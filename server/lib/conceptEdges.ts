@@ -35,7 +35,10 @@ interface EdgesFile {
   edges: PromotedEdge[];
 }
 
-function pairKey(a: string, b: string): string {
+/** Sortierter Paar-Schlüssel — Grundlage der richtungslosen Kanten-Dedup.
+ *  pairKey(a,b) === pairKey(b,a), sonst würde dieselbe Verbindung doppelt
+ *  promotebar (exportiert für Unit-Tests). */
+export function pairKey(a: string, b: string): string {
   return a < b ? `${a}|${b}` : `${b}|${a}`;
 }
 
