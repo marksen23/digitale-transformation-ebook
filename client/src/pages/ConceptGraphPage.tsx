@@ -410,20 +410,37 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [resonanzenEntries, setResonanzenEntries] = useState<ResonanzEntry[] | null>(null);
   const [resonanzenExpanded, setResonanzenExpanded] = useState(false);
 
-  // M7: ?node=<id> Deep-Link für Cmd-K-Sprung aus der globalen Suche.
+  // Deep-Link aus Suche / Landkarte / MeinWerk:
+  //   ?node=<id>  oder  ?focus=<id>  (Alias) → fokussiert einen Begriff
+  //   ?from=<a>&to=<b>                        → hebt eine Verbindung hervor
+  // Akzeptiert statische UND dynamische (5c) Knoten. Läuft erneut, sobald die
+  // dynamischen Knoten geladen sind, damit auch deren Deep-Links greifen
+  // (beim Mount ist dynamicNodes noch leer). Nach dem Anwenden werden die
+  // Params entfernt, daher kein Doppel-Fokus beim Re-Run.
   useEffect(() => {
     if (typeof window === "undefined") return;
     const params = new URLSearchParams(window.location.search);
-    const id = params.get("node");
-    if (id && NODES.some(n => n.id === id)) {
-      setSelectedId(id);
+    const knownIds = new Set<string>([...NODES.map(n => n.id), ...dynamicNodes.map(n => n.id)]);
+    const nodeParam = params.get("node") ?? params.get("focus");
+    const fromParam = params.get("from");
+    const toParam = params.get("to");
+    let applied = false;
+    if (nodeParam && knownIds.has(nodeParam)) {
+      setSelectedId(nodeParam);
+      applied = true;
+    } else if (fromParam && knownIds.has(fromParam) && (!toParam || knownIds.has(toParam))) {
+      // Verbindung hervorheben: from fokussieren — to ist ein verbundener
+      // Nachbar, die Kante dazwischen wird dadurch zur Fokus-Kante.
+      setSelectedId(fromParam);
+      applied = true;
+    }
+    if (applied) {
       const u = new URL(window.location.href);
-      u.searchParams.delete("node");
+      for (const k of ["node", "focus", "from", "to"]) u.searchParams.delete(k);
       window.history.replaceState(null, "", u.toString());
     }
-    // Nur beim Mount — nicht bei jeder Navigation re-trigger
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [dynamicNodes]);
 
   useEffect(() => {
     loadResonanzenIndexLazy().then(idx => {

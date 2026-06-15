@@ -276,7 +276,7 @@ export default function LandkartePage() {
               <SectionLabel c={C} size="sm" tracking="open" variant="arbeit">{categoryLabel(selNode.category)}</SectionLabel>
               <h2 style={{ margin: "0.3rem 0 0.2rem", fontFamily: SERIF, fontSize: "1.25rem", color: C.textBright }}>{selNode.fullLabel}</h2>
               <p style={{ margin: 0, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim, lineHeight: 1.5 }}>{selNode.description}</p>
-              <button onClick={() => navigate(`/begriffsnetz?focus=${selNode.id}`)} style={linkBtn(C)}>im Begriffsnetz öffnen →</button>
+              <button onClick={() => navigate(`/begriffsnetz?node=${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>im Begriffsnetz öffnen →</button>
 
               {selectedEmerging.length > 0 && (
                 <div style={{ marginTop: "1rem" }}>

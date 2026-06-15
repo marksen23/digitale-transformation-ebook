@@ -216,7 +216,7 @@ export default function MeinWerkPage() {
                 {top.map(n => (
                   <button
                     key={n.nodeId}
-                    onClick={() => navigate(`/begriffsnetz?focus=${n.nodeId}`)}
+                    onClick={() => navigate(`/begriffsnetz?node=${encodeURIComponent(n.nodeId)}`)}
                     style={{
                       display: "flex", justifyContent: "space-between",
                       width: "100%", padding: "0.4rem 0.6rem",
@@ -265,7 +265,7 @@ export default function MeinWerkPage() {
                 {unvisited.map(id => (
                   <button
                     key={id}
-                    onClick={() => navigate(`/begriffsnetz?focus=${id}`)}
+                    onClick={() => navigate(`/begriffsnetz?node=${encodeURIComponent(id)}`)}
                     style={{
                       fontFamily: SERIF, fontSize: "0.78rem",
                       color: C.textDim,
