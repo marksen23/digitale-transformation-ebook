@@ -23,6 +23,20 @@ on:
       - "client/src/data/philosophyMap.ts"
   workflow_dispatch:  # manuell triggerbar zum Auf-Verlangen-Check
 
+# Serialisierung: nur EIN Korpus-Rebuild gleichzeitig. Ursache der
+# wiederkehrenden Push-Failures (CLAUDE.md Fallstrick #3): zwei Live-Append-
+# Commits Sekunden auseinander triggerten zwei parallele Full-Rebuilds, die
+# beim Commit-Back um main rennen → Merge-Konflikte in ALLEN generierten
+# Artefakten (resonanzen-index.json, embeddings, corpus-map, Tages-Snapshot)
+# → der Rebase bleibt mit unmerged files stecken, alle Retries scheitern an
+# „Pulling is not possible". cancel-in-progress:false = der zweite Lauf wird
+# NICHT abgebrochen, sondern reiht sich ein und läuft gegen das bereits
+# aktualisierte main (rebuildet ohnehin den ganzen Korpus-Tree) — kein
+# Datenverlust, kein Konflikt. Strikt sicherer als paralleles Pushen.
+concurrency:
+  group: corpus-rebuild-main
+  cancel-in-progress: false
+
 jobs:
   validate:
     runs-on: ubuntu-latest
@@ -322,6 +336,11 @@ jobs:
             PUSH_OK=false
             for i in 1 2 3; do
               echo "--- Push attempt $i ---"
+              # Falls ein vorheriger Versuch mitten im Rebase mit unmerged
+              # files stecken blieb: abbrechen, sonst scheitert jeder weitere
+              # `git pull --rebase` sofort an „Pulling is not possible because
+              # you have unmerged files" und die Retries kaskadieren ins Leere.
+              git rebase --abort 2>/dev/null || true
               # --autostash: falls trotz aller Vorsicht noch ein File dirty
             # liegt (z.B. Drift-Check schreibt drift-report.json nach dem
             # Stage-Loop), wird es vor dem Rebase auto-gestashed und danach
