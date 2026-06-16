@@ -395,12 +395,12 @@ export default function WerkPage() {
                     onClick={() => navigate(`/werk/${ch.id}`)}
                     style={{
                       width: "100%", textAlign: "left",
-                      fontFamily: SERIF, fontSize: "0.78rem", lineHeight: 1.4,
+                      fontFamily: SERIF, fontSize: "0.82rem", lineHeight: 1.4,
                       color: active ? C.textBright : C.textDim,
                       background: active ? `${C.accent}11` : "none",
                       border: "none",
                       borderLeft: `2px solid ${active ? C.accent : "transparent"}`,
-                      padding: "0.3rem 0.5rem",
+                      padding: "0.55rem 0.6rem", minHeight: 40,
                       cursor: "pointer",
                     }}
                   >
