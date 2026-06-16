@@ -10,15 +10,17 @@
  *   - Link zurück zum Werk-Anker (falls passage_chunk_id existiert)
  */
 import { useEffect, useMemo, useState } from "react";
-import { useRoute, Link } from "wouter";
+import { useRoute, useLocation, Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
+import SiteFooter from "@/components/SiteFooter";
 
 export default function ResonanzDetailPage() {
   const { theme } = useTheme();
   const C: Palette = theme === "dark" ? C_DARK : C_LIGHT;
+  const [, navigate] = useLocation();
   const [, params] = useRoute<{ id: string }>("/resonanz/:id");
   const [entry, setEntry] = useState<ResonanzEntry | null>(null);
   const [allEntries, setAllEntries] = useState<ResonanzEntry[]>([]);
@@ -102,7 +104,26 @@ export default function ResonanzDetailPage() {
   const chapter = typeof entry.contextMeta?.chapter === "string" ? entry.contextMeta.chapter : null;
 
   return (
-    <article style={{ maxWidth: 800, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
+    <div
+      data-scroll
+      style={{
+        position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
+        overflowY: "auto", WebkitOverflowScrolling: "touch", background: C.void, color: C.text,
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}
+    >
+    <article style={{ maxWidth: 800, margin: "0 auto", padding: "1.5rem 1.5rem 0", color: C.text, fontFamily: SERIF }}>
+      {/* Top-Navigation — sofort sichtbar, ohne Scrollen */}
+      <div style={{ marginBottom: "1rem" }}>
+        <button
+          onClick={() => (window.history.length > 1 ? window.history.back() : navigate("/resonanzen"))}
+          style={{
+            fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.06em", textTransform: "uppercase",
+            color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: 5,
+            padding: "0.5rem 0.75rem", minHeight: 40, cursor: "pointer",
+          }}
+        >← zurück</button>
+      </div>
       <header style={{ marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint], marginBottom: "0.3rem" }}>
           {ENDPOINT_LABEL[entry.endpoint]} · {entry.id}
@@ -175,7 +196,10 @@ export default function ResonanzDetailPage() {
         <Link to="/werk" style={{ color: C.muted, textDecoration: "none" }}>↪ Werk lesen</Link>
         <Link to="/begriffsnetz" style={{ color: C.muted, textDecoration: "none" }}>↪ Begriffsnetz</Link>
       </nav>
+
+      <SiteFooter c={C} />
     </article>
+    </div>
   );
 }
 
