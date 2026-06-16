@@ -1,7 +1,46 @@
 {
-  "generatedAt": "2026-06-15T23:35:23.450Z",
-  "count": 300,
+  "generatedAt": "2026-06-16T09:47:41.831Z",
+  "count": 301,
   "entries": [
+    {
+      "id": "MQGGJN59-BA07B05F",
+      "ts": "2026-06-16T09:46:39.982Z",
+      "endpoint": "translate",
+      "anchor": "translate:vorwort+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Vorwort von de nach es",
+      "response": "Esta obra surgió en un tiempo en el que la pregunta sobre la\nrelación entre el ser humano y la máquina ha dejado de ser una\npregunta académica. Se ha convertido en una pregunta existencial\n– para todo aquel que por la mañana enciende una pantalla\ny por la noche constata que el día ha transcurrido sin él.\nLos tres volúmenes de la trilogía intentan no responder a esta pregunta,\nsino transformarla: convertir las grandes\ntradiciones filosóficas – Mito, Ilustración,\nFilosofía Existencial – en un lenguaje que esté\na la altura del presente digital. El método es poético, porque\nla experiencia de la transformación digital se sustrae a la prosa\npuramente analítica. Quien solo explica cómo funcionan los algoritmos,\nno comprende cómo se siente ser\nconocido por ellos.\n\nLas partes IV a VII – el análisis del leitmotiv y las tres críticas\nde la razón de resonancia (Resonanzvernunft) – proporcionan el marco teórico que la\npoesía por sí sola no puede sostener. Despliegan lo que en los versos\nestá condensado: una epistemología de lo intermedio, una ética del\nencuentro y una ontología de lo relacional. Que esta teoría\nsurja de la poesía y no al revés, no es casualidad –\nes la tesis de la obra: El mito precede a la razón\ny le prepara el terreno.\n\nLa obra no está terminada. No pretende responder a las preguntas\nde la era digital. Pretende plantearlas de tal manera que\nuna respuesta sea posible – no como teoría, sino\ncomo resonancia vivida.",
+      "contextMeta": {
+        "chapterId": "vorwort",
+        "chapterTitle": "Vorwort",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "1534"
+      },
+      "related": [
+        "MQFKW3OR-F80FC59E",
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQECFWWB-B98391B5",
+        "MQELRFJB-A690B522"
+      ],
+      "nearDuplicates": [
+        "MQFKW3OR-F80FC59E",
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQECFWWB-B98391B5",
+        "MQELRFJB-A690B522",
+        "MQELRCEO-E799EFBF",
+        "MQELRA75-F17396BE",
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
+      ],
+      "werkVoiceScore": 0.8299989155929361,
+      "corpusVoiceScore": 0.9318618046411516,
+      "conceptVoiceScore": 0.6610780470239549,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MQFKW3OR-F80FC59E",
       "ts": "2026-06-15T19:00:33.580Z",
@@ -19,13 +58,14 @@
         "textLength": "1534"
       },
       "related": [
+        "MQGGJN59-BA07B05F",
         "MQELRMGC-8FD0C115",
         "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
-        "MQELRFJB-A690B522",
-        "MQELRCEO-E799EFBF"
+        "MQELRFJB-A690B522"
       ],
       "nearDuplicates": [
+        "MQGGJN59-BA07B05F",
         "MQELRMGC-8FD0C115",
         "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
@@ -60,13 +100,14 @@
         "MQELRMGC-8FD0C115",
         "MQELRFJB-A690B522",
         "MQECFWWB-B98391B5",
-        "MQELRCEO-E799EFBF",
-        "MQFKW3OR-F80FC59E"
+        "MQGGJN59-BA07B05F",
+        "MQELRCEO-E799EFBF"
       ],
       "nearDuplicates": [
         "MQELRMGC-8FD0C115",
         "MQELRFJB-A690B522",
         "MQECFWWB-B98391B5",
+        "MQGGJN59-BA07B05F",
         "MQELRCEO-E799EFBF",
         "MQFKW3OR-F80FC59E",
         "MQELRA75-F17396BE",
@@ -109,6 +150,7 @@
         "MQECFWWB-B98391B5",
         "MQELRA75-F17396BE",
         "MQEBZ0Y1-E3BCB35C",
+        "MQGGJN59-BA07B05F",
         "MQFKW3OR-F80FC59E"
       ],
       "werkVoiceScore": 0.8447143278337215,
@@ -133,13 +175,14 @@
         "textLength": "1534"
       },
       "related": [
+        "MQGGJN59-BA07B05F",
         "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
         "MQFKW3OR-F80FC59E",
-        "MQELRFJB-A690B522",
-        "MQELRCEO-E799EFBF"
+        "MQELRFJB-A690B522"
       ],
       "nearDuplicates": [
+        "MQGGJN59-BA07B05F",
         "MQFKQYEK-459A46CA",
         "MQECFWWB-B98391B5",
         "MQFKW3OR-F80FC59E",
@@ -173,13 +216,14 @@
       "related": [
         "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
+        "MQGGJN59-BA07B05F",
         "MQECFWWB-B98391B5",
-        "MQFKW3OR-F80FC59E",
-        "MQELRCEO-E799EFBF"
+        "MQFKW3OR-F80FC59E"
       ],
       "nearDuplicates": [
         "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
+        "MQGGJN59-BA07B05F",
         "MQECFWWB-B98391B5",
         "MQFKW3OR-F80FC59E",
         "MQELRCEO-E799EFBF",
@@ -213,13 +257,14 @@
         "MQELRMGC-8FD0C115",
         "MQELRA75-F17396BE",
         "MQFKQYEK-459A46CA",
-        "MQELRFJB-A690B522"
+        "MQGGJN59-BA07B05F"
       ],
       "nearDuplicates": [
         "MQECFWWB-B98391B5",
         "MQELRMGC-8FD0C115",
         "MQELRA75-F17396BE",
         "MQFKQYEK-459A46CA",
+        "MQGGJN59-BA07B05F",
         "MQELRFJB-A690B522",
         "MQFKW3OR-F80FC59E",
         "MQEBZ0Y1-E3BCB35C",
@@ -259,6 +304,7 @@
         "MQFKQYEK-459A46CA",
         "MQELRFJB-A690B522",
         "MQELRMGC-8FD0C115",
+        "MQGGJN59-BA07B05F",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKW3OR-F80FC59E",
         "MQFKQGLN-E1712F18"
@@ -288,13 +334,14 @@
         "MQELRCEO-E799EFBF",
         "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
-        "MQELRA75-F17396BE",
-        "MQELRFJB-A690B522"
+        "MQGGJN59-BA07B05F",
+        "MQELRA75-F17396BE"
       ],
       "nearDuplicates": [
         "MQELRCEO-E799EFBF",
         "MQFKQYEK-459A46CA",
         "MQELRMGC-8FD0C115",
+        "MQGGJN59-BA07B05F",
         "MQELRA75-F17396BE",
         "MQELRFJB-A690B522",
         "MQFKW3OR-F80FC59E",
@@ -335,6 +382,7 @@
         "MQECFWWB-B98391B5",
         "MQELRMGC-8FD0C115",
         "MQFKQYEK-459A46CA",
+        "MQGGJN59-BA07B05F",
         "MQELRFJB-A690B522",
         "MQFKW3OR-F80FC59E",
         "MQFKQGLN-E1712F18"
