@@ -44,8 +44,8 @@ export default function LivePage() {
   }, [entries, areaFilter]);
 
   const chip = (active: boolean): React.CSSProperties => ({
-    fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase",
-    padding: "0.3rem 0.6rem", borderRadius: 4, cursor: "pointer",
+    fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase",
+    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: 5, cursor: "pointer",
     border: `1px solid ${active ? c.accentText : c.border}`,
     color: active ? c.accentText : c.muted, background: "none",
   });

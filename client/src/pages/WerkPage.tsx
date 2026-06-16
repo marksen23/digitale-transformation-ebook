@@ -759,8 +759,8 @@ function ReadingControls({
       <button
         onClick={() => setOpen(o => !o)}
         style={{
-          fontFamily: SERIF, fontStyle: "italic", fontSize: "0.75rem",
-          color: C.textDim, background: "none", border: "none", padding: 0, cursor: "pointer",
+          fontFamily: SERIF, fontStyle: "italic", fontSize: "0.8rem",
+          color: C.textDim, background: "none", border: "none", padding: "0.4rem 0.3rem", marginLeft: "-0.3rem", cursor: "pointer",
           textDecoration: "underline", textDecorationStyle: "dotted", textUnderlineOffset: "3px",
         }}
       >
@@ -835,9 +835,9 @@ function WerkzeugeDropdown({ C, isDark: _isDark }: { C: Palette; isDark: boolean
       <button
         onClick={() => setOpen(o => !o)}
         style={{
-          fontFamily: SERIF, fontStyle: "italic", fontSize: "0.75rem",
+          fontFamily: SERIF, fontStyle: "italic", fontSize: "0.8rem",
           color: C.textDim, background: "none", border: "none",
-          padding: 0, cursor: "pointer",
+          padding: "0.4rem 0.3rem", marginLeft: "-0.3rem", cursor: "pointer",
           textDecoration: "underline", textDecorationStyle: "dotted",
           textUnderlineOffset: "3px",
         }}

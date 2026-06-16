@@ -376,9 +376,10 @@ export default function ProjektPage() {
                 { l: "Statistik", h: "/statistik" },
               ].map(x => (
                 <Link key={x.h} href={x.h} style={{
-                  fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.08em", textTransform: "uppercase",
+                  fontFamily: MONO, fontSize: "0.72rem", letterSpacing: "0.08em", textTransform: "uppercase",
                   color: c.accentText, textDecoration: "none",
-                  border: `1px solid ${c.border}`, borderRadius: 5, padding: "0.5rem 0.8rem",
+                  border: `1px solid ${c.border}`, borderRadius: 6, padding: "0.65rem 0.9rem",
+                  minHeight: 44, display: "inline-flex", alignItems: "center",
                 }}>{x.l} →</Link>
               ))}
             </div>

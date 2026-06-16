@@ -65,8 +65,9 @@ const BAR_LINKS: FooterLink[] = [
 
 export default function SiteFooter({ c, variant = "full" }: { c: Palette; variant?: "full" | "bar" }) {
   const linkStyle: React.CSSProperties = {
-    fontFamily: SERIF, fontSize: "0.82rem", color: c.textDim,
-    textDecoration: "none", lineHeight: 1.9, display: "block",
+    fontFamily: SERIF, fontSize: "0.9rem", color: c.textDim,
+    textDecoration: "none", display: "block",
+    padding: "0.5rem 0", minHeight: 22, lineHeight: 1.3,
     transition: "color 0.15s",
   };
   const onEnter = (e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = c.accentText; };
@@ -74,8 +75,9 @@ export default function SiteFooter({ c, variant = "full" }: { c: Palette; varian
 
   if (variant === "bar") {
     const barLink: React.CSSProperties = {
-      fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.05em", color: c.muted,
-      textDecoration: "none", whiteSpace: "nowrap",
+      fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.05em", color: c.muted,
+      textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0,
+      padding: "0.35rem 0.45rem", borderRadius: 4,
     };
     return (
       <footer
@@ -83,8 +85,9 @@ export default function SiteFooter({ c, variant = "full" }: { c: Palette; varian
         style={{
           flexShrink: 0, zIndex: 200,
           borderTop: `1px solid ${c.border}`, background: c.void,
-          padding: "0.4rem 1rem", display: "flex", flexWrap: "wrap", gap: "0.3rem 0.9rem",
-          alignItems: "center", justifyContent: "center",
+          padding: "0.3rem 0.8rem", display: "flex", flexWrap: "nowrap", overflowX: "auto",
+          gap: "0.15rem", alignItems: "center", WebkitOverflowScrolling: "touch",
+          scrollbarWidth: "none",
         }}
       >
         <span style={{ ...barLink, color: c.accentText }}>❦</span>

@@ -122,7 +122,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           <span style={{ fontSize: "0.95rem", lineHeight: 1, transform: "translateY(0.04em)", display: "inline-block" }}>
             {ORNAMENT.leaf}
           </span>
-          <span>Resonanzvernunft</span>
+          <span className="appframe-wordmark">Resonanzvernunft</span>
         </Link>
 
         {/* Vertikaler Hairline-Trenner zwischen Marke und Menü — klassische
@@ -173,6 +173,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           {/* Locale-Switcher D3: visuell entrümpelt — keine Border, kein Pill,
               kein Mono-Caps. Nur ein dezenter Italic-Mini-Link rechts. */}
           <a
+            className="appframe-locale"
             href={switchLocaleHref(locale === "en" ? "de" : "en")}
             aria-label={locale === "en" ? "Sprache wechseln zu Deutsch" : "Switch to English"}
             title={locale === "en" ? "Deutsch" : "English"}
@@ -380,6 +381,14 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             min-height: 44px;
             min-width: 44px;
           }
+          /* Wortmarke ausblenden — das ❦-Fleuron bleibt als Home-Button.
+             Sonst drängt der lange Schriftzug + die 44px-Touch-Targets der
+             Symbolleiste den Hamburger aus dem 375px-Viewport. */
+          .appframe-wordmark { display: none; }
+        }
+        @media (max-width: 360px) {
+          /* sehr schmale Geräte: Locale-Mini-Link weicht in den Drawer */
+          .appframe-locale { display: none; }
         }
         @media (min-width: 641px) {
           .appframe-burger { display: none; }

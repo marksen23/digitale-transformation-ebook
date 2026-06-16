@@ -88,8 +88,8 @@ export default function BlogPage() {
                   key={a.endpoint}
                   onClick={() => jump(areaId(a.endpoint))}
                   style={{
-                    fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.06em", textTransform: "uppercase",
-                    padding: "0.3rem 0.6rem", borderRadius: 4, cursor: "pointer",
+                    fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.06em", textTransform: "uppercase",
+                    padding: "0.55rem 0.75rem", minHeight: 40, borderRadius: 5, cursor: "pointer",
                     border: `1px solid ${c.border}`, color: c.textDim, background: "none",
                   }}
                 >
@@ -132,7 +132,7 @@ export default function BlogPage() {
                   <Link
                     key={e.id}
                     href={`/resonanz/${encodeURIComponent(e.id)}`}
-                    style={{ display: "block", textDecoration: "none", borderLeft: `2px solid ${c.border}`, padding: "0.45rem 0 0.45rem 0.8rem", marginBottom: "0.3rem" }}
+                    style={{ display: "block", textDecoration: "none", borderLeft: `2px solid ${c.border}`, padding: "0.6rem 0 0.6rem 0.8rem", marginBottom: "0.25rem" }}
                   >
                     <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.88rem", color: c.textDim, lineHeight: 1.45 }}>
                       {e.prompt.length > 120 ? e.prompt.slice(0, 120) + "…" : e.prompt}
