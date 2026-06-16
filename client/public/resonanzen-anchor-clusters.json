@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T10:10:40.202Z",
+  "generatedAt": "2026-06-16T11:59:55.535Z",
   "clusters": [
     {
       "anchor": "dialog:weiterdenken",
@@ -68,6 +68,7 @@
       "anchor": "translate:vorwort+es",
       "endpoint": "translate",
       "variantIds": [
+        "MQGL9IX2-231C158A",
         "MQGHD2AM-F284267C",
         "MQGGJN59-BA07B05F",
         "MQFKW3OR-F80FC59E",
@@ -80,7 +81,7 @@
         "MQECFWWB-B98391B5",
         "MQEBZ0Y1-E3BCB35C"
       ],
-      "lastVariantTs": "2026-06-16T10:09:32.638Z",
+      "lastVariantTs": "2026-06-16T11:58:46.024Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
@@ -270,7 +271,7 @@
     }
   ],
   "stats": {
-    "totalAnchors": 111,
+    "totalAnchors": 113,
     "withMultipleVariants": 17,
     "withMaster": 0,
     "staleMasters": 0

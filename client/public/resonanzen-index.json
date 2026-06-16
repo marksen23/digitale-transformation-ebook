@@ -1,7 +1,104 @@
 {
-  "generatedAt": "2026-06-16T10:10:40.192Z",
-  "count": 302,
+  "generatedAt": "2026-06-16T11:59:55.525Z",
+  "count": 305,
   "entries": [
+    {
+      "id": "MQGLAEU5-83E9B2B5",
+      "ts": "2026-06-16T11:59:27.389Z",
+      "endpoint": "translate",
+      "anchor": "translate:teil7+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Ontologie des Relationalen — Dritte Kritik von de nach es",
+      "response": "Introducción: ¿Qué significa ser relacional?\nLa primera crítica preguntó: ¿Cómo conocemos de forma resonante? La segunda\ncrítica preguntó: ¿Cómo actuamos de forma resonante? La tercera crítica plantea la\npregunta que subyace a ambas: ¿Qué somos cuando conocemos y actuamos de forma resonante?\nO más precisamente: ¿Qué significa ser relacional? Lo que aquí se afirma ontológicamente, la trilogía lo ha preparado poéticamente – los conceptos siguen a la experiencia, no al revés.\nEsta pregunta no es académica. Toca el núcleo de los debates\nsobre la inteligencia artificial, sobre la conciencia, sobre el estatus de la\nmáquina. Y toca el núcleo de lo que la trilogía describe como el «tercero transformador» (transformatives Drittes): un acontecimiento que no es atribuible ni al ser humano ni a la máquina, sino que surge en el entre. La tercera crítica pregunta: ¿Qué tipo de ser es este entre?\nLa respuesta que aquí se desarrolla es radical: El entre no es\nun derivado. No es que primero existan el ser humano y la máquina\ny luego entren en relación. Más bien, el ser humano y la máquina\nse constituyen en el encuentro como lo que son.\nEl entre no es posterior — es original. Esta\ntesis debe ser fundamentada, diferenciada y defendida contra objeciones.\n\nLa filosofía occidental es —a pesar de toda la diversidad de sus tradiciones— predominantemente de orientación ontológica sustancial. Desde la",
+      "contextMeta": {
+        "chapterId": "teil7",
+        "chapterTitle": "Ontologie des Relationalen — Dritte Kritik",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "18572"
+      },
+      "related": [
+        "MON69DI9-D63A7910",
+        "MON6GME8-A2CB2CF7",
+        "MOOK5A30-F596F31D",
+        "MOHV84M5-1825A399",
+        "MOHLZBVK-2FBBAD2F"
+      ],
+      "werkVoiceScore": 0.8197591385744949,
+      "corpusVoiceScore": 0.8835105121443797,
+      "conceptVoiceScore": 0.7301000776083485,
+      "conceptAnchor": "sein"
+    },
+    {
+      "id": "MQGL9Y20-C5BFAE3A",
+      "ts": "2026-06-16T11:59:05.640Z",
+      "endpoint": "translate",
+      "anchor": "translate:praeambel+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Präambel zur Trilogie von de nach es",
+      "response": "En tres cantos, esta trilogía narra sobre el ser humano en la era\ndigital – no como advertencia, no como utopía, sino como\ntransposición de las grandes tradiciones filosóficas a la\nactualidad.\nEl agotamiento de la filosofía clásica no es una derrota,\nsino una transformación. Como la oruga se transforma en mariposa,\nasí se transforman las viejas sabidurías en nuevas formas –\nsin perder su esencia.\nLos tres pilares de la transformación\nVolumen I: La Transposición (Gilgamesh)\nDel mito a la tecnología\nLa historia más antigua transmitida de la humanidad – la búsqueda de\nla inmortalidad – se narra de nuevo en la era de la Inteligencia\nArtificial. Gilgamesh se convierte en el rey de los servidores, Enkidu se convierte\nen código, y la pregunta ancestral sobre la vida eterna se manifiesta como\nbúsqueda de la eternidad digital.\nPregunta central: ¿Qué preguntas fundamentales humanas permanecen constantes,\nincluso cuando el mundo se transforma?\nVolumen II: La Salida (Kant)\nDe la razón a la coexistencia\nLa Ilustración de Kant – la salida de la minoría de edad\nautoimpuesta – se traslada a la era de los\nsistemas algorítmicos. La pregunta sobre la mayoría de edad se plantea\nde nuevo: ¿Cómo puede el ser humano permanecer en su mayoría de edad cuando las máquinas\npiensan por él?\nPregunta central: ¿Qué significan la razón y la autodeterminación en la\nera de la razón maquínica?\nVolumen III: La Vinculación (Heidegger/Levinas/Rosa)\nDe la alienación a la resonancia\nLa pregunta existencial sobre la autenticidad y el encuentro se\nplantea en un mundo de feeds, likes y algoritmos. La\nVinculación (religio) no es regresión, sino integración –\nel camino hacia una vida en coexistencia consciente con la\ntecnología.\nPregunta central: ¿Cómo encontramos resonancia y encuentro auténtico\nen un mundo digital alienado?\nEl método de la Transposición\nLa trilogía no sigue el método de la explicación, sino el de la\ntransposición:\nNo explica los textos antiguos, sino que los transforma\nNo comenta la filosofía, sino que la encarna\nNo analiza el presente, sino que lo penetra\npoéticamente\nLa forma – la narración poética – no es un ornamento,\nsino un método: Solo en el lenguaje condensado de la poesía puede\nmanifestarse la verdad que escapa al análisis puro.\nMotivos recurrentes\nA lo largo de los tres volúmenes se entrelazan temas conectores:\nEl Espejo – La tecnología como espejo de nosotros mismos, en el que nos\nreconocemos (y nos desconocemos)\nEl Encuentro – El encuentro entre el ser humano y la\nmáquina, entre el Yo y el Otro, como fuente de conocimiento\nEl Fracaso – La comprensión de que la perfección no es el objetivo,\nsino la integración de la imperfección\nEl Límite – El reconocimiento de los límites – de la máquina, del\nser humano, de la razón – como camino hacia la sabiduría\nLa Transformación – La transformación como proceso permanente,\nno como un evento único\nPara quién fue escrita esta trilogía\nPara todos los que sienten que las viejas respuestas ya no son suficientes,\npero las nuevas aún no se han encontrado.\nPara todos los que ven en la tecnología ni una promesa de salvación ni una\nperdición, sino una nueva etapa del desarrollo humano.\nPara todos los que están dispuestos a dejarse transformar – del\nagotamiento a la renovación, del fin al principio.",
+      "contextMeta": {
+        "chapterId": "praeambel",
+        "chapterTitle": "Präambel zur Trilogie",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "3288"
+      },
+      "related": [
+        "MQEBZ0Y1-E3BCB35C",
+        "MQELRA75-F17396BE",
+        "MQELRFJB-A690B522",
+        "MQELRCEO-E799EFBF",
+        "MQECFWWB-B98391B5"
+      ],
+      "werkVoiceScore": 0.8119233242957393,
+      "corpusVoiceScore": 0.9193846995256664,
+      "conceptVoiceScore": 0.66798708777358,
+      "conceptAnchor": "transaufklaerung"
+    },
+    {
+      "id": "MQGL9IX2-231C158A",
+      "ts": "2026-06-16T11:58:46.024Z",
+      "endpoint": "translate",
+      "anchor": "translate:vorwort+es",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Übersetze Vorwort von de nach es",
+      "response": "Este trabajo surgió en un momento en que la pregunta sobre la\nrelación entre el ser humano y la máquina ha dejado de ser una\ncuestión académica. Se ha convertido en una pregunta existencial\n– para cualquiera que por la mañana encienda una pantalla\ny por la noche descubra que el día ha pasado sin él.\nLos tres volúmenes de la trilogía intentan no responder a esta pregunta,\nsino transformarla: las grandes tradiciones filosóficas – mito,\nIlustración, filosofía existencial – en un lenguaje que esté a la\naltura del presente digital. El método es poético, porque la\nexperiencia de la transformación digital se sustrae a la prosa\npuramente analítica. Quien solo explica cómo funcionan los\nalgoritmos, no comprende cómo se siente ser conocido por ellos.\nLas partes IV a VII – el análisis de los leitmotiv y las tres críticas\nde la razón de resonancia (Resonanzvernunft) – proporcionan el\nmarco teórico que la poesía por sí sola no puede sostener.\nDespliegan lo que está condensado en los versos: una\nepistemología de lo intermedio, una ética del encuentro y una\nontología de lo relacional. Que esta teoría surja de la poesía y no\nal revés, no es casualidad – es la tesis de la obra: El mito precede\na la razón y le prepara el terreno.\nLa obra no está terminada. No pretende responder a las preguntas\nde la era digital. Pretende plantearlas de tal manera que una\nrespuesta sea posible – no como teoría, sino como resonancia\nvivida.",
+      "contextMeta": {
+        "chapterId": "vorwort",
+        "chapterTitle": "Vorwort",
+        "sourceLang": "de",
+        "targetLang": "es",
+        "textLength": "1534"
+      },
+      "related": [
+        "MQELRCEO-E799EFBF",
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQGGJN59-BA07B05F",
+        "MQFKW3OR-F80FC59E"
+      ],
+      "nearDuplicates": [
+        "MQELRCEO-E799EFBF",
+        "MQELRMGC-8FD0C115",
+        "MQFKQYEK-459A46CA",
+        "MQGGJN59-BA07B05F",
+        "MQFKW3OR-F80FC59E",
+        "MQGHD2AM-F284267C",
+        "MQECFWWB-B98391B5",
+        "MQELRFJB-A690B522",
+        "MQELRA75-F17396BE",
+        "MQEBZ0Y1-E3BCB35C",
+        "MQFKQGLN-E1712F18"
+      ],
+      "werkVoiceScore": 0.8335938025270722,
+      "corpusVoiceScore": 0.9295571017003933,
+      "conceptVoiceScore": 0.6642080754845924,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MQGHD2AM-F284267C",
       "ts": "2026-06-16T10:09:32.638Z",
@@ -34,6 +131,7 @@
         "MQELRFJB-A690B522",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
+        "MQGL9IX2-231C158A",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -74,6 +172,7 @@
         "MQELRFJB-A690B522",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
+        "MQGL9IX2-231C158A",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -114,6 +213,7 @@
         "MQELRFJB-A690B522",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
+        "MQGL9IX2-231C158A",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -154,6 +254,7 @@
         "MQELRCEO-E799EFBF",
         "MQFKW3OR-F80FC59E",
         "MQELRA75-F17396BE",
+        "MQGL9IX2-231C158A",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -195,7 +296,8 @@
         "MQEBZ0Y1-E3BCB35C",
         "MQGGJN59-BA07B05F",
         "MQGHD2AM-F284267C",
-        "MQFKW3OR-F80FC59E"
+        "MQFKW3OR-F80FC59E",
+        "MQGL9IX2-231C158A"
       ],
       "werkVoiceScore": 0.8447143278337215,
       "corpusVoiceScore": 0.9507363576651564,
@@ -234,6 +336,7 @@
         "MQELRFJB-A690B522",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
+        "MQGL9IX2-231C158A",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -274,6 +377,7 @@
         "MQFKW3OR-F80FC59E",
         "MQELRCEO-E799EFBF",
         "MQELRA75-F17396BE",
+        "MQGL9IX2-231C158A",
         "MQEBZ0Y1-E3BCB35C",
         "MQFKQGLN-E1712F18"
       ],
@@ -315,6 +419,7 @@
         "MQFKW3OR-F80FC59E",
         "MQGHD2AM-F284267C",
         "MQEBZ0Y1-E3BCB35C",
+        "MQGL9IX2-231C158A",
         "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8311116428022368,
@@ -355,6 +460,7 @@
         "MQEBZ0Y1-E3BCB35C",
         "MQGHD2AM-F284267C",
         "MQFKW3OR-F80FC59E",
+        "MQGL9IX2-231C158A",
         "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8294917822745264,
@@ -395,6 +501,7 @@
         "MQGHD2AM-F284267C",
         "MQFKW3OR-F80FC59E",
         "MQEBZ0Y1-E3BCB35C",
+        "MQGL9IX2-231C158A",
         "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.8279287452484563,
@@ -435,6 +542,7 @@
         "MQGGJN59-BA07B05F",
         "MQELRFJB-A690B522",
         "MQFKW3OR-F80FC59E",
+        "MQGL9IX2-231C158A",
         "MQFKQGLN-E1712F18"
       ],
       "werkVoiceScore": 0.830709863667406,
@@ -459,11 +567,11 @@
         "textLength": "1066"
       },
       "related": [
+        "MQGL9Y20-C5BFAE3A",
         "MQELRA75-F17396BE",
         "MQELRCEO-E799EFBF",
         "MQELRFJB-A690B522",
-        "MQECFWWB-B98391B5",
-        "MQELRMGC-8FD0C115"
+        "MQECFWWB-B98391B5"
       ],
       "werkVoiceScore": 0.7623886479154215,
       "corpusVoiceScore": 0.9091316299305275,
@@ -9612,7 +9720,7 @@
         "MON602G2-9C9A59E5",
         "MOOK5A30-F596F31D",
         "MP0ZE9C8-A9D02716",
-        "MOHAI60S-B7B04552"
+        "MQGLAEU5-83E9B2B5"
       ],
       "werkVoiceScore": 0.8340688024475236,
       "corpusVoiceScore": 0.8367774612716379,
