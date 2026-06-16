@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-16T09:47:09.793Z",
-  "filesChecked": 301,
+  "generatedAt": "2026-06-16T10:10:06.591Z",
+  "filesChecked": 302,
   "errors": 0,
   "warnings": 14,
   "issues": [
     {
       "level": "warning",
-      "file": "index:MQFKW3OR-F80FC59E",
+      "file": "index:MQGGJN59-BA07B05F",
       "rule": "duplicate-entries",
-      "detail": "9× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+      "detail": "10× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
     },
     {
       "level": "warning",
@@ -97,16 +97,16 @@
       "enkidu": 55,
       "graph-chat": 56,
       "path-analyse": 38,
-      "translate": 13
+      "translate": 14
     },
     "byStatus": {
       "published": 134,
       "rejected": 2,
-      "raw": 147,
+      "raw": 148,
       "approved": 18
     },
     "orphanNodeIds": [],
     "danglingLinks": 0,
-    "redundantDuplicates": 62
+    "redundantDuplicates": 63
   }
 }
