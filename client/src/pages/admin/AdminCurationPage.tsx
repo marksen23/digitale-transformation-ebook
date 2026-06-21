@@ -670,7 +670,7 @@ export default function AdminCurationPage() {
               key={s}
               label={s}
               value={stats.byStatus[s] ?? 0}
-              color={s === "published" ? "#7ab898" : s === "approved" ? "#5aacb8" : s === "pending" ? C.accent : s === "rejected" ? "#c48282" : C.muted}
+              color={s === "published" ? "#7ab898" : s === "approved" ? "#5aacb8" : s === "pending" ? C.accentText : s === "rejected" ? "#c48282" : C.muted}
               c={C}
             />
           ))}
@@ -685,8 +685,8 @@ export default function AdminCurationPage() {
             fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic",
             color: C.textDim, lineHeight: 1.5,
           }}>
-            <strong style={{ color: C.accent }}>{needsForWerkVoice} weitere kuratierte Einträge</strong>{" "}
-            (approved oder published) bis <code style={{ fontFamily: MONO, color: C.accent }}>werkVoiceScore</code>{" "}
+            <strong style={{ color: C.accentText }}>{needsForWerkVoice} weitere kuratierte Einträge</strong>{" "}
+            (approved oder published) bis <code style={{ fontFamily: MONO, color: C.accentText }}>werkVoiceScore</code>{" "}
             für alle 136 Einträge berechnet wird (Schwelle ≥10).
           </div>
         )}
@@ -699,14 +699,14 @@ export default function AdminCurationPage() {
       <Section title="Auto-Kuratierung — Korpus sicher selbst erweitern" c={C}>
         <div style={{ fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic", color: C.textDim, lineHeight: 1.5, marginBottom: "0.8rem" }}>
           Klassifiziert raw/pending-Einträge in <strong style={{ color: "#7ab898" }}>freigeben</strong> ·{" "}
-          <strong style={{ color: "#c48282" }}>ablehnen</strong> · <strong style={{ color: C.accent }}>zur Prüfung</strong>.
+          <strong style={{ color: "#c48282" }}>ablehnen</strong> · <strong style={{ color: C.accentText }}>zur Prüfung</strong>.
           Gate: ai_score + corpusVoiceScore (Buchtext-Anker) + kein Echo, keine novelty. Nur klar-Gutes wird auto-freigegeben.
         </div>
         <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap", marginBottom: "0.8rem" }}>
           <button
             onClick={() => runAutoCurate("preview")}
             disabled={autoCurateLoading !== null}
-            style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accent, background: "none", border: `1px solid ${C.accent}`, padding: "0.5rem 0.8rem", cursor: autoCurateLoading ? "wait" : "pointer", minHeight: 36, opacity: autoCurateLoading ? 0.5 : 1 }}
+            style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.accent}`, padding: "0.5rem 0.8rem", cursor: autoCurateLoading ? "wait" : "pointer", minHeight: 36, opacity: autoCurateLoading ? 0.5 : 1 }}
           >
             {autoCurateLoading === "preview" ? "… prüfe" : "Auto-Kuratierung prüfen"}
           </button>
@@ -726,7 +726,7 @@ export default function AdminCurationPage() {
             <div style={{ display: "flex", gap: "1.2rem", flexWrap: "wrap", fontFamily: MONO, fontSize: "0.62rem", marginBottom: "0.7rem" }}>
               <span style={{ color: "#7ab898" }}>↑ {autoCurate.counts.approve} freigeben</span>
               <span style={{ color: "#c48282" }}>↓ {autoCurate.counts.reject} ablehnen</span>
-              <span style={{ color: C.accent }}>? {autoCurate.counts.review} zur Prüfung</span>
+              <span style={{ color: C.accentText }}>? {autoCurate.counts.review} zur Prüfung</span>
               {autoCurate.unscored > 0 && autoCurate.mode === "preview" && (
                 <span style={{ color: C.muted }}>· {autoCurate.unscored} nicht bewertet (Apply bewertet nach)</span>
               )}
@@ -736,7 +736,7 @@ export default function AdminCurationPage() {
             {(["approve", "reject", "review"] as const).map(cat => {
               const items = autoCurate[cat];
               if (items.length === 0) return null;
-              const col = cat === "approve" ? "#7ab898" : cat === "reject" ? "#c48282" : C.accent;
+              const col = cat === "approve" ? "#7ab898" : cat === "reject" ? "#c48282" : C.accentText;
               const label = cat === "approve" ? "FREIGEBEN" : cat === "reject" ? "ABLEHNEN" : "ZUR PRÜFUNG";
               return (
                 <details key={cat} style={{ marginBottom: "0.4rem" }}>
@@ -1045,7 +1045,7 @@ export default function AdminCurationPage() {
                             </span>
                           )}
                           {typeof entry.corpusVoiceScore === "number" && (
-                            <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: entry.corpusVoiceScore >= 0.65 ? "#7ab898" : entry.corpusVoiceScore >= 0.55 ? C.accent : "#c48282" }} title="corpusVoiceScore (Buchstreue)">
+                            <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: entry.corpusVoiceScore >= 0.65 ? "#7ab898" : entry.corpusVoiceScore >= 0.55 ? C.accentText : "#c48282" }} title="corpusVoiceScore (Buchstreue)">
                               · BV {(entry.corpusVoiceScore * 100).toFixed(0)}%
                             </span>
                           )}
@@ -1115,7 +1115,7 @@ export default function AdminCurationPage() {
           display: "flex", alignItems: "center", gap: "0.6rem", flexWrap: "wrap",
           boxShadow: "0 -4px 20px rgba(0,0,0,0.4)",
         }}>
-          <div style={{ fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.accent, flexShrink: 0 }}>
+          <div style={{ fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase", color: C.accentText, flexShrink: 0 }}>
             {selectedIds.size} ausgewählt
           </div>
           <ActionBtn label="✓ Publish alle" color="#7ab898" onClick={() => void bulkCurate(Array.from(selectedIds), "published")} />
@@ -1144,7 +1144,7 @@ export default function AdminCurationPage() {
             background: C.deep, border: `1px solid ${C.accent}`,
             padding: "1.5rem 2rem", borderRadius: 8, minWidth: 280, textAlign: "center",
           }}>
-            <div style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.accent, marginBottom: "0.7rem" }}>
+            <div style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.accentText, marginBottom: "0.7rem" }}>
               Bulk-{bulkProgress.status}
             </div>
             <div style={{ fontFamily: SERIF, fontSize: "1.5rem", color: C.text, marginBottom: "0.4rem" }}>

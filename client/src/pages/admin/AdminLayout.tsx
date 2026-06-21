@@ -37,7 +37,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <AuthShell c={C}>
         <h1 style={authH1Style(C)}>Admin-Zugang</h1>
         <p style={authPStyle(C)}>
-          Kein Token gefunden. Aufruf via <code style={{ fontFamily: MONO, fontSize: "0.85rem", color: C.accent }}>/admin?token=…</code>
+          Kein Token gefunden. Aufruf via <code style={{ fontFamily: MONO, fontSize: "0.85rem", color: C.accentText }}>/admin?token=…</code>
         </p>
       </AuthShell>
     );
@@ -59,7 +59,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
       <AuthShell c={C}>
         <h1 style={authH1Style(C)}>Admin-Zugang nicht konfiguriert</h1>
         <p style={authPStyle(C)}>
-          <code style={{ fontFamily: MONO, fontSize: "0.85rem", color: C.accent }}>ADMIN_TOKEN</code> env var auf Render setzen.
+          <code style={{ fontFamily: MONO, fontSize: "0.85rem", color: C.accentText }}>ADMIN_TOKEN</code> env var auf Render setzen.
         </p>
       </AuthShell>
     );

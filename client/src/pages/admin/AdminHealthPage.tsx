@@ -350,11 +350,11 @@ export default function AdminHealthPage() {
           </SectionLabel>
           <p style={{ margin: 0, fontStyle: "italic" }}>
             Der Korpus hat {allEntries?.length} Einträge, aber{" "}
-            <strong>keine semantischen Felder</strong> (<code style={{ fontFamily: MONO, color: C.accent }}>werkVoiceScore</code>,{" "}
-            <code style={{ fontFamily: MONO, color: C.accent }}>related[]</code>). Mögliche Ursachen:
+            <strong>keine semantischen Felder</strong> (<code style={{ fontFamily: MONO, color: C.accentText }}>werkVoiceScore</code>,{" "}
+            <code style={{ fontFamily: MONO, color: C.accentText }}>related[]</code>). Mögliche Ursachen:
           </p>
           <ol style={{ margin: "0.5rem 0", paddingLeft: "1.2rem", fontStyle: "italic" }}>
-            <li><code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>-Secret fehlt
+            <li><code style={{ fontFamily: MONO, color: C.accentText }}>GEMINI_API_KEY</code>-Secret fehlt
               in den GitHub-Actions-Settings.</li>
             <li>Secret ist gesetzt, hat aber Whitespace (Copy-Paste-Falle) oder ist falscher Key.</li>
             <li>Free-Tier-Quota überschritten (100 RPM für text-embedding-004).</li>
@@ -363,14 +363,14 @@ export default function AdminHealthPage() {
             Setup: <a
               href="https://github.com/marksen23/digitale-transformation-ebook/settings/secrets/actions"
               target="_blank" rel="noreferrer"
-              style={{ color: C.accent, textDecoration: "none" }}
+              style={{ color: C.accentText, textDecoration: "none" }}
             >Repo → Settings → Secrets and variables → Actions ↗</a>{" "}
-            · Name: <code style={{ color: C.accent }}>GEMINI_API_KEY</code> · Value: derselbe Key
+            · Name: <code style={{ color: C.accentText }}>GEMINI_API_KEY</code> · Value: derselbe Key
             wie auf Render (keine Anführungszeichen, keine umrandenden Spaces). Danach „↻ Index neu
             bauen" drücken — der Workflow loggt jetzt erkennbar{" "}
-            <code style={{ color: C.accent }}>GEMINI_API_KEY OK (len=…, masked=AIz…xyz)</code> bei
+            <code style={{ color: C.accentText }}>GEMINI_API_KEY OK (len=…, masked=AIz…xyz)</code> bei
             Erfolg und{" "}
-            <code style={{ color: C.accent }}>FATAL: 0 erfolgreiche Embedding-Calls</code> bei
+            <code style={{ color: C.accentText }}>FATAL: 0 erfolgreiche Embedding-Calls</code> bei
             Fehlschlag (rot in den Action-Logs sichtbar).
           </p>
         </div>
@@ -398,7 +398,7 @@ export default function AdminHealthPage() {
             <Stat
               label="Latenz"
               value={heartbeat.latencyMs >= 0 ? `${heartbeat.latencyMs} ms` : "—"}
-              color={heartbeat.latencyMs < 0 ? "#c48282" : heartbeat.latencyMs > 800 ? C.accent : "#7ab898"}
+              color={heartbeat.latencyMs < 0 ? "#c48282" : heartbeat.latencyMs > 800 ? C.accentText : "#7ab898"}
               c={C}
             />
             <Stat
@@ -425,14 +425,14 @@ export default function AdminHealthPage() {
             : e === "not_configured" ? "— kein Key gesetzt"
             : e === "unreachable" ? "✕ nicht erreichbar"
             : "lädt …";
-          const color = e === "ok" ? "#7ab898" : e === "quota_exhausted" ? C.accent : e === undefined ? C.muted : "#c48282";
+          const color = e === "ok" ? "#7ab898" : e === "quota_exhausted" ? C.accentText : e === undefined ? C.muted : "#c48282";
           const ki = embedHealth?.working_key_index;
           const keyLabel = ki == null ? "—" : ki < 0 ? "alle tot" : ki === 0 ? "primär" : `Fallback #${ki}`;
           return (
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(150px, 1fr))", gap: "0.8rem", marginBottom: "1rem" }}>
               <Stat label="Embedding-API" value={label} color={color} c={C} />
               <Stat label="Keys verfügbar" value={String(embedHealth?.keys_available ?? "—")} color={C.muted} c={C} />
-              <Stat label="Aktiver Key" value={keyLabel} color={ki && ki > 0 ? C.accent : C.muted} c={C} />
+              <Stat label="Aktiver Key" value={keyLabel} color={ki && ki > 0 ? C.accentText : C.muted} c={C} />
               <Stat label="Vektor-Dim" value={embedHealth?.embedding_dim ? String(embedHealth.embedding_dim) : "—"} color={embedHealth?.embedding_dim === 3072 ? "#7ab898" : C.muted} c={C} />
             </div>
           );
@@ -486,7 +486,7 @@ export default function AdminHealthPage() {
         ) : validationReport ? (
           <>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.6rem" }}>
-              <Stat label="Files geprüft" value={validationReport.filesChecked} color={C.accent} c={C} />
+              <Stat label="Files geprüft" value={validationReport.filesChecked} color={C.accentText} c={C} />
               <Stat
                 label="Errors"
                 value={validationReport.errors}
@@ -496,7 +496,7 @@ export default function AdminHealthPage() {
               <Stat
                 label="Warnings"
                 value={validationReport.warnings}
-                color={validationReport.warnings > 0 ? C.accent : C.muted}
+                color={validationReport.warnings > 0 ? C.accentText : C.muted}
                 c={C}
               />
             </div>
@@ -519,9 +519,9 @@ export default function AdminHealthPage() {
         ) : (
           <>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(120px, 1fr))", gap: "0.8rem", marginBottom: "0.6rem" }}>
-              <Stat label="Geprüft" value={holdoutReport.checked} color={C.accent} c={C} />
+              <Stat label="Geprüft" value={holdoutReport.checked} color={C.accentText} c={C} />
               <Stat label="Stabil" value={holdoutReport.stable} color="#7ab898" c={C} />
-              <Stat label="Verschoben" value={holdoutReport.shifted} color={C.accent} c={C} />
+              <Stat label="Verschoben" value={holdoutReport.shifted} color={C.accentText} c={C} />
               <Stat label="Drift" value={holdoutReport.drifted} color={holdoutReport.drifted > 0 ? "#c48282" : C.muted} c={C} />
             </div>
             <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, margin: "0 0 0.5rem 0" }}>
@@ -540,7 +540,7 @@ export default function AdminHealthPage() {
                 {holdoutReport.details.filter(d => d.overlap < 2).map(d => (
                   <div key={d.id} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "0.6rem 0.8rem", fontFamily: MONO, fontSize: "0.55rem" }}>
                     <div style={{ color: C.text, marginBottom: "0.3rem" }}>
-                      <a href={`/resonanzen?id=${d.id}`} target="_blank" rel="noreferrer" style={{ color: C.accent, textDecoration: "none" }}>{d.id}</a>
+                      <a href={`/resonanzen?id=${d.id}`} target="_blank" rel="noreferrer" style={{ color: C.accentText, textDecoration: "none" }}>{d.id}</a>
                       <span style={{ marginLeft: "0.5rem", color: "#c48282" }}>overlap = {d.overlap}/3</span>
                     </div>
                     <div style={{ color: C.muted, lineHeight: 1.5 }}>
@@ -659,7 +659,7 @@ export default function AdminHealthPage() {
                     fontFamily: MONO, fontSize: "0.55rem", color: C.text,
                     letterSpacing: "0.04em",
                   }}>
-                    <div style={{ color: ENDPOINT_COLOR_LOCAL[mapHoverPoint.endpoint] ?? C.accent, marginBottom: "0.3rem" }}>
+                    <div style={{ color: ENDPOINT_COLOR_LOCAL[mapHoverPoint.endpoint] ?? C.accentText, marginBottom: "0.3rem" }}>
                       {mapHoverPoint.endpoint}
                       {mapHoverPoint.isMaster && <span style={{ color: "#7ab898" }}> · ◆ MASTER</span>}
                       {mapHoverPoint.isOutlier && <span style={{ color: "#c48282" }}> · Außenseiter</span>}
@@ -712,7 +712,7 @@ export default function AdminHealthPage() {
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>analysiere Embeddings …</p>
         ) : tensions.status === "no-embeddings" ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
-            Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>.
+            Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: C.accentText }}>GEMINI_API_KEY</code>.
           </p>
         ) : tensions.status === "no-multi-anchors" ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
@@ -721,7 +721,7 @@ export default function AdminHealthPage() {
         ) : (
           <>
             <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.6rem" }}>
-              <Stat label="Anker geprüft" value={tensions.anchorsChecked} color={C.accent} c={C} />
+              <Stat label="Anker geprüft" value={tensions.anchorsChecked} color={C.accentText} c={C} />
               <Stat
                 label="Spannungen"
                 value={tensions.tensionsFound}
@@ -755,7 +755,7 @@ export default function AdminHealthPage() {
                           <span style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase", color: ENDPOINT_COLOR[t.endpoint] }}>
                             {ENDPOINT_LABEL[t.endpoint]} · {t.anchor}
                           </span>
-                          <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: t.similarity < 0.4 ? "#c48282" : C.accent }}>
+                          <span style={{ fontFamily: MONO, fontSize: "0.55rem", color: t.similarity < 0.4 ? "#c48282" : C.accentText }}>
                             cos = {t.similarity.toFixed(3)}
                           </span>
                         </div>
@@ -798,7 +798,7 @@ export default function AdminHealthPage() {
             <>
               <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.textDim, lineHeight: 1.5, marginTop: 0, marginBottom: "0.8rem" }}>
                 <strong>{linkPredictions.stats.candidatesCount}</strong> Paare mit ≥{linkPredictions.minCooccurrence} gemeinsamen
-                Resonanzen, aber ohne Kante im <code style={{ fontFamily: MONO, color: C.accent }}>conceptGraph.ts</code>.
+                Resonanzen, aber ohne Kante im <code style={{ fontFamily: MONO, color: C.accentText }}>conceptGraph.ts</code>.
                 Empirische Brücken die der Werk-Graph noch nicht abbildet. Klick auf einen Pfeil → Pfad-Tool im Begriffsnetz.
               </p>
               <div style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
@@ -861,9 +861,9 @@ export default function AdminHealthPage() {
                 </button>
               )}
               <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, marginTop: "0.8rem", lineHeight: 1.5 }}>
-                Aufnahme ins Werk: <code style={{ color: C.accent }}>client/src/data/conceptGraph.ts</code> →
-                <code style={{ color: C.accent }}> EDGES</code>-Array erweitern mit{" "}
-                <code style={{ color: C.accent }}>{`{ source: "…", target: "…", weight: "secondary" }`}</code>.
+                Aufnahme ins Werk: <code style={{ color: C.accentText }}>client/src/data/conceptGraph.ts</code> →
+                <code style={{ color: C.accentText }}> EDGES</code>-Array erweitern mit{" "}
+                <code style={{ color: C.accentText }}>{`{ source: "…", target: "…", weight: "secondary" }`}</code>.
                 {linkPredictions.stats.existingEdges} Kanten existieren bereits · max Co-Occurrence: {linkPredictions.stats.maxCooccurrence}× ·
                 Letzter Check: {new Date(linkPredictions.generatedAt).toLocaleString("de-DE")}
               </p>
@@ -889,7 +889,7 @@ export default function AdminHealthPage() {
             <div style={{ marginBottom: "0.6rem" }}>
               <span style={{
                 fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.1em", textTransform: "uppercase",
-                color: driftReport.status === "stable" ? "#7ab898" : driftReport.status === "drift-alarm" ? "#c48282" : C.accent,
+                color: driftReport.status === "stable" ? "#7ab898" : driftReport.status === "drift-alarm" ? "#c48282" : C.accentText,
               }}>
                 {driftReport.status === "stable" && "✓ stable"}
                 {driftReport.status === "drift-warning" && "⚠ warning"}
@@ -905,7 +905,7 @@ export default function AdminHealthPage() {
             {driftReport.issues && driftReport.issues.length > 0 && (
               <ul style={{ fontFamily: MONO, fontSize: "0.62rem", color: C.text, paddingLeft: "1.2rem", lineHeight: 1.6, margin: "0.4rem 0" }}>
                 {driftReport.issues.map((i, idx) => (
-                  <li key={idx} style={{ color: i.level === "alarm" ? "#c48282" : C.accent }}>
+                  <li key={idx} style={{ color: i.level === "alarm" ? "#c48282" : C.accentText }}>
                     [{i.rule}] {i.detail}
                   </li>
                 ))}
@@ -929,21 +929,21 @@ export default function AdminHealthPage() {
           <a
             href="https://github.com/marksen23/digitale-transformation-ebook/releases/tag/last-stable"
             target="_blank" rel="noreferrer"
-            style={{ color: C.accent, textDecoration: "none", letterSpacing: "0.05em" }}
+            style={{ color: C.accentText, textDecoration: "none", letterSpacing: "0.05em" }}
           >
             ↗ last-stable Tag (GitHub)
           </a>
           <a
             href="https://github.com/marksen23/digitale-transformation-ebook/tree/main/versions"
             target="_blank" rel="noreferrer"
-            style={{ color: C.accent, textDecoration: "none", letterSpacing: "0.05em" }}
+            style={{ color: C.accentText, textDecoration: "none", letterSpacing: "0.05em" }}
           >
             ↗ Snapshots-Verzeichnis (versions/)
           </a>
           <a
             href="https://github.com/marksen23/digitale-transformation-ebook/actions"
             target="_blank" rel="noreferrer"
-            style={{ color: C.accent, textDecoration: "none", letterSpacing: "0.05em" }}
+            style={{ color: C.accentText, textDecoration: "none", letterSpacing: "0.05em" }}
           >
             ↗ GitHub Actions — letzte Workflow-Runs
           </a>
@@ -976,7 +976,7 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
   if (!haveSemantic && report.clusters.length === 0) {
     return (
       <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>
-        Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: c.accent }}>GEMINI_API_KEY</code>.
+        Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: c.accentText }}>GEMINI_API_KEY</code>.
         Kohärenz-Analyse braucht semantische Vektoren.
       </p>
     );
@@ -986,13 +986,13 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
     <>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(140px, 1fr))", gap: "0.8rem", marginBottom: "0.8rem" }}>
         <Stat label="Echo-Cluster" value={report.clusters.length} color={report.clusters.length > 0 ? "#e8c870" : "#7ab898"} c={c} />
-        <Stat label="Einträge mit Echos" value={report.entriesWithEchoes} color={c.accent} c={c} />
+        <Stat label="Einträge mit Echos" value={report.entriesWithEchoes} color={c.accentText} c={c} />
         <Stat label="Werk-Drift-Verdacht" value={report.driftCandidates} color={report.driftCandidates > 0 ? "#c48282" : "#7ab898"} c={c} />
         {report.voiceStats && (
           <Stat
             label="Werk-Median"
             value={(report.voiceStats.median * 100).toFixed(0) + "%"}
-            color={report.voiceStats.median > 0.65 ? "#7ab898" : report.voiceStats.median > 0.55 ? c.accent : "#c48282"}
+            color={report.voiceStats.median > 0.65 ? "#7ab898" : report.voiceStats.median > 0.55 ? c.accentText : "#c48282"}
             c={c}
           />
         )}
@@ -1000,7 +1000,7 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
           <Stat
             label="Buch-Median"
             value={(report.corpusVoiceStats.median * 100).toFixed(0) + "%"}
-            color={report.corpusVoiceStats.median > 0.6 ? "#7ab898" : report.corpusVoiceStats.median > 0.45 ? c.accent : "#c48282"}
+            color={report.corpusVoiceStats.median > 0.6 ? "#7ab898" : report.corpusVoiceStats.median > 0.45 ? c.accentText : "#c48282"}
             c={c}
           />
         )}
@@ -1152,7 +1152,7 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
         <Stat label="Übersprungen (Spam)" value={h.skippedSpamFilter} color={c.muted} c={c} />
       </div>
       <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.4rem" }}>
-        Ziel-Repo: <span style={{ color: c.text }}>{h.repoOwner}/{h.repoName}</span> @ <span style={{ color: c.accent }}>{h.repoBranch}</span>
+        Ziel-Repo: <span style={{ color: c.text }}>{h.repoOwner}/{h.repoName}</span> @ <span style={{ color: c.accentText }}>{h.repoBranch}</span>
       </div>
       {h.echoDetector && (
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", color: c.muted, letterSpacing: "0.05em", marginBottom: "0.5rem" }}>
@@ -1198,7 +1198,7 @@ function IngestPanel({ result, c }: { result: AsyncResult<ResonanzHealth>; c: Re
       )}
       {!tokenOk && (
         <div style={{ fontFamily: SERIF, fontSize: "0.85rem", fontStyle: "italic", color: c.textDim, marginTop: "0.4rem" }}>
-          <code style={{ fontFamily: MONO, color: c.accent }}>GITHUB_TOKEN</code> ist nicht in den Server-Env-Vars gesetzt — alle KI-Antworten werden still verworfen. Auf Render im Dashboard hinzufügen, dann Service neu starten.
+          <code style={{ fontFamily: MONO, color: c.accentText }}>GITHUB_TOKEN</code> ist nicht in den Server-Env-Vars gesetzt — alle KI-Antworten werden still verworfen. Auf Render im Dashboard hinzufügen, dann Service neu starten.
         </div>
       )}
       <IngestRebuildSection c={c} />
@@ -1386,7 +1386,7 @@ function TriggerRebuild({ c, onTriggered }: { c: ReturnType<typeof useAdminTheme
           disabled={state === "loading"}
           style={{
             fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
-            color: state === "loading" ? c.muted : c.accent,
+            color: state === "loading" ? c.muted : c.accentText,
             background: "transparent",
             border: `1px solid ${state === "loading" ? c.border : c.accent}`,
             padding: "0.4rem 0.8rem", borderRadius: 6,
@@ -1405,7 +1405,7 @@ function TriggerRebuild({ c, onTriggered }: { c: ReturnType<typeof useAdminTheme
         <div style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.6rem", color: "#7ab898" }}>
           ✓ {message}
           {actionsUrl && (
-            <> · <a href={actionsUrl} target="_blank" rel="noreferrer" style={{ color: c.accent }}>Workflow-Run öffnen ↗</a></>
+            <> · <a href={actionsUrl} target="_blank" rel="noreferrer" style={{ color: c.accentText }}>Workflow-Run öffnen ↗</a></>
           )}
         </div>
       )}
@@ -1428,7 +1428,7 @@ function NetlifyPanel({ result, c }: { result: AsyncResult<NetlifyStatus>; c: Re
     return (
       <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>
         {result.error.includes("nicht konfiguriert")
-          ? <>Netlify-API nicht konfiguriert. Setze auf Render: <code style={{ fontFamily: MONO, color: c.accent }}>NETLIFY_TOKEN</code> + <code style={{ fontFamily: MONO, color: c.accent }}>NETLIFY_SITE_ID</code>.</>
+          ? <>Netlify-API nicht konfiguriert. Setze auf Render: <code style={{ fontFamily: MONO, color: c.accentText }}>NETLIFY_TOKEN</code> + <code style={{ fontFamily: MONO, color: c.accentText }}>NETLIFY_SITE_ID</code>.</>
           : `Fehler: ${result.error}`}
       </p>
     );
@@ -1448,7 +1448,7 @@ function NetlifyPanel({ result, c }: { result: AsyncResult<NetlifyStatus>; c: Re
         <Stat
           label="Letzter Deploy"
           value={lastReady ? formatRelative(lastReady.published_at ?? lastReady.created_at) : "—"}
-          color={c.accent}
+          color={c.accentText}
           c={c}
         />
         <Stat
@@ -1486,7 +1486,7 @@ function NetlifyPanel({ result, c }: { result: AsyncResult<NetlifyStatus>; c: Re
               </div>
             )}
             {d.commit_url && (
-              <a href={d.commit_url} target="_blank" rel="noreferrer" style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accent, textDecoration: "none" }}>
+              <a href={d.commit_url} target="_blank" rel="noreferrer" style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accentText, textDecoration: "none" }}>
                 ↗ {d.commit_ref?.slice(0, 7) ?? "commit"}
               </a>
             )}
@@ -1507,7 +1507,7 @@ function RenderPanel({ result, c }: { result: AsyncResult<RenderStatus>; c: Retu
     return (
       <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>
         {result.error.includes("nicht konfiguriert")
-          ? <>Render-API nicht konfiguriert. Setze auf Render: <code style={{ fontFamily: MONO, color: c.accent }}>RENDER_API_KEY</code> + <code style={{ fontFamily: MONO, color: c.accent }}>RENDER_SERVICE_ID</code>.</>
+          ? <>Render-API nicht konfiguriert. Setze auf Render: <code style={{ fontFamily: MONO, color: c.accentText }}>RENDER_API_KEY</code> + <code style={{ fontFamily: MONO, color: c.accentText }}>RENDER_SERVICE_ID</code>.</>
           : `Fehler: ${result.error}`}
       </p>
     );
@@ -1528,7 +1528,7 @@ function RenderPanel({ result, c }: { result: AsyncResult<RenderStatus>; c: Retu
         <Stat
           label="Letzter Deploy"
           value={lastLive ? formatRelative(lastLive.finishedAt ?? lastLive.createdAt) : "—"}
-          color={c.accent}
+          color={c.accentText}
           c={c}
         />
         <Stat
@@ -1581,7 +1581,7 @@ function RenderPanel({ result, c }: { result: AsyncResult<RenderStatus>; c: Retu
 function deployStateColor(state: string, c: ReturnType<typeof useAdminTheme>): string {
   if (state === "ready" || state === "live") return "#7ab898";
   if (state === "error" || state === "build_failed" || state === "canceled") return "#c48282";
-  if (state === "building" || state === "uploading" || state === "preparing" || state === "in_progress" || state === "queued") return c.accent;
+  if (state === "building" || state === "uploading" || state === "preparing" || state === "in_progress" || state === "queued") return c.accentText;
   return c.muted;
 }
 
@@ -1718,7 +1718,7 @@ function GroupHeader({ c, label, anchor }: { c: ReturnType<typeof useAdminTheme>
     }}>
       <div style={{
         fontFamily: SERIF, fontStyle: "italic",
-        fontSize: "0.95rem", color: c.accent,
+        fontSize: "0.95rem", color: c.accentText,
         letterSpacing: "0.01em", lineHeight: 1.3,
       }}>
         {label}
@@ -1748,13 +1748,13 @@ function HealthTOC({ c }: { c: ReturnType<typeof useAdminTheme> }) {
       }}
     >
       <span style={{ color: c.muted, marginRight: "0.4rem" }}>↪ Springe zu:</span>
-      <a href="#hosting" style={{ color: c.accent, textDecoration: "none" }}>Hosting</a>
+      <a href="#hosting" style={{ color: c.accentText, textDecoration: "none" }}>Hosting</a>
       <span style={{ color: c.muted }}>·</span>
-      <a href="#qualitaet" style={{ color: c.accent, textDecoration: "none" }}>Qualität</a>
+      <a href="#qualitaet" style={{ color: c.accentText, textDecoration: "none" }}>Qualität</a>
       <span style={{ color: c.muted }}>·</span>
-      <a href="#visualisierungen" style={{ color: c.accent, textDecoration: "none" }}>Visualisierungen</a>
+      <a href="#visualisierungen" style={{ color: c.accentText, textDecoration: "none" }}>Visualisierungen</a>
       <span style={{ color: c.muted }}>·</span>
-      <a href="#meta" style={{ color: c.accent, textDecoration: "none" }}>Meta</a>
+      <a href="#meta" style={{ color: c.accentText, textDecoration: "none" }}>Meta</a>
       <style>{`
         @media (max-width: 768px) { .health-toc { display: none !important; } }
       `}</style>
