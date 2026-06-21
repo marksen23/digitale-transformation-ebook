@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-16T11:59:14.801Z",
+  "generatedAt": "2026-06-21T17:34:57.643Z",
   "filesChecked": 303,
   "errors": 0,
   "warnings": 14,
   "issues": [
     {
       "level": "warning",
-      "file": "index:MQGHD2AM-F284267C",
+      "file": "index:MQGL9IX2-231C158A",
       "rule": "duplicate-entries",
-      "detail": "11× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+      "detail": "12× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
     },
     {
       "level": "warning",
@@ -100,13 +100,13 @@
       "translate": 15
     },
     "byStatus": {
-      "published": 134,
+      "published": 132,
       "rejected": 2,
-      "raw": 149,
+      "raw": 151,
       "approved": 18
     },
     "orphanNodeIds": [],
     "danglingLinks": 0,
-    "redundantDuplicates": 64
+    "redundantDuplicates": 65
   }
 }

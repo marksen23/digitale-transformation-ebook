@@ -1,31 +1,31 @@
 {
-  "generatedAt": "2026-06-16T11:59:55.532Z",
+  "generatedAt": "2026-06-21T17:35:28.663Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 23,
+      "count": 21,
       "endpoints": {
-        "path-analyse": 17,
-        "analyse": 6
+        "path-analyse": 16,
+        "analyse": 5
       }
     },
     "resonanz": {
-      "count": 23,
+      "count": 18,
       "endpoints": {
-        "analyse": 8,
+        "analyse": 3,
         "path-analyse": 15
       }
     },
     "vernunft": {
-      "count": 19,
+      "count": 14,
       "endpoints": {
-        "analyse": 15,
+        "analyse": 10,
         "path-analyse": 4
       }
     },
     "zwischen": {
-      "count": 17,
+      "count": 16,
       "endpoints": {
-        "path-analyse": 10,
+        "path-analyse": 9,
         "analyse": 7
       }
     },
@@ -101,9 +101,9 @@
       }
     },
     "moment": {
-      "count": 7,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 5,
         "analyse": 1
       }
     },
@@ -127,15 +127,15 @@
       }
     },
     "dialog": {
-      "count": 2,
+      "count": 1,
       "endpoints": {
-        "analyse": 2
+        "analyse": 1
       }
     },
     "ich-du": {
-      "count": 4,
+      "count": 3,
       "endpoints": {
-        "analyse": 4
+        "analyse": 3
       }
     },
     "antwort": {
@@ -172,9 +172,9 @@
       }
     },
     "selbst": {
-      "count": 10,
+      "count": 9,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 5,
         "path-analyse": 4
       }
     },
@@ -219,10 +219,10 @@
       }
     },
     "lm-begegnung": {
-      "count": 7,
+      "count": 4,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 3
+        "path-analyse": 2,
+        "analyse": 2
       }
     },
     "lm-scheitern": {
@@ -239,11 +239,11 @@
       }
     },
     "lm-verwandlung": {
-      "count": 35,
+      "count": 34,
       "endpoints": {
         "dialog": 19,
         "analyse": 6,
-        "path-analyse": 10
+        "path-analyse": 9
       }
     },
     "dazwischenintelligenz": {
@@ -292,9 +292,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 11,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 8,
+        "path-analyse": 7,
         "analyse": 3
       }
     },
@@ -348,7 +348,7 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 35,
+    "maxCount": 34,
     "median": 4,
     "totalNodes": 52,
     "zeroResonanceNodes": [

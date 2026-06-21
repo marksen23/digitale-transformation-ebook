@@ -1,40 +1,6 @@
 {
-  "generatedAt": "2026-06-16T11:59:55.535Z",
+  "generatedAt": "2026-06-21T17:35:28.665Z",
   "clusters": [
-    {
-      "anchor": "dialog:weiterdenken",
-      "endpoint": "dialog",
-      "variantIds": [
-        "MQ67RC88-9D183BCA",
-        "MQ67R74M-A1AA4B53",
-        "MQ5JL9TM-83E39C42",
-        "MQ5IO9GO-C29E0F4E",
-        "MQ5C9KIC-83A23F97",
-        "MQ5C887R-40278B91",
-        "MQ5C6W1B-D938FD1A",
-        "MQ5C5K4T-05B8AA83",
-        "MQ5C48T7-410C35C7",
-        "MQ5C2WMP-EB2A6071",
-        "MQ5C1KZ4-D6D52E94",
-        "MQ5C0980-C55D71E7",
-        "MQ5BYWCV-3C2528F8",
-        "MQ5BXK98-6A342B60",
-        "MQ5BX1ZO-4BCAEB11",
-        "MQ5BW774-2D00BE70",
-        "MQ5BUVA9-8E6E03AD",
-        "MQ5BTJKN-600F219C",
-        "MQ5BS3W0-008C85CA",
-        "MQ5BQRLE-54F57DD2",
-        "MQ5BPD9J-BF6353E0",
-        "MQ5BNZGK-DC882397",
-        "MQ5BMN6X-42C6D4EF",
-        "MQ5BF409-A842738E"
-      ],
-      "lastVariantTs": "2026-06-09T05:43:00.776Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
       "endpoint": "dialog",
@@ -65,39 +31,17 @@
       "masterStale": false
     },
     {
-      "anchor": "translate:vorwort+es",
-      "endpoint": "translate",
+      "anchor": "dialog:weiterdenken",
+      "endpoint": "dialog",
       "variantIds": [
-        "MQGL9IX2-231C158A",
-        "MQGHD2AM-F284267C",
-        "MQGGJN59-BA07B05F",
-        "MQFKW3OR-F80FC59E",
-        "MQFKQYEK-459A46CA",
-        "MQFKQGLN-E1712F18",
-        "MQELRMGC-8FD0C115",
-        "MQELRFJB-A690B522",
-        "MQELRCEO-E799EFBF",
-        "MQELRA75-F17396BE",
-        "MQECFWWB-B98391B5",
-        "MQEBZ0Y1-E3BCB35C"
+        "MQ67R74M-A1AA4B53",
+        "MQ5JL9TM-83E39C42",
+        "MQ5C1KZ4-D6D52E94",
+        "MQ5C0980-C55D71E7",
+        "MQ5BX1ZO-4BCAEB11",
+        "MQ5BF409-A842738E"
       ],
-      "lastVariantTs": "2026-06-16T11:58:46.024Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
-      "anchor": "analyse:resonanz+vernunft",
-      "endpoint": "analyse",
-      "variantIds": [
-        "MQ686ZDY-57367863",
-        "MQ686S1T-A20495CF",
-        "MQ685YTP-4A9F2234",
-        "MQ6850LJ-159A667C",
-        "MQ684QZK-4977B6D6",
-        "MQ683DMX-13D6C54F"
-      ],
-      "lastVariantTs": "2026-06-09T05:55:10.630Z",
+      "lastVariantTs": "2026-06-09T05:42:54.167Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
@@ -147,6 +91,19 @@
       "masterStale": false
     },
     {
+      "anchor": "translate:vorwort+es",
+      "endpoint": "translate",
+      "variantIds": [
+        "MQFKW3OR-F80FC59E",
+        "MQECFWWB-B98391B5",
+        "MQEBZ0Y1-E3BCB35C"
+      ],
+      "lastVariantTs": "2026-06-15T19:00:33.580Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:band3-kap4",
       "endpoint": "chapter",
       "variantIds": [
@@ -186,18 +143,6 @@
       "masterStale": false
     },
     {
-      "anchor": "path-analyse:lm-begegnung+unverfuegbarkeit",
-      "endpoint": "path-analyse",
-      "variantIds": [
-        "MQAS3AXO-82E7572B",
-        "MQARZJDV-82F077DD"
-      ],
-      "lastVariantTs": "2026-06-12T10:23:15.996Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
       "anchor": "analyse:erkenntnis+lm-verwandlung",
       "endpoint": "analyse",
       "variantIds": [
@@ -222,42 +167,6 @@
       "masterStale": false
     },
     {
-      "anchor": "path-analyse:lm-begegnung+lm-verwandlung",
-      "endpoint": "path-analyse",
-      "variantIds": [
-        "MPMTLD4Y-B5FD9EFB",
-        "MPMSSG1X-8451DE38"
-      ],
-      "lastVariantTs": "2026-05-26T15:58:50.050Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
-      "anchor": "analyse:dialog+ich-du",
-      "endpoint": "analyse",
-      "variantIds": [
-        "MPAH317T-242EECA7",
-        "MPAGOCGB-FB54D923"
-      ],
-      "lastVariantTs": "2026-05-18T00:35:25.289Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
-      "anchor": "analyse:lm-begegnung+resonanzvernunft+selbst",
-      "endpoint": "analyse",
-      "variantIds": [
-        "MP2LJCJB-EA58EC28",
-        "MP2LIW43-E8ADC59E"
-      ],
-      "lastVariantTs": "2026-05-12T12:17:55.511Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
       "anchor": "chapter:teil5",
       "endpoint": "chapter",
       "variantIds": [
@@ -272,7 +181,7 @@
   ],
   "stats": {
     "totalAnchors": 113,
-    "withMultipleVariants": 17,
+    "withMultipleVariants": 12,
     "withMaster": 0,
     "staleMasters": 0
   }

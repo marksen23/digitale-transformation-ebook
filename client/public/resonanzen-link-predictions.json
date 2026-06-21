@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-16T11:59:55.534Z",
+  "generatedAt": "2026-06-21T17:35:28.664Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -20,30 +20,13 @@
       ]
     },
     {
-      "source": "resonanz",
-      "target": "vernunft",
-      "cooccurrence": 7,
-      "endpoints": {
-        "analyse": 6,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MQ686ZDY-57367863",
-        "MQ686S1T-A20495CF",
-        "MQ685YTP-4A9F2234",
-        "MQ6850LJ-159A667C",
-        "MQ684QZK-4977B6D6"
-      ]
-    },
-    {
       "source": "moment",
       "target": "zwischen",
-      "cooccurrence": 4,
+      "cooccurrence": 3,
       "endpoints": {
-        "path-analyse": 4
+        "path-analyse": 3
       },
       "sampleEntryIds": [
-        "MQAS3AXO-82E7572B",
         "MQARZJDV-82F077DD",
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C"
@@ -118,20 +101,6 @@
       ]
     },
     {
-      "source": "resonanzvernunft",
-      "target": "selbst",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPF4FISZ-67000E01",
-        "MP2LJCJB-EA58EC28",
-        "MP2LIW43-E8ADC59E"
-      ]
-    },
-    {
       "source": "vernunft",
       "target": "zwischen",
       "cooccurrence": 3,
@@ -146,15 +115,16 @@
       ]
     },
     {
-      "source": "lm-begegnung",
-      "target": "unverfuegbarkeit",
+      "source": "resonanz",
+      "target": "vernunft",
       "cooccurrence": 2,
       "endpoints": {
-        "path-analyse": 2
+        "analyse": 1,
+        "path-analyse": 1
       },
       "sampleEntryIds": [
-        "MQAS3AXO-82E7572B",
-        "MQARZJDV-82F077DD"
+        "MQ683DMX-13D6C54F",
+        "MOOMPCI0-262176C2"
       ]
     },
     {
@@ -343,18 +313,6 @@
       ]
     },
     {
-      "source": "lm-begegnung",
-      "target": "lm-verwandlung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPMTLD4Y-B5FD9EFB",
-        "MPMSSG1X-8451DE38"
-      ]
-    },
-    {
       "source": "bewusstsein",
       "target": "welt",
       "cooccurrence": 2,
@@ -389,6 +347,19 @@
       "sampleEntryIds": [
         "MPF4WM18-FF4843F1",
         "MP497SNT-5E1D2074"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MPF4FISZ-67000E01",
+        "MP2LIW43-E8ADC59E"
       ]
     },
     {
@@ -427,18 +398,6 @@
       "sampleEntryIds": [
         "MPBI57AL-76627781",
         "MOPHZPQ7-B63879B5"
-      ]
-    },
-    {
-      "source": "dialog",
-      "target": "ich-du",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPAH317T-242EECA7",
-        "MPAGOCGB-FB54D923"
       ]
     },
     {
@@ -488,18 +447,6 @@
       "sampleEntryIds": [
         "MP495QL6-F5FD1AE1",
         "MOOMPCI0-262176C2"
-      ]
-    },
-    {
-      "source": "lm-begegnung",
-      "target": "selbst",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MP2LJCJB-EA58EC28",
-        "MP2LIW43-E8ADC59E"
       ]
     },
     {
@@ -555,7 +502,7 @@
   ],
   "stats": {
     "totalPairs": 247,
-    "candidatesCount": 43,
+    "candidatesCount": 39,
     "existingEdges": 116,
     "maxCooccurrence": 23
   }

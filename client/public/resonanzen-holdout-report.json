@@ -1,24 +1,10 @@
 {
-  "generatedAt": "2026-06-16T11:59:55.525Z",
-  "checked": 35,
-  "stable": 23,
-  "shifted": 10,
+  "generatedAt": "2026-06-21T17:35:28.656Z",
+  "checked": 28,
+  "stable": 13,
+  "shifted": 13,
   "drifted": 2,
   "details": [
-    {
-      "id": "MQ686ZDY-57367863",
-      "baseline": [
-        "MQ685YTP-4A9F2234",
-        "MQ683DMX-13D6C54F",
-        "MQ686S1T-A20495CF"
-      ],
-      "current": [
-        "MQ685YTP-4A9F2234",
-        "MQ683DMX-13D6C54F",
-        "MQ686S1T-A20495CF"
-      ],
-      "overlap": 3
-    },
     {
       "id": "MQ5WZZPN-8051E5FF",
       "baseline": [
@@ -42,66 +28,10 @@
       ],
       "current": [
         "MOQIHEM5-82D69E4F",
-        "MPMTLD4Y-B5FD9EFB",
-        "MPMSSG1X-8451DE38"
-      ],
-      "overlap": 3
-    },
-    {
-      "id": "MQ5KC1TP-0424F50A",
-      "baseline": [
-        "MQ5KAM5L-409E9F8E",
-        "MQ5K7UE1-BD2343A8",
-        "MQ5K97KT-75E9B3B8"
-      ],
-      "current": [
-        "MQ66YAQY-1EC79621",
-        "MQ5KAM5L-409E9F8E",
-        "MQ5K7UE1-BD2343A8"
+        "MPMSSG1X-8451DE38",
+        "MQ5WUD1G-0976C016"
       ],
       "overlap": 2
-    },
-    {
-      "id": "MQ5K5256-50E71A1B",
-      "baseline": [
-        "MQ5JWSCZ-DA570048",
-        "MQ5KAM5L-409E9F8E",
-        "MQ5K97KT-75E9B3B8"
-      ],
-      "current": [
-        "MQ5JWSCZ-DA570048",
-        "MQ5KAM5L-409E9F8E",
-        "MQ5K97KT-75E9B3B8"
-      ],
-      "overlap": 3
-    },
-    {
-      "id": "MQ5K3NXJ-35B2897A",
-      "baseline": [
-        "MQ5K97KT-75E9B3B8",
-        "MQ5JY6XE-E3DF189F",
-        "MQ5JWSCZ-DA570048"
-      ],
-      "current": [
-        "MQ5K97KT-75E9B3B8",
-        "MQ5JY6XE-E3DF189F",
-        "MQ5JWSCZ-DA570048"
-      ],
-      "overlap": 3
-    },
-    {
-      "id": "MQ5JZJS7-D1C1681C",
-      "baseline": [
-        "MQ5KAM5L-409E9F8E",
-        "MQ5K97KT-75E9B3B8",
-        "MQ5JM1HD-9047C82F"
-      ],
-      "current": [
-        "MQ5KAM5L-409E9F8E",
-        "MQ5K97KT-75E9B3B8",
-        "MQ5JM1HD-9047C82F"
-      ],
-      "overlap": 3
     },
     {
       "id": "MQ5CMPJB-3D705D06",
@@ -114,34 +44,6 @@
         "MQ5B3FJP-CD835FC2",
         "MPEV1D2J-55138734",
         "MPAS5OM5-A1F522F4"
-      ],
-      "overlap": 3
-    },
-    {
-      "id": "MQ5BQRLE-54F57DD2",
-      "baseline": [
-        "MQ5C5K4T-05B8AA83",
-        "MQ5BW774-2D00BE70",
-        "MQ5BS3W0-008C85CA"
-      ],
-      "current": [
-        "MQ5C5K4T-05B8AA83",
-        "MQ5BW774-2D00BE70",
-        "MQ5BS3W0-008C85CA"
-      ],
-      "overlap": 3
-    },
-    {
-      "id": "MQ5BPD9J-BF6353E0",
-      "baseline": [
-        "MQ5BYWCV-3C2528F8",
-        "MQ5BTJKN-600F219C",
-        "MQ5BNZGK-DC882397"
-      ],
-      "current": [
-        "MQ5BYWCV-3C2528F8",
-        "MQ5BTJKN-600F219C",
-        "MQ5BNZGK-DC882397"
       ],
       "overlap": 3
     },
@@ -209,11 +111,11 @@
         "MPUSEQMB-A31FD1B3"
       ],
       "current": [
-        "MPUS5XUF-31B3455A",
         "MPUS94IT-9CEEC40A",
-        "MPUSEQMB-A31FD1B3"
+        "MPUSEQMB-A31FD1B3",
+        "MPUU1101-EDF34032"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MPUO08SE-67E0912A",
@@ -323,7 +225,7 @@
       "current": [
         "MP756UV9-FF3838F7",
         "MP74X3EJ-72CDDB9F",
-        "MQ66ZDIF-61148F8E"
+        "MQ5TTE84-08EB6321"
       ],
       "overlap": 2
     },
@@ -335,11 +237,11 @@
         "MOQ5IKR5-C67AAC15"
       ],
       "current": [
-        "MP2LJCJB-EA58EC28",
         "MOJ7Q5HM-89F62E3F",
-        "MOQ5IKR5-C67AAC15"
+        "MOQ5IKR5-C67AAC15",
+        "MPARZ5F0-A9FD6F70"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MOQ5EOBY-82AD9EEE",
@@ -391,11 +293,11 @@
         "MOHAI60S-B7B04552"
       ],
       "current": [
-        "MPAH317T-242EECA7",
         "MOHV84M5-1825A399",
-        "MOHAI60S-B7B04552"
+        "MOHAI60S-B7B04552",
+        "MON6GME8-A2CB2CF7"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MOHV84M5-1825A399",
@@ -407,9 +309,9 @@
       "current": [
         "MOHLZBVK-2FBBAD2F",
         "MOJ7Q5HM-89F62E3F",
-        "MQ686ZDY-57367863"
+        "MOP0LEAL-E2568DCC"
       ],
-      "overlap": 2
+      "overlap": 3
     },
     {
       "id": "MOHST017-5C4320E1",
@@ -419,11 +321,11 @@
         "MOPFJTND-AAE76B2B"
       ],
       "current": [
-        "MP2LJCJB-EA58EC28",
         "MOP0LEAL-E2568DCC",
-        "MOPFJTND-AAE76B2B"
+        "MOPFJTND-AAE76B2B",
+        "MOOMJDPP-1F336D7D"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MOHDE0UP-E1D209AD",
