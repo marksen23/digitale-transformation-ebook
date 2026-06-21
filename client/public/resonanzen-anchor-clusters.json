@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-21T17:35:28.665Z",
+  "generatedAt": "2026-06-21T17:48:22.992Z",
   "clusters": [
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
@@ -37,7 +37,6 @@
         "MQ67R74M-A1AA4B53",
         "MQ5JL9TM-83E39C42",
         "MQ5C1KZ4-D6D52E94",
-        "MQ5C0980-C55D71E7",
         "MQ5BX1ZO-4BCAEB11",
         "MQ5BF409-A842738E"
       ],
@@ -86,19 +85,6 @@
         "MP0Q5FDJ-F2C015AF"
       ],
       "lastVariantTs": "2026-05-16T18:18:38.925Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
-      "anchor": "translate:vorwort+es",
-      "endpoint": "translate",
-      "variantIds": [
-        "MQFKW3OR-F80FC59E",
-        "MQECFWWB-B98391B5",
-        "MQEBZ0Y1-E3BCB35C"
-      ],
-      "lastVariantTs": "2026-06-15T19:00:33.580Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
@@ -181,7 +167,7 @@
   ],
   "stats": {
     "totalAnchors": 113,
-    "withMultipleVariants": 12,
+    "withMultipleVariants": 11,
     "withMaster": 0,
     "staleMasters": 0
   }
