@@ -203,6 +203,15 @@ export default function ResonanzenPage() {
     (filterTag ? 1 : 0) +
     (filterRelevanz !== "all" ? 1 : 0);
 
+  // Setzt alle Facetten-Filter zurück (Suchbegriff bleibt erhalten). Die
+  // URL-Sync-useEffect oben räumt die Deep-Link-Params automatisch mit.
+  const resetFilters = () => {
+    setFilterEndpoint("all");
+    setFilterStatus("all");
+    setFilterTag(null);
+    setFilterRelevanz("all");
+  };
+
   // ─── Filter + Suche ─────────────────────────────────────────────────────
   // Im semantischen Modus mit Resultat-Cache: zeige in dieser Sortierung
   // nur die rangierten Treffer (gefiltert durch Endpoint/Status/Tag).
@@ -722,6 +731,34 @@ export default function ResonanzenPage() {
                 Keine Begegnungen mit diesen Filtern gefunden. Versuche ein anderes
                 Wort, deaktiviere einen Filter oder schalte auf semantische Suche.
               </p>
+              {(activeFilterCount > 0 || search.trim().length > 0) && (
+                <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem", justifyContent: "center", marginTop: "1.2rem" }}>
+                  {activeFilterCount > 0 && (
+                    <button
+                      onClick={resetFilters}
+                      style={{
+                        fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
+                        color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`,
+                        padding: "0.7rem 1.2rem", cursor: "pointer", minHeight: 40,
+                      }}
+                    >
+                      Filter zurücksetzen ({activeFilterCount})
+                    </button>
+                  )}
+                  {search.trim().length > 0 && (
+                    <button
+                      onClick={() => setSearch("")}
+                      style={{
+                        fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", textTransform: "uppercase",
+                        color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`,
+                        padding: "0.7rem 1.2rem", cursor: "pointer", minHeight: 40,
+                      }}
+                    >
+                      Suche leeren
+                    </button>
+                  )}
+                </div>
+              )}
             </div>
           )}
           {hasActiveQuery && sortedResults.slice(0, resultsLimit).map(entry => {
