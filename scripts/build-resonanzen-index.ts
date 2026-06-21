@@ -985,6 +985,21 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
     }
   }
 
+  // Prune verwaister Vektoren: Einträge, die nicht mehr im Korpus sind
+  // (gelöscht / dedupliziert), würden sonst für immer im Embeddings-File
+  // bleiben — der Echo-Detektor iteriert über ALLE Keys und würde sie als
+  // near-duplicates mit dangling-id melden. `chapter:`-Keys sind der
+  // Werk-Anker für computeCrossLinks und bleiben erhalten.
+  const liveIds = new Set(entries.map(e => e.id));
+  let pruned = 0;
+  for (const id of Object.keys(existing)) {
+    if (!liveIds.has(id) && !id.startsWith("chapter:")) {
+      delete existing[id];
+      pruned++;
+    }
+  }
+  if (pruned > 0) console.log(`[build-resonanzen-index] pruned ${pruned} orphaned embeddings (entries no longer in corpus)`);
+
   const toCompute = entries.filter(e => !(e.id in existing));
   if (toCompute.length === 0) {
     console.log("[build-resonanzen-index] all embeddings up to date");
