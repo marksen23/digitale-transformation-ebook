@@ -1,154 +1,9 @@
 {
-  "generatedAt": "2026-06-21T17:47:50.695Z",
+  "generatedAt": "2026-06-21T17:53:10.772Z",
   "filesChecked": 240,
   "errors": 0,
-  "warnings": 24,
-  "issues": [
-    {
-      "level": "warning",
-      "file": "index:MQGL9Y20-C5BFAE3A",
-      "rule": "dangling-link",
-      "detail": "related → 'MQECFWWB-B98391B5' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQGL9Y20-C5BFAE3A",
-      "rule": "dangling-link",
-      "detail": "related → 'MQFKW3OR-F80FC59E' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQEBZ0Y1-E3BCB35C",
-      "rule": "dangling-link",
-      "detail": "related → 'MQECFWWB-B98391B5' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQEBZ0Y1-E3BCB35C",
-      "rule": "dangling-link",
-      "detail": "related → 'MQFKW3OR-F80FC59E' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQEBZ0Y1-E3BCB35C",
-      "rule": "dangling-link",
-      "detail": "nearDuplicates → 'MQECFWWB-B98391B5' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQEBZ0Y1-E3BCB35C",
-      "rule": "dangling-link",
-      "detail": "nearDuplicates → 'MQFKW3OR-F80FC59E' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQEBYB8T-FBE280B8",
-      "rule": "dangling-link",
-      "detail": "related → 'MQECFWWB-B98391B5' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQEBYB8T-FBE280B8",
-      "rule": "dangling-link",
-      "detail": "related → 'MQFKW3OR-F80FC59E' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ68LVS7-240568F5",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ68LVS7-240568F5",
-      "rule": "dangling-link",
-      "detail": "nearDuplicates → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ67R74M-A1AA4B53",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5C0980-C55D71E7' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5XNFSV-CD34905C",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5TTE84-08EB6321",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5KBJMQ-5C523141",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5KBJMQ-5C523141",
-      "rule": "dangling-link",
-      "detail": "nearDuplicates → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5JM1HD-9047C82F",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5JM1HD-9047C82F",
-      "rule": "dangling-link",
-      "detail": "nearDuplicates → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5JL9TM-83E39C42",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5C1KZ4-D6D52E94",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5C0980-C55D71E7' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MQ5C1KZ4-D6D52E94",
-      "rule": "dangling-link",
-      "detail": "nearDuplicates → 'MQ5C0980-C55D71E7' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MPURLTCS-5FDDD890",
-      "rule": "dangling-link",
-      "detail": "related → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MPURLTCS-5FDDD890",
-      "rule": "dangling-link",
-      "detail": "nearDuplicates → 'MQ5JU3IG-CEA68B2F' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MOU9T6C8-9C5E3BEC",
-      "rule": "dangling-link",
-      "detail": "related → 'MQFKW3OR-F80FC59E' nicht im Index"
-    },
-    {
-      "level": "warning",
-      "file": "index:MOU9T6C8-9C5E3BEC",
-      "rule": "dangling-link",
-      "detail": "related → 'MQECFWWB-B98391B5' nicht im Index"
-    }
-  ],
+  "warnings": 0,
+  "issues": [],
   "aggregates": {
     "byEndpoint": {
       "analyse": 58,
@@ -166,7 +21,7 @@
       "approved": 18
     },
     "orphanNodeIds": [],
-    "danglingLinks": 24,
+    "danglingLinks": 0,
     "redundantDuplicates": 0
   }
 }
