@@ -7,7 +7,7 @@
  */
 import type { ResonanzEntry } from "./resonanzenIndex";
 
-const AUTHOR = "Sennen, Marc";
+const AUTHOR = "Oehring, Markus";
 const WORK_TITLE = "Resonanzvernunft – Digitale Transformation";
 const SITE_BASE = "https://digitale-transformation-ebook.netlify.app";
 

@@ -2074,7 +2074,7 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
   // Manual-Trigger only — verbraucht Claude-API. Bei Bulk-Run mit Concurrency
   // 3 (analog Curation-Bulk).
 
-  const PRE_SCORE_SYSTEM = `Du bewertest KI-generierte Resonanzen für das deutsche Philosophiewerk „Resonanzvernunft — Digitale Transformation" von Marc Sennen.
+  const PRE_SCORE_SYSTEM = `Du bewertest KI-generierte Resonanzen für das deutsche Philosophiewerk „Resonanzvernunft — Digitale Transformation" von Markus Oehring.
 
 Werk-Profil: dichter philosophischer Duktus, mediale Anthropologie, Heidegger/Resonanz/Aufklärung-Bezüge, prosaisch (keine Listen), präzise ohne Akademismus. Zentrale Begriffe: Resonanz, Dasein, Werden, Zwischen, Leerstelle, Antlitz, Geviert, Kairos, Antwort, Begegnung.
 
