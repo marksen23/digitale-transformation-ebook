@@ -37,7 +37,9 @@ const STATUS_RANK: Record<string, number> = { published: 3, approved: 2, pending
 const rank = (s: string) => STATUS_RANK[s] ?? 0;
 
 async function main() {
-  const res = await fetch(INDEX_URL);
+  // Cache-Bust: raw.githubusercontent.com cacht die nackte URL ~5 min — sonst
+  // liest ein Folgelauf direkt nach einem --apply noch den alten Index.
+  const res = await fetch(`${INDEX_URL}?cb=${Date.now()}`, { cache: "no-store" });
   if (!res.ok) throw new Error(`Index laden fehlgeschlagen: ${res.status}`);
   const idx = await res.json() as { entries: Entry[] };
   const entries = idx.entries ?? [];

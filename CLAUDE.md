@@ -366,6 +366,16 @@ semantisch (Embedding) nach 300 ms — kein Toggle.
 
 ---
 
+## Arbeitsweise (Zusammenarbeit)
+
+- **Immer die langfristig tragfähigere, generelle Lösung vorschlagen.** Wenn
+  eine Aufgabe sowohl einen schnellen Punkt-Fix als auch eine grundsätzlichere,
+  wiederverwendbare Lösung zulässt, nenne **beide** und empfiehl aktiv die
+  generelle — auch wenn der User nur nach dem schnellen Weg gefragt hat. Lieber
+  die Wurzelursache beheben (z. B. Cache-Bust direkt im Script) als denselben
+  manuellen Workaround wiederholt erklären. Der User will einen idealen
+  Assistenten, der vorausdenkt, nicht nur ausführt. (Festgehalten 2026-06-21.)
+
 ## Konventionen
 
 - **TypeScript strict**, kein `any` außer in Detection-Code (Browser-Sniffing
