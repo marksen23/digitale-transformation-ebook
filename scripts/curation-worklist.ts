@@ -74,6 +74,10 @@ function aiDuktus(resp: string): { flags: string[]; severity: number } {
   if (/\*\*\S/.test(r)) flags.push("bold");
   // Listen/Aufzählungen
   if (/(^|\n)\s*[-*•]\s|\n\s*\d+\.\s/.test(r)) flags.push("liste");
+  // Inline-Citations [<id/hash>] = Synthese aus anderen Einträgen, kein
+  // Frischdenken (der Richter belohnt das trotzdem mit hohem ai_score).
+  const cites = (r.match(/\[[0-9a-zA-Z]{6,}(-[0-9A-Z]{6,})?\]/g) ?? []).length;
+  if (cites >= 2) flags.push(`zitat×${cites}`);
   return { flags, severity: flags.length + (flags.includes("coaching") ? 1 : 0) };
 }
 
@@ -117,7 +121,8 @@ async function main() {
     `(graph-chat/chapter neigen zu Erklär-/Zitat-Modus → weiter unten.) Die Spalte **Duktus**`,
     `markiert KI-Stimme-Marker, die WEDER ai_score NOCH corpusVoiceScore erfassen:`,
     `\`coaching\` = Leser-Anrede/„Ihre Frage ist…"; \`quotes×N\` = Begriffs-Anführungszeichen;`,
-    `\`bold\` = Markdown-Fett; \`liste\` = Aufzählung. **⚠-Zeilen sind fast immer skip** —`,
+    `\`bold\` = Markdown-Fett; \`liste\` = Aufzählung; \`zitat×N\` = Inline-Citations (Synthese`,
+    `aus anderen Einträgen statt Frischdenken). **⚠-Zeilen sind fast immer skip** —`,
     `die echten Keeper stehen oben (✓ sauber). **Schwäche** = Ein-Satz-Kritik des Richters.`,
     `Scores cv/cn/wv = Werk-/Begriffs-/Stimme-Nähe; \`echo\` = Variation (evtl. Dublette).`,
     ``,
