@@ -741,7 +741,11 @@
       "werkVoiceScore": 0.7791343150173028,
       "corpusVoiceScore": 0.7124066429768365,
       "conceptVoiceScore": 0.7442300980126331,
-      "conceptAnchor": "freiheit"
+      "conceptAnchor": "freiheit",
+      "ai_score": 5,
+      "ai_score_reason": "Der Text ist stilistisch kaum unterscheidbar, verwebt Schlüsselbegriffe souverän und führt den Gedanken durch eine eigene, weiterführende Frage fort.",
+      "ai_score_at": "2026-06-22T14:14:10.949Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5WZZPN-8051E5FF",
