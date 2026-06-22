@@ -18,6 +18,11 @@
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --no-reject  # NUR approves anwenden
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --rescore --limit 10  # Alt-Scores neu bewerten
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --score-only --rescore --limit 25  # nur bewerten, Verteilung sehen
+ *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --score-only --limit 20 --offset 40  # Pool-Fenster 40–60
+ *
+ * --offset N / --limit M: fenstern den raw/pending-Pool (Fenster N…N+M), damit
+ * lange Pools in mehreren kurzen Requests durchgearbeitet werden — vermeidet
+ * Render-Timeouts bei vielen langsamen Thinking-Modell-Calls.
  *
  * --score-only: bewertet (schreibt ai_scores) + zeigt die Klassifikation/
  * Verteilung, ändert aber KEINEN Status — gefahrloses Beobachten der Richter-
@@ -52,6 +57,7 @@ function argNum(flag: string, fallback: number): number {
   return fallback;
 }
 const LIMIT = Math.min(Math.max(1, argNum("--limit", 50)), 200);
+const OFFSET = Math.max(0, argNum("--offset", 0));
 
 interface ClassifiedEntry {
   id: string; decision: string; reason: string; prompt: string;
@@ -60,6 +66,8 @@ interface ClassifiedEntry {
 }
 interface AutoCurateResponse {
   mode: string;
+  poolSize?: number;
+  offset?: number;
   candidateCount: number;
   counts: { approve: number; reject: number; review: number };
   unscored: number;
@@ -92,13 +100,14 @@ async function main() {
   const r = await fetch(`${API_BASE}/api/admin/auto-curate`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ mode, limit: LIMIT, ...(NO_REJECT ? { skipReject: true } : {}), ...(RESCORE ? { rescore: true } : {}), ...(SCORE_ONLY ? { scoreOnly: true } : {}) }),
+    body: JSON.stringify({ mode, limit: LIMIT, offset: OFFSET, ...(NO_REJECT ? { skipReject: true } : {}), ...(RESCORE ? { rescore: true } : {}), ...(SCORE_ONLY ? { scoreOnly: true } : {}) }),
   });
   const data = await r.json().catch(() => ({})) as AutoCurateResponse & { error?: string };
   if (!r.ok) { console.error(`[auto-curate] HTTP ${r.status}:`, data.error ?? data); process.exit(1); }
 
+  const window = data.poolSize != null ? ` [Fenster ${data.offset ?? 0}–${(data.offset ?? 0) + data.candidateCount} von ${data.poolSize}]` : "";
   console.log(
-    `[auto-curate] ${data.candidateCount} Kandidaten (raw/pending) · ` +
+    `[auto-curate] ${data.candidateCount} Kandidaten${window} · ` +
     `approve ${data.counts.approve} · reject ${data.counts.reject} · review ${data.counts.review}`,
   );
   // Score-Histogramm über ALLE klassifizierten — zeigt die Richter-Trennschärfe

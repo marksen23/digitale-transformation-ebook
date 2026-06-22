@@ -35,6 +35,10 @@ export async function callGemini(opts: {
   maxTokens?: number;
   temperature?: number;
   model?: string;
+  /** gemini-2.5-Thinking-Budget in Tokens. Niedriger = schneller/billiger.
+   *  Für simple Rating-Tasks (Pre-Scoring) reichen ~512 → drosselt die Latenz
+   *  des Thinking-Modells deutlich. Weggelassen = Modell-Default (dynamisch). */
+  thinkingBudget?: number;
 }): Promise<string | null> {
   const keys = getKeys();
   if (keys.length === 0) {
@@ -49,6 +53,7 @@ export async function callGemini(opts: {
     generationConfig: {
       temperature: opts.temperature ?? 0.7,
       maxOutputTokens: opts.maxTokens ?? 4096,
+      ...(typeof opts.thinkingBudget === "number" ? { thinkingConfig: { thinkingBudget: opts.thinkingBudget } } : {}),
     },
   });
 

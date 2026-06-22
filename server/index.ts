@@ -2074,19 +2074,27 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
   // Manual-Trigger only — verbraucht Claude-API. Bei Bulk-Run mit Concurrency
   // 3 (analog Curation-Bulk).
 
-  const PRE_SCORE_SYSTEM = `Du bewertest KI-generierte Resonanzen für das deutsche Philosophiewerk „Resonanzvernunft — Digitale Transformation" von Markus Oehring.
+  const PRE_SCORE_SYSTEM = `Du bist ein STRENGER Lektor und schützt das Niveau des deutschen Philosophiewerks „Resonanzvernunft — Digitale Transformation" von Markus Oehring. Du beurteilst, ob eine KI-generierte Resonanz dem Werk wirklich ebenbürtig ist.
 
 Werk-Profil: dichter philosophischer Duktus, mediale Anthropologie, Heidegger/Resonanz/Aufklärung-Bezüge, prosaisch (keine Listen), präzise ohne Akademismus. Zentrale Begriffe: Resonanz, Dasein, Werden, Zwischen, Leerstelle, Antlitz, Geviert, Kairos, Antwort, Begegnung.
 
-Bewerte den vorgelegten KI-Output stilistisch und thematisch auf einer 5-stufigen Skala:
+KALIBRIERUNG (entscheidend — bewerte streng, im Zweifel runde AB):
+Die MEISTE KI-Prosa verdient eine 3. Eine 5 vergibst du höchstens bei jedem zwanzigsten Text — nur wenn du den Absatz WORTWÖRTLICH ins gedruckte Buch übernehmen würdest, ohne ein Wort zu ändern. Großzügigkeit zerstört den Sinn dieser Bewertung; ein „schön klingender" Text ist noch lange keine 5.
 
-5: Stilistisch indistinguishable vom Werk; bringt einen eigenen denkerischen Beitrag, der die Frage weiterführt.
-4: Werktreu, gut formuliert; eine oder zwei Wendungen klingen leicht generisch.
-3: Resonanz-Form korrekt, aber der typische KI-Erklärungs-Duktus dominiert; thematisch passend.
-2: Themenpassend, aber stilistisch fremd (Aufzählungen, Schulbuch-Ton, „Es ist wichtig zu betonen").
-1: Off-topic, generisch, stilfremd, oder bricht in Listen/Bullets aus.
+KI-MARKER, die den Score auf HÖCHSTENS 3 deckeln (auch bei schöner Sprache):
+rhetorische Dreierfiguren; „es ist wichtig zu betonen/verstehen"; aufzählende oder gliedernde Struktur; Meta-Kommentar über die eigene Antwort; generische Schlusswendungen („letztlich zeigt sich", „in diesem Sinne", „eine Einladung, …"); zentrale Begriffe bloß benannt statt wirklich gedacht.
 
-OUTPUT-FORMAT (STRIKT — exakt zwei Zeilen, sonst nichts):
+SKALA:
+5 — Ununterscheidbar von Oehrings eigener Hand UND ein eigener denkerischer Schritt, der die Frage weiterführt. Du würdest kein Wort ändern. (Sehr selten.)
+4 — Werktreu und eigenständig, aber mit ein, zwei Schwächen (eine generische Wendung, ein nicht ganz getragener Gedanke).
+3 — STANDARD: thematisch passend und formal korrekt, aber KI-Duktus erkennbar ODER bloße Paraphrase ohne neuen Gedanken. Hier landen die meisten.
+2 — stilistisch fremd (Schulbuch-Ton, Aufzählungen) oder inhaltlich beliebig.
+1 — off-topic, generisch, oder bricht in Listen/Bullets aus.
+
+Nenne ZUERST die größte Schwäche des Textes, DANN erst den Score — das diszipliniert dein Urteil und verhindert Gefälligkeit.
+
+OUTPUT-FORMAT (STRIKT — exakt drei Zeilen, sonst nichts):
+SCHWÄCHE: <die größte Schwäche, ein Satz>
 SCORE: <1-5>
 BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
@@ -2107,13 +2115,13 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
    * Reicht das genutzte Modell + den echten Fehler durch (Observability).
    */
   async function callTextLLM(
-    opts: { system: string; user: string; maxTokens?: number; temperature?: number },
+    opts: { system: string; user: string; maxTokens?: number; temperature?: number; thinkingBudget?: number },
     cfg: { backend: string; geminiModel: string },
   ): Promise<{ text: string | null; model: string; error: string | null }> {
     if (cfg.backend === "claude") {
       const { callClaude, isClaudeAvailable, getClaudeModel, getLastClaudeError } = await import("./lib/claudeClient.js");
       if (!isClaudeAvailable()) return { text: null, model: getClaudeModel(), error: "ANTHROPIC_API_KEY fehlt" };
-      const text = await callClaude(opts);
+      const text = await callClaude(opts);  // thinkingBudget ist Gemini-spezifisch, Claude ignoriert es
       return { text, model: getClaudeModel(), error: text ? null : (getLastClaudeError() ?? "Claude-Call fehlgeschlagen") };
     }
     const { callGemini, isGeminiAvailable, getLastGeminiError } = await import("./lib/geminiText.js");
@@ -2144,7 +2152,8 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     // die (kurze) Antwort → leere Response. 2048 gibt Headroom (die Antwort
     // selbst sind nur 2 Zeilen). Claude braucht das nicht, schadet aber nicht.
     const { text: raw, model, error: llmError } = await callTextLLM(
-      { system: PRE_SCORE_SYSTEM, user: userPrompt, maxTokens: 2048, temperature: 0.2 },
+      { system: PRE_SCORE_SYSTEM, user: userPrompt, maxTokens: 2048, temperature: 0.2,
+        thinkingBudget: parseInt(process.env.PRESCORE_THINKING_BUDGET ?? "512", 10) },
       { backend: process.env.PRESCORE_BACKEND ?? "gemini", geminiModel: process.env.PRESCORE_MODEL ?? "gemini-2.5-pro" },
     );
     if (!raw) return { ok: false, error: `Pre-Score-LLM fehlgeschlagen — ${llmError ?? "kein Detail"}` };
@@ -2270,18 +2279,21 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
   app.post("/api/admin/auto-curate", async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
-    const { mode, limit, skipReject, rescore, scoreOnly } = req.body as { mode?: string; limit?: number; skipReject?: boolean; rescore?: boolean; scoreOnly?: boolean };
+    const { mode, limit, offset, skipReject, rescore, scoreOnly } = req.body as { mode?: string; limit?: number; offset?: number; skipReject?: boolean; rescore?: boolean; scoreOnly?: boolean };
     if (mode !== "preview" && mode !== "apply") {
       return res.status(400).json({ error: 'mode muss "preview" oder "apply" sein' });
     }
     const cap = Math.min(Math.max(1, Number(limit) || 50), 200);
+    const off = Math.max(0, Number(offset) || 0);
 
     const entries = await loadIndex();
     if (!entries) return res.status(503).json({ error: "Index nicht ladbar (GITHUB_TOKEN fehlt?)" });
 
-    const candidates = (entries as unknown as ScoredEntry[])
-      .filter(e => e.status === "raw" || e.status === "pending")
-      .slice(0, cap);
+    // offset/limit fenstern den (ts-absteigend sortierten) raw/pending-Pool —
+    // damit lange Pools in mehreren kürzeren Requests durchgearbeitet werden
+    // können, ohne dass ein einzelner Request am Render-Timeout scheitert.
+    const pool = (entries as unknown as ScoredEntry[]).filter(e => e.status === "raw" || e.status === "pending");
+    const candidates = pool.slice(off, off + cap);
 
     // Aktueller Richter (muss zur Wahl in preScoreSingle passen) — für die
     // rescore-Bedingung: Einträge mit fremdem ai_score_model neu bewerten.
@@ -2348,6 +2360,8 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     return res.json({
       mode,
       thresholds: AUTO_CURATE,
+      poolSize: pool.length,
+      offset: off,
       candidateCount: candidates.length,
       counts: { approve: approve.length, reject: reject.length, review: review.length },
       unscored,           // nur im preview relevant: so viele bräuchten erst Pre-Score
