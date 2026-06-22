@@ -3242,7 +3242,11 @@
       "werkVoiceScore": 0.7911240550933952,
       "corpusVoiceScore": 0.7455394725823973,
       "conceptVoiceScore": 0.6813051542700502,
-      "conceptAnchor": "selbst"
+      "conceptAnchor": "selbst",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort stellt kluge, werksnahe Rückfragen, entwickelt aber keinen eigenen Gedanken, sondern arrangiert die Stichworte des Nutzers zu einer neuen Problemstellung.",
+      "ai_score_at": "2026-06-22T23:56:47.672Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMLQX6D-E6B61F8E",
