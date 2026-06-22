@@ -17,7 +17,10 @@ import Anthropic from "@anthropic-ai/sdk";
 const apiKey = (process.env.ANTHROPIC_API_KEY ?? "").trim() || undefined;
 const client = apiKey ? new Anthropic({ apiKey }) : null;
 
-const DEFAULT_MODEL = process.env.CLAUDE_MODEL?.trim() || "claude-sonnet-4-5";
+// Aktuelle Sonnet-Generation. claude-sonnet-4-5 wurde abgelöst → ein Call darauf
+// liefert 404 model_not_found (→ callClaude null → „Claude-Call fehlgeschlagen").
+// Per CLAUDE_MODEL-ENV jederzeit überschreibbar, wenn Anthropic neu released.
+const DEFAULT_MODEL = process.env.CLAUDE_MODEL?.trim() || "claude-sonnet-4-6";
 
 // Erste paar Fehler ausführlich loggen — danach silent, damit
 // bei systematischem Problem (z.B. ungültiger Key) die Logs nicht überlaufen.
