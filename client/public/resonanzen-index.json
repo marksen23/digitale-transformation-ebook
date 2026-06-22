@@ -3158,7 +3158,11 @@
       "werkVoiceScore": 0.8053079008115069,
       "corpusVoiceScore": 0.751611287165579,
       "conceptVoiceScore": 0.660538307533382,
-      "conceptAnchor": "lm-begegnung"
+      "conceptAnchor": "lm-begegnung",
+      "ai_score": 3,
+      "ai_score_reason": "Der Text denkt den Begriff der Spaltung zwar produktiv weiter, fällt aber am Ende in einen dialogischen, anwendungsbezogenen Modus, der dem Werk fremd ist.",
+      "ai_score_at": "2026-06-22T23:56:27.865Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMM2YAK-A7491D44",
