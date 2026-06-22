@@ -186,6 +186,30 @@ wurden: Artifact `corpus-state` des Runs herunterladen
 kopieren und per Owner-Push committen. (Aufgetreten 2026-06-08 nach
 Billing-Reaktivierung.)
 
+### 8. „Pre-Scoring / Master-Synthese schlägt fehl (`Claude-Call fehlgeschlagen`)"
+
+Die **Claude**-abhängigen Admin-Features — Pre-Scoring (`/api/admin/pre-score`,
+und damit `auto-curate --apply`) + Master-Synthese — laufen über Anthropic
+(`server/lib/claudeClient.ts`), **nicht** über Gemini. Die user-seitigen KI-
+Flächen (analyse, dialog, graph-chat, translate) nutzen dagegen Gemini
+(`generateContent`). Folge: Bei einem Anthropic-Problem **funktioniert die Seite
+weiter, aber Pre-Scoring/Synthese sterben still**.
+
+**Diagnose (ein Call, zeigt den echten Grund):**
+```powershell
+Invoke-RestMethod -Uri ".../api/admin/pre-score" -Method Post `
+  -Headers @{ Authorization = "Bearer $env:ADMIN_TOKEN" } `
+  -ContentType "application/json" -Body '{"id":"<eine raw-id>"}'
+# bei Fehler den 502-Body aus dem Stream lesen (PS 5.1 verschluckt ihn sonst)
+```
+`preScoreSingle` hängt seit 2026-06-22 den echten Anthropic-Fehler an
+(`getLastClaudeError`): `HTTP 401` = Key ungültig, `429` = Rate-Limit,
+`404 model` = Modell-ID veraltet (`CLAUDE_MODEL`-ENV bzw. `claudeClient.ts`
+`DEFAULT_MODEL` aktualisieren — aktuell `claude-sonnet-4-6`), **`credit balance
+too low`** = Anthropic-Guthaben leer → console.anthropic.com → Plans & Billing
+aufladen. (Aufgetreten 2026-06-22: leeres Anthropic-Guthaben — Gemini-Features
+liefen weiter, nur Claude-Admin-Features down.)
+
 ---
 
 ## Korpus-Datenfluss
