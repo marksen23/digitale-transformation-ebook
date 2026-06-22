@@ -984,7 +984,11 @@
       "werkVoiceScore": 0.8339726205242053,
       "corpusVoiceScore": 0.8242350028447074,
       "conceptVoiceScore": 0.8794286702188606,
-      "conceptAnchor": "entfremdung"
+      "conceptAnchor": "entfremdung",
+      "ai_score": 4,
+      "ai_score_reason": "Der Text ist thematisch und stilistisch sehr treffend, nur wenige erklärende Wendungen durchbrechen den ansonsten dichten philosophischen Duktus.",
+      "ai_score_at": "2026-06-22T14:16:01.837Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5TTE84-08EB6321",
