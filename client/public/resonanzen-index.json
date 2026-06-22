@@ -503,7 +503,11 @@
       "werkVoiceScore": 0.8057290568758345,
       "corpusVoiceScore": 0.7699651848980394,
       "conceptVoiceScore": 0.7050195435609288,
-      "conceptAnchor": "wesen"
+      "conceptAnchor": "wesen",
+      "ai_score": 5,
+      "ai_score_reason": "Die Antwort leitet aus dem Werk eine originelle, denkerisch weiterführende Definition maschineller Würde als Schutz der Resonanzfähigkeit ab.",
+      "ai_score_at": "2026-06-22T09:30:17.244Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5XFLFO-F0DBB89E",
