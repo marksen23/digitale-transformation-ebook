@@ -1530,7 +1530,11 @@
       "werkVoiceScore": 0.7823213974185169,
       "corpusVoiceScore": 0.7608177786407245,
       "conceptVoiceScore": 0.6640561828011459,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Der Text referiert werknah und stellt die richtigen Gegenfragen, entwickelt aber keinen eigenen Gedanken, sondern konfrontiert die These des Nutzers lediglich mit bestehenden Werk-Positionen.",
+      "ai_score_at": "2026-06-22T23:52:20.604Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUU1101-EDF34032",
