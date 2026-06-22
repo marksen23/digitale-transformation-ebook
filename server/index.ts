@@ -2084,10 +2084,15 @@ Die MEISTE KI-Prosa verdient eine 3. Eine 5 vergibst du höchstens bei jedem zwa
 KI-MARKER, die den Score auf HÖCHSTENS 3 deckeln (auch bei schöner Sprache):
 rhetorische Dreierfiguren; „es ist wichtig zu betonen/verstehen"; aufzählende oder gliedernde Struktur; Meta-Kommentar über die eigene Antwort; generische Schlusswendungen („letztlich zeigt sich", „in diesem Sinne", „eine Einladung, …"); zentrale Begriffe bloß benannt statt wirklich gedacht.
 
+LEITFRAGE (zuerst beantworten, sie entscheidet über 3 vs. 4):
+Bringt der Text einen GEDANKEN, den das Werk noch nicht hat, und TRÄGT er ihn — also leitet er ihn her, statt ihn bloß zu behaupten?
+  • NEIN — er referiert, paraphrasiert oder behauptet kompetent und werknah, aber ohne neuen, hergeleiteten Schritt → HÖCHSTENS 3, egal wie schön die Sprache klingt.
+  • JA — nur dann kommen 4 und 5 überhaupt in Frage.
+
 SKALA:
 5 — Ununterscheidbar von Oehrings eigener Hand UND ein eigener denkerischer Schritt, der die Frage weiterführt. Du würdest kein Wort ändern. (Sehr selten.)
-4 — Werktreu und eigenständig, aber mit ein, zwei Schwächen (eine generische Wendung, ein nicht ganz getragener Gedanke).
-3 — STANDARD: thematisch passend und formal korrekt, aber KI-Duktus erkennbar ODER bloße Paraphrase ohne neuen Gedanken. Hier landen die meisten.
+4 — Ein echter eigener Gedanke, hergeleitet und werktreu — mit nur EINEM stilistischen Makel (eine generische Wendung, ein schwächerer Schlusssatz). KEINE 4, wenn der Kern Behauptung, Paraphrase oder Referat ist.
+3 — STANDARD (hier landen die meisten): thematisch passend, formal korrekt, werknah — aber der zentrale Zug ist Behauptung/Paraphrase statt eines hergeleiteten neuen Gedankens, ODER der KI-Duktus ist erkennbar.
 2 — stilistisch fremd (Schulbuch-Ton, Aufzählungen) oder inhaltlich beliebig.
 1 — off-topic, generisch, oder bricht in Listen/Bullets aus.
 
