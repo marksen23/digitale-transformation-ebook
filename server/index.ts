@@ -2065,6 +2065,57 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     return res.json({ ok: true, verdict, applied: true, already: r.already ?? false, node: record });
   });
 
+  // ─── Erkenntnisse (Erkenntnisse-Vision, Phase 2) ─────────────────────────
+  // distill: destilliert den Kernsatz einer Antwort (KI-Entwurf, reine
+  // Zusammenfassung — LLM-zuverlässig, kein Werturteil). confirm: verleiht den
+  // menschlich-autorisierten Status „Erkenntnis", persistiert additiv.
+  const ERKENNTNIS_DISTILL_SYSTEM = `Du destillierst den EINEN neuen denkerischen Schritt aus einer philosophischen Antwort des Werks „Resonanzvernunft — Digitale Transformation".
+
+Lies die Antwort und formuliere in EINEM dichten Satz (max. 30 Wörter) den Kern-Gedanken — die Unterscheidung, Verbindung oder Auflösung, die sie stiftet. Im Duktus des Werks (prosaisch, präzise, keine Meta-Sprache, kein „Die Antwort besagt…"). Nur der Satz selbst, sonst nichts.`;
+
+  app.post("/api/admin/distill-erkenntnis", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { answerId } = req.body as { answerId?: string };
+    if (!answerId) return res.status(400).json({ error: "answerId fehlt" });
+
+    const file = await findEntryFile(answerId);
+    if (!file) return res.status(404).json({ error: `Eintrag ${answerId} nicht gefunden` });
+    const mBody = file.content.match(/^---\n[\s\S]*?\n---\n?([\s\S]*)$/);
+    let response = "";
+    for (const s of (mBody?.[1] ?? "").split(/^##\s+/m)) {
+      if (/^Antwort\s*\n/.test(s)) response = s.replace(/^Antwort\s*\n+/, "").trim();
+    }
+    if (!response) return res.status(400).json({ error: "Kein Antwort-Section gefunden" });
+
+    const { text, error } = await callTextLLM(
+      { system: ERKENNTNIS_DISTILL_SYSTEM, user: response.slice(0, 4000), maxTokens: 2048, temperature: 0.3,
+        thinkingBudget: parseInt(process.env.PRESCORE_THINKING_BUDGET ?? "512", 10) },
+      { backend: process.env.PRESCORE_BACKEND ?? "gemini", geminiModel: process.env.PRESCORE_MODEL ?? "gemini-2.5-pro" },
+    );
+    if (!text) return res.status(502).json({ error: `Destillation fehlgeschlagen — ${error ?? "kein Detail"}` });
+    return res.json({ ok: true, answerId, kernsatz: text.trim().replace(/^["„]|["“]$/g, "").trim() });
+  });
+
+  app.post("/api/admin/confirm-erkenntnis", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { id, kernsatz, questionSourceId, answerId, conceptAnchor, masterAnchor, distinctness } = req.body as {
+      id?: string; kernsatz?: string; questionSourceId?: string; answerId?: string;
+      conceptAnchor?: string | null; masterAnchor?: string | null; distinctness?: number;
+    };
+    if (!id || !kernsatz?.trim() || !answerId || !questionSourceId) {
+      return res.status(400).json({ error: "id, kernsatz, questionSourceId, answerId erforderlich" });
+    }
+    const { acceptErkenntnis } = await import("./lib/erkenntnisse.js");
+    const r = await acceptErkenntnis({
+      id, kernsatz: kernsatz.trim(), questionSourceId, answerId,
+      conceptAnchor: conceptAnchor ?? null, masterAnchor: masterAnchor ?? null,
+      distinctness: typeof distinctness === "number" ? distinctness : 0,
+      createdAt: new Date().toISOString(), actor: "admin",
+    });
+    if (!r.ok) return res.status(502).json({ ok: false, error: r.error });
+    return res.json({ ok: true, id, already: r.already ?? false });
+  });
+
   // ─── AI-Pre-Score (Tier-1-3-Roadmap, Feature E) ──────────────────────────
   // Bewertet einen oder mehrere raw/pending-Einträge auf einer 1-5-Skala
   // gegen das stilistische und thematische Profil des Werks. Schreibt

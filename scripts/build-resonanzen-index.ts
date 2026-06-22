@@ -35,6 +35,8 @@ const ANCHOR_CLUSTERS_OUTPUT = path.join(ROOT, "client/public/resonanzen-anchor-
 const CORPUS_MAP_OUTPUT = path.join(ROOT, "client/public/resonanzen-corpus-map.json");
 const QUESTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-questions.json");
 const QUESTION_EMB_OUTPUT = path.join(ROOT, "client/public/resonanzen-question-embeddings.json");
+const ERKENNTNIS_CANDIDATES_OUTPUT = path.join(ROOT, "client/public/resonanzen-erkenntnis-candidates.json");
+const ERKENNTNISSE_PATH = path.join(ROOT, "client/public/resonanzen-erkenntnisse.json");
 // Korpus-Politik: Endpoints, die NICHT in den Resonanz-Korpus gehören.
 // `translate` ist ein Übersetzungs-Service für Leser, kein denkerischer
 // Beitrag — er verwässert RAG/Embeddings/Voice-Scores/Kandidaten. Die
@@ -366,7 +368,8 @@ async function main() {
   // Begriffs-Kandidaten brauchen die Vektoren (mit Gemini-Path: `embeddings`,
   // sonst der von-Platte-geladene `mapEmbeddings`-Fallback wie die corpus-map).
   writeConceptCandidates(entries, embeddings ?? mapEmbeddings);
-  await writeQuestions(entries, embeddings ?? mapEmbeddings);
+  const questionChains = await writeQuestions(entries, embeddings ?? mapEmbeddings);
+  writeErkenntnisCandidates(entries, embeddings ?? mapEmbeddings, questionChains);
   writeAnchorClusters(entries);
 
   // ─── Final-Telemetrie: was steht effektiv im Index? ──────────────────
@@ -725,7 +728,8 @@ function extractClosingQuestion(text: string): string {
  *  Einträge (Cosine ≥ ANSWER_SIM) → „das Werk hat sich das selbst beantwortet".
  *  Output resonanzen-questions.json. Fail-soft ohne Gemini-Key: Fragen werden
  *  gelistet, answeredBy bleibt leer (Matching erst im CI). */
-async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<string, number[]> | null): Promise<void> {
+type QuestionChain = { sourceId: string; question: string; answeredBy: Array<{ id: string; score: number }> };
+async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<string, number[]> | null): Promise<QuestionChain[]> {
   const ANSWER_SIM = parseFloat(process.env.QUESTIONS_ANSWER_SIM ?? "0.72");
   const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
 
@@ -793,6 +797,89 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
     questions: out,
   }, null, 2));
   console.log(`[build-resonanzen-index] questions: ${out.length} (${answered} beantwortet, ${out.length - answered} offen, ${embedded} neu embeddet)`);
+  return out.map(q => ({ sourceId: q.sourceId, question: q.question, answeredBy: q.answeredBy }));
+}
+
+/** Erkenntnis-Kandidaten (Phase 2): aus den Frage→Antwort-Ketten (writeQuestions)
+ *  Kandidaten machen — für jede beantwortete Frage die tragende(n) Antwort(en),
+ *  bewertet nach Distinktheit (1−maxCosine zu den KURATIERTEN Einträgen: bringt
+ *  die Antwort etwas, das nicht schon anderswo steht?). Reine Provenienz +
+ *  objektives Maß; den Status „Erkenntnis" verleiht der Mensch im Admin.
+ *  → resonanzen-erkenntnis-candidates.json. Bereits bestätigte (answerId in
+ *  resonanzen-erkenntnisse.json) werden ausgefiltert. */
+function writeErkenntnisCandidates(
+  entries: ResonanzEntry[],
+  embeddings: Record<string, number[]> | null,
+  chains: QuestionChain[],
+): void {
+  // 0.20 = oberhalb des Median (0.158 im Pool) → die distinkteren ~45 Antworten,
+  // ein überschaubarer Sichtungs-Satz für echte Erkenntnisse. ENV-überschreibbar.
+  const DISTINCT_MIN = parseFloat(process.env.ERKENNTNIS_CAND_DISTINCT_MIN ?? "0.20");
+  const writeOut = (candidates: unknown[], stats: Record<string, unknown>) =>
+    fs.writeFileSync(ERKENNTNIS_CANDIDATES_OUTPUT, JSON.stringify(
+      { generatedAt: new Date().toISOString(), thresholds: { DISTINCT_MIN }, candidates, stats }, null, 2));
+
+  // Schon bestätigte Erkenntnisse ausfiltern (per answerId).
+  let confirmed = new Set<string>();
+  try {
+    if (fs.existsSync(ERKENNTNISSE_PATH)) {
+      const ef = JSON.parse(fs.readFileSync(ERKENNTNISSE_PATH, "utf-8"));
+      confirmed = new Set((ef.erkenntnisse ?? []).map((e: { answerId?: string }) => e.answerId).filter(Boolean));
+    }
+  } catch { /* leer */ }
+
+  if (!embeddings) { writeOut([], { reason: "keine Embeddings" }); console.log("[build-resonanzen-index] erkenntnis-candidates: keine Embeddings — leer"); return; }
+
+  const byId = new Map(entries.map(e => [e.id, e]));
+  const curatedVecs = entries
+    .filter(e => (e.status === "approved" || e.status === "published") && embeddings[e.id])
+    .map(e => ({ id: e.id, v: embeddings[e.id] }));
+
+  // ANTWORT-zentrisch: eine Antwort, die ≥1 offene Frage löst, ist EIN
+  // Erkenntnis-Kandidat (auch wenn sie mehrere Fragen beantwortet — die sammelt
+  // sie als „resolves"). Verhindert die 294-Frage×Antwort-Schwemme.
+  const ansMap = new Map<string, Array<{ sourceId: string; question: string; score: number }>>();
+  for (const q of chains) {
+    for (const a of (q.answeredBy ?? [])) {
+      const ans = byId.get(a.id);
+      if (!ans || ans.status === "rejected" || confirmed.has(a.id) || !embeddings[a.id]) continue;
+      (ansMap.get(a.id) ?? ansMap.set(a.id, []).get(a.id)!).push({ sourceId: q.sourceId, question: q.question, score: a.score });
+    }
+  }
+
+  const candidates = [];
+  for (const [answerId, resolves] of ansMap) {
+    const ans = byId.get(answerId)!;
+    const av = embeddings[answerId];
+    // Distinktheit gegen die KURATIERTEN (ohne sich selbst + die gelösten Fragen):
+    // bringt die Antwort etwas, das nicht schon im Kanon steht?
+    const exclude = new Set([answerId, ...resolves.map(r => r.sourceId)]);
+    let maxCos = 0;
+    for (const c of curatedVecs) {
+      if (exclude.has(c.id)) continue;
+      const s = cosineSim(av, c.v);
+      if (s > maxCos) maxCos = s;
+    }
+    const distinctness = Math.max(0, Math.min(1, 1 - maxCos));
+    if (distinctness < DISTINCT_MIN) continue;
+    let h = 0; for (let i = 0; i < answerId.length; i++) h = (h * 31 + answerId.charCodeAt(i)) >>> 0;
+    resolves.sort((a, b) => b.score - a.score);
+    candidates.push({
+      id: `ERK-${h.toString(36).toUpperCase()}`,
+      answerId,
+      answerEndpoint: ans.endpoint,
+      answerStatus: ans.status,
+      answerExcerpt: (ans.response ?? "").replace(/\s+/g, " ").slice(0, 400),
+      distinctness: Number(distinctness.toFixed(3)),
+      conceptAnchor: ans.conceptAnchor ?? null,
+      nodeIds: ans.nodeIds ?? [],
+      resolveCount: resolves.length,
+      resolves: resolves.slice(0, 5),  // welche offenen Fragen diese Antwort löst
+    });
+  }
+  candidates.sort((a, b) => (b.distinctness - a.distinctness) || (b.resolveCount - a.resolveCount));
+  writeOut(candidates, { total: candidates.length, confirmedFiltered: confirmed.size, curatedRef: curatedVecs.length });
+  console.log(`[build-resonanzen-index] erkenntnis-candidates: ${candidates.length} (DISTINCT_MIN=${DISTINCT_MIN}, ${confirmed.size} bestätigt ausgefiltert)`);
 }
 
 /** Aggregiert pro Anker (analyse:a+b+c, path-analyse:x+y) wie viele

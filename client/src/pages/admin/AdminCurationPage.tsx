@@ -30,6 +30,7 @@ import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import ActionLogPanel from "@/components/admin/ActionLogPanel";
 import ProposeConceptPanel, { type ConceptPrefill } from "@/components/admin/ProposeConceptPanel";
 import ConceptCandidatesPanel from "@/components/admin/ConceptCandidatesPanel";
+import ErkenntnisCandidatesPanel from "@/components/admin/ErkenntnisCandidatesPanel";
 import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
@@ -702,6 +703,9 @@ export default function AdminCurationPage() {
         lookupPrompt={(eid) => index?.entries.find(e => e.id === eid)?.prompt}
       />
       <ProposeConceptPanel C={C} prefill={conceptPrefill} />
+
+      {/* Erkenntnisse-Phase 2: Antworten, die offene Fragen lösen → bestätigen */}
+      <ErkenntnisCandidatesPanel C={C} />
 
       {/* Auto-Kuratierung — kontrollierte Selbst-Erweiterung */}
       <Section title="Auto-Kuratierung — Korpus sicher selbst erweitern" c={C}>
