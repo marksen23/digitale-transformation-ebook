@@ -2270,7 +2270,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
   app.post("/api/admin/auto-curate", async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
-    const { mode, limit, skipReject, rescore } = req.body as { mode?: string; limit?: number; skipReject?: boolean; rescore?: boolean };
+    const { mode, limit, skipReject, rescore, scoreOnly } = req.body as { mode?: string; limit?: number; skipReject?: boolean; rescore?: boolean; scoreOnly?: boolean };
     if (mode !== "preview" && mode !== "apply") {
       return res.status(400).json({ error: 'mode muss "preview" oder "apply" sein' });
     }
@@ -2326,7 +2326,10 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     const unscored = classified.filter(c => c.ai_score === null).length;
 
     const applied: Array<{ id: string; to: string; ok: boolean; error?: string }> = [];
-    if (mode === "apply") {
+    // scoreOnly: Einträge wurden (oben) bewertet, aber KEIN Status wird geändert —
+    // erlaubt, die Richter-Verteilung gefahrlos zu beobachten, bevor man bewusst
+    // applyt. ai_score-Mutationen bleiben (sind harmlos + gewünscht).
+    if (mode === "apply" && !scoreOnly) {
       for (const c of approve) {
         const r = await curateEntryStatus(c.id, "approved", "auto-curate");
         applied.push({ id: c.id, to: "approved", ok: r.ok, ...(r.ok ? {} : { error: r.error }) });
@@ -2351,7 +2354,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       scored,             // im apply: so viele wurden frisch bewertet
       judgeModel,         // aktueller Pre-Score-Richter
       approve, reject, review,
-      ...(mode === "apply" ? { applied, skipReject: skipReject === true, rescored } : {}),
+      ...(mode === "apply" ? { applied, skipReject: skipReject === true, scoreOnly: scoreOnly === true, rescored } : {}),
     });
   });
 

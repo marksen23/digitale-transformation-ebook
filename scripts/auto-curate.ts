@@ -17,6 +17,11 @@
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --limit 25
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --no-reject  # NUR approves anwenden
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --rescore --limit 10  # Alt-Scores neu bewerten
+ *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --score-only --rescore --limit 25  # nur bewerten, Verteilung sehen
+ *
+ * --score-only: bewertet (schreibt ai_scores) + zeigt die Klassifikation/
+ * Verteilung, ändert aber KEINEN Status — gefahrloses Beobachten der Richter-
+ * Verteilung vor dem bewussten Apply.
  *
  * --no-reject (approve-only): wendet beim Apply nur Freigaben an; die
  * Reject-Klassifikation bleibt sichtbar, aber Borderline-Einträge (z. B.
@@ -35,6 +40,9 @@ const API_BASE = process.env.API_BASE ?? "https://digitale-transformation-ebook.
 const APPLY = process.argv.includes("--apply");
 const NO_REJECT = process.argv.includes("--no-reject");
 const RESCORE = process.argv.includes("--rescore");
+// --score-only: bewertet (schreibt ai_scores), ändert aber KEINEN Status —
+// zum gefahrlosen Beobachten der Richter-Verteilung vor dem bewussten Apply.
+const SCORE_ONLY = process.argv.includes("--score-only");
 
 function argNum(flag: string, fallback: number): number {
   const i = process.argv.indexOf(flag);
@@ -61,6 +69,7 @@ interface AutoCurateResponse {
   approve: ClassifiedEntry[]; reject: ClassifiedEntry[]; review: ClassifiedEntry[];
   applied?: Array<{ id: string; to: string; ok: boolean; error?: string }>;
   skipReject?: boolean;
+  scoreOnly?: boolean;
 }
 
 const fmt = (n: number | null) => (typeof n === "number" ? n.toFixed(2) : "–");
@@ -78,11 +87,12 @@ async function main() {
   if (!token) { console.error("[auto-curate] ADMIN_TOKEN fehlt — Abbruch."); process.exit(1); }
   const mode = APPLY ? "apply" : "preview";
 
-  console.log(`[auto-curate] mode=${mode} · limit=${LIMIT}${APPLY && NO_REJECT ? " · approve-only (--no-reject)" : ""}${APPLY && RESCORE ? " · rescore-stale" : ""} · ${API_BASE}`);
+  const tags = [APPLY && SCORE_ONLY ? "score-only" : null, APPLY && NO_REJECT && !SCORE_ONLY ? "approve-only" : null, APPLY && RESCORE ? "rescore-stale" : null].filter(Boolean);
+  console.log(`[auto-curate] mode=${mode} · limit=${LIMIT}${tags.length ? " · " + tags.join(" · ") : ""} · ${API_BASE}`);
   const r = await fetch(`${API_BASE}/api/admin/auto-curate`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ mode, limit: LIMIT, ...(NO_REJECT ? { skipReject: true } : {}), ...(RESCORE ? { rescore: true } : {}) }),
+    body: JSON.stringify({ mode, limit: LIMIT, ...(NO_REJECT ? { skipReject: true } : {}), ...(RESCORE ? { rescore: true } : {}), ...(SCORE_ONLY ? { scoreOnly: true } : {}) }),
   });
   const data = await r.json().catch(() => ({})) as AutoCurateResponse & { error?: string };
   if (!r.ok) { console.error(`[auto-curate] HTTP ${r.status}:`, data.error ?? data); process.exit(1); }
@@ -109,7 +119,8 @@ async function main() {
     const ok = (data.applied ?? []).filter(a => a.ok).length;
     const fail = (data.applied ?? []).length - ok;
     console.log(`\n[auto-curate] FERTIG — ${ok} angewandt, ${fail} fehlgeschlagen (${data.scored} frisch bewertet${data.rescored ? `, ${data.rescored} neu bewertet [${data.judgeModel}]` : ""}).`);
-    if (data.skipReject) console.log(`[auto-curate] approve-only: ${data.counts.reject} Rejects NICHT angewandt — bleiben raw für manuelle Sichtung.`);
+    if (data.scoreOnly) console.log(`[auto-curate] score-only: NUR bewertet, KEIN Status geändert. ${data.counts.approve} würden bei echtem --apply approved. Verteilung oben prüfen, dann bewusst applyen.`);
+    else if (data.skipReject) console.log(`[auto-curate] approve-only: ${data.counts.reject} Rejects NICHT angewandt — bleiben raw für manuelle Sichtung.`);
     if (fail > 0) console.log("[auto-curate] Fehler:", (data.applied ?? []).filter(a => !a.ok).slice(0, 5));
   } else {
     console.log("\n[auto-curate] PREVIEW — nichts geändert. Mit `--apply` (und ADMIN_TOKEN) ausführen.");
