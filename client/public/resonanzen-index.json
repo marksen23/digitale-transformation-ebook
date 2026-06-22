@@ -1900,7 +1900,11 @@
       "werkVoiceScore": 0.786100842879265,
       "corpusVoiceScore": 0.7359515705732836,
       "conceptVoiceScore": 0.6610565444263734,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Die Reihung von Gegenfragen paraphrasiert das Thema kompetent, aber leitet keinen eigenen, tragenden Gedanken her, sondern bleibt im Modus der Applikation.",
+      "ai_score_at": "2026-06-22T23:53:48.342Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUT5G5K-075966B7",
