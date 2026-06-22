@@ -846,7 +846,11 @@
       "werkVoiceScore": 0.8202991076516962,
       "corpusVoiceScore": 0.7847145100457724,
       "conceptVoiceScore": 0.75647014862375,
-      "conceptAnchor": "spannung"
+      "conceptAnchor": "spannung",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch exzellent, leistet die Antwort durch die abschließende Gegenfrage einen eigen",
+      "ai_score_at": "2026-06-22T14:15:07.601Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5WV5PP-6209C749",
