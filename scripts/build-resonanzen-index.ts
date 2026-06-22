@@ -33,6 +33,8 @@ const LINK_PREDICTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-link-p
 const CONCEPT_CANDIDATES_OUTPUT = path.join(ROOT, "client/public/resonanzen-concept-candidates.json");
 const ANCHOR_CLUSTERS_OUTPUT = path.join(ROOT, "client/public/resonanzen-anchor-clusters.json");
 const CORPUS_MAP_OUTPUT = path.join(ROOT, "client/public/resonanzen-corpus-map.json");
+const QUESTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-questions.json");
+const QUESTION_EMB_OUTPUT = path.join(ROOT, "client/public/resonanzen-question-embeddings.json");
 // Korpus-Politik: Endpoints, die NICHT in den Resonanz-Korpus gehören.
 // `translate` ist ein Übersetzungs-Service für Leser, kein denkerischer
 // Beitrag — er verwässert RAG/Embeddings/Voice-Scores/Kandidaten. Die
@@ -364,6 +366,7 @@ async function main() {
   // Begriffs-Kandidaten brauchen die Vektoren (mit Gemini-Path: `embeddings`,
   // sonst der von-Platte-geladene `mapEmbeddings`-Fallback wie die corpus-map).
   writeConceptCandidates(entries, embeddings ?? mapEmbeddings);
+  await writeQuestions(entries, embeddings ?? mapEmbeddings);
   writeAnchorClusters(entries);
 
   // ─── Final-Telemetrie: was steht effektiv im Index? ──────────────────
@@ -701,6 +704,95 @@ function writeConceptCandidates(entries: ResonanzEntry[], embeddings: Record<str
     `(kuratiert=${curated.length}, unabgedeckt=${uncovered.length}, ` +
     `DISTINCT_MIN=${DISTINCT_MIN}, EVIDENCE_MIN=${EVIDENCE_MIN}, CLUSTER_SIM=${CLUSTER_SIM})`,
   );
+}
+
+/** Schlussfrage einer KI-Antwort extrahieren (repliziert
+ *  client/src/lib/closingQuestion.ts:extractClosingQuestion — bewusst dupliziert,
+ *  damit der Node-Build kein client-Modul zieht). Letzter Absatz/Satz mit „?". */
+function extractClosingQuestion(text: string): string {
+  const t = (text ?? "").trim();
+  if (!t) return "";
+  const paras = t.split(/\n\s*\n/).map(s => s.trim()).filter(Boolean);
+  for (let i = paras.length - 1; i >= 0; i--) {
+    if (paras[i].endsWith("?")) return paras[i].replace(/^##\s*Offene Frage\s*/i, "").trim();
+  }
+  const m = t.match(/([^.!?\n]*\?)\s*$/);
+  return m ? m[1].trim() : "";
+}
+
+/** Fragenansicht (Erkenntnisse-Phase 1): extrahiert die offene Schlussfrage jedes
+ *  Korpus-Eintrags, embeddet sie (Reuse-Cache) und matcht jede Frage gegen SPÄTERE
+ *  Einträge (Cosine ≥ ANSWER_SIM) → „das Werk hat sich das selbst beantwortet".
+ *  Output resonanzen-questions.json. Fail-soft ohne Gemini-Key: Fragen werden
+ *  gelistet, answeredBy bleibt leer (Matching erst im CI). */
+async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<string, number[]> | null): Promise<void> {
+  const ANSWER_SIM = parseFloat(process.env.QUESTIONS_ANSWER_SIM ?? "0.72");
+  const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+
+  // 1. Extrahieren (translate ist via CORPUS_EXCLUDED_ENDPOINTS bereits raus).
+  type Q = { sourceId: string; question: string; endpoint: string; anchor: string; nodeIds: string[]; ts: string; dupIds: string[] };
+  const byNorm = new Map<string, Q>();
+  for (const e of [...entries].sort((a, b) => a.ts.localeCompare(b.ts))) {
+    const q = extractClosingQuestion(e.response ?? "");
+    if (q.length < 12) continue;
+    const k = norm(q);
+    const ex = byNorm.get(k);
+    if (ex) ex.dupIds.push(e.id);  // exakt-normalisierte Dublette → Quelle bleibt die älteste
+    else byNorm.set(k, { sourceId: e.id, question: q, endpoint: e.endpoint, anchor: e.anchor ?? "", nodeIds: e.nodeIds ?? [], ts: e.ts, dupIds: [] });
+  }
+  const questions = [...byNorm.values()];
+
+  // 2. Frage-Embeddings mit Reuse-Cache (keyed by normalisiertem Fragetext).
+  let qEmb: Record<string, number[]> = {};
+  if (fs.existsSync(QUESTION_EMB_OUTPUT)) {
+    try { qEmb = JSON.parse(fs.readFileSync(QUESTION_EMB_OUTPUT, "utf-8")).embeddings ?? {}; } catch { /* neu */ }
+  }
+  let embedded = 0;
+  if (getKeys().length > 0) {
+    const todo = questions.filter(q => !qEmb[norm(q.question)]);
+    for (let i = 0; i < todo.length; i++) {
+      const v = await embedWithRetry(todo[i].question);
+      if (v) { qEmb[norm(todo[i].question)] = v; embedded++; }
+      if (i % 5 === 4) await new Promise(r => setTimeout(r, 1200));  // sanfte Drosselung (Free-Tier)
+    }
+    // Prune: nur Embeddings aktueller Fragen behalten.
+    const live = new Set(questions.map(q => norm(q.question)));
+    for (const k of Object.keys(qEmb)) if (!live.has(k)) delete qEmb[k];
+    fs.writeFileSync(QUESTION_EMB_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: qEmb }, null, 2));
+  }
+
+  // 3. Matching: jede Frage gegen spätere, nicht-rejected Einträge.
+  const out = questions.map(q => {
+    const qv = qEmb[norm(q.question)];
+    let answeredBy: Array<{ id: string; score: number }> = [];
+    if (qv && embeddings) {
+      const scored: Array<{ id: string; score: number }> = [];
+      for (const e of entries) {
+        if (e.id === q.sourceId || e.status === "rejected" || e.ts <= q.ts) continue;
+        const ev = embeddings[e.id];
+        if (!ev) continue;
+        const s = cosineSim(qv, ev);
+        if (s >= ANSWER_SIM) scored.push({ id: e.id, score: Number(s.toFixed(3)) });
+      }
+      scored.sort((a, b) => b.score - a.score);
+      answeredBy = scored.slice(0, 3);
+    }
+    return {
+      sourceId: q.sourceId, question: q.question, endpoint: q.endpoint,
+      anchor: q.anchor, nodeIds: q.nodeIds, ts: q.ts, dupCount: q.dupIds.length,
+      answeredBy, answered: answeredBy.length > 0,
+    };
+  }).sort((a, b) => b.ts.localeCompare(a.ts));
+
+  const answered = out.filter(q => q.answered).length;
+  fs.writeFileSync(QUESTIONS_OUTPUT, JSON.stringify({
+    generatedAt: new Date().toISOString(),
+    count: out.length,
+    thresholds: { ANSWER_SIM },
+    stats: { total: out.length, answered, open: out.length - answered, embedded },
+    questions: out,
+  }, null, 2));
+  console.log(`[build-resonanzen-index] questions: ${out.length} (${answered} beantwortet, ${out.length - answered} offen, ${embedded} neu embeddet)`);
 }
 
 /** Aggregiert pro Anker (analyse:a+b+c, path-analyse:x+y) wie viele

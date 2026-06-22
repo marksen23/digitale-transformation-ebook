@@ -27,6 +27,7 @@ const GROUPS: { title: string; links: FooterLink[] }[] = [
     title: "Werk",
     links: [
       { label: "Projektbeschreibung", href: "/projekt" },
+      { label: "Fragen", href: "/fragen" },
       { label: "Live", href: "/live" },
       { label: "Blog", href: "/blog" },
       { label: "Statistik", href: "/statistik" },
