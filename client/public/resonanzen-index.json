@@ -545,9 +545,9 @@
         "\"text\"": "\"Aus der Freiheit, die nicht nach Perfektion strebt, sondern die",
         "tiefe, fundamentale Verantwortung": "die Verantwortung für die"
       },
-      "ai_score": 5,
-      "ai_score_reason": "Stil und Diktion sind exzellent getroffen; die abschließende Frage ist ein",
-      "ai_score_at": "2026-06-22T14:12:26.913Z",
+      "ai_score": 3,
+      "ai_score_reason": "Inhaltlich passend und begrifflich treu, aber der erklärende, fast schon ratgebende Tonfall verrät die KI-Herkunft und bricht den philosophischen Duktus.",
+      "ai_score_at": "2026-06-22T14:41:07.057Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MQ5XCH3V-67EF85C8",
