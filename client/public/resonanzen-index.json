@@ -3214,7 +3214,11 @@
       "werkVoiceScore": 0.7588921978163943,
       "corpusVoiceScore": 0.7607751189190772,
       "conceptVoiceScore": 0.702309375969595,
-      "conceptAnchor": "moment"
+      "conceptAnchor": "moment",
+      "ai_score": 4,
+      "ai_score_reason": "Der Text leitet den Gedanken her, dass die Verstrickung in Zeitlichkeit keine Schwäche, sondern die Bedingung für menschliche Sinnstiftung ist – ein echter, weiterführender Schritt.",
+      "ai_score_at": "2026-06-22T23:56:41.201Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMLW8I0-8852B480",
