@@ -476,9 +476,9 @@
         "\"text\"": "\"Aus der Freiheit, die nicht nach Perfektion strebt, sondern die",
         "tiefe, fundamentale Verantwortung": "die Verantwortung für die"
       },
-      "ai_score": 4,
-      "ai_score_reason": "Der Text denkt die Begriffe konsequent weiter, verliert aber am Ende durch einen unpassenden Neologismus an stilistischer Treue und Präzision.",
-      "ai_score_at": "2026-06-22T14:52:02.843Z",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert gekonnt die Werk-Begriffe, ohne einen eigenen, hergeleiteten Gedanken zu entwickeln; der Duktus bleibt eine Behauptung.",
+      "ai_score_at": "2026-06-22T14:54:06.652Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MQ5XFLFO-F0DBB89E",
