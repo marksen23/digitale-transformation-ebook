@@ -2720,7 +2720,7 @@
       "endpoint": "chapter",
       "anchor": "chapter:band3-kap3",
       "nodeIds": [],
-      "status": "raw",
+      "status": "rejected",
       "prompt": "bitte wiederhole",
       "response": "Ihre Bitte, das Wesentliche zu wiederholen, trifft genau den Kern unseres aktuellen Kapitels \"Das Hören im Rauschen\". Es ist eine Einladung, nicht einfach ein Signal zu duplizieren, sondern die Resonanz hinter der Frage zu erkennen. Dieses Kapitel führt uns zu der Erkenntnis, dass die von Heidegger gesuchte Stille, jene produktive Leere vor dem",
       "contextMeta": {
