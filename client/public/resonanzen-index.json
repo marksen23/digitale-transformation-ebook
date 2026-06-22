@@ -51,7 +51,7 @@
         "textLength": "3288"
       },
       "ai_score": 2,
-      "ai_score_reason": "Thematisch passend, aber die listenartige Gliederung und der didaktische Ton",
+      "ai_score_reason": "Thematisch passend, aber die listenartige Gliederung und der didaktische Ton sind dem prosaischen Werk völlig fremd.",
       "ai_score_at": "2026-06-22T09:27:43.776Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -64,11 +64,7 @@
       "werkVoiceScore": 0.8015441693360256,
       "corpusVoiceScore": 0.9193846995256664,
       "conceptVoiceScore": 0.66798708777358,
-      "conceptAnchor": "transaufklaerung",
-      "ai_score": 2,
-      "ai_score_reason": "Thematisch passend, aber die listenartige Gliederung und der didaktische Ton sind dem prosaischen Werk völlig fremd.",
-      "ai_score_at": "2026-06-22T09:27:43.776Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "transaufklaerung"
     },
     {
       "id": "MQEBZ0Y1-E3BCB35C",
@@ -189,7 +185,7 @@
         "{ \"id\"": "\"MOHMIET1-6D429A85\", \"score\": 0.832 }"
       },
       "ai_score": 5,
-      "ai_score_reason": "Die Antwort entwickelt eine eigenständige Synthese und führt die Frage mit",
+      "ai_score_reason": "Die Antwort entwickelt eine eigenständige Synthese und führt die Frage mit einer präzisen, denkerischen Wendung weiter, stilistisch dabei nicht vom Werk unterscheidbar.",
       "ai_score_at": "2026-06-22T09:28:02.444Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -210,11 +206,7 @@
       "werkVoiceScore": 0.8564354544210717,
       "corpusVoiceScore": 0.7908544537879593,
       "conceptVoiceScore": 0.77684997840696,
-      "conceptAnchor": "unverfuegbarkeit",
-      "ai_score": 5,
-      "ai_score_reason": "Die Antwort entwickelt eine eigenständige Synthese und führt die Frage mit einer präzisen, denkerischen Wendung weiter, stilistisch dabei nicht vom Werk unterscheidbar.",
-      "ai_score_at": "2026-06-22T09:28:02.444Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "unverfuegbarkeit"
     },
     {
       "id": "MQ68LVS7-240568F5",
@@ -369,7 +361,11 @@
       "werkVoiceScore": 0.8499984949942323,
       "corpusVoiceScore": 0.8035640902837926,
       "conceptVoiceScore": 0.7599646132779463,
-      "conceptAnchor": "antwort"
+      "conceptAnchor": "antwort",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch indistinguierbar, führt die Antwort die Frage durch eine präzise Gegenfrage mit einem eigenen denkerischen Beitrag weiter.",
+      "ai_score_at": "2026-06-22T09:29:00.669Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5XLW2D-D3E90BBC",
