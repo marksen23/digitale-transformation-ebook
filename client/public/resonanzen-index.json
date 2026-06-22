@@ -1502,7 +1502,11 @@
       "werkVoiceScore": 0.8105485977169461,
       "corpusVoiceScore": 0.744531358348851,
       "conceptVoiceScore": 0.7054783532737118,
-      "conceptAnchor": "lm-begegnung"
+      "conceptAnchor": "lm-begegnung",
+      "ai_score": 3,
+      "ai_score_reason": "Der Text paraphrasiert werksnahe Gedanken (Widerstand, Begegnung), leitet aber keinen eigenen neuen Schritt her und verlässt den prosaischen Duktus durch seine fragende Struktur.",
+      "ai_score_at": "2026-06-22T23:52:14.393Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUU3ASH-7093F1A3",
