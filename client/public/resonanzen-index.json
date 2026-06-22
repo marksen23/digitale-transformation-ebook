@@ -873,7 +873,11 @@
       "werkVoiceScore": 0.829884705583435,
       "corpusVoiceScore": 0.7943339349772838,
       "conceptVoiceScore": 0.7896788258136016,
-      "conceptAnchor": "erkenntnis"
+      "conceptAnchor": "erkenntnis",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch perfekt, entwickelt mit dem „transformativen Dritten“ einen eigenständigen Gedanken und treibt die Reflexion mit einer neuen Frage voran.",
+      "ai_score_at": "2026-06-22T14:15:26.794Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5WUD1G-0976C016",
