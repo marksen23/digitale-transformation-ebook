@@ -2139,8 +2139,12 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     if (!response) return { ok: false, error: "Kein Antwort-Section gefunden" };
 
     const userPrompt = `**Frage:** ${prompt || "(keine Frage notiert)"}\n\n**KI-Antwort:** ${response}\n\nBewerte diese Antwort.`;
+    // maxTokens großzügig: gemini-2.5-pro ist ein Thinking-Modell — die
+    // Denk-Tokens zählen gegen maxOutputTokens; bei 200 bleibt kein Platz für
+    // die (kurze) Antwort → leere Response. 2048 gibt Headroom (die Antwort
+    // selbst sind nur 2 Zeilen). Claude braucht das nicht, schadet aber nicht.
     const { text: raw, model, error: llmError } = await callTextLLM(
-      { system: PRE_SCORE_SYSTEM, user: userPrompt, maxTokens: 200, temperature: 0.2 },
+      { system: PRE_SCORE_SYSTEM, user: userPrompt, maxTokens: 2048, temperature: 0.2 },
       { backend: process.env.PRESCORE_BACKEND ?? "gemini", geminiModel: process.env.PRESCORE_MODEL ?? "gemini-2.5-pro" },
     );
     if (!raw) return { ok: false, error: `Pre-Score-LLM fehlgeschlagen — ${llmError ?? "kein Detail"}` };

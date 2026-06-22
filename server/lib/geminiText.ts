@@ -71,9 +71,15 @@ export async function callGemini(opts: {
         break; // andere Fehler (400 Bad Request etc.) → nicht durch Rotation lösbar
       }
       const data = await res.json();
-      const text: string | undefined = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-      if (typeof text === "string" && text.trim()) { _lastError = null; return text; }
-      lastErr = "leere Antwort (kein Text-Part)";
+      const cand = data?.candidates?.[0];
+      // Robust: bei Thinking-Modellen (gemini-2.5-pro) kann ein "thought"-Part
+      // vor dem eigentlichen Text stehen — alle Text-Parts joinen statt parts[0].
+      const parts: Array<{ text?: string }> = cand?.content?.parts ?? [];
+      const text = parts.map(p => (typeof p?.text === "string" ? p.text : "")).join("").trim();
+      if (text) { _lastError = null; return text; }
+      // Häufigste Ursache: finishReason=MAX_TOKENS → maxOutputTokens zu niedrig,
+      // weil die Denk-Tokens (thinking) das Budget aufbrauchen.
+      lastErr = `leere Antwort (finishReason=${cand?.finishReason ?? "?"}) — bei gemini-2.5-pro meist maxOutputTokens zu niedrig (thinking)`;
       break;
     } catch (err) {
       lastErr = err instanceof Error ? err.message : String(err);
