@@ -1264,7 +1264,7 @@
       "endpoint": "dialog",
       "anchor": "dialog:weiterdenken",
       "nodeIds": [],
-      "status": "raw",
+      "status": "rejected",
       "prompt": "Wie ver�ndert sich Verantwortung, wenn Entscheidungen an Maschinen delegiert werden?",
       "response": "Die Verlagerung des Entscheidungsmoments an den Algorithmus mag zunächst als eine Entlastung erscheinen, ein Abstreifen der Last direkter Kausalität. Doch jenseits der Oberfläche des scheinbaren Transfers bleibt die Verantwortung nicht einfach an einem neuen",
       "contextMeta": {
