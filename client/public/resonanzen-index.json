@@ -1788,7 +1788,11 @@
       "werkVoiceScore": 0.7820017744032877,
       "corpusVoiceScore": 0.732946789146644,
       "conceptVoiceScore": 0.7372351486102898,
-      "conceptAnchor": "lm-scheitern"
+      "conceptAnchor": "lm-scheitern",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert und kontrastiert die Ausgangsthese kompetent mit Werk-Konzepten, bringt aber keinen eigenen, hergeleiteten Gedanken hervor, sondern bleibt im Modus der Gegenfrage.",
+      "ai_score_at": "2026-06-22T23:53:21.033Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUTFPG6-02308248",
