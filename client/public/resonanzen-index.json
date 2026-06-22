@@ -1314,7 +1314,11 @@
       "werkVoiceScore": 0.7545935727866999,
       "corpusVoiceScore": 0.6959086975575606,
       "conceptVoiceScore": 0.6692532340016563,
-      "conceptAnchor": "existenz"
+      "conceptAnchor": "existenz",
+      "ai_score": 3,
+      "ai_score_reason": "Der Ansatz ist vielversprechend und stilistisch nah am Werk, aber die Unvollständigkeit verhindert eine denkerische Entfaltung und macht eine höhere Bewertung unmöglich.",
+      "ai_score_at": "2026-06-22T23:51:53.520Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5B6CTT-AB0A3D97",
