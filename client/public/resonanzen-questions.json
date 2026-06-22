@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-06-22T20:01:49.933Z",
+  "generatedAt": "2026-06-22T20:19:44.412Z",
   "count": 194,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
     "total": 194,
-    "answered": 0,
-    "open": 194,
-    "embedded": 0
+    "answered": 174,
+    "open": 20,
+    "embedded": 194
   },
   "questions": [
     {
@@ -63,8 +63,17 @@
       ],
       "ts": "2026-06-09T05:52:22.473Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.781
+        },
+        {
+          "id": "MQASO35V-115DA081",
+          "score": 0.724
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ67R74M-A1AA4B53",
@@ -99,8 +108,17 @@
       ],
       "ts": "2026-06-09T01:00:02.623Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.736
+        },
+        {
+          "id": "MQ66ZWYC-52DE2DF2",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XLW2D-D3E90BBC",
@@ -113,8 +131,17 @@
       ],
       "ts": "2026-06-09T00:58:50.390Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.888
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.729
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XK9H2-8A6837CC",
@@ -127,8 +154,17 @@
       ],
       "ts": "2026-06-09T00:57:34.454Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XLW2D-D3E90BBC",
+          "score": 0.89
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.751
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XJ3VO-378AA1AB",
@@ -141,8 +177,21 @@
       ],
       "ts": "2026-06-09T00:56:40.548Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XK9H2-8A6837CC",
+          "score": 0.884
+        },
+        {
+          "id": "MQ5XLW2D-D3E90BBC",
+          "score": 0.767
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.724
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XH5A8-5FDB52C7",
@@ -155,8 +204,13 @@
       ],
       "ts": "2026-06-09T00:55:09.056Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XJ3VO-378AA1AB",
+          "score": 0.836
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XFLFO-F0DBB89E",
@@ -169,8 +223,21 @@
       ],
       "ts": "2026-06-09T00:53:56.676Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XH5A8-5FDB52C7",
+          "score": 0.918
+        },
+        {
+          "id": "MQ5XJ3VO-378AA1AB",
+          "score": 0.801
+        },
+        {
+          "id": "MQ5XK9H2-8A6837CC",
+          "score": 0.75
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XE42V-D185B8D7",
@@ -183,8 +250,21 @@
       ],
       "ts": "2026-06-09T00:52:47.527Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XFLFO-F0DBB89E",
+          "score": 0.889
+        },
+        {
+          "id": "MQ5XLW2D-D3E90BBC",
+          "score": 0.768
+        },
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.766
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XCH3V-67EF85C8",
@@ -197,8 +277,21 @@
       ],
       "ts": "2026-06-09T00:51:31.099Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XE42V-D185B8D7",
+          "score": 0.879
+        },
+        {
+          "id": "MQ5XFLFO-F0DBB89E",
+          "score": 0.789
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.767
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5XB7XF-18E49106",
@@ -211,8 +304,17 @@
       ],
       "ts": "2026-06-09T00:50:32.547Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XCH3V-67EF85C8",
+          "score": 0.896
+        },
+        {
+          "id": "MQ5XE42V-D185B8D7",
+          "score": 0.729
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5X9PGR-F8698E7E",
@@ -225,8 +327,13 @@
       ],
       "ts": "2026-06-09T00:49:21.963Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XB7XF-18E49106",
+          "score": 0.861
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5X7QW6-F6E03538",
@@ -239,8 +346,13 @@
       ],
       "ts": "2026-06-09T00:47:50.502Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X9PGR-F8698E7E",
+          "score": 0.899
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5X6P2M-52F9B16D",
@@ -253,8 +365,17 @@
       ],
       "ts": "2026-06-09T00:47:01.486Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X7QW6-F6E03538",
+          "score": 0.909
+        },
+        {
+          "id": "MQ5X9PGR-F8698E7E",
+          "score": 0.769
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5X56G4-537343C8",
@@ -267,8 +388,21 @@
       ],
       "ts": "2026-06-09T00:45:50.692Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X6P2M-52F9B16D",
+          "score": 0.9
+        },
+        {
+          "id": "MQ5X7QW6-F6E03538",
+          "score": 0.745
+        },
+        {
+          "id": "MQ5XCH3V-67EF85C8",
+          "score": 0.732
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5X3C75-D543C13F",
@@ -281,8 +415,13 @@
       ],
       "ts": "2026-06-09T00:44:24.833Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.857
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5X1ZYV-9D7A29CC",
@@ -295,8 +434,17 @@
       ],
       "ts": "2026-06-09T00:43:22.327Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X3C75-D543C13F",
+          "score": 0.883
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.758
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5WZZPN-8051E5FF",
@@ -309,8 +457,21 @@
       ],
       "ts": "2026-06-09T00:41:48.683Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X1ZYV-9D7A29CC",
+          "score": 0.868
+        },
+        {
+          "id": "MQ5X3C75-D543C13F",
+          "score": 0.773
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.749
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5WYJFU-60EB210E",
@@ -323,8 +484,17 @@
       ],
       "ts": "2026-06-09T00:40:40.938Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WZZPN-8051E5FF",
+          "score": 0.871
+        },
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.72
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5WX52Q-442369F2",
@@ -337,8 +507,13 @@
       ],
       "ts": "2026-06-09T00:39:35.666Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WYJFU-60EB210E",
+          "score": 0.863
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5WV5PP-6209C749",
@@ -351,8 +526,21 @@
       ],
       "ts": "2026-06-09T00:38:03.181Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.884
+        },
+        {
+          "id": "MQ5WYJFU-60EB210E",
+          "score": 0.745
+        },
+        {
+          "id": "MQ5WZZPN-8051E5FF",
+          "score": 0.74
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5WUD1G-0976C016",
@@ -365,8 +553,21 @@
       ],
       "ts": "2026-06-09T00:37:26.020Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WV5PP-6209C749",
+          "score": 0.925
+        },
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.844
+        },
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.737
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5WPJ3V-CF0A30C7",
@@ -380,8 +581,21 @@
       ],
       "ts": "2026-06-09T00:33:40.603Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WUD1G-0976C016",
+          "score": 0.828
+        },
+        {
+          "id": "MQ5WV5PP-6209C749",
+          "score": 0.801
+        },
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.756
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5TUQ9P-EF8C6D4B",
@@ -391,8 +605,21 @@
       "nodeIds": [],
       "ts": "2026-06-08T23:13:44.318Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.734
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.733
+        },
+        {
+          "id": "MQ5XLW2D-D3E90BBC",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5TTE84-08EB6321",
@@ -402,8 +629,21 @@
       "nodeIds": [],
       "ts": "2026-06-08T23:12:42.053Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5TUQ9P-EF8C6D4B",
+          "score": 0.856
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.765
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.762
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5KBJMQ-5C523141",
@@ -413,8 +653,21 @@
       "nodeIds": [],
       "ts": "2026-06-08T18:46:52.706Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.827
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.799
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.78
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5JM1HD-9047C82F",
@@ -424,8 +677,21 @@
       "nodeIds": [],
       "ts": "2026-06-08T18:27:02.785Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.821
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.815
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.784
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5JL9TM-83E39C42",
@@ -435,8 +701,21 @@
       "nodeIds": [],
       "ts": "2026-06-08T18:26:26.938Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XE42V-D185B8D7",
+          "score": 0.79
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.772
+        },
+        {
+          "id": "MQ5XFLFO-F0DBB89E",
+          "score": 0.762
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5CZRK7-A62EB4D0",
@@ -446,8 +725,13 @@
       "nodeIds": [],
       "ts": "2026-06-08T15:21:45.799Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQASO35V-115DA081",
+          "score": 0.726
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5CMPJB-3D705D06",
@@ -462,8 +746,21 @@
       ],
       "ts": "2026-06-08T15:11:36.647Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.751
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.742
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.736
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5B6CTT-AB0A3D97",
@@ -480,8 +777,21 @@
       ],
       "ts": "2026-06-08T14:30:54.065Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.759
+        },
+        {
+          "id": "MQARZJDV-82F077DD",
+          "score": 0.734
+        },
+        {
+          "id": "MQ66ZWYC-52DE2DF2",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5B3FJP-CD835FC2",
@@ -499,8 +809,21 @@
       ],
       "ts": "2026-06-08T14:28:37.621Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5CMPJB-3D705D06",
+          "score": 0.774
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.759
+        },
+        {
+          "id": "MQ5X1ZYV-9D7A29CC",
+          "score": 0.734
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUU5523-0E325028",
@@ -510,8 +833,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:36:22.107Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WZZPN-8051E5FF",
+          "score": 0.75
+        },
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.745
+        },
+        {
+          "id": "MQ5WYJFU-60EB210E",
+          "score": 0.744
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUU3ASH-7093F1A3",
@@ -521,8 +857,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:34:56.225Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5CZRK7-A62EB4D0",
+          "score": 0.74
+        },
+        {
+          "id": "MQASO35V-115DA081",
+          "score": 0.727
+        },
+        {
+          "id": "MPUU5523-0E325028",
+          "score": 0.725
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUU1101-EDF34032",
@@ -532,8 +881,13 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:33:10.225Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5CZRK7-A62EB4D0",
+          "score": 0.775
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTYL5L-4C0B344F",
@@ -543,8 +897,17 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:31:16.377Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUU1101-EDF34032",
+          "score": 0.784
+        },
+        {
+          "id": "MPUU3ASH-7093F1A3",
+          "score": 0.727
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTX4K2-55A3272E",
@@ -554,8 +917,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:30:08.210Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTYL5L-4C0B344F",
+          "score": 0.813
+        },
+        {
+          "id": "MPUU1101-EDF34032",
+          "score": 0.767
+        },
+        {
+          "id": "MPUU3ASH-7093F1A3",
+          "score": 0.742
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTVW03-F8D17C8E",
@@ -565,8 +941,13 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:29:10.467Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTX4K2-55A3272E",
+          "score": 0.771
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTT58G-25E5A1AC",
@@ -576,8 +957,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:27:02.464Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTVW03-F8D17C8E",
+          "score": 0.81
+        },
+        {
+          "id": "MPUTYL5L-4C0B344F",
+          "score": 0.797
+        },
+        {
+          "id": "MPUTX4K2-55A3272E",
+          "score": 0.796
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTP1ZT-5D9ECB8B",
@@ -587,8 +981,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:23:51.641Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTT58G-25E5A1AC",
+          "score": 0.825
+        },
+        {
+          "id": "MPUU3ASH-7093F1A3",
+          "score": 0.8
+        },
+        {
+          "id": "MPUU1101-EDF34032",
+          "score": 0.725
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTMB0F-76443E92",
@@ -598,8 +1005,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:21:43.359Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTT58G-25E5A1AC",
+          "score": 0.758
+        },
+        {
+          "id": "MPUTP1ZT-5D9ECB8B",
+          "score": 0.737
+        },
+        {
+          "id": "MPUTX4K2-55A3272E",
+          "score": 0.735
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTKZI1-F10F9444",
@@ -609,8 +1029,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:20:41.786Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTMB0F-76443E92",
+          "score": 0.819
+        },
+        {
+          "id": "MPUTT58G-25E5A1AC",
+          "score": 0.761
+        },
+        {
+          "id": "MPUTYL5L-4C0B344F",
+          "score": 0.757
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTHFZK-189B912B",
@@ -620,8 +1053,17 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:17:56.528Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTKZI1-F10F9444",
+          "score": 0.738
+        },
+        {
+          "id": "MPUTYL5L-4C0B344F",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTFPG6-02308248",
@@ -631,8 +1073,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:16:35.478Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTKZI1-F10F9444",
+          "score": 0.805
+        },
+        {
+          "id": "MPUTHFZK-189B912B",
+          "score": 0.782
+        },
+        {
+          "id": "MPUTMB0F-76443E92",
+          "score": 0.78
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTC3HP-C68436E5",
@@ -642,8 +1097,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:13:47.053Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTFPG6-02308248",
+          "score": 0.752
+        },
+        {
+          "id": "MPUU3ASH-7093F1A3",
+          "score": 0.727
+        },
+        {
+          "id": "MPUU5523-0E325028",
+          "score": 0.726
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUTAYGM-514978C5",
@@ -653,8 +1121,13 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:12:53.878Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTFPG6-02308248",
+          "score": 0.738
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUT9PA8-5A0B4235",
@@ -664,8 +1137,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:11:55.328Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTVW03-F8D17C8E",
+          "score": 0.801
+        },
+        {
+          "id": "MPUTHFZK-189B912B",
+          "score": 0.797
+        },
+        {
+          "id": "MPUTX4K2-55A3272E",
+          "score": 0.775
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUT5G5K-075966B7",
@@ -675,8 +1161,17 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:08:36.872Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUT9PA8-5A0B4235",
+          "score": 0.832
+        },
+        {
+          "id": "MPUTHFZK-189B912B",
+          "score": 0.742
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUT47UR-103C16A3",
@@ -686,8 +1181,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:07:39.459Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUU1101-EDF34032",
+          "score": 0.766
+        },
+        {
+          "id": "MPUTFPG6-02308248",
+          "score": 0.763
+        },
+        {
+          "id": "MQ5CZRK7-A62EB4D0",
+          "score": 0.755
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUT10KT-E7C5E32F",
@@ -697,8 +1205,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:05:10.061Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTFPG6-02308248",
+          "score": 0.759
+        },
+        {
+          "id": "MPUT5G5K-075966B7",
+          "score": 0.742
+        },
+        {
+          "id": "MPUTKZI1-F10F9444",
+          "score": 0.729
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUSZCXA-5CB2DE46",
@@ -719,8 +1240,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T06:02:23.863Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUSZCXA-5CB2DE46",
+          "score": 0.76
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.722
+        },
+        {
+          "id": "MQ5XCH3V-67EF85C8",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUST44L-BB7FEA00",
@@ -730,8 +1264,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:59:01.413Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X3C75-D543C13F",
+          "score": 0.739
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.726
+        },
+        {
+          "id": "MPUTVW03-F8D17C8E",
+          "score": 0.723
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUSR6XO-4FE2D10B",
@@ -741,8 +1288,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:57:31.741Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUST44L-BB7FEA00",
+          "score": 0.792
+        },
+        {
+          "id": "MPUT10KT-E7C5E32F",
+          "score": 0.776
+        },
+        {
+          "id": "MPUTFPG6-02308248",
+          "score": 0.772
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUSPBKZ-D7CCA690",
@@ -752,8 +1312,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:56:04.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XCH3V-67EF85C8",
+          "score": 0.731
+        },
+        {
+          "id": "MPUTVW03-F8D17C8E",
+          "score": 0.723
+        },
+        {
+          "id": "MPUSZCXA-5CB2DE46",
+          "score": 0.723
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUSLPSI-07DACE56",
@@ -763,8 +1336,13 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:53:16.242Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUSPBKZ-D7CCA690",
+          "score": 0.724
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUSJLQF-F4BBBDD9",
@@ -785,8 +1363,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:49:33.047Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUST44L-BB7FEA00",
+          "score": 0.774
+        },
+        {
+          "id": "MQ5BX1ZO-4BCAEB11",
+          "score": 0.772
+        },
+        {
+          "id": "MPUTAYGM-514978C5",
+          "score": 0.758
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUSEQMB-A31FD1B3",
@@ -796,8 +1387,13 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:47:50.723Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUSGXKN-78839F4E",
+          "score": 0.762
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUSCM19-FD1196BD",
@@ -818,8 +1414,17 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:43:28.805Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTX4K2-55A3272E",
+          "score": 0.726
+        },
+        {
+          "id": "MPUTT58G-25E5A1AC",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUS5KL9-1BDB98F8",
@@ -829,8 +1434,21 @@
       "nodeIds": [],
       "ts": "2026-06-01T05:40:43.006Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUS94IT-9CEEC40A",
+          "score": 0.773
+        },
+        {
+          "id": "MPUSEQMB-A31FD1B3",
+          "score": 0.762
+        },
+        {
+          "id": "MPUTFPG6-02308248",
+          "score": 0.739
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPURYS56-11F5308C",
@@ -846,8 +1464,21 @@
       ],
       "ts": "2026-06-01T05:35:26.203Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUSXGC6-CD078CEA",
+          "score": 0.754
+        },
+        {
+          "id": "MPUTYL5L-4C0B344F",
+          "score": 0.722
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.72
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUQSMLJ-1B726CC4",
@@ -864,8 +1495,21 @@
       ],
       "ts": "2026-06-01T05:02:39.463Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPURYS56-11F5308C",
+          "score": 0.8
+        },
+        {
+          "id": "MQ5B6CTT-AB0A3D97",
+          "score": 0.766
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.76
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUO08SE-67E0912A",
@@ -883,8 +1527,21 @@
       ],
       "ts": "2026-06-01T03:44:35.966Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPURYS56-11F5308C",
+          "score": 0.767
+        },
+        {
+          "id": "MPUQSMLJ-1B726CC4",
+          "score": 0.763
+        },
+        {
+          "id": "MQ5B6CTT-AB0A3D97",
+          "score": 0.758
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUNXFU1-3B1F056A",
@@ -894,8 +1551,13 @@
       "nodeIds": [],
       "ts": "2026-06-01T03:42:25.129Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.73
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUFUBU5-A4BC72BE",
@@ -909,8 +1571,21 @@
       ],
       "ts": "2026-05-31T23:56:03.054Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.772
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.77
+        },
+        {
+          "id": "MQ5XK9H2-8A6837CC",
+          "score": 0.765
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPUFGY4Z-44206712",
@@ -920,8 +1595,21 @@
       "nodeIds": [],
       "ts": "2026-05-31T23:45:38.771Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUFP1VW-298D0A73",
+          "score": 0.835
+        },
+        {
+          "id": "MQ66ZWYC-52DE2DF2",
+          "score": 0.806
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.798
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPNDAPRT-D64D197A",
@@ -934,8 +1622,21 @@
       ],
       "ts": "2026-05-27T01:10:25.530Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.812
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.782
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.768
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMU9JV9-A43849A9",
@@ -945,8 +1646,21 @@
       "nodeIds": [],
       "ts": "2026-05-26T16:17:38.517Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WZZPN-8051E5FF",
+          "score": 0.795
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.772
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.77
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMU67V4-938B932C",
@@ -956,8 +1670,21 @@
       "nodeIds": [],
       "ts": "2026-05-26T16:15:02.992Z",
       "dupCount": 1,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMU7YZH-2C9CBFE8",
+          "score": 0.868
+        },
+        {
+          "id": "MQ5WZZPN-8051E5FF",
+          "score": 0.819
+        },
+        {
+          "id": "MPMU9JV9-A43849A9",
+          "score": 0.792
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMTQZIN-7863D6D2",
@@ -967,8 +1694,21 @@
       "nodeIds": [],
       "ts": "2026-05-26T16:03:12.335Z",
       "dupCount": 1,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.832
+        },
+        {
+          "id": "MQ5XB7XF-18E49106",
+          "score": 0.749
+        },
+        {
+          "id": "MPMU7YZH-2C9CBFE8",
+          "score": 0.743
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMSRF6V-7FEB2991",
@@ -982,8 +1722,21 @@
       ],
       "ts": "2026-05-26T15:35:33.032Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.754
+        },
+        {
+          "id": "MPUSXGC6-CD078CEA",
+          "score": 0.745
+        },
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.734
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMROCH7-EB9E6A9A",
@@ -996,8 +1749,21 @@
       ],
       "ts": "2026-05-26T15:05:09.932Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5C1KZ4-D6D52E94",
+          "score": 0.805
+        },
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.745
+        },
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMMCX1X-AFED893B",
@@ -1007,8 +1773,21 @@
       "nodeIds": [],
       "ts": "2026-05-26T12:36:18.646Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUFM0YN-83C71BAB",
+          "score": 0.816
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.802
+        },
+        {
+          "id": "MPUFP1VW-298D0A73",
+          "score": 0.794
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMM90CV-98ADD627",
@@ -1040,8 +1819,13 @@
       "nodeIds": [],
       "ts": "2026-05-26T12:28:33.692Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUTC3HP-C68436E5",
+          "score": 0.739
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMLZAEP-35849C9E",
@@ -1062,8 +1846,21 @@
       "nodeIds": [],
       "ts": "2026-05-26T12:23:20.328Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMM5NAF-D744437C",
+          "score": 0.78
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.766
+        },
+        {
+          "id": "MPMM90CV-98ADD627",
+          "score": 0.763
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMKBUNW-88609492",
@@ -1073,8 +1870,21 @@
       "nodeIds": [],
       "ts": "2026-05-26T11:39:29.660Z",
       "dupCount": 1,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.808
+        },
+        {
+          "id": "MPMKE3CC-4E75CE39",
+          "score": 0.808
+        },
+        {
+          "id": "MQ66ZWYC-52DE2DF2",
+          "score": 0.78
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMJC8TR-592D4EF0",
@@ -1089,8 +1899,21 @@
       ],
       "ts": "2026-05-26T11:11:48.400Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQASO35V-115DA081",
+          "score": 0.808
+        },
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.794
+        },
+        {
+          "id": "MPMTQZIN-7863D6D2",
+          "score": 0.794
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMI3ZF2-2F83F425",
@@ -1103,8 +1926,13 @@
       ],
       "ts": "2026-05-26T10:37:23.344Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQARZJDV-82F077DD",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPK0H3SM-B25CFBB3",
@@ -1114,8 +1942,21 @@
       "nodeIds": [],
       "ts": "2026-05-24T16:48:10.103Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUO08SE-67E0912A",
+          "score": 0.79
+        },
+        {
+          "id": "MPMSSG1X-8451DE38",
+          "score": 0.781
+        },
+        {
+          "id": "MQ5B3FJP-CD835FC2",
+          "score": 0.775
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPJXEFVC-49A699FA",
@@ -1130,8 +1971,21 @@
       ],
       "ts": "2026-05-24T15:22:06.936Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XCH3V-67EF85C8",
+          "score": 0.734
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.73
+        },
+        {
+          "id": "MQ5CMPJB-3D705D06",
+          "score": 0.729
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPJUHM1L-0BA3DF6E",
@@ -1145,8 +1999,21 @@
       ],
       "ts": "2026-05-24T14:00:36.059Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.782
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.778
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.775
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPJEBNX3-042F2A69",
@@ -1159,8 +2026,13 @@
       ],
       "ts": "2026-05-24T06:28:04.695Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJUHM1L-0BA3DF6E",
+          "score": 0.789
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPH4R3SE-C224ACED",
@@ -1174,8 +2046,21 @@
       ],
       "ts": "2026-05-22T16:24:36.591Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.798
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.791
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.789
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPF4WM18-FF4843F1",
@@ -1208,8 +2093,21 @@
       ],
       "ts": "2026-05-21T06:40:03.829Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.822
+        },
+        {
+          "id": "MPURLTCS-5FDDD890",
+          "score": 0.807
+        },
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.798
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPEV1D2J-55138734",
@@ -1219,8 +2117,21 @@
       "nodeIds": [],
       "ts": "2026-05-21T02:17:06.668Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.769
+        },
+        {
+          "id": "MQ5CMPJB-3D705D06",
+          "score": 0.761
+        },
+        {
+          "id": "MPH4R3SE-C224ACED",
+          "score": 0.753
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPECAV23-5FAD4249",
@@ -1234,8 +2145,21 @@
       ],
       "ts": "2026-05-20T17:32:37.182Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMSRF6V-7FEB2991",
+          "score": 0.783
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.777
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.77
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPCV5LR8-9AD1527C",
@@ -1250,8 +2174,21 @@
       ],
       "ts": "2026-05-19T16:44:52.196Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.817
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.814
+        },
+        {
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.81
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPCUVOK6-27CB8359",
@@ -1265,8 +2202,21 @@
       ],
       "ts": "2026-05-19T16:37:09.271Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQASO35V-115DA081",
+          "score": 0.787
+        },
+        {
+          "id": "MPMJC8TR-592D4EF0",
+          "score": 0.752
+        },
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.75
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPBI57AL-76627781",
@@ -1281,8 +2231,21 @@
       ],
       "ts": "2026-05-18T17:52:52.270Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.816
+        },
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.782
+        },
+        {
+          "id": "MPCV5LR8-9AD1527C",
+          "score": 0.782
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPAS5OM5-A1F522F4",
@@ -1296,8 +2259,21 @@
       ],
       "ts": "2026-05-18T05:45:24.701Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.811
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.799
+        },
+        {
+          "id": "MPMSSG1X-8451DE38",
+          "score": 0.791
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPARZ5F0-A9FD6F70",
@@ -1311,8 +2287,21 @@
       ],
       "ts": "2026-05-18T05:40:19.884Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUFUBU5-A4BC72BE",
+          "score": 0.86
+        },
+        {
+          "id": "MPJUHM1L-0BA3DF6E",
+          "score": 0.854
+        },
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.828
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPAGOCGB-FB54D923",
@@ -1325,8 +2314,21 @@
       ],
       "ts": "2026-05-18T00:24:00.012Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.792
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.789
+        },
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.782
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP9FAM1L-8970F371",
@@ -1339,8 +2341,21 @@
       ],
       "ts": "2026-05-17T06:57:33.465Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5TTE84-08EB6321",
+          "score": 0.842
+        },
+        {
+          "id": "MQ5TUQ9P-EF8C6D4B",
+          "score": 0.818
+        },
+        {
+          "id": "MQ5XLW2D-D3E90BBC",
+          "score": 0.783
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP8UIMZW-BADE77E5",
@@ -1357,8 +2372,21 @@
       ],
       "ts": "2026-05-16T21:15:56.013Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.776
+        },
+        {
+          "id": "MPAGOCGB-FB54D923",
+          "score": 0.731
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.73
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP8OB1IU-F6C31DC7",
@@ -1371,8 +2399,21 @@
       ],
       "ts": "2026-05-16T18:22:03.894Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMSRF6V-7FEB2991",
+          "score": 0.802
+        },
+        {
+          "id": "MPH4R3SE-C224ACED",
+          "score": 0.754
+        },
+        {
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP4HT65S-E31FDB00",
@@ -1386,8 +2427,21 @@
       ],
       "ts": "2026-05-13T20:09:07.696Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMMCX1X-AFED893B",
+          "score": 0.804
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.8
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.787
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP497SNT-5E1D2074",
@@ -1403,8 +2457,21 @@
       ],
       "ts": "2026-05-13T16:08:33.498Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WPJ3V-CF0A30C7",
+          "score": 0.753
+        },
+        {
+          "id": "MQ5WUD1G-0976C016",
+          "score": 0.739
+        },
+        {
+          "id": "MPUNXFU1-3B1F056A",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP495QL6-F5FD1AE1",
@@ -1419,8 +2486,21 @@
       ],
       "ts": "2026-05-13T16:06:57.498Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPK0H3SM-B25CFBB3",
+          "score": 0.774
+        },
+        {
+          "id": "MPAS5OM5-A1F522F4",
+          "score": 0.769
+        },
+        {
+          "id": "MPMSSG1X-8451DE38",
+          "score": 0.767
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP2LIW43-E8ADC59E",
@@ -1434,8 +2514,21 @@
       ],
       "ts": "2026-05-12T12:17:34.228Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.786
+        },
+        {
+          "id": "MPJUHM1L-0BA3DF6E",
+          "score": 0.777
+        },
+        {
+          "id": "MPH4R3SE-C224ACED",
+          "score": 0.757
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP1CCAYB-32CC9756",
@@ -1448,8 +2541,13 @@
       ],
       "ts": "2026-05-11T15:12:44.147Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMI3ZF2-2F83F425",
+          "score": 0.758
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP0ZE9C8-A9D02716",
@@ -1466,8 +2564,21 @@
       ],
       "ts": "2026-05-11T09:10:20.361Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPAS5OM5-A1F522F4",
+          "score": 0.818
+        },
+        {
+          "id": "MPK0H3SM-B25CFBB3",
+          "score": 0.789
+        },
+        {
+          "id": "MPF4FISZ-67000E01",
+          "score": 0.786
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP0X62X5-535AF7A8",
@@ -1481,8 +2592,21 @@
       ],
       "ts": "2026-05-11T08:07:59.561Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.751
+        },
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.748
+        },
+        {
+          "id": "MP756UV9-FF3838F7",
+          "score": 0.744
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP0X3ZXL-06513C82",
@@ -1496,8 +2620,21 @@
       ],
       "ts": "2026-05-11T08:06:22.377Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.812
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.794
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.791
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP0X2MFM-53C89506",
@@ -1512,8 +2649,21 @@
       ],
       "ts": "2026-05-11T08:05:18.227Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.793
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.792
+        },
+        {
+          "id": "MPMJC8TR-592D4EF0",
+          "score": 0.79
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MP0QMSOR-C6EC1B5A",
@@ -1530,8 +2680,17 @@
       ],
       "ts": "2026-05-11T05:05:02.139Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.741
+        },
+        {
+          "id": "MQ5X6P2M-52F9B16D",
+          "score": 0.72
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOUKLLK4-C38517C1",
@@ -1546,8 +2705,21 @@
       ],
       "ts": "2026-05-06T21:29:31.493Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5B6CTT-AB0A3D97",
+          "score": 0.814
+        },
+        {
+          "id": "MPUO08SE-67E0912A",
+          "score": 0.804
+        },
+        {
+          "id": "MPURYS56-11F5308C",
+          "score": 0.79
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOUBIHOK-27900555",
@@ -1562,8 +2734,21 @@
       ],
       "ts": "2026-05-06T17:15:09.956Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPF4WM18-FF4843F1",
+          "score": 0.792
+        },
+        {
+          "id": "MPMKE3CC-4E75CE39",
+          "score": 0.767
+        },
+        {
+          "id": "MPMKBUNW-88609492",
+          "score": 0.767
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOUBETTU-F31C5206",
@@ -1576,8 +2761,21 @@
       ],
       "ts": "2026-05-06T17:12:19.074Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.796
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.793
+        },
+        {
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.772
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOUA3PLK-548F1A0A",
@@ -1592,8 +2790,21 @@
       ],
       "ts": "2026-05-06T16:35:40.760Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMJC8TR-592D4EF0",
+          "score": 0.738
+        },
+        {
+          "id": "MOUBETTU-F31C5206",
+          "score": 0.736
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOU9KSV9-70260D9B",
@@ -1606,8 +2817,21 @@
       ],
       "ts": "2026-05-06T16:20:58.533Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMKE3CC-4E75CE39",
+          "score": 0.81
+        },
+        {
+          "id": "MPMKBUNW-88609492",
+          "score": 0.81
+        },
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.785
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQIQ8WD-D41AC1B6",
@@ -1617,8 +2841,21 @@
       "nodeIds": [],
       "ts": "2026-05-04T01:26:04.429Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.736
+        },
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.736
+        },
+        {
+          "id": "MQ5WYJFU-60EB210E",
+          "score": 0.726
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQIMC7B-B190C937",
@@ -1632,8 +2869,21 @@
       ],
       "ts": "2026-05-04T01:23:02.087Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMI3ZF2-2F83F425",
+          "score": 0.73
+        },
+        {
+          "id": "MPUSXGC6-CD078CEA",
+          "score": 0.728
+        },
+        {
+          "id": "MPUFM0YN-83C71BAB",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQIJIOJ-61E8F0F4",
@@ -1643,8 +2893,21 @@
       "nodeIds": [],
       "ts": "2026-05-04T01:20:50.515Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPK0H3SM-B25CFBB3",
+          "score": 0.815
+        },
+        {
+          "id": "MP0ZE9C8-A9D02716",
+          "score": 0.81
+        },
+        {
+          "id": "MPF4FISZ-67000E01",
+          "score": 0.806
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQIHEM5-82D69E4F",
@@ -1659,8 +2922,21 @@
       ],
       "ts": "2026-05-04T01:19:11.933Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WV5PP-6209C749",
+          "score": 0.742
+        },
+        {
+          "id": "MPUTFPG6-02308248",
+          "score": 0.741
+        },
+        {
+          "id": "MPUFM0YN-83C71BAB",
+          "score": 0.741
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQIGG2B-2F0C3F5D",
@@ -1675,8 +2951,21 @@
       ],
       "ts": "2026-05-04T01:18:27.155Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.756
+        },
+        {
+          "id": "MPCV5LR8-9AD1527C",
+          "score": 0.739
+        },
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.738
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQID47V-A12862EA",
@@ -1692,8 +2981,21 @@
       ],
       "ts": "2026-05-04T01:15:51.835Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPK0H3SM-B25CFBB3",
+          "score": 0.804
+        },
+        {
+          "id": "MPURYS56-11F5308C",
+          "score": 0.785
+        },
+        {
+          "id": "MQARZJDV-82F077DD",
+          "score": 0.776
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQIAGXM-397A1F22",
@@ -1707,8 +3009,21 @@
       ],
       "ts": "2026-05-04T01:13:48.346Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUFM0YN-83C71BAB",
+          "score": 0.763
+        },
+        {
+          "id": "MPUFP1VW-298D0A73",
+          "score": 0.755
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.751
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQBZWTZ-B9EBB1BA",
@@ -1723,8 +3038,21 @@
       ],
       "ts": "2026-05-03T22:17:38.040Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOUBETTU-F31C5206",
+          "score": 0.829
+        },
+        {
+          "id": "MPMSSG1X-8451DE38",
+          "score": 0.81
+        },
+        {
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.807
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ7OBNT-57882C8D",
@@ -1741,8 +3069,21 @@
       ],
       "ts": "2026-05-03T20:16:38.921Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.801
+        },
+        {
+          "id": "MPMJC8TR-592D4EF0",
+          "score": 0.799
+        },
+        {
+          "id": "MPURYS56-11F5308C",
+          "score": 0.787
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ7HGW3-608EA4FA",
@@ -1756,8 +3097,21 @@
       ],
       "ts": "2026-05-03T20:11:19.108Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUSXGC6-CD078CEA",
+          "score": 0.759
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.753
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.747
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ5IKR5-C67AAC15",
@@ -1771,8 +3125,21 @@
       ],
       "ts": "2026-05-03T19:16:11.538Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.807
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.802
+        },
+        {
+          "id": "MQ5JM1HD-9047C82F",
+          "score": 0.794
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ5EOBY-82AD9EEE",
@@ -1785,8 +3152,21 @@
       ],
       "ts": "2026-05-03T19:13:09.550Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.792
+        },
+        {
+          "id": "MQ5WV5PP-6209C749",
+          "score": 0.767
+        },
+        {
+          "id": "MPMMCX1X-AFED893B",
+          "score": 0.739
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ5A1GS-413BDE6F",
@@ -1799,8 +3179,21 @@
       ],
       "ts": "2026-05-03T19:09:33.292Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.773
+        },
+        {
+          "id": "MPMTQZIN-7863D6D2",
+          "score": 0.773
+        },
+        {
+          "id": "MQASO35V-115DA081",
+          "score": 0.769
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ580W2-0F2EB2A5",
@@ -1810,8 +3203,21 @@
       "nodeIds": [],
       "ts": "2026-05-03T19:07:59.234Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUFP1VW-298D0A73",
+          "score": 0.768
+        },
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.748
+        },
+        {
+          "id": "MOQ5EOBY-82AD9EEE",
+          "score": 0.744
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ531J2-4FC329D4",
@@ -1824,8 +3230,21 @@
       ],
       "ts": "2026-05-03T19:04:06.782Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.766
+        },
+        {
+          "id": "MPMTQZIN-7863D6D2",
+          "score": 0.766
+        },
+        {
+          "id": "MPUSZCXA-5CB2DE46",
+          "score": 0.763
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOQ4WD8F-429C644B",
@@ -1840,8 +3259,21 @@
       ],
       "ts": "2026-05-03T18:58:55.361Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPH4R3SE-C224ACED",
+          "score": 0.798
+        },
+        {
+          "id": "MOQ531J2-4FC329D4",
+          "score": 0.795
+        },
+        {
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.771
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOPHZPQ7-B63879B5",
@@ -1854,8 +3286,21 @@
       ],
       "ts": "2026-05-03T08:17:40.351Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPH4R3SE-C224ACED",
+          "score": 0.761
+        },
+        {
+          "id": "MPJXEFVC-49A699FA",
+          "score": 0.753
+        },
+        {
+          "id": "MOQ531J2-4FC329D4",
+          "score": 0.747
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOPHXJNW-020BA7D3",
@@ -1865,8 +3310,21 @@
       "nodeIds": [],
       "ts": "2026-05-03T08:15:59.180Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.819
+        },
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.779
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.775
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOPFJTND-AAE76B2B",
@@ -1880,8 +3338,21 @@
       ],
       "ts": "2026-05-03T07:09:19.705Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOUBETTU-F31C5206",
+          "score": 0.843
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.833
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.81
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOPEYJKU-C4711B5F",
@@ -1908,8 +3379,21 @@
       ],
       "ts": "2026-05-03T00:17:40.026Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOU9KSV9-70260D9B",
+          "score": 0.738
+        },
+        {
+          "id": "MPMMCX1X-AFED893B",
+          "score": 0.736
+        },
+        {
+          "id": "MPMLQX6D-E6B61F8E",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOP0S479-373A2268",
@@ -1922,8 +3406,21 @@
       ],
       "ts": "2026-05-03T00:15:52.389Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOPHXJNW-020BA7D3",
+          "score": 0.777
+        },
+        {
+          "id": "MQ5C1KZ4-D6D52E94",
+          "score": 0.757
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.757
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOP0P7DE-3C823F7E",
@@ -1937,8 +3434,21 @@
       ],
       "ts": "2026-05-03T00:13:36.530Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOU9KSV9-70260D9B",
+          "score": 0.76
+        },
+        {
+          "id": "MOP0S479-373A2268",
+          "score": 0.758
+        },
+        {
+          "id": "MOP0UF96-1A0ACB35",
+          "score": 0.757
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOP0LEAL-E2568DCC",
@@ -1952,8 +3462,21 @@
       ],
       "ts": "2026-05-03T00:10:38.877Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOP0UF96-1A0ACB35",
+          "score": 0.811
+        },
+        {
+          "id": "MOPHZPQ7-B63879B5",
+          "score": 0.786
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.782
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOZHCUT-4B86F8AD",
@@ -1967,8 +3490,21 @@
       ],
       "ts": "2026-05-02T23:39:30.774Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.797
+        },
+        {
+          "id": "MOQIMC7B-B190C937",
+          "score": 0.792
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.79
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOVXCI4-822961D2",
@@ -1994,8 +3530,21 @@
       "nodeIds": [],
       "ts": "2026-05-02T21:18:58.554Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUU1101-EDF34032",
+          "score": 0.803
+        },
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.766
+        },
+        {
+          "id": "MQ5CZRK7-A62EB4D0",
+          "score": 0.748
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOUF9G2-17673BD9",
@@ -2005,8 +3554,13 @@
       "nodeIds": [],
       "ts": "2026-05-02T21:17:54.962Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5CZRK7-A62EB4D0",
+          "score": 0.727
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOUBJCR-6BA260F8",
@@ -2027,8 +3581,17 @@
       "nodeIds": [],
       "ts": "2026-05-02T21:11:25.921Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOOUBJCR-6BA260F8",
+          "score": 0.746
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.726
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOU3TYC-FE290C2B",
@@ -2055,8 +3618,21 @@
       ],
       "ts": "2026-05-02T17:41:48.552Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5JM1HD-9047C82F",
+          "score": 0.818
+        },
+        {
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.817
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.816
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOMJDPP-1F336D7D",
@@ -2070,8 +3646,21 @@
       ],
       "ts": "2026-05-02T17:37:10.189Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOOZHCUT-4B86F8AD",
+          "score": 0.781
+        },
+        {
+          "id": "MQ5CMPJB-3D705D06",
+          "score": 0.735
+        },
+        {
+          "id": "MPUNXFU1-3B1F056A",
+          "score": 0.726
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOMECFT-66F43077",
@@ -2081,8 +3670,21 @@
       "nodeIds": [],
       "ts": "2026-05-02T17:33:15.257Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPURYS56-11F5308C",
+          "score": 0.82
+        },
+        {
+          "id": "MQARZJDV-82F077DD",
+          "score": 0.783
+        },
+        {
+          "id": "MQ5B6CTT-AB0A3D97",
+          "score": 0.783
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOKFUNF-7647B056",
@@ -2095,8 +3697,21 @@
       ],
       "ts": "2026-05-02T16:38:26.283Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.744
+        },
+        {
+          "id": "MPMTQZIN-7863D6D2",
+          "score": 0.744
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.738
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOK20R3-62E609BA",
@@ -2109,8 +3724,21 @@
       ],
       "ts": "2026-05-02T16:27:41.007Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOUBETTU-F31C5206",
+          "score": 0.784
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.769
+        },
+        {
+          "id": "MPUFP1VW-298D0A73",
+          "score": 0.767
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOJYUM5-27711091",
@@ -2120,8 +3748,13 @@
       "nodeIds": [],
       "ts": "2026-05-02T16:25:13.085Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUSCM19-FD1196BD",
+          "score": 0.722
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOJX57H-967D3B48",
@@ -2153,8 +3786,21 @@
       "nodeIds": [],
       "ts": "2026-05-02T16:21:18.863Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOOU3TYC-FE290C2B",
+          "score": 0.784
+        },
+        {
+          "id": "MOOJUW0R-CE8E0F2F",
+          "score": 0.755
+        },
+        {
+          "id": "MOQIMC7B-B190C937",
+          "score": 0.736
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOJTBA1-24F2F762",
@@ -2164,8 +3810,17 @@
       "nodeIds": [],
       "ts": "2026-05-02T16:20:54.745Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOOJTTVY-E78AA6E5",
+          "score": 0.746
+        },
+        {
+          "id": "MOOU3TYC-FE290C2B",
+          "score": 0.728
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOLNG57A-2F155772",
@@ -2179,8 +3834,21 @@
       ],
       "ts": "2026-04-30T15:39:20.279Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMJC8TR-592D4EF0",
+          "score": 0.783
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.775
+        },
+        {
+          "id": "MQASO35V-115DA081",
+          "score": 0.774
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOJVF4PL-7474909F",
@@ -2194,8 +3862,21 @@
       ],
       "ts": "2026-04-29T09:46:57.561Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMKE3CC-4E75CE39",
+          "score": 0.818
+        },
+        {
+          "id": "MPMKBUNW-88609492",
+          "score": 0.818
+        },
+        {
+          "id": "MOU9KSV9-70260D9B",
+          "score": 0.757
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOJ7Q5HM-89F62E3F",
@@ -2205,8 +3886,21 @@
       "nodeIds": [],
       "ts": "2026-04-28T22:43:41.002Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOQIMC7B-B190C937",
+          "score": 0.803
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.794
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.793
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOIXN7OL-B18642AC",
@@ -2219,8 +3913,21 @@
       ],
       "ts": "2026-04-28T18:01:27.718Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.819
+        },
+        {
+          "id": "MOUBETTU-F31C5206",
+          "score": 0.804
+        },
+        {
+          "id": "MQ5WV5PP-6209C749",
+          "score": 0.795
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOIXN434-9D5CBFC0",
@@ -2233,8 +3940,21 @@
       ],
       "ts": "2026-04-28T18:01:23.056Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MP74X3EJ-72CDDB9F",
+          "score": 0.797
+        },
+        {
+          "id": "MPMSRF6V-7FEB2991",
+          "score": 0.774
+        },
+        {
+          "id": "MOPY5F6J-9469E3BE",
+          "score": 0.759
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHVDNEU-D3F7EEB5",
@@ -2258,8 +3978,21 @@
       "nodeIds": [],
       "ts": "2026-04-28T00:06:52.045Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XLW2D-D3E90BBC",
+          "score": 0.748
+        },
+        {
+          "id": "MPUFECMA-7E85D8E2",
+          "score": 0.747
+        },
+        {
+          "id": "MP756UV9-FF3838F7",
+          "score": 0.746
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHV84M5-1825A399",
@@ -2272,8 +4005,21 @@
       ],
       "ts": "2026-04-28T00:05:58.493Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.746
+        },
+        {
+          "id": "MPUSXGC6-CD078CEA",
+          "score": 0.739
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.739
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHST017-5C4320E1",
@@ -2283,8 +4029,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T22:58:13.483Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.828
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.823
+        },
+        {
+          "id": "MOHV84M5-1825A399",
+          "score": 0.82
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHMIET1-6D429A85",
@@ -2297,8 +4056,21 @@
       ],
       "ts": "2026-04-27T20:02:01.717Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.746
+        },
+        {
+          "id": "MPMI3ZF2-2F83F425",
+          "score": 0.74
+        },
+        {
+          "id": "MOQIAGXM-397A1F22",
+          "score": 0.732
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHMET94-3799557A",
@@ -2311,8 +4083,21 @@
       ],
       "ts": "2026-04-27T19:59:13.816Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOOKFUNF-7647B056",
+          "score": 0.796
+        },
+        {
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.782
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.77
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHM21Y5-A3B5F539",
@@ -2325,8 +4110,21 @@
       ],
       "ts": "2026-04-27T19:49:18.557Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.784
+        },
+        {
+          "id": "MOHV84M5-1825A399",
+          "score": 0.763
+        },
+        {
+          "id": "MOQIMC7B-B190C937",
+          "score": 0.759
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHLZBVK-2FBBAD2F",
@@ -2339,8 +4137,21 @@
       ],
       "ts": "2026-04-27T19:47:11.456Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.774
+        },
+        {
+          "id": "MOP0S479-373A2268",
+          "score": 0.762
+        },
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.756
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHE82UD-1D9C9B41",
@@ -2350,8 +4161,13 @@
       "nodeIds": [],
       "ts": "2026-04-27T16:10:02.725Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHST017-5C4320E1",
+          "score": 0.74
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHE4MQP-97161599",
@@ -2361,8 +4177,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T16:07:21.889Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOUBETTU-F31C5206",
+          "score": 0.732
+        },
+        {
+          "id": "MPMKE3CC-4E75CE39",
+          "score": 0.725
+        },
+        {
+          "id": "MPMKBUNW-88609492",
+          "score": 0.725
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHE3OLR-9165E355",
@@ -2372,8 +4201,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T16:06:37.647Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.753
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.748
+        },
+        {
+          "id": "MOHE4MQP-97161599",
+          "score": 0.742
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHDW91N-D9BDFDB1",
@@ -2383,8 +4225,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T16:00:50.891Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.781
+        },
+        {
+          "id": "MOHE3OLR-9165E355",
+          "score": 0.772
+        },
+        {
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.767
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHDP88G-22C5E0FB",
@@ -2394,8 +4249,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:55:23.248Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHDW91N-D9BDFDB1",
+          "score": 0.753
+        },
+        {
+          "id": "MOHV84M5-1825A399",
+          "score": 0.74
+        },
+        {
+          "id": "MOHE82UD-1D9C9B41",
+          "score": 0.737
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHDLJ25-7A6B620C",
@@ -2405,8 +4273,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:52:30.653Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHDW91N-D9BDFDB1",
+          "score": 0.774
+        },
+        {
+          "id": "MOP0S479-373A2268",
+          "score": 0.767
+        },
+        {
+          "id": "MOHDP88G-22C5E0FB",
+          "score": 0.752
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHDE0UP-E1D209AD",
@@ -2416,8 +4297,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:46:40.465Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.732
+        },
+        {
+          "id": "MQ5XE42V-D185B8D7",
+          "score": 0.731
+        },
+        {
+          "id": "MOHDW91N-D9BDFDB1",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHDAOFD-2C20D4F5",
@@ -2427,8 +4321,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:44:04.393Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHDW91N-D9BDFDB1",
+          "score": 0.797
+        },
+        {
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.791
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.781
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHD4STN-8490D410",
@@ -2438,8 +4345,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:39:30.155Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHST017-5C4320E1",
+          "score": 0.796
+        },
+        {
+          "id": "MOHV84M5-1825A399",
+          "score": 0.792
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.783
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHCY4TX-251DD6A7",
@@ -2449,8 +4369,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:34:19.125Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ683DMX-13D6C54F",
+          "score": 0.758
+        },
+        {
+          "id": "MOHDW91N-D9BDFDB1",
+          "score": 0.755
+        },
+        {
+          "id": "MOHD4STN-8490D410",
+          "score": 0.755
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHCSO2P-2D88785B",
@@ -2460,8 +4393,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:30:04.129Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPUFP1VW-298D0A73",
+          "score": 0.783
+        },
+        {
+          "id": "MOHCY4TX-251DD6A7",
+          "score": 0.778
+        },
+        {
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.768
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHCN98S-2540F4DF",
@@ -2471,8 +4417,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:25:51.628Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOQ5IKR5-C67AAC15",
+          "score": 0.785
+        },
+        {
+          "id": "MQ5JM1HD-9047C82F",
+          "score": 0.784
+        },
+        {
+          "id": "MPJEBNX3-042F2A69",
+          "score": 0.783
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHCIS4R-69B0D47B",
@@ -2482,8 +4441,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:22:22.827Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHCN98S-2540F4DF",
+          "score": 0.819
+        },
+        {
+          "id": "MP756UV9-FF3838F7",
+          "score": 0.793
+        },
+        {
+          "id": "MOHV84M5-1825A399",
+          "score": 0.79
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHCCZEH-647E3EDD",
@@ -2493,8 +4465,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T15:17:52.313Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHCIS4R-69B0D47B",
+          "score": 0.775
+        },
+        {
+          "id": "MOQIAGXM-397A1F22",
+          "score": 0.748
+        },
+        {
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.748
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHBQH8Z-BE771676",
@@ -2515,8 +4500,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T14:43:17.684Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHB8QCN-0E2E8408",
+          "score": 0.728
+        },
+        {
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.724
+        },
+        {
+          "id": "MPMTQZIN-7863D6D2",
+          "score": 0.724
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHAUYTH-CD1E3227",
@@ -2529,8 +4527,21 @@
       ],
       "ts": "2026-04-27T14:35:52.133Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOP0UF96-1A0ACB35",
+          "score": 0.807
+        },
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.759
+        },
+        {
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.75
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHAN4AO-7A201C56",
@@ -2540,8 +4551,21 @@
       "nodeIds": [],
       "ts": "2026-04-27T14:29:45.984Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MOHAREIB-E15E7BF8",
+          "score": 0.871
+        },
+        {
+          "id": "MOHMET94-3799557A",
+          "score": 0.783
+        },
+        {
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.768
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHAI60S-B7B04552",
@@ -2554,8 +4578,21 @@
       ],
       "ts": "2026-04-27T14:25:54.940Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.762
+        },
+        {
+          "id": "MPAGOCGB-FB54D923",
+          "score": 0.762
+        },
+        {
+          "id": "MON69DI9-D63A7910",
+          "score": 0.739
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOHAGNGB-5330902E",
@@ -2568,8 +4605,21 @@
       ],
       "ts": "2026-04-27T14:24:44.219Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MPMROCH7-EB9E6A9A",
+          "score": 0.82
+        },
+        {
+          "id": "MQ5C1KZ4-D6D52E94",
+          "score": 0.809
+        },
+        {
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.803
+        }
+      ],
+      "answered": true
     }
   ]
 }
