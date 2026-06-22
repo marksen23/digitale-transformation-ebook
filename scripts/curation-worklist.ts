@@ -74,9 +74,11 @@ function aiDuktus(resp: string): { flags: string[]; severity: number } {
   if (/\*\*\S/.test(r)) flags.push("bold");
   // Listen/Aufzählungen
   if (/(^|\n)\s*[-*•]\s|\n\s*\d+\.\s/.test(r)) flags.push("liste");
-  // Inline-Citations [<id/hash>] = Synthese aus anderen Einträgen, kein
-  // Frischdenken (der Richter belohnt das trotzdem mit hohem ai_score).
-  const cites = (r.match(/\[[0-9a-zA-Z]{6,}(-[0-9A-Z]{6,})?\]/g) ?? []).length;
+  // Inline-Citations = Synthese aus anderen Einträgen, kein Frischdenken (der
+  // Richter belohnt das trotzdem mit hohem ai_score). Zählt die Referenz-Tokens
+  // selbst (12-stellige Content-Hashes ODER Eintrag-IDs MXXXX-XXXX), egal ob
+  // einzeln [id] oder komma-getrennt [id1, id2] geklammert.
+  const cites = (r.match(/[0-9a-f]{12}|[A-Z0-9]{8}-[0-9A-F]{8}/g) ?? []).length;
   if (cites >= 2) flags.push(`zitat×${cites}`);
   return { flags, severity: flags.length + (flags.includes("coaching") ? 1 : 0) };
 }
