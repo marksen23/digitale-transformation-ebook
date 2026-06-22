@@ -64,9 +64,9 @@
         "werk_passages": "",
         "{ \"id\"": "\"MOHMIET1-6D429A85\", \"score\": 0.832 }"
       },
-      "ai_score": 5,
-      "ai_score_reason": "Die Antwort entwickelt eine eigenständige Synthese und führt die Frage mit",
-      "ai_score_at": "2026-06-22T09:28:02.444Z",
+      "ai_score": 3,
+      "ai_score_reason": "Der Text analysiert die Begriffe korrekt, verfällt aber in eine gliedernde, erklärende Struktur, statt die Gedanken selbst in Bewegung zu zeigen.",
+      "ai_score_at": "2026-06-22T14:40:16.064Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MPURYS56-11F5308C",
@@ -173,7 +173,7 @@
         "{ \"id\"": "\"ad4082a4e4db\", \"score\": 0.765 }"
       },
       "ai_score": 5,
-      "ai_score_reason": "Die Antwort imitiert den Duktus perfekt und entwickelt durch die abschließende",
+      "ai_score_reason": "Die Antwort imitiert den Duktus perfekt und entwickelt durch die abschließende Frage einen eigenständigen philosophischen Impuls.",
       "ai_score_at": "2026-06-22T14:28:40.385Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -186,11 +186,7 @@
       "werkVoiceScore": 0.8536936638166012,
       "corpusVoiceScore": 0.7970785850186514,
       "conceptVoiceScore": 0.7477795356758488,
-      "conceptAnchor": "antwort",
-      "ai_score": 5,
-      "ai_score_reason": "Die Antwort imitiert den Duktus perfekt und entwickelt durch die abschließende Frage einen eigenständigen philosophischen Impuls.",
-      "ai_score_at": "2026-06-22T14:28:40.385Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "antwort"
     },
     {
       "id": "MQ66ZWYC-52DE2DF2",
