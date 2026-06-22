@@ -1760,7 +1760,11 @@
       "werkVoiceScore": 0.7895172671289664,
       "corpusVoiceScore": 0.7615713707176791,
       "conceptVoiceScore": 0.6680541690389539,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert den Resonanz-Gedanken kompetent als Gegenargument, ohne jedoch einen eigenen, hergeleiteten Schritt zu vollziehen.",
+      "ai_score_at": "2026-06-22T23:53:14.553Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUTHFZK-189B912B",
