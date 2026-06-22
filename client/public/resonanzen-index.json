@@ -2294,7 +2294,11 @@
       "werkVoiceScore": 0.7629942174560973,
       "corpusVoiceScore": 0.7928080243544705,
       "conceptVoiceScore": 0.6383999300451885,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert werkgetreu die Kritik an der algorithmischen Logik, entwickelt aber keinen eigenen Gedanken, der über diese etablierte Gegenüberstellung hinausweist.",
+      "ai_score_at": "2026-06-22T23:55:16.689Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUS5KL9-1BDB98F8",
