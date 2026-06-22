@@ -83,6 +83,7 @@ Browser (Netlify)                  Render-Server (Express)
 | `AUTO_CURATE_*` | optional Render Env | nein | Schwellen für `/api/admin/auto-curate`: `AI_MIN` (4), `CORPUS_MIN` (0.55), `AI_REJECT` (2), `CORPUS_REJECT` (0.30), `WERK_MIN` (0.55), `CONCEPT_MIN` (0.68), `CONCEPT_REJECT` (0.62). Niedriger = aggressivere Auto-Freigabe. Default konservativ. `CONCEPT_*` = dritter (Begriffs-)Anker des triangulierten Schutzwalls. |
 | `CONCEPT_NEW_*` | optional Render Env | nein | Schutzwall für **neue Begriffe** (`/api/admin/propose-concept`, Phase 5c): `DISTINCT_MIN` (0.10 — min. Distinktheit `1−maxCosine` zu bestehenden Begriffen, kein Beinah-Duplikat), `EVIDENCE_SIM` (0.70 — Cosine-Schwelle, ab der eine kuratierte Resonanz den Begriff „trägt"), `EVIDENCE_MIN` (1 — min. Anzahl tragender kuratierter Erkenntnisse). Höher = strenger. |
 | `CONCEPT_CAND_*` | optional (Build/CI Env) | nein | Schwellen der **Auto-Begriffs-Kandidaten** (`build-resonanzen-index.ts:writeConceptCandidates` → `resonanzen-concept-candidates.json`): `DISTINCT_MIN` (0.10), `EVIDENCE_MIN` (3 — min. Clustergröße), `CLUSTER_SIM` (0.78 — Greedy-Cosine-Schwelle), `MAX_FRACTION` (0.20 — Cluster, die einen größeren Bruchteil des kuratierten Korpus spannen, werden als Prompt-Template-Moden verworfen). Advisory-Artefakt, nur Vorbefüllung fürs Propose-Formular. |
+| `PRESCORE_*` / `SYNTHESIS_*` | optional Render Env | nein | **LLM-Anbieter** für Pre-Scoring bzw. Master-Synthese. `_BACKEND` = `gemini` (Default) \| `claude`. `PRESCORE_MODEL` (Default `gemini-2.5-pro`) / `SYNTHESIS_MODEL` (Default `gemini-2.5-pro`) wählt das Gemini-Modell. **Bewusst `pro` (nicht `flash`):** die Resonanzen erzeugt `gemini-2.5-flash` — ein stärkeres, anderes Modell als Richter vermeidet Selbst-Bewertungs-Bias. `GEMINI_TEXT_MODEL` setzt den globalen `callGemini`-Default. Provider-Wechsel deploy-frei via ENV (`server/lib/geminiText.ts`, `claudeClient.ts`). |
 
 ---
 
@@ -202,13 +203,16 @@ Invoke-RestMethod -Uri ".../api/admin/pre-score" -Method Post `
   -ContentType "application/json" -Body '{"id":"<eine raw-id>"}'
 # bei Fehler den 502-Body aus dem Stream lesen (PS 5.1 verschluckt ihn sonst)
 ```
-`preScoreSingle` hängt seit 2026-06-22 den echten Anthropic-Fehler an
-(`getLastClaudeError`): `HTTP 401` = Key ungültig, `429` = Rate-Limit,
-`404 model` = Modell-ID veraltet (`CLAUDE_MODEL`-ENV bzw. `claudeClient.ts`
-`DEFAULT_MODEL` aktualisieren — aktuell `claude-sonnet-4-6`), **`credit balance
-too low`** = Anthropic-Guthaben leer → console.anthropic.com → Plans & Billing
-aufladen. (Aufgetreten 2026-06-22: leeres Anthropic-Guthaben — Gemini-Features
-liefen weiter, nur Claude-Admin-Features down.)
+`preScoreSingle` hängt seit 2026-06-22 den echten LLM-Fehler an
+(`getLast{Gemini,Claude}Error`): `HTTP 401` = Key ungültig, `429` = Rate-Limit,
+`404 model` = Modell-ID veraltet, **`credit balance too low`** = Guthaben leer.
+
+**Seit 2026-06-22 ist der Default-Anbieter für Pre-Scoring + Synthese `gemini`**
+(`gemini-2.5-pro` als Richter, siehe `PRESCORE_*`/`SYNTHESIS_*` in der Env-Tabelle)
+— damit hängt die Kuratierung **nicht mehr am Anthropic-Guthaben**, alles läuft
+über die Gemini-API (eine Rechnung). Claude bleibt per `*_BACKEND=claude` als
+Fallback. Diagnose-Call zeigt jetzt Gemini-Fehler (`[callGemini] failed …`).
+(Historie: 2026-06-22 war das Anthropic-Guthaben leer → Auslöser der Umstellung.)
 
 ---
 

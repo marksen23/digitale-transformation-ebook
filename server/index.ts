@@ -2100,11 +2100,30 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     };
   }
 
+  /**
+   * Provider-agnostischer Text-LLM-Dispatcher. Default Gemini (gemini-2.5-pro
+   * als unabhängiger Richter — die Resonanzen erzeugt gemini-2.5-flash, also
+   * kein Selbst-Bewertungs-Bias). Claude per *_BACKEND=claude als Fallback.
+   * Reicht das genutzte Modell + den echten Fehler durch (Observability).
+   */
+  async function callTextLLM(
+    opts: { system: string; user: string; maxTokens?: number; temperature?: number },
+    cfg: { backend: string; geminiModel: string },
+  ): Promise<{ text: string | null; model: string; error: string | null }> {
+    if (cfg.backend === "claude") {
+      const { callClaude, isClaudeAvailable, getClaudeModel, getLastClaudeError } = await import("./lib/claudeClient.js");
+      if (!isClaudeAvailable()) return { text: null, model: getClaudeModel(), error: "ANTHROPIC_API_KEY fehlt" };
+      const text = await callClaude(opts);
+      return { text, model: getClaudeModel(), error: text ? null : (getLastClaudeError() ?? "Claude-Call fehlgeschlagen") };
+    }
+    const { callGemini, isGeminiAvailable, getLastGeminiError } = await import("./lib/geminiText.js");
+    if (!isGeminiAvailable()) return { text: null, model: cfg.geminiModel, error: "Kein GEMINI_API_KEY[S]/FALLBACK gesetzt" };
+    const text = await callGemini({ ...opts, model: cfg.geminiModel });
+    return { text, model: cfg.geminiModel, error: text ? null : (getLastGeminiError() ?? "Gemini-Call fehlgeschlagen") };
+  }
+
   /** Bewertet einen einzelnen Eintrag, schreibt das Ergebnis ins Frontmatter. */
   async function preScoreSingle(id: string): Promise<{ ok: boolean; score?: number; reason?: string; error?: string }> {
-    const { callClaude, isClaudeAvailable, getClaudeModel, getLastClaudeError } = await import("./lib/claudeClient.js");
-    if (!isClaudeAvailable()) return { ok: false, error: "ANTHROPIC_API_KEY fehlt" };
-
     const file = await findEntryFile(id);
     if (!file) return { ok: false, error: `Eintrag ${id} nicht gefunden` };
 
@@ -2120,16 +2139,15 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     if (!response) return { ok: false, error: "Kein Antwort-Section gefunden" };
 
     const userPrompt = `**Frage:** ${prompt || "(keine Frage notiert)"}\n\n**KI-Antwort:** ${response}\n\nBewerte diese Antwort.`;
-    const raw = await callClaude({
-      system: PRE_SCORE_SYSTEM, user: userPrompt,
-      maxTokens: 200, temperature: 0.2,
-    });
-    if (!raw) return { ok: false, error: `Claude-Call fehlgeschlagen — ${getLastClaudeError() ?? "kein Detail"}` };
+    const { text: raw, model, error: llmError } = await callTextLLM(
+      { system: PRE_SCORE_SYSTEM, user: userPrompt, maxTokens: 200, temperature: 0.2 },
+      { backend: process.env.PRESCORE_BACKEND ?? "gemini", geminiModel: process.env.PRESCORE_MODEL ?? "gemini-2.5-pro" },
+    );
+    if (!raw) return { ok: false, error: `Pre-Score-LLM fehlgeschlagen — ${llmError ?? "kein Detail"}` };
     const parsed = parsePreScore(raw);
     if (!parsed) return { ok: false, error: `Score-Format nicht erkannt: ${raw.slice(0, 120)}` };
 
     const now = new Date().toISOString();
-    const model = getClaudeModel();
     let newContent: string;
     try {
       newContent = await mutateFrontmatter(file.content, doc => {
@@ -2462,12 +2480,6 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       return res.status(400).json({ error: "Anker für graph-chat ist nicht synthetisierbar" });
     }
 
-    // Claude verfügbar?
-    const { callClaude, isClaudeAvailable, getClaudeModel } = await import("./lib/claudeClient.js");
-    if (!isClaudeAvailable()) {
-      return res.status(503).json({ error: "ANTHROPIC_API_KEY nicht gesetzt — Synthese deaktiviert" });
-    }
-
     // 1. Varianten laden
     const variants = await loadAnchorVariants(endpoint, anchor);
     if (variants.length < 2) {
@@ -2477,15 +2489,13 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     // 2. Existierenden Master laden (für inkrementelle Synthese)
     const existingMaster = await loadMaster(endpoint, anchor);
 
-    // 3. Claude aufrufen
-    const synthesisText = await callClaude({
-      system: MASTER_SYNTHESIS_SYSTEM,
-      user: buildSynthesisUserPrompt(variants, existingMaster),
-      maxTokens: 6000,
-      temperature: 0.7,
-    });
+    // 3. Synthese-LLM (Default Gemini gemini-2.5-pro; per SYNTHESIS_BACKEND=claude umstellbar)
+    const { text: synthesisText, model: synthModel, error: synthError } = await callTextLLM(
+      { system: MASTER_SYNTHESIS_SYSTEM, user: buildSynthesisUserPrompt(variants, existingMaster), maxTokens: 6000, temperature: 0.7 },
+      { backend: process.env.SYNTHESIS_BACKEND ?? "gemini", geminiModel: process.env.SYNTHESIS_MODEL ?? "gemini-2.5-pro" },
+    );
     if (!synthesisText) {
-      return res.status(502).json({ error: "Claude-Aufruf fehlgeschlagen — siehe Server-Logs" });
+      return res.status(502).json({ error: `Synthese-LLM fehlgeschlagen — ${synthError ?? "siehe Server-Logs"}` });
     }
 
     // 4. Master-MD bauen (Frontmatter + Body)
@@ -2505,7 +2515,7 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       `variant_count: ${variants.length}`,
       `nodeIds: [${(anchor.split(":")[1] ?? "").split("+").join(", ")}]`,
       `status: published`,
-      `llm: ${getClaudeModel()}`,
+      `llm: ${synthModel}`,
       `audit_trail:`,
       auditEvent,
       `---`,
