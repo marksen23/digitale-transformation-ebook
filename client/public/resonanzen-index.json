@@ -325,8 +325,8 @@
         "{ \"id\"": "\"MOQ5IKR5-C67AAC15\", \"score\": 0.749 }"
       },
       "ai_score": 3,
-      "ai_score_reason": "Die Antwort paraphrasiert Werk-Konzepte korrekt, doch der Duktus bleibt zu sehr eine Darlegung und erreicht nicht die Dichte des Originals.",
-      "ai_score_at": "2026-06-22T14:40:37.726Z",
+      "ai_score_reason": "Die Antwort ist werktreu und nutzt die Begriffe korrekt, ihr fehlt aber der eigene denkerische Schritt, der über eine kluge Zusammenfassung hinausgeht.",
+      "ai_score_at": "2026-06-22T14:51:46.868Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MQ5XLW2D-D3E90BBC",
