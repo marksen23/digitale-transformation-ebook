@@ -442,7 +442,11 @@
       "werkVoiceScore": 0.835624717577763,
       "corpusVoiceScore": 0.7911463112849222,
       "conceptVoiceScore": 0.7236493684738816,
-      "conceptAnchor": "resonanzvernunft"
+      "conceptAnchor": "resonanzvernunft",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch indistinguierbar vom Werk, der Text führt den Gedanken durch eine präzise Anschlussfrage auf eine neue Reflexionsebene.",
+      "ai_score_at": "2026-06-22T14:11:28.465Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5XE42V-D185B8D7",
