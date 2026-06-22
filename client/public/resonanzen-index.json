@@ -173,8 +173,8 @@
         "{ \"id\"": "\"ad4082a4e4db\", \"score\": 0.765 }"
       },
       "ai_score": 3,
-      "ai_score_reason": "Der Text beginnt stark, driftet aber in eine eher lebensweltliche Ermahnung ab, statt den Gedanken philosophisch konsequent durchzutragen.",
-      "ai_score_at": "2026-06-22T14:40:23.544Z",
+      "ai_score_reason": "Der Text beginnt stark, driftet aber in einen eher lebensweltlichen Ratgeber-Duktus ab und verlässt so die Ebene der phänomenologischen Analyse.",
+      "ai_score_at": "2026-06-22T14:51:28.976Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MP756UV9-FF3838F7",
