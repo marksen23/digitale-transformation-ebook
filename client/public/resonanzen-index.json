@@ -2828,7 +2828,11 @@
       "werkVoiceScore": 0.8567382161931327,
       "corpusVoiceScore": 0.816265535663423,
       "conceptVoiceScore": 0.7327470706296478,
-      "conceptAnchor": "lm-verwandlung"
+      "conceptAnchor": "lm-verwandlung",
+      "ai_score": 3,
+      "ai_score_reason": "Eine exzellente, werksnahe Paraphrase, die die Begriffe korrekt anwendet, aber den entscheidenden Schritt vom Referat zum eigenen Denken nicht vollzieht.",
+      "ai_score_at": "2026-06-22T23:55:47.291Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMU7YZH-2C9CBFE8",
