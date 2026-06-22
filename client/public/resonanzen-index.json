@@ -2266,7 +2266,11 @@
       "werkVoiceScore": 0.7943503853800726,
       "corpusVoiceScore": 0.7452267766969792,
       "conceptVoiceScore": 0.6612935573823802,
-      "conceptAnchor": "echo"
+      "conceptAnchor": "echo",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert die Frage des Nutzers geschickt und stellt passende Rückfragen, ohne jedoch einen eigenen, hergeleiteten Gedanken zu entwickeln.",
+      "ai_score_at": "2026-06-22T23:55:09.238Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUS94IT-9CEEC40A",
