@@ -2227,11 +2227,13 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     werkMin:      parseFloat(process.env.AUTO_CURATE_WERK_MIN ?? "0.55"),
     // Triangulierter Schutzwall (Phase 5): conceptVoiceScore (Cosine zur
     // BEGRIFFSSTRUKTUR) als dritter, korroborierender Anker. Empirisch korreliert
-    // er aktuell mit corpusVoiceScore (Verteilung p25≈0.71/median≈0.76, siehe
-    // scripts/verify-concept-voice.mjs) — er LIBERALISIERT also nicht, sondern
-    // HÄRTET den Wall: ein Eintrag muss Prosa- UND Begriffs-Nähe zeigen. Graceful:
-    // wenn conceptVoiceScore fehlt (vor CI-Rebuild), blockt er nicht.
-    conceptMin:    parseFloat(process.env.AUTO_CURATE_CONCEPT_MIN ?? "0.68"),
+    // er mit corpusVoiceScore — er LIBERALISIERT nicht, sondern HÄRTET den Wall.
+    // Kalibrierung (Messung 2026-06-22 über den raw-Pool): cn-Verteilung min 0.634,
+    // p25 0.669, median 0.703. Bei conceptMin 0.68 saßen 29 sonst freigabefähige
+    // Einträge in der Totzone [0.62,0.68) fest → auf 0.65 gesenkt (bleibt klar über
+    // der 0.62-Reject-Schwelle, kein begriffs-ferner Eintrag rutscht durch).
+    // Graceful: wenn conceptVoiceScore fehlt (vor CI-Rebuild), blockt er nicht.
+    conceptMin:    parseFloat(process.env.AUTO_CURATE_CONCEPT_MIN ?? "0.65"),
     conceptReject: parseFloat(process.env.AUTO_CURATE_CONCEPT_REJECT ?? "0.62"),
   };
 
