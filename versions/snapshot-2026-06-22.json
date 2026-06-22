@@ -1,7 +1,7 @@
 {
   "date": "2026-06-22",
-  "generatedAt": "2026-06-22T09:28:08.776Z",
-  "commit": "dc7e1ab6d76646cd94280cb50c35e05e6a898cec",
+  "generatedAt": "2026-06-22T09:30:51.161Z",
+  "commit": "c99cc3d90b5f6ddf668cf6513f3fcdc7f0d84b57",
   "filesChecked": 240,
   "aggregates": {
     "byEndpoint": {
@@ -16,8 +16,8 @@
     "byStatus": {
       "published": 117,
       "rejected": 2,
-      "raw": 103,
-      "approved": 18
+      "raw": 101,
+      "approved": 20
     },
     "orphanNodeIds": [],
     "danglingLinks": 0,

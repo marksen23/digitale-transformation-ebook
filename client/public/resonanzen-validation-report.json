@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T09:28:07.594Z",
+  "generatedAt": "2026-06-22T09:30:50.451Z",
   "filesChecked": 240,
   "errors": 0,
   "warnings": 0,
@@ -17,8 +17,8 @@
     "byStatus": {
       "published": 117,
       "rejected": 2,
-      "raw": 103,
-      "approved": 18
+      "raw": 101,
+      "approved": 20
     },
     "orphanNodeIds": [],
     "danglingLinks": 0,
