@@ -2098,7 +2098,11 @@
       "werkVoiceScore": 0.7494424559854478,
       "corpusVoiceScore": 0.7067806449903187,
       "conceptVoiceScore": 0.6385458767002874,
-      "conceptAnchor": "dialog"
+      "conceptAnchor": "dialog",
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine kompetente, werksnahe Paraphrase, die aber im Kern eine Behauptung bleibt und keinen neuen denkerischen Schritt vollzieht.",
+      "ai_score_at": "2026-06-22T23:54:28.047Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUSPBKZ-D7CCA690",
