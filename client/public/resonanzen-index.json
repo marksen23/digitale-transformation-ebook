@@ -469,7 +469,11 @@
       "werkVoiceScore": 0.8339331045447341,
       "corpusVoiceScore": 0.779398219130687,
       "conceptVoiceScore": 0.6985300622148882,
-      "conceptAnchor": "werden"
+      "conceptAnchor": "werden",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch exzellent, leistet die Antwort durch die abschließende Gegenfrage einen eigenständigen, die Reflexion weiterführenden Beitrag.",
+      "ai_score_at": "2026-06-22T09:29:59.593Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5XH5A8-5FDB52C7",
