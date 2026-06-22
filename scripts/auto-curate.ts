@@ -16,10 +16,16 @@
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --limit 200      # preview, mehr Kandidaten
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --limit 25
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --no-reject  # NUR approves anwenden
+ *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --rescore --limit 10  # Alt-Scores neu bewerten
  *
  * --no-reject (approve-only): wendet beim Apply nur Freigaben an; die
  * Reject-Klassifikation bleibt sichtbar, aber Borderline-Einträge (z. B.
  * werknah, aber ai_score niedrig) bleiben `raw` für die manuelle Sichtung.
+ *
+ * --rescore: bewertet beim Apply zusätzlich Einträge neu, deren ai_score von
+ * einem ANDEREN Richter stammt (Skalen-Kohärenz — z.B. alte claude-sonnet-4-5-
+ * Scores unter dem aktuellen gemini-2.5-pro neu bewerten). Ohne Flag bleiben
+ * bewertete Einträge unangetastet.
  *
  * Env:
  *   ADMIN_TOKEN  (Pflicht) — der Admin-Bearer-Token
@@ -28,6 +34,7 @@
 const API_BASE = process.env.API_BASE ?? "https://digitale-transformation-ebook.onrender.com";
 const APPLY = process.argv.includes("--apply");
 const NO_REJECT = process.argv.includes("--no-reject");
+const RESCORE = process.argv.includes("--rescore");
 
 function argNum(flag: string, fallback: number): number {
   const i = process.argv.indexOf(flag);
@@ -49,6 +56,8 @@ interface AutoCurateResponse {
   counts: { approve: number; reject: number; review: number };
   unscored: number;
   scored: number;
+  rescored?: number;
+  judgeModel?: string;
   approve: ClassifiedEntry[]; reject: ClassifiedEntry[]; review: ClassifiedEntry[];
   applied?: Array<{ id: string; to: string; ok: boolean; error?: string }>;
   skipReject?: boolean;
@@ -69,11 +78,11 @@ async function main() {
   if (!token) { console.error("[auto-curate] ADMIN_TOKEN fehlt — Abbruch."); process.exit(1); }
   const mode = APPLY ? "apply" : "preview";
 
-  console.log(`[auto-curate] mode=${mode} · limit=${LIMIT}${APPLY && NO_REJECT ? " · approve-only (--no-reject)" : ""} · ${API_BASE}`);
+  console.log(`[auto-curate] mode=${mode} · limit=${LIMIT}${APPLY && NO_REJECT ? " · approve-only (--no-reject)" : ""}${APPLY && RESCORE ? " · rescore-stale" : ""} · ${API_BASE}`);
   const r = await fetch(`${API_BASE}/api/admin/auto-curate`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ mode, limit: LIMIT, ...(NO_REJECT ? { skipReject: true } : {}) }),
+    body: JSON.stringify({ mode, limit: LIMIT, ...(NO_REJECT ? { skipReject: true } : {}), ...(RESCORE ? { rescore: true } : {}) }),
   });
   const data = await r.json().catch(() => ({})) as AutoCurateResponse & { error?: string };
   if (!r.ok) { console.error(`[auto-curate] HTTP ${r.status}:`, data.error ?? data); process.exit(1); }
@@ -91,7 +100,7 @@ async function main() {
   if (mode === "apply") {
     const ok = (data.applied ?? []).filter(a => a.ok).length;
     const fail = (data.applied ?? []).length - ok;
-    console.log(`\n[auto-curate] FERTIG — ${ok} angewandt, ${fail} fehlgeschlagen (${data.scored} frisch bewertet).`);
+    console.log(`\n[auto-curate] FERTIG — ${ok} angewandt, ${fail} fehlgeschlagen (${data.scored} frisch bewertet${data.rescored ? `, ${data.rescored} neu bewertet [${data.judgeModel}]` : ""}).`);
     if (data.skipReject) console.log(`[auto-curate] approve-only: ${data.counts.reject} Rejects NICHT angewandt — bleiben raw für manuelle Sichtung.`);
     if (fail > 0) console.log("[auto-curate] Fehler:", (data.applied ?? []).filter(a => !a.ok).slice(0, 5));
   } else {

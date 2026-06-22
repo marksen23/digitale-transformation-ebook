@@ -2239,7 +2239,8 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
   interface ScoredEntry {
     id: string; status: string; prompt: string;
-    ai_score?: number; corpusVoiceScore?: number; werkVoiceScore?: number;
+    ai_score?: number; ai_score_model?: string;
+    corpusVoiceScore?: number; werkVoiceScore?: number;
     conceptVoiceScore?: number;
     novelty?: boolean; nearDuplicates?: string[];
   }
@@ -2269,7 +2270,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
   app.post("/api/admin/auto-curate", async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
-    const { mode, limit, skipReject } = req.body as { mode?: string; limit?: number; skipReject?: boolean };
+    const { mode, limit, skipReject, rescore } = req.body as { mode?: string; limit?: number; skipReject?: boolean; rescore?: boolean };
     if (mode !== "preview" && mode !== "apply") {
       return res.status(400).json({ error: 'mode muss "preview" oder "apply" sein' });
     }
@@ -2282,13 +2283,25 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       .filter(e => e.status === "raw" || e.status === "pending")
       .slice(0, cap);
 
-    // apply: fehlende ai_scores zuerst nachbewerten (preview bleibt read-only).
-    let scored = 0;
+    // Aktueller Richter (muss zur Wahl in preScoreSingle passen) — für die
+    // rescore-Bedingung: Einträge mit fremdem ai_score_model neu bewerten.
+    const judgeModel = (process.env.PRESCORE_BACKEND ?? "gemini") === "claude"
+      ? (process.env.CLAUDE_MODEL?.trim() || "claude-sonnet-4-6")
+      : (process.env.PRESCORE_MODEL?.trim() || "gemini-2.5-pro");
+
+    // apply: ai_scores nachbewerten. Default nur fehlende; mit rescore zusätzlich
+    // Einträge, deren Score von einem ANDEREN Richter stammt (Skalen-Kohärenz —
+    // z.B. alte claude-sonnet-4-5-Scores unter gemini-2.5-pro neu bewerten).
+    let scored = 0, rescored = 0;
     if (mode === "apply") {
       for (const e of candidates) {
-        if (e.ai_score === undefined) {
+        const isStale = rescore === true && e.ai_score !== undefined && e.ai_score_model !== judgeModel;
+        if (e.ai_score === undefined || isStale) {
           const r = await preScoreSingle(e.id);
-          if (r.ok && typeof r.score === "number") { e.ai_score = r.score; scored++; }
+          if (r.ok && typeof r.score === "number") {
+            if (isStale) rescored++; else scored++;
+            e.ai_score = r.score; e.ai_score_model = judgeModel;
+          }
           await new Promise(r2 => setTimeout(r2, 200));
         }
       }
@@ -2336,8 +2349,9 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       counts: { approve: approve.length, reject: reject.length, review: review.length },
       unscored,           // nur im preview relevant: so viele bräuchten erst Pre-Score
       scored,             // im apply: so viele wurden frisch bewertet
+      judgeModel,         // aktueller Pre-Score-Richter
       approve, reject, review,
-      ...(mode === "apply" ? { applied, skipReject: skipReject === true } : {}),
+      ...(mode === "apply" ? { applied, skipReject: skipReject === true, rescored } : {}),
     });
   });
 
