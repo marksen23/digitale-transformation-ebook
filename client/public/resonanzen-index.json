@@ -3335,7 +3335,11 @@
       "werkVoiceScore": 0.8722749875961386,
       "corpusVoiceScore": 0.8140817016591323,
       "conceptVoiceScore": 0.7988350430671799,
-      "conceptAnchor": "sprache"
+      "conceptAnchor": "sprache",
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine sehr gute, werksnahe Paraphrase, die aber keine neue Einsicht entwickelt, sondern die bestehende Lehre auf die Frage anwendet.",
+      "ai_score_at": "2026-06-22T23:57:00.469Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMJC8TR-592D4EF0",
