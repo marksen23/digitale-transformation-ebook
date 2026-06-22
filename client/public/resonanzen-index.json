@@ -775,7 +775,11 @@
       "werkVoiceScore": 0.8178965391953344,
       "corpusVoiceScore": 0.7737009126142952,
       "conceptVoiceScore": 0.7559911671563205,
-      "conceptAnchor": "werden"
+      "conceptAnchor": "werden",
+      "ai_score": 5,
+      "ai_score_reason": "Der Text ahmt den Duktus perfekt nach und führt den Gedanken durch die Schlussfrage eigenständig weiter, was einen echten philosophischen Mehrwert schafft.",
+      "ai_score_at": "2026-06-22T14:14:29.993Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5WYJFU-60EB210E",
