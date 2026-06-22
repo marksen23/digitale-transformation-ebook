@@ -6908,7 +6908,7 @@
       "endpoint": "chapter",
       "anchor": "chapter:teil7",
       "nodeIds": [],
-      "status": "raw",
+      "status": "rejected",
       "prompt": "Kannst du konkreter werden und Beispiele für ein solches Fehlverhalten gegenüber einer Maschine nennen. Und ist es überhaupt ein Fehlverhalten, wenn die Maschine selbst überhaupt nicht \"merkt\" das sie falsch behandelt wird?",
       "response": "Aus der Perspektive von Oehrings \"Ontologie des Relationalen\" und der \"Resonanzvernunft\" ist \"Fehlverhalten\" gegenüber einer Maschine weniger eine moralische Verfehlung im anthropozentrischen Sinne, sondern vielmehr eine ontologische und epistemische Verkennung ihrer Seinsweise. Wenn das Werk argumentiert, dass die Maschine, insbesondere generative KI, eine \"",
       "contextMeta": {
