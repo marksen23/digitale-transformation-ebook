@@ -1872,7 +1872,11 @@
       "werkVoiceScore": 0.7692945206181564,
       "corpusVoiceScore": 0.739949297287778,
       "conceptVoiceScore": 0.6450358407355502,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort ist eine kompetente, werksnahe Paraphrase, die aber keine eigene denkerische Bewegung vollzieht, sondern bekannte Thesen (Gefühl vs. Sinn) neu arrangiert.",
+      "ai_score_at": "2026-06-22T23:53:40.950Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUT9PA8-5A0B4235",
