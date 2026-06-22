@@ -437,7 +437,7 @@
         "{ \"id\"": "\"2ba3645d7f96\", \"score\": 0.795 }"
       },
       "ai_score": 5,
-      "ai_score_reason": "Stilistisch indistinguierbar vom Werk, der Text führt den Gedanken durch eine",
+      "ai_score_reason": "Stilistisch indistinguierbar vom Werk, der Text führt den Gedanken durch eine präzise Anschlussfrage auf eine neue Reflexionsebene.",
       "ai_score_at": "2026-06-22T14:11:28.465Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -450,11 +450,7 @@
       "werkVoiceScore": 0.835624717577763,
       "corpusVoiceScore": 0.7911463112849222,
       "conceptVoiceScore": 0.7236493684738816,
-      "conceptAnchor": "resonanzvernunft",
-      "ai_score": 5,
-      "ai_score_reason": "Stilistisch indistinguierbar vom Werk, der Text führt den Gedanken durch eine präzise Anschlussfrage auf eine neue Reflexionsebene.",
-      "ai_score_at": "2026-06-22T14:11:28.465Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "resonanzvernunft"
     },
     {
       "id": "MQ5XE42V-D185B8D7",
@@ -476,7 +472,7 @@
         "tiefe, fundamentale Verantwortung": "die Verantwortung für die"
       },
       "ai_score": 5,
-      "ai_score_reason": "Der Duktus ist perfekt getroffen; die Antwort entwickelt einen eigenen",
+      "ai_score_reason": "Der Duktus ist perfekt getroffen; die Antwort entwickelt einen eigenen Gedanken und führt die Frage mit einer präzisen Gegenfrage denkerisch weiter.",
       "ai_score_at": "2026-06-22T14:11:46.532Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -489,11 +485,7 @@
       "werkVoiceScore": 0.832386597117215,
       "corpusVoiceScore": 0.7797325867119826,
       "conceptVoiceScore": 0.7154593476596748,
-      "conceptAnchor": "resonanzvernunft",
-      "ai_score": 5,
-      "ai_score_reason": "Der Duktus ist perfekt getroffen; die Antwort entwickelt einen eigenen Gedanken und führt die Frage mit einer präzisen Gegenfrage denkerisch weiter.",
-      "ai_score_at": "2026-06-22T14:11:46.532Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "resonanzvernunft"
     },
     {
       "id": "MQ5XCH3V-67EF85C8",
@@ -617,7 +609,11 @@
       "werkVoiceScore": 0.8039710432049253,
       "corpusVoiceScore": 0.7595698745775823,
       "conceptVoiceScore": 0.6944710914315719,
-      "conceptAnchor": "resonanzimperativ"
+      "conceptAnchor": "resonanzimperativ",
+      "ai_score": 5,
+      "ai_score_reason": "Der Duktus ist authentisch; die Argumentation zur Universalität der Form ist ein starker denkerischer Beitrag, der die Frage überzeugend weiterführt.",
+      "ai_score_at": "2026-06-22T14:13:04.557Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5X6P2M-52F9B16D",
