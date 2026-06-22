@@ -1083,7 +1083,11 @@
       "werkVoiceScore": 0.8510841486985179,
       "corpusVoiceScore": 0.787838464842294,
       "conceptVoiceScore": 0.8808246517849194,
-      "conceptAnchor": "resonanz"
+      "conceptAnchor": "resonanz",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch nicht vom Werk zu unterscheiden, bringt die Schlussfrage einen eigenständigen, weiterführenden Gedanken zur digitalen Transformation ein.",
+      "ai_score_at": "2026-06-22T14:16:57.180Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5JL9TM-83E39C42",
