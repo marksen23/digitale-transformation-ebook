@@ -3303,7 +3303,11 @@
       "werkVoiceScore": 0.8722749875961386,
       "corpusVoiceScore": 0.8140817016591323,
       "conceptVoiceScore": 0.7988350430671799,
-      "conceptAnchor": "sprache"
+      "conceptAnchor": "sprache",
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine sehr gute Paraphrase, die die Haltung der Öffnung und Gelassenheit betont, aber keinen eigenen, hergeleiteten Gedanken entwickelt.",
+      "ai_score_at": "2026-06-22T23:56:53.687Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMKBUNW-88609492",
