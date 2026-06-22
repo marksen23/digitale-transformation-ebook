@@ -2737,7 +2737,11 @@
       "werkVoiceScore": 0.7629512127809099,
       "corpusVoiceScore": 0.7687173349569797,
       "conceptVoiceScore": 0.6983534796566558,
-      "conceptAnchor": "echo"
+      "conceptAnchor": "echo",
+      "ai_score": 1,
+      "ai_score_reason": "Ein unvollendeter Satz kann keinen Gedanken tragen und ist daher nicht bewertbar.",
+      "ai_score_at": "2026-06-22T23:55:34.321Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUFECMA-7E85D8E2",
