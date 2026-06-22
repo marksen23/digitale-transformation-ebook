@@ -27,6 +27,11 @@ const DEFAULT_MODEL = process.env.CLAUDE_MODEL?.trim() || "claude-sonnet-4-6";
 let _claudeFailLogged = 0;
 const CLAUDE_FAIL_LOG_LIMIT = 3;
 
+// Letzter Fehler des jüngsten callClaude — damit Endpunkte den echten Grund
+// (401/429/404/credit) sichtbar machen können, statt nur null zu schlucken.
+let _lastError: string | null = null;
+export function getLastClaudeError(): string | null { return _lastError; }
+
 export function isClaudeAvailable(): boolean {
   return !!client;
 }
@@ -46,6 +51,7 @@ export async function callClaude(opts: {
   temperature?: number;
 }): Promise<string | null> {
   if (!client) {
+    _lastError = "ANTHROPIC_API_KEY nicht gesetzt";
     if (_claudeFailLogged < CLAUDE_FAIL_LOG_LIMIT) {
       _claudeFailLogged++;
       console.warn("[callClaude] ANTHROPIC_API_KEY nicht gesetzt — Synthese-Endpunkt wird 502 liefern");
@@ -63,15 +69,19 @@ export async function callClaude(opts: {
     // Anthropic-SDK content ist Array von ContentBlock — wir extrahieren
     // alle text-Blöcke und joinen sie. Tool-Use-Blöcke etc. ignorieren wir,
     // weil dieser Helper rein text-getrieben ist.
+    _lastError = null;
     return res.content
       .filter(b => b.type === "text")
       .map(b => (b as { text: string }).text)
       .join("\n");
   } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err);
+    // Status aus dem SDK-Fehler (APIError) mitnehmen, wenn vorhanden.
+    const status = (err as { status?: number })?.status;
+    _lastError = `${status ? `HTTP ${status}: ` : ""}${msg}`.slice(0, 300);
     if (_claudeFailLogged < CLAUDE_FAIL_LOG_LIMIT) {
       _claudeFailLogged++;
-      const msg = err instanceof Error ? err.message : String(err);
-      console.error(`[callClaude] failed (model=${DEFAULT_MODEL}): ${msg.slice(0, 400)}`);
+      console.error(`[callClaude] failed (model=${DEFAULT_MODEL}): ${_lastError}`);
     }
     return null;
   }

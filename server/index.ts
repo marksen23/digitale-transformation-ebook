@@ -2102,7 +2102,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
   /** Bewertet einen einzelnen Eintrag, schreibt das Ergebnis ins Frontmatter. */
   async function preScoreSingle(id: string): Promise<{ ok: boolean; score?: number; reason?: string; error?: string }> {
-    const { callClaude, isClaudeAvailable, getClaudeModel } = await import("./lib/claudeClient.js");
+    const { callClaude, isClaudeAvailable, getClaudeModel, getLastClaudeError } = await import("./lib/claudeClient.js");
     if (!isClaudeAvailable()) return { ok: false, error: "ANTHROPIC_API_KEY fehlt" };
 
     const file = await findEntryFile(id);
@@ -2124,7 +2124,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       system: PRE_SCORE_SYSTEM, user: userPrompt,
       maxTokens: 200, temperature: 0.2,
     });
-    if (!raw) return { ok: false, error: "Claude-Call fehlgeschlagen" };
+    if (!raw) return { ok: false, error: `Claude-Call fehlgeschlagen — ${getLastClaudeError() ?? "kein Detail"}` };
     const parsed = parsePreScore(raw);
     if (!parsed) return { ok: false, error: `Score-Format nicht erkannt: ${raw.slice(0, 120)}` };
 
