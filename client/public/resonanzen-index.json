@@ -540,7 +540,11 @@
       "werkVoiceScore": 0.7915325682281799,
       "corpusVoiceScore": 0.7318158893417867,
       "conceptVoiceScore": 0.6903374277235209,
-      "conceptAnchor": "öffnung"
+      "conceptAnchor": "öffnung",
+      "ai_score": 5,
+      "ai_score_reason": "Stil und Diktion sind exzellent getroffen; die abschließende Frage ist ein eigenständiger, weiterführender denkerischer Impuls.",
+      "ai_score_at": "2026-06-22T14:12:26.913Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5X9PGR-F8698E7E",
