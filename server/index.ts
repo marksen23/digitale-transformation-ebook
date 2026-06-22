@@ -2301,13 +2301,15 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       ? (process.env.CLAUDE_MODEL?.trim() || "claude-sonnet-4-6")
       : (process.env.PRESCORE_MODEL?.trim() || "gemini-2.5-pro");
 
-    // apply: ai_scores nachbewerten. Default nur fehlende; mit rescore zusätzlich
-    // Einträge, deren Score von einem ANDEREN Richter stammt (Skalen-Kohärenz —
-    // z.B. alte claude-sonnet-4-5-Scores unter gemini-2.5-pro neu bewerten).
+    // apply: ai_scores nachbewerten. Default nur fehlende; mit rescore werden
+    // ZUSÄTZLICH bereits bewertete Einträge neu beurteilt — egal ob der alte
+    // Score von einem anderen Richter (Skalen-Kohärenz) ODER demselben Richter
+    // unter einem alten Rubric (z.B. die flat-5-Scores vor der Rubric-Härtung)
+    // stammt. So wirkt eine Rubric-Änderung auch auf schon bewertete Einträge.
     let scored = 0, rescored = 0;
     if (mode === "apply") {
       for (const e of candidates) {
-        const isStale = rescore === true && e.ai_score !== undefined && e.ai_score_model !== judgeModel;
+        const isStale = rescore === true && e.ai_score !== undefined;
         if (e.ai_score === undefined || isStale) {
           const r = await preScoreSingle(e.id);
           if (r.ok && typeof r.score === "number") {
