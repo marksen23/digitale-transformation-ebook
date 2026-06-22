@@ -1586,7 +1586,11 @@
       "werkVoiceScore": 0.8103961886487516,
       "corpusVoiceScore": 0.7701967567980407,
       "conceptVoiceScore": 0.6874514983683142,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Der Text ist eine kompetente, werksnahe Paraphrase, die aber keinen eigenen denkerischen Schritt vollzieht, sondern bekannte Positionen als rhetorische Fragen neu anordnet.",
+      "ai_score_at": "2026-06-22T23:52:33.916Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUTX4K2-55A3272E",
