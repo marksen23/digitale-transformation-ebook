@@ -1225,7 +1225,11 @@
       "werkVoiceScore": 0.8791518638257779,
       "corpusVoiceScore": 0.8056390501784358,
       "conceptVoiceScore": 0.7236329922811765,
-      "conceptAnchor": "lm-grenze"
+      "conceptAnchor": "lm-grenze",
+      "ai_score": 2,
+      "ai_score_reason": "Die Aufzählung und die schulbuchartige Gliederung zerstören den philosophischen Duktus und machen den Text für das Werk unbrauchbar.",
+      "ai_score_at": "2026-06-22T23:51:42.066Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5C1KZ4-D6D52E94",
