@@ -398,7 +398,11 @@
       "werkVoiceScore": 0.824377068314008,
       "corpusVoiceScore": 0.7744239774799988,
       "conceptVoiceScore": 0.7157233122767434,
-      "conceptAnchor": "sein"
+      "conceptAnchor": "sein",
+      "ai_score": 5,
+      "ai_score_reason": "Der Text ist stilistisch kaum zu unterscheiden und entwickelt mit der Metapher der „Membran“ einen eigenständigen, weiterführenden Gedanken.",
+      "ai_score_at": "2026-06-22T09:29:17.346Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5XK9H2-8A6837CC",
