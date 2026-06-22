@@ -435,7 +435,11 @@
       "werkVoiceScore": 0.8297739829279354,
       "corpusVoiceScore": 0.771812410109481,
       "conceptVoiceScore": 0.7031221814704967,
-      "conceptAnchor": "sein"
+      "conceptAnchor": "sein",
+      "ai_score": 5,
+      "ai_score_reason": "Die Antwort ist stilistisch exzellent und führt die Frage durch einen eigenständigen, begrifflich präzisen Gedankengang philosophisch weiter.",
+      "ai_score_at": "2026-06-22T09:29:39.206Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5XJ3VO-378AA1AB",
