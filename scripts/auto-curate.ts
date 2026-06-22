@@ -91,8 +91,16 @@ async function main() {
     `[auto-curate] ${data.candidateCount} Kandidaten (raw/pending) · ` +
     `approve ${data.counts.approve} · reject ${data.counts.reject} · review ${data.counts.review}`,
   );
+  // Score-Histogramm über ALLE klassifizierten — zeigt die Richter-Trennschärfe
+  // (z.B. ob gemini-pro pauschal 5 vergibt oder differenziert).
+  {
+    const all = [...data.approve, ...data.reject, ...data.review];
+    const hist: Record<string, number> = { "5": 0, "4": 0, "3": 0, "2": 0, "1": 0, "—": 0 };
+    for (const c of all) hist[c.ai_score == null ? "—" : String(c.ai_score)]++;
+    console.log(`[auto-curate] ai_score-Verteilung: 5:${hist["5"]} 4:${hist["4"]} 3:${hist["3"]} 2:${hist["2"]} 1:${hist["1"]} · ohne:${hist["—"]}`);
+  }
   if (mode === "preview" && data.unscored > 0) {
-    console.log(`[auto-curate] ${data.unscored} ohne ai_score → bei --apply würden sie zuerst per Claude pre-gescored und dann erst entschieden.`);
+    console.log(`[auto-curate] ${data.unscored} ohne ai_score → bei --apply werden sie zuerst pre-gescored (${data.judgeModel ?? "LLM"}) und dann erst entschieden.`);
   }
   sample("approve", data.approve);
   sample("reject", data.reject);
