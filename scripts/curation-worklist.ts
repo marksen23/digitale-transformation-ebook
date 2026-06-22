@@ -31,7 +31,7 @@ const minCvIdx = process.argv.indexOf("--min-cv");
 const MIN_CV = minCvIdx >= 0 ? parseFloat(process.argv[minCvIdx + 1] ?? "0") : 0;
 
 interface Entry {
-  id: string; endpoint: string; anchor: string; prompt: string; status: string;
+  id: string; endpoint: string; anchor: string; prompt: string; response: string; status: string;
   ai_score?: number; ai_score_reason?: string;
   corpusVoiceScore?: number; conceptVoiceScore?: number; werkVoiceScore?: number;
   nearDuplicates?: string[]; novelty?: boolean;
@@ -39,6 +39,31 @@ interface Entry {
 
 const f = (n?: number) => (typeof n === "number" ? n.toFixed(2) : "–");
 const clip = (s: string, n: number) => (s.length > n ? s.slice(0, n) + "…" : s);
+
+/**
+ * KI-Duktus-Heuristik: markiert die Stimme-Marker, die WEDER ai_score NOCH
+ * corpusVoiceScore erfassen (corpusVoice belohnt Vokabular, nicht Stimme).
+ * Das Werk ist fließende Meditation in 3. Person — KI-Antworten verraten sich
+ * durch Leser-Coaching, Begriffs-Anführungszeichen, Markdown-Fett, Listen.
+ */
+function aiDuktus(resp: string): { flags: string[]; severity: number } {
+  const r = (resp ?? "").trim();
+  const head = r.slice(0, 180);
+  const flags: string[] = [];
+  // Coaching-Auftakt / Leser-Validierung (der stärkste Marker)
+  if (/^(Ihre|Deine|Sie)\b/.test(r)
+      || /(Ihre (Frage|Beobachtung|Anmerkung|Kritik|Überlegung|These)|von (großer|immenser) (Tiefe|Bedeutung)|trifft einen Nerv|absolut berechtigt|völlig recht|allzu treffend|berührt einen Kern)/i.test(head)) {
+    flags.push("coaching");
+  }
+  // Anführungszeichen-Inflation (deutsche „…" um Einzelbegriffe)
+  const q = (r.match(/„/g) ?? []).length;
+  if (q >= 6) flags.push(`quotes×${q}`);
+  // Markdown-Fettung (das Werk fettet nicht)
+  if (/\*\*\S/.test(r)) flags.push("bold");
+  // Listen/Aufzählungen
+  if (/(^|\n)\s*[-*•]\s|\n\s*\d+\.\s/.test(r)) flags.push("liste");
+  return { flags, severity: flags.length + (flags.includes("coaching") ? 1 : 0) };
+}
 
 async function main() {
   const res = await fetch(`${INDEX_URL}?cb=${Date.now()}`, { cache: "no-store" });
@@ -49,34 +74,42 @@ async function main() {
   if (SCORED_ONLY) pool = pool.filter(e => e.ai_score !== undefined);
   if (MIN_CV > 0) pool = pool.filter(e => (e.corpusVoiceScore ?? 0) >= MIN_CV);
 
-  // Sortierung: stärkste Werk-Nähe zuerst (du siehst die aussichtsreichsten
-  // Kandidaten oben), bewertete vor unbewerteten.
+  // Sortierung: SAUBERE (werk-stimmige) Einträge zuerst — niedriger KI-Duktus,
+  // dann stärkste Werk-Nähe. So floaten die echten Keeper nach oben, statt der
+  // vokabular-dichten Coaching-Antworten (die corpusVoiceScore hochrankt).
+  const dukt = new Map(pool.map(e => [e.id, aiDuktus(e.response)]));
   pool.sort((a, b) =>
-    (Number(b.ai_score !== undefined) - Number(a.ai_score !== undefined)) ||
+    (dukt.get(a.id)!.severity - dukt.get(b.id)!.severity) ||
     ((b.corpusVoiceScore ?? 0) - (a.corpusVoiceScore ?? 0)),
   );
 
   const scored = pool.filter(e => e.ai_score !== undefined).length;
+  const clean = pool.filter(e => dukt.get(e.id)!.severity === 0).length;
   const rows = pool.map((e, i) => {
     const echo = e.nearDuplicates?.length ?? 0;
-    const flags = [echo > 0 ? `echo×${echo}` : "", e.novelty ? "novelty" : ""].filter(Boolean).join(" ");
-    const crit = e.ai_score_reason ? clip(e.ai_score_reason.replace(/\|/g, "/"), 160) : "_(noch nicht bewertet)_";
-    return `| ${i + 1} | [${e.id}](${SITE}/resonanz/${e.id}) | ${e.endpoint} | ${e.ai_score ?? "–"} | ${crit} | ${f(e.corpusVoiceScore)}/${f(e.conceptVoiceScore)}/${f(e.werkVoiceScore)} | ${flags || "—"} | ${clip((e.prompt ?? "").replace(/\|/g, "/"), 60)} |`;
+    const corpFlags = [echo > 0 ? `echo×${echo}` : "", e.novelty ? "novelty" : ""].filter(Boolean).join(" ");
+    const dFlags = dukt.get(e.id)!.flags;
+    const duktCell = dFlags.length ? `⚠ ${dFlags.join(", ")}` : "✓ sauber";
+    const crit = e.ai_score_reason ? clip(e.ai_score_reason.replace(/\|/g, "/"), 150) : "_(unbewertet)_";
+    return `| ${i + 1} | [${e.id}](${SITE}/resonanz/${e.id}) | ${e.endpoint} | ${e.ai_score ?? "–"} | ${duktCell} | ${crit} | ${f(e.corpusVoiceScore)}/${f(e.conceptVoiceScore)}/${f(e.werkVoiceScore)} | ${corpFlags || "—"} | ${clip((e.prompt ?? "").replace(/\|/g, "/"), 50)} |`;
   });
 
   const md = [
     `# Kuratierungs-Liste — ${pool.length} Kandidaten (raw/pending)`,
     ``,
-    `Stand: ${new Date().toLocaleString("de-DE")} · ${scored}/${pool.length} mit Kritik bewertet`,
-    `Sortierung: Werk-Nähe (corpusVoiceScore) absteigend. Spalte **Schwäche** = die`,
-    `Ein-Satz-Kritik des Richters — daran entscheidest du, ob der Eintrag trägt.`,
-    `Scores: corpus/concept/werk-Voice (Werk-, Begriffs-, Stimme-Nähe). **Flags**:`,
-    `\`echo\` = Variation eines anderen Eintrags (Vorsicht, evtl. Dublette); \`novelty\` = peripher.`,
+    `Stand: ${new Date().toLocaleString("de-DE")} · ${scored}/${pool.length} mit Kritik · ${clean}/${pool.length} ohne KI-Duktus`,
+    ``,
+    `**Sortierung: saubere (werk-stimmige) Einträge zuerst.** Die Spalte **Duktus**`,
+    `markiert KI-Stimme-Marker, die WEDER ai_score NOCH corpusVoiceScore erfassen:`,
+    `\`coaching\` = Leser-Anrede/„Ihre Frage ist…"; \`quotes×N\` = Begriffs-Anführungszeichen;`,
+    `\`bold\` = Markdown-Fett; \`liste\` = Aufzählung. **⚠-Zeilen sind fast immer skip** —`,
+    `die echten Keeper stehen oben (✓ sauber). **Schwäche** = Ein-Satz-Kritik des Richters.`,
+    `Scores cv/cn/wv = Werk-/Begriffs-/Stimme-Nähe; \`echo\` = Variation (evtl. Dublette).`,
     ``,
     `Freigeben/Ablehnen im Admin: ${SITE}/admin → Kuratierung (Inline je Eintrag).`,
     ``,
-    `| # | ID | Bereich | ai | Schwäche (Kritik) | cv/cn/wv | Flags | Frage |`,
-    `|---|---|---|---|---|---|---|---|`,
+    `| # | ID | Bereich | ai | Duktus | Schwäche (Kritik) | cv/cn/wv | Flags | Frage |`,
+    `|---|---|---|---|---|---|---|---|---|`,
     ...rows,
     ``,
   ].join("\n");
