@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T14:12:26.987Z",
+  "generatedAt": "2026-06-22T14:15:01.239Z",
   "count": 234,
   "entries": [
     {
@@ -437,7 +437,7 @@
         "{ \"id\"": "\"2ba3645d7f96\", \"score\": 0.795 }"
       },
       "ai_score": 5,
-      "ai_score_reason": "Stilistisch indistinguierbar vom Werk, der Text führt den Gedanken durch eine präzise Anschlussfrage auf eine neue Reflexionsebene.",
+      "ai_score_reason": "Stilistisch indistinguierbar vom Werk, der Text führt den Gedanken durch eine",
       "ai_score_at": "2026-06-22T14:11:28.465Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -472,7 +472,7 @@
         "tiefe, fundamentale Verantwortung": "die Verantwortung für die"
       },
       "ai_score": 5,
-      "ai_score_reason": "Der Duktus ist perfekt getroffen; die Antwort entwickelt einen eigenen Gedanken und führt die Frage mit einer präzisen Gegenfrage denkerisch weiter.",
+      "ai_score_reason": "Der Duktus ist perfekt getroffen; die Antwort entwickelt einen eigenen",
       "ai_score_at": "2026-06-22T14:11:46.532Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -545,11 +545,7 @@
       "werkVoiceScore": 0.7915325682281799,
       "corpusVoiceScore": 0.7318158893417867,
       "conceptVoiceScore": 0.6903374277235209,
-      "conceptAnchor": "öffnung",
-      "ai_score": 5,
-      "ai_score_reason": "Stil und Diktion sind exzellent getroffen; die abschließende Frage ist ein eigenständiger, weiterführender denkerischer Impuls.",
-      "ai_score_at": "2026-06-22T14:12:26.913Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "öffnung"
     },
     {
       "id": "MQ5X9PGR-F8698E7E",
@@ -609,11 +605,7 @@
       "werkVoiceScore": 0.8039710432049253,
       "corpusVoiceScore": 0.7595698745775823,
       "conceptVoiceScore": 0.6944710914315719,
-      "conceptAnchor": "resonanzimperativ",
-      "ai_score": 5,
-      "ai_score_reason": "Der Duktus ist authentisch; die Argumentation zur Universalität der Form ist ein starker denkerischer Beitrag, der die Frage überzeugend weiterführt.",
-      "ai_score_at": "2026-06-22T14:13:04.557Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "resonanzimperativ"
     },
     {
       "id": "MQ5X6P2M-52F9B16D",
@@ -643,11 +635,7 @@
       "werkVoiceScore": 0.8055764778818929,
       "corpusVoiceScore": 0.7785131843566914,
       "conceptVoiceScore": 0.6849305741863487,
-      "conceptAnchor": "antwort",
-      "ai_score": 5,
-      "ai_score_reason": "Stilistisch exzellent, die Antwort leistet durch die abschließende Gegenfrage einen eigenständigen, weiterführenden denkerischen Beitrag.",
-      "ai_score_at": "2026-06-22T14:13:22.619Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "antwort"
     },
     {
       "id": "MQ5X56G4-537343C8",
