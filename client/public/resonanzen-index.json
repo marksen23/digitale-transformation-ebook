@@ -643,7 +643,11 @@
       "werkVoiceScore": 0.8055764778818929,
       "corpusVoiceScore": 0.7785131843566914,
       "conceptVoiceScore": 0.6849305741863487,
-      "conceptAnchor": "antwort"
+      "conceptAnchor": "antwort",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch exzellent, die Antwort leistet durch die abschließende Gegenfrage einen eigenständigen, weiterführenden denkerischen Beitrag.",
+      "ai_score_at": "2026-06-22T14:13:22.619Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5X56G4-537343C8",
