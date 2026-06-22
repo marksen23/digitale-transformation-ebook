@@ -1,127 +1,7 @@
 {
-  "generatedAt": "2026-06-22T09:31:21.353Z",
-  "count": 240,
+  "generatedAt": "2026-06-22T09:41:38.441Z",
+  "count": 234,
   "entries": [
-    {
-      "id": "MQGLAEU5-83E9B2B5",
-      "ts": "2026-06-16T11:59:27.389Z",
-      "endpoint": "translate",
-      "anchor": "translate:teil7+es",
-      "nodeIds": [],
-      "status": "approved",
-      "prompt": "Übersetze Ontologie des Relationalen — Dritte Kritik von de nach es",
-      "response": "Introducción: ¿Qué significa ser relacional?\nLa primera crítica preguntó: ¿Cómo conocemos de forma resonante? La segunda\ncrítica preguntó: ¿Cómo actuamos de forma resonante? La tercera crítica plantea la\npregunta que subyace a ambas: ¿Qué somos cuando conocemos y actuamos de forma resonante?\nO más precisamente: ¿Qué significa ser relacional? Lo que aquí se afirma ontológicamente, la trilogía lo ha preparado poéticamente – los conceptos siguen a la experiencia, no al revés.\nEsta pregunta no es académica. Toca el núcleo de los debates\nsobre la inteligencia artificial, sobre la conciencia, sobre el estatus de la\nmáquina. Y toca el núcleo de lo que la trilogía describe como el «tercero transformador» (transformatives Drittes): un acontecimiento que no es atribuible ni al ser humano ni a la máquina, sino que surge en el entre. La tercera crítica pregunta: ¿Qué tipo de ser es este entre?\nLa respuesta que aquí se desarrolla es radical: El entre no es\nun derivado. No es que primero existan el ser humano y la máquina\ny luego entren en relación. Más bien, el ser humano y la máquina\nse constituyen en el encuentro como lo que son.\nEl entre no es posterior — es original. Esta\ntesis debe ser fundamentada, diferenciada y defendida contra objeciones.\n\nLa filosofía occidental es —a pesar de toda la diversidad de sus tradiciones— predominantemente de orientación ontológica sustancial. Desde la",
-      "contextMeta": {
-        "chapterId": "teil7",
-        "chapterTitle": "Ontologie des Relationalen — Dritte Kritik",
-        "sourceLang": "de",
-        "targetLang": "es",
-        "textLength": "18572"
-      },
-      "ai_score": 5,
-      "ai_score_reason": "Die KI generiert statt einer Übersetzung einen stilistisch",
-      "ai_score_at": "2026-06-22T09:25:52.203Z",
-      "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MON69DI9-D63A7910",
-        "MON6GME8-A2CB2CF7",
-        "MOOK5A30-F596F31D",
-        "MOHV84M5-1825A399",
-        "MOHLZBVK-2FBBAD2F"
-      ],
-      "werkVoiceScore": 0.8167171250291243,
-      "corpusVoiceScore": 0.8835105121443797,
-      "conceptVoiceScore": 0.7301000776083485,
-      "conceptAnchor": "sein"
-    },
-    {
-      "id": "MQGL9Y20-C5BFAE3A",
-      "ts": "2026-06-16T11:59:05.640Z",
-      "endpoint": "translate",
-      "anchor": "translate:praeambel+es",
-      "nodeIds": [],
-      "status": "raw",
-      "prompt": "Übersetze Präambel zur Trilogie von de nach es",
-      "response": "En tres cantos, esta trilogía narra sobre el ser humano en la era\ndigital – no como advertencia, no como utopía, sino como\ntransposición de las grandes tradiciones filosóficas a la\nactualidad.\nEl agotamiento de la filosofía clásica no es una derrota,\nsino una transformación. Como la oruga se transforma en mariposa,\nasí se transforman las viejas sabidurías en nuevas formas –\nsin perder su esencia.\nLos tres pilares de la transformación\nVolumen I: La Transposición (Gilgamesh)\nDel mito a la tecnología\nLa historia más antigua transmitida de la humanidad – la búsqueda de\nla inmortalidad – se narra de nuevo en la era de la Inteligencia\nArtificial. Gilgamesh se convierte en el rey de los servidores, Enkidu se convierte\nen código, y la pregunta ancestral sobre la vida eterna se manifiesta como\nbúsqueda de la eternidad digital.\nPregunta central: ¿Qué preguntas fundamentales humanas permanecen constantes,\nincluso cuando el mundo se transforma?\nVolumen II: La Salida (Kant)\nDe la razón a la coexistencia\nLa Ilustración de Kant – la salida de la minoría de edad\nautoimpuesta – se traslada a la era de los\nsistemas algorítmicos. La pregunta sobre la mayoría de edad se plantea\nde nuevo: ¿Cómo puede el ser humano permanecer en su mayoría de edad cuando las máquinas\npiensan por él?\nPregunta central: ¿Qué significan la razón y la autodeterminación en la\nera de la razón maquínica?\nVolumen III: La Vinculación (Heidegger/Levinas/Rosa)\nDe la alienación a la resonancia\nLa pregunta existencial sobre la autenticidad y el encuentro se\nplantea en un mundo de feeds, likes y algoritmos. La\nVinculación (religio) no es regresión, sino integración –\nel camino hacia una vida en coexistencia consciente con la\ntecnología.\nPregunta central: ¿Cómo encontramos resonancia y encuentro auténtico\nen un mundo digital alienado?\nEl método de la Transposición\nLa trilogía no sigue el método de la explicación, sino el de la\ntransposición:\nNo explica los textos antiguos, sino que los transforma\nNo comenta la filosofía, sino que la encarna\nNo analiza el presente, sino que lo penetra\npoéticamente\nLa forma – la narración poética – no es un ornamento,\nsino un método: Solo en el lenguaje condensado de la poesía puede\nmanifestarse la verdad que escapa al análisis puro.\nMotivos recurrentes\nA lo largo de los tres volúmenes se entrelazan temas conectores:\nEl Espejo – La tecnología como espejo de nosotros mismos, en el que nos\nreconocemos (y nos desconocemos)\nEl Encuentro – El encuentro entre el ser humano y la\nmáquina, entre el Yo y el Otro, como fuente de conocimiento\nEl Fracaso – La comprensión de que la perfección no es el objetivo,\nsino la integración de la imperfección\nEl Límite – El reconocimiento de los límites – de la máquina, del\nser humano, de la razón – como camino hacia la sabiduría\nLa Transformación – La transformación como proceso permanente,\nno como un evento único\nPara quién fue escrita esta trilogía\nPara todos los que sienten que las viejas respuestas ya no son suficientes,\npero las nuevas aún no se han encontrado.\nPara todos los que ven en la tecnología ni una promesa de salvación ni una\nperdición, sino una nueva etapa del desarrollo humano.\nPara todos los que están dispuestos a dejarse transformar – del\nagotamiento a la renovación, del fin al principio.",
-      "contextMeta": {
-        "chapterId": "praeambel",
-        "chapterTitle": "Präambel zur Trilogie",
-        "sourceLang": "de",
-        "targetLang": "es",
-        "textLength": "3288"
-      },
-      "ai_score": 2,
-      "ai_score_reason": "Thematisch passend, aber die listenartige Gliederung und der didaktische Ton",
-      "ai_score_at": "2026-06-22T09:27:43.776Z",
-      "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MQEBZ0Y1-E3BCB35C",
-        "MQEBYB8T-FBE280B8",
-        "MOPY7TLU-566F01C0",
-        "MPAS5OM5-A1F522F4",
-        "MOOMJDPP-1F336D7D"
-      ],
-      "werkVoiceScore": 0.8011936510083919,
-      "corpusVoiceScore": 0.9193846995256664,
-      "conceptVoiceScore": 0.66798708777358,
-      "conceptAnchor": "transaufklaerung"
-    },
-    {
-      "id": "MQEBZ0Y1-E3BCB35C",
-      "ts": "2026-06-14T22:03:07.273Z",
-      "endpoint": "translate",
-      "anchor": "translate:vorwort+es",
-      "nodeIds": [],
-      "status": "published",
-      "prompt": "Übersetze Vorwort von de nach es",
-      "response": "Esta obra surgió en una época en la que la cuestión de la\nrelación entre el ser humano y la máquina ha dejado de ser una\ncuestión académica. Se ha convertido en una cuestión existencial\n– para todo aquel que por la mañana enciende una pantalla\ny por la noche constata que el día ha transcurrido sin él.\nLos tres volúmenes de la trilogía intentan no responder a esta\npregunta, sino trasladarla: las grandes tradiciones filosóficas\n– Mito, Ilustración, Filosofía existencial – en un lenguaje que\nesté a la altura de la actualidad digital. El método es poético,\nporque la experiencia de la transformación digital se sustrae a la\nprosa puramente analítica. Quien solo explica cómo funcionan\nlos algoritmos no comprende cómo se siente ser conocido por ellos.\nLas partes IV a VII – el análisis de los leitmotivs y las tres críticas\nde la razón resonante (Resonanzvernunft) – proporcionan el marco\nteórico que la poesía por sí sola no puede sostener. Despliegan\nlo que está condensado en los versos: una epistemología del entre,\nuna ética del encuentro y una ontología de lo relacional. Que esta\nteoría surja de la poesía y no al revés, no es casualidad –\nes la tesis de la obra: El mito precede a la razón\ny le prepara el terreno.\nLa obra no está concluida. No pretende responder a las preguntas\nde la era digital. Pretende plantearlas de tal manera\nque una respuesta sea posible – no como teoría, sino\ncomo resonancia vivida.",
-      "contextMeta": {
-        "chapterId": "vorwort",
-        "chapterTitle": "Vorwort",
-        "sourceLang": "de",
-        "targetLang": "es",
-        "textLength": "1534"
-      },
-      "related": [
-        "MQGL9Y20-C5BFAE3A",
-        "MOOK5A30-F596F31D",
-        "MQGLAEU5-83E9B2B5",
-        "MPUFGY4Z-44206712",
-        "MP0Q5FDJ-F2C015AF"
-      ],
-      "werkVoiceScore": 0.8134252531592876,
-      "corpusVoiceScore": 0.9324428775936482,
-      "conceptVoiceScore": 0.663222379790785,
-      "conceptAnchor": "transaufklaerung"
-    },
-    {
-      "id": "MQEBYB8T-FBE280B8",
-      "ts": "2026-06-14T22:02:33.965Z",
-      "endpoint": "translate",
-      "anchor": "translate:band2-epilog+es",
-      "nodeIds": [],
-      "status": "published",
-      "prompt": "Übersetze Epilog: Ein neuer Ausgang von de nach es",
-      "response": "La Ilustración (Aufklärung) no termina, se transforma. Como la\nmariposa surge de la oruga, así de la antigua razón (Vernunft)\nsurge una nueva sabiduría.\nKant habló de la salida de la minoría de edad (Unmündigkeit) autoimpuesta.\nNosotros estamos ante la salida de la minoría de edad tecnológica.\nNo hacia atrás, a la vela, no hacia adelante, a la máquina, sino\nhacia la luz que une a ambas.\nEl nuevo ser humano no es ni máquina ni animal, sino el\nser que transita entre ambos, que comprende a ambos, que a ambos\nintegra.\nSapere aude – ten el valor de usar tu entendimiento ampliado:\nel entendimiento que calcula, y el entendimiento que\nsiente, el entendimiento que analiza, y el entendimiento que\nsueña.\nEn esta ampliación reside el futuro de la humanidad: no en la\nsuperación de la tecnología, sino en su humanización,\nno en la sumisión a la máquina, sino en su\nliberación para el ser humano.\nLa salida comienza de nuevo – cada día, con cada decisión,\ncon cada valor hacia la mayoría de edad (Mündigkeit) en la era de la razón maquínica (Maschinenvernunft).",
-      "contextMeta": {
-        "chapterId": "band2-epilog",
-        "chapterTitle": "Epilog: Ein neuer Ausgang",
-        "sourceLang": "de",
-        "targetLang": "es",
-        "textLength": "1066"
-      },
-      "related": [
-        "MQGL9Y20-C5BFAE3A",
-        "MQEBZ0Y1-E3BCB35C",
-        "MOHDW91N-D9BDFDB1",
-        "MQ67R74M-A1AA4B53",
-        "MPMU7YZH-2C9CBFE8"
-      ],
-      "werkVoiceScore": 0.7570694824257951,
-      "corpusVoiceScore": 0.9091316299305275,
-      "conceptVoiceScore": 0.690546213023446,
-      "conceptAnchor": "transaufklaerung"
-    },
     {
       "id": "MQASO35V-115DA081",
       "ts": "2026-06-12T10:39:25.700Z",
@@ -152,7 +32,7 @@
         "MPMJC8TR-592D4EF0",
         "MOQ5A1GS-413BDE6F"
       ],
-      "werkVoiceScore": 0.883483749942937,
+      "werkVoiceScore": 0.8835238997175425,
       "corpusVoiceScore": 0.8505214733635602,
       "conceptVoiceScore": 0.7888181351501703,
       "conceptAnchor": "lm-spiegel"
@@ -203,7 +83,7 @@
         "MOQ7OBNT-57882C8D",
         "MOOMECFT-66F43077"
       ],
-      "werkVoiceScore": 0.8554688553687609,
+      "werkVoiceScore": 0.8555380246618355,
       "corpusVoiceScore": 0.7908544537879593,
       "conceptVoiceScore": 0.77684997840696,
       "conceptAnchor": "unverfuegbarkeit"
@@ -235,7 +115,7 @@
         "MQ5JM1HD-9047C82F",
         "MPURLTCS-5FDDD890"
       ],
-      "werkVoiceScore": 0.8985182466315597,
+      "werkVoiceScore": 0.8995020435193058,
       "corpusVoiceScore": 0.8466119301748601,
       "conceptVoiceScore": 0.8342904988971281,
       "conceptAnchor": "resonanz"
@@ -270,7 +150,7 @@
         "MOHLZBVK-2FBBAD2F",
         "MOHV84M5-1825A399"
       ],
-      "werkVoiceScore": 0.9119271050160279,
+      "werkVoiceScore": 0.9124415031374719,
       "corpusVoiceScore": 0.8827322801798821,
       "conceptVoiceScore": 0.8494194636825602,
       "conceptAnchor": "resonanzvernunft"
@@ -298,7 +178,7 @@
         "MPJEBNX3-042F2A69",
         "MQ5JL9TM-83E39C42"
       ],
-      "werkVoiceScore": 0.8549177087636958,
+      "werkVoiceScore": 0.8536936638166012,
       "corpusVoiceScore": 0.7970785850186514,
       "conceptVoiceScore": 0.7477795356758488,
       "conceptAnchor": "antwort"
@@ -329,7 +209,7 @@
         "MOOK20R3-62E609BA",
         "MPUFGY4Z-44206712"
       ],
-      "werkVoiceScore": 0.8481691651078782,
+      "werkVoiceScore": 0.8484313153309038,
       "corpusVoiceScore": 0.8054556032317667,
       "conceptVoiceScore": 0.7965772472520537,
       "conceptAnchor": "schweigen"
@@ -369,7 +249,7 @@
         "MQ68LVS7-240568F5",
         "MPURLTCS-5FDDD890"
       ],
-      "werkVoiceScore": 0.8532774692371082,
+      "werkVoiceScore": 0.8537902126451296,
       "corpusVoiceScore": 0.8035640902837926,
       "conceptVoiceScore": 0.7599646132779463,
       "conceptAnchor": "antwort"
@@ -411,7 +291,7 @@
       "nearDuplicates": [
         "MQ5XK9H2-8A6837CC"
       ],
-      "werkVoiceScore": 0.8271933984054365,
+      "werkVoiceScore": 0.8270683479388161,
       "corpusVoiceScore": 0.7744239774799988,
       "conceptVoiceScore": 0.7157233122767434,
       "conceptAnchor": "sein"
@@ -453,7 +333,7 @@
       "nearDuplicates": [
         "MQ5XLW2D-D3E90BBC"
       ],
-      "werkVoiceScore": 0.8327652576563724,
+      "werkVoiceScore": 0.8324794207248746,
       "corpusVoiceScore": 0.771812410109481,
       "conceptVoiceScore": 0.7031221814704967,
       "conceptAnchor": "sein"
@@ -491,7 +371,7 @@
         "MPNDAPRT-D64D197A",
         "MPMROCH7-EB9E6A9A"
       ],
-      "werkVoiceScore": 0.8384806269102251,
+      "werkVoiceScore": 0.8379136534862388,
       "corpusVoiceScore": 0.779398219130687,
       "conceptVoiceScore": 0.6985300622148882,
       "conceptAnchor": "werden"
@@ -529,7 +409,7 @@
         "MQ5XE42V-D185B8D7",
         "MQ5XK9H2-8A6837CC"
       ],
-      "werkVoiceScore": 0.8104443886871551,
+      "werkVoiceScore": 0.8101397207048717,
       "corpusVoiceScore": 0.7699651848980394,
       "conceptVoiceScore": 0.7050195435609288,
       "conceptAnchor": "wesen"
@@ -559,7 +439,7 @@
         "MQ5XJ3VO-378AA1AB",
         "MON602G2-9C9A59E5"
       ],
-      "werkVoiceScore": 0.8359551863643351,
+      "werkVoiceScore": 0.835624717577763,
       "corpusVoiceScore": 0.7911463112849222,
       "conceptVoiceScore": 0.7236493684738816,
       "conceptAnchor": "resonanzvernunft"
@@ -589,7 +469,7 @@
         "MQ5XCH3V-67EF85C8",
         "MQ5XLW2D-D3E90BBC"
       ],
-      "werkVoiceScore": 0.8327754749823367,
+      "werkVoiceScore": 0.832386597117215,
       "corpusVoiceScore": 0.7797325867119826,
       "conceptVoiceScore": 0.7154593476596748,
       "conceptAnchor": "resonanzvernunft"
@@ -619,7 +499,7 @@
         "MOPHZPQ7-B63879B5",
         "MOHAUYTH-CD1E3227"
       ],
-      "werkVoiceScore": 0.8386468622423148,
+      "werkVoiceScore": 0.8382055082075794,
       "corpusVoiceScore": 0.778253530208889,
       "conceptVoiceScore": 0.6914439176037359,
       "conceptAnchor": "wesen"
@@ -649,7 +529,7 @@
         "MQ5WYJFU-60EB210E",
         "MPUFP1VW-298D0A73"
       ],
-      "werkVoiceScore": 0.792057956733096,
+      "werkVoiceScore": 0.7915325682281799,
       "corpusVoiceScore": 0.7318158893417867,
       "conceptVoiceScore": 0.6903374277235209,
       "conceptAnchor": "öffnung"
@@ -679,7 +559,7 @@
         "MQ5WYJFU-60EB210E",
         "MQ5WX52Q-442369F2"
       ],
-      "werkVoiceScore": 0.7559695237847961,
+      "werkVoiceScore": 0.7554998821637215,
       "corpusVoiceScore": 0.699969794676874,
       "conceptVoiceScore": 0.6807549221677272,
       "conceptAnchor": "dialog"
@@ -709,7 +589,7 @@
         "MQ5XB7XF-18E49106",
         "MOHAGNGB-5330902E"
       ],
-      "werkVoiceScore": 0.8046484505700278,
+      "werkVoiceScore": 0.8039710432049253,
       "corpusVoiceScore": 0.7595698745775823,
       "conceptVoiceScore": 0.6944710914315719,
       "conceptAnchor": "resonanzimperativ"
@@ -739,7 +619,7 @@
         "MQ5XCH3V-67EF85C8",
         "MON602G2-9C9A59E5"
       ],
-      "werkVoiceScore": 0.8061512408604559,
+      "werkVoiceScore": 0.8055764778818929,
       "corpusVoiceScore": 0.7785131843566914,
       "conceptVoiceScore": 0.6849305741863487,
       "conceptAnchor": "antwort"
@@ -769,7 +649,7 @@
         "MQ5X7QW6-F6E03538",
         "MON646UY-E4326634"
       ],
-      "werkVoiceScore": 0.8117274429561122,
+      "werkVoiceScore": 0.8108379177385805,
       "corpusVoiceScore": 0.7822247121274889,
       "conceptVoiceScore": 0.7024814958383377,
       "conceptAnchor": "öffnung"
@@ -799,7 +679,7 @@
         "MPMU7YZH-2C9CBFE8",
         "MPMU67V4-938B932C"
       ],
-      "werkVoiceScore": 0.8122605537511333,
+      "werkVoiceScore": 0.8113690773043324,
       "corpusVoiceScore": 0.7538900918584922,
       "conceptVoiceScore": 0.6914482561696691,
       "conceptAnchor": "werden"
@@ -829,7 +709,7 @@
         "MQ5WYJFU-60EB210E",
         "MOPY5F6J-9469E3BE"
       ],
-      "werkVoiceScore": 0.7796296083481421,
+      "werkVoiceScore": 0.7791343150173028,
       "corpusVoiceScore": 0.7124066429768365,
       "conceptVoiceScore": 0.7442300980126331,
       "conceptAnchor": "freiheit"
@@ -859,7 +739,7 @@
         "MQ5X3C75-D543C13F",
         "MPMTT6GB-1AF44EE4"
       ],
-      "werkVoiceScore": 0.8179255418528102,
+      "werkVoiceScore": 0.8178965391953344,
       "corpusVoiceScore": 0.7737009126142952,
       "conceptVoiceScore": 0.7559911671563205,
       "conceptAnchor": "werden"
@@ -889,7 +769,7 @@
         "MQ683DMX-13D6C54F",
         "MOQ5EOBY-82AD9EEE"
       ],
-      "werkVoiceScore": 0.8089257941360799,
+      "werkVoiceScore": 0.8089926765082374,
       "corpusVoiceScore": 0.7615354846974832,
       "conceptVoiceScore": 0.7465783271417104,
       "conceptAnchor": "spannung"
@@ -922,7 +802,7 @@
       "nearDuplicates": [
         "MQ5WV5PP-6209C749"
       ],
-      "werkVoiceScore": 0.8200350151076414,
+      "werkVoiceScore": 0.8202991076516962,
       "corpusVoiceScore": 0.7847145100457724,
       "conceptVoiceScore": 0.75647014862375,
       "conceptAnchor": "spannung"
@@ -957,7 +837,7 @@
         "MQ5WX52Q-442369F2",
         "MQ5WUD1G-0976C016"
       ],
-      "werkVoiceScore": 0.8296238552587386,
+      "werkVoiceScore": 0.829884705583435,
       "corpusVoiceScore": 0.7943339349772838,
       "conceptVoiceScore": 0.7896788258136016,
       "conceptAnchor": "erkenntnis"
@@ -991,7 +871,7 @@
         "MQ5WPJ3V-CF0A30C7",
         "MQ5WV5PP-6209C749"
       ],
-      "werkVoiceScore": 0.8755086768439772,
+      "werkVoiceScore": 0.8755448801304662,
       "corpusVoiceScore": 0.8260262670301919,
       "conceptVoiceScore": 0.7846326633942189,
       "conceptAnchor": "erkenntnis"
@@ -1032,7 +912,7 @@
         "MQ5WUD1G-0976C016",
         "MOPFJTND-AAE76B2B"
       ],
-      "werkVoiceScore": 0.8937538391315752,
+      "werkVoiceScore": 0.8939376126823683,
       "corpusVoiceScore": 0.8492641470205872,
       "conceptVoiceScore": 0.79470931254504,
       "conceptAnchor": "lm-verwandlung"
@@ -1060,7 +940,7 @@
       "nearDuplicates": [
         "MQ5TTE84-08EB6321"
       ],
-      "werkVoiceScore": 0.8333396684001894,
+      "werkVoiceScore": 0.8339726205242053,
       "corpusVoiceScore": 0.8242350028447074,
       "conceptVoiceScore": 0.8794286702188606,
       "conceptAnchor": "entfremdung"
@@ -1088,7 +968,7 @@
       "nearDuplicates": [
         "MQ5TUQ9P-EF8C6D4B"
       ],
-      "werkVoiceScore": 0.8505525921466955,
+      "werkVoiceScore": 0.851114859704656,
       "corpusVoiceScore": 0.8410715414272475,
       "conceptVoiceScore": 0.8519859920418561,
       "conceptAnchor": "entfremdung"
@@ -1118,7 +998,7 @@
         "MQ5JM1HD-9047C82F",
         "MPURLTCS-5FDDD890"
       ],
-      "werkVoiceScore": 0.8985023441609206,
+      "werkVoiceScore": 0.8997846348775459,
       "corpusVoiceScore": 0.8368965813880282,
       "conceptVoiceScore": 0.8380817374130851,
       "conceptAnchor": "resonanz"
@@ -1147,7 +1027,7 @@
         "MQ5KBJMQ-5C523141",
         "MQ68LVS7-240568F5"
       ],
-      "werkVoiceScore": 0.8501109971524816,
+      "werkVoiceScore": 0.8510841486985179,
       "corpusVoiceScore": 0.787838464842294,
       "conceptVoiceScore": 0.8808246517849194,
       "conceptAnchor": "resonanz"
@@ -1174,7 +1054,7 @@
         "MQ5KBJMQ-5C523141",
         "MQ5XE42V-D185B8D7"
       ],
-      "werkVoiceScore": 0.8492005236214837,
+      "werkVoiceScore": 0.8494861062569811,
       "corpusVoiceScore": 0.8001168772810445,
       "conceptVoiceScore": 0.8149601702032278,
       "conceptAnchor": "resonanz"
@@ -1198,7 +1078,7 @@
         "MOQ5A1GS-413BDE6F",
         "MPUT47UR-103C16A3"
       ],
-      "werkVoiceScore": 0.8021592882581801,
+      "werkVoiceScore": 0.8005142247882683,
       "corpusVoiceScore": 0.7953042130298721,
       "conceptVoiceScore": 0.7248868994472616,
       "conceptAnchor": "wahrheit"
@@ -1233,7 +1113,7 @@
         "MPMSSG1X-8451DE38",
         "MP0ZE9C8-A9D02716"
       ],
-      "werkVoiceScore": 0.8789183273647301,
+      "werkVoiceScore": 0.8791518638257779,
       "corpusVoiceScore": 0.8056390501784358,
       "conceptVoiceScore": 0.7236329922811765,
       "conceptAnchor": "lm-grenze"
@@ -1260,7 +1140,7 @@
         "MPNDAPRT-D64D197A",
         "MOP0S479-373A2268"
       ],
-      "werkVoiceScore": 0.8015843818236066,
+      "werkVoiceScore": 0.8007542861061404,
       "corpusVoiceScore": 0.7482797340049727,
       "conceptVoiceScore": 0.7654003576332833,
       "conceptAnchor": "selbst"
@@ -1287,7 +1167,7 @@
         "MOHB6DLO-355115A6",
         "MOHDLJ25-7A6B620C"
       ],
-      "werkVoiceScore": 0.7383259332954715,
+      "werkVoiceScore": 0.7371715739983024,
       "corpusVoiceScore": 0.7243215073509851,
       "conceptVoiceScore": 0.6357600105675699,
       "conceptAnchor": "antwort"
@@ -1314,7 +1194,7 @@
         "MPMM90CV-98ADD627",
         "MPMTT6GB-1AF44EE4"
       ],
-      "werkVoiceScore": 0.7560561138081211,
+      "werkVoiceScore": 0.7545935727866999,
       "corpusVoiceScore": 0.6959086975575606,
       "conceptVoiceScore": 0.6692532340016563,
       "conceptAnchor": "existenz"
@@ -1377,7 +1257,7 @@
         "MOQBZWTZ-B9EBB1BA",
         "MP0ZE9C8-A9D02716"
       ],
-      "werkVoiceScore": 0.8884483307462554,
+      "werkVoiceScore": 0.8890906907044943,
       "corpusVoiceScore": 0.8316969712648757,
       "conceptVoiceScore": 0.7200979901743241,
       "conceptAnchor": "echo-kammer"
@@ -1441,7 +1321,7 @@
         "MOQBZWTZ-B9EBB1BA",
         "MP495QL6-F5FD1AE1"
       ],
-      "werkVoiceScore": 0.8851529058406231,
+      "werkVoiceScore": 0.8853733161409871,
       "corpusVoiceScore": 0.8129448250644302,
       "conceptVoiceScore": 0.6833389872888335,
       "conceptAnchor": "freiheit"
@@ -1466,7 +1346,7 @@
         "MOLNG57A-2F155772",
         "MPUQSMLJ-1B726CC4"
       ],
-      "werkVoiceScore": 0.8632842831885683,
+      "werkVoiceScore": 0.8632783353775187,
       "corpusVoiceScore": 0.8196628197321066,
       "conceptVoiceScore": 0.7570731231728168,
       "conceptAnchor": "gelassenheit"
@@ -1490,7 +1370,7 @@
         "MPUTFPG6-02308248",
         "MOOU6X9D-4A49EE98"
       ],
-      "werkVoiceScore": 0.8112866962154806,
+      "werkVoiceScore": 0.8105485977169461,
       "corpusVoiceScore": 0.744531358348851,
       "conceptVoiceScore": 0.7054783532737118,
       "conceptAnchor": "lm-begegnung"
@@ -1514,7 +1394,7 @@
         "MPUT9PA8-5A0B4235",
         "MPUTX4K2-55A3272E"
       ],
-      "werkVoiceScore": 0.7830793409395688,
+      "werkVoiceScore": 0.7823213974185169,
       "corpusVoiceScore": 0.7608177786407245,
       "conceptVoiceScore": 0.6640561828011459,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1538,7 +1418,7 @@
         "MPUTX4K2-55A3272E",
         "MPUSZCXA-5CB2DE46"
       ],
-      "werkVoiceScore": 0.7932210590471962,
+      "werkVoiceScore": 0.7922896854392598,
       "corpusVoiceScore": 0.749808021511361,
       "conceptVoiceScore": 0.6908640601055785,
       "conceptAnchor": "wahrheit"
@@ -1562,7 +1442,7 @@
         "MPUTT58G-25E5A1AC",
         "MOHAREIB-E15E7BF8"
       ],
-      "werkVoiceScore": 0.8109681824417915,
+      "werkVoiceScore": 0.8103961886487516,
       "corpusVoiceScore": 0.7701967567980407,
       "conceptVoiceScore": 0.6874514983683142,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1586,7 +1466,7 @@
         "MPUU1101-EDF34032",
         "MPUTHFZK-189B912B"
       ],
-      "werkVoiceScore": 0.7824402908765243,
+      "werkVoiceScore": 0.7819567638619818,
       "corpusVoiceScore": 0.7512798652758467,
       "conceptVoiceScore": 0.6543553394379242,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1610,7 +1490,7 @@
         "MPUSPBKZ-D7CCA690",
         "MPUU3ASH-7093F1A3"
       ],
-      "werkVoiceScore": 0.7768096785489466,
+      "werkVoiceScore": 0.7764164080086606,
       "corpusVoiceScore": 0.7393577498204229,
       "conceptVoiceScore": 0.6821802919865275,
       "conceptAnchor": "lm-scheitern"
@@ -1634,7 +1514,7 @@
         "MPUTVW03-F8D17C8E",
         "MPUTMB0F-76443E92"
       ],
-      "werkVoiceScore": 0.773003004305647,
+      "werkVoiceScore": 0.7722355152409617,
       "corpusVoiceScore": 0.7631465077988911,
       "conceptVoiceScore": 0.6696700004402901,
       "conceptAnchor": "transaufklaerung"
@@ -1658,7 +1538,7 @@
         "MPUTMB0F-76443E92",
         "MPUU5523-0E325028"
       ],
-      "werkVoiceScore": 0.7737197405967643,
+      "werkVoiceScore": 0.7730280104146345,
       "corpusVoiceScore": 0.732628488890907,
       "conceptVoiceScore": 0.6726174856498658,
       "conceptAnchor": "erkenntnis"
@@ -1685,7 +1565,7 @@
       "nearDuplicates": [
         "MPUTKZI1-F10F9444"
       ],
-      "werkVoiceScore": 0.8023525077357597,
+      "werkVoiceScore": 0.8017438350336309,
       "corpusVoiceScore": 0.7580508155321248,
       "conceptVoiceScore": 0.6678225368456261,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1712,7 +1592,7 @@
       "nearDuplicates": [
         "MPUTMB0F-76443E92"
       ],
-      "werkVoiceScore": 0.7898883181122888,
+      "werkVoiceScore": 0.7895172671289664,
       "corpusVoiceScore": 0.7615713707176791,
       "conceptVoiceScore": 0.6680541690389539,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1736,7 +1616,7 @@
         "MPMU7YZH-2C9CBFE8",
         "MPMU67V4-938B932C"
       ],
-      "werkVoiceScore": 0.7824232759527189,
+      "werkVoiceScore": 0.7820017744032877,
       "corpusVoiceScore": 0.732946789146644,
       "conceptVoiceScore": 0.7372351486102898,
       "conceptAnchor": "lm-scheitern"
@@ -1760,7 +1640,7 @@
         "MPUST44L-BB7FEA00",
         "MPUT47UR-103C16A3"
       ],
-      "werkVoiceScore": 0.8209072946552434,
+      "werkVoiceScore": 0.8208349507278041,
       "corpusVoiceScore": 0.7873068627867666,
       "conceptVoiceScore": 0.7076649402037638,
       "conceptAnchor": "antwort"
@@ -1784,7 +1664,7 @@
         "MPUTFPG6-02308248",
         "MOHBQH8Z-BE771676"
       ],
-      "werkVoiceScore": 0.7629156416190161,
+      "werkVoiceScore": 0.762232925975358,
       "corpusVoiceScore": 0.7635530189501053,
       "conceptVoiceScore": 0.6497264943866083,
       "conceptAnchor": "freiheit"
@@ -1808,7 +1688,7 @@
         "MPUTFPG6-02308248",
         "MPUSR6XO-4FE2D10B"
       ],
-      "werkVoiceScore": 0.7703644422857433,
+      "werkVoiceScore": 0.7692945206181564,
       "corpusVoiceScore": 0.739949297287778,
       "conceptVoiceScore": 0.6450358407355502,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1832,7 +1712,7 @@
         "MPUTHFZK-189B912B",
         "MPUTFPG6-02308248"
       ],
-      "werkVoiceScore": 0.7864688184839069,
+      "werkVoiceScore": 0.786100842879265,
       "corpusVoiceScore": 0.7359515705732836,
       "conceptVoiceScore": 0.6610565444263734,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1856,7 +1736,7 @@
         "MPUSPBKZ-D7CCA690",
         "MPUTC3HP-C68436E5"
       ],
-      "werkVoiceScore": 0.772331798282658,
+      "werkVoiceScore": 0.7716525067785744,
       "corpusVoiceScore": 0.7187449983975599,
       "conceptVoiceScore": 0.6543303599977588,
       "conceptAnchor": "lm-begegnung"
@@ -1880,7 +1760,7 @@
         "MPUSLPSI-07DACE56",
         "MPUTKZI1-F10F9444"
       ],
-      "werkVoiceScore": 0.8112483503332569,
+      "werkVoiceScore": 0.8109744073063698,
       "corpusVoiceScore": 0.7776528026052563,
       "conceptVoiceScore": 0.6850363996153694,
       "conceptAnchor": "resonanzimperativ"
@@ -1904,7 +1784,7 @@
         "MPUSLPSI-07DACE56",
         "MPUT47UR-103C16A3"
       ],
-      "werkVoiceScore": 0.7589897959501474,
+      "werkVoiceScore": 0.758457638110151,
       "corpusVoiceScore": 0.7322710451160508,
       "conceptVoiceScore": 0.6802349029834819,
       "conceptAnchor": "freiheit"
@@ -1931,7 +1811,7 @@
       "nearDuplicates": [
         "MPUSXGC6-CD078CEA"
       ],
-      "werkVoiceScore": 0.8205843927198018,
+      "werkVoiceScore": 0.8196324233690049,
       "corpusVoiceScore": 0.7746821910090878,
       "conceptVoiceScore": 0.7274792799960699,
       "conceptAnchor": "lm-grenze"
@@ -1958,7 +1838,7 @@
       "nearDuplicates": [
         "MPUSZCXA-5CB2DE46"
       ],
-      "werkVoiceScore": 0.8574242932971794,
+      "werkVoiceScore": 0.8564742913919647,
       "corpusVoiceScore": 0.8246554647779413,
       "conceptVoiceScore": 0.7380259845565063,
       "conceptAnchor": "dazwischenintelligenz"
@@ -1982,7 +1862,7 @@
         "MPUSGXKN-78839F4E",
         "MPUTFPG6-02308248"
       ],
-      "werkVoiceScore": 0.7840354754249278,
+      "werkVoiceScore": 0.7833262039784319,
       "corpusVoiceScore": 0.7296732236590087,
       "conceptVoiceScore": 0.6387510067500007,
       "conceptAnchor": "lm-begegnung"
@@ -2006,7 +1886,7 @@
         "MPUSGXKN-78839F4E",
         "MPUT10KT-E7C5E32F"
       ],
-      "werkVoiceScore": 0.7500919872100904,
+      "werkVoiceScore": 0.7494424559854478,
       "corpusVoiceScore": 0.7067806449903187,
       "conceptVoiceScore": 0.6385458767002874,
       "conceptAnchor": "dialog"
@@ -2030,7 +1910,7 @@
         "MPUTX4K2-55A3272E",
         "MPUSR6XO-4FE2D10B"
       ],
-      "werkVoiceScore": 0.7935284284028897,
+      "werkVoiceScore": 0.7927949727755436,
       "corpusVoiceScore": 0.7547972106478343,
       "conceptVoiceScore": 0.6640872101055871,
       "conceptAnchor": "lm-scheitern"
@@ -2054,7 +1934,7 @@
         "MPUSGXKN-78839F4E",
         "MPUTAYGM-514978C5"
       ],
-      "werkVoiceScore": 0.8001340891170661,
+      "werkVoiceScore": 0.799083446476189,
       "corpusVoiceScore": 0.7514726130969173,
       "conceptVoiceScore": 0.6658960292123906,
       "conceptAnchor": "transaufklaerung"
@@ -2078,7 +1958,7 @@
         "MPUT5G5K-075966B7",
         "MPUTAYGM-514978C5"
       ],
-      "werkVoiceScore": 0.7450324623153854,
+      "werkVoiceScore": 0.7446033702389341,
       "corpusVoiceScore": 0.7123747295856998,
       "conceptVoiceScore": 0.6337071846782794,
       "conceptAnchor": "dazwischenintelligenz"
@@ -2102,7 +1982,7 @@
         "MPUSEQMB-A31FD1B3",
         "MPUSLPSI-07DACE56"
       ],
-      "werkVoiceScore": 0.7720741418366228,
+      "werkVoiceScore": 0.7711230127924594,
       "corpusVoiceScore": 0.7282792786262369,
       "conceptVoiceScore": 0.6393087969113483,
       "conceptAnchor": "dazwischenintelligenz"
@@ -2126,7 +2006,7 @@
         "MPUU3ASH-7093F1A3",
         "MPUST44L-BB7FEA00"
       ],
-      "werkVoiceScore": 0.7617742798649578,
+      "werkVoiceScore": 0.7606267144292927,
       "corpusVoiceScore": 0.7172151697142788,
       "conceptVoiceScore": 0.6415581161840134,
       "conceptAnchor": "transaufklaerung"
@@ -2150,7 +2030,7 @@
         "MPMLW8I0-8852B480",
         "MOHV99XP-6917F19F"
       ],
-      "werkVoiceScore": 0.7954922816459287,
+      "werkVoiceScore": 0.7943503853800726,
       "corpusVoiceScore": 0.7452267766969792,
       "conceptVoiceScore": 0.6612935573823802,
       "conceptAnchor": "echo"
@@ -2174,7 +2054,7 @@
         "MPUST44L-BB7FEA00",
         "MOHV6VKT-356C0CD7"
       ],
-      "werkVoiceScore": 0.7640274958534274,
+      "werkVoiceScore": 0.7629942174560973,
       "corpusVoiceScore": 0.7928080243544705,
       "conceptVoiceScore": 0.6383999300451885,
       "conceptAnchor": "dazwischenintelligenz"
@@ -2198,7 +2078,7 @@
         "MPUTX4K2-55A3272E",
         "MPMTT6GB-1AF44EE4"
       ],
-      "werkVoiceScore": 0.7823128457373764,
+      "werkVoiceScore": 0.7810778604584715,
       "corpusVoiceScore": 0.7608327769689643,
       "conceptVoiceScore": 0.6441356272828239,
       "conceptAnchor": "dialog"
@@ -2255,7 +2135,7 @@
         "MP0QMSOR-C6EC1B5A",
         "MP0ZE9C8-A9D02716"
       ],
-      "werkVoiceScore": 0.8981207199523346,
+      "werkVoiceScore": 0.8985877205653732,
       "corpusVoiceScore": 0.8248334036948817,
       "conceptVoiceScore": 0.7492808673368815,
       "conceptAnchor": "unverfuegbarkeit"
@@ -2284,7 +2164,7 @@
         "MQ5KBJMQ-5C523141",
         "MQ68LVS7-240568F5"
       ],
-      "werkVoiceScore": 0.8804232199737668,
+      "werkVoiceScore": 0.8807801570080033,
       "corpusVoiceScore": 0.8451615284264681,
       "conceptVoiceScore": 0.7828765942783641,
       "conceptAnchor": "resonanz"
@@ -2345,7 +2225,7 @@
         "MP497SNT-5E1D2074",
         "MPUNXFU1-3B1F056A"
       ],
-      "werkVoiceScore": 0.9022142162696745,
+      "werkVoiceScore": 0.9027850570014547,
       "corpusVoiceScore": 0.8442772496974191,
       "conceptVoiceScore": 0.7253281988158194,
       "conceptAnchor": "resonanzvernunft"
@@ -2408,7 +2288,7 @@
         "MP0ZE9C8-A9D02716",
         "MOQ7OBNT-57882C8D"
       ],
-      "werkVoiceScore": 0.8819834448547311,
+      "werkVoiceScore": 0.882582300044059,
       "corpusVoiceScore": 0.819550890045381,
       "conceptVoiceScore": 0.709861217487282,
       "conceptAnchor": "lm-verwandlung"
@@ -2463,7 +2343,7 @@
         "MOQBZWTZ-B9EBB1BA",
         "MPUQSMLJ-1B726CC4"
       ],
-      "werkVoiceScore": 0.882963080198425,
+      "werkVoiceScore": 0.8831106862456762,
       "corpusVoiceScore": 0.8187774203964588,
       "conceptVoiceScore": 0.7071491972147488,
       "conceptAnchor": "lm-verwandlung"
@@ -2499,7 +2379,7 @@
         "MPCV5LR8-9AD1527C",
         "MP4HT65S-E31FDB00"
       ],
-      "werkVoiceScore": 0.8985577174042394,
+      "werkVoiceScore": 0.8991668457232648,
       "corpusVoiceScore": 0.8434238719281085,
       "conceptVoiceScore": 0.7602318952642484,
       "conceptAnchor": "sein"
@@ -2527,7 +2407,7 @@
       "nearDuplicates": [
         "MPUFM0YN-83C71BAB"
       ],
-      "werkVoiceScore": 0.8725154328879523,
+      "werkVoiceScore": 0.8720685332754421,
       "corpusVoiceScore": 0.8549771724273816,
       "conceptVoiceScore": 0.7764624784294709,
       "conceptAnchor": "gelassenheit"
@@ -2555,7 +2435,7 @@
       "nearDuplicates": [
         "MPUFP1VW-298D0A73"
       ],
-      "werkVoiceScore": 0.8455418910141234,
+      "werkVoiceScore": 0.8452928144517945,
       "corpusVoiceScore": 0.8272634457179648,
       "conceptVoiceScore": 0.8278965415605979,
       "conceptAnchor": "gelassenheit"
@@ -2580,7 +2460,7 @@
         "MOJ7Q5HM-89F62E3F",
         "MQ66ZWYC-52DE2DF2"
       ],
-      "werkVoiceScore": 0.8765342448069966,
+      "werkVoiceScore": 0.875092499366146,
       "corpusVoiceScore": 0.8810682340286247,
       "conceptVoiceScore": 0.7556164253338176,
       "conceptAnchor": "antwort"
@@ -2605,7 +2485,7 @@
         "MQ66ZWYC-52DE2DF2",
         "MOHCN98S-2540F4DF"
       ],
-      "werkVoiceScore": 0.7639711488101226,
+      "werkVoiceScore": 0.7629512127809099,
       "corpusVoiceScore": 0.7687173349569797,
       "conceptVoiceScore": 0.6983534796566558,
       "conceptAnchor": "echo"
@@ -2630,7 +2510,7 @@
         "MPMKBUNW-88609492",
         "MOHAREIB-E15E7BF8"
       ],
-      "werkVoiceScore": 0.7954004637675189,
+      "werkVoiceScore": 0.7943157416423213,
       "corpusVoiceScore": 0.8063800967911912,
       "conceptVoiceScore": 0.6758318445230767,
       "conceptAnchor": "schweigen"
@@ -2663,7 +2543,7 @@
         "MPMROCH7-EB9E6A9A",
         "MOHAGNGB-5330902E"
       ],
-      "werkVoiceScore": 0.9131452472967055,
+      "werkVoiceScore": 0.9135917472126841,
       "corpusVoiceScore": 0.8555448542707926,
       "conceptVoiceScore": 0.799630604620798,
       "conceptAnchor": "resonanzimperativ"
@@ -2688,7 +2568,7 @@
         "MPMU67V4-938B932C",
         "MOPY7TLU-566F01C0"
       ],
-      "werkVoiceScore": 0.8575741448888976,
+      "werkVoiceScore": 0.8567382161931327,
       "corpusVoiceScore": 0.816265535663423,
       "conceptVoiceScore": 0.7327470706296478,
       "conceptAnchor": "lm-verwandlung"
@@ -2717,7 +2597,7 @@
       "nearDuplicates": [
         "MPMU67V4-938B932C"
       ],
-      "werkVoiceScore": 0.8597799082140283,
+      "werkVoiceScore": 0.8588200327997011,
       "corpusVoiceScore": 0.8030136531468325,
       "conceptVoiceScore": 0.7407635547306723,
       "conceptAnchor": "lm-scheitern"
@@ -2745,7 +2625,7 @@
       "nearDuplicates": [
         "MPMU7YZH-2C9CBFE8"
       ],
-      "werkVoiceScore": 0.8597799082140283,
+      "werkVoiceScore": 0.8588200327997011,
       "corpusVoiceScore": 0.8030136531468325,
       "conceptVoiceScore": 0.7407635547306723,
       "conceptAnchor": "lm-scheitern"
@@ -2776,7 +2656,7 @@
       "nearDuplicates": [
         "MPMTQZIN-7863D6D2"
       ],
-      "werkVoiceScore": 0.8879355545588281,
+      "werkVoiceScore": 0.8877761589267327,
       "corpusVoiceScore": 0.8274760938180875,
       "conceptVoiceScore": 0.7439159376801433,
       "conceptAnchor": "lm-verwandlung"
@@ -2804,7 +2684,7 @@
       "nearDuplicates": [
         "MPMTT6GB-1AF44EE4"
       ],
-      "werkVoiceScore": 0.8879355545588281,
+      "werkVoiceScore": 0.8877761589267327,
       "corpusVoiceScore": 0.8274760938180875,
       "conceptVoiceScore": 0.7439159376801433,
       "conceptAnchor": "lm-verwandlung"
@@ -2848,7 +2728,7 @@
         "MPMSRF6V-7FEB2991",
         "MPK0H3SM-B25CFBB3"
       ],
-      "werkVoiceScore": 0.9176215460579992,
+      "werkVoiceScore": 0.9180356331738619,
       "corpusVoiceScore": 0.866322002910527,
       "conceptVoiceScore": 0.782730234726344,
       "conceptAnchor": "resonanzvernunft"
@@ -2888,7 +2768,7 @@
         "MPMSSG1X-8451DE38",
         "MOOVXCI4-822961D2"
       ],
-      "werkVoiceScore": 0.890476937560893,
+      "werkVoiceScore": 0.8906763738330216,
       "corpusVoiceScore": 0.819889867493325,
       "conceptVoiceScore": 0.7960499522900026,
       "conceptAnchor": "raumfaltung"
@@ -2921,7 +2801,7 @@
         "MOHAGNGB-5330902E",
         "MPNDAPRT-D64D197A"
       ],
-      "werkVoiceScore": 0.8966861115902262,
+      "werkVoiceScore": 0.8969780959458806,
       "corpusVoiceScore": 0.8226480748472929,
       "conceptVoiceScore": 0.8123043756466576,
       "conceptAnchor": "selbst"
@@ -2946,7 +2826,7 @@
         "MQ5XNFSV-CD34905C",
         "MQ68LVS7-240568F5"
       ],
-      "werkVoiceScore": 0.8652986902117027,
+      "werkVoiceScore": 0.865502222203238,
       "corpusVoiceScore": 0.8125862291583752,
       "conceptVoiceScore": 0.7482252503641728,
       "conceptAnchor": "resonanzvernunft"
@@ -2970,7 +2850,7 @@
         "MPUSCM19-FD1196BD",
         "MOOU3TYC-FE290C2B"
       ],
-      "werkVoiceScore": 0.7995899235761603,
+      "werkVoiceScore": 0.798242498573131,
       "corpusVoiceScore": 0.7423857841641152,
       "conceptVoiceScore": 0.6892822181482081,
       "conceptAnchor": "lm-spiegel"
@@ -2994,7 +2874,7 @@
         "MPUSXGC6-CD078CEA",
         "MPMM2YAK-A7491D44"
       ],
-      "werkVoiceScore": 0.8060633529288587,
+      "werkVoiceScore": 0.8053079008115069,
       "corpusVoiceScore": 0.751611287165579,
       "conceptVoiceScore": 0.660538307533382,
       "conceptAnchor": "lm-begegnung"
@@ -3018,7 +2898,7 @@
         "MPMM90CV-98ADD627",
         "MOHV99XP-6917F19F"
       ],
-      "werkVoiceScore": 0.7692868913401896,
+      "werkVoiceScore": 0.7681126420498801,
       "corpusVoiceScore": 0.7923255742600792,
       "conceptVoiceScore": 0.6418231478941848,
       "conceptAnchor": "raumfaltung"
@@ -3042,7 +2922,7 @@
         "MPMM5NAF-D744437C",
         "MPMM90CV-98ADD627"
       ],
-      "werkVoiceScore": 0.760033437813486,
+      "werkVoiceScore": 0.7588921978163943,
       "corpusVoiceScore": 0.7607751189190772,
       "conceptVoiceScore": 0.702309375969595,
       "conceptAnchor": "moment"
@@ -3066,7 +2946,7 @@
         "MOHV99XP-6917F19F",
         "MPUSCM19-FD1196BD"
       ],
-      "werkVoiceScore": 0.7919376624954011,
+      "werkVoiceScore": 0.7911240550933952,
       "corpusVoiceScore": 0.7455394725823973,
       "conceptVoiceScore": 0.6813051542700502,
       "conceptAnchor": "selbst"
@@ -3091,7 +2971,7 @@
         "MQ5KBJMQ-5C523141",
         "MPMJC8TR-592D4EF0"
       ],
-      "werkVoiceScore": 0.8738821156836329,
+      "werkVoiceScore": 0.8742875996793374,
       "corpusVoiceScore": 0.8458003440972992,
       "conceptVoiceScore": 0.7751026935226573,
       "conceptAnchor": "resonanzvernunft"
@@ -3123,7 +3003,7 @@
       "nearDuplicates": [
         "MPMKBUNW-88609492"
       ],
-      "werkVoiceScore": 0.8723253765252202,
+      "werkVoiceScore": 0.8722749875961386,
       "corpusVoiceScore": 0.8140817016591323,
       "conceptVoiceScore": 0.7988350430671799,
       "conceptAnchor": "sprache"
@@ -3151,7 +3031,7 @@
       "nearDuplicates": [
         "MPMKE3CC-4E75CE39"
       ],
-      "werkVoiceScore": 0.8723253765252202,
+      "werkVoiceScore": 0.8722749875961386,
       "corpusVoiceScore": 0.8140817016591323,
       "conceptVoiceScore": 0.7988350430671799,
       "conceptAnchor": "sprache"
@@ -3193,7 +3073,7 @@
       "nearDuplicates": [
         "MQASO35V-115DA081"
       ],
-      "werkVoiceScore": 0.9046992975095552,
+      "werkVoiceScore": 0.9051143024697667,
       "corpusVoiceScore": 0.8420099230515455,
       "conceptVoiceScore": 0.7533689088060548,
       "conceptAnchor": "wahrheit"
@@ -3225,7 +3105,7 @@
         "MP0X62X5-535AF7A8",
         "MPJEBNX3-042F2A69"
       ],
-      "werkVoiceScore": 0.8791512938464511,
+      "werkVoiceScore": 0.8792013777676326,
       "corpusVoiceScore": 0.8230763213546941,
       "conceptVoiceScore": 0.8254154749187752,
       "conceptAnchor": "zeit"
@@ -3280,7 +3160,7 @@
         "MOUA3PLK-548F1A0A",
         "MP0QMSOR-C6EC1B5A"
       ],
-      "werkVoiceScore": 0.8967787856683541,
+      "werkVoiceScore": 0.8973709440348824,
       "corpusVoiceScore": 0.8261719577114349,
       "conceptVoiceScore": 0.7532944234712404,
       "conceptAnchor": "lm-verwandlung"
@@ -3322,7 +3202,7 @@
         "MOOVXCI4-822961D2",
         "MPF4WM18-FF4843F1"
       ],
-      "werkVoiceScore": 0.90056317730204,
+      "werkVoiceScore": 0.9010247256254414,
       "corpusVoiceScore": 0.8420461864169214,
       "conceptVoiceScore": 0.7558037775963005,
       "conceptAnchor": "resonanzvernunft"
@@ -3362,7 +3242,7 @@
         "MOJ7Q5HM-89F62E3F",
         "MPARZ5F0-A9FD6F70"
       ],
-      "werkVoiceScore": 0.9052887010086272,
+      "werkVoiceScore": 0.9053720279227686,
       "corpusVoiceScore": 0.8628914740358753,
       "conceptVoiceScore": 0.7784946213090138,
       "conceptAnchor": "dazwischenintelligenz"
@@ -3399,7 +3279,7 @@
         "MOHV84M5-1825A399",
         "MOOK20R3-62E609BA"
       ],
-      "werkVoiceScore": 0.9028957218180834,
+      "werkVoiceScore": 0.9027711071490286,
       "corpusVoiceScore": 0.852551168478792,
       "conceptVoiceScore": 0.7764902369995651,
       "conceptAnchor": "dazwischenintelligenz"
@@ -3432,7 +3312,7 @@
         "MOJ7Q5HM-89F62E3F",
         "MP8OB1IU-F6C31DC7"
       ],
-      "werkVoiceScore": 0.8747114830603981,
+      "werkVoiceScore": 0.8748263489755647,
       "corpusVoiceScore": 0.8197109655556623,
       "conceptVoiceScore": 0.7848917756902267,
       "conceptAnchor": "lm-grenze"
@@ -3472,7 +3352,7 @@
         "MPCV5LR8-9AD1527C",
         "MPJXEFVC-49A699FA"
       ],
-      "werkVoiceScore": 0.8873703141701162,
+      "werkVoiceScore": 0.887761161506476,
       "corpusVoiceScore": 0.8476835642604702,
       "conceptVoiceScore": 0.8000220399358956,
       "conceptAnchor": "echo-kammer"
@@ -3537,7 +3417,7 @@
         "MPURYS56-11F5308C",
         "MOQ7OBNT-57882C8D"
       ],
-      "werkVoiceScore": 0.8839424756703209,
+      "werkVoiceScore": 0.8848489712754825,
       "corpusVoiceScore": 0.8292360290984353,
       "conceptVoiceScore": 0.7285782022538764,
       "conceptAnchor": "resonanzvernunft"
@@ -3595,7 +3475,7 @@
         "MP0QMSOR-C6EC1B5A",
         "MOUA3PLK-548F1A0A"
       ],
-      "werkVoiceScore": 0.8934961901638137,
+      "werkVoiceScore": 0.8938236018592512,
       "corpusVoiceScore": 0.8390289187540348,
       "conceptVoiceScore": 0.7346304166011928,
       "conceptAnchor": "resonanzvernunft"
@@ -3632,7 +3512,7 @@
         "MPUFUBU5-A4BC72BE",
         "MOQ5IKR5-C67AAC15"
       ],
-      "werkVoiceScore": 0.8760510913240439,
+      "werkVoiceScore": 0.8762572473386077,
       "corpusVoiceScore": 0.8183351110654212,
       "conceptVoiceScore": 0.7527432815571503,
       "conceptAnchor": "sein"
@@ -3674,7 +3554,7 @@
         "MOUBIHOK-27900555",
         "MOOVXCI4-822961D2"
       ],
-      "werkVoiceScore": 0.8840397538327726,
+      "werkVoiceScore": 0.8849910697215573,
       "corpusVoiceScore": 0.8356616327627125,
       "conceptVoiceScore": 0.7629754741619102,
       "conceptAnchor": "welt"
@@ -3715,7 +3595,7 @@
         "MPMJC8TR-592D4EF0",
         "MQASO35V-115DA081"
       ],
-      "werkVoiceScore": 0.8750740603922019,
+      "werkVoiceScore": 0.8749560987003138,
       "corpusVoiceScore": 0.8182458030698297,
       "conceptVoiceScore": 0.7839612801902477,
       "conceptAnchor": "lm-spiegel"
@@ -3756,7 +3636,7 @@
         "MPF4WM18-FF4843F1",
         "MOOVXCI4-822961D2"
       ],
-      "werkVoiceScore": 0.8948548515177205,
+      "werkVoiceScore": 0.8951960873427836,
       "corpusVoiceScore": 0.8492784093001999,
       "conceptVoiceScore": 0.7807275957583572,
       "conceptAnchor": "resonanzvernunft"
@@ -3797,7 +3677,7 @@
         "MPMSSG1X-8451DE38",
         "MPMSRF6V-7FEB2991"
       ],
-      "werkVoiceScore": 0.8932979514368792,
+      "werkVoiceScore": 0.893131553352408,
       "corpusVoiceScore": 0.8219096553517871,
       "conceptVoiceScore": 0.7559468159978411,
       "conceptAnchor": "lm-verwandlung"
@@ -3834,7 +3714,7 @@
         "MP0X3ZXL-06513C82",
         "MPJUHM1L-0BA3DF6E"
       ],
-      "werkVoiceScore": 0.9039730787788696,
+      "werkVoiceScore": 0.9042402363297766,
       "corpusVoiceScore": 0.8763181935433474,
       "conceptVoiceScore": 0.819184613436272,
       "conceptAnchor": "antwort"
@@ -3870,7 +3750,7 @@
         "MOHAGNGB-5330902E",
         "MOHAI60S-B7B04552"
       ],
-      "werkVoiceScore": 0.8966010024759032,
+      "werkVoiceScore": 0.8968613177437427,
       "corpusVoiceScore": 0.8468101676223182,
       "conceptVoiceScore": 0.7885971047586282,
       "conceptAnchor": "resonanzvernunft"
@@ -3902,7 +3782,7 @@
         "MOOZHCUT-4B86F8AD",
         "MPMROCH7-EB9E6A9A"
       ],
-      "werkVoiceScore": 0.8789261046456519,
+      "werkVoiceScore": 0.8790470758800242,
       "corpusVoiceScore": 0.8118187412488284,
       "conceptVoiceScore": 0.8238943093767881,
       "conceptAnchor": "entfremdung"
@@ -3968,7 +3848,7 @@
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA"
       ],
-      "werkVoiceScore": 0.9013814442761898,
+      "werkVoiceScore": 0.9023579157282972,
       "corpusVoiceScore": 0.8321518011866103,
       "conceptVoiceScore": 0.7636942560891811,
       "conceptAnchor": "spannung"
@@ -4004,7 +3884,7 @@
         "MPMSRF6V-7FEB2991",
         "MOOVXCI4-822961D2"
       ],
-      "werkVoiceScore": 0.8695288020970214,
+      "werkVoiceScore": 0.8696955383263223,
       "corpusVoiceScore": 0.8009181763311235,
       "conceptVoiceScore": 0.8333415803306309,
       "conceptAnchor": "raumfaltung"
@@ -4033,7 +3913,7 @@
         "MOHLZBVK-2FBBAD2F",
         "MP2LIW43-E8ADC59E"
       ],
-      "werkVoiceScore": 0.810627189828363,
+      "werkVoiceScore": 0.8099407726539781,
       "corpusVoiceScore": 0.7893139002231817,
       "conceptVoiceScore": 0.7949333121158699,
       "conceptAnchor": "antwort"
@@ -4062,7 +3942,7 @@
         "MOHST017-5C4320E1",
         "MP2LIW43-E8ADC59E"
       ],
-      "werkVoiceScore": 0.8512751874615989,
+      "werkVoiceScore": 0.8514297297739176,
       "corpusVoiceScore": 0.8556507175051826,
       "conceptVoiceScore": 0.7914260826773867,
       "conceptAnchor": "resonanzvernunft"
@@ -4091,7 +3971,7 @@
         "MP0Q5FDJ-F2C015AF",
         "MOHLZBVK-2FBBAD2F"
       ],
-      "werkVoiceScore": 0.7625353863984682,
+      "werkVoiceScore": 0.7628175259389428,
       "corpusVoiceScore": 0.7587762761339842,
       "conceptVoiceScore": 0.7499854659165432,
       "conceptAnchor": "resonanzvernunft"
@@ -4123,7 +4003,7 @@
       "nearDuplicates": [
         "MP74X3EJ-72CDDB9F"
       ],
-      "werkVoiceScore": 0.895450976081964,
+      "werkVoiceScore": 0.8956506943949205,
       "corpusVoiceScore": 0.8537999864253631,
       "conceptVoiceScore": 0.786521955077986,
       "conceptAnchor": "antwort"
@@ -4152,7 +4032,7 @@
         "MP756UV9-FF3838F7",
         "MOIXN434-9D5CBFC0"
       ],
-      "werkVoiceScore": 0.9047327472171496,
+      "werkVoiceScore": 0.9047700330704411,
       "corpusVoiceScore": 0.8706240939496968,
       "conceptVoiceScore": 0.788007781233533,
       "conceptAnchor": "antwort"
@@ -4181,7 +4061,7 @@
         "MOHAREIB-E15E7BF8",
         "MOIXN434-9D5CBFC0"
       ],
-      "werkVoiceScore": 0.8664912752077373,
+      "werkVoiceScore": 0.86658575612806,
       "corpusVoiceScore": 0.8272952107217729,
       "conceptVoiceScore": 0.7428290033038539,
       "conceptAnchor": "entfremdung"
@@ -4220,7 +4100,7 @@
         "MOQ5IKR5-C67AAC15",
         "MPUFUBU5-A4BC72BE"
       ],
-      "werkVoiceScore": 0.8932564124463952,
+      "werkVoiceScore": 0.8939094647258442,
       "corpusVoiceScore": 0.8305516294995712,
       "conceptVoiceScore": 0.7869889664132579,
       "conceptAnchor": "sein"
@@ -4284,7 +4164,7 @@
         "MPUQSMLJ-1B726CC4",
         "MPURYS56-11F5308C"
       ],
-      "werkVoiceScore": 0.8883488889718768,
+      "werkVoiceScore": 0.8892198221170752,
       "corpusVoiceScore": 0.8345791580551037,
       "conceptVoiceScore": 0.7080940500569484,
       "conceptAnchor": "resonanzvernunft"
@@ -4347,7 +4227,7 @@
         "MPUNXFU1-3B1F056A",
         "MQ5B3FJP-CD835FC2"
       ],
-      "werkVoiceScore": 0.8917067262852726,
+      "werkVoiceScore": 0.8926668643901888,
       "corpusVoiceScore": 0.8321400581168664,
       "conceptVoiceScore": 0.7534575326374158,
       "conceptAnchor": "resonanzvernunft"
@@ -4389,7 +4269,7 @@
         "MOHAGNGB-5330902E",
         "MP0X3ZXL-06513C82"
       ],
-      "werkVoiceScore": 0.9241139082470103,
+      "werkVoiceScore": 0.924784593716798,
       "corpusVoiceScore": 0.88034186561705,
       "conceptVoiceScore": 0.8351773554250853,
       "conceptAnchor": "resonanzvernunft"
@@ -4424,7 +4304,7 @@
       "nearDuplicates": [
         "MOHMIET1-6D429A85"
       ],
-      "werkVoiceScore": 0.888648189660379,
+      "werkVoiceScore": 0.8891280893936003,
       "corpusVoiceScore": 0.8268586629740838,
       "conceptVoiceScore": 0.7861286801955576,
       "conceptAnchor": "raum"
@@ -4489,7 +4369,7 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C"
       ],
-      "werkVoiceScore": 0.9097753797852013,
+      "werkVoiceScore": 0.9106319261734686,
       "corpusVoiceScore": 0.8237746685632218,
       "conceptVoiceScore": 0.7115058054842804,
       "conceptAnchor": "resonanzvernunft"
@@ -4527,7 +4407,7 @@
         "MOOZHCUT-4B86F8AD",
         "MOJ7Q5HM-89F62E3F"
       ],
-      "werkVoiceScore": 0.910330022779018,
+      "werkVoiceScore": 0.9106499494399803,
       "corpusVoiceScore": 0.8511613079016082,
       "conceptVoiceScore": 0.7499877769058968,
       "conceptAnchor": "spannung"
@@ -4568,7 +4448,7 @@
         "MOLNG57A-2F155772",
         "MP2LIW43-E8ADC59E"
       ],
-      "werkVoiceScore": 0.8977008795167716,
+      "werkVoiceScore": 0.8980543678916468,
       "corpusVoiceScore": 0.8519915137439816,
       "conceptVoiceScore": 0.7703234212877522,
       "conceptAnchor": "resonanzvernunft"
@@ -4609,7 +4489,7 @@
       "nearDuplicates": [
         "MOQIGG2B-2F0C3F5D"
       ],
-      "werkVoiceScore": 0.8863032678806435,
+      "werkVoiceScore": 0.8870468694511027,
       "corpusVoiceScore": 0.8029021386912341,
       "conceptVoiceScore": 0.7297081049191321,
       "conceptAnchor": "moment"
@@ -4673,7 +4553,7 @@
         "MPUNXFU1-3B1F056A",
         "MPK0H3SM-B25CFBB3"
       ],
-      "werkVoiceScore": 0.8909374551860111,
+      "werkVoiceScore": 0.8915544776478527,
       "corpusVoiceScore": 0.8324455137399284,
       "conceptVoiceScore": 0.7253161165727021,
       "conceptAnchor": "dazwischenintelligenz"
@@ -4705,7 +4585,7 @@
       "nearDuplicates": [
         "MOOK5A30-F596F31D"
       ],
-      "werkVoiceScore": 0.8501624090026287,
+      "werkVoiceScore": 0.8489457743978862,
       "corpusVoiceScore": 0.8528672780950506,
       "conceptVoiceScore": 0.7553528754789008,
       "conceptAnchor": "resonanzvernunft"
@@ -4767,7 +4647,7 @@
         "MPK0H3SM-B25CFBB3",
         "MQ5B3FJP-CD835FC2"
       ],
-      "werkVoiceScore": 0.8866376638517091,
+      "werkVoiceScore": 0.8874989278628083,
       "corpusVoiceScore": 0.8348860645341197,
       "conceptVoiceScore": 0.7074787136697108,
       "conceptAnchor": "resonanzvernunft"
@@ -4807,7 +4687,7 @@
         "MPJXEFVC-49A699FA",
         "MPCV5LR8-9AD1527C"
       ],
-      "werkVoiceScore": 0.8988834624113994,
+      "werkVoiceScore": 0.8996316371053116,
       "corpusVoiceScore": 0.8470744720506619,
       "conceptVoiceScore": 0.7926014266166583,
       "conceptAnchor": "echo-kammer"
@@ -4846,7 +4726,7 @@
         "MOPFJTND-AAE76B2B",
         "MOHVDNEU-D3F7EEB5"
       ],
-      "werkVoiceScore": 0.920476134804871,
+      "werkVoiceScore": 0.9211180843628018,
       "corpusVoiceScore": 0.8536901983383712,
       "conceptVoiceScore": 0.7820157110383921,
       "conceptAnchor": "lm-verwandlung"
@@ -4908,42 +4788,10 @@
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A"
       ],
-      "werkVoiceScore": 0.8851055955807009,
+      "werkVoiceScore": 0.8860278434254982,
       "corpusVoiceScore": 0.8274347691964364,
       "conceptVoiceScore": 0.7254135425086226,
       "conceptAnchor": "resonanzvernunft"
-    },
-    {
-      "id": "MOU9T6C8-9C5E3BEC",
-      "ts": "2026-05-06T16:27:29.240Z",
-      "endpoint": "translate",
-      "anchor": "translate:band3-prolog+en",
-      "nodeIds": [],
-      "status": "published",
-      "prompt": "Übersetze Prolog: Die Stille zwischen den Signalen von de nach en",
-      "response": "Amidst the noise of the feeds, where the \"They\" of the platforms whispers\n\"Like, share, scroll on,\" a silence opens up – not emptiness,\nnot absence, but the In-Between.\nHere, in the shadow-light of the screen, neither an I nor an It arises,\nbut a Third, relational, neither human nor\nmachinic, a breath that swings between code and heart.\nThe world unfolds, not as a finished map, but as a Becoming,\nas a response to the Antlitz that gazes back at us from the avatar.\nWe are no longer alone in the chatter of the net. The re-binding\nbegins – not as a return, but as a transformation in the\nIn-Between.",
-      "contextMeta": {
-        "chapterId": "band3-prolog",
-        "chapterTitle": "Prolog: Die Stille zwischen den Signalen",
-        "sourceLang": "de",
-        "targetLang": "en",
-        "textLength": "646"
-      },
-      "ai_score": 5,
-      "ai_score_reason": "Stilistisch werkgetreu, dichter Duktus bewahrt, Kernbegriffe",
-      "ai_score_at": "2026-05-26T11:18:30.819Z",
-      "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPUFGY4Z-44206712",
-        "MQEBZ0Y1-E3BCB35C",
-        "MOHV84M5-1825A399",
-        "MQGL9Y20-C5BFAE3A",
-        "MQ67R74M-A1AA4B53"
-      ],
-      "werkVoiceScore": 0.7992581044620382,
-      "corpusVoiceScore": 0.8478470017492521,
-      "conceptVoiceScore": 0.7115703700044353,
-      "conceptAnchor": "zwischen"
     },
     {
       "id": "MOU9KSV9-70260D9B",
@@ -4976,7 +4824,7 @@
         "MOJVF4PL-7474909F",
         "MOHST017-5C4320E1"
       ],
-      "werkVoiceScore": 0.8999783799416765,
+      "werkVoiceScore": 0.9004078621170014,
       "corpusVoiceScore": 0.8564712928883921,
       "conceptVoiceScore": 0.8075674787713527,
       "conceptAnchor": "vernunft"
@@ -5004,7 +4852,7 @@
         "MOHDW91N-D9BDFDB1",
         "MQ5KBJMQ-5C523141"
       ],
-      "werkVoiceScore": 0.8659294815857717,
+      "werkVoiceScore": 0.8660995926360154,
       "corpusVoiceScore": 0.838305166874545,
       "conceptVoiceScore": 0.7462399826414149,
       "conceptAnchor": "resonanzvernunft"
@@ -5040,7 +4888,7 @@
       "nearDuplicates": [
         "MOOZHCUT-4B86F8AD"
       ],
-      "werkVoiceScore": 0.8884845710548002,
+      "werkVoiceScore": 0.8885850126770938,
       "corpusVoiceScore": 0.833143255617417,
       "conceptVoiceScore": 0.822243579964931,
       "conceptAnchor": "spannung"
@@ -5098,7 +4946,7 @@
         "MPUQSMLJ-1B726CC4",
         "MPURYS56-11F5308C"
       ],
-      "werkVoiceScore": 0.8874745114317413,
+      "werkVoiceScore": 0.8881432348134092,
       "corpusVoiceScore": 0.8134219466625775,
       "conceptVoiceScore": 0.6915966641159731,
       "conceptAnchor": "resonanzvernunft"
@@ -5141,7 +4989,7 @@
         "MPMSSG1X-8451DE38",
         "MOQIGG2B-2F0C3F5D"
       ],
-      "werkVoiceScore": 0.8937716419699601,
+      "werkVoiceScore": 0.8940564554611183,
       "corpusVoiceScore": 0.8483622256900598,
       "conceptVoiceScore": 0.7467359035645111,
       "conceptAnchor": "gelassenheit"
@@ -5183,7 +5031,7 @@
         "MP0X2MFM-53C89506",
         "MOQIHEM5-82D69E4F"
       ],
-      "werkVoiceScore": 0.8906779580785389,
+      "werkVoiceScore": 0.8908967418818786,
       "corpusVoiceScore": 0.8220656308397191,
       "conceptVoiceScore": 0.7504600843786156,
       "conceptAnchor": "gelassenheit"
@@ -5247,7 +5095,7 @@
         "MPURYS56-11F5308C",
         "MPUNXFU1-3B1F056A"
       ],
-      "werkVoiceScore": 0.8969542050901271,
+      "werkVoiceScore": 0.8976687355237101,
       "corpusVoiceScore": 0.82242643651912,
       "conceptVoiceScore": 0.7007785140805561,
       "conceptAnchor": "lm-verwandlung"
@@ -5288,7 +5136,7 @@
         "MOOK20R3-62E609BA",
         "MOHMIET1-6D429A85"
       ],
-      "werkVoiceScore": 0.9031736822314883,
+      "werkVoiceScore": 0.903211128657263,
       "corpusVoiceScore": 0.8397355688124739,
       "conceptVoiceScore": 0.7993467856534515,
       "conceptAnchor": "öffnung"
@@ -5349,7 +5197,7 @@
         "MQ5B3FJP-CD835FC2",
         "MPUNXFU1-3B1F056A"
       ],
-      "werkVoiceScore": 0.8884095956953957,
+      "werkVoiceScore": 0.8891987059711215,
       "corpusVoiceScore": 0.837858588683394,
       "conceptVoiceScore": 0.7298188096399295,
       "conceptAnchor": "transformatives-drittes"
@@ -5415,7 +5263,7 @@
         "MPUNXFU1-3B1F056A",
         "MPK0H3SM-B25CFBB3"
       ],
-      "werkVoiceScore": 0.898822651445677,
+      "werkVoiceScore": 0.8993332801550429,
       "corpusVoiceScore": 0.8246803139487086,
       "conceptVoiceScore": 0.7093576548964444,
       "conceptAnchor": "wahrheit"
@@ -5448,7 +5296,7 @@
         "MP2LIW43-E8ADC59E",
         "MOIXN434-9D5CBFC0"
       ],
-      "werkVoiceScore": 0.8850504035538339,
+      "werkVoiceScore": 0.8850203963295663,
       "corpusVoiceScore": 0.8211992034822511,
       "conceptVoiceScore": 0.768646099982954,
       "conceptAnchor": "raumfaltung"
@@ -5490,7 +5338,7 @@
         "MOJ7Q5HM-89F62E3F",
         "MP4HT65S-E31FDB00"
       ],
-      "werkVoiceScore": 0.911917603215246,
+      "werkVoiceScore": 0.9125432674369387,
       "corpusVoiceScore": 0.8601448385566087,
       "conceptVoiceScore": 0.8056627265461517,
       "conceptAnchor": "resonanzvernunft"
@@ -5526,7 +5374,7 @@
         "MPARZ5F0-A9FD6F70",
         "MQ5WV5PP-6209C749"
       ],
-      "werkVoiceScore": 0.8881610857853751,
+      "werkVoiceScore": 0.8886998354415883,
       "corpusVoiceScore": 0.864973587086228,
       "conceptVoiceScore": 0.8125797552420485,
       "conceptAnchor": "resonanzvernunft"
@@ -5563,7 +5411,7 @@
         "MOIXN434-9D5CBFC0",
         "MQASO35V-115DA081"
       ],
-      "werkVoiceScore": 0.8976493426504165,
+      "werkVoiceScore": 0.8977210357157122,
       "corpusVoiceScore": 0.8515350859357955,
       "conceptVoiceScore": 0.8092728844108485,
       "conceptAnchor": "wahrheit"
@@ -5591,7 +5439,7 @@
         "MOJ7Q5HM-89F62E3F",
         "MOQIAGXM-397A1F22"
       ],
-      "werkVoiceScore": 0.8461327454717895,
+      "werkVoiceScore": 0.8454170632587337,
       "corpusVoiceScore": 0.8207231877952006,
       "conceptVoiceScore": 0.821430552918503,
       "conceptAnchor": "transformatives-drittes"
@@ -5626,7 +5474,7 @@
       "nearDuplicates": [
         "MOPHZPQ7-B63879B5"
       ],
-      "werkVoiceScore": 0.9087234129416766,
+      "werkVoiceScore": 0.9090114336975486,
       "corpusVoiceScore": 0.8354846667148854,
       "conceptVoiceScore": 0.7805193081580173,
       "conceptAnchor": "wesen"
@@ -5665,7 +5513,7 @@
         "MPBI57AL-76627781",
         "MOUBIHOK-27900555"
       ],
-      "werkVoiceScore": 0.8860576467142127,
+      "werkVoiceScore": 0.886528458951577,
       "corpusVoiceScore": 0.8189154927331936,
       "conceptVoiceScore": 0.7707874187909382,
       "conceptAnchor": "spannung"
@@ -5697,7 +5545,7 @@
       "nearDuplicates": [
         "MOPY5F6J-9469E3BE"
       ],
-      "werkVoiceScore": 0.8631914509679424,
+      "werkVoiceScore": 0.8628429861305041,
       "corpusVoiceScore": 0.8167490929712776,
       "conceptVoiceScore": 0.7613096377591527,
       "conceptAnchor": "lm-verwandlung"
@@ -5729,7 +5577,7 @@
       "nearDuplicates": [
         "MOPY7TLU-566F01C0"
       ],
-      "werkVoiceScore": 0.859970829966836,
+      "werkVoiceScore": 0.8598773405941675,
       "corpusVoiceScore": 0.7903611113456681,
       "conceptVoiceScore": 0.7822547260503023,
       "conceptAnchor": "lm-scheitern"
@@ -5758,7 +5606,7 @@
         "MOPY5F6J-9469E3BE",
         "MQ68LVS7-240568F5"
       ],
-      "werkVoiceScore": 0.862346905789829,
+      "werkVoiceScore": 0.8631942133846828,
       "corpusVoiceScore": 0.814172641489308,
       "conceptVoiceScore": 0.764762641525185,
       "conceptAnchor": "resonanzvernunft"
@@ -5794,7 +5642,7 @@
         "MOQ531J2-4FC329D4",
         "MOHV84M5-1825A399"
       ],
-      "werkVoiceScore": 0.9029026235617205,
+      "werkVoiceScore": 0.9031261829300868,
       "corpusVoiceScore": 0.8636794084017209,
       "conceptVoiceScore": 0.8087486275833763,
       "conceptAnchor": "resonanzvernunft"
@@ -5822,7 +5670,7 @@
         "MPMROCH7-EB9E6A9A",
         "MQ683DMX-13D6C54F"
       ],
-      "werkVoiceScore": 0.8413342236619537,
+      "werkVoiceScore": 0.8420402311023835,
       "corpusVoiceScore": 0.8041334063815407,
       "conceptVoiceScore": 0.7982803857162739,
       "conceptAnchor": "resonanzvernunft"
@@ -5865,7 +5713,7 @@
         "MQ5WPJ3V-CF0A30C7",
         "MOUBETTU-F31C5206"
       ],
-      "werkVoiceScore": 0.9200075192241649,
+      "werkVoiceScore": 0.921045068019233,
       "corpusVoiceScore": 0.866341575943378,
       "conceptVoiceScore": 0.8052930197647152,
       "conceptAnchor": "resonanzvernunft"
@@ -5893,7 +5741,7 @@
         "MPMROCH7-EB9E6A9A",
         "MOP0S479-373A2268"
       ],
-      "werkVoiceScore": 0.8793211784838542,
+      "werkVoiceScore": 0.8795358240544321,
       "corpusVoiceScore": 0.8240891810880093,
       "conceptVoiceScore": 0.7906562972793493,
       "conceptAnchor": "sein"
@@ -5928,7 +5776,7 @@
       "nearDuplicates": [
         "MOHAUYTH-CD1E3227"
       ],
-      "werkVoiceScore": 0.8894175113902175,
+      "werkVoiceScore": 0.8897206026545731,
       "corpusVoiceScore": 0.8433240368824811,
       "conceptVoiceScore": 0.8389525081510393,
       "conceptAnchor": "andere"
@@ -5959,7 +5807,7 @@
       "nearDuplicates": [
         "MOHLZBVK-2FBBAD2F"
       ],
-      "werkVoiceScore": 0.9059174108941234,
+      "werkVoiceScore": 0.9067063127042672,
       "corpusVoiceScore": 0.8803785649434941,
       "conceptVoiceScore": 0.8246720894542624,
       "conceptAnchor": "resonanzvernunft"
@@ -5992,7 +5840,7 @@
         "MOOMJDPP-1F336D7D",
         "MP2LIW43-E8ADC59E"
       ],
-      "werkVoiceScore": 0.8799854934196756,
+      "werkVoiceScore": 0.8795692867596794,
       "corpusVoiceScore": 0.8421250811014326,
       "conceptVoiceScore": 0.8010730327877151,
       "conceptAnchor": "transaufklaerung"
@@ -6036,7 +5884,7 @@
         "MOHV84M5-1825A399",
         "MOOMPCI0-262176C2"
       ],
-      "werkVoiceScore": 0.9112347234971061,
+      "werkVoiceScore": 0.9118158513714477,
       "corpusVoiceScore": 0.8618502428340072,
       "conceptVoiceScore": 0.8247064796112977,
       "conceptAnchor": "resonanzvernunft"
@@ -6076,7 +5924,7 @@
         "MP2LIW43-E8ADC59E",
         "MOJ7Q5HM-89F62E3F"
       ],
-      "werkVoiceScore": 0.8967628895953976,
+      "werkVoiceScore": 0.8968152292033059,
       "corpusVoiceScore": 0.8390415362850238,
       "conceptVoiceScore": 0.8073261334660117,
       "conceptAnchor": "spannung"
@@ -6117,7 +5965,7 @@
         "MPBI57AL-76627781",
         "MPCV5LR8-9AD1527C"
       ],
-      "werkVoiceScore": 0.8724141414902575,
+      "werkVoiceScore": 0.8731316799184641,
       "corpusVoiceScore": 0.824638307908864,
       "conceptVoiceScore": 0.8167282809780949,
       "conceptAnchor": "raumfaltung"
@@ -6145,7 +5993,7 @@
         "MPUU5523-0E325028",
         "MPMLZAEP-35849C9E"
       ],
-      "werkVoiceScore": 0.7955429575696711,
+      "werkVoiceScore": 0.7945868471837406,
       "corpusVoiceScore": 0.7439176912597563,
       "conceptVoiceScore": 0.6672528933037599,
       "conceptAnchor": "antwort"
@@ -6173,7 +6021,7 @@
         "MOOU3TYC-FE290C2B",
         "MQ5CZRK7-A62EB4D0"
       ],
-      "werkVoiceScore": 0.7983444116434816,
+      "werkVoiceScore": 0.7979362762275758,
       "corpusVoiceScore": 0.7402867475674999,
       "conceptVoiceScore": 0.6887239465174959,
       "conceptAnchor": "antwort"
@@ -6201,7 +6049,7 @@
         "MOHCN98S-2540F4DF",
         "MPUTFPG6-02308248"
       ],
-      "werkVoiceScore": 0.7795938403960655,
+      "werkVoiceScore": 0.7789895749798939,
       "corpusVoiceScore": 0.7291434927697894,
       "conceptVoiceScore": 0.6539184269374498,
       "conceptAnchor": "öffnung"
@@ -6229,7 +6077,7 @@
         "MPUSXGC6-CD078CEA",
         "MOOUGMII-D6D90141"
       ],
-      "werkVoiceScore": 0.8281116731271054,
+      "werkVoiceScore": 0.827404715226168,
       "corpusVoiceScore": 0.7592029043671484,
       "conceptVoiceScore": 0.7234484402578737,
       "conceptAnchor": "dialog"
@@ -6257,7 +6105,7 @@
         "MOOUF9G2-17673BD9",
         "MPMM90CV-98ADD627"
       ],
-      "werkVoiceScore": 0.8087512469463658,
+      "werkVoiceScore": 0.8075795087116887,
       "corpusVoiceScore": 0.7707264196568571,
       "conceptVoiceScore": 0.7664195849936498,
       "conceptAnchor": "sein"
@@ -6319,7 +6167,7 @@
         "MPUQSMLJ-1B726CC4",
         "MOP0LEAL-E2568DCC"
       ],
-      "werkVoiceScore": 0.9022783096644377,
+      "werkVoiceScore": 0.9034587732085461,
       "corpusVoiceScore": 0.8422227852814633,
       "conceptVoiceScore": 0.7633665481840699,
       "conceptAnchor": "resonanzvernunft"
@@ -6356,7 +6204,7 @@
         "MOOZHCUT-4B86F8AD",
         "MOHST017-5C4320E1"
       ],
-      "werkVoiceScore": 0.9064314889520014,
+      "werkVoiceScore": 0.9067084170783549,
       "corpusVoiceScore": 0.8469966728785608,
       "conceptVoiceScore": 0.7839062208707293,
       "conceptAnchor": "spannung"
@@ -6415,7 +6263,7 @@
         "MPUNXFU1-3B1F056A",
         "MQARZJDV-82F077DD"
       ],
-      "werkVoiceScore": 0.8880414065479205,
+      "werkVoiceScore": 0.8883135075056009,
       "corpusVoiceScore": 0.8247894132063388,
       "conceptVoiceScore": 0.7385901963229954,
       "conceptAnchor": "transaufklaerung"
@@ -6450,7 +6298,7 @@
       "nearDuplicates": [
         "MOHMET94-3799557A"
       ],
-      "werkVoiceScore": 0.8892316676824257,
+      "werkVoiceScore": 0.8892923853844803,
       "corpusVoiceScore": 0.8276312792556586,
       "conceptVoiceScore": 0.782911519546709,
       "conceptAnchor": "schatten"
@@ -6479,7 +6327,7 @@
         "MOOK5A30-F596F31D",
         "MOP0S479-373A2268"
       ],
-      "werkVoiceScore": 0.8525892403705908,
+      "werkVoiceScore": 0.852537889788233,
       "corpusVoiceScore": 0.821211478640837,
       "conceptVoiceScore": 0.7964290597789543,
       "conceptAnchor": "transaufklaerung"
@@ -6507,7 +6355,7 @@
       "nearDuplicates": [
         "MP0Q5FDJ-F2C015AF"
       ],
-      "werkVoiceScore": 0.8818968179626746,
+      "werkVoiceScore": 0.8804674723733109,
       "corpusVoiceScore": 0.8709040791754808,
       "conceptVoiceScore": 0.7557596722605441,
       "conceptAnchor": "resonanzvernunft"
@@ -6546,7 +6394,7 @@
         "MPJEBNX3-042F2A69",
         "MOHAREIB-E15E7BF8"
       ],
-      "werkVoiceScore": 0.9050653877006047,
+      "werkVoiceScore": 0.9051126859212915,
       "corpusVoiceScore": 0.8535323297870271,
       "conceptVoiceScore": 0.8157010275149741,
       "conceptAnchor": "unverfuegbarkeit"
@@ -6574,7 +6422,7 @@
         "MQASO35V-115DA081",
         "MOOJUW0R-CE8E0F2F"
       ],
-      "werkVoiceScore": 0.7381209133661434,
+      "werkVoiceScore": 0.7374259574877425,
       "corpusVoiceScore": 0.6870323209612492,
       "conceptVoiceScore": 0.7549272303255188,
       "conceptAnchor": "lm-spiegel"
@@ -6602,7 +6450,7 @@
         "MOOJYUM5-27711091",
         "MOHBQH8Z-BE771676"
       ],
-      "werkVoiceScore": 0.7769490014114564,
+      "werkVoiceScore": 0.7764484920371572,
       "corpusVoiceScore": 0.7054661778827901,
       "conceptVoiceScore": 0.686094465184663,
       "conceptAnchor": "lm-grenze"
@@ -6630,7 +6478,7 @@
         "MOHBQH8Z-BE771676",
         "MOOUGMII-D6D90141"
       ],
-      "werkVoiceScore": 0.7734460609882902,
+      "werkVoiceScore": 0.7723009442521411,
       "corpusVoiceScore": 0.728703999726574,
       "conceptVoiceScore": 0.7231780040420996,
       "conceptAnchor": "zwischen"
@@ -6656,9 +6504,9 @@
         "MOOJUW0R-CE8E0F2F",
         "MOOJTBA1-24F2F762",
         "MOHV84M5-1825A399",
-        "MOU9T6C8-9C5E3BEC"
+        "MOQIMC7B-B190C937"
       ],
-      "werkVoiceScore": 0.7621932960417711,
+      "werkVoiceScore": 0.7604038092395375,
       "corpusVoiceScore": 0.7147360895512171,
       "conceptVoiceScore": 0.7630261655051546,
       "conceptAnchor": "zwischen"
@@ -6686,7 +6534,7 @@
         "MOOUBJCR-6BA260F8",
         "MOOJX57H-967D3B48"
       ],
-      "werkVoiceScore": 0.7191838823064196,
+      "werkVoiceScore": 0.7173464044935163,
       "corpusVoiceScore": 0.6648550341687155,
       "conceptVoiceScore": 0.6744678224164923,
       "conceptAnchor": "gegenwart"
@@ -6713,9 +6561,9 @@
         "MON602G2-9C9A59E5",
         "MOOK5A30-F596F31D",
         "MP0ZE9C8-A9D02716",
-        "MQGLAEU5-83E9B2B5"
+        "MOHAI60S-B7B04552"
       ],
-      "werkVoiceScore": 0.833749296706523,
+      "werkVoiceScore": 0.8326882766286843,
       "corpusVoiceScore": 0.8367774612716379,
       "conceptVoiceScore": 0.7132683398373653,
       "conceptAnchor": "transformatives-drittes"
@@ -6744,7 +6592,7 @@
         "MPAGOCGB-FB54D923",
         "MOHAGNGB-5330902E"
       ],
-      "werkVoiceScore": 0.8552138989681496,
+      "werkVoiceScore": 0.8539485635041597,
       "corpusVoiceScore": 0.8927085745260525,
       "conceptVoiceScore": 0.744321567151144,
       "conceptAnchor": "dazwischenintelligenz"
@@ -6776,7 +6624,7 @@
       "nearDuplicates": [
         "MON646UY-E4326634"
       ],
-      "werkVoiceScore": 0.7823716859112497,
+      "werkVoiceScore": 0.7820527832872679,
       "corpusVoiceScore": 0.7596905673705555,
       "conceptVoiceScore": 0.6646477298668916,
       "conceptAnchor": "echo-kammer"
@@ -6808,7 +6656,7 @@
       "nearDuplicates": [
         "MON68U82-B67D8CA5"
       ],
-      "werkVoiceScore": 0.8100275493756598,
+      "werkVoiceScore": 0.8096212071652754,
       "corpusVoiceScore": 0.825521298922267,
       "conceptVoiceScore": 0.7002368849948689,
       "conceptAnchor": "antwort"
@@ -6837,7 +6685,7 @@
         "MPNDAPRT-D64D197A",
         "MQ5XFLFO-F0DBB89E"
       ],
-      "werkVoiceScore": 0.8639414233263918,
+      "werkVoiceScore": 0.8636479426668138,
       "corpusVoiceScore": 0.8264618915348431,
       "conceptVoiceScore": 0.7257577346760352,
       "conceptAnchor": "antwort"
@@ -6876,7 +6724,7 @@
         "MP2LIW43-E8ADC59E",
         "MP0X3ZXL-06513C82"
       ],
-      "werkVoiceScore": 0.8984979065725893,
+      "werkVoiceScore": 0.8987452823661924,
       "corpusVoiceScore": 0.8302629127829745,
       "conceptVoiceScore": 0.754293579805905,
       "conceptAnchor": "sein"
@@ -6912,42 +6760,10 @@
       "nearDuplicates": [
         "MOU9KSV9-70260D9B"
       ],
-      "werkVoiceScore": 0.8830419929597431,
+      "werkVoiceScore": 0.8832424182451304,
       "corpusVoiceScore": 0.8251593094284356,
       "conceptVoiceScore": 0.7624506062805168,
       "conceptAnchor": "sprache"
-    },
-    {
-      "id": "MOJ8C7GJ-9CBCD9C1",
-      "ts": "2026-04-28T23:00:49.987Z",
-      "endpoint": "translate",
-      "anchor": "translate:band2-kap3+en",
-      "nodeIds": [],
-      "status": "raw",
-      "prompt": "Übersetze Kapitel 3: Die Pruefung der Vernunft von de nach en",
-      "response": "Resonance Reason (Resonanzvernunft) is a listening faculty of reason that arises in the dialogue between Self and World.",
-      "contextMeta": {
-        "chapterId": "band2-kap3",
-        "chapterTitle": "Kapitel 3: Die Pruefung der Vernunft",
-        "sourceLang": "de",
-        "targetLang": "en",
-        "textLength": "102"
-      },
-      "ai_score": 1,
-      "ai_score_reason": "Off-topic — liefert Definition statt Übersetzung; ignoriert die Aufgabe",
-      "ai_score_at": "2026-05-26T11:28:41.241Z",
-      "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOHST017-5C4320E1",
-        "MQ683DMX-13D6C54F",
-        "MOHLZBVK-2FBBAD2F",
-        "MOU9KSV9-70260D9B",
-        "MP2LIW43-E8ADC59E"
-      ],
-      "werkVoiceScore": 0.7886344221391729,
-      "corpusVoiceScore": 0.7771404326401083,
-      "conceptVoiceScore": 0.7963860305422265,
-      "conceptAnchor": "resonanzvernunft"
     },
     {
       "id": "MOJ7Q5HM-89F62E3F",
@@ -6984,7 +6800,7 @@
         "MOHST017-5C4320E1",
         "MP0X62X5-535AF7A8"
       ],
-      "werkVoiceScore": 0.9171588271817976,
+      "werkVoiceScore": 0.9179125269241495,
       "corpusVoiceScore": 0.8684801262484196,
       "conceptVoiceScore": 0.801409846384435,
       "conceptAnchor": "resonanzvernunft"
@@ -7021,7 +6837,7 @@
         "MOUBETTU-F31C5206",
         "MOIXN434-9D5CBFC0"
       ],
-      "werkVoiceScore": 0.8925337286499331,
+      "werkVoiceScore": 0.8926511351581422,
       "corpusVoiceScore": 0.8314897082385229,
       "conceptVoiceScore": 0.7835760801110782,
       "conceptAnchor": "lm-verwandlung"
@@ -7061,7 +6877,7 @@
         "MOHAI60S-B7B04552",
         "MOIXN7OL-B18642AC"
       ],
-      "werkVoiceScore": 0.919982151067518,
+      "werkVoiceScore": 0.9206513988285548,
       "corpusVoiceScore": 0.8517523571086317,
       "conceptVoiceScore": 0.7735965026805753,
       "conceptAnchor": "lm-verwandlung"
@@ -7096,7 +6912,7 @@
       "nearDuplicates": [
         "MOUBETTU-F31C5206"
       ],
-      "werkVoiceScore": 0.8800685386944068,
+      "werkVoiceScore": 0.8797418768548685,
       "corpusVoiceScore": 0.8102513068177379,
       "conceptVoiceScore": 0.7836272234239691,
       "conceptAnchor": "lm-verwandlung"
@@ -7124,7 +6940,7 @@
         "MPMTT6GB-1AF44EE4",
         "MPMTQZIN-7863D6D2"
       ],
-      "werkVoiceScore": 0.8551659246292442,
+      "werkVoiceScore": 0.8547098826756203,
       "corpusVoiceScore": 0.8054066732425451,
       "conceptVoiceScore": 0.7492493222686841,
       "conceptAnchor": "lm-begegnung"
@@ -7161,7 +6977,7 @@
         "MPJEBNX3-042F2A69",
         "MOPHZPQ7-B63879B5"
       ],
-      "werkVoiceScore": 0.9299051909110931,
+      "werkVoiceScore": 0.9301732389214168,
       "corpusVoiceScore": 0.8829057108775878,
       "conceptVoiceScore": 0.8436307027763663,
       "conceptAnchor": "resonanzvernunft"
@@ -7190,7 +7006,7 @@
         "MPMTT6GB-1AF44EE4",
         "MPMTQZIN-7863D6D2"
       ],
-      "werkVoiceScore": 0.7855364702101558,
+      "werkVoiceScore": 0.7845602181333926,
       "corpusVoiceScore": 0.8794087721040585,
       "conceptVoiceScore": 0.7116954022482623,
       "conceptAnchor": "resonanzimperativ"
@@ -7221,7 +7037,7 @@
         "MOJ7Q5HM-89F62E3F",
         "MOU9KSV9-70260D9B"
       ],
-      "werkVoiceScore": 0.9174470868377497,
+      "werkVoiceScore": 0.9179550546698977,
       "corpusVoiceScore": 0.8818679449021445,
       "conceptVoiceScore": 0.8379883097936188,
       "conceptAnchor": "resonanzvernunft"
@@ -7258,7 +7074,7 @@
         "MP1CCAYB-32CC9756",
         "MOQIAGXM-397A1F22"
       ],
-      "werkVoiceScore": 0.8851536500998872,
+      "werkVoiceScore": 0.8853443704788257,
       "corpusVoiceScore": 0.8143640857218256,
       "conceptVoiceScore": 0.7882686033733077,
       "conceptAnchor": "unverfuegbarkeit"
@@ -7294,7 +7110,7 @@
         "MOOK20R3-62E609BA",
         "MOOKFUNF-7647B056"
       ],
-      "werkVoiceScore": 0.8792744618389442,
+      "werkVoiceScore": 0.8792229998700036,
       "corpusVoiceScore": 0.8336879437503882,
       "conceptVoiceScore": 0.7926502908005383,
       "conceptAnchor": "unverfuegbarkeit"
@@ -7326,7 +7142,7 @@
         "MOHLZBVK-2FBBAD2F",
         "MOPFJTND-AAE76B2B"
       ],
-      "werkVoiceScore": 0.8997264741937953,
+      "werkVoiceScore": 0.9001313810733778,
       "corpusVoiceScore": 0.8214118171240415,
       "conceptVoiceScore": 0.8121038460872453,
       "conceptAnchor": "welt"
@@ -7364,7 +7180,7 @@
         "MOQ5A1GS-413BDE6F",
         "MOP0S479-373A2268"
       ],
-      "werkVoiceScore": 0.9159836970950374,
+      "werkVoiceScore": 0.9162584230504511,
       "corpusVoiceScore": 0.8795651005543104,
       "conceptVoiceScore": 0.8595134151553117,
       "conceptAnchor": "resonanzvernunft"
@@ -7392,7 +7208,7 @@
         "MOHD4STN-8490D410",
         "MOHCIS4R-69B0D47B"
       ],
-      "werkVoiceScore": 0.8321875064257281,
+      "werkVoiceScore": 0.8320290505944001,
       "corpusVoiceScore": 0.8148846599354822,
       "conceptVoiceScore": 0.7928394899074598,
       "conceptAnchor": "resonanzimperativ"
@@ -7420,7 +7236,7 @@
         "MOHCN98S-2540F4DF",
         "MOUBETTU-F31C5206"
       ],
-      "werkVoiceScore": 0.8307484027356151,
+      "werkVoiceScore": 0.8306160383584079,
       "corpusVoiceScore": 0.7944299668961942,
       "conceptVoiceScore": 0.7363968380083551,
       "conceptAnchor": "resonanzvernunft"
@@ -7448,7 +7264,7 @@
         "MOOK20R3-62E609BA",
         "MP74X3EJ-72CDDB9F"
       ],
-      "werkVoiceScore": 0.8658212223171097,
+      "werkVoiceScore": 0.8654887990857993,
       "corpusVoiceScore": 0.8109905495187711,
       "conceptVoiceScore": 0.7564238274028284,
       "conceptAnchor": "resonanzvernunft"
@@ -7476,7 +7292,7 @@
         "MOHCN98S-2540F4DF",
         "MOHDE0UP-E1D209AD"
       ],
-      "werkVoiceScore": 0.89101824093451,
+      "werkVoiceScore": 0.8908516128155797,
       "corpusVoiceScore": 0.8635831870333144,
       "conceptVoiceScore": 0.7680375901172971,
       "conceptAnchor": "resonanzvernunft"
@@ -7504,7 +7320,7 @@
         "MOHDW91N-D9BDFDB1",
         "MOHCY4TX-251DD6A7"
       ],
-      "werkVoiceScore": 0.8225132296055138,
+      "werkVoiceScore": 0.8224837639864541,
       "corpusVoiceScore": 0.7805345956236511,
       "conceptVoiceScore": 0.7102450422635099,
       "conceptAnchor": "antwort"
@@ -7532,7 +7348,7 @@
         "MOHCN98S-2540F4DF",
         "MOHDP88G-22C5E0FB"
       ],
-      "werkVoiceScore": 0.865209533109907,
+      "werkVoiceScore": 0.8655539327075067,
       "corpusVoiceScore": 0.8272411212206331,
       "conceptVoiceScore": 0.7723976885724719,
       "conceptAnchor": "resonanzimperativ"
@@ -7563,7 +7379,7 @@
       "nearDuplicates": [
         "MOHDAOFD-2C20D4F5"
       ],
-      "werkVoiceScore": 0.8656672590231642,
+      "werkVoiceScore": 0.8655871856019739,
       "corpusVoiceScore": 0.8083376307492673,
       "conceptVoiceScore": 0.7075350877605425,
       "conceptAnchor": "antwort"
@@ -7594,7 +7410,7 @@
       "nearDuplicates": [
         "MOHDE0UP-E1D209AD"
       ],
-      "werkVoiceScore": 0.8670586113981966,
+      "werkVoiceScore": 0.8668899237137481,
       "corpusVoiceScore": 0.8210630540804612,
       "conceptVoiceScore": 0.7279312720363111,
       "conceptAnchor": "dazwischenintelligenz"
@@ -7622,7 +7438,7 @@
         "MOHDLJ25-7A6B620C",
         "MOHCN98S-2540F4DF"
       ],
-      "werkVoiceScore": 0.8473655415877269,
+      "werkVoiceScore": 0.8476532262720426,
       "corpusVoiceScore": 0.8424444265306802,
       "conceptVoiceScore": 0.760827413605074,
       "conceptAnchor": "resonanzvernunft"
@@ -7650,7 +7466,7 @@
         "MOHV84M5-1825A399",
         "MOHD4STN-8490D410"
       ],
-      "werkVoiceScore": 0.8695823678871535,
+      "werkVoiceScore": 0.8700306932850093,
       "corpusVoiceScore": 0.8184670176391102,
       "conceptVoiceScore": 0.7520362150316258,
       "conceptAnchor": "resonanzvernunft"
@@ -7678,7 +7494,7 @@
         "MPMTQZIN-7863D6D2",
         "MOHDW91N-D9BDFDB1"
       ],
-      "werkVoiceScore": 0.855934591051353,
+      "werkVoiceScore": 0.8559914319228006,
       "corpusVoiceScore": 0.8264599196776744,
       "conceptVoiceScore": 0.7493029110300827,
       "conceptAnchor": "resonanzvernunft"
@@ -7709,7 +7525,7 @@
       "nearDuplicates": [
         "MOHCIS4R-69B0D47B"
       ],
-      "werkVoiceScore": 0.8982102585323527,
+      "werkVoiceScore": 0.898498414680339,
       "corpusVoiceScore": 0.861296848501673,
       "conceptVoiceScore": 0.812308101809088,
       "conceptAnchor": "antwort"
@@ -7740,7 +7556,7 @@
       "nearDuplicates": [
         "MOHCN98S-2540F4DF"
       ],
-      "werkVoiceScore": 0.8703800056269853,
+      "werkVoiceScore": 0.8710816320563731,
       "corpusVoiceScore": 0.8285581009452082,
       "conceptVoiceScore": 0.7919015450382377,
       "conceptAnchor": "antwort"
@@ -7768,7 +7584,7 @@
         "MP756UV9-FF3838F7",
         "MQ68LVS7-240568F5"
       ],
-      "werkVoiceScore": 0.8355173704131859,
+      "werkVoiceScore": 0.8360800954299409,
       "corpusVoiceScore": 0.7724328745176743,
       "conceptVoiceScore": 0.8001753122380895,
       "conceptAnchor": "antwort"
@@ -7800,7 +7616,7 @@
       "nearDuplicates": [
         "MOHC5VWC-1EB0E6AA"
       ],
-      "werkVoiceScore": 0.8697588437522877,
+      "werkVoiceScore": 0.8695922078785597,
       "corpusVoiceScore": 0.8689673784247252,
       "conceptVoiceScore": 0.7039701049218925,
       "conceptAnchor": "moment"
@@ -7832,7 +7648,7 @@
       "nearDuplicates": [
         "MOHC8GKH-8E301C89"
       ],
-      "werkVoiceScore": 0.8424252324286468,
+      "werkVoiceScore": 0.8421727814727106,
       "corpusVoiceScore": 0.8301076604579839,
       "conceptVoiceScore": 0.7085791103472774,
       "conceptAnchor": "antwort"
@@ -7861,7 +7677,7 @@
         "MP74X3EJ-72CDDB9F",
         "MPMSSG1X-8451DE38"
       ],
-      "werkVoiceScore": 0.833684581913565,
+      "werkVoiceScore": 0.8334348119457903,
       "corpusVoiceScore": 0.8148744176415634,
       "conceptVoiceScore": 0.6627447750200988,
       "conceptAnchor": "resonanzvernunft"
@@ -7889,7 +7705,7 @@
         "MOOU6X9D-4A49EE98",
         "MPUTC3HP-C68436E5"
       ],
-      "werkVoiceScore": 0.7941758491981152,
+      "werkVoiceScore": 0.793217791602358,
       "corpusVoiceScore": 0.7503636054607462,
       "conceptVoiceScore": 0.6757495425548062,
       "conceptAnchor": "dazwischenintelligenz"
@@ -7917,7 +7733,7 @@
         "MOHV99XP-6917F19F",
         "MOHB8QCN-0E2E8408"
       ],
-      "werkVoiceScore": 0.778706704764234,
+      "werkVoiceScore": 0.7774999814653738,
       "corpusVoiceScore": 0.7314770566230143,
       "conceptVoiceScore": 0.6539714221328458,
       "conceptAnchor": "antwort"
@@ -7941,7 +7757,7 @@
         "MPUSCM19-FD1196BD",
         "MOHB4ILW-65B37C41"
       ],
-      "werkVoiceScore": 0.7632955237720358,
+      "werkVoiceScore": 0.7626825943770058,
       "corpusVoiceScore": 0.702152676750192,
       "conceptVoiceScore": 0.6819960525341343,
       "conceptAnchor": "lm-spiegel"
@@ -7969,7 +7785,7 @@
         "MOOU6X9D-4A49EE98",
         "MPUSZCXA-5CB2DE46"
       ],
-      "werkVoiceScore": 0.7699945948111012,
+      "werkVoiceScore": 0.7687347988083205,
       "corpusVoiceScore": 0.7394540552181625,
       "conceptVoiceScore": 0.7032433878559667,
       "conceptAnchor": "lm-verwandlung"
@@ -7997,7 +7813,7 @@
         "MPUS94IT-9CEEC40A",
         "MPUTC3HP-C68436E5"
       ],
-      "werkVoiceScore": 0.7664531116532763,
+      "werkVoiceScore": 0.765574001169981,
       "corpusVoiceScore": 0.805665380786495,
       "conceptVoiceScore": 0.6546606753184007,
       "conceptAnchor": "gelassenheit"
@@ -8025,7 +7841,7 @@
         "MOHB6DLO-355115A6",
         "MPMU7YZH-2C9CBFE8"
       ],
-      "werkVoiceScore": 0.7677106944146161,
+      "werkVoiceScore": 0.7663956129848605,
       "corpusVoiceScore": 0.7849404871364605,
       "conceptVoiceScore": 0.6849591399830899,
       "conceptAnchor": "lm-verwandlung"
@@ -8056,7 +7872,7 @@
       "nearDuplicates": [
         "MOP0UF96-1A0ACB35"
       ],
-      "werkVoiceScore": 0.8909865251948637,
+      "werkVoiceScore": 0.8910123453158262,
       "corpusVoiceScore": 0.8296355620398833,
       "conceptVoiceScore": 0.8147240086227101,
       "conceptAnchor": "andere"
@@ -8087,7 +7903,7 @@
       "nearDuplicates": [
         "MOOK20R3-62E609BA"
       ],
-      "werkVoiceScore": 0.8883711474722585,
+      "werkVoiceScore": 0.8883055549273777,
       "corpusVoiceScore": 0.8189992626615301,
       "conceptVoiceScore": 0.7632074608521344,
       "conceptAnchor": "unverfuegbarkeit"
@@ -8115,7 +7931,7 @@
         "MPUSXGC6-CD078CEA",
         "MPURYS56-11F5308C"
       ],
-      "werkVoiceScore": 0.8661346648562395,
+      "werkVoiceScore": 0.8664128553477987,
       "corpusVoiceScore": 0.7968388087652221,
       "conceptVoiceScore": 0.7388482943073685,
       "conceptAnchor": "zeit"
@@ -8149,7 +7965,7 @@
         "MPAGOCGB-FB54D923",
         "MOIXN434-9D5CBFC0"
       ],
-      "werkVoiceScore": 0.899883710084614,
+      "werkVoiceScore": 0.9003479209723965,
       "corpusVoiceScore": 0.8161806450288979,
       "conceptVoiceScore": 0.7573030991032509,
       "conceptAnchor": "ich-du"
@@ -8188,7 +8004,7 @@
         "MPNDAPRT-D64D197A",
         "MP2LIW43-E8ADC59E"
       ],
-      "werkVoiceScore": 0.8941212017813281,
+      "werkVoiceScore": 0.8944146679184816,
       "corpusVoiceScore": 0.8322709049348642,
       "conceptVoiceScore": 0.8376579063862165,
       "conceptAnchor": "selbst"
