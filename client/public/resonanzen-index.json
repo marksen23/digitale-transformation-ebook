@@ -2536,7 +2536,11 @@
       "werkVoiceScore": 0.882582300044059,
       "corpusVoiceScore": 0.819550890045381,
       "conceptVoiceScore": 0.709861217487282,
-      "conceptAnchor": "lm-verwandlung"
+      "conceptAnchor": "lm-verwandlung",
+      "ai_score": 3,
+      "ai_score_reason": "Die Analyse bleibt eine Paraphrase der Pfade und behauptet deren Konvergenz, anstatt einen neuen, denkerischen Schritt aus dem Vergleich selbst zu vollziehen.",
+      "ai_score_at": "2026-06-22T23:55:28.752Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUNXFU1-3B1F056A",
