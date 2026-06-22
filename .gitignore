@@ -124,3 +124,6 @@ client/public/__manus__/version.json
 # RAG-Eval-Reports — nur latest committen, timestamped sind transient
 eval/rag-results-2*.json
 !eval/rag-results-latest.json
+
+# Lokale Kuratierungs-Liste (generiert, nicht committen)
+curation-worklist.md
