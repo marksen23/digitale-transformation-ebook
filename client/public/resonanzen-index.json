@@ -728,7 +728,11 @@
       "werkVoiceScore": 0.8113690773043324,
       "corpusVoiceScore": 0.7538900918584922,
       "conceptVoiceScore": 0.6914482561696691,
-      "conceptAnchor": "werden"
+      "conceptAnchor": "werden",
+      "ai_score": 4,
+      "ai_score_reason": "Stilistisch und gedanklich sehr nah am Werk, aber die Metaphern wirken eher gesetzt als organisch entwickelt und durchdacht.",
+      "ai_score_at": "2026-06-22T14:41:47.234Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5X1ZYV-9D7A29CC",
