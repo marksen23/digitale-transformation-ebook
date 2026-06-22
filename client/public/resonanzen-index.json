@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T14:17:36.884Z",
+  "generatedAt": "2026-06-22T14:29:41.716Z",
   "count": 234,
   "entries": [
     {
@@ -169,8 +169,13 @@
         "streamed": "true",
         "thread": "[]",
         "had_user_answer": "false",
-        "werk_passages": "[{\"id\":\"4bb4b9f58d13\",\"score\":0.775},{\"id\":\"ac42c424354e\",\"score\":0.773},{\"id\":\"50f17c2e4066\",\"score\":0.768},{\"id\":\"ad4082a4e4db\",\"score\":0.765}]"
+        "werk_passages": "",
+        "{ \"id\"": "\"ad4082a4e4db\", \"score\": 0.765 }"
       },
+      "ai_score": 5,
+      "ai_score_reason": "Die Antwort imitiert den Duktus perfekt und entwickelt durch die abschließende",
+      "ai_score_at": "2026-06-22T14:28:40.385Z",
+      "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MP756UV9-FF3838F7",
         "MOHAREIB-E15E7BF8",
@@ -1160,6 +1165,10 @@
       "contextMeta": {
         "turnCount": "2"
       },
+      "ai_score": 5,
+      "ai_score_reason": "Die Antwort ist stilistisch perfekt und entwickelt durch den konkreten",
+      "ai_score_at": "2026-06-22T14:17:35.087Z",
+      "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MPUU1101-EDF34032",
         "MOHV99XP-6917F19F",
@@ -1170,11 +1179,7 @@
       "werkVoiceScore": 0.8005142247882683,
       "corpusVoiceScore": 0.7953042130298721,
       "conceptVoiceScore": 0.7248868994472616,
-      "conceptAnchor": "wahrheit",
-      "ai_score": 5,
-      "ai_score_reason": "Die Antwort ist stilistisch perfekt und entwickelt durch den konkreten Kant-Bezug einen eigenständigen, denkerischen Beitrag zur Frage.",
-      "ai_score_at": "2026-06-22T14:17:35.087Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "wahrheit"
     },
     {
       "id": "MQ5CMPJB-3D705D06",
