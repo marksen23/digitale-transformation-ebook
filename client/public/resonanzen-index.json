@@ -1050,7 +1050,11 @@
       "werkVoiceScore": 0.8997846348775459,
       "corpusVoiceScore": 0.8368965813880282,
       "conceptVoiceScore": 0.8380817374130851,
-      "conceptAnchor": "resonanz"
+      "conceptAnchor": "resonanz",
+      "ai_score": 5,
+      "ai_score_reason": "Der Duktus ist perfekt getroffen; die abschließende Frage formuliert einen eigenständigen, weiterführenden denkerischen Beitrag.",
+      "ai_score_at": "2026-06-22T14:16:38.213Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5JM1HD-9047C82F",
