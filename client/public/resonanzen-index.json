@@ -2861,7 +2861,11 @@
       "werkVoiceScore": 0.8588200327997011,
       "corpusVoiceScore": 0.8030136531468325,
       "conceptVoiceScore": 0.7407635547306723,
-      "conceptAnchor": "lm-scheitern"
+      "conceptAnchor": "lm-scheitern",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort ordnet die Begriffe des Werks virtuos zu, bleibt aber im Kern ein hochkompetentes Referat ohne den entscheidenden, weiterführenden Denkschritt.",
+      "ai_score_at": "2026-06-22T23:55:54.020Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMU67V4-938B932C",
