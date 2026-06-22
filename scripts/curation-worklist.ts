@@ -41,6 +41,18 @@ const f = (n?: number) => (typeof n === "number" ? n.toFixed(2) : "–");
 const clip = (s: string, n: number) => (s.length > n ? s.slice(0, n) + "…" : s);
 
 /**
+ * Bereichs-Vorrang (empirisch, 2026-06-22): denkerische Endpoints gehen meist
+ * direkt in dichten Gedanken → hohe Keeper-Quote; graph-chat/chapter tendieren
+ * zu Erklär-/Zitat-Modus („Wie der Text festhält…", inline-Citations) → meist
+ * skip. Niedriger = weiter oben in der Sichtung.
+ */
+function endpointPrio(ep: string): number {
+  if (["analyse", "dialog", "enkidu"].includes(ep)) return 0;     // denkerisch
+  if (["path-analyse", "passage", "weiterdenken"].includes(ep)) return 1;
+  return 2;                                                        // graph-chat, chapter, …
+}
+
+/**
  * KI-Duktus-Heuristik: markiert die Stimme-Marker, die WEDER ai_score NOCH
  * corpusVoiceScore erfassen (corpusVoice belohnt Vokabular, nicht Stimme).
  * Das Werk ist fließende Meditation in 3. Person — KI-Antworten verraten sich
@@ -74,12 +86,14 @@ async function main() {
   if (SCORED_ONLY) pool = pool.filter(e => e.ai_score !== undefined);
   if (MIN_CV > 0) pool = pool.filter(e => (e.corpusVoiceScore ?? 0) >= MIN_CV);
 
-  // Sortierung: SAUBERE (werk-stimmige) Einträge zuerst — niedriger KI-Duktus,
-  // dann stärkste Werk-Nähe. So floaten die echten Keeper nach oben, statt der
-  // vokabular-dichten Coaching-Antworten (die corpusVoiceScore hochrankt).
+  // Sortierung: 1) SAUBER (niedriger KI-Duktus) zuerst, 2) denkerischer Bereich
+  // (analyse/dialog/enkidu) vor Erklär-Bereichen (graph-chat/chapter), 3) stärkste
+  // Werk-Nähe. So floaten die echten Keeper nach oben, nicht die vokabular-dichten
+  // Coaching-/Zitat-Antworten (die corpusVoiceScore sonst hochrankt).
   const dukt = new Map(pool.map(e => [e.id, aiDuktus(e.response)]));
   pool.sort((a, b) =>
     (dukt.get(a.id)!.severity - dukt.get(b.id)!.severity) ||
+    (endpointPrio(a.endpoint) - endpointPrio(b.endpoint)) ||
     ((b.corpusVoiceScore ?? 0) - (a.corpusVoiceScore ?? 0)),
   );
 
@@ -99,7 +113,8 @@ async function main() {
     ``,
     `Stand: ${new Date().toLocaleString("de-DE")} · ${scored}/${pool.length} mit Kritik · ${clean}/${pool.length} ohne KI-Duktus`,
     ``,
-    `**Sortierung: saubere (werk-stimmige) Einträge zuerst.** Die Spalte **Duktus**`,
+    `**Sortierung: sauber + denkerischer Bereich (analyse/dialog/enkidu) zuerst.**`,
+    `(graph-chat/chapter neigen zu Erklär-/Zitat-Modus → weiter unten.) Die Spalte **Duktus**`,
     `markiert KI-Stimme-Marker, die WEDER ai_score NOCH corpusVoiceScore erfassen:`,
     `\`coaching\` = Leser-Anrede/„Ihre Frage ist…"; \`quotes×N\` = Begriffs-Anführungszeichen;`,
     `\`bold\` = Markdown-Fett; \`liste\` = Aufzählung. **⚠-Zeilen sind fast immer skip** —`,
