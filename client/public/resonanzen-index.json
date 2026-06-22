@@ -2210,7 +2210,11 @@
       "werkVoiceScore": 0.7711230127924594,
       "corpusVoiceScore": 0.7282792786262369,
       "conceptVoiceScore": 0.6393087969113483,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort ist eine kompetente, werksnahe Paraphrase, die aber im Kern eine Behauptung bleibt und keinen eigenen denkerischen Schritt vollzieht.",
+      "ai_score_at": "2026-06-22T23:54:55.371Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUSEQMB-A31FD1B3",
