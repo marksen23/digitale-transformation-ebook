@@ -2893,7 +2893,11 @@
       "werkVoiceScore": 0.8588200327997011,
       "corpusVoiceScore": 0.8030136531468325,
       "conceptVoiceScore": 0.7407635547306723,
-      "conceptAnchor": "lm-scheitern"
+      "conceptAnchor": "lm-scheitern",
+      "ai_score": 3,
+      "ai_score_reason": "Es handelt sich um eine exzellente, werksnahe Reorganisation des Vorgegebenen, die jedoch im Kern ein Referat bleibt und keine neue denkerische Bewegung vollzieht.",
+      "ai_score_at": "2026-06-22T23:56:01.174Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMTT6GB-1AF44EE4",
