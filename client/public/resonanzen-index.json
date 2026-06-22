@@ -326,7 +326,11 @@
       "werkVoiceScore": 0.8453427943031088,
       "corpusVoiceScore": 0.8054556032317667,
       "conceptVoiceScore": 0.7965772472520537,
-      "conceptAnchor": "schweigen"
+      "conceptAnchor": "schweigen",
+      "ai_score": 5,
+      "ai_score_reason": "Der Text ist stilistisch nicht vom Werk zu unterscheiden und führt den Gedanken mit dem Begriff der 'Dazwischenintelligenz' originär weiter.",
+      "ai_score_at": "2026-06-22T09:28:40.194Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5XNFSV-CD34905C",
