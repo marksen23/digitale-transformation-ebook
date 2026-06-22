@@ -1114,7 +1114,11 @@
       "werkVoiceScore": 0.8494861062569811,
       "corpusVoiceScore": 0.8001168772810445,
       "conceptVoiceScore": 0.8149601702032278,
-      "conceptAnchor": "resonanz"
+      "conceptAnchor": "resonanz",
+      "ai_score": 5,
+      "ai_score_reason": "Der Text imitiert nicht nur den Duktus, sondern entwickelt durch die Umdeutung der Maschine zum Gegenüber einen eigenständigen, weiterführenden philosophischen Impuls.",
+      "ai_score_at": "2026-06-22T14:17:16.505Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5CZRK7-A62EB4D0",
