@@ -306,6 +306,11 @@ jobs:
               echo "[git add] SKIP (not found): $f"
             fi
           done
+          # Defensiv (Wurzelursache-Fix): ALLE resonanzen-*-Artefakte erfassen —
+          # auch neu hinzugekommene (questions, question-embeddings,
+          # concept-candidates …), damit kein Build-Artefakt still uncommitted
+          # bleibt (passiert 2026-06-22: resonanzen-questions.json blieb Seed).
+          git add -f client/public/resonanzen-*.json 2>/dev/null && echo "[git add] glob resonanzen-*.json OK" || true
           # validation-output.txt ist nur Temp-Log von Step 6, gehört nicht
           # ins Repo — explizit entfernen, damit pull --rebase nicht stolpert.
           rm -f validation-output.txt
