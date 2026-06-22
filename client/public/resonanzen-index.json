@@ -2070,7 +2070,11 @@
       "werkVoiceScore": 0.7833262039784319,
       "corpusVoiceScore": 0.7296732236590087,
       "conceptVoiceScore": 0.6387510067500007,
-      "conceptAnchor": "lm-begegnung"
+      "conceptAnchor": "lm-begegnung",
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine kompetente, werksprachliche Paraphrase bekannter Thesen, die aber keinen neuen Gedanken entwickelt, sondern nur behauptend anwendet.",
+      "ai_score_at": "2026-06-22T23:54:21.352Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUSR6XO-4FE2D10B",
