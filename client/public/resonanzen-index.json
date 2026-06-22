@@ -3186,7 +3186,11 @@
       "werkVoiceScore": 0.7681126420498801,
       "corpusVoiceScore": 0.7923255742600792,
       "conceptVoiceScore": 0.6418231478941848,
-      "conceptAnchor": "raumfaltung"
+      "conceptAnchor": "raumfaltung",
+      "ai_score": 4,
+      "ai_score_reason": "Der Text entwickelt den Gedanken des \"kulturellen Betriebssystems\" originär weiter, indem er ihn mit Kants Vormundschaftsbegriff kurzschließt und die Frage nach dem Widerstand zuspitzt.",
+      "ai_score_at": "2026-06-22T23:56:33.880Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMLZAEP-35849C9E",
