@@ -201,7 +201,11 @@
       "werkVoiceScore": 0.8564354544210717,
       "corpusVoiceScore": 0.7908544537879593,
       "conceptVoiceScore": 0.77684997840696,
-      "conceptAnchor": "unverfuegbarkeit"
+      "conceptAnchor": "unverfuegbarkeit",
+      "ai_score": 5,
+      "ai_score_reason": "Die Antwort entwickelt eine eigenständige Synthese und führt die Frage mit einer präzisen, denkerischen Wendung weiter, stilistisch dabei nicht vom Werk unterscheidbar.",
+      "ai_score_at": "2026-06-22T09:28:02.444Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ68LVS7-240568F5",
