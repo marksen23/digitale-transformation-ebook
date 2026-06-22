@@ -1,0 +1,185 @@
+{
+  "ts": "2026-06-22T08:57:24.558Z",
+  "schema_version": 1,
+  "total_files": 240,
+  "corpus_hash": "sha256:f26bb5b3479dac7b",
+  "counts_by_endpoint": {
+    "analyse": 58,
+    "chapter": 28,
+    "dialog": 27,
+    "enkidu": 53,
+    "graph-chat": 32,
+    "path-analyse": 36,
+    "translate": 6
+  },
+  "status_distribution": {
+    "published": 117,
+    "rejected": 2,
+    "raw": 103,
+    "approved": 18
+  },
+  "top_anchors": [
+    {
+      "key": "enkidu",
+      "count": 53
+    },
+    {
+      "key": "graph",
+      "count": 32
+    },
+    {
+      "key": "dialog:erkenntnis+lm-verwandlung",
+      "count": 19
+    },
+    {
+      "key": "chapter:band3-kap3",
+      "count": 5
+    },
+    {
+      "key": "chapter:teil7",
+      "count": 5
+    },
+    {
+      "key": "dialog:weiterdenken",
+      "count": 5
+    },
+    {
+      "key": "chapter:teil6",
+      "count": 4
+    },
+    {
+      "key": "chapter:band3-kap4",
+      "count": 3
+    },
+    {
+      "key": "chapter:band3-kap5",
+      "count": 3
+    },
+    {
+      "key": "chapter:teil4",
+      "count": 3
+    },
+    {
+      "key": "analyse:erkenntnis+lm-verwandlung",
+      "count": 2
+    },
+    {
+      "key": "chapter:teil5",
+      "count": 2
+    },
+    {
+      "key": "dialog:freier",
+      "count": 2
+    },
+    {
+      "key": "analyse:andere+bewusstsein+lm-grenze+welt",
+      "count": 1
+    },
+    {
+      "key": "analyse:andere+spannung",
+      "count": 1
+    },
+    {
+      "key": "analyse:andere+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:antwort+dazwischenintelligenz+gegenwart",
+      "count": 1
+    },
+    {
+      "key": "analyse:antwort+erkenntnis+vernunft",
+      "count": 1
+    },
+    {
+      "key": "analyse:bewusstsein+dasein+resonanz",
+      "count": 1
+    },
+    {
+      "key": "analyse:bewusstsein+klang+moment+welt",
+      "count": 1
+    }
+  ],
+  "top_tags": [
+    {
+      "key": "lm-verwandlung",
+      "count": 34
+    },
+    {
+      "key": "erkenntnis",
+      "count": 28
+    },
+    {
+      "key": "resonanzvernunft",
+      "count": 21
+    },
+    {
+      "key": "resonanz",
+      "count": 18
+    },
+    {
+      "key": "zwischen",
+      "count": 16
+    },
+    {
+      "key": "vernunft",
+      "count": 14
+    },
+    {
+      "key": "lm-grenze",
+      "count": 10
+    },
+    {
+      "key": "unverfuegbarkeit",
+      "count": 10
+    },
+    {
+      "key": "welt",
+      "count": 9
+    },
+    {
+      "key": "spannung",
+      "count": 9
+    },
+    {
+      "key": "wahrheit",
+      "count": 9
+    },
+    {
+      "key": "selbst",
+      "count": 9
+    },
+    {
+      "key": "sprache",
+      "count": 8
+    },
+    {
+      "key": "bewusstsein",
+      "count": 7
+    },
+    {
+      "key": "dasein",
+      "count": 7
+    },
+    {
+      "key": "klang",
+      "count": 7
+    },
+    {
+      "key": "sein",
+      "count": 7
+    },
+    {
+      "key": "moment",
+      "count": 6
+    },
+    {
+      "key": "denken",
+      "count": 6
+    },
+    {
+      "key": "echo",
+      "count": 6
+    }
+  ]
+}
