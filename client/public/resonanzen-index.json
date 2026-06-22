@@ -1016,7 +1016,11 @@
       "werkVoiceScore": 0.851114859704656,
       "corpusVoiceScore": 0.8410715414272475,
       "conceptVoiceScore": 0.8519859920418561,
-      "conceptAnchor": "entfremdung"
+      "conceptAnchor": "entfremdung",
+      "ai_score": 3,
+      "ai_score_reason": "Thematisch sehr stark, aber der erklärende Duktus und die KI-typische Formatierung (Fettungen, Zitate) überlagern den eigentlichen philosophischen Stil des Werks.",
+      "ai_score_at": "2026-06-22T14:16:18.712Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5KBJMQ-5C523141",
