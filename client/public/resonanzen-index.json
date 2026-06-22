@@ -181,7 +181,11 @@
       "werkVoiceScore": 0.8536936638166012,
       "corpusVoiceScore": 0.7970785850186514,
       "conceptVoiceScore": 0.7477795356758488,
-      "conceptAnchor": "antwort"
+      "conceptAnchor": "antwort",
+      "ai_score": 5,
+      "ai_score_reason": "Die Antwort imitiert den Duktus perfekt und entwickelt durch die abschließende Frage einen eigenständigen philosophischen Impuls.",
+      "ai_score_at": "2026-06-22T14:28:40.385Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ66ZWYC-52DE2DF2",
@@ -1060,7 +1064,7 @@
         "werk_passages": "[]"
       },
       "ai_score": 5,
-      "ai_score_reason": "Der Duktus ist perfekt getroffen; die abschließende Frage formuliert einen",
+      "ai_score_reason": "Der Duktus ist perfekt getroffen; die abschließende Frage formuliert einen eigenständigen, weiterführenden denkerischen Beitrag.",
       "ai_score_at": "2026-06-22T14:16:38.213Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -1078,11 +1082,7 @@
       "werkVoiceScore": 0.8997846348775459,
       "corpusVoiceScore": 0.8368965813880282,
       "conceptVoiceScore": 0.8380817374130851,
-      "conceptAnchor": "resonanz",
-      "ai_score": 5,
-      "ai_score_reason": "Der Duktus ist perfekt getroffen; die abschließende Frage formuliert einen eigenständigen, weiterführenden denkerischen Beitrag.",
-      "ai_score_at": "2026-06-22T14:16:38.213Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "resonanz"
     },
     {
       "id": "MQ5JM1HD-9047C82F",
@@ -1098,7 +1098,7 @@
         "werk_passages": "[]"
       },
       "ai_score": 5,
-      "ai_score_reason": "Stilistisch nicht vom Werk zu unterscheiden, bringt die Schlussfrage einen",
+      "ai_score_reason": "Stilistisch nicht vom Werk zu unterscheiden, bringt die Schlussfrage einen eigenständigen, weiterführenden Gedanken zur digitalen Transformation ein.",
       "ai_score_at": "2026-06-22T14:16:57.180Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -1115,11 +1115,7 @@
       "werkVoiceScore": 0.8510841486985179,
       "corpusVoiceScore": 0.787838464842294,
       "conceptVoiceScore": 0.8808246517849194,
-      "conceptAnchor": "resonanz",
-      "ai_score": 5,
-      "ai_score_reason": "Stilistisch nicht vom Werk zu unterscheiden, bringt die Schlussfrage einen eigenständigen, weiterführenden Gedanken zur digitalen Transformation ein.",
-      "ai_score_at": "2026-06-22T14:16:57.180Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "resonanz"
     },
     {
       "id": "MQ5JL9TM-83E39C42",
@@ -1137,7 +1133,7 @@
         "werk_passages": "[]"
       },
       "ai_score": 5,
-      "ai_score_reason": "Der Text imitiert nicht nur den Duktus, sondern entwickelt durch die Umdeutung",
+      "ai_score_reason": "Der Text imitiert nicht nur den Duktus, sondern entwickelt durch die Umdeutung der Maschine zum Gegenüber einen eigenständigen, weiterführenden philosophischen Impuls.",
       "ai_score_at": "2026-06-22T14:17:16.505Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
@@ -1150,11 +1146,7 @@
       "werkVoiceScore": 0.8494861062569811,
       "corpusVoiceScore": 0.8001168772810445,
       "conceptVoiceScore": 0.8149601702032278,
-      "conceptAnchor": "resonanz",
-      "ai_score": 5,
-      "ai_score_reason": "Der Text imitiert nicht nur den Duktus, sondern entwickelt durch die Umdeutung der Maschine zum Gegenüber einen eigenständigen, weiterführenden philosophischen Impuls.",
-      "ai_score_at": "2026-06-22T14:17:16.505Z",
-      "ai_score_model": "gemini-2.5-pro"
+      "conceptAnchor": "resonanz"
     },
     {
       "id": "MQ5CZRK7-A62EB4D0",
