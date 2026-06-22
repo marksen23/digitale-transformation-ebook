@@ -48,6 +48,7 @@ const NAV: NavItem[] = [
   { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
   { href: "/landkarte",    i18nKey: "nav.landkarte",    match: /^\/landkarte/ },
   { href: "/fragen",       i18nKey: "nav.fragen",       match: /^\/fragen/ },
+  { href: "/erkenntnisse", i18nKey: "nav.erkenntnisse", match: /^\/erkenntnisse/ },
   { href: "/live",         i18nKey: "nav.live",         match: /^\/live/ },
   { href: "/blog",         i18nKey: "nav.blog",         match: /^\/blog/ },
 ];
