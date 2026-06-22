@@ -2245,7 +2245,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
   app.post("/api/admin/auto-curate", async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
-    const { mode, limit } = req.body as { mode?: string; limit?: number };
+    const { mode, limit, skipReject } = req.body as { mode?: string; limit?: number; skipReject?: boolean };
     if (mode !== "preview" && mode !== "apply") {
       return res.status(400).json({ error: 'mode muss "preview" oder "apply" sein' });
     }
@@ -2294,9 +2294,14 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
         const r = await curateEntryStatus(c.id, "approved", "auto-curate");
         applied.push({ id: c.id, to: "approved", ok: r.ok, ...(r.ok ? {} : { error: r.error }) });
       }
-      for (const c of reject) {
-        const r = await curateEntryStatus(c.id, "rejected", "auto-curate");
-        applied.push({ id: c.id, to: "rejected", ok: r.ok, ...(r.ok ? {} : { error: r.error }) });
+      // skipReject (approve-only): die Reject-Klassifikation bleibt in der
+      // Antwort sichtbar, wird aber NICHT angewandt — Borderline-Einträge (z. B.
+      // werknah, aber ai_score niedrig) bleiben `raw` für die manuelle Sichtung.
+      if (!skipReject) {
+        for (const c of reject) {
+          const r = await curateEntryStatus(c.id, "rejected", "auto-curate");
+          applied.push({ id: c.id, to: "rejected", ok: r.ok, ...(r.ok ? {} : { error: r.error }) });
+        }
       }
     }
 
@@ -2308,7 +2313,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
       unscored,           // nur im preview relevant: so viele bräuchten erst Pre-Score
       scored,             // im apply: so viele wurden frisch bewertet
       approve, reject, review,
-      ...(mode === "apply" ? { applied } : {}),
+      ...(mode === "apply" ? { applied, skipReject: skipReject === true } : {}),
     });
   });
 

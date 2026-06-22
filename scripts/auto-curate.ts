@@ -15,6 +15,11 @@
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts                  # preview (read-only), limit 50
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --limit 200      # preview, mehr Kandidaten
  *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --limit 25
+ *   ADMIN_TOKEN=… pnpm tsx scripts/auto-curate.ts --apply --no-reject  # NUR approves anwenden
+ *
+ * --no-reject (approve-only): wendet beim Apply nur Freigaben an; die
+ * Reject-Klassifikation bleibt sichtbar, aber Borderline-Einträge (z. B.
+ * werknah, aber ai_score niedrig) bleiben `raw` für die manuelle Sichtung.
  *
  * Env:
  *   ADMIN_TOKEN  (Pflicht) — der Admin-Bearer-Token
@@ -22,6 +27,7 @@
  */
 const API_BASE = process.env.API_BASE ?? "https://digitale-transformation-ebook.onrender.com";
 const APPLY = process.argv.includes("--apply");
+const NO_REJECT = process.argv.includes("--no-reject");
 
 function argNum(flag: string, fallback: number): number {
   const i = process.argv.indexOf(flag);
@@ -45,6 +51,7 @@ interface AutoCurateResponse {
   scored: number;
   approve: ClassifiedEntry[]; reject: ClassifiedEntry[]; review: ClassifiedEntry[];
   applied?: Array<{ id: string; to: string; ok: boolean; error?: string }>;
+  skipReject?: boolean;
 }
 
 const fmt = (n: number | null) => (typeof n === "number" ? n.toFixed(2) : "–");
@@ -62,11 +69,11 @@ async function main() {
   if (!token) { console.error("[auto-curate] ADMIN_TOKEN fehlt — Abbruch."); process.exit(1); }
   const mode = APPLY ? "apply" : "preview";
 
-  console.log(`[auto-curate] mode=${mode} · limit=${LIMIT} · ${API_BASE}`);
+  console.log(`[auto-curate] mode=${mode} · limit=${LIMIT}${APPLY && NO_REJECT ? " · approve-only (--no-reject)" : ""} · ${API_BASE}`);
   const r = await fetch(`${API_BASE}/api/admin/auto-curate`, {
     method: "POST",
     headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
-    body: JSON.stringify({ mode, limit: LIMIT }),
+    body: JSON.stringify({ mode, limit: LIMIT, ...(NO_REJECT ? { skipReject: true } : {}) }),
   });
   const data = await r.json().catch(() => ({})) as AutoCurateResponse & { error?: string };
   if (!r.ok) { console.error(`[auto-curate] HTTP ${r.status}:`, data.error ?? data); process.exit(1); }
@@ -85,6 +92,7 @@ async function main() {
     const ok = (data.applied ?? []).filter(a => a.ok).length;
     const fail = (data.applied ?? []).length - ok;
     console.log(`\n[auto-curate] FERTIG — ${ok} angewandt, ${fail} fehlgeschlagen (${data.scored} frisch bewertet).`);
+    if (data.skipReject) console.log(`[auto-curate] approve-only: ${data.counts.reject} Rejects NICHT angewandt — bleiben raw für manuelle Sichtung.`);
     if (fail > 0) console.log("[auto-curate] Fehler:", (data.applied ?? []).filter(a => !a.ok).slice(0, 5));
   } else {
     console.log("\n[auto-curate] PREVIEW — nichts geändert. Mit `--apply` (und ADMIN_TOKEN) ausführen.");
