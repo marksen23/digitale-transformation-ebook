@@ -8277,7 +8277,11 @@
       "werkVoiceScore": 0.9003479209723965,
       "corpusVoiceScore": 0.8161806450288979,
       "conceptVoiceScore": 0.7573030991032509,
-      "conceptAnchor": "ich-du"
+      "conceptAnchor": "ich-du",
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine sehr gute Paraphrase und Verknüpfung, aber der Kern bleibt Behauptung statt eines eigenständigen, denkerischen Schrittes, der das Werk voranbringt.",
+      "ai_score_at": "2026-06-22T23:57:13.615Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MOHAGNGB-5330902E",
