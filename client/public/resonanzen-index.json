@@ -809,7 +809,11 @@
       "werkVoiceScore": 0.8089926765082374,
       "corpusVoiceScore": 0.7615354846974832,
       "conceptVoiceScore": 0.7465783271417104,
-      "conceptAnchor": "spannung"
+      "conceptAnchor": "spannung",
+      "ai_score": 5,
+      "ai_score_reason": "Stilistisch authentisch, führt die Antwort die Frage durch einen eigenen, weiterführenden denkerischen Impuls zur Selbstoptimierung fort.",
+      "ai_score_at": "2026-06-22T14:14:47.249Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5WX52Q-442369F2",
