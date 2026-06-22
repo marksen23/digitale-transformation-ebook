@@ -1816,7 +1816,11 @@
       "werkVoiceScore": 0.8208349507278041,
       "corpusVoiceScore": 0.7873068627867666,
       "conceptVoiceScore": 0.7076649402037638,
-      "conceptAnchor": "antwort"
+      "conceptAnchor": "antwort",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert den Nutzer-Input und stellt dann eine Reihe von Gegenfragen, was eher ein Sokratischer Dialog als ein eigenständiger Denkschritt ist.",
+      "ai_score_at": "2026-06-22T23:53:27.700Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUTC3HP-C68436E5",
