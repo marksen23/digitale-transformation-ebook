@@ -1984,7 +1984,11 @@
       "werkVoiceScore": 0.758457638110151,
       "corpusVoiceScore": 0.7322710451160508,
       "conceptVoiceScore": 0.6802349029834819,
-      "conceptAnchor": "freiheit"
+      "conceptAnchor": "freiheit",
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine exzellente Paraphrase, die das Werk verstanden hat, aber der entscheidende Sprung zu einem neuen Gedanken fehlt.",
+      "ai_score_at": "2026-06-22T23:54:07.385Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUSZCXA-5CB2DE46",
