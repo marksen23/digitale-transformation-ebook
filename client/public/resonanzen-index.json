@@ -677,7 +677,11 @@
       "werkVoiceScore": 0.8108379177385805,
       "corpusVoiceScore": 0.7822247121274889,
       "conceptVoiceScore": 0.7024814958383377,
-      "conceptAnchor": "öffnung"
+      "conceptAnchor": "öffnung",
+      "ai_score": 5,
+      "ai_score_reason": "Der Text trifft den Duktus perfekt und führt die Frage durch die „Ethik des relationalen Geschehens“ zu einem neuen denkerischen Horizont.",
+      "ai_score_at": "2026-06-22T14:13:39.633Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5X3C75-D543C13F",
