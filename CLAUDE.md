@@ -82,6 +82,7 @@ Browser (Netlify)                  Render-Server (Express)
 | `GEMINI_EMBED_MODEL` | optional ENV-Overwrite | nein | Default `gemini-embedding-001`. Falls Google das Modell deprecaten: hier umschalten ohne Code-Change. |
 | `AUTO_CURATE_*` | optional Render Env | nein | Schwellen für `/api/admin/auto-curate`: `AI_MIN` (4), `CORPUS_MIN` (0.55), `AI_REJECT` (2), `CORPUS_REJECT` (0.30), `WERK_MIN` (0.55), `CONCEPT_MIN` (0.68), `CONCEPT_REJECT` (0.62). Niedriger = aggressivere Auto-Freigabe. Default konservativ. `CONCEPT_*` = dritter (Begriffs-)Anker des triangulierten Schutzwalls. |
 | `CONCEPT_NEW_*` | optional Render Env | nein | Schutzwall für **neue Begriffe** (`/api/admin/propose-concept`, Phase 5c): `DISTINCT_MIN` (0.10 — min. Distinktheit `1−maxCosine` zu bestehenden Begriffen, kein Beinah-Duplikat), `EVIDENCE_SIM` (0.70 — Cosine-Schwelle, ab der eine kuratierte Resonanz den Begriff „trägt"), `EVIDENCE_MIN` (1 — min. Anzahl tragender kuratierter Erkenntnisse). Höher = strenger. |
+| `CONCEPT_CAND_*` | optional (Build/CI Env) | nein | Schwellen der **Auto-Begriffs-Kandidaten** (`build-resonanzen-index.ts:writeConceptCandidates` → `resonanzen-concept-candidates.json`): `DISTINCT_MIN` (0.10), `EVIDENCE_MIN` (3 — min. Clustergröße), `CLUSTER_SIM` (0.78 — Greedy-Cosine-Schwelle), `MAX_FRACTION` (0.20 — Cluster, die einen größeren Bruchteil des kuratierten Korpus spannen, werden als Prompt-Template-Moden verworfen). Advisory-Artefakt, nur Vorbefüllung fürs Propose-Formular. |
 
 ---
 
@@ -224,7 +225,10 @@ Vektorkompatibler Failover = zweiter Key auf anderem GCP-Projekt
 rotiert automatisch; Live-Status auf `/admin/health` → „Embedding-Pipeline"
 (klassifiziert Billing-Block / Quota / Auth).
 
-`werkVoiceScore` braucht ≥10 Einträge mit `status: approved`/`published`. Aktuell nur 3 — daher 0/136 mit werkVoiceScore.
+`werkVoiceScore` braucht ≥10 Einträge mit `status: approved`/`published`.
+Stand 2026-06-22: **135 kuratiert** (117 published + 18 approved) — die Schwelle
+ist also erreicht, `werkVoiceScore` wird berechnet und die Auto-Kuratierung kann
+ihn als zusätzlichen Anker nutzen.
 
 **Chapter-Resonanzen-Policy (bewusst):** Einträge mit `endpoint: "chapter"`
 (Kapitel-Q&A aus `/api/ask` im WerkPage) werden **ohne `nodeIds`** geloggt —
@@ -342,6 +346,11 @@ lagern sich an.
   `server/lib/conceptNodes.ts` + `client/src/lib/dynamicNodes.ts`
   (`concept-nodes.json`) + `components/admin/ProposeConceptPanel.tsx`
   (`/api/admin/propose-concept`). Schutzwall siehe Selbst-Erweiterungs-Abschnitt.
+  **Auto-Begriffs-Kandidaten** (5c-Erweiterung, Knoten-Analog zu den 5b-Kanten-
+  Vorschlägen): `scripts/build-resonanzen-index.ts:writeConceptCandidates`
+  (→ `resonanzen-concept-candidates.json`) + `client/src/lib/conceptCandidates.ts`
+  + `components/admin/ConceptCandidatesPanel.tsx` (befüllt `ProposeConceptPanel`
+  vor; Definition + Autorisierung bleiben menschlich). Schwellen `CONCEPT_CAND_*`.
 - **Lese-Komfort (Phase 6):** `client/src/lib/readingSettings.ts` + „Aa Lesen"-
   Regler in `WerkPage.tsx`.
 - **Onboarding/A11y (Phase 6):** `OnboardingHint.tsx`; `theme.ts:accentText`
@@ -428,13 +437,21 @@ Onboarding). Dazu: Render liest den Korpus live von GitHub-Raw (deploy-frei,
 Fallstrick-Abschnitt #5/#6) und der Netlify-Frontend-Deploy hing zwischenzeitlich
 am Billing (Fallstrick #4).
 
-**Korpus-abhängige Reife:** Viele Wachstums-Features zeigen erst mit mehr
-**kuratierten** Einträgen volle Wirkung (`werkVoiceScore` braucht ≥10; die
-Landkarte-Gravitation, conceptVoiceScore-Evidenz und 5c-Begriffs-Evidenz skalieren
-mit dem kuratierten Korpus — aktuell nur ~3 published). Nächster organischer
-Schritt ist daher **Kuratierung** (`/admin` → Auto-Kuratierung/Bulk), nicht weiterer
-Code. Offene Code-Optionen: `accentText` auf Admin-Seiten, Auto-Begriffs-Kandidaten
-aus dem Korpus (5c-Erweiterung), Reset-Aktion im Wissen-Empty-State.
+**Korpus-abhängige Reife:** Wachstums-Features skalieren mit dem **kuratierten**
+Korpus (Landkarte-Gravitation, conceptVoiceScore-Evidenz, 5c-Begriffs-Evidenz).
+Stand 2026-06-22: **135 kuratiert** (117 published + 18 approved) von ~240 — die
+≥10-Schwelle für `werkVoiceScore` ist erreicht. Weiterer organischer Hebel bleibt
+**Kuratierung** (`/admin` → Auto-Kuratierung/Bulk).
+
+Die zuvor offenen Code-Optionen sind **erledigt** (Stand 2026-06-22):
+`accentText` auf Admin-Seiten + AppFrame-Nav (WCAG-AA Light-Mode),
+Reset-Aktion im Wissen-Empty-State, und **Auto-Begriffs-Kandidaten** (5c-
+Erweiterung): der Build scannt den kuratierten Korpus nach emergenten Themen
+und schlägt sie im Admin als Begriffs-Kandidaten vor (Knoten-Analog zu den
+5b-Kanten-Vorschlägen) — `scripts/build-resonanzen-index.ts:writeConceptCandidates`
+→ `resonanzen-concept-candidates.json`, `components/admin/ConceptCandidatesPanel.tsx`
+befüllt das `ProposeConceptPanel` vor (Definition + Autorisierung bleiben
+menschlich). Schwellen via `CONCEPT_CAND_*`-ENV.
 
 Was kürzlich passierte: siehe `git log -30` (Roadmap-Commits + die
 Embedding/CI/Netlify/Render-Fixes).
