@@ -324,9 +324,9 @@
         "werk_passages": "",
         "{ \"id\"": "\"MOQ5IKR5-C67AAC15\", \"score\": 0.749 }"
       },
-      "ai_score": 5,
-      "ai_score_reason": "Die Antwort ist stilistisch exzellent und führt die Frage durch einen",
-      "ai_score_at": "2026-06-22T09:29:39.206Z",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert Werk-Konzepte korrekt, doch der Duktus bleibt zu sehr eine Darlegung und erreicht nicht die Dichte des Originals.",
+      "ai_score_at": "2026-06-22T14:40:37.726Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MQ5XLW2D-D3E90BBC",
