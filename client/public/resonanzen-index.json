@@ -911,7 +911,11 @@
       "werkVoiceScore": 0.8755448801304662,
       "corpusVoiceScore": 0.8260262670301919,
       "conceptVoiceScore": 0.7846326633942189,
-      "conceptAnchor": "erkenntnis"
+      "conceptAnchor": "erkenntnis",
+      "ai_score": 5,
+      "ai_score_reason": "Der Text ist stilistisch authentisch und entwickelt durch die Synthese des 'transformativen Dritten' einen eigenständigen, weiterführenden Gedanken.",
+      "ai_score_at": "2026-06-22T14:15:46.394Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5WPJ3V-CF0A30C7",
