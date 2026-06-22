@@ -113,7 +113,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             display: "flex", alignItems: "center", gap: "0.45rem",
             fontFamily: MONO, fontSize: "0.6rem",
             letterSpacing: TRACKED.classic,
-            color: C.accent, textTransform: "uppercase",
+            color: C.accentText, textTransform: "uppercase",
             textDecoration: "none", flexShrink: 0,
             padding: "0.35rem 0.55rem", borderRadius: RADIUS.button,
             transition: "color 0.15s",
@@ -150,7 +150,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                   fontFamily: MONO, fontSize: "0.58rem",
                   letterSpacing: TRACKED.tight,
                   textTransform: "uppercase",
-                  color: active ? C.accent : C.text,
+                  color: active ? C.accentText : C.text,
                   background: "transparent",
                   padding: "0.4rem 0.7rem 0.3rem",
                   textDecoration: "none",
@@ -198,7 +198,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             className="appframe-tap"
             style={{
               fontFamily: MONO, fontSize: "0.65rem",
-              color: location.startsWith("/admin") ? C.accent : C.muted,
+              color: location.startsWith("/admin") ? C.accentText : C.muted,
               padding: "0.35rem 0.55rem",
               borderRadius: RADIUS.button,
               textDecoration: "none",
@@ -213,7 +213,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             className="appframe-tap"
             style={{
               fontFamily: MONO, fontSize: "0.85rem",
-              color: C.accent, background: "transparent",
+              color: C.accentText, background: "transparent",
               border: `1px solid ${C.border}`,
               width: 30, height: 30,
               cursor: "pointer", padding: 0,
@@ -237,7 +237,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             onClick={() => setDrawerOpen(v => !v)}
             style={{
               fontFamily: MONO, fontSize: "1.1rem",
-              color: drawerOpen ? C.accent : C.text,
+              color: drawerOpen ? C.accentText : C.text,
               background: "transparent",
               border: `1px solid ${drawerOpen ? C.accent : C.border}`,
               width: 36, height: 36,
@@ -286,7 +286,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                 fontFamily: MONO, fontSize: "0.85rem",
                 letterSpacing: TRACKED.tight,
                 textTransform: "uppercase",
-                color: active ? C.accent : C.text,
+                color: active ? C.accentText : C.text,
                 padding: "0.85rem 1.25rem",
                 textDecoration: "none",
                 borderLeft: active ? `3px solid ${C.accent}` : "3px solid transparent",
