@@ -30,6 +30,7 @@ const HOLDOUT_BASELINE_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdou
 const HOLDOUT_REPORT_OUTPUT = path.join(ROOT, "client/public/resonanzen-holdout-report.json");
 const NODE_DENSITY_OUTPUT = path.join(ROOT, "client/public/resonanzen-node-density.json");
 const LINK_PREDICTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-link-predictions.json");
+const CONCEPT_CANDIDATES_OUTPUT = path.join(ROOT, "client/public/resonanzen-concept-candidates.json");
 const ANCHOR_CLUSTERS_OUTPUT = path.join(ROOT, "client/public/resonanzen-anchor-clusters.json");
 const CORPUS_MAP_OUTPUT = path.join(ROOT, "client/public/resonanzen-corpus-map.json");
 const HOLDOUT_MIN_CORPUS_SIZE = 30;
@@ -343,6 +344,9 @@ async function main() {
   // Werk, die das Frontend in der Heatmap-View sichtbar machen kann.
   writeNodeDensity(entries);
   writeLinkPredictions(entries);
+  // Begriffs-Kandidaten brauchen die Vektoren (mit Gemini-Path: `embeddings`,
+  // sonst der von-Platte-geladene `mapEmbeddings`-Fallback wie die corpus-map).
+  writeConceptCandidates(entries, embeddings ?? mapEmbeddings);
   writeAnchorClusters(entries);
 
   // ─── Final-Telemetrie: was steht effektiv im Index? ──────────────────
@@ -532,6 +536,153 @@ function writeLinkPredictions(entries: ResonanzEntry[]): void {
     `[build-resonanzen-index] link-predictions: ${candidates.length} Kandidaten ` +
     `(MIN_COOC=${MIN_COOCCURRENCE}, max=${out.stats.maxCooccurrence}, ` +
     `existingEdges=${existingEdges.size}, totalPairs=${co.size})`
+  );
+}
+
+/** Deutsche Stoppwörter für die Keyword-/Label-Extraktion der Kandidaten.
+ *  Bewusst klein gehalten — der Mensch finalisiert das Label ohnehin. */
+const CAND_STOPWORDS = new Set(
+  ("der die das und oder aber wie was wenn dann ist sind war ware ein eine einen einem einer " +
+   "den dem des im in an auf zu zur zum fur von mit nach bei aus uber unter durch gegen ohne um " +
+   "als auch nur noch schon sich es er sie wir ihr ich du man dass weil dieser diese dieses welche " +
+   "welcher mehr sehr kann konnte wurde sein seine ihre unser nicht kein keine doch dabei damit " +
+   "zwischen werden wird haben hat sondern beim ihrem ihren etwas mehr immer schon hier dort").split(/\s+/),
+);
+
+/** Häufigste inhaltstragende Tokens über eine Menge von Prompts.
+ *  Inline statt Import aus client/, damit der Node-Build keine Browser-Module zieht. */
+function candidateKeywords(texts: string[], topN: number): Array<{ word: string; count: number }> {
+  const freq: Record<string, number> = {};
+  for (const t of texts) {
+    const toks = (t ?? "").toLowerCase().match(/[a-zäöüß]{4,}/g) ?? [];
+    for (const tok of toks) {
+      if (CAND_STOPWORDS.has(tok)) continue;
+      freq[tok] = (freq[tok] ?? 0) + 1;
+    }
+  }
+  return Object.entries(freq)
+    .map(([word, count]) => ({ word, count }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, topN);
+}
+
+/** Begriffs-Kandidaten (Knoten-Analog zu writeLinkPredictions/Kanten):
+ *  Cluster kuratierter Resonanzen, die DISTINKT zu allen bestehenden Begriffen
+ *  sind (1−maxCosine zu concepts-embeddings ≥ DISTINCT_MIN) UND genug Evidenz
+ *  tragen (Clustergröße ≥ EVIDENCE_MIN) — also emergente Themen, die der
+ *  kuratierte Korpus stützt, aber das Begriffsnetz noch nicht abbildet.
+ *  Spiegelt den Schutzwall aus conceptNodes.ts:evaluateConcept (Distinktheit +
+ *  Korpus-Evidenz). Output dient als Vorbefüllung für /api/admin/propose-concept
+ *  — die Annahme/Autorisierung bleibt menschlich. → resonanzen-concept-candidates.json */
+function writeConceptCandidates(entries: ResonanzEntry[], embeddings: Record<string, number[]> | null): void {
+  const DISTINCT_MIN = parseFloat(process.env.CONCEPT_CAND_DISTINCT_MIN ?? "0.10");
+  const EVIDENCE_MIN = parseInt(process.env.CONCEPT_CAND_EVIDENCE_MIN ?? "3", 10);
+  const CLUSTER_SIM = parseFloat(process.env.CONCEPT_CAND_CLUSTER_SIM ?? "0.78");
+  // Obergrenze: ein EMERGENTER (niche) Begriff spannt nicht einen großen Teil
+  // des Korpus. Riesencluster sind Prompt-Template-Artefakte (z. B. die
+  // analyse/path-Endpoints erzeugen strukturgleiche Prompts „Spannungsfeld:
+  // A ↔ B"), kein neuer Begriff. Gemessen als Bruchteil der kuratierten Menge.
+  const MAX_FRACTION = parseFloat(process.env.CONCEPT_CAND_MAX_FRACTION ?? "0.20");
+  const thresholds = { DISTINCT_MIN, EVIDENCE_MIN, CLUSTER_SIM, MAX_FRACTION };
+
+  const writeOut = (candidates: unknown[], stats: Record<string, unknown>) => {
+    fs.writeFileSync(CONCEPT_CANDIDATES_OUTPUT, JSON.stringify(
+      { generatedAt: new Date().toISOString(), thresholds, candidates, stats }, null, 2,
+    ));
+  };
+
+  if (!embeddings) {
+    writeOut([], { reason: "keine Embeddings verfügbar" });
+    console.log("[build-resonanzen-index] concept-candidates: keine Embeddings — leer geschrieben");
+    return;
+  }
+
+  // Begriffs-Embeddings laden (fail-soft, identisch zu computeCrossLinks).
+  let conceptIds: string[] = [];
+  let conceptVecs: number[][] = [];
+  try {
+    if (fs.existsSync(CONCEPTS_EMB)) {
+      const cf = JSON.parse(fs.readFileSync(CONCEPTS_EMB, "utf-8")) as { embeddings?: Record<string, number[]> };
+      conceptIds = Object.keys(cf.embeddings ?? {});
+      conceptVecs = conceptIds.map(id => cf.embeddings![id]);
+    }
+  } catch { /* fail-soft */ }
+  if (conceptVecs.length === 0) {
+    writeOut([], { reason: "keine concepts-embeddings.json (build-search-index zuerst laufen lassen)" });
+    console.log("[build-resonanzen-index] concept-candidates: keine Begriffs-Embeddings — leer geschrieben");
+    return;
+  }
+
+  const nearestConcept = (v: number[]): { id: string | null; sim: number } => {
+    let maxSim = 0; let id: string | null = null;
+    for (let i = 0; i < conceptVecs.length; i++) {
+      const s = cosineSim(v, conceptVecs[i]);
+      if (s > maxSim) { maxSim = s; id = conceptIds[i]; }
+    }
+    return { id, sim: maxSim };
+  };
+
+  // Nur kuratierte Einträge mit Embedding; „unabgedeckt" = distinkt zu ALLEN Begriffen.
+  const curated = entries.filter(e =>
+    (e.status === "approved" || e.status === "published") && embeddings[e.id]
+  );
+  const uncovered = curated.filter(e => (1 - nearestConcept(embeddings[e.id]).sim) >= DISTINCT_MIN);
+  const maxClusterSize = Math.max(EVIDENCE_MIN, Math.floor(curated.length * MAX_FRACTION));
+
+  // Greedy-Clustering der unabgedeckten Einträge (Cosine ≥ CLUSTER_SIM).
+  const used = new Set<string>();
+  const candidates = uncovered
+    .map(seed => {
+      if (used.has(seed.id)) return null;
+      const v = embeddings[seed.id];
+      const memberIds: string[] = [seed.id];
+      used.add(seed.id);
+      for (const o of uncovered) {
+        if (used.has(o.id)) continue;
+        if (cosineSim(v, embeddings[o.id]) >= CLUSTER_SIM) { memberIds.push(o.id); used.add(o.id); }
+      }
+      if (memberIds.length < EVIDENCE_MIN) return null;
+      if (memberIds.length > maxClusterSize) return null;  // zu breit = Template-Mode, kein Begriff
+      // Centroid des Clusters.
+      const dim = v.length;
+      const centroid = new Array<number>(dim).fill(0);
+      for (const id of memberIds) {
+        const mv = embeddings[id];
+        for (let i = 0; i < dim; i++) centroid[i] += mv[i];
+      }
+      for (let i = 0; i < dim; i++) centroid[i] /= memberIds.length;
+      const near = nearestConcept(centroid);
+      const distinctness = Math.max(0, Math.min(1, 1 - near.sim));
+      if (distinctness < DISTINCT_MIN) return null;  // Centroid muss ebenfalls distinkt sein
+      const prompts = memberIds
+        .map(id => entries.find(e => e.id === id)?.prompt ?? "")
+        .filter(Boolean);
+      const keywords = candidateKeywords(prompts, 6);
+      return {
+        suggestedLabel: keywords[0]?.word ?? "",
+        keywords,
+        evidence: memberIds.length,
+        distinctness: Number(distinctness.toFixed(3)),
+        nearestConcept: near.id,
+        nearestSim: Number(near.sim.toFixed(3)),
+        sampleEntryIds: memberIds.slice(0, 5),
+      };
+    })
+    .filter((c): c is NonNullable<typeof c> => c !== null)
+    // Distinktheit zuerst (am ehesten ein echter neuer Begriff), dann Evidenz.
+    .sort((a, b) => (b.distinctness - a.distinctness) || (b.evidence - a.evidence));
+
+  writeOut(candidates, {
+    curated: curated.length,
+    uncovered: uncovered.length,
+    candidatesCount: candidates.length,
+    concepts: conceptIds.length,
+    maxEvidence: candidates.reduce((m, c) => Math.max(m, c.evidence), 0),
+  });
+  console.log(
+    `[build-resonanzen-index] concept-candidates: ${candidates.length} Kandidaten ` +
+    `(kuratiert=${curated.length}, unabgedeckt=${uncovered.length}, ` +
+    `DISTINCT_MIN=${DISTINCT_MIN}, EVIDENCE_MIN=${EVIDENCE_MIN}, CLUSTER_SIM=${CLUSTER_SIM})`,
   );
 }
 

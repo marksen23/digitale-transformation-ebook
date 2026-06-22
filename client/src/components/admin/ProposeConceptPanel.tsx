@@ -5,7 +5,7 @@
  * (mode=preview, zeigt das Schutzwall-Verdikt: Distinktheit + Korpus-Evidenz)
  * → „In den Kanon aufnehmen" (mode=accept). Reuse callAdminAction.
  */
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { NODES, CAT_LABEL, type NodeCategory } from "@/data/conceptGraph";
 import { callAdminAction } from "@/lib/adminAuth";
 import { invalidateDynamicNodes } from "@/lib/dynamicNodes";
@@ -23,7 +23,18 @@ interface Verdict {
 
 const CATEGORIES = Object.keys(CAT_LABEL) as NodeCategory[];
 
-export default function ProposeConceptPanel({ C }: { C: Palette }) {
+/** Vorbefüllung aus einem Begriffs-Kandidaten (ConceptCandidatesPanel).
+ *  Eine neue Objekt-Identität (z. B. via `nonce`) triggert das Übernehmen. */
+export interface ConceptPrefill {
+  id: string;
+  fullLabel: string;
+  description?: string;
+  category?: NodeCategory;
+  anchorId?: string;
+  nonce: number;
+}
+
+export default function ProposeConceptPanel({ C, prefill }: { C: Palette; prefill?: ConceptPrefill | null }) {
   const [id, setId] = useState("");
   const [fullLabel, setFullLabel] = useState("");
   const [description, setDescription] = useState("");
@@ -32,6 +43,21 @@ export default function ProposeConceptPanel({ C }: { C: Palette }) {
   const [verdict, setVerdict] = useState<Verdict | null>(null);
   const [loading, setLoading] = useState<"preview" | "accept" | null>(null);
   const [msg, setMsg] = useState<string | null>(null);
+
+  // Kandidat-Übernahme: setzt die mechanischen Felder (id/Label/Anker/Kategorie);
+  // die Definition bleibt bewusst leer — der Mensch formuliert sie selbst
+  // (Kern des 5c-Schutzwalls). nonce als dep, damit auch dasselbe Label erneut greift.
+  useEffect(() => {
+    if (!prefill) return;
+    setId(prefill.id);
+    setFullLabel(prefill.fullLabel);
+    if (prefill.description !== undefined) setDescription(prefill.description);
+    if (prefill.category) setCategory(prefill.category);
+    if (prefill.anchorId) setAnchorId(prefill.anchorId);
+    setVerdict(null);
+    setMsg(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [prefill?.nonce]);
 
   const anchors = useMemo(
     () => [...NODES].sort((a, b) => a.fullLabel.localeCompare(b.fullLabel)),

@@ -1,0 +1,134 @@
+{
+  "generatedAt": "2026-06-22T02:27:22.112Z",
+  "thresholds": {
+    "DISTINCT_MIN": 0.1,
+    "EVIDENCE_MIN": 3,
+    "CLUSTER_SIM": 0.78,
+    "MAX_FRACTION": 0.2
+  },
+  "candidates": [
+    {
+      "suggestedLabel": "pfad",
+      "keywords": [
+        {
+          "word": "pfad",
+          "count": 3
+        },
+        {
+          "word": "vergleich",
+          "count": 3
+        },
+        {
+          "word": "logos",
+          "count": 3
+        },
+        {
+          "word": "echo",
+          "count": 2
+        },
+        {
+          "word": "resonanzvernunft",
+          "count": 2
+        },
+        {
+          "word": "einsicht",
+          "count": 2
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.268,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.732,
+      "sampleEntryIds": [
+        "MP497SNT-5E1D2074",
+        "MP0QMSOR-C6EC1B5A",
+        "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "suggestedLabel": "denken",
+      "keywords": [
+        {
+          "word": "denken",
+          "count": 2
+        },
+        {
+          "word": "dasein",
+          "count": 2
+        },
+        {
+          "word": "pfad",
+          "count": 1
+        },
+        {
+          "word": "vergleich",
+          "count": 1
+        },
+        {
+          "word": "vernunft",
+          "count": 1
+        },
+        {
+          "word": "resonanzvernunft",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.238,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.762,
+      "sampleEntryIds": [
+        "MPVCLR8S-F523777E",
+        "MPF4FISZ-67000E01",
+        "MOHC8GKH-8E301C89"
+      ]
+    },
+    {
+      "suggestedLabel": "würde",
+      "keywords": [
+        {
+          "word": "würde",
+          "count": 3
+        },
+        {
+          "word": "frage",
+          "count": 3
+        },
+        {
+          "word": "grenze",
+          "count": 2
+        },
+        {
+          "word": "somit",
+          "count": 2
+        },
+        {
+          "word": "mich",
+          "count": 2
+        },
+        {
+          "word": "wirklichkeit",
+          "count": 2
+        }
+      ],
+      "evidence": 6,
+      "distinctness": 0.198,
+      "nearestConcept": "dazwischenintelligenz",
+      "nearestSim": 0.802,
+      "sampleEntryIds": [
+        "MPUSXGC6-CD078CEA",
+        "MPH4R3SE-C224ACED",
+        "MOOU6X9D-4A49EE98",
+        "MON69DI9-D63A7910",
+        "MOHV99XP-6917F19F"
+      ]
+    }
+  ],
+  "stats": {
+    "curated": 135,
+    "uncovered": 135,
+    "candidatesCount": 3,
+    "concepts": 50,
+    "maxEvidence": 3
+  }
+}

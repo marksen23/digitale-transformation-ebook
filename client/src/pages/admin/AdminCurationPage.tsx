@@ -28,7 +28,8 @@ function notifyIndexStale() {
 }
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import ActionLogPanel from "@/components/admin/ActionLogPanel";
-import ProposeConceptPanel from "@/components/admin/ProposeConceptPanel";
+import ProposeConceptPanel, { type ConceptPrefill } from "@/components/admin/ProposeConceptPanel";
+import ConceptCandidatesPanel from "@/components/admin/ConceptCandidatesPanel";
 import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
@@ -138,6 +139,8 @@ export default function AdminCurationPage() {
   const [preScoreProgress, setPreScoreProgress] = useState<{ done: number; total: number } | null>(null);
   const [curationLoading, setCurationLoading] = useState<Set<string>>(new Set());
   const [confirmDelete, setConfirmDelete] = useState<ResonanzEntry | null>(null);
+  // Vorbefüllung des ProposeConceptPanel aus einem Begriffs-Kandidaten (5c).
+  const [conceptPrefill, setConceptPrefill] = useState<ConceptPrefill | null>(null);
   const [actionFeedback, setActionFeedback] = useState<{ id: string; ok: boolean; msg: string } | null>(null);
   const [showAllEntries, setShowAllEntries] = useState(false);
 
@@ -692,8 +695,13 @@ export default function AdminCurationPage() {
         )}
       </Section>
 
-      {/* Begriffsnetz-Wachstum: neue Begriffe vorschlagen (Phase 5c) */}
-      <ProposeConceptPanel C={C} />
+      {/* Begriffsnetz-Wachstum: Auto-Kandidaten aus dem Korpus + manueller Vorschlag (Phase 5c) */}
+      <ConceptCandidatesPanel
+        C={C}
+        onPrefill={setConceptPrefill}
+        lookupPrompt={(eid) => index?.entries.find(e => e.id === eid)?.prompt}
+      />
+      <ProposeConceptPanel C={C} prefill={conceptPrefill} />
 
       {/* Auto-Kuratierung — kontrollierte Selbst-Erweiterung */}
       <Section title="Auto-Kuratierung — Korpus sicher selbst erweitern" c={C}>
