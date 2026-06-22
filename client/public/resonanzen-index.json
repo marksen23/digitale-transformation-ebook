@@ -3073,7 +3073,11 @@
       "werkVoiceScore": 0.8969780959458806,
       "corpusVoiceScore": 0.8226480748472929,
       "conceptVoiceScore": 0.8123043756466576,
-      "conceptAnchor": "selbst"
+      "conceptAnchor": "selbst",
+      "ai_score": 4,
+      "ai_score_reason": "Ein echter, hergeleiteter Gedanke, der das Werk weiterführt, aber durch den fragenden, leicht generischen Abschluss nicht ganz zu Ende getragen wird.",
+      "ai_score_at": "2026-06-22T23:56:07.667Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPMMCX1X-AFED893B",
