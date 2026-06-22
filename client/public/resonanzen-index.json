@@ -1449,7 +1449,11 @@
       "werkVoiceScore": 0.8853733161409871,
       "corpusVoiceScore": 0.8129448250644302,
       "conceptVoiceScore": 0.6833389872888335,
-      "conceptAnchor": "freiheit"
+      "conceptAnchor": "freiheit",
+      "ai_score": 2,
+      "ai_score_reason": "Die schulbuchartige Struktur mit nummerierten Abschnitten und Überschriften ist dem Werk völlig fremd und zerstört den philosophisch-prosaischen Charakter.",
+      "ai_score_at": "2026-06-22T23:52:07.515Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPVCLR8S-F523777E",
