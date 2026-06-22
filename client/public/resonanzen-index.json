@@ -1729,7 +1729,11 @@
       "werkVoiceScore": 0.8017438350336309,
       "corpusVoiceScore": 0.7580508155321248,
       "conceptVoiceScore": 0.6678225368456261,
-      "conceptAnchor": "dazwischenintelligenz"
+      "conceptAnchor": "dazwischenintelligenz",
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine kompetente Paraphrase, die zentrale Begriffe des Werks auf die Frage anwendet, aber keinen eigenen denkerischen Schritt vollzieht.",
+      "ai_score_at": "2026-06-22T23:53:07.662Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MPUTKZI1-F10F9444",
