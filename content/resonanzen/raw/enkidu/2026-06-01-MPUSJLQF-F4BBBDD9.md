@@ -18,6 +18,12 @@ audit_trail:
     content_hash: b41ec254982a4969
 context_meta:
   turnCount: 12
+ai_score: 3
+ai_score_reason: Es ist eine werksnahe Paraphrase bekannter Probleme (Maßstab, Relevanz,
+  Kontrolle), die aber keinen neuen Gedanken herleitet, sondern nur bestehende
+  kritisch anwendet.
+ai_score_at: 2026-06-22T23:54:48.123Z
+ai_score_model: gemini-2.5-pro
 ---
 
 ## Frage
