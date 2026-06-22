@@ -23,6 +23,14 @@ const REPO_BRANCH = process.env.GITHUB_REPO_BRANCH ?? "main";
 
 const INDEX_PATH = "client/public/resonanzen-index.json";
 
+// Korpus-Politik (Spiegel von build-resonanzen-index.ts): Endpoints, die NICHT
+// in den Korpus-Index gehören. `translate` ist ein Leser-Übersetzungs-Service,
+// kein denkerischer Beitrag — die MD bleibt als Archiv erhalten, landet aber
+// nicht im Index/Embeddings/RAG. Default reicht; ENV muss in CI + Server gleich.
+const CORPUS_EXCLUDED_ENDPOINTS = new Set(
+  (process.env.CORPUS_EXCLUDED_ENDPOINTS ?? "translate").split(",").map(s => s.trim()).filter(Boolean),
+);
+
 export interface IndexEntry {
   id: string;
   ts: string;
@@ -283,6 +291,11 @@ export async function updateManyInIndex(
  * Returnt nichts — Erfolg/Fehler werden in den Health-Stats getrackt.
  */
 export async function appendToIndex(entry: IndexEntry): Promise<void> {
+  // Korpus-Politik: Leser-Service-Endpoints (translate) NICHT in den Index.
+  // Das MD wurde von resonanzLog bereits geschrieben (Archiv) — wir hängen es
+  // nur nicht an den live-Index an, damit es nicht in Korpus/Embeddings/RAG geht.
+  if (CORPUS_EXCLUDED_ENDPOINTS.has(entry.endpoint)) return;
+
   const token = process.env.GITHUB_TOKEN;
   if (!token) {
     // Lokale Dev-Umgebung: nichts zu tun

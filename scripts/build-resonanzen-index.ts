@@ -33,6 +33,14 @@ const LINK_PREDICTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-link-p
 const CONCEPT_CANDIDATES_OUTPUT = path.join(ROOT, "client/public/resonanzen-concept-candidates.json");
 const ANCHOR_CLUSTERS_OUTPUT = path.join(ROOT, "client/public/resonanzen-anchor-clusters.json");
 const CORPUS_MAP_OUTPUT = path.join(ROOT, "client/public/resonanzen-corpus-map.json");
+// Korpus-Politik: Endpoints, die NICHT in den Resonanz-Korpus gehören.
+// `translate` ist ein Übersetzungs-Service für Leser, kein denkerischer
+// Beitrag — er verwässert RAG/Embeddings/Voice-Scores/Kandidaten. Die
+// MD-Dateien bleiben als Archiv auf GitHub; nur aus Index + Embeddings raus.
+// ENV-überschreibbar (muss in CI + Server gleich gesetzt sein; Default reicht).
+const CORPUS_EXCLUDED_ENDPOINTS = new Set(
+  (process.env.CORPUS_EXCLUDED_ENDPOINTS ?? "translate").split(",").map(s => s.trim()).filter(Boolean),
+);
 const HOLDOUT_MIN_CORPUS_SIZE = 30;
 const HOLDOUT_MODULO = 10;          // ≈10% Stichprobe
 const HOLDOUT_TOP_NEIGHBORS = 3;
@@ -181,7 +189,7 @@ async function main() {
   console.log(`[build-resonanzen-index] Found ${mdPaths.length} resonance markdown files`);
 
   // Parallel fetch (Batch von 10, um Server nicht zu hämmern)
-  const entries: ResonanzEntry[] = [];
+  let entries: ResonanzEntry[] = [];
   const BATCH = 10;
   for (let i = 0; i < mdPaths.length; i += BATCH) {
     const batch = mdPaths.slice(i, i + BATCH);
@@ -233,6 +241,15 @@ async function main() {
         })() : {}),
       });
     }
+  }
+
+  // Korpus-Politik: Leser-Service-Endpoints (translate) ausschließen — bevor
+  // irgendetwas embeddet/cross-verlinkt/geschrieben wird. Die MD-Dateien bleiben
+  // als Archiv; ihre Vektoren entfernt der Embeddings-Prune beim nächsten Build.
+  const beforeExcl = entries.length;
+  entries = entries.filter(e => !CORPUS_EXCLUDED_ENDPOINTS.has(e.endpoint));
+  if (entries.length < beforeExcl) {
+    console.log(`[build-resonanzen-index] ${beforeExcl - entries.length} Einträge ausgeschlossen (Endpoints: ${[...CORPUS_EXCLUDED_ENDPOINTS].join(", ")}) — MDs bleiben als Archiv`);
   }
 
   entries.sort((a, b) => b.ts.localeCompare(a.ts));

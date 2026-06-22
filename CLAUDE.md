@@ -269,6 +269,17 @@ erzeugen. `related[]`/`nearDuplicates[]` werden im Build (`computeCrossLinks`)
 gegen `rejected` gefiltert und von `validate-resonanzen` (`danglingLinks`)
 gegen den Index geprüft.
 
+**Translate-Policy (bewusst, seit 2026-06-22):** `endpoint: "translate"` ist ein
+**Leser-Übersetzungs-Service** (`/api/translate`), **kein** denkerischer Korpus-
+Beitrag. Solche Einträge werden vom Korpus **ausgeschlossen**: `CORPUS_EXCLUDED_ENDPOINTS`
+(Default `translate`) filtert sie in `indexUpdater.ts:appendToIndex` (Live) +
+`build-resonanzen-index.ts` (Full-Rebuild) **aus dem Index** — damit fallen sie via
+Embeddings-Prune auch aus Embeddings/RAG/Voice-Scores/Begriffs-Kandidaten. Die
+**MD-Dateien bleiben** auf GitHub (`content/resonanzen/raw/translate/`) als roher
+Übersetzungs-Fundus für ein späteres Übersetzungs-Feature (Gesamttext-Übersetzung).
+`translate` bleibt ein gültiger `validate-resonanzen`-Endpoint (die Archiv-MDs sind
+valide). ENV muss in CI + Server gleich gesetzt sein (Default reicht).
+
 ### Selbst-Erweiterung (RAG-Rückkopplung + Auto-Kuratierung)
 
 Der Server-RAG (`server/lib/werkRetrieval.ts:125`) zieht **nur kuratierte**
