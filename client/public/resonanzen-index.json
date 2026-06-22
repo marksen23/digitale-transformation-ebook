@@ -1142,7 +1142,11 @@
       "werkVoiceScore": 0.8005142247882683,
       "corpusVoiceScore": 0.7953042130298721,
       "conceptVoiceScore": 0.7248868994472616,
-      "conceptAnchor": "wahrheit"
+      "conceptAnchor": "wahrheit",
+      "ai_score": 5,
+      "ai_score_reason": "Die Antwort ist stilistisch perfekt und entwickelt durch den konkreten Kant-Bezug einen eigenständigen, denkerischen Beitrag zur Frage.",
+      "ai_score_at": "2026-06-22T14:17:35.087Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQ5CMPJB-3D705D06",
