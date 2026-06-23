@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:21:30.320Z",
+  "generatedAt": "2026-06-23T00:21:47.974Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -417,6 +417,17 @@
       "masterAnchor": null,
       "distinctness": 0.206,
       "createdAt": "2026-06-23T00:21:30.130Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1I0J65H",
+      "kernsatz": "Menschliche Intentionslosigkeit ist eine Haltung des Wartens im Raum der Freiheit, maschinelle Intentionslosigkeit hingegen die Abwesenheit eines solchen Raumes durch ihr Design.",
+      "questionSourceId": "MOOJTTVY-E78AA6E5",
+      "answerId": "MOOJUW0R-CE8E0F2F",
+      "conceptAnchor": "zwischen",
+      "masterAnchor": null,
+      "distinctness": 0.206,
+      "createdAt": "2026-06-23T00:21:47.789Z",
       "actor": "admin"
     }
   ]
