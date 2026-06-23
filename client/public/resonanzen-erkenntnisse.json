@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:16:32.321Z",
+  "generatedAt": "2026-06-23T00:16:49.944Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -219,6 +219,17 @@
       "masterAnchor": null,
       "distinctness": 0.225,
       "createdAt": "2026-06-23T00:16:32.122Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1QEZSYR",
+      "kernsatz": "Der technische, dosierte Zufall ist die subtilste Form der Kontrolle, während der existenzielle Zufall der unberechenbare Riss in der Optimierung ist, der erst wahre Begegnung und Freiheit ermöglicht.",
+      "questionSourceId": "MPUT10KT-E7C5E32F",
+      "answerId": "MPUT5G5K-075966B7",
+      "conceptAnchor": "lm-begegnung",
+      "masterAnchor": null,
+      "distinctness": 0.223,
+      "createdAt": "2026-06-23T00:16:49.773Z",
       "actor": "admin"
     }
   ]
