@@ -1,0 +1,16 @@
+{
+  "generatedAt": "2026-06-23T00:09:19.922Z",
+  "erkenntnisse": [
+    {
+      "id": "ERK-OE1OVO",
+      "kernsatz": "Die Beständigkeit einer dialogischen Ethik gründet nicht in der Stabilität von Regeln, sondern in der verlässlichen Offenheit des Prozesses für Revision, Wandel und empathische Antwort.",
+      "questionSourceId": "MQ5X7QW6-F6E03538",
+      "answerId": "MQ5X9PGR-F8698E7E",
+      "conceptAnchor": "dialog",
+      "masterAnchor": null,
+      "distinctness": 0.296,
+      "createdAt": "2026-06-23T00:09:19.750Z",
+      "actor": "admin"
+    }
+  ]
+}
