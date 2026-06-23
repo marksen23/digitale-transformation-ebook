@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:13:04.953Z",
+  "generatedAt": "2026-06-23T00:13:25.074Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -109,6 +109,17 @@
       "masterAnchor": null,
       "distinctness": 0.235,
       "createdAt": "2026-06-23T00:13:04.742Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-U89LDC",
+      "kernsatz": "Allgemeine Erkenntnis entsteht nicht aus der Summe resonanter Individualinteressen, sondern im geteilten Aushalten der Dissonanz, die das radikal Fremde in die scheinbar geschlossene Logik des Eigenen bricht.",
+      "questionSourceId": "MPUTFPG6-02308248",
+      "answerId": "MPUTKZI1-F10F9444",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.235,
+      "createdAt": "2026-06-23T00:13:24.884Z",
       "actor": "admin"
     }
   ]
