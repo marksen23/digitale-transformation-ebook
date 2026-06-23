@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:13:25.074Z",
+  "generatedAt": "2026-06-23T00:13:44.847Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -120,6 +120,17 @@
       "masterAnchor": null,
       "distinctness": 0.235,
       "createdAt": "2026-06-23T00:13:24.884Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-4MAQA",
+      "kernsatz": "Die Transparenz der algorithmischen Schichten entlarvt nicht die Maschine, sondern enthüllt die menschliche Deutung und Sehnsucht nach Verklärung, die bereits in der Definition von Information und News angelegt ist.",
+      "questionSourceId": "MPUSEQMB-A31FD1B3",
+      "answerId": "MPUSGXKN-78839F4E",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.235,
+      "createdAt": "2026-06-23T00:13:44.643Z",
       "actor": "admin"
     }
   ]
