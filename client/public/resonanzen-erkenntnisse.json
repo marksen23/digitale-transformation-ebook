@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:18:39.827Z",
+  "generatedAt": "2026-06-23T00:18:56.828Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -307,6 +307,17 @@
       "masterAnchor": null,
       "distinctness": 0.214,
       "createdAt": "2026-06-23T00:18:39.539Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-15DKQNH",
+      "kernsatz": "Wahre Freiheit entsteht nicht durch die Beseitigung von Unruhe und Brüchen, sondern in der Hingabe an das Unverfügbare, das gerade im Unvollkommenen neue Resonanzräume eröffnet.",
+      "questionSourceId": "MQ5WYJFU-60EB210E",
+      "answerId": "MQ5WZZPN-8051E5FF",
+      "conceptAnchor": "werden",
+      "masterAnchor": null,
+      "distinctness": 0.213,
+      "createdAt": "2026-06-23T00:18:56.643Z",
       "actor": "admin"
     }
   ]
