@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:10:19.502Z",
+  "generatedAt": "2026-06-23T00:10:52.331Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -32,6 +32,17 @@
       "masterAnchor": null,
       "distinctness": 0.258,
       "createdAt": "2026-06-23T00:10:19.299Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1HZ6EJL",
+      "kernsatz": "Die emotionale Aufladung einer Nachricht ist nicht ihre Verunreinigung, sondern die Bedingung ihrer Relevanz, die erst den Raum für menschliches Urteilen und ethische Auseinandersetzung eröffnet.",
+      "questionSourceId": "MPUSGXKN-78839F4E",
+      "answerId": "MPUTAYGM-514978C5",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.253,
+      "createdAt": "2026-06-23T00:10:52.153Z",
       "actor": "admin"
     }
   ]
