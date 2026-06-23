@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:16:49.944Z",
+  "generatedAt": "2026-06-23T00:17:06.732Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -230,6 +230,17 @@
       "masterAnchor": null,
       "distinctness": 0.223,
       "createdAt": "2026-06-23T00:16:49.773Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-V2UY5P",
+      "kernsatz": "Das Nicht-Sicher-Sein ist keine Leerstelle des Wissens, sondern die präsente Resonanz eines gemeinsamen Dazwischen, das erst nach seiner Form sucht.",
+      "questionSourceId": "MOOJTBA1-24F2F762",
+      "answerId": "MOOJTTVY-E78AA6E5",
+      "conceptAnchor": "zwischen",
+      "masterAnchor": null,
+      "distinctness": 0.222,
+      "createdAt": "2026-06-23T00:17:06.542Z",
       "actor": "admin"
     }
   ]
