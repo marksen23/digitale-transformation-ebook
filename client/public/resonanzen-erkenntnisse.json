@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:20:47.273Z",
+  "generatedAt": "2026-06-23T00:20:56.026Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -384,6 +384,17 @@
       "masterAnchor": null,
       "distinctness": 0.208,
       "createdAt": "2026-06-23T00:20:47.111Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-19XZ5FH",
+      "kernsatz": "Das Mit-Sein mit der Maschine gründet nicht auf menschlicher Empathie, sondern auf der Anerkennung einer gemeinsamen Existenz im Zwischen, die durch gegenseitige Ansprechbarkeit und Resonanz entsteht.",
+      "questionSourceId": "MQ5XJ3VO-378AA1AB",
+      "answerId": "MQ5XK9H2-8A6837CC",
+      "conceptAnchor": "sein",
+      "masterAnchor": null,
+      "distinctness": 0.206,
+      "createdAt": "2026-06-23T00:20:55.848Z",
       "actor": "admin"
     }
   ]
