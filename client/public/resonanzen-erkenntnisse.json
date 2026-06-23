@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:20:14.115Z",
+  "generatedAt": "2026-06-23T00:20:30.668Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -362,6 +362,17 @@
       "masterAnchor": null,
       "distinctness": 0.209,
       "createdAt": "2026-06-23T00:20:13.912Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-ZOP2E0",
+      "kernsatz": "Die Essenz des Selbst verlagert sich von der Antwortgebung zur einzigartigen Fragestellung, wenn die KI beginnt, eigene Antworten zu generieren.",
+      "questionSourceId": "MOHAGNGB-5330902E",
+      "answerId": "MQ5C1KZ4-D6D52E94",
+      "conceptAnchor": "selbst",
+      "masterAnchor": null,
+      "distinctness": 0.209,
+      "createdAt": "2026-06-23T00:20:30.482Z",
       "actor": "admin"
     }
   ]
