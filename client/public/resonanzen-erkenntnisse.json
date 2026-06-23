@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:19:33.359Z",
+  "generatedAt": "2026-06-23T00:19:56.743Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -340,6 +340,17 @@
       "masterAnchor": null,
       "distinctness": 0.21,
       "createdAt": "2026-06-23T00:19:33.085Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-Q8GW9B",
+      "kernsatz": "Die Freiheit des Denkens beginnt nicht in der optimierten Resonanz des passend Unerwarteten, sondern im Bruch mit ihr, im Widerstand des dissonanten Dritten, das wahre Souveränität erst ermöglicht.",
+      "questionSourceId": "MPUSR6XO-4FE2D10B",
+      "answerId": "MPUTFPG6-02308248",
+      "conceptAnchor": "antwort",
+      "masterAnchor": null,
+      "distinctness": 0.209,
+      "createdAt": "2026-06-23T00:19:56.450Z",
       "actor": "admin"
     }
   ]
