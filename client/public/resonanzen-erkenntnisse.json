@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:09:47.615Z",
+  "generatedAt": "2026-06-23T00:10:19.502Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -21,6 +21,17 @@
       "masterAnchor": null,
       "distinctness": 0.254,
       "createdAt": "2026-06-23T00:09:47.439Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1CYPBI4",
+      "kernsatz": "Wahre Freiheit erwächst nicht aus der Überwindung von Grenzen, sondern aus der bewussten Entscheidung zur Bindung an das Unvollkommene, in der das Werden die Tyrannei des Ideals bricht.",
+      "questionSourceId": "MQ5WZZPN-8051E5FF",
+      "answerId": "MQ5X1ZYV-9D7A29CC",
+      "conceptAnchor": "freiheit",
+      "masterAnchor": null,
+      "distinctness": 0.258,
+      "createdAt": "2026-06-23T00:10:19.299Z",
       "actor": "admin"
     }
   ]
