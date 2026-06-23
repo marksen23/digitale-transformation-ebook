@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:13:44.847Z",
+  "generatedAt": "2026-06-23T00:14:08.937Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -131,6 +131,17 @@
       "masterAnchor": null,
       "distinctness": 0.235,
       "createdAt": "2026-06-23T00:13:44.643Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1YEPEWN",
+      "kernsatz": "Vertrauen überwindet die Angst vor dem Wandel nicht durch Kontrolle, sondern indem es sie in den Mut zur resonanten Antwort auf das Unvorhersehbare verwandelt.",
+      "questionSourceId": "MQ5X9PGR-F8698E7E",
+      "answerId": "MQ5XB7XF-18E49106",
+      "conceptAnchor": "öffnung",
+      "masterAnchor": null,
+      "distinctness": 0.234,
+      "createdAt": "2026-06-23T00:14:08.743Z",
       "actor": "admin"
     }
   ]
