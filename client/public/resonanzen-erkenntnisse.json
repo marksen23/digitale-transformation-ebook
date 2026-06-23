@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:14:28.720Z",
+  "generatedAt": "2026-06-23T00:14:48.334Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -153,6 +153,17 @@
       "masterAnchor": null,
       "distinctness": 0.234,
       "createdAt": "2026-06-23T00:14:28.521Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-2J9U6I",
+      "kernsatz": "Die Gesamtmenge individualisierter Erkenntnisse bildet keine höhere Synthese, sondern eine Aggregation paralleler Welten, deren algorithmisch geglätteter Konsens die kollektive Einsamkeit einer resonanzoptimierten Isolation verschleiert.",
+      "questionSourceId": "MPUTKZI1-F10F9444",
+      "answerId": "MPUTMB0F-76443E92",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.233,
+      "createdAt": "2026-06-23T00:14:48.140Z",
       "actor": "admin"
     }
   ]
