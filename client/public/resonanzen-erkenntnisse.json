@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:14:48.334Z",
+  "generatedAt": "2026-06-23T00:15:22.370Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -164,6 +164,17 @@
       "masterAnchor": null,
       "distinctness": 0.233,
       "createdAt": "2026-06-23T00:14:48.140Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-11MPRSP",
+      "kernsatz": "Die gesuchte Rettung ist nicht das Ergebnis der Verwandlung, sondern der Prozess des Sich-Verwandelns selbst, der das Wissen erst hervorbringt, das die Rettung ermöglicht hätte.",
+      "questionSourceId": "MOHB4ILW-65B37C41",
+      "answerId": "MOHB8QCN-0E2E8408",
+      "conceptAnchor": "lm-verwandlung",
+      "masterAnchor": null,
+      "distinctness": 0.228,
+      "createdAt": "2026-06-23T00:15:22.174Z",
       "actor": "admin"
     }
   ]
