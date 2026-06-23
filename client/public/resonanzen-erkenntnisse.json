@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:15:41.082Z",
+  "generatedAt": "2026-06-23T00:15:55.555Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -186,6 +186,17 @@
       "masterAnchor": null,
       "distinctness": 0.226,
       "createdAt": "2026-06-23T00:15:40.912Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-133FUB6",
+      "kernsatz": "Die Rettung des Lebens durch die Delegation kognitiver Anstrengung entleert es der existenziellen Erfahrung des Scheiterns, aus der sich erst die Tiefe menschlicher Erkenntnis und Wandlung speist.",
+      "questionSourceId": "MPUTT58G-25E5A1AC",
+      "answerId": "MPUTX4K2-55A3272E",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.226,
+      "createdAt": "2026-06-23T00:15:55.372Z",
       "actor": "admin"
     }
   ]
