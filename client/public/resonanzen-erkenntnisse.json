@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:12:38.634Z",
+  "generatedAt": "2026-06-23T00:13:04.953Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -98,6 +98,17 @@
       "masterAnchor": null,
       "distinctness": 0.237,
       "createdAt": "2026-06-23T00:12:38.452Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1ULGJGP",
+      "kernsatz": "Wahrer Fortschritt ist nicht die lineare Optimierung zum Perfekten, sondern die spiralförmige Vertiefung der Resonanzfähigkeit durch die schöpferische Umarmung des Unvollkommenen und des Scheiterns.",
+      "questionSourceId": "MQ5X1ZYV-9D7A29CC",
+      "answerId": "MQ5X3C75-D543C13F",
+      "conceptAnchor": "werden",
+      "masterAnchor": null,
+      "distinctness": 0.235,
+      "createdAt": "2026-06-23T00:13:04.742Z",
       "actor": "admin"
     }
   ]
