@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:10:52.331Z",
+  "generatedAt": "2026-06-23T00:11:16.618Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -43,6 +43,17 @@
       "masterAnchor": null,
       "distinctness": 0.253,
       "createdAt": "2026-06-23T00:10:52.153Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1JJ0OPB",
+      "kernsatz": "Die universelle Gültigkeit der Ethik liegt nicht im Inhalt starrer Regeln, sondern in der Form der Resonanzfähigkeit, die sich in jeder spezifischen Begegnung neu bewähren muss.",
+      "questionSourceId": "MQ5X6P2M-52F9B16D",
+      "answerId": "MQ5X7QW6-F6E03538",
+      "conceptAnchor": "resonanzimperativ",
+      "masterAnchor": null,
+      "distinctness": 0.252,
+      "createdAt": "2026-06-23T00:11:16.419Z",
       "actor": "admin"
     }
   ]
