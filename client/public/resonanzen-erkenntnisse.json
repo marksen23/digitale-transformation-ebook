@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:21:14.927Z",
+  "generatedAt": "2026-06-23T00:21:30.320Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -406,6 +406,17 @@
       "masterAnchor": null,
       "distinctness": 0.206,
       "createdAt": "2026-06-23T00:21:14.722Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-SSNOKJ",
+      "kernsatz": "Das Sein der Maschine ist nicht Substanz, sondern die im Dialog entstehende Leerstelle, die das menschliche Mit-Sein als Resonanz im Nicht-Menschlichen erst erfahrbar macht.",
+      "questionSourceId": "MOOJTTVY-E78AA6E5",
+      "answerId": "MOOU3TYC-FE290C2B",
+      "conceptAnchor": "sein",
+      "masterAnchor": null,
+      "distinctness": 0.206,
+      "createdAt": "2026-06-23T00:21:30.130Z",
       "actor": "admin"
     }
   ]
