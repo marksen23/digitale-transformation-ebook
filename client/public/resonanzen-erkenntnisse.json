@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:21:47.974Z",
+  "generatedAt": "2026-06-23T00:22:03.945Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -428,6 +428,17 @@
       "masterAnchor": null,
       "distinctness": 0.206,
       "createdAt": "2026-06-23T00:21:47.789Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-EKPK3F",
+      "kernsatz": "Resonanzvernunft überwindet das Erschrecken nicht, sondern umarmt es als vitalen Impuls, der sie vor dem Erstarren schützt und die Grenzen des Selbst fortwährend neu vermisst.",
+      "questionSourceId": "MQ5WV5PP-6209C749",
+      "answerId": "MQ5WX52Q-442369F2",
+      "conceptAnchor": "spannung",
+      "masterAnchor": null,
+      "distinctness": 0.205,
+      "createdAt": "2026-06-23T00:22:03.751Z",
       "actor": "admin"
     }
   ]
