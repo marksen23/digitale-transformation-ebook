@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:22:03.945Z",
+  "generatedAt": "2026-06-23T00:22:12.984Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -439,6 +439,17 @@
       "masterAnchor": null,
       "distinctness": 0.205,
       "createdAt": "2026-06-23T00:22:03.751Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1EWMZBX",
+      "kernsatz": "Wahrheit ist kein berechenbares Ergebnis im Datenstrom, sondern die unverfügbare Irritation, die im Scheitern des Algorithmus den eigenen Verstand zur Mündigkeit ruft.",
+      "questionSourceId": "MPUU1101-EDF34032",
+      "answerId": "MQ5CZRK7-A62EB4D0",
+      "conceptAnchor": "wahrheit",
+      "masterAnchor": null,
+      "distinctness": 0.204,
+      "createdAt": "2026-06-23T00:22:12.669Z",
       "actor": "admin"
     }
   ]
