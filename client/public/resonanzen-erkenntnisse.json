@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:18:23.197Z",
+  "generatedAt": "2026-06-23T00:18:39.827Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -296,6 +296,17 @@
       "masterAnchor": null,
       "distinctness": 0.216,
       "createdAt": "2026-06-23T00:18:23.006Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1EJDHQS",
+      "kernsatz": "Wahres Scheitern ist nicht die Adjustierung von Parametern, sondern die Grenzerfahrung, dass sich das Wesentliche jeder Parametrisierung entzieht und so die Logik der Optimierung selbst infrage stellt.",
+      "questionSourceId": "MPUT9PA8-5A0B4235",
+      "answerId": "MPUTHFZK-189B912B",
+      "conceptAnchor": "lm-scheitern",
+      "masterAnchor": null,
+      "distinctness": 0.214,
+      "createdAt": "2026-06-23T00:18:39.539Z",
       "actor": "admin"
     }
   ]
