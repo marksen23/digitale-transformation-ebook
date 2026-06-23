@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:17:40.171Z",
+  "generatedAt": "2026-06-23T00:17:55.575Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -263,6 +263,17 @@
       "masterAnchor": null,
       "distinctness": 0.219,
       "createdAt": "2026-06-23T00:17:39.988Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-MVIQYY",
+      "kernsatz": "Die Sehnsucht nach maschineller Verlässlichkeit opfert die menschliche Freiheit, die erst im Zweifel, im Irrtum und im Unerwarteten ihre eigentliche Urteilskraft findet und entfaltet.",
+      "questionSourceId": "MPUSLPSI-07DACE56",
+      "answerId": "MPUSPBKZ-D7CCA690",
+      "conceptAnchor": "lm-scheitern",
+      "masterAnchor": null,
+      "distinctness": 0.218,
+      "createdAt": "2026-06-23T00:17:55.361Z",
       "actor": "admin"
     }
   ]
