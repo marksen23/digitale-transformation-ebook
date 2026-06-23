@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:17:06.732Z",
+  "generatedAt": "2026-06-23T00:17:22.906Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -241,6 +241,17 @@
       "masterAnchor": null,
       "distinctness": 0.222,
       "createdAt": "2026-06-23T00:17:06.542Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-JFN34V",
+      "kernsatz": "Die lückenlose Erfassung der Welt schützt uns vor dem Unverlässlichen, beraubt uns aber der existenziellen Chance, im Ringen um Wahrheit unsere eigene Mündigkeit zu stärken.",
+      "questionSourceId": "MPUSR6XO-4FE2D10B",
+      "answerId": "MPUST44L-BB7FEA00",
+      "conceptAnchor": "lm-begegnung",
+      "masterAnchor": null,
+      "distinctness": 0.221,
+      "createdAt": "2026-06-23T00:17:22.721Z",
       "actor": "admin"
     }
   ]
