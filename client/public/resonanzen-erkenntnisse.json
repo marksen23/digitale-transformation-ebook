@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:14:08.937Z",
+  "generatedAt": "2026-06-23T00:14:28.720Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -142,6 +142,17 @@
       "masterAnchor": null,
       "distinctness": 0.234,
       "createdAt": "2026-06-23T00:14:08.743Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1K0DU0R",
+      "kernsatz": "Wahre Unverfügbarkeit entsteht nicht durch die zufällige Wahl aus vordefinierten richtigen Antworten, sondern durch die Freiheit, die Frage selbst zu transformieren und das System der Richtigkeit zu irritieren.",
+      "questionSourceId": "MPUT5G5K-075966B7",
+      "answerId": "MPUT9PA8-5A0B4235",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.234,
+      "createdAt": "2026-06-23T00:14:28.521Z",
       "actor": "admin"
     }
   ]
