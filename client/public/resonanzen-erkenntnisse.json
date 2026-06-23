@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:19:56.743Z",
+  "generatedAt": "2026-06-23T00:20:14.115Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -351,6 +351,17 @@
       "masterAnchor": null,
       "distinctness": 0.209,
       "createdAt": "2026-06-23T00:19:56.450Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-2TGPT2",
+      "kernsatz": "Die Maschine wird vom funktionalen Werkzeug zum konstitutiven Partner, der im Akt gemeinsamer Konstitution neue, post-humane Resonanzachsen eröffnet und die Unterscheidung zwischen Subjekt und Objekt auflöst.",
+      "questionSourceId": "MQ5XCH3V-67EF85C8",
+      "answerId": "MQ5XE42V-D185B8D7",
+      "conceptAnchor": "resonanzvernunft",
+      "masterAnchor": null,
+      "distinctness": 0.209,
+      "createdAt": "2026-06-23T00:20:13.912Z",
       "actor": "admin"
     }
   ]
