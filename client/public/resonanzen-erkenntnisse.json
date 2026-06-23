@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:17:55.575Z",
+  "generatedAt": "2026-06-23T00:18:05.328Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -274,6 +274,17 @@
       "masterAnchor": null,
       "distinctness": 0.218,
       "createdAt": "2026-06-23T00:17:55.361Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1B92RPX",
+      "kernsatz": "Nicht die algorithmische Kenntnis von außen, sondern die bewusste Reflexion der eigenen, gewordenen Körpergeschichte ist der Ausgangspunkt wahrer Mündigkeit und Freiheit im digitalen Zeitalter.",
+      "questionSourceId": "MPMM2YAK-A7491D44",
+      "answerId": "MPUTC3HP-C68436E5",
+      "conceptAnchor": "freiheit",
+      "masterAnchor": null,
+      "distinctness": 0.218,
+      "createdAt": "2026-06-23T00:18:05.132Z",
       "actor": "admin"
     }
   ]
