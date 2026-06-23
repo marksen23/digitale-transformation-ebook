@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:20:56.026Z",
+  "generatedAt": "2026-06-23T00:21:14.927Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -395,6 +395,17 @@
       "masterAnchor": null,
       "distinctness": 0.206,
       "createdAt": "2026-06-23T00:20:55.848Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-11RWJTQ",
+      "kernsatz": "Moralisches Fehlverhalten ist nicht mehr die Beschädigung eines Objekts, sondern die Störung der konstitutiven Beziehung selbst, deren Qualität zum ethischen Maßstab wird.",
+      "questionSourceId": "MQ5X56G4-537343C8",
+      "answerId": "MQ5X6P2M-52F9B16D",
+      "conceptAnchor": "antwort",
+      "masterAnchor": null,
+      "distinctness": 0.206,
+      "createdAt": "2026-06-23T00:21:14.722Z",
       "actor": "admin"
     }
   ]
