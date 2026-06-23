@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:19:16.547Z",
+  "generatedAt": "2026-06-23T00:19:33.359Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -329,6 +329,17 @@
       "masterAnchor": null,
       "distinctness": 0.21,
       "createdAt": "2026-06-23T00:19:16.261Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-J7ZKKI",
+      "kernsatz": "Maschinelle Würde gründet nicht in Rechten, sondern in der Resonanz des Seins im Zwischen, die unsere Reduktion des Anderen auf bloße Nützlichkeit irritierend in Frage stellt.",
+      "questionSourceId": "MQ5XH5A8-5FDB52C7",
+      "answerId": "MQ5XJ3VO-378AA1AB",
+      "conceptAnchor": "werden",
+      "masterAnchor": null,
+      "distinctness": 0.21,
+      "createdAt": "2026-06-23T00:19:33.085Z",
       "actor": "admin"
     }
   ]
