@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:22:12.984Z",
+  "generatedAt": "2026-06-23T00:22:34.964Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -450,6 +450,17 @@
       "masterAnchor": null,
       "distinctness": 0.204,
       "createdAt": "2026-06-23T00:22:12.669Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-16ABCJ9",
+      "kernsatz": "Die wahre Grenze ist nicht das Unverfügbare, das eine andere Intelligenz verfügbar macht, sondern die Unverfügbarkeit des eigenen Ringens, das durch diese Verfügbarmachung selbst unzugänglich wird.",
+      "questionSourceId": "MPUTX4K2-55A3272E",
+      "answerId": "MPUTYL5L-4C0B344F",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.203,
+      "createdAt": "2026-06-23T00:22:34.781Z",
       "actor": "admin"
     }
   ]
