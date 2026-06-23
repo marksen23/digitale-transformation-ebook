@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:18:56.828Z",
+  "generatedAt": "2026-06-23T00:19:16.547Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -318,6 +318,17 @@
       "masterAnchor": null,
       "distinctness": 0.213,
       "createdAt": "2026-06-23T00:18:56.643Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1HQFAHN",
+      "kernsatz": "Die Maschine kartiert die Grenze des Verfügbaren, doch die menschliche Verwandlung beginnt erst im Sprung über die unbekannte Grenze des Erfahrenen, die sich jeder Vermessung entzieht.",
+      "questionSourceId": "MOQ531J2-4FC329D4",
+      "answerId": "MPUSZCXA-5CB2DE46",
+      "conceptAnchor": "lm-grenze",
+      "masterAnchor": null,
+      "distinctness": 0.21,
+      "createdAt": "2026-06-23T00:19:16.261Z",
       "actor": "admin"
     }
   ]
