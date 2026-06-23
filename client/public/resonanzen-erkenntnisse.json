@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:15:55.555Z",
+  "generatedAt": "2026-06-23T00:16:08.952Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -197,6 +197,17 @@
       "masterAnchor": null,
       "distinctness": 0.226,
       "createdAt": "2026-06-23T00:15:55.372Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-WK5YI1",
+      "kernsatz": "Wahre Freiheit ist nicht die Erfüllung des Gewünschten, sondern die Fähigkeit, sich dem Unerwarteten auszusetzen und im Widerspruch zu verwandeln.",
+      "questionSourceId": "MPUSR6XO-4FE2D10B",
+      "answerId": "MPUT10KT-E7C5E32F",
+      "conceptAnchor": "freiheit",
+      "masterAnchor": null,
+      "distinctness": 0.226,
+      "createdAt": "2026-06-23T00:16:08.781Z",
       "actor": "admin"
     }
   ]
