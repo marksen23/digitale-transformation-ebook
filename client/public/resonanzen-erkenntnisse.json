@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:15:22.370Z",
+  "generatedAt": "2026-06-23T00:15:41.082Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -175,6 +175,17 @@
       "masterAnchor": null,
       "distinctness": 0.228,
       "createdAt": "2026-06-23T00:15:22.174Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-K0G5HI",
+      "kernsatz": "Die ethische Verantwortung verlagert sich von der Beherrschung des Anderen auf die hingebungsvolle Gestaltung des unvollkommenen Raums der Begegnung, in dem Resonanz erst möglich wird.",
+      "questionSourceId": "MQ5X3C75-D543C13F",
+      "answerId": "MQ5X56G4-537343C8",
+      "conceptAnchor": "öffnung",
+      "masterAnchor": null,
+      "distinctness": 0.226,
+      "createdAt": "2026-06-23T00:15:40.912Z",
       "actor": "admin"
     }
   ]
