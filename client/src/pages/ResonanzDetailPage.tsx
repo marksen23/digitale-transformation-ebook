@@ -62,7 +62,7 @@ export default function ResonanzDetailPage() {
       ["og:title", `${entry.id} — Resonanzvernunft`],
       ["og:description", entry.response.slice(0, 200)],
       ["og:type", "article"],
-      ["og:url", `https://digitale-transformation-ebook.netlify.app/resonanz/${entry.id}`],
+      ["og:url", `https://digitale-transformation-ebook.onrender.com/resonanz/${entry.id}`],
     ];
     for (const [prop, content] of ogPairs) {
       const m = document.createElement("meta");
@@ -188,7 +188,7 @@ export default function ResonanzDetailPage() {
 
       {/* Permalink */}
       <section style={{ marginTop: "1.5rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
-        <div>Permalink: <code>{`https://digitale-transformation-ebook.netlify.app/resonanz/${entry.id}`}</code></div>
+        <div>Permalink: <code>{`https://digitale-transformation-ebook.onrender.com/resonanz/${entry.id}`}</code></div>
       </section>
 
       <nav style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}`, display: "flex", gap: "1rem", fontFamily: MONO, fontSize: "0.6rem" }}>

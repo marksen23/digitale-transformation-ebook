@@ -9,11 +9,18 @@ neue Claude-Sessions — egal ob Desktop, Web (claude.ai/code) oder Mobile.
 ## TL;DR Tech-Stack
 
 - **Frontend**: React 19 + TypeScript + Vite (PWA via vite-plugin-pwa)
-- **Backend**: Express (auf Render gehostet) — nur API-Endpunkte
-- **Hosting-Topologie**:
-  - **Netlify** hostet das Frontend (`dist/public`) — `digitale-transformation-ebook.netlify.app`
-  - **Render** hostet den Server — `digitale-transformation-ebook.onrender.com`
-  - Netlify proxied `/api/*` zu Render (siehe `netlify.toml`)
+- **Backend**: Express (auf Render gehostet) — API + Frontend-Auslieferung
+- **Hosting-Topologie (Render-only seit 2026-06-23, Netlify abgelöst)**:
+  - **Render** hostet ALLES — `digitale-transformation-ebook.onrender.com`
+    (bezahlter Always-On-Plan, kein Cold-Start). Express serviert das Frontend
+    (`express.static` + SPA-Fallback) UND die API (`/api/*` same-origin, kein Proxy).
+  - **Korpus-Daten live**: die zwischen Deploys wachsenden JSONs (resonanzen-*,
+    Embeddings, concept-edges/nodes, werk-chunks) liefert `server/lib/rawAssets.ts`
+    aus GitHub-Raw (TTL-Cache) — frisch ohne Redeploy (Render ignoriert
+    `client/public/**` in den buildFilters). Eingebackene Kopie = Fallback.
+  - **Netlify**: abgelöst. `netlify.toml`/`scripts/netlify-ignore.sh` bleiben als
+    deprecated-Historie. Grund: Netlify rechnete Build-Minuten ab + jeder Daten-
+    Commit triggerte einen Rebuild (Deploy-Churn); Render ist flat-cost.
 - **KI-Backends**: Anthropic Claude (Endpoints), Google Gemini (Embeddings)
 - **Korpus-Store**: Markdown-Files unter `content/resonanzen/raw/`, plus
   generierte Indices unter `client/public/resonanzen-*.json`
@@ -455,11 +462,12 @@ semantisch (Embedding) nach 300 ms — kein Toggle.
 
 ## Live-URLs
 
-- Produktion: <https://digitale-transformation-ebook.netlify.app>
-- API: <https://digitale-transformation-ebook.onrender.com> (proxied via `/api/*`)
+- Produktion (Frontend + API, Render-only): <https://digitale-transformation-ebook.onrender.com>
 - Repo: <https://github.com/marksen23/digitale-transformation-ebook>
-- Health: <https://digitale-transformation-ebook.netlify.app/admin/health>
+- Health: <https://digitale-transformation-ebook.onrender.com/admin/health>
   (Admin-Token erforderlich — Aufruf via `?token=...` einmal initial)
+- (abgelöst) Netlify-Subdomain `…netlify.app` — solange DNS/Netlify nicht
+  abgeschaltet ist, noch erreichbar, aber nicht mehr die kanonische URL.
 
 ---
 

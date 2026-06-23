@@ -2,29 +2,30 @@ services:
   - type: web
     name: digitale-transformation-ebook
     runtime: node
-    # Render baut nur den Server-Bundle. Index + Embeddings sind im CI-
-    # Workflow validate-corpus.yml gebaut und nach client/public/ committed —
-    # Render braucht sie nicht neu zu generieren (wäre nur Verschwendung von
-    # Gemini-Quota und timed out auf Free-Tier-Build, Run 2026-05-23 07:31).
-    # Frontend baut Netlify.
-    buildCommand: npm install --legacy-peer-deps && npm run build:server
+    # Render-only (Netlify abgelöst 2026-06-23): Render baut Frontend + Server
+    # und serviert beide (express.static + SPA-Fallback). NICHT `npm run build`
+    # — das würde Korpus-Index/Embeddings/PDF mit Gemini-Calls neu rechnen (macht
+    # CI). Nur build:frontend (vite, kopiert committete JSONs als Fallback) +
+    # build:server.
+    buildCommand: npm install --legacy-peer-deps && npm run build:frontend && npm run build:server
     startCommand: node dist/index.js
-    # Build-Filter: Render baut NUR neu, wenn server-relevante Dateien sich
-    # ändern. Korpus-Daten (client/public/*.json), Frontend und Doku triggern
-    # KEINEN Server-Redeploy mehr — der Server zieht die Korpus-Embeddings
-    # jetzt live von GitHub-Raw mit TTL-Cache (werkRetrieval.ts), braucht also
-    # keinen Redeploy, um neue kuratierte Einträge zu sehen. Spart Build-
-    # Minuten + verhindert Deploy-Churn bei jedem Live-Append-Commit auf main.
+    # Build-Filter: Render redeployt nur bei Frontend-CODE oder Server. Korpus-
+    # DATEN (client/public/*.json) triggern KEINEN Redeploy — der Server zieht
+    # sie live von GitHub-Raw (server/lib/rawAssets.ts + werkRetrieval.ts, TTL-
+    # Cache). Spart Build-Minuten + verhindert Deploy-Churn bei jedem Daten-Commit.
     buildFilters:
       paths:
         - server/**
+        - client/src/**
+        - client/index.html
         - package.json
         - package-lock.json
         - pnpm-lock.yaml
         - tsconfig.json
+        - vite.config.ts
         - render.yaml
       ignoredPaths:
-        - client/**
+        - client/public/**
         - content/**
         - scripts/**
         - "**/*.md"

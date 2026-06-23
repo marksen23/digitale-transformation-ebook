@@ -11,6 +11,7 @@ import { removeFromIndex, removeManyFromIndex, updateInIndex, updateManyInIndex,
 import { UNTRUSTED_RULE, wrapUntrusted, sanitizeConceptText } from "./lib/promptSafety.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
+import { rawAssetMiddleware } from "./lib/rawAssets.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -130,6 +131,12 @@ async function startServer() {
     process.env.NODE_ENV === "production"
       ? path.resolve(__dirname, "public")
       : path.resolve(__dirname, "..", "dist", "public");
+
+  // Render-only: die zwischen Server-Deploys wachsenden Korpus-JSONs (resonanzen-*,
+  // Embeddings, concept-edges/nodes, werk-chunks) LIVE aus GitHub-Raw servieren —
+  // frisch ohne Redeploy, ohne Netlify. Muss VOR express.static stehen; fällt bei
+  // GitHub-Ausfall auf die eingebackene Kopie zurück (next()).
+  app.use(rawAssetMiddleware);
 
   app.use(express.static(staticPath));
 

@@ -9,7 +9,7 @@ import type { ResonanzEntry } from "./resonanzenIndex";
 
 const AUTHOR = "Oehring, Markus";
 const WORK_TITLE = "Resonanzvernunft – Digitale Transformation";
-const SITE_BASE = "https://digitale-transformation-ebook.netlify.app";
+const SITE_BASE = "https://digitale-transformation-ebook.onrender.com";
 
 function escapeBibtex(s: string): string {
   return s
