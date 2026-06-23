@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:11:16.618Z",
+  "generatedAt": "2026-06-23T00:11:38.871Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -54,6 +54,17 @@
       "masterAnchor": null,
       "distinctness": 0.252,
       "createdAt": "2026-06-23T00:11:16.419Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-187N368",
+      "kernsatz": "Die Transparenz der Verarbeitung enthüllt die Mechanik der Maschine, doch erst die Analyse ihrer Wirkung auf den Menschen durchdringt die Verklärung, die aus ihrer impliziten Macht erwächst.",
+      "questionSourceId": "MPUS5KL9-1BDB98F8",
+      "answerId": "MPUSEQMB-A31FD1B3",
+      "conceptAnchor": "transaufklaerung",
+      "masterAnchor": null,
+      "distinctness": 0.247,
+      "createdAt": "2026-06-23T00:11:38.677Z",
       "actor": "admin"
     }
   ]
