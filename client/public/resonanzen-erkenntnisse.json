@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:11:55.824Z",
+  "generatedAt": "2026-06-23T00:12:16.544Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -76,6 +76,17 @@
       "masterAnchor": null,
       "distinctness": 0.246,
       "createdAt": "2026-06-23T00:11:55.647Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1ABCS5C",
+      "kernsatz": "Die algorithmische Offenbarung einer fehlerfreien Wahrheit entmündigt das Subjekt, indem sie ihm den transformativen Prozess des Irrtums, des Zweifels und des ringenden Verstehens als Bedingung seiner Freiheit entzieht.",
+      "questionSourceId": "MPUTP1ZT-5D9ECB8B",
+      "answerId": "MPUTT58G-25E5A1AC",
+      "conceptAnchor": "transaufklaerung",
+      "masterAnchor": null,
+      "distinctness": 0.243,
+      "createdAt": "2026-06-23T00:12:16.341Z",
       "actor": "admin"
     }
   ]
