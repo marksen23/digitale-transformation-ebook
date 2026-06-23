@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:12:16.544Z",
+  "generatedAt": "2026-06-23T00:12:38.634Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -87,6 +87,17 @@
       "masterAnchor": null,
       "distinctness": 0.243,
       "createdAt": "2026-06-23T00:12:16.341Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-1FBHMFR",
+      "kernsatz": "Wahre Aufklärung ist nicht die algorithmische Mitteilung unserer Position im Ganzen, sondern die mühsam errungene Fähigkeit, das Licht der Erkenntnis selbst in die Blackbox unserer Existenz zu tragen.",
+      "questionSourceId": "MPUTP1ZT-5D9ECB8B",
+      "answerId": "MPUU3ASH-7093F1A3",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.237,
+      "createdAt": "2026-06-23T00:12:38.452Z",
       "actor": "admin"
     }
   ]
