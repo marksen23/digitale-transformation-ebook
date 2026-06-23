@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:18:05.328Z",
+  "generatedAt": "2026-06-23T00:18:23.197Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -285,6 +285,17 @@
       "masterAnchor": null,
       "distinctness": 0.218,
       "createdAt": "2026-06-23T00:18:05.132Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-LHQ8DZ",
+      "kernsatz": "Die ursprüngliche Sehnsucht nach Entlastung von der Mühsal des Selbstseins wird in der digitalen Verklärung zur neuen Landschaft, in der wir uns selbst als Echo unserer optimierten Möglichkeiten begegnen.",
+      "questionSourceId": "MOOJYUM5-27711091",
+      "answerId": "MPUSCM19-FD1196BD",
+      "conceptAnchor": "echo",
+      "masterAnchor": null,
+      "distinctness": 0.216,
+      "createdAt": "2026-06-23T00:18:23.006Z",
       "actor": "admin"
     }
   ]
