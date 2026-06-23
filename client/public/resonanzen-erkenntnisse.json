@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:16:08.952Z",
+  "generatedAt": "2026-06-23T00:16:32.321Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -208,6 +208,17 @@
       "masterAnchor": null,
       "distinctness": 0.226,
       "createdAt": "2026-06-23T00:16:08.781Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-NLCQ1E",
+      "kernsatz": "Schöpferische Unruhe ist keine ziellose Zerstreuung, sondern ein innerer Antrieb, der durch Rückbindung an den Kern die Begegnung mit dem Anderen als transformative Kraft sucht.",
+      "questionSourceId": "MQ5WX52Q-442369F2",
+      "answerId": "MQ5WYJFU-60EB210E",
+      "conceptAnchor": "spannung",
+      "masterAnchor": null,
+      "distinctness": 0.225,
+      "createdAt": "2026-06-23T00:16:32.122Z",
       "actor": "admin"
     }
   ]
