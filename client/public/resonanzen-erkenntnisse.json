@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:20:30.668Z",
+  "generatedAt": "2026-06-23T00:20:47.273Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -373,6 +373,17 @@
       "masterAnchor": null,
       "distinctness": 0.209,
       "createdAt": "2026-06-23T00:20:30.482Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-109KLO9",
+      "kernsatz": "Erst im Kontrast zur digitalen Projektion wird die Unmittelbarkeit des eigenen Seins als das sichtbar, was sie im Tausch gegen die symbolische Welt zu verlieren droht.",
+      "questionSourceId": "MPMLW8I0-8852B480",
+      "answerId": "MPMM90CV-98ADD627",
+      "conceptAnchor": "lm-spiegel",
+      "masterAnchor": null,
+      "distinctness": 0.208,
+      "createdAt": "2026-06-23T00:20:47.111Z",
       "actor": "admin"
     }
   ]
