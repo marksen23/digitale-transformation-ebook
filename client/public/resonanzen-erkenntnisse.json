@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:09:19.922Z",
+  "generatedAt": "2026-06-23T00:09:47.615Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -10,6 +10,17 @@
       "masterAnchor": null,
       "distinctness": 0.296,
       "createdAt": "2026-06-23T00:09:19.750Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-11GI9Z3",
+      "kernsatz": "Die mühelose Korrektur des Fehlers entkernt das Scheitern seiner transformativen Kraft und ersetzt die menschliche Auseinandersetzung mit Unvollkommenheit durch die passive Aufnahme einer optimierten Realität.",
+      "questionSourceId": "MPUTT58G-25E5A1AC",
+      "answerId": "MPUTVW03-F8D17C8E",
+      "conceptAnchor": "lm-scheitern",
+      "masterAnchor": null,
+      "distinctness": 0.254,
+      "createdAt": "2026-06-23T00:09:47.439Z",
       "actor": "admin"
     }
   ]
