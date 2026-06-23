@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:11:38.871Z",
+  "generatedAt": "2026-06-23T00:11:55.824Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -65,6 +65,17 @@
       "masterAnchor": null,
       "distinctness": 0.247,
       "createdAt": "2026-06-23T00:11:38.677Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-G0RE7O",
+      "kernsatz": "Die von einer Maschine erzeugte Kohärenz des Ganzen erstickt die menschliche Erkenntnis, die erst aus der Irritation durch das unpassende Teil, dem Scheitern am System, erwächst.",
+      "questionSourceId": "MPUTMB0F-76443E92",
+      "answerId": "MPUTP1ZT-5D9ECB8B",
+      "conceptAnchor": "erkenntnis",
+      "masterAnchor": null,
+      "distinctness": 0.246,
+      "createdAt": "2026-06-23T00:11:55.647Z",
       "actor": "admin"
     }
   ]
