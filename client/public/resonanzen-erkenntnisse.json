@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:17:22.906Z",
+  "generatedAt": "2026-06-23T00:17:40.171Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -252,6 +252,17 @@
       "masterAnchor": null,
       "distinctness": 0.221,
       "createdAt": "2026-06-23T00:17:22.721Z",
+      "actor": "admin"
+    },
+    {
+      "id": "ERK-17L5RSI",
+      "kernsatz": "Die Enthüllung der algorithmischen Funktion durch optimierte Zielgrößen verschleiert das qualitative Scheitern menschlicher Erfahrung, das jenseits dieser quantifizierbaren Erfolge liegt.",
+      "questionSourceId": "MPUS5KL9-1BDB98F8",
+      "answerId": "MPUS94IT-9CEEC40A",
+      "conceptAnchor": "dazwischenintelligenz",
+      "masterAnchor": null,
+      "distinctness": 0.219,
+      "createdAt": "2026-06-23T00:17:39.988Z",
       "actor": "admin"
     }
   ]
