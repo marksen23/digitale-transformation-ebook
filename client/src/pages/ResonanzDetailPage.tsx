@@ -15,6 +15,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
+import { SITE_URL } from "@/lib/siteUrl";
 import SiteFooter from "@/components/SiteFooter";
 
 export default function ResonanzDetailPage() {
@@ -62,7 +63,7 @@ export default function ResonanzDetailPage() {
       ["og:title", `${entry.id} — Resonanzvernunft`],
       ["og:description", entry.response.slice(0, 200)],
       ["og:type", "article"],
-      ["og:url", `https://digitale-transformation-ebook.onrender.com/resonanz/${entry.id}`],
+      ["og:url", `${SITE_URL}/resonanz/${entry.id}`],
     ];
     for (const [prop, content] of ogPairs) {
       const m = document.createElement("meta");

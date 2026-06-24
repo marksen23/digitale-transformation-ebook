@@ -12,6 +12,7 @@ import { UNTRUSTED_RULE, wrapUntrusted, sanitizeConceptText } from "./lib/prompt
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
+import { renderSeoHtml, buildSitemap, canonicalHostRedirect } from "./lib/seo.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -126,6 +127,11 @@ async function startServer() {
 
   app.use(express.json());
 
+  // Launch-Schalter: 301 von *.onrender.com / *.netlify.app auf die kanonische
+  // de-Domain. ENV-gated (CANONICAL_REDIRECT=1) — inert bis zum DNS-Flip, danach
+  // bündelt es alle SEO-Signale auf eine Domain. Muss ganz vorne stehen.
+  app.use(canonicalHostRedirect);
+
   // Serve static files from dist/public in production
   const staticPath =
     process.env.NODE_ENV === "production"
@@ -138,7 +144,10 @@ async function startServer() {
   // GitHub-Ausfall auf die eingebackene Kopie zurück (next()).
   app.use(rawAssetMiddleware);
 
-  app.use(express.static(staticPath));
+  // index: false — sonst würde express.static das ROHE index.html für "/"
+  // ausliefern (Auto-Index) und den SEO-Handler umgehen. So fällt "/" durch
+  // zum Catch-all mit Meta-/JSON-LD-/Snapshot-Injektion.
+  app.use(express.static(staticPath, { index: false }));
 
   // ─── Health / Diagnose-Endpunkt ───────────────────────────────────
   // M4: prüft jetzt das EMBEDDING-Modell (nicht nur Generation), weil die
@@ -3764,9 +3773,39 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     }
   });
 
-  // Handle client-side routing - serve index.html for all routes
-  app.get("*", (_req, res) => {
-    res.sendFile(path.join(staticPath, "index.html"));
+  // Dynamische sitemap.xml aus dem Live-Index (alle nicht-rejected Resonanzen +
+  // Haupt-Routen). Frisch ohne Build — neue Resonanzen erscheinen automatisch.
+  app.get("/sitemap.xml", async (_req, res) => {
+    try {
+      const xml = await buildSitemap();
+      res.setHeader("Content-Type", "application/xml; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=3600");
+      res.send(xml);
+    } catch (err) {
+      console.error("[sitemap] failed:", err);
+      res.status(500).send("sitemap error");
+    }
+  });
+
+  // Handle client-side routing — serve index.html for all routes, ABER mit
+  // server-injizierter SEO/GEO-Aufbereitung (Meta + JSON-LD + Text-Snapshot pro
+  // Route, server/lib/seo.ts). Template einmal gecacht (prod-statisch). Bei
+  // jedem Fehler → roher sendFile-Fallback, damit die SPA nie ausfällt.
+  const indexHtmlPath = path.join(staticPath, "index.html");
+  let _indexTemplate: string | null = null;
+  const getTemplate = (): string => {
+    if (_indexTemplate == null) _indexTemplate = fs.readFileSync(indexHtmlPath, "utf-8");
+    return _indexTemplate;
+  };
+  app.get("*", async (req, res) => {
+    try {
+      const html = await renderSeoHtml(getTemplate(), req.path);
+      res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.send(html);
+    } catch (err) {
+      console.error("[seo] render failed, serving raw index.html:", err);
+      res.sendFile(indexHtmlPath);
+    }
   });
 
   const port = process.env.PORT || 3000;

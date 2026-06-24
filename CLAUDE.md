@@ -468,6 +468,46 @@ semantisch (Embedding) nach 300 ms — kein Toggle.
   (Admin-Token erforderlich — Aufruf via `?token=...` einmal initial)
 - (abgelöst) Netlify-Subdomain `…netlify.app` — solange DNS/Netlify nicht
   abgeschaltet ist, noch erreichbar, aber nicht mehr die kanonische URL.
+- **Kanonische Produktiv-Domain (Launch-Ziel): `https://digitale-transformation-ebook.de`.**
+
+---
+
+## SEO/GEO + Produktiv-Launch (Domain-Umzug)
+
+Damit der angehäufte Korpus von Such- UND KI-Crawlern (Chat-Clients/Agenten)
+gefunden + verarbeitet wird, liefert der Server die SPA **server-seitig
+SEO-aufbereitet** aus — die App ist sonst ein JS-SPA ohne Inhalt für JS-lose
+Crawler.
+
+- **`server/lib/seo.ts`** ist die EINZIGE Server-Quelle für `SITE_URL`
+  (ENV-überschreibbar, Default = de-Domain; Client-Pendant
+  `client/src/lib/siteUrl.ts` via `VITE_SITE_URL`). Der SPA-Fallback
+  (`server/index.ts` `app.get("*")`) injiziert **pro Route** in `index.html`:
+  Titel/Description, canonical, hreflang, Open-Graph/Twitter, JSON-LD
+  (`WebSite`+`Book` auf Home, `ScholarlyArticle`+`BreadcrumbList` pro Resonanz)
+  und einen **Text-Snapshot in `#root`** (von React beim Mount ersetzt; JS-lose
+  Agenten lesen so den realen Inhalt). Markerbasiert: `<!--SEO-HEAD-->` +
+  `<!--SEO-BODY-->` in `client/index.html`. **Kritisch:** `express.static` läuft
+  mit `{ index: false }`, sonst umgeht das Auto-Index die Injektion für `/`.
+- **`GET /sitemap.xml`** (dynamisch aus dem Live-Index — neue Resonanzen ohne
+  Build), **`client/public/robots.txt`** (KI-Crawler ausdrücklich erlaubt),
+  **`client/public/llms.txt`** (llmstxt.org — verweist auf die maschinenlesbaren
+  JSON-Artefakte), **`og-default.png`** (aus `og-default.svg` via sharp).
+- **Launch-Schalter `CANONICAL_REDIRECT=1`** (Render-Env, `canonicalHostRedirect`):
+  301 von `*.onrender.com`/`*.netlify.app` → de-Domain. **Erst NACH dem DNS-Flip
+  auf 1 setzen** (vorher würde onrender auf eine nicht-live Domain umleiten).
+
+**Launch-Schrittfolge (Domain scharfschalten = Produktiv-Übergang):**
+1. Render → Custom Domain `digitale-transformation-ebook.de` (+ `www`) anlegen.
+2. DNS beim Registrar auf Render zeigen (ALIAS/ANAME apex + CNAME www), SSL
+   abwarten (grün).
+3. Render-Env `CANONICAL_REDIRECT=1` setzen → Redeploy. (`SITE_URL`/`VITE_SITE_URL`
+   stehen schon in `render.yaml`.)
+4. Netlify abschalten (Auto-Publish stop / Site pausieren).
+5. Google Search Console: Property `…de` per DNS-TXT verifizieren, `sitemap.xml`
+   einreichen. Optional Bing Webmaster.
+6. Validieren: Rich-Results-Test (JSON-LD), OG-Debugger (FB/LinkedIn/X),
+   `curl -A GPTBot https://…de/resonanz/<id>` (Meta+Snapshot), Lighthouse.
 
 ---
 

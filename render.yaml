@@ -34,6 +34,20 @@ services:
         value: production
       - key: NODE_VERSION
         value: 22.13.0
+      # Kanonische Produktiv-Domain — EINZIGE Quelle für canonical/og/sitemap/
+      # JSON-LD (server/lib/seo.ts) und für die Client-Links (vite-Build liest
+      # VITE_SITE_URL → client/src/lib/siteUrl.ts). Beide defaulten ohnehin auf
+      # diese Domain; hier explizit dokumentiert. Für Staging/Preview umsetzbar.
+      - key: SITE_URL
+        value: https://digitale-transformation-ebook.de
+      - key: VITE_SITE_URL
+        value: https://digitale-transformation-ebook.de
+      # LAUNCH-SCHALTER: erst NACH dem DNS-Flip auf "1" setzen. Dann leiten
+      # *.onrender.com / *.netlify.app per 301 auf die de-Domain um (bündelt
+      # SEO-Signale). Vorher AUS lassen — sonst leitet onrender auf eine noch
+      # nicht live geschaltete Domain um. Default (nicht gesetzt) = inert.
+      - key: CANONICAL_REDIRECT
+        value: "0"
       - key: ANTHROPIC_API_KEY
         sync: false
       - key: GEMINI_API_KEY

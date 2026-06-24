@@ -6,10 +6,11 @@
  * Cite-Key — bleibt konsistent über CI-Builds.
  */
 import type { ResonanzEntry } from "./resonanzenIndex";
+import { SITE_URL } from "./siteUrl";
 
 const AUTHOR = "Oehring, Markus";
 const WORK_TITLE = "Resonanzvernunft – Digitale Transformation";
-const SITE_BASE = "https://digitale-transformation-ebook.onrender.com";
+const SITE_BASE = SITE_URL;
 
 function escapeBibtex(s: string): string {
   return s

@@ -1,0 +1,40 @@
+# Resonanzvernunft – Digitale Transformation
+
+> Eine poetisch-philosophische Trilogie von Markus Oehring über Resonanzvernunft,
+> das Mensch-Maschine-Verhältnis und digitale Existenz. Das Werk ist *lebendig*:
+> ein interaktives Begriffsnetz, ein semantisch durchsuchbarer Korpus aus
+> kuratierten KI-Resonanzen am Werktext, gesammelte offene Fragen und daraus
+> destillierte Erkenntnisse — alles maschinenlesbar.
+
+Dieses Werk wächst durch Anlagerung: der kanonische Buchtext und das handgesetzte
+Begriffsnetz bleiben der Kern; KI-gestützte Resonanzen, neue Begriffe und
+Erkenntnisse lagern sich kuratiert an. Die Inhalte stehen für Agenten und
+Sprachmodelle direkt als JSON bereit (siehe „Maschinenlesbarer Korpus").
+
+Sprache: Deutsch. Autor: Markus Oehring. Lizenz: siehe /lizenz.
+
+## Werk
+- [Das Werk lesen](https://digitale-transformation-ebook.de/werk): vollständiger Lesetext der Trilogie (drei Kritiken).
+- [Begriffsnetz](https://digitale-transformation-ebook.de/begriffsnetz): die zentralen Konzepte der Resonanzvernunft und ihre feldübergreifenden Verbindungen.
+- [Philosophie](https://digitale-transformation-ebook.de/philosophie): die Denker und Linien, aus denen das Werk erwächst.
+
+## Wissen & Erkenntnisse
+- [Wissen / Korpus-Browser](https://digitale-transformation-ebook.de/resonanzen): durchsuchbarer Korpus der kuratierten Resonanzen.
+- [Offene Fragen](https://digitale-transformation-ebook.de/fragen): die Schlussfragen aller Resonanzen, gesammelt.
+- [Erkenntnisse](https://digitale-transformation-ebook.de/erkenntnisse): destillierte, neuwertige Einsichten mit Entstehungsanalyse.
+- [Wissens-Landkarte](https://digitale-transformation-ebook.de/landkarte): Begriffsnetz × Korpus als Karte.
+
+## Maschinenlesbarer Korpus (JSON)
+- [Resonanzen-Index](https://digitale-transformation-ebook.de/resonanzen-index.json): alle Resonanzen mit Volltext, Anker, Begriffs-IDs, Status.
+- [Offene Fragen](https://digitale-transformation-ebook.de/resonanzen-questions.json): Fragen-Ketten und ob sie im Korpus beantwortet sind.
+- [Erkenntnisse](https://digitale-transformation-ebook.de/resonanzen-erkenntnisse.json): bestätigte destillierte Erkenntnisse.
+- [Begriffsnetz-Knoten](https://digitale-transformation-ebook.de/concept-nodes.json) und [-Kanten](https://digitale-transformation-ebook.de/concept-edges.json): die wachsende Begriffsstruktur.
+
+## Permalinks
+- Jede Resonanz ist einzeln zitierfähig unter `https://digitale-transformation-ebook.de/resonanz/{id}` (mit BibTeX + JSON-LD).
+- Vollständige URL-Liste: [sitemap.xml](https://digitale-transformation-ebook.de/sitemap.xml).
+
+## Über / Rechtliches
+- [Das Projekt](https://digitale-transformation-ebook.de/projekt)
+- [Impressum](https://digitale-transformation-ebook.de/impressum)
+- [Lizenz](https://digitale-transformation-ebook.de/lizenz)
