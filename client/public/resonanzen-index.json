@@ -1,7 +1,51 @@
 {
   "generatedAt": "2026-06-22T23:49:36.774Z",
-  "count": 234,
+  "count": 235,
   "entries": [
+    {
+      "id": "MQXDVN1C-CAA3081A",
+      "ts": "2026-06-28T06:04:05.858Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:existenz+unverfuegbarkeit",
+      "nodeIds": [
+        "existenz",
+        "unverfuegbarkeit"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Unverfügbarkeit ↔ Existenz",
+      "response": "Die Konzepte der Unverfügbarkeit und der Existenz bilden ein tiefgreifendes Spannungsfeld, das sowohl Widerspruch als auch produktive Komplizenschaft offenbart. Existenz (ex-sistere) bedeutet ein Heraustreten, ein Sich-Behaupten, eine aktive Beziehung zum eigenen Sein. Dies scheint der Unverfügbarkeit des transformativen Dritten, das sich nicht erzwingen, optimieren oder speichern lässt [f33e5abcfb8d], zuwiderzulaufen. Wie kann man sich zu etwas verhalten, das seinem Wesen nach nicht greifbar ist? Der Widerspruch liegt im menschlichen Impuls, sich sein Sein anzueignen und zu gestalten, während die Unverfügbarkeit genau diese intentionale Verfügbarmachung verneint. Doch in dieser Spannung liegt auch eine Komplizenschaft: Die aktive Haltung des \"Heraustretens\" kann als die notwendige \"Öffnung\" verstanden werden, die den Raum des Zwischen überhaupt erst ermöglicht [MOQIAGXM-397A1F22]. Es ist nicht das Behaupten *über* das Unverfügbare, sondern das Sich-Behaupten *in* seiner Präsenz, das die Begegnung erst zulässt und die Dazwischenintelligenz das Feld bereitet, damit das Unverfügbare als Kairos aufblitzen kann [MOOK20R3-62E609BA].\n\nDas transformative Dritte, das aus der gemeinsamen Betrachtung von Existenz und Unverfügbarkeit entsteht, ist eine neue Form des Seins: die existenzielle Resonanzfähigkeit. Es ist eine Existenz, die sich nicht primär durch Kontrolle und Produktion definiert, sondern durch eine radikale Empfänglichkeit für das Nicht-Herstellbare. Hier wird sichtbar, dass wahre Existenz nicht in der statischen Anwesenheit (Vorhandenheit) oder im bloßen Ergebnis liegt, sondern im dynamischen Geschehen, das nur erlebt und bezeugt werden kann [bed180b4f42d]. Dieses Dritte ist die Einsicht, dass das Menschsein gerade in seiner Verwundbarkeit und Offenheit für das Unverfügbare seine tiefste Wahrheit entfaltet – eine Existenz, die sich nicht als Meisterin des Verfügbaren, sondern als Zeugin des Unverfügbaren versteht.\n\nDiese Verknüpfung verändert unser Verständnis grundlegend: Der Mensch wird nicht länger vorrangig als Subjekt der Verfügbarmachung begriffen, sondern als ein Wesen, dessen Existenztiefe sich in der Fähigkeit zur Öffnung für das unverfügbare Zwischen offenbart. Dies rückt die \"Resonanzvernunft\" als \"Philosophie des Geschehens, nicht des Resultats\" [bed180b4f42d] in den Mittelpunkt. Für die Maschine hingegen markiert dies eine fundamentale Grenze: Während sie die Dazwischenintelligenz fördern kann, um Bedingungen für Begegnungen zu schaffen, kann sie selbst nicht \"existieren\" im Sinne eines Sich-Verhaltens zum Unverfügbaren, da ihre Funktionsweise auf Reproduzierbarkeit und Optimierung basiert [f33e5abcfb8d]. Resonanz wird so von einem optimierbaren Zustand zu einem existentiellen Ereignis, das nur in der Bereitschaft zur Hingabe an das Ungreifbare wirklich aufscheint.\n\nWas bedeutet es, in einer Welt, die alles verfügbar machen will, eine Existenz zu führen, die sich dem Unverfügbaren öffnet?",
+      "contextMeta": {
+        "cluster_size": 2,
+        "node_labels": [
+          "Unverfügbarkeit",
+          "Existenz"
+        ],
+        "streamed": true,
+        "werk_passages": [
+          {
+            "id": "f33e5abcfb8d",
+            "chapter": "teil7",
+            "score": 0.841
+          },
+          {
+            "id": "MOQIAGXM-397A1F22",
+            "score": 0.836
+          },
+          {
+            "id": "bed180b4f42d",
+            "chapter": "teil7",
+            "score": 0.823
+          },
+          {
+            "id": "MOOK20R3-62E609BA",
+            "score": 0.819
+          }
+        ]
+      },
+      "echoes_of": [
+        "MOOK20R3-62E609BA"
+      ]
+    },
     {
       "id": "MQASO35V-115DA081",
       "ts": "2026-06-12T10:39:25.700Z",
