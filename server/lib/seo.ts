@@ -321,6 +321,42 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
     .replace("<!--SEO-BODY-->", snapshot);
 }
 
+// ─── llms-full.txt (GEO: kuratierter Volltext-Dump für KI-Agenten) ───────
+/**
+ * llmstxt.org-Konvention: llms-full.txt = die Inhalte selbst (nicht nur Links).
+ * Dynamisch aus dem Live-Index — NUR kuratierte Einträge (approved/published),
+ * dieselbe Qualitätsschwelle wie die RAG-Rückkopplung. Agenten/Chat-Clients
+ * bekommen so den ganzen kuratierten Korpus in einem Request, immer frisch.
+ */
+export async function buildLlmsFullText(): Promise<string> {
+  const entries = await cachedIndex();
+  const curated = entries
+    .filter((e) => e.status === "approved" || e.status === "published")
+    .sort((a, b) => (b.ts || "").localeCompare(a.ts || ""));
+  const head = [
+    `# ${WORK_TITLE} — kuratierter Korpus (Volltext)`,
+    ``,
+    `> ${DEFAULT_DESC}`,
+    `> Autor: ${AUTHOR}. Sprache: Deutsch. Stand: ${new Date().toISOString().slice(0, 10)}.`,
+    `> ${curated.length} kuratierte Resonanzen. Permalink-Schema: ${SITE_URL}/resonanz/{id}`,
+    `> Struktur/Navigation: ${SITE_URL}/llms.txt · Maschinenlesbar: ${SITE_URL}/resonanzen-index.json`,
+    ``,
+  ];
+  const blocks = curated.map((e) => {
+    const title = clip(e.prompt || e.anchor || e.id, 160);
+    return [
+      `## ${title}`,
+      ``,
+      `- ID: ${e.id} · Datum: ${(e.ts || "").slice(0, 10)} · Quelle: ${SITE_URL}/resonanz/${e.id}`,
+      e.nodeIds?.length ? `- Begriffe: ${e.nodeIds.join(", ")}` : ``,
+      ``,
+      (e.response || "").trim(),
+      ``,
+    ].filter((l) => l !== ``).join("\n") + "\n";
+  });
+  return head.join("\n") + "\n" + blocks.join("\n");
+}
+
 // ─── Sitemap ─────────────────────────────────────────────────────────────
 const SITEMAP_STATIC = [
   "/",

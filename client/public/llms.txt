@@ -24,6 +24,9 @@ Sprache: Deutsch. Autor: Markus Oehring. Lizenz: siehe /lizenz.
 - [Erkenntnisse](https://digitale-transformation-ebook.de/erkenntnisse): destillierte, neuwertige Einsichten mit Entstehungsanalyse.
 - [Wissens-Landkarte](https://digitale-transformation-ebook.de/landkarte): Begriffsnetz × Korpus als Karte.
 
+## Volltext für Sprachmodelle
+- [llms-full.txt](https://digitale-transformation-ebook.de/llms-full.txt): der komplette kuratierte Korpus als Volltext in einem Dokument (dynamisch, immer aktuell).
+
 ## Maschinenlesbarer Korpus (JSON)
 - [Resonanzen-Index](https://digitale-transformation-ebook.de/resonanzen-index.json): alle Resonanzen mit Volltext, Anker, Begriffs-IDs, Status.
 - [Offene Fragen](https://digitale-transformation-ebook.de/resonanzen-questions.json): Fragen-Ketten und ob sie im Korpus beantwortet sind.

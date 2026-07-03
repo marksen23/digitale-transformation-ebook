@@ -13,7 +13,7 @@ import { UNTRUSTED_RULE, wrapUntrusted, sanitizeConceptText } from "./lib/prompt
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
-import { renderSeoHtml, buildSitemap, canonicalHostRedirect } from "./lib/seo.js";
+import { renderSeoHtml, buildSitemap, buildLlmsFullText, canonicalHostRedirect } from "./lib/seo.js";
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -3810,6 +3810,21 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     } catch (err) {
       console.error("[sitemap] failed:", err);
       res.status(500).send("sitemap error");
+    }
+  });
+
+  // GEO: kuratierter Volltext-Dump für KI-Agenten (llmstxt.org-Konvention).
+  // Dynamisch aus dem Live-Index — muss VOR dem SPA-Catch-all stehen; das
+  // statische llms.txt (Navigation) liefert express.static.
+  app.get("/llms-full.txt", async (_req, res) => {
+    try {
+      const text = await buildLlmsFullText();
+      res.setHeader("Content-Type", "text/plain; charset=utf-8");
+      res.setHeader("Cache-Control", "public, max-age=3600");
+      res.send(text);
+    } catch (err) {
+      console.error("[llms-full] failed:", err);
+      res.status(500).send("llms-full error");
     }
   });
 
