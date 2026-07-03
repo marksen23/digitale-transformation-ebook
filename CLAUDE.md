@@ -466,8 +466,11 @@ semantisch (Embedding) nach 300 ms — kein Toggle.
 - Repo: <https://github.com/marksen23/digitale-transformation-ebook>
 - Health: <https://digitale-transformation-ebook.onrender.com/admin/health>
   (Admin-Token erforderlich — Aufruf via `?token=...` einmal initial)
-- (abgelöst) Netlify-Subdomain `…netlify.app` — solange DNS/Netlify nicht
-  abgeschaltet ist, noch erreichbar, aber nicht mehr die kanonische URL.
+- (abgelöst) Netlify-Subdomain `…netlify.app` — seit 2026-07-03 nur noch
+  301-Forwarder auf onrender (netlify.toml = Sekunden-Stub; Stand 2026-07-03
+  liefert die Site 503 = pausiert/suspendiert — wacht sie auf, greift der
+  Forwarder). Kette verlängert sich nach dem DNS-Flip automatisch auf die
+  de-Domain (via CANONICAL_REDIRECT auf Render).
 - **Kanonische Produktiv-Domain (Launch-Ziel): `https://digitale-transformation-ebook.de`.**
 
 ---

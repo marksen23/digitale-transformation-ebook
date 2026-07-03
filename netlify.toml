@@ -1,41 +1,19 @@
-# ⚠️ DEPRECATED (seit 2026-06-23): Netlify ist abgelöst — die App läuft
-# Render-only (Express serviert Frontend + API, Korpus-JSONs live aus GitHub-Raw
-# via server/lib/rawAssets.ts). Diese Datei bleibt als Historie. Zum Abschalten:
-# Netlify-Dashboard → Auto-Publish stoppen / Site pausieren + ggf. DNS umhängen.
+# ⚠️ NETLIFY = NUR NOCH 301-FORWARDER (seit 2026-07-03; abgelöst 2026-06-23).
+# Die App läuft Render-only (Express serviert Frontend + API + Live-Korpus-JSONs).
+# Diese Site existiert nur noch, damit Alt-Besucher der netlify.app-URL zum
+# Service weitergeleitet werden. Build = Sekunden-Stub (kein vite, KEINE
+# Gemini-Calls, keine nennenswerten Build-Minuten).
+#
+# Ziel ist bewusst onrender.com: sobald auf Render CANONICAL_REDIRECT=1 aktiv
+# ist (nach dem DNS-Flip), verlängert sich die Kette automatisch auf
+# netlify.app → onrender.com → digitale-transformation-ebook.de — hier muss
+# dann NICHTS mehr geändert werden.
 [build]
-  # NUR Frontend bauen. Der Korpus + alle Embeddings + das PDF werden bereits
-  # von der GitHub-Action (validate-corpus.yml) gebaut und als JSONs nach
-  # client/public/ committet — vite kopiert sie nach dist/public. Netlify muss
-  # das NICHT erneut rechnen. Vorher lief hier das volle `pnpm build`
-  # (Gemini-Calls + Korpus-Fetch + PDF-Gen) bei JEDEM Deploy → ~100s+ und
-  # Gemini-Quota-Verbrauch. Jetzt: ~40s reiner vite-Build, null Gemini-Calls.
-  command = "pnpm install && pnpm build:frontend"
-  publish = "dist/public"
-  functions = "dist/functions"
-  # Build-Ignore: überspringt den Deploy, wenn ein Commit nichts
-  # Frontend-Relevantes ändert (nur server/, scripts/, content/, *.md).
-  # Spart Build-Minuten bei reinen Backend-/Korpus-Raw-/Doku-Commits.
-  ignore = "bash scripts/netlify-ignore.sh"
+  command = "mkdir -p _stub && echo '<!doctype html><meta http-equiv=\"refresh\" content=\"0;url=https://digitale-transformation-ebook.onrender.com/\">' > _stub/index.html"
+  publish = "_stub"
 
-[build.environment]
-  NODE_VERSION = "24"
-  PNPM_VERSION = "10.4.1"
-
-# Proxy /api/* requests to the Render backend (Express + Gemini)
-# Replace the URL with your actual Render service URL.
-[[redirects]]
-  from = "/api/*"
-  to = "https://digitale-transformation-ebook.onrender.com/api/:splat"
-  status = 200
-  force = true
-
-# SPA fallback — must come AFTER the /api rule
 [[redirects]]
   from = "/*"
-  to = "/index.html"
-  status = 200
-
-[dev]
-  command = "pnpm dev"
-  port = 3000
-  framework = "vite"
+  to = "https://digitale-transformation-ebook.onrender.com/:splat"
+  status = 301
+  force = true
