@@ -1,7 +1,7 @@
 {
   "date": "2026-07-03",
-  "generatedAt": "2026-07-03T06:00:52.550Z",
-  "commit": "bd2d327b718d583831d1013b0c9c5d5a89b4cd54",
+  "generatedAt": "2026-07-03T12:13:38.725Z",
+  "commit": "8159559318b378f9f552f1b56569f2856323ed77",
   "filesChecked": 244,
   "aggregates": {
     "byEndpoint": {
@@ -23,9 +23,9 @@
       "band3-kap3",
       "weiterdenken"
     ],
-    "danglingLinks": 143,
+    "danglingLinks": 0,
     "redundantDuplicates": 0
   },
   "errors": 0,
-  "warnings": 148
+  "warnings": 5
 }
