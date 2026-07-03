@@ -27,7 +27,7 @@
     "eval:rag": "tsx scripts/eval-rag.ts"
   },
   "dependencies": {
-    "@anthropic-ai/sdk": "^0.90.0",
+    "@anthropic-ai/sdk": "^0.91.1",
     "@hookform/resolvers": "^5.2.2",
     "@pdfsmaller/pdf-encrypt-lite": "^1.0.2",
     "@radix-ui/react-accordion": "^1.2.12",
@@ -116,7 +116,11 @@
     },
     "overrides": {
       "tailwindcss>nanoid": "3.3.7",
-      "serialize-javascript": ">=7.0.5"
+      "serialize-javascript": ">=7.0.5",
+      "qs": ">=6.15.2",
+      "uuid@>=11 <11.1.1": "^11.1.1",
+      "dompurify@>=3 <3.4.8": "^3.4.8",
+      "mermaid@>=11 <11.15.0": "^11.15.0"
     }
   }
 }

@@ -1,5 +1,6 @@
 import express from "express";
 import { createServer } from "http";
+import { createHash, timingSafeEqual } from "crypto";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -88,10 +89,13 @@ setInterval(() => {
 }, 15 * 60 * 1000).unref();
 
 function getClientIp(req: express.Request): string {
-  // Netlify/Render setzen X-Forwarded-For
-  const fwd = req.headers['x-forwarded-for'];
-  const raw = Array.isArray(fwd) ? fwd[0] : fwd?.split(',')[0];
-  return (raw ?? req.ip ?? 'unknown').trim();
+  // SECURITY: req.ip statt eigenem X-Forwarded-For-Parsing. Der ERSTE
+  // XFF-Eintrag ist client-kontrolliert (beliebig setzbar) — damit ließe
+  // sich der Rate-Limiter der teuren LLM-Endpoints per gefälschtem Header
+  // umgehen. Mit `trust proxy = 1` (genau ein Proxy-Hop: Render) löst
+  // Express req.ip verlässlich auf die vom Proxy gesehene Client-IP auf
+  // und ignoriert client-gelieferte XFF-Vorspann-Einträge.
+  return (req.ip ?? 'unknown').trim();
 }
 
 /**
@@ -124,6 +128,12 @@ function rateLimiter(key: string, max: number, windowMs: number) {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+
+  // Render terminiert TLS und sitzt als GENAU EIN Proxy vor dem Server.
+  // trust proxy = 1 → req.ip = die vom Proxy angehängte echte Client-IP;
+  // weiter vorn stehende (client-gefälschte) XFF-Einträge zählen nicht.
+  // Wichtig für den Rate-Limiter (getClientIp). Lokal ohne Proxy harmlos.
+  app.set("trust proxy", 1);
 
   app.use(express.json());
 
@@ -1551,7 +1561,12 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     if (!expected) return false; // Wenn nicht gesetzt: Admin-Zugang deaktiviert
     const auth = req.headers.authorization ?? "";
     const m = auth.match(/^Bearer\s+(.+)$/);
-    return m !== null && m[1] === expected;
+    if (m === null) return false;
+    // Konstant-zeitiger Vergleich (kein ===): via SHA-256-Digest beider Seiten
+    // sind die Puffer gleich lang → timingSafeEqual ohne Längen-Leak.
+    const a = createHash("sha256").update(m[1]).digest();
+    const b = createHash("sha256").update(expected).digest();
+    return timingSafeEqual(a, b);
   }
 
   app.post("/api/admin/check", async (req, res) => {
@@ -2891,8 +2906,11 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       }
       const markdown = fs.readFileSync(mdPath, "utf-8");
 
-      // Wasserzeichen-ID aus Query (vom Client mitgesendet) oder Fallback
-      const wmId = typeof req.query.wm === "string" ? req.query.wm : "DT-PDF";
+      // Wasserzeichen-ID aus Query (vom Client mitgesendet) oder Fallback.
+      // SECURITY: auf sichere Zeichen + Länge begrenzen — der Wert landet im
+      // Content-Disposition-Header (Header-/Filename-Injection) und im PDF.
+      const wmRaw = typeof req.query.wm === "string" ? req.query.wm : "DT-PDF";
+      const wmId = (wmRaw.replace(/[^A-Za-z0-9._-]/g, "").slice(0, 40)) || "DT-PDF";
 
       // ── Kapitelstruktur — identisch zum WebApp-Parser ──────────
       interface PdfSection {
