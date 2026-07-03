@@ -9,6 +9,7 @@ master_of: [MPUFECMA-7E85D8E2, MPUFFZZO-69A41658, MPUFGY4Z-44206712, MPUFM0YN-83
 variant_count: 5
 nodeIds: [band3-kap3]
 status: published
+content_hash: 2d08e9b791b113ba
 llm: gemini-2.5-pro
 audit_trail:
   - event: synthesized

@@ -9,6 +9,7 @@ master_of: [MQ5WV5PP-6209C749, MQ5WX52Q-442369F2, MQ5WYJFU-60EB210E, MQ5WZZPN-80
 variant_count: 19
 nodeIds: [erkenntnis, lm-verwandlung]
 status: published
+content_hash: 7afae5704715e6b2
 llm: gemini-2.5-pro
 audit_trail:
   - event: synthesized

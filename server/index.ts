@@ -2629,6 +2629,13 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     const masterId = `MASTER-${Buffer.from(anchor + now).toString("hex").slice(0, 8).toUpperCase()}`;
     const variantIds = variants.map(v => v.id);
     const auditEvent = `  - event: ${existingMaster ? "re-synthesized" : "synthesized"}\n    ts: ${now}\n    actor: admin\n    source_ids: [${variantIds.join(", ")}]`;
+    // content_hash — Pflichtfeld des Konsistenz-Wächters (validate-resonanzen):
+    // sha256(prompt + "\n---\n" + response), 16 hex. prompt/response = genau die
+    // "## Frage"/"## Antwort"-Abschnitte unten. Fehlte bis 2026-07-03 → CI rot.
+    const masterPrompt = `Synthese von ${variants.length} Varianten zu: ${anchor}`;
+    const masterHash = createHash("sha256")
+      .update(masterPrompt).update("\n---\n").update(synthesisText)
+      .digest("hex").slice(0, 16);
     const masterMd = [
       `---`,
       `id: ${masterId}`,
@@ -2641,6 +2648,7 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       `variant_count: ${variants.length}`,
       `nodeIds: [${(anchor.split(":")[1] ?? "").split("+").join(", ")}]`,
       `status: published`,
+      `content_hash: ${masterHash}`,
       `llm: ${synthModel}`,
       `audit_trail:`,
       auditEvent,

@@ -9,6 +9,7 @@ master_of: [MQ5BF409-A842738E, MQ5BX1ZO-4BCAEB11, MQ5C1KZ4-D6D52E94, MQ5JL9TM-83
 variant_count: 5
 nodeIds: [weiterdenken]
 status: published
+content_hash: 5b0d01b4fdb2d55e
 llm: gemini-2.5-pro
 audit_trail:
   - event: re-synthesized
