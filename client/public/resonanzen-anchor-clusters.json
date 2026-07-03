@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T23:49:37.133Z",
+  "generatedAt": "2026-07-03T06:01:25.586Z",
   "clusters": [
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
@@ -26,8 +26,8 @@
         "MQ5WV5PP-6209C749"
       ],
       "lastVariantTs": "2026-06-09T01:00:02.623Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-6469616C",
+      "masterTs": "2026-06-22T23:56:37.289Z",
       "masterStale": false
     },
     {
@@ -41,8 +41,8 @@
         "MQ5BF409-A842738E"
       ],
       "lastVariantTs": "2026-06-09T05:42:54.167Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-6469616C",
+      "masterTs": "2026-06-23T00:27:00.522Z",
       "masterStale": false
     },
     {
@@ -56,8 +56,8 @@
         "MPUFECMA-7E85D8E2"
       ],
       "lastVariantTs": "2026-05-31T23:51:56.877Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-63686170",
+      "masterTs": "2026-06-23T00:25:25.032Z",
       "masterStale": false
     },
     {
@@ -166,9 +166,9 @@
     }
   ],
   "stats": {
-    "totalAnchors": 107,
+    "totalAnchors": 108,
     "withMultipleVariants": 11,
-    "withMaster": 0,
+    "withMaster": 3,
     "staleMasters": 0
   }
 }

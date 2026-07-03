@@ -1,16 +1,30 @@
 {
-  "generatedAt": "2026-06-22T23:49:37.066Z",
-  "count": 194,
+  "generatedAt": "2026-07-03T06:01:25.538Z",
+  "count": 195,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 194,
-    "answered": 174,
-    "open": 20,
-    "embedded": 0
+    "total": 195,
+    "answered": 176,
+    "open": 19,
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MQXDVN1C-CAA3081A",
+      "question": "Was bedeutet es, in einer Welt, die alles verfügbar machen will, eine Existenz zu führen, die sich dem Unverfügbaren öffnet?",
+      "endpoint": "analyse",
+      "anchor": "analyse:existenz+unverfuegbarkeit",
+      "nodeIds": [
+        "existenz",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-06-28T06:04:05.858Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MQASO35V-115DA081",
       "question": "Wenn Wahrheit sich im digitalen Zeitalter immer mehr im Widerschein einer \"antwortfähigen Intelligenz\" offenbart, wie können wir dann lernen, die Echtheit des Reflektierten von den bloßen Projektionen unseres eigenen Denkens zu unterscheiden?",
@@ -38,8 +52,13 @@
       ],
       "ts": "2026-06-12T10:20:20.323Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.742
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ68LVS7-240568F5",
@@ -49,8 +68,13 @@
       "nodeIds": [],
       "ts": "2026-06-09T06:06:45.799Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.814
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ683DMX-13D6C54F",
@@ -607,16 +631,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.748
+        },
+        {
           "id": "MQ68LVS7-240568F5",
           "score": 0.734
         },
         {
           "id": "MQ5XNFSV-CD34905C",
           "score": 0.733
-        },
-        {
-          "id": "MQ5XLW2D-D3E90BBC",
-          "score": 0.731
         }
       ],
       "answered": true
@@ -798,22 +822,10 @@
       "question": "Angesichts dieser komplexen Verflechtung von Sein, Wesen und der Notwendigkeit zur Öffnung, welche neuen ethischen Implikationen ergeben sich für die Gestaltung digitaler Räume, wenn Freiheit primär als Fähigkeit zur Bindung verstanden wird?",
       "endpoint": "path-analyse",
       "anchor": "path-analyse:freiheit+unverfuegbarkeit",
-      "nodeIds": [
-        "freiheit",
-        "lm-grenze",
-        "sein",
-        "unverfuegbarkeit",
-        "wesen",
-        "zwischen",
-        "öffnung"
-      ],
+      "nodeIds": [],
       "ts": "2026-06-08T14:28:37.621Z",
       "dupCount": 0,
       "answeredBy": [
-        {
-          "id": "MQ5CMPJB-3D705D06",
-          "score": 0.774
-        },
         {
           "id": "MQ5X56G4-537343C8",
           "score": 0.759
@@ -821,6 +833,10 @@
         {
           "id": "MQ5X1ZYV-9D7A29CC",
           "score": 0.734
+        },
+        {
+          "id": "MQ5X6P2M-52F9B16D",
+          "score": 0.732
         }
       ],
       "answered": true
@@ -905,6 +921,10 @@
         {
           "id": "MPUU3ASH-7093F1A3",
           "score": 0.727
+        },
+        {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.721
         }
       ],
       "answered": true
@@ -1054,6 +1074,10 @@
       "ts": "2026-06-01T06:17:56.528Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.743
+        },
         {
           "id": "MPUTKZI1-F10F9444",
           "score": 0.738
@@ -1369,12 +1393,12 @@
           "score": 0.774
         },
         {
-          "id": "MQ5BX1ZO-4BCAEB11",
-          "score": 0.772
-        },
-        {
           "id": "MPUTAYGM-514978C5",
           "score": 0.758
+        },
+        {
+          "id": "MPUT10KT-E7C5E32F",
+          "score": 0.736
         }
       ],
       "answered": true
@@ -1466,16 +1490,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.754
+        },
+        {
           "id": "MPUSXGC6-CD078CEA",
           "score": 0.754
         },
         {
           "id": "MPUTYL5L-4C0B344F",
           "score": 0.722
-        },
-        {
-          "id": "MQ5X56G4-537343C8",
-          "score": 0.72
         }
       ],
       "answered": true
@@ -1501,8 +1525,8 @@
           "score": 0.8
         },
         {
-          "id": "MQ5B6CTT-AB0A3D97",
-          "score": 0.766
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.78
         },
         {
           "id": "MQ68LVS7-240568F5",
@@ -1516,15 +1540,7 @@
       "question": "Welche Resonanzformen, jenseits von Logos und Schwingung, mögen sich im digitalen Raum noch offenbaren, die diesen Pfaden eine dritte, unvorhergesehene Dimension verleihen?",
       "endpoint": "path-analyse",
       "anchor": "path-analyse:echo+gelassenheit",
-      "nodeIds": [
-        "echo",
-        "gelassenheit",
-        "klang",
-        "lm-verwandlung",
-        "resonanz",
-        "resonanzvernunft",
-        "sprache"
-      ],
+      "nodeIds": [],
       "ts": "2026-06-01T03:44:35.966Z",
       "dupCount": 0,
       "answeredBy": [
@@ -1537,8 +1553,8 @@
           "score": 0.763
         },
         {
-          "id": "MQ5B6CTT-AB0A3D97",
-          "score": 0.758
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.738
         }
       ],
       "answered": true
@@ -1700,12 +1716,12 @@
           "score": 0.832
         },
         {
-          "id": "MQ5XB7XF-18E49106",
-          "score": 0.749
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.761
         },
         {
-          "id": "MPMU7YZH-2C9CBFE8",
-          "score": 0.743
+          "id": "MQ5XB7XF-18E49106",
+          "score": 0.749
         }
       ],
       "answered": true
@@ -1928,6 +1944,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.748
+        },
+        {
           "id": "MQARZJDV-82F077DD",
           "score": 0.721
         }
@@ -1952,8 +1972,8 @@
           "score": 0.781
         },
         {
-          "id": "MQ5B3FJP-CD835FC2",
-          "score": 0.775
+          "id": "MPUNXFU1-3B1F056A",
+          "score": 0.773
         }
       ],
       "answered": true
@@ -1979,10 +1999,6 @@
         {
           "id": "MPMROCH7-EB9E6A9A",
           "score": 0.73
-        },
-        {
-          "id": "MQ5CMPJB-3D705D06",
-          "score": 0.729
         }
       ],
       "answered": true
@@ -2123,12 +2139,12 @@
           "score": 0.769
         },
         {
-          "id": "MQ5CMPJB-3D705D06",
-          "score": 0.761
-        },
-        {
           "id": "MPH4R3SE-C224ACED",
           "score": 0.753
+        },
+        {
+          "id": "MPUSZCXA-5CB2DE46",
+          "score": 0.742
         }
       ],
       "answered": true
@@ -2707,15 +2723,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MQ5B6CTT-AB0A3D97",
-          "score": 0.814
-        },
-        {
           "id": "MPUO08SE-67E0912A",
           "score": 0.804
         },
         {
           "id": "MPURYS56-11F5308C",
+          "score": 0.79
+        },
+        {
+          "id": "MPK0H3SM-B25CFBB3",
           "score": 0.79
         }
       ],
@@ -2871,16 +2887,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.731
+        },
+        {
           "id": "MPMI3ZF2-2F83F425",
           "score": 0.73
         },
         {
           "id": "MPUSXGC6-CD078CEA",
           "score": 0.728
-        },
-        {
-          "id": "MPUFM0YN-83C71BAB",
-          "score": 0.721
         }
       ],
       "answered": true
@@ -3583,10 +3599,6 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MOOUBJCR-6BA260F8",
-          "score": 0.746
-        },
-        {
           "id": "MQ5XNFSV-CD34905C",
           "score": 0.726
         }
@@ -3652,12 +3664,12 @@
           "score": 0.781
         },
         {
-          "id": "MQ5CMPJB-3D705D06",
-          "score": 0.735
-        },
-        {
           "id": "MPUNXFU1-3B1F056A",
           "score": 0.726
+        },
+        {
+          "id": "MOPHZPQ7-B63879B5",
+          "score": 0.724
         }
       ],
       "answered": true
@@ -3680,8 +3692,8 @@
           "score": 0.783
         },
         {
-          "id": "MQ5B6CTT-AB0A3D97",
-          "score": 0.783
+          "id": "MPUQSMLJ-1B726CC4",
+          "score": 0.763
         }
       ],
       "answered": true
@@ -3950,8 +3962,8 @@
           "score": 0.774
         },
         {
-          "id": "MOPY5F6J-9469E3BE",
-          "score": 0.759
+          "id": "MOQ5A1GS-413BDE6F",
+          "score": 0.754
         }
       ],
       "answered": true
@@ -4089,12 +4101,12 @@
           "score": 0.796
         },
         {
-          "id": "MOOK20R3-62E609BA",
-          "score": 0.782
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.785
         },
         {
-          "id": "MPMROCH7-EB9E6A9A",
-          "score": 0.77
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.782
         }
       ],
       "answered": true
@@ -4259,8 +4271,8 @@
           "score": 0.74
         },
         {
-          "id": "MOHE82UD-1D9C9B41",
-          "score": 0.737
+          "id": "MOQIQ8WD-D41AC1B6",
+          "score": 0.735
         }
       ],
       "answered": true
@@ -4283,8 +4295,8 @@
           "score": 0.767
         },
         {
-          "id": "MOHDP88G-22C5E0FB",
-          "score": 0.752
+          "id": "MPMTT6GB-1AF44EE4",
+          "score": 0.732
         }
       ],
       "answered": true

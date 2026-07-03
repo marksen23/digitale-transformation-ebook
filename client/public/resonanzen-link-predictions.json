@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-06-22T23:49:36.782Z",
+  "generatedAt": "2026-07-03T06:01:25.112Z",
   "minCooccurrence": 2,
   "candidates": [
     {
       "source": "erkenntnis",
       "target": "lm-verwandlung",
-      "cooccurrence": 23,
+      "cooccurrence": 24,
       "endpoints": {
-        "dialog": 19,
+        "dialog": 20,
         "analyse": 2,
         "path-analyse": 2
       },
       "sampleEntryIds": [
+        "MASTER-6469616C",
         "MQ5XNFSV-CD34905C",
         "MQ5XLW2D-D3E90BBC",
         "MQ5XK9H2-8A6837CC",
-        "MQ5XJ3VO-378AA1AB",
-        "MQ5XH5A8-5FDB52C7"
+        "MQ5XJ3VO-378AA1AB"
       ]
     },
     {
@@ -71,19 +71,6 @@
         "MPUQSMLJ-1B726CC4",
         "MPUFUBU5-A4BC72BE",
         "MP8UIMZW-BADE77E5"
-      ]
-    },
-    {
-      "source": "resonanz",
-      "target": "sprache",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 3
-      },
-      "sampleEntryIds": [
-        "MPUO08SE-67E0912A",
-        "MP0QMSOR-C6EC1B5A",
-        "MOUA3PLK-548F1A0A"
       ]
     },
     {
@@ -152,67 +139,6 @@
       ]
     },
     {
-      "source": "freiheit",
-      "target": "wesen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MQ5B3FJP-CD835FC2",
-        "MP0ZE9C8-A9D02716"
-      ]
-    },
-    {
-      "source": "freiheit",
-      "target": "zwischen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MQ5B3FJP-CD835FC2",
-        "MOOZHCUT-4B86F8AD"
-      ]
-    },
-    {
-      "source": "sein",
-      "target": "zwischen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MQ5B3FJP-CD835FC2",
-        "MOQ7OBNT-57882C8D"
-      ]
-    },
-    {
-      "source": "unverfuegbarkeit",
-      "target": "öffnung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MQ5B3FJP-CD835FC2",
-        "MOQIAGXM-397A1F22"
-      ]
-    },
-    {
-      "source": "wesen",
-      "target": "öffnung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MQ5B3FJP-CD835FC2",
-        "MP0ZE9C8-A9D02716"
-      ]
-    },
-    {
       "source": "resonanzvernunft",
       "target": "sein",
       "cooccurrence": 2,
@@ -234,56 +160,6 @@
       "sampleEntryIds": [
         "MPUQSMLJ-1B726CC4",
         "MOQ7OBNT-57882C8D"
-      ]
-    },
-    {
-      "source": "echo",
-      "target": "resonanzvernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPUO08SE-67E0912A",
-        "MP497SNT-5E1D2074"
-      ]
-    },
-    {
-      "source": "gelassenheit",
-      "target": "resonanzvernunft",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MPUO08SE-67E0912A",
-        "MOQIHEM5-82D69E4F"
-      ]
-    },
-    {
-      "source": "klang",
-      "target": "lm-verwandlung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPUO08SE-67E0912A",
-        "MOUBETTU-F31C5206"
-      ]
-    },
-    {
-      "source": "klang",
-      "target": "sprache",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPUO08SE-67E0912A",
-        "MOUBIHOK-27900555"
       ]
     },
     {
@@ -450,6 +326,18 @@
       ]
     },
     {
+      "source": "resonanz",
+      "target": "sprache",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MP0QMSOR-C6EC1B5A",
+        "MOUA3PLK-548F1A0A"
+      ]
+    },
+    {
       "source": "stimme",
       "target": "zwischen",
       "cooccurrence": 2,
@@ -501,9 +389,9 @@
     }
   ],
   "stats": {
-    "totalPairs": 247,
-    "candidatesCount": 39,
+    "totalPairs": 233,
+    "candidatesCount": 30,
     "existingEdges": 116,
-    "maxCooccurrence": 23
+    "maxCooccurrence": 24
   }
 }

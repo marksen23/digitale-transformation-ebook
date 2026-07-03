@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-22T23:49:36.821Z",
+  "generatedAt": "2026-07-03T06:01:25.156Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -43,6 +43,82 @@
         "MP497SNT-5E1D2074",
         "MP0QMSOR-C6EC1B5A",
         "MOOMECFT-66F43077"
+      ]
+    },
+    {
+      "suggestedLabel": "verantwortung",
+      "keywords": [
+        {
+          "word": "verantwortung",
+          "count": 1
+        },
+        {
+          "word": "beherrschung",
+          "count": 1
+        },
+        {
+          "word": "bindung",
+          "count": 1
+        },
+        {
+          "word": "erwächst",
+          "count": 1
+        },
+        {
+          "word": "ethischen",
+          "count": 1
+        },
+        {
+          "word": "implikationen",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.257,
+      "nearestConcept": "antwort",
+      "nearestSim": 0.743,
+      "sampleEntryIds": [
+        "MQ5X6P2M-52F9B16D",
+        "MQ5X56G4-537343C8",
+        "MON646UY-E4326634"
+      ]
+    },
+    {
+      "suggestedLabel": "freiheit",
+      "keywords": [
+        {
+          "word": "freiheit",
+          "count": 2
+        },
+        {
+          "word": "verändert",
+          "count": 1
+        },
+        {
+          "word": "unvollkommene",
+          "count": 1
+        },
+        {
+          "word": "umarmt",
+          "count": 1
+        },
+        {
+          "word": "unsere",
+          "count": 1
+        },
+        {
+          "word": "vorstellung",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.238,
+      "nearestConcept": "werden",
+      "nearestSim": 0.762,
+      "sampleEntryIds": [
+        "MQ5X3C75-D543C13F",
+        "MQ5X1ZYV-9D7A29CC",
+        "MQ5WZZPN-8051E5FF"
       ]
     },
     {
@@ -111,24 +187,24 @@
           "count": 2
         }
       ],
-      "evidence": 6,
-      "distinctness": 0.198,
+      "evidence": 5,
+      "distinctness": 0.192,
       "nearestConcept": "dazwischenintelligenz",
-      "nearestSim": 0.802,
+      "nearestSim": 0.808,
       "sampleEntryIds": [
         "MPUSXGC6-CD078CEA",
         "MPH4R3SE-C224ACED",
         "MOOU6X9D-4A49EE98",
         "MON69DI9-D63A7910",
-        "MOHV99XP-6917F19F"
+        "MOHDAOFD-2C20D4F5"
       ]
     }
   ],
   "stats": {
-    "curated": 136,
-    "uncovered": 136,
-    "candidatesCount": 3,
+    "curated": 169,
+    "uncovered": 169,
+    "candidatesCount": 5,
     "concepts": 50,
-    "maxEvidence": 6
+    "maxEvidence": 5
   }
 }
