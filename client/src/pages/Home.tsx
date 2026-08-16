@@ -834,7 +834,9 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
             <button
               onClick={() => navigateTo('vorwort')}
-              className="px-8 py-3 bg-amber-600 hover:bg-amber-500 text-white rounded-lg font-medium transition-colors text-sm"
+              // amber-700 statt -600: weiß auf amber-600 = 3.2:1 (unter WCAG AA).
+              // amber-700 ≈ 5:1 → AA erfüllt. Hover eine Stufe heller (-600).
+              className="px-8 py-3 bg-amber-700 hover:bg-amber-600 text-white rounded-lg font-medium transition-colors text-sm"
             >
               <BookOpen size={16} className="inline mr-2 -mt-0.5" />
               Lesen
@@ -1318,7 +1320,7 @@ export default function Home() {
             </div>
             <button
               onClick={() => { swUpdateRef.current?.().catch(() => {}); setSwNeedsRefresh(false); }}
-              className="text-xs font-medium px-3 py-1 rounded-md bg-amber-600 hover:bg-amber-500 text-white transition-colors"
+              className="text-xs font-medium px-3 py-1 rounded-md bg-amber-700 hover:bg-amber-600 text-white transition-colors"
             >
               Neu laden
             </button>
@@ -2100,7 +2102,9 @@ export default function Home() {
                     <div key={ch.id} className="flex items-center group">
                       <button
                         onClick={() => navigateTo(ch.id)}
-                        className={`flex-1 min-w-0 text-left px-3 py-1.5 rounded-lg text-xs transition-colors flex items-center gap-2 ${
+                        // min-h-[40px]: ToC-Zeilen waren 23px (unter WCAG-2.5.8-
+                        // AA-Mindestgröße 24px). 40px = komfortabel tappbar.
+                        className={`flex-1 min-w-0 min-h-[40px] text-left px-3 py-2 rounded-lg text-xs transition-colors flex items-center gap-2 ${
                           currentId === ch.id
                             ? 'bg-amber-500/15 text-amber-700 font-medium'
                             : darkMode ? 'text-stone-400 hover:bg-stone-800 hover:text-stone-200' : 'text-stone-600 hover:bg-stone-100'
@@ -2112,7 +2116,8 @@ export default function Home() {
                       <button
                         onClick={(e) => { e.stopPropagation(); toggleCompleted(ch.id); }}
                         title={completedChapters.includes(ch.id) ? 'Als ungelesen markieren' : 'Als gelesen markieren'}
-                        className={`flex-none p-1 mr-1 rounded transition-colors ${
+                        // w-9/h-9 (36px): war p-1 ≈ 19px (unter AA-24px-Mindestgröße).
+                        className={`flex-none w-9 h-9 flex items-center justify-center mr-0.5 rounded transition-colors ${
                           completedChapters.includes(ch.id)
                             ? 'text-emerald-500 opacity-80 hover:opacity-100'
                             : darkMode
@@ -2141,11 +2146,11 @@ export default function Home() {
                     <button
                       key={id}
                       onClick={() => navigateTo(id)}
-                      className={`w-full text-left px-3 py-1.5 rounded-lg text-xs transition-colors ${
+                      className={`w-full flex items-center min-h-[40px] text-left px-3 py-2 rounded-lg text-xs transition-colors ${
                         darkMode ? 'text-stone-400 hover:bg-stone-800' : 'text-stone-600 hover:bg-stone-100'
                       }`}
                     >
-                      <Bookmark size={10} className="inline mr-1.5 text-amber-500" fill="currentColor" />
+                      <Bookmark size={10} className="inline mr-1.5 text-amber-500 flex-none" fill="currentColor" />
                       {ch.title}
                     </button>
                   );
@@ -2157,7 +2162,8 @@ export default function Home() {
             <div className="pt-4 border-t border-stone-200 dark:border-stone-800 mt-4">
               <a
                 href={`/api/pdf?wm=${encodeURIComponent(watermarkId)}`}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-amber-600 hover:bg-amber-500/10 transition-colors"
+                // text-amber-700: amber-600 auf hell = 3.2:1 (unter AA); -700 ≈ 4.7:1.
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs text-amber-700 dark:text-amber-500 hover:bg-amber-500/10 transition-colors"
               >
                 <Download size={14} />
                 PDF herunterladen
