@@ -2992,13 +2992,19 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
         if (viewMode !== "netz") return null;
         return (
           <div style={{
-            position: "absolute", left: "50%", top: "calc(50% + 40px)",
-            transform: "translate(-50%, -50%)", zIndex: 30,
+            // Entzerrung: vorher dead-center (top:50%) → lag mitten auf den
+            // Hub-Knoten (Resonanz/Zwischen). Jetzt als dezenter Hinweis-Chip
+            // am unteren Rand, frei vom dichten Knotenfeld.
+            position: "absolute", left: "50%", bottom: "1.6rem",
+            transform: "translateX(-50%)", zIndex: 30,
             fontFamily: C.serif, fontStyle: "italic",
             fontSize: "0.9rem", color: C.muted,
             textAlign: "center", lineHeight: 1.6,
-            pointerEvents: "none", maxWidth: "min(420px, 80%)",
-            opacity: 0.55, letterSpacing: "0.01em",
+            pointerEvents: "none", maxWidth: "min(440px, 86%)",
+            letterSpacing: "0.01em",
+            background: C.panelBg, backdropFilter: "blur(6px)",
+            border: `1px solid ${C.border}`, borderRadius: "10px",
+            padding: "0.55rem 1rem",
           }}>
             Klick einen Knoten, um Verbindungen zu sehen.<br />
             <span style={{ fontSize: "0.78rem" }}>
