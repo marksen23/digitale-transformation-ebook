@@ -812,7 +812,11 @@ export default function Home() {
           </div>
 
           <div className="space-y-4">
-            <h1 className="text-[clamp(1.75rem,8vw,3rem)] md:text-5xl font-serif text-white tracking-tight leading-tight break-words">
+            {/* md:text-5xl (48px) sprengte den 362px-Cover-Kasten: "Transformation"
+                ist bei 48px 395px breit → break-words brach MITTEN im Wort
+                ("Transformatio/n"). md:text-[2.6rem] (≈42px) passt mit Reserve;
+                overflow-wrap:normal + hyphens-none verhindern jeden Wortbruch. */}
+            <h1 className="text-[clamp(1.75rem,8vw,3rem)] md:text-[2.6rem] font-serif text-white tracking-tight leading-tight [overflow-wrap:normal] hyphens-none">
               Die Digitale<br />Transformation
             </h1>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto" />
