@@ -2411,7 +2411,11 @@ export default function Home() {
                       ? `${currentChapter.partTitle ? currentChapter.partTitle + ' · ' : ''}${currentChapter.title}`
                       : ''}
                 </p>
-                <span className={`text-[10px] tabular-nums flex-none ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                {/* Kapitel-POSITION (inkl. Glossar/Literatur) — bewusst anderer
+                    Nenner als die Sidebar-Anzeige „Fortschritt" (= GELESENE
+                    Kapitel / lesbare Kapitel). Tooltip macht die Bedeutung klar. */}
+                <span className={`text-[10px] tabular-nums flex-none ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}
+                      title={`Kapitel ${currentIndex} von ${allIds.length - 1}`}>
                   {currentIndex}&thinsp;/&thinsp;{allIds.length - 1}
                 </span>
               </div>

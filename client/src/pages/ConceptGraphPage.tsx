@@ -27,6 +27,10 @@ import { consumeSSE } from "@/lib/sseClient";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
+// Prinzip-LABEL im Hellmodus: PR_GLOW (#c4d6e0) als Textfarbe ergab ~1.4:1 auf
+// hellem Grund → illegibel (Label = Kreis-Farbe). Dunkles Schiefer-Blau ≈6:1,
+// behält die Prinzip-Blaunote. Im Dunkelmodus bleibt PR_GLOW (hell auf dunkel).
+const PR_INK_LIGHT = "#46697a";
 
 interface ConceptGraphPageProps {
   /** Wenn vorhanden: Modal-Modus (alt) — × schließt das Overlay. Wenn
@@ -2198,7 +2202,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       x={x} y={y + 1}
                       textAnchor="middle" dominantBaseline="middle"
                       fontSize={Math.max(8, Math.min(11, node.r * 0.55))}
-                      fill={PR_GLOW}
+                      fill={isDark ? PR_GLOW : PR_INK_LIGHT}
                       opacity={labelOpacity}
                       fontFamily={C.mono}
                       letterSpacing="0.08em"
@@ -2211,7 +2215,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                       x={x} y={y - 4}
                       textAnchor="middle"
                       fontSize={Math.max(8, Math.min(10, node.r * 0.5))}
-                      fill={PR_GLOW}
+                      fill={isDark ? PR_GLOW : PR_INK_LIGHT}
                       opacity={labelOpacity}
                       fontFamily={C.mono}
                       letterSpacing="0.08em"
