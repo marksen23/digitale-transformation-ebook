@@ -759,22 +759,8 @@ export default function Home() {
     return { nodes, wordCount };
   }, []);
 
-  // Baut ein dezentes, kacheliges SVG-Wasserzeichen als data-URL
-  const watermarkStyle = useMemo(() => {
-    const fill = darkMode ? '%23f5f5f4' : '%231e1b4b';
-    const opacity = darkMode ? '0.08' : '0.05';
-    const text = `Lizenziert für ${watermarkId}`;
-    const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='420' height='260' viewBox='0 0 420 260'>` +
-      `<g transform='rotate(-28 210 130)' fill='${fill}' fill-opacity='${opacity}' font-family='Georgia, serif' font-size='16' font-style='italic'>` +
-      `<text x='50%' y='45%' text-anchor='middle'>${text}</text>` +
-      `<text x='50%' y='62%' text-anchor='middle' font-size='11' letter-spacing='3'>DIGITALE TRANSFORMATION · TRILOGIE</text>` +
-      `</g></svg>`;
-    return {
-      backgroundImage: `url("data:image/svg+xml;utf8,${svg}")`,
-      backgroundRepeat: 'repeat' as const,
-      backgroundSize: '420px 260px',
-    };
-  }, [darkMode, watermarkId]);
+  // (On-Screen-Wasserzeichen entfernt — Kopierschutz nur noch im PDF-Export.
+  //  watermarkId bleibt: fließt als ?wm=… in die PDF-Download-Links.)
 
   // ─── Render ────────────────────────────────────────────────────────
 
@@ -1163,12 +1149,9 @@ export default function Home() {
         transition={{ duration: 0.4 }}
         className="max-w-2xl mx-auto px-6 md:px-10 py-12 md:py-16 relative"
       >
-        {/* Dezentes, dynamisches Wasserzeichen (diagonale Kachelung) */}
-        <div
-          aria-hidden
-          className="pointer-events-none select-none absolute inset-0 z-0"
-          style={watermarkStyle}
-        />
+        {/* Kein On-Screen-Wasserzeichen mehr (mindert Lesbarkeit/Eleganz der
+            Prosa). Der Kopierschutz bleibt beim PDF-Export (server-seitig,
+            /api/pdf?wm=…), wo er hingehört. */}
         <div className="relative z-10">
         {/* Chapter header */}
         <header className="mb-10 md:mb-14">
