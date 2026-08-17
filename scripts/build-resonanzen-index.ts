@@ -1154,13 +1154,20 @@ function computeCrossLinks(entries: ResonanzEntry[], embeddings: Record<string, 
       if (score >= MIN_SCORE) scored.push({ id: other.id, score });
     }
     scored.sort((a, b) => b.score - a.score);
-    entry.related = scored.slice(0, TOP_K).map(s => s.id);
     // Near-Duplikate separat extrahieren (alle, die über die Schwelle sind,
     // nicht limitiert auf top-5 — ein Eintrag kann viele Echos haben).
     const dups = scored.filter(s => s.score >= NEAR_DUP_THRESHOLD);
     if (dups.length > 0) {
       entry.nearDuplicates = dups.map(s => s.id);
     }
+    // related = Top-K der VERWANDTEN, aber DISTINKTEN Begegnungen — Near-Dupes
+    // hier ausschließen, sonst zeigen "Verwandte Begegnungen" und "Echos" auf
+    // der Detailseite dieselben Einträge (die Echos haben den höchsten Cosine
+    // und säßen sonst immer in den Top-K). So sind beide Listen komplementär.
+    entry.related = scored
+      .filter(s => s.score < NEAR_DUP_THRESHOLD)
+      .slice(0, TOP_K)
+      .map(s => s.id);
     // Novelty-Flag: kein Nachbar über NOVELTY_THRESHOLD → semantisch peripher.
     // `scored` enthält nur Items ≥ MIN_SCORE (0.5); wenn dort kein Top-Wert
     // ≥ NOVELTY_THRESHOLD ist, gibt es per Definition KEINEN Eintrag im Korpus

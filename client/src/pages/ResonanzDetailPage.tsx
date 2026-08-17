@@ -38,13 +38,22 @@ export default function ResonanzDetailPage() {
 
   // Verwandte + Echo-Einträge auflösen (für die Weiterführungs-Navigation).
   const byId = useMemo(() => new Map(allEntries.map(e => [e.id, e])), [allEntries]);
-  const related = useMemo(
-    () => (entry?.related ?? []).map(id => byId.get(id)).filter((e): e is ResonanzEntry => !!e),
-    [entry, byId],
-  );
+  // Echos zuerst — nahezu identische Begegnungen (Cosine ≥ 0.88).
   const echoes = useMemo(
     () => (entry?.nearDuplicates ?? []).map(id => byId.get(id)).filter((e): e is ResonanzEntry => !!e),
     [entry, byId],
+  );
+  // Verwandte = die nächsten DISTINKTEN Begegnungen. Echos werden hier
+  // herausgefiltert, sonst zeigen beide Blöcke dieselben Einträge (related
+  // ist im Index die Top-K nach Cosine, enthält also die Near-Dupes). Der
+  // Build (build-resonanzen-index.ts) entzerrt das ebenfalls an der Quelle;
+  // dieser Filter macht es auch für ältere Index-Daten sofort korrekt.
+  const echoIds = useMemo(() => new Set(echoes.map(e => e.id)), [echoes]);
+  const related = useMemo(
+    () => (entry?.related ?? [])
+      .map(id => byId.get(id))
+      .filter((e): e is ResonanzEntry => !!e && !echoIds.has(e.id)),
+    [entry, byId, echoIds],
   );
 
   // JSON-LD injection für SEO / Google Scholar
