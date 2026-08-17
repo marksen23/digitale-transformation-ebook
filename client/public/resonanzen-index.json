@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-03T12:14:07.803Z",
+  "generatedAt": "2026-08-17T03:06:36.540Z",
   "count": 238,
   "entries": [
     {
@@ -20,15 +20,15 @@
         "streamed": "true",
         "werk_passages": "[{\"id\":\"f33e5abcfb8d\",\"chapter\":\"teil7\",\"score\":0.841},{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.836},{\"id\":\"bed180b4f42d\",\"chapter\":\"teil7\",\"score\":0.823},{\"id\":\"MOOK20R3-62E609BA\",\"score\":0.819}]"
       },
+      "nearDuplicates": [
+        "MOOK20R3-62E609BA"
+      ],
       "related": [
-        "MOOK20R3-62E609BA",
         "MOHMET94-3799557A",
         "MOQIAGXM-397A1F22",
         "MOHMIET1-6D429A85",
-        "MOHV84M5-1825A399"
-      ],
-      "nearDuplicates": [
-        "MOOK20R3-62E609BA"
+        "MOHV84M5-1825A399",
+        "MOHAREIB-E15E7BF8"
       ],
       "werkVoiceScore": 0.8925600985198158,
       "corpusVoiceScore": 0.8357648925097121,
@@ -168,16 +168,16 @@
         "werk_passages": "",
         "{ \"id\"": "\"6fbd5b424474\", \"chapter\": \"glossar\", \"score\": 0.79 }"
       },
-      "related": [
-        "MPMJC8TR-592D4EF0",
-        "MOQ5A1GS-413BDE6F",
-        "MOP0S479-373A2268",
-        "MOIXN434-9D5CBFC0",
-        "MOLNG57A-2F155772"
-      ],
       "nearDuplicates": [
         "MPMJC8TR-592D4EF0",
         "MOQ5A1GS-413BDE6F"
+      ],
+      "related": [
+        "MOP0S479-373A2268",
+        "MOIXN434-9D5CBFC0",
+        "MOLNG57A-2F155772",
+        "MOHMET94-3799557A",
+        "MOHV84M5-1825A399"
       ],
       "werkVoiceScore": 0.8835323055796821,
       "corpusVoiceScore": 0.8505214733635602,
@@ -215,18 +215,18 @@
       "ai_score_reason": "Der Text referiert und strukturiert werkimmanente Gedanken",
       "ai_score_at": "2026-06-22T14:53:31.452Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MPURYS56-11F5308C",
-        "MPUQSMLJ-1B726CC4",
-        "MOQ7OBNT-57882C8D",
-        "MOOMECFT-66F43077",
-        "MOQID47V-A12862EA"
-      ],
       "nearDuplicates": [
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4",
         "MOQ7OBNT-57882C8D",
         "MOOMECFT-66F43077"
+      ],
+      "related": [
+        "MOQID47V-A12862EA",
+        "MPUNXFU1-3B1F056A",
+        "MPEV1D2J-55138734",
+        "MOQIAGXM-397A1F22",
+        "MP8UIMZW-BADE77E5"
       ],
       "werkVoiceScore": 0.8530194546539421,
       "corpusVoiceScore": 0.7908544537879593,
@@ -248,17 +248,17 @@
         "werk_passages": "",
         "{ \"id\"": "\"MPCV5LR8-9AD1527C\", \"score\": 0.753 }"
       },
-      "related": [
-        "MQ5KBJMQ-5C523141",
-        "MQ5JM1HD-9047C82F",
-        "MPURLTCS-5FDDD890",
-        "MOHST017-5C4320E1",
-        "MQ683DMX-13D6C54F"
-      ],
       "nearDuplicates": [
         "MQ5KBJMQ-5C523141",
         "MQ5JM1HD-9047C82F",
         "MPURLTCS-5FDDD890"
+      ],
+      "related": [
+        "MOHST017-5C4320E1",
+        "MQ683DMX-13D6C54F",
+        "MP74X3EJ-72CDDB9F",
+        "MOUBETTU-F31C5206",
+        "MQ5TTE84-08EB6321"
       ],
       "werkVoiceScore": 0.9011235935458758,
       "corpusVoiceScore": 0.8466119301748601,
@@ -284,16 +284,16 @@
         "werk_passages": "",
         "{ \"id\"": "\"MOU9KSV9-70260D9B\", \"score\": 0.836 }"
       },
-      "related": [
-        "MOHLZBVK-2FBBAD2F",
-        "MOHV84M5-1825A399",
-        "MOP0S479-373A2268",
-        "MOPHZPQ7-B63879B5",
-        "MOHST017-5C4320E1"
-      ],
       "nearDuplicates": [
         "MOHLZBVK-2FBBAD2F",
         "MOHV84M5-1825A399"
+      ],
+      "related": [
+        "MOP0S479-373A2268",
+        "MOPHZPQ7-B63879B5",
+        "MOHST017-5C4320E1",
+        "MOPFJTND-AAE76B2B",
+        "MP2LIW43-E8ADC59E"
       ],
       "werkVoiceScore": 0.9123317574947927,
       "corpusVoiceScore": 0.8827322801798821,
@@ -431,15 +431,15 @@
       "ai_score_reason": "Er fasst die Kerngedanken zur Resonanz und Begegnung treffend",
       "ai_score_at": "2026-06-22T14:53:44.731Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MQ5XK9H2-8A6837CC"
+      ],
       "related": [
-        "MQ5XK9H2-8A6837CC",
         "MQ5XNFSV-CD34905C",
         "MOPEYJKU-C4711B5F",
         "MQ5XE42V-D185B8D7",
-        "MOJ7Q5HM-89F62E3F"
-      ],
-      "nearDuplicates": [
-        "MQ5XK9H2-8A6837CC"
+        "MOJ7Q5HM-89F62E3F",
+        "MOHV99XP-6917F19F"
       ],
       "werkVoiceScore": 0.8305373182219296,
       "corpusVoiceScore": 0.7744239774799988,
@@ -473,15 +473,15 @@
       "ai_score_reason": "Die Antwort paraphrasiert werksnahe Konzepte kompetent, aber",
       "ai_score_at": "2026-06-22T14:53:51.312Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MQ5XLW2D-D3E90BBC"
+      ],
       "related": [
-        "MQ5XLW2D-D3E90BBC",
         "MQ5XJ3VO-378AA1AB",
         "MQ5XFLFO-F0DBB89E",
         "MQ5XE42V-D185B8D7",
-        "MQ5XNFSV-CD34905C"
-      ],
-      "nearDuplicates": [
-        "MQ5XLW2D-D3E90BBC"
+        "MQ5XNFSV-CD34905C",
+        "MPUFUBU5-A4BC72BE"
       ],
       "werkVoiceScore": 0.8334390695777171,
       "corpusVoiceScore": 0.771812410109481,
@@ -1010,15 +1010,15 @@
       "ai_score_reason": "Stilistisch exzellent, leistet die Antwort durch die",
       "ai_score_at": "2026-06-22T14:15:07.601Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MQ5WV5PP-6209C749"
+      ],
       "related": [
-        "MQ5WV5PP-6209C749",
         "MQ5WYJFU-60EB210E",
         "MOQ5EOBY-82AD9EEE",
         "MQ5WZZPN-8051E5FF",
-        "MQ683DMX-13D6C54F"
-      ],
-      "nearDuplicates": [
-        "MQ5WV5PP-6209C749"
+        "MQ683DMX-13D6C54F",
+        "MQ5WUD1G-0976C016"
       ],
       "werkVoiceScore": 0.8307420205639093,
       "corpusVoiceScore": 0.7847145100457724,
@@ -1048,17 +1048,17 @@
       "ai_score_reason": "Stilistisch perfekt, entwickelt mit dem „transformativen",
       "ai_score_at": "2026-06-22T14:15:26.794Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MOQ5EOBY-82AD9EEE",
-        "MQ5WX52Q-442369F2",
-        "MQ5WUD1G-0976C016",
-        "MQ5WPJ3V-CF0A30C7",
-        "MOIXN7OL-B18642AC"
-      ],
       "nearDuplicates": [
         "MOQ5EOBY-82AD9EEE",
         "MQ5WX52Q-442369F2",
         "MQ5WUD1G-0976C016"
+      ],
+      "related": [
+        "MQ5WPJ3V-CF0A30C7",
+        "MOIXN7OL-B18642AC",
+        "MPARZ5F0-A9FD6F70",
+        "MOQIHEM5-82D69E4F",
+        "MQ683DMX-13D6C54F"
       ],
       "werkVoiceScore": 0.8378920223787326,
       "corpusVoiceScore": 0.7943339349772838,
@@ -1087,17 +1087,17 @@
       "ai_score_reason": "Der Text ist stilistisch authentisch und entwickelt durch die",
       "ai_score_at": "2026-06-22T14:15:46.394Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MOIXN7OL-B18642AC",
-        "MQ5WPJ3V-CF0A30C7",
-        "MQ5WV5PP-6209C749",
-        "MOQ5EOBY-82AD9EEE",
-        "MOQIHEM5-82D69E4F"
-      ],
       "nearDuplicates": [
         "MOIXN7OL-B18642AC",
         "MQ5WPJ3V-CF0A30C7",
         "MQ5WV5PP-6209C749"
+      ],
+      "related": [
+        "MOQ5EOBY-82AD9EEE",
+        "MOQIHEM5-82D69E4F",
+        "MOUBETTU-F31C5206",
+        "MOIXN434-9D5CBFC0",
+        "MPARZ5F0-A9FD6F70"
       ],
       "werkVoiceScore": 0.8796826539577889,
       "corpusVoiceScore": 0.8260262670301919,
@@ -1127,18 +1127,18 @@
         "werk_passages": "",
         "{ \"id\"": "\"dc5327dbc67e\", \"chapter\": \"schlussreflexion\", \"score\": 0.813 }"
       },
-      "related": [
-        "MOQIHEM5-82D69E4F",
-        "MPMSSG1X-8451DE38",
-        "MQ5WUD1G-0976C016",
-        "MOPFJTND-AAE76B2B",
-        "MOIXN7OL-B18642AC"
-      ],
       "nearDuplicates": [
         "MOQIHEM5-82D69E4F",
         "MPMSSG1X-8451DE38",
         "MQ5WUD1G-0976C016",
         "MOPFJTND-AAE76B2B"
+      ],
+      "related": [
+        "MOIXN7OL-B18642AC",
+        "MOOMPCI0-262176C2",
+        "MP495QL6-F5FD1AE1",
+        "MPAS5OM5-A1F522F4",
+        "MQ5WV5PP-6209C749"
       ],
       "werkVoiceScore": 0.8953866014029199,
       "corpusVoiceScore": 0.8492641470205872,
@@ -1163,15 +1163,15 @@
       "ai_score_reason": "Der Text ist thematisch und stilistisch sehr treffend, nur",
       "ai_score_at": "2026-06-22T14:16:01.837Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MQ5TTE84-08EB6321"
+      ],
       "related": [
-        "MQ5TTE84-08EB6321",
         "MP9FAM1L-8970F371",
         "MQ68LVS7-240568F5",
         "MQ5JM1HD-9047C82F",
-        "MQ5KBJMQ-5C523141"
-      ],
-      "nearDuplicates": [
-        "MQ5TTE84-08EB6321"
+        "MQ5KBJMQ-5C523141",
+        "MP74X3EJ-72CDDB9F"
       ],
       "werkVoiceScore": 0.8402180955972597,
       "corpusVoiceScore": 0.8242350028447074,
@@ -1196,15 +1196,15 @@
       "ai_score_reason": "Thematisch sehr stark, aber der erklärende Duktus und die",
       "ai_score_at": "2026-06-22T14:16:18.712Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MQ5TUQ9P-EF8C6D4B"
+      ],
       "related": [
-        "MQ5TUQ9P-EF8C6D4B",
         "MP9FAM1L-8970F371",
         "MQ68LVS7-240568F5",
         "MQ5KBJMQ-5C523141",
-        "MP74VXSM-5DEA06F3"
-      ],
-      "nearDuplicates": [
-        "MQ5TUQ9P-EF8C6D4B"
+        "MP74VXSM-5DEA06F3",
+        "MP756UV9-FF3838F7"
       ],
       "werkVoiceScore": 0.8562884205369993,
       "corpusVoiceScore": 0.8410715414272475,
@@ -1228,17 +1228,17 @@
       "ai_score_reason": "Der Duktus ist perfekt getroffen; die abschließende Frage",
       "ai_score_at": "2026-06-22T14:16:38.213Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MQ68LVS7-240568F5",
-        "MQ5JM1HD-9047C82F",
-        "MPURLTCS-5FDDD890",
-        "MOHST017-5C4320E1",
-        "MP74X3EJ-72CDDB9F"
-      ],
       "nearDuplicates": [
         "MQ68LVS7-240568F5",
         "MQ5JM1HD-9047C82F",
         "MPURLTCS-5FDDD890"
+      ],
+      "related": [
+        "MOHST017-5C4320E1",
+        "MP74X3EJ-72CDDB9F",
+        "MP756UV9-FF3838F7",
+        "MOUBETTU-F31C5206",
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.9005968571389047,
       "corpusVoiceScore": 0.8368965813880282,
@@ -1262,16 +1262,16 @@
       "ai_score_reason": "Stilistisch nicht vom Werk zu unterscheiden, bringt die",
       "ai_score_at": "2026-06-22T14:16:57.180Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MQ5KBJMQ-5C523141",
-        "MQ68LVS7-240568F5",
-        "MQ5JL9TM-83E39C42",
-        "MPURLTCS-5FDDD890",
-        "MOHST017-5C4320E1"
-      ],
       "nearDuplicates": [
         "MQ5KBJMQ-5C523141",
         "MQ68LVS7-240568F5"
+      ],
+      "related": [
+        "MQ5JL9TM-83E39C42",
+        "MPURLTCS-5FDDD890",
+        "MOHST017-5C4320E1",
+        "MQ5TUQ9P-EF8C6D4B",
+        "MQ683DMX-13D6C54F"
       ],
       "werkVoiceScore": 0.8560036257545791,
       "corpusVoiceScore": 0.787838464842294,
@@ -1496,13 +1496,6 @@
       "ai_score_reason": "Die schulbuchartige Gliederung und der Meta-Kommentar (\"Als",
       "ai_score_at": "2026-06-22T23:52:00.758Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MPURYS56-11F5308C",
-        "MPUQSMLJ-1B726CC4",
-        "MPUO08SE-67E0912A",
-        "MQARZJDV-82F077DD",
-        "MP8UIMZW-BADE77E5"
-      ],
       "nearDuplicates": [
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4",
@@ -1524,6 +1517,13 @@
         "MP495QL6-F5FD1AE1",
         "MOQBZWTZ-B9EBB1BA",
         "MP0ZE9C8-A9D02716"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MOQIAGXM-397A1F22",
+        "MOP0LEAL-E2568DCC",
+        "MOPFJTND-AAE76B2B",
+        "MOOK20R3-62E609BA"
       ],
       "werkVoiceScore": 0.8859039040525826,
       "corpusVoiceScore": 0.8316969712648757,
@@ -1554,13 +1554,6 @@
       "ai_score_reason": "Die schulbuchartige Struktur mit nummerierten Abschnitten und",
       "ai_score_at": "2026-06-22T23:52:07.515Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MPUNXFU1-3B1F056A",
-        "MPEV1D2J-55138734",
-        "MP0ZE9C8-A9D02716",
-        "MP8UIMZW-BADE77E5",
-        "MPUO08SE-67E0912A"
-      ],
       "nearDuplicates": [
         "MPUNXFU1-3B1F056A",
         "MPEV1D2J-55138734",
@@ -1582,6 +1575,13 @@
         "MOUA3PLK-548F1A0A",
         "MOQBZWTZ-B9EBB1BA",
         "MP495QL6-F5FD1AE1"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MPAS5OM5-A1F522F4",
+        "MOP0LEAL-E2568DCC",
+        "MOQIGG2B-2F0C3F5D",
+        "MOQIAGXM-397A1F22"
       ],
       "werkVoiceScore": 0.8819054207318676,
       "corpusVoiceScore": 0.8129448250644302,
@@ -1853,15 +1853,15 @@
       "ai_score_reason": "Es ist eine kompetente Paraphrase, die zentrale Begriffe des Werks auf die",
       "ai_score_at": "2026-06-22T23:53:07.662Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MPUTKZI1-F10F9444"
+      ],
       "related": [
-        "MPUTKZI1-F10F9444",
         "MPUTT58G-25E5A1AC",
         "MPUTFPG6-02308248",
         "MPUTP1ZT-5D9ECB8B",
-        "MPUT47UR-103C16A3"
-      ],
-      "nearDuplicates": [
-        "MPUTKZI1-F10F9444"
+        "MPUT47UR-103C16A3",
+        "MPUU3ASH-7093F1A3"
       ],
       "werkVoiceScore": 0.8079812876440287,
       "corpusVoiceScore": 0.7580508155321248,
@@ -1884,15 +1884,15 @@
       "ai_score_reason": "Die Antwort paraphrasiert den Resonanz-Gedanken kompetent als Gegenargument,",
       "ai_score_at": "2026-06-22T23:53:14.553Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MPUTMB0F-76443E92"
+      ],
       "related": [
-        "MPUTMB0F-76443E92",
         "MPUTFPG6-02308248",
         "MPUTT58G-25E5A1AC",
         "MPUTP1ZT-5D9ECB8B",
-        "MPUTHFZK-189B912B"
-      ],
-      "nearDuplicates": [
-        "MPUTMB0F-76443E92"
+        "MPUTHFZK-189B912B",
+        "MPUU3ASH-7093F1A3"
       ],
       "werkVoiceScore": 0.7967286410665423,
       "corpusVoiceScore": 0.7615713707176791,
@@ -2139,15 +2139,15 @@
       "ai_score_reason": "Die Rückbezüge zum Werk sind kompetent, aber der Text stellt nur Fragen, statt",
       "ai_score_at": "2026-06-22T23:54:14.098Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MPUSXGC6-CD078CEA"
+      ],
       "related": [
-        "MPUSXGC6-CD078CEA",
         "MPUTYL5L-4C0B344F",
         "MPUU1101-EDF34032",
         "MOQ531J2-4FC329D4",
-        "MOPHZPQ7-B63879B5"
-      ],
-      "nearDuplicates": [
-        "MPUSXGC6-CD078CEA"
+        "MOPHZPQ7-B63879B5",
+        "MPH4R3SE-C224ACED"
       ],
       "werkVoiceScore": 0.8223245671531467,
       "corpusVoiceScore": 0.7746821910090878,
@@ -2166,15 +2166,15 @@
       "contextMeta": {
         "turnCount": "22"
       },
+      "nearDuplicates": [
+        "MPUSZCXA-5CB2DE46"
+      ],
       "related": [
-        "MPUSZCXA-5CB2DE46",
         "MOHAN4AO-7A201C56",
         "MOHAREIB-E15E7BF8",
         "MPJEBNX3-042F2A69",
-        "MOHV84M5-1825A399"
-      ],
-      "nearDuplicates": [
-        "MPUSZCXA-5CB2DE46"
+        "MOHV84M5-1825A399",
+        "MOQ7HGW3-608EA4FA"
       ],
       "werkVoiceScore": 0.8571518056418282,
       "corpusVoiceScore": 0.8246554647779413,
@@ -2487,13 +2487,6 @@
         "paths_identical": "false",
         "werk_passages": "[]"
       },
-      "related": [
-        "MQARZJDV-82F077DD",
-        "MPUQSMLJ-1B726CC4",
-        "MPUO08SE-67E0912A",
-        "MP8UIMZW-BADE77E5",
-        "MOOMECFT-66F43077"
-      ],
       "nearDuplicates": [
         "MQARZJDV-82F077DD",
         "MPUQSMLJ-1B726CC4",
@@ -2509,6 +2502,13 @@
         "MPK0H3SM-B25CFBB3",
         "MP0QMSOR-C6EC1B5A",
         "MP0ZE9C8-A9D02716"
+      ],
+      "related": [
+        "MOQIAGXM-397A1F22",
+        "MOOMPCI0-262176C2",
+        "MOUKLLK4-C38517C1",
+        "MOUA3PLK-548F1A0A",
+        "MOQBZWTZ-B9EBB1BA"
       ],
       "werkVoiceScore": 0.8952327713791519,
       "corpusVoiceScore": 0.8248334036948817,
@@ -2528,16 +2528,16 @@
         "chapterId": "vorwort",
         "chapterTitle": "Vorwort"
       },
-      "related": [
-        "MQ5KBJMQ-5C523141",
-        "MQ68LVS7-240568F5",
-        "MQ5JL9TM-83E39C42",
-        "MQ5JM1HD-9047C82F",
-        "MOHST017-5C4320E1"
-      ],
       "nearDuplicates": [
         "MQ5KBJMQ-5C523141",
         "MQ68LVS7-240568F5"
+      ],
+      "related": [
+        "MQ5JL9TM-83E39C42",
+        "MQ5JM1HD-9047C82F",
+        "MOHST017-5C4320E1",
+        "MP74X3EJ-72CDDB9F",
+        "MP756UV9-FF3838F7"
       ],
       "werkVoiceScore": 0.8817121298152738,
       "corpusVoiceScore": 0.8451615284264681,
@@ -2571,13 +2571,6 @@
         "paths_identical": "false",
         "werk_passages": "[]"
       },
-      "related": [
-        "MPURYS56-11F5308C",
-        "MP8UIMZW-BADE77E5",
-        "MOQ7OBNT-57882C8D",
-        "MPF4FISZ-67000E01",
-        "MOOMECFT-66F43077"
-      ],
       "nearDuplicates": [
         "MPURYS56-11F5308C",
         "MP8UIMZW-BADE77E5",
@@ -2596,6 +2589,13 @@
         "MPEV1D2J-55138734",
         "MP497SNT-5E1D2074",
         "MPUNXFU1-3B1F056A"
+      ],
+      "related": [
+        "MP0QMSOR-C6EC1B5A",
+        "MOQBZWTZ-B9EBB1BA",
+        "MOQIAGXM-397A1F22",
+        "MPMSSG1X-8451DE38",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8972506175221452,
       "corpusVoiceScore": 0.8442772496974191,
@@ -2626,13 +2626,6 @@
       "ai_score_reason": "Die Analyse bleibt eine Paraphrase der Pfade und behauptet",
       "ai_score_at": "2026-06-22T23:55:28.752Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MP497SNT-5E1D2074",
-        "MOQID47V-A12862EA",
-        "MPK0H3SM-B25CFBB3",
-        "MP8UIMZW-BADE77E5",
-        "MOOMPCI0-262176C2"
-      ],
       "nearDuplicates": [
         "MP497SNT-5E1D2074",
         "MOQID47V-A12862EA",
@@ -2652,6 +2645,13 @@
         "MPUQSMLJ-1B726CC4",
         "MP0ZE9C8-A9D02716",
         "MOQ7OBNT-57882C8D"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MOQIHEM5-82D69E4F",
+        "MQARZJDV-82F077DD",
+        "MOPFJTND-AAE76B2B",
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8805434800150858,
       "corpusVoiceScore": 0.819550890045381,
@@ -2678,13 +2678,6 @@
         "paths_identical": "false",
         "werk_passages": "[]"
       },
-      "related": [
-        "MPEV1D2J-55138734",
-        "MPUO08SE-67E0912A",
-        "MPF4FISZ-67000E01",
-        "MP497SNT-5E1D2074",
-        "MPK0H3SM-B25CFBB3"
-      ],
       "nearDuplicates": [
         "MPEV1D2J-55138734",
         "MPUO08SE-67E0912A",
@@ -2704,6 +2697,13 @@
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA",
         "MPUQSMLJ-1B726CC4"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MQARZJDV-82F077DD",
+        "MOQIGG2B-2F0C3F5D",
+        "MOQIHEM5-82D69E4F",
+        "MQ5WPJ3V-CF0A30C7"
       ],
       "werkVoiceScore": 0.8816221445695717,
       "corpusVoiceScore": 0.8187774203964588,
@@ -2728,18 +2728,18 @@
         "node_labels": "[ \"Bewusstsein\", \"Resonanz\", \"Dasein\" ]",
         "werk_passages": "[]"
       },
-      "related": [
-        "MOQ5IKR5-C67AAC15",
-        "MP2LIW43-E8ADC59E",
-        "MPCV5LR8-9AD1527C",
-        "MP4HT65S-E31FDB00",
-        "MPARZ5F0-A9FD6F70"
-      ],
       "nearDuplicates": [
         "MOQ5IKR5-C67AAC15",
         "MP2LIW43-E8ADC59E",
         "MPCV5LR8-9AD1527C",
         "MP4HT65S-E31FDB00"
+      ],
+      "related": [
+        "MPARZ5F0-A9FD6F70",
+        "MOJ7Q5HM-89F62E3F",
+        "MPJUHM1L-0BA3DF6E",
+        "MOPEYJKU-C4711B5F",
+        "MOLNG57A-2F155772"
       ],
       "werkVoiceScore": 0.8952112140896485,
       "corpusVoiceScore": 0.8434238719281085,
@@ -2759,15 +2759,15 @@
         "chapterId": "band3-kap3",
         "chapterTitle": "Kapitel 3: Das Hören im Rauschen"
       },
+      "nearDuplicates": [
+        "MPUFM0YN-83C71BAB"
+      ],
       "related": [
-        "MPUFM0YN-83C71BAB",
         "MPUFGY4Z-44206712",
         "MOHAREIB-E15E7BF8",
         "MOOK20R3-62E609BA",
-        "MOQIMC7B-B190C937"
-      ],
-      "nearDuplicates": [
-        "MPUFM0YN-83C71BAB"
+        "MOQIMC7B-B190C937",
+        "MPMKE3CC-4E75CE39"
       ],
       "werkVoiceScore": 0.8766991337176989,
       "corpusVoiceScore": 0.8549771724273816,
@@ -2787,15 +2787,15 @@
         "chapterId": "band3-kap3",
         "chapterTitle": "Kapitel 3: Das Hören im Rauschen"
       },
+      "nearDuplicates": [
+        "MPUFP1VW-298D0A73"
+      ],
       "related": [
-        "MPUFP1VW-298D0A73",
         "MOQIHEM5-82D69E4F",
         "MPUFGY4Z-44206712",
         "MOQIMC7B-B190C937",
-        "MOQIGG2B-2F0C3F5D"
-      ],
-      "nearDuplicates": [
-        "MPUFP1VW-298D0A73"
+        "MOQIGG2B-2F0C3F5D",
+        "MOHCY4TX-251DD6A7"
       ],
       "werkVoiceScore": 0.8487692647007793,
       "corpusVoiceScore": 0.8272634457179648,
@@ -2902,16 +2902,16 @@
         "node_labels": "[ \"Resonanzimperativ\", \"Selbst\" ]",
         "werk_passages": "[]"
       },
-      "related": [
-        "MPMROCH7-EB9E6A9A",
-        "MOHAGNGB-5330902E",
-        "MP2LIW43-E8ADC59E",
-        "MP0X62X5-535AF7A8",
-        "MOHAI60S-B7B04552"
-      ],
       "nearDuplicates": [
         "MPMROCH7-EB9E6A9A",
         "MOHAGNGB-5330902E"
+      ],
+      "related": [
+        "MP2LIW43-E8ADC59E",
+        "MP0X62X5-535AF7A8",
+        "MOHAI60S-B7B04552",
+        "MOQ531J2-4FC329D4",
+        "MPAGOCGB-FB54D923"
       ],
       "werkVoiceScore": 0.9119663776660568,
       "corpusVoiceScore": 0.8555448542707926,
@@ -2967,15 +2967,15 @@
       "ai_score_reason": "Die Antwort ordnet die Begriffe des Werks virtuos zu, bleibt aber im Kern ein",
       "ai_score_at": "2026-06-22T23:55:54.020Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MPMU67V4-938B932C"
+      ],
       "related": [
-        "MPMU67V4-938B932C",
         "MPMTT6GB-1AF44EE4",
         "MPMTQZIN-7863D6D2",
         "MPMU9JV9-A43849A9",
-        "MOHDW91N-D9BDFDB1"
-      ],
-      "nearDuplicates": [
-        "MPMU67V4-938B932C"
+        "MOHDW91N-D9BDFDB1",
+        "MOHDAOFD-2C20D4F5"
       ],
       "werkVoiceScore": 0.8627090370264486,
       "corpusVoiceScore": 0.8030136531468325,
@@ -2999,15 +2999,15 @@
       "ai_score_reason": "Es handelt sich um eine exzellente, werksnahe Reorganisation des Vorgegebenen,",
       "ai_score_at": "2026-06-22T23:56:01.174Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MPMU7YZH-2C9CBFE8"
+      ],
       "related": [
-        "MPMU7YZH-2C9CBFE8",
         "MPMTT6GB-1AF44EE4",
         "MPMTQZIN-7863D6D2",
         "MPMU9JV9-A43849A9",
-        "MOHDW91N-D9BDFDB1"
-      ],
-      "nearDuplicates": [
-        "MPMU7YZH-2C9CBFE8"
+        "MOHDW91N-D9BDFDB1",
+        "MOHDAOFD-2C20D4F5"
       ],
       "werkVoiceScore": 0.8627090370264486,
       "corpusVoiceScore": 0.8030136531468325,
@@ -3030,15 +3030,15 @@
         "\"role\"": "\"model\",",
         "\"text\"": "\"Ihre Worte treffen den Kern einer existentiellen Unterscheidung, die"
       },
+      "nearDuplicates": [
+        "MPMTQZIN-7863D6D2"
+      ],
       "related": [
-        "MPMTQZIN-7863D6D2",
         "MPMU7YZH-2C9CBFE8",
         "MPMU67V4-938B932C",
         "MOHDAOFD-2C20D4F5",
-        "MPMU9JV9-A43849A9"
-      ],
-      "nearDuplicates": [
-        "MPMTQZIN-7863D6D2"
+        "MPMU9JV9-A43849A9",
+        "MOQ531J2-4FC329D4"
       ],
       "werkVoiceScore": 0.8915740373310096,
       "corpusVoiceScore": 0.8274760938180875,
@@ -3058,15 +3058,15 @@
         "historyLength": "0",
         "werk_passages": "[]"
       },
+      "nearDuplicates": [
+        "MPMTT6GB-1AF44EE4"
+      ],
       "related": [
-        "MPMTT6GB-1AF44EE4",
         "MPMU7YZH-2C9CBFE8",
         "MPMU67V4-938B932C",
         "MOHDAOFD-2C20D4F5",
-        "MPMU9JV9-A43849A9"
-      ],
-      "nearDuplicates": [
-        "MPMTT6GB-1AF44EE4"
+        "MPMU9JV9-A43849A9",
+        "MOQ531J2-4FC329D4"
       ],
       "werkVoiceScore": 0.8915740373310096,
       "corpusVoiceScore": 0.8274760938180875,
@@ -3095,13 +3095,6 @@
         "paths_identical": "false",
         "werk_passages": "[]"
       },
-      "related": [
-        "MPAS5OM5-A1F522F4",
-        "MOPFJTND-AAE76B2B",
-        "MOP0LEAL-E2568DCC",
-        "MQ5WPJ3V-CF0A30C7",
-        "MOQIHEM5-82D69E4F"
-      ],
       "nearDuplicates": [
         "MPAS5OM5-A1F522F4",
         "MOPFJTND-AAE76B2B",
@@ -3111,6 +3104,13 @@
         "MOOMPCI0-262176C2",
         "MPMSRF6V-7FEB2991",
         "MPK0H3SM-B25CFBB3"
+      ],
+      "related": [
+        "MP495QL6-F5FD1AE1",
+        "MP8UIMZW-BADE77E5",
+        "MOQBZWTZ-B9EBB1BA",
+        "MPEV1D2J-55138734",
+        "MPF4FISZ-67000E01"
       ],
       "werkVoiceScore": 0.9145566827888238,
       "corpusVoiceScore": 0.866322002910527,
@@ -3139,18 +3139,18 @@
         "paths_identical": "false",
         "werk_passages": "[]"
       },
-      "related": [
-        "MP8OB1IU-F6C31DC7",
-        "MPAS5OM5-A1F522F4",
-        "MPMSSG1X-8451DE38",
-        "MOOVXCI4-822961D2",
-        "MOIXN434-9D5CBFC0"
-      ],
       "nearDuplicates": [
         "MP8OB1IU-F6C31DC7",
         "MPAS5OM5-A1F522F4",
         "MPMSSG1X-8451DE38",
         "MOOVXCI4-822961D2"
+      ],
+      "related": [
+        "MOIXN434-9D5CBFC0",
+        "MOPFJTND-AAE76B2B",
+        "MPK0H3SM-B25CFBB3",
+        "MOQIHEM5-82D69E4F",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8888675302881186,
       "corpusVoiceScore": 0.819889867493325,
@@ -3178,16 +3178,16 @@
       "ai_score_reason": "Ein echter, hergeleiteter Gedanke, der das Werk weiterführt,",
       "ai_score_at": "2026-06-22T23:56:07.667Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MOHAGNGB-5330902E",
-        "MPNDAPRT-D64D197A",
-        "MP2LIW43-E8ADC59E",
-        "MPAGOCGB-FB54D923",
-        "MP0X62X5-535AF7A8"
-      ],
       "nearDuplicates": [
         "MOHAGNGB-5330902E",
         "MPNDAPRT-D64D197A"
+      ],
+      "related": [
+        "MP2LIW43-E8ADC59E",
+        "MPAGOCGB-FB54D923",
+        "MP0X62X5-535AF7A8",
+        "MOLNG57A-2F155772",
+        "MOP0S479-373A2268"
       ],
       "werkVoiceScore": 0.8958161367005708,
       "corpusVoiceScore": 0.8226480748472929,
@@ -3411,15 +3411,15 @@
       "ai_score_reason": "Es ist eine sehr gute Paraphrase, die die Haltung der Öffnung",
       "ai_score_at": "2026-06-22T23:56:53.687Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MPMKBUNW-88609492"
+      ],
       "related": [
-        "MPMKBUNW-88609492",
         "MOU9KSV9-70260D9B",
         "MOJVF4PL-7474909F",
         "MQ5KBJMQ-5C523141",
-        "MOHCN98S-2540F4DF"
-      ],
-      "nearDuplicates": [
-        "MPMKBUNW-88609492"
+        "MOHCN98S-2540F4DF",
+        "MPUFP1VW-298D0A73"
       ],
       "werkVoiceScore": 0.8765890323390101,
       "corpusVoiceScore": 0.8140817016591323,
@@ -3443,15 +3443,15 @@
       "ai_score_reason": "Es ist eine sehr gute, werksnahe Paraphrase, die aber keine",
       "ai_score_at": "2026-06-22T23:57:00.469Z",
       "ai_score_model": "gemini-2.5-pro",
+      "nearDuplicates": [
+        "MPMKE3CC-4E75CE39"
+      ],
       "related": [
-        "MPMKE3CC-4E75CE39",
         "MOU9KSV9-70260D9B",
         "MOJVF4PL-7474909F",
         "MQ5KBJMQ-5C523141",
-        "MOHCN98S-2540F4DF"
-      ],
-      "nearDuplicates": [
-        "MPMKE3CC-4E75CE39"
+        "MOHCN98S-2540F4DF",
+        "MPUFP1VW-298D0A73"
       ],
       "werkVoiceScore": 0.8765890323390101,
       "corpusVoiceScore": 0.8140817016591323,
@@ -3485,15 +3485,15 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus mit eigener denkerischer Wendung",
       "ai_score_at": "2026-05-26T11:15:33.866Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MQASO35V-115DA081"
+      ],
       "related": [
-        "MQASO35V-115DA081",
         "MOQ5A1GS-413BDE6F",
         "MOLNG57A-2F155772",
         "MOIXN434-9D5CBFC0",
-        "MPMSSG1X-8451DE38"
-      ],
-      "nearDuplicates": [
-        "MQASO35V-115DA081"
+        "MPMSSG1X-8451DE38",
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.9024938480887065,
       "corpusVoiceScore": 0.8420099230515455,
@@ -3551,13 +3551,6 @@
         "variant": "compare",
         "paths_identical": "false"
       },
-      "related": [
-        "MPUO08SE-67E0912A",
-        "MPF4FISZ-67000E01",
-        "MOOMPCI0-262176C2",
-        "MP8UIMZW-BADE77E5",
-        "MOQID47V-A12862EA"
-      ],
       "nearDuplicates": [
         "MPUO08SE-67E0912A",
         "MPF4FISZ-67000E01",
@@ -3578,6 +3571,13 @@
         "MPMSSG1X-8451DE38",
         "MOUA3PLK-548F1A0A",
         "MP0QMSOR-C6EC1B5A"
+      ],
+      "related": [
+        "MPAS5OM5-A1F522F4",
+        "MQ5WPJ3V-CF0A30C7",
+        "MOQIHEM5-82D69E4F",
+        "MQARZJDV-82F077DD",
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8966111770135801,
       "corpusVoiceScore": 0.8261719577114349,
@@ -3606,19 +3606,19 @@
       "ai_score_reason": "Dichter Duktus, präzise Begrifflichkeit (Lichtkegel, Faltung,",
       "ai_score_at": "2026-05-26T11:15:43.251Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPBI57AL-76627781",
-        "MPCV5LR8-9AD1527C",
-        "MOUBIHOK-27900555",
-        "MOOVXCI4-822961D2",
-        "MPF4WM18-FF4843F1"
-      ],
       "nearDuplicates": [
         "MPBI57AL-76627781",
         "MPCV5LR8-9AD1527C",
         "MOUBIHOK-27900555",
         "MOOVXCI4-822961D2",
         "MPF4WM18-FF4843F1"
+      ],
+      "related": [
+        "MOPHZPQ7-B63879B5",
+        "MP2LIW43-E8ADC59E",
+        "MOQ531J2-4FC329D4",
+        "MOHAUYTH-CD1E3227",
+        "MOHV84M5-1825A399"
       ],
       "werkVoiceScore": 0.8972571034554947,
       "corpusVoiceScore": 0.8420461864169214,
@@ -3646,19 +3646,19 @@
       "ai_score_reason": "Thematisch präzise, aber nummerierte Gliederung und erklärende",
       "ai_score_at": "2026-05-26T11:15:47.529Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPJEBNX3-042F2A69",
-        "MOQ5IKR5-C67AAC15",
-        "MP2LIW43-E8ADC59E",
-        "MOJ7Q5HM-89F62E3F",
-        "MPARZ5F0-A9FD6F70"
-      ],
       "nearDuplicates": [
         "MPJEBNX3-042F2A69",
         "MOQ5IKR5-C67AAC15",
         "MP2LIW43-E8ADC59E",
         "MOJ7Q5HM-89F62E3F",
         "MPARZ5F0-A9FD6F70"
+      ],
+      "related": [
+        "MP0X62X5-535AF7A8",
+        "MP0X3ZXL-06513C82",
+        "MOOZHCUT-4B86F8AD",
+        "MPUFUBU5-A4BC72BE",
+        "MOOK20R3-62E609BA"
       ],
       "werkVoiceScore": 0.9010464451813449,
       "corpusVoiceScore": 0.8628914740358753,
@@ -3685,17 +3685,17 @@
       "ai_score_reason": "Dichter, prosaischer Duktus mit Werk-Begriffen (Resonanz,",
       "ai_score_at": "2026-05-26T11:15:51.753Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPJUHM1L-0BA3DF6E",
-        "MOHV84M5-1825A399",
-        "MOOK20R3-62E609BA",
-        "MOQ5IKR5-C67AAC15",
-        "MOHLZBVK-2FBBAD2F"
-      ],
       "nearDuplicates": [
         "MPJUHM1L-0BA3DF6E",
         "MOHV84M5-1825A399",
         "MOOK20R3-62E609BA"
+      ],
+      "related": [
+        "MOQ5IKR5-C67AAC15",
+        "MOHLZBVK-2FBBAD2F",
+        "MOOZHCUT-4B86F8AD",
+        "MP2LIW43-E8ADC59E",
+        "MOQIMC7B-B190C937"
       ],
       "werkVoiceScore": 0.9005240896923457,
       "corpusVoiceScore": 0.852551168478792,
@@ -3757,18 +3757,18 @@
       "ai_score_reason": "Werktreuer Duktus mit starken Begriffen (Leerstelle, Geviert,",
       "ai_score_at": "2026-05-26T11:16:00.608Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOUBIHOK-27900555",
-        "MPBI57AL-76627781",
-        "MPCV5LR8-9AD1527C",
-        "MPJXEFVC-49A699FA",
-        "MOOVXCI4-822961D2"
-      ],
       "nearDuplicates": [
         "MOUBIHOK-27900555",
         "MPBI57AL-76627781",
         "MPCV5LR8-9AD1527C",
         "MPJXEFVC-49A699FA"
+      ],
+      "related": [
+        "MOOVXCI4-822961D2",
+        "MP0X62X5-535AF7A8",
+        "MOHLZBVK-2FBBAD2F",
+        "MPNDAPRT-D64D197A",
+        "MP2LIW43-E8ADC59E"
       ],
       "werkVoiceScore": 0.884643946838131,
       "corpusVoiceScore": 0.8476835642604702,
@@ -3805,13 +3805,6 @@
       "ai_score_reason": "Thematisch passend, aber stilistisch werkfremd durch",
       "ai_score_at": "2026-05-26T11:16:04.741Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MP8UIMZW-BADE77E5",
-        "MPK0H3SM-B25CFBB3",
-        "MPEV1D2J-55138734",
-        "MP497SNT-5E1D2074",
-        "MP0ZE9C8-A9D02716"
-      ],
       "nearDuplicates": [
         "MP8UIMZW-BADE77E5",
         "MPK0H3SM-B25CFBB3",
@@ -3831,6 +3824,13 @@
         "MOQBZWTZ-B9EBB1BA",
         "MPURYS56-11F5308C",
         "MOQ7OBNT-57882C8D"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MOP0LEAL-E2568DCC",
+        "MOPFJTND-AAE76B2B",
+        "MQARZJDV-82F077DD",
+        "MOQIHEM5-82D69E4F"
       ],
       "werkVoiceScore": 0.8800496440322786,
       "corpusVoiceScore": 0.8292360290984353,
@@ -3860,13 +3860,6 @@
       "ai_score_reason": "Werktreuer Duktus, dichte Begrifflichkeit, philosophisch",
       "ai_score_at": "2026-05-26T11:16:09.239Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPUNXFU1-3B1F056A",
-        "MPF4FISZ-67000E01",
-        "MPUO08SE-67E0912A",
-        "MP8UIMZW-BADE77E5",
-        "MP0ZE9C8-A9D02716"
-      ],
       "nearDuplicates": [
         "MPUNXFU1-3B1F056A",
         "MPF4FISZ-67000E01",
@@ -3886,6 +3879,13 @@
         "MPURYS56-11F5308C",
         "MP0QMSOR-C6EC1B5A",
         "MOUA3PLK-548F1A0A"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MOP0LEAL-E2568DCC",
+        "MQARZJDV-82F077DD",
+        "MOPFJTND-AAE76B2B",
+        "MOQIGG2B-2F0C3F5D"
       ],
       "werkVoiceScore": 0.890417097924144,
       "corpusVoiceScore": 0.8390289187540348,
@@ -3913,16 +3913,16 @@
       "ai_score_reason": "Nummerierte Liste, Schulbuch-Duktus („fungiert hier als\",",
       "ai_score_at": "2026-05-26T11:16:15.798Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPUFUBU5-A4BC72BE",
-        "MOQ5IKR5-C67AAC15",
-        "MP4HT65S-E31FDB00",
-        "MP2LIW43-E8ADC59E",
-        "MPMSRF6V-7FEB2991"
-      ],
       "nearDuplicates": [
         "MPUFUBU5-A4BC72BE",
         "MOQ5IKR5-C67AAC15"
+      ],
+      "related": [
+        "MP4HT65S-E31FDB00",
+        "MP2LIW43-E8ADC59E",
+        "MPMSRF6V-7FEB2991",
+        "MOLNG57A-2F155772",
+        "MOQ7HGW3-608EA4FA"
       ],
       "werkVoiceScore": 0.8711037425657715,
       "corpusVoiceScore": 0.8183351110654212,
@@ -3951,13 +3951,6 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus mit eigenständiger Denkfigur",
       "ai_score_at": "2026-05-26T11:16:20.181Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPJXEFVC-49A699FA",
-        "MPBI57AL-76627781",
-        "MPF4WM18-FF4843F1",
-        "MPUFUBU5-A4BC72BE",
-        "MOUBIHOK-27900555"
-      ],
       "nearDuplicates": [
         "MPJXEFVC-49A699FA",
         "MPBI57AL-76627781",
@@ -3965,6 +3958,13 @@
         "MPUFUBU5-A4BC72BE",
         "MOUBIHOK-27900555",
         "MOOVXCI4-822961D2"
+      ],
+      "related": [
+        "MP2LIW43-E8ADC59E",
+        "MOQ5IKR5-C67AAC15",
+        "MOHLZBVK-2FBBAD2F",
+        "MPMJC8TR-592D4EF0",
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8820866056373232,
       "corpusVoiceScore": 0.8356616327627125,
@@ -3996,16 +3996,16 @@
       "ai_score_reason": "Nummerierte Gliederung, schulbuchhafter Erklärmodus („Die",
       "ai_score_at": "2026-05-26T11:16:24.343Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPMJC8TR-592D4EF0",
-        "MQASO35V-115DA081",
-        "MPUNXFU1-3B1F056A",
-        "MOLNG57A-2F155772",
-        "MPMSSG1X-8451DE38"
-      ],
       "nearDuplicates": [
         "MPMJC8TR-592D4EF0",
         "MQASO35V-115DA081"
+      ],
+      "related": [
+        "MPUNXFU1-3B1F056A",
+        "MOLNG57A-2F155772",
+        "MPMSSG1X-8451DE38",
+        "MOQIGG2B-2F0C3F5D",
+        "MPEV1D2J-55138734"
       ],
       "werkVoiceScore": 0.8711721908686266,
       "corpusVoiceScore": 0.8182458030698297,
@@ -4034,18 +4034,18 @@
       "ai_score_reason": "Dichter Geviert-Duktus, präzise Begrifflichkeit, eigener",
       "ai_score_at": "2026-05-26T11:16:29.677Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPJXEFVC-49A699FA",
-        "MPCV5LR8-9AD1527C",
-        "MPF4WM18-FF4843F1",
-        "MOOVXCI4-822961D2",
-        "MOUBIHOK-27900555"
-      ],
       "nearDuplicates": [
         "MPJXEFVC-49A699FA",
         "MPCV5LR8-9AD1527C",
         "MPF4WM18-FF4843F1",
         "MOOVXCI4-822961D2"
+      ],
+      "related": [
+        "MOUBIHOK-27900555",
+        "MOHV84M5-1825A399",
+        "MOPHZPQ7-B63879B5",
+        "MP2LIW43-E8ADC59E",
+        "MPH4R3SE-C224ACED"
       ],
       "werkVoiceScore": 0.893297596572687,
       "corpusVoiceScore": 0.8492784093001999,
@@ -4077,16 +4077,16 @@
       "ai_score_reason": "Thematisch präzise, aber stilistisch zu systematisch-erklärend;",
       "ai_score_at": "2026-05-26T11:16:35.238Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPMSSG1X-8451DE38",
-        "MPMSRF6V-7FEB2991",
-        "MOQIHEM5-82D69E4F",
-        "MPK0H3SM-B25CFBB3",
-        "MQ5WPJ3V-CF0A30C7"
-      ],
       "nearDuplicates": [
         "MPMSSG1X-8451DE38",
         "MPMSRF6V-7FEB2991"
+      ],
+      "related": [
+        "MOQIHEM5-82D69E4F",
+        "MPK0H3SM-B25CFBB3",
+        "MQ5WPJ3V-CF0A30C7",
+        "MOPFJTND-AAE76B2B",
+        "MOOMPCI0-262176C2"
       ],
       "werkVoiceScore": 0.8903679976939022,
       "corpusVoiceScore": 0.8219096553517871,
@@ -4110,13 +4110,6 @@
         "cluster_size": "3",
         "node_labels": "[ \"Einsicht\", \"Vernunft\", \"Antwort / Responsivität\" ]"
       },
-      "related": [
-        "MP2LIW43-E8ADC59E",
-        "MOQ5IKR5-C67AAC15",
-        "MOQ5EOBY-82AD9EEE",
-        "MOJ7Q5HM-89F62E3F",
-        "MP0X3ZXL-06513C82"
-      ],
       "nearDuplicates": [
         "MP2LIW43-E8ADC59E",
         "MOQ5IKR5-C67AAC15",
@@ -4124,6 +4117,13 @@
         "MOJ7Q5HM-89F62E3F",
         "MP0X3ZXL-06513C82",
         "MPJUHM1L-0BA3DF6E"
+      ],
+      "related": [
+        "MPUFUBU5-A4BC72BE",
+        "MP0X62X5-535AF7A8",
+        "MOOMJDPP-1F336D7D",
+        "MOOZHCUT-4B86F8AD",
+        "MP4HT65S-E31FDB00"
       ],
       "werkVoiceScore": 0.9018608934264195,
       "corpusVoiceScore": 0.8763181935433474,
@@ -4150,16 +4150,16 @@
       "ai_score_reason": "Werktreuer Duktus mit starken Resonanz-Begriffen; „Metrik der",
       "ai_score_at": "2026-05-26T11:16:44.749Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOHAGNGB-5330902E",
-        "MOHAI60S-B7B04552",
-        "MOHV84M5-1825A399",
-        "MPMROCH7-EB9E6A9A",
-        "MP2LIW43-E8ADC59E"
-      ],
       "nearDuplicates": [
         "MOHAGNGB-5330902E",
         "MOHAI60S-B7B04552"
+      ],
+      "related": [
+        "MOHV84M5-1825A399",
+        "MPMROCH7-EB9E6A9A",
+        "MP2LIW43-E8ADC59E",
+        "MOHLZBVK-2FBBAD2F",
+        "MPNDAPRT-D64D197A"
       ],
       "werkVoiceScore": 0.896724761265332,
       "corpusVoiceScore": 0.8468101676223182,
@@ -4228,13 +4228,6 @@
       "ai_score_reason": "Werktreuer Duktus mit „Faltung\", „Zwischen\",",
       "ai_score_at": "2026-05-26T11:16:54.126Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPF4FISZ-67000E01",
-        "MPUO08SE-67E0912A",
-        "MPK0H3SM-B25CFBB3",
-        "MPEV1D2J-55138734",
-        "MPUQSMLJ-1B726CC4"
-      ],
       "nearDuplicates": [
         "MPF4FISZ-67000E01",
         "MPUO08SE-67E0912A",
@@ -4255,6 +4248,13 @@
         "MOQ7OBNT-57882C8D",
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MOP0LEAL-E2568DCC",
+        "MQARZJDV-82F077DD",
+        "MOUBETTU-F31C5206",
+        "MPAS5OM5-A1F522F4"
       ],
       "werkVoiceScore": 0.8977753044187352,
       "corpusVoiceScore": 0.8321518011866103,
@@ -4281,16 +4281,16 @@
       "ai_score_reason": "Dichter, eigenständiger Duktus; „Komplizen\", „Atemholen\",",
       "ai_score_at": "2026-05-26T11:16:57.820Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPMSRF6V-7FEB2991",
-        "MOOVXCI4-822961D2",
-        "MPH4R3SE-C224ACED",
-        "MOHM21Y5-A3B5F539",
-        "MOUBETTU-F31C5206"
-      ],
       "nearDuplicates": [
         "MPMSRF6V-7FEB2991",
         "MOOVXCI4-822961D2"
+      ],
+      "related": [
+        "MPH4R3SE-C224ACED",
+        "MOHM21Y5-A3B5F539",
+        "MOUBETTU-F31C5206",
+        "MOIXN434-9D5CBFC0",
+        "MOHV84M5-1825A399"
       ],
       "werkVoiceScore": 0.8691566355678167,
       "corpusVoiceScore": 0.8009181763311235,
@@ -4401,15 +4401,15 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd:",
       "ai_score_at": "2026-05-26T11:17:14.973Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MP74X3EJ-72CDDB9F"
+      ],
       "related": [
-        "MP74X3EJ-72CDDB9F",
         "MP74VXSM-5DEA06F3",
         "MQ5KBJMQ-5C523141",
         "MOHST017-5C4320E1",
-        "MOIXN434-9D5CBFC0"
-      ],
-      "nearDuplicates": [
-        "MP74X3EJ-72CDDB9F"
+        "MOIXN434-9D5CBFC0",
+        "MQ68LVS7-240568F5"
       ],
       "werkVoiceScore": 0.8964105907617267,
       "corpusVoiceScore": 0.8537999864253631,
@@ -4429,16 +4429,16 @@
         "chapterId": "band3-kap4",
         "chapterTitle": "Kapitel 4: Resonanz versus Entfremdung"
       },
-      "related": [
-        "MP756UV9-FF3838F7",
-        "MOIXN434-9D5CBFC0",
-        "MQ5KBJMQ-5C523141",
-        "MPMSSG1X-8451DE38",
-        "MQ68LVS7-240568F5"
-      ],
       "nearDuplicates": [
         "MP756UV9-FF3838F7",
         "MOIXN434-9D5CBFC0"
+      ],
+      "related": [
+        "MQ5KBJMQ-5C523141",
+        "MPMSSG1X-8451DE38",
+        "MQ68LVS7-240568F5",
+        "MOUBETTU-F31C5206",
+        "MOHST017-5C4320E1"
       ],
       "werkVoiceScore": 0.9057831770850826,
       "corpusVoiceScore": 0.8706240939496968,
@@ -4495,18 +4495,18 @@
       "ai_score_reason": "Nummerierte Liste, Schulbuch-Duktus („bildet die Brücke\",",
       "ai_score_at": "2026-05-26T11:17:23.597Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOLNG57A-2F155772",
-        "MP0X3ZXL-06513C82",
-        "MOQ5IKR5-C67AAC15",
-        "MPUFUBU5-A4BC72BE",
-        "MP2LIW43-E8ADC59E"
-      ],
       "nearDuplicates": [
         "MOLNG57A-2F155772",
         "MP0X3ZXL-06513C82",
         "MOQ5IKR5-C67AAC15",
         "MPUFUBU5-A4BC72BE"
+      ],
+      "related": [
+        "MP2LIW43-E8ADC59E",
+        "MOJ7Q5HM-89F62E3F",
+        "MPARZ5F0-A9FD6F70",
+        "MOQ5A1GS-413BDE6F",
+        "MOIXN434-9D5CBFC0"
       ],
       "werkVoiceScore": 0.8883026382089163,
       "corpusVoiceScore": 0.8305516294995712,
@@ -4542,13 +4542,6 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd:",
       "ai_score_at": "2026-05-26T11:17:28.534Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOUKLLK4-C38517C1",
-        "MPUO08SE-67E0912A",
-        "MOUA3PLK-548F1A0A",
-        "MOOMPCI0-262176C2",
-        "MOQID47V-A12862EA"
-      ],
       "nearDuplicates": [
         "MOUKLLK4-C38517C1",
         "MPUO08SE-67E0912A",
@@ -4568,6 +4561,13 @@
         "MPK0H3SM-B25CFBB3",
         "MPUQSMLJ-1B726CC4",
         "MPURYS56-11F5308C"
+      ],
+      "related": [
+        "MOPFJTND-AAE76B2B",
+        "MPMSSG1X-8451DE38",
+        "MQ5WPJ3V-CF0A30C7",
+        "MOQIHEM5-82D69E4F",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.884480349137298,
       "corpusVoiceScore": 0.8345791580551037,
@@ -4602,13 +4602,6 @@
       "ai_score_reason": "Thematisch passend, aber stilistisch zu erklärend („macht",
       "ai_score_at": "2026-05-26T11:17:32.738Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOMPCI0-262176C2",
-        "MOQBZWTZ-B9EBB1BA",
-        "MOUKLLK4-C38517C1",
-        "MOQID47V-A12862EA",
-        "MOOMECFT-66F43077"
-      ],
       "nearDuplicates": [
         "MOOMPCI0-262176C2",
         "MOQBZWTZ-B9EBB1BA",
@@ -4628,6 +4621,13 @@
         "MP0QMSOR-C6EC1B5A",
         "MPUQSMLJ-1B726CC4",
         "MPUNXFU1-3B1F056A"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MQ5WPJ3V-CF0A30C7",
+        "MOP0LEAL-E2568DCC",
+        "MPURYS56-11F5308C",
+        "MPAS5OM5-A1F522F4"
       ],
       "werkVoiceScore": 0.8889383227413501,
       "corpusVoiceScore": 0.8321400581168664,
@@ -4651,13 +4651,6 @@
         "cluster_size": "3",
         "node_labels": "[ \"Begegnung\", \"Selbst\", \"Resonanzvernunft\" ]"
       },
-      "related": [
-        "MOJ7Q5HM-89F62E3F",
-        "MOQ5IKR5-C67AAC15",
-        "MPARZ5F0-A9FD6F70",
-        "MPUFUBU5-A4BC72BE",
-        "MP0X62X5-535AF7A8"
-      ],
       "nearDuplicates": [
         "MOJ7Q5HM-89F62E3F",
         "MOQ5IKR5-C67AAC15",
@@ -4670,6 +4663,13 @@
         "MOOZHCUT-4B86F8AD",
         "MOHAGNGB-5330902E",
         "MP0X3ZXL-06513C82"
+      ],
+      "related": [
+        "MPMROCH7-EB9E6A9A",
+        "MOHLZBVK-2FBBAD2F",
+        "MP4HT65S-E31FDB00",
+        "MOP0S479-373A2268",
+        "MPNDAPRT-D64D197A"
       ],
       "werkVoiceScore": 0.9203240264176379,
       "corpusVoiceScore": 0.88034186561705,
@@ -4696,15 +4696,15 @@
       "ai_score_reason": "Thematisch passend, aber stilistisch fremd durch",
       "ai_score_at": "2026-05-26T11:17:41.270Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHMIET1-6D429A85"
+      ],
       "related": [
-        "MOHMIET1-6D429A85",
         "MOIXN7OL-B18642AC",
         "MPMI3ZF2-2F83F425",
         "MP0X62X5-535AF7A8",
-        "MOQ5EOBY-82AD9EEE"
-      ],
-      "nearDuplicates": [
-        "MOHMIET1-6D429A85"
+        "MOQ5EOBY-82AD9EEE",
+        "MQ5WUD1G-0976C016"
       ],
       "werkVoiceScore": 0.8877085919355827,
       "corpusVoiceScore": 0.8268586629740838,
@@ -4741,13 +4741,6 @@
       "ai_score_reason": "Werktreuer Duktus, dichte Prosa, gute Begriffstreue; „logische",
       "ai_score_at": "2026-05-26T11:17:45.519Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOQID47V-A12862EA",
-        "MPF4FISZ-67000E01",
-        "MPEV1D2J-55138734",
-        "MP8UIMZW-BADE77E5",
-        "MOOMPCI0-262176C2"
-      ],
       "nearDuplicates": [
         "MOQID47V-A12862EA",
         "MPF4FISZ-67000E01",
@@ -4767,6 +4760,13 @@
         "MOQBZWTZ-B9EBB1BA",
         "MPUO08SE-67E0912A",
         "MPURYS56-11F5308C"
+      ],
+      "related": [
+        "MOQIGG2B-2F0C3F5D",
+        "MOQ531J2-4FC329D4",
+        "MOPFJTND-AAE76B2B",
+        "MPMSSG1X-8451DE38",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.9048928105377889,
       "corpusVoiceScore": 0.8237746685632218,
@@ -4794,17 +4794,17 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus mit eigenständiger Denkfigur der",
       "ai_score_at": "2026-05-26T11:17:50.247Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MP2LIW43-E8ADC59E",
-        "MOOZHCUT-4B86F8AD",
-        "MOJ7Q5HM-89F62E3F",
-        "MPJUHM1L-0BA3DF6E",
-        "MOQ5IKR5-C67AAC15"
-      ],
       "nearDuplicates": [
         "MP2LIW43-E8ADC59E",
         "MOOZHCUT-4B86F8AD",
         "MOJ7Q5HM-89F62E3F"
+      ],
+      "related": [
+        "MPJUHM1L-0BA3DF6E",
+        "MOQ5IKR5-C67AAC15",
+        "MOQIMC7B-B190C937",
+        "MOP0P7DE-3C823F7E",
+        "MOOMJDPP-1F336D7D"
       ],
       "werkVoiceScore": 0.9076658550641497,
       "corpusVoiceScore": 0.8511613079016082,
@@ -4832,13 +4832,6 @@
       "ai_score_reason": "Werktreuer Duktus, starke Resonanz-Begrifflichkeit;",
       "ai_score_at": "2026-05-26T11:17:54.302Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOQ5IKR5-C67AAC15",
-        "MP4HT65S-E31FDB00",
-        "MPARZ5F0-A9FD6F70",
-        "MOJ7Q5HM-89F62E3F",
-        "MOLNG57A-2F155772"
-      ],
       "nearDuplicates": [
         "MOQ5IKR5-C67AAC15",
         "MP4HT65S-E31FDB00",
@@ -4846,6 +4839,13 @@
         "MOJ7Q5HM-89F62E3F",
         "MOLNG57A-2F155772",
         "MP2LIW43-E8ADC59E"
+      ],
+      "related": [
+        "MOOMJDPP-1F336D7D",
+        "MPJUHM1L-0BA3DF6E",
+        "MOHST017-5C4320E1",
+        "MOIXN434-9D5CBFC0",
+        "MOP0P7DE-3C823F7E"
       ],
       "werkVoiceScore": 0.8937027614787527,
       "corpusVoiceScore": 0.8519915137439816,
@@ -4878,15 +4878,15 @@
       "ai_score_reason": "Nummerierte Struktur, Schulbuch-Duktus („markiert die",
       "ai_score_at": "2026-05-26T11:17:58.448Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOQIGG2B-2F0C3F5D"
+      ],
       "related": [
-        "MOQIGG2B-2F0C3F5D",
         "MOPFJTND-AAE76B2B",
         "MOUKLLK4-C38517C1",
         "MPMJC8TR-592D4EF0",
-        "MP0ZE9C8-A9D02716"
-      ],
-      "nearDuplicates": [
-        "MOQIGG2B-2F0C3F5D"
+        "MP0ZE9C8-A9D02716",
+        "MOQID47V-A12862EA"
       ],
       "werkVoiceScore": 0.8836208184352581,
       "corpusVoiceScore": 0.8029021386912341,
@@ -4923,13 +4923,6 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd: Überschriften,",
       "ai_score_at": "2026-05-26T11:18:03.299Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOQID47V-A12862EA",
-        "MP497SNT-5E1D2074",
-        "MOUA3PLK-548F1A0A",
-        "MOQBZWTZ-B9EBB1BA",
-        "MOUKLLK4-C38517C1"
-      ],
       "nearDuplicates": [
         "MOQID47V-A12862EA",
         "MP497SNT-5E1D2074",
@@ -4948,6 +4941,13 @@
         "MPURYS56-11F5308C",
         "MPUNXFU1-3B1F056A",
         "MPK0H3SM-B25CFBB3"
+      ],
+      "related": [
+        "MPUQSMLJ-1B726CC4",
+        "MOP0LEAL-E2568DCC",
+        "MOPFJTND-AAE76B2B",
+        "MQARZJDV-82F077DD",
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8858825150241924,
       "corpusVoiceScore": 0.8324455137399284,
@@ -4971,15 +4971,15 @@
       "ai_score_reason": "Thematisch passend, aber Schulbuch-Einführungston („zentrale",
       "ai_score_at": "2026-05-26T11:18:07.213Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOOK5A30-F596F31D"
+      ],
       "related": [
-        "MOOK5A30-F596F31D",
         "MOHST017-5C4320E1",
         "MOOMJDPP-1F336D7D",
         "MP8O4O23-B2B71E51",
-        "MOPFJTND-AAE76B2B"
-      ],
-      "nearDuplicates": [
-        "MOOK5A30-F596F31D"
+        "MOPFJTND-AAE76B2B",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8473286184309302,
       "corpusVoiceScore": 0.8528672780950506,
@@ -5014,13 +5014,6 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd:",
       "ai_score_at": "2026-05-26T11:18:11.803Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MP495QL6-F5FD1AE1",
-        "MP497SNT-5E1D2074",
-        "MOOMPCI0-262176C2",
-        "MOQID47V-A12862EA",
-        "MOQBZWTZ-B9EBB1BA"
-      ],
       "nearDuplicates": [
         "MP495QL6-F5FD1AE1",
         "MP497SNT-5E1D2074",
@@ -5039,6 +5032,13 @@
         "MPUQSMLJ-1B726CC4",
         "MPEV1D2J-55138734",
         "MPK0H3SM-B25CFBB3"
+      ],
+      "related": [
+        "MPURYS56-11F5308C",
+        "MOPFJTND-AAE76B2B",
+        "MQ5WPJ3V-CF0A30C7",
+        "MOP0LEAL-E2568DCC",
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8820960449818918,
       "corpusVoiceScore": 0.8348860645341197,
@@ -5067,17 +5067,17 @@
       "ai_score_reason": "Thematisch passend, aber schulbuchhaft erklärend („bildet sich",
       "ai_score_at": "2026-05-26T11:18:17.118Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPF4WM18-FF4843F1",
-        "MPJXEFVC-49A699FA",
-        "MPCV5LR8-9AD1527C",
-        "MPBI57AL-76627781",
-        "MOUBETTU-F31C5206"
-      ],
       "nearDuplicates": [
         "MPF4WM18-FF4843F1",
         "MPJXEFVC-49A699FA",
         "MPCV5LR8-9AD1527C"
+      ],
+      "related": [
+        "MPBI57AL-76627781",
+        "MOUBETTU-F31C5206",
+        "MOOVXCI4-822961D2",
+        "MOJVF4PL-7474909F",
+        "MP0X62X5-535AF7A8"
       ],
       "werkVoiceScore": 0.8958798152500799,
       "corpusVoiceScore": 0.8470744720506619,
@@ -5104,19 +5104,19 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd: Schulbuch-Duktus",
       "ai_score_at": "2026-05-26T11:18:21.517Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOIXN434-9D5CBFC0",
-        "MOHAI60S-B7B04552",
-        "MOIXN7OL-B18642AC",
-        "MOPFJTND-AAE76B2B",
-        "MOHVDNEU-D3F7EEB5"
-      ],
       "nearDuplicates": [
         "MOIXN434-9D5CBFC0",
         "MOHAI60S-B7B04552",
         "MOIXN7OL-B18642AC",
         "MOPFJTND-AAE76B2B",
         "MOHVDNEU-D3F7EEB5"
+      ],
+      "related": [
+        "MPMSSG1X-8451DE38",
+        "MOQ531J2-4FC329D4",
+        "MOHM21Y5-A3B5F539",
+        "MOUBIHOK-27900555",
+        "MOOMPCI0-262176C2"
       ],
       "werkVoiceScore": 0.9196999652144917,
       "corpusVoiceScore": 0.8536901983383712,
@@ -5151,13 +5151,6 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch werkfremd: nummerierte",
       "ai_score_at": "2026-05-26T11:18:26.714Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOQID47V-A12862EA",
-        "MOUKLLK4-C38517C1",
-        "MOOMPCI0-262176C2",
-        "MP497SNT-5E1D2074",
-        "MP495QL6-F5FD1AE1"
-      ],
       "nearDuplicates": [
         "MOQID47V-A12862EA",
         "MOUKLLK4-C38517C1",
@@ -5176,6 +5169,13 @@
         "MPEV1D2J-55138734",
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A"
+      ],
+      "related": [
+        "MOPFJTND-AAE76B2B",
+        "MPURYS56-11F5308C",
+        "MOP0LEAL-E2568DCC",
+        "MPMSSG1X-8451DE38",
+        "MOU9KSV9-70260D9B"
       ],
       "werkVoiceScore": 0.880967890732257,
       "corpusVoiceScore": 0.8274347691964364,
@@ -5202,16 +5202,16 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus mit Heidegger-Resonanz; entfaltet",
       "ai_score_at": "2026-05-26T11:18:35.418Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOJVF4PL-7474909F",
-        "MOHST017-5C4320E1",
-        "MQ683DMX-13D6C54F",
-        "MPMKE3CC-4E75CE39",
-        "MPMKBUNW-88609492"
-      ],
       "nearDuplicates": [
         "MOJVF4PL-7474909F",
         "MOHST017-5C4320E1"
+      ],
+      "related": [
+        "MQ683DMX-13D6C54F",
+        "MPMKE3CC-4E75CE39",
+        "MPMKBUNW-88609492",
+        "MOHLZBVK-2FBBAD2F",
+        "MOHV84M5-1825A399"
       ],
       "werkVoiceScore": 0.8996301449892352,
       "corpusVoiceScore": 0.8564712928883921,
@@ -5267,15 +5267,15 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus mit eigenständiger Denkbewegung;",
       "ai_score_at": "2026-05-26T11:18:47.564Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOOZHCUT-4B86F8AD"
+      ],
       "related": [
-        "MOOZHCUT-4B86F8AD",
         "MOHV84M5-1825A399",
         "MOJ7Q5HM-89F62E3F",
         "MP0X62X5-535AF7A8",
-        "MOOMJDPP-1F336D7D"
-      ],
-      "nearDuplicates": [
-        "MOOZHCUT-4B86F8AD"
+        "MOOMJDPP-1F336D7D",
+        "MPH4R3SE-C224ACED"
       ],
       "werkVoiceScore": 0.8869443885163703,
       "corpusVoiceScore": 0.833143255617417,
@@ -5305,13 +5305,6 @@
       "ai_score_reason": "Thematisch passend, aber stilistisch werkfremd durch",
       "ai_score_at": "2026-05-26T11:18:52.680Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOQID47V-A12862EA",
-        "MOOMPCI0-262176C2",
-        "MPUNXFU1-3B1F056A",
-        "MOUA3PLK-548F1A0A",
-        "MPUO08SE-67E0912A"
-      ],
       "nearDuplicates": [
         "MOQID47V-A12862EA",
         "MOOMPCI0-262176C2",
@@ -5332,6 +5325,13 @@
         "MPF4FISZ-67000E01",
         "MPUQSMLJ-1B726CC4",
         "MPURYS56-11F5308C"
+      ],
+      "related": [
+        "MQARZJDV-82F077DD",
+        "MOQIGG2B-2F0C3F5D",
+        "MOPFJTND-AAE76B2B",
+        "MPMSSG1X-8451DE38",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8852359597547059,
       "corpusVoiceScore": 0.8134219466625775,
@@ -5364,17 +5364,17 @@
       "ai_score_reason": "Nummerierte Gliederung, schulbuchhafter Erklärmodus („ist dabei",
       "ai_score_at": "2026-05-26T11:18:57.088Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MQ5WPJ3V-CF0A30C7",
-        "MPMSSG1X-8451DE38",
-        "MOQIGG2B-2F0C3F5D",
-        "MOPFJTND-AAE76B2B",
-        "MPAS5OM5-A1F522F4"
-      ],
       "nearDuplicates": [
         "MQ5WPJ3V-CF0A30C7",
         "MPMSSG1X-8451DE38",
         "MOQIGG2B-2F0C3F5D"
+      ],
+      "related": [
+        "MOPFJTND-AAE76B2B",
+        "MPAS5OM5-A1F522F4",
+        "MQ5WUD1G-0976C016",
+        "MOIXN7OL-B18642AC",
+        "MP497SNT-5E1D2074"
       ],
       "werkVoiceScore": 0.8937243843184298,
       "corpusVoiceScore": 0.8483622256900598,
@@ -5407,15 +5407,15 @@
       "ai_score_reason": "Werktreuer Duktus, dichte Begrifflichkeit (Widerhall,",
       "ai_score_at": "2026-05-26T11:19:03.318Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOQIHEM5-82D69E4F"
+      ],
       "related": [
-        "MOQIHEM5-82D69E4F",
         "MP0ZE9C8-A9D02716",
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
-        "MPUNXFU1-3B1F056A"
-      ],
-      "nearDuplicates": [
-        "MOQIHEM5-82D69E4F"
+        "MPUNXFU1-3B1F056A",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8880920537832088,
       "corpusVoiceScore": 0.8220656308397191,
@@ -5451,13 +5451,6 @@
       "ai_score_reason": "Thematisch passend, Begriffe korrekt verwendet, aber",
       "ai_score_at": "2026-05-26T11:25:30.374Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOMPCI0-262176C2",
-        "MOQBZWTZ-B9EBB1BA",
-        "MP0QMSOR-C6EC1B5A",
-        "MP495QL6-F5FD1AE1",
-        "MOUA3PLK-548F1A0A"
-      ],
       "nearDuplicates": [
         "MOOMPCI0-262176C2",
         "MOQBZWTZ-B9EBB1BA",
@@ -5477,6 +5470,13 @@
         "MPF4FISZ-67000E01",
         "MPURYS56-11F5308C",
         "MPUNXFU1-3B1F056A"
+      ],
+      "related": [
+        "MOPFJTND-AAE76B2B",
+        "MPMSSG1X-8451DE38",
+        "MQARZJDV-82F077DD",
+        "MOUBETTU-F31C5206",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8928515867857072,
       "corpusVoiceScore": 0.82242643651912,
@@ -5508,16 +5508,16 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus; eigenständige ontologische",
       "ai_score_at": "2026-05-26T11:25:34.833Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOK20R3-62E609BA",
-        "MOHMIET1-6D429A85",
-        "MPURYS56-11F5308C",
-        "MQXDVN1C-CAA3081A",
-        "MPUQSMLJ-1B726CC4"
-      ],
       "nearDuplicates": [
         "MOOK20R3-62E609BA",
         "MOHMIET1-6D429A85"
+      ],
+      "related": [
+        "MPURYS56-11F5308C",
+        "MQXDVN1C-CAA3081A",
+        "MPUQSMLJ-1B726CC4",
+        "MOHV84M5-1825A399",
+        "MOHMET94-3799557A"
       ],
       "werkVoiceScore": 0.9012983975311699,
       "corpusVoiceScore": 0.8397355688124739,
@@ -5552,13 +5552,6 @@
       "ai_score_reason": "Thematisch passend, aber stilistisch fremd durch Nummerierung,",
       "ai_score_at": "2026-05-26T11:25:38.720Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOMPCI0-262176C2",
-        "MOQID47V-A12862EA",
-        "MP495QL6-F5FD1AE1",
-        "MOUKLLK4-C38517C1",
-        "MP497SNT-5E1D2074"
-      ],
       "nearDuplicates": [
         "MOOMPCI0-262176C2",
         "MOQID47V-A12862EA",
@@ -5576,6 +5569,13 @@
         "MPF4FISZ-67000E01",
         "MP8UIMZW-BADE77E5",
         "MPUNXFU1-3B1F056A"
+      ],
+      "related": [
+        "MOPFJTND-AAE76B2B",
+        "MPMSSG1X-8451DE38",
+        "MPUQSMLJ-1B726CC4",
+        "MPURYS56-11F5308C",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8841766474130924,
       "corpusVoiceScore": 0.837858588683394,
@@ -5612,13 +5612,6 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd: Schulbuch-Ton",
       "ai_score_at": "2026-05-26T11:25:43.483Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOMECFT-66F43077",
-        "MOUKLLK4-C38517C1",
-        "MOQID47V-A12862EA",
-        "MPUQSMLJ-1B726CC4",
-        "MP0ZE9C8-A9D02716"
-      ],
       "nearDuplicates": [
         "MOOMECFT-66F43077",
         "MOUKLLK4-C38517C1",
@@ -5639,6 +5632,13 @@
         "MPUO08SE-67E0912A",
         "MPUNXFU1-3B1F056A",
         "MPK0H3SM-B25CFBB3"
+      ],
+      "related": [
+        "MOP0LEAL-E2568DCC",
+        "MOIXN434-9D5CBFC0",
+        "MOPFJTND-AAE76B2B",
+        "MOLNG57A-2F155772",
+        "MPMJC8TR-592D4EF0"
       ],
       "werkVoiceScore": 0.8931442005187745,
       "corpusVoiceScore": 0.8246803139487086,
@@ -5699,13 +5699,6 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus mit eigenständiger triadischer",
       "ai_score_at": "2026-05-26T11:25:52.718Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPUFUBU5-A4BC72BE",
-        "MP2LIW43-E8ADC59E",
-        "MP0X3ZXL-06513C82",
-        "MPJUHM1L-0BA3DF6E",
-        "MPARZ5F0-A9FD6F70"
-      ],
       "nearDuplicates": [
         "MPUFUBU5-A4BC72BE",
         "MP2LIW43-E8ADC59E",
@@ -5714,6 +5707,13 @@
         "MPARZ5F0-A9FD6F70",
         "MOJ7Q5HM-89F62E3F",
         "MP4HT65S-E31FDB00"
+      ],
+      "related": [
+        "MPJEBNX3-042F2A69",
+        "MP0X62X5-535AF7A8",
+        "MOHV84M5-1825A399",
+        "MOLNG57A-2F155772",
+        "MOHST017-5C4320E1"
       ],
       "werkVoiceScore": 0.908525884565925,
       "corpusVoiceScore": 0.8601448385566087,
@@ -5740,16 +5740,16 @@
       "ai_score_reason": "Dichter, ereignishafter Duktus; „dialogische Irritation\" als",
       "ai_score_at": "2026-05-26T11:25:56.186Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPARZ5F0-A9FD6F70",
-        "MQ5WV5PP-6209C749",
-        "MQ5WUD1G-0976C016",
-        "MQ683DMX-13D6C54F",
-        "MOHV84M5-1825A399"
-      ],
       "nearDuplicates": [
         "MPARZ5F0-A9FD6F70",
         "MQ5WV5PP-6209C749"
+      ],
+      "related": [
+        "MQ5WUD1G-0976C016",
+        "MQ683DMX-13D6C54F",
+        "MOHV84M5-1825A399",
+        "MQ5WPJ3V-CF0A30C7",
+        "MOP0S479-373A2268"
       ],
       "werkVoiceScore": 0.8912060379702963,
       "corpusVoiceScore": 0.864973587086228,
@@ -5776,17 +5776,17 @@
       "ai_score_reason": "Dichter, prosaischer Duktus mit Werk-Vokabular (Lichtung,",
       "ai_score_at": "2026-05-26T11:26:00.811Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOHLZBVK-2FBBAD2F",
-        "MOIXN434-9D5CBFC0",
-        "MQASO35V-115DA081",
-        "MPMJC8TR-592D4EF0",
-        "MOHV84M5-1825A399"
-      ],
       "nearDuplicates": [
         "MOHLZBVK-2FBBAD2F",
         "MOIXN434-9D5CBFC0",
         "MQASO35V-115DA081"
+      ],
+      "related": [
+        "MPMJC8TR-592D4EF0",
+        "MOHV84M5-1825A399",
+        "MOLNG57A-2F155772",
+        "MP4HT65S-E31FDB00",
+        "MOJVF4PL-7474909F"
       ],
       "werkVoiceScore": 0.89518118555294,
       "corpusVoiceScore": 0.8515350859357955,
@@ -5841,15 +5841,15 @@
       "ai_score_reason": "Nummerierte Liste, schulbuchhafter Erklärmodus („entsteht aus\",",
       "ai_score_at": "2026-05-26T11:26:09.165Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOPHZPQ7-B63879B5"
+      ],
       "related": [
-        "MOPHZPQ7-B63879B5",
         "MP0ZE9C8-A9D02716",
         "MOUBETTU-F31C5206",
         "MPJXEFVC-49A699FA",
-        "MPNDAPRT-D64D197A"
-      ],
-      "nearDuplicates": [
-        "MOPHZPQ7-B63879B5"
+        "MPNDAPRT-D64D197A",
+        "MOHM21Y5-A3B5F539"
       ],
       "werkVoiceScore": 0.9058573765019936,
       "corpusVoiceScore": 0.8354846667148854,
@@ -5878,17 +5878,17 @@
       "ai_score_reason": "Thematisch passend, aber schulbuchhafter Erklärungs-Duktus",
       "ai_score_at": "2026-05-26T11:30:34.904Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPJXEFVC-49A699FA",
-        "MPBI57AL-76627781",
-        "MOUBIHOK-27900555",
-        "MPCV5LR8-9AD1527C",
-        "MOQ531J2-4FC329D4"
-      ],
       "nearDuplicates": [
         "MPJXEFVC-49A699FA",
         "MPBI57AL-76627781",
         "MOUBIHOK-27900555"
+      ],
+      "related": [
+        "MPCV5LR8-9AD1527C",
+        "MOQ531J2-4FC329D4",
+        "MOOVXCI4-822961D2",
+        "MPF4WM18-FF4843F1",
+        "MOHM21Y5-A3B5F539"
       ],
       "werkVoiceScore": 0.8818244289364111,
       "corpusVoiceScore": 0.8189154927331936,
@@ -6002,16 +6002,16 @@
       "ai_score_reason": "Dichter, eigenständiger Gedankengang; „Schwellen-Sinnbildung\"",
       "ai_score_at": "2026-05-26T11:31:00.163Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOQ531J2-4FC329D4",
-        "MOHV84M5-1825A399",
-        "MQ683DMX-13D6C54F",
-        "MPH4R3SE-C224ACED",
-        "MPJXEFVC-49A699FA"
-      ],
       "nearDuplicates": [
         "MOQ531J2-4FC329D4",
         "MOHV84M5-1825A399"
+      ],
+      "related": [
+        "MQ683DMX-13D6C54F",
+        "MPH4R3SE-C224ACED",
+        "MPJXEFVC-49A699FA",
+        "MOHLZBVK-2FBBAD2F",
+        "MPBI57AL-76627781"
       ],
       "werkVoiceScore": 0.9022771591327458,
       "corpusVoiceScore": 0.8636794084017209,
@@ -6067,13 +6067,6 @@
         "variant": "single",
         "paths_identical": "false"
       },
-      "related": [
-        "MOP0LEAL-E2568DCC",
-        "MPMSSG1X-8451DE38",
-        "MOOMPCI0-262176C2",
-        "MP8UIMZW-BADE77E5",
-        "MP495QL6-F5FD1AE1"
-      ],
       "nearDuplicates": [
         "MOP0LEAL-E2568DCC",
         "MPMSSG1X-8451DE38",
@@ -6083,6 +6076,13 @@
         "MOHST017-5C4320E1",
         "MQ5WPJ3V-CF0A30C7",
         "MOUBETTU-F31C5206"
+      ],
+      "related": [
+        "MOQIHEM5-82D69E4F",
+        "MOQBZWTZ-B9EBB1BA",
+        "MOUA3PLK-548F1A0A",
+        "MOOMJDPP-1F336D7D",
+        "MOQID47V-A12862EA"
       ],
       "werkVoiceScore": 0.9161710500773658,
       "corpusVoiceScore": 0.866341575943378,
@@ -6137,15 +6137,15 @@
       "ai_score_reason": "Stilistisch werkidentisch, dichter Duktus, präzise",
       "ai_score_at": "2026-05-26T11:31:17.000Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHAUYTH-CD1E3227"
+      ],
       "related": [
-        "MOHAUYTH-CD1E3227",
         "MQ683DMX-13D6C54F",
         "MOHV84M5-1825A399",
         "MOU9KSV9-70260D9B",
-        "MOPHZPQ7-B63879B5"
-      ],
-      "nearDuplicates": [
-        "MOHAUYTH-CD1E3227"
+        "MOPHZPQ7-B63879B5",
+        "MPAGOCGB-FB54D923"
       ],
       "werkVoiceScore": 0.8901947816915904,
       "corpusVoiceScore": 0.8433240368824811,
@@ -6168,15 +6168,15 @@
         "cluster_size": "2",
         "node_labels": "[ \"Resonanzvernunft\", \"Spiegel\" ]"
       },
+      "nearDuplicates": [
+        "MOHLZBVK-2FBBAD2F"
+      ],
       "related": [
-        "MOHLZBVK-2FBBAD2F",
         "MQ683DMX-13D6C54F",
         "MOHV84M5-1825A399",
         "MP2LIW43-E8ADC59E",
-        "MQASO35V-115DA081"
-      ],
-      "nearDuplicates": [
-        "MOHLZBVK-2FBBAD2F"
+        "MQASO35V-115DA081",
+        "MOHAGNGB-5330902E"
       ],
       "werkVoiceScore": 0.9049528108742504,
       "corpusVoiceScore": 0.8803785649434941,
@@ -6241,19 +6241,19 @@
       "ai_score_reason": "Nummerierte Liste, Schulbuch-Duktus („tiefgreifend\", „radikaler",
       "ai_score_at": "2026-05-26T11:31:26.282Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOPFJTND-AAE76B2B",
-        "MPMSSG1X-8451DE38",
-        "MOHST017-5C4320E1",
-        "MOHV84M5-1825A399",
-        "MOOMPCI0-262176C2"
-      ],
       "nearDuplicates": [
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
         "MOHST017-5C4320E1",
         "MOHV84M5-1825A399",
         "MOOMPCI0-262176C2"
+      ],
+      "related": [
+        "MOJ7Q5HM-89F62E3F",
+        "MOOMECFT-66F43077",
+        "MOQ7OBNT-57882C8D",
+        "MQ5WPJ3V-CF0A30C7",
+        "MP495QL6-F5FD1AE1"
       ],
       "werkVoiceScore": 0.9062744096058575,
       "corpusVoiceScore": 0.8618502428340072,
@@ -6281,19 +6281,19 @@
       "ai_score_reason": "Dichter, prosaischer Duktus mit Werk-Vokabular (Zwischen,",
       "ai_score_at": "2026-05-26T11:31:36.232Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOMJDPP-1F336D7D",
-        "MOQIMC7B-B190C937",
-        "MP0X62X5-535AF7A8",
-        "MP2LIW43-E8ADC59E",
-        "MOJ7Q5HM-89F62E3F"
-      ],
       "nearDuplicates": [
         "MOOMJDPP-1F336D7D",
         "MOQIMC7B-B190C937",
         "MP0X62X5-535AF7A8",
         "MP2LIW43-E8ADC59E",
         "MOJ7Q5HM-89F62E3F"
+      ],
+      "related": [
+        "MOHV84M5-1825A399",
+        "MPH4R3SE-C224ACED",
+        "MPJUHM1L-0BA3DF6E",
+        "MOHAUYTH-CD1E3227",
+        "MOQ5IKR5-C67AAC15"
       ],
       "werkVoiceScore": 0.8954662903955273,
       "corpusVoiceScore": 0.8390415362850238,
@@ -6322,19 +6322,19 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus mit eigenständiger Denkbewegung;",
       "ai_score_at": "2026-05-26T11:31:46.789Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPJXEFVC-49A699FA",
-        "MPMSRF6V-7FEB2991",
-        "MP8OB1IU-F6C31DC7",
-        "MPBI57AL-76627781",
-        "MPCV5LR8-9AD1527C"
-      ],
       "nearDuplicates": [
         "MPJXEFVC-49A699FA",
         "MPMSRF6V-7FEB2991",
         "MP8OB1IU-F6C31DC7",
         "MPBI57AL-76627781",
         "MPCV5LR8-9AD1527C"
+      ],
+      "related": [
+        "MPF4WM18-FF4843F1",
+        "MOUBIHOK-27900555",
+        "MPH4R3SE-C224ACED",
+        "MP2LIW43-E8ADC59E",
+        "MOQ7HGW3-608EA4FA"
       ],
       "werkVoiceScore": 0.8705234922443871,
       "corpusVoiceScore": 0.824638307908864,
@@ -6506,13 +6506,6 @@
         "variant": "compare",
         "paths_identical": "false"
       },
-      "related": [
-        "MP495QL6-F5FD1AE1",
-        "MOQBZWTZ-B9EBB1BA",
-        "MOQID47V-A12862EA",
-        "MOUKLLK4-C38517C1",
-        "MOUA3PLK-548F1A0A"
-      ],
       "nearDuplicates": [
         "MP495QL6-F5FD1AE1",
         "MOQBZWTZ-B9EBB1BA",
@@ -6534,6 +6527,13 @@
         "MPMSSG1X-8451DE38",
         "MPUQSMLJ-1B726CC4",
         "MOP0LEAL-E2568DCC"
+      ],
+      "related": [
+        "MQ5WPJ3V-CF0A30C7",
+        "MPURYS56-11F5308C",
+        "MOIXN434-9D5CBFC0",
+        "MOUBETTU-F31C5206",
+        "MPAS5OM5-A1F522F4"
       ],
       "werkVoiceScore": 0.8994784548466491,
       "corpusVoiceScore": 0.8422227852814633,
@@ -6561,16 +6561,16 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd durch",
       "ai_score_at": "2026-05-26T11:32:32.033Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOZHCUT-4B86F8AD",
-        "MOHST017-5C4320E1",
-        "MOHM21Y5-A3B5F539",
-        "MP0X3ZXL-06513C82",
-        "MOPFJTND-AAE76B2B"
-      ],
       "nearDuplicates": [
         "MOOZHCUT-4B86F8AD",
         "MOHST017-5C4320E1"
+      ],
+      "related": [
+        "MOHM21Y5-A3B5F539",
+        "MP0X3ZXL-06513C82",
+        "MOPFJTND-AAE76B2B",
+        "MP0X62X5-535AF7A8",
+        "MOJ7Q5HM-89F62E3F"
       ],
       "werkVoiceScore": 0.9042801357393253,
       "corpusVoiceScore": 0.8469966728785608,
@@ -6600,13 +6600,6 @@
       "ai_score_reason": "Thematisch passend, Resonanz-Vokabular korrekt, aber",
       "ai_score_at": "2026-05-26T11:32:37.991Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOQ7OBNT-57882C8D",
-        "MP495QL6-F5FD1AE1",
-        "MOOMPCI0-262176C2",
-        "MOUKLLK4-C38517C1",
-        "MOQID47V-A12862EA"
-      ],
       "nearDuplicates": [
         "MOQ7OBNT-57882C8D",
         "MP495QL6-F5FD1AE1",
@@ -6627,6 +6620,13 @@
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
         "MQARZJDV-82F077DD"
+      ],
+      "related": [
+        "MOP0LEAL-E2568DCC",
+        "MOPFJTND-AAE76B2B",
+        "MPMSSG1X-8451DE38",
+        "MQ5WPJ3V-CF0A30C7",
+        "MOIXN434-9D5CBFC0"
       ],
       "werkVoiceScore": 0.883719886496948,
       "corpusVoiceScore": 0.8247894132063388,
@@ -6653,15 +6653,15 @@
       "ai_score_reason": "Stilistisch werkidentisch; dichter Duktus, präzise",
       "ai_score_at": "2026-05-26T11:32:46.661Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHMET94-3799557A"
+      ],
       "related": [
-        "MOHMET94-3799557A",
         "MOQ7HGW3-608EA4FA",
         "MOUBETTU-F31C5206",
         "MOJ7Q5HM-89F62E3F",
-        "MOIXN7OL-B18642AC"
-      ],
-      "nearDuplicates": [
-        "MOHMET94-3799557A"
+        "MOIXN7OL-B18642AC",
+        "MOIXN434-9D5CBFC0"
       ],
       "werkVoiceScore": 0.886898158891734,
       "corpusVoiceScore": 0.8276312792556586,
@@ -6710,15 +6710,15 @@
         "chapterId": "teil5",
         "chapterTitle": "Resonanzvernunft — Erste Kritik"
       },
+      "nearDuplicates": [
+        "MP0Q5FDJ-F2C015AF"
+      ],
       "related": [
-        "MP0Q5FDJ-F2C015AF",
         "MOHST017-5C4320E1",
         "MOOMJDPP-1F336D7D",
         "MOPFJTND-AAE76B2B",
-        "MOP0LEAL-E2568DCC"
-      ],
-      "nearDuplicates": [
-        "MP0Q5FDJ-F2C015AF"
+        "MOP0LEAL-E2568DCC",
+        "MOIXN434-9D5CBFC0"
       ],
       "werkVoiceScore": 0.8785272708090146,
       "corpusVoiceScore": 0.8709040791754808,
@@ -6745,13 +6745,6 @@
       "ai_score_reason": "Dichter, werktreuer Duktus; eigenständige Denkfigur der",
       "ai_score_at": "2026-05-26T11:32:58.116Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MQXDVN1C-CAA3081A",
-        "MOHMIET1-6D429A85",
-        "MOHMET94-3799557A",
-        "MOQIAGXM-397A1F22",
-        "MPJEBNX3-042F2A69"
-      ],
       "nearDuplicates": [
         "MQXDVN1C-CAA3081A",
         "MOHMIET1-6D429A85",
@@ -6759,6 +6752,13 @@
         "MOQIAGXM-397A1F22",
         "MPJEBNX3-042F2A69",
         "MOHAREIB-E15E7BF8"
+      ],
+      "related": [
+        "MOHV84M5-1825A399",
+        "MPJUHM1L-0BA3DF6E",
+        "MPURYS56-11F5308C",
+        "MOQIMC7B-B190C937",
+        "MOHLZBVK-2FBBAD2F"
       ],
       "werkVoiceScore": 0.9050367054573033,
       "corpusVoiceScore": 0.8535323297870271,
@@ -6980,15 +6980,15 @@
       "ai_score_reason": "Akademischer Erklärmodus („Aus der Perspektive von\",",
       "ai_score_at": "2026-05-26T11:28:20.284Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MON646UY-E4326634"
+      ],
       "related": [
-        "MON646UY-E4326634",
         "MON602G2-9C9A59E5",
         "MQ5XFLFO-F0DBB89E",
         "MOHDW91N-D9BDFDB1",
-        "MQ5XH5A8-5FDB52C7"
-      ],
-      "nearDuplicates": [
-        "MON646UY-E4326634"
+        "MQ5XH5A8-5FDB52C7",
+        "MOHDAOFD-2C20D4F5"
       ],
       "werkVoiceScore": 0.783323738255743,
       "corpusVoiceScore": 0.7596905673705555,
@@ -7074,18 +7074,18 @@
       "ai_score_reason": "Werktreuer Duktus mit gelungenen Begriffen (Widerhall,",
       "ai_score_at": "2026-05-26T11:28:33.589Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MP4HT65S-E31FDB00",
-        "MOIXN434-9D5CBFC0",
-        "MP2LIW43-E8ADC59E",
-        "MP0X3ZXL-06513C82",
-        "MOQ5IKR5-C67AAC15"
-      ],
       "nearDuplicates": [
         "MP4HT65S-E31FDB00",
         "MOIXN434-9D5CBFC0",
         "MP2LIW43-E8ADC59E",
         "MP0X3ZXL-06513C82"
+      ],
+      "related": [
+        "MOQ5IKR5-C67AAC15",
+        "MPMJC8TR-592D4EF0",
+        "MOQ5A1GS-413BDE6F",
+        "MPMROCH7-EB9E6A9A",
+        "MP0X62X5-535AF7A8"
       ],
       "werkVoiceScore": 0.8930486170863008,
       "corpusVoiceScore": 0.8302629127829745,
@@ -7113,15 +7113,15 @@
       "ai_score_reason": "Werktreuer Duktus mit präzisen Begriffen (Situiertheit,",
       "ai_score_at": "2026-05-26T11:28:38.031Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOU9KSV9-70260D9B"
+      ],
       "related": [
-        "MOU9KSV9-70260D9B",
         "MOHM21Y5-A3B5F539",
         "MOLNG57A-2F155772",
         "MP4HT65S-E31FDB00",
-        "MOJ7Q5HM-89F62E3F"
-      ],
-      "nearDuplicates": [
-        "MOU9KSV9-70260D9B"
+        "MOJ7Q5HM-89F62E3F",
+        "MOQ5A1GS-413BDE6F"
       ],
       "werkVoiceScore": 0.8790647501879695,
       "corpusVoiceScore": 0.8251593094284356,
@@ -7145,13 +7145,6 @@
       "ai_score_reason": "Werktreuer Duktus mit starker Begriffsdichte; „konstitutive",
       "ai_score_at": "2026-05-26T11:28:45.909Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MP2LIW43-E8ADC59E",
-        "MOHV84M5-1825A399",
-        "MPARZ5F0-A9FD6F70",
-        "MOQ5IKR5-C67AAC15",
-        "MOOZHCUT-4B86F8AD"
-      ],
       "nearDuplicates": [
         "MP2LIW43-E8ADC59E",
         "MOHV84M5-1825A399",
@@ -7162,6 +7155,13 @@
         "MP0X3ZXL-06513C82",
         "MOHST017-5C4320E1",
         "MP0X62X5-535AF7A8"
+      ],
+      "related": [
+        "MOP0LEAL-E2568DCC",
+        "MOQIMC7B-B190C937",
+        "MP4HT65S-E31FDB00",
+        "MOOMJDPP-1F336D7D",
+        "MOQ7HGW3-608EA4FA"
       ],
       "werkVoiceScore": 0.9125323867444813,
       "corpusVoiceScore": 0.8684801262484196,
@@ -7188,17 +7188,17 @@
       "ai_score_reason": "Nummerierte Liste, schulbuchhafter Erklärmodus („liegt in ihrer",
       "ai_score_at": "2026-05-26T11:28:50.516Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MQ5WUD1G-0976C016",
-        "MOUBETTU-F31C5206",
-        "MOIXN434-9D5CBFC0",
-        "MQ5WPJ3V-CF0A30C7",
-        "MOQIHEM5-82D69E4F"
-      ],
       "nearDuplicates": [
         "MQ5WUD1G-0976C016",
         "MOUBETTU-F31C5206",
         "MOIXN434-9D5CBFC0"
+      ],
+      "related": [
+        "MQ5WPJ3V-CF0A30C7",
+        "MOQIHEM5-82D69E4F",
+        "MOHAI60S-B7B04552",
+        "MOQ5EOBY-82AD9EEE",
+        "MOHM21Y5-A3B5F539"
       ],
       "werkVoiceScore": 0.8922698245754502,
       "corpusVoiceScore": 0.8314897082385229,
@@ -7225,13 +7225,6 @@
       "ai_score_reason": "Werktreuer Duktus (Aletheia, Schattenlicht, Faltung), dichte",
       "ai_score_at": "2026-05-26T11:28:56.663Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOUBETTU-F31C5206",
-        "MP74X3EJ-72CDDB9F",
-        "MOLNG57A-2F155772",
-        "MOQ5A1GS-413BDE6F",
-        "MOHAI60S-B7B04552"
-      ],
       "nearDuplicates": [
         "MOUBETTU-F31C5206",
         "MP74X3EJ-72CDDB9F",
@@ -7239,6 +7232,13 @@
         "MOQ5A1GS-413BDE6F",
         "MOHAI60S-B7B04552",
         "MOIXN7OL-B18642AC"
+      ],
+      "related": [
+        "MOHST017-5C4320E1",
+        "MP0X3ZXL-06513C82",
+        "MPMJC8TR-592D4EF0",
+        "MOOMPCI0-262176C2",
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.9185389374339341,
       "corpusVoiceScore": 0.8517523571086317,
@@ -7265,15 +7265,15 @@
       "ai_score_reason": "Stilistisch werkidentisch, dichter Duktus, eigener denkerischer",
       "ai_score_at": "2026-05-26T11:29:00.742Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOUBETTU-F31C5206"
+      ],
       "related": [
-        "MOUBETTU-F31C5206",
         "MOIXN434-9D5CBFC0",
         "MPMROCH7-EB9E6A9A",
         "MOHAI60S-B7B04552",
-        "MOIXN7OL-B18642AC"
-      ],
-      "nearDuplicates": [
-        "MOUBETTU-F31C5206"
+        "MOIXN7OL-B18642AC",
+        "MPNDAPRT-D64D197A"
       ],
       "werkVoiceScore": 0.8827184492778706,
       "corpusVoiceScore": 0.8102513068177379,
@@ -7324,13 +7324,6 @@
         "nodeA_label": "Resonanzvernunft",
         "nodeB_label": "Zwischen"
       },
-      "related": [
-        "MOHLZBVK-2FBBAD2F",
-        "MOJ7Q5HM-89F62E3F",
-        "MOP0LEAL-E2568DCC",
-        "MQ683DMX-13D6C54F",
-        "MP2LIW43-E8ADC59E"
-      ],
       "nearDuplicates": [
         "MOHLZBVK-2FBBAD2F",
         "MOJ7Q5HM-89F62E3F",
@@ -7339,6 +7332,13 @@
         "MP2LIW43-E8ADC59E",
         "MPJEBNX3-042F2A69",
         "MOPHZPQ7-B63879B5"
+      ],
+      "related": [
+        "MOOZHCUT-4B86F8AD",
+        "MOQIMC7B-B190C937",
+        "MOOK20R3-62E609BA",
+        "MOHST017-5C4320E1",
+        "MPMI3ZF2-2F83F425"
       ],
       "werkVoiceScore": 0.9267980877948514,
       "corpusVoiceScore": 0.8829057108775878,
@@ -7386,19 +7386,19 @@
       "contextMeta": {
         "historyLength": "0"
       },
-      "related": [
-        "MOP0LEAL-E2568DCC",
-        "MOPFJTND-AAE76B2B",
-        "MOOMJDPP-1F336D7D",
-        "MOJ7Q5HM-89F62E3F",
-        "MOU9KSV9-70260D9B"
-      ],
       "nearDuplicates": [
         "MOP0LEAL-E2568DCC",
         "MOPFJTND-AAE76B2B",
         "MOOMJDPP-1F336D7D",
         "MOJ7Q5HM-89F62E3F",
         "MOU9KSV9-70260D9B"
+      ],
+      "related": [
+        "MQ5KBJMQ-5C523141",
+        "MOIXN434-9D5CBFC0",
+        "MOHV84M5-1825A399",
+        "MQ68LVS7-240568F5",
+        "MQ683DMX-13D6C54F"
       ],
       "werkVoiceScore": 0.9147533411650919,
       "corpusVoiceScore": 0.8818679449021445,
@@ -7425,16 +7425,16 @@
       "ai_score_reason": "Stilistisch werkidentisch, dichter Duktus, präzise",
       "ai_score_at": "2026-05-26T11:29:19.952Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOK20R3-62E609BA",
-        "MOQIAGXM-397A1F22",
-        "MPMI3ZF2-2F83F425",
-        "MOHMET94-3799557A",
-        "MQXDVN1C-CAA3081A"
-      ],
       "nearDuplicates": [
         "MOOK20R3-62E609BA",
         "MOQIAGXM-397A1F22"
+      ],
+      "related": [
+        "MPMI3ZF2-2F83F425",
+        "MOHMET94-3799557A",
+        "MQXDVN1C-CAA3081A",
+        "MOHM21Y5-A3B5F539",
+        "MOHV84M5-1825A399"
       ],
       "werkVoiceScore": 0.8838972243442308,
       "corpusVoiceScore": 0.8143640857218256,
@@ -7461,16 +7461,16 @@
       "ai_score_reason": "Dichter, werkgetreuer Duktus; dialektische Entfaltung mündet in",
       "ai_score_at": "2026-05-26T11:29:24.470Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOOK20R3-62E609BA",
-        "MOOKFUNF-7647B056",
-        "MQXDVN1C-CAA3081A",
-        "MOHMIET1-6D429A85",
-        "MOQIAGXM-397A1F22"
-      ],
       "nearDuplicates": [
         "MOOK20R3-62E609BA",
         "MOOKFUNF-7647B056"
+      ],
+      "related": [
+        "MQXDVN1C-CAA3081A",
+        "MOHMIET1-6D429A85",
+        "MOQIAGXM-397A1F22",
+        "MOHAREIB-E15E7BF8",
+        "MOQ5A1GS-413BDE6F"
       ],
       "werkVoiceScore": 0.8787616919650241,
       "corpusVoiceScore": 0.8336879437503882,
@@ -7529,18 +7529,18 @@
       "ai_score_reason": "Dichter, prosaischer Duktus werktreu; „Schöpfkelle des",
       "ai_score_at": "2026-05-26T11:29:33.562Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MOHV84M5-1825A399",
-        "MQ683DMX-13D6C54F",
-        "MOQ5A1GS-413BDE6F",
-        "MOP0S479-373A2268",
-        "MP2LIW43-E8ADC59E"
-      ],
       "nearDuplicates": [
         "MOHV84M5-1825A399",
         "MQ683DMX-13D6C54F",
         "MOQ5A1GS-413BDE6F",
         "MOP0S479-373A2268"
+      ],
+      "related": [
+        "MP2LIW43-E8ADC59E",
+        "MOHM21Y5-A3B5F539",
+        "MOPHZPQ7-B63879B5",
+        "MOU9KSV9-70260D9B",
+        "MOPEYJKU-C4711B5F"
       ],
       "werkVoiceScore": 0.913909885704577,
       "corpusVoiceScore": 0.8795651005543104,
@@ -7731,15 +7731,15 @@
       "ai_score_reason": "'Thematisch passend, aber stilistisch fremd: Schulbuch-Ton",
       "ai_score_at": "2026-05-26T11:30:07.335Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHDAOFD-2C20D4F5"
+      ],
       "related": [
-        "MOHDAOFD-2C20D4F5",
         "MOHDLJ25-7A6B620C",
         "MPMTT6GB-1AF44EE4",
         "MPMTQZIN-7863D6D2",
-        "MOHDW91N-D9BDFDB1"
-      ],
-      "nearDuplicates": [
-        "MOHDAOFD-2C20D4F5"
+        "MOHDW91N-D9BDFDB1",
+        "MOHCN98S-2540F4DF"
       ],
       "werkVoiceScore": 0.8672305390271674,
       "corpusVoiceScore": 0.8083376307492673,
@@ -7874,15 +7874,15 @@
       "ai_score_reason": "Thematisch passend, aber akademischer Erklärmodus mit",
       "ai_score_at": "2026-05-26T11:30:30.469Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHCIS4R-69B0D47B"
+      ],
       "related": [
-        "MOHCIS4R-69B0D47B",
         "MP756UV9-FF3838F7",
         "MOHV84M5-1825A399",
         "MPJUHM1L-0BA3DF6E",
-        "MQ5KBJMQ-5C523141"
-      ],
-      "nearDuplicates": [
-        "MOHCIS4R-69B0D47B"
+        "MQ5KBJMQ-5C523141",
+        "MOHDW91N-D9BDFDB1"
       ],
       "werkVoiceScore": 0.8985023184722836,
       "corpusVoiceScore": 0.861296848501673,
@@ -7905,15 +7905,15 @@
       "ai_score_reason": "Thematisch präzise und werktreu, aber der erklärende Schulton",
       "ai_score_at": "2026-05-26T11:30:40.502Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHCN98S-2540F4DF"
+      ],
       "related": [
-        "MOHCN98S-2540F4DF",
         "MOHAREIB-E15E7BF8",
         "MOOK20R3-62E609BA",
         "MOHV84M5-1825A399",
-        "MOQIAGXM-397A1F22"
-      ],
-      "nearDuplicates": [
-        "MOHCN98S-2540F4DF"
+        "MOQIAGXM-397A1F22",
+        "MOHDW91N-D9BDFDB1"
       ],
       "werkVoiceScore": 0.8725085297079044,
       "corpusVoiceScore": 0.8285581009452082,
@@ -7965,15 +7965,15 @@
       "ai_score_reason": "Falscher Autor („Markus Oehring\"), generischer",
       "ai_score_at": "2026-05-26T11:30:55.478Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHC5VWC-1EB0E6AA"
+      ],
       "related": [
-        "MOHC5VWC-1EB0E6AA",
         "MOIXN434-9D5CBFC0",
         "MP0ZE9C8-A9D02716",
         "MOUBETTU-F31C5206",
-        "MP74VXSM-5DEA06F3"
-      ],
-      "nearDuplicates": [
-        "MOHC5VWC-1EB0E6AA"
+        "MP74VXSM-5DEA06F3",
+        "MP74X3EJ-72CDDB9F"
       ],
       "werkVoiceScore": 0.8678242716722655,
       "corpusVoiceScore": 0.8689673784247252,
@@ -7997,15 +7997,15 @@
       "ai_score_reason": "Thematisch passend, aber stilistisch fremd durch",
       "ai_score_at": "2026-05-26T11:31:03.525Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOHC8GKH-8E301C89"
+      ],
       "related": [
-        "MOHC8GKH-8E301C89",
         "MP74VXSM-5DEA06F3",
         "MP0ZE9C8-A9D02716",
         "MOUKLLK4-C38517C1",
-        "MOPFJTND-AAE76B2B"
-      ],
-      "nearDuplicates": [
-        "MOHC8GKH-8E301C89"
+        "MOPFJTND-AAE76B2B",
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8402455038716803,
       "corpusVoiceScore": 0.8301076604579839,
@@ -8225,15 +8225,15 @@
         "nodeA_label": "Das Andere / Die Anderen",
         "nodeB_label": "Spannung"
       },
+      "nearDuplicates": [
+        "MOP0UF96-1A0ACB35"
+      ],
       "related": [
-        "MOP0UF96-1A0ACB35",
         "MOHV84M5-1825A399",
         "MOOZHCUT-4B86F8AD",
         "MOHM21Y5-A3B5F539",
-        "MPMROCH7-EB9E6A9A"
-      ],
-      "nearDuplicates": [
-        "MOP0UF96-1A0ACB35"
+        "MPMROCH7-EB9E6A9A",
+        "MOHLZBVK-2FBBAD2F"
       ],
       "werkVoiceScore": 0.8909117254155688,
       "corpusVoiceScore": 0.8296355620398833,
@@ -8256,15 +8256,15 @@
       "ai_score_reason": "Dichter, werktreuer Duktus mit eigenständiger Denkbewegung;",
       "ai_score_at": "2026-05-26T11:32:37.056Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MOOK20R3-62E609BA"
+      ],
       "related": [
-        "MOOK20R3-62E609BA",
         "MOHAN4AO-7A201C56",
         "MOHMET94-3799557A",
         "MQXDVN1C-CAA3081A",
-        "MOQIAGXM-397A1F22"
-      ],
-      "nearDuplicates": [
-        "MOOK20R3-62E609BA"
+        "MOQIAGXM-397A1F22",
+        "MOHMIET1-6D429A85"
       ],
       "werkVoiceScore": 0.8906655643400845,
       "corpusVoiceScore": 0.8189992626615301,
@@ -8319,18 +8319,18 @@
       "ai_score_reason": "Es ist eine sehr gute Paraphrase und Verknüpfung, aber der Kern",
       "ai_score_at": "2026-06-22T23:57:13.615Z",
       "ai_score_model": "gemini-2.5-pro",
-      "related": [
-        "MOHAGNGB-5330902E",
-        "MOUBETTU-F31C5206",
-        "MPAGOCGB-FB54D923",
-        "MOIXN434-9D5CBFC0",
-        "MOIXN7OL-B18642AC"
-      ],
       "nearDuplicates": [
         "MOHAGNGB-5330902E",
         "MOUBETTU-F31C5206",
         "MPAGOCGB-FB54D923",
         "MOIXN434-9D5CBFC0"
+      ],
+      "related": [
+        "MOIXN7OL-B18642AC",
+        "MPNDAPRT-D64D197A",
+        "MPMROCH7-EB9E6A9A",
+        "MOQ531J2-4FC329D4",
+        "MP0ZE9C8-A9D02716"
       ],
       "werkVoiceScore": 0.8998116605340241,
       "corpusVoiceScore": 0.8161806450288979,
@@ -8357,19 +8357,19 @@
       "ai_score_reason": "Stilistisch werkidentisch, dichter Duktus, präzise",
       "ai_score_at": "2026-05-26T11:32:56.758Z",
       "ai_score_model": "claude-sonnet-4-5",
-      "related": [
-        "MPAGOCGB-FB54D923",
-        "MPMROCH7-EB9E6A9A",
-        "MOHAI60S-B7B04552",
-        "MPNDAPRT-D64D197A",
-        "MP2LIW43-E8ADC59E"
-      ],
       "nearDuplicates": [
         "MPAGOCGB-FB54D923",
         "MPMROCH7-EB9E6A9A",
         "MOHAI60S-B7B04552",
         "MPNDAPRT-D64D197A",
         "MP2LIW43-E8ADC59E"
+      ],
+      "related": [
+        "MOP0S479-373A2268",
+        "MOHV84M5-1825A399",
+        "MOHLZBVK-2FBBAD2F",
+        "MP0X62X5-535AF7A8",
+        "MOHAUYTH-CD1E3227"
       ],
       "werkVoiceScore": 0.8943821372355479,
       "corpusVoiceScore": 0.8322709049348642,
