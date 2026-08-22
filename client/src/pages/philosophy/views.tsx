@@ -94,7 +94,9 @@ export function Timeline({ philosophers, allPhilosophers, selectedId, onSelect, 
   // dann jeden Label um mindestens MIN_GAP% nach unten schieben, falls
   // der Vorgänger zu nah ist. Chronologie bleibt erhalten, Lesbarkeit auch.
   const adjustedY = useMemo(() => {
-    const MIN_GAP = 2.6;  // % der Strahl-Höhe (entspricht ~16px auf 600px)
+    // Mobile braucht mehr Abstand: die Buttons selbst sind dort höher
+    // (44px-Tap-Ziel statt 24px), sonst überlappen sich ihre Trefferflächen.
+    const MIN_GAP = isMobile ? 5.2 : 2.6;  // % der Strahl-Höhe (~16px auf 600px bei Desktop-Wert)
     const sorted = [...allPhilosophers].sort((a, b) => a.born - b.born);
     const map = new Map<string, number>();
     let lastY = -Infinity;
@@ -105,7 +107,7 @@ export function Timeline({ philosophers, allPhilosophers, selectedId, onSelect, 
       lastY = y;
     }
     return map;
-  }, [allPhilosophers]);
+  }, [allPhilosophers, isMobile]);
   const yOf = (id: string, fallbackYear: number) => adjustedY.get(id) ?? yearToY(fallbackYear);
 
   const pathPoints = RESONANZVERNUNFT_PFAD
@@ -236,7 +238,7 @@ export function Timeline({ philosophers, allPhilosophers, selectedId, onSelect, 
               top: `${y}%`,
               transform: "translateY(-50%)",
               display: "flex", alignItems: "center", gap: "0.4rem",
-              padding: isMobile ? "0.25rem 0.4rem 0.25rem 0" : "0.15rem 0.4rem 0.15rem 0",
+              padding: isMobile ? "0.55rem 0.4rem 0.55rem 0" : "0.15rem 0.4rem 0.15rem 0",
               background: isSelected ? tradColor : "none",
               border: "none",
               cursor: isVisible ? "pointer" : "default",
@@ -245,7 +247,7 @@ export function Timeline({ philosophers, allPhilosophers, selectedId, onSelect, 
               fontSize: isOnPath ? (isMobile ? "0.82rem" : "0.85rem") : (isMobile ? "0.74rem" : "0.78rem"),
               color: isSelected ? "#080808" : isOnPath ? tradColor : isConnected ? c.textBright : c.text,
               fontWeight: isOnPath || isConnected ? 500 : 400,
-              minHeight: isMobile ? 28 : 24,
+              minHeight: isMobile ? 44 : 24,
               maxWidth: "calc(100% - 50px)",
               textAlign: "left",
               whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis",
