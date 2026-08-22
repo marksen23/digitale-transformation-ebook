@@ -45,6 +45,8 @@ export interface AudioPlayerAPI {
   loading: boolean;
   voice: VoiceGender;
   setVoice: (v: VoiceGender) => void;
+  rate: number;
+  setRate: (r: number) => void;
   toggle: () => void;
   play: () => void;
   pause: () => void;
@@ -96,6 +98,7 @@ export function useAudioPlayer(
   const { plainParagraphs, onParaChange } = opts;
 
   const [voice, setVoiceState] = useState<VoiceGender>(initialVoice);
+  const [rate, setRateState] = useState(1);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -104,6 +107,7 @@ export function useAudioPlayer(
   const [loading, setLoading] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const rateRef = useRef(1);
   const rafRef = useRef<number>(0);
   const timestampsRef = useRef<WordTimestamp[]>([]);
   const wordToParaRef = useRef<number[]>([]);
@@ -206,6 +210,7 @@ export function useAudioPlayer(
         audio.preload = 'metadata';
 
         audio.addEventListener('loadedmetadata', () => {
+          audio.playbackRate = rateRef.current;
           setDuration(audio.duration);
           setLoading(false);
           setHasAudio(true);
@@ -300,12 +305,18 @@ export function useAudioPlayer(
     setCurrentTime(t);
   }, []);
 
+  const setRate = useCallback((r: number) => {
+    rateRef.current = r;
+    setRateState(r);
+    if (audioRef.current) audioRef.current.playbackRate = r;
+  }, []);
+
   const progress = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
 
   return {
     playing, currentTime, duration, progress,
     hasAudio, hasTimestamps, loading,
-    voice, setVoice,
+    voice, setVoice, rate, setRate,
     toggle, play, pause, seek, seekFraction,
   };
 }

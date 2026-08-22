@@ -27,84 +27,18 @@ import {
   useReadingSettings, bodyFont, type ReadingSettings,
   FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
 } from "@/lib/readingSettings";
-
-interface EbookChapter {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  chapter: number | null;
-  part: string;
-  partTitle: string;
-  content: string;
-}
-
-interface EbookFile {
-  meta: { title: string; subtitle: string; author: string };
-  parts: Array<{ id: string; title: string; subtitle?: string }>;
-  chapters: EbookChapter[];
-}
-
-interface WerkChunk {
-  id: string;
-  chapter: string;
-  part: string;
-  position: number;
-  text: string;
-}
-
-interface WerkChunksFile {
-  chunkCount: number;
-  chunks: WerkChunk[];
-}
+import {
+  type EbookFile, type WerkChunksFile,
+  deoverlapTexts, paragraphsForChapter,
+} from "@/lib/werkChunks";
+import { useIsMobile } from "@/hooks/useMobile";
+import { useAudioPlayer } from "@/hooks/useAudioPlayer";
+import MobileReader from "@/pages/mobile/MobileReader";
 
 interface CitedSelection {
   chunkId: string;
   text: string;
   chapterTitle: string;
-}
-
-// ─── Helpers ─────────────────────────────────────────────────────────────
-
-/** Grober Satz-Splitter — genügt, um den 1-Satz-Overlap zwischen aufeinander
- *  folgenden RAG-Chunks zu erkennen (beide Chunks teilen denselben Quelltext,
- *  also liefert derselbe Splitter identische Satz-Strings). */
-function splitSentencesForDisplay(text: string): string[] {
-  return (text.match(/[^.!?…]+[.!?…]+["'»)\]]*\s*/g) ?? [text])
-    .map(s => s.trim())
-    .filter(Boolean);
-}
-
-/** Ent-überlappt eine geordnete Liste von Chunk-Texten für die ANZEIGE:
- *  entfernt aus jedem Chunk die führenden Sätze, die bereits am Ende des
- *  vorigen Chunks standen (Sliding-Window-Overlap aus build-werk-chunks.ts).
- *  Robust gegen Lücken (kein gemeinsamer Satz → k=0 → unverändert). */
-function deoverlapTexts(texts: string[]): string[] {
-  const out: string[] = [];
-  let prevSentences: string[] = [];
-  for (const text of texts) {
-    const cur = splitSentencesForDisplay(text);
-    let k = 0;
-    const maxK = Math.min(prevSentences.length, cur.length);
-    for (let cand = maxK; cand >= 1; cand--) {
-      let match = true;
-      for (let j = 0; j < cand; j++) {
-        if (cur[j] !== prevSentences[prevSentences.length - cand + j]) { match = false; break; }
-      }
-      if (match) { k = cand; break; }
-    }
-    out.push(cur.slice(k).join(" "));
-    prevSentences = cur;  // Overlap-Vergleich gegen den ORIGINAL-Chunk
-  }
-  return out;
-}
-
-/** Splittet Kapitel-Content in dieselben Chunks wie build-werk-chunks.ts
- *  produziert hat. Pragmatisches Re-Implement: Absätze trennen, die kurzen
- *  filtern. Falls werk-chunks.json verfügbar ist, machen wir Matching per
- *  Position+Text statt rekonstruktiv. */
-function paragraphsForChapter(content: string): string[] {
-  const normalized = content.replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim();
-  return normalized.split(/\n\s*\n/).map(p => p.replace(/\s+/g, " ").trim()).filter(p => p.length >= 80);
 }
 
 // ─── Page ────────────────────────────────────────────────────────────────
@@ -126,6 +60,7 @@ export default function WerkPage() {
   }, [isDark]);
   const [, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
+  const isMobile = useIsMobile();
 
   const [ebook, setEbook] = useState<EbookFile | null>(null);
   const [chunks, setChunks] = useState<WerkChunksFile | null>(null);
@@ -207,6 +142,27 @@ export default function WerkPage() {
     [chapterChunks],
   );
 
+  // Deep-Link von der Begriffsnetz-Knotenkarte: ?chunk=<id>&fromConcept=<label>
+  // springt zur passenden Stelle und zeigt die Herkunft als Randnotiz.
+  const [targetChunkId, setTargetChunkId] = useState<string | null>(null);
+  const [fromConcept, setFromConcept] = useState<string | null>(null);
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    const chunk = sp.get("chunk");
+    const from = sp.get("fromConcept");
+    if (chunk) setTargetChunkId(chunk);
+    if (from) setFromConcept(from);
+    if (chunk || from) {
+      sp.delete("chunk"); sp.delete("fromConcept");
+      const qs = sp.toString();
+      window.history.replaceState({}, "", window.location.pathname + (qs ? `?${qs}` : ""));
+    }
+  }, []);
+
+  // Mobile-Reader: Mini-Hörleiste in der schmalen Fußzeile (Reader-first-Kern,
+  // Runde 1 der Design-Vorgabe — nur dort, nicht im Desktop-Werkzeugleisten-UI).
+  const audio = useAudioPlayer(isMobile ? currentChapter?.id ?? null : null, "female");
+
   // Eigener Scroll-Container — die App-weite index.css setzt overflow:hidden
   // auf html/body/#root (Reader-Vollbild-UX, kein Mobile-Overscroll). Reine
   // Flow-Seiten würden sonst geclippt + „eingefroren". Wir scrollen also IN
@@ -260,6 +216,27 @@ export default function WerkPage() {
   const tocIdx = tocChapters.findIndex(c => c.id === currentChapter?.id);
   const prevCh = tocIdx > 0 ? tocChapters[tocIdx - 1] : null;
   const nextCh = tocIdx >= 0 && tocIdx < tocChapters.length - 1 ? tocChapters[tocIdx + 1] : null;
+
+  if (isMobile) {
+    return (
+      <MobileReader
+        C={C} isDark={isDark}
+        ebook={ebook} tocChapters={tocChapters}
+        currentChapter={currentChapter} prevCh={prevCh} nextCh={nextCh}
+        chapterChunks={chapterChunks} chapterDisplay={chapterDisplay}
+        chunkCount={chunks?.chunks.length ?? 0}
+        globalChunkIndex={id => chunks?.chunks.findIndex(c => c.id === id) ?? -1}
+        resonanzenByChunk={resonanzenByChunk}
+        expandedChunk={expandedChunk} setExpandedChunk={setExpandedChunk}
+        selection={selection} setSelection={setSelection}
+        modalOpen={modalOpen} setModalOpen={setModalOpen}
+        reading={reading} updateReading={updateReading}
+        targetChunkId={targetChunkId} fromConcept={fromConcept}
+        audio={audio}
+        navigate={navigate}
+      />
+    );
+  }
 
   return (
     <div
@@ -441,7 +418,7 @@ function chapterNavBtn(C: Palette, dir: "prev" | "next"): React.CSSProperties {
   };
 }
 
-function ParagraphBlock({
+export function ParagraphBlock({
   C, chunkId, text, resonanzen, isExpanded, onToggle, fontScale = 1, bodyFont = SERIF_BODY,
 }: {
   C: Palette; chunkId: string; text: string;
@@ -547,7 +524,7 @@ function ParagraphBlock({
 
 // ─── Passage-Resonanz-Modal ─────────────────────────────────────────────
 
-function PassageResonanzModal({
+export function PassageResonanzModal({
   C, chunkId, selectedText, chapterTitle, onClose,
 }: {
   C: Palette; chunkId: string; selectedText: string; chapterTitle: string; onClose: () => void;

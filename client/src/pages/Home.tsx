@@ -12,6 +12,8 @@ import {
 import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
 import { useLocation } from 'wouter';
+import { useIsMobile } from '@/hooks/useMobile';
+import MobileCover from '@/pages/mobile/MobileCover';
 import { useSpeechRecognition } from '@/hooks/useSpeech';
 import { useAudioPlayer, type VoiceGender } from '@/hooks/useAudioPlayer';
 import { UnifiedSearch } from '@/components/search/UnifiedSearch';
@@ -72,6 +74,7 @@ export default function Home() {
   // Begriffsnetz läuft jetzt als eigene Route /begriffsnetz unter dem
   // globalen AppFrame. Wouter's setLocation navigiert dorthin.
   const [, setLocation] = useLocation();
+  const isMobile = useIsMobile();
 
   // Features
   const [darkMode, setDarkMode] = useLocalStorage('ebook-dark', false);
@@ -1289,6 +1292,13 @@ export default function Home() {
       </motion.article>
     );
   };
+
+  // Reader-first-Kern (Mobile-Design-Runde 1): auf dem Telefon ersetzt das
+  // neue Cover Home.tsx's eigene Desktop-Lese-UI komplett — "Lesen" führt in
+  // den Chunk-Reader (WerkPage → MobileReader), nicht in diese Komponente.
+  if (isMobile) {
+    return <MobileCover />;
+  }
 
   return (
     <div className={`h-dvh flex flex-col ${darkMode ? 'bg-stone-950 text-stone-200' : 'bg-stone-50 text-stone-800'}`}>

@@ -25,6 +25,7 @@ import InstallButton from "@/components/InstallButton";
 import OnboardingHint from "@/components/OnboardingHint";
 import { useT, useLocale, switchLocaleHref } from "@/i18n";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
+import { useIsMobile } from "@/hooks/useMobile";
 
 const FRAME_HEIGHT_TOOL = 48;
 const FRAME_HEIGHT_READING = 40;
@@ -62,6 +63,13 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   const locale = useLocale();
   const isReading = isReadingPath(location);
   const FRAME_HEIGHT = isReading ? FRAME_HEIGHT_READING : FRAME_HEIGHT_TOOL;
+  // Reader-first-Kern (Mobile-Design): der Werk-Reader übernimmt auf dem
+  // Telefon selbst die volle Fläche (kein Header, eigene schmale Fußzeile
+  // mit Inhalt/Suche/Aa) — MobileReader (in WerkPage) ersetzt Header +
+  // Drawer komplett. Andere Reading-Pfade (Home "/", Resonanz-Detail)
+  // behalten ihr bestehendes Mobile-Verhalten.
+  const isMobile = useIsMobile();
+  const suppressChrome = isMobile && (location.startsWith("/werk") || location.startsWith("/en/werk"));
 
   // Drawer schließt automatisch nach Navigation
   useEffect(() => {
@@ -84,6 +92,10 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
     ? (isReading ? "rgba(12,10,9,0.82)" : "rgba(12,10,9,0.94)")
     : (isReading ? "rgba(250,250,249,0.82)" : "rgba(250,250,249,0.94)");
   const backdropColor = isDark ? "rgba(0,0,0,0.35)" : "rgba(0,0,0,0.15)";
+
+  if (suppressChrome) {
+    return <>{children}</>;
+  }
 
   return (
     <>
