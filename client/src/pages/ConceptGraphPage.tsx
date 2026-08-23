@@ -444,11 +444,21 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     const timer = setTimeout(() => {
       longPressRef.current = null;
       if (hasDraggedRef.current || nodeDragRef.current?.id !== id) return;
+      // Muss synchron gesetzt werden (nicht erst nach dem await), sonst
+      // gewinnt ein zwischenzeitliches Loslassen den Wettlauf gegen die
+      // asynchrone Passagen-Suche und der nachfolgende Klick wählt den
+      // Knoten zusätzlich aus.
       hasDraggedRef.current = true; // unterdrückt die nachfolgende Tap-Auswahl
-      findPassageForConcept(id).then(link => { if (link) jumpToPassage(link, label); });
+      findPassageForConcept(id).then(link => {
+        if (link) jumpToPassage(link, label);
+        // Kein verankerter Beleg für diesen Begriff — statt eines stummen
+        // Abbruchs wenigstens die normale Auswahl (Detail-Sheet) nachholen,
+        // die der unterdrückte Klick sonst ausgelöst hätte.
+        else setSelectedId(id);
+      });
     }, 480);
     longPressRef.current = { id, timer };
-  }, [cancelLongPress, jumpToPassage]);
+  }, [cancelLongPress, jumpToPassage, setSelectedId]);
 
   // Deep-Link aus Suche / Landkarte / MeinWerk:
   //   ?node=<id>  oder  ?focus=<id>  (Alias) → fokussiert einen Begriff
