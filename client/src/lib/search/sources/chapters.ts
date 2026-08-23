@@ -12,6 +12,7 @@ import type { SearchHit, SearchSource } from "@/lib/search/types";
 import { extractSnippet } from "@/lib/search/highlight";
 import { lexScore } from "@/lib/search/score";
 import { getQueryEmbedding, cosineSim } from "@/lib/search/queryEmbedding";
+import { loadWerkChunksLazy, type WerkChunk } from "@/lib/werkChunks";
 
 interface Chapter {
   id: string;
@@ -24,34 +25,9 @@ interface Ebook {
   chapters: Chapter[];
 }
 
-interface WerkChunk {
-  id: string;
-  chapter: string;
-  chapterTitle?: string;
-  text: string;
-  embedding?: number[];
-}
-
-interface WerkChunksFile {
-  chunks: WerkChunk[];
-  model?: string;
-}
-
-// Lazy Singleton-Cache der Chunks (nur einmal geladen)
-let chunksCache: WerkChunk[] | null = null;
-let chunksPromise: Promise<WerkChunk[] | null> | null = null;
-
 async function loadWerkChunks(): Promise<WerkChunk[] | null> {
-  if (chunksCache) return chunksCache;
-  if (chunksPromise) return chunksPromise;
-  chunksPromise = fetch("/werk-chunks.json", { cache: "no-cache" })
-    .then(r => r.ok ? (r.json() as Promise<WerkChunksFile>) : null)
-    .then(data => {
-      chunksCache = data?.chunks ?? null;
-      return chunksCache;
-    })
-    .catch(() => null);
-  return chunksPromise;
+  const data = await loadWerkChunksLazy();
+  return data?.chunks ?? null;
 }
 
 export function createChaptersSource(ebook: Ebook | null): SearchSource {

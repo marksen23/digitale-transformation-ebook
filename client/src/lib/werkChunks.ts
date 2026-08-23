@@ -27,11 +27,28 @@ export interface WerkChunk {
   part: string;
   position: number;
   text: string;
+  chapterTitle?: string;
+  /** 3072-dim Embedding — der Löwenanteil der Dateigröße; nur die semantische Suche liest es. */
+  embedding?: number[];
 }
 
 export interface WerkChunksFile {
   chunkCount: number;
   chunks: WerkChunk[];
+}
+
+// Geteilter Lazy-Cache für werk-chunks.json (~20 MB, Embeddings inklusive).
+// Reader (WerkPage), Volltextsuche (search/sources/chapters.ts) und der
+// Begriffsnetz-Passagen-Link (conceptPassageLink.ts) brauchten früher je
+// einen eigenen Fetch derselben Datei — bis zu drei parallele 20-MB-Downloads
+// für eine einzige Navigation. Ein Modul-Singleton-Promise genügt, da die
+// Datei sich innerhalb einer Sitzung nicht ändert.
+let werkChunksPromise: Promise<WerkChunksFile | null> | null = null;
+export function loadWerkChunksLazy(): Promise<WerkChunksFile | null> {
+  if (!werkChunksPromise) {
+    werkChunksPromise = fetch("/werk-chunks.json").then(r => r.ok ? r.json() : null).catch(() => null);
+  }
+  return werkChunksPromise;
 }
 
 /** Grober Satz-Splitter — genügt, um den 1-Satz-Overlap zwischen aufeinander

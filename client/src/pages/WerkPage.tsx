@@ -29,7 +29,7 @@ import {
 } from "@/lib/readingSettings";
 import {
   type EbookFile, type WerkChunksFile,
-  deoverlapTexts, paragraphsForChapter,
+  deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
 } from "@/lib/werkChunks";
 import { useIsMobile } from "@/hooks/useMobile";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
@@ -71,7 +71,7 @@ export default function WerkPage() {
 
   useEffect(() => {
     fetch("/ebook_structured.json").then(r => r.json()).then(setEbook).catch(() => null);
-    fetch("/werk-chunks.json").then(r => r.json()).then(setChunks).catch(() => null);
+    loadWerkChunksLazy().then(data => data && setChunks(data));
     loadResonanzenIndexLazy().then(idx => idx && setResonanzen(idx.entries));
     // S1: Auto-Refresh nach Admin-Mutationen (z.B. Passage-Resonanz wurde
     // im selben Browser-Window erzeugt oder gelöscht).
@@ -146,18 +146,31 @@ export default function WerkPage() {
   // springt zur passenden Stelle und zeigt die Herkunft als Randnotiz.
   const [targetChunkId, setTargetChunkId] = useState<string | null>(null);
   const [fromConcept, setFromConcept] = useState<string | null>(null);
+  // Kapitel, für das die Randnotiz gilt — sie bleibt sichtbar, solange der
+  // Nutzer auf diesem Kapitel bleibt, und verschwindet erst beim Wechsel zu
+  // einem ANDEREN Kapitel (nicht sofort nach dem Positions-Sprung, sonst
+  // wäre sie nie zu sehen; nicht für immer, sonst „klebt" sie über die
+  // ganze Sitzung).
+  const fromConceptChapterRef = useRef<string | null>(null);
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     const chunk = sp.get("chunk");
     const from = sp.get("fromConcept");
     if (chunk) setTargetChunkId(chunk);
-    if (from) setFromConcept(from);
+    if (from) { setFromConcept(from); fromConceptChapterRef.current = params?.chapter ?? null; }
     if (chunk || from) {
       sp.delete("chunk"); sp.delete("fromConcept");
       const qs = sp.toString();
       window.history.replaceState({}, "", window.location.pathname + (qs ? `?${qs}` : ""));
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  useEffect(() => {
+    if (fromConceptChapterRef.current && currentChapter?.id && currentChapter.id !== fromConceptChapterRef.current) {
+      setFromConcept(null);
+      fromConceptChapterRef.current = null;
+    }
+  }, [currentChapter?.id]);
 
   // Mobile-Reader: Mini-Hörleiste in der schmalen Fußzeile (Reader-first-Kern,
   // Runde 1 der Design-Vorgabe — nur dort, nicht im Desktop-Werkzeugleisten-UI).
@@ -242,6 +255,7 @@ export default function WerkPage() {
         modalOpen={modalOpen} setModalOpen={setModalOpen}
         reading={reading} updateReading={updateReading}
         targetChunkId={targetChunkId} fromConcept={fromConcept}
+        onConsumeTarget={() => setTargetChunkId(null)}
         audio={audio} activeParaIdx={activeParaIdx}
         navigate={navigate}
       />

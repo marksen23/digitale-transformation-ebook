@@ -7,18 +7,9 @@
  * werk_passages[].id (welche Werk-Stelle der Eintrag verankert).
  */
 import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { loadWerkChunksLazy } from "@/lib/werkChunks";
 
 export interface ConceptPassageLink { chapterId: string; chunkId: string }
-
-interface WerkChunksLookup { chunks: Array<{ id: string; chapter: string }> }
-
-let chunksPromise: Promise<WerkChunksLookup | null> | null = null;
-function loadWerkChunksLazy(): Promise<WerkChunksLookup | null> {
-  if (!chunksPromise) {
-    chunksPromise = fetch("/werk-chunks.json").then(r => r.ok ? r.json() : null).catch(() => null);
-  }
-  return chunksPromise;
-}
 
 /** Erste Werk-Stelle, die einer der Einträge trägt (contextMeta.passage_chunk_id
  *  bevorzugt, sonst die erste RAG-Anschlussstelle werk_passages[0].id). */
