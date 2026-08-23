@@ -6,16 +6,21 @@
  * dieselbe „reader-first"-Vollbild-Logik wie MobileReader.
  */
 import { MONO, type Palette } from "@/lib/theme";
+import { toggleGlobalTheme } from "@/lib/globalTheme";
 
 interface Props {
   C: Palette;
   title: string;
   meta?: React.ReactNode;
   onBack?: () => void;
+  /** Zeigt einen ☉/☾-Umschalter im Header — die einzige Stelle, an der
+   *  Hell/Dunkel auf dem Telefon noch erreichbar ist, seit AppFrame's
+   *  Header auf den vollflächigen Mobile-Screens unterdrückt wird. */
+  isDark?: boolean;
   children: React.ReactNode;
 }
 
-export default function MobileScreenShell({ C, title, meta, onBack, children }: Props) {
+export default function MobileScreenShell({ C, title, meta, onBack, isDark, children }: Props) {
   return (
     <div style={{
       position: "fixed", inset: 0, display: "flex", flexDirection: "column",
@@ -29,7 +34,13 @@ export default function MobileScreenShell({ C, title, meta, onBack, children }: 
         >‹</button>
         <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.accentText }}>{title}</span>
         {meta != null && (
-          <span style={{ marginLeft: "auto", fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: C.muted, flexShrink: 0 }}>{meta}</span>
+          <span style={{ marginLeft: isDark == null ? "auto" : undefined, fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: C.muted, flexShrink: 0 }}>{meta}</span>
+        )}
+        {isDark != null && (
+          <button
+            type="button" onClick={() => toggleGlobalTheme()} aria-label={isDark ? "Hell-Modus" : "Dunkel-Modus"}
+            style={{ marginLeft: "auto", minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 15, cursor: "pointer", flexShrink: 0 }}
+          >{isDark ? "☉" : "☾"}</button>
         )}
       </div>
       <div style={{ flex: 1, minHeight: 0, overflowY: "auto", WebkitOverflowScrolling: "touch", padding: "4px 18px 24px" }}>

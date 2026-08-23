@@ -63,7 +63,7 @@ export default function StatusPage() {
 
   if (isMobile) {
     const routeFor: Record<BetriebTab, string> = { kur: "/admin", met: "/admin/metrics", health: "/admin/health", status: "/status" };
-    return <MobileBetrieb C={c} activeTab="status" onTabChange={tab => navigate(routeFor[tab])} />;
+    return <MobileBetrieb C={c} isDark={theme === "dark"} activeTab="status" onTabChange={tab => navigate(routeFor[tab])} />;
   }
 
   return (

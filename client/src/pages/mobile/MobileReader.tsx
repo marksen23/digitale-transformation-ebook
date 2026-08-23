@@ -18,6 +18,7 @@ import {
 import type { EbookChapter, EbookFile, WerkChunk } from "@/lib/werkChunks";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import type { AudioPlayerAPI } from "@/hooks/useAudioPlayer";
+import { toggleGlobalTheme } from "@/lib/globalTheme";
 import { ParagraphBlock, PassageResonanzModal } from "@/pages/WerkPage";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
@@ -36,7 +37,7 @@ interface Props {
   modalOpen: boolean; setModalOpen: (v: boolean) => void;
   reading: ReadingSettings; updateReading: (patch: Partial<ReadingSettings>) => void;
   targetChunkId: string | null; fromConcept: string | null;
-  audio: AudioPlayerAPI;
+  audio: AudioPlayerAPI; activeParaIdx: number;
   navigate: (to: string) => void;
 }
 
@@ -45,15 +46,32 @@ export default function MobileReader({
   chapterChunks, chapterDisplay, chunkCount, globalChunkIndex,
   resonanzenByChunk, expandedChunk, setExpandedChunk,
   selection, setSelection, modalOpen, setModalOpen,
-  reading, updateReading, targetChunkId, fromConcept, audio, navigate,
+  reading, updateReading, targetChunkId, fromConcept, audio, activeParaIdx, navigate,
 }: Props) {
   const [indexOpen, setIndexOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
   const [pageIdx, setPageIdx] = useState(0);
   const pendingEdge = useRef<"start" | "end" | null>(null);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const readBodyFont = bodyFont(reading);
   const paged = reading.pageMode === "paged";
+
+  // Mitlesen beim Vorlesen: im Fortlauf sanft zum aktiven Absatz scrollen,
+  // im Seitenlauf blättert die Hörfassung die Seite selbst mit (eine Seite
+  // zeigt genau einen Absatz — ohne Mitblättern liefe die Anzeige sonst
+  // stumm hinter der Stimme her).
+  useEffect(() => {
+    if (activeParaIdx < 0 || activeParaIdx >= chapterChunks.length) return;
+    if (paged) {
+      if (activeParaIdx !== pageIdx) { setPageIdx(activeParaIdx); setExpandedChunk(null); }
+      return;
+    }
+    const chunk = chapterChunks[activeParaIdx];
+    const el = scrollContainerRef.current?.querySelector<HTMLElement>(`[data-chunk-id="${chunk.id}"]`);
+    el?.scrollIntoView({ behavior: "smooth", block: "center" });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeParaIdx, paged, chapterChunks]);
 
   // Kapitelwechsel/Deep-Link auflösen: Sprungziel-Chunk, sonst Kapitel-Rand
   // (von-vorne/-hinten reingeblättert), sonst Kapitelanfang.
@@ -125,6 +143,7 @@ export default function MobileReader({
       paddingBottom: "env(safe-area-inset-bottom, 0px)",
     }}>
       <div
+        ref={scrollContainerRef}
         data-scroll onClick={onContainerClick} onPointerDown={onPointerDown} onPointerUp={onPointerUp}
         style={{ flex: 1, minHeight: 0, overflowY: "auto", WebkitOverflowScrolling: "touch", padding: "22px 22px 8px" }}
       >
@@ -164,6 +183,7 @@ export default function MobileReader({
               isExpanded={expandedChunk === activeChunk.id}
               onToggle={() => setExpandedChunk(expandedChunk === activeChunk.id ? null : activeChunk.id)}
               fontScale={reading.fontScale} bodyFont={readBodyFont}
+              isActive={activeParaIdx === pageIdx}
             />
           )
         ) : (
@@ -177,6 +197,7 @@ export default function MobileReader({
                 isExpanded={expandedChunk === chunk.id}
                 onToggle={() => setExpandedChunk(expandedChunk === chunk.id ? null : chunk.id)}
                 fontScale={reading.fontScale} bodyFont={readBodyFont}
+                isActive={activeParaIdx === ci}
               />
             );
           })
@@ -246,7 +267,7 @@ export default function MobileReader({
 
       {prefsOpen && (
         <MobileReadingSheet
-          C={C} reading={reading} update={updateReading} audio={audio}
+          C={C} isDark={isDark} reading={reading} update={updateReading} audio={audio}
           rateOptions={rateOptions} onClose={() => setPrefsOpen(false)}
         />
       )}
@@ -268,9 +289,9 @@ export default function MobileReader({
 // ─── Aa-Einstellungen — Bottom-Sheet ───────────────────────────────────────
 
 function MobileReadingSheet({
-  C, reading, update, audio, rateOptions, onClose,
+  C, isDark, reading, update, audio, rateOptions, onClose,
 }: {
-  C: Palette; reading: ReadingSettings; update: (p: Partial<ReadingSettings>) => void;
+  C: Palette; isDark: boolean; reading: ReadingSettings; update: (p: Partial<ReadingSettings>) => void;
   audio: AudioPlayerAPI; rateOptions: number[]; onClose: () => void;
 }) {
   const stepBtn: React.CSSProperties = {
@@ -305,6 +326,13 @@ function MobileReadingSheet({
           <button type="button" onClick={onClose} style={{ background: "none", border: "none", color: C.textDim, fontFamily: MONO, fontSize: 14, cursor: "pointer", minHeight: 44, minWidth: 44 }}>×</button>
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
+          <div style={{ display: "flex", flexDirection: "column", gap: 7 }}>
+            <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: C.textDim }}>Darstellung</span>
+            <div style={{ display: "flex", gap: 6 }}>
+              {pill("Hell", !isDark, () => { if (isDark) toggleGlobalTheme(); }, "light")}
+              {pill("Dunkel", isDark, () => { if (!isDark) toggleGlobalTheme(); }, "dark")}
+            </div>
+          </div>
           <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 12 }}>
             <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.14em", textTransform: "uppercase", color: C.textDim }}>Schriftgröße</span>
             <div style={{ display: "flex", gap: 6 }}>

@@ -72,7 +72,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   if (isMobile) {
     const activeTab: BetriebTab = location === "/admin/metrics" ? "met" : location === "/admin/health" ? "health" : "kur";
     const routeFor: Record<BetriebTab, string> = { kur: "/admin", met: "/admin/metrics", health: "/admin/health", status: "/status" };
-    return <MobileBetrieb C={C} activeTab={activeTab} onTabChange={tab => navigate(routeFor[tab])} />;
+    return <MobileBetrieb C={C} isDark={isDark} activeTab={activeTab} onTabChange={tab => navigate(routeFor[tab])} />;
   }
 
   // ─── Authorisiert → Tab-Layout + children ─────────────────────────────

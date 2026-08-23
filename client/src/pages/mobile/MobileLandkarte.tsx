@@ -18,6 +18,7 @@ interface SelectedEmerging { other: string; count: number }
 
 interface Props {
   C: Palette;
+  isDark: boolean;
   navigate: (to: string) => void;
   allNodes: ConceptNode[];
   nodeById: Map<string, ConceptNode>;
@@ -42,7 +43,7 @@ interface Props {
 }
 
 export default function MobileLandkarte({
-  C, navigate, allNodes, nodeById, dynamicIds, promoted, emerging, maxEmerging,
+  C, isDark, navigate, allNodes, nodeById, dynamicIds, promoted, emerging, maxEmerging,
   engagement, maxEngagement, curatedOnly, setCuratedOnly,
   curatedCount, engagedCount, entriesCount, dynamicCount, promotedCount,
   selected, setSelected, selNode, selectedEntries, selectedEmerging,
@@ -63,7 +64,7 @@ export default function MobileLandkarte({
   ];
 
   return (
-    <MobileScreenShell C={C} title="Wissens-Landkarte" meta={`${Math.round(canvas.zoom * 100)}%`}>
+    <MobileScreenShell C={C} title="Wissens-Landkarte" meta={`${Math.round(canvas.zoom * 100)}%`} isDark={isDark}>
       <div style={{ margin: "0 -18px" }}>
         <div style={{ padding: "0 18px 10px", fontFamily: SERIF, fontStyle: "italic", fontSize: 13, lineHeight: 1.55, color: C.textDim }}>
           Das Begriffsnetz als Rückgrat — der Korpus lagert sich an. Jeder Begriff wächst mit den Erkenntnissen, die ihn berühren; gestrichelte Linien sind werdende Verbindungen, noch nicht im Kanon.

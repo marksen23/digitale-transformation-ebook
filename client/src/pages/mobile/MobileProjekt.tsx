@@ -13,7 +13,8 @@ import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 
 export default function MobileProjekt() {
   const { theme } = useTheme();
-  const C = theme === "dark" ? C_DARK : C_LIGHT;
+  const isDark = theme === "dark";
+  const C = isDark ? C_DARK : C_LIGHT;
   const [, navigate] = useLocation();
   const [copyright, setCopyright] = useState<string | null>(null);
 
@@ -26,7 +27,7 @@ export default function MobileProjekt() {
   const p: React.CSSProperties = { margin: "0 0 15px" };
 
   return (
-    <MobileScreenShell C={C} title="Projekt" meta="DIE MECHANIK">
+    <MobileScreenShell C={C} title="Projekt" meta="DIE MECHANIK" isDark={isDark}>
       <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.muted, marginBottom: 8 }}>
         Resonanzvernunft · Die Mechanik
       </div>

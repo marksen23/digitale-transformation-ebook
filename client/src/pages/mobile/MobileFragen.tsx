@@ -21,7 +21,8 @@ const epColor = (ep: string, fallback: string) => ENDPOINT_COLOR[ep as ResonanzE
 
 export default function MobileFragen() {
   const { theme } = useTheme();
-  const C = theme === "dark" ? C_DARK : C_LIGHT;
+  const isDark = theme === "dark";
+  const C = isDark ? C_DARK : C_LIGHT;
   const [, navigate] = useLocation();
   const [questions, setQuestions] = useState<QuestionEntry[] | null>(null);
   const [status, setStatus] = useState<StatusFilter>("all");
@@ -47,7 +48,7 @@ export default function MobileFragen() {
   }
 
   return (
-    <MobileScreenShell C={C} title="Fragen" meta={questions ? `${counts.open} OFFEN` : ""}>
+    <MobileScreenShell C={C} title="Fragen" meta={questions ? `${counts.open} OFFEN` : ""} isDark={isDark}>
       <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
         Offene Fragen <span style={{ color: C.accentText }}>·</span> Der Denk-Horizont
       </div>

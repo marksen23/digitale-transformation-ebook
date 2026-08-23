@@ -100,7 +100,7 @@ export default function MeinWerkPage() {
   if (isMobile) {
     return (
       <MobileMeinWerk
-        C={C} navigate={navigate} t={t} stats={stats} isEmpty={isEmpty}
+        C={C} isDark={theme === "dark"} navigate={navigate} t={t} stats={stats} isEmpty={isEmpty}
         threads={threads} openQ={openQ} expandedThread={expandedThread} setExpandedThread={setExpandedThread}
         onDeleteThread={handleDeleteThread}
         top={top} unvisited={unvisited} pathSuggestion={pathSuggestion} nodeLabel={nodeLabel}

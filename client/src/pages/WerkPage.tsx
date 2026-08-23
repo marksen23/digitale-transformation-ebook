@@ -161,7 +161,17 @@ export default function WerkPage() {
 
   // Mobile-Reader: Mini-Hörleiste in der schmalen Fußzeile (Reader-first-Kern,
   // Runde 1 der Design-Vorgabe — nur dort, nicht im Desktop-Werkzeugleisten-UI).
-  const audio = useAudioPlayer(isMobile ? currentChapter?.id ?? null : null, "female");
+  // Absatz-Hervorhebung: onParaChange liefert den Index in chapterDisplay
+  // (gleiche Reihenfolge wie plainParagraphs), damit der Lesebereich beim
+  // Vorlesen mitwandert — ohne Wort-Level-Markup im Text selbst zu erfordern.
+  const [activeParaIdx, setActiveParaIdx] = useState(-1);
+  const audio = useAudioPlayer(isMobile ? currentChapter?.id ?? null : null, "female", {
+    plainParagraphs: chapterDisplay,
+    onParaChange: setActiveParaIdx,
+  });
+  // Stale Markierung vom vorigen Kapitel vermeiden (useAudioPlayer ruft
+  // onParaChange beim Kapitelwechsel selbst nicht mit -1 auf).
+  useEffect(() => { setActiveParaIdx(-1); }, [currentChapter?.id]);
 
   // Eigener Scroll-Container — die App-weite index.css setzt overflow:hidden
   // auf html/body/#root (Reader-Vollbild-UX, kein Mobile-Overscroll). Reine
@@ -232,7 +242,7 @@ export default function WerkPage() {
         modalOpen={modalOpen} setModalOpen={setModalOpen}
         reading={reading} updateReading={updateReading}
         targetChunkId={targetChunkId} fromConcept={fromConcept}
-        audio={audio}
+        audio={audio} activeParaIdx={activeParaIdx}
         navigate={navigate}
       />
     );
@@ -419,11 +429,13 @@ function chapterNavBtn(C: Palette, dir: "prev" | "next"): React.CSSProperties {
 }
 
 export function ParagraphBlock({
-  C, chunkId, text, resonanzen, isExpanded, onToggle, fontScale = 1, bodyFont = SERIF_BODY,
+  C, chunkId, text, resonanzen, isExpanded, onToggle, fontScale = 1, bodyFont = SERIF_BODY, isActive = false,
 }: {
   C: Palette; chunkId: string; text: string;
   resonanzen?: ResonanzEntry[]; isExpanded: boolean; onToggle: () => void;
   fontScale?: number; bodyFont?: string;
+  /** Aktuell vorgelesener Absatz (Hörfassung) — dezente Mitlese-Markierung. */
+  isActive?: boolean;
 }) {
   // Kanon-Akkretion (Phase 5): kuratierte Erkenntnisse (approved/published) sind
   // „Weiterführungen" — sie haben den Schutzwall passiert und lagern sich als
@@ -456,13 +468,21 @@ export function ParagraphBlock({
   }
 
   return (
-    <div style={{ position: "relative", marginBottom: "1.2rem" }}>
+    <div
+      style={{
+        position: "relative", marginBottom: "1.2rem",
+        paddingLeft: isActive ? "0.7rem" : 0,
+        borderLeft: isActive ? `2px solid ${C.accentText}` : "2px solid transparent",
+        transition: "padding-left 0.2s, border-color 0.2s",
+      }}
+    >
       <p
         data-chunk-id={chunkId}
         style={{
           fontFamily: bodyFont, fontSize: `${1.05 * fontScale}rem`, lineHeight: 1.65,
-          color: C.text, margin: 0,
+          color: isActive ? C.textBright : C.text, margin: 0,
           paddingRight: count > 0 ? "1.8rem" : 0,
+          transition: "color 0.2s",
         }}
       >
         {text}

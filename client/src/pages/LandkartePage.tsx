@@ -168,7 +168,7 @@ export default function LandkartePage() {
   if (isMobile) {
     return (
       <MobileLandkarte
-        C={C} navigate={navigate}
+        C={C} isDark={theme === "dark"} navigate={navigate}
         allNodes={allNodes} nodeById={nodeById} dynamicIds={dynamicIds}
         promoted={promoted} emerging={emerging} maxEmerging={maxEmerging}
         engagement={engagement} maxEngagement={maxEngagement}

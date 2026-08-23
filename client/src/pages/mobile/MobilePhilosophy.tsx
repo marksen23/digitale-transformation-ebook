@@ -46,7 +46,7 @@ export default function MobilePhilosophy() {
 
   return (
     <>
-      <MobileScreenShell C={C} title="Philosophie" meta={`${SPAN_FROM} — ${SPAN_TO}`}>
+      <MobileScreenShell C={C} title="Philosophie" meta={`${SPAN_FROM} — ${SPAN_TO}`} isDark={isDark}>
         {/* Extra Bottom-Puffer: die immer sichtbare BottomSheet-Peek-Leiste
             (64px + safe-area) würde sonst die letzten Zeilen verdecken. */}
         <div style={{ padding: "2px 4px 76px" }}>

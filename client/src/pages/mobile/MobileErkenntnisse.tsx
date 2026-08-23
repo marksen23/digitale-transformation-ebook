@@ -18,7 +18,8 @@ const epColor = (ep: string, fb: string) => ENDPOINT_COLOR[ep as ResonanzEntry["
 
 export default function MobileErkenntnisse() {
   const { theme } = useTheme();
-  const C = theme === "dark" ? C_DARK : C_LIGHT;
+  const isDark = theme === "dark";
+  const C = isDark ? C_DARK : C_LIGHT;
   const [, navigate] = useLocation();
   const [erk, setErk] = useState<Erkenntnis[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
@@ -32,7 +33,7 @@ export default function MobileErkenntnisse() {
   const items = useMemo(() => (erk ?? []).slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt)), [erk]);
 
   return (
-    <MobileScreenShell C={C} title="Erkenntnisse" meta={erk ? `${items.length} BESTÄTIGT` : ""}>
+    <MobileScreenShell C={C} title="Erkenntnisse" meta={erk ? `${items.length} BESTÄTIGT` : ""} isDark={isDark}>
       <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
         Erkenntnisse <span style={{ color: C.accentText }}>·</span> Was sich gezeigt hat
       </div>

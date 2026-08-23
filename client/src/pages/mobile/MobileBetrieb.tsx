@@ -26,12 +26,13 @@ const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] 
 
 interface Props {
   C: Palette;
+  isDark: boolean;
   activeTab: BetriebTab;
   onTabChange: (tab: BetriebTab) => void;
   onBack?: () => void;
 }
 
-export default function MobileBetrieb({ C, activeTab, onTabChange, onBack }: Props) {
+export default function MobileBetrieb({ C, isDark, activeTab, onTabChange, onBack }: Props) {
   const [index, setIndex] = useState<ResonanzIndex | null>(null);
 
   useEffect(() => {
@@ -45,7 +46,7 @@ export default function MobileBetrieb({ C, activeTab, onTabChange, onBack }: Pro
 
   return (
     <MobileScreenShell
-      C={C} title="Betrieb" onBack={onBack}
+      C={C} title="Betrieb" onBack={onBack} isDark={isDark}
       meta={<span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}><span style={{ width: 7, height: 7, borderRadius: "50%", background: "#7a9a82", display: "inline-block" }} />OK</span>}
     >
       <div style={{ display: "flex", gap: 6, overflowX: "auto", marginBottom: 4, margin: "0 -18px", padding: "0 18px 10px" }}>

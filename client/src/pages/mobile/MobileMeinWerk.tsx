@@ -13,6 +13,7 @@ import MobileStatTile from "@/pages/mobile/MobileStatTile";
 
 interface Props {
   C: Palette;
+  isDark: boolean;
   navigate: (to: string) => void;
   t: Trajectory;
   stats: ReturnType<typeof getStats>;
@@ -34,7 +35,7 @@ interface Props {
 }
 
 export default function MobileMeinWerk({
-  C, navigate, t, stats, isEmpty, threads, openQ, expandedThread, setExpandedThread, onDeleteThread,
+  C, isDark, navigate, t, stats, isEmpty, threads, openQ, expandedThread, setExpandedThread, onDeleteThread,
   top, unvisited, pathSuggestion, nodeLabel, confirmReset, setConfirmReset, onReset, onOptOutToggle, onDownload,
 }: Props) {
   const sectionLabel: React.CSSProperties = {
@@ -46,7 +47,7 @@ export default function MobileMeinWerk({
   });
 
   return (
-    <MobileScreenShell C={C} title="Mein Werk" meta="NUR IN DIESEM BROWSER">
+    <MobileScreenShell C={C} title="Mein Werk" meta="NUR IN DIESEM BROWSER" isDark={isDark}>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 16 }}>
         Eine persönliche Sicht auf deinen Lese-Pfad — wo du warst, was du noch nicht gesehen hast. Alle Daten bleiben in diesem Browser, kein Server-Tracking.
       </div>
