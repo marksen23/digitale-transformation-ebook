@@ -34,12 +34,12 @@ export default function MobileScreenShell({ C, title, meta, onBack, isDark, chil
         >‹</button>
         <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.accentText }}>{title}</span>
         {meta != null && (
-          <span style={{ marginLeft: isDark == null ? "auto" : undefined, fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: C.muted, flexShrink: 0 }}>{meta}</span>
+          <span style={{ marginLeft: "auto", fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", color: C.muted, flexShrink: 0 }}>{meta}</span>
         )}
         {isDark != null && (
           <button
             type="button" onClick={() => toggleGlobalTheme()} aria-label={isDark ? "Hell-Modus" : "Dunkel-Modus"}
-            style={{ marginLeft: "auto", minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 15, cursor: "pointer", flexShrink: 0 }}
+            style={{ marginLeft: meta == null ? "auto" : 10, minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 15, cursor: "pointer", flexShrink: 0 }}
           >{isDark ? "☉" : "☾"}</button>
         )}
       </div>
