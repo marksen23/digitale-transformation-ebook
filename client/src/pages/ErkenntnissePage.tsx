@@ -17,6 +17,8 @@ import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzE
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
 import SiteFooter from "@/components/SiteFooter";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileErkenntnisse from "@/pages/mobile/MobileErkenntnisse";
 
 const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] ?? ep;
 const epColor = (ep: string, fb: string) => ENDPOINT_COLOR[ep as ResonanzEntry["endpoint"]] ?? fb;
@@ -27,6 +29,7 @@ export default function ErkenntnissePage() {
   const [erk, setErk] = useState<Erkenntnis[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
   const [open, setOpen] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     loadErkenntnisse().then(setErk);
@@ -36,6 +39,10 @@ export default function ErkenntnissePage() {
   const items = useMemo(() => {
     return (erk ?? []).slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   }, [erk]);
+
+  if (isMobile) {
+    return <MobileErkenntnisse />;
+  }
 
   return (
     <div

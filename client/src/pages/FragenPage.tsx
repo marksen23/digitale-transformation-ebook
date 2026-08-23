@@ -15,6 +15,8 @@ import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
 import { ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileFragen from "@/pages/mobile/MobileFragen";
 
 type StatusFilter = "all" | "open" | "answered";
 
@@ -27,6 +29,7 @@ export default function FragenPage() {
   const [questions, setQuestions] = useState<QuestionEntry[] | null>(null);
   const [status, setStatus] = useState<StatusFilter>("all");
   const [area, setArea] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => { loadQuestions().then(f => setQuestions(f?.questions ?? [])); }, []);
 
@@ -55,6 +58,10 @@ export default function FragenPage() {
     border: `1px solid ${active ? c.accentText : c.border}`,
     color: active ? c.accentText : c.muted, background: "none",
   });
+
+  if (isMobile) {
+    return <MobileFragen />;
+  }
 
   return (
     <div

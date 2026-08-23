@@ -6,7 +6,7 @@
  * Begriffe ein Eintrag berührt) + contextMeta.passage_chunk_id /
  * werk_passages[].id (welche Werk-Stelle der Eintrag verankert).
  */
-import { loadResonanzenIndexLazy, groupResonanzenByNode } from "@/lib/resonanzenIndex";
+import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
 
 export interface ConceptPassageLink { chapterId: string; chunkId: string }
 
@@ -20,14 +20,9 @@ function loadWerkChunksLazy(): Promise<WerkChunksLookup | null> {
   return chunksPromise;
 }
 
-/** Erster im Werk verankerter Begegnungs-Eintrag für einen Begriffsnetz-Knoten,
- *  aufgelöst zu (Kapitel, Chunk). null wenn kein Eintrag eine Werk-Stelle trägt. */
-export async function findPassageForConcept(nodeId: string): Promise<ConceptPassageLink | null> {
-  const idx = await loadResonanzenIndexLazy();
-  if (!idx) return null;
-  const entries = groupResonanzenByNode(idx.entries).get(nodeId);
-  if (!entries || entries.length === 0) return null;
-
+/** Erste Werk-Stelle, die einer der Einträge trägt (contextMeta.passage_chunk_id
+ *  bevorzugt, sonst die erste RAG-Anschlussstelle werk_passages[0].id). */
+async function firstChunkIdFromEntries(entries: ResonanzEntry[]): Promise<ConceptPassageLink | null> {
   let chunkId: string | null = null;
   for (const e of entries) {
     const cid = e.contextMeta?.passage_chunk_id;
@@ -47,4 +42,23 @@ export async function findPassageForConcept(nodeId: string): Promise<ConceptPass
   const chunks = await loadWerkChunksLazy();
   const chunk = chunks?.chunks.find(c => c.id === chunkId);
   return chunk ? { chapterId: chunk.chapter, chunkId: chunk.id } : null;
+}
+
+/** Erster im Werk verankerter Begegnungs-Eintrag für einen Begriffsnetz-Knoten,
+ *  aufgelöst zu (Kapitel, Chunk). null wenn kein Eintrag eine Werk-Stelle trägt. */
+export async function findPassageForConcept(nodeId: string): Promise<ConceptPassageLink | null> {
+  const idx = await loadResonanzenIndexLazy();
+  if (!idx) return null;
+  const entries = groupResonanzenByNode(idx.entries).get(nodeId);
+  if (!entries || entries.length === 0) return null;
+  return firstChunkIdFromEntries(entries);
+}
+
+/** Werk-Stelle eines einzelnen Begegnungs-Eintrags (z.B. der Eintrag, dessen
+ *  Schlussfrage auf der Fragen-Seite steht) — null wenn er keine trägt. */
+export async function findPassageForEntry(entryId: string): Promise<ConceptPassageLink | null> {
+  const idx = await loadResonanzenIndexLazy();
+  const entry = idx?.entries.find(e => e.id === entryId);
+  if (!entry) return null;
+  return firstChunkIdFromEntries([entry]);
 }

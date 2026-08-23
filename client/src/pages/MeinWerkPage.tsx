@@ -20,6 +20,8 @@ import {
 import {
   listThreads, openQuestions, deleteThread, type SavedThread,
 } from "@/lib/threadStore";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileMeinWerk from "@/pages/mobile/MobileMeinWerk";
 
 export default function MeinWerkPage() {
   const { theme } = useTheme();
@@ -30,6 +32,7 @@ export default function MeinWerkPage() {
   const [threads, setThreads] = useState<SavedThread[]>([]);
   const [openQ, setOpenQ] = useState<Array<{ threadId: string; question: string; updatedAt: string }>>([]);
   const [expandedThread, setExpandedThread] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   function refreshThreads() {
     setThreads(listThreads());
@@ -93,6 +96,19 @@ export default function MeinWerkPage() {
   const isEmpty = stats.visitedCount === 0 && stats.passageCount === 0
     && stats.expandedCount === 0 && stats.dialogSessions === 0
     && stats.weiterdenkenSteps === 0 && threads.length === 0;
+
+  if (isMobile) {
+    return (
+      <MobileMeinWerk
+        C={C} navigate={navigate} t={t} stats={stats} isEmpty={isEmpty}
+        threads={threads} openQ={openQ} expandedThread={expandedThread} setExpandedThread={setExpandedThread}
+        onDeleteThread={handleDeleteThread}
+        top={top} unvisited={unvisited} pathSuggestion={pathSuggestion} nodeLabel={nodeLabel}
+        confirmReset={confirmReset} setConfirmReset={setConfirmReset}
+        onReset={handleReset} onOptOutToggle={handleOptOutToggle} onDownload={handleDownload}
+      />
+    );
+  }
 
   return (
     <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
