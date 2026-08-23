@@ -11,6 +11,8 @@ import { useEbookTheme } from "@/hooks/useEbookTheme";
 import PageNav from "@/components/PageNav";
 import { useAdminAuth } from "@/lib/adminAuth";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileBetrieb, { type BetriebTab } from "@/pages/mobile/MobileBetrieb";
 
 const TABS: Array<{ path: string; label: string }> = [
   { path: "/admin",         label: "Kuration" },
@@ -21,9 +23,10 @@ const TABS: Array<{ path: string; label: string }> = [
 export default function AdminLayout({ children }: { children: ReactNode }) {
   const isDark = useEbookTheme();
   const C = isDark ? C_DARK : C_LIGHT;
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
   const { state, error, resetToken } = useAdminAuth();
   const [scrollRef, setScrollRef] = useState<HTMLElement | null>(null);
+  const isMobile = useIsMobile();
 
   // ─── Auth-States ───────────────────────────────────────────────────────
   if (state === "checking") {
@@ -63,6 +66,13 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </p>
       </AuthShell>
     );
+  }
+
+  // ─── Authorisiert, Mobile → MobileBetrieb statt Tab-Layout + children ──
+  if (isMobile) {
+    const activeTab: BetriebTab = location === "/admin/metrics" ? "met" : location === "/admin/health" ? "health" : "kur";
+    const routeFor: Record<BetriebTab, string> = { kur: "/admin", met: "/admin/metrics", health: "/admin/health", status: "/status" };
+    return <MobileBetrieb C={C} activeTab={activeTab} onTabChange={tab => navigate(routeFor[tab])} />;
   }
 
   // ─── Authorisiert → Tab-Layout + children ─────────────────────────────

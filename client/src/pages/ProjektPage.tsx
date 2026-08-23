@@ -17,6 +17,8 @@ import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileProjekt from "@/pages/mobile/MobileProjekt";
 
 /* ── Reveal-on-scroll (IntersectionObserver gegen den Viewport — der
       fixe Scroll-Container füllt ihn, also greift root:null). ── */
@@ -232,6 +234,11 @@ export default function ProjektPage() {
   const c: Palette = theme === "dark" ? C_DARK : C_LIGHT;
   const strong: React.CSSProperties = { color: c.text };
   const acc: React.CSSProperties = { color: c.accentText };
+  const isMobile = useIsMobile();
+
+  if (isMobile) {
+    return <MobileProjekt />;
+  }
 
   return (
     <div

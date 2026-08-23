@@ -38,7 +38,8 @@ const MOBILE_FULLSCREEN_PREFIXES = [
   "/werk", "/en/werk",
   "/philosophie", "/en/philosophie",
   "/landkarte", "/en/landkarte",
-  "/fragen", "/erkenntnisse", "/mein-werk",
+  "/fragen", "/erkenntnisse", "/mein-werk", "/projekt",
+  "/admin", "/status",
 ];
 
 /** Erkennt Lesemodi anhand der URL (D2). Reading-Modi haben kompakteren

@@ -11,6 +11,9 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, type ResonanzIndex, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
+import { useLocation } from "wouter";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileBetrieb, { type BetriebTab } from "@/pages/mobile/MobileBetrieb";
 
 const STATUS_LABEL: Record<string, string> = {
   published: "veröffentlicht", approved: "freigegeben", raw: "roh", pending: "ausstehend", rejected: "abgelehnt",
@@ -20,6 +23,8 @@ export default function StatusPage() {
   const { theme } = useTheme();
   const c: Palette = theme === "dark" ? C_DARK : C_LIGHT;
   const [index, setIndex] = useState<ResonanzIndex | null>(null);
+  const [, navigate] = useLocation();
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     loadResonanzenIndexLazy().then(idx => { if (idx) setIndex(idx); });
@@ -54,6 +59,11 @@ export default function StatusPage() {
         <span style={{ fontFamily: MONO, fontSize: "0.95rem", color: c.text }}>{n}</span>
       </div>
     );
+  }
+
+  if (isMobile) {
+    const routeFor: Record<BetriebTab, string> = { kur: "/admin", met: "/admin/metrics", health: "/admin/health", status: "/status" };
+    return <MobileBetrieb C={c} activeTab="status" onTabChange={tab => navigate(routeFor[tab])} />;
   }
 
   return (
