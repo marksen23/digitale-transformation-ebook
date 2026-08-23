@@ -296,7 +296,7 @@ export default function LandkartePage() {
                       opacity={eng > 0 ? 0.92 : 0.45} />
                     {(eng > 0 || isSel || isDyn) && (
                       <text x={n.x} y={n.y + n.r * 0.6 + 11} textAnchor="middle"
-                        style={{ fontFamily: SERIF, fontSize: 11, fill: isSel ? C.textBright : (isDyn ? C.accent : C.textDim), pointerEvents: "none" }}>
+                        style={{ fontFamily: SERIF, fontSize: 11 / canvas.zoom, fill: isSel ? C.textBright : (isDyn ? C.accent : C.textDim), pointerEvents: "none" }}>
                         {n.fullLabel}{eng > 0 ? ` (${eng})` : ""}{isDyn ? " ✦" : ""}
                       </text>
                     )}
