@@ -30,6 +30,16 @@ import { useIsMobile } from "@/hooks/useMobile";
 const FRAME_HEIGHT_TOOL = 48;
 const FRAME_HEIGHT_READING = 40;
 
+/** Routen mit eigenem, vollflächigem Mobile-Screen (Reader-first-Design) —
+ *  diese besitzen ihre eigene ‹-Kopfzeile/Fußzeile und brauchen daher
+ *  AppFrames Header/Drawer auf dem Telefon nicht. Wächst mit jedem
+ *  Mobile-Screen, der dazukommt. */
+const MOBILE_FULLSCREEN_PREFIXES = [
+  "/werk", "/en/werk",
+  "/philosophie", "/en/philosophie",
+  "/landkarte", "/en/landkarte",
+];
+
 /** Erkennt Lesemodi anhand der URL (D2). Reading-Modi haben kompakteren
  *  Frame + geringeren Opacity-Konflikt mit dem Buchtext. */
 function isReadingPath(path: string): boolean {
@@ -69,7 +79,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   // Drawer komplett. Andere Reading-Pfade (Home "/", Resonanz-Detail)
   // behalten ihr bestehendes Mobile-Verhalten.
   const isMobile = useIsMobile();
-  const suppressChrome = isMobile && (location.startsWith("/werk") || location.startsWith("/en/werk"));
+  const suppressChrome = isMobile && MOBILE_FULLSCREEN_PREFIXES.some(p => location.startsWith(p));
 
   // Drawer schließt automatisch nach Navigation
   useEffect(() => {

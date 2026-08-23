@@ -16,6 +16,8 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobilePhilosophy from "@/pages/mobile/MobilePhilosophy";
 import PageNav from "@/components/PageNav";
 import {
   TRADITIONS,
@@ -46,16 +48,7 @@ export default function PhilosophyPage() {
   const sorted = useMemo(() => philosophersByBirth(), []);
 
   // Viewport-Erkennung — entscheidet zwischen Desktop-Side-Panel und Mobile-Bottom-Sheet
-  const [isMobile, setIsMobile] = useState<boolean>(() =>
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
-  );
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(max-width: 767px)");
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Deep-Link: ?id=<philosopher-id> setzt initial die Selektion
   // (z.B. von /resonanzen Cross-Link "Philosophen zu '<tag>'")
@@ -163,6 +156,13 @@ export default function PhilosophyPage() {
 
   const activeFilterCount = (traditionFilter !== "all" ? 1 : 0) + (searchLower ? 1 : 0);
   const [scrollRef, setScrollRef] = useState<HTMLElement | null>(null);
+
+  // Reader-first-Design: die mobile Philosophie-Seite ist ein einziger
+  // flacher Verortungs-Scroll (Pfad → Traditionen → alle Philosophen), nicht
+  // der 7-Modus-Explorer des Desktops — eigene, einfachere Komponente.
+  if (isMobile) {
+    return <MobilePhilosophy />;
+  }
 
   return (
     <div

@@ -30,6 +30,8 @@ import { loadPromotedEdges, invalidatePromotedEdges, type PromotedEdge } from "@
 import { loadDynamicNodes, type DynamicConceptNode } from "@/lib/dynamicNodes";
 import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import SectionLabel from "@/components/SectionLabel";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileLandkarte from "@/pages/mobile/MobileLandkarte";
 
 const CURATED = new Set(["approved", "published"]);
 const MIN_CO = 2;  // Min. gemeinsame Erkenntnisse, damit eine Verbindung „wird".
@@ -52,6 +54,7 @@ export default function LandkartePage() {
   const [promoteMsg, setPromoteMsg] = useState<string | null>(null);
   const { state: adminState } = useAdminAuth();
   const isAdmin = adminState === "ok";
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     loadResonanzenIndexLazy().then(idx => idx && setAllEntries(idx.entries));
@@ -161,6 +164,22 @@ export default function LandkartePage() {
   }
 
   const selNode = selected ? nodeById.get(selected) : null;
+
+  if (isMobile) {
+    return (
+      <MobileLandkarte
+        C={C} navigate={navigate}
+        allNodes={allNodes} nodeById={nodeById} dynamicIds={dynamicIds}
+        promoted={promoted} emerging={emerging} maxEmerging={maxEmerging}
+        engagement={engagement} maxEngagement={maxEngagement}
+        curatedOnly={curatedOnly} setCuratedOnly={setCuratedOnly}
+        curatedCount={curatedCount} engagedCount={engagedCount}
+        entriesCount={entries.length} dynamicCount={dynamic.length} promotedCount={promoted.length}
+        selected={selected} setSelected={setSelected} selNode={selNode}
+        selectedEntries={selectedEntries} selectedEmerging={selectedEmerging}
+      />
+    );
+  }
 
   return (
     <div
