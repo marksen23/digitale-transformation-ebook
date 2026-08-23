@@ -132,7 +132,7 @@ export default function MobileReader({
   const activeGlobalIdx = activeChunk ? globalChunkIndex(activeChunk.id) : -1;
   const pageLabel = activeGlobalIdx >= 0 && chunkCount > 0 ? `${activeGlobalIdx + 1} / ${chunkCount}` : "";
   const progressPct = activeGlobalIdx >= 0 && chunkCount > 0 ? Math.round(((activeGlobalIdx + 1) / chunkCount) * 100) : 0;
-  const audioBarVisible = audio.hasAudio && (audio.playing || audio.currentTime > 0);
+  const audioBarVisible = audio.hasAudio && (audio.playing || audio.currentTime > 0 || audio.progress > 0);
   const rateOptions = [1, 1.25, 1.5];
 
   return (
