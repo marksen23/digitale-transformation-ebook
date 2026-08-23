@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { MONO, SERIF, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, broadcastIndexStale, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry, type ResonanzIndex } from "@/lib/resonanzenIndex";
 import { callAdminAction } from "@/lib/adminAuth";
+import { recordAction } from "@/lib/adminActionLog";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 import MobilePill from "@/pages/mobile/MobilePill";
 import MobileStatTile from "@/pages/mobile/MobileStatTile";
@@ -122,6 +123,14 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
     setLoading(s => new Set(s).add(id));
     const result = await callAdminAction("curate", { id, status: newStatus });
     setLoading(s => { const n = new Set(s); n.delete(id); return n; });
+    // F1-Parität mit Desktop (AdminCurationPage.tsx): jede Mutation ins
+    // persistente Audit-Log — sonst fehlen mobile Kurations-Entscheidungen
+    // im Aktions-Protokoll, das Admins am Rechner einsehen.
+    recordAction({
+      type: "curate", targetId: id, ok: result.ok,
+      reason: result.ok ? undefined : (result.error ?? "Unbekannter Fehler"),
+      payload: { newStatus },
+    });
     if (result.ok) {
       setIndex(curr => curr ? { ...curr, entries: curr.entries.map(e => e.id === id ? { ...e, status: newStatus as ResonanzEntry["status"] } : e) } : curr);
       broadcastIndexStale();
