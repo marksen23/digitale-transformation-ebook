@@ -36,7 +36,7 @@ interface Props {
   selection: CitedSelection | null; setSelection: (v: CitedSelection | null) => void;
   modalOpen: boolean; setModalOpen: (v: boolean) => void;
   reading: ReadingSettings; updateReading: (patch: Partial<ReadingSettings>) => void;
-  targetChunkId: string | null; fromConcept: string | null;
+  targetChunkId: string | null; fromConcept: string | null; onConsumeTarget: () => void;
   audio: AudioPlayerAPI; activeParaIdx: number;
   navigate: (to: string) => void;
 }
@@ -46,7 +46,7 @@ export default function MobileReader({
   chapterChunks, chapterDisplay, chunkCount, globalChunkIndex,
   resonanzenByChunk, expandedChunk, setExpandedChunk,
   selection, setSelection, modalOpen, setModalOpen,
-  reading, updateReading, targetChunkId, fromConcept, audio, activeParaIdx, navigate,
+  reading, updateReading, targetChunkId, fromConcept, onConsumeTarget, audio, activeParaIdx, navigate,
 }: Props) {
   const [indexOpen, setIndexOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -79,7 +79,22 @@ export default function MobileReader({
     if (chapterChunks.length === 0) { setPageIdx(0); return; }
     if (targetChunkId) {
       const idx = chapterChunks.findIndex(c => c.id === targetChunkId);
-      if (idx >= 0) { setPageIdx(idx); return; }
+      // Einmal-Sprungziel — sonst würde ein späteres Zurückblättern in
+      // dasselbe Kapitel den Nutzer wieder an diese Stelle zwingen. Betrifft
+      // NUR den Sprung; die "Aus dem Begriffsnetz"-Randnotiz (fromConcept)
+      // bleibt bewusst stehen, bis das Kapitel wechselt (siehe WerkPage).
+      onConsumeTarget();
+      if (idx >= 0) {
+        if (paged) { setPageIdx(idx); return; }
+        // Fortlauf-Modus: kein Seiten-Index nötig (zeigt ohnehin alle
+        // Absätze) — stattdessen direkt zur Zielstelle scrollen, sonst
+        // würde der Sprung hier folgenlos bleiben.
+        const targetId = chapterChunks[idx].id;
+        requestAnimationFrame(() => {
+          scrollContainerRef.current?.querySelector<HTMLElement>(`[data-chunk-id="${targetId}"]`)?.scrollIntoView({ behavior: "auto", block: "start" });
+        });
+        return;
+      }
     }
     if (pendingEdge.current === "end") { setPageIdx(chapterChunks.length - 1); pendingEdge.current = null; return; }
     pendingEdge.current = null;
