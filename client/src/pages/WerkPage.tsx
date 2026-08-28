@@ -33,7 +33,15 @@ import {
 } from "@/lib/werkChunks";
 import { useIsMobile } from "@/hooks/useMobile";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
+import { NODES } from "@/data/conceptGraph";
 import MobileReader from "@/pages/mobile/MobileReader";
+
+// Echte Begriffs-Labels — nur diese darf die "Aus dem Begriffsnetz"-Randnotiz
+// zeigen. Ohne diese Prüfung könnte ?fromConcept=<beliebiger-Text> aus der
+// URL jeden Text unter dem vertrauenswürdig wirkenden "❦ Aus dem
+// Begriffsnetz"-Label anzeigen (Content-Spoofing; kein XSS, React escaped
+// den Text ohnehin — aber die Herkunftsangabe soll echt sein).
+const KNOWN_CONCEPT_LABELS = new Set(NODES.map(n => n.fullLabel));
 
 interface CitedSelection {
   chunkId: string;
@@ -157,7 +165,12 @@ export default function WerkPage() {
     const chunk = sp.get("chunk");
     const from = sp.get("fromConcept");
     if (chunk) setTargetChunkId(chunk);
-    if (from) { setFromConcept(from); fromConceptChapterRef.current = params?.chapter ?? null; }
+    // Nur ein echtes Begriffs-Label vertrauen (siehe KNOWN_CONCEPT_LABELS oben) —
+    // sonst könnte ?fromConcept= beliebigen Text als vermeintliche Herkunft ausgeben.
+    if (from && KNOWN_CONCEPT_LABELS.has(from)) {
+      setFromConcept(from);
+      fromConceptChapterRef.current = params?.chapter ?? null;
+    }
     if (chunk || from) {
       sp.delete("chunk"); sp.delete("fromConcept");
       const qs = sp.toString();
