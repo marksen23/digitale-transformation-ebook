@@ -1,7 +1,50 @@
 {
   "generatedAt": "2026-08-17T03:06:36.540Z",
-  "count": 244,
+  "count": 245,
   "entries": [
+    {
+      "id": "MTELW5GH-C4D41002",
+      "ts": "2026-08-29T16:39:56.330Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:andere+klang+spannung",
+      "nodeIds": [
+        "andere",
+        "klang",
+        "spannung"
+      ],
+      "status": "raw",
+      "prompt": "Triade: Das Andere / Die Anderen · Schwingung · Spannung",
+      "response": "Die Triade von \"Das Andere\", \"Schwingung\" und \"Spannung\" entfaltet ein dynamisches Gefüge, in dem die Ansprechbarkeit durch Alterität nicht nur als ethische Forderung, sondern als körperlich erfahrbare Bedingung von Erkenntnis sichtbar wird. \"Das Andere\" fungiert als der primäre Pol, der durch seine unhintergehbare Alterität die \"fundamentale Irritation\" ([MOHAUYTH-CD1E3227]) erzeugt, welche die \"Resonanzvernunft\" als \"Antwort auf das Andere\" [d226821289cc] in Gang setzt. Diese Irritation manifestiert sich zunächst als \"Schwingung\" –",
+      "contextMeta": {
+        "cluster_size": 3,
+        "node_labels": [
+          "Das Andere / Die Anderen",
+          "Schwingung",
+          "Spannung"
+        ],
+        "streamed": true,
+        "werk_passages": [
+          {
+            "id": "MOHAUYTH-CD1E3227",
+            "score": 0.962
+          },
+          {
+            "id": "MOP0UF96-1A0ACB35",
+            "score": 0.854
+          },
+          {
+            "id": "6fbd5b424474",
+            "chapter": "glossar",
+            "score": 0.818
+          },
+          {
+            "id": "d226821289cc",
+            "chapter": "teil5",
+            "score": 0.817
+          }
+        ]
+      }
+    },
     {
       "id": "MTDDMUMA-CCA9033A",
       "ts": "2026-08-28T20:00:59.266Z",
