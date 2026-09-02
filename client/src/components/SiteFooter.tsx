@@ -35,11 +35,12 @@ const GROUPS: { title: string; links: FooterLink[] }[] = [
     ],
   },
   {
+    // Redesign Phase 1: Health/Adminbereich raus — token-gated Operator-
+    // Werkzeug, kein Publikums-Link (siehe AppFrame.tsx). Wer den Admin-
+    // Token hat, geht über /admin?token=…, wie schon bisher.
     title: "Service",
     links: [
       { label: "Status", href: "/status" },
-      { label: "Health", href: "/admin/health" },
-      { label: "Adminbereich", href: "/admin" },
       { label: "Quellcode", href: REPO_URL, external: true },
     ],
   },

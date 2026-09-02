@@ -53,17 +53,46 @@ function isReadingPath(path: string): boolean {
 }
 
 interface NavItem { href: string; i18nKey: string; match: RegExp }
+interface NavCluster { key: string; i18nKey: string; items: NavItem[] }
 
-const NAV: NavItem[] = [
-  { href: "/",             i18nKey: "nav.werk",         match: /^\/$/ },
-  { href: "/resonanzen",   i18nKey: "nav.resonanzen",   match: /^\/resonanzen/ },
-  { href: "/philosophie",  i18nKey: "nav.philosophie",  match: /^\/philosophie/ },
-  { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
-  { href: "/landkarte",    i18nKey: "nav.landkarte",    match: /^\/landkarte/ },
-  { href: "/fragen",       i18nKey: "nav.fragen",       match: /^\/fragen/ },
-  { href: "/erkenntnisse", i18nKey: "nav.erkenntnisse", match: /^\/erkenntnisse/ },
-  { href: "/live",         i18nKey: "nav.live",         match: /^\/live/ },
-  { href: "/blog",         i18nKey: "nav.blog",         match: /^\/blog/ },
+// Vier Absichten statt neun Namen (Redesign Phase 1): Navigation gruppiert
+// sich danach, was die Leserin vorhat, statt nach Feature-Namen. Jeder
+// bisherige Nav-Punkt bleibt erreichbar — nur die Zuordnung ist neu. Betrieb
+// (Kuration/Metrics/Health) taucht hier bewusst nicht mehr auf; wer den
+// Admin-Token hat, geht über /admin?token=… wie schon bisher.
+const CLUSTERS: NavCluster[] = [
+  {
+    key: "lesen", i18nKey: "nav.read",
+    items: [
+      { href: "/",        i18nKey: "nav.werk",    match: /^\/$/ },
+      { href: "/projekt",  i18nKey: "nav.projekt", match: /^\/projekt/ },
+    ],
+  },
+  {
+    key: "erkunden", i18nKey: "nav.cluster.erkunden",
+    items: [
+      { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
+      { href: "/landkarte",    i18nKey: "nav.landkarte",    match: /^\/landkarte/ },
+      { href: "/philosophie",  i18nKey: "nav.philosophie",  match: /^\/philosophie/ },
+    ],
+  },
+  {
+    key: "mitdenken", i18nKey: "nav.cluster.mitdenken",
+    items: [
+      { href: "/fragen",       i18nKey: "nav.fragen",       match: /^\/fragen/ },
+      { href: "/erkenntnisse", i18nKey: "nav.erkenntnisse", match: /^\/erkenntnisse/ },
+      { href: "/resonanzen",   i18nKey: "nav.resonanzen",   match: /^\/resonanzen/ },
+      { href: "/live",         i18nKey: "nav.live",         match: /^\/live/ },
+      { href: "/statistik",    i18nKey: "nav.statistik",    match: /^\/statistik/ },
+    ],
+  },
+  {
+    key: "meins", i18nKey: "nav.cluster.meins",
+    items: [
+      { href: "/mein-werk", i18nKey: "nav.meinwerk", match: /^\/mein-werk/ },
+      { href: "/blog",      i18nKey: "nav.blog",      match: /^\/blog/ },
+    ],
+  },
 ];
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
@@ -71,6 +100,8 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   const C = isDark ? C_DARK : C_LIGHT;
   const [location] = useLocation();
   const [drawerOpen, setDrawerOpen] = useState(false);
+  // Welches der vier Desktop-Nav-Cluster gerade sein Dropdown zeigt (null = keins).
+  const [openCluster, setOpenCluster] = useState<string | null>(null);
   const t = useT();
   const locale = useLocale();
   const isReading = isReadingPath(location);
@@ -83,20 +114,31 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
   const suppressChrome = isMobile && MOBILE_FULLSCREEN_PREFIXES.some(p => location.startsWith(p));
 
-  // Drawer schließt automatisch nach Navigation
+  // Drawer + offenes Cluster-Dropdown schließen automatisch nach Navigation
   useEffect(() => {
     setDrawerOpen(false);
+    setOpenCluster(null);
   }, [location]);
 
-  // Escape-Key schließt den Drawer
+  // Cluster-Dropdown schließt bei Klick außerhalb der Nav
   useEffect(() => {
-    if (!drawerOpen) return;
+    if (!openCluster) return;
+    const onClick = (e: MouseEvent) => {
+      if (!(e.target as HTMLElement).closest(".appframe-nav-inline")) setOpenCluster(null);
+    };
+    document.addEventListener("mousedown", onClick);
+    return () => document.removeEventListener("mousedown", onClick);
+  }, [openCluster]);
+
+  // Escape-Key schließt Drawer + Cluster-Dropdown
+  useEffect(() => {
+    if (!drawerOpen && !openCluster) return;
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setDrawerOpen(false);
+      if (e.key === "Escape") { setDrawerOpen(false); setOpenCluster(null); }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [drawerOpen]);
+  }, [drawerOpen, openCluster]);
 
   // D2: Reading-Modi bekommen leicht zurückgenommenen Header (mehr Lese-Ruhe),
   // Tool-Modi bleiben opak. Backdrop-Filter sorgt für lesbaren Kontrast.
@@ -161,35 +203,74 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           }}
         />
 
-        {/* Inline-Menüleiste — Desktop only. Auf Mobile via CSS ausgeblendet. */}
-        <nav className="appframe-nav-inline" style={{ display: "flex", gap: "0.2rem" }}>
-          {NAV.map(item => {
-            const active = item.match.test(location);
-            // Locale-Prefixed href: /werk → /en/werk wenn locale=en
-            const href = locale === "en" ? (item.href === "/" ? "/en" : `/en${item.href}`) : item.href;
+        {/* Inline-Menüleiste — Desktop only. Auf Mobile via CSS ausgeblendet.
+            Vier Absichts-Cluster statt neun Feature-Namen (Redesign Phase 1):
+            Klick öffnet ein schmales Dropdown mit den echten Unterseiten,
+            dieselbe „subtile Disclosure"-Geste wie WerkPage's Werkzeuge-Menü. */}
+        <nav className="appframe-nav-inline" style={{ display: "flex", gap: "0.1rem", position: "relative" }}>
+          {CLUSTERS.map(cluster => {
+            const clusterActive = cluster.items.some(item => item.match.test(location));
+            const open = openCluster === cluster.key;
             return (
-              <Link
-                key={item.href}
-                href={href}
-                style={{
-                  position: "relative",
-                  fontFamily: MONO, fontSize: "0.58rem",
-                  letterSpacing: TRACKED.tight,
-                  textTransform: "uppercase",
-                  color: active ? C.accentText : C.text,
-                  background: "transparent",
-                  padding: "0.4rem 0.7rem 0.3rem",
-                  textDecoration: "none",
-                  whiteSpace: "nowrap",
-                  transition: "color 0.15s, border-color 0.15s",
-                  // Subtile aktive Unterstreichung statt Hintergrundfüllung
-                  // — typografische Aktiv-Markierung im Buchsatz-Geist.
-                  borderBottom: active ? `1.5px solid ${C.accent}` : "1.5px solid transparent",
-                  borderRadius: 0,
-                }}
-              >
-                {t(item.i18nKey)}
-              </Link>
+              <div key={cluster.key} style={{ position: "relative" }}>
+                <button
+                  type="button"
+                  onClick={() => setOpenCluster(o => (o === cluster.key ? null : cluster.key))}
+                  aria-expanded={open}
+                  style={{
+                    position: "relative",
+                    fontFamily: MONO, fontSize: "0.58rem",
+                    letterSpacing: TRACKED.tight,
+                    textTransform: "uppercase",
+                    color: (clusterActive || open) ? C.accentText : C.text,
+                    background: "transparent", border: "none", cursor: "pointer",
+                    padding: "0.4rem 0.7rem 0.3rem",
+                    whiteSpace: "nowrap",
+                    transition: "color 0.15s, border-color 0.15s",
+                    borderBottom: (clusterActive || open) ? `1.5px solid ${C.accent}` : "1.5px solid transparent",
+                    borderRadius: 0,
+                  }}
+                >
+                  {t(cluster.i18nKey)} <span style={{ fontSize: "0.85em", opacity: 0.6 }}>{open ? "▴" : "▾"}</span>
+                </button>
+                {open && (
+                  <div
+                    role="menu"
+                    style={{
+                      position: "absolute", top: "100%", left: 0, marginTop: "0.3rem",
+                      minWidth: "11rem", zIndex: 310,
+                      background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.panel,
+                      boxShadow: "0 6px 20px rgba(0,0,0,0.12)",
+                      padding: "0.35rem",
+                      display: "flex", flexDirection: "column", gap: "0.05rem",
+                    }}
+                  >
+                    {cluster.items.map(item => {
+                      const active = item.match.test(location);
+                      const href = locale === "en" ? (item.href === "/" ? "/en" : `/en${item.href}`) : item.href;
+                      return (
+                        <Link
+                          key={item.href}
+                          href={href}
+                          role="menuitem"
+                          style={{
+                            fontFamily: MONO, fontSize: "0.62rem",
+                            letterSpacing: TRACKED.tight,
+                            textTransform: "uppercase",
+                            color: active ? C.accentText : C.text,
+                            textDecoration: "none",
+                            padding: "0.5rem 0.6rem",
+                            borderRadius: RADIUS.button,
+                            background: active ? (isDark ? "rgba(245,158,11,0.08)" : "rgba(180,83,9,0.06)") : "transparent",
+                          }}
+                        >
+                          {t(item.i18nKey)}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
             );
           })}
         </nav>
@@ -217,21 +298,9 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
             {locale === "en" ? "DE" : "EN"}
           </a>
           <InstallButton variant="icon" />
-          <Link
-            href="/admin"
-            aria-label="Admin"
-            title="Admin / Kuration"
-            className="appframe-tap"
-            style={{
-              fontFamily: MONO, fontSize: "0.65rem",
-              color: location.startsWith("/admin") ? C.accentText : C.muted,
-              padding: "0.35rem 0.55rem",
-              borderRadius: RADIUS.button,
-              textDecoration: "none",
-              transition: "color 0.15s",
-              display: "inline-flex", alignItems: "center", justifyContent: "center",
-            }}
-          >⚙</Link>
+          {/* Kein ⚙-Admin-Link mehr hier (Redesign Phase 1): Betrieb ist token-
+              gated Operator-Werkzeug, kein Publikums-Bereich — wer den Token
+              hat, geht über /admin?token=…, wie schon bisher. */}
           <button
             onClick={() => toggleGlobalTheme()}
             aria-label={isDark ? "Hell-Modus" : "Dunkel-Modus"}
@@ -300,43 +369,53 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           padding: "0.5rem 0",
         }}
       >
-        {NAV.map(item => {
-          const active = item.match.test(location);
-          const href = locale === "en" ? (item.href === "/" ? "/en" : `/en${item.href}`) : item.href;
-          return (
-            <Link
-              key={item.href}
-              href={href}
-              style={{
-                display: "block",
-                fontFamily: MONO, fontSize: "0.85rem",
-                letterSpacing: TRACKED.tight,
-                textTransform: "uppercase",
-                color: active ? C.accentText : C.text,
-                padding: "0.85rem 1.25rem",
-                textDecoration: "none",
-                borderLeft: active ? `3px solid ${C.accent}` : "3px solid transparent",
-                background: active ? (isDark ? "rgba(245,158,11,0.06)" : "rgba(180,83,9,0.04)") : "transparent",
-                transition: "background 0.15s, color 0.15s",
-              }}
-            >
-              {t(item.i18nKey)}
-            </Link>
-          );
-        })}
+        {/* Vier Absichts-Cluster (Redesign Phase 1) statt einer flachen Liste —
+            dieselbe Gruppierung wie im Desktop-Dropdown, hier als aufgeklappte
+            Sektionen mit MONO-Zwischenüberschrift. */}
+        {CLUSTERS.map(cluster => (
+          <div key={cluster.key} style={{ marginBottom: "0.3rem" }}>
+            <div style={{
+              fontFamily: MONO, fontSize: "0.6rem", letterSpacing: TRACKED.open,
+              textTransform: "uppercase", color: C.muted,
+              padding: "0.6rem 1.25rem 0.2rem",
+            }}>
+              {t(cluster.i18nKey)}
+            </div>
+            {cluster.items.map(item => {
+              const active = item.match.test(location);
+              const href = locale === "en" ? (item.href === "/" ? "/en" : `/en${item.href}`) : item.href;
+              return (
+                <Link
+                  key={item.href}
+                  href={href}
+                  style={{
+                    display: "block",
+                    fontFamily: MONO, fontSize: "0.85rem",
+                    letterSpacing: TRACKED.tight,
+                    textTransform: "uppercase",
+                    color: active ? C.accentText : C.text,
+                    padding: "0.85rem 1.25rem",
+                    textDecoration: "none",
+                    borderLeft: active ? `3px solid ${C.accent}` : "3px solid transparent",
+                    background: active ? (isDark ? "rgba(245,158,11,0.06)" : "rgba(180,83,9,0.04)") : "transparent",
+                    transition: "background 0.15s, color 0.15s",
+                  }}
+                >
+                  {t(item.i18nKey)}
+                </Link>
+              );
+            })}
+          </div>
+        ))}
         {/* Sekundär-/Footer-Links — auch auf Vollbild-Seiten (Begriffsnetz)
             über das Menü erreichbar, wo kein angehängter Footer passt. */}
         <div style={{ borderTop: `1px solid ${C.border}`, marginTop: "0.4rem", paddingTop: "0.4rem" }}>
           {[
-            { label: "Projektbeschreibung", href: "/projekt" },
-            { label: "Statistik", href: "/statistik" },
             { label: "Status", href: "/status" },
             { label: "Impressum", href: "/impressum" },
             { label: "Kontakt", href: "/kontakt" },
             { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
             { label: "Lizenz", href: "/lizenz" },
-            { label: "Health", href: "/admin/health" },
-            { label: "Adminbereich", href: "/admin" },
           ].map(l => (
             <Link
               key={l.href}

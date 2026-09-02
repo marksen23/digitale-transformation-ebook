@@ -48,22 +48,44 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
     bands.push({ title: ch.partTitle, subtitle: ch.title, href: `/werk/${ch.id}`, page: i + 1 });
   });
 
-  const tools: Array<{ label: string; sub: string; href: string }> = [
-    { label: "Wissen", sub: counts.begegnungen != null ? `${counts.begegnungen} BEGEGNUNGEN` : "BEGEGNUNGEN", href: "/resonanzen" },
-    { label: "Begriffsnetz", sub: "KARTE", href: "/begriffsnetz" },
-    { label: "Philosophie", sub: "VERORTUNG", href: "/philosophie" },
-    { label: "Landkarte", sub: "WISSEN", href: "/landkarte" },
-    { label: "Fragen", sub: counts.fragen != null ? `${counts.fragen} OFFEN` : "OFFEN", href: "/fragen" },
-    { label: "Erkenntnisse", sub: counts.erk != null ? String(counts.erk) : "", href: "/erkenntnisse" },
-    { label: "Mein Werk", sub: "TRAJEKTORIE", href: "/mein-werk" },
-    { label: "Projekt", sub: "BESCHREIBUNG", href: "/projekt" },
-  ];
-
-  const betrieb = [
-    { label: "Kuration", href: "/admin" },
-    { label: "Metrics", href: "/admin/metrics" },
-    { label: "Health", href: "/admin/health" },
-    { label: "Status", href: "/status" },
+  // Vier Absichts-Cluster statt einer flachen "Werkzeuge"-Liste (Redesign
+  // Phase 1) — dieselbe Gruppierung wie AppFrames Desktop-Dropdown. Betrieb
+  // (Kuration/Metrics/Health) taucht bewusst nicht mehr auf; wer den Token
+  // hat, geht über /admin?token=…, wie schon bisher. Status bleibt als
+  // öffentliche Ecke unter Mitdenken erreichbar.
+  const clusters: Array<{ label: string; items: Array<{ label: string; sub: string; href: string }> }> = [
+    {
+      label: "Lesen",
+      items: [
+        { label: "Projekt", sub: "BESCHREIBUNG", href: "/projekt" },
+      ],
+    },
+    {
+      label: "Erkunden",
+      items: [
+        { label: "Begriffsnetz", sub: "KARTE", href: "/begriffsnetz" },
+        { label: "Landkarte", sub: "WISSEN", href: "/landkarte" },
+        { label: "Philosophie", sub: "VERORTUNG", href: "/philosophie" },
+      ],
+    },
+    {
+      label: "Mitdenken",
+      items: [
+        { label: "Fragen", sub: counts.fragen != null ? `${counts.fragen} OFFEN` : "OFFEN", href: "/fragen" },
+        { label: "Erkenntnisse", sub: counts.erk != null ? String(counts.erk) : "", href: "/erkenntnisse" },
+        { label: "Wissen", sub: counts.begegnungen != null ? `${counts.begegnungen} BEGEGNUNGEN` : "BEGEGNUNGEN", href: "/resonanzen" },
+        { label: "Live", sub: "STROM", href: "/live" },
+        { label: "Statistik", sub: "ZAHLEN", href: "/statistik" },
+        { label: "Status", sub: "ÖFFENTLICH", href: "/status" },
+      ],
+    },
+    {
+      label: "Meins",
+      items: [
+        { label: "Mein Werk", sub: "TRAJEKTORIE", href: "/mein-werk" },
+        { label: "Blog", sub: "", href: "/blog" },
+      ],
+    },
   ];
 
   const go = (href: string) => { onClose(); navigate(href); };
@@ -130,40 +152,25 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
         ))}
       </div>
 
-      <div style={{ padding: "26px 22px 0" }}>
-        <div style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.muted, marginBottom: 8 }}>Werkzeuge</div>
-        <div style={{ height: 1, background: C.border }} />
-        {tools.map(t => (
-          <button
-            key={t.href} type="button" onClick={() => go(t.href)}
-            style={{
-              width: "100%", minHeight: 48, display: "flex", alignItems: "baseline", justifyContent: "space-between",
-              background: "none", border: "none", borderBottom: `1px solid ${C.border}`, padding: 0, cursor: "pointer", textAlign: "left",
-            }}
-          >
-            <span style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 19, color: C.text }}>{t.label}</span>
-            <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.14em", color: C.muted }}>{t.sub}</span>
-          </button>
-        ))}
-      </div>
-
-      <div style={{ padding: "26px 22px 30px" }}>
-        <div style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.muted, marginBottom: 8 }}>Betrieb</div>
-        <div style={{ height: 1, background: C.border }} />
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 8, paddingTop: 12 }}>
-          {betrieb.map(o => (
+      {clusters.map((cluster, ci) => (
+        <div key={cluster.label} style={{ padding: ci === clusters.length - 1 ? "26px 22px 30px" : "26px 22px 0" }}>
+          <div style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.muted, marginBottom: 8 }}>{cluster.label}</div>
+          <div style={{ height: 1, background: C.border }} />
+          {cluster.items.map(t => (
             <button
-              key={o.href} type="button" onClick={() => go(o.href)}
+              key={t.href} type="button" onClick={() => go(t.href)}
               style={{
-                minHeight: 44, padding: "0 12px", flexShrink: 0, cursor: "pointer",
-                borderRadius: 4, border: `1px solid ${C.border}`, background: "none",
-                color: C.textDim, fontFamily: MONO, fontSize: 10, letterSpacing: "0.12em", textTransform: "uppercase",
+                width: "100%", minHeight: 48, display: "flex", alignItems: "baseline", justifyContent: "space-between",
+                background: "none", border: "none", borderBottom: `1px solid ${C.border}`, padding: 0, cursor: "pointer", textAlign: "left",
               }}
-            >{o.label}</button>
+            >
+              <span style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 19, color: C.text }}>{t.label}</span>
+              <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.14em", color: C.muted }}>{t.sub}</span>
+            </button>
           ))}
         </div>
-        <div style={{ display: "flex", justifyContent: "center", paddingTop: 24, fontFamily: MONO, fontSize: 11, letterSpacing: "0.45em", color: C.muted }}>⁂</div>
-      </div>
+      ))}
+      <div style={{ display: "flex", justifyContent: "center", padding: "24px 0 30px", fontFamily: MONO, fontSize: 11, letterSpacing: "0.45em", color: C.muted }}>⁂</div>
     </div>
   );
 }
