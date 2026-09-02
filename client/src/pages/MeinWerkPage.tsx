@@ -12,6 +12,7 @@ import { NODES } from "@/data/conceptGraph";
 import { useTheme } from "@/contexts/ThemeContext";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import SectionLabel from "@/components/SectionLabel";
+import SiteFooter from "@/components/SiteFooter";
 import WeiterdenkenThread from "@/components/WeiterdenkenThread";
 import {
   getTrajectory, getStats, topNodes, unvisitedFrom,
@@ -111,7 +112,15 @@ export default function MeinWerkPage() {
   }
 
   return (
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
+    <div
+      data-scroll
+      style={{
+        position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
+        overflowY: "auto", WebkitOverflowScrolling: "touch", background: C.void, color: C.text,
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}
+    >
+    <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", fontFamily: SERIF }}>
       <header style={{ marginBottom: "1.5rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
         <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.7rem", color: C.textBright }}>
           Mein Werk
@@ -358,6 +367,8 @@ export default function MeinWerkPage() {
           </div>
         </div>
       </section>
+      <SiteFooter c={C} />
+    </div>
     </div>
   );
 }
