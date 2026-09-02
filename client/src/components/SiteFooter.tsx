@@ -24,17 +24,6 @@ interface FooterLink { label: string; href: string; external?: boolean }
 
 const GROUPS: { title: string; links: FooterLink[] }[] = [
   {
-    title: "Werk",
-    links: [
-      { label: "Projektbeschreibung", href: "/projekt" },
-      { label: "Fragen", href: "/fragen" },
-      { label: "Erkenntnisse", href: "/erkenntnisse" },
-      { label: "Live", href: "/live" },
-      { label: "Blog", href: "/blog" },
-      { label: "Statistik", href: "/statistik" },
-    ],
-  },
-  {
     // Redesign Phase 1: Health/Adminbereich raus — token-gated Operator-
     // Werkzeug, kein Publikums-Link (siehe AppFrame.tsx). Wer den Admin-
     // Token hat, geht über /admin?token=…, wie schon bisher.
