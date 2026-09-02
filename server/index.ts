@@ -2626,7 +2626,11 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
 
     // 4. Master-MD bauen (Frontmatter + Body)
     const now = new Date().toISOString();
-    const masterId = `MASTER-${Buffer.from(anchor + now).toString("hex").slice(0, 8).toUpperCase()}`;
+    // Bug (gefunden 2026-09-02): Buffer.from(anchor + now).toString("hex").slice(0, 8)
+    // hext nur die ersten 4 BYTES der ROH-Zeichenkette, nicht einen Hash — bei jedem
+    // Anchor mit demselben 4-Zeichen-Präfix (z.B. alle "dialog:…") entstand exakt
+    // dieselbe ID, egal was `now` war. sha256 verteilt über die volle Eingabe.
+    const masterId = `MASTER-${createHash("sha256").update(anchor + now).digest("hex").slice(0, 8).toUpperCase()}`;
     const variantIds = variants.map(v => v.id);
     const auditEvent = `  - event: ${existingMaster ? "re-synthesized" : "synthesized"}\n    ts: ${now}\n    actor: admin\n    source_ids: [${variantIds.join(", ")}]`;
     // content_hash — Pflichtfeld des Konsistenz-Wächters (validate-resonanzen):
