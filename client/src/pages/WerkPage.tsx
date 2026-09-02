@@ -623,6 +623,8 @@ export function ParagraphBlock({
 
 // ─── Passage-Resonanz-Modal ─────────────────────────────────────────────
 
+const RESONANZ_HINT_SEEN_KEY = "resonanzvernunft.resonanz-hint-seen";
+
 export function PassageResonanzModal({
   C, chunkId, selectedText, chapterTitle, onClose,
 }: {
@@ -632,6 +634,15 @@ export function PassageResonanzModal({
   const [userPrompt, setUserPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Phase 3: Ein-Satz-Hinweis, was beim Klick tatsächlich passiert — nur beim
+  // allerersten Öffnen dieses Modals in diesem Browser (danach kennt man's).
+  const [showHint] = useState(() => {
+    try {
+      if (typeof localStorage === "undefined" || localStorage.getItem(RESONANZ_HINT_SEEN_KEY)) return false;
+      localStorage.setItem(RESONANZ_HINT_SEEN_KEY, "1");
+      return true;
+    } catch { return false; }
+  });
   const [result, setResult] = useState<{ entryId: string; response: string } | null>(null);
 
   async function submit() {
@@ -692,6 +703,16 @@ export function PassageResonanzModal({
         }}>
           "{selectedText.length > 400 ? selectedText.slice(0, 400) + "…" : selectedText}"
         </blockquote>
+
+        {showHint && !result && (
+          <div style={{
+            marginBottom: "1rem", padding: "0.5rem 0.8rem",
+            background: `${C.accent}14`, borderLeft: `3px solid ${C.accent}`,
+            fontFamily: SERIF, fontStyle: "italic", fontSize: "0.8rem", color: C.textDim, lineHeight: 1.5,
+          }}>
+            Deine Auswahl geht an eine KI, die daraus eine philosophische Antwort verfasst — sie landet danach öffentlich im wachsenden Korpus des Werks.
+          </div>
+        )}
 
         {!result && (
           <>
