@@ -7,8 +7,11 @@
  * NICHT global in AppFrame stehen — er wird ans Content-Ende jedes
  * Scroll-Containers gerendert.
  *
- * Zwei Varianten:
- *   - "full" (default): voller Footer mit Link-Gruppen (Doc-Seiten).
+ * Zwei Varianten, beide bewusst schmal (Redesign Phase 4) — die Nav deckt
+ * die Werk-Bereiche längst ab, der Footer trägt nur noch, was sonst
+ * nirgends hinführt:
+ *   - "full" (default): eine Zeile Identität + eine Zeile flach umbrechende
+ *     Links (Doc-Seiten).
  *   - "bar": schlanke einzeilige Leiste für Vollbild-Canvas (Begriffsnetz),
  *     wo kein voller Footer passt — definiert den unteren Rand.
  *
@@ -16,32 +19,26 @@
  */
 import { Link } from "wouter";
 import type { Palette } from "@/lib/theme";
-import { MONO, SERIF } from "@/lib/theme";
+import { MONO } from "@/lib/theme";
 
 const REPO_URL = "https://github.com/marksen23/digitale-transformation-ebook";
 
 interface FooterLink { label: string; href: string; external?: boolean }
 
-const GROUPS: { title: string; links: FooterLink[] }[] = [
-  {
-    // Redesign Phase 1: Health/Adminbereich raus — token-gated Operator-
-    // Werkzeug, kein Publikums-Link (siehe AppFrame.tsx). Wer den Admin-
-    // Token hat, geht über /admin?token=…, wie schon bisher.
-    title: "Service",
-    links: [
-      { label: "Status", href: "/status" },
-      { label: "Quellcode", href: REPO_URL, external: true },
-    ],
-  },
-  {
-    title: "Rechtliches",
-    links: [
-      { label: "Impressum", href: "/impressum" },
-      { label: "Kontakt", href: "/kontakt" },
-      { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
-      { label: "Lizenz", href: "/lizenz" },
-    ],
-  },
+// Redesign Phase 4: seit die "Werk"-Spalte raus ist (1:1 Nav-Duplikat),
+// blieben nur noch 6 Links übrig — für die lohnt sich kein mehrspaltiges
+// Grid mit Sektions-Überschriften mehr (wirkte wie eine leere dritte
+// Spalte). Eine flache, einzeilig umbrechende Liste statt Gruppen.
+// Health/Adminbereich bleibt bewusst draußen — token-gated Operator-
+// Werkzeug, kein Publikums-Link (siehe AppFrame.tsx). Wer den Admin-
+// Token hat, geht über /admin?token=…, wie schon bisher.
+const ALL_LINKS: FooterLink[] = [
+  { label: "Status", href: "/status" },
+  { label: "Quellcode", href: REPO_URL, external: true },
+  { label: "Impressum", href: "/impressum" },
+  { label: "Kontakt", href: "/kontakt" },
+  { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
+  { label: "Lizenz", href: "/lizenz" },
 ];
 
 // Schlanke Leiste (Begriffsnetz): kompakte Auswahl der wichtigsten Links.
@@ -56,14 +53,8 @@ const BAR_LINKS: FooterLink[] = [
 ];
 
 export default function SiteFooter({ c, variant = "full" }: { c: Palette; variant?: "full" | "bar" }) {
-  const linkStyle: React.CSSProperties = {
-    fontFamily: SERIF, fontSize: "0.9rem", color: c.textDim,
-    textDecoration: "none", display: "block",
-    padding: "0.5rem 0", minHeight: 22, lineHeight: 1.3,
-    transition: "color 0.15s",
-  };
   const onEnter = (e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = c.accentText; };
-  const onLeave = (e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = c.textDim; };
+  const onLeave = (e: React.MouseEvent<HTMLAnchorElement>) => { e.currentTarget.style.color = c.muted; };
 
   if (variant === "bar") {
     const barLink: React.CSSProperties = {
@@ -91,41 +82,35 @@ export default function SiteFooter({ c, variant = "full" }: { c: Palette; varian
     );
   }
 
+  const flatLinkStyle: React.CSSProperties = {
+    fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.04em", color: c.muted,
+    textDecoration: "none", whiteSpace: "nowrap", transition: "color 0.15s",
+  };
+
   return (
     <footer
       role="contentinfo"
       style={{
-        marginTop: "3rem", paddingTop: "1.6rem", paddingBottom: "2.5rem",
+        marginTop: "2rem", paddingTop: "0.9rem", paddingBottom: "1.1rem",
         borderTop: `1px solid ${c.border}`,
-        display: "flex", flexWrap: "wrap", gap: "2.5rem", justifyContent: "space-between",
+        display: "flex", flexWrap: "wrap", rowGap: "0.5rem", columnGap: "1.5rem",
+        alignItems: "center", justifyContent: "space-between",
+        fontFamily: MONO, fontSize: "0.6rem", color: c.muted,
       }}
     >
-      {GROUPS.map(g => (
-        <nav key={g.title} aria-label={g.title} style={{ minWidth: 130 }}>
-          <div style={{
-            fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em",
-            textTransform: "uppercase", color: c.muted, marginBottom: "0.6rem",
-          }}>{g.title}</div>
-          {g.links.map(l => l.external ? (
-            <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
-               style={linkStyle} onMouseEnter={onEnter} onMouseLeave={onLeave}>{l.label} ↗</a>
-          ) : (
-            <Link key={l.label} href={l.href} style={linkStyle}
-                  onMouseEnter={onEnter} onMouseLeave={onLeave}>{l.label}</Link>
-          ))}
-        </nav>
-      ))}
-
-      <div style={{
-        flexBasis: "100%", marginTop: "1.5rem", paddingTop: "1rem",
-        borderTop: `1px solid ${c.border}`,
-        fontFamily: MONO, fontSize: "0.6rem", color: c.muted,
-        display: "flex", flexWrap: "wrap", gap: "0.6rem", alignItems: "center",
-      }}>
+      <div style={{ display: "flex", flexWrap: "wrap", gap: "0.5rem", alignItems: "center" }}>
         <span style={{ color: c.accentText }}>❦</span>
-        <span>Resonanzvernunft — Die Digitale Transformation</span>
-        <span style={{ opacity: 0.6 }}>· Markus Oehring · © 2026</span>
+        <span>Resonanzvernunft · Markus Oehring · © 2026</span>
       </div>
+      <nav aria-label="Footer" style={{ display: "flex", flexWrap: "wrap", gap: "0.3rem 0.9rem" }}>
+        {ALL_LINKS.map(l => l.external ? (
+          <a key={l.label} href={l.href} target="_blank" rel="noopener noreferrer"
+             style={flatLinkStyle} onMouseEnter={onEnter} onMouseLeave={onLeave}>{l.label} ↗</a>
+        ) : (
+          <Link key={l.label} href={l.href} style={flatLinkStyle}
+                onMouseEnter={onEnter} onMouseLeave={onLeave}>{l.label}</Link>
+        ))}
+      </nav>
     </footer>
   );
 }
