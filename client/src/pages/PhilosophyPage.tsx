@@ -16,6 +16,8 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobilePhilosophy from "@/pages/mobile/MobilePhilosophy";
 import PageNav from "@/components/PageNav";
 import {
   TRADITIONS,
@@ -27,7 +29,7 @@ import { UnifiedSearch } from "@/components/search/UnifiedSearch";
 import { philosophersSource, conceptsSource } from "@/lib/search/sources";
 import type { SearchHit } from "@/lib/search/types";
 import { useLocation as useWouterLocation } from "wouter";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import {
   ToolbarBtn, FilterPill,
@@ -46,16 +48,7 @@ export default function PhilosophyPage() {
   const sorted = useMemo(() => philosophersByBirth(), []);
 
   // Viewport-Erkennung — entscheidet zwischen Desktop-Side-Panel und Mobile-Bottom-Sheet
-  const [isMobile, setIsMobile] = useState<boolean>(() =>
-    typeof window !== "undefined" ? window.innerWidth < 768 : false
-  );
-  useEffect(() => {
-    if (typeof window === "undefined") return;
-    const mq = window.matchMedia("(max-width: 767px)");
-    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
+  const isMobile = useIsMobile();
 
   // Deep-Link: ?id=<philosopher-id> setzt initial die Selektion
   // (z.B. von /resonanzen Cross-Link "Philosophen zu '<tag>'")
@@ -164,6 +157,13 @@ export default function PhilosophyPage() {
   const activeFilterCount = (traditionFilter !== "all" ? 1 : 0) + (searchLower ? 1 : 0);
   const [scrollRef, setScrollRef] = useState<HTMLElement | null>(null);
 
+  // Reader-first-Design: die mobile Philosophie-Seite ist ein einziger
+  // flacher Verortungs-Scroll (Pfad → Traditionen → alle Philosophen), nicht
+  // der 7-Modus-Explorer des Desktops — eigene, einfachere Komponente.
+  if (isMobile) {
+    return <MobilePhilosophy />;
+  }
+
   return (
     <div
       data-scroll
@@ -179,7 +179,7 @@ export default function PhilosophyPage() {
       {/* ─── Header — kompakt, App-Frame-Style ─── */}
       <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: 1400, margin: "0 auto" }}>
         <div>
-          <h1 style={{ fontFamily: SERIF, fontSize: isMobile ? "1.15rem" : "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
+          <h1 style={{ fontFamily: DISPLAY, fontSize: isMobile ? "1.15rem" : "1.5rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
             Philosophische Karte
           </h1>
           {!isMobile && (

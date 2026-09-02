@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, PAPER, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
@@ -27,84 +27,28 @@ import {
   useReadingSettings, bodyFont, type ReadingSettings,
   FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
 } from "@/lib/readingSettings";
+import {
+  type EbookFile, type WerkChunksFile,
+  deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
+} from "@/lib/werkChunks";
+import { useIsMobile } from "@/hooks/useMobile";
+import { useAudioPlayer } from "@/hooks/useAudioPlayer";
+import { NODES } from "@/data/conceptGraph";
+import MobileReader from "@/pages/mobile/MobileReader";
+import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
+import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
-interface EbookChapter {
-  id: string;
-  title: string;
-  subtitle: string | null;
-  chapter: number | null;
-  part: string;
-  partTitle: string;
-  content: string;
-}
-
-interface EbookFile {
-  meta: { title: string; subtitle: string; author: string };
-  parts: Array<{ id: string; title: string; subtitle?: string }>;
-  chapters: EbookChapter[];
-}
-
-interface WerkChunk {
-  id: string;
-  chapter: string;
-  part: string;
-  position: number;
-  text: string;
-}
-
-interface WerkChunksFile {
-  chunkCount: number;
-  chunks: WerkChunk[];
-}
+// Echte Begriffs-Labels — nur diese darf die "Aus dem Begriffsnetz"-Randnotiz
+// zeigen. Ohne diese Prüfung könnte ?fromConcept=<beliebiger-Text> aus der
+// URL jeden Text unter dem vertrauenswürdig wirkenden "❦ Aus dem
+// Begriffsnetz"-Label anzeigen (Content-Spoofing; kein XSS, React escaped
+// den Text ohnehin — aber die Herkunftsangabe soll echt sein).
+const KNOWN_CONCEPT_LABELS = new Set(NODES.map(n => n.fullLabel));
 
 interface CitedSelection {
   chunkId: string;
   text: string;
   chapterTitle: string;
-}
-
-// ─── Helpers ─────────────────────────────────────────────────────────────
-
-/** Grober Satz-Splitter — genügt, um den 1-Satz-Overlap zwischen aufeinander
- *  folgenden RAG-Chunks zu erkennen (beide Chunks teilen denselben Quelltext,
- *  also liefert derselbe Splitter identische Satz-Strings). */
-function splitSentencesForDisplay(text: string): string[] {
-  return (text.match(/[^.!?…]+[.!?…]+["'»)\]]*\s*/g) ?? [text])
-    .map(s => s.trim())
-    .filter(Boolean);
-}
-
-/** Ent-überlappt eine geordnete Liste von Chunk-Texten für die ANZEIGE:
- *  entfernt aus jedem Chunk die führenden Sätze, die bereits am Ende des
- *  vorigen Chunks standen (Sliding-Window-Overlap aus build-werk-chunks.ts).
- *  Robust gegen Lücken (kein gemeinsamer Satz → k=0 → unverändert). */
-function deoverlapTexts(texts: string[]): string[] {
-  const out: string[] = [];
-  let prevSentences: string[] = [];
-  for (const text of texts) {
-    const cur = splitSentencesForDisplay(text);
-    let k = 0;
-    const maxK = Math.min(prevSentences.length, cur.length);
-    for (let cand = maxK; cand >= 1; cand--) {
-      let match = true;
-      for (let j = 0; j < cand; j++) {
-        if (cur[j] !== prevSentences[prevSentences.length - cand + j]) { match = false; break; }
-      }
-      if (match) { k = cand; break; }
-    }
-    out.push(cur.slice(k).join(" "));
-    prevSentences = cur;  // Overlap-Vergleich gegen den ORIGINAL-Chunk
-  }
-  return out;
-}
-
-/** Splittet Kapitel-Content in dieselben Chunks wie build-werk-chunks.ts
- *  produziert hat. Pragmatisches Re-Implement: Absätze trennen, die kurzen
- *  filtern. Falls werk-chunks.json verfügbar ist, machen wir Matching per
- *  Position+Text statt rekonstruktiv. */
-function paragraphsForChapter(content: string): string[] {
-  const normalized = content.replace(/[ \t]+/g, " ").replace(/\n{3,}/g, "\n\n").trim();
-  return normalized.split(/\n\s*\n/).map(p => p.replace(/\s+/g, " ").trim()).filter(p => p.length >= 80);
 }
 
 // ─── Page ────────────────────────────────────────────────────────────────
@@ -126,6 +70,12 @@ export default function WerkPage() {
   }, [isDark]);
   const [, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
+  const isMobile = useIsMobile();
+  // Desktop-Pendant zu MobileReaders eigenem Chrome (Redesign Phase 2):
+  // AppFrame ist auf /werk jetzt auf jeder Bildschirmgröße unterdrückt, das
+  // Desktop-Reader-Chrome unten übernimmt ≡-Menü + Suche als Fluchtweg.
+  const [desktopIndexOpen, setDesktopIndexOpen] = useState(false);
+  const [desktopSearchOpen, setDesktopSearchOpen] = useState(false);
 
   const [ebook, setEbook] = useState<EbookFile | null>(null);
   const [chunks, setChunks] = useState<WerkChunksFile | null>(null);
@@ -136,7 +86,7 @@ export default function WerkPage() {
 
   useEffect(() => {
     fetch("/ebook_structured.json").then(r => r.json()).then(setEbook).catch(() => null);
-    fetch("/werk-chunks.json").then(r => r.json()).then(setChunks).catch(() => null);
+    loadWerkChunksLazy().then(data => data && setChunks(data));
     loadResonanzenIndexLazy().then(idx => idx && setResonanzen(idx.entries));
     // S1: Auto-Refresh nach Admin-Mutationen (z.B. Passage-Resonanz wurde
     // im selben Browser-Window erzeugt oder gelöscht).
@@ -207,6 +157,55 @@ export default function WerkPage() {
     [chapterChunks],
   );
 
+  // Deep-Link von der Begriffsnetz-Knotenkarte: ?chunk=<id>&fromConcept=<label>
+  // springt zur passenden Stelle und zeigt die Herkunft als Randnotiz.
+  const [targetChunkId, setTargetChunkId] = useState<string | null>(null);
+  const [fromConcept, setFromConcept] = useState<string | null>(null);
+  // Kapitel, für das die Randnotiz gilt — sie bleibt sichtbar, solange der
+  // Nutzer auf diesem Kapitel bleibt, und verschwindet erst beim Wechsel zu
+  // einem ANDEREN Kapitel (nicht sofort nach dem Positions-Sprung, sonst
+  // wäre sie nie zu sehen; nicht für immer, sonst „klebt" sie über die
+  // ganze Sitzung).
+  const fromConceptChapterRef = useRef<string | null>(null);
+  useEffect(() => {
+    const sp = new URLSearchParams(window.location.search);
+    const chunk = sp.get("chunk");
+    const from = sp.get("fromConcept");
+    if (chunk) setTargetChunkId(chunk);
+    // Nur ein echtes Begriffs-Label vertrauen (siehe KNOWN_CONCEPT_LABELS oben) —
+    // sonst könnte ?fromConcept= beliebigen Text als vermeintliche Herkunft ausgeben.
+    if (from && KNOWN_CONCEPT_LABELS.has(from)) {
+      setFromConcept(from);
+      fromConceptChapterRef.current = params?.chapter ?? null;
+    }
+    if (chunk || from) {
+      sp.delete("chunk"); sp.delete("fromConcept");
+      const qs = sp.toString();
+      window.history.replaceState({}, "", window.location.pathname + (qs ? `?${qs}` : ""));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  useEffect(() => {
+    if (fromConceptChapterRef.current && currentChapter?.id && currentChapter.id !== fromConceptChapterRef.current) {
+      setFromConcept(null);
+      fromConceptChapterRef.current = null;
+    }
+  }, [currentChapter?.id]);
+
+  // Mobile-Reader: Mini-Hörleiste in der schmalen Fußzeile (Reader-first-Kern,
+  // Runde 1 der Design-Vorgabe — nur dort, nicht im Desktop-Werkzeugleisten-UI).
+  // Absatz-Hervorhebung: onParaChange liefert den Index in chapterDisplay
+  // (gleiche Reihenfolge wie plainParagraphs), damit der Lesebereich beim
+  // Vorlesen mitwandert — ohne Wort-Level-Markup im Text selbst zu erfordern.
+  const [activeParaIdx, setActiveParaIdx] = useState(-1);
+  const audio = useAudioPlayer(isMobile ? currentChapter?.id ?? null : null, "female", {
+    plainParagraphs: chapterDisplay,
+    onParaChange: setActiveParaIdx,
+  });
+  // Stale Markierung vom vorigen Kapitel vermeiden (useAudioPlayer ruft
+  // onParaChange beim Kapitelwechsel selbst nicht mit -1 auf).
+  useEffect(() => { setActiveParaIdx(-1); }, [currentChapter?.id]);
+
   // Eigener Scroll-Container — die App-weite index.css setzt overflow:hidden
   // auf html/body/#root (Reader-Vollbild-UX, kein Mobile-Overscroll). Reine
   // Flow-Seiten würden sonst geclippt + „eingefroren". Wir scrollen also IN
@@ -261,21 +260,77 @@ export default function WerkPage() {
   const prevCh = tocIdx > 0 ? tocChapters[tocIdx - 1] : null;
   const nextCh = tocIdx >= 0 && tocIdx < tocChapters.length - 1 ? tocChapters[tocIdx + 1] : null;
 
+  if (isMobile) {
+    return (
+      <MobileReader
+        C={C} isDark={isDark}
+        ebook={ebook} tocChapters={tocChapters}
+        currentChapter={currentChapter} prevCh={prevCh} nextCh={nextCh}
+        chapterChunks={chapterChunks} chapterDisplay={chapterDisplay}
+        chunkCount={chunks?.chunks.length ?? 0}
+        globalChunkIndex={id => chunks?.chunks.findIndex(c => c.id === id) ?? -1}
+        resonanzenByChunk={resonanzenByChunk}
+        expandedChunk={expandedChunk} setExpandedChunk={setExpandedChunk}
+        selection={selection} setSelection={setSelection}
+        modalOpen={modalOpen} setModalOpen={setModalOpen}
+        reading={reading} updateReading={updateReading}
+        targetChunkId={targetChunkId} fromConcept={fromConcept}
+        onConsumeTarget={() => setTargetChunkId(null)}
+        audio={audio} activeParaIdx={activeParaIdx}
+        navigate={navigate}
+      />
+    );
+  }
+
   return (
     <div
       ref={scrollRef}
       data-scroll
       style={{
-        position: "fixed", top: "var(--app-frame-h, 40px)", left: 0, right: 0, bottom: 0,
+        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch",
         background: isDark ? PAPER.warmDark : PAPER.warmLight,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
+    {/* Redesign Phase 2: eigenes schlankes Reader-Chrome statt AppFrames
+        Werkzeugleiste (die ist auf /werk jetzt auf jeder Bildschirmgröße
+        unterdrückt) — ❦ führt heim, ≡ öffnet dieselbe Vier-Cluster-
+        Übersicht + Suche, die Mobile schon nutzt. */}
+    <div style={{
+      position: "sticky", top: 0, zIndex: 50, height: 44,
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      padding: "0 1rem", gap: "0.5rem",
+      background: isDark ? "rgba(12,10,9,0.82)" : "rgba(250,250,249,0.82)",
+      backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)",
+      borderBottom: `1px solid ${C.border}`,
+    }}>
+      <Link
+        href="/"
+        aria-label="Zur Werk-Hauptseite"
+        style={{
+          display: "flex", alignItems: "center", gap: "0.45rem",
+          fontFamily: MONO, fontSize: "0.6rem", letterSpacing: TRACKED.classic,
+          color: C.accentText, textTransform: "uppercase", textDecoration: "none",
+          padding: "0.35rem 0.4rem", borderRadius: RADIUS.button,
+        }}
+      >
+        <span style={{ fontSize: "0.95rem", lineHeight: 1, transform: "translateY(0.04em)", display: "inline-block" }}>{ORNAMENT.leaf}</span>
+        <span>Resonanzvernunft</span>
+      </Link>
+      <button
+        type="button" onClick={() => setDesktopIndexOpen(true)} aria-label="Menü"
+        style={{
+          fontFamily: MONO, fontSize: "0.85rem", color: C.text, background: "transparent",
+          border: `1px solid ${C.border}`, width: 32, height: 32, cursor: "pointer", padding: 0,
+          borderRadius: RADIUS.button, display: "flex", alignItems: "center", justifyContent: "center",
+        }}
+      >≡</button>
+    </div>
     <div className="werk-page" style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
       <style>{`
         .werk-page .werk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 2.5rem; align-items: start; }
-        .werk-page .werk-toc { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding-left: 1rem; border-left: 1px solid currentColor; opacity: 0.7; }
+        .werk-page .werk-toc { position: sticky; top: calc(44px + 1rem); max-height: calc(100vh - 44px - 2rem); overflow-y: auto; padding-left: 1rem; border-left: 1px solid currentColor; opacity: 0.7; }
         @media (max-width: 768px) {
           .werk-page .werk-grid { grid-template-columns: 1fr; gap: 1.2rem; }
           .werk-page .werk-toc { position: static; max-height: 220px; padding-left: 0; border-left: none; border-top: 1px solid currentColor; padding-top: 0.7rem; opacity: 0.6; order: 2; }
@@ -288,7 +343,7 @@ export default function WerkPage() {
             <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, marginBottom: "0.3rem" }}>
               {currentChapter?.partTitle ?? ebook.meta.title}
             </div>
-            <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.8rem", color: C.textBright, lineHeight: 1.2 }}>
+            <h1 style={{ margin: 0, fontFamily: DISPLAY, fontSize: "1.8rem", color: C.textBright, lineHeight: 1.2 }}>
               {currentChapter?.title ?? "Werk"}
             </h1>
             {currentChapter?.subtitle && (
@@ -427,6 +482,17 @@ export default function WerkPage() {
         />
       )}
     </div>
+
+    {desktopIndexOpen && (
+      <MobileIndexOverlay
+        C={C} tocChapters={tocChapters} navigate={navigate}
+        onClose={() => setDesktopIndexOpen(false)}
+        onSearch={() => setDesktopSearchOpen(true)}
+      />
+    )}
+    {desktopSearchOpen && (
+      <MobileSearchOverlay C={C} navigate={navigate} onClose={() => setDesktopSearchOpen(false)} />
+    )}
     </div>
   );
 }
@@ -441,12 +507,14 @@ function chapterNavBtn(C: Palette, dir: "prev" | "next"): React.CSSProperties {
   };
 }
 
-function ParagraphBlock({
-  C, chunkId, text, resonanzen, isExpanded, onToggle, fontScale = 1, bodyFont = SERIF_BODY,
+export function ParagraphBlock({
+  C, chunkId, text, resonanzen, isExpanded, onToggle, fontScale = 1, bodyFont = SERIF_BODY, isActive = false,
 }: {
   C: Palette; chunkId: string; text: string;
   resonanzen?: ResonanzEntry[]; isExpanded: boolean; onToggle: () => void;
   fontScale?: number; bodyFont?: string;
+  /** Aktuell vorgelesener Absatz (Hörfassung) — dezente Mitlese-Markierung. */
+  isActive?: boolean;
 }) {
   // Kanon-Akkretion (Phase 5): kuratierte Erkenntnisse (approved/published) sind
   // „Weiterführungen" — sie haben den Schutzwall passiert und lagern sich als
@@ -479,13 +547,21 @@ function ParagraphBlock({
   }
 
   return (
-    <div style={{ position: "relative", marginBottom: "1.2rem" }}>
+    <div
+      style={{
+        position: "relative", marginBottom: "1.2rem",
+        paddingLeft: isActive ? "0.7rem" : 0,
+        borderLeft: isActive ? `2px solid ${C.accentText}` : "2px solid transparent",
+        transition: "padding-left 0.2s, border-color 0.2s",
+      }}
+    >
       <p
         data-chunk-id={chunkId}
         style={{
           fontFamily: bodyFont, fontSize: `${1.05 * fontScale}rem`, lineHeight: 1.65,
-          color: C.text, margin: 0,
+          color: isActive ? C.textBright : C.text, margin: 0,
           paddingRight: count > 0 ? "1.8rem" : 0,
+          transition: "color 0.2s",
         }}
       >
         {text}
@@ -547,7 +623,9 @@ function ParagraphBlock({
 
 // ─── Passage-Resonanz-Modal ─────────────────────────────────────────────
 
-function PassageResonanzModal({
+const RESONANZ_HINT_SEEN_KEY = "resonanzvernunft.resonanz-hint-seen";
+
+export function PassageResonanzModal({
   C, chunkId, selectedText, chapterTitle, onClose,
 }: {
   C: Palette; chunkId: string; selectedText: string; chapterTitle: string; onClose: () => void;
@@ -556,6 +634,15 @@ function PassageResonanzModal({
   const [userPrompt, setUserPrompt] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  // Phase 3: Ein-Satz-Hinweis, was beim Klick tatsächlich passiert — nur beim
+  // allerersten Öffnen dieses Modals in diesem Browser (danach kennt man's).
+  const [showHint] = useState(() => {
+    try {
+      if (typeof localStorage === "undefined" || localStorage.getItem(RESONANZ_HINT_SEEN_KEY)) return false;
+      localStorage.setItem(RESONANZ_HINT_SEEN_KEY, "1");
+      return true;
+    } catch { return false; }
+  });
   const [result, setResult] = useState<{ entryId: string; response: string } | null>(null);
 
   async function submit() {
@@ -616,6 +703,16 @@ function PassageResonanzModal({
         }}>
           "{selectedText.length > 400 ? selectedText.slice(0, 400) + "…" : selectedText}"
         </blockquote>
+
+        {showHint && !result && (
+          <div style={{
+            marginBottom: "1rem", padding: "0.5rem 0.8rem",
+            background: `${C.accent}14`, borderLeft: `3px solid ${C.accent}`,
+            fontFamily: SERIF, fontStyle: "italic", fontSize: "0.8rem", color: C.textDim, lineHeight: 1.5,
+          }}>
+            Deine Auswahl geht an eine KI, die daraus eine philosophische Antwort verfasst — sie landet danach öffentlich im wachsenden Korpus des Werks.
+          </div>
+        )}
 
         {!result && (
           <>

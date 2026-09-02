@@ -12,11 +12,13 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
 import SiteFooter from "@/components/SiteFooter";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileErkenntnisse from "@/pages/mobile/MobileErkenntnisse";
 
 const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] ?? ep;
 const epColor = (ep: string, fb: string) => ENDPOINT_COLOR[ep as ResonanzEntry["endpoint"]] ?? fb;
@@ -27,6 +29,7 @@ export default function ErkenntnissePage() {
   const [erk, setErk] = useState<Erkenntnis[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
   const [open, setOpen] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     loadErkenntnisse().then(setErk);
@@ -36,6 +39,10 @@ export default function ErkenntnissePage() {
   const items = useMemo(() => {
     return (erk ?? []).slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
   }, [erk]);
+
+  if (isMobile) {
+    return <MobileErkenntnisse />;
+  }
 
   return (
     <div
@@ -50,7 +57,7 @@ export default function ErkenntnissePage() {
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>
-        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
+        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
           Erkenntnisse <span style={{ color: c.accentText }}>·</span> Was sich gezeigt hat
         </h1>
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1.2rem", lineHeight: 1.5 }}>

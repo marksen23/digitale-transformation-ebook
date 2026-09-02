@@ -13,9 +13,20 @@
  * State-Update pro Frame), damit der RAF-Loop keine Renderer-Kaskade auslöst.
  * Paragraphen-Highlighting wird über den `onParaChange`-Callback nach außen
  * gegeben (≤ 30fps Aktualisierung).
+ *
+ * Fallback (Browser-TTS): solange keine produzierte MP3 existiert — aktuell
+ * durchgängig der Fall, client/public/audio/{male,female,timestamps} sind
+ * leer —, wird stattdessen die SpeechSynthesis-API des Browsers genutzt, ein
+ * Utterance pro Absatz (chapterDisplay), verkettet über onend. Absatzweise
+ * statt ein langes Utterance, weil pause()/resume() der Web-Speech-API auf
+ * vielen Geräten (v.a. Android) unzuverlässig ist — Pause bricht hier den
+ * aktuellen Absatz sauber ab und merkt sich die Stelle zum Fortsetzen.
+ * `onParaChange` feuert exakt bei jedem Utterance-Start, kein charIndex-
+ * Mapping nötig. Voice-Auswahl nutzt dieselben Heuristiken wie useSpeech.ts.
  */
 
 import { useRef, useState, useEffect, useCallback } from 'react';
+import { guessVoiceGender } from './useSpeech';
 
 // ─── Types ────────────────────────────────────────────────────
 
@@ -45,6 +56,8 @@ export interface AudioPlayerAPI {
   loading: boolean;
   voice: VoiceGender;
   setVoice: (v: VoiceGender) => void;
+  rate: number;
+  setRate: (r: number) => void;
   toggle: () => void;
   play: () => void;
   pause: () => void;
@@ -86,6 +99,26 @@ function buildWordToParaMap(plainParas: string[]): number[] {
   return map;
 }
 
+/** Restliche Markdown-Reste vor dem Vorlesen entfernen (Absätze sind i. d. R. bereits reine Prosa). */
+function cleanForSpeech(text: string): string {
+  return text
+    .replace(/#{1,6}\s+/g, '')
+    .replace(/\*\*(.+?)\*\*/g, '$1')
+    .replace(/\*(.+?)\*/g, '$1')
+    .replace(/^>\s*/gm, '')
+    .trim();
+}
+
+/** Beste verfügbare Stimme für die gewünschte Geschlechts-Präferenz, bevorzugt Deutsch. */
+function pickTtsVoice(gender: VoiceGender): SpeechSynthesisVoice | undefined {
+  if (typeof window === 'undefined' || !('speechSynthesis' in window)) return undefined;
+  const all = window.speechSynthesis.getVoices();
+  if (all.length === 0) return undefined;
+  const de = all.filter(v => v.lang.toLowerCase().startsWith('de'));
+  const pool = de.length > 0 ? de : all;
+  return pool.find(v => guessVoiceGender(v.name) === gender) ?? pool[0];
+}
+
 // ─── Hook ─────────────────────────────────────────────────────
 
 export function useAudioPlayer(
@@ -96,6 +129,7 @@ export function useAudioPlayer(
   const { plainParagraphs, onParaChange } = opts;
 
   const [voice, setVoiceState] = useState<VoiceGender>(initialVoice);
+  const [rate, setRateState] = useState(1);
   const [playing, setPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
@@ -104,12 +138,32 @@ export function useAudioPlayer(
   const [loading, setLoading] = useState(false);
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  const rateRef = useRef(1);
   const rafRef = useRef<number>(0);
   const timestampsRef = useRef<WordTimestamp[]>([]);
   const wordToParaRef = useRef<number[]>([]);
   const currentWordIdxRef = useRef(-1);
   const currentParaIdxRef = useRef(-1);
   const frameCountRef = useRef(0);
+
+  // ─── Browser-TTS-Fallback (keine produzierte MP3 gefunden) ───────────────
+  const ttsSupported = typeof window !== 'undefined' && 'speechSynthesis' in window;
+  const [ttsParaIdx, setTtsParaIdx] = useState(-1);
+  const audioSourceRef = useRef<'mp3' | 'tts' | null>(null);
+  const plainParagraphsRef = useRef<string[]>([]);
+  const ttsActiveRef = useRef(false);
+  const ttsParaIdxRef = useRef(0);
+  const ttsUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  // Browser lädt Stimmen asynchron nach — früh anstoßen, damit pickTtsVoice()
+  // beim ersten Abspielen schon eine gefüllte Liste vorfindet.
+  useEffect(() => {
+    if (!ttsSupported) return;
+    const warm = () => { window.speechSynthesis.getVoices(); };
+    warm();
+    window.speechSynthesis.addEventListener('voiceschanged', warm);
+    return () => window.speechSynthesis.removeEventListener('voiceschanged', warm);
+  }, [ttsSupported]);
 
   // RAF-Loop: läuft nur wenn Audio abspielt
   const rafLoop = useCallback(() => {
@@ -165,11 +219,13 @@ export function useAudioPlayer(
     currentParaIdxRef.current = -1;
   };
 
-  // Wenn sich plainParagraphs ändert, Wort→Para-Map neu bauen
+  // Wenn sich plainParagraphs ändert, Wort→Para-Map neu bauen + Absätze für
+  // den TTS-Fallback vormerken (dieselben Absätze, andere Verwendung).
   useEffect(() => {
     if (plainParagraphs?.length) {
       wordToParaRef.current = buildWordToParaMap(plainParagraphs);
     }
+    plainParagraphsRef.current = plainParagraphs ?? [];
   }, [plainParagraphs]);
 
   // Audio + Timestamps laden wenn chapterId oder voice wechselt
@@ -193,19 +249,40 @@ export function useAudioPlayer(
       audioRef.current.src = '';
       audioRef.current = null;
     }
+    // Alten TTS-Lauf sauber aufräumen
+    audioSourceRef.current = null;
+    ttsActiveRef.current = false;
+    ttsParaIdxRef.current = 0;
+    ttsUtteranceRef.current = null;
+    setTtsParaIdx(-1);
+    if (ttsSupported) window.speechSynthesis.cancel();
 
     const audioUrl = `/audio/${voice}/${chapterId}.mp3`;
 
-    // Existiert die Datei?
+    // Existiert die Datei? Content-Type prüfen, nicht nur res.ok — manche
+    // Dev-/Static-Server (z. B. Vites SPA-Fallback) antworten auf jeden
+    // unbekannten Pfad mit 200 + index.html statt mit einem echten 404.
     fetch(audioUrl, { method: 'HEAD' })
       .then(res => {
-        if (!res.ok) { setLoading(false); return; }
+        const isAudio = res.ok && (res.headers.get('content-type') ?? '').startsWith('audio/');
+        if (!isAudio) {
+          setLoading(false);
+          // Keine produzierte MP3 — auf Browser-TTS ausweichen, sofern der
+          // Browser SpeechSynthesis unterstützt und Absätze vorliegen.
+          if (ttsSupported && plainParagraphsRef.current.length > 0) {
+            audioSourceRef.current = 'tts';
+            setHasAudio(true);
+          }
+          return;
+        }
 
+        audioSourceRef.current = 'mp3';
         const audio = new Audio(audioUrl);
         audioRef.current = audio;
         audio.preload = 'metadata';
 
         audio.addEventListener('loadedmetadata', () => {
+          audio.playbackRate = rateRef.current;
           setDuration(audio.duration);
           setLoading(false);
           setHasAudio(true);
@@ -259,9 +336,58 @@ export function useAudioPlayer(
         audioRef.current.src = '';
         audioRef.current = null;
       }
+      ttsActiveRef.current = false;
+      if (ttsSupported) window.speechSynthesis.cancel();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapterId, voice]);
+
+  // Absatzweise Verkettung fürs Browser-TTS: ein Utterance je Absatz, per
+  // onend zum nächsten. `ttsUtteranceRef`-Identitätscheck verhindert, dass
+  // ein durch cancel()+Neustart (Tempo-Wechsel) verworfenes Utterance seine
+  // eigene onend/onerror-Callback noch die Kette fortsetzen lässt.
+  const speakParagraph = useCallback((idx: number) => {
+    if (!ttsSupported) return;
+    const paras = plainParagraphsRef.current;
+    if (idx < 0 || idx >= paras.length) {
+      ttsActiveRef.current = false;
+      ttsParaIdxRef.current = 0;
+      currentParaIdxRef.current = -1;
+      setPlaying(false);
+      setTtsParaIdx(-1);
+      if (onParaChange) onParaChange(-1);
+      return;
+    }
+    const text = cleanForSpeech(paras[idx]);
+    if (!text) { speakParagraph(idx + 1); return; }
+
+    const utt = new SpeechSynthesisUtterance(text);
+    utt.lang = 'de-DE';
+    utt.rate = rateRef.current;
+    utt.pitch = 1;
+    const pickedVoice = pickTtsVoice(voice);
+    if (pickedVoice) utt.voice = pickedVoice;
+
+    utt.onstart = () => {
+      ttsParaIdxRef.current = idx;
+      currentParaIdxRef.current = idx;
+      setTtsParaIdx(idx);
+      if (onParaChange) onParaChange(idx);
+    };
+    utt.onend = () => {
+      if (!ttsActiveRef.current) return;
+      if (ttsUtteranceRef.current !== utt) return;
+      speakParagraph(idx + 1);
+    };
+    utt.onerror = () => {
+      if (ttsUtteranceRef.current !== utt) return;
+      ttsActiveRef.current = false;
+      setPlaying(false);
+    };
+
+    ttsUtteranceRef.current = utt;
+    window.speechSynthesis.speak(utt);
+  }, [onParaChange, voice, ttsSupported]);
 
   // Stimme wechseln
   const setVoice = useCallback((v: VoiceGender) => {
@@ -274,38 +400,91 @@ export function useAudioPlayer(
   }, []);
 
   const play = useCallback(() => {
+    if (audioSourceRef.current === 'tts') {
+      if (!ttsSupported) return;
+      ttsActiveRef.current = true;
+      setPlaying(true);
+      speakParagraph(ttsParaIdxRef.current);
+      return;
+    }
     audioRef.current?.play().catch(() => {});
-  }, []);
+  }, [speakParagraph, ttsSupported]);
 
   const pause = useCallback(() => {
+    if (audioSourceRef.current === 'tts') {
+      ttsActiveRef.current = false;
+      if (ttsSupported) window.speechSynthesis.cancel();
+      setPlaying(false);
+      return;
+    }
     audioRef.current?.pause();
-  }, []);
+  }, [ttsSupported]);
 
   const toggle = useCallback(() => {
+    if (audioSourceRef.current === 'tts') {
+      if (playing) pause(); else play();
+      return;
+    }
     if (!audioRef.current || !hasAudio) return;
     if (audioRef.current.paused) audioRef.current.play().catch(() => {});
     else audioRef.current.pause();
-  }, [hasAudio]);
+  }, [hasAudio, playing, play, pause]);
 
   const seek = useCallback((seconds: number) => {
+    // Für den TTS-Fallback gibt es keine echte Zeitachse — nur seekFraction ist sinnvoll.
+    if (audioSourceRef.current === 'tts') return;
     if (!audioRef.current) return;
     audioRef.current.currentTime = seconds;
     setCurrentTime(seconds);
   }, []);
 
   const seekFraction = useCallback((fraction: number) => {
+    if (audioSourceRef.current === 'tts') {
+      const total = plainParagraphsRef.current.length;
+      if (total === 0) return;
+      const idx = Math.min(total - 1, Math.max(0, Math.floor(fraction * total)));
+      ttsParaIdxRef.current = idx;
+      if (ttsActiveRef.current && ttsSupported) {
+        window.speechSynthesis.cancel();
+        speakParagraph(idx);
+      } else {
+        currentParaIdxRef.current = idx;
+        setTtsParaIdx(idx);
+        if (onParaChange) onParaChange(idx);
+      }
+      return;
+    }
     if (!audioRef.current) return;
     const t = fraction * (audioRef.current.duration || 0);
     audioRef.current.currentTime = t;
     setCurrentTime(t);
-  }, []);
+  }, [speakParagraph, ttsSupported, onParaChange]);
 
-  const progress = duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0;
+  const setRate = useCallback((r: number) => {
+    rateRef.current = r;
+    setRateState(r);
+    if (audioSourceRef.current === 'tts') {
+      // Web-Speech-API erlaubt keine Live-Änderung der Rate eines laufenden
+      // Utterance — laufenden Absatz mit neuem Tempo neu starten.
+      if (ttsActiveRef.current && ttsSupported) {
+        window.speechSynthesis.cancel();
+        speakParagraph(ttsParaIdxRef.current);
+      }
+      return;
+    }
+    if (audioRef.current) audioRef.current.playbackRate = r;
+  }, [speakParagraph, ttsSupported]);
+
+  const progress = audioSourceRef.current === 'tts'
+    ? (plainParagraphsRef.current.length > 0
+      ? Math.min(100, ((ttsParaIdx + 1) / plainParagraphsRef.current.length) * 100)
+      : 0)
+    : (duration > 0 ? Math.min(100, (currentTime / duration) * 100) : 0);
 
   return {
     playing, currentTime, duration, progress,
     hasAudio, hasTimestamps, loading,
-    voice, setVoice,
+    voice, setVoice, rate, setRate,
     toggle, play, pause, seek, seekFraction,
   };
 }

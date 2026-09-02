@@ -11,10 +11,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
+import { useIsMobile } from "@/hooks/useMobile";
+import MobileFragen from "@/pages/mobile/MobileFragen";
 
 type StatusFilter = "all" | "open" | "answered";
 
@@ -27,6 +29,7 @@ export default function FragenPage() {
   const [questions, setQuestions] = useState<QuestionEntry[] | null>(null);
   const [status, setStatus] = useState<StatusFilter>("all");
   const [area, setArea] = useState<string | null>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => { loadQuestions().then(f => setQuestions(f?.questions ?? [])); }, []);
 
@@ -56,6 +59,10 @@ export default function FragenPage() {
     color: active ? c.accentText : c.muted, background: "none",
   });
 
+  if (isMobile) {
+    return <MobileFragen />;
+  }
+
   return (
     <div
       data-scroll
@@ -69,7 +76,7 @@ export default function FragenPage() {
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>
-        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
+        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
           Offene Fragen <span style={{ color: c.accentText }}>·</span> Der Denk-Horizont
         </h1>
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1rem", lineHeight: 1.5 }}>
@@ -101,7 +108,17 @@ export default function FragenPage() {
         {!questions ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : shown.length === 0 ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>Keine Fragen mit diesem Filter.</div>
+          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted, lineHeight: 1.6 }}>
+            Keine Fragen {status === "open" ? "offen" : status === "answered" ? "beantwortet" : ""}
+            {area ? ` in „${epLabel(area)}"` : ""} — {counts.total} Fragen insgesamt warten in anderen Filtern.
+            {" "}
+            <button
+              onClick={() => { setStatus("all"); setArea(null); }}
+              style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.04em", color: c.accentText, background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}
+            >
+              Filter zurücksetzen
+            </button>
+          </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
             {shown.map((q, i) => (

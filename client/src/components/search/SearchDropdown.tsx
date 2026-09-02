@@ -29,6 +29,7 @@ const TYPE_LABELS: Record<SearchHitType, string> = {
   concept: "Begriffe",
   philosopher: "Philosophen",
   curation: "Kuratierung",
+  area: "Bereiche",
 };
 
 export function SearchDropdown({

@@ -16,9 +16,11 @@ export interface ReadingSettings {
   measure: number;
   /** true = Lese-Serife (Lora), false = Sans (Inter). */
   serifBody: boolean;
+  /** "scroll" = durchlaufender Kapiteltext, "paged" = Chunk-für-Chunk blättern (Mobile-Reader). */
+  pageMode: "scroll" | "paged";
 }
 
-export const READING_DEFAULTS: ReadingSettings = { fontScale: 1, measure: 36, serifBody: true };
+export const READING_DEFAULTS: ReadingSettings = { fontScale: 1, measure: 36, serifBody: true, pageMode: "scroll" };
 
 export const FONT_SCALE_MIN = 0.85;
 export const FONT_SCALE_MAX = 1.5;
@@ -41,6 +43,7 @@ export function loadReadingSettings(): ReadingSettings {
       fontScale: clamp(typeof p.fontScale === "number" ? p.fontScale : 1, FONT_SCALE_MIN, FONT_SCALE_MAX),
       measure: clamp(typeof p.measure === "number" ? p.measure : 36, MEASURE_MIN, MEASURE_MAX),
       serifBody: typeof p.serifBody === "boolean" ? p.serifBody : true,
+      pageMode: p.pageMode === "paged" ? "paged" : "scroll",
     };
   } catch {
     return { ...READING_DEFAULTS };

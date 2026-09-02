@@ -19,7 +19,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import {
   NODES, EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H,
@@ -30,6 +30,9 @@ import { loadPromotedEdges, invalidatePromotedEdges, type PromotedEdge } from "@
 import { loadDynamicNodes, type DynamicConceptNode } from "@/lib/dynamicNodes";
 import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import SectionLabel from "@/components/SectionLabel";
+import { useIsMobile } from "@/hooks/useMobile";
+import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
+import MobileLandkarte from "@/pages/mobile/MobileLandkarte";
 
 const CURATED = new Set(["approved", "published"]);
 const MIN_CO = 2;  // Min. gemeinsame Erkenntnisse, damit eine Verbindung „wird".
@@ -52,6 +55,11 @@ export default function LandkartePage() {
   const [promoteMsg, setPromoteMsg] = useState<string | null>(null);
   const { state: adminState } = useAdminAuth();
   const isAdmin = adminState === "ok";
+  const isMobile = useIsMobile();
+  // Pan/Zoom fürs Desktop-Kartenpanel — dasselbe Hook-Pattern wie
+  // MobileLandkarte und die philosophy/views.tsx-Karten (dort minZoom
+  // 0.5 / maxZoom 3.0 als etablierter Desktop-Standard).
+  const canvas = useInteractiveCanvas({ minZoom: 0.5, maxZoom: 3.0, disableNodeDrag: true });
 
   useEffect(() => {
     loadResonanzenIndexLazy().then(idx => idx && setAllEntries(idx.entries));
@@ -162,6 +170,22 @@ export default function LandkartePage() {
 
   const selNode = selected ? nodeById.get(selected) : null;
 
+  if (isMobile) {
+    return (
+      <MobileLandkarte
+        C={C} isDark={theme === "dark"} navigate={navigate}
+        allNodes={allNodes} nodeById={nodeById} dynamicIds={dynamicIds}
+        promoted={promoted} emerging={emerging} maxEmerging={maxEmerging}
+        engagement={engagement} maxEngagement={maxEngagement}
+        curatedOnly={curatedOnly} setCuratedOnly={setCuratedOnly}
+        curatedCount={curatedCount} engagedCount={engagedCount}
+        entriesCount={entries.length} dynamicCount={dynamic.length} promotedCount={promoted.length}
+        selected={selected} setSelected={setSelected} selNode={selNode}
+        selectedEntries={selectedEntries} selectedEmerging={selectedEmerging}
+      />
+    );
+  }
+
   return (
     <div
       data-scroll
@@ -173,7 +197,7 @@ export default function LandkartePage() {
     >
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
       <header style={{ marginBottom: "1rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
-        <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.7rem", color: C.textBright }}>Wissens-Landkarte</h1>
+        <h1 style={{ margin: 0, fontFamily: DISPLAY, fontSize: "1.7rem", color: C.textBright }}>Wissens-Landkarte</h1>
         <p style={{ marginTop: "0.4rem", fontFamily: SERIF, fontStyle: "italic", color: C.textDim, fontSize: "0.95rem", lineHeight: 1.55, maxWidth: "44rem" }}>
           Das Begriffsnetz als Rückgrat — der Korpus lagert sich an. Jeder Begriff wächst mit den
           Erkenntnissen, die ihn berühren. <strong>Gestrichelte</strong> Linien sind <em>werdende
@@ -193,6 +217,7 @@ export default function LandkartePage() {
         <Metric C={C} label="werdende Verbindungen" value={emerging.length} />
         <Metric C={C} label="erhobene Kanten" value={promoted.length} />
         <Metric C={C} label="Erkenntnisse im Bild" value={entries.length} />
+        <Metric C={C} label="Zoom" value={`${Math.round(canvas.zoom * 100)}%`} />
       </div>
 
       {promoteMsg && (
@@ -211,70 +236,74 @@ export default function LandkartePage() {
 
       <div style={{ display: "grid", gridTemplateColumns: "minmax(0, 1fr) 280px", gap: "1.5rem", alignItems: "start" }}>
         {/* ── Karte ── */}
-        <div style={{ background: C.deep, border: `1px solid ${C.border}`, borderRadius: 6, overflow: "hidden" }}>
-          <svg viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`} width="100%" height="auto" preserveAspectRatio="xMidYMid meet"
+        <div style={{ background: C.deep, border: `1px solid ${C.border}`, borderRadius: 6, overflow: "hidden", height: "min(70vh, 640px)" }}>
+          <svg
+            {...canvas.bind}
+            viewBox={`0 0 ${CANVAS_W} ${CANVAS_H}`} width="100%" height="100%" preserveAspectRatio="xMidYMid meet"
             role="group" aria-roledescription="Wissens-Landkarte"
-            aria-label="Wissens-Landkarte — Begriffe als Konstellation, Größe nach gesammelten Erkenntnissen. Begriffe lassen sich anklicken; die Liste rechts bietet eine textuelle Alternative."
-            style={{ display: "block" }}>
-            {/* Kanonische Kanten (stabiles Rückgrat) */}
-            {EDGES.map((ed, i) => {
-              const s = nodeById.get(ed.source); const t = nodeById.get(ed.target);
-              if (!s || !t) return null;
-              return (
-                <line key={`c${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
-                  stroke={C.border} strokeWidth={ed.weight === "primary" ? 1.4 : 0.8} strokeOpacity={0.6} />
-              );
-            })}
-            {/* Erhobene Kanten (Phase 5b) — in den Kanon gewachsen: solide,
-                Akzent, etwas kräftiger als das statische Rückgrat. */}
-            {promoted.map((e, i) => {
-              const s = nodeById.get(e.source); const t = nodeById.get(e.target);
-              if (!s || !t) return null;
-              return (
-                <line key={`p${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
-                  stroke={C.accent} strokeWidth={1.8} strokeOpacity={0.7} />
-              );
-            })}
-            {/* Werdende Verbindungen (gestrichelt, Akzent) */}
-            {emerging.map((e, i) => {
-              const s = nodeById.get(e.a); const t = nodeById.get(e.b);
-              if (!s || !t) return null;
-              const op = 0.25 + 0.55 * (e.count / maxEmerging);
-              const active = selected === e.a || selected === e.b;
-              return (
-                <line key={`e${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
-                  stroke={C.accent} strokeWidth={active ? 2.2 : 1.2 + (e.count / maxEmerging)} strokeOpacity={active ? 0.95 : op}
-                  strokeDasharray="4 4" />
-              );
-            })}
-            {/* Knoten (statisch + dynamisch). Neue Begriffe (Phase 5c) erhalten
-                einen gestrichelten Ring als Markierung des Netz-Wachstums. */}
-            {allNodes.map(n => {
-              const eng = engagement.get(n.id) ?? 0;
-              const isSel = selected === n.id;
-              const isDyn = dynamicIds.has(n.id);
-              const halo = eng > 0 ? n.r + 4 + 26 * (eng / maxEngagement) : 0;
-              const col = CAT_COLOR[n.category];
-              return (
-                <g key={n.id} style={{ cursor: "pointer" }} onClick={() => setSelected(isSel ? null : n.id)}>
-                  {halo > 0 && <circle cx={n.x} cy={n.y} r={halo} fill={col} opacity={0.12} />}
-                  {isDyn && (
-                    <circle cx={n.x} cy={n.y} r={n.r * 0.6 + 4} fill="none"
-                      stroke={C.accent} strokeWidth={1.2} strokeDasharray="3 3" opacity={0.8} />
-                  )}
-                  <circle cx={n.x} cy={n.y} r={n.r * 0.6}
-                    fill={eng > 0 ? col : C.surface}
-                    stroke={isSel ? C.textBright : col} strokeWidth={isSel ? 2.5 : 1}
-                    opacity={eng > 0 ? 0.92 : 0.45} />
-                  {(eng > 0 || isSel || isDyn) && (
-                    <text x={n.x} y={n.y + n.r * 0.6 + 11} textAnchor="middle"
-                      style={{ fontFamily: SERIF, fontSize: 11, fill: isSel ? C.textBright : (isDyn ? C.accent : C.textDim), pointerEvents: "none" }}>
-                      {n.fullLabel}{eng > 0 ? ` (${eng})` : ""}{isDyn ? " ✦" : ""}
-                    </text>
-                  )}
-                </g>
-              );
-            })}
+            aria-label="Wissens-Landkarte — Begriffe als Konstellation, Größe nach gesammelten Erkenntnissen. Begriffe lassen sich anklicken, mit der Maus/Fingern verschieben und zoomen; die Liste rechts bietet eine textuelle Alternative."
+            style={{ display: "block", touchAction: "none", cursor: canvas.dragging ? "grabbing" : "grab" }}>
+            <g transform={canvas.transform}>
+              {/* Kanonische Kanten (stabiles Rückgrat) */}
+              {EDGES.map((ed, i) => {
+                const s = nodeById.get(ed.source); const t = nodeById.get(ed.target);
+                if (!s || !t) return null;
+                return (
+                  <line key={`c${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
+                    stroke={C.border} strokeWidth={ed.weight === "primary" ? 1.4 : 0.8} strokeOpacity={0.6} />
+                );
+              })}
+              {/* Erhobene Kanten (Phase 5b) — in den Kanon gewachsen: solide,
+                  Akzent, etwas kräftiger als das statische Rückgrat. */}
+              {promoted.map((e, i) => {
+                const s = nodeById.get(e.source); const t = nodeById.get(e.target);
+                if (!s || !t) return null;
+                return (
+                  <line key={`p${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
+                    stroke={C.accent} strokeWidth={1.8} strokeOpacity={0.7} />
+                );
+              })}
+              {/* Werdende Verbindungen (gestrichelt, Akzent) */}
+              {emerging.map((e, i) => {
+                const s = nodeById.get(e.a); const t = nodeById.get(e.b);
+                if (!s || !t) return null;
+                const op = 0.25 + 0.55 * (e.count / maxEmerging);
+                const active = selected === e.a || selected === e.b;
+                return (
+                  <line key={`e${i}`} x1={s.x} y1={s.y} x2={t.x} y2={t.y}
+                    stroke={C.accent} strokeWidth={active ? 2.2 : 1.2 + (e.count / maxEmerging)} strokeOpacity={active ? 0.95 : op}
+                    strokeDasharray="4 4" />
+                );
+              })}
+              {/* Knoten (statisch + dynamisch). Neue Begriffe (Phase 5c) erhalten
+                  einen gestrichelten Ring als Markierung des Netz-Wachstums. */}
+              {allNodes.map(n => {
+                const eng = engagement.get(n.id) ?? 0;
+                const isSel = selected === n.id;
+                const isDyn = dynamicIds.has(n.id);
+                const halo = eng > 0 ? n.r + 4 + 26 * (eng / maxEngagement) : 0;
+                const col = CAT_COLOR[n.category];
+                return (
+                  <g key={n.id} style={{ cursor: "pointer" }} onClick={() => { if (canvas.justDragged()) return; setSelected(isSel ? null : n.id); }}>
+                    {halo > 0 && <circle cx={n.x} cy={n.y} r={halo} fill={col} opacity={0.12} />}
+                    {isDyn && (
+                      <circle cx={n.x} cy={n.y} r={n.r * 0.6 + 4} fill="none"
+                        stroke={C.accent} strokeWidth={1.2} strokeDasharray="3 3" opacity={0.8} />
+                    )}
+                    <circle cx={n.x} cy={n.y} r={n.r * 0.6}
+                      fill={eng > 0 ? col : C.surface}
+                      stroke={isSel ? C.textBright : col} strokeWidth={isSel ? 2.5 : 1}
+                      opacity={eng > 0 ? 0.92 : 0.45} />
+                    {(eng > 0 || isSel || isDyn) && (
+                      <text x={n.x} y={n.y + n.r * 0.6 + 11} textAnchor="middle"
+                        style={{ fontFamily: SERIF, fontSize: 11 / canvas.zoom, fill: isSel ? C.textBright : (isDyn ? C.accent : C.textDim), pointerEvents: "none" }}>
+                        {n.fullLabel}{eng > 0 ? ` (${eng})` : ""}{isDyn ? " ✦" : ""}
+                      </text>
+                    )}
+                  </g>
+                );
+              })}
+            </g>
           </svg>
         </div>
 

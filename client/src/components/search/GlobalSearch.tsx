@@ -2,10 +2,12 @@
  * GlobalSearch — Wrapper, der GlobalSearchOverlay mit konkreten Sources
  * + Routing-Logik verbindet. Wird einmal im AppFrame gemountet.
  *
- * Sources: chapters (via useEbook), concepts, philosophers.
+ * Sources: areas (App-Bereiche selbst, Redesign Phase 3), chapters
+ * (via useEbook), concepts, philosophers, resonanzen.
  * Hotkeys: Cmd/Ctrl+K togglet, "/" als Fallback.
  *
  * Navigation auf Klick:
+ *   area         → hit.anchor direkt (die Ziel-Route selbst)
  *   chapter      → /?chapter=<id>     (Home.tsx liest Param, navigateTo)
  *   concept      → /begriffsnetz?node=<id>  (ConceptGraphPage liest Param)
  *   philosopher  → /philosophie?id=<id>     (PhilosophyPage hört das schon)
@@ -15,7 +17,7 @@ import { useLocation } from "wouter";
 import { GlobalSearchOverlay } from "./GlobalSearchOverlay";
 import { useGlobalHotkey } from "@/hooks/useGlobalHotkey";
 import { useEbook } from "@/hooks/useEbook";
-import { createChaptersSource, conceptsSource, philosophersSource, resonanzenSource } from "@/lib/search/sources";
+import { createChaptersSource, conceptsSource, philosophersSource, resonanzenSource, areasSource } from "@/lib/search/sources";
 import type { SearchHit, SearchSource } from "@/lib/search/types";
 
 export function GlobalSearch() {
@@ -24,7 +26,7 @@ export function GlobalSearch() {
   const ebook = useEbook();
 
   const sources = useMemo<SearchSource[]>(
-    () => [createChaptersSource(ebook), conceptsSource, philosophersSource, resonanzenSource],
+    () => [areasSource, createChaptersSource(ebook), conceptsSource, philosophersSource, resonanzenSource],
     [ebook]
   );
 
@@ -32,7 +34,9 @@ export function GlobalSearch() {
   useGlobalHotkey("/", e => { e.preventDefault(); setOpen(o => !o); });
 
   function handleSelect(hit: SearchHit) {
-    if (hit.type === "chapter") {
+    if (hit.type === "area") {
+      navigate(hit.anchor ?? "/");
+    } else if (hit.type === "chapter") {
       navigate(`/?chapter=${encodeURIComponent(hit.id)}`);
     } else if (hit.type === "concept") {
       navigate(`/begriffsnetz?node=${encodeURIComponent(hit.id)}`);

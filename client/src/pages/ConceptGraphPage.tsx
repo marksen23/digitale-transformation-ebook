@@ -24,6 +24,7 @@ import CitedSourcesFooter from "@/components/CitedSourcesFooter";
 import { loadPromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
 import { loadDynamicNodes, type DynamicConceptNode } from "@/lib/dynamicNodes";
 import { consumeSSE } from "@/lib/sseClient";
+import { findPassageForConcept, type ConceptPassageLink } from "@/lib/conceptPassageLink";
 
 const PR_COLOR = "#8ea8b8";
 const PR_GLOW  = "#c4d6e0";
@@ -415,6 +416,50 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   const [resonanzenEntries, setResonanzenEntries] = useState<ResonanzEntry[] | null>(null);
   const [resonanzenExpanded, setResonanzenExpanded] = useState(false);
 
+  // "Zur Passage" (Mobile-Sheet + Langes-Drücken auf dem Knoten, Reader-first-
+  // Design Runde 1): löst den ausgewählten Begriff auf eine echte, im Werk
+  // verankerte Stelle auf (über Resonanz-Einträge, die den Begriff berühren).
+  const [passageLink, setPassageLink] = useState<ConceptPassageLink | null>(null);
+  useEffect(() => {
+    setPassageLink(null);
+    if (!selectedId) return;
+    let live = true;
+    findPassageForConcept(selectedId).then(link => { if (live) setPassageLink(link); });
+    return () => { live = false; };
+  }, [selectedId]);
+  const jumpToPassage = useCallback((link: ConceptPassageLink, label: string) => {
+    navigate(`/werk/${encodeURIComponent(link.chapterId)}?chunk=${encodeURIComponent(link.chunkId)}&fromConcept=${encodeURIComponent(label)}`);
+  }, [navigate]);
+
+  // Langes-Drücken auf einem Knoten → direkt zur verankerten Werk-Passage
+  // (Reader-first-Design Runde 1: "Halten springt in die Passage"). Teilt
+  // sich hasDraggedRef/nodeDragRef mit dem Node-Drag — kein paralleler
+  // "hat sich bewegt"-Zustand, um die beiden nicht auseinanderlaufen zu lassen.
+  const longPressRef = useRef<{ id: string; timer: ReturnType<typeof setTimeout> } | null>(null);
+  const cancelLongPress = useCallback(() => {
+    if (longPressRef.current) { clearTimeout(longPressRef.current.timer); longPressRef.current = null; }
+  }, []);
+  const startLongPress = useCallback((id: string, label: string) => {
+    cancelLongPress();
+    const timer = setTimeout(() => {
+      longPressRef.current = null;
+      if (hasDraggedRef.current || nodeDragRef.current?.id !== id) return;
+      // Muss synchron gesetzt werden (nicht erst nach dem await), sonst
+      // gewinnt ein zwischenzeitliches Loslassen den Wettlauf gegen die
+      // asynchrone Passagen-Suche und der nachfolgende Klick wählt den
+      // Knoten zusätzlich aus.
+      hasDraggedRef.current = true; // unterdrückt die nachfolgende Tap-Auswahl
+      findPassageForConcept(id).then(link => {
+        if (link) jumpToPassage(link, label);
+        // Kein verankerter Beleg für diesen Begriff — statt eines stummen
+        // Abbruchs wenigstens die normale Auswahl (Detail-Sheet) nachholen,
+        // die der unterdrückte Klick sonst ausgelöst hätte.
+        else setSelectedId(id);
+      });
+    }, 480);
+    longPressRef.current = { id, timer };
+  }, [cancelLongPress, jumpToPassage, setSelectedId]);
+
   // Deep-Link aus Suche / Landkarte / MeinWerk:
   //   ?node=<id>  oder  ?focus=<id>  (Alias) → fokussiert einen Begriff
   //   ?from=<a>&to=<b>                        → hebt eine Verbindung hervor
@@ -748,7 +793,8 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
     pinchRef.current    = null;
     nodeDragRef.current = null;  // was missing — left stale node-drag state on touch
     setDraggingNodeId(null);
-  }, []);
+    cancelLongPress();
+  }, [cancelLongPress]);
 
   // ── Search match set ─────────────────────────────────────────────────────
   const searchLower = searchQuery.toLowerCase().trim();
@@ -1806,6 +1852,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         origY: pos.y,
                       };
                       setDraggingNodeId(node.id);
+                      startLongPress(node.id, node.fullLabel);
                     }
                   }}
                 >
@@ -2025,6 +2072,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         origY: pos.y,
                       };
                       setDraggingNodeId(node.id);
+                      startLongPress(node.id, node.fullLabel);
                     }
                   }}
                 >
@@ -2175,6 +2223,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         origY: pos.y,
                       };
                       setDraggingNodeId(node.id);
+                      startLongPress(node.id, node.fullLabel);
                     }
                   }}
                 >
@@ -2876,6 +2925,18 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 </button>
               ))}
             </div>
+          )}
+
+          {passageLink && (
+            <button
+              onClick={() => jumpToPassage(passageLink, selectedNode.fullLabel)}
+              style={{
+                width: "100%", minHeight: 46, marginBottom: "0.8rem",
+                fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.18em", textTransform: "uppercase",
+                color: C.accentText, background: "none", border: `1px solid ${C.accentText}`,
+                borderRadius: 4, cursor: "pointer",
+              }}
+            >Zur Passage</button>
           )}
 
           {/* ── Resonanzen zu diesem Begriff (Mobile) ── */}

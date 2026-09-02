@@ -30,6 +30,7 @@ const StatusPage = lazy(() => import("./pages/StatusPage"));
 const StatistikPage = lazy(() => import("./pages/StatistikPage"));
 const ProjektPage = lazy(() => import("./pages/ProjektPage"));
 const InfoPage = lazy(() => import("./pages/InfoPage"));
+const ErkundenPage = lazy(() => import("./pages/ErkundenPage"));
 
 // Wrapper: Sub-Pages laufen alle unter dem globalen AppFrame.
 // Home (/) bleibt aussen vor — seine eigene Reading-UI bestimmt das Frame.
@@ -61,6 +62,9 @@ function Router() {
       </Route>
       <Route path={"/begriffsnetz"}>
         <Framed><Suspense fallback={fallback}><ConceptGraphPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/erkunden"}>
+        <Framed><Suspense fallback={fallback}><ErkundenPage /></Suspense></Framed>
       </Route>
       <Route path={"/werk/:chapter?"}>
         <Framed><Suspense fallback={fallback}><WerkPage /></Suspense></Framed>
