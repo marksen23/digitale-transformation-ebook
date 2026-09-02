@@ -812,6 +812,11 @@ export default function Home() {
             <p className="text-stone-300 text-sm md:text-base font-serif italic max-w-sm mx-auto leading-relaxed">
               Eine poetisch-philosophische Trilogie<br />mit theoretischer Grundlegung<br />in drei Kritiken
             </p>
+            {/* Redesign Phase 1: der zweite Satz, der bisher fehlte — was das
+                Werk von einem gewöhnlichen Buch unterscheidet, in einer Zeile. */}
+            <p className="text-amber-400/90 text-xs md:text-sm font-serif italic max-w-sm mx-auto leading-relaxed pt-1">
+              Ein Buch, das mit jeder Frage weiterwächst.
+            </p>
           </div>
 
           <div className="space-y-3 text-stone-400 text-xs">
@@ -833,6 +838,16 @@ export default function Home() {
             >
               <BookOpen size={16} className="inline mr-2 -mt-0.5" />
               Lesen
+            </button>
+            {/* Redesign Phase 1: der zweite Weg neben dem Lesen — direkt ins
+                Begriffsnetz, statt dass Erkunden erst über die Navigation
+                gefunden werden muss. */}
+            <button
+              onClick={() => setLocation('/begriffsnetz')}
+              className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
+            >
+              <Compass size={16} />
+              Erkunden
             </button>
             {!isInstalled && (
               <button
