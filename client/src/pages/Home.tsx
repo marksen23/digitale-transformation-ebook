@@ -839,11 +839,12 @@ export default function Home() {
               <BookOpen size={16} className="inline mr-2 -mt-0.5" />
               Lesen
             </button>
-            {/* Redesign Phase 1: der zweite Weg neben dem Lesen — direkt ins
-                Begriffsnetz, statt dass Erkunden erst über die Navigation
-                gefunden werden muss. */}
+            {/* Redesign Phase 1: der zweite Weg neben dem Lesen, statt dass
+                Erkunden erst über die Navigation gefunden werden muss. Führt
+                seit Phase 2 zum gemeinsamen Erkunden-Einstieg (/erkunden),
+                nicht mehr direkt in eine der drei Linsen. */}
             <button
-              onClick={() => setLocation('/begriffsnetz')}
+              onClick={() => setLocation('/erkunden')}
               className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
             >
               <Compass size={16} />
