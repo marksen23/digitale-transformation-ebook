@@ -11,7 +11,8 @@ export type SearchHitType =
   | "resonanz"    // Kuratierter Resonanz-Eintrag
   | "concept"     // Konzept-Knoten aus dem Begriffsnetz
   | "philosopher" // Philosoph aus der Tradition-Liste
-  | "curation";   // Item in /admin/curation (nur AdminCuration)
+  | "curation"    // Item in /admin/curation (nur AdminCuration)
+  | "area";       // App-Bereich/Seite selbst (Redesign Phase 3)
 
 export interface SearchHit {
   /** Stabile ID innerhalb des Typs */

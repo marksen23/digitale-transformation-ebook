@@ -8,7 +8,7 @@ import { useMemo } from "react";
 import { MONO, type Palette } from "@/lib/theme";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
 import { useEbook } from "@/hooks/useEbook";
-import { createChaptersSource, conceptsSource, philosophersSource, resonanzenSource } from "@/lib/search/sources";
+import { createChaptersSource, conceptsSource, philosophersSource, resonanzenSource, areasSource } from "@/lib/search/sources";
 import type { SearchHit, SearchSource } from "@/lib/search/types";
 
 interface Props {
@@ -20,13 +20,14 @@ interface Props {
 export default function MobileSearchOverlay({ C, onClose, navigate }: Props) {
   const ebook = useEbook();
   const sources = useMemo<SearchSource[]>(
-    () => [createChaptersSource(ebook), conceptsSource, philosophersSource, resonanzenSource],
+    () => [areasSource, createChaptersSource(ebook), conceptsSource, philosophersSource, resonanzenSource],
     [ebook],
   );
 
   function handleSelect(hit: SearchHit) {
     onClose();
-    if (hit.type === "chapter") navigate(`/werk/${encodeURIComponent(hit.id)}`);
+    if (hit.type === "area") navigate(hit.anchor ?? "/");
+    else if (hit.type === "chapter") navigate(`/werk/${encodeURIComponent(hit.id)}`);
     else if (hit.type === "concept") navigate(`/begriffsnetz?node=${encodeURIComponent(hit.id)}`);
     else if (hit.type === "philosopher") navigate(`/philosophie?id=${encodeURIComponent(hit.id)}`);
     else if (hit.type === "resonanz") navigate(`/resonanzen?id=${encodeURIComponent(hit.id)}`);
