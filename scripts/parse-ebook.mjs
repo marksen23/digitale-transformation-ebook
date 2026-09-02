@@ -38,7 +38,13 @@ const sectionPatterns = [
   { pattern: /^Kapitel 5: Die Prüfungen im digitalen Labyrinth$/, id: 'band1-kap5', title: 'Die Prüfungen im digitalen Labyrinth', chapter: 5, part: 'band1', partTitle: 'Band I: Die Überführung' },
   { pattern: /^Substory: Enkidus innere Entwicklung$/, id: 'band1-substory', title: 'Enkidus innere Entwicklung', subtitle: 'Das Erwachen des Geistes', part: 'band1', partTitle: 'Band I: Die Überführung' },
   { pattern: /^Epilog: Das Lied vom ewigen Wandel$/, id: 'band1-epilog', title: 'Epilog: Das Lied vom ewigen Wandel', part: 'band1', partTitle: 'Band I: Die Überführung' },
-  { pattern: /^Reflexion zu Band I/, id: 'band1-reflexion', title: 'Reflexion zu Band I', subtitle: 'Die Überführung als Arbeit am Mythos', part: 'band1', partTitle: 'Band I: Die Überführung' },
+  // Colon-Anchor ist Pflicht: "Reflexion zu Band I" ist sonst auch ein
+  // Regex-Präfix-Match für "Reflexion zu Band II" und "Reflexion zu Band III"
+  // (String-Präfix-Vergleich, nicht römische Ziffer) — ohne den Doppelpunkt
+  // gewann dieses Pattern (steht zuerst im Array) gegen beide späteren
+  // Patterns unten, wodurch alle drei Reflexionen als "band1-reflexion"
+  // getaggt wurden (gefunden 2026-09-02, doppelte React-Keys im Reader).
+  { pattern: /^Reflexion zu Band I:/, id: 'band1-reflexion', title: 'Reflexion zu Band I', subtitle: 'Die Überführung als Arbeit am Mythos', part: 'band1', partTitle: 'Band I: Die Überführung' },
 
   // Band II
   { pattern: /^BAND II: DER AUSGANG$/, id: 'band2-intro', title: 'Band II: Der Ausgang', subtitle: 'Kant im Zeitalter der Maschinenvernunft', part: 'band2', partTitle: 'Band II: Der Ausgang' },
@@ -49,7 +55,7 @@ const sectionPatterns = [
   { pattern: /^Kapitel 4: Die Kritik der digitalen Urteilskraft$/, id: 'band2-kap4', title: 'Die Kritik der digitalen Urteilskraft', chapter: 4, part: 'band2', partTitle: 'Band II: Der Ausgang' },
   { pattern: /^Kapitel 5: Der Mut zur Imperfektion$/, id: 'band2-kap5', title: 'Der Mut zur Imperfektion', chapter: 5, part: 'band2', partTitle: 'Band II: Der Ausgang' },
   { pattern: /^Epilog: Ein neuer Ausgang$/, id: 'band2-epilog', title: 'Epilog: Ein neuer Ausgang', part: 'band2', partTitle: 'Band II: Der Ausgang' },
-  { pattern: /^Reflexion zu Band II/, id: 'band2-reflexion', title: 'Reflexion zu Band II', subtitle: 'Die digitale Aufklärung', part: 'band2', partTitle: 'Band II: Der Ausgang' },
+  { pattern: /^Reflexion zu Band II:/, id: 'band2-reflexion', title: 'Reflexion zu Band II', subtitle: 'Die digitale Aufklärung', part: 'band2', partTitle: 'Band II: Der Ausgang' },
 
   // Band III
   { pattern: /^BAND III: DIE RÜCKBINDUNG$/, id: 'band3-intro', title: 'Band III: Die Rückbindung', subtitle: 'Resonanz im Zeitalter der Entfremdung', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
@@ -61,7 +67,7 @@ const sectionPatterns = [
   { pattern: /^Kapitel 5: Die Rückkehr zur Präsenz im Virtuellen$/, id: 'band3-kap5', title: 'Die Rückkehr zur Präsenz im Virtuellen', chapter: 5, part: 'band3', partTitle: 'Band III: Die Rückbindung' },
   { pattern: /^Substory: Die innere Rückbindung eines Users$/, id: 'band3-substory', title: 'Die innere Rückbindung eines Users', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
   { pattern: /^Epilog: Religio/, id: 'band3-epilog', title: 'Epilog: Religio', subtitle: 'Die Rückbindung als Integration', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
-  { pattern: /^Reflexion zu Band III/, id: 'band3-reflexion', title: 'Reflexion zu Band III', subtitle: 'Die existenzielle Rückbindung', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
+  { pattern: /^Reflexion zu Band III:/, id: 'band3-reflexion', title: 'Reflexion zu Band III', subtitle: 'Die existenzielle Rückbindung', part: 'band3', partTitle: 'Band III: Die Rückbindung' },
 
   // Teil IV
   { pattern: /^TEIL IV: DIE ARCHITEKTUR DER$/, id: 'teil4', title: 'Teil IV: Die Architektur der Leitmotive', part: 'teil4', partTitle: 'Teil IV: Die Architektur der Leitmotive' },
@@ -86,13 +92,24 @@ const sectionPatterns = [
 const sections = [];
 let currentLine = 0;
 
-// Skip the title page (first ~55 lines with metadata)
-// Find first "Vorwort" after "Inhalt" section
+// Skip the title page AND the "Inhalt" (table of contents) block — the TOC
+// lists every top-level section title as its own bare line ("Vorwort",
+// "Präambel zur Trilogie", "BAND I: DIE ÜBERFÜHRUNG", …), so those lines
+// match sectionPatterns too. Taking the FIRST "Vorwort" after line 55 (as
+// before) landed on the TOC's own "Vorwort" entry, not the real heading —
+// every top-level section got a phantom duplicate chapter from the TOC
+// (gefunden 2026-09-02: vorwort/praeambel/band1-intro/… je 2x, doppelte
+// React-Keys im Reader). Take the SECOND occurrence instead: the TOC's
+// "Vorwort" line, then the real "Vorwort" heading that starts the content.
 let contentStart = 0;
+let vorwortSeen = 0;
 for (let i = 0; i < lines.length; i++) {
   if (lines[i].trim() === 'Vorwort' && i > 55) {
-    contentStart = i;
-    break;
+    vorwortSeen++;
+    if (vorwortSeen === 2) {
+      contentStart = i;
+      break;
+    }
   }
 }
 
