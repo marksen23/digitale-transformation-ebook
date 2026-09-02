@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
@@ -343,7 +343,7 @@ export default function WerkPage() {
             <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, marginBottom: "0.3rem" }}>
               {currentChapter?.partTitle ?? ebook.meta.title}
             </div>
-            <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.8rem", color: C.textBright, lineHeight: 1.2 }}>
+            <h1 style={{ margin: 0, fontFamily: DISPLAY, fontSize: "1.8rem", color: C.textBright, lineHeight: 1.2 }}>
               {currentChapter?.title ?? "Werk"}
             </h1>
             {currentChapter?.subtitle && (

@@ -29,7 +29,7 @@ import { UnifiedSearch } from "@/components/search/UnifiedSearch";
 import { philosophersSource, conceptsSource } from "@/lib/search/sources";
 import type { SearchHit } from "@/lib/search/types";
 import { useLocation as useWouterLocation } from "wouter";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import {
   ToolbarBtn, FilterPill,
@@ -179,7 +179,7 @@ export default function PhilosophyPage() {
       {/* ─── Header — kompakt, App-Frame-Style ─── */}
       <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: 1400, margin: "0 auto" }}>
         <div>
-          <h1 style={{ fontFamily: SERIF, fontSize: isMobile ? "1.15rem" : "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
+          <h1 style={{ fontFamily: DISPLAY, fontSize: isMobile ? "1.15rem" : "1.5rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
             Philosophische Karte
           </h1>
           {!isMobile && (

@@ -11,7 +11,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
@@ -76,7 +76,7 @@ export default function FragenPage() {
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>
-        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
+        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
           Offene Fragen <span style={{ color: c.accentText }}>·</span> Der Denk-Horizont
         </h1>
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1rem", lineHeight: 1.5 }}>

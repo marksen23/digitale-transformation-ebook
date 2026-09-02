@@ -98,10 +98,15 @@ export type SemanticVariant = keyof typeof SEMANTIC;
  * SERIF_BODY — wenn echtes Lese-Serif gebraucht wird (Detail-Panel-Prose
  *   in Philosophie, Antwort-Texte in Wissen), kommt Lora zum Einsatz —
  *   gleiche Wahl wie Home.tsx's Reading-Font.
+ *
+ * DISPLAY — Cormorant Garamond, für große Überschriften. Bisher nur als
+ *   literaler String in den mobilen Screens dupliziert; jetzt auch für
+ *   Desktop-Headlines auf den Reader- und Karten-Seiten (Redesign Phase 2).
  */
 export const SERIF      = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif";
 export const MONO       = "'Courier Prime', 'Courier New', monospace";
 export const SERIF_BODY = "'Lora', Georgia, serif";
+export const DISPLAY    = "'Cormorant Garamond', Georgia, serif";
 
 /**
  * Geometrie-Tokens — angeglichen an Home.tsx's Tailwind-Werte

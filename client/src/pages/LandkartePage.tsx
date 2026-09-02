@@ -19,7 +19,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import {
   NODES, EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H,
@@ -197,7 +197,7 @@ export default function LandkartePage() {
     >
     <div style={{ maxWidth: 1100, margin: "0 auto", padding: "1.5rem", color: C.text, fontFamily: SERIF }}>
       <header style={{ marginBottom: "1rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
-        <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.7rem", color: C.textBright }}>Wissens-Landkarte</h1>
+        <h1 style={{ margin: 0, fontFamily: DISPLAY, fontSize: "1.7rem", color: C.textBright }}>Wissens-Landkarte</h1>
         <p style={{ marginTop: "0.4rem", fontFamily: SERIF, fontStyle: "italic", color: C.textDim, fontSize: "0.95rem", lineHeight: 1.55, maxWidth: "44rem" }}>
           Das Begriffsnetz als Rückgrat — der Korpus lagert sich an. Jeder Begriff wächst mit den
           Erkenntnissen, die ihn berühren. <strong>Gestrichelte</strong> Linien sind <em>werdende
