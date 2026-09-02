@@ -35,12 +35,17 @@ const FRAME_HEIGHT_READING = 40;
  *  AppFrames Header/Drawer auf dem Telefon nicht. Wächst mit jedem
  *  Mobile-Screen, der dazukommt. */
 const MOBILE_FULLSCREEN_PREFIXES = [
-  "/werk", "/en/werk",
   "/philosophie", "/en/philosophie",
   "/landkarte", "/en/landkarte",
   "/fragen", "/erkenntnisse", "/mein-werk", "/projekt",
   "/admin", "/status",
 ];
+
+/** Redesign Phase 2, Prinzip 1 „Lesen zuerst, überall": der Werk-Reader
+ *  bekommt sein eigenes schlankes Chrome (❦-Home-Link + ≡-Menü) auf JEDER
+ *  Bildschirmgröße, nicht nur mobil — AppFrames Werkzeugleiste passt nicht
+ *  zum ruhigen Lesemodus, den das Redesign für die ganze Plattform will. */
+const ALL_VIEWPORTS_FULLSCREEN_PREFIXES = ["/werk", "/en/werk"];
 
 /** Erkennt Lesemodi anhand der URL (D2). Reading-Modi haben kompakteren
  *  Frame + geringeren Opacity-Konflikt mit dem Buchtext. */
@@ -112,7 +117,8 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
   // Drawer komplett. Andere Reading-Pfade (Home "/", Resonanz-Detail)
   // behalten ihr bestehendes Mobile-Verhalten.
   const isMobile = useIsMobile();
-  const suppressChrome = isMobile && MOBILE_FULLSCREEN_PREFIXES.some(p => location.startsWith(p));
+  const suppressChrome = ALL_VIEWPORTS_FULLSCREEN_PREFIXES.some(p => location.startsWith(p))
+    || (isMobile && MOBILE_FULLSCREEN_PREFIXES.some(p => location.startsWith(p)));
 
   // Drawer + offenes Cluster-Dropdown schließen automatisch nach Navigation
   useEffect(() => {

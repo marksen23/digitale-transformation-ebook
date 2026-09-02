@@ -113,6 +113,11 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
         >×</button>
       </div>
 
+      {/* Auf Desktop-Breite (WerkPage teilt sich diese Übersicht mit Mobile,
+          Redesign Phase 2) bleibt der Inhalt buchsatzbreit statt über den
+          ganzen Bildschirm zu strecken — auf schmalen Viewports ist 640px
+          ohnehin größer als die verfügbare Breite, wirkt sich dort also nicht aus. */}
+      <div style={{ maxWidth: 640, margin: "0 auto" }}>
       <div style={{ padding: "0 22px" }}>
         <button
           type="button" onClick={() => { onClose(); onSearch(); }}
@@ -171,6 +176,7 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
         </div>
       ))}
       <div style={{ display: "flex", justifyContent: "center", padding: "24px 0 30px", fontFamily: MONO, fontSize: 11, letterSpacing: "0.45em", color: C.muted }}>⁂</div>
+      </div>
     </div>
   );
 }

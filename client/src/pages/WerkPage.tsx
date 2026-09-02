@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, PAPER, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
@@ -35,6 +35,8 @@ import { useIsMobile } from "@/hooks/useMobile";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { NODES } from "@/data/conceptGraph";
 import MobileReader from "@/pages/mobile/MobileReader";
+import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
+import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
 // Echte Begriffs-Labels — nur diese darf die "Aus dem Begriffsnetz"-Randnotiz
 // zeigen. Ohne diese Prüfung könnte ?fromConcept=<beliebiger-Text> aus der
@@ -69,6 +71,11 @@ export default function WerkPage() {
   const [, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
   const isMobile = useIsMobile();
+  // Desktop-Pendant zu MobileReaders eigenem Chrome (Redesign Phase 2):
+  // AppFrame ist auf /werk jetzt auf jeder Bildschirmgröße unterdrückt, das
+  // Desktop-Reader-Chrome unten übernimmt ≡-Menü + Suche als Fluchtweg.
+  const [desktopIndexOpen, setDesktopIndexOpen] = useState(false);
+  const [desktopSearchOpen, setDesktopSearchOpen] = useState(false);
 
   const [ebook, setEbook] = useState<EbookFile | null>(null);
   const [chunks, setChunks] = useState<WerkChunksFile | null>(null);
@@ -280,16 +287,50 @@ export default function WerkPage() {
       ref={scrollRef}
       data-scroll
       style={{
-        position: "fixed", top: "var(--app-frame-h, 40px)", left: 0, right: 0, bottom: 0,
+        position: "fixed", top: 0, left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch",
         background: isDark ? PAPER.warmDark : PAPER.warmLight,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
+    {/* Redesign Phase 2: eigenes schlankes Reader-Chrome statt AppFrames
+        Werkzeugleiste (die ist auf /werk jetzt auf jeder Bildschirmgröße
+        unterdrückt) — ❦ führt heim, ≡ öffnet dieselbe Vier-Cluster-
+        Übersicht + Suche, die Mobile schon nutzt. */}
+    <div style={{
+      position: "sticky", top: 0, zIndex: 50, height: 44,
+      display: "flex", alignItems: "center", justifyContent: "space-between",
+      padding: "0 1rem", gap: "0.5rem",
+      background: isDark ? "rgba(12,10,9,0.82)" : "rgba(250,250,249,0.82)",
+      backdropFilter: "blur(14px) saturate(140%)", WebkitBackdropFilter: "blur(14px) saturate(140%)",
+      borderBottom: `1px solid ${C.border}`,
+    }}>
+      <Link
+        href="/"
+        aria-label="Zur Werk-Hauptseite"
+        style={{
+          display: "flex", alignItems: "center", gap: "0.45rem",
+          fontFamily: MONO, fontSize: "0.6rem", letterSpacing: TRACKED.classic,
+          color: C.accentText, textTransform: "uppercase", textDecoration: "none",
+          padding: "0.35rem 0.4rem", borderRadius: RADIUS.button,
+        }}
+      >
+        <span style={{ fontSize: "0.95rem", lineHeight: 1, transform: "translateY(0.04em)", display: "inline-block" }}>{ORNAMENT.leaf}</span>
+        <span>Resonanzvernunft</span>
+      </Link>
+      <button
+        type="button" onClick={() => setDesktopIndexOpen(true)} aria-label="Menü"
+        style={{
+          fontFamily: MONO, fontSize: "0.85rem", color: C.text, background: "transparent",
+          border: `1px solid ${C.border}`, width: 32, height: 32, cursor: "pointer", padding: 0,
+          borderRadius: RADIUS.button, display: "flex", alignItems: "center", justifyContent: "center",
+        }}
+      >≡</button>
+    </div>
     <div className="werk-page" style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
       <style>{`
         .werk-page .werk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 2.5rem; align-items: start; }
-        .werk-page .werk-toc { position: sticky; top: 1rem; max-height: calc(100vh - 2rem); overflow-y: auto; padding-left: 1rem; border-left: 1px solid currentColor; opacity: 0.7; }
+        .werk-page .werk-toc { position: sticky; top: calc(44px + 1rem); max-height: calc(100vh - 44px - 2rem); overflow-y: auto; padding-left: 1rem; border-left: 1px solid currentColor; opacity: 0.7; }
         @media (max-width: 768px) {
           .werk-page .werk-grid { grid-template-columns: 1fr; gap: 1.2rem; }
           .werk-page .werk-toc { position: static; max-height: 220px; padding-left: 0; border-left: none; border-top: 1px solid currentColor; padding-top: 0.7rem; opacity: 0.6; order: 2; }
@@ -441,6 +482,17 @@ export default function WerkPage() {
         />
       )}
     </div>
+
+    {desktopIndexOpen && (
+      <MobileIndexOverlay
+        C={C} tocChapters={tocChapters} navigate={navigate}
+        onClose={() => setDesktopIndexOpen(false)}
+        onSearch={() => setDesktopSearchOpen(true)}
+      />
+    )}
+    {desktopSearchOpen && (
+      <MobileSearchOverlay C={C} navigate={navigate} onClose={() => setDesktopSearchOpen(false)} />
+    )}
     </div>
   );
 }

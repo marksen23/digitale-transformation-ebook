@@ -40,7 +40,9 @@ export default function MobileSearchOverlay({ C, onClose, navigate }: Props) {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ padding: "16px 18px 10px", display: "flex", alignItems: "center", gap: 8 }}>
+      {/* maxWidth: Redesign Phase 2 teilt diesen Screen mit Desktop-WerkPage —
+          Ergebnisliste bleibt buchsatzbreit statt über den Bildschirm zu strecken. */}
+      <div style={{ padding: "16px 18px 10px", display: "flex", alignItems: "center", gap: 8, maxWidth: 720, margin: "0 auto", width: "100%" }}>
         <button
           type="button" onClick={onClose} aria-label="Zurück"
           style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.textDim, fontFamily: MONO, fontSize: 16, cursor: "pointer" }}
@@ -48,6 +50,7 @@ export default function MobileSearchOverlay({ C, onClose, navigate }: Props) {
         <div style={{ flex: 1, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.accentText }}>Suche</div>
       </div>
       <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "0 18px 20px" }}>
+        <div style={{ maxWidth: 720, margin: "0 auto" }}>
         <UnifiedSearch
           scope="global"
           scopeId="mobile-reader"
@@ -59,6 +62,7 @@ export default function MobileSearchOverlay({ C, onClose, navigate }: Props) {
           autoFocus
           alwaysOpen
         />
+        </div>
       </div>
     </div>
   );
