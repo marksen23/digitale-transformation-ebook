@@ -81,12 +81,14 @@ export function ChipBuilder({
   }
 
   return (
-    <div className="flex items-center gap-1.5 w-full px-2 py-1.5 rounded-md border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 flex-wrap">
-      {/* Kein eigener focus-within-Rahmen hier: die globale *:focus-visible-Regel
-          (index.css, absichtlich außerhalb @layer, damit sie App-weit nicht von
-          Tailwind-Utilities übersteuert wird) zeichnet bei jedem Fokus auf das
-          Text-Input unten ohnehin schon einen Ring in derselben Amber-Farbe —
-          ein zusätzlicher Rahmen hier erzeugte einen doppelten/versetzten Umriss. */}
+    <div className="flex items-center gap-1.5 w-full px-2 py-1.5 rounded-md border border-stone-300 dark:border-stone-700 focus-within:border-transparent bg-white dark:bg-stone-900 transition-colors flex-wrap">
+      {/* focus-within:border-transparent statt eines eigenen Fokus-Rahmens:
+          die globale *:focus-visible-Regel (index.css, absichtlich außerhalb
+          @layer, damit sie App-weit nicht von Tailwind-Utilities übersteuert
+          wird) zeichnet bei Fokus auf das Text-Input unten ohnehin schon einen
+          Ring. Der statische graue Rahmen hier ist sonst permanent sichtbar
+          (auch unfokussiert) und erzeugte zusammen mit dem Ring ein doppeltes
+          Rechteck — bei Fokus blendet er sich jetzt komplett aus. */}
       {visibleChips.map(c => (
         <span
           key={`${c.groupId}::${c.value}`}
