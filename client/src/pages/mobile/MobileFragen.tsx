@@ -71,7 +71,15 @@ export default function MobileFragen() {
       {!questions ? (
         <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>
       ) : shown.length === 0 ? (
-        <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>Keine Fragen mit diesem Filter.</div>
+        <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted, lineHeight: 1.6 }}>
+          Keine {status === "open" ? "offenen" : "beantworteten"} Fragen — {counts.total} insgesamt warten.{" "}
+          <button
+            onClick={() => setStatus("all")}
+            style={{ fontFamily: MONO, fontSize: 10.5, color: C.accentText, background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}
+          >
+            Alle zeigen
+          </button>
+        </div>
       ) : (
         shown.map((q, i) => (
           <div key={q.sourceId + i} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 5, padding: "13px 15px", marginBottom: 11 }}>

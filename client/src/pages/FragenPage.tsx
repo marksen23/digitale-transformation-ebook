@@ -108,7 +108,17 @@ export default function FragenPage() {
         {!questions ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : shown.length === 0 ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>Keine Fragen mit diesem Filter.</div>
+          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted, lineHeight: 1.6 }}>
+            Keine Fragen {status === "open" ? "offen" : status === "answered" ? "beantwortet" : ""}
+            {area ? ` in „${epLabel(area)}"` : ""} — {counts.total} Fragen insgesamt warten in anderen Filtern.
+            {" "}
+            <button
+              onClick={() => { setStatus("all"); setArea(null); }}
+              style={{ fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.04em", color: c.accentText, background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}
+            >
+              Filter zurücksetzen
+            </button>
+          </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
             {shown.map((q, i) => (
