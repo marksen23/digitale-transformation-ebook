@@ -174,10 +174,17 @@ const plugins = [
       start_url: "/?source=pwa",
       scope: "/",
       display: "standalone",
-      // display_override: Browser darf modernere Display-Modi probieren
-      // (window-controls-overlay = native-app-Gefühl auf Desktop), fällt
-      // graceful auf standalone zurück wenn nicht unterstützt.
-      display_override: ["window-controls-overlay", "standalone", "minimal-ui"],
+      // display_override: "window-controls-overlay" stand hier früher an
+      // erster Stelle (gedacht für ein natives Desktop-Gefühl), aber dieser
+      // Modus lässt den Browser eine eigene Titlebar-Overlay-Zone (inkl. u.U.
+      // einem "⋮"-App-Menü) OBEN INS VIEWPORT zeichnen — die App muss dafür
+      // mit env(titlebar-area-*) eigens Platz lassen. Das gibt es hier nicht,
+      // also überlappte das Overlay unsere fixe Nav-Leiste (gefunden
+      // 2026-09-02: "Dreipunkte-Menü oben links überlappt Hell/Dunkel-
+      // Umschalter u.a."). "standalone" zeichnet keinerlei Browser-Chrome ins
+      // Content-Viewport — genau das native App-Fenster-Gefühl, ohne die
+      // Overlay-Zone bauen zu müssen.
+      display_override: ["standalone", "minimal-ui"],
       orientation: "portrait",
       background_color: "#0c0a09",
       theme_color: "#b45309",
