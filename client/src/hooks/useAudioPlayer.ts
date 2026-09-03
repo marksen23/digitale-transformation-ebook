@@ -158,6 +158,15 @@ export function useAudioPlayer(
   const [ttsParaIdx, setTtsParaIdx] = useState(-1);
   const audioSourceRef = useRef<'mp3' | 'tts' | null>(null);
   const plainParagraphsRef = useRef<string[]>([]);
+  // true, sobald der MP3-HEAD-Check für dieses Kapitel negativ ausgefallen ist
+  // (keine produzierte Datei) — unabhängig davon, ob plainParagraphs zu dem
+  // Zeitpunkt schon geladen waren. Fängt das Kaltstart-Rennen ab: auf der
+  // allerersten Kapitelansicht kommt die HEAD-Antwort (schneller 404, da noch
+  // keine MP3s produziert sind) oft VOR werk-chunks.json zurück, sodass
+  // plainParagraphsRef.current beim Check noch leer ist und hasAudio nie
+  // gesetzt wird — dieser Ref lässt den Effekt unten den Fallback nachholen,
+  // sobald die Absätze später eintreffen.
+  const noMp3Ref = useRef(false);
   const ttsActiveRef = useRef(false);
   const ttsParaIdxRef = useRef(0);
   const ttsUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
@@ -257,7 +266,14 @@ export function useAudioPlayer(
       wordToParaRef.current = buildWordToParaMap(plainParagraphs);
     }
     plainParagraphsRef.current = plainParagraphs ?? [];
-  }, [plainParagraphs]);
+    // Nachgeholter TTS-Fallback (siehe noMp3Ref oben): der MP3-Check ist für
+    // dieses Kapitel schon negativ ausgefallen, aber plainParagraphs kamen
+    // erst jetzt nach — hasAudio war deshalb bisher fälschlich false.
+    if (noMp3Ref.current && ttsSupported && plainParagraphsRef.current.length > 0) {
+      audioSourceRef.current = 'tts';
+      setHasAudio(true);
+    }
+  }, [plainParagraphs, ttsSupported]);
 
   // Audio + Timestamps laden wenn chapterId oder voice wechselt
   useEffect(() => {
@@ -288,6 +304,7 @@ export function useAudioPlayer(
     }
     // Alten TTS-Lauf sauber aufräumen
     audioSourceRef.current = null;
+    noMp3Ref.current = false;
     ttsActiveRef.current = false;
     ttsParaIdxRef.current = 0;
     ttsUtteranceRef.current = null;
@@ -304,8 +321,12 @@ export function useAudioPlayer(
         const isAudio = res.ok && (res.headers.get('content-type') ?? '').startsWith('audio/');
         if (!isAudio) {
           setLoading(false);
+          noMp3Ref.current = true;
           // Keine produzierte MP3 — auf Browser-TTS ausweichen, sofern der
-          // Browser SpeechSynthesis unterstützt und Absätze vorliegen.
+          // Browser SpeechSynthesis unterstützt und Absätze vorliegen. Sind
+          // sie das (noch) nicht — z. B. weil werk-chunks.json auf dem
+          // allerersten Seitenaufruf noch nachlädt — holt der plainParagraphs-
+          // Effekt oben das über noMp3Ref nach, sobald sie eintreffen.
           if (ttsSupported && plainParagraphsRef.current.length > 0) {
             audioSourceRef.current = 'tts';
             setHasAudio(true);
