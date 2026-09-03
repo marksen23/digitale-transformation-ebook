@@ -31,6 +31,7 @@ import ActionLogPanel from "@/components/admin/ActionLogPanel";
 import ProposeConceptPanel, { type ConceptPrefill } from "@/components/admin/ProposeConceptPanel";
 import ConceptCandidatesPanel from "@/components/admin/ConceptCandidatesPanel";
 import ErkenntnisCandidatesPanel from "@/components/admin/ErkenntnisCandidatesPanel";
+import DedupCorpusPanel from "@/components/admin/DedupCorpusPanel";
 import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
 import { UnifiedSearch } from "@/components/search/UnifiedSearch";
@@ -706,6 +707,9 @@ export default function AdminCurationPage() {
 
       {/* Erkenntnisse-Phase 2: Antworten, die offene Fragen lösen → bestätigen */}
       <ErkenntnisCandidatesPanel C={C} />
+
+      {/* Exakte Dubletten (Batch 5): Nachzügler aus der Zeit vor dem Ingest-Dedup */}
+      <DedupCorpusPanel C={C} />
 
       {/* Auto-Kuratierung — kontrollierte Selbst-Erweiterung */}
       <Section title="Auto-Kuratierung — Korpus sicher selbst erweitern" c={C}>
