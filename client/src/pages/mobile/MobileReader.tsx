@@ -634,7 +634,7 @@ function MobileGlossaryView({
   return (
     <div>
       <div style={{
-        display: "flex", gap: 6, overflowX: "auto", WebkitOverflowScrolling: "touch",
+        display: "flex", flexWrap: "wrap", gap: 6,
         position: "sticky", top: 0, zIndex: 5, background: C.void,
         padding: "4px 0 12px", marginBottom: 8, borderBottom: `1px solid ${C.border}`,
       }}>
@@ -651,7 +651,7 @@ function MobileGlossaryView({
       </div>
 
       {Array.from(grouped.entries()).map(([letter, items]) => (
-        <section key={letter} id={`mobile-glossar-${letter}`} style={{ marginBottom: 26, scrollMarginTop: 46 }}>
+        <section key={letter} id={`mobile-glossar-${letter}`} style={{ marginBottom: 26, scrollMarginTop: 84 }}>
           <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: "0.1em", color: C.accentText, borderBottom: `1px solid ${C.border}`, paddingBottom: 6, marginBottom: 12 }}>
             {letter}
           </div>
