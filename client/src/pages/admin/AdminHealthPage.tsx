@@ -18,10 +18,17 @@ import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import Skeleton from "@/components/Skeleton";
 import SectionLabel from "@/components/SectionLabel";
 import { NODES, CAT_COLOR } from "@/data/conceptGraph";
+import { callAdminAction } from "@/lib/adminAuth";
+import { recordAction } from "@/lib/adminActionLog";
+import { loadPromotedEdges, invalidatePromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
 import {
   Section, Stat, useAdminTheme, MONO, SERIF,
   loadOptionalJson, type ValidationReport, type DriftReport, type HoldoutReport,
 } from "./adminShared";
+
+function pairKey(a: string, b: string): string {
+  return a < b ? `${a}|${b}` : `${b}|${a}`;
+}
 
 type Heartbeat = { ok: boolean; latencyMs: number; checkedAt: string };
 
@@ -231,6 +238,9 @@ export default function AdminHealthPage() {
   // aber keine Concept-Graph-Kante haben → Edge-Kandidaten zum Review.
   const [linkPredictions, setLinkPredictions] = useState<LinkPredictionsFile | null>(null);
   const [linkPredExpanded, setLinkPredExpanded] = useState(false);
+  const [promotedEdges, setPromotedEdges] = useState<PromotedEdge[]>([]);
+  const [promoting, setPromoting] = useState<string | null>(null);
+  const [promoteMsg, setPromoteMsg] = useState<string | null>(null);
   // Korpus-Landkarte (UMAP-2D der Embeddings)
   const [corpusMap, setCorpusMap] = useState<CorpusMapFile | null>(null);
   const [mapHoverPoint, setMapHoverPoint] = useState<CorpusMapFile["points"][number] | null>(null);
@@ -286,8 +296,29 @@ export default function AdminHealthPage() {
       loadOptionalJson<LinkPredictionsFile>("/resonanzen-link-predictions.json").then(setLinkPredictions),
       loadOptionalJson<CorpusMapFile>("/resonanzen-corpus-map.json").then(setCorpusMap),
       loadOptionalJson<TimelineFile>("/resonanzen-timeline.json").then(setTimeline),
+      loadPromotedEdges().then(setPromotedEdges),
     ]).then(() => setReportsLoaded(true));
   }, []);
+
+  async function handlePromoteEdge(source: string, target: string, evidence: number) {
+    const key = pairKey(source, target);
+    setPromoting(key);
+    setPromoteMsg(null);
+    const r = await callAdminAction("promote-edge", { source, target, evidence });
+    recordAction({
+      type: "promote-edge", targetId: `${source}→${target}`, ok: r.ok,
+      reason: r.ok ? undefined : r.error,
+      payload: { source, target, evidence },
+    });
+    setPromoting(null);
+    if (r.ok) {
+      setPromoteMsg(`„${source} — ${target}" in den Kanon erhoben.`);
+      invalidatePromotedEdges();
+      loadPromotedEdges().then(setPromotedEdges);
+    } else {
+      setPromoteMsg(`Fehler: ${r.error ?? "unbekannt"}`);
+    }
+  }
 
   // Anker-Spannungen + Korpus-Kohärenz: einmal laden, beide Analysen
   useEffect(() => {
@@ -787,7 +818,16 @@ export default function AdminHealthPage() {
         {!reportsLoaded ? (
           <Skeleton height={48} subtle />
         ) : linkPredictions && linkPredictions.candidates.length > 0 ? (() => {
-          const visible = linkPredExpanded ? linkPredictions.candidates : linkPredictions.candidates.slice(0, 10);
+          const promotedPairs = new Set(promotedEdges.map(e => pairKey(e.source, e.target)));
+          const openCandidates = linkPredictions.candidates.filter(c => !promotedPairs.has(pairKey(c.source, c.target)));
+          if (openCandidates.length === 0) {
+            return (
+              <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
+                Alle {linkPredictions.candidates.length} Edge-Kandidaten sind bereits in den Kanon erhoben.
+              </p>
+            );
+          }
+          const visible = linkPredExpanded ? openCandidates : openCandidates.slice(0, 10);
           // Quick-Lookup für Node-Labels + Kategorien
           const nodeLabel = (id: string): string => {
             const n = NODES.find(x => x.id === id);
@@ -840,11 +880,31 @@ export default function AdminHealthPage() {
                       >
                         ◈ Pfad ↗
                       </a>
+                      <button
+                        onClick={() => void handlePromoteEdge(c.source, c.target, c.cooccurrence)}
+                        disabled={promoting === pairKey(c.source, c.target)}
+                        style={{
+                          fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em",
+                          textTransform: "uppercase", color: "#7ab898",
+                          background: "none", textDecoration: "none",
+                          padding: "0.3rem 0.5rem",
+                          border: "1px solid rgba(122,184,152,0.4)",
+                          minHeight: 28, cursor: promoting ? "default" : "pointer",
+                          opacity: promoting === pairKey(c.source, c.target) ? 0.5 : 1,
+                        }}
+                      >
+                        {promoting === pairKey(c.source, c.target) ? "…" : "✓ Kante übernehmen"}
+                      </button>
                     </div>
                   );
                 })}
               </div>
-              {linkPredictions.candidates.length > 10 && (
+              {promoteMsg && (
+                <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: promoteMsg.startsWith("Fehler") ? "#c48282" : "#7ab898", marginTop: "0.6rem" }}>
+                  {promoteMsg}
+                </p>
+              )}
+              {openCandidates.length > 10 && (
                 <button
                   onClick={() => setLinkPredExpanded(v => !v)}
                   style={{
@@ -857,13 +917,14 @@ export default function AdminHealthPage() {
                 >
                   {linkPredExpanded
                     ? "einklappen"
-                    : `+ ${linkPredictions.candidates.length - 10} weitere zeigen`}
+                    : `+ ${openCandidates.length - 10} weitere zeigen`}
                 </button>
               )}
               <p style={{ fontFamily: MONO, fontSize: "0.55rem", color: C.muted, marginTop: "0.8rem", lineHeight: 1.5 }}>
-                Aufnahme ins Werk: <code style={{ color: C.accentText }}>client/src/data/conceptGraph.ts</code> →
-                <code style={{ color: C.accentText }}> EDGES</code>-Array erweitern mit{" "}
-                <code style={{ color: C.accentText }}>{`{ source: "…", target: "…", weight: "secondary" }`}</code>.
+                Aufnahme ins Werk: „Kante übernehmen" persistiert direkt nach{" "}
+                <code style={{ color: C.accentText }}>content/concept-edges.json</code> (Kanon).
+                Alternativ manuell in <code style={{ color: C.accentText }}>client/src/data/conceptGraph.ts</code> →
+                <code style={{ color: C.accentText }}> EDGES</code> ergänzen.
                 {linkPredictions.stats.existingEdges} Kanten existieren bereits · max Co-Occurrence: {linkPredictions.stats.maxCooccurrence}× ·
                 Letzter Check: {new Date(linkPredictions.generatedAt).toLocaleString("de-DE")}
               </p>
