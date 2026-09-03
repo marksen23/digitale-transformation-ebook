@@ -116,8 +116,15 @@ function StatusTab({ C, index }: { C: Palette; index: ResonanzIndex | null }) {
 
 // ─── Kuration (token-gated) ─────────────────────────────────────────────────
 
+interface AutoCurateApplyResponse {
+  counts: { approve: number; reject: number; review: number };
+}
+
 function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | null; setIndex: (fn: (curr: ResonanzIndex | null) => ResonanzIndex | null) => void }) {
   const [loading, setLoading] = useState<Set<string>>(new Set());
+  const [confirmDeleteId, setConfirmDeleteId] = useState<string | null>(null);
+  const [autoCurating, setAutoCurating] = useState(false);
+  const [autoCurateMsg, setAutoCurateMsg] = useState<string | null>(null);
 
   async function curate(id: string, newStatus: string) {
     setLoading(s => new Set(s).add(id));
@@ -137,6 +144,41 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
     }
   }
 
+  async function deleteEntry(id: string) {
+    setConfirmDeleteId(null);
+    setLoading(s => new Set(s).add(id));
+    const result = await callAdminAction("delete", { id });
+    setLoading(s => { const n = new Set(s); n.delete(id); return n; });
+    recordAction({
+      type: "delete", targetId: id, ok: result.ok,
+      reason: result.ok ? undefined : (result.error ?? "Unbekannter Fehler"),
+    });
+    if (result.ok) {
+      setIndex(curr => curr ? { ...curr, entries: curr.entries.filter(e => e.id !== id) } : curr);
+      broadcastIndexStale();
+    }
+  }
+
+  async function autoCurate() {
+    setAutoCurating(true);
+    setAutoCurateMsg(null);
+    const result = await callAdminAction<AutoCurateApplyResponse>("auto-curate", { mode: "apply", limit: 50 });
+    recordAction({
+      type: "auto-curate", ok: result.ok,
+      reason: result.ok ? undefined : (result.error ?? "Unbekannter Fehler"),
+      payload: result.data?.counts,
+    });
+    setAutoCurating(false);
+    if (result.ok && result.data) {
+      const { approve, reject, review } = result.data.counts;
+      setAutoCurateMsg(`${approve} freigegeben · ${reject} abgelehnt · ${review} zur Prüfung.`);
+      broadcastIndexStale();
+      loadResonanzenIndexLazy().then(idx => { if (idx) setIndex(() => idx); });
+    } else {
+      setAutoCurateMsg(`Fehler: ${result.error ?? "unbekannt"}`);
+    }
+  }
+
   if (!index) return <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>;
 
   // Warteschlange = noch nicht final entschiedene Einträge (roh/ausstehend),
@@ -149,11 +191,22 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
 
   return (
     <div style={{ paddingBottom: 4 }}>
-      <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, color: C.textDim, marginBottom: 14 }}>
-        {queue.length === 0 ? "Die Warteschlange ist leer." : queue.length === 1 ? "1 Begegnung wartet auf Entscheidung." : `${queue.length} Begegnungen warten auf Entscheidung.`}
+      <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", gap: 10, marginBottom: 12, flexWrap: "wrap" }}>
+        <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, color: C.textDim }}>
+          {queue.length === 0 ? "Die Warteschlange ist leer." : queue.length === 1 ? "1 Begegnung wartet auf Entscheidung." : `${queue.length} Begegnungen warten auf Entscheidung.`}
+        </div>
+        <button type="button" disabled={autoCurating} onClick={() => void autoCurate()}
+          style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", cursor: autoCurating ? "wait" : "pointer", opacity: autoCurating ? 0.6 : 1, whiteSpace: "nowrap" }}
+        >{autoCurating ? "läuft …" : "Automatisch kuratieren"}</button>
       </div>
+      {autoCurateMsg && (
+        <div style={{ fontFamily: MONO, fontSize: 10, color: autoCurateMsg.startsWith("Fehler") ? "#c48282" : "#7ab898", marginBottom: 12 }}>
+          {autoCurateMsg}
+        </div>
+      )}
       {queue.map(q => {
         const isLoading = loading.has(q.id);
+        const confirmingDelete = confirmDeleteId === q.id;
         return (
           <div key={q.id} style={{ border: `1px solid ${C.border}`, borderRadius: 6, padding: 13, marginBottom: 10 }}>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 6 }}>
@@ -163,14 +216,31 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
             <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 14, lineHeight: 1.5, color: C.textBright, marginBottom: 10 }}>
               {q.prompt.slice(0, 140)}{q.prompt.length > 140 ? "…" : ""}
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
+            <div style={{ display: "flex", gap: 8, marginBottom: confirmingDelete ? 8 : 0 }}>
               <button type="button" disabled={isLoading} onClick={() => void curate(q.id, "approved")}
                 style={{ flex: 1, minHeight: 42, background: "transparent", border: `1px solid ${C.accentText}`, borderRadius: 4, color: C.accentText, fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
               >Freigeben</button>
+              <button type="button" disabled={isLoading} onClick={() => void curate(q.id, "published")}
+                style={{ flex: 1, minHeight: 42, background: "transparent", border: "1px solid #7ab898", borderRadius: 4, color: "#7ab898", fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
+              >Veröffentl.</button>
               <button type="button" disabled={isLoading} onClick={() => void curate(q.id, "rejected")}
                 style={{ minHeight: 42, padding: "0 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.textDim, fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
               >Verwerfen</button>
+              <button type="button" disabled={isLoading} onClick={() => setConfirmDeleteId(q.id)}
+                style={{ minHeight: 42, padding: "0 12px", background: "transparent", border: "1px solid #c48282", borderRadius: 4, color: "#c48282", fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
+              >✕</button>
             </div>
+            {confirmingDelete && (
+              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
+                <span style={{ fontFamily: MONO, fontSize: 9.5, color: "#c48282", flex: 1 }}>Eintrag wirklich löschen?</span>
+                <button type="button" onClick={() => void deleteEntry(q.id)}
+                  style={{ minHeight: 34, padding: "0 12px", background: "#c48282", border: "1px solid #c48282", borderRadius: 4, color: "#fff", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+                >Löschen</button>
+                <button type="button" onClick={() => setConfirmDeleteId(null)}
+                  style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.muted, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+                >Abbrechen</button>
+              </div>
+            )}
           </div>
         );
       })}
