@@ -54,8 +54,8 @@ export default function MobileProjekt() {
           ) },
           { kicker: "Der Schutzwall", title: "Wachstum ohne Drift", body: (
             <>
-              <p style={p}>Damit das Werk sich selbst treu bleibt, muss jede neue Erkenntnis einen <strong style={strong}>dreifachen Schutzwall</strong> passieren: Nähe zur <span style={acc}>Werk-Prosa</span>, Verankerung in der <span style={acc}>Begriffsstruktur</span> und Stimmigkeit zum <span style={acc}>kuratierten Korpus</span>.</p>
-              <p style={p}>Was nicht trägt, bleibt „roh" und wird nie zurückgefüttert — eine bewusste Schranke gegen den schleichenden Model-Collapse.</p>
+              <p style={p}>Sichtbar wird jede Begegnung sofort, ehrlich als „ungeprüft" markiert. Ob sie je wieder in eine Antwort einfließt, entscheidet ein <strong style={strong}>dreifacher Schutzwall</strong> — Nähe zur <span style={acc}>Werk-Prosa</span>, Verankerung in der <span style={acc}>Begriffsstruktur</span> und Stimmigkeit zum <span style={acc}>kuratierten Korpus</span> — berechnet erst nachgelagert, nicht im Moment der Antwort.</p>
+              <p style={p}>Was diese Prüfung eindeutig besteht oder nicht, entscheidet inzwischen täglich ein automatischer Lauf; Grenzwertiges bleibt „roh", bis ein Mensch es sichtet — eine bewusste Schranke gegen den schleichenden Model-Collapse.</p>
             </>
           ) },
           { kicker: "Das wachsende Netz", title: "Anlagerung statt Überschreiben", body: (
@@ -65,7 +65,7 @@ export default function MobileProjekt() {
             <p style={p}>Jede Begegnung wird als Markdown nach GitHub geschrieben und sofort in den Live-Index eingehängt. Eine CI-Pipeline berechnet die teuren abgeleiteten Felder — 3072-dimensionale Embeddings, Querbezüge, Drift-Scores. Der Server liest den Korpus <span style={acc}>live</span>, ganz ohne Redeploy.</p>
           ) },
           { kicker: "Verdichtung", title: "Masterdokumente gegen die Dopplung", body: (
-            <p style={p}>Wo viele Begegnungen dasselbe umkreisen, fasst ein <strong style={strong}>Masterdokument</strong> sie zu einer geordneten, dopplungsfreien Synthese zusammen — Wissen, das sich verdichtet, statt sich zu wiederholen.</p>
+            <p style={p}>Wo viele Begegnungen dasselbe umkreisen, kann ein <strong style={strong}>Masterdokument</strong> sie zu einer geordneten, dopplungsfreien Synthese verdichten — von Hand angestoßen, nie automatisch. Wissen, das sich verdichtet, statt sich zu wiederholen.</p>
           ) },
           { kicker: "Die Ambition", title: "Transformation berechenbar machen", body: (
             <>

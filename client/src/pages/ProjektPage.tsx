@@ -315,12 +315,16 @@ export default function ProjektPage() {
         </Section>
 
         <Section c={c} kicker="Der Schutzwall" title="Wachstum ohne Drift" svg={<WallSvg c={c} />}>
-          <p>Damit das Werk sich selbst treu bleibt, muss jede neue Erkenntnis einen <strong style={strong}>dreifachen
-          Schutzwall</strong> passieren: Nähe zur <span style={acc}>Werk-Prosa</span>, Verankerung in der
+          <p>Sichtbar wird jede Begegnung sofort — unverändert, ehrlich als „ungeprüft" markiert.
+          Ob sie aber je wieder in eine künftige Antwort einfließt, entscheidet ein <strong style={strong}>dreifacher
+          Schutzwall</strong>: Nähe zur <span style={acc}>Werk-Prosa</span>, Verankerung in der
           <span style={acc}> Begriffsstruktur</span> des Netzes und Stimmigkeit zum bereits
-          <span style={acc}> kuratierten Korpus</span> — drei unabhängige Anker.</p>
+          <span style={acc}> kuratierten Korpus</span> — drei unabhängige Anker, die eine nachgelagerte
+          Pipeline berechnet, nicht der Moment der Antwort selbst.</p>
           <p>Dazu kommen Echo-Erkennung (Wiederholungen) und Novelty-Prüfung (thematische Ausreißer).
-          Was nicht trägt, bleibt „roh" und wird nie zurückgefüttert — eine bewusste Schranke gegen
+          Was diese Prüfung eindeutig besteht oder eindeutig nicht besteht, entscheidet inzwischen ein
+          täglicher automatischer Lauf; alles Grenzwertige bleibt bewusst „roh" liegen, bis ein Mensch
+          es sichtet. Nur was den Wall passiert, wird zurückgefüttert — eine bewusste Schranke gegen
           den schleichenden <em>Model-Collapse</em>.</p>
         </Section>
 
@@ -343,9 +347,10 @@ export default function ProjektPage() {
         </Section>
 
         <Section c={c} kicker="Verdichtung" title="Masterdokumente gegen die Dopplung" svg={<MasterSvg c={c} />}>
-          <p>Wo viele Begegnungen dasselbe umkreisen, fasst ein <strong style={strong}>Masterdokument</strong>
-          sie zu einer geordneten, dopplungsfreien Synthese zusammen — Wissen, das sich verdichtet,
-          statt sich zu wiederholen. Der Blog ordnet sie nach Bereichen.</p>
+          <p>Wo viele Begegnungen dasselbe umkreisen, kann ein <strong style={strong}>Masterdokument</strong>{" "}
+          sie zu einer geordneten, dopplungsfreien Synthese verdichten — von Hand angestoßen, nie
+          automatisch: eine Synthese ist eine redaktionelle Entscheidung, kein Nebenprodukt der Menge.
+          Wissen, das sich verdichtet, statt sich zu wiederholen. Der Blog ordnet sie nach Bereichen.</p>
         </Section>
 
         <Section c={c} kicker="Die Ambition" title="Transformation berechenbar machen" svg={<FieldSvg c={c} />}>
