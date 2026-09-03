@@ -529,6 +529,24 @@ export default function Home() {
     if (currentIndex > 0) setCurrentId(allIds[currentIndex - 1]);
   }, [currentIndex, allIds, setCurrentId]);
 
+  // Touch-Wischen blättert wie die Pfeiltasten — nur pointerType "touch",
+  // damit eine Maus-Textselektion (Drag über einen Absatz) nicht versehentlich
+  // als Seitenwechsel gewertet wird.
+  const swipeStartRef = useRef<{ x: number; y: number } | null>(null);
+  const onContentPointerDown = useCallback((e: React.PointerEvent) => {
+    if (e.pointerType !== 'touch') return;
+    swipeStartRef.current = { x: e.clientX, y: e.clientY };
+  }, []);
+  const onContentPointerUp = useCallback((e: React.PointerEvent) => {
+    const start = swipeStartRef.current;
+    swipeStartRef.current = null;
+    if (!start || e.pointerType !== 'touch') return;
+    const dx = e.clientX - start.x, dy = e.clientY - start.y;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+      if (dx < 0) goNext(); else goPrev();
+    }
+  }, [goNext, goPrev]);
+
   const navigateTo = useCallback((id: string) => {
     // Buch-Schwelle: beim Wechsel zu einer Titelseite eines anderen Bandes
     // zeigen wir kurz einen Übergangsmoment — die Schwelle als sichtbaren Ort
@@ -2203,6 +2221,8 @@ export default function Home() {
           className={`flex-1 overflow-y-auto relative transition-all duration-500 ${focusMode ? 'bg-opacity-100' : ''}`}
           style={focusMode ? { lineHeight: '1.95', letterSpacing: '0.01em' } : undefined}
           onClick={() => { setActiveKeyword(null); setFontMenuOpen(false); setLanguageMenuOpen(false); setHeadphonesMenuOpen(false); setBurgerMenuOpen(false); }}
+          onPointerDown={onContentPointerDown}
+          onPointerUp={onContentPointerUp}
         >
           {currentId === '__cover__'
             ? renderCover()

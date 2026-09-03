@@ -7,20 +7,23 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useIsMobile } from "@/hooks/useMobile";
 import { C_DARK, C_LIGHT, MONO, SERIF, ORNAMENT, TRACKED, type Palette } from "@/lib/theme";
 
 const KEY = "resonanzvernunft.onboarded";
 
-const LINKS = [
-  { href: "/werk", label: "Das Werk lesen" },
-  { href: "/begriffsnetz", label: "Begriffsnetz erkunden" },
-  { href: "/landkarte", label: "Wissens-Landkarte" },
-  { href: "/resonanzen", label: "Wissen durchsuchen" },
-];
-
 export default function OnboardingHint() {
   const { theme } = useTheme();
   const C: Palette = theme === "dark" ? C_DARK : C_LIGHT;
+  const isMobile = useIsMobile();
+  // Desktop führt zurück zum voll ausgestatteten Reader unter "/" (Tastatur-
+  // Blättern, Hörfassung); Mobile bleibt beim eigenen Reader-first-Kern /werk.
+  const LINKS = [
+    { href: isMobile ? "/werk" : "/", label: "Das Werk lesen" },
+    { href: "/begriffsnetz", label: "Begriffsnetz erkunden" },
+    { href: "/landkarte", label: "Wissens-Landkarte" },
+    { href: "/resonanzen", label: "Wissen durchsuchen" },
+  ];
   const [show, setShow] = useState(false);
 
   useEffect(() => {

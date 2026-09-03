@@ -390,7 +390,7 @@ export default function ProjektPage() {
             </div>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "0.6rem" }}>
               {[
-                { l: "Werk lesen", h: "/werk" },
+                { l: "Werk lesen", h: "/" },
                 { l: "Begriffsnetz", h: "/begriffsnetz" },
                 { l: "Live-Strom", h: "/live" },
                 { l: "Blog", h: "/blog" },

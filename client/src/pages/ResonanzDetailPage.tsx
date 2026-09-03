@@ -12,6 +12,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useRoute, useLocation, Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useIsMobile } from "@/hooks/useMobile";
 import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
@@ -21,6 +22,10 @@ import SiteFooter from "@/components/SiteFooter";
 export default function ResonanzDetailPage() {
   const { theme } = useTheme();
   const C: Palette = theme === "dark" ? C_DARK : C_LIGHT;
+  const isMobile = useIsMobile();
+  // Desktop führt zurück zum voll ausgestatteten Reader unter "/"; Mobile
+  // bleibt beim eigenen Reader-first-Kern /werk.
+  const werkHref = isMobile ? "/werk" : "/";
   const [, navigate] = useLocation();
   const [, params] = useRoute<{ id: string }>("/resonanz/:id");
   const [entry, setEntry] = useState<ResonanzEntry | null>(null);
@@ -152,7 +157,7 @@ export default function ResonanzDetailPage() {
       {chunkId && (
         <div style={{ marginBottom: "1rem", padding: "0.6rem 0.8rem", background: `${C.accent}08`, borderLeft: `3px solid ${C.accent}`, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
           Verankert in einer Werkpassage —
-          {chapter ? <Link to={`/werk/${chapter}`} style={{ marginLeft: "0.3rem", color: C.accentText, textDecoration: "underline" }}>↩ zur Passage im Werk</Link> : null}
+          {chapter ? <Link to={isMobile ? `/werk/${chapter}` : `/?chapter=${chapter}`} style={{ marginLeft: "0.3rem", color: C.accentText, textDecoration: "underline" }}>↩ zur Passage im Werk</Link> : null}
         </div>
       )}
 
@@ -203,7 +208,7 @@ export default function ResonanzDetailPage() {
 
       <nav style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}`, display: "flex", gap: "1rem", fontFamily: MONO, fontSize: "0.6rem" }}>
         <Link to="/resonanzen" style={{ color: C.muted, textDecoration: "none" }}>← alle Resonanzen</Link>
-        <Link to="/werk" style={{ color: C.muted, textDecoration: "none" }}>↪ Werk lesen</Link>
+        <Link to={werkHref} style={{ color: C.muted, textDecoration: "none" }}>↪ Werk lesen</Link>
         <Link to="/begriffsnetz" style={{ color: C.muted, textDecoration: "none" }}>↪ Begriffsnetz</Link>
       </nav>
 

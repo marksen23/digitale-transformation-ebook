@@ -125,10 +125,16 @@ export default function MobileReader({
   function onPointerUp(e: React.PointerEvent) {
     const start = swipeStart.current;
     swipeStart.current = null;
-    if (!start || !paged) return;
+    if (!start) return;
     const dx = e.clientX - start.x, dy = e.clientY - start.y;
-    if (Math.abs(dx) > 48 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+    if (Math.abs(dx) <= 48 || Math.abs(dx) <= Math.abs(dy) * 1.6) return;
+    if (paged) {
       turnPage(dx < 0 ? 1 : -1);
+    } else {
+      // Fortlauf-Modus: kein Seiten-Konzept (ein Kapitel läuft durch) —
+      // Wischen blättert hier direkt zum vorigen/nächsten Kapitel.
+      if (dx < 0 && nextCh) navigate(`/werk/${nextCh.id}`);
+      else if (dx > 0 && prevCh) navigate(`/werk/${prevCh.id}`);
     }
   }
   function onContainerClick(e: React.MouseEvent<HTMLDivElement>) {

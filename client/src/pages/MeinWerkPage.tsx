@@ -143,7 +143,7 @@ export default function MeinWerkPage() {
             geführte Dialoge und weitergesponnene Gedankenfäden. Beginne irgendwo:
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginTop: "0.7rem" }}>
-            {[["/werk", "Das Werk lesen"], ["/begriffsnetz", "Begriffsnetz erkunden"], ["/landkarte", "Wissens-Landkarte"]].map(([href, label]) => (
+            {[["/", "Das Werk lesen"], ["/begriffsnetz", "Begriffsnetz erkunden"], ["/landkarte", "Wissens-Landkarte"]].map(([href, label]) => (
               <button key={href} onClick={() => navigate(href)} style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`, borderRadius: 3, padding: "0.4rem 0.65rem", cursor: "pointer", minHeight: 32 }}>
                 {label}
               </button>
