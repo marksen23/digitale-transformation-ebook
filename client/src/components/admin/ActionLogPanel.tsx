@@ -16,17 +16,31 @@
 import { useEffect, useState } from "react";
 import { MONO, SERIF, type Palette } from "@/lib/theme";
 import SectionLabel from "@/components/SectionLabel";
+import { callAdminGet } from "@/lib/adminAuth";
 import {
   getActionLog, clearActionLog, getActionLogStats,
   ACTION_LABEL, ACTION_LOG_CHANGED_EVENT,
   type ActionLogEntry,
 } from "@/lib/adminActionLog";
 
+interface ServerLogResponse {
+  ok: boolean;
+  entries: Array<{
+    id: string; ts: string; type: string; targetId?: string; targetCount?: number;
+    ok: boolean; reason?: string; payload?: Record<string, unknown>;
+  }>;
+  stats: { total: number; ok: number; failed: number };
+}
+
 export default function ActionLogPanel({ c }: { c: Palette }) {
   const [entries, setEntries] = useState<ActionLogEntry[]>(() => getActionLog(40));
   const [showAll, setShowAll] = useState(false);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [confirmClear, setConfirmClear] = useState(false);
+  const [source, setSource] = useState<"local" | "server">("local");
+  const [serverEntries, setServerEntries] = useState<ActionLogEntry[] | null>(null);
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [serverLoading, setServerLoading] = useState(false);
 
   useEffect(() => {
     function refresh() { setEntries(getActionLog(80)); }
@@ -34,8 +48,25 @@ export default function ActionLogPanel({ c }: { c: Palette }) {
     return () => window.removeEventListener(ACTION_LOG_CHANGED_EVENT, refresh);
   }, []);
 
-  const stats = getActionLogStats();
-  const visible = showAll ? entries : entries.filter(e => !e.ok);
+  useEffect(() => {
+    if (source !== "server") return;
+    let cancelled = false;
+    setServerLoading(true);
+    setServerError(null);
+    callAdminGet<ServerLogResponse>("action-log", { limit: 80 }).then(res => {
+      if (cancelled) return;
+      setServerLoading(false);
+      if (!res.ok || !res.data) { setServerError(res.error ?? "Server-Log nicht ladbar"); return; }
+      setServerEntries(res.data.entries.map(e => ({ ...e, type: e.type as ActionLogEntry["type"] })));
+    });
+    return () => { cancelled = true; };
+  }, [source]);
+
+  const activeEntries = source === "server" ? (serverEntries ?? []) : entries;
+  const stats = source === "server"
+    ? { total: activeEntries.length, failed: activeEntries.filter(e => !e.ok).length }
+    : getActionLogStats();
+  const visible = showAll ? activeEntries : activeEntries.filter(e => !e.ok);
   const hasFailures = stats.failed > 0;
 
   return (
@@ -61,7 +92,38 @@ export default function ActionLogPanel({ c }: { c: Palette }) {
         </div>
       </div>
 
-      {stats.total === 0 ? (
+      <div style={{ display: "flex", gap: "0.4rem", marginBottom: "0.6rem" }}>
+        {(["local", "server"] as const).map(s => (
+          <button
+            key={s}
+            onClick={() => setSource(s)}
+            style={{
+              fontFamily: MONO, fontSize: "0.48rem", letterSpacing: "0.06em", textTransform: "uppercase",
+              color: source === s ? c.void : c.muted,
+              background: source === s ? c.accentText : "none",
+              border: `1px solid ${source === s ? c.accentText : c.border}`,
+              padding: "0.25rem 0.5rem", cursor: "pointer", borderRadius: 3,
+            }}
+          >
+            {s === "local" ? "dieses Gerät" : "Server — alle Geräte"}
+          </button>
+        ))}
+      </div>
+      {source === "server" && (
+        <p style={{ fontFamily: MONO, fontSize: "0.48rem", color: c.muted, letterSpacing: "0.03em", marginTop: 0, marginBottom: "0.6rem" }}>
+          Server-Protokoll lebt im Arbeitsspeicher und setzt sich bei jedem Redeploy zurück.
+        </p>
+      )}
+
+      {source === "server" && serverLoading ? (
+        <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: c.textDim, margin: 0 }}>
+          Lädt…
+        </p>
+      ) : source === "server" && serverError ? (
+        <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: "#c48282", margin: 0 }}>
+          {serverError}
+        </p>
+      ) : stats.total === 0 ? (
         <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: c.textDim, margin: 0 }}>
           Noch nichts geschehen. Sobald du eine Curation-Aktion startest,
           wird sie hier festgehalten — auch dann, wenn sie scheitert.
@@ -97,7 +159,7 @@ export default function ActionLogPanel({ c }: { c: Palette }) {
             {showAll ? "nur Misslungenes" : "auch Erfolge zeigen"}
           </button>
         )}
-        {stats.total > 0 && (
+        {source === "local" && stats.total > 0 && (
           confirmClear ? (
             <>
               <button

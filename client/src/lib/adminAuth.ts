@@ -87,7 +87,7 @@ export function useAdminAuth(): {
  *  Generisch über T → bei erfolgreichem Call ist data: T verfügbar.
  *  Bei Fehler ist data === undefined, error gesetzt. */
 export async function callAdminAction<T = unknown>(
-  action: "curate" | "curate-bulk" | "delete" | "delete-bulk" | "synthesize-master" | "pre-score" | "auto-curate" | "promote-edge" | "propose-concept" | "distill-erkenntnis" | "confirm-erkenntnis",
+  action: "curate" | "curate-bulk" | "delete" | "delete-bulk" | "synthesize-master" | "pre-score" | "auto-curate" | "promote-edge" | "propose-concept" | "distill-erkenntnis" | "confirm-erkenntnis" | "dedup-corpus" | "config",
   body: Record<string, unknown>,
 ): Promise<{ ok: boolean; data?: T; error?: string }> {
   const t = localStorage.getItem(ADMIN_TOKEN_KEY);
@@ -97,6 +97,28 @@ export async function callAdminAction<T = unknown>(
       method: "POST",
       headers: { "Authorization": `Bearer ${t}`, "Content-Type": "application/json" },
       body: JSON.stringify(body),
+    });
+    const data = await res.json().catch(() => ({}));
+    return res.ok
+      ? { ok: true, data: data as T }
+      : { ok: false, error: data.error ?? `${res.status}` };
+  } catch (err) {
+    return { ok: false, error: err instanceof Error ? err.message : String(err) };
+  }
+}
+
+/** GET-Variante für read-only Admin-Endpunkte (action-log, config).
+ *  `query` wird als Querystring angehängt (z.B. { limit: 50 }). */
+export async function callAdminGet<T = unknown>(
+  action: "action-log" | "config",
+  query?: Record<string, string | number>,
+): Promise<{ ok: boolean; data?: T; error?: string }> {
+  const t = localStorage.getItem(ADMIN_TOKEN_KEY);
+  if (!t) return { ok: false, error: "Token fehlt" };
+  try {
+    const qs = query ? "?" + new URLSearchParams(Object.entries(query).map(([k, v]) => [k, String(v)])).toString() : "";
+    const res = await fetch(`/api/admin/${action}${qs}`, {
+      headers: { "Authorization": `Bearer ${t}` },
     });
     const data = await res.json().catch(() => ({}));
     return res.ok

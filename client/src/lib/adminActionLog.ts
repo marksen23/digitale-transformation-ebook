@@ -28,7 +28,14 @@ export type AdminActionType =
   | "synthesize-master"
   | "bulk-curate"
   | "bulk-delete"
-  | "bulk-pre-score";
+  | "bulk-pre-score"
+  | "promote-edge"
+  | "propose-concept"
+  | "confirm-erkenntnis"
+  | "distill-erkenntnis"
+  | "auto-curate"
+  | "dedup-corpus"
+  | "config-update";
 
 export interface ActionLogEntry {
   id: string;                    // log-id (nanoid-like)
@@ -134,4 +141,11 @@ export const ACTION_LABEL: Record<AdminActionType, string> = {
   "bulk-curate":        "Bulk-Status",
   "bulk-delete":        "Bulk-Löschung",
   "bulk-pre-score":     "Bulk-AI-Score",
+  "promote-edge":       "Kante übernommen",
+  "propose-concept":    "Begriff übernommen",
+  "confirm-erkenntnis": "Erkenntnis bestätigt",
+  "distill-erkenntnis": "Erkenntnis destilliert",
+  "auto-curate":        "Auto-Kuratierung",
+  "dedup-corpus":       "Dubletten bereinigt",
+  "config-update":      "Einstellung geändert",
 };
