@@ -1183,6 +1183,22 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
   // (48 px hoch), Modal füllt den ganzen Viewport.
   const isModal = typeof onClose === "function";
   const TOP_OFFSET = isModal ? 0 : 48;
+  // Alle unten schwebenden Overlays (Hint-Boxen, Zoom-Controls, Kohärenz-
+  // Panel) hängen am äußeren position:fixed-Root, das den vollen Viewport
+  // hoch ist — sie "wissen" nichts von der schlanken Footer-Leiste, die als
+  // normaler Flex-Child am Ende desselben Roots eigenen Platz beansprucht.
+  // Ohne diesen Zuschlag landet z. B. bottom:"1.6rem" 1.6rem über dem WAHREN
+  // Viewport-Rand statt über der Footer-Oberkante — Überlappung. ~2.3rem
+  // deckt die gemessene Footer-Höhe (~37px), der Rest ist Sicherheitsabstand.
+  const FOOTER_CLEARANCE = "calc(2.4rem + env(safe-area-inset-bottom, 0px))";
+  // Geteilt zwischen dem "First-Time-Empty-State"-Hinweis und dem kürzeren
+  // Modus-Hinweis unten: beide zeigten sich bisher gleichzeitig im
+  // Grundzustand (nichts selektiert, kein Tool, Netz-Modus) und lagen
+  // Text-über-Text übereinander — der Modus-Hinweis blendet sich jetzt aus,
+  // solange der ausführlichere Empty-State-Hinweis sichtbar ist.
+  const isEmptyState =
+    !selectedId && !hoveredId && !activeTool && !searchQuery.trim() &&
+    pathNodes[0] === null && analyseNodes.length === 0 && viewMode === "netz";
 
   return (
     <div
@@ -2382,7 +2398,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
         {/* ── Kohärenz-Metrik ── compact stats widget, bottom-right, above zoom controls ── */}
         <div className="concept-kohaerenz-panel" style={{
-          position: "absolute", bottom: "calc(1.2rem + 142px)", right: "1.2rem",
+          position: "absolute", bottom: `calc(${FOOTER_CLEARANCE} + 142px)`, right: "1.2rem",
           zIndex: 15, pointerEvents: "none",
           background: C.panelBg, border: `1px solid ${C.border}`,
           backdropFilter: "blur(6px)",
@@ -2474,7 +2490,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
 
         {/* ── Zoom Controls — absolut unten rechts im Graph-Canvas ── */}
         <div style={{
-          position: "absolute", bottom: "1.2rem", right: "1.2rem",
+          position: "absolute", bottom: FOOTER_CLEARANCE, right: "1.2rem",
           display: "flex", flexDirection: "column", gap: "2px",
           zIndex: 20, pointerEvents: "auto",
         }}>
@@ -3008,10 +3024,10 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           kein Tool aktiv (für Tools übernimmt das ToolHintOverlay unten).
           Auf Mobile (<641px) kürzere, touch-angepasste Variante via CSS-
           Switch (concept-hint-desktop vs concept-hint-mobile). */}
-      {!selectedNode && !activeTool && (
+      {!selectedNode && !activeTool && !isEmptyState && (
         <>
           <div className="concept-hint-desktop" style={{
-            position: "fixed", bottom: "1.2rem", left: "50%", transform: "translateX(-50%)",
+            position: "fixed", bottom: FOOTER_CLEARANCE, left: "50%", transform: "translateX(-50%)",
             fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.1em",
             color: C.muted, pointerEvents: "none", whiteSpace: "nowrap",
             zIndex: 150,
@@ -3024,7 +3040,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           </div>
           <div className="concept-hint-mobile" style={{
             position: "fixed",
-            bottom: "calc(1rem + env(safe-area-inset-bottom, 0px))",
+            bottom: `calc(${FOOTER_CLEARANCE} + 0.6rem)`,
             left: "50%", transform: "translateX(-50%)",
             maxWidth: "calc(100vw - 2rem)", textAlign: "center",
             fontFamily: C.mono, fontSize: "0.58rem", letterSpacing: "0.1em",
@@ -3049,18 +3065,13 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           Verschwindet beim ersten Knoten-Klick oder Tool-Aktivieren.
           Subtle Italic-Hint, nicht aufdringlich — der Lesemodus-Geist. */}
       {(() => {
-        const isEmpty =
-          !selectedId && !hoveredId && !activeTool && !searchQuery.trim() &&
-          pathNodes[0] === null && analyseNodes.length === 0;
-        if (!isEmpty) return null;
-        // Nur im Netz-Modus (im Cluster/Baum/Matrix sieht der User Struktur, kein Hint nötig)
-        if (viewMode !== "netz") return null;
+        if (!isEmptyState) return null;
         return (
           <div style={{
             // Entzerrung: vorher dead-center (top:50%) → lag mitten auf den
             // Hub-Knoten (Resonanz/Zwischen). Jetzt als dezenter Hinweis-Chip
             // am unteren Rand, frei vom dichten Knotenfeld.
-            position: "absolute", left: "50%", bottom: "1.6rem",
+            position: "absolute", left: "50%", bottom: `calc(${FOOTER_CLEARANCE} + 0.6rem)`,
             transform: "translateX(-50%)", zIndex: 30,
             fontFamily: C.serif, fontStyle: "italic",
             fontSize: "0.9rem", color: C.muted,
