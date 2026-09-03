@@ -3609,7 +3609,12 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             position: fixed !important;
             left: 0 !important;
             right: 0 !important;
-            bottom: 0 !important;
+            /* bottom:0 hätte hier flach mit dem echten Viewport-Rand
+               abgeschlossen und damit die schlanke Footer-Leiste
+               (eigener Flex-Child weiter oben im DOM, kein Teil dieses
+               fixed-Panels) verdeckt/überlappt — das Panel ist halb-
+               transparent (Glas-Look), der Footer-Text schien durch. */
+            bottom: ${FOOTER_CLEARANCE} !important;
             top: auto !important;
             width: 100% !important;
             max-width: none !important;
@@ -3619,7 +3624,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             border-right: none !important;
             border-bottom: none !important;
             border-top: 1px solid ${C.border} !important;
-            padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px)) !important;
+            padding-bottom: 1rem !important;
             z-index: 165 !important;
             overflow-y: auto;
           }
