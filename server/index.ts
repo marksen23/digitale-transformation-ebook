@@ -11,6 +11,7 @@ import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassa
 import { removeFromIndex, removeManyFromIndex, updateInIndex, updateManyInIndex, loadIndex } from "./lib/indexUpdater.js";
 import { UNTRUSTED_RULE, wrapUntrusted, sanitizeConceptText } from "./lib/promptSafety.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
+import { recordAdminAction, getAdminActionLog, getAdminActionLogStats } from "./lib/adminActionLog.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { renderSeoHtml, buildSitemap, buildLlmsFullText, canonicalHostRedirect } from "./lib/seo.js";
@@ -1634,6 +1635,7 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
         }
       );
       if (dispatchRes.status === 204) {
+        recordAdminAction({ type: "trigger-rebuild", actor: "admin", ok: true });
         return res.json({
           ok: true,
           message: "Workflow triggered — neuer Run auf GitHub Actions sichtbar in ~5s",
@@ -1645,15 +1647,21 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
       const hint = dispatchRes.status === 403 && errText.includes("workflow")
         ? "GITHUB_TOKEN fehlt der workflow-Scope. Neuen PAT mit actions:write erzeugen."
         : null;
+      recordAdminAction({
+        type: "trigger-rebuild", actor: "admin", ok: false,
+        reason: `HTTP ${dispatchRes.status} ${dispatchRes.statusText}`,
+      });
       return res.status(502).json({
         ok: false,
         error: `Dispatch fehlgeschlagen: HTTP ${dispatchRes.status} ${dispatchRes.statusText}`,
         hint, detail: errText.slice(0, 300),
       });
     } catch (err) {
+      const msg = err instanceof Error ? err.message : "Verbindungsfehler";
+      recordAdminAction({ type: "trigger-rebuild", actor: "admin", ok: false, reason: msg });
       return res.status(502).json({
         ok: false,
-        error: err instanceof Error ? err.message : "Verbindungsfehler",
+        error: msg,
       });
     }
   });
@@ -1932,6 +1940,11 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
       return res.status(400).json({ error: `status muss eines von ${Array.from(VALID_STATUS_VALUES).join("|")} sein` });
     }
     const r = await curateEntryStatus(id, status, "admin");
+    recordAdminAction({
+      type: "curate", actor: "admin", targetId: id, ok: r.ok,
+      reason: r.ok ? undefined : r.error,
+      payload: { newStatus: status },
+    });
     if (!r.ok) return res.status(r.code).json({ error: r.error });
     return res.json({ ok: true, id, oldStatus: r.oldStatus, newStatus: status, path: r.path });
   });
@@ -1994,6 +2007,11 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const indexOk = await updateManyInIndex(okIds.map(id => ({ id, patch: { status } })));
     invalidateResonanzRetrievalCache();
     const failed = results.filter(r => !r.ok).length;
+    recordAdminAction({
+      type: "bulk-curate", actor: "admin", targetCount: uniqueIds.length, ok: failed === 0,
+      reason: failed === 0 ? undefined : `${failed} von ${uniqueIds.length} fehlgeschlagen`,
+      payload: { newStatus: status, succeeded: okIds.length },
+    });
     return res.json({ ok: failed === 0, total: uniqueIds.length, succeeded: okIds.length, failed, indexUpdated: indexOk, results });
   });
 
@@ -2012,6 +2030,11 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const dynIds = await loadDynamicNodeIds().catch(() => new Set<string>());
     const validIds = new Set<string>([...Array.from(nodeSrv.keys()), ...Array.from(dynIds)]);
     const r = await promoteEdge({ source, target, note, evidence, actor: "admin", validIds });
+    recordAdminAction({
+      type: "promote-edge", actor: "admin", targetId: `${source}→${target}`, ok: r.ok,
+      reason: r.ok ? undefined : r.error,
+      payload: { source, target, note, evidence },
+    });
     if (!r.ok) {
       // unbekannter Begriff = 400 (Client-Fehler), Schreibfehler = 502
       const code = r.error.startsWith("unbekannter Begriff") ? 400 : 502;
@@ -2092,6 +2115,11 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
       actor: "admin",
     };
     const r = await acceptConceptNode(record);
+    recordAdminAction({
+      type: "propose-concept", actor: "admin", targetId: cleanId, ok: r.ok,
+      reason: r.ok ? undefined : r.error,
+      payload: { fullLabel: record.fullLabel, category, anchorId },
+    });
     if (!r.ok) return res.status(502).json({ ok: false, verdict, error: r.error });
     return res.json({ ok: true, verdict, applied: true, already: r.already ?? false, node: record });
   });
@@ -2142,6 +2170,11 @@ Lies die Antwort und formuliere in EINEM dichten Satz (max. 30 Wörter) den Kern
       conceptAnchor: conceptAnchor ?? null, masterAnchor: masterAnchor ?? null,
       distinctness: typeof distinctness === "number" ? distinctness : 0,
       createdAt: new Date().toISOString(), actor: "admin",
+    });
+    recordAdminAction({
+      type: "confirm-erkenntnis", actor: "admin", targetId: id, ok: r.ok,
+      reason: r.ok ? undefined : r.error,
+      payload: { answerId, questionSourceId },
     });
     if (!r.ok) return res.status(502).json({ ok: false, error: r.error });
     return res.json({ ok: true, id, already: r.already ?? false });
@@ -2281,6 +2314,11 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
 
     if (id && !ids) {
       const result = await preScoreSingle(id);
+      recordAdminAction({
+        type: "pre-score", actor: "admin", targetId: id, ok: result.ok,
+        reason: result.ok ? undefined : result.error,
+        payload: { score: result.score },
+      });
       if (!result.ok) return res.status(502).json({ error: result.error });
       return res.json({ ok: true, id, score: result.score, reason: result.reason });
     }
@@ -2296,6 +2334,11 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
         await new Promise(r2 => setTimeout(r2, 200));
       }
       const succeeded = results.filter(r => r.ok).length;
+      recordAdminAction({
+        type: "bulk-pre-score", actor: "admin", targetCount: ids.length, ok: succeeded === ids.length,
+        reason: succeeded === ids.length ? undefined : `${ids.length - succeeded} von ${ids.length} fehlgeschlagen`,
+        payload: { succeeded },
+      });
       return res.json({ ok: true, total: ids.length, succeeded, failed: ids.length - succeeded, results });
     }
     return res.status(400).json({ error: "id oder ids erforderlich" });
@@ -2444,6 +2487,15 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
           applied.push({ id: c.id, to: "rejected", ok: r.ok, ...(r.ok ? {} : { error: r.error }) });
         }
       }
+    }
+
+    if (mode === "apply" && !scoreOnly) {
+      const appliedFailed = applied.filter(a => !a.ok).length;
+      recordAdminAction({
+        type: "auto-curate", actor: "admin", targetCount: applied.length, ok: appliedFailed === 0,
+        reason: appliedFailed === 0 ? undefined : `${appliedFailed} von ${applied.length} fehlgeschlagen`,
+        payload: { approved: approve.length, rejected: skipReject ? 0 : reject.length, review: review.length },
+      });
     }
 
     return res.json({
@@ -2677,6 +2729,11 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       masterMd,
       `synthesize-master(${anchor}): ${variants.length} variants → ${existingMaster ? "re-" : ""}master`,
     );
+    recordAdminAction({
+      type: "synthesize-master", actor: "admin", targetId: anchor, ok: writeRes.ok,
+      reason: writeRes.ok ? undefined : writeRes.error,
+      payload: { endpoint, variantCount: variants.length, wasUpdate: !!existingMaster },
+    });
     if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
 
     return res.json({
@@ -2696,6 +2753,18 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     return res.json(getCitationStats());
   });
 
+  // Server-seitiges Audit-Log (adminActionLog.ts) — geräteunabhängige Sicht
+  // auf Admin-Mutationen, ergänzt das rein lokale client/src/lib/adminActionLog.ts.
+  app.get("/api/admin/action-log", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const limit = parseInt(String(req.query.limit ?? ""), 10);
+    return res.json({
+      ok: true,
+      entries: getAdminActionLog(Number.isFinite(limit) ? limit : undefined),
+      stats: getAdminActionLogStats(),
+    });
+  });
+
   app.post("/api/admin/delete", async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
     const { id } = req.body as { id?: string };
@@ -2708,6 +2777,10 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       "delete", file.path, file.sha, null,
       `admin-delete: ${id} (${file.path.split("/").slice(-2, -1)[0] ?? "unknown"})`
     );
+    recordAdminAction({
+      type: "delete", actor: "admin", targetId: id, ok: writeRes.ok,
+      reason: writeRes.ok ? undefined : writeRes.error,
+    });
     if (!writeRes.ok) return res.status(502).json({ error: writeRes.error });
     // S1: live-Index synchronisieren — gelöschter Eintrag verschwindet sofort
     // aus resonanzen-index.json, nicht erst nach dem nächsten CI-Build.
@@ -2756,6 +2829,11 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     const indexOk = await removeManyFromIndex(okIds);
     invalidateResonanzRetrievalCache();
     const failed = results.filter(r => !r.ok).length;
+    recordAdminAction({
+      type: "bulk-delete", actor: "admin", targetCount: uniqueIds.length, ok: failed === 0,
+      reason: failed === 0 ? undefined : `${failed} von ${uniqueIds.length} fehlgeschlagen`,
+      payload: { succeeded: okIds.length },
+    });
     return res.json({ ok: failed === 0, total: uniqueIds.length, succeeded: okIds.length, failed, indexUpdated: indexOk, results });
   });
 
