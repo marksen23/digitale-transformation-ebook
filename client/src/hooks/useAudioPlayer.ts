@@ -442,13 +442,24 @@ export function useAudioPlayer(
       // Kaltstart-Kulanz mehr.
       speakParagraph(idx + 1, 2500);
     };
-    utt.onerror = () => {
+    utt.onerror = (event) => {
       clearWatchdog();
       if (ttsUtteranceRef.current !== utt) return;
       ttsActiveRef.current = false;
       setPlaying(false);
-      setTtsUnavailable(true);
       stopTtsKeepAlive();
+      // "canceled"/"interrupted" sind KEINE echten Fehler — sie feuern
+      // genau dann, wenn WIR selbst speechSynthesis.cancel() aufrufen
+      // (Pause-Klick in pause(), oder ein neuer play()-Versuch löst den
+      // vorigen Utterance ab). Ohne diese Unterscheidung zeigte ein ganz
+      // normaler Pause-Klick fälschlich "Sprachausgabe nicht verfügbar",
+      // obwohl die Wiedergabe bis dahin einwandfrei lief (gemeldet: iOS,
+      // Audio spielt hörbar, Meldung erscheint erst bei Pause). Nur andere
+      // Fehlertypen (z.B. "synthesis-failed", "voice-unavailable",
+      // "audio-busy") bedeuten eine tatsächlich kaputte TTS-Bridge.
+      if (event.error !== 'canceled' && event.error !== 'interrupted') {
+        setTtsUnavailable(true);
+      }
     };
 
     ttsUtteranceRef.current = utt;
