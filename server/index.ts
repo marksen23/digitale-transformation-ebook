@@ -16,6 +16,7 @@ import {
   resolveAutoCurateConfig, resolveConceptNewConfig, resolvePrescoreConfig, resolveSynthesisConfig,
   buildConfigFields, setConfigValues, type AutoCurateThresholds,
 } from "./lib/adminConfig.js";
+import { findExactDuplicates } from "./lib/dedupCorpus.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { renderSeoHtml, buildSitemap, buildLlmsFullText, canonicalHostRedirect } from "./lib/seo.js";
@@ -2817,10 +2818,13 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
   // Bulk-Delete: löscht VIELE Einträge — Tree einmal geholt, MD-Deletes mit
   // Retry, EIN Index-Schreibvorgang (statt N parallele, die zu ~50% verloren
   // gingen).
-  app.post("/api/admin/delete-bulk", async (req, res) => {
-    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
-    const { ids } = req.body as { ids?: string[] };
-    if (!Array.isArray(ids) || ids.length === 0) return res.status(400).json({ error: "ids[] fehlt" });
+  // Gemeinsamer Bulk-Delete-Kern — Tree einmal geholt (via findEntryFiles),
+  // MD-Deletes mit Retry, EIN Index-Schreibvorgang. Von delete-bulk UND
+  // dedup-corpus(apply) genutzt, statt den Worker-Pool zweimal zu pflegen.
+  async function bulkDeleteEntries(ids: string[]): Promise<{
+    results: Array<{ id: string; ok: boolean; error?: string }>;
+    okIds: string[]; indexOk: boolean;
+  }> {
     const uniqueIds = Array.from(new Set(ids));
     const fileMap = await findEntryFiles(uniqueIds);
 
@@ -2851,6 +2855,15 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     const okIds = results.filter(r => r.ok).map(r => r.id);
     const indexOk = await removeManyFromIndex(okIds);
     invalidateResonanzRetrievalCache();
+    return { results, okIds, indexOk };
+  }
+
+  app.post("/api/admin/delete-bulk", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { ids } = req.body as { ids?: string[] };
+    if (!Array.isArray(ids) || ids.length === 0) return res.status(400).json({ error: "ids[] fehlt" });
+    const uniqueIds = Array.from(new Set(ids));
+    const { results, okIds, indexOk } = await bulkDeleteEntries(uniqueIds);
     const failed = results.filter(r => !r.ok).length;
     recordAdminAction({
       type: "bulk-delete", actor: "admin", targetCount: uniqueIds.length, ok: failed === 0,
@@ -2858,6 +2871,38 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       payload: { succeeded: okIds.length },
     });
     return res.json({ ok: failed === 0, total: uniqueIds.length, succeeded: okIds.length, failed, indexUpdated: indexOk, results });
+  });
+
+  // ─── Exakte Dubletten (dedupCorpus.ts) ───────────────────────────────────
+  // Admin-Panel-Variante von scripts/dedup-corpus.ts — gruppiert nach
+  // endpoint+anchor+normalisierter Frage, behält je Gruppe den besten
+  // Eintrag. mode=preview mutiert nichts; mode=apply löscht über denselben
+  // Bulk-Delete-Kern wie delete-bulk (in-process, kein HTTP-Chunking nötig).
+  app.post("/api/admin/dedup-corpus", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { mode, rawOnly } = req.body as { mode?: string; rawOnly?: boolean };
+    if (mode !== "preview" && mode !== "apply") {
+      return res.status(400).json({ error: 'mode muss "preview" oder "apply" sein' });
+    }
+    const entries = await loadIndex();
+    if (!entries) return res.status(503).json({ error: "Index nicht ladbar (GITHUB_TOKEN fehlt?)" });
+
+    const preview = findExactDuplicates(entries, { rawOnly: rawOnly === true });
+    if (mode === "preview") return res.json({ ok: true, mode, ...preview });
+
+    if (preview.toDelete.length === 0) {
+      recordAdminAction({ type: "dedup-corpus", actor: "admin", targetCount: 0, ok: true, payload: { rawOnly: rawOnly === true } });
+      return res.json({ ok: true, mode, ...preview, deleted: 0, failed: 0, results: [] });
+    }
+    const ids = preview.toDelete.map(e => e.id);
+    const { results, okIds, indexOk } = await bulkDeleteEntries(ids);
+    const failed = results.filter(r => !r.ok).length;
+    recordAdminAction({
+      type: "dedup-corpus", actor: "admin", targetCount: ids.length, ok: failed === 0,
+      reason: failed === 0 ? undefined : `${failed} von ${ids.length} fehlgeschlagen`,
+      payload: { rawOnly: rawOnly === true, deleted: okIds.length },
+    });
+    return res.json({ ok: failed === 0, mode, ...preview, deleted: okIds.length, failed, indexUpdated: indexOk, results });
   });
 
   // ─── Phase 3: Hosting-Health (Netlify + Render) ─────────────────────────
