@@ -14,6 +14,7 @@ import type { EbookChapter } from "@/lib/werkChunks";
 import { loadResonanzenIndexLazy } from "@/lib/resonanzenIndex";
 import { loadQuestions } from "@/lib/questions";
 import { loadErkenntnisse } from "@/lib/erkenntnisse";
+import { getCompletedChapters } from "@/lib/readingProgress";
 
 interface Props {
   C: Palette;
@@ -23,12 +24,18 @@ interface Props {
   onSearch: () => void;
 }
 
-interface Band { title: string; subtitle: string; href: string; page: number }
+interface PartGroup {
+  partTitle: string;
+  chapters: Array<{ id: string; title: string; href: string; page: number }>;
+}
 
 export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, onSearch }: Props) {
   const [counts, setCounts] = useState<{ begegnungen: number | null; fragen: number | null; erk: number | null }>({
     begegnungen: null, fragen: null, erk: null,
   });
+  // Gelesen-Markierungen (wie im Desktop-Reader) — einmal beim Öffnen lesen,
+  // dieses kurzlebige Overlay braucht keine Live-Synchronisierung.
+  const [completed] = useState<Set<string>>(() => new Set(getCompletedChapters()));
 
   useEffect(() => {
     let live = true;
@@ -38,14 +45,16 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
     return () => { live = false; };
   }, []);
 
-  // Bände aus den echten Kapiteln ableiten (partTitle gruppiert), erste
-  // Zeile je Band = Sprungziel + laufende Kapitelnummer als Seitenzahl.
-  const bands: Band[] = [];
-  const seenParts = new Set<string>();
+  // Alle Kapitel nach Band gruppiert — jedes Kapitel eine eigene Zeile mit
+  // Sprungziel, Lese-Markierung und laufender Kapitelnummer als Seitenzahl.
+  const partGroups: PartGroup[] = [];
   tocChapters.forEach((ch, i) => {
-    if (seenParts.has(ch.part)) return;
-    seenParts.add(ch.part);
-    bands.push({ title: ch.partTitle, subtitle: ch.title, href: `/werk/${ch.id}`, page: i + 1 });
+    let group = partGroups[partGroups.length - 1];
+    if (!group || group.partTitle !== ch.partTitle) {
+      group = { partTitle: ch.partTitle, chapters: [] };
+      partGroups.push(group);
+    }
+    group.chapters.push({ id: ch.id, title: ch.title, href: `/werk/${ch.id}`, page: i + 1 });
   });
 
   // Vier Absichts-Cluster statt einer flachen "Werkzeuge"-Liste (Redesign
@@ -137,26 +146,38 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
 
       <div style={{ padding: "26px 22px 0" }}>
         <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.muted, marginBottom: 8 }}>
-          <span>Das Werk</span><span style={{ color: C.accent }}>{tocChapters.length}</span>
+          <span>Das Werk</span>
+          <span style={{ color: C.accent }}>{completed.size} / {tocChapters.length} gelesen</span>
         </div>
         <div style={{ height: 1, background: C.border, marginBottom: 2 }} />
-        {bands.map(b => (
-          <button
-            key={b.href} type="button" onClick={() => go(b.href)}
-            style={{
-              width: "100%", minHeight: 56, display: "flex", alignItems: "baseline", justifyContent: "space-between",
-              gap: 12, background: "none", border: "none", borderBottom: `1px solid ${C.border}`,
-              padding: "12px 0", cursor: "pointer", textAlign: "left",
-            }}
-          >
-            <span style={{ display: "flex", flexDirection: "column", gap: 3 }}>
-              <span style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 22, color: C.textBright }}>{b.title}</span>
-              {b.subtitle !== b.title && (
-                <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 12.5, color: C.textDim }}>{b.subtitle}</span>
-              )}
-            </span>
-            <span style={{ fontFamily: MONO, fontSize: 11, color: C.accentText, fontVariantNumeric: "tabular-nums" }}>{b.page}</span>
-          </button>
+        {partGroups.map(group => (
+          <div key={group.partTitle}>
+            <div style={{ padding: "14px 0 4px", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.16em", textTransform: "uppercase", color: C.accentText }}>
+              {group.partTitle}
+            </div>
+            {group.chapters.map(ch => {
+              const isRead = completed.has(ch.id);
+              return (
+                <button
+                  key={ch.href} type="button" onClick={() => go(ch.href)}
+                  style={{
+                    width: "100%", minHeight: 44, display: "flex", alignItems: "center", justifyContent: "space-between",
+                    gap: 10, background: "none", border: "none", borderBottom: `1px solid ${C.border}`,
+                    padding: "9px 0", cursor: "pointer", textAlign: "left",
+                  }}
+                >
+                  <span style={{ display: "flex", alignItems: "center", gap: 8, minWidth: 0 }}>
+                    <span
+                      aria-label={isRead ? "gelesen" : "ungelesen"}
+                      style={{ flexShrink: 0, width: 14, textAlign: "center", fontFamily: MONO, fontSize: 11, color: isRead ? C.accentText : C.border }}
+                    >{isRead ? "✓" : "·"}</span>
+                    <span style={{ fontFamily: SERIF, fontSize: 15, color: C.text, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{ch.title}</span>
+                  </span>
+                  <span style={{ fontFamily: MONO, fontSize: 10, color: C.muted, fontVariantNumeric: "tabular-nums", flexShrink: 0 }}>{ch.page}</span>
+                </button>
+              );
+            })}
+          </div>
         ))}
       </div>
 

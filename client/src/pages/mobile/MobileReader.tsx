@@ -9,7 +9,7 @@
  * sind exakt die Desktop-Bausteine aus WerkPage — hier nur neu gerahmt,
  * nicht neu erfunden.
  */
-import { useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
 import { MONO, PAPER, type Palette } from "@/lib/theme";
 import {
   bodyFont, FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
@@ -19,9 +19,14 @@ import type { EbookChapter, EbookFile, WerkChunk } from "@/lib/werkChunks";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import type { AudioPlayerAPI } from "@/hooks/useAudioPlayer";
 import { toggleGlobalTheme } from "@/lib/globalTheme";
+import { markChapterComplete } from "@/lib/readingProgress";
 import { ParagraphBlock, PassageResonanzModal } from "@/pages/WerkPage";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
+
+// Enkidu (Frage-KI): derselbe Vollbild-Chat wie im Desktop-Reader, hier per
+// eigenem Chunk nachgeladen — kein Grund, ihn ins Kern-Reader-Bundle zu ziehen.
+const EnkiduPage = lazy(() => import("@/pages/EnkiduPage"));
 
 interface CitedSelection { chunkId: string; text: string; chapterTitle: string }
 
@@ -51,6 +56,7 @@ export default function MobileReader({
   const [indexOpen, setIndexOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
+  const [enkiduOpen, setEnkiduOpen] = useState(false);
   const [pageIdx, setPageIdx] = useState(0);
   const pendingEdge = useRef<"start" | "end" | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -101,6 +107,27 @@ export default function MobileReader({
     setPageIdx(0);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChapter?.id, chapterChunks.length]);
+
+  // "Gelesen"-Tracking (wie im Desktop-Reader): im Seitenlauf gilt die letzte
+  // Seite als Abschluss, im Fortlauf das Erreichen von ~80% Scrolltiefe.
+  useEffect(() => {
+    if (!currentChapter || chapterChunks.length === 0) return;
+    if (!paged) return;
+    if (pageIdx >= chapterChunks.length - 1) markChapterComplete(currentChapter.id);
+  }, [paged, pageIdx, chapterChunks.length, currentChapter]);
+
+  useEffect(() => {
+    if (paged || !currentChapter) return;
+    const el = scrollContainerRef.current;
+    if (!el) return;
+    const onScroll = () => {
+      const max = el.scrollHeight - el.clientHeight;
+      if (max <= 0 || el.scrollTop / max >= 0.8) markChapterComplete(currentChapter.id);
+    };
+    el.addEventListener("scroll", onScroll, { passive: true });
+    onScroll();
+    return () => el.removeEventListener("scroll", onScroll);
+  }, [paged, currentChapter]);
 
   function turnPage(dir: 1 | -1) {
     const next = pageIdx + dir;
@@ -278,6 +305,9 @@ export default function MobileReader({
           <button type="button" onClick={() => setPrefsOpen(true)} title="Lese-Einstellungen"
             style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.text, fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 17, cursor: "pointer" }}
           >Aa</button>
+          <button type="button" onClick={() => setEnkiduOpen(true)} title="Enkidu — Frage stellen"
+            style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 15, cursor: "pointer" }}
+          >✦</button>
           <button type="button" onClick={() => setIndexOpen(true)} title="Inhalt"
             style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.text, fontFamily: MONO, fontSize: 15, cursor: "pointer" }}
           >≡</button>
@@ -307,6 +337,14 @@ export default function MobileReader({
 
       {searchOpen && (
         <MobileSearchOverlay C={C} navigate={navigate} onClose={() => setSearchOpen(false)} />
+      )}
+
+      {enkiduOpen && (
+        <div style={{ position: "fixed", inset: 0, zIndex: 600, background: C.void }}>
+          <Suspense fallback={null}>
+            <EnkiduPage onClose={() => setEnkiduOpen(false)} />
+          </Suspense>
+        </div>
       )}
     </div>
   );
