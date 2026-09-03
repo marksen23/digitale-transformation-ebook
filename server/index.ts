@@ -12,6 +12,10 @@ import { removeFromIndex, removeManyFromIndex, updateInIndex, updateManyInIndex,
 import { UNTRUSTED_RULE, wrapUntrusted, sanitizeConceptText } from "./lib/promptSafety.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 import { recordAdminAction, getAdminActionLog, getAdminActionLogStats } from "./lib/adminActionLog.js";
+import {
+  resolveAutoCurateConfig, resolveConceptNewConfig, resolvePrescoreConfig, resolveSynthesisConfig,
+  buildConfigFields, setConfigValues, type AutoCurateThresholds,
+} from "./lib/adminConfig.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { renderSeoHtml, buildSitemap, buildLlmsFullText, canonicalHostRedirect } from "./lib/seo.js";
@@ -2048,11 +2052,6 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
   // client/public/concept-nodes.json (additive Schicht; statische NODES
   // unberührt). Schutzwall: Korpus-Evidenz + Distinktheit + menschliche
   // Autorisierung. mode=preview liefert nur das Gate-Verdikt (mutiert nichts).
-  const CONCEPT_NEW = {
-    distinctMin: parseFloat(process.env.CONCEPT_NEW_DISTINCT_MIN ?? "0.10"),
-    evidenceSim: parseFloat(process.env.CONCEPT_NEW_EVIDENCE_SIM ?? "0.70"),
-    evidenceMin: parseFloat(process.env.CONCEPT_NEW_EVIDENCE_MIN ?? "1"),
-  };
   const VALID_CATEGORIES = new Set(["core", "ontological", "relational", "language", "knowledge", "temporal", "transformation", "leitmotiv", "prinzip"]);
 
   app.post("/api/admin/propose-concept", async (req, res) => {
@@ -2075,6 +2074,7 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const vec = await fetchEmbedding(`${fullLabel.trim()}: ${description.trim()}`);
     if (!vec) return res.status(502).json({ error: "Embedding fehlgeschlagen (Gemini)" });
 
+    const CONCEPT_NEW = await resolveConceptNewConfig();
     const gate = await evaluateConcept(vec, { evidenceSim: CONCEPT_NEW.evidenceSim });
     const passDistinct = gate.distinctness >= CONCEPT_NEW.distinctMin;
     const passEvidence = gate.evidence >= CONCEPT_NEW.evidenceMin;
@@ -2146,10 +2146,11 @@ Lies die Antwort und formuliere in EINEM dichten Satz (max. 30 Wörter) den Kern
     }
     if (!response) return res.status(400).json({ error: "Kein Antwort-Section gefunden" });
 
+    const distillPrescoreCfg = await resolvePrescoreConfig();
     const { text, error } = await callTextLLM(
       { system: ERKENNTNIS_DISTILL_SYSTEM, user: response.slice(0, 4000), maxTokens: 2048, temperature: 0.3,
         thinkingBudget: parseInt(process.env.PRESCORE_THINKING_BUDGET ?? "512", 10) },
-      { backend: process.env.PRESCORE_BACKEND ?? "gemini", geminiModel: process.env.PRESCORE_MODEL ?? "gemini-2.5-pro" },
+      { backend: distillPrescoreCfg.backend, geminiModel: distillPrescoreCfg.model },
     );
     if (!text) return res.status(502).json({ error: `Destillation fehlgeschlagen — ${error ?? "kein Detail"}` });
     return res.json({ ok: true, answerId, kernsatz: text.trim().replace(/^["„]|["“]$/g, "").trim() });
@@ -2271,10 +2272,11 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     // Denk-Tokens zählen gegen maxOutputTokens; bei 200 bleibt kein Platz für
     // die (kurze) Antwort → leere Response. 2048 gibt Headroom (die Antwort
     // selbst sind nur 2 Zeilen). Claude braucht das nicht, schadet aber nicht.
+    const preScorePrescoreCfg = await resolvePrescoreConfig();
     const { text: raw, model, error: llmError } = await callTextLLM(
       { system: PRE_SCORE_SYSTEM, user: userPrompt, maxTokens: 2048, temperature: 0.2,
         thinkingBudget: parseInt(process.env.PRESCORE_THINKING_BUDGET ?? "512", 10) },
-      { backend: process.env.PRESCORE_BACKEND ?? "gemini", geminiModel: process.env.PRESCORE_MODEL ?? "gemini-2.5-pro" },
+      { backend: preScorePrescoreCfg.backend, geminiModel: preScorePrescoreCfg.model },
     );
     if (!raw) return { ok: false, error: `Pre-Score-LLM fehlgeschlagen — ${llmError ?? "kein Detail"}` };
     const parsed = parsePreScore(raw);
@@ -2358,23 +2360,16 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
   // mode=preview → read-only (klassifiziert nur bereits bewertete Einträge).
   // mode=apply   → bewertet fehlende ai_scores nach, dann approve/reject.
 
-  const AUTO_CURATE = {
-    aiMin:        parseFloat(process.env.AUTO_CURATE_AI_MIN ?? "4"),
-    corpusMin:    parseFloat(process.env.AUTO_CURATE_CORPUS_MIN ?? "0.55"),
-    aiReject:     parseFloat(process.env.AUTO_CURATE_AI_REJECT ?? "2"),
-    corpusReject: parseFloat(process.env.AUTO_CURATE_CORPUS_REJECT ?? "0.30"),
-    werkMin:      parseFloat(process.env.AUTO_CURATE_WERK_MIN ?? "0.55"),
-    // Triangulierter Schutzwall (Phase 5): conceptVoiceScore (Cosine zur
-    // BEGRIFFSSTRUKTUR) als dritter, korroborierender Anker. Empirisch korreliert
-    // er mit corpusVoiceScore — er LIBERALISIERT nicht, sondern HÄRTET den Wall.
-    // Kalibrierung (Messung 2026-06-22 über den raw-Pool): cn-Verteilung min 0.634,
-    // p25 0.669, median 0.703. Bei conceptMin 0.68 saßen 29 sonst freigabefähige
-    // Einträge in der Totzone [0.62,0.68) fest → auf 0.65 gesenkt (bleibt klar über
-    // der 0.62-Reject-Schwelle, kein begriffs-ferner Eintrag rutscht durch).
-    // Graceful: wenn conceptVoiceScore fehlt (vor CI-Rebuild), blockt er nicht.
-    conceptMin:    parseFloat(process.env.AUTO_CURATE_CONCEPT_MIN ?? "0.65"),
-    conceptReject: parseFloat(process.env.AUTO_CURATE_CONCEPT_REJECT ?? "0.62"),
-  };
+  // Triangulierter Schutzwall (Phase 5): conceptVoiceScore (Cosine zur
+  // BEGRIFFSSTRUKTUR) als dritter, korroborierender Anker. Empirisch korreliert
+  // er mit corpusVoiceScore — er LIBERALISIERT nicht, sondern HÄRTET den Wall.
+  // Kalibrierung (Messung 2026-06-22 über den raw-Pool): cn-Verteilung min 0.634,
+  // p25 0.669, median 0.703. Bei conceptMin 0.68 saßen 29 sonst freigabefähige
+  // Einträge in der Totzone [0.62,0.68) fest → auf 0.65 gesenkt (bleibt klar über
+  // der 0.62-Reject-Schwelle, kein begriffs-ferner Eintrag rutscht durch).
+  // Graceful: wenn conceptVoiceScore fehlt (vor CI-Rebuild), blockt er nicht.
+  // Schwellenwerte: seit Batch 4a per resolveAutoCurateConfig() aufgelöst
+  // (Env-Default, optional überlagert durch /admin/settings-Override).
 
   interface ScoredEntry {
     id: string; status: string; prompt: string;
@@ -2384,7 +2379,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     novelty?: boolean; nearDuplicates?: string[];
   }
 
-  function classifyForAutoCurate(e: ScoredEntry): { decision: "approve" | "reject" | "review"; reason: string } {
+  function classifyForAutoCurate(e: ScoredEntry, AUTO_CURATE: AutoCurateThresholds): { decision: "approve" | "reject" | "review"; reason: string } {
     const ai = e.ai_score, cv = e.corpusVoiceScore, wv = e.werkVoiceScore, cn = e.conceptVoiceScore;
     const echoCount = e.nearDuplicates?.length ?? 0;
     // Harte Ablehnung zuerst (Sicherheit: nichts klar Schlechtes durchlassen)
@@ -2425,11 +2420,13 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     const pool = (entries as unknown as ScoredEntry[]).filter(e => e.status === "raw" || e.status === "pending");
     const candidates = pool.slice(off, off + cap);
 
+    const AUTO_CURATE = await resolveAutoCurateConfig();
     // Aktueller Richter (muss zur Wahl in preScoreSingle passen) — für die
     // rescore-Bedingung: Einträge mit fremdem ai_score_model neu bewerten.
-    const judgeModel = (process.env.PRESCORE_BACKEND ?? "gemini") === "claude"
+    const autoCuratePrescoreCfg = await resolvePrescoreConfig();
+    const judgeModel = autoCuratePrescoreCfg.backend === "claude"
       ? (process.env.CLAUDE_MODEL?.trim() || "claude-sonnet-4-6")
-      : (process.env.PRESCORE_MODEL?.trim() || "gemini-2.5-pro");
+      : autoCuratePrescoreCfg.model;
 
     // apply: ai_scores nachbewerten. Default nur fehlende; mit rescore werden
     // ZUSÄTZLICH bereits bewertete Einträge neu beurteilt — egal ob der alte
@@ -2452,7 +2449,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     }
 
     const classified = candidates.map(e => {
-      const { decision, reason } = classifyForAutoCurate(e);
+      const { decision, reason } = classifyForAutoCurate(e, AUTO_CURATE);
       return {
         id: e.id, decision, reason,
         prompt: (e.prompt ?? "").slice(0, 100),
@@ -2667,10 +2664,12 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     // 2. Existierenden Master laden (für inkrementelle Synthese)
     const existingMaster = await loadMaster(endpoint, anchor);
 
-    // 3. Synthese-LLM (Default Gemini gemini-2.5-pro; per SYNTHESIS_BACKEND=claude umstellbar)
+    // 3. Synthese-LLM (Default Gemini gemini-2.5-pro; per SYNTHESIS_BACKEND=claude
+    // oder /admin/settings-Override umstellbar)
+    const synthesisCfg = await resolveSynthesisConfig();
     const { text: synthesisText, model: synthModel, error: synthError } = await callTextLLM(
       { system: MASTER_SYNTHESIS_SYSTEM, user: buildSynthesisUserPrompt(variants, existingMaster), maxTokens: 6000, temperature: 0.7 },
-      { backend: process.env.SYNTHESIS_BACKEND ?? "gemini", geminiModel: process.env.SYNTHESIS_MODEL ?? "gemini-2.5-pro" },
+      { backend: synthesisCfg.backend, geminiModel: synthesisCfg.model },
     );
     if (!synthesisText) {
       return res.status(502).json({ error: `Synthese-LLM fehlgeschlagen — ${synthError ?? "siehe Server-Logs"}` });
@@ -2763,6 +2762,30 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
       entries: getAdminActionLog(Number.isFinite(limit) ? limit : undefined),
       stats: getAdminActionLogStats(),
     });
+  });
+
+  // Kuratierungs-Schwellenwerte + KI-Backend-Wahl (adminConfig.ts) —
+  // editierbar über /admin/settings, git-persistiert, additiv über den
+  // Env-Defaults. GET liefert die volle Feldliste (Wert + Herkunft), POST
+  // validiert + persistiert ein Patch.
+  app.get("/api/admin/config", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { fields, updatedAt } = await buildConfigFields();
+    return res.json({ ok: true, fields, updatedAt });
+  });
+
+  app.post("/api/admin/config", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { values } = req.body as { values?: Record<string, unknown> };
+    if (!values || typeof values !== "object") return res.status(400).json({ error: "values fehlt" });
+    const r = await setConfigValues(values, "admin");
+    recordAdminAction({
+      type: "config-update", actor: "admin", targetCount: Object.keys(values).length, ok: r.ok,
+      reason: r.ok ? undefined : r.error,
+      payload: r.ok ? { updatedKeys: r.updatedKeys } : undefined,
+    });
+    if (!r.ok) return res.status(400).json({ error: r.error });
+    return res.json({ ok: true, updatedKeys: r.updatedKeys, values: r.values });
   });
 
   app.post("/api/admin/delete", async (req, res) => {
