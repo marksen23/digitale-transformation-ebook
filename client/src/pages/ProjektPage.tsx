@@ -44,10 +44,47 @@ function Reveal({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   );
 }
 
-interface SvgProps { c: Palette }
+export interface SvgProps { c: Palette }
+
+/* Keyframes + Klassen für alle Illustrationen unten — als eigene Komponente
+   exportiert, damit MobileProjekt.tsx dieselben Animationen einmal einbinden
+   kann, statt den Block zu duplizieren. */
+export function ProjektAnimations() {
+  return (
+    <style>{`
+      @keyframes pjk-pulse { 0% { transform: scale(0.4); opacity: 0.7 } 100% { transform: scale(7); opacity: 0 } }
+      @keyframes pjk-corepulse { 0%,100% { opacity: 0.4; transform: scale(0.85) } 50% { opacity: 1; transform: scale(1.15) } }
+      @keyframes pjk-orbit { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
+      @keyframes pjk-pass { 0% { transform: translateY(-26px); opacity: 0 } 30% { opacity: 1 } 70% { opacity: 1 } 100% { transform: translateY(60px); opacity: 0 } }
+      @keyframes pjk-tri { 0%,100% { opacity: 0.55 } 50% { opacity: 1 } }
+      @keyframes pjk-node { 0% { transform: scale(0); opacity: 0 } 100% { transform: scale(1); opacity: 1 } }
+      @keyframes pjk-edge { 0% { stroke-dashoffset: 60; opacity: 0.3 } 100% { stroke-dashoffset: 0; opacity: 1 } }
+      @keyframes pjk-packet { 0% { transform: translateX(70px); opacity: 0 } 10% { opacity: 1 } 90% { opacity: 1 } 100% { transform: translateX(500px); opacity: 0 } }
+      @keyframes pjk-merge { 0% { transform: translateX(0); opacity: 0.5 } 50% { transform: translateX(20px); opacity: 1 } 100% { transform: translateX(0); opacity: 0.5 } }
+      @keyframes pjk-field { 0%,100% { opacity: 0.25; transform: scale(0.8) } 50% { opacity: 1; transform: scale(1.4) } }
+      @keyframes pjk-curve { from { stroke-dashoffset: 320 } to { stroke-dashoffset: 0 } }
+      .pjk-ring { transform-box: fill-box; transform-origin: center; animation: pjk-pulse 3.4s ease-out infinite; }
+      .pjk-core { transform-box: fill-box; transform-origin: center; animation: pjk-corepulse 2.4s ease-in-out infinite; }
+      .pjk-orbit { animation: pjk-orbit 7s linear infinite; }
+      .pjk-pass { animation: pjk-pass 3s ease-in-out infinite; }
+      .pjk-tri  { animation: pjk-tri 3s ease-in-out infinite; }
+      .pjk-node { animation: pjk-node 0.6s ease-out both; }
+      .pjk-edge { animation: pjk-edge 2.2s ease-in-out infinite alternate; }
+      .pjk-packet { animation: pjk-packet 4s ease-in-out infinite; }
+      .pjk-field { transform-box: fill-box; transform-origin: center; animation: pjk-field 3.6s ease-in-out infinite; }
+      .pjk-merge { transform-box: fill-box; transform-origin: center; animation: pjk-merge 3.4s ease-in-out infinite; }
+      .pjk-curve { stroke-dasharray: 320; animation: pjk-curve 2.6s ease-out forwards; }
+      @media (prefers-reduced-motion: reduce) {
+        .pjk-ring,.pjk-core,.pjk-orbit,.pjk-pass,.pjk-tri,.pjk-node,.pjk-edge,.pjk-packet,.pjk-field,.pjk-merge,.pjk-curve { animation: none !important; }
+        .pjk-curve { stroke-dashoffset: 0 !important; }
+        .pjk-node { opacity: 1 !important; transform: none !important; }
+      }
+    `}</style>
+  );
+}
 
 /* ── 1. Resonanz: zwei Quellen, deren Wellen sich im „Zwischen" treffen ── */
-function WaveSvg({ c }: SvgProps) {
+export function WaveSvg({ c }: SvgProps) {
   const ring = (cx: number, d: number) => (
     [0, 1, 2].map(i => (
       <circle key={i} className="pjk-ring" cx={cx} cy={90} r={9} fill="none"
@@ -71,7 +108,7 @@ function WaveSvg({ c }: SvgProps) {
 }
 
 /* ── 2. Der Kreislauf: Stationen im Kreis, ein Punkt umrundet sie ── */
-function LoopSvg({ c }: SvgProps) {
+export function LoopSvg({ c }: SvgProps) {
   const stations = ["Frage", "KI-Antwort", "Schutzwall", "Korpus", "RAG-Kontext"];
   const R = 70, cx = 140, cy = 110;
   return (
@@ -96,7 +133,7 @@ function LoopSvg({ c }: SvgProps) {
 }
 
 /* ── 3. Schutzwall: drei Anker als Dreieck, ein Eintrag muss hindurch ── */
-function WallSvg({ c }: SvgProps) {
+export function WallSvg({ c }: SvgProps) {
   const A = [180, 30], B = [40, 200], Cc = [320, 200];
   return (
     <svg viewBox="0 0 360 240" width="100%" role="img" aria-label="Triangulierter Schutzwall">
@@ -116,7 +153,7 @@ function WallSvg({ c }: SvgProps) {
 }
 
 /* ── 4. Wachsendes Netz: Knoten poppen, eine werdende Kante verfestigt sich ── */
-function NetSvg({ c }: SvgProps) {
+export function NetSvg({ c }: SvgProps) {
   const nodes = [[60, 60], [150, 40], [240, 80], [110, 130], [210, 150], [300, 120]];
   const edges = [[0, 1], [1, 2], [0, 3], [3, 4], [2, 5]];
   return (
@@ -139,7 +176,7 @@ function NetSvg({ c }: SvgProps) {
 }
 
 /* ── 5. Pipeline: ein Paket wandert durch die Stationen ── */
-function PipelineSvg({ c }: SvgProps) {
+export function PipelineSvg({ c }: SvgProps) {
   const stages = ["Begegnung", "Markdown", "Index", "CI-Rebuild", "Live"];
   const w = 540, n = stages.length;
   return (
@@ -165,7 +202,7 @@ function PipelineSvg({ c }: SvgProps) {
 }
 
 /* ── 6. Masterdokument: viele Varianten verdichten zu einer Synthese ── */
-function MasterSvg({ c }: SvgProps) {
+export function MasterSvg({ c }: SvgProps) {
   return (
     <svg viewBox="0 0 360 160" width="100%" role="img" aria-label="Masterdokument-Synthese">
       {[[40, 30], [40, 70], [40, 110]].map(([x, y], i) => (
@@ -186,7 +223,7 @@ function MasterSvg({ c }: SvgProps) {
 }
 
 /* ── 7. Feld: Anregungen in einem Feld + Ordnungsparameter-Kurve ── */
-function FieldSvg({ c }: SvgProps) {
+export function FieldSvg({ c }: SvgProps) {
   const dots: [number, number][] = [];
   for (let x = 0; x < 7; x++) for (let y = 0; y < 4; y++) dots.push([40 + x * 40, 40 + y * 32]);
   return (
@@ -249,35 +286,7 @@ export default function ProjektPage() {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <style>{`
-        @keyframes pjk-pulse { 0% { transform: scale(0.4); opacity: 0.7 } 100% { transform: scale(7); opacity: 0 } }
-        @keyframes pjk-corepulse { 0%,100% { opacity: 0.4; transform: scale(0.85) } 50% { opacity: 1; transform: scale(1.15) } }
-        @keyframes pjk-orbit { from { transform: rotate(0deg) } to { transform: rotate(360deg) } }
-        @keyframes pjk-pass { 0% { transform: translateY(-26px); opacity: 0 } 30% { opacity: 1 } 70% { opacity: 1 } 100% { transform: translateY(60px); opacity: 0 } }
-        @keyframes pjk-tri { 0%,100% { opacity: 0.55 } 50% { opacity: 1 } }
-        @keyframes pjk-node { 0% { transform: scale(0); opacity: 0 } 100% { transform: scale(1); opacity: 1 } }
-        @keyframes pjk-edge { 0% { stroke-dashoffset: 60; opacity: 0.3 } 100% { stroke-dashoffset: 0; opacity: 1 } }
-        @keyframes pjk-packet { 0% { transform: translateX(70px); opacity: 0 } 10% { opacity: 1 } 90% { opacity: 1 } 100% { transform: translateX(500px); opacity: 0 } }
-        @keyframes pjk-merge { 0% { transform: translateX(0); opacity: 0.5 } 50% { transform: translateX(20px); opacity: 1 } 100% { transform: translateX(0); opacity: 0.5 } }
-        @keyframes pjk-field { 0%,100% { opacity: 0.25; transform: scale(0.8) } 50% { opacity: 1; transform: scale(1.4) } }
-        @keyframes pjk-curve { from { stroke-dashoffset: 320 } to { stroke-dashoffset: 0 } }
-        .pjk-ring { transform-box: fill-box; transform-origin: center; animation: pjk-pulse 3.4s ease-out infinite; }
-        .pjk-core { transform-box: fill-box; transform-origin: center; animation: pjk-corepulse 2.4s ease-in-out infinite; }
-        .pjk-orbit { animation: pjk-orbit 7s linear infinite; }
-        .pjk-pass { animation: pjk-pass 3s ease-in-out infinite; }
-        .pjk-tri  { animation: pjk-tri 3s ease-in-out infinite; }
-        .pjk-node { animation: pjk-node 0.6s ease-out both; }
-        .pjk-edge { animation: pjk-edge 2.2s ease-in-out infinite alternate; }
-        .pjk-packet { animation: pjk-packet 4s ease-in-out infinite; }
-        .pjk-field { transform-box: fill-box; transform-origin: center; animation: pjk-field 3.6s ease-in-out infinite; }
-        .pjk-merge { transform-box: fill-box; transform-origin: center; animation: pjk-merge 3.4s ease-in-out infinite; }
-        .pjk-curve { stroke-dasharray: 320; animation: pjk-curve 2.6s ease-out forwards; }
-        @media (prefers-reduced-motion: reduce) {
-          .pjk-ring,.pjk-core,.pjk-orbit,.pjk-pass,.pjk-tri,.pjk-node,.pjk-edge,.pjk-packet,.pjk-field,.pjk-merge,.pjk-curve { animation: none !important; }
-          .pjk-curve { stroke-dashoffset: 0 !important; }
-          .pjk-node { opacity: 1 !important; transform: none !important; }
-        }
-      `}</style>
+      <ProjektAnimations />
 
       <div style={{ maxWidth: 720, margin: "0 auto", padding: "2.5rem 1.5rem 0" }}>
         {/* Hero */}
