@@ -9,7 +9,7 @@
  * sind exakt die Desktop-Bausteine aus WerkPage — hier nur neu gerahmt,
  * nicht neu erfunden.
  */
-import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { MONO, PAPER, SERIF, type Palette } from "@/lib/theme";
 import {
   bodyFont, FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
@@ -20,6 +20,7 @@ import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import type { AudioPlayerAPI } from "@/hooks/useAudioPlayer";
 import { toggleGlobalTheme } from "@/lib/globalTheme";
 import { markChapterComplete } from "@/lib/readingProgress";
+import { parseGlossaryEntries, groupGlossaryByLetter } from "@/lib/glossary";
 import { ParagraphBlock, PassageResonanzModal } from "@/pages/WerkPage";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
@@ -97,7 +98,16 @@ export default function MobileReader({
   const pendingEdge = useRef<"start" | "end" | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const readBodyFont = bodyFont(reading);
-  const paged = reading.pageMode === "paged";
+  // Glossar ist ein Nachschlagewerk, kein linearer Lesefluss — Seitenlauf
+  // (ein Absatz pro "Seite") ergibt hier keinen Sinn, unabhängig von der
+  // gewählten ReadingSettings.pageMode. Gilt fürs komplette Kapitel; die
+  // Anfangsbuchstaben-Ansicht unten ersetzt die normale Absatz-Darstellung.
+  const isGlossar = currentChapter?.id === "glossar";
+  const paged = reading.pageMode === "paged" && !isGlossar;
+  const glossaryGrouped = useMemo(
+    () => isGlossar && currentChapter ? groupGlossaryByLetter(parseGlossaryEntries(currentChapter.content)) : null,
+    [isGlossar, currentChapter],
+  );
 
   // Mitlesen beim Vorlesen: im Fortlauf sanft zum aktiven Absatz scrollen,
   // im Seitenlauf blättert die Hörfassung die Seite selbst mit (eine Seite
@@ -144,26 +154,51 @@ export default function MobileReader({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentChapter?.id, chapterChunks.length]);
 
-  // "Gelesen"-Tracking (wie im Desktop-Reader): im Seitenlauf gilt die letzte
-  // Seite als Abschluss, im Fortlauf das Erreichen von ~80% Scrolltiefe.
-  useEffect(() => {
-    if (!currentChapter || chapterChunks.length === 0) return;
-    if (!paged) return;
-    if (pageIdx >= chapterChunks.length - 1) markChapterComplete(currentChapter.id);
-  }, [paged, pageIdx, chapterChunks.length, currentChapter]);
+  // "Gelesen"-Tracking (wie im Desktop-Reader, Glossar/Literatur bewusst
+  // ausgenommen — Nachschlagewerke, kein linearer Lesefortschritt). Zählt
+  // erst als gelesen bei echtem Engagement: im Seitenlauf das Erreichen der
+  // letzten Seite, im Fortlauf das tatsächliche Herunterscrollen bis (nahe)
+  // zum Ende. Kein sofortiges Auto-Häkchen mehr für kurze Kapitel, die ohne
+  // zu scrollen ins Bild passen — die zählen erst über die Hörfassung unten,
+  // oder müssen (wie im Desktop-Reader) manuell markiert werden.
+  const trackableChapter = currentChapter && currentChapter.id !== "glossar" && currentChapter.id !== "literatur" ? currentChapter : null;
 
   useEffect(() => {
-    if (paged || !currentChapter) return;
+    if (!trackableChapter || chapterChunks.length === 0) return;
+    if (!paged) return;
+    if (pageIdx >= chapterChunks.length - 1) markChapterComplete(trackableChapter.id);
+  }, [paged, pageIdx, chapterChunks.length, trackableChapter]);
+
+  useEffect(() => {
+    if (paged || !trackableChapter) return;
     const el = scrollContainerRef.current;
     if (!el) return;
     const onScroll = () => {
       const max = el.scrollHeight - el.clientHeight;
-      if (max <= 0 || el.scrollTop / max >= 0.8) markChapterComplete(currentChapter.id);
+      // >= 0.97 statt einer laxen Schwelle — "wirklich bis nach unten
+      // gescrollt", mit etwas Toleranz für Rundungsfehler am Ende.
+      if (max > 0 && el.scrollTop / max >= 0.97) markChapterComplete(trackableChapter.id);
     };
     el.addEventListener("scroll", onScroll, { passive: true });
-    onScroll();
     return () => el.removeEventListener("scroll", onScroll);
-  }, [paged, currentChapter]);
+  }, [paged, trackableChapter]);
+
+  // Hörfassung bis zum Ende durchgelesen: sowohl das MP3- als auch das
+  // TTS-Ende in useAudioPlayer laufen auf denselben Signal-Zwilling hinaus
+  // (playing → false UND activeParaIdx → -1, siehe speakParagraph/audio
+  // "ended") — anders als ein reiner Pause-Klick, der activeParaIdx NICHT
+  // zurücksetzt. wasPlayingRef pro Kapitel zurückgesetzt, damit ein
+  // Kapitelwechsel während der Wiedergabe nicht fälschlich als "fertig
+  // gehört" durchgeht.
+  const wasPlayingRef = useRef(false);
+  useEffect(() => { wasPlayingRef.current = false; }, [trackableChapter?.id]);
+  useEffect(() => {
+    if (!trackableChapter) return;
+    if (wasPlayingRef.current && !audio.playing && activeParaIdx === -1) {
+      markChapterComplete(trackableChapter.id);
+    }
+    wasPlayingRef.current = audio.playing;
+  }, [audio.playing, activeParaIdx, trackableChapter]);
 
   function turnPage(dir: 1 | -1) {
     const next = pageIdx + dir;
@@ -256,7 +291,9 @@ export default function MobileReader({
           </div>
         )}
 
-        {chapterChunks.length === 0 ? (
+        {glossaryGrouped ? (
+          <MobileGlossaryView C={C} grouped={glossaryGrouped} bodyFont={readBodyFont} fontScale={reading.fontScale} />
+        ) : chapterChunks.length === 0 ? (
           <p style={{ fontStyle: "italic", color: C.muted }}>Kein Inhalt für dieses Kapitel verfügbar.</p>
         ) : paged ? (
           activeChunk && (
@@ -579,5 +616,57 @@ function MobileChapterChatSheet({
         </div>
       </div>
     </>
+  );
+}
+
+// ─── Glossar — Anfangsbuchstaben-Register ──────────────────────────────────
+// Der Desktop-Reader hat dafür eine eigene Ansicht (Home.tsx,
+// renderGlossarContent) statt des normalen Absatz-Fließtexts — hier das
+// mobile Gegenstück: horizontal scrollbares Buchstaben-Register statt des
+// Desktop-Zeilenumbruchs (auf einem Telefon ist dafür keine Breite), tippen
+// springt zum jeweiligen Abschnitt.
+function MobileGlossaryView({
+  C, grouped, bodyFont, fontScale,
+}: {
+  C: Palette; grouped: Map<string, { term: string; definition: string }[]>; bodyFont: string; fontScale: number;
+}) {
+  const letters = Array.from(grouped.keys());
+  return (
+    <div>
+      <div style={{
+        display: "flex", gap: 6, overflowX: "auto", WebkitOverflowScrolling: "touch",
+        position: "sticky", top: 0, zIndex: 5, background: C.void,
+        padding: "4px 0 12px", marginBottom: 8, borderBottom: `1px solid ${C.border}`,
+      }}>
+        {letters.map(letter => (
+          <button
+            key={letter} type="button"
+            onClick={() => document.getElementById(`mobile-glossar-${letter}`)?.scrollIntoView({ behavior: "smooth", block: "start" })}
+            style={{
+              flexShrink: 0, width: 30, height: 30, borderRadius: 6, border: `1px solid ${C.border}`,
+              background: "none", color: C.accentText, fontFamily: MONO, fontSize: 12, cursor: "pointer",
+            }}
+          >{letter}</button>
+        ))}
+      </div>
+
+      {Array.from(grouped.entries()).map(([letter, items]) => (
+        <section key={letter} id={`mobile-glossar-${letter}`} style={{ marginBottom: 26, scrollMarginTop: 46 }}>
+          <div style={{ fontFamily: MONO, fontSize: 11, letterSpacing: "0.1em", color: C.accentText, borderBottom: `1px solid ${C.border}`, paddingBottom: 6, marginBottom: 12 }}>
+            {letter}
+          </div>
+          {items.map((entry, i) => (
+            <div key={`${letter}-${i}`} style={{ marginBottom: 16 }}>
+              <div style={{ fontFamily: bodyFont, fontWeight: 700, fontSize: `${1.02 * fontScale}rem`, color: C.textBright, marginBottom: 3 }}>
+                {entry.term}
+              </div>
+              <div style={{ fontFamily: bodyFont, fontSize: `${0.95 * fontScale}rem`, lineHeight: 1.6, color: C.textDim }}>
+                {entry.definition}
+              </div>
+            </div>
+          ))}
+        </section>
+      ))}
+    </div>
   );
 }
