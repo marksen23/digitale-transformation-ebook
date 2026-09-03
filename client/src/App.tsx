@@ -21,6 +21,7 @@ const AdminLayout = lazy(() => import("./pages/admin/AdminLayout"));
 const AdminCurationPage = lazy(() => import("./pages/admin/AdminCurationPage"));
 const AdminMetricsPage = lazy(() => import("./pages/admin/AdminMetricsPage"));
 const AdminHealthPage = lazy(() => import("./pages/admin/AdminHealthPage"));
+const AdminSettingsPage = lazy(() => import("./pages/admin/AdminSettingsPage"));
 const DevSearchPage = lazy(() => import("./pages/DevSearchPage"));
 const FragenPage = lazy(() => import("./pages/FragenPage"));
 const ErkenntnissePage = lazy(() => import("./pages/ErkenntnissePage"));
@@ -86,6 +87,9 @@ function Router() {
       </Route>
       <Route path={"/admin/health"}>
         <Framed><Suspense fallback={fallback}><AdminLayout><AdminHealthPage /></AdminLayout></Suspense></Framed>
+      </Route>
+      <Route path={"/admin/settings"}>
+        <Framed><Suspense fallback={fallback}><AdminLayout><AdminSettingsPage /></AdminLayout></Suspense></Framed>
       </Route>
       <Route path={"/admin"}>
         <Framed><Suspense fallback={fallback}><AdminLayout><AdminCurationPage /></AdminLayout></Suspense></Framed>

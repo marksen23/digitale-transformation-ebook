@@ -15,9 +15,10 @@ import { useIsMobile } from "@/hooks/useMobile";
 import MobileBetrieb, { type BetriebTab } from "@/pages/mobile/MobileBetrieb";
 
 const TABS: Array<{ path: string; label: string }> = [
-  { path: "/admin",         label: "Kuration" },
-  { path: "/admin/metrics", label: "Metrics" },
-  { path: "/admin/health",  label: "Health" },
+  { path: "/admin",          label: "Kuration" },
+  { path: "/admin/metrics",  label: "Metrics" },
+  { path: "/admin/health",   label: "Health" },
+  { path: "/admin/settings", label: "Einstellungen" },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
