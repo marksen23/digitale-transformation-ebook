@@ -1,0 +1,83 @@
+name: Auto-Curate Resonanz-Korpus
+
+# Läuft täglich den bestehenden /api/admin/auto-curate-Klassifikator über den
+# raw/pending-Pool — bewusst NUR approve/reject, die vom Schutzwall (ai_score +
+# corpusVoiceScore + conceptVoiceScore + werkVoiceScore, Schwellen server-
+# seitig in server/index.ts AUTO_CURATE) eindeutig entschieden werden. Alles
+# Grenzwertige landet in "review" und bleibt raw für die manuelle Sichtung im
+# Admin-Panel — dieser Workflow wendet NIE eine review-Klassifikation an.
+#
+# Bewusst ein EIGENER, separater Cron statt ein zusätzlicher Schritt in
+# validate-corpus.yml: letzterer triggert bei JEDER neuen KI-Antwort (also
+# potenziell sehr häufig) und hat schon jetzt fragile Concurrency-Handling
+# für parallele Läufe. Auto-Curate hier täglich einmal über den gesamten
+# Pool laufen zu lassen, statt es an jeden einzelnen Push zu hängen, vermeidet
+# unnötige LLM-Scoring-Calls und zusätzliche Last auf dieser Pipeline.
+#
+# Setup-Voraussetzung: Repo-Secret ADMIN_TOKEN muss auf denselben Wert
+# gesetzt sein wie die ADMIN_TOKEN env var im Render-Service (Settings →
+# Environment). Ohne dieses Secret überspringt der Lauf sich selbst, statt
+# mit einem kryptischen 401 zu scheitern.
+
+on:
+  schedule:
+    - cron: '0 4 * * *'   # täglich 04:00 UTC — 1h nach dem Daily-History-Snapshot (03:00 UTC)
+  workflow_dispatch:        # manueller Trigger + Testlauf
+
+permissions:
+  contents: read   # dieser Workflow committet nichts selbst — auto-curate.ts
+                   # mutiert direkt über die Admin-API des laufenden Servers
+
+jobs:
+  auto-curate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5
+        with:
+          fetch-depth: 1
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
+        with:
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Skip if ADMIN_TOKEN secret is not configured
+        id: gate
+        env:
+          TOKEN_CHECK: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          if [ -z "$TOKEN_CHECK" ]; then
+            echo "::warning::ADMIN_TOKEN Repo-Secret fehlt — Auto-Curate übersprungen. Secret unter Settings → Secrets and variables → Actions setzen (gleicher Wert wie die ADMIN_TOKEN env var im Render-Service)."
+            echo "skip=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # limit 200 = das Maximum, das /api/admin/auto-curate pro Request annimmt
+      # (server/index.ts, cap = Math.min(..., 200)) — deckt den aktuellen
+      # raw/pending-Pool in einem Lauf ab. Kein --rescore (rührt bewusst
+      # bereits bewertete Einträge nicht an) und kein --no-reject (die
+      # Reject-Schwelle ist im Klassifikator selbst schon konservativ auf
+      # "eindeutig schlecht" gesetzt, siehe classifyForAutoCurate).
+      - name: Run auto-curate --apply
+        if: steps.gate.outputs.skip != 'true'
+        env:
+          ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          pnpm tsx scripts/auto-curate.ts --apply --limit 200 | tee auto-curate-output.txt
+          {
+            echo "### Auto-Curate — $(date -u +%Y-%m-%d)"
+            echo '```'
+            cat auto-curate-output.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
