@@ -10,7 +10,7 @@
  * nicht neu erfunden.
  */
 import { lazy, Suspense, useEffect, useRef, useState } from "react";
-import { MONO, PAPER, type Palette } from "@/lib/theme";
+import { MONO, PAPER, SERIF, type Palette } from "@/lib/theme";
 import {
   bodyFont, FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
   type ReadingSettings,
@@ -57,6 +57,42 @@ export default function MobileReader({
   const [searchOpen, setSearchOpen] = useState(false);
   const [prefsOpen, setPrefsOpen] = useState(false);
   const [enkiduOpen, setEnkiduOpen] = useState(false);
+  // Kapitel-Chat ("Frage zum Kapitel") — bewusst ein eigener Endpunkt
+  // (/api/ask) und eigener Zustand, getrennt von Enkidu (/api/enkidu): eine
+  // gezielte Rückfrage zum gerade gelesenen Kapitel statt eines offenen
+  // Dialogs. Chat-Verlauf bleibt Sitzungs-lokal, wie im Desktop-Reader.
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatQuestion, setChatQuestion] = useState("");
+  const [chatHistory, setChatHistory] = useState<{ q: string; a: string }[]>([]);
+  const [chatLoading, setChatLoading] = useState(false);
+  async function askChapterQuestion() {
+    const q = chatQuestion.trim();
+    if (!q || !currentChapter || chatLoading) return;
+    setChatQuestion("");
+    setChatLoading(true);
+    setChatHistory(prev => [...prev, { q, a: "" }]);
+    try {
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: q,
+          chapterId: currentChapter.id,
+          chapterTitle: currentChapter.title,
+          chapterContent: currentChapter.content,
+        }),
+      });
+      const data = await res.json();
+      const answer = data.error
+        ? (res.status === 429 ? `⏱ ${data.error}` : `Fehler: ${data.error}`)
+        : data.answer;
+      setChatHistory(prev => { const c = [...prev]; c[c.length - 1].a = answer; return c; });
+    } catch {
+      setChatHistory(prev => { const c = [...prev]; c[c.length - 1].a = "Verbindungsfehler. Bitte versuche es erneut."; return c; });
+    } finally {
+      setChatLoading(false);
+    }
+  }
   const [pageIdx, setPageIdx] = useState(0);
   const pendingEdge = useRef<"start" | "end" | null>(null);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -305,7 +341,10 @@ export default function MobileReader({
           <button type="button" onClick={() => setPrefsOpen(true)} title="Lese-Einstellungen"
             style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.text, fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 17, cursor: "pointer" }}
           >Aa</button>
-          <button type="button" onClick={() => setEnkiduOpen(true)} title="Enkidu — Frage stellen"
+          <button type="button" onClick={() => setChatOpen(true)} title="Frage zum Kapitel"
+            style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 16, cursor: "pointer" }}
+          >?</button>
+          <button type="button" onClick={() => setEnkiduOpen(true)} title="Enkidu — Begegnung"
             style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 15, cursor: "pointer" }}
           >✦</button>
           <button type="button" onClick={() => setIndexOpen(true)} title="Inhalt"
@@ -345,6 +384,14 @@ export default function MobileReader({
             <EnkiduPage onClose={() => setEnkiduOpen(false)} />
           </Suspense>
         </div>
+      )}
+
+      {chatOpen && (
+        <MobileChapterChatSheet
+          C={C} chapterTitle={currentChapter?.title ?? ""}
+          history={chatHistory} question={chatQuestion} setQuestion={setChatQuestion}
+          loading={chatLoading} onAsk={askChapterQuestion} onClose={() => setChatOpen(false)}
+        />
       )}
     </div>
   );
@@ -435,6 +482,100 @@ function MobileReadingSheet({
               </div>
             </div>
           )}
+        </div>
+      </div>
+    </>
+  );
+}
+
+// ─── Frage zum Kapitel — Bottom-Sheet ──────────────────────────────────────
+// Eigener Endpunkt (/api/ask), eigener Zustand — bewusst getrennt von Enkidu
+// (/api/enkidu): eine gezielte Rückfrage zum aktuellen Kapitel statt eines
+// offenen Dialogs. Im Desktop-Reader ein schwebendes Panel unten rechts;
+// hier als Bottom-Sheet, da ein 360px-Floating-Panel auf einem Telefon
+// keinen Platz hat.
+function MobileChapterChatSheet({
+  C, chapterTitle, history, question, setQuestion, loading, onAsk, onClose,
+}: {
+  C: Palette; chapterTitle: string;
+  history: { q: string; a: string }[]; question: string; setQuestion: (v: string) => void;
+  loading: boolean; onAsk: () => void; onClose: () => void;
+}) {
+  const endRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [history, loading]);
+
+  return (
+    <>
+      <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)" }} />
+      <div style={{
+        position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 521,
+        background: C.surface, borderTop: `1px solid ${C.border}`, borderRadius: "10px 10px 0 0",
+        display: "flex", flexDirection: "column", height: "min(72vh, 560px)",
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}>
+        <div style={{ display: "flex", justifyContent: "center", padding: "10px 0 0", flexShrink: 0 }}>
+          <span style={{ width: 36, height: 3, borderRadius: 2, background: C.border, display: "block" }} />
+        </div>
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", padding: "10px 18px 8px", borderBottom: `1px solid ${C.border}`, flexShrink: 0 }}>
+          <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.18em", textTransform: "uppercase", color: C.accentText }}>? Frage zum Kapitel</span>
+          <button type="button" onClick={onClose} style={{ background: "none", border: "none", color: C.textDim, fontFamily: MONO, fontSize: 14, cursor: "pointer", minHeight: 44, minWidth: 44 }}>×</button>
+        </div>
+        {chapterTitle && (
+          <div style={{ padding: "6px 18px", fontFamily: SERIF, fontStyle: "italic", fontSize: 12, color: C.muted, flexShrink: 0 }}>
+            Kontext: {chapterTitle}
+          </div>
+        )}
+
+        <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "10px 18px" }}>
+          {history.length === 0 && (
+            <div style={{ textAlign: "center", padding: "30px 10px", color: C.muted }}>
+              <div style={{ fontSize: 26, opacity: 0.4, marginBottom: 8 }}>?</div>
+              <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13, margin: 0 }}>Stelle eine Frage zum aktuellen Kapitel.</p>
+              <p style={{ fontFamily: MONO, fontSize: 9.5, marginTop: 6, opacity: 0.7 }}>Die Antwort bezieht sich auf den Inhalt und das Gesamtwerk.</p>
+            </div>
+          )}
+          {history.map((entry, i) => (
+            <div key={i} style={{ marginBottom: 14 }}>
+              <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 6 }}>
+                <div style={{ maxWidth: "85%", borderRadius: "14px 14px 3px 14px", padding: "8px 12px", fontFamily: SERIF, fontSize: 13, background: C.accent, color: "#080808" }}>
+                  {entry.q}
+                </div>
+              </div>
+              {entry.a ? (
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                  <div style={{ maxWidth: "85%", borderRadius: "14px 14px 14px 3px", padding: "8px 12px", fontFamily: SERIF, fontSize: 13, lineHeight: 1.55, background: C.deep, color: C.text }}>
+                    {entry.a.split("\n\n").map((p, j) => <p key={j} style={{ margin: j > 0 ? "8px 0 0" : 0 }}>{p}</p>)}
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                  <div style={{ borderRadius: "14px 14px 14px 3px", padding: "8px 14px", background: C.deep, fontFamily: MONO, fontSize: 13, color: C.accentText }}>…</div>
+                </div>
+              )}
+            </div>
+          ))}
+          <div ref={endRef} />
+        </div>
+
+        <div style={{ display: "flex", gap: 8, padding: "10px 18px", borderTop: `1px solid ${C.border}`, flexShrink: 0 }}>
+          <input
+            type="text" value={question} onChange={e => setQuestion(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); onAsk(); } }}
+            placeholder="Frage stellen …"
+            style={{
+              flex: 1, minHeight: 40, padding: "0 12px", borderRadius: 6,
+              border: `1px solid ${C.border}`, background: C.deep, color: C.text,
+              fontFamily: SERIF, fontSize: 14, outline: "none",
+            }}
+          />
+          <button
+            type="button" onClick={onAsk} disabled={!question.trim() || loading}
+            style={{
+              minWidth: 44, minHeight: 40, borderRadius: 6, border: "none",
+              background: C.accent, color: "#080808", fontFamily: MONO, fontSize: 13,
+              cursor: loading ? "wait" : "pointer", opacity: (!question.trim() || loading) ? 0.5 : 1,
+            }}
+          >➤</button>
         </div>
       </div>
     </>
