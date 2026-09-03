@@ -2104,7 +2104,7 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
 
 Lies die Antwort und formuliere in EINEM dichten Satz (max. 30 Wörter) den Kern-Gedanken — die Unterscheidung, Verbindung oder Auflösung, die sie stiftet. Im Duktus des Werks (prosaisch, präzise, keine Meta-Sprache, kein „Die Antwort besagt…"). Nur der Satz selbst, sonst nichts.`;
 
-  app.post("/api/admin/distill-erkenntnis", async (req, res) => {
+  app.post("/api/admin/distill-erkenntnis", rateLimiter('admin-distill-erkenntnis', 60, 60 * 60_000), async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
     const { answerId } = req.body as { answerId?: string };
     if (!answerId) return res.status(400).json({ error: "answerId fehlt" });
@@ -2275,7 +2275,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     return { ok: true, score: parsed.score, reason: parsed.reason };
   }
 
-  app.post("/api/admin/pre-score", async (req, res) => {
+  app.post("/api/admin/pre-score", rateLimiter('admin-pre-score', 60, 60 * 60_000), async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
     const { id, ids } = req.body as { id?: string; ids?: string[] };
 
@@ -2364,7 +2364,7 @@ BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
     return { decision: "review", reason: `unter Schwelle (ai ${ai} / corpusVoice ${cv.toFixed(2)}${cn !== undefined ? ` / conceptVoice ${cn.toFixed(2)}` : ""})` };
   }
 
-  app.post("/api/admin/auto-curate", async (req, res) => {
+  app.post("/api/admin/auto-curate", rateLimiter('admin-auto-curate', 60, 60 * 60_000), async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
     const { mode, limit, offset, skipReject, rescore, scoreOnly } = req.body as { mode?: string; limit?: number; offset?: number; skipReject?: boolean; rescore?: boolean; scoreOnly?: boolean };
     if (mode !== "preview" && mode !== "apply") {
@@ -2598,7 +2598,7 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     return parts.join("\n");
   }
 
-  app.post("/api/admin/synthesize-master", async (req, res) => {
+  app.post("/api/admin/synthesize-master", rateLimiter('admin-synthesize-master', 60, 60 * 60_000), async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
     const { anchor, endpoint } = req.body as { anchor?: string; endpoint?: string };
     if (!anchor || !endpoint) return res.status(400).json({ error: "anchor + endpoint fehlt" });
