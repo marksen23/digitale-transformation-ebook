@@ -2479,7 +2479,8 @@ export default function Home() {
                       : darkMode ? 'bg-stone-700 text-stone-100 hover:bg-stone-600' : 'bg-stone-800 text-white hover:bg-stone-700'
                   }`}
                   title={
-                    audio.loading ? 'Lädt Audio…'
+                    audio.ttsUnavailable ? 'Sprachausgabe auf diesem Gerät nicht verfügbar'
+                      : audio.loading ? 'Lädt Audio…'
                       : !audio.hasAudio ? 'Kein Audio verfügbar'
                       : isPlaying ? 'Pause'
                       : currentChapter?.isTitlePage ? 'Auf Titelseiten nicht verfügbar'

@@ -251,6 +251,11 @@ export default function MobileReader({
             </div>
           </div>
         )}
+        {audio.ttsUnavailable && (
+          <div style={{ padding: "6px 16px", borderBottom: `1px solid ${C.border}`, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.04em", color: C.muted }}>
+            ⚠ Sprachausgabe auf diesem Gerät nicht verfügbar
+          </div>
+        )}
         <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 10px" }}>
           <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.1em", color: C.textDim, fontVariantNumeric: "tabular-nums", paddingLeft: 6, minWidth: 56 }}>{pageLabel}</span>
           <div style={{ flex: 1, height: 1, background: C.border, position: "relative", margin: "0 4px" }}>

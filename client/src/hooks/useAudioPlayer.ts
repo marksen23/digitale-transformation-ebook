@@ -54,6 +54,13 @@ export interface AudioPlayerAPI {
   hasAudio: boolean;
   hasTimestamps: boolean;
   loading: boolean;
+  /**
+   * Gesetzt, wenn der Browser-TTS-Fallback speak() zwar aufruft, aber kein
+   * onstart-Event kommt (z.B. installierte PWA ohne erreichbare Plattform-
+   * TTS-Bridge — bekanntes Chromium/WebView-Verhalten). Ohne diese Erkennung
+   * sah der Play-Button "aktiv" aus, ohne dass je etwas hörbar wurde.
+   */
+  ttsUnavailable: boolean;
   voice: VoiceGender;
   setVoice: (v: VoiceGender) => void;
   rate: number;
@@ -154,6 +161,8 @@ export function useAudioPlayer(
   const ttsActiveRef = useRef(false);
   const ttsParaIdxRef = useRef(0);
   const ttsUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const ttsWatchdogRef = useRef<number | undefined>(undefined);
+  const [ttsUnavailable, setTtsUnavailable] = useState(false);
 
   // Browser lädt Stimmen asynchron nach — früh anstoßen, damit pickTtsVoice()
   // beim ersten Abspielen schon eine gefüllte Liste vorfindet.
@@ -240,8 +249,13 @@ export function useAudioPlayer(
     setHasAudio(false);
     setHasTimestamps(false);
     setLoading(true);
+    setTtsUnavailable(false);
     timestampsRef.current = [];
     frameCountRef.current = 0;
+    if (ttsWatchdogRef.current !== undefined) {
+      window.clearTimeout(ttsWatchdogRef.current);
+      ttsWatchdogRef.current = undefined;
+    }
 
     // Altes Audio sauber aufräumen
     if (audioRef.current) {
@@ -338,6 +352,10 @@ export function useAudioPlayer(
       }
       ttsActiveRef.current = false;
       if (ttsSupported) window.speechSynthesis.cancel();
+      if (ttsWatchdogRef.current !== undefined) {
+        window.clearTimeout(ttsWatchdogRef.current);
+        ttsWatchdogRef.current = undefined;
+      }
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapterId, voice]);
@@ -368,24 +386,48 @@ export function useAudioPlayer(
     const pickedVoice = pickTtsVoice(voice);
     if (pickedVoice) utt.voice = pickedVoice;
 
+    const clearWatchdog = () => {
+      if (ttsWatchdogRef.current !== undefined) {
+        window.clearTimeout(ttsWatchdogRef.current);
+        ttsWatchdogRef.current = undefined;
+      }
+    };
+
     utt.onstart = () => {
+      clearWatchdog();
+      setTtsUnavailable(false);
       ttsParaIdxRef.current = idx;
       currentParaIdxRef.current = idx;
       setTtsParaIdx(idx);
       if (onParaChange) onParaChange(idx);
     };
     utt.onend = () => {
+      clearWatchdog();
       if (!ttsActiveRef.current) return;
       if (ttsUtteranceRef.current !== utt) return;
       speakParagraph(idx + 1);
     };
     utt.onerror = () => {
+      clearWatchdog();
       if (ttsUtteranceRef.current !== utt) return;
       ttsActiveRef.current = false;
       setPlaying(false);
+      setTtsUnavailable(true);
     };
 
     ttsUtteranceRef.current = utt;
+    // Watchdog: speak() ruft onstart in einigen installierten-PWA-Kontexten
+    // nie auf (Plattform-TTS-Bridge nicht erreichbar, kein onerror entweder
+    // — reiner stiller Abbruch). Ohne diese Erkennung blieb der Play-Button
+    // dauerhaft im "spielt"-Zustand, ohne dass je etwas hörbar wurde.
+    clearWatchdog();
+    ttsWatchdogRef.current = window.setTimeout(() => {
+      if (ttsUtteranceRef.current !== utt) return;
+      window.speechSynthesis.cancel();
+      ttsActiveRef.current = false;
+      setPlaying(false);
+      setTtsUnavailable(true);
+    }, 2500);
     window.speechSynthesis.speak(utt);
   }, [onParaChange, voice, ttsSupported]);
 
@@ -404,6 +446,7 @@ export function useAudioPlayer(
       if (!ttsSupported) return;
       ttsActiveRef.current = true;
       setPlaying(true);
+      setTtsUnavailable(false); // erneuter Versuch — vorigen Fehlschlag nicht stehen lassen
       speakParagraph(ttsParaIdxRef.current);
       return;
     }
@@ -483,7 +526,7 @@ export function useAudioPlayer(
 
   return {
     playing, currentTime, duration, progress,
-    hasAudio, hasTimestamps, loading,
+    hasAudio, hasTimestamps, loading, ttsUnavailable,
     voice, setVoice, rate, setRate,
     toggle, play, pause, seek, seekFraction,
   };
