@@ -162,7 +162,29 @@ export function useAudioPlayer(
   const ttsParaIdxRef = useRef(0);
   const ttsUtteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
   const ttsWatchdogRef = useRef<number | undefined>(undefined);
+  const ttsKeepAliveRef = useRef<number | undefined>(undefined);
   const [ttsUnavailable, setTtsUnavailable] = useState(false);
+
+  // Chrome (v.a. Desktop/Android) legt eine laufende SpeechSynthesis nach
+  // ~15s Inaktivität in einen internen Pause-Zustand, aus dem sie sich nie
+  // wieder erholt (langjähriger Chromium-Bug, crbug.com/679437) — bei
+  // längeren Absätzen bricht das Vorlesen dann mitten im Satz lautlos ab.
+  // Standard-Workaround: alle paar Sekunden pause()+resume() erzwingen,
+  // solange aktiv vorgelesen wird.
+  const startTtsKeepAlive = useCallback(() => {
+    if (ttsKeepAliveRef.current !== undefined) return;
+    ttsKeepAliveRef.current = window.setInterval(() => {
+      if (!ttsActiveRef.current || !window.speechSynthesis.speaking) return;
+      window.speechSynthesis.pause();
+      window.speechSynthesis.resume();
+    }, 8000);
+  }, []);
+  const stopTtsKeepAlive = useCallback(() => {
+    if (ttsKeepAliveRef.current !== undefined) {
+      window.clearInterval(ttsKeepAliveRef.current);
+      ttsKeepAliveRef.current = undefined;
+    }
+  }, []);
 
   // Browser lädt Stimmen asynchron nach — früh anstoßen, damit pickTtsVoice()
   // beim ersten Abspielen schon eine gefüllte Liste vorfindet.
@@ -256,6 +278,7 @@ export function useAudioPlayer(
       window.clearTimeout(ttsWatchdogRef.current);
       ttsWatchdogRef.current = undefined;
     }
+    stopTtsKeepAlive();
 
     // Altes Audio sauber aufräumen
     if (audioRef.current) {
@@ -356,6 +379,7 @@ export function useAudioPlayer(
         window.clearTimeout(ttsWatchdogRef.current);
         ttsWatchdogRef.current = undefined;
       }
+      stopTtsKeepAlive();
     };
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [chapterId, voice]);
@@ -364,7 +388,7 @@ export function useAudioPlayer(
   // onend zum nächsten. `ttsUtteranceRef`-Identitätscheck verhindert, dass
   // ein durch cancel()+Neustart (Tempo-Wechsel) verworfenes Utterance seine
   // eigene onend/onerror-Callback noch die Kette fortsetzen lässt.
-  const speakParagraph = useCallback((idx: number) => {
+  const speakParagraph = useCallback((idx: number, watchdogMs = 2500) => {
     if (!ttsSupported) return;
     const paras = plainParagraphsRef.current;
     if (idx < 0 || idx >= paras.length) {
@@ -373,18 +397,26 @@ export function useAudioPlayer(
       currentParaIdxRef.current = -1;
       setPlaying(false);
       setTtsParaIdx(-1);
+      stopTtsKeepAlive();
       if (onParaChange) onParaChange(-1);
       return;
     }
     const text = cleanForSpeech(paras[idx]);
-    if (!text) { speakParagraph(idx + 1); return; }
+    if (!text) { speakParagraph(idx + 1, watchdogMs); return; }
 
     const utt = new SpeechSynthesisUtterance(text);
-    utt.lang = 'de-DE';
     utt.rate = rateRef.current;
     utt.pitch = 1;
     const pickedVoice = pickTtsVoice(voice);
-    if (pickedVoice) utt.voice = pickedVoice;
+    if (pickedVoice) {
+      utt.voice = pickedVoice;
+      // Der Stimme ihre eigene lang zuweisen statt pauschal 'de-DE' — manche
+      // Engines lehnen speak() still ab, wenn utt.lang und utt.voice.lang
+      // nicht exakt übereinstimmen.
+      utt.lang = pickedVoice.lang;
+    } else {
+      utt.lang = 'de-DE';
+    }
 
     const clearWatchdog = () => {
       if (ttsWatchdogRef.current !== undefined) {
@@ -405,7 +437,10 @@ export function useAudioPlayer(
       clearWatchdog();
       if (!ttsActiveRef.current) return;
       if (ttsUtteranceRef.current !== utt) return;
-      speakParagraph(idx + 1);
+      // Ab hier ist die Engine erwiesenermaßen warm (dieser Absatz hat
+      // tatsächlich gesprochen) — der nächste Absatz braucht keine lange
+      // Kaltstart-Kulanz mehr.
+      speakParagraph(idx + 1, 2500);
     };
     utt.onerror = () => {
       clearWatchdog();
@@ -413,13 +448,16 @@ export function useAudioPlayer(
       ttsActiveRef.current = false;
       setPlaying(false);
       setTtsUnavailable(true);
+      stopTtsKeepAlive();
     };
 
     ttsUtteranceRef.current = utt;
     // Watchdog: speak() ruft onstart in einigen installierten-PWA-Kontexten
     // nie auf (Plattform-TTS-Bridge nicht erreichbar, kein onerror entweder
     // — reiner stiller Abbruch). Ohne diese Erkennung blieb der Play-Button
-    // dauerhaft im "spielt"-Zustand, ohne dass je etwas hörbar wurde.
+    // dauerhaft im "spielt"-Zustand, ohne dass je etwas hörbar wurde. Beim
+    // allerersten Absatz einer Play-Session (Kaltstart, ggf. noch Stimmen
+    // am Laden) etwas großzügiger als bei bereits laufender Wiedergabe.
     clearWatchdog();
     ttsWatchdogRef.current = window.setTimeout(() => {
       if (ttsUtteranceRef.current !== utt) return;
@@ -427,9 +465,10 @@ export function useAudioPlayer(
       ttsActiveRef.current = false;
       setPlaying(false);
       setTtsUnavailable(true);
-    }, 2500);
+      stopTtsKeepAlive();
+    }, watchdogMs);
     window.speechSynthesis.speak(utt);
-  }, [onParaChange, voice, ttsSupported]);
+  }, [onParaChange, voice, ttsSupported, stopTtsKeepAlive]);
 
   // Stimme wechseln
   const setVoice = useCallback((v: VoiceGender) => {
@@ -447,21 +486,34 @@ export function useAudioPlayer(
       ttsActiveRef.current = true;
       setPlaying(true);
       setTtsUnavailable(false); // erneuter Versuch — vorigen Fehlschlag nicht stehen lassen
-      speakParagraph(ttsParaIdxRef.current);
+      // Bewusst KEIN await/setTimeout vor dem ersten speak() dieser Session:
+      // manche Engines (v.a. iOS Safari) verlangen, dass speak() noch
+      // innerhalb derselben Nutzer-Geste (dieser Klick-Handler) synchron
+      // aufgerufen wird — jede Verzögerung würde dort die Berechtigung
+      // wieder verlieren. cancel() davor ist ein No-Op, wenn nichts hängt,
+      // räumt aber eine ggf. hängengebliebene Queue von einem vorigen
+      // Versuch synchron auf, ohne die Geste zu unterbrechen.
+      window.speechSynthesis.cancel();
+      startTtsKeepAlive();
+      // Wenn beim Klick noch keine Stimmen geladen sind (kalter Start),
+      // dem Engine mehr Zeit geben, bevor der Watchdog eingreift.
+      const voicesReady = window.speechSynthesis.getVoices().length > 0;
+      speakParagraph(ttsParaIdxRef.current, voicesReady ? 2500 : 4000);
       return;
     }
     audioRef.current?.play().catch(() => {});
-  }, [speakParagraph, ttsSupported]);
+  }, [speakParagraph, ttsSupported, startTtsKeepAlive]);
 
   const pause = useCallback(() => {
     if (audioSourceRef.current === 'tts') {
       ttsActiveRef.current = false;
       if (ttsSupported) window.speechSynthesis.cancel();
       setPlaying(false);
+      stopTtsKeepAlive();
       return;
     }
     audioRef.current?.pause();
-  }, [ttsSupported]);
+  }, [ttsSupported, stopTtsKeepAlive]);
 
   const toggle = useCallback(() => {
     if (audioSourceRef.current === 'tts') {
