@@ -149,3 +149,10 @@ export function getEchoDetectorHealth() {
     lastEchoCount,
   };
 }
+
+export function _resetCacheForTest(): void {
+  cache = null;
+  fetchedAt = 0;
+  inflight = null;
+  lastEchoCount = 0;
+}

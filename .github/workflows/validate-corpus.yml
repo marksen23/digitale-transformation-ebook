@@ -262,6 +262,18 @@ jobs:
           retention-days: 7
           if-no-files-found: warn
 
+      # ─── Drift-Detection: vor dem Commit, damit der Report committet wird ──
+      - name: Run drift check
+        if: success()
+        id: drift
+        run: |
+          set +e
+          pnpm tsx scripts/check-corpus-drift.ts > drift-output.txt 2>&1
+          EXIT=$?
+          echo "exit_code=$EXIT" >> $GITHUB_OUTPUT
+          cat drift-output.txt
+          exit 0  # niemals fail — Drift ist Warning, kein Action-Fail
+
       - name: Commit snapshot + index + tag last-stable
         if: success()
         run: |
@@ -401,19 +413,6 @@ jobs:
         run: |
           echo "Triggering Render deploy hook …"
           curl -fsS -X POST "$RENDER_HOOK" && echo "✓ Render deploy queued"
-
-      # ─── Drift-Detection: vergleicht aktuellen mit vorigem Snapshot ────
-      # Bei Alarmen → Issue mit Label 'corpus-drift'.
-      - name: Run drift check
-        if: success()
-        id: drift
-        run: |
-          set +e
-          pnpm tsx scripts/check-corpus-drift.ts > drift-output.txt 2>&1
-          EXIT=$?
-          echo "exit_code=$EXIT" >> $GITHUB_OUTPUT
-          cat drift-output.txt
-          exit 0  # niemals fail — Drift ist Warning, kein Action-Fail
 
       - name: Open issue on drift alarm
         if: success() && steps.drift.outputs.exit_code == '1'

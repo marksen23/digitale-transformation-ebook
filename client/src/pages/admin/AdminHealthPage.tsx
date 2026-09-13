@@ -742,8 +742,8 @@ export default function AdminHealthPage() {
         {!tensions ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>analysiere Embeddings …</p>
         ) : tensions.status === "no-embeddings" ? (
-          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
-            Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: C.accentText }}>GEMINI_API_KEY</code>.
+          <p style={{ fontFamily: MONO, fontSize: "0.62rem", color: C.muted, margin: 0 }}>
+            Keine Semantik-Daten — <code style={{ fontFamily: MONO }}>GEMINI_API_KEY</code> als GitHub-Secret setzen, dann ↻ Index neu bauen.
           </p>
         ) : tensions.status === "no-multi-anchors" ? (
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
@@ -1036,9 +1036,8 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
 
   if (!haveSemantic && report.clusters.length === 0) {
     return (
-      <p style={{ fontStyle: "italic", color: c.textDim, fontSize: "0.85rem" }}>
-        Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: c.accentText }}>GEMINI_API_KEY</code>.
-        Kohärenz-Analyse braucht semantische Vektoren.
+      <p style={{ fontFamily: MONO, fontSize: "0.62rem", color: c.muted, margin: 0 }}>
+        Keine Semantik-Daten — <code style={{ fontFamily: MONO }}>GEMINI_API_KEY</code> als GitHub-Secret setzen, dann ↻ Index neu bauen.
       </p>
     );
   }
