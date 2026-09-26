@@ -34,6 +34,17 @@
   transform: translateY(0);
 }
 
+/* ── Mobile overlay Einblend-Animationen ────────────────────────────────────
+   Vollbild-Overlays (Inhaltsverzeichnis, Suche) kommen von rechts; Bottom-
+   Sheets verwenden CSS-Transform-Transition direkt in den Komponenten. */
+@keyframes slideInFromRight {
+  from { transform: translateX(100%); }
+  to   { transform: translateX(0); }
+}
+.mobile-slide-in-right {
+  animation: slideInFromRight 0.22s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

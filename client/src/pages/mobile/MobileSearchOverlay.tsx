@@ -35,6 +35,7 @@ export default function MobileSearchOverlay({ C, onClose, navigate }: Props) {
 
   return (
     <div
+      className="mobile-slide-in-right"
       style={{
         position: "fixed", inset: 0, zIndex: 500, display: "flex", flexDirection: "column",
         background: C.void, paddingTop: "env(safe-area-inset-top, 0px)",

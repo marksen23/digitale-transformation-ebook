@@ -397,12 +397,10 @@ export default function MobileReader({
         />
       )}
 
-      {prefsOpen && (
-        <MobileReadingSheet
-          C={C} isDark={isDark} reading={reading} update={updateReading} audio={audio}
-          rateOptions={rateOptions} onClose={() => setPrefsOpen(false)}
-        />
-      )}
+      <MobileReadingSheet
+        C={C} isDark={isDark} reading={reading} update={updateReading} audio={audio}
+        rateOptions={rateOptions} onClose={() => setPrefsOpen(false)} open={prefsOpen}
+      />
 
       {indexOpen && (
         <MobileIndexOverlay
@@ -423,13 +421,12 @@ export default function MobileReader({
         </div>
       )}
 
-      {chatOpen && (
-        <MobileChapterChatSheet
-          C={C} chapterTitle={currentChapter?.title ?? ""}
-          history={chatHistory} question={chatQuestion} setQuestion={setChatQuestion}
-          loading={chatLoading} onAsk={askChapterQuestion} onClose={() => setChatOpen(false)}
-        />
-      )}
+      <MobileChapterChatSheet
+        C={C} chapterTitle={currentChapter?.title ?? ""}
+        history={chatHistory} question={chatQuestion} setQuestion={setChatQuestion}
+        loading={chatLoading} onAsk={askChapterQuestion} onClose={() => setChatOpen(false)}
+        open={chatOpen}
+      />
     </div>
   );
 }
@@ -437,10 +434,10 @@ export default function MobileReader({
 // ─── Aa-Einstellungen — Bottom-Sheet ───────────────────────────────────────
 
 function MobileReadingSheet({
-  C, isDark, reading, update, audio, rateOptions, onClose,
+  C, isDark, reading, update, audio, rateOptions, onClose, open,
 }: {
   C: Palette; isDark: boolean; reading: ReadingSettings; update: (p: Partial<ReadingSettings>) => void;
-  audio: AudioPlayerAPI; rateOptions: number[]; onClose: () => void;
+  audio: AudioPlayerAPI; rateOptions: number[]; onClose: () => void; open: boolean;
 }) {
   const stepBtn: React.CSSProperties = {
     width: 44, height: 44, border: `1px solid ${C.border}`, borderRadius: 4, background: "none",
@@ -458,13 +455,20 @@ function MobileReadingSheet({
       }}
     >{label}</button>
   );
+  const TRANSITION = "0.24s cubic-bezier(0.32,0.72,0,1)";
   return (
     <>
-      <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)" }} />
+      <div onClick={onClose} style={{
+        position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)",
+        opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none",
+        transition: `opacity ${TRANSITION}`,
+      }} />
       <div style={{
         position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 521,
         background: C.surface, borderTop: `1px solid ${C.border}`, borderRadius: "10px 10px 0 0",
         padding: "14px 18px calc(26px + env(safe-area-inset-bottom, 0px))",
+        transform: open ? "translateY(0)" : "translateY(110%)",
+        transition: `transform ${TRANSITION}`,
       }}>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
           <span style={{ width: 36, height: 3, borderRadius: 2, background: C.border, display: "block" }} />
@@ -532,23 +536,30 @@ function MobileReadingSheet({
 // hier als Bottom-Sheet, da ein 360px-Floating-Panel auf einem Telefon
 // keinen Platz hat.
 function MobileChapterChatSheet({
-  C, chapterTitle, history, question, setQuestion, loading, onAsk, onClose,
+  C, chapterTitle, history, question, setQuestion, loading, onAsk, onClose, open,
 }: {
   C: Palette; chapterTitle: string;
   history: { q: string; a: string }[]; question: string; setQuestion: (v: string) => void;
-  loading: boolean; onAsk: () => void; onClose: () => void;
+  loading: boolean; onAsk: () => void; onClose: () => void; open: boolean;
 }) {
   const endRef = useRef<HTMLDivElement>(null);
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [history, loading]);
+  useEffect(() => { if (open) endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [history, loading, open]);
 
+  const TRANSITION = "0.24s cubic-bezier(0.32,0.72,0,1)";
   return (
     <>
-      <div onClick={onClose} style={{ position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)" }} />
+      <div onClick={onClose} style={{
+        position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)",
+        opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none",
+        transition: `opacity ${TRANSITION}`,
+      }} />
       <div style={{
         position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 521,
         background: C.surface, borderTop: `1px solid ${C.border}`, borderRadius: "10px 10px 0 0",
-        display: "flex", flexDirection: "column", height: "min(72vh, 560px)",
+        display: "flex", flexDirection: "column", maxHeight: "80dvh",
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
+        transform: open ? "translateY(0)" : "translateY(110%)",
+        transition: `transform ${TRANSITION}`,
       }}>
         <div style={{ display: "flex", justifyContent: "center", padding: "10px 0 0", flexShrink: 0 }}>
           <span style={{ width: 36, height: 3, borderRadius: 2, background: C.border, display: "block" }} />
