@@ -438,7 +438,7 @@ export default function ResonanzenPage() {
       data-scroll
       ref={setScrollRef}
       style={{
-        position: "fixed", top: 48, right: 0, bottom: 0, left: 0, overflowY: "auto",
+        position: "fixed", top: "var(--app-frame-h, 48px)", right: 0, bottom: 0, left: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
         WebkitOverflowScrolling: "touch",
         // iOS-safe-area: Content wird unter Notch + Home-Indicator nicht abgeschnitten
@@ -878,42 +878,41 @@ export default function ResonanzenPage() {
                   </div>
                 )}
 
-                {isExpanded ? (
-                  <div style={{ marginTop: "0.4rem" }}>
-                    {/* Klassischer Frage-Antwort-Trenner: Fleuron zwischen
-                        der gestellten Frage und der Resonanz-Antwort.
-                        Der ❦ markiert die typografische Schwelle, an der
-                        die KI-Stimme einsetzt — eine ehrlichere Geste als
-                        eine bloße horizontale Linie. */}
-                    <Ornament variant="rule" c={C} margin="0.2rem 0 0.9rem" />
-                    {entry.response.split(/\n\n+/).map((para, i) => {
-                      const trimmed = para.trim();
-                      // DropCap nur auf dem ersten Absatz, und nur wenn
-                      // der Absatz ausreichend Lesefläche hat (sonst
-                      // wirkt die Versalie überdimensioniert).
-                      if (i === 0 && trimmed.length > 80) {
+                {/* Excerpt — eingeklappt */}
+                <div style={{ display: "grid", gridTemplateRows: !isExpanded ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease", overflow: "hidden" }}>
+                  <div style={{ overflow: "hidden" }}>
+                    <div style={{ fontFamily: SERIF_BODY, fontSize: readingMode === "surface" ? "0.78rem" : "0.82rem", color: C.textDim, lineHeight: 1.6 }}>
+                      {(() => {
+                        const excerpt = entry.response.slice(0, excerptLen).trim() + (entry.response.length > excerptLen ? "…" : "");
+                        return search.trim() ? highlightTerm(excerpt, search) : excerpt;
+                      })()}
+                    </div>
+                  </div>
+                </div>
+                {/* Volltext — aufgeklappt */}
+                <div style={{ display: "grid", gridTemplateRows: isExpanded ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+                  <div style={{ overflow: "hidden" }}>
+                    <div style={{ marginTop: "0.4rem" }}>
+                      <Ornament variant="rule" c={C} margin="0.2rem 0 0.9rem" />
+                      {entry.response.split(/\n\n+/).map((para, i) => {
+                        const trimmed = para.trim();
+                        if (i === 0 && trimmed.length > 80) {
+                          return (
+                            <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.95rem", color: C.text, lineHeight: 1.75, margin: "0 0 0.8rem" }}>
+                              <DropCap c={C}>{trimmed.charAt(0)}</DropCap>
+                              {trimmed.slice(1)}
+                            </p>
+                          );
+                        }
                         return (
-                          <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.95rem", color: C.text, lineHeight: 1.75, margin: "0 0 0.8rem" }}>
-                            <DropCap c={C}>{trimmed.charAt(0)}</DropCap>
-                            {trimmed.slice(1)}
+                          <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", color: C.text, lineHeight: 1.7, margin: "0 0 0.7rem" }}>
+                            {trimmed}
                           </p>
                         );
-                      }
-                      return (
-                        <p key={i} style={{ fontFamily: SERIF_BODY, fontSize: "0.92rem", color: C.text, lineHeight: 1.7, margin: "0 0 0.7rem" }}>
-                          {trimmed}
-                        </p>
-                      );
-                    })}
+                      })}
+                    </div>
                   </div>
-                ) : (
-                  <div style={{ fontFamily: SERIF_BODY, fontSize: readingMode === "surface" ? "0.78rem" : "0.82rem", color: C.textDim, lineHeight: 1.6 }}>
-                    {(() => {
-                      const excerpt = entry.response.slice(0, excerptLen).trim() + (entry.response.length > excerptLen ? "…" : "");
-                      return search.trim() ? highlightTerm(excerpt, search) : excerpt;
-                    })()}
-                  </div>
-                )}
+                </div>
 
                 {/* Variations — Echo-Cluster (Cosine ≥0.88). "Mehrere Stimmen
                     zur selben Frage", nicht "Duplikate". In depth eingeklappt
