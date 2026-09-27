@@ -55,7 +55,7 @@ export default function MobileBetrieb({ C, isDark, activeTab, onTabChange, onBac
           <MobilePill key={id} C={C} label={label} active={activeTab === id} onClick={() => onTabChange(id)} />
         ))}
       </div>
-      <div style={{ borderTop: `1px solid ${C.border}`, margin: "0 -18px", padding: "14px 18px 0" }}>
+      <div key={activeTab} className="mobile-fade-in" style={{ borderTop: `1px solid ${C.border}`, margin: "0 -18px", padding: "14px 18px 0" }}>
         {activeTab === "kur" && <Kuration C={C} index={index} setIndex={setIndex} />}
         {activeTab === "met" && <MobileBetriebMetrics C={C} index={index} />}
         {activeTab === "health" && <MobileBetriebHealth C={C} />}
