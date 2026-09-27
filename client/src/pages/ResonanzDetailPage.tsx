@@ -203,7 +203,7 @@ export default function ResonanzDetailPage() {
 
       {/* Permalink */}
       <section style={{ marginTop: "1.5rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
-        <div>Permalink: <code>{`https://digitale-transformation-ebook.onrender.com/resonanz/${entry.id}`}</code></div>
+        <div>Permalink: <code>{`${SITE_URL}/resonanz/${entry.id}`}</code></div>
       </section>
 
       <nav style={{ marginTop: "2rem", paddingTop: "1rem", borderTop: `1px solid ${C.border}`, display: "flex", gap: "1rem", fontFamily: MONO, fontSize: "0.6rem" }}>
@@ -262,31 +262,33 @@ function BibtexDisclosure({ C, bib, onCopy, copied }: {
       >
         Zitieren {open ? "▴" : "▾"}
       </button>
-      {open && (
-        <div style={{ marginTop: "0.7rem" }}>
-          <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.4rem" }}>
-            <button
-              onClick={onCopy}
-              style={{
-                fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                color: copied ? "#7ab898" : C.muted,
-                background: "none",
-                border: `1px solid ${copied ? "#7ab898" : C.border}`,
-                padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 30,
-              }}
-            >
-              {copied ? "✓ kopiert" : "BibTeX kopieren"}
-            </button>
+      <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+        <div style={{ overflow: "hidden" }}>
+          <div style={{ marginTop: "0.7rem" }}>
+            <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.4rem" }}>
+              <button
+                onClick={onCopy}
+                style={{
+                  fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em",
+                  textTransform: "uppercase",
+                  color: copied ? "#7ab898" : C.muted,
+                  background: "none",
+                  border: `1px solid ${copied ? "#7ab898" : C.border}`,
+                  padding: "0.3rem 0.6rem", cursor: "pointer", minHeight: 30,
+                }}
+              >
+                {copied ? "✓ kopiert" : "BibTeX kopieren"}
+              </button>
+            </div>
+            <pre style={{
+              fontFamily: MONO, fontSize: "0.6rem", color: C.text,
+              background: C.deep, border: `1px solid ${C.border}`,
+              padding: "0.7rem 0.9rem", overflow: "auto", lineHeight: 1.5, margin: 0,
+              whiteSpace: "pre-wrap", wordBreak: "break-word",
+            }}>{bib}</pre>
           </div>
-          <pre style={{
-            fontFamily: MONO, fontSize: "0.6rem", color: C.text,
-            background: C.deep, border: `1px solid ${C.border}`,
-            padding: "0.7rem 0.9rem", overflow: "auto", lineHeight: 1.5, margin: 0,
-            whiteSpace: "pre-wrap", wordBreak: "break-word",
-          }}>{bib}</pre>
         </div>
-      )}
+      </div>
     </section>
   );
 }
