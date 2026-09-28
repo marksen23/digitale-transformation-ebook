@@ -53,6 +53,14 @@
   animation: mobileFadeIn 0.16s ease;
 }
 
+@keyframes panelAppear {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.panel-appear {
+  animation: panelAppear 0.2s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
