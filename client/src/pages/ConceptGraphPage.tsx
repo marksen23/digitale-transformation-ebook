@@ -2541,7 +2541,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             rechts unabhängig vom selektierten Begriff anschauen + steuern
             lassen. */}
         {selectedNode && (
-          <aside className="concept-left-sidebar" style={{
+          <aside className="concept-left-sidebar sidebar-slide-in" style={{
             width: "clamp(220px, 26vw, 300px)",
             background: C.deep,
             borderRight: `1px solid ${C.border}`,
@@ -3601,6 +3601,11 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             overflow-y: auto;
             scrollbar-width: thin;
             scrollbar-color: ${C.border} transparent;
+            animation: slideUpSheet 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+          }
+          @keyframes slideUpSheet {
+            from { transform: translateY(100%); opacity: 0; }
+            to   { transform: translateY(0);    opacity: 1; }
           }
           /* Arbeitsfunktions-Panels (Pfad / Analyse / Dialog) als Bottom-Sheets.
              Override der Inline-Styles: voll breit, oberhalb des Detail-Sheets,

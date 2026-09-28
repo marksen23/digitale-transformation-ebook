@@ -126,7 +126,8 @@ export default function ResonanzenBlock({
   }
 
   // variant === "flat" (Mobile-Sheet)
-  const visible = expanded ? entries : entries.slice(0, 3);
+  const preview = entries.slice(0, 3);
+  const extra   = entries.slice(3);
   return (
     <div style={{
       borderTop: `1px solid ${c.border}`,
@@ -141,9 +142,18 @@ export default function ResonanzenBlock({
         <span style={{ color: c.accent }}>{entries.length}</span>
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "0.4rem" }}>
-        {visible.map(entry => (
+        {preview.map(entry => (
           <ResonanzCard key={entry.id} entry={entry} c={c} variant="flat" />
         ))}
+        {extra.length > 0 && (
+          <div style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+            <div style={{ overflow: "hidden", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
+              {extra.map(entry => (
+                <ResonanzCard key={entry.id} entry={entry} c={c} variant="flat" />
+              ))}
+            </div>
+          </div>
+        )}
       </div>
       <div style={{ display: "flex", gap: "0.4rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
         {entries.length > 3 && onToggleExpand && (

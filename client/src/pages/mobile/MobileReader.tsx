@@ -414,7 +414,7 @@ export default function MobileReader({
       )}
 
       {enkiduOpen && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 600, background: C.void }}>
+        <div className="mobile-slide-in-right" style={{ position: "fixed", inset: 0, zIndex: 600, background: C.void }}>
           <Suspense fallback={null}>
             <EnkiduPage onClose={() => setEnkiduOpen(false)} />
           </Suspense>
