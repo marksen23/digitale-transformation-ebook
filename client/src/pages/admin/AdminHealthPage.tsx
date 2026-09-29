@@ -1084,6 +1084,8 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
         </button>
       )}
 
+      <div style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+      <div style={{ overflow: "hidden" }}>
       {expanded && (
         <>
           {report.clusters.length > 0 && (
@@ -1177,6 +1179,8 @@ function CoherencePanel({ report, entries, expanded, onToggleExpanded, c }: {
           )}
         </>
       )}
+      </div>
+      </div>
     </>
   );
 }
