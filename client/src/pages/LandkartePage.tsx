@@ -310,7 +310,7 @@ export default function LandkartePage() {
         {/* ── Seitenpanel ── */}
         <div>
           {selNode ? (
-            <div>
+            <div key={selNode.id} className="panel-appear">
               <SectionLabel c={C} size="sm" tracking="open" variant="arbeit">{categoryLabel(selNode.category)}</SectionLabel>
               <h2 style={{ margin: "0.3rem 0 0.2rem", fontFamily: SERIF, fontSize: "1.25rem", color: C.textBright }}>{selNode.fullLabel}</h2>
               <p style={{ margin: 0, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim, lineHeight: 1.5 }}>{selNode.description}</p>

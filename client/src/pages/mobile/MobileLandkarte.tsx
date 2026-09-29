@@ -282,7 +282,7 @@ export default function MobileLandkarte({
 
         {/* Hinweis wenn kein Begriff gewählt */}
         {!selected && (
-          <div style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}>
+          <div className="mobile-fade-in" style={{ position: "absolute", top: 10, left: "50%", transform: "translateX(-50%)", pointerEvents: "none" }}>
             <span style={{
               fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.1em", color: C.muted,
               background: `${C.surface}cc`, backdropFilter: "blur(4px)",
