@@ -108,11 +108,13 @@ export default function MobileMeinWerk({
                       </div>
                     </div>
                     {isOpen && (
-                      <WeiterdenkenThread
-                        c={C} initialQuestion={thread.rootQuestion}
-                        initialEntries={thread.steps.map(s => ({ kind: s.kind, text: s.text }))}
-                        threadId={thread.id} focus={thread.focus} focusedNodeIds={thread.focusedNodeIds}
-                      />
+                      <div className="mobile-fade-in">
+                        <WeiterdenkenThread
+                          c={C} initialQuestion={thread.rootQuestion}
+                          initialEntries={thread.steps.map(s => ({ kind: s.kind, text: s.text }))}
+                          threadId={thread.id} focus={thread.focus} focusedNodeIds={thread.focusedNodeIds}
+                        />
+                      </div>
                     )}
                   </div>
                 );

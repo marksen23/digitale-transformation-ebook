@@ -104,6 +104,7 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
 
   return (
     <div
+      className="mobile-slide-in-right"
       style={{
         position: "fixed", inset: 0, zIndex: 500,
         background: C.void, overflowY: "auto",

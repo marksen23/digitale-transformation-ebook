@@ -12,7 +12,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
-import { ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
 import { useIsMobile } from "@/hooks/useMobile";
@@ -27,11 +27,17 @@ export default function FragenPage() {
   const { theme } = useTheme();
   const c: Palette = theme === "dark" ? C_DARK : C_LIGHT;
   const [questions, setQuestions] = useState<QuestionEntry[] | null>(null);
+  const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
   const [status, setStatus] = useState<StatusFilter>("all");
   const [area, setArea] = useState<string | null>(null);
   const isMobile = useIsMobile();
 
-  useEffect(() => { loadQuestions().then(f => setQuestions(f?.questions ?? [])); }, []);
+  useEffect(() => {
+    loadQuestions().then(f => setQuestions(f?.questions ?? []));
+    loadResonanzenIndexLazy().then(idx => {
+      if (idx) setById(new Map(idx.entries.map(e => [e.id, e])));
+    });
+  }, []);
 
   const areas = useMemo(() => {
     const set = new Set<string>();
@@ -144,18 +150,31 @@ export default function FragenPage() {
                   {q.dupCount > 0 && <span> · {q.dupCount}× ähnlich gestellt</span>}
                 </div>
 
-                {q.answered && (
+                {q.answered && q.answeredBy.length > 0 && (
                   <div style={{ marginTop: "0.55rem", borderTop: `1px solid ${c.border}`, paddingTop: "0.5rem" }}>
                     <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: c.muted }}>
                       Das Werk antwortet
                     </span>
-                    <div style={{ display: "flex", flexWrap: "wrap", gap: "0.35rem", marginTop: "0.35rem" }}>
-                      {q.answeredBy.map(a => (
-                        <Link key={a.id} href={`/resonanz/${encodeURIComponent(a.id)}`}
-                          style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accentText, textDecoration: "none", border: `1px solid ${c.border}`, borderRadius: 3, padding: "0.15rem 0.4rem" }}>
-                          → {a.id.slice(0, 8)} <span style={{ color: c.muted }}>{a.score.toFixed(2)}</span>
-                        </Link>
-                      ))}
+                    <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", marginTop: "0.35rem" }}>
+                      {q.answeredBy.slice(0, 3).map(a => {
+                        const entry = byId.get(a.id);
+                        const preview = entry?.prompt ?? entry?.response ?? "";
+                        return (
+                          <Link key={a.id} href={`/resonanz/${encodeURIComponent(a.id)}`}
+                            style={{ textDecoration: "none", display: "block", background: c.deep, border: `1px solid ${c.border}`, borderRadius: 4, padding: "0.4rem 0.5rem" }}>
+                            {preview ? (
+                              <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: c.text, lineHeight: 1.4, display: "block" }}>
+                                {preview.slice(0, 90)}{preview.length > 90 ? "…" : ""}
+                              </span>
+                            ) : (
+                              <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.muted }}>{a.id.slice(0, 12)}…</span>
+                            )}
+                            <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: c.muted, marginTop: 2, display: "block" }}>
+                              {epLabel(entry?.endpoint ?? "")} · {a.score.toFixed(2)}
+                            </span>
+                          </Link>
+                        );
+                      })}
                     </div>
                   </div>
                 )}

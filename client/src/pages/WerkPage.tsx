@@ -595,28 +595,30 @@ export function ParagraphBlock({
       )}
       {/* W1: Expanded-Block als Fußnoten-Italic statt Mono-Caps-Label.
           Konsistent mit D3 „QUELLEN IM WERK"-Pattern. */}
-      {isExpanded && all.length > 0 && (
-        <div style={{ marginTop: "0.6rem", paddingLeft: "0.9rem", borderLeft: `2px solid ${C.accent}66` }}>
-          {curated.length > 0 && (
-            <>
-              <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.accentText, marginBottom: "0.4rem" }}>
-                ❦ Weiterführungen
-              </div>
-              {curated.map(r => renderEntry(r, true))}
-            </>
-          )}
-          {others.length > 0 && (
-            <>
-              {curated.length > 0 && (
-                <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, margin: "0.6rem 0 0.4rem" }}>
-                  weitere Spuren
+      <div style={{ display: "grid", gridTemplateRows: (isExpanded && all.length > 0) ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+        <div style={{ overflow: "hidden" }}>
+          <div style={{ marginTop: "0.6rem", paddingLeft: "0.9rem", borderLeft: `2px solid ${C.accent}66` }}>
+            {curated.length > 0 && (
+              <>
+                <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.accentText, marginBottom: "0.4rem" }}>
+                  ❦ Weiterführungen
                 </div>
-              )}
-              {others.map(r => renderEntry(r, false))}
-            </>
-          )}
+                {curated.map(r => renderEntry(r, true))}
+              </>
+            )}
+            {others.length > 0 && (
+              <>
+                {curated.length > 0 && (
+                  <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.14em", textTransform: "uppercase", color: C.muted, margin: "0.6rem 0 0.4rem" }}>
+                    weitere Spuren
+                  </div>
+                )}
+                {others.map(r => renderEntry(r, false))}
+              </>
+            )}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -675,6 +677,7 @@ export function PassageResonanzModal({
 
   return (
     <div
+      className="mobile-fade-in"
       onClick={onClose}
       style={{
         position: "fixed", inset: 0, zIndex: 200,

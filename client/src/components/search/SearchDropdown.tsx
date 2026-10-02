@@ -79,7 +79,7 @@ export function SearchDropdown({
   }
 
   return (
-    <div className="mt-2 max-h-[60dvh] overflow-y-auto space-y-2">
+    <div className="panel-appear mt-2 max-h-[60dvh] overflow-y-auto space-y-2">
       {loading && hits.length === 0 ? (
         <p className="text-xs text-stone-500 px-2 py-1">Suche läuft …</p>
       ) : hits.length === 0 ? (

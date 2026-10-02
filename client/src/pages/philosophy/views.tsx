@@ -750,6 +750,7 @@ export function BottomSheet({ philosopher, expanded, onToggle, onClose, onSelect
     <>
       {expanded && (
         <div
+          className="mobile-fade-in"
           onClick={onClose}
           style={{
             position: "fixed", inset: 0, zIndex: 99,

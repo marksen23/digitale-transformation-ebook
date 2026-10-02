@@ -107,8 +107,8 @@ export default function AdminMetricsPage() {
           <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>berechne Cluster …</p>
         )}
         {clusterState === "no-embeddings" && (
-          <p style={{ fontStyle: "italic", color: C.textDim, fontSize: "0.85rem" }}>
-            Embeddings nicht verfügbar — Build-Step ohne <code style={{ fontFamily: MONO, color: C.accent }}>GEMINI_API_KEY</code>.
+          <p style={{ fontFamily: MONO, fontSize: "0.62rem", color: C.muted, margin: 0 }}>
+            Keine Semantik-Daten — <code style={{ fontFamily: MONO }}>GEMINI_API_KEY</code> als GitHub-Secret setzen, dann ↻ Index neu bauen.
           </p>
         )}
         {clusterState === "too-few" && (

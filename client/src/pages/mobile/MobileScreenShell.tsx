@@ -22,7 +22,7 @@ interface Props {
 
 export default function MobileScreenShell({ C, title, meta, onBack, isDark, children }: Props) {
   return (
-    <div style={{
+    <div className="mobile-fade-in" style={{
       position: "fixed", inset: 0, display: "flex", flexDirection: "column",
       background: C.void, paddingTop: "env(safe-area-inset-top, 0px)",
       paddingBottom: "env(safe-area-inset-bottom, 0px)",

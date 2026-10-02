@@ -103,28 +103,30 @@ export default function ErkenntnissePage() {
                     </button>
                   </div>
 
-                  {isOpen && (
-                    <div style={{ marginTop: "0.7rem", borderTop: `1px solid ${c.border}`, paddingTop: "0.7rem", display: "grid", gap: "0.7rem" }}>
-                      {question && (
-                        <div>
-                          <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: c.muted }}>aus der Frage</span>
-                          <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.9rem", color: c.text, lineHeight: 1.5, marginTop: "0.2rem" }}>
-                            „{question}"
-                            {source && <> <Link href={`/resonanz/${encodeURIComponent(e.questionSourceId)}`} style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accentText, textDecoration: "none" }}>({epLabel(source.endpoint)} ↗)</Link></>}
+                  <div style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+                    <div style={{ overflow: "hidden" }}>
+                      <div style={{ marginTop: "0.7rem", borderTop: `1px solid ${c.border}`, paddingTop: "0.7rem", display: "grid", gap: "0.7rem" }}>
+                        {question && (
+                          <div>
+                            <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: c.muted }}>aus der Frage</span>
+                            <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.9rem", color: c.text, lineHeight: 1.5, marginTop: "0.2rem" }}>
+                              „{question}"
+                              {source && <> <Link href={`/resonanz/${encodeURIComponent(e.questionSourceId)}`} style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accentText, textDecoration: "none" }}>({epLabel(source.endpoint)} ↗)</Link></>}
+                            </div>
                           </div>
-                        </div>
-                      )}
-                      {answer && (
-                        <div>
-                          <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: epColor(answer.endpoint, c.muted) }}>die Antwort</span>
-                          <div style={{ fontFamily: SERIF, fontSize: "0.88rem", color: c.textDim, lineHeight: 1.55, marginTop: "0.2rem" }}>
-                            {answer.response.length > 600 ? answer.response.slice(0, 600) + "…" : answer.response}{" "}
-                            <Link href={`/resonanz/${encodeURIComponent(e.answerId)}`} style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accentText, textDecoration: "none" }}>(ganz lesen ↗)</Link>
+                        )}
+                        {answer && (
+                          <div>
+                            <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: epColor(answer.endpoint, c.muted) }}>die Antwort</span>
+                            <div style={{ fontFamily: SERIF, fontSize: "0.88rem", color: c.textDim, lineHeight: 1.55, marginTop: "0.2rem" }}>
+                              {answer.response.length > 600 ? answer.response.slice(0, 600) + "…" : answer.response}{" "}
+                              <Link href={`/resonanz/${encodeURIComponent(e.answerId)}`} style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.accentText, textDecoration: "none" }}>(ganz lesen ↗)</Link>
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        )}
+                      </div>
                     </div>
-                  )}
+                  </div>
                 </div>
               );
             })}
