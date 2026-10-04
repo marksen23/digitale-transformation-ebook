@@ -55,7 +55,7 @@ export default function MobileBetrieb({ C, isDark, activeTab, onTabChange, onBac
           <MobilePill key={id} C={C} label={label} active={activeTab === id} onClick={() => onTabChange(id)} />
         ))}
       </div>
-      <div style={{ borderTop: `1px solid ${C.border}`, margin: "0 -18px", padding: "14px 18px 0" }}>
+      <div key={activeTab} className="mobile-fade-in" style={{ borderTop: `1px solid ${C.border}`, margin: "0 -18px", padding: "14px 18px 0" }}>
         {activeTab === "kur" && <Kuration C={C} index={index} setIndex={setIndex} />}
         {activeTab === "met" && <MobileBetriebMetrics C={C} index={index} />}
         {activeTab === "health" && <MobileBetriebHealth C={C} />}
@@ -230,17 +230,19 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
                 style={{ minHeight: 42, padding: "0 12px", background: "transparent", border: "1px solid #c48282", borderRadius: 4, color: "#c48282", fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
               >✕</button>
             </div>
-            {confirmingDelete && (
-              <div style={{ display: "flex", gap: 8, alignItems: "center" }}>
-                <span style={{ fontFamily: MONO, fontSize: 9.5, color: "#c48282", flex: 1 }}>Eintrag wirklich löschen?</span>
-                <button type="button" onClick={() => void deleteEntry(q.id)}
-                  style={{ minHeight: 34, padding: "0 12px", background: "#c48282", border: "1px solid #c48282", borderRadius: 4, color: "#fff", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
-                >Löschen</button>
-                <button type="button" onClick={() => setConfirmDeleteId(null)}
-                  style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.muted, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
-                >Abbrechen</button>
+            <div style={{ display: "grid", gridTemplateRows: confirmingDelete ? "1fr" : "0fr", transition: "grid-template-rows 0.18s ease" }}>
+              <div style={{ overflow: "hidden" }}>
+                <div style={{ display: "flex", gap: 8, alignItems: "center", paddingTop: 6 }}>
+                  <span style={{ fontFamily: MONO, fontSize: 9.5, color: "#c48282", flex: 1 }}>Eintrag wirklich löschen?</span>
+                  <button type="button" onClick={() => void deleteEntry(q.id)}
+                    style={{ minHeight: 34, padding: "0 12px", background: "#c48282", border: "1px solid #c48282", borderRadius: 4, color: "#fff", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+                  >Löschen</button>
+                  <button type="button" onClick={() => setConfirmDeleteId(null)}
+                    style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.muted, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+                  >Abbrechen</button>
+                </div>
               </div>
-            )}
+            </div>
           </div>
         );
       })}

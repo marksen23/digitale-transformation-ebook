@@ -67,33 +67,35 @@ export default function MobileErkenntnisse() {
                 >{isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}</button>
               </div>
 
-              {isOpen && (
-                <div style={{ marginTop: 12, borderTop: `1px solid ${C.border}`, paddingTop: 12, display: "grid", gap: 12 }}>
-                  {question && (
-                    <div>
-                      <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted }}>aus der Frage</span>
-                      <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13, color: C.text, lineHeight: 1.5, marginTop: 3 }}>
-                        „{question}"{source && (
-                          <> <button type="button" onClick={() => navigate(`/resonanz/${encodeURIComponent(e.questionSourceId)}`)}
+              <div style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+                <div style={{ overflow: "hidden" }}>
+                  <div style={{ marginTop: 12, borderTop: `1px solid ${C.border}`, paddingTop: 12, display: "grid", gap: 12 }}>
+                    {question && (
+                      <div>
+                        <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted }}>aus der Frage</span>
+                        <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13, color: C.text, lineHeight: 1.5, marginTop: 3 }}>
+                          „{question}"{source && (
+                            <> <button type="button" onClick={() => navigate(`/resonanz/${encodeURIComponent(e.questionSourceId)}`)}
+                              style={{ fontFamily: MONO, fontSize: 9, color: C.accentText, background: "none", border: "none", padding: 0, cursor: "pointer" }}
+                            >({epLabel(source.endpoint)} ↗)</button></>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                    {answer && (
+                      <div>
+                        <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", color: epColor(answer.endpoint, C.muted) }}>die Antwort</span>
+                        <div style={{ fontFamily: SERIF, fontSize: 12.5, color: C.textDim, lineHeight: 1.55, marginTop: 3 }}>
+                          {answer.response.length > 600 ? answer.response.slice(0, 600) + "…" : answer.response}{" "}
+                          <button type="button" onClick={() => navigate(`/resonanz/${encodeURIComponent(e.answerId)}`)}
                             style={{ fontFamily: MONO, fontSize: 9, color: C.accentText, background: "none", border: "none", padding: 0, cursor: "pointer" }}
-                          >({epLabel(source.endpoint)} ↗)</button></>
-                        )}
+                          >(ganz lesen ↗)</button>
+                        </div>
                       </div>
-                    </div>
-                  )}
-                  {answer && (
-                    <div>
-                      <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", color: epColor(answer.endpoint, C.muted) }}>die Antwort</span>
-                      <div style={{ fontFamily: SERIF, fontSize: 12.5, color: C.textDim, lineHeight: 1.55, marginTop: 3 }}>
-                        {answer.response.length > 600 ? answer.response.slice(0, 600) + "…" : answer.response}{" "}
-                        <button type="button" onClick={() => navigate(`/resonanz/${encodeURIComponent(e.answerId)}`)}
-                          style={{ fontFamily: MONO, fontSize: 9, color: C.accentText, background: "none", border: "none", padding: 0, cursor: "pointer" }}
-                        >(ganz lesen ↗)</button>
-                      </div>
-                    </div>
-                  )}
+                    )}
+                  </div>
                 </div>
-              )}
+              </div>
             </div>
           );
         })

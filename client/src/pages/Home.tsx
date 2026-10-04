@@ -2124,42 +2124,55 @@ export default function Home() {
                       {part.title}
                     </span>
                   </button>
-                  {isExpanded && part.subtitle && (
-                    <p className={`px-3 text-[10px] italic mb-2 mt-1 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
-                      {part.subtitle}
-                    </p>
-                  )}
-                  {isExpanded && partChapters.map(ch => (
-                    <div key={ch.id} className="flex items-center group">
-                      <button
-                        onClick={() => navigateTo(ch.id)}
-                        // min-h-[40px]: ToC-Zeilen waren 23px (unter WCAG-2.5.8-
-                        // AA-Mindestgröße 24px). 40px = komfortabel tappbar.
-                        className={`flex-1 min-w-0 min-h-[40px] text-left px-3 py-2 rounded-lg text-xs transition-colors flex items-center gap-2 ${
-                          currentId === ch.id
-                            ? 'bg-amber-500/15 text-amber-700 font-medium'
-                            : darkMode ? 'text-stone-400 hover:bg-stone-800 hover:text-stone-200' : 'text-stone-600 hover:bg-stone-100'
-                        }`}
+                  <AnimatePresence initial={false}>
+                    {isExpanded && (
+                      <motion.div
+                        key="toc-part-content"
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.2, ease: "easeInOut" }}
+                        style={{ overflow: "hidden" }}
                       >
-                        {bookmarks.includes(ch.id) && <Bookmark size={10} className="text-amber-500 flex-none" fill="currentColor" />}
-                        <span className="truncate">{ch.title}</span>
-                      </button>
-                      <button
-                        onClick={(e) => { e.stopPropagation(); toggleCompleted(ch.id); }}
-                        title={completedChapters.includes(ch.id) ? 'Als ungelesen markieren' : 'Als gelesen markieren'}
-                        // w-9/h-9 (36px): war p-1 ≈ 19px (unter AA-24px-Mindestgröße).
-                        className={`flex-none w-9 h-9 flex items-center justify-center mr-0.5 rounded transition-colors ${
-                          completedChapters.includes(ch.id)
-                            ? 'text-emerald-500 opacity-80 hover:opacity-100'
-                            : darkMode
-                              ? 'text-stone-700 opacity-0 group-hover:opacity-100 hover:text-stone-400'
-                              : 'text-stone-300 opacity-0 group-hover:opacity-100 hover:text-stone-500'
-                        }`}
-                      >
-                        <CheckCircle2 size={11} />
-                      </button>
-                    </div>
-                  ))}
+                        {part.subtitle && (
+                          <p className={`px-3 text-[10px] italic mb-2 mt-1 ${darkMode ? 'text-stone-600' : 'text-stone-400'}`}>
+                            {part.subtitle}
+                          </p>
+                        )}
+                        {partChapters.map(ch => (
+                          <div key={ch.id} className="flex items-center group">
+                            <button
+                              onClick={() => navigateTo(ch.id)}
+                              // min-h-[40px]: ToC-Zeilen waren 23px (unter WCAG-2.5.8-
+                              // AA-Mindestgröße 24px). 40px = komfortabel tappbar.
+                              className={`flex-1 min-w-0 min-h-[40px] text-left px-3 py-2 rounded-lg text-xs transition-colors flex items-center gap-2 ${
+                                currentId === ch.id
+                                  ? 'bg-amber-500/15 text-amber-700 font-medium'
+                                  : darkMode ? 'text-stone-400 hover:bg-stone-800 hover:text-stone-200' : 'text-stone-600 hover:bg-stone-100'
+                              }`}
+                            >
+                              {bookmarks.includes(ch.id) && <Bookmark size={10} className="text-amber-500 flex-none" fill="currentColor" />}
+                              <span className="truncate">{ch.title}</span>
+                            </button>
+                            <button
+                              onClick={(e) => { e.stopPropagation(); toggleCompleted(ch.id); }}
+                              title={completedChapters.includes(ch.id) ? 'Als ungelesen markieren' : 'Als gelesen markieren'}
+                              // w-9/h-9 (36px): war p-1 ≈ 19px (unter AA-24px-Mindestgröße).
+                              className={`flex-none w-9 h-9 flex items-center justify-center mr-0.5 rounded transition-colors ${
+                                completedChapters.includes(ch.id)
+                                  ? 'text-emerald-500 opacity-80 hover:opacity-100'
+                                  : darkMode
+                                    ? 'text-stone-700 opacity-0 group-hover:opacity-100 hover:text-stone-400'
+                                    : 'text-stone-300 opacity-0 group-hover:opacity-100 hover:text-stone-500'
+                              }`}
+                            >
+                              <CheckCircle2 size={11} />
+                            </button>
+                          </div>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
               );
             })}

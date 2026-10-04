@@ -75,7 +75,7 @@ export default function FocusOverlay({
         padding: "2rem",
       }}
     >
-      <div style={{
+      <div className="panel-appear" style={{
         maxWidth,
         background: isDark ? "rgba(12,10,9,0.84)" : "rgba(255,253,247,0.90)",
         backdropFilter: "blur(10px) saturate(140%)",

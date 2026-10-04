@@ -208,7 +208,7 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
           const isActiveQuestion = i === entries.length - 1 && e.kind === "frage";
           if (e.kind === "frage") {
             return (
-              <div key={i} style={{
+              <div key={i} className="panel-appear" style={{
                 fontFamily: SERIF, fontStyle: "italic",
                 fontSize: isActiveQuestion ? "0.84rem" : "0.78rem",
                 color: isActiveQuestion ? c.textBright : c.textDim,
@@ -223,7 +223,7 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
           // Antworten — Leser vs. KI visuell unterscheiden
           const isLeser = e.kind === "leser";
           return (
-            <div key={i} style={{ paddingLeft: "0.6rem" }}>
+            <div key={i} className="panel-appear" style={{ paddingLeft: "0.6rem" }}>
               <div style={{ fontFamily: MONO, fontSize: "0.46rem", letterSpacing: "0.12em", textTransform: "uppercase", color: isLeser ? "#7ab898" : c.muted, marginBottom: "0.2rem" }}>
                 {isLeser ? "◇ Du" : "◈ Weitergedacht"}
               </div>

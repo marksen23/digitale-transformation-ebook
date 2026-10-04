@@ -84,7 +84,7 @@ export default function ToolOutputPanel({
 
   return (
     <div
-      className="concept-workfunc-panel"
+      className="concept-workfunc-panel panel-appear"
       style={{
         position: "absolute",
         left: insetLeft,
