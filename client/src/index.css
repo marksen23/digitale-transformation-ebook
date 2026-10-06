@@ -77,6 +77,15 @@
   animation: slideInFromBottom 0.24s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+@keyframes growFromLeft {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.bar-fill-grow {
+  transform-origin: left center;
+  animation: growFromLeft 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
