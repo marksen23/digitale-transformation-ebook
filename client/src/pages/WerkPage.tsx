@@ -866,7 +866,8 @@ function ReadingControls({
       >
         Aa Lesen {open ? "▴" : "▾"}
       </button>
-      {open && (
+      <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+        <div style={{ overflow: "hidden" }}>
         <div style={{
           marginTop: "0.5rem", padding: "0.7rem 0.9rem",
           background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4,
@@ -899,7 +900,8 @@ function ReadingControls({
             color: C.muted, background: "none", border: "none", padding: 0, cursor: "pointer", textDecoration: "underline",
           }}>zurücksetzen</button>
         </div>
-      )}
+        </div>
+      </div>
     </div>
   );
 }
@@ -944,25 +946,27 @@ function WerkzeugeDropdown({ C, isDark: _isDark }: { C: Palette; isDark: boolean
       >
         Werkzeuge {open ? "▴" : "▾"}
       </button>
-      {open && (
-        <div style={{
-          marginTop: "0.5rem", padding: "0.7rem 0.9rem",
-          background: C.surface, border: `1px solid ${C.border}`,
-          display: "flex", flexDirection: "column", gap: "0.35rem",
-          fontFamily: SERIF, fontSize: "0.85rem",
-        }}>
-          <a
-            href="/exports/resonanzvernunft.pdf"
-            download="resonanzvernunft.pdf"
-            style={{ color: C.accentText, textDecoration: "none" }}
-          >
-            ↓ Werk als PDF herunterladen
-          </a>
-          <Link to="/begriffsnetz" style={{ color: C.textDim, textDecoration: "none" }}>↪ Begriffsnetz öffnen</Link>
-          <Link to="/resonanzen" style={{ color: C.textDim, textDecoration: "none" }}>↪ Resonanzen-Korpus</Link>
-          <Link to="/mein-werk" style={{ color: C.textDim, textDecoration: "none" }}>↪ Mein Werk (Lese-Trajektorie)</Link>
+      <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+        <div style={{ overflow: "hidden" }}>
+          <div style={{
+            marginTop: "0.5rem", padding: "0.7rem 0.9rem",
+            background: C.surface, border: `1px solid ${C.border}`,
+            display: "flex", flexDirection: "column", gap: "0.35rem",
+            fontFamily: SERIF, fontSize: "0.85rem",
+          }}>
+            <a
+              href="/exports/resonanzvernunft.pdf"
+              download="resonanzvernunft.pdf"
+              style={{ color: C.accentText, textDecoration: "none" }}
+            >
+              ↓ Werk als PDF herunterladen
+            </a>
+            <Link to="/begriffsnetz" style={{ color: C.textDim, textDecoration: "none" }}>↪ Begriffsnetz öffnen</Link>
+            <Link to="/resonanzen" style={{ color: C.textDim, textDecoration: "none" }}>↪ Resonanzen-Korpus</Link>
+            <Link to="/mein-werk" style={{ color: C.textDim, textDecoration: "none" }}>↪ Mein Werk (Lese-Trajektorie)</Link>
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }

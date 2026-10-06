@@ -38,7 +38,7 @@ export default function OnboardingHint() {
   if (!show) return null;
 
   return (
-    <div style={{ maxWidth: 900, margin: "0.9rem auto 0", padding: "0 1.5rem" }}>
+    <div className="panel-appear" style={{ maxWidth: 900, margin: "0.9rem auto 0", padding: "0 1.5rem" }}>
       <div style={{ position: "relative", border: `1px solid ${C.border}`, background: `${C.accent}0c`, borderRadius: 8, padding: "0.9rem 2.2rem 0.9rem 1.1rem" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: TRACKED.open, textTransform: "uppercase", color: C.accentText, marginBottom: "0.35rem" }}>
           {ORNAMENT.leaf} Willkommen
