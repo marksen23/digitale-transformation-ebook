@@ -94,7 +94,7 @@ export default function StatistikPage() {
         <h1 style={{ margin: "0 0 1.2rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>Statistik</h1>
 
         {!index ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : (
           <>
             <div className="panel-appear" style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "1.2rem" }}>
