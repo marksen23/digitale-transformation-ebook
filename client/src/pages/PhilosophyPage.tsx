@@ -169,7 +169,7 @@ export default function PhilosophyPage() {
       data-scroll
       ref={setScrollRef}
       style={{
-        position: "fixed", top: 48, right: 0, bottom: 0, left: 0, overflowY: "auto",
+        position: "fixed", top: "var(--app-frame-h, 48px)", right: 0, bottom: 0, left: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
         WebkitOverflowScrolling: "touch",
         paddingTop: "env(safe-area-inset-top, 0px)",
@@ -265,24 +265,28 @@ export default function PhilosophyPage() {
         </div>
 
         {/* Pfad-Erklärung — klappt aus, wenn ⓘ geklickt */}
-        {showPath && pathHintOpen && (
-          <div style={{
-            background: C.deep, border: `1px solid ${C.border}`,
-            borderLeft: `3px solid ${C.accent}`,
-            padding: "0.7rem 0.9rem", marginTop: "0.6rem",
-            fontFamily: SERIF, fontSize: "0.85rem", color: C.text, lineHeight: 1.55,
-          }}>
-            <span style={{ fontStyle: "italic" }}>
-              Der Pfad zeichnet die direkteste Linie von Spinozas substanzlosem Welt-Bezug
-              über Schellings Identität von Geist und Natur, Hegels Geist als Beziehung,
-              Heideggers Sein-in-der-Welt, Merleau-Pontys Leibphänomenologie und Gadamers
-              Hermeneutik bis zu Waldenfels' Responsivität und Rosas Resonanzsoziologie.
-              Acht Stationen, acht Beziehungs-Modi der Vernunft.
-            </span>
+        <div style={{ display: "grid", gridTemplateRows: (showPath && pathHintOpen) ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+          <div style={{ overflow: "hidden" }}>
+            <div style={{
+              background: C.deep, border: `1px solid ${C.border}`,
+              borderLeft: `3px solid ${C.accent}`,
+              padding: "0.7rem 0.9rem", marginTop: "0.6rem",
+              fontFamily: SERIF, fontSize: "0.85rem", color: C.text, lineHeight: 1.55,
+            }}>
+              <span style={{ fontStyle: "italic" }}>
+                Der Pfad zeichnet die direkteste Linie von Spinozas substanzlosem Welt-Bezug
+                über Schellings Identität von Geist und Natur, Hegels Geist als Beziehung,
+                Heideggers Sein-in-der-Welt, Merleau-Pontys Leibphänomenologie und Gadamers
+                Hermeneutik bis zu Waldenfels' Responsivität und Rosas Resonanzsoziologie.
+                Acht Stationen, acht Beziehungs-Modi der Vernunft.
+              </span>
+            </div>
           </div>
-        )}
+        </div>
 
         {/* Filter-Pills + Suchfeld (Mobile: kollabierbar; Desktop: immer offen) */}
+        <div style={{ display: "grid", gridTemplateRows: (filtersExpanded || !isMobile) ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+        <div style={{ overflow: "hidden" }}>
         {(filtersExpanded || !isMobile) && (
           <>
             {/* M3: UnifiedSearch ersetzt das alte Input. search-State bleibt
@@ -333,6 +337,8 @@ export default function PhilosophyPage() {
             </div>
           </>
         )}
+        </div>
+        </div>
       </header>
 
       {/* ─── Hauptbereich: Visualisierung + (Desktop: Detail-Panel) ─── */}
