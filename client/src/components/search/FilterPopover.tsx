@@ -70,7 +70,7 @@ export function FilterPopover({ groups, active, onChange, onClose, anchorRect }:
     <>
       {isMobile && (
         <div
-          className="fixed inset-0 bg-black/40 z-[80]"
+          className="mobile-fade-in fixed inset-0 bg-black/40 z-[80]"
           onClick={onClose}
           aria-hidden
         />
@@ -78,7 +78,7 @@ export function FilterPopover({ groups, active, onChange, onClose, anchorRect }:
       <div
         ref={ref}
         style={positionStyle}
-        className="z-[81] bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 shadow-xl overflow-y-auto p-3"
+        className={`${isMobile ? "bottom-bar-appear" : "panel-appear"} z-[81] bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 shadow-xl overflow-y-auto p-3`}
         role="dialog"
         aria-label="Filter wählen"
       >

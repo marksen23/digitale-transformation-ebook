@@ -107,32 +107,34 @@ export default function LegendSection({
       ) : (
         <div style={titleStyle}>{title}</div>
       )}
-      {!collapsed && (
-        <div style={layout === "wrap" ? { display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" } : {}}>
-          {children}
+      <div style={{ display: "grid", gridTemplateRows: collapsed ? "0fr" : "1fr", transition: "grid-template-rows 0.2s ease" }}>
+        <div style={{ overflow: "hidden" }}>
+          <div style={layout === "wrap" ? { display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" } : {}}>
+            {children}
+          </div>
+          {showReset && onReset && (
+            <button
+              onClick={onReset}
+              style={{
+                marginTop: "0.5rem",
+                width: compact && layout === "wrap" ? "auto" : "100%",
+                fontFamily: MONO,
+                fontSize: compact ? "0.54rem" : "0.56rem",
+                letterSpacing: "0.1em",
+                textTransform: "uppercase",
+                color: rColor,
+                background: "none",
+                border: `1px solid ${rBorder}`,
+                padding: "0.25rem 0.5rem",
+                cursor: "pointer",
+                borderRadius: 4,
+              }}
+            >
+              Alle einblenden
+            </button>
+          )}
         </div>
-      )}
-      {showReset && onReset && !collapsed && (
-        <button
-          onClick={onReset}
-          style={{
-            marginTop: "0.5rem",
-            width: compact && layout === "wrap" ? "auto" : "100%",
-            fontFamily: MONO,
-            fontSize: compact ? "0.54rem" : "0.56rem",
-            letterSpacing: "0.1em",
-            textTransform: "uppercase",
-            color: rColor,
-            background: "none",
-            border: `1px solid ${rBorder}`,
-            padding: "0.25rem 0.5rem",
-            cursor: "pointer",
-            borderRadius: 4,
-          }}
-        >
-          Alle einblenden
-        </button>
-      )}
+      </div>
     </>
   );
 }

@@ -245,6 +245,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                 {open && (
                   <div
                     role="menu"
+                    className="panel-appear"
                     style={{
                       position: "absolute", top: "100%", left: 0, marginTop: "0.3rem",
                       minWidth: "11rem", zIndex: 310,

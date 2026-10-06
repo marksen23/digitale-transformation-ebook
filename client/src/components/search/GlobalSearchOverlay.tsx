@@ -37,14 +37,14 @@ export function GlobalSearchOverlay({
 
   return (
     <div
-      className="fixed inset-0 z-[90] bg-black/50 backdrop-blur-sm flex items-start justify-center pt-[10dvh] px-4"
+      className="mobile-fade-in fixed inset-0 z-[90] bg-black/50 backdrop-blur-sm flex items-start justify-center pt-[10dvh] px-4"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label="Globale Suche"
     >
       <div
-        className="w-full max-w-2xl bg-white dark:bg-stone-900 rounded-xl shadow-2xl p-4"
+        className="panel-appear w-full max-w-2xl bg-white dark:bg-stone-900 rounded-xl shadow-2xl p-4"
         onClick={e => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-2">
