@@ -417,6 +417,7 @@ export default function WerkPage() {
               D5: bottom-Offset respektiert iOS-Selection-Toolbar (max(2rem, env(safe-area-inset-bottom))). */}
           {selection && (
             <button
+              className="mobile-fade-in"
               onClick={() => setModalOpen(true)}
               style={{
                 position: "fixed", left: "50%",

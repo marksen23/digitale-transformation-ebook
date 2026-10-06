@@ -221,7 +221,7 @@ export default function LandkartePage() {
       </div>
 
       {promoteMsg && (
-        <div style={{ marginBottom: "1rem", padding: "0.5rem 0.8rem", background: `${C.accent}14`, borderLeft: `3px solid ${C.accent}`, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
+        <div className="panel-appear" style={{ marginBottom: "1rem", padding: "0.5rem 0.8rem", background: `${C.accent}14`, borderLeft: `3px solid ${C.accent}`, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", color: C.text }}>
           {promoteMsg}
         </div>
       )}

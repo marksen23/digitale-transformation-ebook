@@ -938,7 +938,7 @@ export default function ResonanzenPage() {
                         {variationSiblings.length} Variationen dieser Aussage
                       </button>
                     ) : (
-                      <>
+                      <div className="panel-appear">
                         <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#c8a87a", marginBottom: "0.4rem", display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
                           <span style={{ fontSize: "0.7rem" }}>❦</span>
                           <span>Variationen dieser Aussage</span>
@@ -968,7 +968,7 @@ export default function ResonanzenPage() {
                             </button>
                           ))}
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 )}
@@ -979,6 +979,7 @@ export default function ResonanzenPage() {
                     "ist verwandt". Nur in expanded card sichtbar. */}
                 {readingMode !== "surface" && expandedId === entry.id && echoEntries.length > 0 && (
                   <div
+                    className="panel-appear"
                     onClick={e => e.stopPropagation()}
                     style={{
                       borderTop: `1px solid ${C.border}`,
@@ -1171,6 +1172,7 @@ export default function ResonanzenPage() {
       {deleteError && (
         <div
           role="alert"
+          className="mobile-fade-in"
           style={{
             position: "fixed", bottom: "1rem", left: "50%", transform: "translateX(-50%)",
             zIndex: 600, background: C.deep, border: "1px solid #c48282",
