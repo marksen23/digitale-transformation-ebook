@@ -328,7 +328,7 @@ export default function MobileReader({
       </div>
 
       {selection && (
-        <div style={{ position: "absolute", left: "50%", bottom: 104, transform: "translateX(-50%)", zIndex: 30 }}>
+        <div className="mobile-fade-in" style={{ position: "absolute", left: "50%", bottom: 104, transform: "translateX(-50%)", zIndex: 30 }}>
           <button
             type="button" onClick={() => setModalOpen(true)}
             style={{

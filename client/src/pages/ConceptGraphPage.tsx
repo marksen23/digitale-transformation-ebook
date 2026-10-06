@@ -3514,6 +3514,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {/* ── Notiz-Popup für neue Verbindung ── */}
       {notePopup && (
         <div
+          className="mobile-fade-in"
           style={{
             position: "fixed", inset: 0, zIndex: 500,
             background: C.overlayBg, backdropFilter: "blur(6px)",
@@ -3523,6 +3524,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           onClick={() => setNotePopup(null)}
         >
           <div
+            className="panel-appear"
             style={{ background: C.deep, border: `1px solid ${C.accentDim}`, padding: "1.5rem", maxWidth: 360, width: "100%" }}
             onClick={e => e.stopPropagation()}
           >
