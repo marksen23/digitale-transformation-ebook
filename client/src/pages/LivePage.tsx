@@ -53,6 +53,7 @@ export default function LivePage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: c.void, color: c.text,
@@ -82,7 +83,7 @@ export default function LivePage() {
         )}
 
         {!entries ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : shown.length === 0 ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>Noch keine Begegnungen in diesem Bereich.</div>
         ) : (

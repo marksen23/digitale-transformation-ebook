@@ -112,7 +112,7 @@ export default function FragenPage() {
         )}
 
         {!questions ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : shown.length === 0 ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted, lineHeight: 1.6 }}>
             Keine Fragen {status === "open" ? "offen" : status === "answered" ? "beantwortet" : ""}

@@ -168,6 +168,7 @@ export default function PhilosophyPage() {
     <div
       data-scroll
       ref={setScrollRef}
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", right: 0, bottom: 0, left: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
