@@ -174,6 +174,7 @@ function InstallInstructions({ platform, isDark, C, onClose }: StepCardProps) {
       aria-modal="true"
       aria-labelledby="install-dialog-title"
       onClick={onClose}
+      className="mobile-fade-in"
       style={{
         position: "fixed", inset: 0, zIndex: 400,
         background: "rgba(0,0,0,0.55)",
@@ -185,6 +186,7 @@ function InstallInstructions({ platform, isDark, C, onClose }: StepCardProps) {
     >
       <div
         onClick={(e) => e.stopPropagation()}
+        className="panel-appear"
         style={{
           background: isDark ? "rgba(28,25,23,0.98)" : "rgba(255,253,247,0.99)",
           border: `1px solid ${C.border}`,
