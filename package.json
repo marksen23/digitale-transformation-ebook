@@ -97,7 +97,6 @@
     "autoprefixer": "^10.4.20",
     "esbuild": "^0.25.0",
     "happy-dom": "^18.0.1",
-    "pnpm": "^10.15.1",
     "postcss": "^8.4.47",
     "prettier": "^3.6.2",
     "sharp": "^0.34.5",
