@@ -249,7 +249,7 @@ export default function WerkPage() {
   }, [currentChapter]);
 
   if (!ebook) {
-    return <div style={{ padding: "2rem", fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>;
+    return <div className="loading-pulse" style={{ padding: "2rem", fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>;
   }
 
   // Nur Kapitel mit Inhalt im Navigations-Sidebar listen

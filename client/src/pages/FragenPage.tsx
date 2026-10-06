@@ -72,6 +72,7 @@ export default function FragenPage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: c.void, color: c.text,

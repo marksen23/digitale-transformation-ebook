@@ -69,6 +69,7 @@ export default function StatusPage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: c.void, color: c.text,
@@ -80,7 +81,7 @@ export default function StatusPage() {
         <h1 style={{ margin: "0.4rem 0 1.5rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>Status</h1>
 
         {!index ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : (
           <>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "1.5rem" }}>

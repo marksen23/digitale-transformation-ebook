@@ -90,7 +90,7 @@ export default function MeinWerkPage() {
     URL.revokeObjectURL(url);
   }
 
-  if (!t || !stats) return <div style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
+  if (!t || !stats) return <div className="loading-pulse" style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
 
   // Erstbesucher ohne jede Aktivität: statt einer Wand aus Nullen ein sanfter
   // Empty-State mit Orientierung (Phase 6).

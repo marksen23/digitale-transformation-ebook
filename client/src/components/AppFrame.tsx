@@ -272,7 +272,14 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                             padding: "0.5rem 0.6rem",
                             borderRadius: RADIUS.button,
                             background: active ? (isDark ? "rgba(245,158,11,0.08)" : "rgba(180,83,9,0.06)") : "transparent",
+                            transition: "background 0.12s, color 0.12s",
                           }}
+                          onMouseEnter={!active ? (e: React.MouseEvent<HTMLAnchorElement>) => {
+                            e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)";
+                          } : undefined}
+                          onMouseLeave={!active ? (e: React.MouseEvent<HTMLAnchorElement>) => {
+                            e.currentTarget.style.background = "transparent";
+                          } : undefined}
                         >
                           {t(item.i18nKey)}
                         </Link>
