@@ -71,7 +71,7 @@ export default function StatistikPage() {
           <div key={k} style={{ display: "grid", gridTemplateColumns: "minmax(90px, 32%) 1fr auto", gap: "0.6rem", alignItems: "center" }}>
             <span style={{ fontFamily: SERIF, fontSize: "0.82rem", color: c.textDim, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k}</span>
             <span style={{ height: 8, background: c.deep, borderRadius: 4, overflow: "hidden" }}>
-              <span style={{ display: "block", height: "100%", width: `${(n / max) * 100}%`, background: color ? color(k) : c.accentText, borderRadius: 4 }} />
+              <span className="bar-fill-grow" style={{ display: "block", height: "100%", width: `${(n / max) * 100}%`, background: color ? color(k) : c.accentText, borderRadius: 4 }} />
             </span>
             <span style={{ fontFamily: MONO, fontSize: "0.8rem", color: c.text }}>{n}</span>
           </div>
@@ -97,7 +97,7 @@ export default function StatistikPage() {
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : (
           <>
-            <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "1.2rem" }}>
+            <div className="panel-appear" style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "1.2rem" }}>
               {[
                 { l: "Begegnungen", v: s.total, accent: true },
                 { l: "kuratiert", v: s.curated },

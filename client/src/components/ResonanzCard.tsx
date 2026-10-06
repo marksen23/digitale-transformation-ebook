@@ -48,15 +48,19 @@ export default function ResonanzCard({
         borderRadius: isFramed ? 4 : 0,
         padding: "0.45rem 0.6rem",
         textDecoration: "none",
-        transition: isFramed ? "border-color 0.15s, background 0.15s" : undefined,
+        transition: isFramed ? "border-color 0.15s, background 0.15s, transform 0.15s, box-shadow 0.15s" : undefined,
       }}
       onMouseEnter={isFramed ? (e) => {
         e.currentTarget.style.borderColor = c.accentDim;
         e.currentTarget.style.background = c.deep;
+        e.currentTarget.style.transform = "translateY(-1px)";
+        e.currentTarget.style.boxShadow = "0 3px 10px rgba(0,0,0,0.12)";
       } : undefined}
       onMouseLeave={isFramed ? (e) => {
         e.currentTarget.style.borderColor = c.border;
         e.currentTarget.style.background = c.surface;
+        e.currentTarget.style.transform = "none";
+        e.currentTarget.style.boxShadow = "none";
       } : undefined}
     >
       <div style={{
