@@ -44,6 +44,7 @@ export default function DeleteConfirm({ entry, loading, onCancel, onConfirm, the
       role="dialog"
       aria-modal="true"
       aria-labelledby="delete-confirm-title"
+      className="mobile-fade-in"
       style={{
         position: "fixed", inset: 0, zIndex: 500,
         background: "rgba(0,0,0,0.6)",
@@ -55,6 +56,7 @@ export default function DeleteConfirm({ entry, loading, onCancel, onConfirm, the
     >
       <div
         onClick={e => e.stopPropagation()}
+        className="panel-appear"
         style={{
           background: theme.deep,
           border: `1px solid #c48282`,

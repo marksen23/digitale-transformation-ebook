@@ -1123,7 +1123,7 @@ export default function AdminCurationPage() {
 
       {/* Sticky Bulk-Action-Bar — nur wenn Auswahl aktiv */}
       {selectedIds.size > 0 && !bulkProgress && (
-        <div style={{
+        <div className="bottom-bar-appear" style={{
           position: "fixed", bottom: 0, left: 0, right: 0, zIndex: 200,
           background: C.deep,
           borderTop: `2px solid ${C.accent}`,
@@ -1150,13 +1150,13 @@ export default function AdminCurationPage() {
 
       {/* Bulk-Progress-Overlay */}
       {bulkProgress && (
-        <div style={{
+        <div className="mobile-fade-in" style={{
           position: "fixed", inset: 0, zIndex: 300,
           background: "rgba(0,0,0,0.6)",
           display: "flex", alignItems: "center", justifyContent: "center",
           backdropFilter: "blur(4px)",
         }}>
-          <div style={{
+          <div className="panel-appear" style={{
             background: C.deep, border: `1px solid ${C.accent}`,
             padding: "1.5rem 2rem", borderRadius: 8, minWidth: 280, textAlign: "center",
           }}>

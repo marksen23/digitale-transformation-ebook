@@ -69,6 +69,14 @@
   animation: slideInFromLeft 0.22s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+@keyframes slideInFromBottom {
+  from { transform: translateY(100%); opacity: 0; }
+  to   { transform: translateY(0); opacity: 1; }
+}
+.bottom-bar-appear {
+  animation: slideInFromBottom 0.24s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

@@ -197,16 +197,18 @@ export default function MeinWerkPage() {
                           <button onClick={() => handleDeleteThread(thread.id)} style={miniBtn(C, "#c48282")} title="Faden löschen">⌫</button>
                         </div>
                       </div>
-                      {isOpen && (
-                        <WeiterdenkenThread
-                          c={C}
-                          initialQuestion={thread.rootQuestion}
-                          initialEntries={thread.steps.map(s => ({ kind: s.kind, text: s.text }))}
-                          threadId={thread.id}
-                          focus={thread.focus}
-                          focusedNodeIds={thread.focusedNodeIds}
-                        />
-                      )}
+                      <div style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.24s ease" }}>
+                        <div style={{ overflow: "hidden" }}>
+                          <WeiterdenkenThread
+                            c={C}
+                            initialQuestion={thread.rootQuestion}
+                            initialEntries={thread.steps.map(s => ({ kind: s.kind, text: s.text }))}
+                            threadId={thread.id}
+                            focus={thread.focus}
+                            focusedNodeIds={thread.focusedNodeIds}
+                          />
+                        </div>
+                      </div>
                     </div>
                   );
                 })}
