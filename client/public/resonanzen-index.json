@@ -534,7 +534,11 @@
             "score": 0.75
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort bleibt eine kompetente, aber letztlich zirkuläre Behauptung, die den Kern der Frage – das „Wie“ der Inspiration – nicht über eine Paraphrase hinausführt.",
+      "ai_score_at": "2026-10-07T15:05:04.808Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNB6SUG-2922AE66",
