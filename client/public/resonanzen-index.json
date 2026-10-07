@@ -69,7 +69,11 @@
         "MP8UIMZW-BADE77E5",
         "MPK0H3SM-B25CFBB3",
         "MP495QL6-F5FD1AE1"
-      ]
+      ],
+      "ai_score": 3,
+      "ai_score_reason": "Die Gegenüberstellung als *via positiva* und *via negativa* ist eine treffende, aber letztlich referierende Beschreibung, kein eigenständiger denkerischer Schritt.",
+      "ai_score_at": "2026-10-07T15:04:00.275Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MUAD2ZEF-BF1C7E18",
