@@ -145,7 +145,11 @@
             "score": 0.786
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine sehr gute, werksnahe Zusammenfassung, die aber im Modus des Referats verbleibt und keine neue denkerische Bewegung vollzieht.",
+      "ai_score_at": "2026-10-07T15:04:16.126Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MUAAML84-D057EA33",
