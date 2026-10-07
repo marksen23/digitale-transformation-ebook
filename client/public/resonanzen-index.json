@@ -475,7 +475,11 @@
             "score": 0.779
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Er übersetzt die Frage in eine werkkonforme Antwort, fügt dem Denken aber nichts genuin Neues hinzu und bleibt somit im Modus des Referats.",
+      "ai_score_at": "2026-10-07T15:04:57.277Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNB77VP-6A85F255",
