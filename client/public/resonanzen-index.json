@@ -585,7 +585,11 @@
             "score": 0.773
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Der Text paraphrasiert die Kernideen des Werks kompetent und sprachlich passend, bringt aber keinen eigenen, hergeleiteten Gedanken ein, der über das Bestehende hinausführt.",
+      "ai_score_at": "2026-10-07T15:05:11.941Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNB68RF-CFF570D9",
