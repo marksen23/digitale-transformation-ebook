@@ -3,8 +3,8 @@
  *
  * Jede KI-Antwort endet mit einer offenen Schlussfrage. Diese Seite sammelt sie
  * (build-präkomputiert, resonanzen-questions.json) und zeigt, welche das Werk
- * sich SELBST bereits beantwortet hat (semantisches Matching gegen spätere
- * Einträge) und welche offen bleiben — der Denk-Horizont des wachsenden Werks.
+ * sich SELBST bereits beantwortet hat (Cosine gegen spätere Einträge, plus
+ * kuratierte Pins aus question-answer-overrides.json) und welche offen bleiben.
  *
  * Eigener position:fixed-Scroll-Container (App-Scroll-Modell) + SiteFooter.
  */
@@ -13,7 +13,7 @@ import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
-import { loadQuestions, type QuestionEntry } from "@/lib/questions";
+import { formatAnswerScore, loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
 import { useIsMobile } from "@/hooks/useMobile";
 import MobileFragen from "@/pages/mobile/MobileFragen";
@@ -157,7 +157,7 @@ export default function FragenPage() {
                       Das Werk antwortet
                     </span>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", marginTop: "0.35rem" }}>
-                      {q.answeredBy.slice(0, 3).map(a => {
+                      {q.answeredBy.map(a => {
                         const entry = byId.get(a.id);
                         const preview = entry?.prompt ?? entry?.response ?? "";
                         return (
@@ -171,7 +171,7 @@ export default function FragenPage() {
                               <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.muted }}>{a.id.slice(0, 12)}…</span>
                             )}
                             <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: c.muted, marginTop: 2, display: "block" }}>
-                              {epLabel(entry?.endpoint ?? "")} · {a.score.toFixed(2)}
+                              {epLabel(entry?.endpoint ?? "")} · {formatAnswerScore(a)}
                             </span>
                           </Link>
                         );

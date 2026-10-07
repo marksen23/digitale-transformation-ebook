@@ -19,6 +19,7 @@ import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import { fetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
 import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
+import { applyAnswerOverrides, loadAnswerOverrides } from "./lib/questionAnswers.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -34,6 +35,7 @@ const CONCEPT_CANDIDATES_OUTPUT = path.join(ROOT, "client/public/resonanzen-conc
 const ANCHOR_CLUSTERS_OUTPUT = path.join(ROOT, "client/public/resonanzen-anchor-clusters.json");
 const CORPUS_MAP_OUTPUT = path.join(ROOT, "client/public/resonanzen-corpus-map.json");
 const QUESTIONS_OUTPUT = path.join(ROOT, "client/public/resonanzen-questions.json");
+const QUESTION_OVERRIDES_PATH = path.join(ROOT, "content/resonanzen/question-answer-overrides.json");
 const QUESTION_EMB_OUTPUT = path.join(ROOT, "client/public/resonanzen-question-embeddings.json");
 const ERKENNTNIS_CANDIDATES_OUTPUT = path.join(ROOT, "client/public/resonanzen-erkenntnis-candidates.json");
 const ERKENNTNISSE_PATH = path.join(ROOT, "client/public/resonanzen-erkenntnisse.json");
@@ -726,9 +728,11 @@ function extractClosingQuestion(text: string): string {
 /** Fragenansicht (Erkenntnisse-Phase 1): extrahiert die offene Schlussfrage jedes
  *  Korpus-Eintrags, embeddet sie (Reuse-Cache) und matcht jede Frage gegen SPÄTERE
  *  Einträge (Cosine ≥ ANSWER_SIM) → „das Werk hat sich das selbst beantwortet".
- *  Output resonanzen-questions.json. Fail-soft ohne Gemini-Key: Fragen werden
- *  gelistet, answeredBy bleibt leer (Matching erst im CI). */
-type QuestionChain = { sourceId: string; question: string; answeredBy: Array<{ id: string; score: number }> };
+ *  Output resonanzen-questions.json. Fail-soft ohne Gemini-Key: Cosine-Matching
+ *  nutzt vorhandene Vektoren von Platte, neue Einträge bleiben ohne Score.
+ *  Kuratierte Kanten aus question-answer-overrides.json werden immer gemischt
+ *  (pin / exclude) — die JSON hier nicht von Hand nachziehen. */
+type QuestionChain = { sourceId: string; question: string; answeredBy: Array<{ id: string; score: number | null }> };
 async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<string, number[]> | null): Promise<QuestionChain[]> {
   const ANSWER_SIM = parseFloat(process.env.QUESTIONS_ANSWER_SIM ?? "0.72");
   const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
@@ -766,11 +770,16 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
   }
 
   // 3. Matching: jede Frage gegen spätere, nicht-rejected Einträge.
+  //    Danach Kuratierung: Pins unter der Schwelle aufnehmen, Ausschlüsse
+  //    (z. B. MTNB… nicht auf Stimme/Judikative) vor dem Top-3 anwenden.
+  const overrideRules = loadAnswerOverrides(QUESTION_OVERRIDES_PATH);
+  const entriesById = new Map(entries.map(e => [e.id, e]));
+  let curatedLinks = 0;
+  let overrideWarnings = 0;
   const out = questions.map(q => {
     const qv = qEmb[norm(q.question)];
-    let answeredBy: Array<{ id: string; score: number }> = [];
+    const scored: Array<{ id: string; score: number }> = [];
     if (qv && embeddings) {
-      const scored: Array<{ id: string; score: number }> = [];
       for (const e of entries) {
         if (e.id === q.sourceId || e.status === "rejected" || e.ts <= q.ts) continue;
         const ev = embeddings[e.id];
@@ -779,12 +788,27 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
         if (s >= ANSWER_SIM) scored.push({ id: e.id, score: Number(s.toFixed(3)) });
       }
       scored.sort((a, b) => b.score - a.score);
-      answeredBy = scored.slice(0, 3);
+    }
+    const applied = applyAnswerOverrides({
+      sourceId: q.sourceId,
+      cosine: scored,
+      rule: overrideRules.get(q.sourceId),
+      entriesById,
+      scoreOf: (id) => {
+        const ev = embeddings?.[id];
+        if (!qv || !ev) return null;
+        return Number(cosineSim(qv, ev).toFixed(3));
+      },
+    });
+    curatedLinks += applied.answeredBy.filter(a => a.manual).length;
+    for (const w of applied.warnings) {
+      overrideWarnings++;
+      console.warn(`[build-resonanzen-index] question-override: ${w}`);
     }
     return {
       sourceId: q.sourceId, question: q.question, endpoint: q.endpoint,
       anchor: q.anchor, nodeIds: q.nodeIds, ts: q.ts, dupCount: q.dupIds.length,
-      answeredBy, answered: answeredBy.length > 0,
+      answeredBy: applied.answeredBy, answered: applied.answeredBy.length > 0,
     };
   }).sort((a, b) => b.ts.localeCompare(a.ts));
 
@@ -796,7 +820,10 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
     stats: { total: out.length, answered, open: out.length - answered, embedded },
     questions: out,
   }, null, 2));
-  console.log(`[build-resonanzen-index] questions: ${out.length} (${answered} beantwortet, ${out.length - answered} offen, ${embedded} neu embeddet)`);
+  console.log(
+    `[build-resonanzen-index] questions: ${out.length} (${answered} beantwortet, ${out.length - answered} offen, ${embedded} neu embeddet, ` +
+    `${overrideRules.size} Override-Regeln, ${curatedLinks} kuratierte Kanten, ${overrideWarnings} Override-Warnungen)`,
+  );
   return out.map(q => ({ sourceId: q.sourceId, question: q.question, answeredBy: q.answeredBy }));
 }
 
@@ -843,7 +870,11 @@ function writeErkenntnisCandidates(
     for (const a of (q.answeredBy ?? [])) {
       const ans = byId.get(a.id);
       if (!ans || ans.status === "rejected" || confirmed.has(a.id) || !embeddings[a.id]) continue;
-      (ansMap.get(a.id) ?? ansMap.set(a.id, []).get(a.id)!).push({ sourceId: q.sourceId, question: q.question, score: a.score });
+      (ansMap.get(a.id) ?? ansMap.set(a.id, []).get(a.id)!).push({
+        sourceId: q.sourceId,
+        question: q.question,
+        score: typeof a.score === "number" ? a.score : 0,
+      });
     }
   }
 
