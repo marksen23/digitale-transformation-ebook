@@ -31,7 +31,6 @@ import {
   type EbookFile, type WerkChunksFile,
   deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
 } from "@/lib/werkChunks";
-import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { NODES } from "@/data/conceptGraph";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
@@ -155,26 +154,11 @@ export default function WerkPage() {
   );
 
   // Deep-Link von der Begriffsnetz-Knotenkarte: ?chunk=<id>&fromConcept=<label>
-  // springt zur passenden Stelle und zeigt die Herkunft als Randnotiz.
-  const [targetChunkId, setTargetChunkId] = useState<string | null>(null);
-  const [fromConcept, setFromConcept] = useState<string | null>(null);
-  // Kapitel, für das die Randnotiz gilt — sie bleibt sichtbar, solange der
-  // Nutzer auf diesem Kapitel bleibt, und verschwindet erst beim Wechsel zu
-  // einem ANDEREN Kapitel (nicht sofort nach dem Positions-Sprung, sonst
-  // wäre sie nie zu sehen; nicht für immer, sonst „klebt" sie über die
-  // ganze Sitzung).
-  const fromConceptChapterRef = useRef<string | null>(null);
+  // — URL-Parameter werden bereinigt; Scroll-to-chunk ist noch nicht implementiert.
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     const chunk = sp.get("chunk");
     const from = sp.get("fromConcept");
-    if (chunk) setTargetChunkId(chunk);
-    // Nur ein echtes Begriffs-Label vertrauen (siehe KNOWN_CONCEPT_LABELS oben) —
-    // sonst könnte ?fromConcept= beliebigen Text als vermeintliche Herkunft ausgeben.
-    if (from && KNOWN_CONCEPT_LABELS.has(from)) {
-      setFromConcept(from);
-      fromConceptChapterRef.current = params?.chapter ?? null;
-    }
     if (chunk || from) {
       sp.delete("chunk"); sp.delete("fromConcept");
       const qs = sp.toString();
@@ -182,26 +166,6 @@ export default function WerkPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    if (fromConceptChapterRef.current && currentChapter?.id && currentChapter.id !== fromConceptChapterRef.current) {
-      setFromConcept(null);
-      fromConceptChapterRef.current = null;
-    }
-  }, [currentChapter?.id]);
-
-  // Mobile-Reader: Mini-Hörleiste in der schmalen Fußzeile (Reader-first-Kern,
-  // Runde 1 der Design-Vorgabe — nur dort, nicht im Desktop-Werkzeugleisten-UI).
-  // Absatz-Hervorhebung: onParaChange liefert den Index in chapterDisplay
-  // (gleiche Reihenfolge wie plainParagraphs), damit der Lesebereich beim
-  // Vorlesen mitwandert — ohne Wort-Level-Markup im Text selbst zu erfordern.
-  const [activeParaIdx, setActiveParaIdx] = useState(-1);
-  const audio = useAudioPlayer(currentChapter?.id ?? null, "female", {
-    plainParagraphs: chapterDisplay,
-    onParaChange: setActiveParaIdx,
-  });
-  // Stale Markierung vom vorigen Kapitel vermeiden (useAudioPlayer ruft
-  // onParaChange beim Kapitelwechsel selbst nicht mit -1 auf).
-  useEffect(() => { setActiveParaIdx(-1); }, [currentChapter?.id]);
 
   // Eigener Scroll-Container — die App-weite index.css setzt overflow:hidden
   // auf html/body/#root (Reader-Vollbild-UX, kein Mobile-Overscroll). Reine
