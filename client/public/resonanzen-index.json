@@ -333,7 +333,11 @@
             "score": 0.824
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Der Text paraphrasiert werknah die Dialektik von Fragmentierung und Resonanz, ohne jedoch einen eigenen, hergeleiteten Gedanken zu entwickeln, der die gestellte Frage beantwortet.",
+      "ai_score_at": "2026-10-07T15:04:40.506Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNB85LB-7C1F15DE",
