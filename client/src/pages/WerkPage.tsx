@@ -31,20 +31,10 @@ import {
   type EbookFile, type WerkChunksFile,
   deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
 } from "@/lib/werkChunks";
-import { useIsMobile } from "@/hooks/useMobile";
-import { useAudioPlayer } from "@/hooks/useAudioPlayer";
-import { NODES } from "@/data/conceptGraph";
-import MobileReader from "@/pages/mobile/MobileReader";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
 // Echte Begriffs-Labels — nur diese darf die "Aus dem Begriffsnetz"-Randnotiz
-// zeigen. Ohne diese Prüfung könnte ?fromConcept=<beliebiger-Text> aus der
-// URL jeden Text unter dem vertrauenswürdig wirkenden "❦ Aus dem
-// Begriffsnetz"-Label anzeigen (Content-Spoofing; kein XSS, React escaped
-// den Text ohnehin — aber die Herkunftsangabe soll echt sein).
-const KNOWN_CONCEPT_LABELS = new Set(NODES.map(n => n.fullLabel));
-
 interface CitedSelection {
   chunkId: string;
   text: string;
@@ -70,7 +60,6 @@ export default function WerkPage() {
   }, [isDark]);
   const [, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
-  const isMobile = useIsMobile();
   // Desktop-Pendant zu MobileReaders eigenem Chrome (Redesign Phase 2):
   // AppFrame ist auf /werk jetzt auf jeder Bildschirmgröße unterdrückt, das
   // Desktop-Reader-Chrome unten übernimmt ≡-Menü + Suche als Fluchtweg.
@@ -158,26 +147,11 @@ export default function WerkPage() {
   );
 
   // Deep-Link von der Begriffsnetz-Knotenkarte: ?chunk=<id>&fromConcept=<label>
-  // springt zur passenden Stelle und zeigt die Herkunft als Randnotiz.
-  const [targetChunkId, setTargetChunkId] = useState<string | null>(null);
-  const [fromConcept, setFromConcept] = useState<string | null>(null);
-  // Kapitel, für das die Randnotiz gilt — sie bleibt sichtbar, solange der
-  // Nutzer auf diesem Kapitel bleibt, und verschwindet erst beim Wechsel zu
-  // einem ANDEREN Kapitel (nicht sofort nach dem Positions-Sprung, sonst
-  // wäre sie nie zu sehen; nicht für immer, sonst „klebt" sie über die
-  // ganze Sitzung).
-  const fromConceptChapterRef = useRef<string | null>(null);
+  // — URL-Parameter werden bereinigt; Scroll-to-chunk ist noch nicht implementiert.
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     const chunk = sp.get("chunk");
     const from = sp.get("fromConcept");
-    if (chunk) setTargetChunkId(chunk);
-    // Nur ein echtes Begriffs-Label vertrauen (siehe KNOWN_CONCEPT_LABELS oben) —
-    // sonst könnte ?fromConcept= beliebigen Text als vermeintliche Herkunft ausgeben.
-    if (from && KNOWN_CONCEPT_LABELS.has(from)) {
-      setFromConcept(from);
-      fromConceptChapterRef.current = params?.chapter ?? null;
-    }
     if (chunk || from) {
       sp.delete("chunk"); sp.delete("fromConcept");
       const qs = sp.toString();
@@ -185,26 +159,6 @@ export default function WerkPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  useEffect(() => {
-    if (fromConceptChapterRef.current && currentChapter?.id && currentChapter.id !== fromConceptChapterRef.current) {
-      setFromConcept(null);
-      fromConceptChapterRef.current = null;
-    }
-  }, [currentChapter?.id]);
-
-  // Mobile-Reader: Mini-Hörleiste in der schmalen Fußzeile (Reader-first-Kern,
-  // Runde 1 der Design-Vorgabe — nur dort, nicht im Desktop-Werkzeugleisten-UI).
-  // Absatz-Hervorhebung: onParaChange liefert den Index in chapterDisplay
-  // (gleiche Reihenfolge wie plainParagraphs), damit der Lesebereich beim
-  // Vorlesen mitwandert — ohne Wort-Level-Markup im Text selbst zu erfordern.
-  const [activeParaIdx, setActiveParaIdx] = useState(-1);
-  const audio = useAudioPlayer(isMobile ? currentChapter?.id ?? null : null, "female", {
-    plainParagraphs: chapterDisplay,
-    onParaChange: setActiveParaIdx,
-  });
-  // Stale Markierung vom vorigen Kapitel vermeiden (useAudioPlayer ruft
-  // onParaChange beim Kapitelwechsel selbst nicht mit -1 auf).
-  useEffect(() => { setActiveParaIdx(-1); }, [currentChapter?.id]);
 
   // Eigener Scroll-Container — die App-weite index.css setzt overflow:hidden
   // auf html/body/#root (Reader-Vollbild-UX, kein Mobile-Overscroll). Reine
@@ -259,28 +213,6 @@ export default function WerkPage() {
   const tocIdx = tocChapters.findIndex(c => c.id === currentChapter?.id);
   const prevCh = tocIdx > 0 ? tocChapters[tocIdx - 1] : null;
   const nextCh = tocIdx >= 0 && tocIdx < tocChapters.length - 1 ? tocChapters[tocIdx + 1] : null;
-
-  if (isMobile) {
-    return (
-      <MobileReader
-        C={C} isDark={isDark}
-        ebook={ebook} tocChapters={tocChapters}
-        currentChapter={currentChapter} prevCh={prevCh} nextCh={nextCh}
-        chapterChunks={chapterChunks} chapterDisplay={chapterDisplay}
-        chunkCount={chunks?.chunks.length ?? 0}
-        globalChunkIndex={id => chunks?.chunks.findIndex(c => c.id === id) ?? -1}
-        resonanzenByChunk={resonanzenByChunk}
-        expandedChunk={expandedChunk} setExpandedChunk={setExpandedChunk}
-        selection={selection} setSelection={setSelection}
-        modalOpen={modalOpen} setModalOpen={setModalOpen}
-        reading={reading} updateReading={updateReading}
-        targetChunkId={targetChunkId} fromConcept={fromConcept}
-        onConsumeTarget={() => setTargetChunkId(null)}
-        audio={audio} activeParaIdx={activeParaIdx}
-        navigate={navigate}
-      />
-    );
-  }
 
   return (
     <div
