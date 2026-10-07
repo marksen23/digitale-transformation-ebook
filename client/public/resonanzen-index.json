@@ -891,7 +891,11 @@
             "score": 0.817
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort referiert werknah und korrekt, bleibt aber eine Paraphrase ohne eigenen, hergeleiteten Gedanken, der über das bestehende Werk hinausführt.",
+      "ai_score_at": "2026-10-07T15:06:02.574Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTDDMUMA-CCA9033A",
