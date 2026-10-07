@@ -107,7 +107,11 @@
             "score": 0.806
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort ist eine exzellente, werksnahe Zusammenfassung, die jedoch keine neue denkerische Bewegung vollzieht, sondern Bekanntes virtuos neu anordnet.",
+      "ai_score_at": "2026-10-07T15:04:08.530Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MUACZ4LA-ACB5F9D0",
