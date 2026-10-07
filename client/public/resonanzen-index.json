@@ -627,7 +627,11 @@
             "score": 0.844
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort paraphrasiert die Frage sehr dicht und werknah, entwickelt aber keinen eigenen, hergeleiteten Gedanken, sondern formuliert die Prämisse der Frage neu.",
+      "ai_score_at": "2026-10-07T15:05:20.689Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNB5V7Q-3B5123E8",
