@@ -727,7 +727,11 @@
             "score": 0.79
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort strukturiert und referiert die Werkgedanken sehr kompetent, bleibt aber im Kern eine Reorganisation ohne eigenen, hergeleiteten Schritt.",
+      "ai_score_at": "2026-10-07T15:05:37.434Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTL33KWJ-642DD246",
