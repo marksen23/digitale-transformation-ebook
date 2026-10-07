@@ -262,7 +262,7 @@ function BibtexDisclosure({ C, bib, onCopy, copied }: {
       >
         Zitieren {open ? "▴" : "▾"}
       </button>
-      <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+      <div inert={!open} style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
         <div style={{ overflow: "hidden" }}>
           <div style={{ marginTop: "0.7rem" }}>
             <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "0.4rem" }}>

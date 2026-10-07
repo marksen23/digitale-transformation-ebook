@@ -15,6 +15,7 @@ import crypto from "crypto";
 import { NODES } from "../../client/src/data/conceptGraph.js";
 import { detectEchoes, getEchoDetectorHealth } from "./echoDetector.js";
 import { appendToIndex, getIndexUpdaterHealth, loadIndex } from "./indexUpdater.js";
+import { buildPath, contentHash, yamlString } from "./resonanz-log-utils.js";
 
 // Bei Server-Start: Set aller validen Konzept-IDs aus dem Begriffsnetz.
 // Verwendet, um Tippfehler oder veraltete IDs in nodeIds beim Logging
@@ -85,23 +86,6 @@ function generateId(): string {
   return `${ts}-${rand}`;
 }
 
-/** SHA-256-Hash über Prompt+Response (für Audit-Trail). */
-function contentHash(prompt: string, response: string): string {
-  const h = crypto.createHash("sha256");
-  h.update(prompt);
-  h.update("\n---\n");
-  h.update(response);
-  return h.digest("hex").slice(0, 16);
-}
-
-/** YAML-sicheres Quoten — nur einfache Strings. */
-function yamlString(s: string): string {
-  // Wenn keine kritischen Zeichen, kein Quote nötig
-  if (/^[a-zA-Z0-9_:.+/-]+$/.test(s)) return s;
-  // Sonst doppelte Quotes mit Escape
-  return `"${s.replace(/\\/g, "\\\\").replace(/"/g, '\\"')}"`;
-}
-
 function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: string, echoIds: string[] = []): string {
   const frontmatter: string[] = [
     "---",
@@ -135,6 +119,7 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
     frontmatter.push("context_meta:");
     for (const [k, v] of Object.entries(entry.contextMeta)) {
       if (v === undefined || v === null) continue;
+      if (!/^[A-Za-z_][A-Za-z0-9_-]*$/.test(k)) continue;
       const value = typeof v === "string" ? yamlString(v) : JSON.stringify(v);
       frontmatter.push(`  ${k}: ${value}`);
     }
@@ -161,18 +146,6 @@ function buildMarkdown(entry: ResonanzEntry, id: string, ts: string, hash: strin
  *   graph                         → raw/graph-chat/<date>-<id>.md
  *   enkidu                        → raw/enkidu/<date>-<id>.md
  */
-function buildPath(id: string, endpoint: ResonanzEndpoint, anchor: string, ts: string): string {
-  const date = ts.slice(0, 10); // YYYY-MM-DD
-  const colonIdx = anchor.indexOf(":");
-  const subdir = colonIdx > 0 ? anchor.slice(colonIdx + 1) : "";
-  // Defensive: nur erlaubte Zeichen im Subdir-Namen
-  const safeSubdir = subdir.replace(/[^a-zA-Z0-9+_-]/g, "_");
-  const dirPath = safeSubdir
-    ? `content/resonanzen/raw/${endpoint}/${safeSubdir}`
-    : `content/resonanzen/raw/${endpoint}`;
-  return `${dirPath}/${date}-${id}.md`;
-}
-
 // Heartbeat-Counter: alle 100 erfolgreichen Logs einmal info-Output,
 // damit man im Render-Log das System "leben sieht" ohne Spam.
 let _resonanzLogSuccessCount = 0;

@@ -16,6 +16,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { fetchEmbedding, cosineSim } from "./embeddingClient.js";
+import { geminiAuthHeaders, geminiGenerateUrl, redactSecrets } from "./geminiHttp.js";
 import { enrichQueryWithNodes } from "./queryEnrichment.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -308,9 +309,9 @@ export async function expandQuery(query: string): Promise<string[]> {
 Anfrage: ${query}
 
 Alternativen:`;
-    const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+    const res = await fetch(geminiGenerateUrl(), {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: geminiAuthHeaders(apiKey),
       body: JSON.stringify({
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         generationConfig: { temperature: 0.6, maxOutputTokens: 250 },
@@ -326,7 +327,7 @@ Alternativen:`;
       .slice(0, 3);
     return [query, ...alts];
   } catch (err) {
-    console.warn(`[expandQuery] failed: ${err instanceof Error ? err.message : err}`);
+    console.warn(`[expandQuery] failed: ${redactSecrets(err instanceof Error ? err.message : String(err))}`);
     return [query];
   }
 }

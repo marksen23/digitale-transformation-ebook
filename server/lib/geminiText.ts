@@ -12,6 +12,7 @@
  * Reihe nach, Rotation bei billing/quota/auth. Wirft nie; null bei Fehler.
  */
 import { getKeys, classifyError } from "./embeddingClient.js";
+import { geminiAuthHeaders, geminiGenerateUrl, redactSecrets } from "./geminiHttp.js";
 
 export const DEFAULT_GEMINI_TEXT_MODEL = process.env.GEMINI_TEXT_MODEL?.trim() || "gemini-2.5-pro";
 
@@ -62,14 +63,14 @@ export async function callGemini(opts: {
   for (let i = 0; i < keys.length; i++) {
     try {
       const res = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${keys[i]}`,
-        { method: "POST", headers: { "Content-Type": "application/json" }, body },
+        geminiGenerateUrl(model),
+        { method: "POST", headers: geminiAuthHeaders(keys[i]), body },
       );
       if (!res.ok) {
         const errText = await res.text().catch(() => "");
         let msg = errText;
         try { msg = JSON.parse(errText)?.error?.message || errText; } catch { /* roher Text */ }
-        lastErr = `HTTP ${res.status}: ${msg}`.slice(0, 300);
+        lastErr = redactSecrets(`HTTP ${res.status}: ${msg}`).slice(0, 300);
         const cls = classifyError(res.status, errText);
         // bei billing/quota/auth: nächster Key könnte auf anderem GCP-Projekt liegen
         if (cls === "billing" || cls === "quota" || cls === "auth") continue;
@@ -87,7 +88,7 @@ export async function callGemini(opts: {
       lastErr = `leere Antwort (finishReason=${cand?.finishReason ?? "?"}) — bei gemini-2.5-pro meist maxOutputTokens zu niedrig (thinking)`;
       break;
     } catch (err) {
-      lastErr = err instanceof Error ? err.message : String(err);
+      lastErr = redactSecrets(err instanceof Error ? err.message : String(err));
     }
   }
 

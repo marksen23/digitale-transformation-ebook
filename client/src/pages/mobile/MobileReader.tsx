@@ -458,17 +458,18 @@ function MobileReadingSheet({
   const TRANSITION = "0.24s cubic-bezier(0.32,0.72,0,1)";
   return (
     <>
-      <div onClick={onClose} style={{
+      <div aria-hidden={!open} onClick={onClose} style={{
         position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)",
         opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none",
         transition: `opacity ${TRANSITION}`,
       }} />
-      <div style={{
+      <div inert={!open} aria-hidden={!open} style={{
         position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 521,
         background: C.surface, borderTop: `1px solid ${C.border}`, borderRadius: "10px 10px 0 0",
         padding: "14px 18px calc(26px + env(safe-area-inset-bottom, 0px))",
         transform: open ? "translateY(0)" : "translateY(110%)",
         transition: `transform ${TRANSITION}`,
+        pointerEvents: open ? "auto" : "none",
       }}>
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 12 }}>
           <span style={{ width: 36, height: 3, borderRadius: 2, background: C.border, display: "block" }} />
@@ -548,18 +549,19 @@ function MobileChapterChatSheet({
   const TRANSITION = "0.24s cubic-bezier(0.32,0.72,0,1)";
   return (
     <>
-      <div onClick={onClose} style={{
+      <div aria-hidden={!open} onClick={onClose} style={{
         position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)",
         opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none",
         transition: `opacity ${TRANSITION}`,
       }} />
-      <div style={{
+      <div inert={!open} aria-hidden={!open} style={{
         position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 521,
         background: C.surface, borderTop: `1px solid ${C.border}`, borderRadius: "10px 10px 0 0",
         display: "flex", flexDirection: "column", maxHeight: "80dvh",
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
         transform: open ? "translateY(0)" : "translateY(110%)",
         transition: `transform ${TRANSITION}`,
+        pointerEvents: open ? "auto" : "none",
       }}>
         <div style={{ display: "flex", justifyContent: "center", padding: "10px 0 0", flexShrink: 0 }}>
           <span style={{ width: 36, height: 3, borderRadius: 2, background: C.border, display: "block" }} />
