@@ -792,7 +792,11 @@
         "MPUO08SE-67E0912A",
         "MOQID47V-A12862EA",
         "MPURYS56-11F5308C"
-      ]
+      ],
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort referiert die Pfade korrekt, aber der Kern ist eine strukturierende Zusammenfassung, keine eigenständige denkerische Bewegung, die über das Werk hinausführt.",
+      "ai_score_at": "2026-10-07T15:05:46.389Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTKI1YQW-CD0EEDF3",
