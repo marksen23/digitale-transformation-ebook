@@ -31,10 +31,8 @@ import {
   type EbookFile, type WerkChunksFile,
   deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
 } from "@/lib/werkChunks";
-import { useIsMobile } from "@/hooks/useMobile";
 import { useAudioPlayer } from "@/hooks/useAudioPlayer";
 import { NODES } from "@/data/conceptGraph";
-import MobileReader from "@/pages/mobile/MobileReader";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
@@ -70,7 +68,6 @@ export default function WerkPage() {
   }, [isDark]);
   const [, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
-  const isMobile = useIsMobile();
   // Desktop-Pendant zu MobileReaders eigenem Chrome (Redesign Phase 2):
   // AppFrame ist auf /werk jetzt auf jeder Bildschirmgröße unterdrückt, das
   // Desktop-Reader-Chrome unten übernimmt ≡-Menü + Suche als Fluchtweg.
@@ -198,7 +195,7 @@ export default function WerkPage() {
   // (gleiche Reihenfolge wie plainParagraphs), damit der Lesebereich beim
   // Vorlesen mitwandert — ohne Wort-Level-Markup im Text selbst zu erfordern.
   const [activeParaIdx, setActiveParaIdx] = useState(-1);
-  const audio = useAudioPlayer(isMobile ? currentChapter?.id ?? null : null, "female", {
+  const audio = useAudioPlayer(currentChapter?.id ?? null, "female", {
     plainParagraphs: chapterDisplay,
     onParaChange: setActiveParaIdx,
   });
@@ -259,28 +256,6 @@ export default function WerkPage() {
   const tocIdx = tocChapters.findIndex(c => c.id === currentChapter?.id);
   const prevCh = tocIdx > 0 ? tocChapters[tocIdx - 1] : null;
   const nextCh = tocIdx >= 0 && tocIdx < tocChapters.length - 1 ? tocChapters[tocIdx + 1] : null;
-
-  if (isMobile) {
-    return (
-      <MobileReader
-        C={C} isDark={isDark}
-        ebook={ebook} tocChapters={tocChapters}
-        currentChapter={currentChapter} prevCh={prevCh} nextCh={nextCh}
-        chapterChunks={chapterChunks} chapterDisplay={chapterDisplay}
-        chunkCount={chunks?.chunks.length ?? 0}
-        globalChunkIndex={id => chunks?.chunks.findIndex(c => c.id === id) ?? -1}
-        resonanzenByChunk={resonanzenByChunk}
-        expandedChunk={expandedChunk} setExpandedChunk={setExpandedChunk}
-        selection={selection} setSelection={setSelection}
-        modalOpen={modalOpen} setModalOpen={setModalOpen}
-        reading={reading} updateReading={updateReading}
-        targetChunkId={targetChunkId} fromConcept={fromConcept}
-        onConsumeTarget={() => setTargetChunkId(null)}
-        audio={audio} activeParaIdx={activeParaIdx}
-        navigate={navigate}
-      />
-    );
-  }
 
   return (
     <div
