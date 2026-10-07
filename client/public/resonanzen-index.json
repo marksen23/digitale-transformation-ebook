@@ -408,7 +408,11 @@
             "score": 0.79
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort bleibt eine kompetente, aber letztlich nur behauptende Paraphrase des Werk-Duktus, die keine eigene denkerische Bewegung vollzieht.",
+      "ai_score_at": "2026-10-07T15:04:49.202Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNB7STV-BCB7D709",
