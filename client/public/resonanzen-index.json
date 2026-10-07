@@ -844,7 +844,11 @@
         "MOHLZBVK-2FBBAD2F",
         "MOP0UF96-1A0ACB35",
         "MOP0S479-373A2268"
-      ]
+      ],
+      "ai_score": 3,
+      "ai_score_reason": "Die Gegenüberstellung ist brillant, bleibt aber im Kern ein hochkompetentes Referat, das die Begriffe klärt, statt einen eigenen denkerischen Schritt zu vollziehen.",
+      "ai_score_at": "2026-10-07T15:05:55.369Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTELW5GH-C4D41002",
