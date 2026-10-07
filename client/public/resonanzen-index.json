@@ -201,7 +201,11 @@
             "score": 0.79
           }
         ]
-      }
+      },
+      "ai_score": 3,
+      "ai_score_reason": "Die Analyse ist werknah und kompetent, aber sie bleibt eine Paraphrase, die keinen neuen, hergeleiteten Gedanken entwickelt, sondern die Kette nur kommentiert.",
+      "ai_score_at": "2026-10-07T15:04:25.201Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNBAIUZ-299AC7D8",
