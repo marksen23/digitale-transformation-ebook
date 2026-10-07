@@ -250,7 +250,11 @@
       "echoes_of": [
         "MOOK20R3-62E609BA",
         "MQXDVN1C-CAA3081A"
-      ]
+      ],
+      "ai_score": 3,
+      "ai_score_reason": "Es ist eine sehr gute Zusammenführung bekannter Werk-Gedanken, die aber keine neue Ebene erschließt, sondern das Bestehende didaktisch aufbereitet und zuspitzt.",
+      "ai_score_at": "2026-10-07T15:04:32.922Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTNB93L6-1411E014",
