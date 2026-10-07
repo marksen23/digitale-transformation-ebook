@@ -674,7 +674,11 @@
             "score": 0.794
           }
         ]
-      }
+      },
+      "ai_score": 4,
+      "ai_score_reason": "Der Text entwickelt den eigenständigen Gedanken des Logos als Garant der „Dauerhaftigkeit des Unentschiedenen“ und leitet ihn schlüssig aus der Triade her.",
+      "ai_score_at": "2026-10-07T15:05:29.799Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MTL5HMEK-8E3F01EF",
