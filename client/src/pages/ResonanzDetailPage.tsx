@@ -112,7 +112,7 @@ export default function ResonanzDetailPage() {
     );
   }
   if (!entry) {
-    return <div style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
+    return <div className="loading-pulse" style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
   }
 
   const chunkId = typeof entry.contextMeta?.passage_chunk_id === "string" ? entry.contextMeta.passage_chunk_id : null;
@@ -121,6 +121,7 @@ export default function ResonanzDetailPage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: C.void, color: C.text,
