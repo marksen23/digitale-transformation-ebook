@@ -31,17 +31,10 @@ import {
   type EbookFile, type WerkChunksFile,
   deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
 } from "@/lib/werkChunks";
-import { NODES } from "@/data/conceptGraph";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
 // Echte Begriffs-Labels — nur diese darf die "Aus dem Begriffsnetz"-Randnotiz
-// zeigen. Ohne diese Prüfung könnte ?fromConcept=<beliebiger-Text> aus der
-// URL jeden Text unter dem vertrauenswürdig wirkenden "❦ Aus dem
-// Begriffsnetz"-Label anzeigen (Content-Spoofing; kein XSS, React escaped
-// den Text ohnehin — aber die Herkunftsangabe soll echt sein).
-const KNOWN_CONCEPT_LABELS = new Set(NODES.map(n => n.fullLabel));
-
 interface CitedSelection {
   chunkId: string;
   text: string;
