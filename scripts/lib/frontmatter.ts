@@ -20,8 +20,20 @@ export function normalizeNewlines(s: string): string {
   return s.replace(/\r\n?/g, "\n");
 }
 
+function unescapeYamlDouble(s: string): string {
+  return s.replace(/\\([\\nrt"])/g, (_, ch: string) => {
+    if (ch === "n") return "\n";
+    if (ch === "r") return "\r";
+    if (ch === "t") return "\t";
+    return ch;
+  });
+}
+
 export function stripQuotes(s: string): string {
-  if ((s.startsWith('"') && s.endsWith('"')) || (s.startsWith("'") && s.endsWith("'"))) {
+  if (s.length >= 2 && s.startsWith('"') && s.endsWith('"')) {
+    return unescapeYamlDouble(s.slice(1, -1));
+  }
+  if (s.length >= 2 && s.startsWith("'") && s.endsWith("'")) {
     return s.slice(1, -1);
   }
   return s;

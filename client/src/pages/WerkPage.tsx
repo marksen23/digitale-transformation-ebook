@@ -528,7 +528,7 @@ export function ParagraphBlock({
       )}
       {/* W1: Expanded-Block als Fußnoten-Italic statt Mono-Caps-Label.
           Konsistent mit D3 „QUELLEN IM WERK"-Pattern. */}
-      <div style={{ display: "grid", gridTemplateRows: (isExpanded && all.length > 0) ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+      <div inert={!(isExpanded && all.length > 0)} style={{ display: "grid", gridTemplateRows: (isExpanded && all.length > 0) ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
         <div style={{ overflow: "hidden" }}>
           <div style={{ marginTop: "0.6rem", paddingLeft: "0.9rem", borderLeft: `2px solid ${C.accent}66` }}>
             {curated.length > 0 && (
@@ -799,7 +799,7 @@ function ReadingControls({
       >
         Aa Lesen {open ? "▴" : "▾"}
       </button>
-      <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+      <div inert={!open} style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
         <div style={{ overflow: "hidden" }}>
         <div style={{
           marginTop: "0.5rem", padding: "0.7rem 0.9rem",
@@ -879,7 +879,7 @@ function WerkzeugeDropdown({ C, isDark: _isDark }: { C: Palette; isDark: boolean
       >
         Werkzeuge {open ? "▴" : "▾"}
       </button>
-      <div style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+      <div inert={!open} style={{ display: "grid", gridTemplateRows: open ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
         <div style={{ overflow: "hidden" }}>
           <div style={{
             marginTop: "0.5rem", padding: "0.7rem 0.9rem",

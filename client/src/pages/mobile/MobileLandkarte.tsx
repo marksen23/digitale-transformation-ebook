@@ -296,10 +296,11 @@ export default function MobileLandkarte({
       </div>
 
       {/* ── Bottom Sheet (immer im DOM für Transition) ── */}
-      <div style={{
+      <div inert={!sheetOpen} aria-hidden={!sheetOpen} style={{
         position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 50,
         transform: sheetOpen ? "translateY(0)" : "translateY(110%)",
         transition: "transform 0.24s cubic-bezier(0.32,0.72,0,1)",
+        pointerEvents: sheetOpen ? "auto" : "none",
         background: C.surface,
         borderTop: `1.5px solid ${C.border}`,
         borderRadius: "14px 14px 0 0",

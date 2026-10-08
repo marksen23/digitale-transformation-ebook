@@ -240,7 +240,7 @@ function LogRow({ entry, c, expanded, onToggle }: { entry: ActionLogEntry; c: Pa
         </div>
       )}
       {entry.payload && Object.keys(entry.payload).length > 0 && (
-        <div style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.18s ease" }}>
+        <div inert={!expanded} style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.18s ease" }}>
           <div style={{ overflow: "hidden" }}>
             <div style={{ marginTop: "0.35rem", fontFamily: MONO, fontSize: "0.5rem", color: c.muted, letterSpacing: "0.04em" }}>
               {Object.entries(entry.payload).map(([k, v]) => (

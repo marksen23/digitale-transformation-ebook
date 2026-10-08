@@ -104,7 +104,7 @@ export default function ErkenntnissePage() {
                     </button>
                   </div>
 
-                  <div style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+                  <div inert={!isOpen} style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
                     <div style={{ overflow: "hidden" }}>
                       <div style={{ marginTop: "0.7rem", borderTop: `1px solid ${c.border}`, paddingTop: "0.7rem", display: "grid", gap: "0.7rem" }}>
                         {question && (

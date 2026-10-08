@@ -107,7 +107,7 @@ export default function LegendSection({
       ) : (
         <div style={titleStyle}>{title}</div>
       )}
-      <div style={{ display: "grid", gridTemplateRows: collapsed ? "0fr" : "1fr", transition: "grid-template-rows 0.2s ease" }}>
+      <div inert={collapsed} style={{ display: "grid", gridTemplateRows: collapsed ? "0fr" : "1fr", transition: "grid-template-rows 0.2s ease" }}>
         <div style={{ overflow: "hidden" }}>
           <div style={layout === "wrap" ? { display: "flex", flexWrap: "wrap", gap: "0.25rem 0.9rem" } : {}}>
             {children}
