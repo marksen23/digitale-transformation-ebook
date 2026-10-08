@@ -11,7 +11,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, RADIUS, SERIF, DISPLAY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, RADIUS, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
@@ -79,7 +79,7 @@ export default function FragenPage() {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>
@@ -162,7 +162,7 @@ export default function FragenPage() {
                         const preview = entry?.prompt ?? entry?.response ?? "";
                         return (
                           <Link key={a.id} href={`/resonanz/${encodeURIComponent(a.id)}`}
-                            style={{ textDecoration: "none", display: "block", background: c.deep, border: `1px solid ${c.border}`, borderRadius: 4, padding: "0.4rem 0.5rem" }}>
+                            style={{ textDecoration: "none", display: "block", background: c.deep, border: `1px solid ${c.border}`, borderRadius: RADIUS.button, padding: "0.4rem 0.5rem" }}>
                             {preview ? (
                               <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: c.text, lineHeight: 1.4, display: "block" }}>
                                 {preview.slice(0, 90)}{preview.length > 90 ? "…" : ""}

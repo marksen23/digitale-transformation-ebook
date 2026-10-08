@@ -7,7 +7,7 @@
  * PLATZHALTER (rechtlich relevante Angaben füllt der Betreiber selbst).
  */
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 
 type InfoKind = "projekt" | "impressum" | "kontakt" | "nutzung" | "lizenz";
@@ -58,7 +58,7 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
           Resonanzvernunft
         </div>

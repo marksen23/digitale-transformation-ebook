@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRoute, useLocation, Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useIsMobile } from "@/hooks/useMobile";
-import { SERIF, MONO, DISPLAY, RADIUS, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, MONO, DISPLAY, RADIUS, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
 import { SITE_URL } from "@/lib/siteUrl";
@@ -105,7 +105,7 @@ export default function ResonanzDetailPage() {
 
   if (notFound) {
     return (
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem", fontFamily: SERIF, color: C.text }}>
+      <div style={{ maxWidth: MAX_WIDTH.prose, margin: "0 auto", padding: "2rem", fontFamily: SERIF, color: C.text }}>
         <h1>Eintrag nicht gefunden</h1>
         <p>Diese Resonanz existiert (noch) nicht im Index. <Link to="/resonanzen" style={{ color: C.accentText }}>← zurück zur Übersicht</Link></p>
       </div>
@@ -128,7 +128,7 @@ export default function ResonanzDetailPage() {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-    <article style={{ maxWidth: 800, margin: "0 auto", padding: "1.5rem 1.5rem 0", color: C.text, fontFamily: SERIF }}>
+    <article style={{ maxWidth: MAX_WIDTH.prose, margin: "0 auto", padding: "1.5rem 1.5rem 0", color: C.text, fontFamily: SERIF }}>
       {/* Top-Navigation — sofort sichtbar, ohne Scrollen */}
       <div style={{ marginBottom: "1rem" }}>
         <button
@@ -228,7 +228,7 @@ function RelatedLink({ C, entry }: { C: Palette; entry: ResonanzEntry }) {
         display: "flex", gap: "0.5rem", alignItems: "baseline",
         fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem",
         color: C.text, textDecoration: "none",
-        border: `1px solid ${C.border}`, borderRadius: 4, padding: "0.45rem 0.6rem",
+        border: `1px solid ${C.border}`, borderRadius: RADIUS.button, padding: "0.45rem 0.6rem",
       }}
     >
       <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", color: ENDPOINT_COLOR[entry.endpoint], flexShrink: 0 }}>

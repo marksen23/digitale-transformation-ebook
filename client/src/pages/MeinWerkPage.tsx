@@ -10,7 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { NODES } from "@/data/conceptGraph";
 import { useTheme } from "@/contexts/ThemeContext";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
 import WeiterdenkenThread from "@/components/WeiterdenkenThread";
@@ -121,7 +121,7 @@ export default function MeinWerkPage() {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", fontFamily: SERIF }}>
+    <div style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto", padding: "1.5rem", fontFamily: SERIF }}>
       <header style={{ marginBottom: "1.5rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
         <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.7rem", color: C.textBright }}>
           Mein Werk
