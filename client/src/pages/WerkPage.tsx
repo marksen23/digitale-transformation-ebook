@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, TRANSITION, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
@@ -678,7 +678,7 @@ export function PassageResonanzModal({
                         border: `1px solid ${active ? C.accent : C.border}`,
                         padding: "0.35rem 0.6rem", cursor: "pointer",
                         borderRadius: 3, minHeight: 30,
-                        transition: "all 0.15s",
+                        transition: TRANSITION,
                       }}
                     >
                       {opt.label}

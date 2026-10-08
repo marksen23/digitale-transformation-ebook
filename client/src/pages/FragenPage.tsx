@@ -11,7 +11,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, RADIUS, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
@@ -60,7 +60,7 @@ export default function FragenPage() {
 
   const chip = (active: boolean): React.CSSProperties => ({
     fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase",
-    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: 5, cursor: "pointer",
+    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: RADIUS.button, cursor: "pointer",
     border: `1px solid ${active ? c.accentText : c.border}`,
     color: active ? c.accentText : c.muted, background: "none",
   });
@@ -129,7 +129,7 @@ export default function FragenPage() {
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
             {shown.map((q, i) => (
-              <div key={q.sourceId + i} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: 5, padding: "0.8rem 0.95rem" }}>
+              <div key={q.sourceId + i} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.button, padding: "0.8rem 0.95rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.4rem" }}>
                   <span style={{ fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.12em", textTransform: "uppercase", color: epColor(q.endpoint, c.muted) }}>
                     {epLabel(q.endpoint)}

@@ -9,7 +9,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, RADIUS, SERIF, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -45,7 +45,7 @@ export default function LivePage() {
 
   const chip = (active: boolean): React.CSSProperties => ({
     fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase",
-    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: 5, cursor: "pointer",
+    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: RADIUS.button, cursor: "pointer",
     border: `1px solid ${active ? c.accentText : c.border}`,
     color: active ? c.accentText : c.muted, background: "none",
   });
@@ -94,7 +94,7 @@ export default function LivePage() {
                 href={`/resonanz/${encodeURIComponent(e.id)}`}
                 style={{
                   display: "block", textDecoration: "none",
-                  background: c.surface, border: `1px solid ${c.border}`, borderRadius: 5,
+                  background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.button,
                   padding: "0.7rem 0.9rem", transition: "border-color 0.15s",
                 }}
                 onMouseEnter={ev => { ev.currentTarget.style.borderColor = c.accentText; }}

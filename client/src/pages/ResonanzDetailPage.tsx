@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRoute, useLocation, Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useIsMobile } from "@/hooks/useMobile";
-import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, MONO, DISPLAY, RADIUS, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
 import { SITE_URL } from "@/lib/siteUrl";
@@ -135,7 +135,7 @@ export default function ResonanzDetailPage() {
           onClick={() => (window.history.length > 1 ? window.history.back() : navigate("/resonanzen"))}
           style={{
             fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.06em", textTransform: "uppercase",
-            color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: 5,
+            color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: RADIUS.button,
             padding: "0.5rem 0.75rem", minHeight: 40, cursor: "pointer",
           }}
         >← zurück</button>

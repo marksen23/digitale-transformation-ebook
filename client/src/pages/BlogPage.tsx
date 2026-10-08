@@ -12,7 +12,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, RADIUS, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -90,7 +90,7 @@ export default function BlogPage() {
                   onClick={() => jump(areaId(a.endpoint))}
                   style={{
                     fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.06em", textTransform: "uppercase",
-                    padding: "0.55rem 0.75rem", minHeight: 40, borderRadius: 5, cursor: "pointer",
+                    padding: "0.55rem 0.75rem", minHeight: 40, borderRadius: RADIUS.button, cursor: "pointer",
                     border: `1px solid ${c.border}`, color: c.textDim, background: "none",
                   }}
                 >
