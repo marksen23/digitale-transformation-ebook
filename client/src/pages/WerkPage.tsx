@@ -165,6 +165,8 @@ export default function WerkPage() {
   // Flow-Seiten würden sonst geclippt + „eingefroren". Wir scrollen also IN
   // diesem Ref, nicht auf window.
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Swipe-Navigation: horizontaler Touch → vorheriges/nächstes Kapitel.
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   // Standard-eBook-Verhalten: bei Kapitelwechsel an den Seitenanfang scrollen
   // (sonst bleibt man mitten im neuen Kapitel hängen — „läuft nicht rund").
@@ -223,6 +225,21 @@ export default function WerkPage() {
         overflowY: "auto", WebkitOverflowScrolling: "touch",
         background: isDark ? PAPER.warmDark : PAPER.warmLight,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}
+      onTouchStart={e => {
+        const t = e.touches[0];
+        touchStartRef.current = { x: t.clientX, y: t.clientY };
+      }}
+      onTouchEnd={e => {
+        const start = touchStartRef.current;
+        touchStartRef.current = null;
+        if (!start) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - start.x;
+        const dy = t.clientY - start.y;
+        if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0 && nextCh) navigate(`/werk/${nextCh.id}`);
+        if (dx > 0 && prevCh) navigate(`/werk/${prevCh.id}`);
       }}
     >
     {/* Redesign Phase 2: eigenes schlankes Reader-Chrome statt AppFrames
@@ -359,7 +376,7 @@ export default function WerkPage() {
                 fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase",
                 color: "#080808", background: C.accent,
                 border: "none", padding: "0.75rem 1.2rem",
-                borderRadius: 4, cursor: "pointer",
+                borderRadius: RADIUS.button, cursor: "pointer",
                 boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
                 minHeight: 44,
                 maxWidth: "calc(100vw - 2rem)", whiteSpace: "nowrap",
@@ -435,7 +452,7 @@ export default function WerkPage() {
 function chapterNavBtn(C: Palette, dir: "prev" | "next"): React.CSSProperties {
   return {
     flex: 1, maxWidth: "48%", textAlign: dir === "next" ? "right" : "left",
-    background: "none", border: `1px solid ${C.border}`, borderRadius: 6,
+    background: "none", border: `1px solid ${C.border}`, borderRadius: RADIUS.card,
     padding: "0.6rem 0.85rem", cursor: "pointer", minHeight: 44,
   };
 }
@@ -623,7 +640,7 @@ export function PassageResonanzModal({
         onClick={e => e.stopPropagation()}
         style={{
           background: C.surface, color: C.text,
-          border: `1px solid ${C.border}`, borderRadius: 6,
+          border: `1px solid ${C.border}`, borderRadius: RADIUS.card,
           padding: "1.5rem", maxWidth: 600, width: "100%",
           maxHeight: "85vh", overflowY: "auto",
         }}
@@ -803,7 +820,7 @@ function ReadingControls({
         <div style={{ overflow: "hidden" }}>
         <div style={{
           marginTop: "0.5rem", padding: "0.7rem 0.9rem",
-          background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4,
+          background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.button,
           display: "flex", flexDirection: "column", gap: "0.6rem", maxWidth: 320,
         }}>
           <Stepper C={C} label="Schriftgröße" value={`${Math.round(settings.fontScale * 100)}%`}

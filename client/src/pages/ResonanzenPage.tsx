@@ -636,7 +636,7 @@ export default function ResonanzenPage() {
           <section style={{
             background: C.surface,
             border: `1px solid ${C.border}`,
-            borderRadius: 6,
+            borderRadius: RADIUS.card,
             padding: "1.5rem 1.2rem",
             textAlign: "center",
             color: C.textDim,
@@ -720,7 +720,7 @@ export default function ResonanzenPage() {
             <div style={{
               background: C.surface,
               border: `1px solid ${C.border}`,
-              borderRadius: 6,
+              borderRadius: RADIUS.card,
               padding: "2rem 1.5rem",
               textAlign: "center",
               color: C.textDim,

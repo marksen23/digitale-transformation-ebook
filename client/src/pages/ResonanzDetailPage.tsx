@@ -228,7 +228,7 @@ function RelatedLink({ C, entry }: { C: Palette; entry: ResonanzEntry }) {
         display: "flex", gap: "0.5rem", alignItems: "baseline",
         fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem",
         color: C.text, textDecoration: "none",
-        border: `1px solid ${C.border}`, borderRadius: 4, padding: "0.45rem 0.6rem",
+        border: `1px solid ${C.border}`, borderRadius: RADIUS.button, padding: "0.45rem 0.6rem",
       }}
     >
       <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", color: ENDPOINT_COLOR[entry.endpoint], flexShrink: 0 }}>

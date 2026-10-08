@@ -162,7 +162,7 @@ export default function FragenPage() {
                         const preview = entry?.prompt ?? entry?.response ?? "";
                         return (
                           <Link key={a.id} href={`/resonanz/${encodeURIComponent(a.id)}`}
-                            style={{ textDecoration: "none", display: "block", background: c.deep, border: `1px solid ${c.border}`, borderRadius: 4, padding: "0.4rem 0.5rem" }}>
+                            style={{ textDecoration: "none", display: "block", background: c.deep, border: `1px solid ${c.border}`, borderRadius: RADIUS.button, padding: "0.4rem 0.5rem" }}>
                             {preview ? (
                               <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: c.text, lineHeight: 1.4, display: "block" }}>
                                 {preview.slice(0, 90)}{preview.length > 90 ? "…" : ""}
