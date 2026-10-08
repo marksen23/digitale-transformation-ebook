@@ -132,7 +132,11 @@
         "MPEV1D2J-55138734",
         "MOQID47V-A12862EA",
         "MQ5B3FJP-CD835FC2"
-      ]
+      ],
+      "ai_score": 3,
+      "ai_score_reason": "Es handelt sich um eine sehr gute Paraphrase und Strukturierung, die aber keine neue Erkenntnis schafft, sondern nur Bestehendes ordnet und vergleicht.",
+      "ai_score_at": "2026-10-08T17:44:25.491Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MUKE7UOA-9553A59E",
