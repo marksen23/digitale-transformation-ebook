@@ -64,7 +64,11 @@
         "MOQID47V-A12862EA",
         "MPUO08SE-67E0912A",
         "MP497SNT-5E1D2074"
-      ]
+      ],
+      "ai_score": 2,
+      "ai_score_reason": "Die aufzählende Struktur und der analytische Meta-Kommentar sind stilistisch fremd und brechen den philosophischen Fluss, obwohl die Einzelbeobachtungen treffend sind.",
+      "ai_score_at": "2026-10-08T17:44:17.839Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MUZTGAEK-432FB6BC",
