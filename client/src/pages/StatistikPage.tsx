@@ -7,7 +7,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, type Palette, RADIUS } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, type ResonanzIndex, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { NODES } from "@/data/conceptGraph";
 import SiteFooter from "@/components/SiteFooter";
@@ -60,7 +60,7 @@ export default function StatistikPage() {
     };
   }, [index]);
 
-  const card: React.CSSProperties = { background: c.surface, border: `1px solid ${c.border}`, borderRadius: 6, padding: "1rem 1.2rem", marginBottom: "1.2rem" };
+  const card: React.CSSProperties = { background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.card, padding: "1rem 1.2rem", marginBottom: "1.2rem" };
   const label: React.CSSProperties = { fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.muted, marginBottom: "0.7rem" };
 
   function Bars({ rows, color }: { rows: [string, number][]; color?: (k: string) => string }) {
@@ -70,7 +70,7 @@ export default function StatistikPage() {
         {rows.map(([k, n]) => (
           <div key={k} style={{ display: "grid", gridTemplateColumns: "minmax(90px, 32%) 1fr auto", gap: "0.6rem", alignItems: "center" }}>
             <span style={{ fontFamily: SERIF, fontSize: "0.82rem", color: c.textDim, overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>{k}</span>
-            <span style={{ height: 8, background: c.deep, borderRadius: 4, overflow: "hidden" }}>
+            <span style={{ height: 8, background: c.deep, borderRadius: RADIUS.button, overflow: "hidden" }}>
               <span className="bar-fill-grow" style={{ display: "block", height: "100%", width: `${(n / max) * 100}%`, background: color ? color(k) : c.accentText, borderRadius: 4 }} />
             </span>
             <span style={{ fontFamily: MONO, fontSize: "0.8rem", color: c.text }}>{n}</span>

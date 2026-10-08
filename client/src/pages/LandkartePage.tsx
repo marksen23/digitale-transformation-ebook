@@ -19,7 +19,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, RADIUS, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import {
   NODES, EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H,
@@ -324,7 +324,7 @@ export default function LandkartePage() {
                       const key = pairKey(selNode.id, c.other);
                       return (
                         <div key={c.other} style={{ display: "flex", alignItems: "center", gap: "0.3rem", flexWrap: "wrap" }}>
-                          <button onClick={() => setSelected(c.other)} style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.accentText, background: "none", border: `1px dashed ${C.accent}`, borderRadius: 3, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+                          <button onClick={() => setSelected(c.other)} style={{ fontFamily: SERIF, fontSize: "0.78rem", color: C.accentText, background: "none", border: `1px dashed ${C.accent}`, borderRadius: RADIUS.micro, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
                             {nodeById.get(c.other)?.fullLabel ?? c.other} · {c.count}
                           </button>
                           {isAdmin && (
@@ -332,7 +332,7 @@ export default function LandkartePage() {
                               onClick={() => void handlePromote(selNode.id, c.other, c.count)}
                               disabled={promoting === key}
                               title="Diese werdende Verbindung in den Kanon erheben (server-persistiert)"
-                              style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.void, background: C.accent, border: "none", borderRadius: 3, padding: "0.25rem 0.45rem", cursor: promoting === key ? "wait" : "pointer", opacity: promoting === key ? 0.6 : 1 }}
+                              style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.void, background: C.accent, border: "none", borderRadius: RADIUS.micro, padding: "0.25rem 0.45rem", cursor: promoting === key ? "wait" : "pointer", opacity: promoting === key ? 0.6 : 1 }}
                             >
                               {promoting === key ? "…" : "↑ erheben"}
                             </button>
@@ -397,6 +397,6 @@ function linkBtn(C: Palette): React.CSSProperties {
   return {
     marginTop: "0.6rem", fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.08em", textTransform: "uppercase",
     color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`,
-    padding: "0.4rem 0.6rem", cursor: "pointer", borderRadius: 3, minHeight: 32,
+    padding: "0.4rem 0.6rem", cursor: "pointer", borderRadius: RADIUS.micro, minHeight: 32,
   };
 }

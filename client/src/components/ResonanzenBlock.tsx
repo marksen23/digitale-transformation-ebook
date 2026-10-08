@@ -42,7 +42,7 @@
  *   />
  */
 import type { Palette } from "@/lib/theme";
-import { MONO, TRANSITION } from "@/lib/theme";
+import { MONO, TRANSITION, RADIUS } from "@/lib/theme";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import ResonanzCard from "@/components/ResonanzCard";
 
@@ -103,7 +103,7 @@ export default function ResonanzenBlock({
             fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.12em",
             textTransform: "uppercase",
             color: c.accent, background: "none",
-            border: `1px solid ${c.accentDim}`, borderRadius: 4,
+            border: `1px solid ${c.accentDim}`, borderRadius: RADIUS.button,
             padding: "0.4rem 0.65rem", textDecoration: "none",
             transition: TRANSITION,
           }}

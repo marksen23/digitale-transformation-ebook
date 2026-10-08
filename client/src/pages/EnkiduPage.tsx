@@ -60,7 +60,7 @@ function deleteConversation(id: string) {
 }
 
 // ─── Styles — zentrale Palette + Fonts aus lib/theme ───────────────
-import { MAX_WIDTH, SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, RADIUS } from "@/lib/theme";
 
 const C_DARK = {
   ...THEME_DARK,
@@ -81,7 +81,7 @@ const C_LIGHT: { readonly [K in keyof typeof C_DARK]: string } = {
 function btn(overrides: React.CSSProperties = {}): React.CSSProperties {
   return {
     fontFamily: C_DARK.mono, border: "none", cursor: "pointer",
-    borderRadius: 6,
+    borderRadius: RADIUS.card,
     transition: "all 0.2s", ...overrides,
   };
 }

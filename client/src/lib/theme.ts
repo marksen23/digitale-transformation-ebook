@@ -114,6 +114,7 @@ export const DISPLAY    = "'Cormorant Garamond', Georgia, serif";
  * -Buttons wie eine Fortsetzung der Werk-Hauptseite an.
  */
 export const RADIUS = {
+  micro:  "3px",   // badge, chip, inline tag
   button: "4px",   // rounded
   card: "6px",     // rounded-md
   panel: "8px",    // rounded-lg

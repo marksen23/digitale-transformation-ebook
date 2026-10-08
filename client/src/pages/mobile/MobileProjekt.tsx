@@ -8,7 +8,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, SERIF_BODY } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, SERIF_BODY, RADIUS } from "@/lib/theme";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 import {
   ProjektAnimations, WaveSvg, LoopSvg, WallSvg, NetSvg, PipelineSvg, MasterSvg, FieldSvg,
@@ -102,7 +102,7 @@ export default function MobileProjekt() {
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 20 }}>
         {[["Impressum", "/impressum"], ["Kontakt", "/kontakt"], ["Nutzungsbedingungen", "/nutzungsbedingungen"], ["Lizenz", "/lizenz"]].map(([label, href]) => (
           <button key={href} type="button" onClick={() => navigate(href)}
-            style={{ minHeight: 36, display: "inline-flex", alignItems: "center", padding: "0 11px", border: `1px solid ${C.border}`, borderRadius: 4, background: "none", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.1em", color: C.textDim, cursor: "pointer" }}
+            style={{ minHeight: 36, display: "inline-flex", alignItems: "center", padding: "0 11px", border: `1px solid ${C.border}`, borderRadius: RADIUS.button, background: "none", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.1em", color: C.textDim, cursor: "pointer" }}
           >{label}</button>
         ))}
       </div>
@@ -115,7 +115,7 @@ export default function MobileProjekt() {
         <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
           {[["Werk lesen", "/werk"], ["Begriffsnetz", "/begriffsnetz"], ["Live-Strom", "/live"], ["Blog", "/blog"], ["Statistik", "/statistik"]].map(([label, href]) => (
             <button key={href} type="button" onClick={() => navigate(href)}
-              style={{ minHeight: 44, fontFamily: MONO, fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: 6, padding: "0 12px", cursor: "pointer" }}
+              style={{ minHeight: 44, fontFamily: MONO, fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: "0 12px", cursor: "pointer" }}
             >{label} →</button>
           ))}
         </div>

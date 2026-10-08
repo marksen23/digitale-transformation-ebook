@@ -8,7 +8,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, RADIUS } from "@/lib/theme";
 import {
   loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry,
@@ -95,7 +95,7 @@ export default function MobileFragen() {
         </div>
       ) : (
         shown.map((q, i) => (
-          <div key={q.sourceId + i} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "14px 15px", marginBottom: 11 }}>
+          <div key={q.sourceId + i} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: "14px 15px", marginBottom: 11 }}>
             {/* Endpoint + Status */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 8 }}>
               <button
@@ -141,7 +141,7 @@ export default function MobileFragen() {
                         style={{
                           textAlign: "left", minHeight: 40, cursor: "pointer",
                           background: C.deep, border: `1px solid ${C.border}`,
-                          borderRadius: 4, padding: "8px 10px",
+                          borderRadius: RADIUS.button, padding: "8px 10px",
                           display: "flex", flexDirection: "column", gap: 3,
                         }}
                       >
