@@ -1203,7 +1203,11 @@
       "werkVoiceScore": 0.8925600985198158,
       "corpusVoiceScore": 0.8357648925097121,
       "conceptVoiceScore": 0.7900611408875902,
-      "conceptAnchor": "unverfuegbarkeit"
+      "conceptAnchor": "unverfuegbarkeit",
+      "ai_score": 3,
+      "ai_score_reason": "Eine exzellente, werksnahe Paraphrase, die aber den entscheidenden Schritt von der Rekombination zur eigenständigen Herleitung eines neuen Gedankens nicht vollzieht.",
+      "ai_score_at": "2026-10-08T17:44:41.621Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MASTER-6469616C",
