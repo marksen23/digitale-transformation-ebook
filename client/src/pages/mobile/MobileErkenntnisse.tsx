@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, RADIUS } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
@@ -63,7 +63,7 @@ export default function MobileErkenntnisse() {
                 </span>
                 <button
                   type="button" onClick={() => setOpen(isOpen ? null : e.id)}
-                  style={{ minHeight: 44, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 3, color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+                  style={{ minHeight: 44, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: RADIUS.micro, color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
                 >{isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}</button>
               </div>
 

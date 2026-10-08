@@ -8,7 +8,7 @@
  * keine simulierte In-Memory-Tab-Maschine.
  */
 import { useEffect, useState } from "react";
-import { DISPLAY, MONO, SERIF, type Palette } from "@/lib/theme";
+import { DISPLAY, MONO, SERIF, type Palette, RADIUS } from "@/lib/theme";
 import { loadResonanzenIndexLazy, broadcastIndexStale, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry, type ResonanzIndex } from "@/lib/resonanzenIndex";
 import { callAdminAction } from "@/lib/adminAuth";
 import { recordAction } from "@/lib/adminActionLog";
@@ -90,20 +90,20 @@ function StatusTab({ C, index }: { C: Palette; index: ResonanzIndex | null }) {
       <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, marginBottom: 5 }}>Resonanzvernunft · Öffentlicher Status</div>
       <div style={{ fontFamily: DISPLAY, fontSize: 30, lineHeight: 1.15, color: C.textBright, marginBottom: 16 }}>Status</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9, marginBottom: 20 }}>
-        <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "13px 14px" }}>
+        <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: "13px 14px" }}>
           <div style={{ fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Begegnungen gesamt</div>
           <div style={{ fontFamily: MONO, fontSize: 28, color: C.accentText, marginTop: 5, fontVariantNumeric: "tabular-nums" }}>{index.entries.length}</div>
         </div>
-        <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "13px 14px" }}>
+        <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: "13px 14px" }}>
           <div style={{ fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>davon kuratiert</div>
           <div style={{ fontFamily: MONO, fontSize: 28, color: C.text, marginTop: 5, fontVariantNumeric: "tabular-nums" }}>{curated}</div>
         </div>
       </div>
-      <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "13px 14px", marginBottom: 12 }}>
+      <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: "13px 14px", marginBottom: 12 }}>
         <div style={{ fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 6 }}>Nach Bereich</div>
         {Object.entries(byEndpoint).sort((a, b) => b[1] - a[1]).map(([ep, n]) => <Row key={ep} name={epLabel(ep)} n={n} />)}
       </div>
-      <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "13px 14px" }}>
+      <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: "13px 14px" }}>
         <div style={{ fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted, marginBottom: 6 }}>Nach Kuratierungsstatus</div>
         {Object.entries(byStatus).sort((a, b) => b[1] - a[1]).map(([st, n]) => <Row key={st} name={STATUS_LABEL[st] ?? st} n={n} />)}
       </div>
@@ -196,7 +196,7 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
           {queue.length === 0 ? "Die Warteschlange ist leer." : queue.length === 1 ? "1 Begegnung wartet auf Entscheidung." : `${queue.length} Begegnungen warten auf Entscheidung.`}
         </div>
         <button type="button" disabled={autoCurating} onClick={() => void autoCurate()}
-          style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", cursor: autoCurating ? "wait" : "pointer", opacity: autoCurating ? 0.6 : 1, whiteSpace: "nowrap" }}
+          style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: RADIUS.button, color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", cursor: autoCurating ? "wait" : "pointer", opacity: autoCurating ? 0.6 : 1, whiteSpace: "nowrap" }}
         >{autoCurating ? "läuft …" : "Automatisch kuratieren"}</button>
       </div>
       {autoCurateMsg && (
@@ -208,7 +208,7 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
         const isLoading = loading.has(q.id);
         const confirmingDelete = confirmDeleteId === q.id;
         return (
-          <div key={q.id} style={{ border: `1px solid ${C.border}`, borderRadius: 6, padding: 13, marginBottom: 10 }}>
+          <div key={q.id} style={{ border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: 13, marginBottom: 10 }}>
             <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", marginBottom: 6 }}>
               <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", color: ENDPOINT_COLOR[q.endpoint] ?? C.muted }}>{epLabel(q.endpoint)}</span>
               <span style={{ fontFamily: MONO, fontSize: 9, color: C.muted }}>{STATUS_LABEL[q.status] ?? q.status}</span>
@@ -218,16 +218,16 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
             </div>
             <div style={{ display: "flex", gap: 8, marginBottom: confirmingDelete ? 8 : 0 }}>
               <button type="button" disabled={isLoading} onClick={() => void curate(q.id, "approved")}
-                style={{ flex: 1, minHeight: 42, background: "transparent", border: `1px solid ${C.accentText}`, borderRadius: 4, color: C.accentText, fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
+                style={{ flex: 1, minHeight: 42, background: "transparent", border: `1px solid ${C.accentText}`, borderRadius: RADIUS.button, color: C.accentText, fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
               >Freigeben</button>
               <button type="button" disabled={isLoading} onClick={() => void curate(q.id, "published")}
-                style={{ flex: 1, minHeight: 42, background: "transparent", border: "1px solid #7ab898", borderRadius: 4, color: "#7ab898", fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
+                style={{ flex: 1, minHeight: 42, background: "transparent", border: "1px solid #7ab898", borderRadius: RADIUS.button, color: "#7ab898", fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
               >Veröffentl.</button>
               <button type="button" disabled={isLoading} onClick={() => void curate(q.id, "rejected")}
-                style={{ minHeight: 42, padding: "0 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.textDim, fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
+                style={{ minHeight: 42, padding: "0 14px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: RADIUS.button, color: C.textDim, fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
               >Verwerfen</button>
               <button type="button" disabled={isLoading} onClick={() => setConfirmDeleteId(q.id)}
-                style={{ minHeight: 42, padding: "0 12px", background: "transparent", border: "1px solid #c48282", borderRadius: 4, color: "#c48282", fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
+                style={{ minHeight: 42, padding: "0 12px", background: "transparent", border: "1px solid #c48282", borderRadius: RADIUS.button, color: "#c48282", fontFamily: MONO, fontSize: 10, letterSpacing: "0.1em", textTransform: "uppercase", cursor: isLoading ? "wait" : "pointer", opacity: isLoading ? 0.6 : 1 }}
               >✕</button>
             </div>
             <div style={{ display: "grid", gridTemplateRows: confirmingDelete ? "1fr" : "0fr", transition: "grid-template-rows 0.18s ease" }}>
@@ -235,10 +235,10 @@ function Kuration({ C, index, setIndex }: { C: Palette; index: ResonanzIndex | n
                 <div style={{ display: "flex", gap: 8, alignItems: "center", paddingTop: 6 }}>
                   <span style={{ fontFamily: MONO, fontSize: 9.5, color: "#c48282", flex: 1 }}>Eintrag wirklich löschen?</span>
                   <button type="button" onClick={() => void deleteEntry(q.id)}
-                    style={{ minHeight: 34, padding: "0 12px", background: "#c48282", border: "1px solid #c48282", borderRadius: 4, color: "#fff", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+                    style={{ minHeight: 34, padding: "0 12px", background: "#c48282", border: "1px solid #c48282", borderRadius: RADIUS.button, color: "#fff", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
                   >Löschen</button>
                   <button type="button" onClick={() => setConfirmDeleteId(null)}
-                    style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: 4, color: C.muted, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+                    style={{ minHeight: 34, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: RADIUS.button, color: C.muted, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
                   >Abbrechen</button>
                 </div>
               </div>

@@ -4,7 +4,7 @@
  * Einstellungen. Alle Werte kommen aus MeinWerkPage's echten trajectory.ts/
  * threadStore.ts-Ableitungen (dort berechnet, hier nur neu gerahmt).
  */
-import { MONO, SERIF, type Palette } from "@/lib/theme";
+import { MONO, SERIF, RADIUS, type Palette } from "@/lib/theme";
 import type { Trajectory, getStats } from "@/lib/trajectory";
 import type { SavedThread } from "@/lib/threadStore";
 import WeiterdenkenThread from "@/components/WeiterdenkenThread";
@@ -43,7 +43,7 @@ export default function MobileMeinWerk({
   };
   const miniBtn = (color: string): React.CSSProperties => ({
     minHeight: 36, fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.08em", textTransform: "uppercase",
-    color, background: "none", border: `1px solid ${color}`, padding: "0 10px", cursor: "pointer", borderRadius: 3,
+    color, background: "none", border: `1px solid ${color}`, padding: "0 10px", cursor: "pointer", borderRadius: RADIUS.micro,
   });
 
   return (
@@ -66,7 +66,7 @@ export default function MobileMeinWerk({
           <div style={{ display: "flex", flexWrap: "wrap", gap: 8, marginTop: 10 }}>
             {[["/werk", "Das Werk lesen"], ["/begriffsnetz", "Begriffsnetz erkunden"], ["/landkarte", "Wissens-Landkarte"]].map(([href, label]) => (
               <button key={href} type="button" onClick={() => navigate(href)}
-                style={{ minHeight: 40, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.06em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`, borderRadius: 3, padding: "0 12px", cursor: "pointer" }}
+                style={{ minHeight: 40, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.06em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`, borderRadius: RADIUS.micro, padding: "0 12px", cursor: "pointer" }}
               >{label}</button>
             ))}
           </div>

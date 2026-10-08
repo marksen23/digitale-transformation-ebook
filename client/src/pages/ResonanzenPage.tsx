@@ -480,7 +480,7 @@ export default function ResonanzenPage() {
                   background: active ? C.deep : "none",
                   border: `1px solid ${active ? C.accentDim : C.border}`,
                   padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30,
-                  borderRadius: 3,
+                  borderRadius: RADIUS.micro,
                   transition: TRANSITION,
                 }}
               >{label}</button>

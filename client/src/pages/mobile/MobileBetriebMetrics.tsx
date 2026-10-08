@@ -9,6 +9,7 @@
 import { useState } from "react";
 import { ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzIndex } from "@/lib/resonanzenIndex";
 import { Section, Stat, MiniTagCloud, TimeSeries, computeStats, MONO, SERIF, type Palette } from "@/pages/admin/adminShared";
+import { RADIUS } from "@/lib/theme";
 
 const STATUS_META: Array<[string, string, string]> = [
   ["published", "veröffentlicht", "#7ab898"],
@@ -98,7 +99,7 @@ export default function MobileBetriebMetrics({ C, index }: { C: Palette; index: 
         </div>
         {feed.length > feedLimit && (
           <button type="button" onClick={() => setFeedLimit(l => l + 15)}
-            style={{ marginTop: 10, minHeight: 40, width: "100%", background: "none", border: `1px solid ${C.border}`, borderRadius: 4, color: C.accentText, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
+            style={{ marginTop: 10, minHeight: 40, width: "100%", background: "none", border: `1px solid ${C.border}`, borderRadius: RADIUS.button, color: C.accentText, fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
           >+ {Math.min(15, feed.length - feedLimit)} weitere von {feed.length}</button>
         )}
         <div style={{ marginTop: 10, fontFamily: MONO, fontSize: 9, letterSpacing: "0.03em", lineHeight: 1.6, color: C.muted }}>

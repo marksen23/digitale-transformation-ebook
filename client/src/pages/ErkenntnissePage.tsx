@@ -12,7 +12,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, DISPLAY, RADIUS, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
@@ -99,7 +99,7 @@ export default function ErkenntnissePage() {
                       {e.conceptAnchor ? <> · <span style={{ color: c.accentText }}>{e.conceptAnchor}</span></> : null}
                     </span>
                     <button onClick={() => setOpen(isOpen ? null : e.id)}
-                      style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: 3, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+                      style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: RADIUS.micro, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
                       {isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}
                     </button>
                   </div>

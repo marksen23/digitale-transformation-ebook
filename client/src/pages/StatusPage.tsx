@@ -8,7 +8,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, type Palette, RADIUS } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, type ResonanzIndex, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 import { useLocation } from "wouter";
@@ -46,7 +46,7 @@ export default function StatusPage() {
   }, [index]);
 
   const card: React.CSSProperties = {
-    background: c.surface, border: `1px solid ${c.border}`, borderRadius: 6, padding: "1rem 1.2rem",
+    background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.card, padding: "1rem 1.2rem",
   };
   const label: React.CSSProperties = {
     fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.muted,

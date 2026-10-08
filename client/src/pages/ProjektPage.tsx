@@ -15,7 +15,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, SERIF_BODY, type Palette, RADIUS } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import { useIsMobile } from "@/hooks/useMobile";
 import MobileProjekt from "@/pages/mobile/MobileProjekt";
@@ -399,7 +399,7 @@ export default function ProjektPage() {
                 <Link key={x.h} href={x.h} style={{
                   fontFamily: MONO, fontSize: "0.72rem", letterSpacing: "0.08em", textTransform: "uppercase",
                   color: c.accentText, textDecoration: "none",
-                  border: `1px solid ${c.border}`, borderRadius: 6, padding: "0.65rem 0.9rem",
+                  border: `1px solid ${c.border}`, borderRadius: RADIUS.card, padding: "0.65rem 0.9rem",
                   minHeight: 44, display: "inline-flex", alignItems: "center",
                 }}>{x.l} →</Link>
               ))}
