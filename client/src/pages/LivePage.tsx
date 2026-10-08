@@ -9,7 +9,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, DISPLAY, MONO, RADIUS, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, RADIUS, SERIF, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -60,7 +60,7 @@ export default function LivePage() {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>

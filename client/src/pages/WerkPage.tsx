@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, TRANSITION, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, MAX_WIDTH, RADIUS, TRANSITION, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
@@ -259,7 +259,7 @@ export default function WerkPage() {
         }}
       >≡</button>
     </div>
-    <div className="werk-page" style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
+    <div className="werk-page" style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
       <style>{`
         .werk-page .werk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 2.5rem; align-items: start; }
         .werk-page .werk-toc { position: sticky; top: calc(44px + 1rem); max-height: calc(100vh - 44px - 2rem); overflow-y: auto; padding-left: 1rem; border-left: 1px solid currentColor; opacity: 0.7; }

@@ -25,7 +25,7 @@ import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import Ornament, { DropCap } from "@/components/Ornament";
 import SectionLabel from "@/components/SectionLabel";
@@ -452,7 +452,7 @@ export default function ResonanzenPage() {
       {/* Header — kompakt, App-Frame-Style. Top-Right-Nav wurde entfernt,
           weil der globale AppFrame oben bereits Werk + Philosophie + Wissen
           verlinkt. */}
-      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: 960, margin: "0 auto" }}>
+      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: MAX_WIDTH.reader, margin: "0 auto" }}>
         <h1 style={{ fontFamily: SERIF, fontSize: "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
           Kollektives Wissen
         </h1>
@@ -489,7 +489,7 @@ export default function ResonanzenPage() {
         </div>
       </header>
 
-      <main style={{ maxWidth: 960, margin: "0 auto", padding: "0 1rem 4rem" }}>
+      <main style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto", padding: "0 1rem 4rem" }}>
         {/* ═══ STICKY-BLOCK: Suche + Filter laufen gemeinsam mit beim Scroll,
             damit der User auch tief in den Treffern noch filtern kann ohne
             hochzuscrollen. ═══ */}
@@ -1184,7 +1184,7 @@ export default function ResonanzenPage() {
         </div>
       )}
 
-      <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 1.1rem" }}>
+      <div style={{ maxWidth: MAX_WIDTH.prose, margin: "0 auto", padding: "0 1.1rem" }}>
         <SiteFooter c={C} />
       </div>
 

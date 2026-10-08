@@ -121,6 +121,19 @@ export const RADIUS = {
 
 export const TRANSITION = "all 0.15s ease";
 
+/**
+ * Seiten-Breiten-Tokens — drei Stufen statt ~6 ad-hoc-Werte.
+ *
+ *   CONTENT  — Engste Breite: Chat, Tool-Dialoge, Auflistungen (Fragen, Erkenntnisse)
+ *   PROSE    — Mittlere Breite: Artikel, Detail-Panels, Statistik, Blog
+ *   READER   — Breiteste Lesefläche: WerkPage, MeinWerk, ResonanzenPage-Header
+ */
+export const MAX_WIDTH = {
+  content: 760,   // Fragen, Erkenntnisse, Enkidu-Chat, Status, Live, Info, Projekt
+  prose:   820,   // Statistik, Resonanz-Detail, Blog, ResonanzenPage-Liste, Erkunden
+  reader:  960,   // WerkPage, MeinWerkPage, ResonanzenPage-Header
+} as const;
+
 /** Subtile Schatten — leichter als Material, eher Notion-style. */
 export const SHADOW = {
   card: "0 1px 2px rgba(0,0,0,0.04), 0 1px 4px rgba(0,0,0,0.04)",
