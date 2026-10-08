@@ -1166,7 +1166,11 @@
       "echoes_of": [
         "MOQ5EOBY-82AD9EEE",
         "MQ5WUD1G-0976C016"
-      ]
+      ],
+      "ai_score": 3,
+      "ai_score_reason": "Der Text paraphrasiert die Dynamik von Einsicht und Denken kompetent, ohne jedoch einen genuin neuen Gedanken zu entwickeln, der über das Werk hinausführt.",
+      "ai_score_at": "2026-10-08T17:44:33.268Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MQXDVN1C-CAA3081A",
