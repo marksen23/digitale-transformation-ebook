@@ -22,7 +22,7 @@
  */
 import { useEffect, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
-import { C_DARK, C_LIGHT, MONO, RADIUS, SERIF_BODY, TRACKED } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, RADIUS, SERIF_BODY, TRACKED, TRANSITION } from "@/lib/theme";
 import type { BeforeInstallPromptEvent } from "@/lib/installPwa";
 
 const DISMISS_STORAGE_KEY = "install-banner-dismissed-at";
@@ -175,7 +175,7 @@ export default function InstallBanner() {
             border: `1px solid ${C.border}`,
             padding: "0.5rem 0.85rem", cursor: "pointer",
             borderRadius: RADIUS.button,
-            transition: "all 0.15s",
+            transition: TRANSITION,
             minHeight: 40,
           }}
           onMouseEnter={(e) => { e.currentTarget.style.color = C.text; e.currentTarget.style.borderColor = C.muted; }}
@@ -194,7 +194,7 @@ export default function InstallBanner() {
             border: `1px solid ${C.accent}`,
             padding: "0.5rem 1rem", cursor: "pointer",
             borderRadius: RADIUS.button,
-            transition: "all 0.15s",
+            transition: TRANSITION,
             minHeight: 40,
             boxShadow: `0 2px 8px ${C.accent}33`,
           }}

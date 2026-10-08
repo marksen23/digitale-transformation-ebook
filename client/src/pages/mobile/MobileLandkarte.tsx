@@ -6,7 +6,7 @@
  * Der selektierte Knoten erscheint in einem Bottom-Sheet mit CSS-Transition.
  */
 import { useCallback, useMemo, useRef } from "react";
-import { DISPLAY, MONO, SERIF, type Palette } from "@/lib/theme";
+import { DISPLAY, MONO, RADIUS, SERIF, type Palette } from "@/lib/theme";
 import {
   EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H, type ConceptNode,
 } from "@/data/conceptGraph";
@@ -385,7 +385,7 @@ export default function MobileLandkarte({
                         textAlign: "left", fontFamily: SERIF, fontStyle: "italic",
                         fontSize: 13, lineHeight: 1.45, color: C.text,
                         background: C.deep, border: `1px solid ${C.border}`,
-                        borderRadius: 5, padding: "9px 11px", cursor: "pointer",
+                        borderRadius: RADIUS.button, padding: "9px 11px", cursor: "pointer",
                       }}
                     >
                       {e.prompt.slice(0, 85)}{e.prompt.length > 85 ? "…" : ""}

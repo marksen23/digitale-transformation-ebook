@@ -42,7 +42,7 @@
  *   />
  */
 import type { Palette } from "@/lib/theme";
-import { MONO } from "@/lib/theme";
+import { MONO, TRANSITION } from "@/lib/theme";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import ResonanzCard from "@/components/ResonanzCard";
 
@@ -105,7 +105,7 @@ export default function ResonanzenBlock({
             color: c.accent, background: "none",
             border: `1px solid ${c.accentDim}`, borderRadius: 4,
             padding: "0.4rem 0.65rem", textDecoration: "none",
-            transition: "all 0.15s",
+            transition: TRANSITION,
           }}
           onMouseEnter={e => {
             e.currentTarget.style.background = `${c.accentDim}22`;

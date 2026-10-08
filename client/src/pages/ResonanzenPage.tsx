@@ -481,7 +481,7 @@ export default function ResonanzenPage() {
                   border: `1px solid ${active ? C.accentDim : C.border}`,
                   padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30,
                   borderRadius: 3,
-                  transition: "all 0.15s",
+                  transition: TRANSITION,
                 }}
               >{label}</button>
             );

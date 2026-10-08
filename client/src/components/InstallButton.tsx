@@ -17,7 +17,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
-import { C_DARK, C_LIGHT, MONO, RADIUS, SERIF_BODY, TRACKED } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, RADIUS, SERIF_BODY, TRACKED, TRANSITION } from "@/lib/theme";
 import {
   detectInstallPlatform,
   type BeforeInstallPromptEvent,
@@ -117,7 +117,7 @@ export default function InstallButton({ className, variant = "label" }: InstallB
           height: variant === "icon" ? 30 : undefined,
           cursor: "pointer",
           borderRadius: RADIUS.button,
-          transition: "all 0.15s",
+          transition: TRANSITION,
           display: "inline-flex", alignItems: "center", justifyContent: "center",
           gap: "0.4rem",
           lineHeight: 1,
