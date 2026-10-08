@@ -1407,7 +1407,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onClick={onClose}
               title="Schließen"
               style={{
-                fontFamily: "monospace", fontSize: "1.2rem", lineHeight: 1,
+                fontFamily: MONO, fontSize: "1.2rem", lineHeight: 1,
                 color: C.textDim, background: "none", border: "none",
                 cursor: "pointer", padding: "0.3rem 0.4rem",
                 transition: "color 0.2s", flexShrink: 0,
@@ -2145,7 +2145,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     fontSize={9}
                     fill={C.lmGlow}
                     opacity={labelOpacity}
-                    fontFamily="'Courier Prime', 'Courier New', monospace"
+                    fontFamily={MONO}
                     letterSpacing="0.18em"
                     style={{ userSelect: "none", pointerEvents: "none" }}
                   >
@@ -2918,7 +2918,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </div>
             <button
               onClick={() => setSelectedId(null)}
-              style={{ fontFamily: "monospace", fontSize: "1.1rem", color: C.textDim, background: "none", border: "none", cursor: "pointer", padding: "0.3rem 0.5rem" }}
+              style={{ fontFamily: MONO, fontSize: "1.1rem", color: C.textDim, background: "none", border: "none", cursor: "pointer", padding: "0.3rem 0.5rem" }}
             >×</button>
           </div>
           <p style={{ fontSize: "0.88rem", lineHeight: 1.7, color: C.text, marginBottom: "0.8rem" }}>

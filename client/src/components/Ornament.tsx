@@ -17,7 +17,7 @@
  * Lora gleichermassen ordentlich. Farbe folgt der aktuellen Palette via
  * c-Prop (kein eigener Theme-Kopplung).
  */
-import { MONO, ORNAMENT, TRACKED, type Palette } from "@/lib/theme";
+import { MONO, ORNAMENT, SERIF_BODY, TRACKED, type Palette } from "@/lib/theme";
 
 interface OrnamentProps {
   /** Erscheinungs-Variante */
@@ -108,7 +108,7 @@ export function DropCap({ children, c }: { children: React.ReactNode; c: Palette
     <span
       style={{
         float: "left",
-        fontFamily: "'Lora', Georgia, serif",
+        fontFamily: SERIF_BODY,
         fontSize: "3.3em",
         lineHeight: 0.9,
         marginRight: "0.12em",

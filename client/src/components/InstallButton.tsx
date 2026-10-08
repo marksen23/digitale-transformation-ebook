@@ -292,7 +292,7 @@ function getInstructions(platform: InstallPlatform): InstructionContent {
         intro:
           "Apple erlaubt keinen direkten Install-Knopf — die App muss über das Teilen-Menü zum Home-Bildschirm hinzugefügt werden.",
         steps: [
-          <>Tippe in Safari unten in der Adressleiste auf das <b>Teilen-Symbol</b> <span style={{ fontFamily: "monospace" }}>(⎍)</span>.</>,
+          <>Tippe in Safari unten in der Adressleiste auf das <b>Teilen-Symbol</b> <span style={{ fontFamily: MONO }}>(⎍)</span>.</>,
           <>Wähle <b>„Zum Home-Bildschirm"</b> aus der Liste.</>,
           <>Bestätige oben rechts mit <b>„Hinzufügen"</b>. Die App erscheint dann mit eigenem Icon im Home-Screen.</>,
         ],
@@ -320,7 +320,7 @@ function getInstructions(platform: InstallPlatform): InstructionContent {
         intro:
           "Der direkte Install-Prompt ist gerade nicht verfügbar — möglicherweise wurde er kürzlich abgelehnt (90 Tage Cooldown) oder der Service Worker ist noch nicht aktiv. So geht es manuell:",
         steps: [
-          <>Tippe in Chrome auf das <b>Drei-Punkte-Menü</b> <span style={{ fontFamily: "monospace" }}>(⋮)</span> oben rechts.</>,
+          <>Tippe in Chrome auf das <b>Drei-Punkte-Menü</b> <span style={{ fontFamily: MONO }}>(⋮)</span> oben rechts.</>,
           <>Wähle <b>„App installieren"</b> oder <b>„Zur Startseite hinzufügen"</b> (je nach Chrome-Version).</>,
           <>Bestätige die Installation. Die App erscheint im App-Drawer mit eigenem Icon und Splash-Screen.</>,
         ],
@@ -346,7 +346,7 @@ function getInstructions(platform: InstallPlatform): InstructionContent {
         intro:
           "Der direkte Install-Prompt ist gerade nicht verfügbar — entweder wurde er kürzlich abgelehnt oder der Service Worker ist noch nicht bereit. So geht es manuell:",
         steps: [
-          <>Schau in die <b>Adressleiste</b>: ganz rechts erscheint oft ein kleines <b>Install-Icon</b> <span style={{ fontFamily: "monospace" }}>(⊕)</span> oder Monitor-mit-Pfeil-Symbol. Ein Klick installiert direkt.</>,
+          <>Schau in die <b>Adressleiste</b>: ganz rechts erscheint oft ein kleines <b>Install-Icon</b> <span style={{ fontFamily: MONO }}>(⊕)</span> oder Monitor-mit-Pfeil-Symbol. Ein Klick installiert direkt.</>,
           <>Alternativ: Öffne das <b>Drei-Punkte-Menü</b> oben rechts → <b>„Resonanzvernunft installieren"</b> oder <b>„App installieren"</b>.</>,
           <>Die App startet danach in einem eigenständigen Fenster — wie eine native Anwendung.</>,
         ],

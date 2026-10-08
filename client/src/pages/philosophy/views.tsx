@@ -27,7 +27,7 @@ import {
   yearToY, pointOnCubicBezier, seededRng,
   type Palette,
 } from "./shared";
-import { SERIF_BODY, TRACKED, ORNAMENT, PAPER } from "@/lib/theme";
+import { DISPLAY, SERIF_BODY, TRACKED, ORNAMENT, PAPER } from "@/lib/theme";
 import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
@@ -1806,7 +1806,7 @@ function BookPage({
               "{p.signaturePhrase}"
               <span style={{
                 display: "block",
-                fontFamily: "'Cormorant Garamond', serif",
+                fontFamily: DISPLAY,
                 fontStyle: "italic",
                 fontSize: "0.65rem",
                 color: isHovered ? "#f59e0b" : inkDim,

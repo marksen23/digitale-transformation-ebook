@@ -177,7 +177,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     if (!document.getElementById(id)) {
       const link = document.createElement("link");
       link.id = id; link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:wght@400;700&display=swap";
+      link.href = "https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap";
       document.head.appendChild(link);
     }
   }, []);
@@ -227,7 +227,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           letter-spacing: 0.08em !important;
         }
         .enkidu-close-btn {
-          font-family: monospace; font-size: 1.1rem; line-height: 1;
+          font-family: ${MONO}; font-size: 1.1rem; line-height: 1;
           color: #888; background: none; border: none; cursor: pointer;
           padding: 0.4rem 0.5rem; transition: color 0.2s; flex-shrink: 0;
         }

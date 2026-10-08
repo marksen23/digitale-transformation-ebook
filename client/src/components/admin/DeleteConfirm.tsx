@@ -10,9 +10,7 @@
  */
 import { useEffect } from "react";
 import { ENDPOINT_LABEL, type ResonanzEntry } from "@/lib/resonanzenIndex";
-
-const SERIF = "'EB Garamond', Georgia, serif";
-const MONO  = "'Courier Prime', 'Courier New', monospace";
+import { SERIF, MONO } from "@/lib/theme";
 
 interface DeleteConfirmProps {
   entry: ResonanzEntry;

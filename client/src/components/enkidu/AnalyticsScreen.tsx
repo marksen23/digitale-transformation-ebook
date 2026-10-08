@@ -9,6 +9,7 @@ import {
   type Conversation,
 } from "@/lib/extractKeywords";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
+import { SERIF, MONO } from "@/lib/theme";
 
 interface AnalyticsScreenProps {
   conversations: Conversation[];
@@ -24,8 +25,6 @@ const C_DARK = {
   textBright: "#e8e2d4",
   accent: "#f59e0b",
   accentDim: "#b45309",
-  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
-  mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
 
 type CPalette = { readonly [K in keyof typeof C_DARK]: string };
@@ -40,8 +39,6 @@ const C_LIGHT: CPalette = {
   textBright: "#1c1917",
   accent: "#f59e0b",
   accentDim: "#b45309",
-  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
-  mono: "'Courier Prime', 'Courier New', monospace",
 };
 
 function Section({ c, title, children }: { c: CPalette; title: string; children: React.ReactNode }) {
@@ -52,7 +49,7 @@ function Section({ c, title, children }: { c: CPalette; title: string; children:
       padding: "1.5rem",
     }}>
       <h3 style={{
-        fontFamily: c.mono, fontSize: "0.65rem", letterSpacing: "0.18em",
+        fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.18em",
         color: c.accentDim, textTransform: "uppercase",
         marginBottom: "1.25rem", paddingBottom: "0.75rem",
         borderBottom: `1px solid ${c.border}`,
@@ -81,10 +78,10 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
     <div className="enkidu-analytics" style={{ maxWidth: 900, margin: "0 auto" }}>
       {/* Header */}
       <div style={{ marginBottom: "2.5rem" }}>
-        <h2 style={{ fontFamily: C.serif, fontSize: "2.5rem", fontWeight: 400, fontStyle: "italic", color: C.textBright, marginBottom: "0.5rem" }}>
+        <h2 style={{ fontFamily: SERIF, fontSize: "2.5rem", fontWeight: 400, fontStyle: "italic", color: C.textBright, marginBottom: "0.5rem" }}>
           Gesprächsanalyse
         </h2>
-        <p style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase" }}>
+        <p style={{ fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase" }}>
           Muster aus deinen Begegnungen
         </p>
       </div>
@@ -98,10 +95,10 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
           { label: "Hohe Resonanz",         value: resonanceHigh || "—" },
         ].map(card => (
           <div key={card.label} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "1.2rem 1.5rem" }}>
-            <div style={{ fontFamily: C.serif, fontSize: "2rem", fontWeight: 400, color: C.accent, marginBottom: "0.3rem" }}>
+            <div style={{ fontFamily: SERIF, fontSize: "2rem", fontWeight: 400, color: C.accent, marginBottom: "0.3rem" }}>
               {card.value}
             </div>
-            <div style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", lineHeight: 1.4 }}>
+            <div style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.12em", color: C.muted, textTransform: "uppercase", lineHeight: 1.4 }}>
               {card.label}
             </div>
           </div>
@@ -120,7 +117,7 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
         {/* Resonance chart */}
         <Section c={C} title="Resonanzpfad — Nachklang-Verlauf">
           <ResonanzChart data={resonanz} />
-          <p style={{ fontFamily: C.mono, fontSize: "0.6rem", letterSpacing: "0.06em", color: C.muted, marginTop: "0.75rem", lineHeight: 1.6 }}>
+          <p style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.06em", color: C.muted, marginTop: "0.75rem", lineHeight: 1.6 }}>
             Amber: Ø Resonanz · Gestrichelt: Überraschung / Innehalten / Mitgenommen
           </p>
         </Section>
@@ -132,7 +129,7 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
       </div>
 
       {total === 0 && (
-        <div style={{ marginTop: "3rem", textAlign: "center", color: C.textDim, fontStyle: "italic", fontSize: "0.95rem", fontFamily: C.serif }}>
+        <div style={{ marginTop: "3rem", textAlign: "center", color: C.textDim, fontStyle: "italic", fontSize: "0.95rem", fontFamily: SERIF }}>
           Noch keine Gespräche gespeichert. Beginne ein Gespräch, schließe es ab und kehre hier zurück.
         </div>
       )}

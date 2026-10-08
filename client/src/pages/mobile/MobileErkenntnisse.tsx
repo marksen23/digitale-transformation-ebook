@@ -7,7 +7,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
@@ -34,7 +34,7 @@ export default function MobileErkenntnisse() {
 
   return (
     <MobileScreenShell C={C} title="Erkenntnisse" meta={erk ? `${items.length} BESTÄTIGT` : ""} isDark={isDark}>
-      <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
+      <div style={{ fontFamily: DISPLAY, fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
         Erkenntnisse <span style={{ color: C.accentText }}>·</span> Was sich gezeigt hat
       </div>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 16 }}>
@@ -55,7 +55,7 @@ export default function MobileErkenntnisse() {
           const isOpen = open === e.id;
           return (
             <div key={e.id} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "15px 16px", marginBottom: 12 }}>
-              <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 23, lineHeight: 1.28, color: C.textBright }}>{e.kernsatz}</div>
+              <div style={{ fontFamily: DISPLAY, fontSize: 23, lineHeight: 1.28, color: C.textBright }}>{e.kernsatz}</div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.06em", color: C.muted }}>
                   Distinktheit {e.distinctness.toFixed(2)}
