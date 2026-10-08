@@ -10,7 +10,7 @@
  * nicht neu erfunden.
  */
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
-import { MONO, PAPER, SERIF, type Palette } from "@/lib/theme";
+import { DISPLAY, MONO, PAPER, SERIF, type Palette } from "@/lib/theme";
 import {
   bodyFont, FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
   type ReadingSettings,
@@ -274,7 +274,7 @@ export default function MobileReader({
             <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.14em", color: C.muted, fontVariantNumeric: "tabular-nums" }}>{pageLabel}</span>
           )}
         </div>
-        <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 28, lineHeight: 1.12, color: isDark ? PAPER.inkDark : PAPER.inkLight, marginBottom: 6 }}>
+        <div style={{ fontFamily: DISPLAY, fontSize: 28, lineHeight: 1.12, color: isDark ? PAPER.inkDark : PAPER.inkLight, marginBottom: 6 }}>
           {currentChapter?.title ?? "Werk"}
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 18 }}>
@@ -376,7 +376,7 @@ export default function MobileReader({
             style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.text, fontFamily: MONO, fontSize: 15, cursor: "pointer" }}
           >⌕</button>
           <button type="button" onClick={() => setPrefsOpen(true)} title="Lese-Einstellungen"
-            style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.text, fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 17, cursor: "pointer" }}
+            style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.text, fontFamily: DISPLAY, fontSize: 17, cursor: "pointer" }}
           >Aa</button>
           <button type="button" onClick={() => setChatOpen(true)} title="Frage zum Kapitel"
             style={{ minWidth: 44, minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 16, cursor: "pointer" }}
@@ -441,7 +441,7 @@ function MobileReadingSheet({
 }) {
   const stepBtn: React.CSSProperties = {
     width: 44, height: 44, border: `1px solid ${C.border}`, borderRadius: 4, background: "none",
-    color: C.text, fontFamily: "'Cormorant Garamond',serif", fontSize: 15, cursor: "pointer",
+    color: C.text, fontFamily: DISPLAY, fontSize: 15, cursor: "pointer",
   };
   const pill = (label: string, active: boolean, onClick: () => void, key: string) => (
     <button

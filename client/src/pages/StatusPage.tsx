@@ -8,7 +8,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, type ResonanzIndex, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 import { useLocation } from "wouter";
@@ -78,7 +78,7 @@ export default function StatusPage() {
     >
       <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={label}>Resonanzvernunft · Öffentlicher Status</div>
-        <h1 style={{ margin: "0.4rem 0 1.5rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>Status</h1>
+        <h1 style={{ margin: "0.4rem 0 1.5rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>Status</h1>
 
         {!index ? (
           <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>

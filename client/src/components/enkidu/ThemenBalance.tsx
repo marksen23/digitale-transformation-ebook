@@ -1,4 +1,5 @@
 import type { ThemenEntry } from "@/lib/extractKeywords";
+import { SERIF, MONO } from "@/lib/theme";
 
 interface ThemenBalanceProps {
   data: ThemenEntry[];
@@ -12,14 +13,12 @@ const C = {
   text: "#c8c2b4",
   accent: "#f59e0b",
   accentDim: "#b45309",
-  mono: "'Courier Prime', 'Courier New', monospace",
-  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
 } as const;
 
 export default function ThemenBalance({ data }: ThemenBalanceProps) {
   if (data.length === 0) {
     return (
-      <div style={{ color: C.muted, fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.1em", padding: "1.5rem 0" }}>
+      <div style={{ color: C.muted, fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.1em", padding: "1.5rem 0" }}>
         Noch keine Themendaten
       </div>
     );
@@ -37,10 +36,10 @@ export default function ThemenBalance({ data }: ThemenBalanceProps) {
         return (
           <div key={entry.term}>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: "0.3rem" }}>
-              <span style={{ fontFamily: C.serif, fontSize: "0.95rem", color: C.text, fontStyle: "italic" }}>
+              <span style={{ fontFamily: SERIF, fontSize: "0.95rem", color: C.text, fontStyle: "italic" }}>
                 {entry.displayLabel}
               </span>
-              <span style={{ fontFamily: C.mono, fontSize: "0.65rem", color: C.textDim, letterSpacing: "0.08em" }}>
+              <span style={{ fontFamily: MONO, fontSize: "0.65rem", color: C.textDim, letterSpacing: "0.08em" }}>
                 {entry.count}×
               </span>
             </div>

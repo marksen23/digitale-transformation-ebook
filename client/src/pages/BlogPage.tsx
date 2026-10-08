@@ -12,7 +12,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -70,7 +70,7 @@ export default function BlogPage() {
     >
       <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={label}>Resonanzvernunft</div>
-        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
+        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
           Blog <span style={{ color: c.accentText }}>·</span> Nach Bereichen
         </h1>
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1.2rem" }}>

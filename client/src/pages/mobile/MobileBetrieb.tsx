@@ -8,7 +8,7 @@
  * keine simulierte In-Memory-Tab-Maschine.
  */
 import { useEffect, useState } from "react";
-import { MONO, SERIF, type Palette } from "@/lib/theme";
+import { DISPLAY, MONO, SERIF, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, broadcastIndexStale, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry, type ResonanzIndex } from "@/lib/resonanzenIndex";
 import { callAdminAction } from "@/lib/adminAuth";
 import { recordAction } from "@/lib/adminActionLog";
@@ -88,7 +88,7 @@ function StatusTab({ C, index }: { C: Palette; index: ResonanzIndex | null }) {
   return (
     <div style={{ paddingBottom: 4 }}>
       <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.1em", textTransform: "uppercase", color: C.muted, marginBottom: 5 }}>Resonanzvernunft · Öffentlicher Status</div>
-      <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 30, lineHeight: 1.15, color: C.textBright, marginBottom: 16 }}>Status</div>
+      <div style={{ fontFamily: DISPLAY, fontSize: 30, lineHeight: 1.15, color: C.textBright, marginBottom: 16 }}>Status</div>
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 9, marginBottom: 20 }}>
         <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "13px 14px" }}>
           <div style={{ fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: C.muted }}>Begegnungen gesamt</div>

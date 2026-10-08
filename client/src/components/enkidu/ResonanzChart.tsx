@@ -3,6 +3,7 @@ import {
   ResponsiveContainer, CartesianGrid
 } from "recharts";
 import type { ResonanzPunkt } from "@/lib/extractKeywords";
+import { MONO } from "@/lib/theme";
 
 interface ResonanzChartProps {
   data: ResonanzPunkt[];
@@ -17,8 +18,6 @@ const C = {
   text: "#c8c2b4",
   accent: "#f59e0b",
   accentDim: "#b45309",
-  serif: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif",
-  mono: "'Courier Prime', 'Courier New', monospace",
 } as const;
 
 // Custom tooltip
@@ -37,7 +36,7 @@ function CustomTooltip({ active, payload, label }: {
   return (
     <div style={{
       background: C.surface, border: `1px solid ${C.border}`,
-      padding: "0.75rem 1rem", fontFamily: C.mono, fontSize: "0.7rem",
+      padding: "0.75rem 1rem", fontFamily: MONO, fontSize: "0.7rem",
       letterSpacing: "0.05em", color: C.text,
     }}>
       <div style={{ color: C.textDim, marginBottom: "0.4rem" }}>{label}</div>
@@ -53,7 +52,7 @@ function CustomTooltip({ active, payload, label }: {
 export default function ResonanzChart({ data }: ResonanzChartProps) {
   if (data.length < 2) {
     return (
-      <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center", color: C.muted, fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.1em" }}>
+      <div style={{ height: 200, display: "flex", alignItems: "center", justifyContent: "center", color: C.muted, fontFamily: MONO, fontSize: "0.7rem", letterSpacing: "0.1em" }}>
         {data.length === 0
           ? "Noch keine abgeschlossenen Gespräche"
           : "Mindestens 2 Gespräche für den Verlauf erforderlich"}
@@ -74,7 +73,7 @@ export default function ResonanzChart({ data }: ResonanzChartProps) {
         />
         <XAxis
           dataKey="label"
-          tick={{ fontFamily: C.mono, fontSize: 10, fill: C.textDim }}
+          tick={{ fontFamily: MONO, fontSize: 10, fill: C.textDim }}
           axisLine={{ stroke: C.border }}
           tickLine={false}
         />
@@ -82,7 +81,7 @@ export default function ResonanzChart({ data }: ResonanzChartProps) {
           domain={[0, 1]}
           ticks={[0, 0.5, 1]}
           tickFormatter={(v: number) => `${(v * 100).toFixed(0)}%`}
-          tick={{ fontFamily: C.mono, fontSize: 10, fill: C.textDim }}
+          tick={{ fontFamily: MONO, fontSize: 10, fill: C.textDim }}
           axisLine={false}
           tickLine={false}
         />

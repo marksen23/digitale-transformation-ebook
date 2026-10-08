@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import type { KeywordEntry } from "@/lib/extractKeywords";
+import { MONO, SERIF_BODY } from "@/lib/theme";
 
 interface WordCloudProps {
   keywords: KeywordEntry[];
@@ -118,7 +119,7 @@ export default function WordCloud({ keywords, width = 540, height = 280, onWordC
 
   if (keywords.length === 0) {
     return (
-      <div style={{ width, height, display: "flex", alignItems: "center", justifyContent: "center", color: "#444", fontFamily: "'Courier Prime', monospace", fontSize: "0.75rem", letterSpacing: "0.1em" }}>
+      <div style={{ width, height, display: "flex", alignItems: "center", justifyContent: "center", color: "#444", fontFamily: MONO, fontSize: "0.75rem", letterSpacing: "0.1em" }}>
         Noch keine Gespräche analysiert
       </div>
     );
@@ -139,7 +140,7 @@ export default function WordCloud({ keywords, width = 540, height = 280, onWordC
           textAnchor="middle"
           fontSize={pw.fontSize}
           fill={pw.color}
-          fontFamily="'Lora', Georgia, serif"
+          fontFamily={SERIF_BODY}
           style={{
             userSelect: "none",
             transition: "opacity 0.2s",

@@ -8,7 +8,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, SERIF_BODY } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, SERIF_BODY } from "@/lib/theme";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 import {
   ProjektAnimations, WaveSvg, LoopSvg, WallSvg, NetSvg, PipelineSvg, MasterSvg, FieldSvg,
@@ -35,7 +35,7 @@ export default function MobileProjekt() {
       <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.muted, marginBottom: 8 }}>
         Resonanzvernunft · Die Mechanik
       </div>
-      <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 30, lineHeight: 1.15, color: C.textBright, marginBottom: 10 }}>
+      <div style={{ fontFamily: DISPLAY, fontSize: 30, lineHeight: 1.15, color: C.textBright, marginBottom: 10 }}>
         Wie ein Buch zu einem denkenden Feld wird
       </div>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 15, lineHeight: 1.6, color: C.textDim, marginBottom: 18 }}>

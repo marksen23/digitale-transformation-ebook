@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRoute, useLocation, Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useIsMobile } from "@/hooks/useMobile";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { SERIF, MONO, DISPLAY, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
 import { SITE_URL } from "@/lib/siteUrl";
@@ -144,7 +144,7 @@ export default function ResonanzDetailPage() {
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint], marginBottom: "0.3rem" }}>
           {ENDPOINT_LABEL[entry.endpoint]} · {entry.id}
         </div>
-        <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.6rem", color: C.textBright, lineHeight: 1.3 }}>
+        <h1 style={{ margin: 0, fontFamily: DISPLAY, fontSize: "1.6rem", color: C.textBright, lineHeight: 1.3 }}>
           {entry.prompt.slice(0, 140)}{entry.prompt.length > 140 ? "…" : ""}
         </h1>
         <div style={{ marginTop: "0.5rem", display: "flex", flexWrap: "wrap", gap: "0.7rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>

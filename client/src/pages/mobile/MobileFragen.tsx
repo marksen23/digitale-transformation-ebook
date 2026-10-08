@@ -8,7 +8,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF } from "@/lib/theme";
 import {
   loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry,
@@ -62,7 +62,7 @@ export default function MobileFragen() {
 
   return (
     <MobileScreenShell C={C} title="Fragen" meta={questions ? `${counts.open} OFFEN` : ""} isDark={isDark}>
-      <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
+      <div style={{ fontFamily: DISPLAY, fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
         Offene Fragen <span style={{ color: C.accentText }}>·</span> Der Denk-Horizont
       </div>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 12 }}>
