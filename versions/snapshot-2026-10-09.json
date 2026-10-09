@@ -1,0 +1,33 @@
+{
+  "date": "2026-10-09",
+  "generatedAt": "2026-10-09T18:33:05.932Z",
+  "commit": "9699121ab30f4988a640ac47cc94a6a465b8b33e",
+  "filesChecked": 275,
+  "aggregates": {
+    "byEndpoint": {
+      "analyse": 68,
+      "chapter": 31,
+      "dialog": 35,
+      "enkidu": 59,
+      "graph-chat": 34,
+      "path-analyse": 42,
+      "translate": 6
+    },
+    "byStatus": {
+      "published": 150,
+      "raw": 54,
+      "rejected": 24,
+      "approved": 47
+    },
+    "orphanNodeIds": [
+      "band3-kap3",
+      "teil4",
+      "teil6",
+      "weiterdenken"
+    ],
+    "danglingLinks": 0,
+    "redundantDuplicates": 0
+  },
+  "errors": 0,
+  "warnings": 10
+}

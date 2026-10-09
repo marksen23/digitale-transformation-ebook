@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T03:06:36.596Z",
+  "generatedAt": "2026-10-09T18:34:02.110Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -8,41 +8,119 @@
   },
   "candidates": [
     {
-      "suggestedLabel": "pfad",
+      "suggestedLabel": "synthese",
       "keywords": [
         {
-          "word": "pfad",
-          "count": 3
+          "word": "synthese",
+          "count": 4
         },
         {
-          "word": "vergleich",
-          "count": 3
+          "word": "varianten",
+          "count": 4
         },
         {
-          "word": "logos",
-          "count": 3
-        },
-        {
-          "word": "echo",
+          "word": "erkenntnis",
           "count": 2
         },
         {
-          "word": "resonanzvernunft",
+          "word": "verwandlung",
           "count": 2
         },
         {
-          "word": "einsicht",
+          "word": "dialog",
           "count": 2
+        },
+        {
+          "word": "analyse",
+          "count": 1
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.298,
+      "nearestConcept": "lm-verwandlung",
+      "nearestSim": 0.702,
+      "sampleEntryIds": [
+        "MASTER-31CE5C0B",
+        "MASTER-12D94089",
+        "MASTER-BC195439",
+        "MASTER-6469616C"
+      ]
+    },
+    {
+      "suggestedLabel": "soll",
+      "keywords": [
+        {
+          "word": "soll",
+          "count": 3
+        },
+        {
+          "word": "sache",
+          "count": 2
+        },
+        {
+          "word": "aufladung",
+          "count": 1
+        },
+        {
+          "word": "bedeutung",
+          "count": 1
+        },
+        {
+          "word": "individums",
+          "count": 1
+        },
+        {
+          "word": "sagt",
+          "count": 1
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.281,
+      "nearestConcept": "antwort",
+      "nearestSim": 0.719,
+      "sampleEntryIds": [
+        "MPUTFPG6-02308248",
+        "MPUTC3HP-C68436E5",
+        "MPUT5G5K-075966B7",
+        "MPUT47UR-103C16A3"
+      ]
+    },
+    {
+      "suggestedLabel": "frage",
+      "keywords": [
+        {
+          "word": "frage",
+          "count": 4
+        },
+        {
+          "word": "antwort",
+          "count": 3
+        },
+        {
+          "word": "dich",
+          "count": 2
+        },
+        {
+          "word": "meine",
+          "count": 2
+        },
+        {
+          "word": "würde",
+          "count": 2
+        },
+        {
+          "word": "meinte",
+          "count": 1
         }
       ],
       "evidence": 3,
-      "distinctness": 0.268,
-      "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.732,
+      "distinctness": 0.265,
+      "nearestConcept": "antwort",
+      "nearestSim": 0.735,
       "sampleEntryIds": [
-        "MP497SNT-5E1D2074",
-        "MP0QMSOR-C6EC1B5A",
-        "MOOMECFT-66F43077"
+        "MOOUGMII-D6D90141",
+        "MOOUF9G2-17673BD9",
+        "MOOU6X9D-4A49EE98"
       ]
     },
     {
@@ -84,6 +162,44 @@
       ]
     },
     {
+      "suggestedLabel": "würde",
+      "keywords": [
+        {
+          "word": "würde",
+          "count": 2
+        },
+        {
+          "word": "artikuliert",
+          "count": 1
+        },
+        {
+          "word": "solche",
+          "count": 1
+        },
+        {
+          "word": "welt",
+          "count": 1
+        },
+        {
+          "word": "kategorien",
+          "count": 1
+        },
+        {
+          "word": "lebewesen",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.249,
+      "nearestConcept": "resonanzimperativ",
+      "nearestSim": 0.751,
+      "sampleEntryIds": [
+        "MQ5XJ3VO-378AA1AB",
+        "MQ5XH5A8-5FDB52C7",
+        "MON602G2-9C9A59E5"
+      ]
+    },
+    {
       "suggestedLabel": "freiheit",
       "keywords": [
         {
@@ -122,89 +238,169 @@
       ]
     },
     {
-      "suggestedLabel": "denken",
+      "suggestedLabel": "erkenntnis",
       "keywords": [
         {
-          "word": "denken",
-          "count": 2
+          "word": "erkenntnis",
+          "count": 7
         },
         {
-          "word": "dasein",
-          "count": 2
+          "word": "optimierung",
+          "count": 4
         },
         {
-          "word": "pfad",
-          "count": 1
-        },
-        {
-          "word": "vergleich",
-          "count": 1
-        },
-        {
-          "word": "vernunft",
-          "count": 1
-        },
-        {
-          "word": "resonanzvernunft",
-          "count": 1
-        }
-      ],
-      "evidence": 3,
-      "distinctness": 0.238,
-      "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.762,
-      "sampleEntryIds": [
-        "MPVCLR8S-F523777E",
-        "MPF4FISZ-67000E01",
-        "MOHC8GKH-8E301C89"
-      ]
-    },
-    {
-      "suggestedLabel": "würde",
-      "keywords": [
-        {
-          "word": "würde",
-          "count": 3
-        },
-        {
-          "word": "frage",
-          "count": 3
+          "word": "andere",
+          "count": 4
         },
         {
           "word": "grenze",
-          "count": 2
+          "count": 3
         },
         {
-          "word": "somit",
-          "count": 2
+          "word": "mensch",
+          "count": 3
+        },
+        {
+          "word": "erst",
+          "count": 3
+        }
+      ],
+      "evidence": 7,
+      "distinctness": 0.227,
+      "nearestConcept": "dazwischenintelligenz",
+      "nearestSim": 0.773,
+      "sampleEntryIds": [
+        "MTDCKR2Q-05DCEB69",
+        "MPUTYL5L-4C0B344F",
+        "MPUTT58G-25E5A1AC",
+        "MPUTKZI1-F10F9444",
+        "MPUSXGC6-CD078CEA"
+      ]
+    },
+    {
+      "suggestedLabel": "alle",
+      "keywords": [
+        {
+          "word": "alle",
+          "count": 3
         },
         {
           "word": "mich",
           "count": 2
         },
         {
-          "word": "wirklichkeit",
+          "word": "geschäftsmodell",
+          "count": 2
+        },
+        {
+          "word": "eigentlich",
+          "count": 1
+        },
+        {
+          "word": "siehts",
+          "count": 1
+        },
+        {
+          "word": "machinellen",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.195,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.805,
+      "sampleEntryIds": [
+        "MOHDLJ25-7A6B620C",
+        "MOHD4STN-8490D410",
+        "MOHCSO2P-2D88785B"
+      ]
+    },
+    {
+      "suggestedLabel": "bedeutet",
+      "keywords": [
+        {
+          "word": "bedeutet",
+          "count": 3
+        },
+        {
+          "word": "maschine",
+          "count": 3
+        },
+        {
+          "word": "resonanz",
+          "count": 3
+        },
+        {
+          "word": "zeitalter",
+          "count": 2
+        },
+        {
+          "word": "antworten",
+          "count": 2
+        },
+        {
+          "word": "diesem",
           "count": 2
         }
       ],
-      "evidence": 5,
-      "distinctness": 0.192,
-      "nearestConcept": "dazwischenintelligenz",
-      "nearestSim": 0.808,
+      "evidence": 8,
+      "distinctness": 0.193,
+      "nearestConcept": "antwort",
+      "nearestSim": 0.807,
       "sampleEntryIds": [
-        "MPUSXGC6-CD078CEA",
-        "MPH4R3SE-C224ACED",
-        "MOOU6X9D-4A49EE98",
-        "MON69DI9-D63A7910",
-        "MOHDAOFD-2C20D4F5"
+        "MQ67R74M-A1AA4B53",
+        "MQ5XNFSV-CD34905C",
+        "MQ5XE42V-D185B8D7",
+        "MQ5XCH3V-67EF85C8",
+        "MQ5JL9TM-83E39C42"
+      ]
+    },
+    {
+      "suggestedLabel": "spannungsfeld",
+      "keywords": [
+        {
+          "word": "spannungsfeld",
+          "count": 10
+        },
+        {
+          "word": "triade",
+          "count": 7
+        },
+        {
+          "word": "mensch",
+          "count": 5
+        },
+        {
+          "word": "unverfügbarkeit",
+          "count": 4
+        },
+        {
+          "word": "maschine",
+          "count": 4
+        },
+        {
+          "word": "beziehung",
+          "count": 3
+        }
+      ],
+      "evidence": 30,
+      "distinctness": 0.171,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.829,
+      "sampleEntryIds": [
+        "MQXDVN1C-CAA3081A",
+        "MQ5XFLFO-F0DBB89E",
+        "MQ5JM1HD-9047C82F",
+        "MPUFUBU5-A4BC72BE",
+        "MPUFP1VW-298D0A73"
       ]
     }
   ],
   "stats": {
-    "curated": 169,
-    "uncovered": 169,
-    "candidatesCount": 5,
+    "curated": 193,
+    "uncovered": 193,
+    "candidatesCount": 10,
     "concepts": 50,
-    "maxEvidence": 5
+    "maxEvidence": 30
   }
 }

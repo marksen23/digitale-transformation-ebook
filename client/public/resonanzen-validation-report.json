@@ -1,9 +1,15 @@
 {
-  "generatedAt": "2026-08-17T03:06:06.520Z",
-  "filesChecked": 244,
+  "generatedAt": "2026-10-09T18:33:05.147Z",
+  "filesChecked": 275,
   "errors": 0,
-  "warnings": 5,
+  "warnings": 10,
   "issues": [
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/analyse/analyse_erkenntnis-lm-verwandlung.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint analyse"
+    },
     {
       "level": "warning",
       "file": "content/resonanzen/master/chapter/chapter_band3-kap3.md",
@@ -13,6 +19,30 @@
     {
       "level": "warning",
       "file": "content/resonanzen/master/chapter/chapter_band3-kap3.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil4.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'teil4' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil4.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil6.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'teil6' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil6.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint chapter"
     },
@@ -37,22 +67,24 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "chapter": 29,
-      "dialog": 29,
-      "analyse": 59,
-      "enkidu": 53,
-      "graph-chat": 32,
-      "path-analyse": 36,
+      "analyse": 68,
+      "chapter": 31,
+      "dialog": 35,
+      "enkidu": 59,
+      "graph-chat": 34,
+      "path-analyse": 42,
       "translate": 6
     },
     "byStatus": {
-      "published": 146,
-      "rejected": 22,
-      "raw": 49,
-      "approved": 27
+      "published": 150,
+      "raw": 54,
+      "rejected": 24,
+      "approved": 47
     },
     "orphanNodeIds": [
       "band3-kap3",
+      "teil4",
+      "teil6",
       "weiterdenken"
     ],
     "danglingLinks": 0,

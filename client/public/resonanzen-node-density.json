@@ -1,40 +1,40 @@
 {
-  "generatedAt": "2026-08-17T03:06:36.547Z",
+  "generatedAt": "2026-10-09T18:34:02.054Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 20,
+      "count": 21,
       "endpoints": {
-        "path-analyse": 15,
-        "analyse": 5
+        "analyse": 6,
+        "path-analyse": 15
       }
     },
     "resonanz": {
-      "count": 17,
+      "count": 18,
       "endpoints": {
-        "analyse": 3,
-        "path-analyse": 14
+        "path-analyse": 15,
+        "analyse": 3
       }
     },
     "vernunft": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "analyse": 10,
+        "analyse": 11,
         "path-analyse": 4
       }
     },
     "zwischen": {
-      "count": 15,
+      "count": 17,
       "endpoints": {
-        "path-analyse": 8,
+        "path-analyse": 10,
         "analyse": 7
       }
     },
     "sprache": {
-      "count": 7,
+      "count": 14,
       "endpoints": {
-        "dialog": 1,
-        "path-analyse": 3,
-        "analyse": 3
+        "dialog": 7,
+        "analyse": 4,
+        "path-analyse": 3
       }
     },
     "dasein": {
@@ -45,16 +45,16 @@
       }
     },
     "stimme": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 3,
-        "analyse": 1
+        "analyse": 2,
+        "path-analyse": 3
       }
     },
     "schweigen": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
-        "analyse": 1
+        "analyse": 2
       }
     },
     "echo": {
@@ -65,45 +65,45 @@
       }
     },
     "klang": {
-      "count": 6,
-      "endpoints": {
-        "path-analyse": 3,
-        "analyse": 3
-      }
-    },
-    "erkenntnis": {
-      "count": 29,
-      "endpoints": {
-        "dialog": 20,
-        "analyse": 5,
-        "path-analyse": 4
-      }
-    },
-    "wahrheit": {
-      "count": 9,
-      "endpoints": {
-        "analyse": 6,
-        "path-analyse": 3
-      }
-    },
-    "denken": {
-      "count": 6,
-      "endpoints": {
-        "analyse": 4,
-        "path-analyse": 2
-      }
-    },
-    "bewusstsein": {
       "count": 7,
       "endpoints": {
         "analyse": 4,
         "path-analyse": 3
       }
     },
-    "moment": {
-      "count": 6,
+    "erkenntnis": {
+      "count": 38,
       "endpoints": {
-        "path-analyse": 5,
+        "analyse": 8,
+        "dialog": 26,
+        "path-analyse": 4
+      }
+    },
+    "wahrheit": {
+      "count": 10,
+      "endpoints": {
+        "analyse": 7,
+        "path-analyse": 3
+      }
+    },
+    "denken": {
+      "count": 8,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 5
+      }
+    },
+    "bewusstsein": {
+      "count": 8,
+      "endpoints": {
+        "path-analyse": 4,
+        "analyse": 4
+      }
+    },
+    "moment": {
+      "count": 7,
+      "endpoints": {
+        "path-analyse": 6,
         "analyse": 1
       }
     },
@@ -114,21 +114,24 @@
       }
     },
     "raum": {
-      "count": 5,
+      "count": 12,
       "endpoints": {
-        "path-analyse": 1,
-        "analyse": 4
+        "dialog": 6,
+        "analyse": 5,
+        "path-analyse": 1
       }
     },
     "gegenwart": {
-      "count": 4,
+      "count": 6,
       "endpoints": {
-        "analyse": 4
+        "analyse": 5,
+        "path-analyse": 1
       }
     },
     "dialog": {
-      "count": 1,
+      "count": 3,
       "endpoints": {
+        "path-analyse": 2,
         "analyse": 1
       }
     },
@@ -139,10 +142,10 @@
       }
     },
     "antwort": {
-      "count": 3,
+      "count": 5,
       "endpoints": {
-        "analyse": 2,
-        "path-analyse": 1
+        "path-analyse": 3,
+        "analyse": 2
       }
     },
     "sein": {
@@ -172,16 +175,16 @@
       }
     },
     "selbst": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "analyse": 5,
-        "path-analyse": 4
+        "path-analyse": 5,
+        "analyse": 5
       }
     },
     "andere": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 3
+        "analyse": 4
       }
     },
     "welt": {
@@ -192,29 +195,29 @@
       }
     },
     "freiheit": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 4,
         "analyse": 2
       }
     },
     "öffnung": {
-      "count": 3,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 3
+        "path-analyse": 5
       }
     },
     "spannung": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 2,
-        "analyse": 7
+        "analyse": 8,
+        "path-analyse": 2
       }
     },
     "lm-spiegel": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "analyse": 2,
+        "analyse": 3,
         "path-analyse": 4
       }
     },
@@ -239,18 +242,18 @@
       }
     },
     "lm-verwandlung": {
-      "count": 34,
+      "count": 36,
       "endpoints": {
+        "analyse": 8,
         "dialog": 20,
-        "analyse": 6,
         "path-analyse": 8
       }
     },
     "dazwischenintelligenz": {
-      "count": 4,
+      "count": 6,
       "endpoints": {
-        "analyse": 3,
-        "path-analyse": 1
+        "path-analyse": 3,
+        "analyse": 3
       }
     },
     "transformatives-drittes": {
@@ -266,10 +269,10 @@
       }
     },
     "echo-kammer": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "path-analyse": 1,
-        "analyse": 2
+        "analyse": 3,
+        "path-analyse": 1
       }
     },
     "gelassenheit": {
@@ -292,9 +295,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "path-analyse": 6
       }
     },
@@ -348,8 +351,8 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 34,
-    "median": 4,
+    "maxCount": 38,
+    "median": 5,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "schattenlicht",

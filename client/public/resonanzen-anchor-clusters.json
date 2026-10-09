@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-08-17T03:06:36.927Z",
+  "generatedAt": "2026-10-09T18:34:13.659Z",
   "clusters": [
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
@@ -26,8 +26,24 @@
         "MQ5WV5PP-6209C749"
       ],
       "lastVariantTs": "2026-06-09T01:00:02.623Z",
-      "masterId": "MASTER-6469616C",
-      "masterTs": "2026-06-22T23:56:37.289Z",
+      "masterId": "MASTER-BC195439",
+      "masterTs": "2026-10-08T17:45:16.028Z",
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:raum+erkenntnis+sprache",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MTNB93L6-1411E014",
+        "MTNB85LB-7C1F15DE",
+        "MTNB7STV-BCB7D709",
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66",
+        "MTNB68RF-CFF570D9"
+      ],
+      "lastVariantTs": "2026-09-04T18:52:00.234Z",
+      "masterId": null,
+      "masterTs": null,
       "masterStale": false
     },
     {
@@ -85,8 +101,8 @@
         "MP0Q5FDJ-F2C015AF"
       ],
       "lastVariantTs": "2026-05-16T18:18:38.925Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-03059588",
+      "masterTs": "2026-10-08T17:45:23.365Z",
       "masterStale": false
     },
     {
@@ -111,8 +127,8 @@
         "MOPL410P-D988678B"
       ],
       "lastVariantTs": "2026-05-03T15:51:52.482Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-12D94089",
+      "masterTs": "2026-10-08T17:45:26.721Z",
       "masterStale": false
     },
     {
@@ -129,6 +145,30 @@
       "masterStale": false
     },
     {
+      "anchor": "analyse:lm-spiegel+wahrheit",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MUY7RXCI-C4CF7B92",
+        "MQASO35V-115DA081"
+      ],
+      "lastVariantTs": "2026-10-07T14:39:50.418Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:lm-verwandlung+stimme",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MUY7RXCI-D36BB4D6",
+        "MOHVDNEU-D3F7EEB5"
+      ],
+      "lastVariantTs": "2026-10-07T14:39:50.418Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "analyse:erkenntnis+lm-verwandlung",
       "endpoint": "analyse",
       "variantIds": [
@@ -136,8 +176,8 @@
         "MOIXN7OL-B18642AC"
       ],
       "lastVariantTs": "2026-06-09T00:37:26.020Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-31CE5C0B",
+      "masterTs": "2026-10-08T17:45:35.202Z",
       "masterStale": false
     },
     {
@@ -166,9 +206,9 @@
     }
   ],
   "stats": {
-    "totalAnchors": 108,
-    "withMultipleVariants": 11,
-    "withMaster": 3,
+    "totalAnchors": 121,
+    "withMultipleVariants": 14,
+    "withMaster": 6,
     "staleMasters": 0
   }
 }
