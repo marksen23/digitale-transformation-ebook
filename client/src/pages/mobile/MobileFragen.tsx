@@ -13,7 +13,7 @@ import {
   loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry,
 } from "@/lib/resonanzenIndex";
-import { loadQuestions, type QuestionEntry } from "@/lib/questions";
+import { formatAnswerScore, loadQuestions, type QuestionEntry } from "@/lib/questions";
 import { findPassageForEntry } from "@/lib/conceptPassageLink";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 import MobilePill from "@/pages/mobile/MobilePill";
@@ -131,7 +131,7 @@ export default function MobileFragen() {
                   Das Werk antwortet
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                  {q.answeredBy.slice(0, 3).map(a => {
+                  {q.answeredBy.map(a => {
                     const entry = byId.get(a.id);
                     const preview = entry?.prompt ?? entry?.response ?? "";
                     return (
@@ -155,7 +155,7 @@ export default function MobileFragen() {
                           </span>
                         )}
                         <span style={{ fontFamily: MONO, fontSize: 8, color: C.muted, letterSpacing: "0.04em" }}>
-                          {epLabel(entry?.endpoint ?? "")} · {a.score.toFixed(2)}
+                          {epLabel(entry?.endpoint ?? "")} · {formatAnswerScore(a)}
                         </span>
                       </button>
                     );
