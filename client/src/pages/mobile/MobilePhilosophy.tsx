@@ -7,7 +7,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
-import { C_DARK, C_LIGHT, MONO, SERIF } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF } from "@/lib/theme";
 import {
   TRADITIONS, PHILOSOPHERS, RESONANZVERNUNFT_PFAD,
   getPhilosopher, getTradition, POSITION_LABEL,
@@ -106,7 +106,7 @@ export default function MobilePhilosophy() {
             if (ps.length === 0) return null;
             return (
               <div key={t.id}>
-                <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 16, color: t.color, margin: "16px 0 4px" }}>{t.name}</div>
+                <div style={{ fontFamily: DISPLAY, fontSize: 16, color: t.color, margin: "16px 0 4px" }}>{t.name}</div>
                 {ps.map(p => (
                   <button
                     key={p.id} type="button" onClick={() => setSelectedId(p.id)}

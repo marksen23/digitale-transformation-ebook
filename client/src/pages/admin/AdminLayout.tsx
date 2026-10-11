@@ -131,7 +131,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
         </nav>
       </header>
 
-      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "1.5rem 1rem 4rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
+      <main key={location} className="panel-appear" style={{ maxWidth: 1200, margin: "0 auto", padding: "1.5rem 1rem 4rem", display: "flex", flexDirection: "column", gap: "2rem" }}>
         {children}
       </main>
 

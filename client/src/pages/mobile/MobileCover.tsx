@@ -11,7 +11,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF_BODY } from "@/lib/theme";
 import type { EbookFile } from "@/lib/werkChunks";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
@@ -58,11 +58,11 @@ export default function MobileCover() {
           <div style={{ width: 40, height: 1, background: "rgba(245,158,11,0.45)" }} />
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: 10, textAlign: "center" }}>
-          <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 38, lineHeight: 1.05, color: "#fafaf9", letterSpacing: "-0.01em" }}>
+          <div style={{ fontFamily: DISPLAY, fontSize: 38, lineHeight: 1.05, color: "#fafaf9", letterSpacing: "-0.01em" }}>
             {ebook?.meta.title ?? "Die Digitale Transformation"}
           </div>
           <div style={{ width: 64, height: 1, margin: "0 auto", background: "linear-gradient(to right,transparent,rgba(245,158,11,0.55),transparent)" }} />
-          <div style={{ fontFamily: "Lora,Georgia,serif", fontStyle: "italic", fontSize: 13, lineHeight: 1.55, color: "#d6d3d1" }}>
+          <div style={{ fontFamily: SERIF_BODY, fontStyle: "italic", fontSize: 13, lineHeight: 1.55, color: "#d6d3d1" }}>
             {ebook?.meta.subtitle ?? "Eine poetisch-philosophische Trilogie mit theoretischer Grundlegung"}
           </div>
         </div>

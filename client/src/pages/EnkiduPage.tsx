@@ -60,7 +60,7 @@ function deleteConversation(id: string) {
 }
 
 // ─── Styles — zentrale Palette + Fonts aus lib/theme ───────────────
-import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, RADIUS } from "@/lib/theme";
 
 const C_DARK = {
   ...THEME_DARK,
@@ -81,7 +81,7 @@ const C_LIGHT: { readonly [K in keyof typeof C_DARK]: string } = {
 function btn(overrides: React.CSSProperties = {}): React.CSSProperties {
   return {
     fontFamily: C_DARK.mono, border: "none", cursor: "pointer",
-    borderRadius: 6,
+    borderRadius: RADIUS.card,
     transition: "all 0.2s", ...overrides,
   };
 }
@@ -177,7 +177,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     if (!document.getElementById(id)) {
       const link = document.createElement("link");
       link.id = id; link.rel = "stylesheet";
-      link.href = "https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Courier+Prime:wght@400;700&display=swap";
+      link.href = "https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap";
       document.head.appendChild(link);
     }
   }, []);
@@ -227,7 +227,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           letter-spacing: 0.08em !important;
         }
         .enkidu-close-btn {
-          font-family: monospace; font-size: 1.1rem; line-height: 1;
+          font-family: ${MONO}; font-size: 1.1rem; line-height: 1;
           color: #888; background: none; border: none; cursor: pointer;
           padding: 0.4rem 0.5rem; transition: color 0.2s; flex-shrink: 0;
         }
@@ -532,7 +532,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       </div>
 
       {/* Messages */}
-      <div className="enkidu-messages" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", maxWidth: 760, margin: "0 auto", width: "100%", scrollbarWidth: "thin", scrollbarColor: `${C.border} transparent` }}>
+      <div className="enkidu-messages" style={{ flex: 1, overflowY: "auto", display: "flex", flexDirection: "column", maxWidth: MAX_WIDTH.content, margin: "0 auto", width: "100%", scrollbarWidth: "thin", scrollbarColor: `${C.border} transparent` }}>
         {messages.map((msg, i) => (
           <div key={msg.id} className="enkidu-msg enkidu-msg-row" style={{ display: "flex", flexDirection: "column", gap: "0.4rem", position: "relative" }}
             onMouseEnter={() => setHoveredMsg(i)}
@@ -626,11 +626,11 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
       {/* Input */}
       <div className="enkidu-input-area" style={{ borderTop: `1px solid ${C.border}`, background: C.void, flexShrink: 0, paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
         {/* Prompt cursor row — thematic reference to the cursor motif in the work */}
-        <div style={{ maxWidth: 760, margin: "0 auto 0.4rem", display: "flex", alignItems: "center", gap: "0.4em" }}>
+        <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto 0.4rem", display: "flex", alignItems: "center", gap: "0.4em" }}>
           <span style={{ fontFamily: C.mono, fontSize: "0.65rem", color: C.accentDim, letterSpacing: "0.15em", userSelect: "none" }}>›</span>
           <BlinkCursor style={{ width: "0.5em", height: "0.75em", opacity: 0.7 }} />
         </div>
-        <div className="enkidu-input-inner" style={{ maxWidth: 760, margin: "0 auto", display: "flex", alignItems: "flex-end" }}>
+        <div className="enkidu-input-inner" style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", display: "flex", alignItems: "flex-end" }}>
           <textarea
             ref={textareaRef}
             value={inputValue}
@@ -758,7 +758,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     ).length;
 
     return (
-      <div className="enkidu-profile" style={{ maxWidth: 900, margin: "0 auto" }}>
+      <div className="enkidu-profile" style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto" }}>
         <div style={{ marginBottom: "4rem" }}>
           <h2 style={{ fontFamily: C.serif, fontSize: "2.5rem", fontWeight: 400, fontStyle: "italic", color: C.textBright, marginBottom: "0.5rem" }}>Resonanzverlauf</h2>
           <p style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase" }}>Spuren der Begegnung</p>

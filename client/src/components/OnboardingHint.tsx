@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useIsMobile } from "@/hooks/useMobile";
-import { C_DARK, C_LIGHT, MONO, SERIF, ORNAMENT, TRACKED, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, SERIF, ORNAMENT, TRACKED, RADIUS, type Palette } from "@/lib/theme";
 
 const KEY = "resonanzvernunft.onboarded";
 
@@ -55,7 +55,7 @@ export default function OnboardingHint() {
               style={{
                 fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase",
                 color: C.accentText, textDecoration: "none",
-                border: `1px solid ${C.accentDim}`, borderRadius: 3,
+                border: `1px solid ${C.accentDim}`, borderRadius: RADIUS.micro,
                 padding: "0.35rem 0.6rem", minHeight: 30, display: "inline-flex", alignItems: "center",
               }}
             >

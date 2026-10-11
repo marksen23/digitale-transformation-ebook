@@ -3,17 +3,17 @@
  *
  * Jede KI-Antwort endet mit einer offenen Schlussfrage. Diese Seite sammelt sie
  * (build-präkomputiert, resonanzen-questions.json) und zeigt, welche das Werk
- * sich SELBST bereits beantwortet hat (semantisches Matching gegen spätere
- * Einträge) und welche offen bleiben — der Denk-Horizont des wachsenden Werks.
+ * sich SELBST bereits beantwortet hat (Cosine gegen spätere Einträge, plus
+ * kuratierte Pins aus question-answer-overrides.json) und welche offen bleiben.
  *
  * Eigener position:fixed-Scroll-Container (App-Scroll-Modell) + SiteFooter.
  */
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, RADIUS, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
-import { loadQuestions, type QuestionEntry } from "@/lib/questions";
+import { formatAnswerScore, loadQuestions, type QuestionEntry } from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
 import { useIsMobile } from "@/hooks/useMobile";
 import MobileFragen from "@/pages/mobile/MobileFragen";
@@ -60,7 +60,7 @@ export default function FragenPage() {
 
   const chip = (active: boolean): React.CSSProperties => ({
     fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase",
-    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: 5, cursor: "pointer",
+    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: RADIUS.button, cursor: "pointer",
     border: `1px solid ${active ? c.accentText : c.border}`,
     color: active ? c.accentText : c.muted, background: "none",
   });
@@ -72,13 +72,14 @@ export default function FragenPage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: c.void, color: c.text,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>
@@ -112,7 +113,7 @@ export default function FragenPage() {
         )}
 
         {!questions ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : shown.length === 0 ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted, lineHeight: 1.6 }}>
             Keine Fragen {status === "open" ? "offen" : status === "answered" ? "beantwortet" : ""}
@@ -128,7 +129,7 @@ export default function FragenPage() {
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "0.7rem" }}>
             {shown.map((q, i) => (
-              <div key={q.sourceId + i} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: 5, padding: "0.8rem 0.95rem" }}>
+              <div key={q.sourceId + i} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.button, padding: "0.8rem 0.95rem" }}>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: "0.5rem", marginBottom: "0.4rem" }}>
                   <span style={{ fontFamily: MONO, fontSize: "0.52rem", letterSpacing: "0.12em", textTransform: "uppercase", color: epColor(q.endpoint, c.muted) }}>
                     {epLabel(q.endpoint)}
@@ -156,12 +157,12 @@ export default function FragenPage() {
                       Das Werk antwortet
                     </span>
                     <div style={{ display: "flex", flexDirection: "column", gap: "0.3rem", marginTop: "0.35rem" }}>
-                      {q.answeredBy.slice(0, 3).map(a => {
+                      {q.answeredBy.map(a => {
                         const entry = byId.get(a.id);
                         const preview = entry?.prompt ?? entry?.response ?? "";
                         return (
                           <Link key={a.id} href={`/resonanz/${encodeURIComponent(a.id)}`}
-                            style={{ textDecoration: "none", display: "block", background: c.deep, border: `1px solid ${c.border}`, borderRadius: 4, padding: "0.4rem 0.5rem" }}>
+                            style={{ textDecoration: "none", display: "block", background: c.deep, border: `1px solid ${c.border}`, borderRadius: RADIUS.button, padding: "0.4rem 0.5rem" }}>
                             {preview ? (
                               <span style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: c.text, lineHeight: 1.4, display: "block" }}>
                                 {preview.slice(0, 90)}{preview.length > 90 ? "…" : ""}
@@ -170,7 +171,7 @@ export default function FragenPage() {
                               <span style={{ fontFamily: MONO, fontSize: "0.5rem", color: c.muted }}>{a.id.slice(0, 12)}…</span>
                             )}
                             <span style={{ fontFamily: MONO, fontSize: "0.48rem", color: c.muted, marginTop: 2, display: "block" }}>
-                              {epLabel(entry?.endpoint ?? "")} · {a.score.toFixed(2)}
+                              {epLabel(entry?.endpoint ?? "")} · {formatAnswerScore(a)}
                             </span>
                           </Link>
                         );

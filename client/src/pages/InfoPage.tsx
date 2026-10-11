@@ -7,7 +7,7 @@
  * PLATZHALTER (rechtlich relevante Angaben füllt der Betreiber selbst).
  */
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, SERIF_BODY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, SERIF_BODY, type Palette, RADIUS } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 
 type InfoKind = "projekt" | "impressum" | "kontakt" | "nutzung" | "lizenz";
@@ -23,7 +23,7 @@ const TITLES: Record<InfoKind, string> = {
 function Placeholder({ c, lines }: { c: Palette; lines: string[] }) {
   return (
     <div style={{
-      border: `1px dashed ${c.border}`, borderRadius: 6, padding: "1rem 1.2rem",
+      border: `1px dashed ${c.border}`, borderRadius: RADIUS.card, padding: "1rem 1.2rem",
       background: c.deep, color: c.muted, fontFamily: MONO, fontSize: "0.75rem", lineHeight: 1.8,
     }}>
       <div style={{ color: c.accentText, marginBottom: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", fontSize: "0.55rem" }}>
@@ -43,7 +43,7 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
     <h2 style={{ fontFamily: SERIF, fontSize: "1.1rem", color: c.textBright, margin: "1.6rem 0 0.6rem" }}>{children}</h2>
   );
   const note: React.CSSProperties = {
-    border: `1px dashed ${c.border}`, borderRadius: 6, padding: "0.8rem 1rem", background: c.deep,
+    border: `1px dashed ${c.border}`, borderRadius: RADIUS.card, padding: "0.8rem 1rem", background: c.deep,
     color: c.muted, fontFamily: MONO, fontSize: "0.7rem", lineHeight: 1.7, marginBottom: "1.2rem",
   };
   const a: React.CSSProperties = { color: c.accentText };
@@ -58,11 +58,11 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 720, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted, marginBottom: "0.4rem" }}>
           Resonanzvernunft
         </div>
-        <h1 style={{ margin: "0 0 1.5rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
+        <h1 style={{ margin: "0 0 1.5rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
           {TITLES[kind]}
         </h1>
 

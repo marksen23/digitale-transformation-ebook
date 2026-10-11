@@ -1,0 +1,42 @@
+{
+  "_comment": "Kuratierte Frage→Antwort-Kanten. scripts/build-resonanzen-index.ts (writeQuestions) mischt sie in resonanzen-questions.json: pin wird immer aufgenommen, auch unter QUESTIONS_ANSWER_SIM (Default 0.72); exclude und excludePrefixes verdrängen Cosine-Treffer. Die generierte JSON nicht von Hand editieren. Pins, die im Korpus fehlen oder rejected sind, verwirft der Build und loggt eine Warnung.",
+  "rules": [
+    {
+      "sourceId": "MQXDVN1C-CAA3081A",
+      "pin": ["MTNBAIUZ-299AC7D8", "MUAD2ZEF-BF1C7E18"],
+      "note": "Unverfügbarkeit ↔ Existenz"
+    },
+    {
+      "sourceId": "MPUSCM19-FD1196BD",
+      "pin": ["MPUSGXKN-78839F4E"],
+      "note": "Wahrheit in der Verklärung — bisher answered:false, obwohl der Eintrag selbst andere Fragen beantwortet"
+    },
+    {
+      "sourceId": "MQ67R74M-A1AA4B53",
+      "pin": ["MTNB6SUG-2922AE66", "MTNB68RF-CFF570D9", "MTNB85LB-7C1F15DE"],
+      "note": "empfundene Sprache. Der September-Logos-Cluster gehört hierher, nicht an Stimme oder Judikative."
+    },
+    {
+      "sourceId": "MOHVDNEU-D3F7EEB5",
+      "pin": ["MUY7RXCI-D36BB4D6"],
+      "excludePrefixes": ["MTNB"],
+      "note": "Stimme ↔ Verwandlung. September-Logos-Cluster (MTNB…) nicht als Antwort verbuchen."
+    },
+    {
+      "sourceId": "MPUSJLQF-F4BBBDD9",
+      "pin": ["MUY7RXCI-012FC8A7"],
+      "excludePrefixes": ["MTNB"],
+      "note": "Factcheck / Judikative. September-Logos-Cluster (MTNB…) nicht als Antwort verbuchen."
+    },
+    {
+      "sourceId": "MQ66ZWYC-52DE2DF2",
+      "pin": ["MUY7RXCI-E899056E"],
+      "note": "Pause / Stille"
+    },
+    {
+      "sourceId": "MQASO35V-115DA081",
+      "pin": ["MUY7RXCI-C4CF7B92"],
+      "note": "Echtheit vs. Projektion"
+    }
+  ]
+}

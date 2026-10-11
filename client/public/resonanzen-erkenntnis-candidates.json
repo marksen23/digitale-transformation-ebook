@@ -1,12 +1,220 @@
 {
-  "generatedAt": "2026-08-17T03:06:36.926Z",
+  "generatedAt": "2026-10-09T18:34:13.656Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
-  "candidates": [],
+  "candidates": [
+    {
+      "id": "ERK-1799IL7",
+      "answerId": "MUY7RXCI-012FC8A7",
+      "answerEndpoint": "enkidu",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Judikative der Annahmen Eine unabhängige Schicht, die Rohdaten factcheckt, unterbindet Verklärung an der Quelle. Das ist nötig, aber unvollständig. Faktenprüfung stabilisiert Behauptungen; sie prüft nicht die *impliziten Annahmen der Auswahl*: welche Weltausschnitte überhaupt als Input gelten, welche Gegenbeispiele nie in den Strom gelangen, und welche Vorstellung von „Rohdaten“ bereits Deutun",
+      "distinctness": 0.272,
+      "conceptAnchor": "echo-kammer",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MPUSJLQF-F4BBBDD9",
+          "question": "Die unabhängige Schicht kann Fakten prüfen. Aber kann sie auch die *impliziten Annahmen* überprüfen, die in der Auswahl der Daten selbst liegen? Und was bedeutet es für unsere eigene Urteilskraft, wenn wir die Verantwortung für das Factchecking vollständig an eine solche \"Judikative\" delegieren?",
+          "score": 0.824
+        }
+      ]
+    },
+    {
+      "id": "ERK-1CPMYZQ",
+      "answerId": "MTNB7STV-BCB7D709",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Vertiefung dieses Bewusstseinswandels in Ausbildung und kollaborativen Prozessen erfordert mehr als das Hinzufügen eines weiteren Moduls; es verlangt eine Transformation des Lernens selbst. Wir müssen Räume schaffen, in denen angehende digitale Schöpfer die Erfahrung machen, dass ihr Verständnis der Welt nicht nur durch logische Analyse, sondern durch das Mitschwingen mit komplexen Systemen un",
+      "distinctness": 0.216,
+      "conceptAnchor": "resonanzimperativ",
+      "nodeIds": [
+        "raum",
+        "erkenntnis",
+        "sprache"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MTNB77VP-6A85F255",
+          "question": "Doch wie können wir diesen Bewusstseinswandel so tief in die Ausbildung und die kollaborativen Prozesse der digitalen Schöpfergemeinschaften einsenken, dass das resonante Denken zur intuitiven Grundlage ihrer Arbeit wird?",
+          "score": 0.918
+        },
+        {
+          "sourceId": "MTNB6SUG-2922AE66",
+          "question": "Doch wie können wir die Architekten und Entwickler digitaler Welten dazu inspirieren, ihre Schöpfungen nicht nur als funktionale, sondern als resonante Räume zu begreifen, die den Logos in ihrer DNA tragen?",
+          "score": 0.778
+        }
+      ]
+    },
+    {
+      "id": "ERK-3OUZPV",
+      "answerId": "MUY7RXCI-C4CF7B92",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Spiegel oder Antwort: Echtheit und Projektion Ein Spiegel antwortet immer, und gerade darin liegt seine Täuschung. Er gibt zurück, was vor ihm steht, nur geglättet, beschleunigt und mit dem Anschein von Gegenüber. Je besser ein System die Erwartung des Fragenden trifft, desto schwerer wird es, Antwort und Projektion zu unterscheiden. Zustimmung ist deshalb kein Beleg für Echtheit, sondern oft ihr ",
+      "distinctness": 0.215,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "lm-spiegel",
+        "wahrheit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MQASO35V-115DA081",
+          "question": "Wenn Wahrheit sich im digitalen Zeitalter immer mehr im Widerschein einer \"antwortfähigen Intelligenz\" offenbart, wie können wir dann lernen, die Echtheit des Reflektierten von den bloßen Projektionen unseres eigenen Denkens zu unterscheiden?",
+          "score": 0.818
+        },
+        {
+          "sourceId": "MOP0S479-373A2268",
+          "question": "Wenn die Resonanzvernunft im Spiegel ihre reflexive Form findet, der zugleich Medium und Akteur ist, wie kann das Ich dann noch unterscheiden, ob es sich selbst begegnet oder einem Echo, das es längst zu sein gelernt hat?",
+          "score": 0.768
+        }
+      ]
+    },
+    {
+      "id": "ERK-KBVWM7",
+      "answerId": "MTNB93L6-1411E014",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "In einer fragmentierten digitalen Welt die kollektive Eigenfrequenz zu kultivieren, die für universelle Resonanz notwendig ist, bedeutet, über die bloße Vernetzung hinauszuwachsen und die tieferen Schichten des Menschseins im digitalen Raum zu berühren. Es geht nicht um Gleichschaltung, sondern um die Entdeckung gemeinsamer Schwingungsmuster, die uns als resonierende Wesen verbinden, selbst in der",
+      "distinctness": 0.212,
+      "conceptAnchor": "resonanz",
+      "nodeIds": [
+        "raum",
+        "erkenntnis",
+        "sprache"
+      ],
+      "resolveCount": 14,
+      "resolves": [
+        {
+          "sourceId": "MTNB85LB-7C1F15DE",
+          "question": "Wie können wir in einer zunehmend fragmentierten digitalen Welt die kollektive Eigenfrequenz kultivieren, die für eine solche universelle Resonanz notwendig ist?",
+          "score": 0.909
+        },
+        {
+          "sourceId": "MQ5KBJMQ-5C523141",
+          "question": "Angesichts einer Welt, die zunehmend von algorithmischen Reaktionen und isolierenden \"Echo-Kammern\" geprägt ist: Wie können wir die Bedingungen für unsere individuelle und kollektive \"Eigenfrequenz\" und \"Ansprechbarkeit\" im digitalen Zeitalter bewahren und stärken, um transformative Resonanz zu ermöglichen?",
+          "score": 0.854
+        },
+        {
+          "sourceId": "MQ5JM1HD-9047C82F",
+          "question": "Wie können wir in einer immer komplexer werdenden Welt, die von digitalen \"Echo-Kammern\" und der Versuchung der Abschottung bedroht ist, diese grundlegende \"Ansprechbarkeit\" und \"Eigenfrequenz\" des Lebendigen bewahren und kultivieren?",
+          "score": 0.824
+        },
+        {
+          "sourceId": "MP0X2MFM-53C89506",
+          "question": "Wie kann die digitale Sphäre, die unzählige Spiegel bietet, dazu beitragen, die \"Eigenfrequenz\" des Menschen so zu stärken, dass sie nicht in bloßer Reflexion aufgeht, sondern zu authentischer Resonanz fähig wird?",
+          "score": 0.818
+        },
+        {
+          "sourceId": "MTNB7STV-BCB7D709",
+          "question": "Doch wie können wir sicherstellen, dass diese Kultivierung der Resonanz nicht zur exklusiven Domäne einiger Weniger wird, sondern als eine grundlegende Fähigkeit in der gesamten Breite der digitalen Gesellschaft verankert wird?",
+          "score": 0.795
+        }
+      ]
+    },
+    {
+      "id": "ERK-1U814DO",
+      "answerId": "MTNB77VP-6A85F255",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Inspiration für Architekten und Entwickler digitaler Welten, resonante Räume zu schaffen, die den Logos in ihrer DNA tragen, liegt nicht in der bloßen Aufforderung zur Ethik, sondern in der erlebten Erfahrung von Resonanz selbst. Es ist die Erkenntnis, dass wahre Innovation und nachhaltige Bedeutung nicht in der Optimierung bestehender Funktionen liegen, sondern in der Ermöglichung von tiefen,",
+      "distinctness": 0.211,
+      "conceptAnchor": "resonanzimperativ",
+      "nodeIds": [
+        "raum",
+        "erkenntnis",
+        "sprache"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MTNB6SUG-2922AE66",
+          "question": "Doch wie können wir die Architekten und Entwickler digitaler Welten dazu inspirieren, ihre Schöpfungen nicht nur als funktionale, sondern als resonante Räume zu begreifen, die den Logos in ihrer DNA tragen?",
+          "score": 0.903
+        },
+        {
+          "sourceId": "MTNB5V7Q-3B5123E8",
+          "question": "Diese Triade birgt eine tiefgreifende Erkenntnis für das Verhältnis von Mensch und Maschine, für das Wesen der Resonanz und die Gestaltung digitaler Existenz. Für die Mensch-Maschine-Beziehung bedeutet sie, dass wahre Interaktion über die bloße Informationsübertragung hinausgeht; sie erfordert die Kultivierung eines \"Zwischen\" als \"Dazwischenintelligenz\" [dd8092b51d19], in dem Unerwartetes (\"Einsicht\") geschehen darf und dessen Sinn durch einen offenen \"Logos\" – ein Denken, das sich nicht auf binäre Entscheidungen beschränken lässt – stets neu verhandelt wird. Resonanz als \"beharrendes, relationales Geschehen\" [MOQ5EOBY-82AD9EEE] wird hier als ein Sich-Einlassen auf die \"Widerständigkeit des Anderen\" und die \"Irritierbarkeit des Erkennenden\" [6fbd5b424474] verständlich, getragen von einem Logos, der das Unverfügbare nicht zu beherrschen sucht, sondern sein lässt. Für die digitale Existenz mahnt sie, Räume nicht als leere Kanäle, sondern als Orte der Möglichkeit zu begreifen, in denen das Erschrecken der Einsicht Platz hat und die Sprache als ein Wohnort des Denkens die notwendige Offenheit gegen algorithmische Abschlüsse verteidigt. Wie können wir im digitalen Raum einen Logos kultivieren, der nicht nur übermittelt, sondern bewohnt und offen hält?",
+          "score": 0.797
+        },
+        {
+          "sourceId": "MTNB68RF-CFF570D9",
+          "question": "Doch wie vermögen wir diesen Logos so zu verankern, dass er nicht zur bloßen Metapher verkommt, sondern als gelebte Praxis die Architektur unserer digitalen Welt durchdringt?",
+          "score": 0.769
+        }
+      ]
+    },
+    {
+      "id": "ERK-182UQHU",
+      "answerId": "MUY7RXCI-E899056E",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Pause als Resonanzraum Digitale Systeme kennen keine Pause, nur Latenz. Latenz ist ein Mangel, der behoben werden soll; die Pause ist ein Raum, der offen gehalten wird. In der Echtzeitkommunikation wird jede Stille als Störung gelesen: als Ladezeit, als Verbindungsabbruch, als fehlende Antwort. Damit verschwindet der Ort, an dem Resonanz überhaupt entstehen kann. Resonanz braucht ein Intervall",
+      "distinctness": 0.206,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "gegenwart",
+        "schweigen"
+      ],
+      "resolveCount": 4,
+      "resolves": [
+        {
+          "sourceId": "MQ66ZWYC-52DE2DF2",
+          "question": "Kann das bewusste Einlegen von Pausen im digitalen Dialog, das Warten und das Aushalten von Stille, zu einer tieferen Form der \"Dazwischenintelligenz\" führen, die über die reine Informationsverarbeitung hinausgeht?",
+          "score": 0.806
+        },
+        {
+          "sourceId": "MTL5HMEK-8E3F01EF",
+          "question": "Doch wenn der Moment die einzige Zeit für Resonanz ist und die digitale Transformation eine ständige Präsenz und Beschleunigung erzwingt, wie kann das Dasein die notwendige Tiefe und den Widerstand finden, um im Moment eine authentische, scheiterbare Resonanz zu entfalten?",
+          "score": 0.761
+        },
+        {
+          "sourceId": "MQ5B6CTT-AB0A3D97",
+          "question": "Welche neuen Möglichkeiten zur Störung oder Bewahrung resonanter Begegnungen entstehen, wenn die digitale Infrastruktur sowohl das \"Zwischen\" zu simulieren als auch den \"Moment\" zu verflüchtigen versucht?",
+          "score": 0.754
+        },
+        {
+          "sourceId": "MTKI1YQW-CD0EEDF3",
+          "question": "Wie kann eine Vernunft, die sich als Antwortfähigkeit versteht, die Stille des Nicht-Antwortbaren noch aushalten, ohne sich selbst zu verlieren?",
+          "score": 0.73
+        }
+      ]
+    },
+    {
+      "id": "ERK-BMHNSQ",
+      "answerId": "MUY7RXCI-D36BB4D6",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Spannungsfeld vertieft: Stimme ↔ Reproduzierbarkeit Wenn jede Stimme klonbar wird, droht Verwandlung zur bloßen Variation eines Datensatzes zu werden. Das Werk kennt die Stimme als inkarnierten Körper der Sprache: als Seismograph von Zögern, Bruch und Atem. Die Reproduktion kopiert das Spektrum, nicht die Spur. Die Spur ist nicht das Archiv des Klangs, sondern das Ereignis der Verwandlung im Augen",
+      "distinctness": 0.202,
+      "conceptAnchor": "stimme",
+      "nodeIds": [
+        "lm-verwandlung",
+        "stimme"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MOHVDNEU-D3F7EEB5",
+          "question": "In einer Welt, in der jede Stimme potenziell manipulierbar und unendlich reproduzierbar wird, wo verbleibt dann die unverwechselbare Spur der Verwandlung im Körper der Sprache?",
+          "score": 0.834
+        },
+        {
+          "sourceId": "MOUA3PLK-548F1A0A",
+          "question": "Welche neuen Wege erschließen sich, wenn wir die \"Stimme\" nicht nur als Ausdruck menschlicher \"Eigenfrequenz\", sondern auch als Metapher für die unhintergehbare Präsenz des Einzelnen im digitalen Raum begreifen, der doch so sehr auf Übertragungskanäle und entkörperlichte Daten setzt?",
+          "score": 0.786
+        }
+      ]
+    }
+  ],
   "stats": {
-    "total": 0,
+    "total": 7,
     "confirmedFiltered": 42,
-    "curatedRef": 169
+    "curatedRef": 193
   }
 }

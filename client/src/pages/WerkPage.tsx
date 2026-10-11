@@ -15,7 +15,7 @@
  */
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocation, useRoute, Link } from "wouter";
-import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, RADIUS, type Palette } from "@/lib/theme";
+import { SERIF, SERIF_BODY, MONO, DISPLAY, C_DARK, C_LIGHT, PAPER, TRACKED, ORNAMENT, MAX_WIDTH, RADIUS, TRANSITION, type Palette } from "@/lib/theme";
 import { useTheme } from "@/contexts/ThemeContext";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
@@ -31,20 +31,10 @@ import {
   type EbookFile, type WerkChunksFile,
   deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
 } from "@/lib/werkChunks";
-import { useIsMobile } from "@/hooks/useMobile";
-import { useAudioPlayer } from "@/hooks/useAudioPlayer";
-import { NODES } from "@/data/conceptGraph";
-import MobileReader from "@/pages/mobile/MobileReader";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
 // Echte Begriffs-Labels — nur diese darf die "Aus dem Begriffsnetz"-Randnotiz
-// zeigen. Ohne diese Prüfung könnte ?fromConcept=<beliebiger-Text> aus der
-// URL jeden Text unter dem vertrauenswürdig wirkenden "❦ Aus dem
-// Begriffsnetz"-Label anzeigen (Content-Spoofing; kein XSS, React escaped
-// den Text ohnehin — aber die Herkunftsangabe soll echt sein).
-const KNOWN_CONCEPT_LABELS = new Set(NODES.map(n => n.fullLabel));
-
 interface CitedSelection {
   chunkId: string;
   text: string;
@@ -70,7 +60,6 @@ export default function WerkPage() {
   }, [isDark]);
   const [, params] = useRoute<{ chapter?: string }>("/werk/:chapter?");
   const [, navigate] = useLocation();
-  const isMobile = useIsMobile();
   // Desktop-Pendant zu MobileReaders eigenem Chrome (Redesign Phase 2):
   // AppFrame ist auf /werk jetzt auf jeder Bildschirmgröße unterdrückt, das
   // Desktop-Reader-Chrome unten übernimmt ≡-Menü + Suche als Fluchtweg.
@@ -128,7 +117,7 @@ export default function WerkPage() {
     return map;
   }, [resonanzen]);
 
-  // Aktuelles Kapitel — Default: erstes Kapitel mit Inhalt
+  // Aktuelles Kapitel — Default: letztes gelesenes (localStorage) oder erstes mit Inhalt.
   const currentChapter = useMemo(() => {
     if (!ebook) return null;
     const wanted = params?.chapter;
@@ -136,6 +125,14 @@ export default function WerkPage() {
       const ch = ebook.chapters.find(c => c.id === wanted && c.content);
       if (ch) return ch;
     }
+    // Auto-Resume: zuletzt gelesenes Kapitel wiederherstellen
+    try {
+      const last = localStorage.getItem("werk:lastChapter");
+      if (last) {
+        const ch = ebook.chapters.find(c => c.id === last && c.content && c.content.length >= 200);
+        if (ch) return ch;
+      }
+    } catch {}
     return ebook.chapters.find(c => c.content && c.content.length >= 200) ?? null;
   }, [ebook, params?.chapter]);
 
@@ -158,26 +155,11 @@ export default function WerkPage() {
   );
 
   // Deep-Link von der Begriffsnetz-Knotenkarte: ?chunk=<id>&fromConcept=<label>
-  // springt zur passenden Stelle und zeigt die Herkunft als Randnotiz.
-  const [targetChunkId, setTargetChunkId] = useState<string | null>(null);
-  const [fromConcept, setFromConcept] = useState<string | null>(null);
-  // Kapitel, für das die Randnotiz gilt — sie bleibt sichtbar, solange der
-  // Nutzer auf diesem Kapitel bleibt, und verschwindet erst beim Wechsel zu
-  // einem ANDEREN Kapitel (nicht sofort nach dem Positions-Sprung, sonst
-  // wäre sie nie zu sehen; nicht für immer, sonst „klebt" sie über die
-  // ganze Sitzung).
-  const fromConceptChapterRef = useRef<string | null>(null);
+  // — URL-Parameter werden bereinigt; Scroll-to-chunk ist noch nicht implementiert.
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     const chunk = sp.get("chunk");
     const from = sp.get("fromConcept");
-    if (chunk) setTargetChunkId(chunk);
-    // Nur ein echtes Begriffs-Label vertrauen (siehe KNOWN_CONCEPT_LABELS oben) —
-    // sonst könnte ?fromConcept= beliebigen Text als vermeintliche Herkunft ausgeben.
-    if (from && KNOWN_CONCEPT_LABELS.has(from)) {
-      setFromConcept(from);
-      fromConceptChapterRef.current = params?.chapter ?? null;
-    }
     if (chunk || from) {
       sp.delete("chunk"); sp.delete("fromConcept");
       const qs = sp.toString();
@@ -185,38 +167,60 @@ export default function WerkPage() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // Auto-Resume: letztes gelesenes Kapitel in localStorage merken und beim
+  // nächsten Öffnen von /werk (ohne explizite Chapter-ID) wiederherstellen.
   useEffect(() => {
-    if (fromConceptChapterRef.current && currentChapter?.id && currentChapter.id !== fromConceptChapterRef.current) {
-      setFromConcept(null);
-      fromConceptChapterRef.current = null;
-    }
+    if (!currentChapter) return;
+    try { localStorage.setItem("werk:lastChapter", currentChapter.id); } catch {}
   }, [currentChapter?.id]);
 
-  // Mobile-Reader: Mini-Hörleiste in der schmalen Fußzeile (Reader-first-Kern,
-  // Runde 1 der Design-Vorgabe — nur dort, nicht im Desktop-Werkzeugleisten-UI).
-  // Absatz-Hervorhebung: onParaChange liefert den Index in chapterDisplay
-  // (gleiche Reihenfolge wie plainParagraphs), damit der Lesebereich beim
-  // Vorlesen mitwandert — ohne Wort-Level-Markup im Text selbst zu erfordern.
-  const [activeParaIdx, setActiveParaIdx] = useState(-1);
-  const audio = useAudioPlayer(isMobile ? currentChapter?.id ?? null : null, "female", {
-    plainParagraphs: chapterDisplay,
-    onParaChange: setActiveParaIdx,
-  });
-  // Stale Markierung vom vorigen Kapitel vermeiden (useAudioPlayer ruft
-  // onParaChange beim Kapitelwechsel selbst nicht mit -1 auf).
-  useEffect(() => { setActiveParaIdx(-1); }, [currentChapter?.id]);
+  // Pfeil-Tasten-Navigation (← / →) zwischen Kapiteln — nur wenn kein Input aktiv.
+  // prevChIdRef/nextChIdRef werden nach dem Early-Return gesetzt (prevCh/nextCh sind erst dann verfügbar).
+  useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+      if (e.key === "ArrowLeft" && prevChIdRef.current) navigate(`/werk/${prevChIdRef.current}`);
+      if (e.key === "ArrowRight" && nextChIdRef.current) navigate(`/werk/${nextChIdRef.current}`);
+    }
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [navigate]);
 
   // Eigener Scroll-Container — die App-weite index.css setzt overflow:hidden
   // auf html/body/#root (Reader-Vollbild-UX, kein Mobile-Overscroll). Reine
   // Flow-Seiten würden sonst geclippt + „eingefroren". Wir scrollen also IN
   // diesem Ref, nicht auf window.
   const scrollRef = useRef<HTMLDivElement>(null);
+  // Swipe-Navigation: horizontaler Touch → vorheriges/nächstes Kapitel.
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  // Reading-Progress-Bar: Scroll-Position im aktuellen Kapitel (0–1).
+  const [scrollPct, setScrollPct] = useState(0);
+  // Refs für Tastaturnavigation (prevCh/nextCh sind nach dem Early-Return — Refs überbrücken das).
+  const prevChIdRef = useRef<string | null>(null);
+  const nextChIdRef = useRef<string | null>(null);
 
   // Standard-eBook-Verhalten: bei Kapitelwechsel an den Seitenanfang scrollen
   // (sonst bleibt man mitten im neuen Kapitel hängen — „läuft nicht rund").
   useEffect(() => {
     scrollRef.current?.scrollTo({ top: 0, behavior: "auto" });
+    setScrollPct(0);
   }, [currentChapter?.id]);
+
+  // Reading-Progress-Bar: Scroll-Position in 0–1.
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    function onScroll() {
+      if (!el) return;
+      const pct = el.scrollHeight > el.clientHeight
+        ? el.scrollTop / (el.scrollHeight - el.clientHeight)
+        : 0;
+      setScrollPct(Math.min(1, Math.max(0, pct)));
+    }
+    el.addEventListener("scroll", onScroll, { passive: true });
+    return () => el.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Fallback: rekonstruiere paragraphs lokal falls werk-chunks.json fehlt
   const fallbackParagraphs = useMemo(() => {
@@ -249,7 +253,7 @@ export default function WerkPage() {
   }, [currentChapter]);
 
   if (!ebook) {
-    return <div style={{ padding: "2rem", fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>;
+    return <div className="loading-pulse" style={{ padding: "2rem", fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>;
   }
 
   // Nur Kapitel mit Inhalt im Navigations-Sidebar listen
@@ -259,28 +263,8 @@ export default function WerkPage() {
   const tocIdx = tocChapters.findIndex(c => c.id === currentChapter?.id);
   const prevCh = tocIdx > 0 ? tocChapters[tocIdx - 1] : null;
   const nextCh = tocIdx >= 0 && tocIdx < tocChapters.length - 1 ? tocChapters[tocIdx + 1] : null;
-
-  if (isMobile) {
-    return (
-      <MobileReader
-        C={C} isDark={isDark}
-        ebook={ebook} tocChapters={tocChapters}
-        currentChapter={currentChapter} prevCh={prevCh} nextCh={nextCh}
-        chapterChunks={chapterChunks} chapterDisplay={chapterDisplay}
-        chunkCount={chunks?.chunks.length ?? 0}
-        globalChunkIndex={id => chunks?.chunks.findIndex(c => c.id === id) ?? -1}
-        resonanzenByChunk={resonanzenByChunk}
-        expandedChunk={expandedChunk} setExpandedChunk={setExpandedChunk}
-        selection={selection} setSelection={setSelection}
-        modalOpen={modalOpen} setModalOpen={setModalOpen}
-        reading={reading} updateReading={updateReading}
-        targetChunkId={targetChunkId} fromConcept={fromConcept}
-        onConsumeTarget={() => setTargetChunkId(null)}
-        audio={audio} activeParaIdx={activeParaIdx}
-        navigate={navigate}
-      />
-    );
-  }
+  prevChIdRef.current = prevCh?.id ?? null;
+  nextChIdRef.current = nextCh?.id ?? null;
 
   return (
     <div
@@ -291,6 +275,21 @@ export default function WerkPage() {
         overflowY: "auto", WebkitOverflowScrolling: "touch",
         background: isDark ? PAPER.warmDark : PAPER.warmLight,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
+      }}
+      onTouchStart={e => {
+        const t = e.touches[0];
+        touchStartRef.current = { x: t.clientX, y: t.clientY };
+      }}
+      onTouchEnd={e => {
+        const start = touchStartRef.current;
+        touchStartRef.current = null;
+        if (!start) return;
+        const t = e.changedTouches[0];
+        const dx = t.clientX - start.x;
+        const dy = t.clientY - start.y;
+        if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+        if (dx < 0 && nextCh) navigate(`/werk/${nextCh.id}`);
+        if (dx > 0 && prevCh) navigate(`/werk/${prevCh.id}`);
       }}
     >
     {/* Redesign Phase 2: eigenes schlankes Reader-Chrome statt AppFrames
@@ -327,7 +326,11 @@ export default function WerkPage() {
         }}
       >≡</button>
     </div>
-    <div className="werk-page" style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
+    {/* Reading-Progress-Bar — 2px Linie unter dem Header */}
+    <div style={{ position: "sticky", top: 44, zIndex: 49, height: 2, background: C.border }}>
+      <div style={{ height: "100%", width: `${scrollPct * 100}%`, background: C.accentText, transition: "width 0.1s linear" }} />
+    </div>
+    <div className="werk-page" style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto", padding: "1.5rem", color: isDark ? PAPER.inkDark : PAPER.inkLight, fontFamily: SERIF }}>
       <style>{`
         .werk-page .werk-grid { display: grid; grid-template-columns: minmax(0, 1fr) 200px; gap: 2.5rem; align-items: start; }
         .werk-page .werk-toc { position: sticky; top: calc(44px + 1rem); max-height: calc(100vh - 44px - 2rem); overflow-y: auto; padding-left: 1rem; border-left: 1px solid currentColor; opacity: 0.7; }
@@ -417,6 +420,7 @@ export default function WerkPage() {
               D5: bottom-Offset respektiert iOS-Selection-Toolbar (max(2rem, env(safe-area-inset-bottom))). */}
           {selection && (
             <button
+              className="mobile-fade-in"
               onClick={() => setModalOpen(true)}
               style={{
                 position: "fixed", left: "50%",
@@ -426,7 +430,7 @@ export default function WerkPage() {
                 fontFamily: MONO, fontSize: "0.65rem", letterSpacing: "0.12em", textTransform: "uppercase",
                 color: "#080808", background: C.accent,
                 border: "none", padding: "0.75rem 1.2rem",
-                borderRadius: 4, cursor: "pointer",
+                borderRadius: RADIUS.button, cursor: "pointer",
                 boxShadow: "0 4px 14px rgba(0,0,0,0.3)",
                 minHeight: 44,
                 maxWidth: "calc(100vw - 2rem)", whiteSpace: "nowrap",
@@ -502,7 +506,7 @@ export default function WerkPage() {
 function chapterNavBtn(C: Palette, dir: "prev" | "next"): React.CSSProperties {
   return {
     flex: 1, maxWidth: "48%", textAlign: dir === "next" ? "right" : "left",
-    background: "none", border: `1px solid ${C.border}`, borderRadius: 6,
+    background: "none", border: `1px solid ${C.border}`, borderRadius: RADIUS.card,
     padding: "0.6rem 0.85rem", cursor: "pointer", minHeight: 44,
   };
 }
@@ -690,7 +694,7 @@ export function PassageResonanzModal({
         onClick={e => e.stopPropagation()}
         style={{
           background: C.surface, color: C.text,
-          border: `1px solid ${C.border}`, borderRadius: 6,
+          border: `1px solid ${C.border}`, borderRadius: RADIUS.card,
           padding: "1.5rem", maxWidth: 600, width: "100%",
           maxHeight: "85vh", overflowY: "auto",
         }}
@@ -744,8 +748,8 @@ export function PassageResonanzModal({
                         background: active ? C.accent : "none",
                         border: `1px solid ${active ? C.accent : C.border}`,
                         padding: "0.35rem 0.6rem", cursor: "pointer",
-                        borderRadius: 3, minHeight: 30,
-                        transition: "all 0.15s",
+                        borderRadius: RADIUS.micro, minHeight: 30,
+                        transition: TRANSITION,
                       }}
                     >
                       {opt.label}
@@ -768,7 +772,7 @@ export function PassageResonanzModal({
                   style={{
                     width: "100%", boxSizing: "border-box",
                     fontFamily: SERIF, fontStyle: "italic", fontSize: "0.92rem", color: C.text,
-                    background: C.deep, border: `1px solid ${C.border}`, borderRadius: 3,
+                    background: C.deep, border: `1px solid ${C.border}`, borderRadius: RADIUS.micro,
                     padding: "0.6rem 0.7rem", resize: "vertical", lineHeight: 1.5,
                     outline: "none",
                   }}
@@ -870,7 +874,7 @@ function ReadingControls({
         <div style={{ overflow: "hidden" }}>
         <div style={{
           marginTop: "0.5rem", padding: "0.7rem 0.9rem",
-          background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4,
+          background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.button,
           display: "flex", flexDirection: "column", gap: "0.6rem", maxWidth: 320,
         }}>
           <Stepper C={C} label="Schriftgröße" value={`${Math.round(settings.fontScale * 100)}%`}
@@ -888,7 +892,7 @@ function ReadingControls({
                   <button key={label} onClick={() => update({ serifBody: val })} style={{
                     fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase",
                     color: active ? "#080808" : C.muted, background: active ? C.accent : "none",
-                    border: `1px solid ${active ? C.accent : C.border}`, borderRadius: 3,
+                    border: `1px solid ${active ? C.accent : C.border}`, borderRadius: RADIUS.micro,
                     padding: "0.3rem 0.5rem", cursor: "pointer", minHeight: 30,
                   }}>{label}</button>
                 );
@@ -911,7 +915,7 @@ function Stepper({ C, label, value, onMinus, onPlus }: {
 }) {
   const btn: React.CSSProperties = {
     fontFamily: MONO, fontSize: "0.85rem", lineHeight: 1, color: C.text,
-    background: "none", border: `1px solid ${C.border}`, borderRadius: 3,
+    background: "none", border: `1px solid ${C.border}`, borderRadius: RADIUS.micro,
     width: 30, height: 30, cursor: "pointer", display: "flex", alignItems: "center", justifyContent: "center",
   };
   return (

@@ -5,10 +5,17 @@ created_at: 2026-09-02T19:39:06.153Z
 endpoint: analyse
 model: gemini-2.5-flash
 anchor: analyse:resonanzvernunft+vernunft
-nodeIds: [resonanzvernunft, vernunft]
+nodeIds: [ resonanzvernunft, vernunft ]
 status: raw
 content_hash: 48720835a0c7d01b
-echoes_of: [MQ683DMX-13D6C54F, MOHV84M5-1825A399, MOHLZBVK-2FBBAD2F, MOP0UF96-1A0ACB35, MOP0S479-373A2268]
+echoes_of:
+  [
+    MQ683DMX-13D6C54F,
+    MOHV84M5-1825A399,
+    MOHLZBVK-2FBBAD2F,
+    MOP0UF96-1A0ACB35,
+    MOP0S479-373A2268
+  ]
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
 license_url: https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE
@@ -19,9 +26,21 @@ audit_trail:
     content_hash: 48720835a0c7d01b
 context_meta:
   cluster_size: 2
-  node_labels: ["Resonanzvernunft","Vernunft"]
+  node_labels: [ "Resonanzvernunft", "Vernunft" ]
   streamed: true
-  werk_passages: [{"id":"6e91cb729b53","chapter":"teil5","score":0.928},{"id":"MP2LIW43-E8ADC59E","score":0.848},{"id":"MOHLZBVK-2FBBAD2F","score":0.846},{"id":"80b2da4e0093","chapter":"glossar","score":0.843}]
+  werk_passages:
+    [
+      { "id": "6e91cb729b53", "chapter": "teil5", "score": 0.928 },
+      { "id": "MP2LIW43-E8ADC59E", "score": 0.848 },
+      { "id": "MOHLZBVK-2FBBAD2F", "score": 0.846 },
+      { "id": "80b2da4e0093", "chapter": "glossar", "score": 0.843 }
+    ]
+ai_score: 3
+ai_score_reason: Die Gegenüberstellung ist brillant, bleibt aber im Kern ein hochkompetentes
+  Referat, das die Begriffe klärt, statt einen eigenen denkerischen Schritt zu
+  vollziehen.
+ai_score_at: 2026-10-07T15:05:55.369Z
+ai_score_model: gemini-2.5-pro
 ---
 
 ## Frage

@@ -77,6 +77,23 @@
   animation: slideInFromBottom 0.24s cubic-bezier(0.32, 0.72, 0, 1);
 }
 
+@keyframes growFromLeft {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+.bar-fill-grow {
+  transform-origin: left center;
+  animation: growFromLeft 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes loadingPulse {
+  0%, 100% { opacity: 0.45; }
+  50%       { opacity: 1; }
+}
+.loading-pulse {
+  animation: loadingPulse 1.2s ease-in-out infinite;
+}
+
 @theme inline {
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
@@ -191,7 +208,7 @@
   }
   body {
     @apply bg-background text-foreground;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -224,7 +241,7 @@
 
   /* Serif headings */
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Lora', 'Crimson Text', Georgia, 'Times New Roman', serif;
+    font-family: 'Cormorant Garamond', Georgia, serif;
     font-weight: 600;
   }
 

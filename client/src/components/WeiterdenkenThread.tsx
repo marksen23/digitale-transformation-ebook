@@ -16,7 +16,7 @@
  */
 import { useMemo, useState } from "react";
 import type { Palette } from "@/lib/theme";
-import { MONO, SERIF } from "@/lib/theme";
+import { MONO, SERIF, RADIUS } from "@/lib/theme";
 import { track } from "@/lib/trajectory";
 import CitedSourcesFooter, { type CitedSource } from "@/components/CitedSourcesFooter";
 import { saveThread, type ThreadStep } from "@/lib/threadStore";
@@ -297,7 +297,7 @@ export default function WeiterdenkenThread({ c, initialQuestion, focus, focusedN
               fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.1em", textTransform: "uppercase",
               color: justSaved ? "#7ab898" : c.textDim,
               background: "none", border: `1px solid ${justSaved ? "#7ab898" : c.border}`,
-              padding: "0.35rem 0.65rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
+              padding: "0.35rem 0.65rem", cursor: "pointer", minHeight: 30, borderRadius: RADIUS.micro,
             }}
             title={savedId ? "Gespeicherten Faden aktualisieren" : "Faden in Mein Werk sichern"}
           >
@@ -320,6 +320,6 @@ function actionBtn(c: Palette, color: string, filled: boolean): React.CSSPropert
     color: filled ? c.void : color,
     background: filled ? color : "none",
     border: `1px solid ${color}`,
-    padding: "0.4rem 0.7rem", cursor: "pointer", minHeight: 32, borderRadius: 3,
+    padding: "0.4rem 0.7rem", cursor: "pointer", minHeight: 32, borderRadius: RADIUS.micro,
   };
 }

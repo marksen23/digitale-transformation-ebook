@@ -4,7 +4,7 @@
  * 44px tap target, amber outline + tint when active. Matches the prototype's
  * shared `pill()` helper.
  */
-import { MONO, type Palette } from "@/lib/theme";
+import { MONO, type Palette, RADIUS } from "@/lib/theme";
 
 export default function MobilePill({
   label, active, onClick, C, dashed = false,
@@ -16,7 +16,7 @@ export default function MobilePill({
       type="button" onClick={onClick}
       style={{
         minHeight: 44, padding: "0 12px", flexShrink: 0, cursor: "pointer",
-        borderRadius: 4,
+        borderRadius: RADIUS.button,
         border: `1px ${dashed ? "dashed" : "solid"} ${active ? C.accentText : C.border}`,
         background: active ? `${C.accent}1a` : "transparent",
         color: active ? C.accentText : C.textDim,

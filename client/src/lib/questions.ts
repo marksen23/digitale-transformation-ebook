@@ -5,7 +5,9 @@
  * Jeder Korpus-Eintrag endet mit einer offenen Schlussfrage; der Build
  * extrahiert sie und matcht sie gegen SPÄTERE Einträge (Cosine ≥ ANSWER_SIM) —
  * so wird sichtbar, welche Fragen das Werk sich selbst schon beantwortet hat
- * (`answered`) und welche offen bleiben. Fail-soft: fehlt/kaputt → leer.
+ * (`answered`) und welche offen bleiben. Kuratierte Kanten
+ * (`manual`, aus question-answer-overrides.json) ergänzen das Cosine-Top.
+ * Fail-soft: fehlt/kaputt → leer.
  */
 export interface QuestionEntry {
   /** Eintrag, dessen Schlussfrage das ist. */
@@ -17,9 +19,17 @@ export interface QuestionEntry {
   ts: string;
   /** Wie oft dieselbe Frage (normalisiert) sonst noch auftauchte. */
   dupCount: number;
-  /** Spätere Einträge, die die Frage faktisch beantworten (Top-3, Cosine-Score). */
-  answeredBy: Array<{ id: string; score: number }>;
+  /** Spätere Einträge, die die Frage beantworten (Cosine-Top, plus kuratierte Pins). */
+  answeredBy: Array<{ id: string; score: number | null; manual?: boolean }>;
   answered: boolean;
+}
+
+/** Anzeige der Ähnlichkeit. Kuratierte Kanten heißen „kuratiert"; die Cosine
+ *  steht daneben, sobald ein Vektorpaar vorlag (auch unter der Schwelle). */
+export function formatAnswerScore(a: { score: number | null; manual?: boolean }): string {
+  const sim = typeof a.score === "number" ? a.score.toFixed(2) : "";
+  if (a.manual) return sim ? `kuratiert · ${sim}` : "kuratiert";
+  return sim;
 }
 
 export interface QuestionsFile {

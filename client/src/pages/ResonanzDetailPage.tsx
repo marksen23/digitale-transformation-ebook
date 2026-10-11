@@ -13,7 +13,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useRoute, useLocation, Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useIsMobile } from "@/hooks/useMobile";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, MONO, DISPLAY, RADIUS, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
 import { loadResonanzenIndex, type ResonanzEntry, ENDPOINT_LABEL, ENDPOINT_COLOR } from "@/lib/resonanzenIndex";
 import { toBibtex, toJsonLd } from "@/lib/bibtex";
 import { SITE_URL } from "@/lib/siteUrl";
@@ -105,14 +105,14 @@ export default function ResonanzDetailPage() {
 
   if (notFound) {
     return (
-      <div style={{ maxWidth: 800, margin: "0 auto", padding: "2rem", fontFamily: SERIF, color: C.text }}>
+      <div style={{ maxWidth: MAX_WIDTH.prose, margin: "0 auto", padding: "2rem", fontFamily: SERIF, color: C.text }}>
         <h1>Eintrag nicht gefunden</h1>
         <p>Diese Resonanz existiert (noch) nicht im Index. <Link to="/resonanzen" style={{ color: C.accentText }}>← zurück zur Übersicht</Link></p>
       </div>
     );
   }
   if (!entry) {
-    return <div style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
+    return <div className="loading-pulse" style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
   }
 
   const chunkId = typeof entry.contextMeta?.passage_chunk_id === "string" ? entry.contextMeta.passage_chunk_id : null;
@@ -121,20 +121,21 @@ export default function ResonanzDetailPage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: C.void, color: C.text,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-    <article style={{ maxWidth: 800, margin: "0 auto", padding: "1.5rem 1.5rem 0", color: C.text, fontFamily: SERIF }}>
+    <article style={{ maxWidth: MAX_WIDTH.prose, margin: "0 auto", padding: "1.5rem 1.5rem 0", color: C.text, fontFamily: SERIF }}>
       {/* Top-Navigation — sofort sichtbar, ohne Scrollen */}
       <div style={{ marginBottom: "1rem" }}>
         <button
           onClick={() => (window.history.length > 1 ? window.history.back() : navigate("/resonanzen"))}
           style={{
             fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.06em", textTransform: "uppercase",
-            color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: 5,
+            color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: RADIUS.button,
             padding: "0.5rem 0.75rem", minHeight: 40, cursor: "pointer",
           }}
         >← zurück</button>
@@ -143,7 +144,7 @@ export default function ResonanzDetailPage() {
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.15em", textTransform: "uppercase", color: ENDPOINT_COLOR[entry.endpoint], marginBottom: "0.3rem" }}>
           {ENDPOINT_LABEL[entry.endpoint]} · {entry.id}
         </div>
-        <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.6rem", color: C.textBright, lineHeight: 1.3 }}>
+        <h1 style={{ margin: 0, fontFamily: DISPLAY, fontSize: "1.6rem", color: C.textBright, lineHeight: 1.3 }}>
           {entry.prompt.slice(0, 140)}{entry.prompt.length > 140 ? "…" : ""}
         </h1>
         <div style={{ marginTop: "0.5rem", display: "flex", flexWrap: "wrap", gap: "0.7rem", fontFamily: MONO, fontSize: "0.55rem", color: C.muted }}>
@@ -227,7 +228,7 @@ function RelatedLink({ C, entry }: { C: Palette; entry: ResonanzEntry }) {
         display: "flex", gap: "0.5rem", alignItems: "baseline",
         fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem",
         color: C.text, textDecoration: "none",
-        border: `1px solid ${C.border}`, borderRadius: 4, padding: "0.45rem 0.6rem",
+        border: `1px solid ${C.border}`, borderRadius: RADIUS.button, padding: "0.45rem 0.6rem",
       }}
     >
       <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", color: ENDPOINT_COLOR[entry.endpoint], flexShrink: 0 }}>

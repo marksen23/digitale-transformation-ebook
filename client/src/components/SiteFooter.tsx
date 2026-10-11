@@ -19,7 +19,7 @@
  */
 import { Link } from "wouter";
 import type { Palette } from "@/lib/theme";
-import { MONO } from "@/lib/theme";
+import { MONO, RADIUS } from "@/lib/theme";
 
 const REPO_URL = "https://github.com/marksen23/digitale-transformation-ebook";
 
@@ -60,7 +60,7 @@ export default function SiteFooter({ c, variant = "full" }: { c: Palette; varian
     const barLink: React.CSSProperties = {
       fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.05em", color: c.muted,
       textDecoration: "none", whiteSpace: "nowrap", flexShrink: 0,
-      padding: "0.35rem 0.45rem", borderRadius: 4,
+      padding: "0.35rem 0.45rem", borderRadius: RADIUS.button,
     };
     return (
       <footer

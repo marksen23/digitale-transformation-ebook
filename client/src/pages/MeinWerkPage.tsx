@@ -10,7 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { NODES } from "@/data/conceptGraph";
 import { useTheme } from "@/contexts/ThemeContext";
-import { SERIF, MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, MONO, C_DARK, C_LIGHT, RADIUS, type Palette } from "@/lib/theme";
 import SectionLabel from "@/components/SectionLabel";
 import SiteFooter from "@/components/SiteFooter";
 import WeiterdenkenThread from "@/components/WeiterdenkenThread";
@@ -90,7 +90,7 @@ export default function MeinWerkPage() {
     URL.revokeObjectURL(url);
   }
 
-  if (!t || !stats) return <div style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
+  if (!t || !stats) return <div className="loading-pulse" style={{ padding: "2rem", fontStyle: "italic" }}>lädt …</div>;
 
   // Erstbesucher ohne jede Aktivität: statt einer Wand aus Nullen ein sanfter
   // Empty-State mit Orientierung (Phase 6).
@@ -114,13 +114,14 @@ export default function MeinWerkPage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: C.void, color: C.text,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-    <div style={{ maxWidth: 900, margin: "0 auto", padding: "1.5rem", fontFamily: SERIF }}>
+    <div style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto", padding: "1.5rem", fontFamily: SERIF }}>
       <header style={{ marginBottom: "1.5rem", borderBottom: `1px solid ${C.border}`, paddingBottom: "1rem" }}>
         <h1 style={{ margin: 0, fontFamily: SERIF, fontSize: "1.7rem", color: C.textBright }}>
           Mein Werk
@@ -144,7 +145,7 @@ export default function MeinWerkPage() {
           </p>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginTop: "0.7rem" }}>
             {[["/", "Das Werk lesen"], ["/begriffsnetz", "Begriffsnetz erkunden"], ["/landkarte", "Wissens-Landkarte"]].map(([href, label]) => (
-              <button key={href} onClick={() => navigate(href)} style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`, borderRadius: 3, padding: "0.4rem 0.65rem", cursor: "pointer", minHeight: 32 }}>
+              <button key={href} onClick={() => navigate(href)} style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.accentDim}`, borderRadius: RADIUS.micro, padding: "0.4rem 0.65rem", cursor: "pointer", minHeight: 32 }}>
                 {label}
               </button>
             ))}
@@ -379,7 +380,7 @@ function miniBtn(_C: Palette, color: string): React.CSSProperties {
   return {
     fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase",
     color, background: "none", border: `1px solid ${color}`,
-    padding: "0.3rem 0.5rem", cursor: "pointer", minHeight: 30, borderRadius: 3,
+    padding: "0.3rem 0.5rem", cursor: "pointer", minHeight: 30, borderRadius: RADIUS.micro,
   };
 }
 

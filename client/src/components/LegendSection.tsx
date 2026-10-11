@@ -31,7 +31,7 @@
  */
 import { useState } from "react";
 import type { Palette } from "@/lib/theme";
-import { MONO } from "@/lib/theme";
+import { MONO, RADIUS } from "@/lib/theme";
 
 interface LegendSectionProps {
   title: string;
@@ -127,7 +127,7 @@ export default function LegendSection({
                 border: `1px solid ${rBorder}`,
                 padding: "0.25rem 0.5rem",
                 cursor: "pointer",
-                borderRadius: 4,
+                borderRadius: RADIUS.button,
               }}
             >
               Alle einblenden

@@ -20,7 +20,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "wouter";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { toggleGlobalTheme } from "@/lib/globalTheme";
-import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MONO, RADIUS, TRACKED, ORNAMENT, TRANSITION } from "@/lib/theme";
 import InstallButton from "@/components/InstallButton";
 import OnboardingHint from "@/components/OnboardingHint";
 import { useT, useLocale, switchLocaleHref } from "@/i18n";
@@ -272,7 +272,14 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
                             padding: "0.5rem 0.6rem",
                             borderRadius: RADIUS.button,
                             background: active ? (isDark ? "rgba(245,158,11,0.08)" : "rgba(180,83,9,0.06)") : "transparent",
+                            transition: "background 0.12s, color 0.12s",
                           }}
+                          onMouseEnter={!active ? (e: React.MouseEvent<HTMLAnchorElement>) => {
+                            e.currentTarget.style.background = isDark ? "rgba(255,255,255,0.05)" : "rgba(0,0,0,0.04)";
+                          } : undefined}
+                          onMouseLeave={!active ? (e: React.MouseEvent<HTMLAnchorElement>) => {
+                            e.currentTarget.style.background = "transparent";
+                          } : undefined}
                         >
                           {t(item.i18nKey)}
                         </Link>
@@ -323,7 +330,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
               width: 30, height: 30,
               cursor: "pointer", padding: 0,
               borderRadius: RADIUS.button,
-              transition: "all 0.15s",
+              transition: TRANSITION,
               display: "flex", alignItems: "center", justifyContent: "center",
               lineHeight: 1,
             }}
@@ -348,7 +355,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
               width: 36, height: 36,
               cursor: "pointer", padding: 0,
               borderRadius: RADIUS.button,
-              transition: "all 0.15s",
+              transition: TRANSITION,
               alignItems: "center", justifyContent: "center",
               lineHeight: 1,
             }}

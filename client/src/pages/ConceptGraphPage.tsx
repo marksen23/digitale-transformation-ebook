@@ -5,7 +5,7 @@ import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } fr
 import { loadNodeDensity, densityRatio, type NodeDensityFile } from "@/lib/nodeDensity";
 import { track as trackTrajectory } from "@/lib/trajectory";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
-import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, SERIF_BODY } from "@/lib/theme";
+import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, SERIF_BODY, TRANSITION, RADIUS } from "@/lib/theme";
 import Ornament, { DropCap } from "@/components/Ornament";
 import FocusOverlay from "@/components/FocusOverlay";
 import SectionLabel from "@/components/SectionLabel";
@@ -1257,7 +1257,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     color: active ? C.accent : C.muted,
                     cursor: "pointer", padding: 0,
                     display: "flex", alignItems: "center", justifyContent: "center",
-                    transition: "all 0.15s", borderRadius: 6,
+                    transition: TRANSITION, borderRadius: RADIUS.card,
                   }}
                   onMouseEnter={e => { if (!active) { e.currentTarget.style.color = C.text; e.currentTarget.style.borderColor = C.muted; } }}
                   onMouseLeave={e => { if (!active) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
@@ -1281,7 +1281,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 color: heatmapMode ? "#5aacb8" : C.muted,
                 cursor: "pointer", padding: 0,
                 display: "flex", alignItems: "center", justifyContent: "center",
-                transition: "all 0.15s", borderRadius: 6,
+                transition: TRANSITION, borderRadius: RADIUS.card,
                 marginLeft: "0.4rem",  // visueller Trenner vom Layout-Modus-Set
               }}
               onMouseEnter={e => { if (!heatmapMode) { e.currentTarget.style.color = C.text; e.currentTarget.style.borderColor = C.muted; } }}
@@ -1311,7 +1311,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 background: analyseMode ? "rgba(90,172,184,0.08)" : "none",
                 border: `1px solid ${analyseMode ? "#3a8a96" : C.border}`,
                 padding: "0.3rem 0.65rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
+                transition: TRANSITION, flexShrink: 0, borderRadius: RADIUS.card,
               }}
               onMouseEnter={e => { if (!analyseMode) { e.currentTarget.style.color = "#5aacb8"; e.currentTarget.style.borderColor = "#3a8a96"; } }}
               onMouseLeave={e => { if (!analyseMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
@@ -1332,7 +1332,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 background: chatOpen ? "rgba(122,184,152,0.08)" : "none",
                 border: `1px solid ${chatOpen ? "#4a9870" : C.border}`,
                 padding: "0.3rem 0.65rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
+                transition: TRANSITION, flexShrink: 0, borderRadius: RADIUS.card,
               }}
               onMouseEnter={e => { if (!chatOpen) { e.currentTarget.style.color = "#7ab898"; e.currentTarget.style.borderColor = "#4a9870"; } }}
               onMouseLeave={e => { if (!chatOpen) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
@@ -1353,7 +1353,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 background: pathMode ? "rgba(126,184,200,0.08)" : "none",
                 border: `1px solid ${pathMode ? "#4a8898" : C.border}`,
                 padding: "0.3rem 0.65rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
+                transition: TRANSITION, flexShrink: 0, borderRadius: RADIUS.card,
               }}
               onMouseEnter={e => { if (!pathMode) { e.currentTarget.style.color = "#5aacb8"; e.currentTarget.style.borderColor = "#4a8898"; } }}
               onMouseLeave={e => { if (!pathMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
@@ -1385,7 +1385,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 background: connectMode ? "rgba(196,168,130,0.08)" : "none",
                 border: `1px solid ${connectMode ? C.accentDim : C.border}`,
                 padding: "0.3rem 0.65rem", cursor: "pointer",
-                transition: "all 0.15s", flexShrink: 0, borderRadius: 6,
+                transition: TRANSITION, flexShrink: 0, borderRadius: RADIUS.card,
               }}
               onMouseEnter={e => { if (!connectMode) { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; } }}
               onMouseLeave={e => { if (!connectMode) { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; } }}
@@ -1407,7 +1407,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
               onClick={onClose}
               title="Schließen"
               style={{
-                fontFamily: "monospace", fontSize: "1.2rem", lineHeight: 1,
+                fontFamily: MONO, fontSize: "1.2rem", lineHeight: 1,
                 color: C.textDim, background: "none", border: "none",
                 cursor: "pointer", padding: "0.3rem 0.4rem",
                 transition: "color 0.2s", flexShrink: 0,
@@ -2145,7 +2145,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     fontSize={9}
                     fill={C.lmGlow}
                     opacity={labelOpacity}
-                    fontFamily="'Courier Prime', 'Courier New', monospace"
+                    fontFamily={MONO}
                     letterSpacing="0.18em"
                     style={{ userSelect: "none", pointerEvents: "none" }}
                   >
@@ -2522,7 +2522,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 background: C.surface, border: `1px solid ${C.border}`,
                 color: C.textDim, cursor: "pointer",
                 display: "flex", alignItems: "center", justifyContent: "center",
-                transition: "all 0.15s",
+                transition: TRANSITION,
               }}
               onMouseEnter={e => { e.currentTarget.style.color = C.accent; e.currentTarget.style.borderColor = C.accentDim; }}
               onMouseLeave={e => { e.currentTarget.style.color = C.textDim; e.currentTarget.style.borderColor = C.border; }}
@@ -2619,7 +2619,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                         background: "none",
                         border: `1px solid ${C.accentDim}`,
                         padding: "0.18rem 0.55rem",
-                        cursor: "pointer", transition: "all 0.15s",
+                        cursor: "pointer", transition: TRANSITION,
                       }}
                       onMouseEnter={e => { e.currentTarget.style.background = "rgba(196,168,130,0.08)"; e.currentTarget.style.color = C.textBright; }}
                       onMouseLeave={e => { e.currentTarget.style.background = "none"; e.currentTarget.style.color = C.accent; }}
@@ -2662,7 +2662,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                   fontFamily: C.mono, fontSize: "0.55rem", letterSpacing: "0.1em",
                   textTransform: "uppercase", color: C.muted, background: "none",
                   border: `1px solid ${C.border}`, padding: "0.35rem 0.7rem",
-                  cursor: "pointer", transition: "all 0.15s",
+                  cursor: "pointer", transition: TRANSITION,
                 }}
                 onMouseEnter={e => { e.currentTarget.style.color = C.text; e.currentTarget.style.borderColor = C.muted; }}
                 onMouseLeave={e => { e.currentTarget.style.color = C.muted; e.currentTarget.style.borderColor = C.border; }}
@@ -2781,7 +2781,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                               border: "1px solid rgba(90,172,184,0.4)",
                               padding: "0.28rem 0.5rem", cursor: "pointer",
                               borderRadius: 4,
-                              transition: "all 0.15s",
+                              transition: TRANSITION,
                             }}
                             onMouseEnter={e => { e.currentTarget.style.background = "rgba(90,172,184,0.16)"; e.currentTarget.style.borderColor = "#5aacb8"; }}
                             onMouseLeave={e => { e.currentTarget.style.background = "rgba(90,172,184,0.06)"; e.currentTarget.style.borderColor = "rgba(90,172,184,0.4)"; }}
@@ -2809,7 +2809,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                               border: "1px solid rgba(126,184,200,0.4)",
                               padding: "0.28rem 0.5rem", cursor: "pointer",
                               borderRadius: 4,
-                              transition: "all 0.15s",
+                              transition: TRANSITION,
                             }}
                             onMouseEnter={e => { e.currentTarget.style.background = "rgba(126,184,200,0.16)"; e.currentTarget.style.borderColor = "#5aacb8"; }}
                             onMouseLeave={e => { e.currentTarget.style.background = "rgba(126,184,200,0.06)"; e.currentTarget.style.borderColor = "rgba(126,184,200,0.4)"; }}
@@ -2918,7 +2918,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             </div>
             <button
               onClick={() => setSelectedId(null)}
-              style={{ fontFamily: "monospace", fontSize: "1.1rem", color: C.textDim, background: "none", border: "none", cursor: "pointer", padding: "0.3rem 0.5rem" }}
+              style={{ fontFamily: MONO, fontSize: "1.1rem", color: C.textDim, background: "none", border: "none", cursor: "pointer", padding: "0.3rem 0.5rem" }}
             >×</button>
           </div>
           <p style={{ fontSize: "0.88rem", lineHeight: 1.7, color: C.text, marginBottom: "0.8rem" }}>
@@ -3217,7 +3217,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                           border: `1px solid #5aacb8`,
                           padding: "0.3rem 0.7rem",
                           cursor: pathAnalysisLoading ? "not-allowed" : "pointer",
-                          transition: "all 0.15s",
+                          transition: TRANSITION,
                         }}
                       >
                         {pathAnalysisLoading ? "Analyse läuft …" : (same ? "⚡ Pfad analysieren" : "⚡ Beide Pfade vergleichen")}
@@ -3337,7 +3337,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                     border: `1px solid ${analyseNodes.length < 2 ? C.border : "#5aacb8"}`,
                     padding: "0.3rem 0.7rem",
                     cursor: analyseNodes.length < 2 || analyseLoading ? "not-allowed" : "pointer",
-                    transition: "all 0.15s",
+                    transition: TRANSITION,
                   }}
                 >
                   {analyseLoading ? "läuft …" : analyseNodes.length < 2 ? "weitere wählen" : "Analyse starten"}
@@ -3491,7 +3491,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
                 color: chatInput.trim() && !chatLoading ? "#7ab898" : C.muted,
                 fontFamily: C.mono, fontSize: "0.6rem", padding: "0.4rem 0.65rem",
                 cursor: chatInput.trim() && !chatLoading ? "pointer" : "default",
-                transition: "all 0.15s", flexShrink: 0, alignSelf: "flex-end",
+                transition: TRANSITION, flexShrink: 0, alignSelf: "flex-end",
               }}
             >
               ▶
@@ -3514,6 +3514,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       {/* ── Notiz-Popup für neue Verbindung ── */}
       {notePopup && (
         <div
+          className="mobile-fade-in"
           style={{
             position: "fixed", inset: 0, zIndex: 500,
             background: C.overlayBg, backdropFilter: "blur(6px)",
@@ -3523,6 +3524,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           onClick={() => setNotePopup(null)}
         >
           <div
+            className="panel-appear"
             style={{ background: C.deep, border: `1px solid ${C.accentDim}`, padding: "1.5rem", maxWidth: 360, width: "100%" }}
             onClick={e => e.stopPropagation()}
           >

@@ -9,7 +9,7 @@
  * offene Fragen, Erkenntnisse), gecacht über die bestehenden Loader.
  */
 import { useEffect, useState } from "react";
-import { MONO, SERIF, type Palette } from "@/lib/theme";
+import { DISPLAY, MONO, SERIF, type Palette, RADIUS } from "@/lib/theme";
 import type { EbookChapter } from "@/lib/werkChunks";
 import { loadResonanzenIndexLazy } from "@/lib/resonanzenIndex";
 import { loadQuestions } from "@/lib/questions";
@@ -136,7 +136,7 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
           type="button" onClick={() => { onClose(); onSearch(); }}
           style={{
             width: "100%", minHeight: 46, display: "flex", alignItems: "center", gap: 10,
-            padding: "0 12px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: 4,
+            padding: "0 12px", background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.button,
             color: C.muted, fontFamily: SERIF, fontStyle: "italic", fontSize: 14, cursor: "pointer", textAlign: "left",
           }}
         >
@@ -194,7 +194,7 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
                 background: "none", border: "none", borderBottom: `1px solid ${C.border}`, padding: 0, cursor: "pointer", textAlign: "left",
               }}
             >
-              <span style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 19, color: C.text }}>{t.label}</span>
+              <span style={{ fontFamily: DISPLAY, fontSize: 19, color: C.text }}>{t.label}</span>
               <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.14em", color: C.muted }}>{t.sub}</span>
             </button>
           ))}

@@ -8,6 +8,7 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 import AppFrame from "./components/AppFrame";
 import InstallBanner from "./components/InstallBanner";
+import { SERIF_BODY } from "@/lib/theme";
 
 // Resonanzen-Seite lazy laden — eigener Bundle-Chunk, FAQ-spezifisch.
 const ResonanzenPage = lazy(() => import("./pages/ResonanzenPage"));
@@ -40,7 +41,7 @@ function Framed({ children }: { children: React.ReactNode }) {
 }
 
 function Router() {
-  const fallback = <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: "Georgia, serif", fontStyle: "italic", color: "#888" }}>lädt …</div>;
+  const fallback = <div style={{ minHeight: "100dvh", display: "flex", alignItems: "center", justifyContent: "center", fontFamily: SERIF_BODY, fontStyle: "italic", color: "#888" }}>lädt …</div>;
   return (
     <Switch>
       <Route path={"/"} component={Home} />

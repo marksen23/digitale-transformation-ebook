@@ -13,7 +13,7 @@
 import { useEffect, useState } from "react";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { toggleGlobalTheme, syncGlobalTheme } from "@/lib/globalTheme";
-import { MONO, C_DARK, C_LIGHT, type Palette } from "@/lib/theme";
+import { MONO, C_DARK, C_LIGHT, type Palette, RADIUS } from "@/lib/theme";
 
 interface PageNavProps {
   /** Optionaler Scroll-Container — z.B. das data-scroll-Element der Sub-Page.
@@ -83,7 +83,7 @@ function PageNavBtn({ label, title, onClick, c, fade }: { label: string; title: 
         background: c.surface,
         color: c.text,
         border: `1px solid ${c.border}`,
-        borderRadius: 6,
+        borderRadius: RADIUS.card,
         fontFamily: MONO, fontSize: "0.95rem", fontWeight: 500,
         cursor: "pointer",
         opacity: fade ? 0 : 1,

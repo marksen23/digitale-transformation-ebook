@@ -114,12 +114,26 @@ export const DISPLAY    = "'Cormorant Garamond', Georgia, serif";
  * -Buttons wie eine Fortsetzung der Werk-Hauptseite an.
  */
 export const RADIUS = {
+  micro:  "3px",   // badge, chip, inline tag
   button: "4px",   // rounded
   card: "6px",     // rounded-md
   panel: "8px",    // rounded-lg
 } as const;
 
 export const TRANSITION = "all 0.15s ease";
+
+/**
+ * Seiten-Breiten-Tokens — drei Stufen statt ~6 ad-hoc-Werte.
+ *
+ *   CONTENT  — Engste Breite: Chat, Tool-Dialoge, Auflistungen (Fragen, Erkenntnisse)
+ *   PROSE    — Mittlere Breite: Artikel, Detail-Panels, Statistik, Blog
+ *   READER   — Breiteste Lesefläche: WerkPage, MeinWerk, ResonanzenPage-Header
+ */
+export const MAX_WIDTH = {
+  content: 760,   // Fragen, Erkenntnisse, Enkidu-Chat, Status, Live, Info, Projekt
+  prose:   820,   // Statistik, Resonanz-Detail, Blog, ResonanzenPage-Liste, Erkunden
+  reader:  960,   // WerkPage, MeinWerkPage, ResonanzenPage-Header
+} as const;
 
 /** Subtile Schatten — leichter als Material, eher Notion-style. */
 export const SHADOW = {

@@ -1,22 +1,98 @@
 {
-  "generatedAt": "2026-08-17T03:06:36.549Z",
+  "generatedAt": "2026-10-09T18:34:02.056Z",
   "minCooccurrence": 2,
   "candidates": [
     {
       "source": "erkenntnis",
       "target": "lm-verwandlung",
-      "cooccurrence": 24,
+      "cooccurrence": 25,
       "endpoints": {
+        "analyse": 3,
         "dialog": 20,
-        "analyse": 2,
         "path-analyse": 2
       },
       "sampleEntryIds": [
-        "MASTER-6469616C",
+        "MASTER-31CE5C0B",
+        "MASTER-BC195439",
         "MQ5XNFSV-CD34905C",
         "MQ5XLW2D-D3E90BBC",
-        "MQ5XK9H2-8A6837CC",
-        "MQ5XJ3VO-378AA1AB"
+        "MQ5XK9H2-8A6837CC"
+      ]
+    },
+    {
+      "source": "erkenntnis",
+      "target": "raum",
+      "cooccurrence": 8,
+      "endpoints": {
+        "dialog": 6,
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MTNB93L6-1411E014",
+        "MTNB85LB-7C1F15DE",
+        "MTNB7STV-BCB7D709",
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66"
+      ]
+    },
+    {
+      "source": "erkenntnis",
+      "target": "sprache",
+      "cooccurrence": 8,
+      "endpoints": {
+        "dialog": 6,
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MTNB93L6-1411E014",
+        "MTNB85LB-7C1F15DE",
+        "MTNB7STV-BCB7D709",
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66"
+      ]
+    },
+    {
+      "source": "raum",
+      "target": "sprache",
+      "cooccurrence": 7,
+      "endpoints": {
+        "dialog": 6,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MTNB93L6-1411E014",
+        "MTNB85LB-7C1F15DE",
+        "MTNB7STV-BCB7D709",
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66"
+      ]
+    },
+    {
+      "source": "antwort",
+      "target": "zwischen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MUZTGAEK-432FB6BC",
+        "MTL33KWJ-642DD246",
+        "MP0QMSOR-C6EC1B5A"
+      ]
+    },
+    {
+      "source": "lm-verwandlung",
+      "target": "stimme",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 2,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MUY7RXCI-D36BB4D6",
+        "MOQID47V-A12862EA",
+        "MOHVDNEU-D3F7EEB5"
       ]
     },
     {
@@ -99,6 +175,79 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "dazwischenintelligenz",
+      "target": "dialog",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MUZTGAEK-432FB6BC",
+        "MTL33KWJ-642DD246"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "freiheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MUAAML84-D057EA33",
+        "MOQIGG2B-2F0C3F5D"
+      ]
+    },
+    {
+      "source": "denken",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MUAAML84-D057EA33",
+        "MPF4FISZ-67000E01"
+      ]
+    },
+    {
+      "source": "selbst",
+      "target": "öffnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MUAAML84-D057EA33",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
+      "source": "echo-kammer",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MTNBAIUZ-299AC7D8",
+        "MQ5B6CTT-AB0A3D97"
+      ]
+    },
+    {
+      "source": "andere",
+      "target": "spannung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MTELW5GH-C4D41002",
+        "MOHAUYTH-CD1E3227"
       ]
     },
     {
@@ -363,19 +512,6 @@
       ]
     },
     {
-      "source": "lm-verwandlung",
-      "target": "stimme",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MOQID47V-A12862EA",
-        "MOHVDNEU-D3F7EEB5"
-      ]
-    },
-    {
       "source": "freiheit",
       "target": "spannung",
       "cooccurrence": 2,
@@ -389,9 +525,9 @@
     }
   ],
   "stats": {
-    "totalPairs": 233,
-    "candidatesCount": 30,
+    "totalPairs": 248,
+    "candidatesCount": 40,
     "existingEdges": 116,
-    "maxCooccurrence": 24
+    "maxCooccurrence": 25
   }
 }

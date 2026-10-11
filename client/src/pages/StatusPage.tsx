@@ -8,7 +8,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, type Palette, RADIUS } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, type ResonanzIndex, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 import { useLocation } from "wouter";
@@ -46,7 +46,7 @@ export default function StatusPage() {
   }, [index]);
 
   const card: React.CSSProperties = {
-    background: c.surface, border: `1px solid ${c.border}`, borderRadius: 6, padding: "1rem 1.2rem",
+    background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.card, padding: "1rem 1.2rem",
   };
   const label: React.CSSProperties = {
     fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.16em", textTransform: "uppercase", color: c.muted,
@@ -69,18 +69,19 @@ export default function StatusPage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: c.void, color: c.text,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={label}>Resonanzvernunft · Öffentlicher Status</div>
-        <h1 style={{ margin: "0.4rem 0 1.5rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>Status</h1>
+        <h1 style={{ margin: "0.4rem 0 1.5rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>Status</h1>
 
         {!index ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : (
           <>
             <div style={{ display: "flex", flexWrap: "wrap", gap: "1rem", marginBottom: "1.5rem" }}>

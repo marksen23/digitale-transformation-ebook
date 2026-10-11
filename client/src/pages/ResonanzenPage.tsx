@@ -25,7 +25,7 @@ import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
 import DeleteConfirm from "@/components/admin/DeleteConfirm";
 import { PHILOSOPHERS } from "@/data/philosophyMap";
 import PageNav from "@/components/PageNav";
-import { SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
+import { MAX_WIDTH, SERIF, SERIF_BODY, MONO, C_DARK, C_LIGHT, RADIUS, SHADOW, TRANSITION, TRACKED, ORNAMENT, type Palette } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 import Ornament, { DropCap } from "@/components/Ornament";
 import SectionLabel from "@/components/SectionLabel";
@@ -437,6 +437,7 @@ export default function ResonanzenPage() {
     <div
       data-scroll
       ref={setScrollRef}
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", right: 0, bottom: 0, left: 0, overflowY: "auto",
         background: C.void, color: C.text, fontFamily: SERIF,
@@ -451,7 +452,7 @@ export default function ResonanzenPage() {
       {/* Header — kompakt, App-Frame-Style. Top-Right-Nav wurde entfernt,
           weil der globale AppFrame oben bereits Werk + Philosophie + Wissen
           verlinkt. */}
-      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: 960, margin: "0 auto" }}>
+      <header style={{ borderBottom: `1px solid ${C.border}`, padding: "0.8rem 1rem", maxWidth: MAX_WIDTH.reader, margin: "0 auto" }}>
         <h1 style={{ fontFamily: SERIF, fontSize: "1.3rem", color: C.textBright, margin: 0, fontWeight: 500, letterSpacing: "-0.01em" }}>
           Kollektives Wissen
         </h1>
@@ -479,8 +480,8 @@ export default function ResonanzenPage() {
                   background: active ? C.deep : "none",
                   border: `1px solid ${active ? C.accentDim : C.border}`,
                   padding: "0.35rem 0.6rem", cursor: "pointer", minHeight: 30,
-                  borderRadius: 3,
-                  transition: "all 0.15s",
+                  borderRadius: RADIUS.micro,
+                  transition: TRANSITION,
                 }}
               >{label}</button>
             );
@@ -488,7 +489,7 @@ export default function ResonanzenPage() {
         </div>
       </header>
 
-      <main style={{ maxWidth: 960, margin: "0 auto", padding: "0 1rem 4rem" }}>
+      <main style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto", padding: "0 1rem 4rem" }}>
         {/* ═══ STICKY-BLOCK: Suche + Filter laufen gemeinsam mit beim Scroll,
             damit der User auch tief in den Treffern noch filtern kann ohne
             hochzuscrollen. ═══ */}
@@ -635,7 +636,7 @@ export default function ResonanzenPage() {
           <section style={{
             background: C.surface,
             border: `1px solid ${C.border}`,
-            borderRadius: 6,
+            borderRadius: RADIUS.card,
             padding: "1.5rem 1.2rem",
             textAlign: "center",
             color: C.textDim,
@@ -719,7 +720,7 @@ export default function ResonanzenPage() {
             <div style={{
               background: C.surface,
               border: `1px solid ${C.border}`,
-              borderRadius: 6,
+              borderRadius: RADIUS.card,
               padding: "2rem 1.5rem",
               textAlign: "center",
               color: C.textDim,
@@ -938,7 +939,7 @@ export default function ResonanzenPage() {
                         {variationSiblings.length} Variationen dieser Aussage
                       </button>
                     ) : (
-                      <>
+                      <div className="panel-appear">
                         <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.1em", textTransform: "uppercase", color: "#c8a87a", marginBottom: "0.4rem", display: "flex", alignItems: "baseline", gap: "0.5rem" }}>
                           <span style={{ fontSize: "0.7rem" }}>❦</span>
                           <span>Variationen dieser Aussage</span>
@@ -968,7 +969,7 @@ export default function ResonanzenPage() {
                             </button>
                           ))}
                         </div>
-                      </>
+                      </div>
                     )}
                   </div>
                 )}
@@ -979,6 +980,7 @@ export default function ResonanzenPage() {
                     "ist verwandt". Nur in expanded card sichtbar. */}
                 {readingMode !== "surface" && expandedId === entry.id && echoEntries.length > 0 && (
                   <div
+                    className="panel-appear"
                     onClick={e => e.stopPropagation()}
                     style={{
                       borderTop: `1px solid ${C.border}`,
@@ -1171,6 +1173,7 @@ export default function ResonanzenPage() {
       {deleteError && (
         <div
           role="alert"
+          className="mobile-fade-in"
           style={{
             position: "fixed", bottom: "1rem", left: "50%", transform: "translateX(-50%)",
             zIndex: 600, background: C.deep, border: "1px solid #c48282",
@@ -1181,7 +1184,7 @@ export default function ResonanzenPage() {
         </div>
       )}
 
-      <div style={{ maxWidth: 820, margin: "0 auto", padding: "0 1.1rem" }}>
+      <div style={{ maxWidth: MAX_WIDTH.prose, margin: "0 auto", padding: "0 1.1rem" }}>
         <SiteFooter c={C} />
       </div>
 

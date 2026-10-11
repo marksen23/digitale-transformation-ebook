@@ -8,12 +8,12 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, RADIUS } from "@/lib/theme";
 import {
   loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry,
 } from "@/lib/resonanzenIndex";
-import { loadQuestions, type QuestionEntry } from "@/lib/questions";
+import { formatAnswerScore, loadQuestions, type QuestionEntry } from "@/lib/questions";
 import { findPassageForEntry } from "@/lib/conceptPassageLink";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 import MobilePill from "@/pages/mobile/MobilePill";
@@ -62,7 +62,7 @@ export default function MobileFragen() {
 
   return (
     <MobileScreenShell C={C} title="Fragen" meta={questions ? `${counts.open} OFFEN` : ""} isDark={isDark}>
-      <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
+      <div style={{ fontFamily: DISPLAY, fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
         Offene Fragen <span style={{ color: C.accentText }}>·</span> Der Denk-Horizont
       </div>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 12 }}>
@@ -95,7 +95,7 @@ export default function MobileFragen() {
         </div>
       ) : (
         shown.map((q, i) => (
-          <div key={q.sourceId + i} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "14px 15px", marginBottom: 11 }}>
+          <div key={q.sourceId + i} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: RADIUS.card, padding: "14px 15px", marginBottom: 11 }}>
             {/* Endpoint + Status */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", gap: 8, marginBottom: 8 }}>
               <button
@@ -131,7 +131,7 @@ export default function MobileFragen() {
                   Das Werk antwortet
                 </div>
                 <div style={{ display: "flex", flexDirection: "column", gap: 5 }}>
-                  {q.answeredBy.slice(0, 3).map(a => {
+                  {q.answeredBy.map(a => {
                     const entry = byId.get(a.id);
                     const preview = entry?.prompt ?? entry?.response ?? "";
                     return (
@@ -141,7 +141,7 @@ export default function MobileFragen() {
                         style={{
                           textAlign: "left", minHeight: 40, cursor: "pointer",
                           background: C.deep, border: `1px solid ${C.border}`,
-                          borderRadius: 4, padding: "8px 10px",
+                          borderRadius: RADIUS.button, padding: "8px 10px",
                           display: "flex", flexDirection: "column", gap: 3,
                         }}
                       >
@@ -155,7 +155,7 @@ export default function MobileFragen() {
                           </span>
                         )}
                         <span style={{ fontFamily: MONO, fontSize: 8, color: C.muted, letterSpacing: "0.04em" }}>
-                          {epLabel(entry?.endpoint ?? "")} · {a.score.toFixed(2)}
+                          {epLabel(entry?.endpoint ?? "")} · {formatAnswerScore(a)}
                         </span>
                       </button>
                     );

@@ -6,7 +6,7 @@
  * Der selektierte Knoten erscheint in einem Bottom-Sheet mit CSS-Transition.
  */
 import { useCallback, useMemo, useRef } from "react";
-import { MONO, SERIF, type Palette } from "@/lib/theme";
+import { DISPLAY, MONO, RADIUS, SERIF, type Palette } from "@/lib/theme";
 import {
   EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H, type ConceptNode,
 } from "@/data/conceptGraph";
@@ -148,7 +148,7 @@ export default function MobileLandkarte({
         {/* Metriken */}
         {metrics.map(([v, l]) => (
           <div key={l} style={{ flexShrink: 0, textAlign: "center" }}>
-            <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 17, color: C.textBright, lineHeight: 1 }}>{v}</div>
+            <div style={{ fontFamily: DISPLAY, fontSize: 17, color: C.textBright, lineHeight: 1 }}>{v}</div>
             <div style={{ fontFamily: MONO, fontSize: 7, letterSpacing: "0.06em", color: C.muted, whiteSpace: "nowrap", marginTop: 1 }}>{l.toUpperCase()}</div>
           </div>
         ))}
@@ -320,7 +320,7 @@ export default function MobileLandkarte({
             {/* Knoten-Header */}
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", marginBottom: 4 }}>
               <div style={{ flex: 1, minWidth: 0 }}>
-                <div style={{ fontFamily: "'Cormorant Garamond',Georgia,serif", fontSize: 24, color: C.textBright, lineHeight: 1.15, wordBreak: "break-word" }}>
+                <div style={{ fontFamily: DISPLAY, fontSize: 24, color: C.textBright, lineHeight: 1.15, wordBreak: "break-word" }}>
                   {sheetNode.fullLabel}
                 </div>
                 <div style={{ fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.12em", textTransform: "uppercase", color: CAT_COLOR[sheetNode.category], marginTop: 4 }}>
@@ -386,7 +386,7 @@ export default function MobileLandkarte({
                         textAlign: "left", fontFamily: SERIF, fontStyle: "italic",
                         fontSize: 13, lineHeight: 1.45, color: C.text,
                         background: C.deep, border: `1px solid ${C.border}`,
-                        borderRadius: 5, padding: "9px 11px", cursor: "pointer",
+                        borderRadius: RADIUS.button, padding: "9px 11px", cursor: "pointer",
                       }}
                     >
                       {e.prompt.slice(0, 85)}{e.prompt.length > 85 ? "…" : ""}

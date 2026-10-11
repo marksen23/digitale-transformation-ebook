@@ -12,7 +12,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, DISPLAY, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, DISPLAY, RADIUS, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
@@ -47,13 +47,14 @@ export default function ErkenntnissePage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: c.void, color: c.text,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>
@@ -73,7 +74,7 @@ export default function ErkenntnissePage() {
         )}
 
         {!erk ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : items.length === 0 ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted, lineHeight: 1.5 }}>
             Noch keine Erkenntnisse bestätigt. Sie entstehen, wenn aus den Erkenntnis-Kandidaten
@@ -98,7 +99,7 @@ export default function ErkenntnissePage() {
                       {e.conceptAnchor ? <> · <span style={{ color: c.accentText }}>{e.conceptAnchor}</span></> : null}
                     </span>
                     <button onClick={() => setOpen(isOpen ? null : e.id)}
-                      style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: 3, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+                      style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: RADIUS.micro, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
                       {isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}
                     </button>
                   </div>

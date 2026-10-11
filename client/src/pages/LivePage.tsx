@@ -9,7 +9,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
-import { C_DARK, C_LIGHT, MONO, SERIF, type Palette } from "@/lib/theme";
+import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, RADIUS, SERIF, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import SiteFooter from "@/components/SiteFooter";
 
@@ -45,7 +45,7 @@ export default function LivePage() {
 
   const chip = (active: boolean): React.CSSProperties => ({
     fontFamily: MONO, fontSize: "0.62rem", letterSpacing: "0.08em", textTransform: "uppercase",
-    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: 5, cursor: "pointer",
+    padding: "0.5rem 0.75rem", minHeight: 40, borderRadius: RADIUS.button, cursor: "pointer",
     border: `1px solid ${active ? c.accentText : c.border}`,
     color: active ? c.accentText : c.muted, background: "none",
   });
@@ -53,17 +53,18 @@ export default function LivePage() {
   return (
     <div
       data-scroll
+      className="panel-appear"
       style={{
         position: "fixed", top: "var(--app-frame-h, 48px)", left: 0, right: 0, bottom: 0,
         overflowY: "auto", WebkitOverflowScrolling: "touch", background: c.void, color: c.text,
         paddingBottom: "env(safe-area-inset-bottom, 0px)",
       }}
     >
-      <div style={{ maxWidth: 760, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
+      <div style={{ maxWidth: MAX_WIDTH.content, margin: "0 auto", padding: "2rem 1.5rem 0" }}>
         <div style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.18em", textTransform: "uppercase", color: c.muted }}>
           Resonanzvernunft
         </div>
-        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: SERIF, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
+        <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
           Live <span style={{ color: c.accentText }}>·</span> Das Neueste
         </h1>
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1.2rem" }}>
@@ -82,7 +83,7 @@ export default function LivePage() {
         )}
 
         {!entries ? (
-          <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
+          <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : shown.length === 0 ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>Noch keine Begegnungen in diesem Bereich.</div>
         ) : (
@@ -93,7 +94,7 @@ export default function LivePage() {
                 href={`/resonanz/${encodeURIComponent(e.id)}`}
                 style={{
                   display: "block", textDecoration: "none",
-                  background: c.surface, border: `1px solid ${c.border}`, borderRadius: 5,
+                  background: c.surface, border: `1px solid ${c.border}`, borderRadius: RADIUS.button,
                   padding: "0.7rem 0.9rem", transition: "border-color 0.15s",
                 }}
                 onMouseEnter={ev => { ev.currentTarget.style.borderColor = c.accentText; }}
