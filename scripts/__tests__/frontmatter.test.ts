@@ -29,6 +29,10 @@ describe("stripQuotes", () => {
   it("strips empty quoted string", () => {
     expect(stripQuotes('""')).toBe("");
   });
+  it("unescapes newlines and quotes written by yamlString", () => {
+    expect(stripQuotes('"zeile\\nkey: injected"')).toBe("zeile\nkey: injected");
+    expect(stripQuotes('"say \\"hello\\""')).toBe('say "hello"');
+  });
 });
 
 describe("parseFrontmatter", () => {

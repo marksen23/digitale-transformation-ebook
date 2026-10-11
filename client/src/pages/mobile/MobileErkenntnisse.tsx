@@ -67,7 +67,7 @@ export default function MobileErkenntnisse() {
                 >{isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}</button>
               </div>
 
-              <div style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+              <div inert={!isOpen} style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
                 <div style={{ overflow: "hidden" }}>
                   <div style={{ marginTop: 12, borderTop: `1px solid ${C.border}`, paddingTop: 12, display: "grid", gap: 12 }}>
                     {question && (

@@ -45,6 +45,15 @@ describe("yamlString", () => {
   it("allows plus in plain string", () => {
     expect(yamlString("a+b")).toBe("a+b");
   });
+  it("quotes YAML booleans so a later parser cannot coerce them", () => {
+    expect(yamlString("true")).toBe('"true"');
+    expect(yamlString("null")).toBe('"null"');
+  });
+  it("keeps newlines inside one quoted line", () => {
+    const result = yamlString("zeile\nkey: injected");
+    expect(result).not.toContain("\n");
+    expect(result).toBe('"zeile\\nkey: injected"');
+  });
 });
 
 describe("contentHash", () => {
@@ -80,6 +89,12 @@ describe("buildPath", () => {
     const p = buildPath("ID1", "analyse", "analyse:a/b", "2026-01-01T00:00:00Z");
     expect(p).not.toContain("/a/b/");
     expect(p).toContain("a_b");
+  });
+  it("strips path traversal from the entry id", () => {
+    const p = buildPath("../../etc/passwd", "analyse", "analyse:ok", "2026-01-01T00:00:00Z");
+    expect(p.startsWith("content/resonanzen/raw/analyse/")).toBe(true);
+    expect(p).not.toContain("..");
+    expect(p).not.toContain("etc/passwd");
   });
   it("builds path without subdir for graph-chat", () => {
     const p = buildPath("G1", "graph-chat", "graph", "2026-06-01T00:00:00Z");

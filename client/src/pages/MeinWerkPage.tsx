@@ -198,7 +198,7 @@ export default function MeinWerkPage() {
                           <button onClick={() => handleDeleteThread(thread.id)} style={miniBtn(C, "#c48282")} title="Faden löschen">⌫</button>
                         </div>
                       </div>
-                      <div style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.24s ease" }}>
+                      <div inert={!isOpen} style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.24s ease" }}>
                         <div style={{ overflow: "hidden" }}>
                           <WeiterdenkenThread
                             c={C}

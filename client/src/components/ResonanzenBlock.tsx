@@ -146,7 +146,7 @@ export default function ResonanzenBlock({
           <ResonanzCard key={entry.id} entry={entry} c={c} variant="flat" />
         ))}
         {extra.length > 0 && (
-          <div style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
+          <div inert={!expanded} style={{ display: "grid", gridTemplateRows: expanded ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
             <div style={{ overflow: "hidden", display: "flex", flexDirection: "column", gap: "0.4rem" }}>
               {extra.map(entry => (
                 <ResonanzCard key={entry.id} entry={entry} c={c} variant="flat" />

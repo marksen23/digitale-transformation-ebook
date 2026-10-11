@@ -28,8 +28,9 @@
  * (404). Umstellung auf gemini-embedding-001 (3072-dim).
  */
 
+import { geminiAuthHeaders, geminiEmbedUrl, redactSecrets } from "./geminiHttp.js";
+
 const GEMINI_EMBED_MODEL = (process.env.GEMINI_EMBED_MODEL ?? "").trim() || "gemini-embedding-001";
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBED_MODEL}:embedContent`;
 
 export type EmbedErrorClass = "billing" | "quota" | "auth" | "transient" | "ok";
 
@@ -90,9 +91,9 @@ interface FetchResult {
 /** Ein einzelner embedContent-Call mit einem konkreten Key. */
 async function callOnce(apiKey: string, text: string): Promise<FetchResult> {
   try {
-    const res = await fetch(`${GEMINI_API_URL}?key=${apiKey}`, {
+    const res = await fetch(geminiEmbedUrl(GEMINI_EMBED_MODEL), {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: geminiAuthHeaders(apiKey),
       body: JSON.stringify({
         // gemini-embedding-001 verlangt das model-Feld zusätzlich zur URL.
         model: `models/${GEMINI_EMBED_MODEL}`,
@@ -104,7 +105,7 @@ async function callOnce(apiKey: string, text: string): Promise<FetchResult> {
       const cls = classifyError(res.status, body);
       if (_embedFailLogged < EMBED_FAIL_LOG_LIMIT) {
         _embedFailLogged++;
-        console.error(`[fetchEmbedding] ${res.status} ${res.statusText} [${cls}]: ${body.slice(0, 300)}`);
+        console.error(`[fetchEmbedding] ${res.status} ${res.statusText} [${cls}]: ${redactSecrets(body).slice(0, 300)}`);
       }
       return { values: null, cls };
     }

@@ -10,6 +10,7 @@
  * die endpoint-spezifische Logik (RAG, Citations, Korpus-Append) beim Aufrufer.
  */
 import type { Response } from "express";
+import { geminiAuthHeaders, geminiStreamUrl, redactSecrets } from "./geminiHttp.js";
 
 interface StreamOpts {
   apiKey: string;
@@ -35,10 +36,10 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
 
   try {
     const upstream = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:streamGenerateContent?alt=sse&key=${opts.apiKey}`,
+      geminiStreamUrl(),
       {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: geminiAuthHeaders(opts.apiKey),
         body: JSON.stringify({
           ...(opts.system ? { systemInstruction: { parts: [{ text: opts.system }] } } : {}),
           contents: opts.contents,
@@ -74,7 +75,7 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
     }
     return full;
   } catch (err) {
-    try { sseSend(res, { error: `API-Fehler: ${err instanceof Error ? err.message : String(err)}` }); res.end(); } catch { /* schon geschlossen */ }
+    try { sseSend(res, { error: `API-Fehler: ${redactSecrets(err instanceof Error ? err.message : String(err)).slice(0, 300)}` }); res.end(); } catch { /* schon geschlossen */ }
     return null;
   }
 }
