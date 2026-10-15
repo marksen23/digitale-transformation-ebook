@@ -21,6 +21,9 @@ import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.j
 import { geminiAuthHeaders, geminiGenerateUrl, geminiStreamUrl, redactSecrets } from "./lib/geminiHttp.js";
 import { chaptersFromEbook, resolveAskChapter, type AskChapterSource } from "./lib/askChapter.js";
 import { prepareWeiterdenken, weiterdenkenSafetySuffix } from "./lib/weiterdenkenPrompt.js";
+import { prepareConversation, prepareGraphChat } from "./lib/conversationPrompt.js";
+import { resolveTranslateRequest } from "./lib/translateRequest.js";
+import { PASSAGE_PROMPT_MAX, PASSAGE_SELECTION_MAX, selectionInSource } from "./lib/passageGuard.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { renderSeoHtml, buildSitemap, buildLlmsFullText, canonicalHostRedirect } from "./lib/seo.js";
 
@@ -343,30 +346,22 @@ ${UNTRUSTED_RULE}`;
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
-    const { messages } = req.body as {
-      messages: Array<{ role: "user" | "assistant"; content: string }>;
-    };
-
-    if (!messages || !Array.isArray(messages) || messages.length === 0) {
-      return res.status(400).json({ error: "messages-Array ist erforderlich." });
-    }
+    // Verlauf ist clientseitig. Jede Blase wird begrenzt und gerahmt;
+    // Fehlerblasen und fremde Rollen bleiben draußen.
+    const prepared = prepareConversation({
+      messages: (req.body as { messages?: unknown } | undefined)?.messages,
+      textKey: "content",
+      userRoles: ["user"],
+      assistantRoles: ["assistant"],
+      maxTurns: 17,
+      skipError: true,
+    });
+    if ("error" in prepared) return res.status(400).json({ error: prepared.error });
 
     // Ebook-Inhalt als Wissensbasis (erste 30.000 Zeichen — reduziert um
     // den Gesamtprompt unter der Grenze für zuverlässige Antworten zu halten)
     const ebookContent = getEbookContent();
     const ebookSnippet = ebookContent ? ebookContent.slice(0, 30_000) : "";
-
-    // Gesprächshistorie als formatierten Text — gleicher Ansatz wie Q&A,
-    // kein Multi-Turn-Format, keine Alternations-Probleme.
-    // Auf die letzten 16 Nachrichten (8 Runden) begrenzt, damit der Prompt
-    // auch bei langen Gesprächen nicht zu groß wird.
-    const cleanMessages = (messages as Array<{ role: string; content: string; error?: boolean }>)
-      .filter((m) => !m.error && m.content?.trim());
-
-    const lastMessage = cleanMessages[cleanMessages.length - 1];
-    if (!lastMessage || lastMessage.role !== "user") {
-      return res.status(400).json({ error: "Letzte Nachricht muss vom Nutzer sein." });
-    }
 
     // System-Instruktion: Enkidu-Persönlichkeit + Ebook-Wissen
     // Wird in das dedizierte systemInstruction-Feld geschrieben — nicht in die
@@ -389,12 +384,8 @@ ${UNTRUSTED_RULE}`;
       .filter(Boolean)
       .join("\n");
 
-    // Gesprächshistorie als echtes Multi-Turn-Array (Gemini: role "model", nicht "assistant")
-    // Letzte Nachricht ist immer die aktuelle User-Frage.
-    const conversationContents = cleanMessages.slice(-17).map((m) => ({
-      role: m.role === "user" ? "user" : "model",
-      parts: [{ text: m.content }],
-    }));
+    // Gesprächshistorie als Multi-Turn-Array (Gemini: role "model", nicht "assistant").
+    const conversationContents = prepared.contents;
 
     try {
       const response = await fetch(
@@ -439,10 +430,10 @@ ${UNTRUSTED_RULE}`;
       void logResonanz({
         endpoint: "enkidu",
         anchor: "enkidu",
-        prompt: lastMessage.content,
+        prompt: prepared.lastUserText,
         response: text,
         model: "gemini-2.5-flash",
-        contextMeta: { turnCount: cleanMessages.length },
+        contextMeta: { turnCount: prepared.turns.length },
       });
       return;
     } catch (err: unknown) {
@@ -562,18 +553,16 @@ ${UNTRUSTED_RULE}`;
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
-    const { text, targetLang, sourceLang, chapterId, chapterTitle } = req.body;
-    if (!text || !targetLang) {
-      return res.status(400).json({ error: "Text und Zielsprache sind erforderlich." });
-    }
-
-    const langNames: Record<string, string> = {
-      en: "English", fr: "French", es: "Spanish", it: "Italian", pt: "Portuguese",
-      tr: "Turkish", pl: "Polish", nl: "Dutch", zh: "Chinese (Simplified)",
-      ja: "Japanese", ar: "Arabic", de: "German",
-    };
-    const targetName = langNames[targetLang] || targetLang;
-    const sourceName = langNames[sourceLang || "de"] || "German";
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const translated = resolveTranslateRequest(body);
+    if ("error" in translated) return res.status(400).json({ error: translated.error });
+    const { text, targetLang, sourceLang, targetName, sourceName } = translated;
+    const chapterId = typeof body.chapterId === "string"
+      ? body.chapterId.replace(/[^a-z0-9äöüß_-]/gi, "").slice(0, 80)
+      : "";
+    const chapterTitle = typeof body.chapterTitle === "string"
+      ? body.chapterTitle.replace(/\s+/g, " ").trim().slice(0, 300)
+      : "";
 
     const prompt = `You are a literary translator. Translate the following philosophical text from ${sourceName} into ${targetName}.
 Preserve key philosophical terms (Resonanzvernunft, Dasein, Antlitz, Kairos, Gestell) in their original German form, or give them in ${targetName} with the original German in parentheses on first occurrence.
@@ -617,7 +606,7 @@ ${wrapUntrusted(text)}`;
       void logResonanz({
         endpoint: "translate",
         anchor,
-        prompt: `Übersetze ${chapterTitle ?? chapterId ?? "Text"} von ${sourceLang ?? "de"} nach ${targetLang}`,
+        prompt: `Übersetze ${chapterTitle || chapterId || "Text"} von ${sourceLang} nach ${targetLang}`,
         response: translation,
         model: "gemini-2.5-flash",
         contextMeta: {
@@ -629,7 +618,7 @@ ${wrapUntrusted(text)}`;
         },
       });
     } catch (err) {
-      console.error("Translate request failed:", err);
+      console.error("Translate request failed:", scrub(err instanceof Error ? err.message : String(err)));
       res.status(502).json({ error: "Verbindung zur Übersetzungs-API fehlgeschlagen." });
     }
   });
@@ -1011,25 +1000,12 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
 
-    const { message, history } = req.body as {
-      message: string;
-      history: Array<{ role: "user" | "model"; text: string }>;
-    };
-
-    if (!message?.trim()) return res.status(400).json({ error: "Nachricht fehlt." });
-
-    // Konversationsverlauf in Gemini-Format übersetzen (max. 10 Runden)
-    const recentHistory = (history ?? []).slice(-20);
-    const contents = [
-      ...recentHistory.map(h => ({
-        role: h.role,
-        parts: [{ text: h.text }],
-      })),
-      { role: "user", parts: [{ text: wrapUntrusted(message) }] },
-    ];
+    const prepared = prepareGraphChat(req.body ?? {});
+    if ("error" in prepared) return res.status(400).json({ error: prepared.error });
+    const { contents, lastUserText, turns } = prepared;
 
     // Werk-Text-RAG (Feature D): retrieve passend zur aktuellen User-Nachricht
-    const { passages: chatPassages, contextBlock: chatWerkContext } = await buildWerkContext(message, 4);
+    const { passages: chatPassages, contextBlock: chatWerkContext } = await buildWerkContext(lastUserText, 4);
 
     // i18n (Feature F): wenn Client EN-Locale signalisiert, antworte EN
     const acceptLang = (req.headers["accept-language"] ?? "").toString();
@@ -1075,11 +1051,11 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       void logResonanz({
         endpoint: "graph-chat",
         anchor: "graph",
-        prompt: message,
+        prompt: lastUserText,
         response: reply,
         model: "gemini-2.5-flash",
         contextMeta: {
-          historyLength: recentHistory.length,
+          historyLength: Math.max(0, turns.length - 1),
           werk_passages: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
         },
       });
@@ -1098,17 +1074,10 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
   app.post("/api/graph-chat/stream", rateLimiter('graph-chat', 30, 60 * 60_000), async (req, res) => {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
-    const { message, history } = req.body as {
-      message: string; history: Array<{ role: "user" | "model"; text: string }>;
-    };
-    if (!message?.trim()) return res.status(400).json({ error: "Nachricht fehlt." });
-
-    const recentHistory = (history ?? []).slice(-20);
-    const contents = [
-      ...recentHistory.map(h => ({ role: h.role, parts: [{ text: h.text }] })),
-      { role: "user", parts: [{ text: wrapUntrusted(message) }] },
-    ];
-    const { passages: chatPassages, contextBlock: chatWerkContext } = await buildWerkContext(message, 4);
+    const prepared = prepareGraphChat(req.body ?? {});
+    if ("error" in prepared) return res.status(400).json({ error: prepared.error });
+    const { contents, lastUserText, turns } = prepared;
+    const { passages: chatPassages, contextBlock: chatWerkContext } = await buildWerkContext(lastUserText, 4);
     const acceptLang = (req.headers["accept-language"] ?? "").toString();
     const referer = (req.headers["referer"] ?? "").toString();
     const isEnglish = /\/en(\/|$|\?)/.test(referer) || /^en/i.test(acceptLang.split(",")[0]?.trim() ?? "");
@@ -1169,10 +1138,10 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       send({ done: true, citedChunks: chatPassages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
       res.end();
       void logResonanz({
-        endpoint: "graph-chat", anchor: "graph", prompt: message, response: full,
+        endpoint: "graph-chat", anchor: "graph", prompt: lastUserText, response: full,
         model: "gemini-2.5-flash",
         contextMeta: {
-          historyLength: recentHistory.length, streamed: true,
+          historyLength: Math.max(0, turns.length - 1), streamed: true,
           werk_passages: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
         },
       });
@@ -1483,22 +1452,31 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) return res.status(503).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
 
-    const { chunkId, selectedText, mode, userPrompt } = req.body as {
-      chunkId?: string;
-      selectedText?: string;
-      mode?: "frage" | "analyse" | "frei";
-      userPrompt?: string;
-    };
+    const body = (req.body ?? {}) as Record<string, unknown>;
+    const chunkId = typeof body.chunkId === "string" ? body.chunkId.trim().slice(0, 80) : "";
+    const selectedRaw = typeof body.selectedText === "string" ? body.selectedText.trim() : "";
+    const mode = body.mode;
+    const userPrompt = typeof body.userPrompt === "string" ? body.userPrompt.trim().slice(0, PASSAGE_PROMPT_MAX) : "";
 
-    if (!chunkId || typeof chunkId !== "string") return res.status(400).json({ error: "chunkId fehlt" });
-    if (!selectedText || selectedText.trim().length < 20) return res.status(400).json({ error: "selectedText zu kurz (mind. 20 Zeichen)" });
-    if (!mode || !["frage", "analyse", "frei"].includes(mode)) return res.status(400).json({ error: "mode muss 'frage', 'analyse' oder 'frei' sein" });
-    if (mode === "frei" && (!userPrompt || userPrompt.trim().length < 5)) return res.status(400).json({ error: "userPrompt erforderlich im 'frei'-Modus" });
+    if (!chunkId) return res.status(400).json({ error: "chunkId fehlt" });
+    if (selectedRaw.length < 20) return res.status(400).json({ error: "selectedText zu kurz (mind. 20 Zeichen)" });
+    if (mode !== "frage" && mode !== "analyse" && mode !== "frei") return res.status(400).json({ error: "mode muss 'frage', 'analyse' oder 'frei' sein" });
+    if (mode === "frei" && userPrompt.length < 5) return res.status(400).json({ error: "userPrompt erforderlich im 'frei'-Modus" });
 
-    // Chunk-Lookup für Kapiteltitel + Nachbar-Chunks
+    // Chunk-Lookup für Kapiteltitel + Nachbar-Chunks. Liegt der Index vor,
+    // muss die Markierung im Kapitel dieser Stelle vorkommen.
     const { getChunkLookup } = await import("./lib/werkRetrieval.js");
     const lookup = await getChunkLookup();
     const chunk = lookup.get(chunkId);
+    if (lookup.size > 0) {
+      if (!chunk) return res.status(400).json({ error: "Unbekannte Stelle." });
+      const sources: string[] = [];
+      lookup.forEach(c => { if (c.chapter === chunk.chapter) sources.push(c.text); });
+      if (!selectionInSource(selectedRaw, sources)) {
+        return res.status(400).json({ error: "Die Markierung gehört nicht zu dieser Stelle." });
+      }
+    }
+    const selectedText = selectedRaw.slice(0, PASSAGE_SELECTION_MAX);
     const chapterTitle = chunk?.chapterTitle ?? "(unbekanntes Kapitel)";
 
     // Nachbar-Chunks: ±1 in derselben Kapitel-Sequenz
