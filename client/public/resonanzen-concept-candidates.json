@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T18:34:02.110Z",
+  "generatedAt": "2026-10-15T15:04:35.053Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -316,6 +316,46 @@
       ]
     },
     {
+      "suggestedLabel": "unverfügbarkeit",
+      "keywords": [
+        {
+          "word": "unverfügbarkeit",
+          "count": 3
+        },
+        {
+          "word": "schweigen",
+          "count": 2
+        },
+        {
+          "word": "echo",
+          "count": 2
+        },
+        {
+          "word": "spannungsfeld",
+          "count": 2
+        },
+        {
+          "word": "rolle",
+          "count": 1
+        },
+        {
+          "word": "spielt",
+          "count": 1
+        }
+      ],
+      "evidence": 9,
+      "distinctness": 0.194,
+      "nearestConcept": "spannung",
+      "nearestSim": 0.806,
+      "sampleEntryIds": [
+        "MUY7RXCI-E899056E",
+        "MUY7RXCI-D36BB4D6",
+        "MQ66ZWYC-52DE2DF2",
+        "MPF4WM18-FF4843F1",
+        "MOQIMC7B-B190C937"
+      ]
+    },
+    {
       "suggestedLabel": "bedeutet",
       "keywords": [
         {
@@ -356,37 +396,76 @@
       ]
     },
     {
+      "suggestedLabel": "spiegel",
+      "keywords": [
+        {
+          "word": "spiegel",
+          "count": 3
+        },
+        {
+          "word": "spannungsfeld",
+          "count": 2
+        },
+        {
+          "word": "wahrheit",
+          "count": 2
+        },
+        {
+          "word": "woran",
+          "count": 1
+        },
+        {
+          "word": "erkennen",
+          "count": 1
+        },
+        {
+          "word": "antwortende",
+          "count": 1
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.193,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.807,
+      "sampleEntryIds": [
+        "MUY7RXCI-C4CF7B92",
+        "MQASO35V-115DA081",
+        "MPMJC8TR-592D4EF0",
+        "MOP0S479-373A2268"
+      ]
+    },
+    {
       "suggestedLabel": "spannungsfeld",
       "keywords": [
         {
           "word": "spannungsfeld",
-          "count": 10
+          "count": 9
         },
         {
           "word": "triade",
-          "count": 7
+          "count": 6
         },
         {
           "word": "mensch",
           "count": 5
         },
         {
-          "word": "unverfügbarkeit",
+          "word": "maschine",
           "count": 4
         },
         {
-          "word": "maschine",
-          "count": 4
+          "word": "unverfügbarkeit",
+          "count": 3
         },
         {
           "word": "beziehung",
           "count": 3
         }
       ],
-      "evidence": 30,
-      "distinctness": 0.171,
+      "evidence": 27,
+      "distinctness": 0.169,
       "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.829,
+      "nearestSim": 0.831,
       "sampleEntryIds": [
         "MQXDVN1C-CAA3081A",
         "MQ5XFLFO-F0DBB89E",
@@ -397,10 +476,10 @@
     }
   ],
   "stats": {
-    "curated": 193,
-    "uncovered": 193,
-    "candidatesCount": 10,
+    "curated": 197,
+    "uncovered": 197,
+    "candidatesCount": 12,
     "concepts": 50,
-    "maxEvidence": 30
+    "maxEvidence": 27
   }
 }

@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-09T18:33:05.147Z",
-  "filesChecked": 275,
+  "generatedAt": "2026-10-15T15:04:01.013Z",
+  "filesChecked": 277,
   "errors": 0,
   "warnings": 10,
   "issues": [
@@ -69,17 +69,17 @@
     "byEndpoint": {
       "analyse": 68,
       "chapter": 31,
-      "dialog": 35,
+      "dialog": 36,
       "enkidu": 59,
       "graph-chat": 34,
-      "path-analyse": 42,
+      "path-analyse": 43,
       "translate": 6
     },
     "byStatus": {
       "published": 150,
-      "raw": 54,
+      "raw": 52,
       "rejected": 24,
-      "approved": 47
+      "approved": 51
     },
     "orphanNodeIds": [
       "band3-kap3",

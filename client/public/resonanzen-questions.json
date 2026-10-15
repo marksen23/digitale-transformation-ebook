@@ -1,16 +1,31 @@
 {
-  "generatedAt": "2026-10-09T18:34:13.591Z",
-  "count": 220,
+  "generatedAt": "2026-10-15T15:04:35.464Z",
+  "count": 221,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 220,
+    "total": 221,
     "answered": 196,
-    "open": 24,
-    "embedded": 25
+    "open": 25,
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MV9NMWL2-5669B857",
+      "question": "Wie aber können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:raum+erkenntnis+sprache",
+      "nodeIds": [
+        "raum",
+        "erkenntnis",
+        "sprache"
+      ],
+      "ts": "2026-10-15T14:49:17.947Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MUZTN3NV-0C28E8DB",
       "question": "Was sagt die Möglichkeit, das Ergebnis vor dem expliziten Prozess zu benennen, über die Rolle der Teleologie im Denken der Resonanzvernunft aus?",
@@ -141,6 +156,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.754
+        },
+        {
           "id": "MTNBAIUZ-299AC7D8",
           "score": 0.742
         }
@@ -163,6 +182,10 @@
         {
           "id": "MTNB93L6-1411E014",
           "score": 0.909
+        },
+        {
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.758
         }
       ],
       "answered": true
@@ -187,6 +210,10 @@
         {
           "id": "MTNB93L6-1411E014",
           "score": 0.795
+        },
+        {
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.732
         }
       ],
       "answered": true
@@ -293,8 +320,8 @@
           "score": 0.84
         },
         {
-          "id": "MTNB77VP-6A85F255",
-          "score": 0.797
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.807
         }
       ],
       "answered": true
@@ -341,6 +368,10 @@
       "ts": "2026-09-03T05:28:13.460Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MV9NOFH9-7634B79F",
+          "score": 0.74
+        },
         {
           "id": "MUZTGAEK-432FB6BC",
           "score": 0.737
@@ -3330,8 +3361,8 @@
           "score": 0.771
         },
         {
-          "id": "MPMKE3CC-4E75CE39",
-          "score": 0.767
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.768
         }
       ],
       "answered": true
@@ -4474,16 +4505,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.805
+        },
+        {
           "id": "MOQIMC7B-B190C937",
           "score": 0.803
         },
         {
           "id": "MTNB68RF-CFF570D9",
           "score": 0.798
-        },
-        {
-          "id": "MQ5KBJMQ-5C523141",
-          "score": 0.794
         }
       ],
       "answered": true

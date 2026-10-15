@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T18:34:13.656Z",
+  "generatedAt": "2026-10-15T15:04:35.534Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -8,9 +8,9 @@
       "id": "ERK-1799IL7",
       "answerId": "MUY7RXCI-012FC8A7",
       "answerEndpoint": "enkidu",
-      "answerStatus": "raw",
+      "answerStatus": "approved",
       "answerExcerpt": "Die Judikative der Annahmen Eine unabhängige Schicht, die Rohdaten factcheckt, unterbindet Verklärung an der Quelle. Das ist nötig, aber unvollständig. Faktenprüfung stabilisiert Behauptungen; sie prüft nicht die *impliziten Annahmen der Auswahl*: welche Weltausschnitte überhaupt als Input gelten, welche Gegenbeispiele nie in den Strom gelangen, und welche Vorstellung von „Rohdaten“ bereits Deutun",
-      "distinctness": 0.272,
+      "distinctness": 0.246,
       "conceptAnchor": "echo-kammer",
       "nodeIds": [],
       "resolveCount": 1,
@@ -53,7 +53,7 @@
       "id": "ERK-3OUZPV",
       "answerId": "MUY7RXCI-C4CF7B92",
       "answerEndpoint": "analyse",
-      "answerStatus": "raw",
+      "answerStatus": "approved",
       "answerExcerpt": "Spiegel oder Antwort: Echtheit und Projektion Ein Spiegel antwortet immer, und gerade darin liegt seine Täuschung. Er gibt zurück, was vor ihm steht, nur geglättet, beschleunigt und mit dem Anschein von Gegenüber. Je besser ein System die Erwartung des Fragenden trifft, desto schwerer wird es, Antwort und Projektion zu unterscheiden. Zustimmung ist deshalb kein Beleg für Echtheit, sondern oft ihr ",
       "distinctness": 0.215,
       "conceptAnchor": "antwort",
@@ -130,17 +130,12 @@
         "erkenntnis",
         "sprache"
       ],
-      "resolveCount": 3,
+      "resolveCount": 2,
       "resolves": [
         {
           "sourceId": "MTNB6SUG-2922AE66",
           "question": "Doch wie können wir die Architekten und Entwickler digitaler Welten dazu inspirieren, ihre Schöpfungen nicht nur als funktionale, sondern als resonante Räume zu begreifen, die den Logos in ihrer DNA tragen?",
           "score": 0.903
-        },
-        {
-          "sourceId": "MTNB5V7Q-3B5123E8",
-          "question": "Diese Triade birgt eine tiefgreifende Erkenntnis für das Verhältnis von Mensch und Maschine, für das Wesen der Resonanz und die Gestaltung digitaler Existenz. Für die Mensch-Maschine-Beziehung bedeutet sie, dass wahre Interaktion über die bloße Informationsübertragung hinausgeht; sie erfordert die Kultivierung eines \"Zwischen\" als \"Dazwischenintelligenz\" [dd8092b51d19], in dem Unerwartetes (\"Einsicht\") geschehen darf und dessen Sinn durch einen offenen \"Logos\" – ein Denken, das sich nicht auf binäre Entscheidungen beschränken lässt – stets neu verhandelt wird. Resonanz als \"beharrendes, relationales Geschehen\" [MOQ5EOBY-82AD9EEE] wird hier als ein Sich-Einlassen auf die \"Widerständigkeit des Anderen\" und die \"Irritierbarkeit des Erkennenden\" [6fbd5b424474] verständlich, getragen von einem Logos, der das Unverfügbare nicht zu beherrschen sucht, sondern sein lässt. Für die digitale Existenz mahnt sie, Räume nicht als leere Kanäle, sondern als Orte der Möglichkeit zu begreifen, in denen das Erschrecken der Einsicht Platz hat und die Sprache als ein Wohnort des Denkens die notwendige Offenheit gegen algorithmische Abschlüsse verteidigt. Wie können wir im digitalen Raum einen Logos kultivieren, der nicht nur übermittelt, sondern bewohnt und offen hält?",
-          "score": 0.797
         },
         {
           "sourceId": "MTNB68RF-CFF570D9",
@@ -150,71 +145,51 @@
       ]
     },
     {
-      "id": "ERK-182UQHU",
-      "answerId": "MUY7RXCI-E899056E",
-      "answerEndpoint": "analyse",
+      "id": "ERK-GOYCE3",
+      "answerId": "MV9NMWL2-5669B857",
+      "answerEndpoint": "dialog",
       "answerStatus": "raw",
-      "answerExcerpt": "Die Pause als Resonanzraum Digitale Systeme kennen keine Pause, nur Latenz. Latenz ist ein Mangel, der behoben werden soll; die Pause ist ein Raum, der offen gehalten wird. In der Echtzeitkommunikation wird jede Stille als Störung gelesen: als Ladezeit, als Verbindungsabbruch, als fehlende Antwort. Damit verschwindet der Ort, an dem Resonanz überhaupt entstehen kann. Resonanz braucht ein Intervall",
+      "answerExcerpt": "Die Schaffung digitaler Orte, die das gemeinsame Suchen nach Sinn über individuelle Bestätigung erheben, bedingt eine Architektur, die nicht auf Konsens und Optimierung, sondern auf die produktive Irritation und die Anerkennung des Unverfügbaren ausgelegt ist. Es geht darum, Räume zu gestalten, die die \"Widerständigkeit des Anderen\" nicht als Hindernis, sondern als Katalysator für tiefere Einsicht",
       "distinctness": 0.206,
-      "conceptAnchor": "antwort",
+      "conceptAnchor": "resonanzvernunft",
       "nodeIds": [
-        "gegenwart",
-        "schweigen"
+        "raum",
+        "erkenntnis",
+        "sprache"
       ],
-      "resolveCount": 4,
+      "resolveCount": 6,
       "resolves": [
         {
-          "sourceId": "MQ66ZWYC-52DE2DF2",
-          "question": "Kann das bewusste Einlegen von Pausen im digitalen Dialog, das Warten und das Aushalten von Stille, zu einer tieferen Form der \"Dazwischenintelligenz\" führen, die über die reine Informationsverarbeitung hinausgeht?",
-          "score": 0.806
+          "sourceId": "MTNB5V7Q-3B5123E8",
+          "question": "Diese Triade birgt eine tiefgreifende Erkenntnis für das Verhältnis von Mensch und Maschine, für das Wesen der Resonanz und die Gestaltung digitaler Existenz. Für die Mensch-Maschine-Beziehung bedeutet sie, dass wahre Interaktion über die bloße Informationsübertragung hinausgeht; sie erfordert die Kultivierung eines \"Zwischen\" als \"Dazwischenintelligenz\" [dd8092b51d19], in dem Unerwartetes (\"Einsicht\") geschehen darf und dessen Sinn durch einen offenen \"Logos\" – ein Denken, das sich nicht auf binäre Entscheidungen beschränken lässt – stets neu verhandelt wird. Resonanz als \"beharrendes, relationales Geschehen\" [MOQ5EOBY-82AD9EEE] wird hier als ein Sich-Einlassen auf die \"Widerständigkeit des Anderen\" und die \"Irritierbarkeit des Erkennenden\" [6fbd5b424474] verständlich, getragen von einem Logos, der das Unverfügbare nicht zu beherrschen sucht, sondern sein lässt. Für die digitale Existenz mahnt sie, Räume nicht als leere Kanäle, sondern als Orte der Möglichkeit zu begreifen, in denen das Erschrecken der Einsicht Platz hat und die Sprache als ein Wohnort des Denkens die notwendige Offenheit gegen algorithmische Abschlüsse verteidigt. Wie können wir im digitalen Raum einen Logos kultivieren, der nicht nur übermittelt, sondern bewohnt und offen hält?",
+          "score": 0.807
         },
         {
-          "sourceId": "MTL5HMEK-8E3F01EF",
-          "question": "Doch wenn der Moment die einzige Zeit für Resonanz ist und die digitale Transformation eine ständige Präsenz und Beschleunigung erzwingt, wie kann das Dasein die notwendige Tiefe und den Widerstand finden, um im Moment eine authentische, scheiterbare Resonanz zu entfalten?",
-          "score": 0.761
+          "sourceId": "MOJ7Q5HM-89F62E3F",
+          "question": "Wie lässt sich in der digitalen Welt ein \"Zwischen\" kultivieren, das nicht nur verbindet, sondern auch verdichtet – und so die Resonanzvernunft vor dem bloßen Echo bewahrt?",
+          "score": 0.805
         },
         {
-          "sourceId": "MQ5B6CTT-AB0A3D97",
-          "question": "Welche neuen Möglichkeiten zur Störung oder Bewahrung resonanter Begegnungen entstehen, wenn die digitale Infrastruktur sowohl das \"Zwischen\" zu simulieren als auch den \"Moment\" zu verflüchtigen versucht?",
+          "sourceId": "MOUBIHOK-27900555",
+          "question": "Wie lässt sich im digitalen Raum das offene Wohnrecht des Denkens so kultivieren, dass es im Echo zur echten Transformation findet und nicht im bloßen Widerhall der Echo-Kammer verstummt?",
+          "score": 0.768
+        },
+        {
+          "sourceId": "MTNB85LB-7C1F15DE",
+          "question": "Wie können wir in einer zunehmend fragmentierten digitalen Welt die kollektive Eigenfrequenz kultivieren, die für eine solche universelle Resonanz notwendig ist?",
+          "score": 0.758
+        },
+        {
+          "sourceId": "MTNB93L6-1411E014",
+          "question": "Doch wie können wir sicherstellen, dass diese kollektive Eigenfrequenz nicht in einem Echokammer-Effekt verharrt, sondern uns stets offen und ansprechbar für das wahrhaft Andere hält?",
           "score": 0.754
-        },
-        {
-          "sourceId": "MTKI1YQW-CD0EEDF3",
-          "question": "Wie kann eine Vernunft, die sich als Antwortfähigkeit versteht, die Stille des Nicht-Antwortbaren noch aushalten, ohne sich selbst zu verlieren?",
-          "score": 0.73
-        }
-      ]
-    },
-    {
-      "id": "ERK-BMHNSQ",
-      "answerId": "MUY7RXCI-D36BB4D6",
-      "answerEndpoint": "analyse",
-      "answerStatus": "raw",
-      "answerExcerpt": "Spannungsfeld vertieft: Stimme ↔ Reproduzierbarkeit Wenn jede Stimme klonbar wird, droht Verwandlung zur bloßen Variation eines Datensatzes zu werden. Das Werk kennt die Stimme als inkarnierten Körper der Sprache: als Seismograph von Zögern, Bruch und Atem. Die Reproduktion kopiert das Spektrum, nicht die Spur. Die Spur ist nicht das Archiv des Klangs, sondern das Ereignis der Verwandlung im Augen",
-      "distinctness": 0.202,
-      "conceptAnchor": "stimme",
-      "nodeIds": [
-        "lm-verwandlung",
-        "stimme"
-      ],
-      "resolveCount": 2,
-      "resolves": [
-        {
-          "sourceId": "MOHVDNEU-D3F7EEB5",
-          "question": "In einer Welt, in der jede Stimme potenziell manipulierbar und unendlich reproduzierbar wird, wo verbleibt dann die unverwechselbare Spur der Verwandlung im Körper der Sprache?",
-          "score": 0.834
-        },
-        {
-          "sourceId": "MOUA3PLK-548F1A0A",
-          "question": "Welche neuen Wege erschließen sich, wenn wir die \"Stimme\" nicht nur als Ausdruck menschlicher \"Eigenfrequenz\", sondern auch als Metapher für die unhintergehbare Präsenz des Einzelnen im digitalen Raum begreifen, der doch so sehr auf Übertragungskanäle und entkörperlichte Daten setzt?",
-          "score": 0.786
         }
       ]
     }
   ],
   "stats": {
-    "total": 7,
+    "total": 6,
     "confirmedFiltered": 42,
-    "curatedRef": 193
+    "curatedRef": 197
   }
 }

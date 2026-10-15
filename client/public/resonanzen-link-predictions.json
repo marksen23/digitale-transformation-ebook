@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T18:34:02.056Z",
+  "generatedAt": "2026-10-15T15:04:34.995Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -22,63 +22,77 @@
     {
       "source": "erkenntnis",
       "target": "raum",
-      "cooccurrence": 8,
+      "cooccurrence": 9,
       "endpoints": {
-        "dialog": 6,
+        "dialog": 7,
         "analyse": 2
       },
       "sampleEntryIds": [
+        "MV9NMWL2-5669B857",
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709",
-        "MTNB77VP-6A85F255",
-        "MTNB6SUG-2922AE66"
+        "MTNB77VP-6A85F255"
       ]
     },
     {
       "source": "erkenntnis",
       "target": "sprache",
-      "cooccurrence": 8,
+      "cooccurrence": 9,
       "endpoints": {
-        "dialog": 6,
+        "dialog": 7,
         "analyse": 1,
         "path-analyse": 1
       },
       "sampleEntryIds": [
+        "MV9NMWL2-5669B857",
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709",
-        "MTNB77VP-6A85F255",
-        "MTNB6SUG-2922AE66"
+        "MTNB77VP-6A85F255"
       ]
     },
     {
       "source": "raum",
       "target": "sprache",
-      "cooccurrence": 7,
+      "cooccurrence": 8,
       "endpoints": {
-        "dialog": 6,
+        "dialog": 7,
         "analyse": 1
       },
       "sampleEntryIds": [
+        "MV9NMWL2-5669B857",
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709",
-        "MTNB77VP-6A85F255",
-        "MTNB6SUG-2922AE66"
+        "MTNB77VP-6A85F255"
       ]
     },
     {
       "source": "antwort",
       "target": "zwischen",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 4
+      },
+      "sampleEntryIds": [
+        "MV9NOFH9-7634B79F",
+        "MUZTGAEK-432FB6BC",
+        "MTL33KWJ-642DD246",
+        "MP0QMSOR-C6EC1B5A"
+      ]
+    },
+    {
+      "source": "dazwischenintelligenz",
+      "target": "dialog",
       "cooccurrence": 3,
       "endpoints": {
         "path-analyse": 3
       },
       "sampleEntryIds": [
+        "MV9NOFH9-7634B79F",
         "MUZTGAEK-432FB6BC",
-        "MTL33KWJ-642DD246",
-        "MP0QMSOR-C6EC1B5A"
+        "MTL33KWJ-642DD246"
       ]
     },
     {
@@ -175,18 +189,6 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
-      ]
-    },
-    {
-      "source": "dazwischenintelligenz",
-      "target": "dialog",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MUZTGAEK-432FB6BC",
-        "MTL33KWJ-642DD246"
       ]
     },
     {

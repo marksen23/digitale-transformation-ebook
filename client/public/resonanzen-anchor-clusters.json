@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-09T18:34:13.659Z",
+  "generatedAt": "2026-10-15T15:04:35.535Z",
   "clusters": [
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
@@ -34,6 +34,7 @@
       "anchor": "dialog:raum+erkenntnis+sprache",
       "endpoint": "dialog",
       "variantIds": [
+        "MV9NMWL2-5669B857",
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709",
@@ -41,7 +42,7 @@
         "MTNB6SUG-2922AE66",
         "MTNB68RF-CFF570D9"
       ],
-      "lastVariantTs": "2026-09-04T18:52:00.234Z",
+      "lastVariantTs": "2026-10-15T14:49:17.947Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
@@ -145,6 +146,18 @@
       "masterStale": false
     },
     {
+      "anchor": "path-analyse:antwort+zwischen",
+      "endpoint": "path-analyse",
+      "variantIds": [
+        "MV9NOFH9-7634B79F",
+        "MTL33KWJ-642DD246"
+      ],
+      "lastVariantTs": "2026-10-15T14:50:29.085Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "analyse:lm-spiegel+wahrheit",
       "endpoint": "analyse",
       "variantIds": [
@@ -207,7 +220,7 @@
   ],
   "stats": {
     "totalAnchors": 121,
-    "withMultipleVariants": 14,
+    "withMultipleVariants": 15,
     "withMaster": 6,
     "staleMasters": 0
   }
