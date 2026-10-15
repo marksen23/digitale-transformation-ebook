@@ -9,7 +9,8 @@ import { NODES, EDGES, CANVAS_W, CANVAS_H } from "../client/src/data/conceptGrap
 import { logResonanz, getResonanzLogHealth } from "./lib/resonanzLog.js";
 import { buildWerkContext, invalidateResonanzRetrievalCache, type RetrievedPassage } from "./lib/werkRetrieval.js";
 import { removeFromIndex, removeManyFromIndex, updateInIndex, updateManyInIndex, loadIndex } from "./lib/indexUpdater.js";
-import { UNTRUSTED_RULE, wrapUntrusted, sanitizeConceptText } from "./lib/promptSafety.js";
+import { UNTRUSTED_RULE, wrapUntrusted } from "./lib/promptSafety.js";
+import { loadDynamicConceptSources, resolveClusterNodes } from "./lib/clusterNodes.js";
 import { recordRetrieved, recordCitations, getCitationStats } from "./lib/citationTracker.js";
 import { recordAdminAction, getAdminActionLog, getAdminActionLogStats } from "./lib/adminActionLog.js";
 import {
@@ -631,20 +632,6 @@ ${wrapUntrusted(text)}`;
   //   4 → Quadratur (Vierfeldschema, sich kreuzende Achsen)
   interface NodeMeta { id: string; label: string; fullLabel: string; description: string; }
 
-  // Prompt-Safety: löst fullLabel/description server-autoritativ aus nodeSrv
-  // (per id) auf, statt dem Client-Objekt zu vertrauen — verhindert, dass eine
-  // manipulierte `description` Instruktionen in den System-Prompt schmuggelt.
-  // Unbekannte ids (z. B. dynamische 5c-Knoten außerhalb nodeSrv): Client-Text
-  // nur sanitisiert (Whitespace/Länge/Delimiter) übernehmen.
-  function resolveClusterNodes(nodes: NodeMeta[]): NodeMeta[] {
-    return nodes.map(n => {
-      const s = nodeSrv.get(n.id);
-      return s
-        ? { id: n.id, label: s.label, fullLabel: s.fullLabel, description: s.description }
-        : { id: n.id, label: sanitizeConceptText(n.label, 80), fullLabel: sanitizeConceptText(n.fullLabel, 120), description: sanitizeConceptText(n.description) };
-    });
-  }
-
   function buildClusterPrompt(nodes: NodeMeta[]): string {
     const intro = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.\n\n`;
     const conceptList = nodes.map((n, i) => `KONZEPT ${String.fromCharCode(65 + i)}: ${n.fullLabel}\n${n.description}`).join("\n\n");
@@ -674,23 +661,14 @@ ${wrapUntrusted(text)}`;
       res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
       return;
     }
-    if (nodes.length < 2 || nodes.length > 4) {
-      res.status(400).json({ error: "Cluster-Analyse braucht 2 bis 4 Knoten." });
+    // Nur Knoten aus Begriffsnetz oder concept-nodes.json. Client-Text bleibt draußen.
+    const resolved = resolveClusterNodes(nodes, nodeSrv, await loadDynamicConceptSources());
+    if (!resolved.ok) {
+      res.status(400).json({ error: resolved.error });
       return;
     }
-    for (const n of nodes) {
-      if (!n?.id || !n?.fullLabel) {
-        res.status(400).json({ error: "Jeder Knoten braucht id und fullLabel." });
-        return;
-      }
-    }
-    // Prompt-Safety: Knotentext server-autoritativ auflösen (s. resolveClusterNodes)
-    nodes = resolveClusterNodes(nodes);
+    nodes = resolved.nodes;
     const ids = nodes.map(n => n.id);
-    if (new Set(ids).size !== ids.length) {
-      res.status(400).json({ error: "Alle Konzepte müssen verschieden sein." });
-      return;
-    }
 
     const rawPrompt = buildClusterPrompt(nodes);
     // Werk-Text-RAG (Feature D): retrieve relevante Passagen via Knoten-Labels
@@ -929,11 +907,10 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     const { nodes } = req.body as { nodes: NodeMeta[] };
-    if (!Array.isArray(nodes) || nodes.length < 2 || nodes.length > 4) return res.status(400).json({ error: "Cluster-Analyse braucht 2 bis 4 Knoten." });
-    for (const n of nodes) if (!n?.id || !n?.fullLabel) return res.status(400).json({ error: "Jeder Knoten braucht id und fullLabel." });
-    const safeNodes = resolveClusterNodes(nodes);  // Prompt-Safety (s.o.)
+    const resolved = resolveClusterNodes(nodes, nodeSrv, await loadDynamicConceptSources());
+    if (!resolved.ok) return res.status(400).json({ error: resolved.error });
+    const safeNodes = resolved.nodes;
     const ids = safeNodes.map(n => n.id);
-    if (new Set(ids).size !== ids.length) return res.status(400).json({ error: "Alle Konzepte müssen verschieden sein." });
 
     const rawPrompt = buildClusterPrompt(safeNodes);
     const ragQuery = safeNodes.map(n => n.fullLabel).join(" ") + " " + safeNodes.map(n => n.description).join(" ");
