@@ -171,7 +171,7 @@ describe("question-answer-overrides.json und neue Resonanzen", () => {
       const { fm, body } = parseFrontmatter(md);
       const { prompt, response } = extractFrageAntwort(body);
       expect(fm.id).toBe(id);
-      expect(fm.status).toBe("raw");
+      expect(fm.status).toBe("approved");
       expect(fm.ts).toBe("2026-10-07T14:39:50.418Z");
       expect(prompt.length).toBeGreaterThan(12);
       expect(contentHashFor(prompt, response)).toBe(fm.content_hash);
