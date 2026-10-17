@@ -62,7 +62,11 @@
       "werkVoiceScore": 0.8845980876161668,
       "corpusVoiceScore": 0.8540450760966177,
       "conceptVoiceScore": 0.7528083329729818,
-      "conceptAnchor": "resonanzvernunft"
+      "conceptAnchor": "resonanzvernunft",
+      "ai_score": 3,
+      "ai_score_reason": "Die Antwort referiert kompetent und werknah, bleibt aber in der Gliederung und im Vergleich des Vorgegebenen, ohne einen eigenständigen denkerischen Schritt zu vollziehen.",
+      "ai_score_at": "2026-10-17T12:42:40.447Z",
+      "ai_score_model": "gemini-2.5-pro"
     },
     {
       "id": "MV9NMWL2-5669B857",
