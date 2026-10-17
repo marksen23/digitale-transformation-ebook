@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T12:43:16.041Z",
+  "generatedAt": "2026-10-17T12:45:58.964Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -76,79 +76,10 @@
       ]
     },
     {
-      "id": "ERK-KBVWM7",
-      "answerId": "MTNB93L6-1411E014",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "In einer fragmentierten digitalen Welt die kollektive Eigenfrequenz zu kultivieren, die für universelle Resonanz notwendig ist, bedeutet, über die bloße Vernetzung hinauszuwachsen und die tieferen Schichten des Menschseins im digitalen Raum zu berühren. Es geht nicht um Gleichschaltung, sondern um die Entdeckung gemeinsamer Schwingungsmuster, die uns als resonierende Wesen verbinden, selbst in der",
-      "distinctness": 0.212,
-      "conceptAnchor": "resonanz",
-      "nodeIds": [
-        "raum",
-        "erkenntnis",
-        "sprache"
-      ],
-      "resolveCount": 14,
-      "resolves": [
-        {
-          "sourceId": "MTNB85LB-7C1F15DE",
-          "question": "Wie können wir in einer zunehmend fragmentierten digitalen Welt die kollektive Eigenfrequenz kultivieren, die für eine solche universelle Resonanz notwendig ist?",
-          "score": 0.909
-        },
-        {
-          "sourceId": "MQ5KBJMQ-5C523141",
-          "question": "Angesichts einer Welt, die zunehmend von algorithmischen Reaktionen und isolierenden \"Echo-Kammern\" geprägt ist: Wie können wir die Bedingungen für unsere individuelle und kollektive \"Eigenfrequenz\" und \"Ansprechbarkeit\" im digitalen Zeitalter bewahren und stärken, um transformative Resonanz zu ermöglichen?",
-          "score": 0.854
-        },
-        {
-          "sourceId": "MQ5JM1HD-9047C82F",
-          "question": "Wie können wir in einer immer komplexer werdenden Welt, die von digitalen \"Echo-Kammern\" und der Versuchung der Abschottung bedroht ist, diese grundlegende \"Ansprechbarkeit\" und \"Eigenfrequenz\" des Lebendigen bewahren und kultivieren?",
-          "score": 0.824
-        },
-        {
-          "sourceId": "MP0X2MFM-53C89506",
-          "question": "Wie kann die digitale Sphäre, die unzählige Spiegel bietet, dazu beitragen, die \"Eigenfrequenz\" des Menschen so zu stärken, dass sie nicht in bloßer Reflexion aufgeht, sondern zu authentischer Resonanz fähig wird?",
-          "score": 0.818
-        },
-        {
-          "sourceId": "MTNB7STV-BCB7D709",
-          "question": "Doch wie können wir sicherstellen, dass diese Kultivierung der Resonanz nicht zur exklusiven Domäne einiger Weniger wird, sondern als eine grundlegende Fähigkeit in der gesamten Breite der digitalen Gesellschaft verankert wird?",
-          "score": 0.795
-        }
-      ]
-    },
-    {
-      "id": "ERK-1U814DO",
-      "answerId": "MTNB77VP-6A85F255",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die Inspiration für Architekten und Entwickler digitaler Welten, resonante Räume zu schaffen, die den Logos in ihrer DNA tragen, liegt nicht in der bloßen Aufforderung zur Ethik, sondern in der erlebten Erfahrung von Resonanz selbst. Es ist die Erkenntnis, dass wahre Innovation und nachhaltige Bedeutung nicht in der Optimierung bestehender Funktionen liegen, sondern in der Ermöglichung von tiefen,",
-      "distinctness": 0.211,
-      "conceptAnchor": "resonanzimperativ",
-      "nodeIds": [
-        "raum",
-        "erkenntnis",
-        "sprache"
-      ],
-      "resolveCount": 2,
-      "resolves": [
-        {
-          "sourceId": "MTNB6SUG-2922AE66",
-          "question": "Doch wie können wir die Architekten und Entwickler digitaler Welten dazu inspirieren, ihre Schöpfungen nicht nur als funktionale, sondern als resonante Räume zu begreifen, die den Logos in ihrer DNA tragen?",
-          "score": 0.903
-        },
-        {
-          "sourceId": "MTNB68RF-CFF570D9",
-          "question": "Doch wie vermögen wir diesen Logos so zu verankern, dass er nicht zur bloßen Metapher verkommt, sondern als gelebte Praxis die Architektur unserer digitalen Welt durchdringt?",
-          "score": 0.769
-        }
-      ]
-    },
-    {
       "id": "ERK-GOYCE3",
       "answerId": "MV9NMWL2-5669B857",
       "answerEndpoint": "dialog",
-      "answerStatus": "raw",
+      "answerStatus": "approved",
       "answerExcerpt": "Die Schaffung digitaler Orte, die das gemeinsame Suchen nach Sinn über individuelle Bestätigung erheben, bedingt eine Architektur, die nicht auf Konsens und Optimierung, sondern auf die produktive Irritation und die Anerkennung des Unverfügbaren ausgelegt ist. Es geht darum, Räume zu gestalten, die die \"Widerständigkeit des Anderen\" nicht als Hindernis, sondern als Katalysator für tiefere Einsicht",
       "distinctness": 0.206,
       "conceptAnchor": "resonanzvernunft",
@@ -188,8 +119,8 @@
     }
   ],
   "stats": {
-    "total": 6,
+    "total": 4,
     "confirmedFiltered": 42,
-    "curatedRef": 198
+    "curatedRef": 199
   }
 }

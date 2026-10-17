@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T12:43:16.397Z",
+  "generatedAt": "2026-10-17T12:45:59.530Z",
   "buckets": [
     {
       "date": "2026-05-03",
@@ -450,10 +450,10 @@
       "date": "2026-10-17",
       "totalEntries": 271,
       "byStatus": {
-        "raw": 49,
+        "raw": 48,
+        "approved": 52,
         "published": 147,
-        "rejected": 24,
-        "approved": 51
+        "rejected": 24
       },
       "byEndpoint": {
         "path-analyse": 43,
@@ -464,7 +464,7 @@
         "graph-chat": 34
       },
       "publishedRatio": 0.5424354243542435,
-      "medianWerkVoice": 0.8670314776425433,
+      "medianWerkVoice": 0.8668691122649788,
       "medianCorpusVoice": 0.8187774203964588,
       "echoRatio": 0.5202952029520295,
       "noveltyRatio": 0

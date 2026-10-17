@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T12:42:40.885Z",
+  "generatedAt": "2026-10-17T12:45:26.071Z",
   "filesChecked": 277,
   "errors": 0,
   "warnings": 10,
@@ -76,10 +76,10 @@
       "translate": 6
     },
     "byStatus": {
-      "published": 150,
-      "raw": 51,
+      "published": 151,
+      "raw": 48,
       "rejected": 24,
-      "approved": 52
+      "approved": 54
     },
     "orphanNodeIds": [
       "band3-kap3",

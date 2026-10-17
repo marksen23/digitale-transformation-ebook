@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T12:43:15.847Z",
+  "generatedAt": "2026-10-17T12:45:58.616Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -278,41 +278,43 @@
       ]
     },
     {
-      "suggestedLabel": "denken",
+      "suggestedLabel": "bedeutet",
       "keywords": [
         {
-          "word": "denken",
-          "count": 4
+          "word": "bedeutet",
+          "count": 3
         },
         {
-          "word": "begrenzt",
-          "count": 4
+          "word": "maschine",
+          "count": 3
         },
         {
-          "word": "dinge",
+          "word": "zeitalter",
           "count": 2
         },
         {
-          "word": "lassen",
+          "word": "antworten",
           "count": 2
         },
         {
-          "word": "logos",
+          "word": "resonanz",
           "count": 2
         },
         {
-          "word": "spur",
-          "count": 2
+          "word": "geschieht",
+          "count": 1
         }
       ],
-      "evidence": 3,
-      "distinctness": 0.221,
-      "nearestConcept": "sprache",
-      "nearestSim": 0.779,
+      "evidence": 7,
+      "distinctness": 0.201,
+      "nearestConcept": "antwort",
+      "nearestSim": 0.799,
       "sampleEntryIds": [
-        "MPUFM0YN-83C71BAB",
-        "MPMKE3CC-4E75CE39",
-        "MPMKBUNW-88609492"
+        "MQ67R74M-A1AA4B53",
+        "MQ5XE42V-D185B8D7",
+        "MQ5XCH3V-67EF85C8",
+        "MQ5JL9TM-83E39C42",
+        "MQ5C1KZ4-D6D52E94"
       ]
     },
     {
@@ -354,46 +356,6 @@
       ]
     },
     {
-      "suggestedLabel": "bedeutet",
-      "keywords": [
-        {
-          "word": "bedeutet",
-          "count": 3
-        },
-        {
-          "word": "maschine",
-          "count": 3
-        },
-        {
-          "word": "resonanz",
-          "count": 3
-        },
-        {
-          "word": "zeitalter",
-          "count": 2
-        },
-        {
-          "word": "antworten",
-          "count": 2
-        },
-        {
-          "word": "diesem",
-          "count": 2
-        }
-      ],
-      "evidence": 8,
-      "distinctness": 0.193,
-      "nearestConcept": "antwort",
-      "nearestSim": 0.807,
-      "sampleEntryIds": [
-        "MQ67R74M-A1AA4B53",
-        "MQ5XNFSV-CD34905C",
-        "MQ5XE42V-D185B8D7",
-        "MQ5XCH3V-67EF85C8",
-        "MQ5JL9TM-83E39C42"
-      ]
-    },
-    {
       "suggestedLabel": "schweigen",
       "keywords": [
         {
@@ -431,6 +393,46 @@
         "MQ66ZWYC-52DE2DF2",
         "MPF4WM18-FF4843F1",
         "MOQIMC7B-B190C937"
+      ]
+    },
+    {
+      "suggestedLabel": "können",
+      "keywords": [
+        {
+          "word": "können",
+          "count": 4
+        },
+        {
+          "word": "denken",
+          "count": 4
+        },
+        {
+          "word": "begrenzt",
+          "count": 4
+        },
+        {
+          "word": "logos",
+          "count": 3
+        },
+        {
+          "word": "resonanz",
+          "count": 2
+        },
+        {
+          "word": "bloßen",
+          "count": 2
+        }
+      ],
+      "evidence": 8,
+      "distinctness": 0.174,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.826,
+      "sampleEntryIds": [
+        "MV9NMWL2-5669B857",
+        "MTNB5V7Q-3B5123E8",
+        "MQ5XNFSV-CD34905C",
+        "MPMKE3CC-4E75CE39",
+        "MPMKBUNW-88609492"
       ]
     },
     {
@@ -513,8 +515,8 @@
     }
   ],
   "stats": {
-    "curated": 198,
-    "uncovered": 198,
+    "curated": 199,
+    "uncovered": 199,
     "candidatesCount": 13,
     "concepts": 50,
     "maxEvidence": 8
