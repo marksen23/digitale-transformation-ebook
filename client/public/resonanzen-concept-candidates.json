@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-15T15:04:35.053Z",
+  "generatedAt": "2026-10-17T12:43:15.847Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -278,6 +278,44 @@
       ]
     },
     {
+      "suggestedLabel": "denken",
+      "keywords": [
+        {
+          "word": "denken",
+          "count": 4
+        },
+        {
+          "word": "begrenzt",
+          "count": 4
+        },
+        {
+          "word": "dinge",
+          "count": 2
+        },
+        {
+          "word": "lassen",
+          "count": 2
+        },
+        {
+          "word": "logos",
+          "count": 2
+        },
+        {
+          "word": "spur",
+          "count": 2
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.221,
+      "nearestConcept": "sprache",
+      "nearestSim": 0.779,
+      "sampleEntryIds": [
+        "MPUFM0YN-83C71BAB",
+        "MPMKE3CC-4E75CE39",
+        "MPMKBUNW-88609492"
+      ]
+    },
+    {
       "suggestedLabel": "alle",
       "keywords": [
         {
@@ -313,46 +351,6 @@
         "MOHDLJ25-7A6B620C",
         "MOHD4STN-8490D410",
         "MOHCSO2P-2D88785B"
-      ]
-    },
-    {
-      "suggestedLabel": "unverfügbarkeit",
-      "keywords": [
-        {
-          "word": "unverfügbarkeit",
-          "count": 3
-        },
-        {
-          "word": "schweigen",
-          "count": 2
-        },
-        {
-          "word": "echo",
-          "count": 2
-        },
-        {
-          "word": "spannungsfeld",
-          "count": 2
-        },
-        {
-          "word": "rolle",
-          "count": 1
-        },
-        {
-          "word": "spielt",
-          "count": 1
-        }
-      ],
-      "evidence": 9,
-      "distinctness": 0.194,
-      "nearestConcept": "spannung",
-      "nearestSim": 0.806,
-      "sampleEntryIds": [
-        "MUY7RXCI-E899056E",
-        "MUY7RXCI-D36BB4D6",
-        "MQ66ZWYC-52DE2DF2",
-        "MPF4WM18-FF4843F1",
-        "MOQIMC7B-B190C937"
       ]
     },
     {
@@ -396,90 +394,129 @@
       ]
     },
     {
-      "suggestedLabel": "spiegel",
+      "suggestedLabel": "schweigen",
       "keywords": [
         {
-          "word": "spiegel",
+          "word": "schweigen",
+          "count": 2
+        },
+        {
+          "word": "echo",
+          "count": 2
+        },
+        {
+          "word": "rolle",
+          "count": 1
+        },
+        {
+          "word": "spielt",
+          "count": 1
+        },
+        {
+          "word": "bewusste",
+          "count": 1
+        },
+        {
+          "word": "pause",
+          "count": 1
+        }
+      ],
+      "evidence": 7,
+      "distinctness": 0.193,
+      "nearestConcept": "spannung",
+      "nearestSim": 0.807,
+      "sampleEntryIds": [
+        "MUY7RXCI-E899056E",
+        "MUY7RXCI-D36BB4D6",
+        "MQ66ZWYC-52DE2DF2",
+        "MPF4WM18-FF4843F1",
+        "MOQIMC7B-B190C937"
+      ]
+    },
+    {
+      "suggestedLabel": "echo",
+      "keywords": [
+        {
+          "word": "echo",
           "count": 3
         },
         {
-          "word": "spannungsfeld",
+          "word": "menschen",
           "count": 2
         },
         {
-          "word": "wahrheit",
+          "word": "selbst",
           "count": 2
         },
         {
-          "word": "woran",
+          "word": "realität",
           "count": 1
         },
         {
-          "word": "erkennen",
+          "word": "sozial",
           "count": 1
         },
         {
-          "word": "antwortende",
+          "word": "konstruiert",
           "count": 1
         }
       ],
       "evidence": 4,
-      "distinctness": 0.193,
-      "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.807,
-      "sampleEntryIds": [
-        "MUY7RXCI-C4CF7B92",
-        "MQASO35V-115DA081",
-        "MPMJC8TR-592D4EF0",
-        "MOP0S479-373A2268"
-      ]
-    },
-    {
-      "suggestedLabel": "spannungsfeld",
-      "keywords": [
-        {
-          "word": "spannungsfeld",
-          "count": 9
-        },
-        {
-          "word": "triade",
-          "count": 6
-        },
-        {
-          "word": "mensch",
-          "count": 5
-        },
-        {
-          "word": "maschine",
-          "count": 4
-        },
-        {
-          "word": "unverfügbarkeit",
-          "count": 3
-        },
-        {
-          "word": "beziehung",
-          "count": 3
-        }
-      ],
-      "evidence": 27,
       "distinctness": 0.169,
       "nearestConcept": "resonanzvernunft",
       "nearestSim": 0.831,
       "sampleEntryIds": [
-        "MQXDVN1C-CAA3081A",
-        "MQ5XFLFO-F0DBB89E",
-        "MQ5JM1HD-9047C82F",
-        "MPUFUBU5-A4BC72BE",
-        "MPUFP1VW-298D0A73"
+        "MPMLQX6D-E6B61F8E",
+        "MOUBIHOK-27900555",
+        "MOPHXJNW-020BA7D3",
+        "MOP0P7DE-3C823F7E"
+      ]
+    },
+    {
+      "suggestedLabel": "entfremdung",
+      "keywords": [
+        {
+          "word": "entfremdung",
+          "count": 3
+        },
+        {
+          "word": "bedeutet",
+          "count": 2
+        },
+        {
+          "word": "resonanz",
+          "count": 2
+        },
+        {
+          "word": "genau",
+          "count": 2
+        },
+        {
+          "word": "transformation",
+          "count": 2
+        },
+        {
+          "word": "verh",
+          "count": 1
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.143,
+      "nearestConcept": "entfremdung",
+      "nearestSim": 0.857,
+      "sampleEntryIds": [
+        "MQ5TUQ9P-EF8C6D4B",
+        "MQ5TTE84-08EB6321",
+        "MP74VXSM-5DEA06F3",
+        "MOHE3OLR-9165E355"
       ]
     }
   ],
   "stats": {
-    "curated": 197,
-    "uncovered": 197,
-    "candidatesCount": 12,
+    "curated": 198,
+    "uncovered": 198,
+    "candidatesCount": 13,
     "concepts": 50,
-    "maxEvidence": 27
+    "maxEvidence": 8
   }
 }
