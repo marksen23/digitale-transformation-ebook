@@ -72,6 +72,10 @@ export default function WerkPage() {
   const [selection, setSelection] = useState<CitedSelection | null>(null);
   const [expandedChunk, setExpandedChunk] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState(false);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatQuestion, setChatQuestion] = useState("");
+  const [chatHistory, setChatHistory] = useState<{ q: string; a: string }[]>([]);
+  const [chatLoading, setChatLoading] = useState(false);
 
   useEffect(() => {
     fetch("/ebook_structured.json").then(r => r.json()).then(setEbook).catch(() => null);
@@ -252,6 +256,35 @@ export default function WerkPage() {
     };
   }, [currentChapter]);
 
+  async function askChapterQuestion() {
+    const q = chatQuestion.trim();
+    if (!q || !currentChapter || chatLoading) return;
+    setChatQuestion("");
+    setChatLoading(true);
+    setChatHistory(prev => [...prev, { q, a: "" }]);
+    try {
+      const res = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          question: q,
+          chapterId: currentChapter.id,
+          chapterTitle: currentChapter.title,
+          chapterContent: currentChapter.content,
+        }),
+      });
+      const data = await res.json();
+      const answer = data.error
+        ? (res.status === 429 ? `⏱ ${data.error}` : `Fehler: ${data.error}`)
+        : data.answer;
+      setChatHistory(prev => { const c = [...prev]; c[c.length - 1].a = answer; return c; });
+    } catch {
+      setChatHistory(prev => { const c = [...prev]; c[c.length - 1].a = "Verbindungsfehler. Bitte versuche es erneut."; return c; });
+    } finally {
+      setChatLoading(false);
+    }
+  }
+
   if (!ebook) {
     return <div className="loading-pulse" style={{ padding: "2rem", fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>;
   }
@@ -317,14 +350,24 @@ export default function WerkPage() {
         <span style={{ fontSize: "0.95rem", lineHeight: 1, transform: "translateY(0.04em)", display: "inline-block" }}>{ORNAMENT.leaf}</span>
         <span>Resonanzvernunft</span>
       </Link>
-      <button
-        type="button" onClick={() => setDesktopIndexOpen(true)} aria-label="Menü"
-        style={{
-          fontFamily: MONO, fontSize: "0.85rem", color: C.text, background: "transparent",
-          border: `1px solid ${C.border}`, width: 32, height: 32, cursor: "pointer", padding: 0,
-          borderRadius: RADIUS.button, display: "flex", alignItems: "center", justifyContent: "center",
-        }}
-      >≡</button>
+      <div style={{ display: "flex", gap: "0.4rem" }}>
+        <button
+          type="button" onClick={() => setChatOpen(true)} aria-label="Frage zum Kapitel"
+          style={{
+            fontFamily: MONO, fontSize: "0.85rem", color: C.accentText, background: "transparent",
+            border: `1px solid ${C.border}`, width: 32, height: 32, cursor: "pointer", padding: 0,
+            borderRadius: RADIUS.button, display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >?</button>
+        <button
+          type="button" onClick={() => setDesktopIndexOpen(true)} aria-label="Menü"
+          style={{
+            fontFamily: MONO, fontSize: "0.85rem", color: C.text, background: "transparent",
+            border: `1px solid ${C.border}`, width: 32, height: 32, cursor: "pointer", padding: 0,
+            borderRadius: RADIUS.button, display: "flex", alignItems: "center", justifyContent: "center",
+          }}
+        >≡</button>
+      </div>
     </div>
     {/* Reading-Progress-Bar — 2px Linie unter dem Header */}
     <div style={{ position: "sticky", top: 44, zIndex: 49, height: 2, background: C.border }}>
@@ -497,6 +540,12 @@ export default function WerkPage() {
     {desktopSearchOpen && (
       <MobileSearchOverlay C={C} navigate={navigate} onClose={() => setDesktopSearchOpen(false)} />
     )}
+    <ChapterChatSheet
+      C={C} chapterTitle={currentChapter?.title ?? ""}
+      history={chatHistory} question={chatQuestion} setQuestion={setChatQuestion}
+      loading={chatLoading} onAsk={askChapterQuestion} onClose={() => setChatOpen(false)}
+      open={chatOpen}
+    />
     </div>
   );
 }
@@ -972,5 +1021,106 @@ function WerkzeugeDropdown({ C, isDark: _isDark }: { C: Palette; isDark: boolean
         </div>
       </div>
     </div>
+  );
+}
+
+// ─── Kapitel-Chat — Bottom-Sheet ──────────────────────────────────────────
+// Eigener Endpunkt (/api/ask), eigener Zustand — bewusst getrennt von der
+// Passage-Resonanz: eine gezielte Rückfrage zum aktuellen Kapitel statt
+// eines philosophischen Textstücks. Öffnet sich über den "?"-Button im
+// Reader-Header auf allen Plattformen als Bottom-Sheet.
+function ChapterChatSheet({
+  C, chapterTitle, history, question, setQuestion, loading, onAsk, onClose, open,
+}: {
+  C: Palette; chapterTitle: string;
+  history: { q: string; a: string }[]; question: string; setQuestion: (v: string) => void;
+  loading: boolean; onAsk: () => void; onClose: () => void; open: boolean;
+}) {
+  const endRef = useRef<HTMLDivElement>(null);
+  useEffect(() => { if (open) endRef.current?.scrollIntoView({ behavior: "smooth" }); }, [history, loading, open]);
+
+  const T = "0.24s cubic-bezier(0.32,0.72,0,1)";
+  return (
+    <>
+      <div
+        onClick={onClose}
+        style={{
+          position: "fixed", inset: 0, zIndex: 520, background: "rgba(0,0,0,0.22)",
+          opacity: open ? 1 : 0, pointerEvents: open ? "auto" : "none",
+          transition: `opacity ${T}`,
+        }}
+      />
+      <div style={{
+        position: "fixed", left: 0, right: 0, bottom: 0, zIndex: 521,
+        background: C.surface, borderTop: `1px solid ${C.border}`, borderRadius: "10px 10px 0 0",
+        display: "flex", flexDirection: "column", maxHeight: "80dvh",
+        paddingBottom: "env(safe-area-inset-bottom, 0px)",
+        transform: open ? "translateY(0)" : "translateY(110%)",
+        transition: `transform ${T}`,
+      }}>
+        <div style={{ display: "flex", justifyContent: "center", padding: "10px 0 0", flexShrink: 0 }}>
+          <span style={{ width: 36, height: 3, borderRadius: 2, background: C.border, display: "block" }} />
+        </div>
+        <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", padding: "10px 18px 8px", borderBottom: `1px solid ${C.border}`, flexShrink: 0 }}>
+          <span style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.18em", textTransform: "uppercase", color: C.accentText }}>? Frage zum Kapitel</span>
+          <button type="button" onClick={onClose} style={{ background: "none", border: "none", color: C.textDim, fontFamily: MONO, fontSize: 14, cursor: "pointer", minHeight: 44, minWidth: 44 }}>×</button>
+        </div>
+        {chapterTitle && (
+          <div style={{ padding: "6px 18px", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.75rem", color: C.muted, flexShrink: 0 }}>
+            Kontext: {chapterTitle}
+          </div>
+        )}
+        <div style={{ flex: 1, minHeight: 0, overflowY: "auto", padding: "10px 18px" }}>
+          {history.length === 0 && (
+            <div style={{ textAlign: "center", padding: "30px 10px", color: C.muted }}>
+              <div style={{ fontSize: 26, opacity: 0.4, marginBottom: 8 }}>?</div>
+              <p style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: "0.85rem", margin: 0 }}>Stelle eine Frage zum aktuellen Kapitel.</p>
+              <p style={{ fontFamily: MONO, fontSize: "0.6rem", marginTop: 6, opacity: 0.7 }}>Die Antwort bezieht sich auf den Inhalt und das Gesamtwerk.</p>
+            </div>
+          )}
+          {history.map((entry, i) => (
+            <div key={i} style={{ marginBottom: 14 }}>
+              <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: 6 }}>
+                <div style={{ maxWidth: "85%", borderRadius: "14px 14px 3px 14px", padding: "8px 12px", fontFamily: SERIF, fontSize: "0.85rem", background: C.accent, color: "#080808" }}>
+                  {entry.q}
+                </div>
+              </div>
+              {entry.a ? (
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                  <div style={{ maxWidth: "85%", borderRadius: "14px 14px 14px 3px", padding: "8px 12px", fontFamily: SERIF, fontSize: "0.85rem", lineHeight: 1.55, background: C.deep, color: C.text }}>
+                    {entry.a.split("\n\n").map((p, j) => <p key={j} style={{ margin: j > 0 ? "8px 0 0" : 0 }}>{p}</p>)}
+                  </div>
+                </div>
+              ) : (
+                <div style={{ display: "flex", justifyContent: "flex-start" }}>
+                  <div style={{ borderRadius: "14px 14px 14px 3px", padding: "8px 14px", background: C.deep, fontFamily: MONO, fontSize: 13, color: C.accentText }}>…</div>
+                </div>
+              )}
+            </div>
+          ))}
+          <div ref={endRef} />
+        </div>
+        <div style={{ display: "flex", gap: 8, padding: "10px 18px", borderTop: `1px solid ${C.border}`, flexShrink: 0 }}>
+          <input
+            type="text" value={question} onChange={e => setQuestion(e.target.value)}
+            onKeyDown={e => { if (e.key === "Enter") { e.preventDefault(); onAsk(); } }}
+            placeholder="Frage stellen …"
+            style={{
+              flex: 1, minHeight: 40, padding: "0 12px", borderRadius: 6,
+              border: `1px solid ${C.border}`, background: C.deep, color: C.text,
+              fontFamily: SERIF, fontSize: "0.9rem", outline: "none",
+            }}
+          />
+          <button
+            type="button" onClick={onAsk} disabled={!question.trim() || loading}
+            style={{
+              minWidth: 44, minHeight: 40, borderRadius: 6, border: "none",
+              background: C.accent, color: "#080808", fontFamily: MONO, fontSize: 13,
+              cursor: loading ? "wait" : "pointer", opacity: (!question.trim() || loading) ? 0.5 : 1,
+            }}
+          >➤</button>
+        </div>
+      </div>
+    </>
   );
 }
