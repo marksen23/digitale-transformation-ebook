@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-10T16:03:41.486Z",
+  "generatedAt": "2026-10-20T10:57:18.050Z",
   "edges": [
     {
       "source": "stimme",
@@ -27,6 +27,13 @@
       "target": "lm-verwandlung",
       "evidence": 23,
       "createdAt": "2026-06-10T16:03:41.486Z",
+      "actor": "admin"
+    },
+    {
+      "source": "moment",
+      "target": "zwischen",
+      "evidence": 3,
+      "createdAt": "2026-10-20T10:57:18.050Z",
       "actor": "admin"
     }
   ]
