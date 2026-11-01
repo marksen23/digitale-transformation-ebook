@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-20T10:57:22.514Z",
+  "generatedAt": "2026-11-01T06:11:51.910Z",
   "edges": [
     {
       "source": "stimme",
@@ -41,6 +41,13 @@
       "target": "zwischen",
       "evidence": 2,
       "createdAt": "2026-10-20T10:57:22.514Z",
+      "actor": "admin"
+    },
+    {
+      "source": "echo-kammer",
+      "target": "unverfuegbarkeit",
+      "evidence": 2,
+      "createdAt": "2026-11-01T06:11:51.910Z",
       "actor": "admin"
     }
   ]
