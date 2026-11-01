@@ -11,12 +11,15 @@
  */
 import type { Response } from "express";
 import { geminiAuthHeaders, geminiStreamUrl, redactSecrets } from "./geminiHttp.js";
+import { classifyError } from "./embeddingClient.js";
 
 interface StreamOpts {
-  apiKey: string;
+  /** Alle verfügbaren Keys (getKeys()) — für Failover VOR dem Header-Flush. */
+  apiKeys: string[];
   system?: string;
   contents: unknown;
   generationConfig: Record<string, unknown>;
+  model?: string;
 }
 
 export function sseSend(res: Response, obj: unknown): void {
@@ -24,6 +27,32 @@ export function sseSend(res: Response, obj: unknown): void {
 }
 
 export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<string | null> {
+  const body = JSON.stringify({
+    ...(opts.system ? { systemInstruction: { parts: [{ text: opts.system }] } } : {}),
+    contents: opts.contents,
+    generationConfig: opts.generationConfig,
+  });
+
+  // Upstream mit Key-Failover öffnen, BEVOR die SSE-Header geflusht sind — so
+  // kann ein billing/quota/auth-blockierter Primärkey noch auf den Fallback
+  // (anderes GCP-Projekt) rotieren, statt den Stream sofort als Fehler zu enden.
+  const keys = opts.apiKeys;
+  const url = opts.model ? geminiStreamUrl(opts.model) : geminiStreamUrl();
+  let upstream: Awaited<ReturnType<typeof fetch>> | null = null;
+  let lastStatus = 0;
+  for (let i = 0; i < keys.length; i++) {
+    try {
+      const r = await fetch(url, { method: "POST", headers: geminiAuthHeaders(keys[i]), body });
+      if (r.ok && r.body) { upstream = r; break; }
+      lastStatus = r.status;
+      const errText = await r.text().catch(() => "");
+      const cls = classifyError(r.status, errText);
+      if (cls === "billing" || cls === "quota" || cls === "auth") continue; // nächster Key
+      break; // andere Fehler (400 etc.) → nicht durch Rotation lösbar
+    } catch { /* Netzwerkfehler — nächsten Key versuchen */ }
+  }
+
+  // Ab hier ist die Antwort ein SSE-Stream.
   res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
   // no-store (nicht no-cache!): no-cache erlaubt Speichern + Revalidieren, und
   // Netlify Edge servierte dann intermittierend eine leere gecachte Antwort
@@ -34,24 +63,17 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
   res.setHeader("X-Accel-Buffering", "no");
   res.flushHeaders();
 
+  if (!upstream || !upstream.body) {
+    sseSend(res, {
+      error: lastStatus === 429 ? "Zu viele Anfragen — bitte kurz warten."
+        : keys.length === 0 ? "Gemini API nicht konfiguriert."
+        : `Fehler ${lastStatus || "—"}`,
+    });
+    res.end();
+    return null;
+  }
+
   try {
-    const upstream = await fetch(
-      geminiStreamUrl(),
-      {
-        method: "POST",
-        headers: geminiAuthHeaders(opts.apiKey),
-        body: JSON.stringify({
-          ...(opts.system ? { systemInstruction: { parts: [{ text: opts.system }] } } : {}),
-          contents: opts.contents,
-          generationConfig: opts.generationConfig,
-        }),
-      }
-    );
-    if (!upstream.ok || !upstream.body) {
-      sseSend(res, { error: upstream.status === 429 ? "Zu viele Anfragen — bitte kurz warten." : `Fehler ${upstream.status}` });
-      res.end();
-      return null;
-    }
     const reader = upstream.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "", full = "";
@@ -68,8 +90,11 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
         if (!json || json === "[DONE]") continue;
         try {
           const chunk = JSON.parse(json) as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
-          const delta = chunk?.candidates?.[0]?.content?.parts?.[0]?.text;
-          if (typeof delta === "string" && delta) { full += delta; sseSend(res, { delta }); }
+          // ALLE Text-Parts joinen (nicht nur parts[0]) — Thinking-Modelle
+          // können mehrere Parts pro Chunk liefern.
+          const parts = chunk?.candidates?.[0]?.content?.parts ?? [];
+          const delta = parts.map(p => (typeof p?.text === "string" ? p.text : "")).join("");
+          if (delta) { full += delta; sseSend(res, { delta }); }
         } catch { /* Frame über Lese-Grenze gesplittet — buffer trägt Rest */ }
       }
     }

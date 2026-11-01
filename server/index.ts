@@ -19,7 +19,9 @@ import {
 } from "./lib/adminConfig.js";
 import { findExactDuplicates } from "./lib/dedupCorpus.js";
 import { fetchEmbedding, getKeys, probeEmbedding } from "./lib/embeddingClient.js";
-import { geminiAuthHeaders, geminiGenerateUrl, geminiStreamUrl, redactSecrets } from "./lib/geminiHttp.js";
+import { geminiAuthHeaders, geminiGenerateUrl, redactSecrets } from "./lib/geminiHttp.js";
+import { generateFlashContent, type FlashGenResult } from "./lib/geminiText.js";
+import { streamGeminiSSE, sseSend } from "./lib/geminiStream.js";
 import { chaptersFromEbook, resolveAskChapter, type AskChapterSource } from "./lib/askChapter.js";
 import { prepareWeiterdenken, weiterdenkenSafetySuffix } from "./lib/weiterdenkenPrompt.js";
 import { prepareConversation, prepareGraphChat } from "./lib/conversationPrompt.js";
@@ -27,6 +29,29 @@ import { resolveTranslateRequest } from "./lib/translateRequest.js";
 import { PASSAGE_PROMPT_MAX, PASSAGE_SELECTION_MAX, selectionInSource } from "./lib/passageGuard.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { renderSeoHtml, buildSitemap, buildLlmsFullText, canonicalHostRedirect } from "./lib/seo.js";
+
+// ─── KI-Prosa-Endpunkte: gemeinsames Thinking-Budget ─────────────────────
+// gemini-2.5-flash verbraucht standardmäßig „Thinking"-Tokens, die vom
+// maxOutputTokens-Budget abgehen → die sichtbare Antwort wird abgeschnitten
+// (finishReason=MAX_TOKENS), oft genau vor der Schlussfrage. Für reine Prosa
+// ist Reasoning nicht nötig: thinkingBudget:0 schaltet es ab, das volle Budget
+// fließt in die Antwort. (gemini-2.5-flash akzeptiert 0 — belegt durch den
+// seit je produktiven /weiterdenken-Endpunkt.) Per ENV abschaltbar, falls ein
+// künftiges Modell 0 nicht mehr erlaubt → dann Budget weglassen (Modell-Default).
+const FLASH_THINKING_BUDGET: number | undefined =
+  process.env.FLASH_THINKING_BUDGET !== undefined && process.env.FLASH_THINKING_BUDGET !== ""
+    ? Number(process.env.FLASH_THINKING_BUDGET)
+    : 0;
+
+/** Leser-freundliche deutsche Fehlermeldung aus einem fehlgeschlagenen
+ *  generateFlashContent-Resultat (für res.status(502).json({error})). */
+function flashErrorDetail(r: FlashGenResult): string {
+  if (r.status === 429) return "Zu viele Anfragen — bitte kurz warten.";
+  if (r.status === 503) return "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
+  if (r.status === 401 || r.status === 403) return "API-Key nicht autorisiert (401/403) — bitte Key auf Render prüfen.";
+  if (r.status === 400) return `Ungültige Anfrage (400) — ${r.errorDetail ?? ""}`.trim();
+  return r.errorDetail || "Keine Antwort erhalten.";
+}
 
 // ─── Werk-Text-RAG (Tier-1-3-Roadmap, Feature D) ─────────────────────────
 // Prepend's einem KI-Prompt die top-K relevantesten Werkpassagen, damit
@@ -342,8 +367,7 @@ ${UNTRUSTED_RULE}`;
   };
 
   app.post("/api/enkidu", rateLimiter('enkidu', 100, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (getKeys().length === 0) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
@@ -389,44 +413,18 @@ ${UNTRUSTED_RULE}`;
     const conversationContents = prepared.contents;
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemText }] },
-            contents: conversationContents,
-            generationConfig: {
-              temperature: 0.9,
-              maxOutputTokens: 4096,
-              // Kein thinkingConfig — thinkingBudget:0 ist für gemini-2.5-flash
-              // ungültig und verursacht direkt HTTP 400. Thinking-Budget wird
-              // vom Modell automatisch gesetzt (Standard: dynamisch).
-            },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("Enkidu Gemini error:", response.status, scrub(errText));
-        let detail: string;
-        try {
-          const parsed = JSON.parse(errText);
-          detail = parsed?.error?.message || errText;
-        } catch {
-          detail = errText;
-        }
-        // Leserfreundliche Fehlermeldungen für häufige Status-Codes
-        if (response.status === 400) detail = `Ungültige Anfrage (400) — ${detail}`;
-        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten (429)";
-        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen (503)";
-        return res.status(502).json({ error: scrub(detail) });
+      const r = await generateFlashContent({
+        system: systemText,
+        contents: conversationContents,
+        temperature: 0.9,
+        maxTokens: 4096,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) {
+        console.error("Enkidu Gemini error:", r.status, scrub(r.errorDetail ?? ""));
+        return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
       }
-
-      const data = await response.json();
-      const text = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      const text = r.text;
       res.json({ response: text });
       void logResonanz({
         endpoint: "enkidu",
@@ -446,8 +444,7 @@ ${UNTRUSTED_RULE}`;
 
   // ─── Gemini Q&A API ──────────────────────────────────────────────
   app.post("/api/ask", rateLimiter('ask', 30, 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (getKeys().length === 0) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
@@ -498,36 +495,18 @@ ${UNTRUSTED_RULE}`;
     ].join("\n");
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemPrompt }] },
-            contents: [
-              { role: "user", parts: [{ text: userMessage }] }
-            ],
-            generationConfig: {
-              temperature: 0.7,
-              maxOutputTokens: 2048,
-            },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("Gemini API error:", response.status, scrub(errText));
-        const detail = response.status === 400 ? "Ungültiger API-Key (400)" :
-                       response.status === 401 || response.status === 403 ? "API-Key nicht autorisiert (401/403) — bitte Key auf Render prüfen" :
-                       response.status === 429 ? "Rate-Limit erreicht (429) — bitte kurz warten" :
-                       `Gemini-Fehler ${response.status}`;
-        return res.status(502).json({ error: scrub(detail) });
+      const r = await generateFlashContent({
+        system: systemPrompt,
+        contents: [{ role: "user", parts: [{ text: userMessage }] }],
+        temperature: 0.7,
+        maxTokens: 2048,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) {
+        console.error("Gemini API error:", r.status, scrub(r.errorDetail ?? ""));
+        return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
       }
-
-      const data = await response.json();
-      const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      const answer = r.text;
       res.json({ answer });
       void logResonanz({
         endpoint: "chapter",
@@ -549,8 +528,7 @@ ${UNTRUSTED_RULE}`;
 
   // ─── Gemini Translation API ──────────────────────────────────────
   app.post("/api/translate", rateLimiter('translate', 20, 10 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (getKeys().length === 0) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
 
@@ -575,31 +553,17 @@ Text:
 ${wrapUntrusted(text)}`;
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.3, maxOutputTokens: 8192 },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("Gemini translate error:", response.status, scrub(errText));
-        const detail = response.status === 400 ? "Ungültiger API-Key (400)" :
-                       response.status === 401 || response.status === 403 ? "API-Key nicht autorisiert (401/403) — bitte Key auf Render prüfen" :
-                       response.status === 429 ? "Rate-Limit erreicht (429) — bitte kurz warten" :
-                       `Gemini-Fehler ${response.status}`;
-        return res.status(502).json({ error: scrub(detail) });
+      const r = await generateFlashContent({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        temperature: 0.3,
+        maxTokens: 8192,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) {
+        console.error("Gemini translate error:", r.status, scrub(r.errorDetail ?? ""));
+        return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
       }
-
-      const data = await response.json();
-      const translation = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-      if (!translation) return res.status(502).json({ error: "Leere Übersetzung." });
+      const translation = r.text;
       res.json({ translation });
       const anchor = chapterId
         ? `translate:${chapterId}+${targetLang}`
@@ -656,8 +620,7 @@ ${wrapUntrusted(text)}`;
   }
 
   async function handleClusterAnalysis(_req: express.Request, res: express.Response, nodes: NodeMeta[]): Promise<void> {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (getKeys().length === 0) {
       res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
       return;
     }
@@ -676,31 +639,18 @@ ${wrapUntrusted(text)}`;
     const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
-            generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("Cluster-Analyse Gemini error:", response.status, scrub(errText));
-        let detail: string;
-        try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
-        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
-        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
-        res.status(502).json({ error: scrub(detail) });
+      const r = await generateFlashContent({
+        contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
+        temperature: 0.75,
+        maxTokens: 4000,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) {
+        console.error("Cluster-Analyse Gemini error:", r.status, scrub(r.errorDetail ?? ""));
+        res.status(502).json({ error: scrub(flashErrorDetail(r)) });
         return;
       }
-
-      const data = await response.json();
-      const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      const analysis = r.text;
       // R6: parse [chunkId]/[resonanzId]-Anker aus der Antwort, validiere
       // gegen retrieved-Liste, inkrementiere Citation-Counter.
       recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
@@ -799,8 +749,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
   }
 
   app.post("/api/analyse-path", rateLimiter('analyse-path', 15, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) {
+    if (getKeys().length === 0) {
       return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     }
     const { shortest, surprising, from, to } = req.body as {
@@ -845,28 +794,17 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
-            generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
-          }),
-        }
-      );
-      if (!response.ok) {
-        const errText = await response.text();
-        console.error("Pfad-Analyse Gemini error:", response.status, scrub(errText));
-        let detail: string;
-        try { detail = (JSON.parse(errText)?.error?.message) || errText; } catch { detail = errText; }
-        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
-        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
-        return res.status(502).json({ error: scrub(detail) });
+      const r = await generateFlashContent({
+        contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
+        temperature: 0.75,
+        maxTokens: 4000,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) {
+        console.error("Pfad-Analyse Gemini error:", r.status, scrub(r.errorDetail ?? ""));
+        return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
       }
-      const data = await response.json();
-      const analysis = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      const analysis = r.text;
       // R6: Citation-Tracking
       recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
       res.json({ analysis, variant: useCompare ? "compare" : "single", citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
@@ -904,8 +842,8 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
   // JSON-Endpoints, aber token-weise via streamGeminiSSE. JSON-Pfade bleiben
   // unberührt (Client-Fallback).
   app.post("/api/analyse-cluster/stream", rateLimiter('analyse-cluster', 15, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    const apiKeys = getKeys();
+    if (apiKeys.length === 0) return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     const { nodes } = req.body as { nodes: NodeMeta[] };
     const resolved = resolveClusterNodes(nodes, nodeSrv, await loadDynamicConceptSources());
     if (!resolved.ok) return res.status(400).json({ error: resolved.error });
@@ -916,11 +854,10 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const ragQuery = safeNodes.map(n => n.fullLabel).join(" ") + " " + safeNodes.map(n => n.description).join(" ");
     const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
 
-    const { streamGeminiSSE, sseSend } = await import("./lib/geminiStream.js");
     const full = await streamGeminiSSE(res, {
-      apiKey,
+      apiKeys,
       contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
-      generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
+      generationConfig: { temperature: 0.75, maxOutputTokens: 4000, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
     });
     if (full === null) return;
     const analysis = full.trim() || "Keine Antwort erhalten.";
@@ -935,8 +872,8 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
   });
 
   app.post("/api/analyse-path/stream", rateLimiter('analyse-path', 15, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    const apiKeys = getKeys();
+    if (apiKeys.length === 0) return res.status(500).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
     const { shortest, surprising, from, to } = req.body as { shortest: string[]; surprising?: string[]; from: string; to: string };
     if (!Array.isArray(shortest) || shortest.length < 3 || shortest.length > 5) return res.status(400).json({ error: "Pfad muss zwischen 3 und 5 Knoten lang sein." });
     if (surprising !== undefined && (!Array.isArray(surprising) || surprising.length < 3 || surprising.length > 5)) return res.status(400).json({ error: "Surprising-Pfad (falls vorhanden) muss 3 bis 5 Knoten lang sein." });
@@ -953,11 +890,10 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const ragQuery = allIds.map(id => nodeSrv.get(id)?.fullLabel ?? id).join(" ");
     const { enrichedPrompt, passages } = await withWerkContext(rawPrompt, ragQuery, 4);
 
-    const { streamGeminiSSE, sseSend } = await import("./lib/geminiStream.js");
     const full = await streamGeminiSSE(res, {
-      apiKey,
+      apiKeys,
       contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
-      generationConfig: { temperature: 0.75, maxOutputTokens: 4000 },
+      generationConfig: { temperature: 0.75, maxOutputTokens: 4000, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
     });
     if (full === null) return;
     const analysis = full.trim() || "Keine Antwort erhalten.";
@@ -974,8 +910,7 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
 
   // ─── Graph-Chat: freier Gemini-Dialog über das gesamte Begriffsnetz ──
   app.post("/api/graph-chat", rateLimiter('graph-chat', 30, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+    if (getKeys().length === 0) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
 
     const prepared = prepareGraphChat(req.body ?? {});
     if ("error" in prepared) return res.status(400).json({ error: prepared.error });
@@ -996,30 +931,15 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       : GRAPH_SYSTEM_PROMPT + langAddition;
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: enrichedSystem }] },
-            contents,
-            generationConfig: { temperature: 0.85, maxOutputTokens: 3000 },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errText = await response.text();
-        let detail: string;
-        try { detail = JSON.parse(errText)?.error?.message || errText; } catch { detail = errText; }
-        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
-        if (response.status === 503) detail = "Dienst vorübergehend nicht verfügbar.";
-        return res.status(502).json({ error: scrub(detail) });
-      }
-
-      const data = await response.json();
-      const reply = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      const r = await generateFlashContent({
+        system: enrichedSystem,
+        contents,
+        temperature: 0.85,
+        maxTokens: 3000,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      const reply = r.text;
       // R6: Citation-Tracking. chatPassages haben einen source-Tag aus R1.
       recordCitations(reply, chatPassages.map(p => ({ source: p.source, id: p.id })));
       // graph-chat: chatPassages haben kein .source-Property direkt im
@@ -1049,8 +969,8 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
   // bestehende JSON-Endpoint bleibt unberührt (Fallback im Client). Schlussfrage-
   // /Citation-Verarbeitung läuft NACH Stream-Ende auf dem vollständigen Text.
   app.post("/api/graph-chat/stream", rateLimiter('graph-chat', 30, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+    const apiKeys = getKeys();
+    if (apiKeys.length === 0) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
     const prepared = prepareGraphChat(req.body ?? {});
     if ("error" in prepared) return res.status(400).json({ error: prepared.error });
     const { contents, lastUserText, turns } = prepared;
@@ -1063,68 +983,25 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       ? `${GRAPH_SYSTEM_PROMPT}\n\n${chatWerkContext}\n\nZitiere Werk-Passagen via [chunkId] und kuratierte Resonanzen via [resonanzId] aus dem obigen Block. Bei „bereits beantworteten" Fragen — baue auf der älteren Antwort auf statt sie zu wiederholen. Erfinde keine IDs.${langAddition}`
       : GRAPH_SYSTEM_PROMPT + langAddition;
 
-    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-store, no-transform");
-    res.setHeader("Netlify-CDN-Cache-Control", "no-store");
-    res.setHeader("Connection", "keep-alive");
-    res.setHeader("X-Accel-Buffering", "no");  // Proxies bitten, nicht zu puffern
-    res.flushHeaders();
-    const send = (obj: unknown) => res.write(`data: ${JSON.stringify(obj)}\n\n`);
-
-    try {
-      const upstream = await fetch(
-        geminiStreamUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: enrichedSystem }] },
-            contents,
-            generationConfig: { temperature: 0.85, maxOutputTokens: 3000 },
-          }),
-        }
-      );
-      if (!upstream.ok || !upstream.body) {
-        send({ error: upstream.status === 429 ? "Zu viele Anfragen — bitte kurz warten." : `Fehler ${upstream.status}` });
-        return res.end();
-      }
-      const reader = upstream.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "";
-      let full = "";
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n");
-        buffer = lines.pop() ?? "";
-        for (const line of lines) {
-          const t = line.trim();
-          if (!t.startsWith("data:")) continue;
-          const json = t.slice(5).trim();
-          if (!json || json === "[DONE]") continue;
-          try {
-            const chunk = JSON.parse(json);
-            const delta = chunk?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (typeof delta === "string" && delta) { full += delta; send({ delta }); }
-          } catch { /* Frame über Lese-Grenze gesplittet → buffer trägt Rest */ }
-        }
-      }
-      if (!full.trim()) full = "Keine Antwort erhalten.";
-      recordCitations(full, chatPassages.map(p => ({ source: p.source, id: p.id })));
-      send({ done: true, citedChunks: chatPassages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
-      res.end();
-      void logResonanz({
-        endpoint: "graph-chat", anchor: "graph", prompt: lastUserText, response: full,
-        model: "gemini-2.5-flash",
-        contextMeta: {
-          historyLength: Math.max(0, turns.length - 1), streamed: true,
-          werk_passages: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
-        },
-      });
-    } catch (err: unknown) {
-      try { send({ error: `API-Fehler: ${scrub(err instanceof Error ? err.message : String(err))}` }); res.end(); } catch { /* schon geschlossen */ }
-    }
+    const full = await streamGeminiSSE(res, {
+      apiKeys,
+      system: enrichedSystem,
+      contents,
+      generationConfig: { temperature: 0.85, maxOutputTokens: 3000, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
+    });
+    if (full === null) return;  // Fehler-Event wurde bereits gesendet + res beendet
+    const reply = full.trim() || "Keine Antwort erhalten.";
+    recordCitations(reply, chatPassages.map(p => ({ source: p.source, id: p.id })));
+    sseSend(res, { done: true, citedChunks: chatPassages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
+    res.end();
+    void logResonanz({
+      endpoint: "graph-chat", anchor: "graph", prompt: lastUserText, response: reply,
+      model: "gemini-2.5-flash",
+      contextMeta: {
+        historyLength: Math.max(0, turns.length - 1), streamed: true,
+        werk_passages: chatPassages.map(p => ({ id: p.id, chapter: p.chapter, score: Number(p.score.toFixed(3)) })),
+      },
+    });
   });
 
   // ─── Dialog-Persist (Tier-1-3-Roadmap, Feature B) ────────────────────
@@ -1228,8 +1105,7 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
   }
 
   app.post("/api/weiterdenken", rateLimiter('weiterdenken', 30, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+    if (getKeys().length === 0) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
 
     const { focus, focusedNodeIds } = (req.body ?? {}) as {
       focus?: string;
@@ -1250,37 +1126,15 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const system = weiterdenkenSystem(contextBlock, langAddition);
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: system }] },
-            contents,
-            // gemini-2.5-flash verbraucht standardmäßig "Thinking"-Tokens, die
-            // vom maxOutputTokens-Budget abgehen → bei 1400 blieben nur ~70
-            // Tokens sichtbarer Text, abgeschnitten vor der Schlussfrage.
-            // thinkingBudget: 0 schaltet das Reasoning ab (für 1–2 Absätze
-            // Prosa nicht nötig) → das volle Budget fließt in die Antwort.
-            generationConfig: {
-              temperature: 0.85,
-              maxOutputTokens: 2200,
-              thinkingConfig: { thinkingBudget: 0 },
-            },
-          }),
-        }
-      );
-      if (!response.ok) {
-        const errText = await response.text();
-        let detail: string;
-        try { detail = JSON.parse(errText)?.error?.message || errText; } catch { detail = errText; }
-        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
-        return res.status(502).json({ error: scrub(detail) });
-      }
-      const data = await response.json();
-      const full = data.candidates?.[0]?.content?.parts?.[0]?.text || "";
-      if (!full.trim()) return res.status(502).json({ error: "Keine Antwort erhalten." });
+      const r = await generateFlashContent({
+        system,
+        contents,
+        temperature: 0.85,
+        maxTokens: 2200,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      const full = r.text;
 
       const { reflection, nextQuestion } = splitClosingQuestion(full);
       recordCitations(full, passages.map(p => ({ source: p.source, id: p.id })));
@@ -1318,8 +1172,8 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
   // token-weise; der Client spaltet am Stream-Ende in reflection + nextQuestion
   // (lib/closingQuestion.splitClosing, spiegelt splitClosingQuestion hier).
   app.post("/api/weiterdenken/stream", rateLimiter('weiterdenken', 30, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
+    const apiKeys = getKeys();
+    if (apiKeys.length === 0) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
     const { focus, focusedNodeIds } = (req.body ?? {}) as {
       focus?: string; focusedNodeIds?: string[];
     };
@@ -1333,72 +1187,30 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const langAddition = isEnglish ? "\n\nIMPORTANT: Respond in English." : "";
     const system = weiterdenkenSystem(contextBlock, langAddition);
 
-    res.setHeader("Content-Type", "text/event-stream; charset=utf-8");
-    res.setHeader("Cache-Control", "no-store, no-transform");
-    res.setHeader("Netlify-CDN-Cache-Control", "no-store");
-    res.setHeader("Connection", "keep-alive");
-    res.setHeader("X-Accel-Buffering", "no");
-    res.flushHeaders();
-    const send = (obj: unknown) => res.write(`data: ${JSON.stringify(obj)}\n\n`);
-
-    try {
-      const upstream = await fetch(
-        geminiStreamUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: system }] },
-            contents,
-            generationConfig: { temperature: 0.85, maxOutputTokens: 2200, thinkingConfig: { thinkingBudget: 0 } },
-          }),
-        }
-      );
-      if (!upstream.ok || !upstream.body) {
-        send({ error: upstream.status === 429 ? "Zu viele Anfragen — bitte kurz warten." : `Fehler ${upstream.status}` });
-        return res.end();
-      }
-      const reader = upstream.body.getReader();
-      const decoder = new TextDecoder();
-      let buffer = "", full = "";
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        buffer += decoder.decode(value, { stream: true });
-        const lines = buffer.split("\n");
-        buffer = lines.pop() ?? "";
-        for (const line of lines) {
-          const t = line.trim();
-          if (!t.startsWith("data:")) continue;
-          const json = t.slice(5).trim();
-          if (!json || json === "[DONE]") continue;
-          try {
-            const chunk = JSON.parse(json);
-            const delta = chunk?.candidates?.[0]?.content?.parts?.[0]?.text;
-            if (typeof delta === "string" && delta) { full += delta; send({ delta }); }
-          } catch { /* partieller Frame */ }
-        }
-      }
-      if (!full.trim()) full = "(keine Reflexion)";
-      send({ done: true, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
-      res.end();
-      void logResonanz({
-        endpoint: "dialog",
-        anchor: focus ? `dialog:${focus.slice(0, 40)}` : "dialog:weiterdenken",
-        nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
-        prompt: logPrompt,
-        response: full,
-        model: "gemini-2.5-flash",
-        contextMeta: {
-          kind: "weiterdenken", streamed: true,
-          thread: safeThread.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),
-          had_user_answer: !!userAnswer,
-          werk_passages: passages.map(p => ({ id: p.id, score: Number(p.score.toFixed(3)) })),
-        },
-      });
-    } catch (err: unknown) {
-      try { send({ error: `API-Fehler: ${scrub(err instanceof Error ? err.message : String(err))}` }); res.end(); } catch { /* geschlossen */ }
-    }
+    const streamedFull = await streamGeminiSSE(res, {
+      apiKeys,
+      system,
+      contents,
+      generationConfig: { temperature: 0.85, maxOutputTokens: 2200, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
+    });
+    if (streamedFull === null) return;  // Fehler-Event wurde bereits gesendet + res beendet
+    const full = streamedFull.trim() || "(keine Reflexion)";
+    sseSend(res, { done: true, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
+    res.end();
+    void logResonanz({
+      endpoint: "dialog",
+      anchor: focus ? `dialog:${focus.slice(0, 40)}` : "dialog:weiterdenken",
+      nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
+      prompt: logPrompt,
+      response: full,
+      model: "gemini-2.5-flash",
+      contextMeta: {
+        kind: "weiterdenken", streamed: true,
+        thread: safeThread.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),
+        had_user_answer: !!userAnswer,
+        werk_passages: passages.map(p => ({ id: p.id, score: Number(p.score.toFixed(3)) })),
+      },
+    });
   });
 
   // ─── Passage-Resonanz (Tier-1-3-Roadmap, Feature A) ────────────────────
@@ -1426,8 +1238,7 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
   }
 
   app.post("/api/passage-resonanz", rateLimiter('passage', 15, 60 * 60_000), async (req, res) => {
-    const apiKey = process.env.GEMINI_API_KEY;
-    if (!apiKey) return res.status(503).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
+    if (getKeys().length === 0) return res.status(503).json({ error: "GEMINI_API_KEY ist nicht konfiguriert." });
 
     const body = (req.body ?? {}) as Record<string, unknown>;
     const chunkId = typeof body.chunkId === "string" ? body.chunkId.trim().slice(0, 80) : "";
@@ -1469,28 +1280,14 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
     const prompt = buildPassagePrompt(selectedText, mode, userPrompt, chapterTitle, neighbours.slice(0, 2));
 
     try {
-      const response = await fetch(
-        geminiGenerateUrl(),
-        {
-          method: "POST",
-          headers: geminiAuthHeaders(apiKey),
-          body: JSON.stringify({
-            contents: [{ role: "user", parts: [{ text: prompt }] }],
-            generationConfig: { temperature: 0.8, maxOutputTokens: 2500 },
-          }),
-        }
-      );
-
-      if (!response.ok) {
-        const errText = await response.text();
-        let detail: string;
-        try { detail = JSON.parse(errText)?.error?.message || errText; } catch { detail = errText; }
-        if (response.status === 429) detail = "Zu viele Anfragen — bitte kurz warten.";
-        return res.status(502).json({ error: scrub(detail) });
-      }
-
-      const data = await response.json();
-      const answer = data.candidates?.[0]?.content?.parts?.[0]?.text || "Keine Antwort erhalten.";
+      const r = await generateFlashContent({
+        contents: [{ role: "user", parts: [{ text: prompt }] }],
+        temperature: 0.8,
+        maxTokens: 2500,
+        thinkingBudget: FLASH_THINKING_BUDGET,
+      });
+      if (!r.ok) return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      const answer = r.text;
 
       // resonanzLog akzeptiert "passage" jetzt als endpoint-Typ.
       // entryId müssen wir selber zurückgeben — logResonanz fire-and-forget.

@@ -15,8 +15,9 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { fetchEmbedding, cosineSim } from "./embeddingClient.js";
-import { geminiAuthHeaders, geminiGenerateUrl, redactSecrets } from "./geminiHttp.js";
+import { fetchEmbedding, cosineSim, getKeys } from "./embeddingClient.js";
+import { generateFlashContent } from "./geminiText.js";
+import { redactSecrets } from "./geminiHttp.js";
 import { UNTRUSTED_RULE, wrapUntrusted } from "./promptSafety.js";
 import { enrichQueryWithNodes } from "./queryEnrichment.js";
 
@@ -315,24 +316,21 @@ Alternativen:`;
 }
 
 export async function expandQuery(query: string): Promise<string[]> {
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey || process.env.RAG_QUERY_EXPANSION === "0") return [query];
+  if (getKeys().length === 0 || process.env.RAG_QUERY_EXPANSION === "0") return [query];
   if (query.length > 600) return [query];  // bei sehr langen Anfragen lohnt Paraphrase nicht
   try {
     const prompt = buildExpandQueryPrompt(query);
-    const res = await fetch(geminiGenerateUrl(), {
-      method: "POST",
-      headers: geminiAuthHeaders(apiKey),
-      body: JSON.stringify({
-        contents: [{ role: "user", parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.6, maxOutputTokens: 250 },
-      }),
+    // Über generateFlashContent: Key-Failover + alle Text-Parts gejoint +
+    // thinkingBudget:0 (sonst fräße das Reasoning das 250-Token-Budget auf →
+    // leere Expansion). Fällt bei Fehler still auf [query] zurück.
+    const r = await generateFlashContent({
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+      temperature: 0.6,
+      maxTokens: 250,
+      thinkingBudget: 0,
     });
-    if (!res.ok) return [query];
-    const data = await res.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!text) return [query];
-    const alts = text.split("\n")
+    if (!r.ok) return [query];
+    const alts = r.text.split("\n")
       .map((l: string) => l.replace(/^[-\d.\s)]+/, "").trim())  // strip Aufzählungs-Präfixe
       .filter((l: string) => l.length > 5 && l.length < 400)
       .slice(0, 3);

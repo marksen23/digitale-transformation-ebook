@@ -99,3 +99,105 @@ export async function callGemini(opts: {
   }
   return null;
 }
+
+// Modell der user-seitigen KI-Flächen (analyse, dialog, graph-chat, ask, …).
+// Bewusst `flash` (schnell, günstig) — im Gegensatz zum `pro`-RICHTER oben.
+export const USER_FLASH_MODEL = process.env.GEMINI_USER_MODEL?.trim() || "gemini-2.5-flash";
+
+/**
+ * Joint ALLE Text-Parts eines Gemini-Kandidaten. Thinking-Modelle liefern u.U.
+ * mehrere Parts (z.B. ein „thought"-Part vor dem Text) — `parts[0].text` allein
+ * verliert dann Text oder ist leer. Immer alle Parts konkatenieren.
+ */
+export function joinGeminiParts(cand: unknown): string {
+  const parts = (cand as { content?: { parts?: Array<{ text?: unknown }> } } | null | undefined)
+    ?.content?.parts ?? [];
+  return parts.map(p => (typeof p?.text === "string" ? p.text : "")).join("");
+}
+
+export interface FlashGenResult {
+  ok: boolean;
+  /** Vollständiger Antworttext (alle Parts gejoint, getrimmt). */
+  text: string;
+  /** Gemini-finishReason des Kandidaten (STOP | MAX_TOKENS | SAFETY | …). */
+  finishReason: string | null;
+  /** true wenn finishReason === "MAX_TOKENS" — Antwort wurde abgeschnitten. */
+  truncated: boolean;
+  /** HTTP-Status des letzten Versuchs (für endpoint-spezifisches Messaging). */
+  status: number | null;
+  errorDetail: string | null;
+}
+
+/**
+ * Nicht-gestreamter generateContent-Aufruf für die user-seitigen KI-Flächen.
+ * Drei Härtungen gegenüber dem früheren Inline-fetch-Muster:
+ *   1. Multi-Key-Failover (getKeys + classifyError) — ein billing/quota/auth-
+ *      blockierter Primärkey rotiert auf GEMINI_API_KEY_FALLBACK (anderes
+ *      GCP-Projekt). So bleibt der Endpunkt „bedienbar".
+ *   2. Alle Text-Parts werden gejoint (joinGeminiParts) → vollständige Antwort.
+ *   3. finishReason/truncated werden gemeldet, damit Abschneiden sichtbar wird.
+ * Key liegt via geminiAuthHeaders im Header (nicht in der URL). Wirft nie;
+ * der Aufrufer baut aus status/errorDetail seine Fehlermeldung.
+ */
+export async function generateFlashContent(opts: {
+  model?: string;
+  system?: string;
+  contents: unknown;
+  temperature?: number;
+  maxTokens?: number;
+  /** number => thinkingConfig.thinkingBudget gesetzt; weggelassen => Modell-Default. */
+  thinkingBudget?: number;
+}): Promise<FlashGenResult> {
+  const keys = getKeys();
+  if (keys.length === 0) {
+    return {
+      ok: false, text: "", finishReason: null, truncated: false, status: null,
+      errorDetail: "Kein GEMINI_API_KEY[S]/FALLBACK gesetzt",
+    };
+  }
+  const model = opts.model?.trim() || USER_FLASH_MODEL;
+  const body = JSON.stringify({
+    ...(opts.system ? { systemInstruction: { parts: [{ text: opts.system }] } } : {}),
+    contents: opts.contents,
+    generationConfig: {
+      temperature: opts.temperature ?? 0.7,
+      maxOutputTokens: opts.maxTokens ?? 4096,
+      ...(typeof opts.thinkingBudget === "number" ? { thinkingConfig: { thinkingBudget: opts.thinkingBudget } } : {}),
+    },
+  });
+
+  let status: number | null = null;
+  let errorDetail: string | null = "unbekannt";
+  for (let i = 0; i < keys.length; i++) {
+    try {
+      const res = await fetch(
+        geminiGenerateUrl(model),
+        { method: "POST", headers: geminiAuthHeaders(keys[i]), body },
+      );
+      status = res.status;
+      if (!res.ok) {
+        const errText = await res.text().catch(() => "");
+        let msg = errText;
+        try { msg = JSON.parse(errText)?.error?.message || errText; } catch { /* roher Text */ }
+        errorDetail = redactSecrets(msg).slice(0, 300);
+        const cls = classifyError(res.status, errText);
+        // billing/quota/auth: nächster Key liegt evtl. auf anderem GCP-Projekt
+        if (cls === "billing" || cls === "quota" || cls === "auth") continue;
+        return { ok: false, text: "", finishReason: null, truncated: false, status, errorDetail };
+      }
+      const data = await res.json();
+      const cand = data?.candidates?.[0];
+      const finishReason: string | null = cand?.finishReason ?? null;
+      const text = joinGeminiParts(cand).trim();
+      return {
+        ok: !!text, text, finishReason,
+        truncated: finishReason === "MAX_TOKENS",
+        status,
+        errorDetail: text ? null : `leere Antwort (finishReason=${finishReason ?? "?"})`,
+      };
+    } catch (err) {
+      errorDetail = redactSecrets(err instanceof Error ? err.message : String(err)).slice(0, 300);
+    }
+  }
+  return { ok: false, text: "", finishReason: null, truncated: false, status, errorDetail };
+}
