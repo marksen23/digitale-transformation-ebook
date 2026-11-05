@@ -23,16 +23,14 @@ on:
       - "client/src/data/philosophyMap.ts"
   workflow_dispatch:  # manuell triggerbar zum Auf-Verlangen-Check
 
-# Serialisierung: nur EIN Korpus-Rebuild gleichzeitig. Ursache der
-# wiederkehrenden Push-Failures (CLAUDE.md Fallstrick #3): zwei Live-Append-
-# Commits Sekunden auseinander triggerten zwei parallele Full-Rebuilds, die
-# beim Commit-Back um main rennen → Merge-Konflikte in ALLEN generierten
-# Artefakten (resonanzen-index.json, embeddings, corpus-map, Tages-Snapshot)
-# → der Rebase bleibt mit unmerged files stecken, alle Retries scheitern an
-# „Pulling is not possible". cancel-in-progress:false = der zweite Lauf wird
-# NICHT abgebrochen, sondern reiht sich ein und läuft gegen das bereits
-# aktualisierte main (rebuildet ohnehin den ganzen Korpus-Tree) — kein
-# Datenverlust, kein Konflikt. Strikt sicherer als paralleles Pushen.
+# Serialisierung: nur EIN Korpus-Rebuild gleichzeitig.
+# Parallel-Guard-Läufe (zwei content/-Pushes kurz hintereinander) würden sonst
+# beim Commit-Back um main rennen und in generierten Artefakten kollidieren.
+# cancel-in-progress: false = der zweite Lauf wird NICHT abgebrochen, sondern
+# reiht sich ein und rebuildet gegen das bereits aktualisierte main — kein
+# Datenverlust. Live-Append vom Render-Server (indexUpdater) ist KEIN Guard-
+# Lauf und wird hier nicht serialisiert; dagegen greift die Konflikt-Recovery
+# im Commit-Step (reset → rebuild → push), siehe unten.
 concurrency:
   group: corpus-rebuild-main
   cancel-in-progress: false
@@ -276,62 +274,141 @@ jobs:
 
       - name: Commit snapshot + index + tag last-stable
         if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Für Konflikt-Recovery (Rebuild nach reset auf origin/main):
+          # Embeddings werden inkrementell wiederverwendet — nur wirklich
+          # neue Einträge kosten Gemini-Calls.
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_FALLBACK: ${{ secrets.GEMINI_API_KEY_FALLBACK }}
+          GEMINI_EMBED_MODEL: gemini-embedding-001
+          EMBEDDINGS_REQUIRED: "1"
+          GITHUB_REPO_OWNER: ${{ github.repository_owner }}
+          GITHUB_REPO_NAME: ${{ github.event.repository.name }}
+          GITHUB_REPO_BRANCH: ${{ github.ref_name }}
         run: |
+          set -euo pipefail
           DATE=$(date -u +%Y-%m-%d)
           git config user.name "corpus-guardian-bot"
           git config user.email "noreply@github.com"
-          # Snapshot + neu gebauten Index gemeinsam stagen.
-          # -f weil die Index-Files im Repo via .gitignore vom Commit
-          # ausgeschlossen sind (Dev-Artefakte). In CI heben wir das auf,
-          # damit Netlify auch ohne eigenes Rebuild den frischen Index hat.
-          git add versions/
-          # Diagnose: zeige welche Dateien existieren, bevor wir sie adden.
-          # Vorher wurde 2>/dev/null || true verwendet, das jeden "file
-          # nicht gefunden"-Fehler still schluckte — Resultat: workflow
-          # "green" trotz fehlender Embeddings-File auf der Remote.
-          echo "=== Files vor git add: ==="
-          ls -la client/public/resonanzen-*.json 2>&1 || echo "(keine resonanzen-*.json Files)"
-          # Jeden File einzeln adden mit klarem Logging.
-          # WICHTIG: alle vom Build geschriebenen Files MÜSSEN hier rein,
-          # sonst stranded git pull --rebase mit "You have unstaged changes"
-          # und der Push schlägt fehl (passiert: 2026-05-23 Run 70436097442).
-          for f in \
-              client/public/resonanzen-index.json \
-              client/public/resonanzen-embeddings.json \
-              client/public/resonanzen-holdout-baseline.json \
-              client/public/resonanzen-holdout-report.json \
-              client/public/resonanzen-drift-report.json \
-              client/public/resonanzen-validation-report.json \
-              client/public/resonanzen-chapter-hashes.json \
-              client/public/resonanzen-node-density.json \
-              client/public/resonanzen-link-predictions.json \
-              client/public/resonanzen-anchor-clusters.json \
-              client/public/resonanzen-corpus-map.json \
-              client/public/werk-chunks.json \
-              client/public/resonanzen-timeline.json \
-              client/public/concepts-embeddings.json \
-              client/public/philosophers-embeddings.json \
-              client/public/exports/resonanzvernunft.pdf; do
-            if [ -f "$f" ]; then
-              git add -f "$f" && echo "[git add] OK: $f"
-            else
-              echo "[git add] SKIP (not found): $f"
+
+          # Generierte Artefakte dieses Workflows — Konflikte NUR hierin
+          # sind sicher per reset+rebuild lösbar. Alles andere = echter Fehler.
+          is_generated_path() {
+            case "$1" in
+              client/public/resonanzen-*.json) return 0 ;;
+              client/public/werk-chunks.json) return 0 ;;
+              client/public/concepts-embeddings.json) return 0 ;;
+              client/public/philosophers-embeddings.json) return 0 ;;
+              client/public/exports/resonanzvernunft.pdf) return 0 ;;
+              versions/snapshot-*.json) return 0 ;;
+              versions/*) return 0 ;;
+              *) return 1 ;;
+            esac
+          }
+
+          only_generated_conflicts() {
+            local f
+            local any=0
+            # Unmerged paths während eines Rebase; Fallback: Status-Zeilen
+            local files
+            files=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
+            if [ -z "$files" ]; then
+              files=$(git status --porcelain=v1 | awk '/^(UU|AA|DU|UD|AU|UA)/ {print $2}')
             fi
-          done
-          # Defensiv (Wurzelursache-Fix): ALLE resonanzen-*-Artefakte erfassen —
-          # auch neu hinzugekommene (questions, question-embeddings,
-          # concept-candidates …), damit kein Build-Artefakt still uncommitted
-          # bleibt (passiert 2026-06-22: resonanzen-questions.json blieb Seed).
-          git add -f client/public/resonanzen-*.json 2>/dev/null && echo "[git add] glob resonanzen-*.json OK" || true
-          # validation-output.txt ist nur Temp-Log von Step 6, gehört nicht
-          # ins Repo — explizit entfernen, damit pull --rebase nicht stolpert.
-          rm -f validation-output.txt
+            if [ -z "$files" ]; then
+              echo "[push] no conflicted paths listed — treating as non-generated" >&2
+              return 1
+            fi
+            while IFS= read -r f; do
+              [ -z "$f" ] && continue
+              any=1
+              if ! is_generated_path "$f"; then
+                echo "[push] NON-GENERATED conflict: $f" >&2
+                return 1
+              fi
+              echo "[push] generated conflict OK: $f"
+            done <<< "$files"
+            [ "$any" = "1" ]
+          }
+
+          stage_corpus_artifacts() {
+            git add versions/ 2>/dev/null || true
+            echo "=== Files vor git add: ==="
+            ls -la client/public/resonanzen-*.json 2>&1 || echo "(keine resonanzen-*.json Files)"
+            for f in \
+                client/public/resonanzen-index.json \
+                client/public/resonanzen-embeddings.json \
+                client/public/resonanzen-holdout-baseline.json \
+                client/public/resonanzen-holdout-report.json \
+                client/public/resonanzen-drift-report.json \
+                client/public/resonanzen-validation-report.json \
+                client/public/resonanzen-chapter-hashes.json \
+                client/public/resonanzen-node-density.json \
+                client/public/resonanzen-link-predictions.json \
+                client/public/resonanzen-anchor-clusters.json \
+                client/public/resonanzen-corpus-map.json \
+                client/public/werk-chunks.json \
+                client/public/resonanzen-timeline.json \
+                client/public/concepts-embeddings.json \
+                client/public/philosophers-embeddings.json \
+                client/public/exports/resonanzvernunft.pdf; do
+              if [ -f "$f" ]; then
+                git add -f "$f" && echo "[git add] OK: $f"
+              else
+                echo "[git add] SKIP (not found): $f"
+              fi
+            done
+            # Defensiv: ALLE resonanzen-*-Artefakte (auch neu hinzugekommene)
+            git add -f client/public/resonanzen-*.json 2>/dev/null && echo "[git add] glob resonanzen-*.json OK" || true
+            rm -f validation-output.txt drift-output.txt
+          }
+
+          rebuild_corpus_after_reset() {
+            echo "[push] CONFLICT-RECOVERY: rebuild on fresh origin/main …"
+            # Snapshot der Validation-Aggregate neu (Report kann nach reset fehlen)
+            if [ -f client/public/resonanzen-validation-report.json ]; then
+              node -e "
+                const fs = require('fs');
+                const r = JSON.parse(fs.readFileSync('client/public/resonanzen-validation-report.json', 'utf-8'));
+                const snap = {
+                  date: '$DATE',
+                  generatedAt: new Date().toISOString(),
+                  commit: '${{ github.sha }}',
+                  filesChecked: r.filesChecked,
+                  aggregates: r.aggregates,
+                  errors: r.errors,
+                  warnings: r.warnings,
+                  recovery: true,
+                };
+                fs.mkdirSync('versions', { recursive: true });
+                fs.writeFileSync('versions/snapshot-$DATE.json', JSON.stringify(snap, null, 2));
+                console.log('Snapshot (recovery):', snap);
+              "
+            else
+              mkdir -p versions
+              echo "{\"date\":\"$DATE\",\"generatedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"commit\":\"${{ github.sha }}\",\"recovery\":true}" \
+                > "versions/snapshot-$DATE.json"
+            fi
+            pnpm tsx scripts/build-werk-chunks.ts
+            pnpm tsx scripts/build-search-index.ts
+            pnpm tsx scripts/build-resonanzen-index.ts
+            pnpm tsx scripts/build-corpus-timeline.ts
+            pnpm tsx scripts/build-werk-pdf.ts
+            # Drift-Report aktualisieren (nie fail)
+            pnpm tsx scripts/check-corpus-drift.ts > drift-output.txt 2>&1 || true
+            cat drift-output.txt || true
+            echo "[push] CONFLICT-RECOVERY: rebuild fertig"
+          }
+
+          stage_corpus_artifacts
           echo "=== Staged diff (numstat): ==="
           git diff --cached --numstat | head -10 || true
           echo "=== git status: ==="
           git status --short
           echo "=== git remote: ==="
           git remote -v
+
           if git diff --cached --quiet; then
             echo "No snapshot/index changes to commit"
           else
@@ -347,36 +424,123 @@ jobs:
             # (content/resonanzen/**), also kein Infinite-Loop trotz fehlendem
             # [skip ci].
             git commit -m "snapshot: corpus state + index $DATE"
-            # Race-Schutz: wenn main inzwischen gewachsen ist, rebase
-            # vor dem Push, damit der Snapshot nicht in einer Push-Race
-            # verloren geht.
+
+            # Push mit Recovery: Live-Append kann während des Builds main
+            # verändert haben. Rebase-Konflikte NUR in generierten Artefakten
+            # → abort, hard-reset auf origin/main, Index neu bauen (Embeddings
+            # reuse), neu committen, erneut pushen. Echte Konflikte /
+            # Permissions / Branch-Protection → rot.
             PUSH_OK=false
-            for i in 1 2 3; do
-              echo "--- Push attempt $i ---"
-              # Falls ein vorheriger Versuch mitten im Rebase mit unmerged
-              # files stecken blieb: abbrechen, sonst scheitert jeder weitere
-              # `git pull --rebase` sofort an „Pulling is not possible because
-              # you have unmerged files" und die Retries kaskadieren ins Leere.
-              git rebase --abort 2>/dev/null || true
-              # --autostash: falls trotz aller Vorsicht noch ein File dirty
-            # liegt (z.B. Drift-Check schreibt drift-report.json nach dem
-            # Stage-Loop), wird es vor dem Rebase auto-gestashed und danach
-            # wieder appliziert. Belt-and-Suspenders.
-            if git pull --rebase --autostash origin main && git push origin main; then
+            RECOVERY_USED=0
+            MAX_RECOVERY=2
+            for i in 1 2 3 4 5; do
+              echo "--- Push attempt $i (recovery_used=$RECOVERY_USED) ---"
+              # Falls ein vorheriger Versuch mitten im Rebase stecken blieb:
+              # abbrechen, sonst „Pulling is not possible because you have
+              # unmerged files" und Retries kaskadieren ins Leere.
+              if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+                echo "[push] aborting leftover rebase state"
+                # Vor abort: Konflikte klassifizieren (falls vorhanden)
+                if ! only_generated_conflicts; then
+                  echo "::error::Rebase-Konflikt in nicht-generierten Dateien — kein Recovery."
+                  git rebase --abort 2>/dev/null || true
+                  git status --short || true
+                  exit 1
+                fi
+                echo "[push] path=CONFLICT-RECOVERY (unmerged generated artifacts)"
+                git rebase --abort 2>/dev/null || true
+                if [ "$RECOVERY_USED" -ge "$MAX_RECOVERY" ]; then
+                  echo "::error::Konflikt-Recovery-Limit ($MAX_RECOVERY) erreicht."
+                  exit 1
+                fi
+                RECOVERY_USED=$((RECOVERY_USED + 1))
+                git fetch origin main
+                git reset --hard origin/main
+                rebuild_corpus_after_reset
+                stage_corpus_artifacts
+                if git diff --cached --quiet; then
+                  echo "[push] CONFLICT-RECOVERY: nichts zu committen nach Rebuild — main ist aktuell"
+                  PUSH_OK=true
+                  break
+                fi
+                git commit -m "snapshot: corpus state + index $DATE (recovery $RECOVERY_USED)"
+                # direkt weiter zum nächsten Loop-Durchlauf (pull+push)
+                sleep 1
+                continue
+              fi
+
+              set +e
+              PULL_OUT=$(git pull --rebase --autostash origin main 2>&1)
+              PULL_RC=$?
+              echo "$PULL_OUT"
+              set -e
+
+              if [ $PULL_RC -ne 0 ]; then
+                # Rebase fehlgeschlagen — Konflikte?
+                if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
+                  if only_generated_conflicts; then
+                    echo "[push] path=CONFLICT-RECOVERY (rebase conflict in generated artifacts only)"
+                    git rebase --abort 2>/dev/null || true
+                    if [ "$RECOVERY_USED" -ge "$MAX_RECOVERY" ]; then
+                      echo "::error::Konflikt-Recovery-Limit ($MAX_RECOVERY) erreicht."
+                      exit 1
+                    fi
+                    RECOVERY_USED=$((RECOVERY_USED + 1))
+                    git fetch origin main
+                    git reset --hard origin/main
+                    rebuild_corpus_after_reset
+                    stage_corpus_artifacts
+                    if git diff --cached --quiet; then
+                      echo "[push] CONFLICT-RECOVERY: nichts zu committen nach Rebuild — main ist aktuell"
+                      PUSH_OK=true
+                      break
+                    fi
+                    git commit -m "snapshot: corpus state + index $DATE (recovery $RECOVERY_USED)"
+                    sleep $((2 * i))
+                    continue
+                  else
+                    echo "[push] path=REAL-CONFLICT (non-generated files)"
+                    echo "::error::Rebase-Konflikt in nicht-generierten Dateien — Workflow bleibt rot."
+                    git rebase --abort 2>/dev/null || true
+                    git status --short || true
+                    exit 1
+                  fi
+                fi
+                echo "[push] path=PULL-FAILED (rc=$PULL_RC, no rebase state)"
+                echo "[push] FAILED on attempt $i — retrying in $((2 * i))s"
+                sleep $((2 * i))
+                continue
+              fi
+
+              set +e
+              PUSH_OUT=$(git push origin main 2>&1)
+              PUSH_RC=$?
+              echo "$PUSH_OUT"
+              set -e
+
+              if [ $PUSH_RC -eq 0 ]; then
                 PUSH_OK=true
-                echo "[push] SUCCESS on attempt $i"
+                echo "[push] path=SUCCESS on attempt $i (recovery_used=$RECOVERY_USED)"
                 break
               fi
-              echo "[push] FAILED on attempt $i — retrying in $((2 * i))s"
+
+              # Permissions / Branch-Protection: sofort rot, kein Recovery
+              if echo "$PUSH_OUT" | grep -qiE 'GH006|protected branch|permission denied|403 Forbidden|denied to'; then
+                echo "[push] path=REAL-ERROR (permissions/branch-protection)"
+                echo "::error::Push abgelehnt (Permissions/Branch-Protection) — kein Konflikt-Recovery."
+                exit 1
+              fi
+
+              # Non-fast-forward o.ä. → nochmal versuchen
+              echo "[push] path=PUSH-REJECTED (rc=$PUSH_RC) — retrying in $((2 * i))s"
               sleep $((2 * i))
             done
-            # Wenn alle 3 Push-Versuche scheitern, Workflow rot färben.
-            # Vorher: Loop endete still, Workflow blieb grün, der User
-            # merkte nie dass nichts auf main ankam.
+
             if [ "$PUSH_OK" != "true" ]; then
-              echo "::error::Snapshot+Index konnte nicht nach main gepusht werden (3 Versuche fehlgeschlagen)."
+              echo "[push] path=EXHAUSTED"
+              echo "::error::Snapshot+Index konnte nicht nach main gepusht werden (Versuche erschöpft, recovery_used=$RECOVERY_USED)."
               echo "Mögliche Ursachen: Branch-Protection, fehlende contents:write-Permission,"
-              echo "oder Race mit nebenläufigem Bot-Push."
+              echo "oder anhaltende Race mit nebenläufigem Bot-Push trotz Recovery."
               exit 1
             fi
           fi
@@ -384,8 +548,6 @@ jobs:
           git tag -f last-stable-$DATE
           git tag -f last-stable
           git push origin --tags --force
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # ─── Build-Hook-Trigger (Belt-and-Suspenders) ──────────────────────
       # Falls Netlify/Render-Auto-Deploy kaputt ist (sei es durch [skip ci]-
