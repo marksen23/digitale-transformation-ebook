@@ -99,7 +99,8 @@ digitale-transformation-ebook/
 ├── netlify.toml             # Nur noch 301-Forwarder, kein App-Build
 ├── vite.config.ts           # Vite Config
 ├── tsconfig.json            # TypeScript Config
-├── RENDER_DEPLOY.md         # Deployment-Anleitung
+├── RENDER_DEPLOY.md         # Deployment-Anleitung (Render)
+├── SELF_HOSTING.md          # Docker / Coolify / Raspberry Pi, parallel zu Render
 └── README.md                # Diese Datei
 ```
 
@@ -145,6 +146,10 @@ Default `"0"`). Secrets (`ANTHROPIC_API_KEY`, `GEMINI_API_KEY`,
 
 Optional, nur wenn beide gesetzt sind (sonst kein Script-Tag):
 `VITE_ANALYTICS_ENDPOINT` und `VITE_ANALYTICS_WEBSITE_ID` (Umami).
+
+Self-Hosting auf einem eigenen VPS (Coolify) oder einem Raspberry Pi 400 läuft
+über das Docker-Image und lässt Render unberührt. Variablen, Build und
+Coolify-Schritte stehen in `SELF_HOSTING.md`.
 
 ---
 
