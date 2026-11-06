@@ -7,9 +7,10 @@ import { loadDynamicConceptSources, resolveClusterNodes } from "../lib/clusterNo
 import { recordCitations } from "../lib/citationTracker.js";
 import { getKeys } from "../lib/embeddingClient.js";
 import { streamGeminiSSE, sseSend } from "../lib/geminiStream.js";
-import { generateFlashContent } from "../lib/geminiText.js";
+import { endsComplete, generateFlashContent } from "../lib/geminiText.js";
 import { nodeSrv } from "../lib/graphContext.js";
-import { flashErrorDetail, FLASH_THINKING_BUDGET, withWerkContext } from "../lib/proseAssist.js";
+import { flashErrorDetail, FLASH_THINKING_BUDGET, PROSE_MAX_TOKENS, withWerkContext } from "../lib/proseAssist.js";
+import { OUTPUT_VOICE_RULE } from "../lib/promptSafety.js";
 import { logResonanz } from "../lib/resonanzLog.js";
 import { rateLimiter, scrub } from "../middleware/rateLimit.js";
 
@@ -25,15 +26,16 @@ export function createAnalyseRouter(): Router {
 
   function buildClusterPrompt(nodes: NodeMeta[]): string {
     const intro = `Du bist ein philosophischer Analyst des Werks "Die Digitale Transformation" — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.\n\n`;
+    const voice = `\n\n${OUTPUT_VOICE_RULE}`;
     const conceptList = nodes.map((n, i) => `KONZEPT ${String.fromCharCode(65 + i)}: ${n.fullLabel}\n${n.description}`).join("\n\n");
     if (nodes.length === 2) {
-      return intro + `Analysiere das Spannungsfeld zwischen diesen beiden Konzepten aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nSchreibe drei prägnante Absätze:\n1. Worin besteht die produktive Spannung oder der Widerspruch zwischen diesen Konzepten — was macht sie zu Gegenspielern oder Komplizen?\n2. Welches transformative "Dritte" entsteht, wenn man beide gemeinsam denkt — was wird sichtbar, das in keinem allein liegt?\n3. Was verändert sich am Verständnis von Mensch, Maschine oder Resonanz, wenn dieser Zusammenhang ernst genommen wird?\n\nSchreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+      return intro + `Analysiere das Spannungsfeld zwischen diesen beiden Konzepten aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nSchreibe drei prägnante Absätze:\n1. Worin besteht die produktive Spannung oder der Widerspruch zwischen diesen Konzepten — was macht sie zu Gegenspielern oder Komplizen?\n2. Welches transformative "Dritte" entsteht, wenn man beide gemeinsam denkt — was wird sichtbar, das in keinem allein liegt?\n3. Was verändert sich am Verständnis von Mensch, Maschine oder Resonanz, wenn dieser Zusammenhang ernst genommen wird?\n\nSchreibe philosophisch dicht, aber ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.${voice}`;
     }
     if (nodes.length === 3) {
-      return intro + `Analysiere die Triade dieser drei Konzepte aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nIm Unterschied zur Zweier-Spannung entsteht in der Triade ein vermittelndes Drittes. Schreibe drei prägnante Absätze:\n1. Wie bilden A, B und C ein triadisches Gefüge? Welcher der drei steht als Brücke, welche als Pole oder Gegensätze? Welche Bewegung entsteht zwischen ihnen?\n2. Was wird durch das Hinzutreten des Dritten sichtbar, das in der bloßen Zweier-Konstellation noch nicht gesehen werden konnte? Welche emergente Eigenschaft tritt hervor?\n3. Welche Erkenntnis für das Verhältnis Mensch–Maschine, für Resonanz oder für digitale Existenz erschließt diese Triade?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+      return intro + `Analysiere die Triade dieser drei Konzepte aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nIm Unterschied zur Zweier-Spannung entsteht in der Triade ein vermittelndes Drittes. Schreibe drei prägnante Absätze:\n1. Wie bilden A, B und C ein triadisches Gefüge? Welcher der drei steht als Brücke, welche als Pole oder Gegensätze? Welche Bewegung entsteht zwischen ihnen?\n2. Was wird durch das Hinzutreten des Dritten sichtbar, das in der bloßen Zweier-Konstellation noch nicht gesehen werden konnte? Welche emergente Eigenschaft tritt hervor?\n3. Welche Erkenntnis für das Verhältnis Mensch–Maschine, für Resonanz oder für digitale Existenz erschließt diese Triade?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.${voice}`;
     }
     // 4 Knoten — Quadratur
-    return intro + `Analysiere die Quadratur dieser vier Konzepte aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nVier Konzepte spannen das klassische Vierfeldschema auf — zwei sich kreuzende Achsen, in deren Spannungspunkt sich Erkenntnis bildet (vergleichbar Heideggers Geviert oder dem klassischen Logos–Pathos–Ethos–Kairos). Schreibe drei prägnante Absätze:\n1. Welche zwei Achsen-Paare bilden sich? Welche Konzepte stehen in Gegensatz, welche in Komplementarität? Wie kreuzen sich die Achsen?\n2. Was wird im Vierfeld sichtbar, das in Triade und Spannungsfeld noch nicht greifbar war? Welcher Mittelpunkt entsteht — oder welche Leere im Zentrum?\n3. Welches umfassende Verständnis von Mensch, Maschine oder Resonanz erschließt nur diese Vierheit — was bliebe in kleineren Konstellationen unsichtbar?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.`;
+    return intro + `Analysiere die Quadratur dieser vier Konzepte aus dem Begriffsnetz des Werks:\n\n${conceptList}\n\nVier Konzepte spannen das klassische Vierfeldschema auf — zwei sich kreuzende Achsen, in deren Spannungspunkt sich Erkenntnis bildet (vergleichbar Heideggers Geviert oder dem klassischen Logos–Pathos–Ethos–Kairos). Schreibe drei prägnante Absätze:\n1. Welche zwei Achsen-Paare bilden sich? Welche Konzepte stehen in Gegensatz, welche in Komplementarität? Wie kreuzen sich die Achsen?\n2. Was wird im Vierfeld sichtbar, das in Triade und Spannungsfeld noch nicht greifbar war? Welcher Mittelpunkt entsteht — oder welche Leere im Zentrum?\n3. Welches umfassende Verständnis von Mensch, Maschine oder Resonanz erschließt nur diese Vierheit — was bliebe in kleineren Konstellationen unsichtbar?\n\nSchreibe philosophisch dicht, ohne Jargon-Prunk. Kein Fazit, keine Aufzählung. Schließe mit einer offenen Frage, die der Lesende weitertragen kann.${voice}`;
   }
 
   function clusterAnchor(ids: string[]): string {
@@ -69,12 +71,16 @@ export function createAnalyseRouter(): Router {
       const r = await generateFlashContent({
         contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
         temperature: 0.75,
-        maxTokens: 4000,
+        maxTokens: PROSE_MAX_TOKENS,
         thinkingBudget: FLASH_THINKING_BUDGET,
       });
       if (!r.ok) {
         console.error("Cluster-Analyse Gemini error:", r.status, scrub(r.errorDetail ?? ""));
         res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+        return;
+      }
+      if (r.truncated && !endsComplete(r.text)) {
+        res.status(502).json({ error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
         return;
       }
       const analysis = r.text;
@@ -145,7 +151,9 @@ Pfade sind keine bloßen Distanzen, sondern narrative Bewegungen: jede Begriffsf
 2. Was wird durch diese spezifische Reihenfolge sichtbar, das in Einzelbetrachtung der Konzepte unsichtbar bliebe? Welche philosophische These klingt mit?
 3. Was bedeutet diese Bewegung für das Werk insgesamt — für sein Verständnis von Mensch, Maschine oder Resonanz?
 
-Falls die Sequenz keine substantielle Bewegung enthält (etwa wegen erzwungener Verbindungen im Graph), sage es offen — produziere keinen erzwungenen Sinn. Schreibe philosophisch dicht, ohne Jargon-Prunk. Schließe mit einer offenen Frage.`;
+Falls die Sequenz keine substantielle Bewegung enthält (etwa wegen erzwungener Verbindungen im Graph), sage es offen — produziere keinen erzwungenen Sinn. Schreibe philosophisch dicht, ohne Jargon-Prunk. Schließe mit einer offenen Frage.
+
+${OUTPUT_VOICE_RULE}`;
   }
 
   function buildComparePathPrompt(shortest: string[], surprising: string[]): string {
@@ -170,9 +178,11 @@ ${seqSurprising}
 Beide Pfade verbinden dieselben Endpunkte, schlagen aber unterschiedliche Routen ein. Der direkte Weg folgt der dichtesten Begriffslogik, der überraschende eine seltenere Verknüpfung. Schreibe drei prägnante Absätze:
 1. Welche Bewegung erzählt jeder der beiden Wege? Welcher liest sich als logische Konsequenz, welcher als poetisch-überraschend?
 2. Was macht der Vergleich sichtbar, das ein einzelner Pfad nicht zeigen würde? Treffen sich die Bewegungen an einem Mittelpunkt, oder sind sie konträr?
-3. Was sagt die Existenz beider Wege über die Geländegestalt des Begriffsraums — und über das Werk?
+3. Was sagt die Existenz beider Wege über die Gestalt des Begriffsnetzes — und über das Werk?
 
-Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstruiert wirkt, sage es offen — produziere keinen erzwungenen Vergleich. Schreibe philosophisch dicht, ohne Jargon-Prunk. Schließe mit einer offenen Frage.`;
+Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstruiert wirkt, sage es offen — produziere keinen erzwungenen Vergleich. Schreibe philosophisch dicht, ohne Jargon-Prunk. Schließe mit einer offenen Frage.
+
+${OUTPUT_VOICE_RULE}`;
   }
 
   router.post("/api/analyse-path", rateLimiter('analyse-path', 15, 60 * 60_000), async (req, res) => {
@@ -224,12 +234,15 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
       const r = await generateFlashContent({
         contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
         temperature: 0.75,
-        maxTokens: 4000,
+        maxTokens: PROSE_MAX_TOKENS,
         thinkingBudget: FLASH_THINKING_BUDGET,
       });
       if (!r.ok) {
         console.error("Pfad-Analyse Gemini error:", r.status, scrub(r.errorDetail ?? ""));
         return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      }
+      if (r.truncated && !endsComplete(r.text)) {
+        return res.status(502).json({ error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
       }
       const analysis = r.text;
       // R6: Citation-Tracking
@@ -284,10 +297,15 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const full = await streamGeminiSSE(res, {
       apiKeys,
       contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
-      generationConfig: { temperature: 0.75, maxOutputTokens: 4000, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
+      generationConfig: { temperature: 0.75, maxOutputTokens: PROSE_MAX_TOKENS, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
     });
     if (full === null) return;
     const analysis = full.trim() || "Keine Antwort erhalten.";
+    if (!endsComplete(analysis)) {
+      sseSend(res, { error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
+      res.end();
+      return;
+    }
     recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
     sseSend(res, { done: true, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
     res.end();
@@ -320,10 +338,15 @@ Falls die beiden Pfade fast identisch verlaufen oder die "Überraschung" konstru
     const full = await streamGeminiSSE(res, {
       apiKeys,
       contents: [{ role: "user", parts: [{ text: enrichedPrompt }] }],
-      generationConfig: { temperature: 0.75, maxOutputTokens: 4000, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
+      generationConfig: { temperature: 0.75, maxOutputTokens: PROSE_MAX_TOKENS, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
     });
     if (full === null) return;
     const analysis = full.trim() || "Keine Antwort erhalten.";
+    if (!endsComplete(analysis)) {
+      sseSend(res, { error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
+      res.end();
+      return;
+    }
     recordCitations(analysis, passages.map(p => ({ source: p.source, id: p.id })));
     sseSend(res, { done: true, variant: useCompare ? "compare" : "single", citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
     res.end();

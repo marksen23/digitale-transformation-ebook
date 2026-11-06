@@ -3,7 +3,7 @@
  * Landkarte und Philosophie (Redesign Phase 2, Teil 2).
  *
  * Die drei Seiten sind heute gleichrangige, unabhängige Navpunkte — nichts
- * erklärt, dass sie denselben Begriffsraum aus drei verschiedenen Blickwinkeln
+ * erklärt, dass sie dasselbe Begriffsnetz aus drei verschiedenen Blickwinkeln
  * zeigen (Struktur / Wachstum / Denker). Diese Seite ist die fehlende
  * Zwischenstation: drei Karten, jede mit einer echten Kennzahl aus den
  * tatsächlichen Datenquellen, die geradewegs auf die jeweilige Seite führen.
@@ -54,7 +54,7 @@ export default function ErkundenPage() {
     {
       key: "philosophie", href: "/philosophie",
       title: "Philosophie", tag: "Denker",
-      description: "Wer den Begriffsraum vorgedacht hat — 25 Philosoph:innen über acht Traditionen, verortet auf dem Pfad zur Resonanzvernunft.",
+      description: "Wer dieses Netz vorgedacht hat — 25 Philosoph:innen über acht Traditionen, verortet auf dem Pfad zur Resonanzvernunft.",
       stat: String(PHILOSOPHERS.length), statLabel: `Denker:innen · ${TRADITIONS.length} Traditionen`,
     },
   ];

@@ -4,10 +4,10 @@
  */
 import { Router } from "express";
 import { getKeys } from "../lib/embeddingClient.js";
-import { generateFlashContent } from "../lib/geminiText.js";
+import { endsComplete, generateFlashContent } from "../lib/geminiText.js";
 import { PASSAGE_PROMPT_MAX, PASSAGE_SELECTION_MAX, selectionInSource } from "../lib/passageGuard.js";
-import { flashErrorDetail, FLASH_THINKING_BUDGET } from "../lib/proseAssist.js";
-import { UNTRUSTED_RULE, wrapUntrusted } from "../lib/promptSafety.js";
+import { flashErrorDetail, FLASH_THINKING_BUDGET, PROSE_MAX_TOKENS } from "../lib/proseAssist.js";
+import { OUTPUT_VOICE_RULE, UNTRUSTED_RULE, wrapUntrusted } from "../lib/promptSafety.js";
 import { logResonanz } from "../lib/resonanzLog.js";
 import { rateLimiter, scrub } from "../middleware/rateLimit.js";
 
@@ -25,7 +25,7 @@ export function createPassageRouter(): Router {
     const neighbourBlock = neighbours.length > 0
       ? `\n\nKONTEXT-PASSAGEN (umliegender Werktext, zur Orientierung):\n${neighbours.map((t, i) => `(${i + 1}) ${t}`).join("\n")}\n`
       : "";
-    const intro = `Du arbeitest als philosophischer Co-Autor am Werk "Die Digitale Transformation" — Resonanzvernunft, Mensch-Maschine, digitale Existenz. Ein Leser hat eine konkrete Stelle markiert. Reagiere im Geist des Werks: dichte philosophische Prosa, keine Listen, präzise ohne Akademismus.\n\n${UNTRUSTED_RULE}\n\nKAPITEL: ${wrapUntrusted(chapterTitle)}\n\nMARKIERTE STELLE:\n${wrapUntrusted(passage)}${neighbourBlock}`;
+    const intro = `Du arbeitest als philosophischer Co-Autor am Werk "Die Digitale Transformation" — Resonanzvernunft, Mensch-Maschine, digitale Existenz. Ein Leser hat eine konkrete Stelle markiert. Reagiere im Geist des Werks: dichte philosophische Prosa, keine Listen, präzise ohne Akademismus.\n\n${OUTPUT_VOICE_RULE}\n\n${UNTRUSTED_RULE}\n\nKAPITEL: ${wrapUntrusted(chapterTitle)}\n\nMARKIERTE STELLE:\n${wrapUntrusted(passage)}${neighbourBlock}`;
 
     if (mode === "frage") {
       return intro + `\n\nFormuliere die fruchtbarste philosophische Frage, die sich an genau dieser Stelle stellt — die Frage, die der Leser sich nach dem Lesen dieser Zeilen stellen müsste, ohne es zu wissen. Eine einzige Frage, gefolgt von 2 Absätzen, die ihre Reichweite ausloten.`;
@@ -83,10 +83,13 @@ export function createPassageRouter(): Router {
       const r = await generateFlashContent({
         contents: [{ role: "user", parts: [{ text: prompt }] }],
         temperature: 0.8,
-        maxTokens: 2500,
+        maxTokens: PROSE_MAX_TOKENS,
         thinkingBudget: FLASH_THINKING_BUDGET,
       });
       if (!r.ok) return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      if (r.truncated && !endsComplete(r.text)) {
+        return res.status(502).json({ error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
+      }
       const answer = r.text;
 
       // resonanzLog akzeptiert "passage" jetzt als endpoint-Typ.

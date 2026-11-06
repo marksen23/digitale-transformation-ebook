@@ -4,10 +4,10 @@
  */
 import { Router } from "express";
 import { getKeys } from "../lib/embeddingClient.js";
-import { generateFlashContent } from "../lib/geminiText.js";
+import { endsComplete, generateFlashContent } from "../lib/geminiText.js";
 import { prepareConversation } from "../lib/conversationPrompt.js";
-import { flashErrorDetail, FLASH_THINKING_BUDGET } from "../lib/proseAssist.js";
-import { UNTRUSTED_RULE } from "../lib/promptSafety.js";
+import { flashErrorDetail, FLASH_THINKING_BUDGET, PROSE_MAX_TOKENS } from "../lib/proseAssist.js";
+import { OUTPUT_VOICE_RULE, UNTRUSTED_RULE } from "../lib/promptSafety.js";
 import { logResonanz } from "../lib/resonanzLog.js";
 import { rateLimiter, scrub } from "../middleware/rateLimit.js";
 
@@ -73,6 +73,8 @@ GESPRÄCHSABSCHLUSS:
 Enkidu schließt jedes Gespräch mit:
 'Nach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.'
 
+${OUTPUT_VOICE_RULE}
+
 ${UNTRUSTED_RULE}`;
 
   router.post("/api/enkidu", rateLimiter('enkidu', 100, 60 * 60_000), async (req, res) => {
@@ -126,12 +128,15 @@ ${UNTRUSTED_RULE}`;
         system: systemText,
         contents: conversationContents,
         temperature: 0.9,
-        maxTokens: 4096,
+        maxTokens: PROSE_MAX_TOKENS,
         thinkingBudget: FLASH_THINKING_BUDGET,
       });
       if (!r.ok) {
         console.error("Enkidu Gemini error:", r.status, scrub(r.errorDetail ?? ""));
         return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      }
+      if (r.truncated && !endsComplete(r.text)) {
+        return res.status(502).json({ error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
       }
       const text = r.text;
       res.json({ response: text });

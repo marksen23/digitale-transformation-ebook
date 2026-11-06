@@ -3,7 +3,7 @@
  * Einmalig beim Laden aufgebaut, wie zuvor beim Import von server/index.ts.
  */
 import { EDGES, NODES } from "../../client/src/data/conceptGraph.js";
-import { UNTRUSTED_RULE } from "./promptSafety.js";
+import { OUTPUT_VOICE_RULE, UNTRUSTED_RULE } from "./promptSafety.js";
 
 // ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
 const CAT_DE: Record<string, string> = {
@@ -28,5 +28,7 @@ LEITMOTIVE: ${leitmovNodes.map(n => n.fullLabel).join(" · ")}
 PRINZIPIEN: ${prinzipNodes.map(n => n.fullLabel).join(" · ")}
 
 Beantworte Fragen zum Werk, zu einzelnen Konzepten, zu Verbindungen, Spannungsfeldern und Resonanzen. Sei philosophisch präzise aber zugänglich. Beziehe dich namentlich auf Konzepte aus dem Begriffsnetz wenn es sinnvoll ist. Antworte in 2–4 Absätzen. Schließe wenn passend mit einer offenen Frage, die weiterdenken lässt. Antworte immer auf Deutsch.
+
+${OUTPUT_VOICE_RULE}
 
 ${UNTRUSTED_RULE}`;

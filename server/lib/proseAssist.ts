@@ -14,6 +14,11 @@ import { buildWerkContext, type RetrievedPassage } from "./werkRetrieval.js";
 // fließt in die Antwort. (gemini-2.5-flash akzeptiert 0 — belegt durch den
 // seit je produktiven /weiterdenken-Endpunkt.) Per ENV abschaltbar, falls ein
 // künftiges Modell 0 nicht mehr erlaubt → dann Budget weglassen (Modell-Default).
+/** Sichtbare Prosa-Länge der leserseitigen Endpunkte. Thinking liegt separat obendrauf. */
+export const PROSE_MAX_TOKENS = 8192;
+/** Kapitelübersetzung: ein ganzer Teil darf nicht am Ausgabe-Limit enden. */
+export const TRANSLATE_MAX_TOKENS = 32768;
+
 export const FLASH_THINKING_BUDGET: number | undefined =
   process.env.FLASH_THINKING_BUDGET !== undefined && process.env.FLASH_THINKING_BUDGET !== ""
     ? Number(process.env.FLASH_THINKING_BUDGET)
