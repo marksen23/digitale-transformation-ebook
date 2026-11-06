@@ -45,17 +45,17 @@ jobs:
     steps:
       # Action-SHAs gepinnt (Repo-Policy: keine Tag-Refs erlaubt).
       # Kommentare nennen die ursprüngliche Tag-Version für Lesbarkeit.
-      - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v5
         with:
           # Volle History: pull --rebase / Recovery gegen origin/main brauchen
           # mehr als den shallow Default (fetch-depth: 1), sonst bricht Rebase
           # auf fehlende Ancestors.
           fetch-depth: 0
 
-      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
         # Version aus package.json packageManager-Feld
 
-      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version: "24"
           cache: pnpm
@@ -78,7 +78,7 @@ jobs:
 
       - name: Open issue on validation failure
         if: failure() && steps.validate.outputs.exit_code != '0'
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const fs = require('fs');
@@ -148,7 +148,7 @@ jobs:
 
       - name: Upload validation report
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: validation-report
           path: client/public/resonanzen-validation-report.json
@@ -245,7 +245,7 @@ jobs:
       # vom Runner herunterladen und inspizieren, statt nur Logs zu raten.
       - name: Upload rebuilt index + embeddings as artifact
         if: always()
-        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a  # v7.0.1
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9  # v7.0.2
         with:
           name: corpus-state
           path: |
@@ -595,7 +595,7 @@ jobs:
 
       - name: Open issue on drift alarm
         if: success() && steps.drift.outputs.exit_code == '1'
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3  # v9.0.0
         with:
           script: |
             const fs = require('fs');
