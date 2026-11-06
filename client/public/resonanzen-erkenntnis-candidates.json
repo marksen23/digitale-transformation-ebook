@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T21:09:38.544Z",
+  "generatedAt": "2026-11-06T22:31:42.899Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -54,7 +54,7 @@
       "answerEndpoint": "analyse",
       "answerStatus": "raw",
       "answerExcerpt": "Der Widerspruch und das Werkzeug Die Frage enthält ihre eigene Falle. Ein Widerspruch, der *gebaut* wird, ist zunächst immer einer, den jemand vorgesehen hat. Wer einem System befiehlt, zu widersprechen, bekommt einen gehorsamen Widerspruch: einen Spiegel, der gelernt hat, die Stirn zu runzeln. Auch das ist Projektion, nur eine raffiniertere. Der Fragende erwartet nun den Einwand, und das System l",
-      "distinctness": 0.224,
+      "distinctness": 0.221,
       "conceptAnchor": "resonanzvernunft",
       "nodeIds": [
         "andere",
@@ -107,7 +107,7 @@
       "answerEndpoint": "analyse",
       "answerStatus": "approved",
       "answerExcerpt": "Spiegel oder Antwort: Echtheit und Projektion Ein Spiegel antwortet immer, und gerade darin liegt seine Täuschung. Er gibt zurück, was vor ihm steht, nur geglättet, beschleunigt und mit dem Anschein von Gegenüber. Je besser ein System die Erwartung des Fragenden trifft, desto schwerer wird es, Antwort und Projektion zu unterscheiden. Zustimmung ist deshalb kein Beleg für Echtheit, sondern oft ihr ",
-      "distinctness": 0.215,
+      "distinctness": 0.21,
       "conceptAnchor": "antwort",
       "nodeIds": [
         "lm-spiegel",
@@ -126,46 +126,10 @@
           "score": 0.768
         }
       ]
-    },
-    {
-      "id": "ERK-JXCZMH",
-      "answerId": "MW566TNX-A16A2897",
-      "answerEndpoint": "analyse",
-      "answerStatus": "raw",
-      "answerExcerpt": "Architektur des Atemholens Eine Pause wird als Fehler erfahren, wenn sie unangekündigt, unbegründet und unbewohnt ist. Der Ladekreisel ist eine solche Pause: Er sagt nur, dass etwas fehlt. Als Raum erfahren wird eine Pause erst, wenn sie eine Gestalt hat. Sie muss gewollt sein, sie muss sich zeigen, und man muss sich in ihr aufhalten können. Die Frage ist deshalb keine nach der richtigen Wartezeit",
-      "distinctness": 0.206,
-      "conceptAnchor": "antwort",
-      "nodeIds": [
-        "raum",
-        "schweigen"
-      ],
-      "resolveCount": 4,
-      "resolves": [
-        {
-          "sourceId": "MUY7RXCI-E899056E",
-          "question": "Wie lassen sich Pausen in digitale Architekturen einbauen, sodass sie als Raum erfahren werden und nicht als Fehler?",
-          "score": 0.87
-        },
-        {
-          "sourceId": "MQ66ZWYC-52DE2DF2",
-          "question": "Kann das bewusste Einlegen von Pausen im digitalen Dialog, das Warten und das Aushalten von Stille, zu einer tieferen Form der \"Dazwischenintelligenz\" führen, die über die reine Informationsverarbeitung hinausgeht?",
-          "score": 0.774
-        },
-        {
-          "sourceId": "MPUFECMA-7E85D8E2",
-          "question": "Was würde sich an einer Antwort ändern, wenn sie nicht nur die Wörter, sondern die Pause hörte, aus der sie gesprochen wurden?",
-          "score": 0.744
-        },
-        {
-          "sourceId": "MUY7RXCI-D36BB4D6",
-          "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur im digitalen Medium bezeugbar, ohne sie wieder in Verfügbarkeit zu verwandeln?",
-          "score": 0.736
-        }
-      ]
     }
   ],
   "stats": {
-    "total": 6,
+    "total": 5,
     "confirmedFiltered": 42,
     "curatedRef": 201
   }

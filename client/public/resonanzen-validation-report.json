@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-06T21:09:28.887Z",
+  "generatedAt": "2026-11-06T22:31:27.145Z",
   "filesChecked": 283,
   "errors": 0,
-  "warnings": 16,
+  "warnings": 27,
   "issues": [
     {
       "level": "warning",
@@ -99,6 +99,72 @@
       "file": "content/resonanzen/raw/analyse/schweigen+stimme/2026-11-06-MW566TO3-969C6466.md",
       "rule": "content-hash-mismatch",
       "detail": "expected a2949f299720a9b8, computed d835d16365069146 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected e48a72c68ccd4265, computed 0271ad49cdc26452 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMLW8I0-8852B480.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 49624a3d4a12c003, computed 406c99c051df5c76 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMLZAEP-35849C9E.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 668643cb68e466dd, computed c45939221d8ad652 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMM2YAK-A7491D44.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 2f52bc790f5fb803, computed 3fb317d12e83d5c3 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMM5NAF-D744437C.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 598f6b5c1389d53b, computed e1c35e2c8c214a39 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDCKR2Q-05DCEB69.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 4f4e72e0d8264a0c, computed 20897c5a7d552a07 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDD82FW-BAE0F4B4.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 6c2f62bc8804d19f, computed 80c24094dbd70c27 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDDG179-491119D2.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected d1f02ede6af5a578, computed 98313add4665b5b4 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDDMUMA-CCA9033A.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 927e1ed4ba2eaf65, computed 671d7ed91a8df935 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/graph-chat/2026-05-26-MPMLQX6D-E6B61F8E.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 89c5a93cc8d2f16b, computed 2c87dfa66d78bf97 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/graph-chat/2026-09-20-MUAD2ZEF-BF1C7E18.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected abc3238d7172511a, computed 177f855132b32a48 — Tampering oder nachträgliche Edit?"
     }
   ],
   "aggregates": {

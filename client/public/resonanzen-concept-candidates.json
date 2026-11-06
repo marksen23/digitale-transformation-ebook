@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T21:09:38.128Z",
+  "generatedAt": "2026-11-06T22:31:40.184Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -7,45 +7,6 @@
     "MAX_FRACTION": 0.2
   },
   "candidates": [
-    {
-      "suggestedLabel": "synthese",
-      "keywords": [
-        {
-          "word": "synthese",
-          "count": 4
-        },
-        {
-          "word": "varianten",
-          "count": 4
-        },
-        {
-          "word": "erkenntnis",
-          "count": 2
-        },
-        {
-          "word": "verwandlung",
-          "count": 2
-        },
-        {
-          "word": "dialog",
-          "count": 2
-        },
-        {
-          "word": "analyse",
-          "count": 1
-        }
-      ],
-      "evidence": 4,
-      "distinctness": 0.298,
-      "nearestConcept": "lm-verwandlung",
-      "nearestSim": 0.702,
-      "sampleEntryIds": [
-        "MASTER-31CE5C0B",
-        "MASTER-12D94089",
-        "MASTER-BC195439",
-        "MASTER-6469616C"
-      ]
-    },
     {
       "suggestedLabel": "soll",
       "keywords": [
@@ -242,15 +203,15 @@
       "keywords": [
         {
           "word": "erkenntnis",
-          "count": 7
-        },
-        {
-          "word": "optimierung",
           "count": 4
         },
         {
           "word": "andere",
           "count": 4
+        },
+        {
+          "word": "optimierung",
+          "count": 3
         },
         {
           "word": "grenze",
@@ -315,6 +276,46 @@
         "MQ5XCH3V-67EF85C8",
         "MQ5JL9TM-83E39C42",
         "MQ5C1KZ4-D6D52E94"
+      ]
+    },
+    {
+      "suggestedLabel": "können",
+      "keywords": [
+        {
+          "word": "können",
+          "count": 5
+        },
+        {
+          "word": "logos",
+          "count": 4
+        },
+        {
+          "word": "denken",
+          "count": 4
+        },
+        {
+          "word": "begrenzt",
+          "count": 4
+        },
+        {
+          "word": "bloßen",
+          "count": 3
+        },
+        {
+          "word": "resonanz",
+          "count": 2
+        }
+      ],
+      "evidence": 8,
+      "distinctness": 0.195,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.805,
+      "sampleEntryIds": [
+        "MV9NMWL2-5669B857",
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66",
+        "MQ5XNFSV-CD34905C",
+        "MPMKE3CC-4E75CE39"
       ]
     },
     {
@@ -396,43 +397,43 @@
       ]
     },
     {
-      "suggestedLabel": "können",
+      "suggestedLabel": "pfad",
       "keywords": [
         {
-          "word": "können",
-          "count": 5
+          "word": "pfad",
+          "count": 22
         },
         {
-          "word": "logos",
-          "count": 5
-        },
-        {
-          "word": "denken",
-          "count": 4
-        },
-        {
-          "word": "begrenzt",
-          "count": 4
-        },
-        {
-          "word": "bloßen",
-          "count": 3
+          "word": "vergleich",
+          "count": 17
         },
         {
           "word": "resonanz",
-          "count": 2
+          "count": 16
+        },
+        {
+          "word": "resonanzvernunft",
+          "count": 15
+        },
+        {
+          "word": "unverfügbarkeit",
+          "count": 10
+        },
+        {
+          "word": "vernunft",
+          "count": 8
         }
       ],
-      "evidence": 10,
-      "distinctness": 0.182,
+      "evidence": 33,
+      "distinctness": 0.189,
       "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.818,
+      "nearestSim": 0.811,
       "sampleEntryIds": [
-        "MV9NMWL2-5669B857",
-        "MTNB77VP-6A85F255",
-        "MTNB6SUG-2922AE66",
-        "MTNB5V7Q-3B5123E8",
-        "MQ5XNFSV-CD34905C"
+        "MUZTGAEK-432FB6BC",
+        "MUKE7UOA-9553A59E",
+        "MQARZJDV-82F077DD",
+        "MPURYS56-11F5308C",
+        "MPUQSMLJ-1B726CC4"
       ]
     },
     {
@@ -441,14 +442,6 @@
         {
           "word": "echo",
           "count": 3
-        },
-        {
-          "word": "menschen",
-          "count": 2
-        },
-        {
-          "word": "selbst",
-          "count": 2
         },
         {
           "word": "realität",
@@ -461,6 +454,14 @@
         {
           "word": "konstruiert",
           "count": 1
+        },
+        {
+          "word": "quadratur",
+          "count": 1
+        },
+        {
+          "word": "logos",
+          "count": 1
         }
       ],
       "evidence": 4,
@@ -472,6 +473,46 @@
         "MOUBIHOK-27900555",
         "MOPHXJNW-020BA7D3",
         "MOP0P7DE-3C823F7E"
+      ]
+    },
+    {
+      "suggestedLabel": "verwandlung",
+      "keywords": [
+        {
+          "word": "verwandlung",
+          "count": 16
+        },
+        {
+          "word": "resonanzvernunft",
+          "count": 15
+        },
+        {
+          "word": "spannungsfeld",
+          "count": 14
+        },
+        {
+          "word": "einsicht",
+          "count": 11
+        },
+        {
+          "word": "pfad",
+          "count": 10
+        },
+        {
+          "word": "synthese",
+          "count": 6
+        }
+      ],
+      "evidence": 34,
+      "distinctness": 0.164,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.836,
+      "sampleEntryIds": [
+        "MASTER-31CE5C0B",
+        "MASTER-63686170",
+        "MASTER-12D94089",
+        "MASTER-03059588",
+        "MASTER-6469616C"
       ]
     },
     {
@@ -517,8 +558,8 @@
   "stats": {
     "curated": 201,
     "uncovered": 201,
-    "candidatesCount": 13,
+    "candidatesCount": 14,
     "concepts": 50,
-    "maxEvidence": 10
+    "maxEvidence": 34
   }
 }

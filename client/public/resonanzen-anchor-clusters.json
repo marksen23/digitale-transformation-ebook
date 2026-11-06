@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T21:09:38.545Z",
+  "generatedAt": "2026-11-06T22:31:42.900Z",
   "clusters": [
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
@@ -59,7 +59,7 @@
       ],
       "lastVariantTs": "2026-06-09T05:42:54.167Z",
       "masterId": "MASTER-6469616C",
-      "masterTs": "2026-06-23T00:27:00.522Z",
+      "masterTs": "2026-11-06T22:28:40.902Z",
       "masterStale": false
     },
     {
@@ -74,7 +74,7 @@
       ],
       "lastVariantTs": "2026-05-31T23:51:56.877Z",
       "masterId": "MASTER-63686170",
-      "masterTs": "2026-06-23T00:25:25.032Z",
+      "masterTs": "2026-11-06T22:28:40.902Z",
       "masterStale": false
     },
     {
@@ -103,7 +103,7 @@
       ],
       "lastVariantTs": "2026-05-16T18:18:38.925Z",
       "masterId": "MASTER-03059588",
-      "masterTs": "2026-10-08T17:45:23.365Z",
+      "masterTs": "2026-11-06T22:28:40.902Z",
       "masterStale": false
     },
     {
@@ -129,7 +129,7 @@
       ],
       "lastVariantTs": "2026-05-03T15:51:52.482Z",
       "masterId": "MASTER-12D94089",
-      "masterTs": "2026-10-08T17:45:26.721Z",
+      "masterTs": "2026-11-06T22:28:40.902Z",
       "masterStale": false
     },
     {
@@ -190,7 +190,7 @@
       ],
       "lastVariantTs": "2026-06-09T00:37:26.020Z",
       "masterId": "MASTER-31CE5C0B",
-      "masterTs": "2026-10-08T17:45:35.202Z",
+      "masterTs": "2026-11-06T22:28:40.902Z",
       "masterStale": false
     },
     {

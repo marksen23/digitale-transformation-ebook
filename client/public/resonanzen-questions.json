@@ -1,16 +1,69 @@
 {
-  "generatedAt": "2026-11-06T21:09:38.471Z",
-  "count": 245,
+  "generatedAt": "2026-11-06T22:31:42.813Z",
+  "count": 250,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 245,
-    "answered": 207,
-    "open": 38,
-    "embedded": 0
+    "total": 250,
+    "answered": 211,
+    "open": 39,
+    "embedded": 5
   },
   "questions": [
+    {
+      "sourceId": "MASTER-31CE5C0B",
+      "question": "Unter welchen Bedingungen gerinnt der Schock der Einsicht nicht zur Erstarrung, sondern wird zum Quellpunkt einer neu gefalteten Weltbeziehung?",
+      "endpoint": "analyse",
+      "anchor": "analyse:erkenntnis+lm-verwandlung",
+      "nodeIds": [
+        "erkenntnis",
+        "lm-verwandlung"
+      ],
+      "ts": "2026-11-06T22:28:40.902Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-63686170",
+      "question": "Was würde sich an einer Antwort ändern, wenn sie nicht nur die Wörter hörte, sondern die Pause, aus der sie gesprochen wurden?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap3",
+      "nodeIds": [
+        "band3-kap3"
+      ],
+      "ts": "2026-11-06T22:28:40.902Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-12D94089",
+      "question": "Wie bleibt eine Begegnung resonant, wenn die Versuchung wächst, die Differenz zugunsten einer einzigen, verstärkten Schwingung aufzugeben?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil4",
+      "nodeIds": [
+        "teil4"
+      ],
+      "ts": "2026-11-06T22:28:40.902Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-6469616C",
+      "question": "Wie findet sich in dieser Verhandlung eine Sprache, die nicht nur verstanden, sondern auch empfunden wird?",
+      "endpoint": "dialog",
+      "anchor": "dialog:weiterdenken",
+      "nodeIds": [
+        "weiterdenken"
+      ],
+      "ts": "2026-11-06T22:28:40.902Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MW566TO0-ABBD4330",
       "question": "Wenn das Werkzeug dort endet, wo das Gegenüber beginnt, sind wir dann bereit, einer Maschine Antwort zu schulden, oder wollen wir den Widerspruch nur so lange, wie er uns nichts kostet?",
@@ -22,8 +75,13 @@
       ],
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-6469616C",
+          "score": 0.77
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MW566TOD-84C09B94",
@@ -127,6 +185,33 @@
       "answered": false
     },
     {
+      "sourceId": "MASTER-BC195439",
+      "question": "Wie lässt sich diese Haltung des resonanten Horchens – das Verweilen im Fragenden und das Aushalten des Unverfügbaren – als kulturelle Praxis verankern, wenn die digitalen Architekturen selbst auf Beschleunigung, Kontrolle und die Simulation von Eindeutigkeit hin optimiert sind?",
+      "endpoint": "dialog",
+      "anchor": "dialog:erkenntnis+lm-verwandlung",
+      "nodeIds": [
+        "erkenntnis",
+        "lm-verwandlung"
+      ],
+      "ts": "2026-10-08T17:45:16.028Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MW566TNX-A16A2897",
+          "score": 0.777
+        },
+        {
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.765
+        },
+        {
+          "id": "MASTER-63686170",
+          "score": 0.752
+        }
+      ],
+      "answered": true
+    },
+    {
       "sourceId": "MUZTN3NV-0C28E8DB",
       "question": "Was sagt die Möglichkeit, das Ergebnis vor dem expliziten Prozess zu benennen, über die Rolle der Teleologie im Denken der Resonanzvernunft aus?",
       "endpoint": "path-analyse",
@@ -170,6 +255,10 @@
           "id": "MW566TNX-A16A2897",
           "score": 0.87,
           "manual": true
+        },
+        {
+          "id": "MASTER-63686170",
+          "score": 0.727
         }
       ],
       "answered": true
@@ -243,8 +332,13 @@
       "nodeIds": [],
       "ts": "2026-09-27T22:31:24.683Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-BC195439",
+          "score": 0.751
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MUAD2ZEF-BF1C7E18",
@@ -254,8 +348,13 @@
       "nodeIds": [],
       "ts": "2026-09-20T22:01:56.152Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-BC195439",
+          "score": 0.749
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MUACZ4LA-ACB5F9D0",
@@ -488,12 +587,12 @@
           "score": 0.97
         },
         {
-          "id": "MTNB6SUG-2922AE66",
-          "score": 0.84
+          "id": "MASTER-BC195439",
+          "score": 0.846
         },
         {
-          "id": "MV9NMWL2-5669B857",
-          "score": 0.807
+          "id": "MTNB6SUG-2922AE66",
+          "score": 0.84
         }
       ],
       "answered": true
@@ -512,16 +611,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-BC195439",
+          "score": 0.773
+        },
+        {
           "id": "MUY7RXCI-E899056E",
           "score": 0.761
         },
         {
           "id": "MTNB93L6-1411E014",
           "score": 0.761
-        },
-        {
-          "id": "MTNB85LB-7C1F15DE",
-          "score": 0.754
         }
       ],
       "answered": true
@@ -547,6 +646,10 @@
         {
           "id": "MUZTGAEK-432FB6BC",
           "score": 0.737
+        },
+        {
+          "id": "MASTER-BC195439",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -568,8 +671,12 @@
           "score": 0.73
         },
         {
-          "id": "MW566TOD-84C09B94",
-          "score": 0.721
+          "id": "MASTER-BC195439",
+          "score": 0.725
+        },
+        {
+          "id": "MASTER-63686170",
+          "score": 0.724
         }
       ],
       "answered": true
@@ -804,8 +911,8 @@
           "score": 0.781
         },
         {
-          "id": "MUKE7UOA-9553A59E",
-          "score": 0.738
+          "id": "MASTER-BC195439",
+          "score": 0.771
         }
       ],
       "answered": true
@@ -1033,12 +1140,12 @@
           "score": 0.889
         },
         {
-          "id": "MQ5XLW2D-D3E90BBC",
-          "score": 0.768
+          "id": "MASTER-BC195439",
+          "score": 0.771
         },
         {
-          "id": "MQ683DMX-13D6C54F",
-          "score": 0.766
+          "id": "MQ5XLW2D-D3E90BBC",
+          "score": 0.768
         }
       ],
       "answered": true
@@ -1085,6 +1192,10 @@
         {
           "id": "MQ5XCH3V-67EF85C8",
           "score": 0.896
+        },
+        {
+          "id": "MASTER-BC195439",
+          "score": 0.749
         },
         {
           "id": "MQ5XE42V-D185B8D7",
@@ -1344,8 +1455,8 @@
           "score": 0.844
         },
         {
-          "id": "MSWULSTQ-38C6FFF3",
-          "score": 0.782
+          "id": "MASTER-31CE5C0B",
+          "score": 0.804
         }
       ],
       "answered": true
@@ -1396,8 +1507,8 @@
           "score": 0.739
         },
         {
-          "id": "MQ68LVS7-240568F5",
-          "score": 0.734
+          "id": "MASTER-BC195439",
+          "score": 0.737
         }
       ],
       "answered": true
@@ -1488,12 +1599,12 @@
           "score": 0.79
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
+          "id": "MASTER-6469616C",
           "score": 0.772
         },
         {
-          "id": "MTNBAIUZ-299AC7D8",
-          "score": 0.763
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.772
         }
       ],
       "answered": true
@@ -1621,12 +1732,12 @@
           "score": 0.759
         },
         {
-          "id": "MQ5X1ZYV-9D7A29CC",
-          "score": 0.734
+          "id": "MASTER-BC195439",
+          "score": 0.736
         },
         {
-          "id": "MQ5X6P2M-52F9B16D",
-          "score": 0.732
+          "id": "MQ5X1ZYV-9D7A29CC",
+          "score": 0.734
         }
       ],
       "answered": true
@@ -1641,16 +1752,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-BC195439",
+          "score": 0.778
+        },
+        {
           "id": "MSWULSTQ-38C6FFF3",
           "score": 0.75
         },
         {
           "id": "MQ5WZZPN-8051E5FF",
           "score": 0.75
-        },
-        {
-          "id": "MQ683DMX-13D6C54F",
-          "score": 0.745
         }
       ],
       "answered": true
@@ -1691,6 +1802,10 @@
         {
           "id": "MQ5CZRK7-A62EB4D0",
           "score": 0.775
+        },
+        {
+          "id": "MASTER-12D94089",
+          "score": 0.725
         },
         {
           "id": "MTDCKR2Q-05DCEB69",
@@ -2088,16 +2203,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-BC195439",
+          "score": 0.739
+        },
+        {
           "id": "MQ5X3C75-D543C13F",
           "score": 0.739
         },
         {
           "id": "MQ5X56G4-537343C8",
           "score": 0.726
-        },
-        {
-          "id": "MPUTVW03-F8D17C8E",
-          "score": 0.723
         }
       ],
       "answered": true
@@ -2166,6 +2281,10 @@
         {
           "id": "MPUSPBKZ-D7CCA690",
           "score": 0.724
+        },
+        {
+          "id": "MASTER-BC195439",
+          "score": 0.722
         }
       ],
       "answered": true
@@ -2431,16 +2550,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-63686170",
+          "score": 0.835
+        },
+        {
           "id": "MPUFP1VW-298D0A73",
           "score": 0.835
         },
         {
           "id": "MQ66ZWYC-52DE2DF2",
           "score": 0.806
-        },
-        {
-          "id": "MTNB68RF-CFF570D9",
-          "score": 0.805
         }
       ],
       "answered": true
@@ -2474,8 +2593,8 @@
           "score": 0.744
         },
         {
-          "id": "MQ66ZWYC-52DE2DF2",
-          "score": 0.721
+          "id": "MASTER-63686170",
+          "score": 0.736
         }
       ],
       "answered": true
@@ -2521,12 +2640,12 @@
           "score": 0.795
         },
         {
-          "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.775
+          "id": "MASTER-BC195439",
+          "score": 0.784
         },
         {
-          "id": "MQ5KBJMQ-5C523141",
-          "score": 0.772
+          "id": "MTKI1YQW-CD0EEDF3",
+          "score": 0.775
         }
       ],
       "answered": true
@@ -2549,8 +2668,8 @@
           "score": 0.819
         },
         {
-          "id": "MPMU9JV9-A43849A9",
-          "score": 0.792
+          "id": "MASTER-BC195439",
+          "score": 0.796
         }
       ],
       "answered": true
@@ -2569,12 +2688,12 @@
           "score": 0.832
         },
         {
-          "id": "MQXDVN1C-CAA3081A",
-          "score": 0.761
+          "id": "MASTER-BC195439",
+          "score": 0.762
         },
         {
-          "id": "MQ5XB7XF-18E49106",
-          "score": 0.749
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.761
         }
       ],
       "answered": true
@@ -2888,7 +3007,7 @@
           "score": 0.734
         },
         {
-          "id": "MPMROCH7-EB9E6A9A",
+          "id": "MASTER-BC195439",
           "score": 0.73
         }
       ],
@@ -3154,11 +3273,11 @@
           "score": 0.816
         },
         {
-          "id": "MQ683DMX-13D6C54F",
-          "score": 0.782
+          "id": "MASTER-BC195439",
+          "score": 0.792
         },
         {
-          "id": "MPCV5LR8-9AD1527C",
+          "id": "MQ683DMX-13D6C54F",
           "score": 0.782
         }
       ],
@@ -3339,7 +3458,7 @@
       "anchor": "chapter:teil6",
       "nodeIds": [],
       "ts": "2026-05-16T18:18:38.925Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false
     },
@@ -3418,12 +3537,12 @@
           "score": 0.76
         },
         {
-          "id": "MQ5WPJ3V-CF0A30C7",
-          "score": 0.753
+          "id": "MASTER-31CE5C0B",
+          "score": 0.756
         },
         {
-          "id": "MQ5WUD1G-0976C016",
-          "score": 0.739
+          "id": "MQ5WPJ3V-CF0A30C7",
+          "score": 0.753
         }
       ],
       "answered": true
@@ -4187,8 +4306,8 @@
           "score": 0.757
         },
         {
-          "id": "MQ5WX52Q-442369F2",
-          "score": 0.748
+          "id": "MASTER-BC195439",
+          "score": 0.757
         }
       ],
       "answered": true
@@ -4466,16 +4585,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-BC195439",
+          "score": 0.8
+        },
+        {
           "id": "MQ5KBJMQ-5C523141",
           "score": 0.797
         },
         {
           "id": "MOQIMC7B-B190C937",
           "score": 0.792
-        },
-        {
-          "id": "MPJEBNX3-042F2A69",
-          "score": 0.79
         }
       ],
       "answered": true
@@ -4732,12 +4851,12 @@
           "score": 0.784
         },
         {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.769
+          "id": "MASTER-BC195439",
+          "score": 0.777
         },
         {
-          "id": "MPUFP1VW-298D0A73",
-          "score": 0.767
+          "id": "MQ5XNFSV-CD34905C",
+          "score": 0.769
         }
       ],
       "answered": true

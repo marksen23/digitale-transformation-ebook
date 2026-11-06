@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-06T21:09:38.064Z",
+  "generatedAt": "2026-11-06T22:31:40.117Z",
   "checked": 30,
-  "stable": 12,
-  "shifted": 16,
+  "stable": 10,
+  "shifted": 18,
   "drifted": 2,
   "details": [
     {
@@ -182,10 +182,10 @@
       ],
       "current": [
         "MPUFGY4Z-44206712",
-        "MPUFP1VW-298D0A73",
-        "MPMKE3CC-4E75CE39"
+        "MASTER-63686170",
+        "MPUFP1VW-298D0A73"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MPMLQX6D-E6B61F8E",
@@ -378,10 +378,10 @@
       ],
       "current": [
         "MOHCIS4R-69B0D47B",
-        "MP756UV9-FF3838F7",
-        "MOHV84M5-1825A399"
+        "MASTER-BC195439",
+        "MP756UV9-FF3838F7"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MOHB6DLO-355115A6",

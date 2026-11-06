@@ -1,7 +1,7 @@
 {
   "date": "2026-11-06",
-  "generatedAt": "2026-11-06T21:09:44.301Z",
-  "commit": "65a7a8df899df7fa135c99178aa954c96607b697",
+  "generatedAt": "2026-11-06T22:31:48.792Z",
+  "commit": "613e5a907e4cbe09ab443f8ae65ce74078a70bf5",
   "filesChecked": 283,
   "aggregates": {
     "byEndpoint": {
@@ -29,6 +29,6 @@
     "redundantDuplicates": 0
   },
   "errors": 0,
-  "warnings": 16,
+  "warnings": 27,
   "recovery": false
 }
