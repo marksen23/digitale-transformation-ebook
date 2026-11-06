@@ -10,11 +10,6 @@ name: Erkenntnisse neu erzeugen
 
 on:
   workflow_dispatch:
-  # Einmaliger Registrier-Lauf, damit workflow_dispatch auch vor dem Merge
-  # auf diesen Branch geht (GitHub verlangt mindestens einen bisherigen Lauf).
-  # Der Job unten macht dabei nichts außer einer Zeile Log.
-  push:
-    branches: [cursor/regenerate-erkenntnisse-99ea]
 
 permissions:
   contents: write
@@ -25,14 +20,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  register:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Workflow ist registriert. Die Neuerzeugung startet nur per workflow_dispatch."
-
   regenerate:
-    if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     timeout-minutes: 90
     steps:
