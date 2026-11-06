@@ -82,11 +82,15 @@ export function parseFrontmatter(mdRaw: string): { fm: Record<string, unknown>; 
 
 export function extractFrageAntwort(bodyRaw: string): { prompt: string; response: string } {
   const body = normalizeNewlines(bodyRaw);
-  const sections = body.split(/^##\s+/m);
-  let prompt = "", response = "";
-  for (const section of sections) {
-    if (/^Frage\s*\n/.test(section)) prompt = section.replace(/^Frage\s*\n+/, "").trim();
-    else if (/^Antwort\s*\n/.test(section)) response = section.replace(/^Antwort\s*\n+/, "").trim();
-  }
-  return { prompt, response };
+  // Die Antwort läuft bis zum Ende des Bodys. Master-Synthesen hängen
+  // "## Synthese", "## Divergenzen" und "## Offene Frage" an die Antwort —
+  // das sind Unterabschnitte, keine zweite Sektion. Ein Schnitt an jedem
+  // "##" würde die Antwort leeren (und der content_hash, der über den
+  // gesamten Antwort-Body geht, würde nicht mehr passen).
+  const frageMatch = body.match(/^##\s+Frage[ \t]*\n+([\s\S]*?)(?=\n##\s+Antwort[ \t]*\n|$)/m);
+  const antwortMatch = body.match(/^##\s+Antwort[ \t]*\n+([\s\S]*)$/m);
+  return {
+    prompt: (frageMatch?.[1] ?? "").trim(),
+    response: (antwortMatch?.[1] ?? "").trim(),
+  };
 }

@@ -1,0 +1,133 @@
+name: Erkenntnisse neu erzeugen
+
+# Destilliert die bestätigten Kernsätze und schreibt die Master-Synthesen
+# aus dem aktuellen Korpus neu (Gemini, Repo-Secret). Anschließend baut der
+# Index lokal, damit die Master-Antworten — bisher leer, weil "## Synthese"
+# die Antwort abgeschnitten hat — in resonanzen-index.json landen.
+#
+# Ergebnis landet auf dem Branch, von dem der Lauf gestartet wurde.
+# Auf main wird stattdessen ein eigener Branch gepusht und ein PR geöffnet.
+
+on:
+  workflow_dispatch:
+  # Einmaliger Registrier-Lauf, damit workflow_dispatch auch vor dem Merge
+  # auf diesen Branch geht (GitHub verlangt mindestens einen bisherigen Lauf).
+  # Der Job unten macht dabei nichts außer einer Zeile Log.
+  push:
+    branches: [cursor/regenerate-erkenntnisse-99ea]
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: regenerate-erkenntnisse-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  register:
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Workflow ist registriert. Die Neuerzeugung startet nur per workflow_dispatch."
+
+  regenerate:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v5
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref_name }}
+
+      - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
+
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version: "24"
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Kernsätze destillieren und Master synthetisieren
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_FALLBACK: ${{ secrets.GEMINI_API_KEY_FALLBACK }}
+          GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
+          PRESCORE_MODEL: gemini-2.5-pro
+          SYNTHESIS_MODEL: gemini-2.5-pro
+        run: pnpm tsx scripts/regenerate-erkenntnisse.ts
+
+      - name: Index aus dem lokalen Korpus bauen
+        env:
+          CORPUS_SOURCE: local
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY_FALLBACK: ${{ secrets.GEMINI_API_KEY_FALLBACK }}
+          GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
+          GEMINI_EMBED_MODEL: gemini-embedding-001
+          EMBEDDINGS_REQUIRED: "1"
+        run: pnpm tsx scripts/build-resonanzen-index.ts
+
+      - name: Stimme und Vollständigkeit prüfen
+        run: pnpm exec vitest run scripts/__tests__/insightVoice.test.ts
+
+      - name: Bericht
+        if: always()
+        run: |
+          if [ -f regenerate-erkenntnisse-report.json ]; then
+            {
+              echo "### Erkenntnisse neu erzeugt"
+              echo '```json'
+              node -e 'const r=require("./regenerate-erkenntnisse-report.json"); console.log(JSON.stringify({generatedAt:r.generatedAt,distilled:r.distilled,synthesized:r.synthesized,embeddingsDropped:r.embeddingsDropped,failures:r.failures,masters:r.masters},null,2))'
+              echo '```'
+            } >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - name: Commit und Push
+        if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add \
+            content/resonanzen/master \
+            client/public/resonanzen-erkenntnisse.json \
+            client/public/resonanzen-index.json \
+            client/public/resonanzen-embeddings.json \
+            client/public/resonanzen-erkenntnis-candidates.json \
+            client/public/resonanzen-questions.json \
+            client/public/resonanzen-question-embeddings.json \
+            client/public/resonanzen-anchor-clusters.json \
+            client/public/resonanzen-corpus-map.json \
+            client/public/resonanzen-holdout-baseline.json \
+            client/public/resonanzen-holdout-report.json \
+            client/public/resonanzen-node-density.json \
+            client/public/resonanzen-link-predictions.json \
+            client/public/resonanzen-concept-candidates.json \
+            client/public/resonanzen-chapter-hashes.json
+          if git diff --cached --quiet; then
+            echo "Keine Änderungen."
+            exit 0
+          fi
+          git commit -m "$(cat <<'EOF'
+          feat(erkenntnisse): Kernsätze und Master-Synthesen aus dem aktuellen Korpus neu erzeugen
+
+          Destilliert die bestätigten Erkenntnisse und schreibt die Master unter
+          den Stimme-Regeln neu: vollständig, ohne Autorname, ohne Begriffsraum
+          und ohne tiefgründig. Der Index übernimmt die Master-Antworten.
+          EOF
+          )"
+          BRANCH="${{ github.ref_name }}"
+          if [ "$BRANCH" = "main" ]; then
+            TARGET="cursor/erkenntnisse-$(date -u +%Y%m%d%H%M)-99ea"
+            git branch -M "$TARGET"
+            git push -u origin "HEAD:$TARGET"
+            gh pr create --base main --head "$TARGET" \
+              --title "feat(erkenntnisse): Kernsätze und Master aus dem aktuellen Korpus" \
+              --body "Automatisch neu erzeugt durch den Workflow Erkenntnisse neu erzeugen."
+          else
+            git push origin "HEAD:$BRANCH"
+          fi
