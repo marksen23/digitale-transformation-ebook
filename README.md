@@ -46,17 +46,20 @@ pnpm preview
 
 ## 📦 Deployment
 
-### Netlify Deployment
+Produktion läuft als Render-Web-Service. **`render.yaml` ist die einzige
+Quelle** für Build, Start und Env. Die ausführliche Anleitung steht in
+**RENDER_DEPLOY.md**.
 
-```bash
-# Mit Netlify CLI
-netlify deploy --prod --dir=dist/public
+Kurz (identisch zum Blueprint):
 
-# Oder: GitHub Integration verwenden
-# (siehe SETUP_ANLEITUNG.md für Details)
-```
+| | |
+|--|--|
+| **Build** | `corepack enable && corepack prepare pnpm@10.4.1 --activate && pnpm install --frozen-lockfile && pnpm build:frontend && pnpm build:server` |
+| **Start** | `node dist/index.js` |
+| **Node** | `22.13.0` (`NODE_VERSION`) |
 
-Für detaillierte Anweisungen siehe **SETUP_ANLEITUNG.md**.
+`pnpm build` (voller Korpus-Index, Embeddings, PDF) läuft in CI, nicht auf
+Render. `netlify.toml` ist nur noch ein 301-Forwarder auf den Render-Dienst.
 
 ---
 
@@ -90,12 +93,14 @@ digitale-transformation-ebook/
 │   │   └── index.css        # Globale Styles
 │   └── index.html           # HTML Template
 ├── server/                   # Backend (Express)
-├── package.json             # Dependencies
-├── netlify.toml            # Netlify Config
-├── vite.config.ts          # Vite Config
-├── tsconfig.json           # TypeScript Config
-├── SETUP_ANLEITUNG.md      # Deployment Guide
-└── README.md               # Diese Datei
+├── package.json             # Dependencies (packageManager: pnpm@10.4.1)
+├── pnpm-lock.yaml           # Lockfile — Render installiert frozen
+├── render.yaml              # Render-Blueprint (Quelle für Build/Start/Env)
+├── netlify.toml             # Nur noch 301-Forwarder, kein App-Build
+├── vite.config.ts           # Vite Config
+├── tsconfig.json            # TypeScript Config
+├── RENDER_DEPLOY.md         # Deployment-Anleitung
+└── README.md                # Diese Datei
 ```
 
 ---
@@ -131,15 +136,15 @@ Das E-Book enthält:
 
 ### Umgebungsvariablen
 
-Das Projekt benötigt keine speziellen Umgebungsvariablen für das Standard-Setup.
+Lokal reichen die Defaults. Produktion setzt die Variablen aus `render.yaml`:
+`NODE_ENV=production`, `NODE_VERSION=22.13.0`, `SITE_URL` und
+`VITE_SITE_URL` (kanonische de-Domain), `CANONICAL_REDIRECT` (Launch-Schalter,
+Default `"0"`). Secrets (`ANTHROPIC_API_KEY`, `GEMINI_API_KEY`,
+`GEMINI_API_KEY_FALLBACK`, `GITHUB_TOKEN`) kommen aus dem Render-Dashboard
+(`sync: false`) — nicht ins Repo.
 
-### Netlify Konfiguration
-
-Die `netlify.toml` enthält:
-- Build-Befehle
-- Publish-Verzeichnis
-- Redirects für SPA-Routing
-- Environment-Variablen
+Optional, nur wenn beide gesetzt sind (sonst kein Script-Tag):
+`VITE_ANALYTICS_ENDPOINT` und `VITE_ANALYTICS_WEBSITE_ID` (Umami).
 
 ---
 
@@ -158,7 +163,9 @@ Die `netlify.toml` enthält:
    git push origin main
    ```
 
-3. Netlify deployed automatisch neu
+3. Ein Push auf `main`, der unter die `buildFilter` in `render.yaml` fällt,
+   stößt den Render-Deploy an. Reine Korpus-Daten (`client/public/**`,
+   `content/**`, Markdown) tun das nicht — der Server liest sie live.
 
 ### Design anpassen
 
@@ -173,7 +180,7 @@ Die `netlify.toml` enthält:
 - **Bundle Size**: ~150KB (gzipped)
 - **Lighthouse Score**: 95+
 - **Load Time**: < 2 Sekunden
-- **Caching**: Optimiert für Netlify CDN
+- **Caching**: gehashte Dateien unter `/assets` ein Jahr (`immutable`); `index.html` mit `no-cache`
 
 ---
 
@@ -181,8 +188,9 @@ Die `netlify.toml` enthält:
 
 - Keine sensiblen Daten im Code
 - Alle Inhalte sind öffentlich
-- HTTPS automatisch durch Netlify
-- CSP Headers konfiguriert
+- HTTPS am Render-Dienst; HSTS nur bei `NODE_ENV=production`
+- Express setzt `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`
+  und eine Content-Security-Policy (Inline-Styles und JSON-LD bleiben erlaubt)
 
 ---
 
@@ -190,8 +198,8 @@ Die `netlify.toml` enthält:
 
 Für Fragen oder Probleme:
 
-1. Lesen Sie **SETUP_ANLEITUNG.md**
-2. Überprüfen Sie die [Netlify Docs](https://docs.netlify.com)
+1. Lesen Sie **RENDER_DEPLOY.md** und `render.yaml`
+2. Überprüfen Sie die [Render Docs](https://render.com/docs)
 3. Konsultieren Sie die [Vite Docs](https://vitejs.dev)
 
 ---

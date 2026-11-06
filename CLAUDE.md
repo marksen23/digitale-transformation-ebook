@@ -137,13 +137,11 @@ deploy contexts**. Plus: prüfen ob Split Testing aktiv ist.
 
 ### 5. „Render-Build timed out"
 
-Render's `buildCommand` darf **nicht** `npm run build` sein (das ruft auch
-den Index-Build mit Gemini-Calls auf, ~100s). Render braucht nur den
-Server-Bundle:
-
-```yaml
-buildCommand: npm install --legacy-peer-deps && npm run build:server
-```
+Render's `buildCommand` darf **nicht** `pnpm build` / `npm run build` sein
+(das ruft auch den Index-Build mit Gemini-Calls auf). Render baut Frontend
++ Server mit dem gefrorenen Lockfile — die Zeile steht in `render.yaml`
+(`corepack` + `pnpm@10.4.1` + `pnpm install --frozen-lockfile` +
+`pnpm build:frontend && pnpm build:server`). Node-Version dort: `22.13.0`.
 
 ### 6. „Netlify-Deploy-Kosten explodieren / Gemini-Quota wird bei jedem Deploy verbraucht"
 

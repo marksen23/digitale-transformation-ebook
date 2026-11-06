@@ -1,60 +1,100 @@
 # Deployment auf Render
 
-Anleitung zum Deployen des Ebook-Readers auf [render.com](https://render.com).
+Der Ebook-Reader läuft als **Web Service** auf [render.com](https://render.com).
+Express liefert das Frontend (`dist/public`) und die API (`/api/*`).
 
-> **Wichtig:** Seitdem das Werk die Funktionen **„Frage an den Autor"** und **„Universelle Übersetzung"** enthält, ist ein **Web Service** (mit laufendem Express-Server) erforderlich — eine reine Static-Site reicht nicht mehr, weil die Endpoints `/api/ask` und `/api/translate` die Gemini-API serverseitig ansprechen.
+**`render.yaml` ist die einzige Quelle** für Build-Befehl, Start-Befehl,
+Node-Version und Env. Diese Anleitung beschreibt dieselbe Datei — wenn sie
+abweicht, gilt die Blueprint.
 
 ---
 
 ## 1. Voraussetzungen
 
-- GitHub-Konto mit gepushtem Branch (z. B. `main` oder `claude/competent-feynman`)
-- Render-Konto (kostenloser Plan reicht)
+- GitHub-Konto, Branch `main`
+- Render-Konto
 - **Gemini API Key** von [aistudio.google.com/app/apikey](https://aistudio.google.com/app/apikey)
+- Für Live-Append in den Korpus zusätzlich ein GitHub-PAT (`repo`-Scope)
 
 ---
 
-## 2. Web Service auf Render anlegen
+## 2. Web Service anlegen
 
-1. Einloggen auf [dashboard.render.com](https://dashboard.render.com)
-2. Oben rechts **„New +"** → **„Web Service"**
-3. GitHub verbinden und das Repository `digitale-transformation-ebook` auswählen
-4. Konfiguration:
+Am einfachsten über die Blueprint: Render-Dashboard → **New +** → **Blueprint**
+und dieses Repository wählen. Render liest `render.yaml`.
 
-| Feld                 | Wert                                     |
-|----------------------|------------------------------------------|
-| **Name**             | `digitale-transformation-ebook`          |
-| **Region**           | Frankfurt (oder gewünscht)               |
-| **Branch**           | `main`                                   |
-| **Runtime**          | `Node`                                   |
-| **Build Command**    | `pnpm install && pnpm build`             |
-| **Start Command**    | `node dist/index.js`                     |
-| **Instance Type**    | `Free`                                   |
+Manuell (dieselben Werte):
+
+| Feld | Wert |
+|------|------|
+| **Name** | `digitale-transformation-ebook` |
+| **Runtime** | `Node` |
+| **Branch** | `main` |
+| **Build Command** | `corepack enable && corepack prepare pnpm@10.4.1 --activate && pnpm install --frozen-lockfile && pnpm build:frontend && pnpm build:server` |
+| **Start Command** | `node dist/index.js` |
+| **Node** | `22.13.0` (`NODE_VERSION` in `render.yaml`) |
+
+`pnpm@10.4.1` ist das `packageManager`-Feld in `package.json`. Corepack
+aktiviert genau diese Version; `--frozen-lockfile` installiert
+`pnpm-lock.yaml` und scheitert, wenn die Lockfile nicht zum Manifest passt.
+
+**Nicht** `pnpm build` und **nicht** `npm install --legacy-peer-deps`.
+`pnpm build` rechnet Korpus-Index, Embeddings und PDF neu (Gemini-Calls) —
+das macht die GitHub-Action. Der `--legacy-peer-deps`-Flag war nur nötig,
+weil `@builder.io/vite-plugin-jsx-loc` Vite 4/5 erwartet hat. Das Plugin
+ist entfernt; der Build nutzt den Lockfile.
+
+**Instanz-Typ:** `render.yaml` setzt kein `plan`. Den bestehenden Tarif im
+Dashboard nicht über die Blueprint überschreiben. Der Dienst ist als
+Always-On-Web-Service gedacht (kein Free-Tier-Sleep); ein Free-Plan würde
+nach Inaktivität einschlafen und steht nicht in der Blueprint.
 
 ---
 
 ## 3. Environment Variables
 
-Unter **Environment** → **Environment Variables** setzen:
+Stehen in `render.yaml`. `PORT` nicht setzen — Render injiziert sie, der
+Server liest `process.env.PORT`.
 
-| Key                  | Wert                                     |
-|----------------------|------------------------------------------|
-| `NODE_VERSION`       | `24`                                |
-| `NODE_ENV`           | `production`                             |
-| `GEMINI_API_KEY`     | *(dein Key aus Google AI Studio)*        |
+| Key | Wert | Herkunft |
+|-----|------|----------|
+| `NODE_ENV` | `production` | Blueprint |
+| `NODE_VERSION` | `22.13.0` | Blueprint |
+| `SITE_URL` | `https://digitale-transformation-ebook.de` | Blueprint |
+| `VITE_SITE_URL` | `https://digitale-transformation-ebook.de` | Blueprint (Vite-Build) |
+| `CANONICAL_REDIRECT` | `"0"` | Blueprint. Erst **nach** dem DNS-Flip auf `1` setzen, sonst leitet onrender auf eine noch nicht live Domain um. |
+| `ANTHROPIC_API_KEY` | Dashboard | `sync: false` |
+| `GEMINI_API_KEY` | Dashboard | `sync: false` |
+| `GEMINI_API_KEY_FALLBACK` | Dashboard, optional | `sync: false` |
+| `GITHUB_TOKEN` | Dashboard, PAT mit `repo` | `sync: false`, Pflicht für Live-Append |
 
-> `PORT` **nicht** manuell setzen — Render injiziert diese Variable automatisch; der Server liest sie via `process.env.PORT`.
+Optional, beide zusammen, sonst wird kein Analytics-Script ausgeliefert:
+
+| Key | Wert |
+|-----|------|
+| `VITE_ANALYTICS_ENDPOINT` | Umami-Origin, ohne abschließenden Slash (z. B. `https://analytics.example`) |
+| `VITE_ANALYTICS_WEBSITE_ID` | Website-ID |
+
+Das sind Vite-Variablen: sie müssen **beim Build** gesetzt sein. Fehlt eine
+von beiden, enthält `index.html` kein Umami-Tag (kein Request auf
+`%VITE_ANALYTICS_…%`).
 
 ---
 
-## 4. Deploy starten
+## 4. Was der Build tut
 
-1. **„Create Web Service"** klicken
-2. Render führt nun aus:
-   - `pnpm install` (Dependencies)
-   - `pnpm build` → baut Vite-Frontend nach `dist/public/` **und** den Express-Server nach `dist/index.js`
-   - `node dist/index.js` → startet den Server
-3. Nach ~3–5 Minuten ist der Reader unter `https://<name>.onrender.com` erreichbar.
+1. `corepack prepare pnpm@10.4.1 --activate`
+2. `pnpm install --frozen-lockfile`
+3. `pnpm build:frontend` — `vite build` nach `dist/public/` (kopiert die
+   committeten Korpus-JSONs als Fallback, rechnet sie nicht neu)
+4. `pnpm build:server` — esbuild nach `dist/index.js`
+5. `node dist/index.js`
+
+Build-Filter in `render.yaml`: neu gebaut wird bei Änderungen unter
+`server/**`, `client/src/**`, `client/index.html`, `package.json`,
+`pnpm-lock.yaml`, `tsconfig.json`, `vite.config.ts`, `render.yaml`.
+**Kein** Redeploy bei `client/public/**`, `content/**`, `scripts/**`, `*.md`
+— wachsende Korpus-JSONs liest der Server live von GitHub-Raw.
 
 ---
 
@@ -63,48 +103,72 @@ Unter **Environment** → **Environment Variables** setzen:
 - Startseite öffnen → Cover wird angezeigt
 - In ein Kapitel navigieren → Text rendert
 - **T-Symbol** klicken → Schriftart wählen → Schrift wechselt
-- **Languages-Symbol** klicken → „English" wählen → nach 2–5 Sekunden erscheint die Übersetzung mit „AI-übersetzt"-Badge
-- **MessageCircle (Chat-Button)** klicken → Frage stellen → Gemini antwortet
+  (OpenDyslexic lädt erst in diesem Menü)
+- **Languages-Symbol** klicken → „English" wählen → nach einigen Sekunden
+  erscheint die Übersetzung
+- Frage an den Text stellen → Gemini antwortet
 
-Schlägt die Übersetzung oder Q&A fehl, in den Render-Logs nach `GEMINI_API_KEY ist nicht konfiguriert` oder `Gemini API error` suchen.
+Schlägt Übersetzung oder Q&A fehl, in den Render-Logs nach
+`GEMINI_API_KEY ist nicht konfiguriert` oder `Gemini API error` suchen.
+
+Antwort-Header (Produktion): kein `X-Powered-By`; dafür
+`Strict-Transport-Security`, `X-Content-Type-Options: nosniff`,
+`X-Frame-Options: SAMEORIGIN`, `Referrer-Policy` und eine
+`Content-Security-Policy` (`frame-ancestors 'self'`, Google Fonts und
+cdnfonts erlaubt, Inline-Styles wegen der SPA). Dateien unter `/assets/`
+kommen mit `Cache-Control: public, max-age=31536000, immutable`, das HTML
+mit `no-cache`.
 
 ---
 
 ## 6. Automatische Deploys
 
-Render deployt bei jedem Push auf den konfigurierten Branch automatisch neu.
-Manuellen Deploy auslösen: Dashboard → Service → **„Manual Deploy"** → **„Deploy latest commit"**.
+Render deployt bei jedem Push auf `main`, der die Build-Filter trifft.
+Manuell: Dashboard → Service → **Manual Deploy** → **Deploy latest commit**.
 
 ---
 
 ## 7. Troubleshooting
 
-**pnpm nicht gefunden**
-Render hat pnpm inzwischen vorinstalliert. Falls doch nicht:
-- Build Command alternativ: `npm install -g pnpm@10.4.1 && pnpm install && pnpm build`
+**`pnpm` nicht gefunden / Corepack lädt nicht**
 
-**Build fällt wegen TypeScript-Fehlern**
-Lokal `pnpm check` laufen lassen und Fehler fixen, bevor erneut gepusht wird.
+Der Build-Befehl aktiviert Corepack und pinnt `pnpm@10.4.1`. Node `22.13.0`
+bringt Corepack mit. Falls die Signaturprüfung von Corepack scheitert, im
+Dashboard vor dem Befehl `COREPACK_INTEGRITY_KEYS=0` setzen (nur dieser
+Dienst, nicht ins Repo) und neu deployen.
 
-**Server bootet nicht / 502 Bad Gateway**
-- Logs prüfen: `Server running on http://localhost:<port>/` muss erscheinen
-- `PORT` **nicht** manuell überschreiben
-- `NODE_ENV=production` muss gesetzt sein, damit der Server die statischen Files aus `dist/public/` ausliefert
+**Build fällt wegen Lockfile**
+
+`pnpm install --frozen-lockfile` bricht ab, wenn `pnpm-lock.yaml` nicht zu
+`package.json` passt. Lokal `pnpm install` laufen lassen und die Lockfile
+committen. Nicht auf `npm install` ausweichen — es gibt keine
+`package-lock.json`.
+
+**Build fällt wegen TypeScript**
+
+Lokal `pnpm check` laufen lassen.
+
+**Server bootet nicht / 502**
+
+- Logs: `Server running on http://localhost:<port>/` muss erscheinen
+- `PORT` nicht manuell überschreiben
+- `NODE_ENV=production`, damit statische Dateien aus `dist/public/` kommen
 
 **Gemini-API gibt 403 / 400**
-- API-Key in Google AI Studio prüfen
-- Quota checken — der Free-Tier von Gemini hat tägliche Limits
 
-**Kaltstart dauert lang (Free-Plan)**
-Auf dem kostenlosen Plan schläft der Service nach 15 Minuten Inaktivität und braucht beim ersten Request ~30 Sekunden zum Aufwachen. Upgrade auf `Starter` ($7/Monat) verhindert das.
+- API-Key in Google AI Studio prüfen
+- Quota prüfen. Optional `GEMINI_API_KEY_FALLBACK` (anderes GCP-Projekt,
+  selbes Embedding-Modell)
 
 ---
 
 ## 8. Kurzfassung
 
 ```
-Typ:         Web Service
-Build:       pnpm install && pnpm build
+Blueprint:   render.yaml
+Build:       corepack enable && corepack prepare pnpm@10.4.1 --activate && pnpm install --frozen-lockfile && pnpm build:frontend && pnpm build:server
 Start:       node dist/index.js
-ENV:         NODE_VERSION=24, NODE_ENV=production, GEMINI_API_KEY=<key>
+Node:        22.13.0
+ENV:         NODE_ENV=production, SITE_URL + VITE_SITE_URL = https://digitale-transformation-ebook.de, CANONICAL_REDIRECT=0
+Secrets:     ANTHROPIC_API_KEY, GEMINI_API_KEY, GEMINI_API_KEY_FALLBACK, GITHUB_TOKEN (Dashboard)
 ```

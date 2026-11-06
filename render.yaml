@@ -7,7 +7,11 @@ services:
     # — das würde Korpus-Index/Embeddings/PDF mit Gemini-Calls neu rechnen (macht
     # CI). Nur build:frontend (vite, kopiert committete JSONs als Fallback) +
     # build:server.
-    buildCommand: npm install --legacy-peer-deps && npm run build:frontend && npm run build:server
+    # pnpm@10.4.1 = packageManager in package.json. frozen-lockfile, kein
+    # npm --legacy-peer-deps: der Peer-Konflikt kam von
+    # @builder.io/vite-plugin-jsx-loc (Vite 4/5) und ist mit dem Plugin weg.
+    # Nicht `pnpm build` — das würde Korpus-Index/Embeddings/PDF neu rechnen.
+    buildCommand: corepack enable && corepack prepare pnpm@10.4.1 --activate && pnpm install --frozen-lockfile && pnpm build:frontend && pnpm build:server
     startCommand: node dist/index.js
     # Build-Filter: Render redeployt nur bei Frontend-CODE oder Server. Korpus-
     # DATEN (client/public/*.json) triggern KEINEN Redeploy — der Server zieht
@@ -19,7 +23,6 @@ services:
         - client/src/**
         - client/index.html
         - package.json
-        - package-lock.json
         - pnpm-lock.yaml
         - tsconfig.json
         - vite.config.ts

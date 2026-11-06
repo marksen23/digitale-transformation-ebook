@@ -29,6 +29,7 @@ import { resolveTranslateRequest } from "./lib/translateRequest.js";
 import { PASSAGE_PROMPT_MAX, PASSAGE_SELECTION_MAX, selectionInSource } from "./lib/passageGuard.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { renderSeoHtml, buildSitemap, buildLlmsFullText, canonicalHostRedirect } from "./lib/seo.js";
+import { HTML_CACHE_CONTROL, securityHeaders, staticCacheControl } from "./lib/securityHeaders.js";
 
 // ─── KI-Prosa-Endpunkte: gemeinsames Thinking-Budget ─────────────────────
 // gemini-2.5-flash verbraucht standardmäßig „Thinking"-Tokens, die vom
@@ -171,6 +172,7 @@ function rateLimiter(key: string, max: number, windowMs: number) {
 async function startServer() {
   const app = express();
   const server = createServer(app);
+  app.disable("x-powered-by");
 
   // Render terminiert TLS und sitzt als GENAU EIN Proxy vor dem Server.
   // trust proxy = 1 → req.ip = die vom Proxy angehängte echte Client-IP;
@@ -178,6 +180,7 @@ async function startServer() {
   // Wichtig für den Rate-Limiter (getClientIp). Lokal ohne Proxy harmlos.
   app.set("trust proxy", 1);
 
+  app.use(securityHeaders);
   app.use(express.json());
 
   // Launch-Schalter: 301 von *.onrender.com / *.netlify.app auf die kanonische
@@ -200,7 +203,13 @@ async function startServer() {
   // index: false — sonst würde express.static das ROHE index.html für "/"
   // ausliefern (Auto-Index) und den SEO-Handler umgehen. So fällt "/" durch
   // zum Catch-all mit Meta-/JSON-LD-/Snapshot-Injektion.
-  app.use(express.static(staticPath, { index: false }));
+  app.use(express.static(staticPath, {
+    index: false,
+    setHeaders(res, filePath) {
+      const cache = staticCacheControl(staticPath, filePath);
+      if (cache) res.setHeader("Cache-Control", cache);
+    },
+  }));
 
   // ─── Health / Diagnose-Endpunkt ───────────────────────────────────
   // M4: prüft jetzt das EMBEDDING-Modell (nicht nur Generation), weil die
@@ -3758,9 +3767,11 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
     try {
       const html = await renderSeoHtml(getTemplate(), req.path);
       res.setHeader("Content-Type", "text/html; charset=utf-8");
+      res.setHeader("Cache-Control", HTML_CACHE_CONTROL);
       res.send(html);
     } catch (err) {
       console.error("[seo] render failed, serving raw index.html:", err);
+      res.setHeader("Cache-Control", HTML_CACHE_CONTROL);
       res.sendFile(indexHtmlPath);
     }
   });
