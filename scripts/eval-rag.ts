@@ -30,6 +30,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { geminiAuthHeaders, geminiEmbedUrl, redactSecrets } from "../server/lib/geminiHttp.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), "..");
@@ -82,24 +83,25 @@ function cosine(a: number[], b: number[]): number {
 
 async function embedQuery(text: string): Promise<number[] | null> {
   if (!GEMINI_API_KEY) return null;
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_EMBED_MODEL}:embedContent?key=${GEMINI_API_KEY}`;
+  // Key im Header statt im Query-String: fetch-Fehler enthalten die URL.
+  const url = geminiEmbedUrl(GEMINI_EMBED_MODEL);
   try {
     const res = await fetch(url, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: geminiAuthHeaders(GEMINI_API_KEY),
       body: JSON.stringify({
         model: `models/${GEMINI_EMBED_MODEL}`,
         content: { parts: [{ text: text.slice(0, 8000) }] },
       }),
     });
     if (!res.ok) {
-      console.warn(`[eval-rag] embed ${res.status}: ${(await res.text()).slice(0, 200)}`);
+      console.warn(`[eval-rag] embed ${res.status}: ${redactSecrets(await res.text()).slice(0, 200)}`);
       return null;
     }
     const data = await res.json();
     return Array.isArray(data.embedding?.values) ? data.embedding.values : null;
   } catch (err) {
-    console.warn(`[eval-rag] embed net error: ${err instanceof Error ? err.message : err}`);
+    console.warn(`[eval-rag] embed net error: ${redactSecrets(err instanceof Error ? err.message : String(err))}`);
     return null;
   }
 }
