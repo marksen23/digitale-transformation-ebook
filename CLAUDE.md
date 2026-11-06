@@ -348,7 +348,9 @@ JSON-Schichten lagern sich an:
   ein bewusst dichter Monolith mit eigenem SVG-Renderer)
 - `client/src/pages/ResonanzenPage.tsx` — Korpus-Browser („Wissen")
 - `client/src/pages/admin/AdminHealthPage.tsx` — Health-Dashboard
-- `server/index.ts` — Express-Hauptdatei mit allen Endpunkten
+- `server/index.ts` — Start (`listen`); Zusammensetzung in `server/app.ts`
+- `server/routes/` — Express-Router je Bereich (health, enkidu, ask, translate, analyse, dialog, passage, admin, embed, pdf, seo)
+- `server/middleware/rateLimit.ts` — In-memory Rate-Limiter
 - `server/lib/resonanzLog.ts` — GitHub-Write für rohe MD-Einträge
 - `server/lib/indexUpdater.ts` — Inkrementeller Index-Append
 - `server/lib/echoDetector.ts` — At-Ingest-Cosine-Vergleich gegen bestehende
@@ -483,7 +485,7 @@ Crawler.
 - **`server/lib/seo.ts`** ist die EINZIGE Server-Quelle für `SITE_URL`
   (ENV-überschreibbar, Default = de-Domain; Client-Pendant
   `client/src/lib/siteUrl.ts` via `VITE_SITE_URL`). Der SPA-Fallback
-  (`server/index.ts` `app.get("*")`) injiziert **pro Route** in `index.html`:
+  (`server/routes/seo.ts`, Catch-all) injiziert **pro Route** in `index.html`:
   Titel/Description, canonical, hreflang, Open-Graph/Twitter, JSON-LD
   (`WebSite`+`Book` auf Home, `ScholarlyArticle`+`BreadcrumbList` pro Resonanz)
   und einen **Text-Snapshot in `#root`** (von React beim Mount ersetzt; JS-lose

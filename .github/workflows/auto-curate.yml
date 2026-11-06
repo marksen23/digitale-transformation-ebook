@@ -3,7 +3,7 @@ name: Auto-Curate Resonanz-Korpus
 # Läuft täglich den bestehenden /api/admin/auto-curate-Klassifikator über den
 # raw/pending-Pool — bewusst NUR approve/reject, die vom Schutzwall (ai_score +
 # corpusVoiceScore + conceptVoiceScore + werkVoiceScore, Schwellen server-
-# seitig in server/index.ts AUTO_CURATE) eindeutig entschieden werden. Alles
+# seitig in server/routes/admin.ts AUTO_CURATE) eindeutig entschieden werden. Alles
 # Grenzwertige landet in "review" und bleibt raw für die manuelle Sichtung im
 # Admin-Panel — dieser Workflow wendet NIE eine review-Klassifikation an.
 #
@@ -64,7 +64,7 @@ jobs:
           fi
 
       # limit 200 = das Maximum, das /api/admin/auto-curate pro Request annimmt
-      # (server/index.ts, cap = Math.min(..., 200)) — deckt den aktuellen
+      # (server/routes/admin.ts, cap = Math.min(..., 200)) — deckt den aktuellen
       # raw/pending-Pool in einem Lauf ab. Kein --rescore (rührt bewusst
       # bereits bewertete Einträge nicht an) und kein --no-reject (die
       # Reject-Schwelle ist im Klassifikator selbst schon konservativ auf
