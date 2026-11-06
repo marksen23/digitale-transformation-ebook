@@ -1,0 +1,43 @@
+# Optionaler Stack für lokal und für Coolify (Dockerfile bleibt die Quelle).
+# Secrets nicht hier eintragen. Laufzeitwerte kommen aus einer gitignorierten
+# .env neben dieser Datei oder aus der Coolify-UI. Leere Platzhalter würden
+# Code-Defaults (??) überschreiben — deshalb nur Variablen mit echtem Default.
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        VITE_SITE_URL: ${VITE_SITE_URL:-https://digitale-transformation-ebook.de}
+        VITE_ANALYTICS_ENDPOINT: ${VITE_ANALYTICS_ENDPOINT:-}
+        VITE_ANALYTICS_WEBSITE_ID: ${VITE_ANALYTICS_WEBSITE_ID:-}
+        VITE_OAUTH_PORTAL_URL: ${VITE_OAUTH_PORTAL_URL:-}
+        VITE_APP_ID: ${VITE_APP_ID:-}
+    image: digitale-transformation-ebook:local
+    restart: unless-stopped
+    ports:
+      # Loopback, damit der Dienst nicht versehentlich im LAN hängt.
+      # Coolify erreicht den Container über das Docker-Netz auf Port 3000.
+      # Für direkten LAN-Zugriff: HOST_BIND=0.0.0.0
+      - "${HOST_BIND:-127.0.0.1}:${HOST_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+      PORT: ${PORT:-3000}
+      SITE_URL: ${SITE_URL:-https://digitale-transformation-ebook.de}
+      CANONICAL_REDIRECT: ${CANONICAL_REDIRECT:-0}
+    env_file:
+      - path: .env
+        required: false
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "node",
+          "-e",
+          "fetch('http://127.0.0.1:'+(process.env.PORT||3000)+'/api/health').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 25s

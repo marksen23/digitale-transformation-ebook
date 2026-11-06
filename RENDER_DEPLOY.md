@@ -2,6 +2,8 @@
 
 Der Ebook-Reader läuft als **Web Service** auf [render.com](https://render.com).
 Express liefert das Frontend (`dist/public`) und die API (`/api/*`).
+Ein paralleles Docker-Image für Coolify, einen VPS oder einen Raspberry Pi 400
+steht in `SELF_HOSTING.md` und ändert diese Blueprint nicht.
 
 **`render.yaml` ist die einzige Quelle** für Build-Befehl, Start-Befehl,
 Node-Version und Env. Diese Anleitung beschreibt dieselbe Datei — wenn sie

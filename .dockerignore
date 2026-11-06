@@ -1,0 +1,57 @@
+# Build-Kontext klein halten. Die Laufzeit-Stage kopiert nur dist/ und
+# node_modules aus früheren Stages — Quelltext und Secrets bleiben draußen.
+
+.git
+.github
+.claude
+.cursor
+.idea
+.vscode
+
+# Abhängigkeiten und Build-Artefakte werden im Image neu erzeugt.
+node_modules
+.pnpm-store
+dist
+dev-dist
+build
+coverage
+.nyc_output
+*.tsbuildinfo
+
+# Secrets und Registry-Credentials. Niemals in einen Layer kopieren.
+.env
+.env.*
+**/.npmrc
+*.pem
+*.key
+*.p12
+
+# Docker-Metadateien (kein rekursiver Build-Kontext).
+Dockerfile*
+.dockerignore
+compose.yaml
+compose.yml
+docker-compose*.yml
+docker-compose*.yaml
+
+# Dokumentation. ebook_content.md liegt unter client/public und muss
+# mit ins Frontend (Vite kopiert public/ nach dist/public).
+*.md
+!client/public/**/*.md
+
+# Nicht Teil von build:frontend / build:server (kein Korpus-Rebuild).
+content
+scripts
+eval
+attached_assets
+.manus-logs
+.webdev
+
+# Logs, OS, Editor.
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+*.swp
+*~
