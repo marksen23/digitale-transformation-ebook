@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef, useMemo, lazy, Suspense, type ReactNode } from 'react';
+import { useState, useEffect, useLayoutEffect, useCallback, useRef, useMemo, lazy, Suspense, type ReactNode } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   Menu, X, Download, Search,
@@ -81,6 +81,18 @@ export default function Home() {
   const [fontSize, setFontSize] = useLocalStorage('ebook-fontsize', 1); // 0=small 1=normal 2=large 3=xlarge
   const [fontFamily, setFontFamily] = useLocalStorage<string>('ebook-fontfamily', 'serif');
   const [fontMenuOpen, setFontMenuOpen] = useState(false);
+  // OpenDyslexic (~mehrere Schnitte von cdnfonts) nur bei Bedarf: gespeicherte
+  // Wahl oder geöffnetes Darstellungs-Panel (dort steht die Vorschau im eigenen Schnitt).
+  useLayoutEffect(() => {
+    if (fontFamily !== 'opendyslexic' && !personalizationOpen) return;
+    const id = 'font-opendyslexic';
+    if (document.getElementById(id)) return;
+    const link = document.createElement('link');
+    link.id = id;
+    link.rel = 'stylesheet';
+    link.href = 'https://fonts.cdnfonts.com/css/opendyslexic';
+    document.head.appendChild(link);
+  }, [fontFamily, personalizationOpen]);
   const [language, setLanguage] = useLocalStorage<string>('ebook-language', 'de');
   const [languageMenuOpen, setLanguageMenuOpen] = useState(false);
   const [headphonesMenuOpen, setHeadphonesMenuOpen] = useState(false);
