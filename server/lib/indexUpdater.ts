@@ -16,6 +16,13 @@
  * Fail-soft wie der Rest des Logging-Pipelines: jeder Fehler → console.warn,
  * keine Exception, User merkt nichts.
  */
+import { redactSecrets } from "./geminiHttp.js";
+
+/** Fehlertext für Logs und Status-Felder, ohne Tokens/Keys. */
+function errorReason(err: unknown): string {
+  return redactSecrets(err instanceof Error ? err.message : String(err));
+}
+
 const GITHUB_API = "https://api.github.com";
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER ?? "marksen23";
 const REPO_NAME  = process.env.GITHUB_REPO_NAME  ?? "digitale-transformation-ebook";
@@ -197,7 +204,7 @@ export async function removeManyFromIndex(ids: string[]): Promise<boolean> {
     return true;
   } catch (err) {
     _mutateFailureCount++;
-    const reason = err instanceof Error ? err.message : String(err);
+    const reason = errorReason(err);
     _lastMutateError = { ts: new Date().toISOString(), reason, op: "remove" };
     console.error(`[indexUpdater] removeManyFromIndex FAILED: ${reason}`);
     return false;
@@ -218,7 +225,7 @@ export async function loadIndex(): Promise<IndexEntry[] | null> {
     const { index } = await fetchIndex(token);
     return index.entries;
   } catch (err) {
-    console.error(`[indexUpdater] loadIndex FAILED: ${err instanceof Error ? err.message : err}`);
+    console.error(`[indexUpdater] loadIndex FAILED: ${errorReason(err)}`);
     return null;
   }
 }
@@ -275,7 +282,7 @@ export async function updateManyInIndex(
     return true;
   } catch (err) {
     _mutateFailureCount++;
-    const reason = err instanceof Error ? err.message : String(err);
+    const reason = errorReason(err);
     _lastMutateError = { ts: new Date().toISOString(), reason, op: "update" };
     console.error(`[indexUpdater] updateManyInIndex FAILED: ${reason}`);
     return false;
@@ -406,7 +413,7 @@ export async function appendToIndex(entry: IndexEntry): Promise<void> {
     }
   } catch (err) {
     _appendFailureCount++;
-    const reason = err instanceof Error ? err.message : String(err);
+    const reason = errorReason(err);
     _lastAppendError = { ts: new Date().toISOString(), reason };
     console.error(`[indexUpdater] FAILED for ${entry.id}: ${reason}`);
   }
