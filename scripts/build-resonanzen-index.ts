@@ -171,10 +171,36 @@ async function fetchRaw(filePath: string): Promise<string> {
   return res.text();
 }
 
-async function main() {
-  console.log(`[build-resonanzen-index] Source: ${REPO_OWNER}/${REPO_NAME}@${REPO_BRANCH}`);
-  console.log(`[build-resonanzen-index] OUTPUT: ${OUTPUT}`);
+/** CORPUS_SOURCE=local liest content/resonanzen aus dem Working Tree.
+ *  Default bleibt GitHub-Raw, damit der CI-Rebuild Live-Appends sieht,
+ *  die nach dem Checkout auf dem Branch gelandet sind. */
+function loadLocalMarkdown(): Array<{ path: string; md: string }> {
+  const root = path.join(ROOT, "content/resonanzen");
+  const out: Array<{ path: string; md: string }> = [];
+  const walk = (dir: string) => {
+    for (const ent of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (ent.name.startsWith(".")) continue;
+      const abs = path.join(dir, ent.name);
+      if (ent.isDirectory()) walk(abs);
+      else if (ent.isFile() && ent.name.endsWith(".md") && ent.name !== "README.md") {
+        const rel = path.relative(ROOT, abs).split(path.sep).join("/");
+        out.push({ path: rel, md: fs.readFileSync(abs, "utf-8") });
+      }
+    }
+  };
+  walk(root);
+  return out;
+}
 
+async function loadCorpusMarkdown(): Promise<Array<{ path: string; md: string }>> {
+  if ((process.env.CORPUS_SOURCE ?? "").trim() === "local") {
+    const files = loadLocalMarkdown();
+    console.log(`[build-resonanzen-index] local corpus: ${files.length} markdown files`);
+    if (files.length === 0) throw new Error("CORPUS_SOURCE=local, aber content/resonanzen ist leer");
+    return files;
+  }
+
+  console.log(`[build-resonanzen-index] Source: ${REPO_OWNER}/${REPO_NAME}@${REPO_BRANCH}`);
   let tree: TreeEntry[];
   try {
     tree = await fetchTree();
@@ -183,19 +209,15 @@ async function main() {
     console.error(`[build-resonanzen-index] Tree fetch failed: ${err instanceof Error ? err.message : err}`);
     fs.mkdirSync(path.dirname(OUTPUT), { recursive: true });
     fs.writeFileSync(OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), count: 0, entries: [], error: String(err) }, null, 2));
-    return;
+    return [];
   }
-
-  // Filter auf Resonanz-MD-Files
   const mdPaths = tree
     .filter(e => e.type === "blob")
     .map(e => e.path)
     .filter(p => p.startsWith("content/resonanzen/") && p.endsWith(".md") && !p.endsWith("README.md"));
-
   console.log(`[build-resonanzen-index] Found ${mdPaths.length} resonance markdown files`);
 
-  // Parallel fetch (Batch von 10, um Server nicht zu hämmern)
-  let entries: ResonanzEntry[] = [];
+  const files: Array<{ path: string; md: string }> = [];
   const BATCH = 10;
   for (let i = 0; i < mdPaths.length; i += BATCH) {
     const batch = mdPaths.slice(i, i + BATCH);
@@ -208,7 +230,19 @@ async function main() {
         console.warn(`[build-resonanzen-index] skip: ${result.reason}`);
         continue;
       }
-      const { md } = result.value;
+      files.push(result.value);
+    }
+  }
+  return files;
+}
+
+async function main() {
+  console.log(`[build-resonanzen-index] OUTPUT: ${OUTPUT}`);
+  const corpusFiles = await loadCorpusMarkdown();
+  if (corpusFiles.length === 0) return;
+
+  let entries: ResonanzEntry[] = [];
+  for (const { md } of corpusFiles) {
       const { fm, body } = parseFrontmatter(md);
       const { prompt, response } = extractFrageAntwort(body);
       if (!fm.id || !fm.ts || !fm.endpoint) continue;
@@ -246,7 +280,6 @@ async function main() {
             : {};
         })() : {}),
       });
-    }
   }
 
   // Korpus-Politik: Leser-Service-Endpoints (translate) ausschließen — bevor
@@ -1385,6 +1418,26 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
   }
   if (pruned > 0) console.log(`[build-resonanzen-index] pruned ${pruned} orphaned embeddings (entries no longer in corpus)`);
 
+  // Texte einzelner Einträge können sich ändern (Master-Neuerzeugung).
+  // resonanzen-embedding-refresh.json listet die IDs, deren gespeicherter
+  // Vektor nicht mehr zum Text passt. Ohne die Liste bleibt Reuse id-basiert.
+  const REFRESH_FILE = path.join(ROOT, "client/public/resonanzen-embedding-refresh.json");
+  let refreshIds: string[] = [];
+  try {
+    if (fs.existsSync(REFRESH_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(REFRESH_FILE, "utf-8"));
+      if (Array.isArray(parsed)) refreshIds = parsed.filter((id): id is string => typeof id === "string");
+    }
+  } catch { /* korrupte Liste — ignorieren */ }
+  let refreshed = 0;
+  for (const id of refreshIds) {
+    if (id in existing) {
+      delete existing[id];
+      refreshed++;
+    }
+  }
+  if (refreshed > 0) console.log(`[build-resonanzen-index] refresh: ${refreshed} Embeddings werden neu berechnet`);
+
   const toCompute = entries.filter(e => !(e.id in existing));
   if (toCompute.length === 0) {
     console.log("[build-resonanzen-index] all embeddings up to date");
@@ -1421,6 +1474,8 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
   }
 
   fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
+  const pendingRefresh = refreshIds.filter(id => liveIds.has(id) && !(id in existing));
+  if (refreshIds.length > 0) fs.writeFileSync(REFRESH_FILE, JSON.stringify(pendingRefresh, null, 2) + "\n");
   console.log(`[build-resonanzen-index] wrote ${success} new embeddings (${failed} failed) to ${EMBEDDINGS_OUTPUT}`);
 
   // Loud-Fail wenn KEY gesetzt war aber NICHTS funktioniert hat — aber NUR

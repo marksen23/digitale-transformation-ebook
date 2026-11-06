@@ -69,4 +69,14 @@ describe("extractFrageAntwort", () => {
     expect(prompt).toBe("Was ist X?");
     expect(response).toBe("X ist Y.");
   });
+
+  it("nimmt Master-Unterabschnitte in die Antwort", () => {
+    const { prompt, response } = extractFrageAntwort(
+      "## Frage\nSynthese von 2 Varianten\n\n## Antwort\n\n## Synthese\n\nEin Gedanke.\n\n## Offene Frage\n\nWohin?\n",
+    );
+    expect(prompt).toBe("Synthese von 2 Varianten");
+    expect(response).toContain("## Synthese");
+    expect(response).toContain("Ein Gedanke.");
+    expect(response.trimEnd().endsWith("Wohin?")).toBe(true);
+  });
 });

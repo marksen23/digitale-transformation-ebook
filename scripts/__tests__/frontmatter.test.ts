@@ -127,4 +127,27 @@ Resonanzvernunft beschreibt eine philosophische Haltung...
     const { prompt } = extractFrageAntwort(crlfBody);
     expect(prompt).toContain("Was ist Resonanzvernunft?");
   });
+
+  it("behält Synthese-Unterabschnitte in der Antwort", () => {
+    const master = [
+      "## Frage",
+      "",
+      "Synthese von 2 Varianten zu: analyse:x",
+      "",
+      "## Antwort",
+      "",
+      "## Synthese",
+      "",
+      "Erster Absatz der Synthese.",
+      "",
+      "## Offene Frage",
+      "",
+      "Was bleibt offen?",
+    ].join("\n");
+    const { prompt, response } = extractFrageAntwort(master);
+    expect(prompt).toBe("Synthese von 2 Varianten zu: analyse:x");
+    expect(response.startsWith("## Synthese")).toBe(true);
+    expect(response).toContain("Erster Absatz der Synthese.");
+    expect(response.endsWith("Was bleibt offen?")).toBe(true);
+  });
 });
