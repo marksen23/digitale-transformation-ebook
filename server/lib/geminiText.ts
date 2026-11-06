@@ -185,6 +185,7 @@ async function geminiOnce(opts: {
   });
 
   let lastErr = "unbekannt";
+  let lastStatus: number | null = null;
   // Keys der Reihe nach probieren; bei billing/quota/auth zum nächsten rotieren.
   for (let i = 0; i < keys.length; i++) {
     try {
@@ -196,6 +197,7 @@ async function geminiOnce(opts: {
         const errText = await res.text().catch(() => "");
         let msg = errText;
         try { msg = JSON.parse(errText)?.error?.message || errText; } catch { /* roher Text */ }
+        lastStatus = res.status;
         lastErr = redactSecrets(`HTTP ${res.status}: ${msg}`).slice(0, 300);
         const cls = classifyError(res.status, errText);
         // bei billing/quota/auth: nächster Key könnte auf anderem GCP-Projekt liegen
@@ -219,7 +221,7 @@ async function geminiOnce(opts: {
     }
   }
 
-  return { ok: false, text: "", finishReason: null, status: null, errorDetail: lastErr.slice(0, 300) };
+  return { ok: false, text: "", finishReason: null, status: lastStatus, errorDetail: lastErr.slice(0, 300) };
 }
 
 /** Bei MAX_TOKENS ein- bis zweimal nahtlos fortsetzen, damit der Satz zu Ende kommt. */
