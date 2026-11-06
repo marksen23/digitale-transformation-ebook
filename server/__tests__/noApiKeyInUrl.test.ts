@@ -7,8 +7,8 @@
  * den Quellcode und schlägt fehl, sobald wieder jemand einen Key an eine URL
  * hängt.
  *
- * Ausgenommen: Testdateien (__tests__, *.test.*), reine Kommentarzeilen und
- * die begründeten Einträge in ALLOWED.
+ * Ausgenommen: Testdateien (__tests__, *.test.*) und reine Kommentarzeilen.
+ * Bewusst ohne Allowlist: jeder Treffer ist ein Fehler.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -18,17 +18,6 @@ const ROOT = path.resolve(__dirname, "../..");
 const SCAN_DIRS = ["server", "scripts", "client/src", "shared"];
 const EXTENSIONS = new Set([".ts", ".tsx", ".js", ".mjs", ".cjs"]);
 const SKIP_DIRS = new Set(["node_modules", "__tests__", "dist"]);
-
-/**
- * Bewusste Ausnahmen (Pfad relativ zum Repo-Root → Begründung).
- * Nur für öffentliche Browser-Keys, die ohnehin im Bundle stehen.
- */
-const ALLOWED: Record<string, string> = {
-  // Google-Maps-JS-Loader: Der Browser-Key (VITE_*) ist öffentlich und muss laut
-  // Maps-API in der Script-URL stehen. Kein Gemini-/Server-Secret.
-  "client/src/components/Map.tsx":
-    "Maps-JS-API verlangt ?key= in der Script-URL (öffentlicher VITE-Key)",
-};
 
 /** Literal `?key=` oder `&key=` – also ein Key, der an eine URL gehängt wird. */
 const KEY_IN_URL = /[?&]key=/i;
@@ -78,16 +67,11 @@ describe("kein API-Key in URLs", () => {
   it("server/, scripts/, client/src/ und shared/ hängen keinen Key an eine URL", () => {
     const files = SCAN_DIRS.flatMap(d => collectFiles(path.join(ROOT, d)));
     expect(files.length).toBeGreaterThan(20);
-    const offenders = files
-      .filter(
-        file =>
-          !(path.relative(ROOT, file).split(path.sep).join("/") in ALLOWED)
+    const offenders = files.flatMap(file =>
+      findKeyInUrl(fs.readFileSync(file, "utf-8")).map(
+        line => `${path.relative(ROOT, file)}:${line}`
       )
-      .flatMap(file =>
-        findKeyInUrl(fs.readFileSync(file, "utf-8")).map(
-          line => `${path.relative(ROOT, file)}:${line}`
-        )
-      );
+    );
     expect(
       offenders,
       "Key per Header x-goog-api-key senden (geminiAuthHeaders)"
