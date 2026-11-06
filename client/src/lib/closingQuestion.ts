@@ -5,14 +5,14 @@
  * Lesende weitertragen kann". Diese Helper findet diese Frage, damit das
  * WeiterdenkenThread sie als Saatkorn nutzen kann.
  *
- * Spiegelt die server-seitige splitClosingQuestion-Logik (server/index.ts),
+ * Spiegelt die server-seitige splitClosingQuestion-Logik (server/routes/dialog.ts),
  * hier aber nur die Frage extrahiert (nicht den Body abgespalten — der
  * vollständige Output bleibt sichtbar, der Faden hängt darunter an).
  */
 
 /**
  * Spaltet einen Text in Body + finale Schlussfrage — spiegelt die
- * server-seitige splitClosingQuestion (server/index.ts). Wird beim Streaming
+ * server-seitige splitClosingQuestion (server/routes/dialog.ts). Wird beim Streaming
  * gebraucht, wo der Client den vollständigen Text selbst aufteilen muss
  * (reflection = Text ohne die letzte Frage, nextQuestion = die Frage).
  */
