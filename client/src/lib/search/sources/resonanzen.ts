@@ -17,8 +17,8 @@
 import type { SearchHit, SearchSource } from "@/lib/search/types";
 import { extractSnippet } from "@/lib/search/highlight";
 import { lexScore } from "@/lib/search/score";
-import { loadResonanzenIndexLazy, loadEmbeddings, type ResonanzEntry } from "@/lib/resonanzenIndex";
-import { getQueryEmbedding, cosineSim } from "@/lib/search/queryEmbedding";
+import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { searchCorpus } from "@/lib/search/corpusSimilar";
 
 // Loader-State: lazy + cached
 let cache: ResonanzEntry[] | null = null;
@@ -76,32 +76,29 @@ export const resonanzenSource: SearchSource = {
     return hits;
   },
   /**
-   * Semantische Suche: Query-Embedding via /api/embed (Gemini), dann
-   * Cosine gegen die pre-computed Embeddings aller kuratierten Resonanzen.
-   *
-   * Fällt auf [] zurück wenn /api/embed nicht verfügbar oder Embeddings
-   * fehlen — Lex-Pfad bleibt davon unberührt.
+   * Semantische Suche: der Server rankt kuratierte Resonanzen und liefert
+   * nur id + Score. Text und Payload kommen aus dem Index.
+   * Fällt auf [] zurück, wenn die Ähnlichkeit nicht berechnet werden kann —
+   * der Lex-Pfad bleibt davon unberührt.
    */
   async semanticSearch(q, ctx) {
     if (!q.trim()) return [];
-    const [entries, queryVec, embIdx] = await Promise.all([
+    const [entries, ranked] = await Promise.all([
       getEntries(),
-      getQueryEmbedding(q),
-      loadEmbeddings(),
+      searchCorpus("resonanzen", q, { limit: ctx.limit, minScore: 0.4 }),
     ]);
-    if (!entries || !queryVec || !embIdx) return [];
+    if (!entries || !ranked) return [];
+    const byId = new Map(entries.map(e => [e.id, e]));
     const hits: SearchHit[] = [];
-    for (const e of entries) {
-      const vec = embIdx.embeddings[e.id];
-      if (!vec) continue;
-      const score = cosineSim(queryVec, vec);
-      if (score < 0.4) continue;  // Hard cutoff — alles darunter ist Rauschen
+    for (const hit of ranked) {
+      const e = byId.get(hit.id);
+      if (!e) continue;
       hits.push({
         id: e.id,
         type: "resonanz",
         title: (e.prompt ?? "").slice(0, 120),
         snippet: extractSnippet(e.response ?? e.prompt ?? "", q, 60).slice(0, 200),
-        score,
+        score: hit.score,
         payload: e,
         anchor: e.id,
       });

@@ -1,8 +1,10 @@
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, loadEnv, type Plugin } from "vite";
 import { VitePWA } from "vite-plugin-pwa";
+import { HEAVY_PUBLIC_JSON, isHeavyPublicJson } from "./shared/heavyAssets.ts";
 import { umamiScript } from "./vite/indexHtmlAnalytics.ts";
 
 /**
@@ -38,10 +40,38 @@ function analyticsHtmlPlugin(): Plugin {
   };
 }
 
+/** Embedding-Blobs bleiben im Repo (Build/RAG), gehören aber nicht ins
+ *  Frontend-Bundle. express.static würde sie sonst ausliefern. */
+function omitHeavyPublicJson(): Plugin {
+  return {
+    name: "omit-heavy-public-json",
+    configureServer(server) {
+      server.middlewares.use((req, res, next) => {
+        const url = (req.url ?? "").split("?")[0];
+        if (!isHeavyPublicJson(url)) { next(); return; }
+        res.statusCode = 404;
+        res.setHeader("Content-Type", "application/json; charset=utf-8");
+        res.setHeader("Cache-Control", "public, max-age=86400");
+        res.end(JSON.stringify({ error: "Nicht gefunden." }));
+      });
+    },
+    closeBundle: {
+      order: "post",
+      handler() {
+        const outDir = path.resolve(import.meta.dirname, "dist/public");
+        for (const name of HEAVY_PUBLIC_JSON) {
+          fs.rmSync(path.join(outDir, name), { force: true });
+        }
+      },
+    },
+  };
+}
+
 const plugins = [
   react(),
   tailwindcss(),
   analyticsHtmlPlugin(),
+  omitHeavyPublicJson(),
   VitePWA({
     registerType: "autoUpdate",
     includeAssets: ["icons/*.png", "favicon.ico"],

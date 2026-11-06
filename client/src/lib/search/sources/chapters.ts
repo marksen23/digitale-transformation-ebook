@@ -3,16 +3,14 @@
  * + werk-chunks-basierte semantische Suche.
  *
  * Lex-Pfad: Substring auf Titel + Content der Kapitel.
- * Sem-Pfad: Cosine gegen werk-chunks.json Embeddings. Da chunks feingranular
- *   sind (505 Stücke), liefern sie präzise Begriffs-Matches. Wir mappen
- *   den gefundenen Chunk auf sein Kapitel zurück (chunk.chapter) für ein
- *   konsistentes Treffer-Schema mit dem Lex-Pfad.
+ * Sem-Pfad: der Server vergleicht die Anfrage mit den Werk-Chunk-Embeddings
+ *   und liefert pro Kapitel den besten Chunk (Text + Score). Die Vektoren
+ *   selbst verlassen den Server nicht.
  */
 import type { SearchHit, SearchSource } from "@/lib/search/types";
 import { extractSnippet } from "@/lib/search/highlight";
 import { lexScore } from "@/lib/search/score";
-import { getQueryEmbedding, cosineSim } from "@/lib/search/queryEmbedding";
-import { loadWerkChunksLazy, type WerkChunk } from "@/lib/werkChunks";
+import { searchCorpus } from "@/lib/search/corpusSimilar";
 
 interface Chapter {
   id: string;
@@ -23,11 +21,6 @@ interface Chapter {
 
 interface Ebook {
   chapters: Chapter[];
-}
-
-async function loadWerkChunks(): Promise<WerkChunk[] | null> {
-  const data = await loadWerkChunksLazy();
-  return data?.chunks ?? null;
 }
 
 export function createChaptersSource(ebook: Ebook | null): SearchSource {
@@ -59,34 +52,22 @@ export function createChaptersSource(ebook: Ebook | null): SearchSource {
     },
     async semanticSearch(q, ctx) {
       if (!ebook || !q.trim()) return [];
-      const [queryVec, chunks] = await Promise.all([
-        getQueryEmbedding(q),
-        loadWerkChunks(),
-      ]);
-      if (!queryVec || !chunks) return [];
-      // Per-Chapter besten Chunk halten (sonst dominieren 5x dasselbe Kapitel)
-      const bestByChapter = new Map<string, { score: number; chunk: WerkChunk }>();
-      for (const c of chunks) {
-        if (!c.embedding) continue;
-        const score = cosineSim(queryVec, c.embedding);
-        if (score < 0.4) continue;
-        const prev = bestByChapter.get(c.chapter);
-        if (!prev || score > prev.score) bestByChapter.set(c.chapter, { score, chunk: c });
-      }
+      const ranked = await searchCorpus("werk", q, { limit: ctx.limit, minScore: 0.4 });
+      if (!ranked) return [];
       const hits: SearchHit[] = [];
-      bestByChapter.forEach(({ score, chunk }, chapterId) => {
-        const ch = ebook.chapters.find(x => x.id === chapterId);
-        if (!ch) return;
+      for (const hit of ranked) {
+        const ch = ebook.chapters.find(x => x.id === hit.id);
+        if (!ch) continue;
         hits.push({
           id: ch.id,
           type: "chapter",
-          title: ch.title ?? chapterId,
-          snippet: extractSnippet(chunk.text, q, 60).slice(0, 200),
-          score,
+          title: ch.title ?? hit.id,
+          snippet: extractSnippet(hit.text ?? "", q, 60).slice(0, 200),
+          score: hit.score,
           payload: ch,
           anchor: ch.id,
         });
-      });
+      }
       hits.sort((a, b) => b.score - a.score);
       return hits.slice(0, ctx.limit);
     },

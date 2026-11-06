@@ -231,26 +231,11 @@ export function groupResonanzenByAnchor(entries: ResonanzEntry[]): Map<string, R
   return map;
 }
 
-/** Lädt das Embeddings-Mapping (id → 768-dim Vektor). Lazy, einmal-Cache. */
+/** Vektoren bleiben auf dem Server (`/api/corpus/similar`). Dieser Typ
+ *  beschreibt die Datei nur noch für serverseitige Aufrufer und Tests. */
 export interface EmbeddingsIndex {
   generatedAt: string;
   embeddings: Record<string, number[]>;
-}
-
-let _embeddingsCache: EmbeddingsIndex | null = null;
-let _embeddingsPromise: Promise<EmbeddingsIndex | null> | null = null;
-
-export function loadEmbeddings(): Promise<EmbeddingsIndex | null> {
-  if (_embeddingsCache) return Promise.resolve(_embeddingsCache);
-  if (_embeddingsPromise) return _embeddingsPromise;
-  _embeddingsPromise = fetch("/resonanzen-embeddings.json", { cache: "no-cache" })
-    .then(r => r.ok ? r.json() : null)
-    .then(data => {
-      _embeddingsCache = data;
-      return data;
-    })
-    .catch(() => null);
-  return _embeddingsPromise;
 }
 
 /** Holt das Query-Embedding via Server-Endpoint. */

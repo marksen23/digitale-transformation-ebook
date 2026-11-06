@@ -11,137 +11,19 @@
  *
  * Server-Pfad: dist/werk-chunks.json (esbuild kopiert nicht) → wir
  * lesen aus client/public/werk-chunks.json (relativ zum project root).
+ * Der TTL-Cache liegt in corpusFiles.ts und wird mit den Lese-APIs geteilt.
  */
-import fs from "node:fs";
-import path from "node:path";
-import { fileURLToPath } from "node:url";
 import { fetchEmbedding, cosineSim, getKeys } from "./embeddingClient.js";
 import { generateFlashContent } from "./geminiText.js";
 import { redactSecrets } from "./geminiHttp.js";
 import { UNTRUSTED_RULE, wrapUntrusted } from "./promptSafety.js";
 import { enrichQueryWithNodes } from "./queryEnrichment.js";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dir = path.dirname(__filename);
-
-/**
- * Robuste Pfad-Auflösung für die committeten Korpus-JSONs unter
- * client/public/. KRITISCH: in DEV liegt dieser Code in server/lib/
- * (zwei Ebenen unter Root), im PROD-Build ist aber ALLES in dist/index.js
- * gebündelt (eine Ebene). Eine feste "../.."-Annahme zeigt im Prod-Build
- * eine Ebene zu hoch → Datei nicht gefunden → RAG liefert still 0 Passagen
- * (genau dieser Bug machte die KI-Antworten in Produktion ungeerdet).
- *
- * Daher: mehrere Kandidaten probieren, ersten existierenden nehmen.
- * process.cwd() (Render startet `node dist/index.js` aus dem Repo-Root)
- * deckt Prod ab; die __dir-Varianten decken Dev + alternative Layouts ab.
- */
-function resolveDataPath(rel: string): string {
-  const candidates = [
-    path.resolve(process.cwd(), rel),               // Render-CWD = Repo-Root; Dev meist auch
-    path.resolve(__dir, "..", "..", rel),           // Dev: server/lib → Root
-    path.resolve(__dir, "..", rel),                 // Prod-Bundle: dist → Root
-    path.resolve(__dir, rel),                       // Fallback: gleiche Ebene
-  ];
-  for (const c of candidates) {
-    try { if (fs.existsSync(c)) return c; } catch { /* ignore */ }
-  }
-  return candidates[0];  // nichts gefunden → erster Kandidat (loadX loggt dann die Warnung)
-}
-
-const CHUNKS_PATH = resolveDataPath("client/public/werk-chunks.json");
-// R1: Zweite Retrieval-Quelle — der bestehende Resonanzen-Korpus.
-const RESONANZ_INDEX_PATH = resolveDataPath("client/public/resonanzen-index.json");
-const RESONANZ_EMB_PATH = resolveDataPath("client/public/resonanzen-embeddings.json");
-
-/**
- * GitHub-Raw als PRIMÄRE Korpus-Quelle (Deploy-Entkopplung).
- *
- * Der CI-Bot (validate-corpus.yml) committet die neu berechneten Embeddings
- * + Index nach client/public/ auf main. Würde der Server diese NUR von der
- * lokalen Platte lesen, bräuchte jede Korpus-Erweiterung (jeder neue
- * kuratierte Eintrag → Selbstlern-Loop) einen Render-Redeploy, damit der
- * RAG sie sieht. Stattdessen liest der Server live von raw.githubusercontent
- * mit kurzem TTL-Cache — frisch ohne Redeploy, und Render kann aggressive
- * Build-Filter fahren (nur server/** triggert Builds). Lokale Platte bleibt
- * Fallback (Dev / offline / GitHub-Ausfall).
- */
-const REPO_OWNER = process.env.CORPUS_REPO_OWNER || "marksen23";
-const REPO_NAME = process.env.CORPUS_REPO_NAME || "digitale-transformation-ebook";
-const REPO_BRANCH = process.env.CORPUS_REPO_BRANCH || "main";
-const RAW_BASE = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/${REPO_BRANCH}/client/public`;
-const CHUNKS_URL = `${RAW_BASE}/werk-chunks.json`;
-const RESONANZ_INDEX_URL = `${RAW_BASE}/resonanzen-index.json`;
-const RESONANZ_EMB_URL = `${RAW_BASE}/resonanzen-embeddings.json`;
-
-// Werk-Chunks ändern sich nur bei (seltenem) Re-Chunking → langer TTL.
-// Resonanzen wachsen laufend (Live-Append + Kuratierung) → kurzer TTL.
-const CHUNKS_TTL_MS = 60 * 60 * 1000;       // 60 min
-const RESONANZ_TTL_MS = 10 * 60 * 1000;     // 10 min
-const FETCH_TIMEOUT_MS = 30 * 1000;         // werk-chunks.json ist groß (~MB)
-
-interface JsonCacheEntry { data: unknown; fetchedAt: number; inflight: Promise<unknown> | null; }
-const _jsonCache = new Map<string, JsonCacheEntry>();
-
-async function fetchWithTimeout(url: string, ms: number): Promise<Response> {
-  const ctrl = new AbortController();
-  const timer = setTimeout(() => ctrl.abort(), ms);
-  try {
-    return await fetch(url, { signal: ctrl.signal });
-  } finally {
-    clearTimeout(timer);
-  }
-}
-
-/**
- * Lädt eine Korpus-JSON mit TTL-Cache. Reihenfolge: (1) GitHub-Raw,
- * (2) lokale Platte als Fallback, (3) fail-soft = letzten guten Cache
- * behalten. Inflight-Dedup verhindert parallele Doppel-Fetches.
- */
-async function loadJsonCached(
-  localPath: string, rawUrl: string, ttlMs: number, label: string,
-): Promise<unknown | null> {
-  const now = Date.now();
-  const entry = _jsonCache.get(rawUrl);
-  if (entry && entry.data != null && now - entry.fetchedAt < ttlMs) return entry.data;
-  if (entry?.inflight) return entry.inflight;
-
-  const inflight = (async (): Promise<unknown | null> => {
-    // 1. GitHub-Raw (primär — frisch ohne Redeploy)
-    try {
-      const res = await fetchWithTimeout(rawUrl, FETCH_TIMEOUT_MS);
-      if (res.ok) {
-        const json = await res.json();
-        _jsonCache.set(rawUrl, { data: json, fetchedAt: Date.now(), inflight: null });
-        console.log(`[werkRetrieval] ${label}: GitHub-Raw geladen`);
-        return json;
-      }
-      console.warn(`[werkRetrieval] ${label}: GitHub-Raw HTTP ${res.status} — Fallback lokale Platte`);
-    } catch (err) {
-      console.warn(`[werkRetrieval] ${label}: GitHub-Raw fehlgeschlagen (${err instanceof Error ? err.message : err}) — Fallback lokale Platte`);
-    }
-    // 2. Lokale Platte (Dev / offline / GitHub-Ausfall)
-    try {
-      if (fs.existsSync(localPath)) {
-        const json = JSON.parse(fs.readFileSync(localPath, "utf-8"));
-        _jsonCache.set(rawUrl, { data: json, fetchedAt: Date.now(), inflight: null });
-        console.log(`[werkRetrieval] ${label}: lokale Platte geladen (${localPath})`);
-        return json;
-      }
-      console.warn(`[werkRetrieval] ${label}: weder GitHub-Raw noch lokale Platte (${localPath})`);
-    } catch (err) {
-      console.error(`[werkRetrieval] ${label}: disk-load failed: ${err instanceof Error ? err.message : err}`);
-    }
-    // 3. Fail-soft: letzten guten Cache behalten
-    const prev = _jsonCache.get(rawUrl);
-    if (prev?.data != null) { prev.inflight = null; return prev.data; }
-    _jsonCache.delete(rawUrl);
-    return null;
-  })();
-
-  _jsonCache.set(rawUrl, { data: entry?.data ?? null, fetchedAt: entry?.fetchedAt ?? 0, inflight });
-  return inflight;
-}
+import {
+  CHUNKS_PATH, CHUNKS_TTL_MS, CHUNKS_URL,
+  RESONANZ_EMB_PATH, RESONANZ_EMB_URL,
+  RESONANZ_INDEX_PATH, RESONANZ_INDEX_URL, RESONANZ_TTL_MS,
+  invalidateCorpusJson, loadJsonCached,
+} from "./corpusFiles.js";
 
 export interface WerkChunk {
   id: string;
@@ -254,8 +136,8 @@ async function loadResonanzCorpus(): Promise<ResonanzEmbCache | null> {
 export function invalidateResonanzRetrievalCache(): void {
   _resonanzDerived = null;
   _resonanzDerivedAt = 0;
-  _jsonCache.delete(RESONANZ_EMB_URL);
-  _jsonCache.delete(RESONANZ_INDEX_URL);
+  invalidateCorpusJson(RESONANZ_EMB_URL);
+  invalidateCorpusJson(RESONANZ_INDEX_URL);
 }
 
 /**

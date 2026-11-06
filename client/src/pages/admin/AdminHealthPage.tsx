@@ -9,10 +9,10 @@
  */
 import { useEffect, useState } from "react";
 import {
-  loadResonanzenIndex, loadEmbeddings,
+  loadResonanzenIndex,
   ENDPOINT_COLOR, ENDPOINT_LABEL,
 } from "@/lib/resonanzenIndex";
-import { detectAnchorTensions, type TensionResult } from "@/lib/widerspruchs";
+import type { TensionResult } from "@/lib/widerspruchs";
 import { analyzeCorpusCoherence, type CoherenceReport } from "@/lib/corpusCoherence";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import Skeleton from "@/components/Skeleton";
@@ -212,22 +212,6 @@ interface EmbedFileStatus {
   ageHours: number | null;
 }
 
-/** Normalisiert eine geladene Embedding-Datei zu {count, generatedAt}. */
-function describeEmbedFile(name: string, path: string, data: unknown): EmbedFileStatus {
-  if (!data || typeof data !== "object") {
-    return { name, path, exists: false, count: null, generatedAt: null, ageHours: null };
-  }
-  const d = data as Record<string, unknown>;
-  // werk-chunks.json: { embeddedCount, generatedAt }
-  // *-embeddings.json: { embeddings: {id: vec}, generatedAt }
-  let count: number | null = null;
-  if (typeof d.embeddedCount === "number") count = d.embeddedCount;
-  else if (d.embeddings && typeof d.embeddings === "object") count = Object.keys(d.embeddings as object).length;
-  const generatedAt = typeof d.generatedAt === "string" ? d.generatedAt : null;
-  const ageHours = generatedAt ? (Date.now() - new Date(generatedAt).getTime()) / 3_600_000 : null;
-  return { name, path, exists: true, count, generatedAt, ageHours };
-}
-
 export default function AdminHealthPage() {
   const C = useAdminTheme();
 
@@ -277,15 +261,10 @@ export default function AdminHealthPage() {
       .then((d: EmbedHealth | null) => { if (d) setEmbedHealth(d); })
       .catch(() => { /* degradiert — Panel zeigt "unbekannt" */ });
 
-    const files: Array<[string, string]> = [
-      ["Werk-Chunks", "/werk-chunks.json"],
-      ["Resonanzen", "/resonanzen-embeddings.json"],
-      ["Begriffe", "/concepts-embeddings.json"],
-      ["Philosophen", "/philosophers-embeddings.json"],
-    ];
-    Promise.all(files.map(([name, path]) =>
-      loadOptionalJson<unknown>(path).then(data => describeEmbedFile(name, path, data))
-    )).then(setEmbedFiles);
+    fetch("/api/corpus/meta")
+      .then(r => r.ok ? r.json() as Promise<{ files?: EmbedFileStatus[] }> : null)
+      .then(data => { if (data?.files) setEmbedFiles(data.files); })
+      .catch(() => { /* Panel bleibt auf „lade …" */ });
   }, []);
 
   useEffect(() => {
@@ -322,16 +301,16 @@ export default function AdminHealthPage() {
 
   // Anker-Spannungen + Korpus-Kohärenz: einmal laden, beide Analysen
   useEffect(() => {
-    Promise.all([loadResonanzenIndex(), loadEmbeddings()]).then(([idx, emb]) => {
+    loadResonanzenIndex().then(idx => {
       setAllEntries(idx.entries);
       setCoherence(analyzeCorpusCoherence(idx.entries));
-      if (!emb) {
-        setTensions({ anchorsChecked: 0, tensionsFound: 0, medianAnchorCosine: null, tensions: [], status: "no-embeddings" });
-        return;
-      }
-      const result = detectAnchorTensions(idx.entries, emb.embeddings);
-      setTensions(result);
-    }).catch(() => setTensions({ anchorsChecked: 0, tensionsFound: 0, medianAnchorCosine: null, tensions: [], status: "no-embeddings" }));
+    }).catch(() => { /* Kohärenz bleibt leer */ });
+    fetch("/api/corpus/tensions")
+      .then(r => r.ok ? r.json() as Promise<TensionResult> : null)
+      .then(result => {
+        setTensions(result ?? { anchorsChecked: 0, tensionsFound: 0, medianAnchorCosine: null, tensions: [], status: "no-embeddings" });
+      })
+      .catch(() => setTensions({ anchorsChecked: 0, tensionsFound: 0, medianAnchorCosine: null, tensions: [], status: "no-embeddings" }));
   }, []);
 
   useEffect(() => {

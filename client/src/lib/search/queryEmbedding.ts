@@ -40,6 +40,21 @@ function noteSemSuccess() {
   _semDegradedSince = 0;
 }
 
+/** Mehrere Such-Quellen fragen dieselbe Anfrage parallel. Ein Fehlschlag
+ *  zählt pro Anfragetext nur einmal, sonst kippt die UI schon beim ersten
+ *  Tipp in „degradiert". */
+let _lastNotedFail = "";
+export function noteSemanticResult(ok: boolean, queryKey = ""): void {
+  if (ok) {
+    _lastNotedFail = "";
+    noteSemSuccess();
+    return;
+  }
+  if (queryKey && queryKey === _lastNotedFail) return;
+  _lastNotedFail = queryKey;
+  noteSemFailure();
+}
+
 export async function getQueryEmbedding(query: string): Promise<number[] | null> {
   const q = query.trim();
   if (!q) return null;

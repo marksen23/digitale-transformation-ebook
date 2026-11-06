@@ -37,18 +37,48 @@ export interface WerkChunksFile {
   chunks: WerkChunk[];
 }
 
-// Geteilter Lazy-Cache für werk-chunks.json (~20 MB, Embeddings inklusive).
-// Reader (WerkPage), Volltextsuche (search/sources/chapters.ts) und der
-// Begriffsnetz-Passagen-Link (conceptPassageLink.ts) brauchten früher je
-// einen eigenen Fetch derselben Datei — bis zu drei parallele 20-MB-Downloads
-// für eine einzige Navigation. Ein Modul-Singleton-Promise genügt, da die
-// Datei sich innerhalb einer Sitzung nicht ändert.
-let werkChunksPromise: Promise<WerkChunksFile | null> | null = null;
-export function loadWerkChunksLazy(): Promise<WerkChunksFile | null> {
-  if (!werkChunksPromise) {
-    werkChunksPromise = fetch("/werk-chunks.json").then(r => r.ok ? r.json() : null).catch(() => null);
+// Kapiteltext ohne Embeddings. Der Server liefert nur das angefragte Kapitel
+// (`/api/werk/chunks`) bzw. eine id→Kapitel-Karte (`/api/werk/chunk-map`).
+const chapterCache = new Map<string, WerkChunk[]>();
+const chapterInflight = new Map<string, Promise<WerkChunk[] | null>>();
+
+export function loadWerkChapterChunks(chapterId: string): Promise<WerkChunk[] | null> {
+  const cached = chapterCache.get(chapterId);
+  if (cached) return Promise.resolve(cached);
+  const pending = chapterInflight.get(chapterId);
+  if (pending) return pending;
+  const job = fetch(`/api/werk/chunks?chapter=${encodeURIComponent(chapterId)}`)
+    .then(r => r.ok ? r.json() as Promise<{ chunks?: WerkChunk[] }> : null)
+    .then(data => {
+      chapterInflight.delete(chapterId);
+      if (!data?.chunks) return null;
+      chapterCache.set(chapterId, data.chunks);
+      return data.chunks;
+    })
+    .catch(() => {
+      chapterInflight.delete(chapterId);
+      return null;
+    });
+  chapterInflight.set(chapterId, job);
+  return job;
+}
+
+let chunkIndexPromise: Promise<Map<string, string> | null> | null = null;
+
+/** id → chapter, ohne Chunk-Text und ohne Vektoren. Für „Zur Passage". */
+export function loadWerkChunkIndex(): Promise<Map<string, string> | null> {
+  if (!chunkIndexPromise) {
+    chunkIndexPromise = fetch("/api/werk/chunk-map")
+      .then(r => r.ok ? r.json() as Promise<{ chunks?: Array<{ id: string; chapter: string }> }> : null)
+      .then(data => {
+        if (!data?.chunks) { chunkIndexPromise = null; return null; }
+        const map = new Map<string, string>();
+        for (const c of data.chunks) map.set(c.id, c.chapter);
+        return map;
+      })
+      .catch(() => { chunkIndexPromise = null; return null; });
   }
-  return werkChunksPromise;
+  return chunkIndexPromise;
 }
 
 /** Grober Satz-Splitter — genügt, um den 1-Satz-Overlap zwischen aufeinander
