@@ -46,6 +46,11 @@ jobs:
       # Action-SHAs gepinnt (Repo-Policy: keine Tag-Refs erlaubt).
       # Kommentare nennen die ursprüngliche Tag-Version für Lesbarkeit.
       - uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5
+        with:
+          # Volle History: pull --rebase / Recovery gegen origin/main brauchen
+          # mehr als den shallow Default (fetch-depth: 1), sonst bricht Rebase
+          # auf fehlende Ancestors.
+          fetch-depth: 0
 
       - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
         # Version aus package.json packageManager-Feld
@@ -310,7 +315,6 @@ jobs:
           only_generated_conflicts() {
             local f
             local any=0
-            # Unmerged paths während eines Rebase; Fallback: Status-Zeilen
             local files
             files=$(git diff --name-only --diff-filter=U 2>/dev/null || true)
             if [ -z "$files" ]; then
@@ -359,48 +363,90 @@ jobs:
                 echo "[git add] SKIP (not found): $f"
               fi
             done
-            # Defensiv: ALLE resonanzen-*-Artefakte (auch neu hinzugekommene)
             git add -f client/public/resonanzen-*.json 2>/dev/null && echo "[git add] glob resonanzen-*.json OK" || true
             rm -f validation-output.txt drift-output.txt
           }
 
-          rebuild_corpus_after_reset() {
-            echo "[push] CONFLICT-RECOVERY: rebuild on fresh origin/main …"
-            # Snapshot der Validation-Aggregate neu (Report kann nach reset fehlen)
-            if [ -f client/public/resonanzen-validation-report.json ]; then
-              node -e "
-                const fs = require('fs');
-                const r = JSON.parse(fs.readFileSync('client/public/resonanzen-validation-report.json', 'utf-8'));
-                const snap = {
-                  date: '$DATE',
-                  generatedAt: new Date().toISOString(),
-                  commit: '${{ github.sha }}',
-                  filesChecked: r.filesChecked,
-                  aggregates: r.aggregates,
-                  errors: r.errors,
-                  warnings: r.warnings,
-                  recovery: true,
-                };
-                fs.mkdirSync('versions', { recursive: true });
-                fs.writeFileSync('versions/snapshot-$DATE.json', JSON.stringify(snap, null, 2));
-                console.log('Snapshot (recovery):', snap);
-              "
-            else
-              mkdir -p versions
-              echo "{\"date\":\"$DATE\",\"generatedAt\":\"$(date -u +%Y-%m-%dT%H:%M:%SZ)\",\"commit\":\"${{ github.sha }}\",\"recovery\":true}" \
-                > "versions/snapshot-$DATE.json"
+          write_snapshot_from_validation_report() {
+            local recovery_flag="${1:-false}"
+            if [ ! -f client/public/resonanzen-validation-report.json ]; then
+              echo "::error::Kein resonanzen-validation-report.json — Snapshot nicht möglich."
+              return 1
             fi
+            mkdir -p versions
+            node -e "
+              const fs = require('fs');
+              const r = JSON.parse(fs.readFileSync('client/public/resonanzen-validation-report.json', 'utf-8'));
+              const snap = {
+                date: '$DATE',
+                generatedAt: new Date().toISOString(),
+                commit: '${{ github.sha }}',
+                filesChecked: r.filesChecked,
+                aggregates: r.aggregates,
+                errors: r.errors,
+                warnings: r.warnings,
+                recovery: $recovery_flag,
+              };
+              fs.writeFileSync('versions/snapshot-$DATE.json', JSON.stringify(snap, null, 2));
+              console.log('Snapshot:', snap);
+            "
+          }
+
+          # Nach reset --hard: frisch validieren, dann erst Rebuild/Snapshot.
+          # So spiegelt der Snapshot den tatsächlichen Stand von origin/main
+          # (inkl. Live-Append-Markdown), nicht einen veralteten Report.
+          rebuild_corpus_after_reset() {
+            echo "[push] CONFLICT-RECOVERY: validate + rebuild on fresh origin/main …"
+            set +e
+            pnpm tsx scripts/validate-resonanzen.ts > validation-output.txt 2>&1
+            VAL_RC=$?
+            set -e
+            echo "=== validation (recovery) output ==="
+            cat validation-output.txt || true
+            if [ "$VAL_RC" -ne 0 ]; then
+              echo "::error::Validation nach Recovery-Reset fehlgeschlagen (exit $VAL_RC)."
+              return 1
+            fi
+            write_snapshot_from_validation_report true
             pnpm tsx scripts/build-werk-chunks.ts
             pnpm tsx scripts/build-search-index.ts
             pnpm tsx scripts/build-resonanzen-index.ts
             pnpm tsx scripts/build-corpus-timeline.ts
             pnpm tsx scripts/build-werk-pdf.ts
-            # Drift-Report aktualisieren (nie fail)
             pnpm tsx scripts/check-corpus-drift.ts > drift-output.txt 2>&1 || true
             cat drift-output.txt || true
             echo "[push] CONFLICT-RECOVERY: rebuild fertig"
           }
 
+          # Gemeinsamer Recovery-Pfad (statt zwei copy-paste-Blöcke).
+          # Vorbedingung: Rebase-Konflikt liegt vor ODER wurde gerade klassifiziert.
+          run_generated_conflict_recovery() {
+            local why="$1"
+            echo "[push] path=CONFLICT-RECOVERY ($why)"
+            git rebase --abort 2>/dev/null || true
+            if [ "$RECOVERY_USED" -ge "$MAX_RECOVERY" ]; then
+              echo "::error::Konflikt-Recovery-Limit ($MAX_RECOVERY) erreicht."
+              return 1
+            fi
+            RECOVERY_USED=$((RECOVERY_USED + 1))
+            git fetch origin main
+            git reset --hard origin/main
+            if ! rebuild_corpus_after_reset; then
+              return 1
+            fi
+            stage_corpus_artifacts
+            if git diff --cached --quiet; then
+              echo "[push] CONFLICT-RECOVERY: nichts zu committen nach Rebuild — main ist aktuell"
+              PUSH_OK=true
+              return 2
+            fi
+            git commit -m "snapshot: corpus state + index $DATE (recovery $RECOVERY_USED)"
+            DID_COMMIT=true
+            return 0
+          }
+
+          # Initialer Snapshot aus dem bereits gelaufenen Validate-Step
+          write_snapshot_from_validation_report false
           stage_corpus_artifacts
           echo "=== Staged diff (numstat): ==="
           git diff --cached --numstat | head -10 || true
@@ -409,62 +455,39 @@ jobs:
           echo "=== git remote: ==="
           git remote -v
 
+          PUSH_OK=false
+          DID_COMMIT=false
+          RECOVERY_USED=0
+          MAX_RECOVERY=2
+
           if git diff --cached --quiet; then
             echo "No snapshot/index changes to commit"
+            PUSH_OK=true
           else
             # WICHTIG: kein [skip ci] mehr!
-            # Race: Netlify batched mehrere Pushes und nutzt das HEAD-Commit-
-            # Message für die [skip ci]-Prüfung. Wenn AI-Log-Push und unser
-            # Snapshot-Push schnell aufeinander folgen, war HEAD = snapshot
-            # mit [skip ci] → Netlify skipped beide. Resultat: kein Deploy
-            # seit dem 11.5. trotz täglich neuer KI-Antworten.
-            #
-            # Der Commit hier ändert nur versions/ + client/public/resonanzen-*.json
-            # — keine dieser Pfade matcht das paths:-Filter des Workflows
-            # (content/resonanzen/**), also kein Infinite-Loop trotz fehlendem
-            # [skip ci].
+            # Der Commit ändert nur versions/ + client/public/* — keine dieser
+            # Pfade matcht das paths:-Filter (content/resonanzen/**) → kein Loop.
             git commit -m "snapshot: corpus state + index $DATE"
+            DID_COMMIT=true
 
-            # Push mit Recovery: Live-Append kann während des Builds main
-            # verändert haben. Rebase-Konflikte NUR in generierten Artefakten
-            # → abort, hard-reset auf origin/main, Index neu bauen (Embeddings
-            # reuse), neu committen, erneut pushen. Echte Konflikte /
-            # Permissions / Branch-Protection → rot.
-            PUSH_OK=false
-            RECOVERY_USED=0
-            MAX_RECOVERY=2
             for i in 1 2 3 4 5; do
               echo "--- Push attempt $i (recovery_used=$RECOVERY_USED) ---"
-              # Falls ein vorheriger Versuch mitten im Rebase stecken blieb:
-              # abbrechen, sonst „Pulling is not possible because you have
-              # unmerged files" und Retries kaskadieren ins Leere.
+
               if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
-                echo "[push] aborting leftover rebase state"
-                # Vor abort: Konflikte klassifizieren (falls vorhanden)
+                echo "[push] leftover rebase state detected"
                 if ! only_generated_conflicts; then
+                  echo "[push] path=REAL-CONFLICT (non-generated files)"
                   echo "::error::Rebase-Konflikt in nicht-generierten Dateien — kein Recovery."
                   git rebase --abort 2>/dev/null || true
                   git status --short || true
                   exit 1
                 fi
-                echo "[push] path=CONFLICT-RECOVERY (unmerged generated artifacts)"
-                git rebase --abort 2>/dev/null || true
-                if [ "$RECOVERY_USED" -ge "$MAX_RECOVERY" ]; then
-                  echo "::error::Konflikt-Recovery-Limit ($MAX_RECOVERY) erreicht."
-                  exit 1
-                fi
-                RECOVERY_USED=$((RECOVERY_USED + 1))
-                git fetch origin main
-                git reset --hard origin/main
-                rebuild_corpus_after_reset
-                stage_corpus_artifacts
-                if git diff --cached --quiet; then
-                  echo "[push] CONFLICT-RECOVERY: nichts zu committen nach Rebuild — main ist aktuell"
-                  PUSH_OK=true
-                  break
-                fi
-                git commit -m "snapshot: corpus state + index $DATE (recovery $RECOVERY_USED)"
-                # direkt weiter zum nächsten Loop-Durchlauf (pull+push)
+                set +e
+                run_generated_conflict_recovery "unmerged generated artifacts"
+                RC=$?
+                set -e
+                if [ "$RC" -eq 1 ]; then exit 1; fi
+                if [ "$RC" -eq 2 ]; then break; fi
                 sleep 1
                 continue
               fi
@@ -476,26 +499,14 @@ jobs:
               set -e
 
               if [ $PULL_RC -ne 0 ]; then
-                # Rebase fehlgeschlagen — Konflikte?
                 if [ -d .git/rebase-merge ] || [ -d .git/rebase-apply ]; then
                   if only_generated_conflicts; then
-                    echo "[push] path=CONFLICT-RECOVERY (rebase conflict in generated artifacts only)"
-                    git rebase --abort 2>/dev/null || true
-                    if [ "$RECOVERY_USED" -ge "$MAX_RECOVERY" ]; then
-                      echo "::error::Konflikt-Recovery-Limit ($MAX_RECOVERY) erreicht."
-                      exit 1
-                    fi
-                    RECOVERY_USED=$((RECOVERY_USED + 1))
-                    git fetch origin main
-                    git reset --hard origin/main
-                    rebuild_corpus_after_reset
-                    stage_corpus_artifacts
-                    if git diff --cached --quiet; then
-                      echo "[push] CONFLICT-RECOVERY: nichts zu committen nach Rebuild — main ist aktuell"
-                      PUSH_OK=true
-                      break
-                    fi
-                    git commit -m "snapshot: corpus state + index $DATE (recovery $RECOVERY_USED)"
+                    set +e
+                    run_generated_conflict_recovery "rebase conflict in generated artifacts only"
+                    RC=$?
+                    set -e
+                    if [ "$RC" -eq 1 ]; then exit 1; fi
+                    if [ "$RC" -eq 2 ]; then break; fi
                     sleep $((2 * i))
                     continue
                   else
@@ -524,14 +535,12 @@ jobs:
                 break
               fi
 
-              # Permissions / Branch-Protection: sofort rot, kein Recovery
               if echo "$PUSH_OUT" | grep -qiE 'GH006|protected branch|permission denied|403 Forbidden|denied to'; then
                 echo "[push] path=REAL-ERROR (permissions/branch-protection)"
                 echo "::error::Push abgelehnt (Permissions/Branch-Protection) — kein Konflikt-Recovery."
                 exit 1
               fi
 
-              # Non-fast-forward o.ä. → nochmal versuchen
               echo "[push] path=PUSH-REJECTED (rc=$PUSH_RC) — retrying in $((2 * i))s"
               sleep $((2 * i))
             done
@@ -544,10 +553,18 @@ jobs:
               exit 1
             fi
           fi
-          # Tag last-stable überschreiben (force, damit immer auf neuestem stable steht)
-          git tag -f last-stable-$DATE
-          git tag -f last-stable
-          git push origin --tags --force
+
+          # Tags nur setzen/forcen, wenn in diesem Lauf tatsächlich etwas
+          # committed (oder Recovery als aktuell erkannt) wurde — kein
+          # blinder Tag-Force-Push auf unverändertes HEAD.
+          if [ "$DID_COMMIT" = "true" ] || [ "$RECOVERY_USED" -gt 0 ]; then
+            echo "[tag] updating last-stable tags (did_commit=$DID_COMMIT recovery_used=$RECOVERY_USED)"
+            git tag -f last-stable-$DATE
+            git tag -f last-stable
+            git push origin --tags --force
+          else
+            echo "[tag] SKIP — keine Corpus-Änderungen in diesem Lauf"
+          fi
 
       # ─── Build-Hook-Trigger (Belt-and-Suspenders) ──────────────────────
       # Falls Netlify/Render-Auto-Deploy kaputt ist (sei es durch [skip ci]-
