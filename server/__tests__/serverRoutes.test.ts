@@ -61,7 +61,7 @@ const ROUTES = [
   "GET /api/corpus/clusters",
   "GET /sitemap.xml",
   "GET /llms-full.txt",
-  "GET *",
+  "GET /{*splat}",
 ];
 
 const ENV_KEYS = [
@@ -80,7 +80,8 @@ function listRoutes(app: Express): string[] {
     route?: { path: string; methods: Record<string, boolean> };
     handle?: { stack?: Layer[] };
   };
-  const stack = (app as unknown as { _router: { stack: Layer[] } })._router.stack;
+  // Express 5 legt den Router öffentlich auf app.router (Express 4: app._router).
+  const stack = (app.router as unknown as { stack: Layer[] }).stack;
   const out: string[] = [];
   const walk = (layers: Layer[]) => {
     for (const layer of layers) {
@@ -270,13 +271,20 @@ describe("server routes", () => {
   });
 
   it("begrenzt dialog/persist mit 429 und Retry-After", async () => {
+    // Express 5 lässt req.body ohne Parser undefined. Der Shim stellt {} her,
+    // damit die Validierung 400 antwortet statt eines TypeError (500).
+    const bare = await call("POST", "/api/dialog/persist");
+    expect(bare.status).toBe(400);
+    expect(json(bare)).toEqual({ error: "Mindestens 2 Turns (1 User + 1 Antwort) nötig" });
+
     const first = await call("POST", "/api/dialog/persist", {
       body: JSON.stringify({ turns: [{ role: "user", text: "hallo" }, { role: "user", text: "noch" }] }),
     });
     expect(first.status).toBe(400);
     expect(json(first)).toEqual({ error: "Letzter Turn muss eine Model-Antwort sein" });
 
-    for (let i = 0; i < 29; i++) {
+    // 1 ohne Body + 1 mit Body + 28 = 30, das Limit. Der nächste Call ist 429.
+    for (let i = 0; i < 28; i++) {
       const hit = await call("POST", "/api/dialog/persist", { body: "{}" });
       expect(hit.status).toBe(400);
     }

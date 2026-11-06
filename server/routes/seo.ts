@@ -49,7 +49,10 @@ export function createSeoRouter(staticPath: string): Router {
     if (_indexTemplate == null) _indexTemplate = fs.readFileSync(indexHtmlPath, "utf-8");
     return _indexTemplate;
   };
-  router.get("*", async (req, res) => {
+  // Express 5 (path-to-regexp v8): unbenanntes "*" ist ungültig. "{*splat}"
+  // matcht auch "/" — express.static hat index:false, die Startseite fällt
+  // also hier durch. "*splat" ohne Klammern würde "/" auslassen.
+  router.get("/{*splat}", async (req, res) => {
     try {
       const html = await renderSeoHtml(getTemplate(), req.path);
       res.setHeader("Content-Type", "text/html; charset=utf-8");

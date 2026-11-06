@@ -39,8 +39,20 @@ export function createApp(serverDir: string): { app: Express; server: Server } {
   // Wichtig für den Rate-Limiter (getClientIp). Lokal ohne Proxy harmlos.
   app.set("trust proxy", 1);
 
+  // Express 5 stellt den Query-Parser von "extended" (qs) auf "simple" um.
+  // Die bisherigen Query-Strings (flache Parameter, qs-Arrays) bleiben so
+  // dieselben Werte wie unter Express 4.
+  app.set("query parser", "extended");
+
   app.use(securityHeaders);
   app.use(express.json());
+  // Express 5 lässt req.body undefined, wenn kein Parser gelaufen ist.
+  // Express 4 lieferte {}. Handler destrukturieren req.body — das leere
+  // Objekt hält die Validierungsantworten statt eines TypeError.
+  app.use((req, _res, next) => {
+    if (req.body === undefined) req.body = {};
+    next();
+  });
 
   // Launch-Schalter: 301 von *.onrender.com / *.netlify.app auf die kanonische
   // de-Domain. ENV-gated (CANONICAL_REDIRECT=1) — inert bis zum DNS-Flip, danach
@@ -87,7 +99,7 @@ export function createApp(serverDir: string): { app: Express; server: Server } {
   app.use(createEmbedRouter());
   app.use(createPdfRouter(staticPath));
   // Kapiteltext und Ähnlichkeitssuche: kleine Antworten, Vektoren bleiben hier.
-  // Vor dem SEO-Catch-all, sonst schluckt GET * die neuen Pfade.
+  // Vor dem SEO-Catch-all, sonst schluckt GET /{*splat} die neuen Pfade.
   app.use(createCorpusReadRouter());
   app.use(createSeoRouter(staticPath));
 
