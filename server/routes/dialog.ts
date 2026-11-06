@@ -7,9 +7,10 @@ import { recordCitations } from "../lib/citationTracker.js";
 import { prepareGraphChat } from "../lib/conversationPrompt.js";
 import { getKeys } from "../lib/embeddingClient.js";
 import { streamGeminiSSE, sseSend } from "../lib/geminiStream.js";
-import { generateFlashContent } from "../lib/geminiText.js";
+import { endsComplete, generateFlashContent } from "../lib/geminiText.js";
 import { GRAPH_SYSTEM_PROMPT } from "../lib/graphContext.js";
-import { flashErrorDetail, FLASH_THINKING_BUDGET } from "../lib/proseAssist.js";
+import { flashErrorDetail, FLASH_THINKING_BUDGET, PROSE_MAX_TOKENS } from "../lib/proseAssist.js";
+import { OUTPUT_VOICE_RULE } from "../lib/promptSafety.js";
 import { logResonanz } from "../lib/resonanzLog.js";
 import { prepareWeiterdenken, weiterdenkenSafetySuffix } from "../lib/weiterdenkenPrompt.js";
 import { buildWerkContext } from "../lib/werkRetrieval.js";
@@ -44,10 +45,13 @@ export function createDialogRouter(): Router {
         system: enrichedSystem,
         contents,
         temperature: 0.85,
-        maxTokens: 3000,
+        maxTokens: PROSE_MAX_TOKENS,
         thinkingBudget: FLASH_THINKING_BUDGET,
       });
       if (!r.ok) return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      if (r.truncated && !endsComplete(r.text)) {
+        return res.status(502).json({ error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
+      }
       const reply = r.text;
       // R6: Citation-Tracking. chatPassages haben einen source-Tag aus R1.
       recordCitations(reply, chatPassages.map(p => ({ source: p.source, id: p.id })));
@@ -96,10 +100,15 @@ export function createDialogRouter(): Router {
       apiKeys,
       system: enrichedSystem,
       contents,
-      generationConfig: { temperature: 0.85, maxOutputTokens: 3000, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
+      generationConfig: { temperature: 0.85, maxOutputTokens: PROSE_MAX_TOKENS, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
     });
     if (full === null) return;  // Fehler-Event wurde bereits gesendet + res beendet
     const reply = full.trim() || "Keine Antwort erhalten.";
+    if (!endsComplete(reply)) {
+      sseSend(res, { error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
+      res.end();
+      return;
+    }
     recordCitations(reply, chatPassages.map(p => ({ source: p.source, id: p.id })));
     sseSend(res, { done: true, citedChunks: chatPassages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
     res.end();
@@ -182,7 +191,9 @@ DEINE AUFGABE:
 - Trage den Gedanken einen echten Schritt weiter — wiederhole nicht, was schon im Faden steht.
 - SCHLIESSE mit GENAU EINER einzigen neuen offenen Frage, die der Lesende weitertragen kann. Diese Frage MUSS der allerletzte Absatz sein, allein stehend, und mit einem Fragezeichen enden.
 
-Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie aufzuzählen.`;
+Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie aufzuzählen.
+
+${OUTPUT_VOICE_RULE}`;
 
   function weiterdenkenSystem(contextBlock: string, langAddition: string): string {
     const base = `${WEITERDENKEN_SYSTEM_PROMPT}${weiterdenkenSafetySuffix()}`;
@@ -239,10 +250,13 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
         system,
         contents,
         temperature: 0.85,
-        maxTokens: 2200,
+        maxTokens: PROSE_MAX_TOKENS,
         thinkingBudget: FLASH_THINKING_BUDGET,
       });
       if (!r.ok) return res.status(502).json({ error: scrub(flashErrorDetail(r)) });
+      if (r.truncated && !endsComplete(r.text)) {
+        return res.status(502).json({ error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
+      }
       const full = r.text;
 
       const { reflection, nextQuestion } = splitClosingQuestion(full);
@@ -300,10 +314,15 @@ Wenn Werk-Passagen im Kontext gegeben sind, lass dich von ihnen tragen, ohne sie
       apiKeys,
       system,
       contents,
-      generationConfig: { temperature: 0.85, maxOutputTokens: 2200, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
+      generationConfig: { temperature: 0.85, maxOutputTokens: PROSE_MAX_TOKENS, ...(typeof FLASH_THINKING_BUDGET === "number" ? { thinkingConfig: { thinkingBudget: FLASH_THINKING_BUDGET } } : {}) },
     });
     if (streamedFull === null) return;  // Fehler-Event wurde bereits gesendet + res beendet
     const full = streamedFull.trim() || "(keine Reflexion)";
+    if (!endsComplete(full)) {
+      sseSend(res, { error: "Die Antwort wurde unvollständig abgeschnitten. Bitte erneut versuchen." });
+      res.end();
+      return;
+    }
     sseSend(res, { done: true, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
     res.end();
     void logResonanz({

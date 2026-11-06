@@ -12,6 +12,7 @@
 import type { Response } from "express";
 import { geminiAuthHeaders, geminiStreamUrl, redactSecrets } from "./geminiHttp.js";
 import { classifyError } from "./embeddingClient.js";
+import { generateFlashContent, spliceContinuation } from "./geminiText.js";
 
 interface StreamOpts {
   /** Alle verfügbaren Keys (getKeys()) — für Failover VOR dem Header-Flush. */
@@ -27,10 +28,19 @@ export function sseSend(res: Response, obj: unknown): void {
 }
 
 export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<string | null> {
+  // Thinking-Tokens zählen bei Gemini gegen maxOutputTokens. Liegt ein
+  // thinkingBudget im generationConfig, wird es auf das sichtbare Budget
+  // addiert, damit die Prosa nicht vom Reasoning aufgefressen wird.
+  const think = (opts.generationConfig.thinkingConfig as { thinkingBudget?: number } | undefined)?.thinkingBudget;
+  const baseOut = typeof opts.generationConfig.maxOutputTokens === "number" ? opts.generationConfig.maxOutputTokens : 4096;
+  const generationConfig = {
+    ...opts.generationConfig,
+    maxOutputTokens: baseOut + (typeof think === "number" && think > 0 ? think : 0),
+  };
   const body = JSON.stringify({
     ...(opts.system ? { systemInstruction: { parts: [{ text: opts.system }] } } : {}),
     contents: opts.contents,
-    generationConfig: opts.generationConfig,
+    generationConfig,
   });
 
   // Upstream mit Key-Failover öffnen, BEVOR die SSE-Header geflusht sind — so
@@ -77,6 +87,7 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
     const reader = upstream.body.getReader();
     const decoder = new TextDecoder();
     let buffer = "", full = "";
+    let finishReason: string | null = null;
     for (;;) {
       const { done, value } = await reader.read();
       if (done) break;
@@ -89,13 +100,31 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
         const json = t.slice(5).trim();
         if (!json || json === "[DONE]") continue;
         try {
-          const chunk = JSON.parse(json) as { candidates?: Array<{ content?: { parts?: Array<{ text?: string }> } }> };
+          const chunk = JSON.parse(json) as { candidates?: Array<{ finishReason?: string; content?: { parts?: Array<{ text?: string }> } }> };
+          const cand = chunk?.candidates?.[0];
+          if (cand?.finishReason) finishReason = cand.finishReason;
           // ALLE Text-Parts joinen (nicht nur parts[0]) — Thinking-Modelle
           // können mehrere Parts pro Chunk liefern.
-          const parts = chunk?.candidates?.[0]?.content?.parts ?? [];
+          const parts = cand?.content?.parts ?? [];
           const delta = parts.map(p => (typeof p?.text === "string" ? p.text : "")).join("");
           if (delta) { full += delta; sseSend(res, { delta }); }
         } catch { /* Frame über Lese-Grenze gesplittet — buffer trägt Rest */ }
+      }
+    }
+    // Stream am Token-Limit: einmal nicht-gestreamt fortsetzen und den Rest
+    // als weiteres Delta schicken, bevor der Aufrufer {done} sendet.
+    if (finishReason === "MAX_TOKENS" && full.trim()) {
+      const cont = await generateFlashContent({
+        system: opts.system,
+        contents: [{ role: "user", parts: [{ text: `Der folgende Text wurde wegen einer Längengrenze abgeschnitten. Setze ihn nahtlos fort, beginnend genau an der Abbruchstelle, auch mitten im Wort. Wiederhole nichts. Kein Vorspann. Der letzte Satz endet mit . ? oder !.\n\nABBRUCHSTELLE:\n${full.slice(-1600)}` }] }],
+        temperature: 0.3,
+        maxTokens: 4096,
+        thinkingBudget: 0,
+      });
+      if (cont.ok && cont.text) {
+        const merged = spliceContinuation(full, cont.text);
+        const extra = merged.slice(full.length);
+        if (extra) { full = merged; sseSend(res, { delta: extra }); }
       }
     }
     return full;

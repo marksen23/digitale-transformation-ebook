@@ -73,7 +73,7 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
       label: "Erkunden",
       items: [
         // Übersicht zuerst: erklärt, dass die drei folgenden Seiten denselben
-        // Begriffsraum aus drei Blickwinkeln zeigen (Redesign Phase 2, Teil 2).
+        // Begriffsnetz aus drei Blickwinkeln zeigen (Redesign Phase 2, Teil 2).
         { label: "Übersicht", sub: "DREI LINSEN", href: "/erkunden" },
         { label: "Begriffsnetz", sub: "KARTE", href: "/begriffsnetz" },
         { label: "Landkarte", sub: "WISSEN", href: "/landkarte" },

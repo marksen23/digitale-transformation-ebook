@@ -131,7 +131,7 @@ const ROUTE_META: Record<string, Meta> = {
   "/erkunden": {
     title: `Erkunden — Ein Begriffsraum, drei Linsen · ${WORK_TITLE}`,
     description:
-      "Einstieg in Begriffsnetz, Wissens-Landkarte und Philosophie: derselbe Begriffsraum der Resonanzvernunft, aus drei Blickwinkeln.",
+      "Einstieg in Begriffsnetz, Wissens-Landkarte und Philosophie: dasselbe Netz der Resonanzvernunft, aus drei Blickwinkeln.",
   },
   "/mein-werk": {
     title: `Mein Werk — ${WORK_TITLE}`,

@@ -77,7 +77,7 @@ const CLUSTERS: NavCluster[] = [
     key: "erkunden", i18nKey: "nav.cluster.erkunden",
     items: [
       // Übersicht zuerst: erklärt, dass die drei folgenden Seiten denselben
-      // Begriffsraum aus drei Blickwinkeln zeigen (Redesign Phase 2, Teil 2).
+      // Begriffsnetz aus drei Blickwinkeln zeigen (Redesign Phase 2, Teil 2).
       { href: "/erkunden",     i18nKey: "nav.erkunden.overview", match: /^\/erkunden/ },
       { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
       { href: "/landkarte",    i18nKey: "nav.landkarte",    match: /^\/landkarte/ },

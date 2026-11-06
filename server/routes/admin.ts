@@ -21,6 +21,7 @@ import { nodeSrv } from "../lib/graphContext.js";
 import { loadIndex, removeFromIndex, removeManyFromIndex, updateInIndex, updateManyInIndex } from "../lib/indexUpdater.js";
 import { getResonanzLogHealth } from "../lib/resonanzLog.js";
 import { invalidateResonanzRetrievalCache } from "../lib/werkRetrieval.js";
+import { OUTPUT_VOICE_RULE } from "../lib/promptSafety.js";
 import { rateLimiter } from "../middleware/rateLimit.js";
 
 export function createAdminRouter(): Router {
@@ -598,7 +599,9 @@ export function createAdminRouter(): Router {
   // menschlich-autorisierten Status „Erkenntnis", persistiert additiv.
   const ERKENNTNIS_DISTILL_SYSTEM = `Du destillierst den EINEN neuen denkerischen Schritt aus einer philosophischen Antwort des Werks „Resonanzvernunft — Digitale Transformation".
 
-Lies die Antwort und formuliere in EINEM dichten Satz (max. 30 Wörter) den Kern-Gedanken — die Unterscheidung, Verbindung oder Auflösung, die sie stiftet. Im Duktus des Werks (prosaisch, präzise, keine Meta-Sprache, kein „Die Antwort besagt…"). Nur der Satz selbst, sonst nichts.`;
+Lies die Antwort und formuliere in EINEM dichten Satz (max. 30 Wörter) den Kern-Gedanken — die Unterscheidung, Verbindung oder Auflösung, die sie stiftet. Im Duktus des Werks (prosaisch, präzise, keine Meta-Sprache, kein „Die Antwort besagt…"). Nur der Satz selbst, sonst nichts. Der Satz endet mit einem Punkt. Nenne keinen Autorennamen und nicht „Begriffsraum“.
+
+${OUTPUT_VOICE_RULE}`;
 
   router.post("/api/admin/distill-erkenntnis", rateLimiter('admin-distill-erkenntnis', 60, 60 * 60_000), async (req, res) => {
     if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
@@ -658,7 +661,7 @@ Lies die Antwort und formuliere in EINEM dichten Satz (max. 30 Wörter) den Kern
   // Manual-Trigger only — verbraucht Claude-API. Bei Bulk-Run mit Concurrency
   // 3 (analog Curation-Bulk).
 
-  const PRE_SCORE_SYSTEM = `Du bist ein STRENGER Lektor und schützt das Niveau des deutschen Philosophiewerks „Resonanzvernunft — Digitale Transformation" von Markus Oehring. Du beurteilst, ob eine KI-generierte Resonanz dem Werk wirklich ebenbürtig ist.
+  const PRE_SCORE_SYSTEM = `Du bist ein STRENGER Lektor und schützt das Niveau des deutschen Philosophiewerks „Resonanzvernunft — Digitale Transformation". Du beurteilst, ob eine KI-generierte Resonanz dem Werk wirklich ebenbürtig ist. Nenne in SCHWÄCHE und BEGRÜNDUNG keinen Autorennamen.
 
 Werk-Profil: dichter philosophischer Duktus, mediale Anthropologie, Heidegger/Resonanz/Aufklärung-Bezüge, prosaisch (keine Listen), präzise ohne Akademismus. Zentrale Begriffe: Resonanz, Dasein, Werden, Zwischen, Leerstelle, Antlitz, Geviert, Kairos, Antwort, Begegnung.
 
@@ -674,7 +677,7 @@ Bringt der Text einen GEDANKEN, den das Werk noch nicht hat, und TRÄGT er ihn �
   • JA — nur dann kommen 4 und 5 überhaupt in Frage.
 
 SKALA:
-5 — Ununterscheidbar von Oehrings eigener Hand UND ein eigener denkerischer Schritt, der die Frage weiterführt. Du würdest kein Wort ändern. (Sehr selten.)
+5 — Ununterscheidbar von der eigenen Hand des Werks UND ein eigener denkerischer Schritt, der die Frage weiterführt. Du würdest kein Wort ändern. (Sehr selten.)
 4 — Ein echter eigener Gedanke, hergeleitet und werktreu — mit nur EINEM stilistischen Makel (eine generische Wendung, ein schwächerer Schlusssatz). KEINE 4, wenn der Kern Behauptung, Paraphrase oder Referat ist.
 3 — STANDARD (hier landen die meisten): thematisch passend, formal korrekt, werknah — aber der zentrale Zug ist Behauptung/Paraphrase statt eines hergeleiteten neuen Gedankens, ODER der KI-Duktus ist erkennbar.
 2 — stilistisch fremd (Schulbuch-Ton, Aufzählungen) oder inhaltlich beliebig.
@@ -685,7 +688,9 @@ Nenne ZUERST die größte Schwäche des Textes, DANN erst den Score — das disz
 OUTPUT-FORMAT (STRIKT — exakt drei Zeilen, sonst nichts):
 SCHWÄCHE: <die größte Schwäche, ein Satz>
 SCORE: <1-5>
-BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>`;
+BEGRÜNDUNG: <ein Satz, max 25 Wörter, konkret>
+
+${OUTPUT_VOICE_RULE}`;
 
   function parsePreScore(text: string): { score: number; reason: string } | null {
     const scoreMatch = text.match(/SCORE:\s*([1-5])/i);
@@ -1088,7 +1093,9 @@ OUTPUT-FORMAT (exakt einhalten — Markdown):
 
 ## Offene Frage
 
-[Eine einzige offene Schlussfrage, die das gemeinsame Anliegen weiterträgt]`;
+[Eine einzige offene Schlussfrage, die das gemeinsame Anliegen weiterträgt. Sie endet mit einem Fragezeichen.]
+
+${OUTPUT_VOICE_RULE}`;
 
   function buildSynthesisUserPrompt(
     variants: Array<{ id: string; ts: string; prompt: string; response: string }>,
