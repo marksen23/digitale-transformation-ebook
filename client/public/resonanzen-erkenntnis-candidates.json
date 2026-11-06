@@ -1,9 +1,35 @@
 {
-  "generatedAt": "2026-10-17T12:45:58.964Z",
+  "generatedAt": "2026-11-06T19:49:44.262Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
+    {
+      "id": "ERK-1CLJ05Z",
+      "answerId": "MW566TO7-1538114F",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Prüfschichten, die ihre Grenze zeigen Ein Meta-Faktum entsteht, wenn ein Prüfergebnis seine Herkunft vergisst. „Geprüft“ steht dann über einer Aussage wie ein Siegel, und niemand fragt mehr, wer mit welchem Maßstab, aus welcher Auswahl und zu welchem Zeitpunkt geprüft hat. Die Verhärtung geschieht nicht durch einen falschen Befund, sondern durch das Verschwinden der Bedingungen, unter denen er ric",
+      "distinctness": 0.264,
+      "conceptAnchor": "lm-grenze",
+      "nodeIds": [
+        "lm-grenze",
+        "wahrheit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MUY7RXCI-012FC8A7",
+          "question": "Wie gestaltet man Prüfschichten so, dass sie Annahmen sichtbar machen, statt sie als Meta-Fakten zu verhärten?",
+          "score": 0.845
+        },
+        {
+          "sourceId": "MPUSJLQF-F4BBBDD9",
+          "question": "Die unabhängige Schicht kann Fakten prüfen. Aber kann sie auch die *impliziten Annahmen* überprüfen, die in der Auswahl der Daten selbst liegen? Und was bedeutet es für unsere eigene Urteilskraft, wenn wir die Verantwortung für das Factchecking vollständig an eine solche \"Judikative\" delegieren?",
+          "score": 0.761
+        }
+      ]
+    },
     {
       "id": "ERK-1799IL7",
       "answerId": "MUY7RXCI-012FC8A7",
@@ -19,6 +45,32 @@
           "sourceId": "MPUSJLQF-F4BBBDD9",
           "question": "Die unabhängige Schicht kann Fakten prüfen. Aber kann sie auch die *impliziten Annahmen* überprüfen, die in der Auswahl der Daten selbst liegen? Und was bedeutet es für unsere eigene Urteilskraft, wenn wir die Verantwortung für das Factchecking vollständig an eine solche \"Judikative\" delegieren?",
           "score": 0.824
+        }
+      ]
+    },
+    {
+      "id": "ERK-KAVB9E",
+      "answerId": "MW566TO0-ABBD4330",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Der Widerspruch und das Werkzeug Die Frage enthält ihre eigene Falle. Ein Widerspruch, der *gebaut* wird, ist zunächst immer einer, den jemand vorgesehen hat. Wer einem System befiehlt, zu widersprechen, bekommt einen gehorsamen Widerspruch: einen Spiegel, der gelernt hat, die Stirn zu runzeln. Auch das ist Projektion, nur eine raffiniertere. Der Fragende erwartet nun den Einwand, und das System l",
+      "distinctness": 0.224,
+      "conceptAnchor": "resonanzvernunft",
+      "nodeIds": [
+        "andere",
+        "lm-spiegel"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MUY7RXCI-C4CF7B92",
+          "question": "Kann ein System so gebaut werden, dass es Widerstand nicht simuliert, sondern tatsächlich aus einer eigenen Perspektive widerspricht, und wäre das noch ein Werkzeug?",
+          "score": 0.865
+        },
+        {
+          "sourceId": "MPMM2YAK-A7491D44",
+          "question": "Was bleibt von einem *Ausgang aus selbstverschuldeter Unmündigkeit*, wenn selbst die Idee der Mündigkeit ein Produkt des Systems sein könnte? Und welche Form von *Widerstand* ist noch möglich, wenn der Widerstand selbst eine vorprogrammierte Schleife sein könnte?",
+          "score": 0.729
         }
       ]
     },
@@ -76,51 +128,45 @@
       ]
     },
     {
-      "id": "ERK-GOYCE3",
-      "answerId": "MV9NMWL2-5669B857",
-      "answerEndpoint": "dialog",
-      "answerStatus": "approved",
-      "answerExcerpt": "Die Schaffung digitaler Orte, die das gemeinsame Suchen nach Sinn über individuelle Bestätigung erheben, bedingt eine Architektur, die nicht auf Konsens und Optimierung, sondern auf die produktive Irritation und die Anerkennung des Unverfügbaren ausgelegt ist. Es geht darum, Räume zu gestalten, die die \"Widerständigkeit des Anderen\" nicht als Hindernis, sondern als Katalysator für tiefere Einsicht",
+      "id": "ERK-JXCZMH",
+      "answerId": "MW566TNX-A16A2897",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Architektur des Atemholens Eine Pause wird als Fehler erfahren, wenn sie unangekündigt, unbegründet und unbewohnt ist. Der Ladekreisel ist eine solche Pause: Er sagt nur, dass etwas fehlt. Als Raum erfahren wird eine Pause erst, wenn sie eine Gestalt hat. Sie muss gewollt sein, sie muss sich zeigen, und man muss sich in ihr aufhalten können. Die Frage ist deshalb keine nach der richtigen Wartezeit",
       "distinctness": 0.206,
-      "conceptAnchor": "resonanzvernunft",
+      "conceptAnchor": "antwort",
       "nodeIds": [
         "raum",
-        "erkenntnis",
-        "sprache"
+        "schweigen"
       ],
-      "resolveCount": 6,
+      "resolveCount": 4,
       "resolves": [
         {
-          "sourceId": "MTNB5V7Q-3B5123E8",
-          "question": "Diese Triade birgt eine tiefgreifende Erkenntnis für das Verhältnis von Mensch und Maschine, für das Wesen der Resonanz und die Gestaltung digitaler Existenz. Für die Mensch-Maschine-Beziehung bedeutet sie, dass wahre Interaktion über die bloße Informationsübertragung hinausgeht; sie erfordert die Kultivierung eines \"Zwischen\" als \"Dazwischenintelligenz\" [dd8092b51d19], in dem Unerwartetes (\"Einsicht\") geschehen darf und dessen Sinn durch einen offenen \"Logos\" – ein Denken, das sich nicht auf binäre Entscheidungen beschränken lässt – stets neu verhandelt wird. Resonanz als \"beharrendes, relationales Geschehen\" [MOQ5EOBY-82AD9EEE] wird hier als ein Sich-Einlassen auf die \"Widerständigkeit des Anderen\" und die \"Irritierbarkeit des Erkennenden\" [6fbd5b424474] verständlich, getragen von einem Logos, der das Unverfügbare nicht zu beherrschen sucht, sondern sein lässt. Für die digitale Existenz mahnt sie, Räume nicht als leere Kanäle, sondern als Orte der Möglichkeit zu begreifen, in denen das Erschrecken der Einsicht Platz hat und die Sprache als ein Wohnort des Denkens die notwendige Offenheit gegen algorithmische Abschlüsse verteidigt. Wie können wir im digitalen Raum einen Logos kultivieren, der nicht nur übermittelt, sondern bewohnt und offen hält?",
-          "score": 0.807
+          "sourceId": "MUY7RXCI-E899056E",
+          "question": "Wie lassen sich Pausen in digitale Architekturen einbauen, sodass sie als Raum erfahren werden und nicht als Fehler?",
+          "score": 0.87
         },
         {
-          "sourceId": "MOJ7Q5HM-89F62E3F",
-          "question": "Wie lässt sich in der digitalen Welt ein \"Zwischen\" kultivieren, das nicht nur verbindet, sondern auch verdichtet – und so die Resonanzvernunft vor dem bloßen Echo bewahrt?",
-          "score": 0.805
+          "sourceId": "MQ66ZWYC-52DE2DF2",
+          "question": "Kann das bewusste Einlegen von Pausen im digitalen Dialog, das Warten und das Aushalten von Stille, zu einer tieferen Form der \"Dazwischenintelligenz\" führen, die über die reine Informationsverarbeitung hinausgeht?",
+          "score": 0.774
         },
         {
-          "sourceId": "MOUBIHOK-27900555",
-          "question": "Wie lässt sich im digitalen Raum das offene Wohnrecht des Denkens so kultivieren, dass es im Echo zur echten Transformation findet und nicht im bloßen Widerhall der Echo-Kammer verstummt?",
-          "score": 0.768
+          "sourceId": "MPUFECMA-7E85D8E2",
+          "question": "Was würde sich an einer Antwort ändern, wenn sie nicht nur die Wörter, sondern die Pause hörte, aus der sie gesprochen wurden?",
+          "score": 0.744
         },
         {
-          "sourceId": "MTNB85LB-7C1F15DE",
-          "question": "Wie können wir in einer zunehmend fragmentierten digitalen Welt die kollektive Eigenfrequenz kultivieren, die für eine solche universelle Resonanz notwendig ist?",
-          "score": 0.758
-        },
-        {
-          "sourceId": "MTNB93L6-1411E014",
-          "question": "Doch wie können wir sicherstellen, dass diese kollektive Eigenfrequenz nicht in einem Echokammer-Effekt verharrt, sondern uns stets offen und ansprechbar für das wahrhaft Andere hält?",
-          "score": 0.754
+          "sourceId": "MUY7RXCI-D36BB4D6",
+          "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur im digitalen Medium bezeugbar, ohne sie wieder in Verfügbarkeit zu verwandeln?",
+          "score": 0.736
         }
       ]
     }
   ],
   "stats": {
-    "total": 4,
+    "total": 6,
     "confirmedFiltered": 42,
-    "curatedRef": 199
+    "curatedRef": 201
   }
 }

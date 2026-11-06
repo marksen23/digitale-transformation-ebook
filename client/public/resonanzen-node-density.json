@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T12:45:58.560Z",
+  "generatedAt": "2026-11-06T19:49:32.886Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 21,
@@ -45,22 +45,22 @@
       }
     },
     "stimme": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "analyse": 2,
+        "analyse": 3,
         "path-analyse": 3
       }
     },
     "schweigen": {
-      "count": 2,
+      "count": 5,
       "endpoints": {
-        "analyse": 2
+        "analyse": 5
       }
     },
     "echo": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "path-analyse": 1
       }
     },
@@ -80,9 +80,9 @@
       }
     },
     "wahrheit": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "analyse": 7,
+        "analyse": 8,
         "path-analyse": 3
       }
     },
@@ -114,10 +114,10 @@
       }
     },
     "raum": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
+        "analyse": 6,
         "dialog": 7,
-        "analyse": 5,
         "path-analyse": 1
       }
     },
@@ -182,9 +182,9 @@
       }
     },
     "andere": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "analyse": 4
+        "analyse": 5
       }
     },
     "welt": {
@@ -215,9 +215,9 @@
       }
     },
     "lm-spiegel": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "analyse": 3,
+        "analyse": 4,
         "path-analyse": 4
       }
     },
@@ -235,10 +235,10 @@
       }
     },
     "lm-grenze": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 3,
-        "analyse": 6
+        "analyse": 7,
+        "path-analyse": 3
       }
     },
     "lm-verwandlung": {
@@ -257,8 +257,9 @@
       }
     },
     "transformatives-drittes": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
+        "analyse": 1,
         "path-analyse": 1
       }
     },
@@ -269,9 +270,9 @@
       }
     },
     "echo-kammer": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "analyse": 3,
+        "analyse": 4,
         "path-analyse": 1
       }
     },
@@ -352,7 +353,7 @@
   "stats": {
     "minCount": 0,
     "maxCount": 39,
-    "median": 5,
+    "median": 6,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "schattenlicht",

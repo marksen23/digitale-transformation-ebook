@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T12:45:58.616Z",
+  "generatedAt": "2026-11-06T19:49:32.938Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -400,7 +400,11 @@
       "keywords": [
         {
           "word": "können",
-          "count": 4
+          "count": 5
+        },
+        {
+          "word": "logos",
+          "count": 5
         },
         {
           "word": "denken",
@@ -411,28 +415,24 @@
           "count": 4
         },
         {
-          "word": "logos",
+          "word": "bloßen",
           "count": 3
         },
         {
           "word": "resonanz",
           "count": 2
-        },
-        {
-          "word": "bloßen",
-          "count": 2
         }
       ],
-      "evidence": 8,
-      "distinctness": 0.174,
+      "evidence": 10,
+      "distinctness": 0.182,
       "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.826,
+      "nearestSim": 0.818,
       "sampleEntryIds": [
         "MV9NMWL2-5669B857",
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66",
         "MTNB5V7Q-3B5123E8",
-        "MQ5XNFSV-CD34905C",
-        "MPMKE3CC-4E75CE39",
-        "MPMKBUNW-88609492"
+        "MQ5XNFSV-CD34905C"
       ]
     },
     {
@@ -515,10 +515,10 @@
     }
   ],
   "stats": {
-    "curated": 199,
-    "uncovered": 199,
+    "curated": 201,
+    "uncovered": 201,
     "candidatesCount": 13,
     "concepts": 50,
-    "maxEvidence": 8
+    "maxEvidence": 10
   }
 }

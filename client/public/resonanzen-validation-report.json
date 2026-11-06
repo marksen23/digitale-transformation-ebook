@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-17T12:45:26.071Z",
-  "filesChecked": 277,
+  "generatedAt": "2026-11-06T19:48:52.869Z",
+  "filesChecked": 283,
   "errors": 0,
-  "warnings": 10,
+  "warnings": 16,
   "issues": [
     {
       "level": "warning",
@@ -63,11 +63,47 @@
       "file": "content/resonanzen/master/dialog/dialog_weiterdenken.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/analyse/andere+lm-spiegel/2026-11-06-MW566TO0-ABBD4330.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 9f48b203fb492af6, computed 5e4f4b86bfacfc70 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/analyse/echo+schweigen/2026-11-06-MW566TOD-84C09B94.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 6ca11e4eee7fedf8, computed f5295cc1bc381fc4 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/analyse/echo-kammer+transformatives-drittes/2026-11-06-MW566TOA-BC003CB2.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 5a7770b33d1ff25d, computed fd733f59818fcc2a — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/analyse/lm-grenze+wahrheit/2026-11-06-MW566TO7-1538114F.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 0e04767be3003a7f, computed c62e3dbad13c599e — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/analyse/raum+schweigen/2026-11-06-MW566TNX-A16A2897.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected f21d3c40a5d60d91, computed 5d58bc45c8fcf576 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/analyse/schweigen+stimme/2026-11-06-MW566TO3-969C6466.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected a2949f299720a9b8, computed d835d16365069146 — Tampering oder nachträgliche Edit?"
     }
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 68,
+      "analyse": 74,
       "chapter": 31,
       "dialog": 36,
       "enkidu": 59,
@@ -77,7 +113,7 @@
     },
     "byStatus": {
       "published": 151,
-      "raw": 48,
+      "raw": 54,
       "rejected": 24,
       "approved": 54
     },

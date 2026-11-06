@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-10-17T12:45:58.561Z",
+  "generatedAt": "2026-11-06T19:49:32.888Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -189,6 +189,18 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "echo",
+      "target": "schweigen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MW566TOD-84C09B94",
+        "MPF4WM18-FF4843F1"
       ]
     },
     {
@@ -527,8 +539,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 248,
-    "candidatesCount": 40,
+    "totalPairs": 253,
+    "candidatesCount": 41,
     "existingEdges": 116,
     "maxCooccurrence": 25
   }

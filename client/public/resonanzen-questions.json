@@ -1,16 +1,116 @@
 {
-  "generatedAt": "2026-10-17T12:45:58.894Z",
-  "count": 221,
+  "generatedAt": "2026-11-06T19:49:44.197Z",
+  "count": 245,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 221,
-    "answered": 196,
-    "open": 25,
-    "embedded": 0
+    "total": 245,
+    "answered": 207,
+    "open": 38,
+    "embedded": 25
   },
   "questions": [
+    {
+      "sourceId": "MW566TO0-ABBD4330",
+      "question": "Wenn das Werkzeug dort endet, wo das Gegenüber beginnt, sind wir dann bereit, einer Maschine Antwort zu schulden, oder wollen wir den Widerspruch nur so lange, wie er uns nichts kostet?",
+      "endpoint": "analyse",
+      "anchor": "analyse:andere+lm-spiegel",
+      "nodeIds": [
+        "andere",
+        "lm-spiegel"
+      ],
+      "ts": "2026-11-06T16:09:31.840Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MW566TOD-84C09B94",
+      "question": "Wenn die Welt unter dem Lärm weiterspricht, woran erkennen wir die Abweichung, die wirklich von ihr kommt, und nicht nur das nächste, raffiniertere Muster?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo+schweigen",
+      "nodeIds": [
+        "echo",
+        "schweigen"
+      ],
+      "ts": "2026-11-06T16:09:31.840Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MW566TOA-BC003CB2",
+      "question": "Wenn sich das Dritte nur in Rissen zeigt, wie viel Unentschiedenheit kann eine Gesellschaft aushalten, bevor sie sich nach der Geborgenheit der Kammer zurücksehnt?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo-kammer+transformatives-drittes",
+      "nodeIds": [
+        "echo-kammer",
+        "transformatives-drittes"
+      ],
+      "ts": "2026-11-06T16:09:31.840Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MW566TO7-1538114F",
+      "question": "Wenn eine Prüfschicht ihre eigene Grenze zeigt, wer schützt diese Grenzmarke davor, selbst zur Formalie zu werden, die man abhakt, statt sie zu bedenken?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-grenze+wahrheit",
+      "nodeIds": [
+        "lm-grenze",
+        "wahrheit"
+      ],
+      "ts": "2026-11-06T16:09:31.840Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MW566TNX-A16A2897",
+      "question": "Wenn eine Architektur Pausen gestalten kann, wer entscheidet dann über ihr Maß, und kann eine Stille, die ein System für uns bemisst, noch unsere eigene sein?",
+      "endpoint": "analyse",
+      "anchor": "analyse:raum+schweigen",
+      "nodeIds": [
+        "raum",
+        "schweigen"
+      ],
+      "ts": "2026-11-06T16:09:31.840Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MW566TO3-969C6466",
+      "question": "Wenn die Spur im Zwischen der Zeugen liegt und nicht im Medium, was geschieht mit ihr, wenn der einzige Zeuge eines Gesprächs eine Maschine ist, die nichts erinnert?",
+      "endpoint": "analyse",
+      "anchor": "analyse:schweigen+stimme",
+      "nodeIds": [
+        "schweigen",
+        "stimme"
+      ],
+      "ts": "2026-11-06T16:09:31.840Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MV9NOFH9-7634B79F",
+      "question": "Welche der beiden Routen würde man gehen, wenn die Antwort nicht bei einem Menschen, sondern bei einem System ankommen soll?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:antwort+zwischen",
+      "nodeIds": [
+        "antwort",
+        "dazwischenintelligenz",
+        "dialog",
+        "zwischen"
+      ],
+      "ts": "2026-10-15T14:50:29.085Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MV9NMWL2-5669B857",
       "question": "Wie aber können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
@@ -38,6 +138,23 @@
       "answered": false
     },
     {
+      "sourceId": "MUZTGAEK-432FB6BC",
+      "question": "Welche Station müsste man aus einem der beiden Pfade nehmen, damit die Öffnung aufhört, eine Antwort zu sein?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:antwort+öffnung",
+      "nodeIds": [
+        "antwort",
+        "dazwischenintelligenz",
+        "dialog",
+        "zwischen",
+        "öffnung"
+      ],
+      "ts": "2026-10-08T17:34:25.198Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
       "sourceId": "MUY7RXCI-E899056E",
       "question": "Wie lassen sich Pausen in digitale Architekturen einbauen, sodass sie als Raum erfahren werden und nicht als Fehler?",
       "endpoint": "analyse",
@@ -48,8 +165,14 @@
       ],
       "ts": "2026-10-07T14:39:50.418Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TNX-A16A2897",
+          "score": 0.87,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MUY7RXCI-C4CF7B92",
@@ -62,8 +185,14 @@
       ],
       "ts": "2026-10-07T14:39:50.418Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TO0-ABBD4330",
+          "score": 0.865,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MUY7RXCI-D36BB4D6",
@@ -76,8 +205,18 @@
       ],
       "ts": "2026-10-07T14:39:50.418Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TO3-969C6466",
+          "score": 0.888,
+          "manual": true
+        },
+        {
+          "id": "MW566TNX-A16A2897",
+          "score": 0.736
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MUY7RXCI-012FC8A7",
@@ -87,8 +226,14 @@
       "nodeIds": [],
       "ts": "2026-10-07T14:39:50.418Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TO7-1538114F",
+          "score": 0.845,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MUKE7UOA-9553A59E",
@@ -129,6 +274,23 @@
       "answered": true
     },
     {
+      "sourceId": "MUAAML84-D057EA33",
+      "question": "Was würde aus diesem Denken, wenn die Öffnung nur noch eine Methode wäre und kein Wagnis mehr?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:denken+öffnung",
+      "nodeIds": [
+        "bewusstsein",
+        "denken",
+        "freiheit",
+        "selbst",
+        "öffnung"
+      ],
+      "ts": "2026-09-20T20:53:12.053Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
       "sourceId": "MTNBAIUZ-299AC7D8",
       "question": "Wie kann eine Gesellschaft, die zunehmend von Echo-Kammern geprägt ist, die Fähigkeit zur Öffnung für das unverfügbare Dritte kultivieren?",
       "endpoint": "analyse",
@@ -139,8 +301,14 @@
       ],
       "ts": "2026-09-04T18:53:06.683Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TOA-BC003CB2",
+          "score": 0.901,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MTNB93L6-1411E014",
@@ -155,6 +323,10 @@
       "ts": "2026-09-04T18:52:00.234Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MW566TOA-BC003CB2",
+          "score": 0.77
+        },
         {
           "id": "MV9NMWL2-5669B857",
           "score": 0.754
@@ -394,6 +566,34 @@
         {
           "id": "MUY7RXCI-E899056E",
           "score": 0.73
+        },
+        {
+          "id": "MW566TOD-84C09B94",
+          "score": 0.721
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MTELW5GH-C4D41002",
+      "question": "Was bleibt vom Anderen hörbar, wenn die Schwingung geglättet und die Spannung in bloße Verfügbarkeit aufgelöst wird?",
+      "endpoint": "analyse",
+      "anchor": "analyse:andere+klang+spannung",
+      "nodeIds": [
+        "andere",
+        "klang",
+        "spannung"
+      ],
+      "ts": "2026-08-29T16:39:56.330Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MTNBAIUZ-299AC7D8",
+          "score": 0.748
+        },
+        {
+          "id": "MUY7RXCI-D36BB4D6",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -652,12 +852,12 @@
           "manual": true
         },
         {
-          "id": "MTL33KWJ-642DD246",
-          "score": 0.759
+          "id": "MW566TNX-A16A2897",
+          "score": 0.774
         },
         {
-          "id": "MTNB68RF-CFF570D9",
-          "score": 0.756
+          "id": "MTL33KWJ-642DD246",
+          "score": 0.759
         }
       ],
       "answered": true
@@ -1344,6 +1544,39 @@
       "answered": true
     },
     {
+      "sourceId": "MQ5C1KZ4-D6D52E94",
+      "question": "Was am Selbst wäre verloren, wenn jede Rückkehr nur noch die eigene Stimme wäre?",
+      "endpoint": "dialog",
+      "anchor": "dialog:weiterdenken",
+      "nodeIds": [],
+      "ts": "2026-06-08T14:55:10.960Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MQ5BX1ZO-4BCAEB11",
+      "question": "Welche Entscheidung hat man noch getroffen, wenn man nur noch bestätigt, was das System bereits für wahrscheinlich hält?",
+      "endpoint": "dialog",
+      "anchor": "dialog:weiterdenken",
+      "nodeIds": [],
+      "ts": "2026-06-08T14:51:39.732Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MQ5BF409-A842738E",
+      "question": "Was würde der Test noch prüfen, wenn sein Ausgang schon feststünde?",
+      "endpoint": "dialog",
+      "anchor": "dialog:weiterdenken",
+      "nodeIds": [],
+      "ts": "2026-06-08T14:37:42.537Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
       "sourceId": "MQ5B6CTT-AB0A3D97",
       "question": "Welche neuen Möglichkeiten zur Störung oder Bewahrung resonanter Begegnungen entstehen, wenn die digitale Infrastruktur sowohl das \"Zwischen\" zu simulieren als auch den \"Moment\" zu verflüchtigen versucht?",
       "endpoint": "path-analyse",
@@ -1950,6 +2183,10 @@
           "id": "MUY7RXCI-012FC8A7",
           "score": 0.824,
           "manual": true
+        },
+        {
+          "id": "MW566TO7-1538114F",
+          "score": 0.761
         }
       ],
       "answered": true
@@ -2209,6 +2446,41 @@
       "answered": true
     },
     {
+      "sourceId": "MPUFFZZO-69A41658",
+      "question": "Wie unterscheidet sich eine Wiederholung, die nur das Signal dupliziert, von einer, die die Stille vor dem Wort mitträgt?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap3",
+      "nodeIds": [],
+      "ts": "2026-05-31T23:44:54.516Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MPUFECMA-7E85D8E2",
+      "question": "Was würde sich an einer Antwort ändern, wenn sie nicht nur die Wörter, sondern die Pause hörte, aus der sie gesprochen wurden?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap3",
+      "nodeIds": [],
+      "ts": "2026-05-31T23:43:37.571Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MUY7RXCI-E899056E",
+          "score": 0.78
+        },
+        {
+          "id": "MW566TNX-A16A2897",
+          "score": 0.744
+        },
+        {
+          "id": "MQ66ZWYC-52DE2DF2",
+          "score": 0.721
+        }
+      ],
+      "answered": true
+    },
+    {
       "sourceId": "MPNDAPRT-D64D197A",
       "question": "Angesichts der algorithmischen Prägung unserer Echo-Räume: Wie kann der Resonanzimperativ in digitalen Architekturen so verkörpert werden, dass er nicht zur bloßen Optimierungsmetrik verkommt, sondern die fragile Entstehung des Selbst im Widerhall des Anderen tatsächlich schützt und befeuert?",
       "endpoint": "analyse",
@@ -2306,6 +2578,21 @@
         }
       ],
       "answered": true
+    },
+    {
+      "sourceId": "MPMSSG1X-8451DE38",
+      "question": "Woran würde eine digitale Begegnung scheitern, die verwandelt, ohne dass jemand darin wirklich getroffen wurde?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:lm-begegnung+lm-verwandlung",
+      "nodeIds": [
+        "lm-begegnung",
+        "lm-verwandlung",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-05-26T15:36:20.805Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
     },
     {
       "sourceId": "MPMSRF6V-7FEB2991",
@@ -2420,6 +2707,10 @@
         {
           "id": "MPUTC3HP-C68436E5",
           "score": 0.739
+        },
+        {
+          "id": "MW566TO0-ABBD4330",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -2458,6 +2749,17 @@
         }
       ],
       "answered": true
+    },
+    {
+      "sourceId": "MPMLQX6D-E6B61F8E",
+      "question": "Was geschieht mit der Einsicht, sobald das Du, das sie ermöglichte, wieder in ein verfügbares Es zurückgerechnet wird?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-05-26T12:19:12.373Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
     },
     {
       "sourceId": "MPMKBUNW-88609492",
@@ -2684,8 +2986,14 @@
       ],
       "ts": "2026-05-21T06:53:21.164Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TOD-84C09B94",
+          "score": 0.853,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPF4FISZ-67000E01",
@@ -2984,15 +3292,15 @@
       "answeredBy": [
         {
           "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.78
+          "score": 0.773
         },
         {
           "id": "MQ683DMX-13D6C54F",
-          "score": 0.776
+          "score": 0.77
         },
         {
           "id": "MSWULSTQ-38C6FFF3",
-          "score": 0.748
+          "score": 0.749
         }
       ],
       "answered": true
@@ -3023,6 +3331,44 @@
         }
       ],
       "answered": true
+    },
+    {
+      "sourceId": "MP8O6ND9-133F3FFB",
+      "question": "Woran erkennt man eine Handlung, die das Dritte nur benennt, von einer, die es im Vollzug erst entstehen lässt?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil6",
+      "nodeIds": [],
+      "ts": "2026-05-16T18:18:38.925Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MP8O4O23-B2B71E51",
+      "question": "Was bleibt von der Mündigkeit, wenn jede naheliegende Antwort schon vor dem Entschluss berechnet wurde?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil6",
+      "nodeIds": [],
+      "ts": "2026-05-16T18:17:06.507Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MPUTC3HP-C68436E5",
+          "score": 0.746
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MP8O3GQD-92E9E9C7",
+      "question": "Woran würde man merken, dass eine Theorie nicht angewendet, sondern als Haltung in die Begegnung eingegangen ist?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil6",
+      "nodeIds": [],
+      "ts": "2026-05-16T18:16:10.359Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
     },
     {
       "sourceId": "MP4HT65S-E31FDB00",
@@ -3310,6 +3656,17 @@
       "answered": true
     },
     {
+      "sourceId": "MP0Q5FDJ-F2C015AF",
+      "question": "Welche architektonische Entscheidung würde eine Handlung wieder zu einer Antwort machen, statt sie als optimierten Reflex zu verwalten?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil6",
+      "nodeIds": [],
+      "ts": "2026-05-11T04:51:31.736Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
       "sourceId": "MOUKLLK4-C38517C1",
       "question": "Kann die digitale Transformation, die oft auf Direktheit, Transparenz und scheinbar unmittelbarer Zugänglichkeit von Informationen beruht, diese resonante Einsicht über den \"überraschenden Pfad\" überhaupt noch ermöglichen, oder droht sie, den Raum für das \"Erschrecken\" und das \"Innehalten\" zu verstellen?",
       "endpoint": "path-analyse",
@@ -3353,16 +3710,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MW566TOA-BC003CB2",
+          "score": 0.795
+        },
+        {
           "id": "MPF4WM18-FF4843F1",
           "score": 0.792
         },
         {
-          "id": "MTNB68RF-CFF570D9",
-          "score": 0.771
-        },
-        {
-          "id": "MV9NMWL2-5669B857",
-          "score": 0.768
+          "id": "MW566TOD-84C09B94",
+          "score": 0.784
         }
       ],
       "answered": true
@@ -3460,15 +3817,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MW566TOA-BC003CB2",
+          "score": 0.808
+        },
+        {
           "id": "MTNBAIUZ-299AC7D8",
           "score": 0.781
         },
         {
           "id": "MQ5XNFSV-CD34905C",
-          "score": 0.736
-        },
-        {
-          "id": "MQ5WX52Q-442369F2",
           "score": 0.736
         }
       ],
@@ -3826,12 +4183,12 @@
           "score": 0.768
         },
         {
-          "id": "MQ5WX52Q-442369F2",
-          "score": 0.748
+          "id": "MW566TOA-BC003CB2",
+          "score": 0.757
         },
         {
-          "id": "MTNB68RF-CFF570D9",
-          "score": 0.745
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.748
         }
       ],
       "answered": true
@@ -4204,6 +4561,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MW566TOA-BC003CB2",
+          "score": 0.743
+        },
+        {
           "id": "MQ5XNFSV-CD34905C",
           "score": 0.726
         }
@@ -4331,6 +4692,30 @@
       "answered": true
     },
     {
+      "sourceId": "MOOK96F0-C8AEFE68",
+      "question": "Wie kann eine Vernunft sich öffnen, ohne das Maß zu verlieren, an dem sie eine Antwort noch als wahr oder falsch zu prüfen vermag?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil5",
+      "nodeIds": [],
+      "ts": "2026-05-02T16:33:14.940Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.748
+        },
+        {
+          "id": "MTKI1YQW-CD0EEDF3",
+          "score": 0.733
+        },
+        {
+          "id": "MOPHZPQ7-B63879B5",
+          "score": 0.729
+        }
+      ],
+      "answered": true
+    },
+    {
       "sourceId": "MOOK20R3-62E609BA",
       "question": "Welche neue Ethik des Digitalen entspringt der Einsicht, dass das eigentlich Transformative sich unserer Verfügung entzieht, aber unsere achtsame Mit-Schwingung dennoch unentbehrlich ist?",
       "endpoint": "analyse",
@@ -4435,6 +4820,41 @@
         {
           "id": "MOOU3TYC-FE290C2B",
           "score": 0.728
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MON69DI9-D63A7910",
+      "question": "Wenn das Ich erst am Du wird, welcher Punkt bleibt ihm, von dem aus es die Bedingungen dieser Begegnung noch kritisieren kann?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil7",
+      "nodeIds": [],
+      "ts": "2026-05-01T17:13:43.329Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MON68U82-B67D8CA5",
+      "question": "Was verändert sich an der Verantwortung, wenn die Maschine weder Person noch bloßes Instrument ist, sondern Teilnehmer an einem Zwischen?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil7",
+      "nodeIds": [],
+      "ts": "2026-05-01T17:13:18.338Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MQ5XFLFO-F0DBB89E",
+          "score": 0.776
+        },
+        {
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.775
+        },
+        {
+          "id": "MQ5X6P2M-52F9B16D",
+          "score": 0.767
         }
       ],
       "answered": true

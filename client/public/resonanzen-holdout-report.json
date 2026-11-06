@@ -1,10 +1,24 @@
 {
-  "generatedAt": "2026-10-17T12:45:58.552Z",
-  "checked": 29,
+  "generatedAt": "2026-11-06T19:49:32.879Z",
+  "checked": 30,
   "stable": 12,
-  "shifted": 15,
+  "shifted": 16,
   "drifted": 2,
   "details": [
+    {
+      "id": "MW566TO7-1538114F",
+      "baseline": [
+        "MUY7RXCI-012FC8A7",
+        "MPUSJLQF-F4BBBDD9",
+        "MW566TO3-969C6466"
+      ],
+      "current": [
+        "MUY7RXCI-012FC8A7",
+        "MPUSJLQF-F4BBBDD9",
+        "MW566TO3-969C6466"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MUY7RXCI-012FC8A7",
       "baseline": [
@@ -13,11 +27,11 @@
         "MUY7RXCI-C4CF7B92"
       ],
       "current": [
+        "MW566TO7-1538114F",
         "MPUSJLQF-F4BBBDD9",
-        "MPUSGXKN-78839F4E",
-        "MUY7RXCI-C4CF7B92"
+        "MPUSGXKN-78839F4E"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MQ5WZZPN-8051E5FF",
