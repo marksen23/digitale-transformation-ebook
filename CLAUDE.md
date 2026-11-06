@@ -221,7 +221,6 @@ Invoke-RestMethod -Uri ".../api/admin/pre-score" -Method Post `
 Fallback. Diagnose-Call zeigt jetzt Gemini-Fehler (`[callGemini] failed …`).
 (Historie: 2026-06-22 war das Anthropic-Guthaben leer → Auslöser der Umstellung.)
 
-
 ### 9. „Validate-Korpus rot: 0 erfolgreiche Embedding-Calls" / `/api/health` → `billing_block`
 
 **Ursache unterscheiden** (HTTP-Status in den `[fetchEmbedding]`-Zeilen im Step-Log):
@@ -235,9 +234,13 @@ Fallback. Diagnose-Call zeigt jetzt Gemini-Fehler (`[callGemini] failed …`).
 
 `classifyError` (`server/lib/embeddingClient.ts`) stuft 402 und 429-mit-Prepaid-
 Hinweis als `billing` ein: **kein Retry am selben Key, sofort Wechsel auf
-`GEMINI_API_KEY_FALLBACK`** — gilt für Embeddings, `geminiText` und
-`geminiStream` (alle nutzen denselben Klassifizierer). Bis 2026-11-06 lief 402
+`GEMINI_API_KEY_FALLBACK`** — gilt für Embeddings, `geminiText` (`geminiOnce`)
+und `geminiStream` (alle nutzen denselben Klassifizierer). Bis 2026-11-06 lief 402
 als „transient“ durch: sinnlose Backoff-Retries und **kein** Failover.
+`/api/health` (`server/routes/health.ts`) meldet dann `billing_block` mit
+`BILLING_HINT`; die Admin-Health-Kachel nennt 402 und 403. Leser-Antworten
+(`flashErrorDetail` in `server/lib/proseAssist.ts`) sagen „KI-Kontingent
+aufgebraucht (402)“.
 
 **Embedding-Reuse (spart Guthaben):**
 - `build-search-index.ts` (Begriffe + Philosophen) übernimmt Vektoren, wenn

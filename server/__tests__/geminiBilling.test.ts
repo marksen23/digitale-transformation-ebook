@@ -8,6 +8,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { classifyError, fetchEmbedding, isCreditsDepleted } from "../lib/embeddingClient";
 import { generateFlashContent } from "../lib/geminiText";
 import { streamGeminiSSE } from "../lib/geminiStream";
+import { flashErrorDetail } from "../lib/proseAssist";
 
 const BODY_402 = JSON.stringify({
   error: {
@@ -89,6 +90,16 @@ describe("Key-Failover bei 402", () => {
     vi.stubGlobal("fetch", fetchMock);
     expect(await fetchEmbedding("text", { maxRetries: 3 })).toBeNull();
     expect(fetchMock).toHaveBeenCalledTimes(2); // je Key genau ein Versuch
+  });
+
+  it("generateFlashContent: alle Keys 402 → status 402 und Kontingent-Text", async () => {
+    const fetchMock = vi.fn(async () => jsonResponse(402, BODY_402));
+    vi.stubGlobal("fetch", fetchMock);
+    const r = await generateFlashContent({ contents: [{ role: "user", parts: [{ text: "Hi" }] }] });
+    expect(r.ok).toBe(false);
+    expect(r.status).toBe(402);
+    expect(flashErrorDetail(r)).toContain("KI-Kontingent aufgebraucht");
+    expect(fetchMock).toHaveBeenCalledTimes(2);
   });
 
   it("generateFlashContent: 402 rotiert auf den Fallback-Key", async () => {
