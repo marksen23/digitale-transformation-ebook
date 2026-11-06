@@ -55,17 +55,35 @@ export function getKeys(): string[] {
 }
 
 /**
- * Klassifiziert einen Gemini-Fehler. "billing" = GCP-Projekt zahlungsgesperrt
- * (403 + dunning/PERMISSION_DENIED) → Key wechseln, nicht retryen. "auth" =
- * Key ungültig (401/403 ohne billing-Marker) → ebenfalls Key wechseln.
- * "quota" (429) + "transient" (5xx/Netzwerk) → am selben Key retryen.
+ * Erkennt „Guthaben aufgebraucht“ im Fehler-Body (Prepaid-Abrechnung in
+ * AI Studio): `RESOURCE_EXHAUSTED` + „prepayment credits are depleted“.
+ * Bewusst NICHT jedes RESOURCE_EXHAUSTED — das ist auch der normale
+ * 429-Quota-Fehler, und der verlinkt ebenfalls „billing details“.
+ */
+export function isCreditsDepleted(body: string): boolean {
+  return /prepayment|credits? (?:are |is )?(?:depleted|exhausted)/i.test(body);
+}
+
+/**
+ * Klassifiziert einen Gemini-Fehler.
+ *   "billing" = Projekt kann nicht zahlen → Key wechseln, nicht retryen:
+ *               402 Payment Required (Prepaid-Guthaben aufgebraucht),
+ *               403 + dunning/PERMISSION_DENIED/billing (GCP-Billing gesperrt),
+ *               429 mit Prepaid-Hinweis (Guthaben aufgebraucht statt Rate-Limit).
+ *   "auth"    = Key ungültig (401/403 ohne Billing-Marker, 400 API_KEY_INVALID)
+ *               → ebenfalls Key wechseln.
+ *   "quota"   = 429 Rate-Limit → am selben Key retryen.
+ *   "transient" = 5xx/Netzwerk/sonstiges → am selben Key retryen.
  */
 export function classifyError(status: number, body: string): EmbedErrorClass {
   if (status === 0) return "transient";  // Netzwerk-Throw
-  if (status === 429) return "quota";
+  // 402: Gemini meldet so „Your prepayment credits are depleted“. Retries am
+  // selben Key sind sinnlos; nur ein anderer Key (anderes Projekt) hilft.
+  if (status === 402) return "billing";
+  if (status === 429) return isCreditsDepleted(body) ? "billing" : "quota";
   if (status >= 500) return "transient";
   if (status === 403) {
-    return /dunning|PERMISSION_DENIED|billing/i.test(body) ? "billing" : "auth";
+    return /dunning|PERMISSION_DENIED|billing/i.test(body) || isCreditsDepleted(body) ? "billing" : "auth";
   }
   if (status === 401) return "auth";
   // 400 ist normalerweise transient (Bad Request), ABER Gemini gibt für einen
@@ -74,6 +92,16 @@ export function classifyError(status: number, body: string): EmbedErrorClass {
   if (status === 400 && /API_KEY_INVALID|api key not valid/i.test(body)) return "auth";
   return "transient";
 }
+
+/**
+ * Menschenlesbarer Hinweis für Billing-Fehler (402 bzw. 403), für Logs,
+ * Health-Endpunkt und Fehlermeldungen an Leser. Eine Quelle, damit die
+ * Diagnose überall gleich lautet.
+ */
+export const BILLING_HINT =
+  "Gemini-Guthaben aufgebraucht (402) oder GCP-Billing gesperrt (403 dunning). " +
+  "Guthaben in AI Studio aufladen bzw. Billing begleichen, oder GEMINI_API_KEY_FALLBACK " +
+  "auf einem zahlungsfähigen Projekt setzen (selbes Embedding-Modell → vektorkompatibel).";
 
 // Diagnose-Counter: erste N Fehler ausführlich loggen, danach silent.
 let _embedFailLogged = 0;

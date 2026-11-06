@@ -4,6 +4,7 @@
  */
 import { recordRetrieved } from "./citationTracker.js";
 import type { FlashGenResult } from "./geminiText.js";
+import { isCreditsDepleted } from "./embeddingClient.js";
 import { buildWerkContext, type RetrievedPassage } from "./werkRetrieval.js";
 
 // ─── KI-Prosa-Endpunkte: gemeinsames Thinking-Budget ─────────────────────
@@ -27,6 +28,7 @@ export const FLASH_THINKING_BUDGET: number | undefined =
 /** Leser-freundliche deutsche Fehlermeldung aus einem fehlgeschlagenen
  *  generateFlashContent-Resultat (für res.status(502).json({error})). */
 export function flashErrorDetail(r: FlashGenResult): string {
+  if (r.status === 402 || isCreditsDepleted(r.errorDetail ?? "")) return "KI-Kontingent aufgebraucht (402) — Gemini-Guthaben aufladen oder GEMINI_API_KEY_FALLBACK setzen.";
   if (r.status === 429) return "Zu viele Anfragen — bitte kurz warten.";
   if (r.status === 503) return "Dienst vorübergehend nicht verfügbar — bitte erneut versuchen.";
   if (r.status === 401 || r.status === 403) return "API-Key nicht autorisiert (401/403) — bitte Key auf Render prüfen.";

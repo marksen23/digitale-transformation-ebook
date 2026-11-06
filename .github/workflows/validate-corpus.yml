@@ -238,7 +238,7 @@ jobs:
       - name: Annotate embedding failure
         if: failure()
         run: |
-          echo "::error title=Embedding-Pipeline fehlgeschlagen::Wahrscheinliche Ursache: GCP-Projekt-Billing gesperrt (403 dunning / PERMISSION_DENIED) oder ungültiger Key. Remedy: GEMINI_API_KEY_FALLBACK als Repo-Secret auf einem zahlungsfähigen GCP-Projekt setzen (selbes Modell → vektorkompatibel), oder Billing des Primärprojekts begleichen. Live-Status: /admin/health → Embedding-Pipeline."
+          echo "::error title=Embedding-Pipeline fehlgeschlagen::Den HTTP-Status zeigen die [fetchEmbedding]-Zeilen im Step-Log. 402 Payment Required (RESOURCE_EXHAUSTED, prepayment credits are depleted) = Gemini-Guthaben aufgebraucht → in AI Studio (https://ai.studio/projects) aufladen. 403 dunning/PERMISSION_DENIED = GCP-Billing gesperrt → Billing begleichen. 401/400 API_KEY_INVALID = Key ungültig. In allen Fällen hilft GEMINI_API_KEY_FALLBACK als Repo-Secret (und auf Render) mit einem Key eines zahlungsfähigen Projekts (selbes Modell → vektorkompatibel). Live-Status: /admin/health → Embedding-Pipeline."
 
       # Embeddings/Index als Artifact uploaden — auch wenn der Commit-Step
       # später fehlschlägt. So lässt sich der lokal generierte State

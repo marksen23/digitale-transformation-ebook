@@ -429,7 +429,7 @@ export default function AdminHealthPage() {
           const e = embedHealth?.embedding;
           const label =
             e === "ok" ? "✓ online"
-            : e === "billing_block" ? "✕ Billing gesperrt (403 dunning)"
+            : e === "billing_block" ? "✕ Guthaben aufgebraucht (402) / Billing gesperrt (403)"
             : e === "auth_error" ? "✕ Key ungültig"
             : e === "quota_exhausted" ? "⚠ Quota erschöpft"
             : e === "not_configured" ? "— kein Key gesetzt"

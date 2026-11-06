@@ -3,15 +3,15 @@
  * Aus server/index.ts unverändert herausgelöst.
  */
 import { Router } from "express";
-import { getKeys, probeEmbedding } from "../lib/embeddingClient.js";
+import { BILLING_HINT, getKeys, probeEmbedding } from "../lib/embeddingClient.js";
 import { geminiAuthHeaders, geminiGenerateUrl } from "../lib/geminiHttp.js";
 
 export function createHealthRouter(): Router {
   const router = Router();
   // ─── Health / Diagnose-Endpunkt ───────────────────────────────────
   // M4: prüft jetzt das EMBEDDING-Modell (nicht nur Generation), weil die
-  // semantische Suche daran hängt. Klassifiziert Billing-Block (403 dunning)
-  // explizit, damit das Health-Dashboard die Ursache benennen kann.
+  // semantische Suche daran hängt. Klassifiziert Billing-Block (402 Guthaben
+  // aufgebraucht / 403 dunning) explizit, damit das Health-Dashboard die Ursache benennen kann.
   router.get("/api/health", async (_req, res) => {
     const keys = getKeys();
     if (keys.length === 0) {
@@ -65,7 +65,7 @@ export function createHealthRouter(): Router {
       keys_available: probe.keysAvailable,
       working_key_index: probe.workingKeyIndex,  // -1 = alle tot, 0 = primär, >0 = Fallback aktiv
       ...(embedding === "billing_block" ? {
-        message: "GCP-Projekt-Billing gesperrt (403 dunning). GEMINI_API_KEY_FALLBACK auf anderem Projekt setzen.",
+        message: BILLING_HINT,
       } : {}),
     });
   });

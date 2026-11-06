@@ -81,7 +81,7 @@ Browser (Netlify)                  Render-Server (Express)
 
 | Variable | Wo gesetzt | Pflicht? | Sym­ptome wenn falsch |
 |----------|-----------|----------|------------------|
-| `GEMINI_API_KEY` | Render Env, GitHub Repo-Secrets | ja | Keine Embeddings; bei CI: rote Action mit „FATAL 0 erfolgreiche Embedding-Calls". Bei `403 dunning / PERMISSION_DENIED`: GCP-Projekt-Billing gesperrt → `GEMINI_API_KEY_FALLBACK` setzen. |
+| `GEMINI_API_KEY` | Render Env, GitHub Repo-Secrets | ja | Keine Embeddings; bei CI: rote Action mit „FATAL 0 erfolgreiche Embedding-Calls". Bei `402 Payment Required` („prepayment credits are depleted“): Prepaid-Guthaben in AI Studio aufgebraucht → aufladen. Bei `403 dunning / PERMISSION_DENIED`: GCP-Projekt-Billing gesperrt. In beiden Fällen hilft `GEMINI_API_KEY_FALLBACK` (siehe Fallstrick #9). |
 | `GEMINI_API_KEY_FALLBACK` | Render Env, GitHub Repo-Secrets | nein | Zweiter Key auf anderem GCP-Projekt (eigenes Billing). Der shared `embeddingClient` rotiert automatisch darauf, wenn der Primärkey billing/auth-blockiert ist. SELBES Modell → vektorkompatibel. Auch Komma-Liste via `GEMINI_API_KEYS` möglich. |
 | `GITHUB_TOKEN` (PAT mit `repo` scope) | Render Env | ja für Live-Append | Server-Logs: `[resonanzLog] skipped (no token)`. KI-Outputs landen nicht im Korpus. Heartbeat auf `/admin/health` zeigt `githubTokenPresent: false`. |
 | `ANTHROPIC_API_KEY` | Render Env | ja | 500-Fehler bei jeder KI-Anfrage |
@@ -220,6 +220,36 @@ Invoke-RestMethod -Uri ".../api/admin/pre-score" -Method Post `
 über die Gemini-API (eine Rechnung). Claude bleibt per `*_BACKEND=claude` als
 Fallback. Diagnose-Call zeigt jetzt Gemini-Fehler (`[callGemini] failed …`).
 (Historie: 2026-06-22 war das Anthropic-Guthaben leer → Auslöser der Umstellung.)
+
+
+### 9. „Validate-Korpus rot: 0 erfolgreiche Embedding-Calls" / `/api/health` → `billing_block`
+
+**Ursache unterscheiden** (HTTP-Status in den `[fetchEmbedding]`-Zeilen im Step-Log):
+- **`402 Payment Required`**, `RESOURCE_EXHAUSTED`, „Your prepayment credits are
+  depleted“ → **Gemini-Prepaid-Guthaben leer.** In AI Studio
+  (https://ai.studio/projects) aufladen. Trifft CI **und** Live-App (Render nutzt
+  denselben Key): Leser-KI (Fragen, Enkidu, Weiterdenken) fällt gleichzeitig aus.
+  (Aufgetreten 2026-11-06.)
+- **`403` dunning/PERMISSION_DENIED** → GCP-Billing gesperrt, Billing begleichen.
+- **`429`** ohne Prepaid-Hinweis → normales Rate-Limit (wird am selben Key wiederholt).
+
+`classifyError` (`server/lib/embeddingClient.ts`) stuft 402 und 429-mit-Prepaid-
+Hinweis als `billing` ein: **kein Retry am selben Key, sofort Wechsel auf
+`GEMINI_API_KEY_FALLBACK`** — gilt für Embeddings, `geminiText` und
+`geminiStream` (alle nutzen denselben Klassifizierer). Bis 2026-11-06 lief 402
+als „transient“ durch: sinnlose Backoff-Retries und **kein** Failover.
+
+**Embedding-Reuse (spart Guthaben):**
+- `build-search-index.ts` (Begriffe + Philosophen) übernimmt Vektoren, wenn
+  Modell + `hashes[id]` (sha256 über Modell + Embed-Text) passen
+  (`scripts/lib/embeddingReuse.ts`). Ohne Textänderung: **0 Gemini-Calls**, Datei
+  wird nicht neu geschrieben. Altdateien ohne `hashes` werden einmalig per ID +
+  Modell übernommen. `SEARCH_INDEX_FORCE=1` erzwingt komplettes Neu-Einbetten.
+- `build-werk-chunks.ts` übernimmt per Chunk-ID (= sha1 des Chunk-Texts), `build-resonanzen-index.ts`
+  per Eintrags-ID (Resonanz-Texte sind unveränderlich). Beide prüfen das Modell
+  nicht → nach Modellwechsel Embedding-Dateien bewusst neu bauen.
+- Ein roter Search-Index-Step blockiert den Resonanz-Index (Steps laufen
+  nacheinander) — Reuse verhindert das, solange sich keine Begriffe ändern.
 
 ---
 

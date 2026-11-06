@@ -11,7 +11,7 @@
  */
 import type { Response } from "express";
 import { geminiAuthHeaders, geminiStreamUrl, redactSecrets } from "./geminiHttp.js";
-import { classifyError } from "./embeddingClient.js";
+import { classifyError, type EmbedErrorClass } from "./embeddingClient.js";
 import { generateFlashContent, spliceContinuation } from "./geminiText.js";
 
 interface StreamOpts {
@@ -50,6 +50,7 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
   const url = opts.model ? geminiStreamUrl(opts.model) : geminiStreamUrl();
   let upstream: Awaited<ReturnType<typeof fetch>> | null = null;
   let lastStatus = 0;
+  let lastCls: EmbedErrorClass | null = null;
   for (let i = 0; i < keys.length; i++) {
     try {
       const r = await fetch(url, { method: "POST", headers: geminiAuthHeaders(keys[i]), body });
@@ -57,6 +58,7 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
       lastStatus = r.status;
       const errText = await r.text().catch(() => "");
       const cls = classifyError(r.status, errText);
+      lastCls = cls;
       if (cls === "billing" || cls === "quota" || cls === "auth") continue; // nächster Key
       break; // andere Fehler (400 etc.) → nicht durch Rotation lösbar
     } catch { /* Netzwerkfehler — nächsten Key versuchen */ }
@@ -75,7 +77,8 @@ export async function streamGeminiSSE(res: Response, opts: StreamOpts): Promise<
 
   if (!upstream || !upstream.body) {
     sseSend(res, {
-      error: lastStatus === 429 ? "Zu viele Anfragen — bitte kurz warten."
+      error: lastCls === "billing" ? "KI-Kontingent derzeit aufgebraucht — bitte später erneut versuchen."
+        : lastStatus === 429 ? "Zu viele Anfragen — bitte kurz warten."
         : keys.length === 0 ? "Gemini API nicht konfiguriert."
         : `Fehler ${lastStatus || "—"}`,
     });
