@@ -100,7 +100,7 @@ export default function MobileProjekt() {
 
       <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.2em", textTransform: "uppercase", color: C.muted, marginBottom: 9 }}>Rechtliches</div>
       <div style={{ display: "flex", flexWrap: "wrap", gap: 7, marginBottom: 20 }}>
-        {[["Impressum", "/impressum"], ["Kontakt", "/kontakt"], ["Nutzungsbedingungen", "/nutzungsbedingungen"], ["Lizenz", "/lizenz"]].map(([label, href]) => (
+        {[["Impressum", "/impressum"], ["Datenschutz", "/datenschutz"], ["Kontakt", "/kontakt"], ["Nutzungsbedingungen", "/nutzungsbedingungen"], ["Lizenz", "/lizenz"]].map(([label, href]) => (
           <button key={href} type="button" onClick={() => navigate(href)}
             style={{ minHeight: 36, display: "inline-flex", alignItems: "center", padding: "0 11px", border: `1px solid ${C.border}`, borderRadius: RADIUS.button, background: "none", fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.1em", color: C.textDim, cursor: "pointer" }}
           >{label}</button>
