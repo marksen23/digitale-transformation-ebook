@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as RechartsPrimitive from "recharts";
+import type { TooltipValueType } from "recharts";
 
 import { cn } from "@/lib/utils";
 
@@ -102,6 +103,8 @@ ${colorConfig
 
 const ChartTooltip = RechartsPrimitive.Tooltip;
 
+type TooltipNameType = number | string;
+
 function ChartTooltipContent({
   active,
   payload,
@@ -123,7 +126,13 @@ function ChartTooltipContent({
     indicator?: "line" | "dot" | "dashed";
     nameKey?: string;
     labelKey?: string;
-  }) {
+  } & Omit<
+    RechartsPrimitive.DefaultTooltipContentProps<
+      TooltipValueType,
+      TooltipNameType
+    >,
+    "accessibilityLayer"
+  >) {
   const { config } = useChart();
 
   const tooltipLabel = React.useMemo(() => {
@@ -186,7 +195,12 @@ function ChartTooltipContent({
 
             return (
               <div
-                key={item.dataKey}
+                key={
+                  typeof item.dataKey === "string" ||
+                  typeof item.dataKey === "number"
+                    ? item.dataKey
+                    : index
+                }
                 className={cn(
                   "[&>svg]:text-muted-foreground flex w-full flex-wrap items-stretch gap-2 [&>svg]:h-2.5 [&>svg]:w-2.5",
                   indicator === "dot" && "items-center"
@@ -256,11 +270,13 @@ function ChartLegendContent({
   payload,
   verticalAlign = "bottom",
   nameKey,
-}: React.ComponentProps<"div"> &
-  Pick<RechartsPrimitive.LegendProps, "payload" | "verticalAlign"> & {
-    hideIcon?: boolean;
-    nameKey?: string;
-  }) {
+}: React.ComponentProps<"div"> & {
+  hideIcon?: boolean;
+  nameKey?: string;
+} & Pick<
+  RechartsPrimitive.DefaultLegendContentProps,
+  "payload" | "verticalAlign"
+>) {
   const { config } = useChart();
 
   if (!payload?.length) {
