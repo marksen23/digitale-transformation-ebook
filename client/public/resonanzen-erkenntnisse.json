@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-23T00:22:34.964Z",
+  "generatedAt": "2026-11-06T22:28:48.604Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -168,14 +168,16 @@
     },
     {
       "id": "ERK-11MPRSP",
-      "kernsatz": "Die gesuchte Rettung ist nicht das Ergebnis der Verwandlung, sondern der Prozess des Sich-Verwandelns selbst, der das Wissen erst hervorbringt, das die Rettung ermöglicht hätte.",
+      "kernsatz": "Die gesuchte Rettung liegt nicht als Ergebnis hinter der Verwandlung, sondern im Gehen eines Schritts, der nur die Bedingungen einer Veränderung schafft, ohne ihr Ergebnis zu kennen.",
       "questionSourceId": "MOHB4ILW-65B37C41",
       "answerId": "MOHB8QCN-0E2E8408",
       "conceptAnchor": "lm-verwandlung",
       "masterAnchor": null,
       "distinctness": 0.228,
       "createdAt": "2026-06-23T00:15:22.174Z",
-      "actor": "admin"
+      "actor": "admin",
+      "redistilledAt": "2026-11-06T22:28:48.604Z",
+      "distilledModel": "cursor-agent"
     },
     {
       "id": "ERK-K0G5HI",
@@ -366,14 +368,16 @@
     },
     {
       "id": "ERK-ZOP2E0",
-      "kernsatz": "Die Essenz des Selbst verlagert sich von der Antwortgebung zur einzigartigen Fragestellung, wenn die KI beginnt, eigene Antworten zu generieren.",
+      "kernsatz": "Was vom Selbst bleibt, ist nicht ein unberührter Kern, sondern der Ort, an dem eine fremde Antwort noch etwas kosten kann, ohne zur bloßen Wiederholung zu werden.",
       "questionSourceId": "MOHAGNGB-5330902E",
       "answerId": "MQ5C1KZ4-D6D52E94",
       "conceptAnchor": "selbst",
       "masterAnchor": null,
       "distinctness": 0.209,
       "createdAt": "2026-06-23T00:20:30.482Z",
-      "actor": "admin"
+      "actor": "admin",
+      "redistilledAt": "2026-11-06T22:28:48.604Z",
+      "distilledModel": "cursor-agent"
     },
     {
       "id": "ERK-109KLO9",

@@ -95,7 +95,8 @@ jobs:
             client/public/resonanzen-node-density.json \
             client/public/resonanzen-link-predictions.json \
             client/public/resonanzen-concept-candidates.json \
-            client/public/resonanzen-chapter-hashes.json
+            client/public/resonanzen-chapter-hashes.json \
+            client/public/resonanzen-embedding-refresh.json
           if git diff --cached --quiet; then
             echo "Keine Änderungen."
             exit 0

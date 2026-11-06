@@ -1418,6 +1418,26 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
   }
   if (pruned > 0) console.log(`[build-resonanzen-index] pruned ${pruned} orphaned embeddings (entries no longer in corpus)`);
 
+  // Texte einzelner Einträge können sich ändern (Master-Neuerzeugung).
+  // resonanzen-embedding-refresh.json listet die IDs, deren gespeicherter
+  // Vektor nicht mehr zum Text passt. Ohne die Liste bleibt Reuse id-basiert.
+  const REFRESH_FILE = path.join(ROOT, "client/public/resonanzen-embedding-refresh.json");
+  let refreshIds: string[] = [];
+  try {
+    if (fs.existsSync(REFRESH_FILE)) {
+      const parsed = JSON.parse(fs.readFileSync(REFRESH_FILE, "utf-8"));
+      if (Array.isArray(parsed)) refreshIds = parsed.filter((id): id is string => typeof id === "string");
+    }
+  } catch { /* korrupte Liste — ignorieren */ }
+  let refreshed = 0;
+  for (const id of refreshIds) {
+    if (id in existing) {
+      delete existing[id];
+      refreshed++;
+    }
+  }
+  if (refreshed > 0) console.log(`[build-resonanzen-index] refresh: ${refreshed} Embeddings werden neu berechnet`);
+
   const toCompute = entries.filter(e => !(e.id in existing));
   if (toCompute.length === 0) {
     console.log("[build-resonanzen-index] all embeddings up to date");
@@ -1454,6 +1474,8 @@ async function buildEmbeddings(entries: ResonanzEntry[]): Promise<Record<string,
   }
 
   fs.writeFileSync(EMBEDDINGS_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: existing }, null, 2));
+  const pendingRefresh = refreshIds.filter(id => liveIds.has(id) && !(id in existing));
+  if (refreshIds.length > 0) fs.writeFileSync(REFRESH_FILE, JSON.stringify(pendingRefresh, null, 2) + "\n");
   console.log(`[build-resonanzen-index] wrote ${success} new embeddings (${failed} failed) to ${EMBEDDINGS_OUTPUT}`);
 
   // Loud-Fail wenn KEY gesetzt war aber NICHTS funktioniert hat — aber NUR
