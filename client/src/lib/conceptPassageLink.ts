@@ -7,7 +7,7 @@
  * werk_passages[].id (welche Werk-Stelle der Eintrag verankert).
  */
 import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
-import { loadWerkChunksLazy } from "@/lib/werkChunks";
+import { loadWerkChunkIndex } from "@/lib/werkChunks";
 
 export interface ConceptPassageLink { chapterId: string; chunkId: string }
 
@@ -30,9 +30,9 @@ async function firstChunkIdFromEntries(entries: ResonanzEntry[]): Promise<Concep
   }
   if (!chunkId) return null;
 
-  const chunks = await loadWerkChunksLazy();
-  const chunk = chunks?.chunks.find(c => c.id === chunkId);
-  return chunk ? { chapterId: chunk.chapter, chunkId: chunk.id } : null;
+  const index = await loadWerkChunkIndex();
+  const chapterId = index?.get(chunkId);
+  return chapterId ? { chapterId, chunkId } : null;
 }
 
 /** Erster im Werk verankerter Begegnungs-Eintrag für einen Begriffsnetz-Knoten,

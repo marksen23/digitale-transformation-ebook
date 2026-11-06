@@ -3,7 +3,7 @@
  * Passage-Resonanz-Hook (Tier-1-3-Roadmap, Feature A).
  *
  * Rendert ebook_structured.json kapitelweise, jeder Absatz hat eine
- * stabile chunkId (aus werk-chunks.json). Bei Text-Selektion erscheint
+ * stabile chunkId (kapitelweise vom Server, ohne Embedding-Vektoren). Bei Text-Selektion erscheint
  * ein floating Action-Button "◇ Resonanz erzeugen", der das
  * PassageResonanzModal öffnet. Klick → /api/passage-resonanz, ~10s,
  * Eintrag landet im Korpus.
@@ -28,8 +28,8 @@ import {
   FONT_SCALE_MIN, FONT_SCALE_MAX, MEASURE_MIN, MEASURE_MAX,
 } from "@/lib/readingSettings";
 import {
-  type EbookFile, type WerkChunksFile,
-  deoverlapTexts, paragraphsForChapter, loadWerkChunksLazy,
+  type EbookFile, type WerkChunk,
+  deoverlapTexts, paragraphsForChapter, loadWerkChapterChunks,
 } from "@/lib/werkChunks";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
@@ -67,7 +67,7 @@ export default function WerkPage() {
   const [desktopSearchOpen, setDesktopSearchOpen] = useState(false);
 
   const [ebook, setEbook] = useState<EbookFile | null>(null);
-  const [chunks, setChunks] = useState<WerkChunksFile | null>(null);
+  const [chunkState, setChunkState] = useState<{ id: string; chunks: WerkChunk[] } | null>(null);
   const [resonanzen, setResonanzen] = useState<ResonanzEntry[] | null>(null);
   const [selection, setSelection] = useState<CitedSelection | null>(null);
   const [expandedChunk, setExpandedChunk] = useState<string | null>(null);
@@ -79,7 +79,6 @@ export default function WerkPage() {
 
   useEffect(() => {
     fetch("/ebook_structured.json").then(r => r.json()).then(setEbook).catch(() => null);
-    loadWerkChunksLazy().then(data => data && setChunks(data));
     loadResonanzenIndexLazy().then(idx => idx && setResonanzen(idx.entries));
     // S1: Auto-Refresh nach Admin-Mutationen (z.B. Passage-Resonanz wurde
     // im selben Browser-Window erzeugt oder gelöscht).
@@ -140,13 +139,20 @@ export default function WerkPage() {
     return ebook.chapters.find(c => c.content && c.content.length >= 200) ?? null;
   }, [ebook, params?.chapter]);
 
-  // Chunks für aktuelles Kapitel mit ID-Lookup
+  // Chunks für das aktuelle Kapitel — nur dessen Text, nicht die Embeddings.
+  useEffect(() => {
+    if (!currentChapter) return;
+    let cancelled = false;
+    loadWerkChapterChunks(currentChapter.id).then(list => {
+      if (!cancelled && list) setChunkState({ id: currentChapter.id, chunks: list });
+    });
+    return () => { cancelled = true; };
+  }, [currentChapter?.id]);
+
   const chapterChunks = useMemo(() => {
-    if (!currentChapter || !chunks) return [];
-    return chunks.chunks
-      .filter(c => c.chapter === currentChapter.id)
-      .sort((a, b) => a.position - b.position);
-  }, [currentChapter, chunks]);
+    if (!currentChapter || chunkState?.id !== currentChapter.id) return [];
+    return [...chunkState.chunks].sort((a, b) => a.position - b.position);
+  }, [currentChapter, chunkState]);
 
   // BUGFIX (Lesequalität): werk-chunks.json nutzt ein Sliding-Window mit
   // 1-Satz-Overlap (gut für RAG-Recall). Beim VERBATIM-Rendern als Lese-Absätze

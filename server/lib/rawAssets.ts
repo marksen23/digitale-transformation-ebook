@@ -5,15 +5,18 @@
  * Hintergrund: Render redeployt nicht bei Daten-Commits (buildFilters ignorieren
  * client/**), die statischen JSONs sind in den Deploy eingebacken → wären zwischen
  * Server-Deploys veraltet. Diese Middleware liefert die zwischen Deploys
- * wachsenden Artefakte (resonanzen-*, Embeddings, concept-edges/nodes, werk-chunks)
+ * wachsenden Artefakte (resonanzen-* außer Embedding-Blobs, concept-edges/nodes)
  * frisch aus GitHub-Raw mit kurzem TTL-Cache — dasselbe Prinzip wie werkRetrieval
  * für die RAG. So ist das Frontend immer aktuell OHNE Redeploy und OHNE Netlify.
  *
- * Serviert den ROHEN Text (kein parse/stringify) — wichtig für die ~16 MB
- * Embeddings. Bei GitHub-Raw-Ausfall → next() → express.static (eingebackene
- * Kopie als Fallback). Inflight-Dedup verhindert parallele Doppel-Fetches.
+ * Serviert den ROHEN Text (kein parse/stringify). Embedding-Dateien
+ * (werk-chunks, resonanzen-/frage-/begriffs-/philosophen-embeddings) sind
+ * ausgenommen: die liest der Server selbst, der Browser bekommt sie nicht.
+ * Bei GitHub-Raw-Ausfall → next() → express.static (eingebackene Kopie als
+ * Fallback). Inflight-Dedup verhindert parallele Doppel-Fetches.
  */
 import type { Request, Response, NextFunction } from "express";
+import { isHeavyPublicJson } from "../../shared/heavyAssets.js";
 
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER ?? "marksen23";
 const REPO_NAME = process.env.GITHUB_REPO_NAME ?? "digitale-transformation-ebook";
@@ -24,13 +27,11 @@ const RAW_BASE = `https://raw.githubusercontent.com/${REPO_OWNER}/${REPO_NAME}/$
 // ebook_structured.json / bands_pages.json bleiben baked (ändern sich nur bei
 // Code/Content-Deploy, der ohnehin rebuildet).
 const STABLE_LIVE = new Set([
-  "concepts-embeddings.json",
-  "philosophers-embeddings.json",
   "concept-edges.json",
   "concept-nodes.json",
-  "werk-chunks.json",
 ]);
 function isLiveAsset(name: string): boolean {
+  if (isHeavyPublicJson(name)) return false;
   return /^resonanzen-[a-z0-9-]+\.json$/.test(name) || STABLE_LIVE.has(name);
 }
 function ttlFor(name: string): number {

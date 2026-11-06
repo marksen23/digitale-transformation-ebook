@@ -7,11 +7,11 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import {
-  loadResonanzenIndex, loadEmbeddings,
+  loadResonanzenIndex,
   ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzIndex,
 } from "@/lib/resonanzenIndex";
-import { analyzeClusters, type ClusterAnalysis } from "@/lib/clusterAnalysis";
+import type { ClusterAnalysis } from "@/lib/clusterAnalysis";
 import Skeleton from "@/components/Skeleton";
 import {
   Section, Stat, MiniTagCloud, TimeSeries, computeStats, useAdminTheme, MONO, SERIF,
@@ -27,31 +27,22 @@ export default function AdminMetricsPage() {
     loadResonanzenIndex().then(setIndex).catch(() => null);
   }, []);
 
-  // Cluster-Berechnung in idle-time, sobald Index geladen ist
+  // Cluster rechnet der Server. Der Browser bekommt nur die Zusammenfassung.
   useEffect(() => {
-    if (!index) return;
+    let cancelled = false;
     setClusterState("computing");
-    const run = () => {
-      loadEmbeddings().then(emb => {
-        if (!emb || Object.keys(emb.embeddings).length === 0) {
-          setClusterState("no-embeddings");
-          return;
-        }
-        const result = analyzeClusters(index.entries, emb.embeddings);
-        if (!result) {
-          setClusterState("too-few");
-          return;
-        }
-        setClusters(result);
+    fetch("/api/corpus/clusters")
+      .then(r => r.ok ? r.json() as Promise<{ status?: string; analysis?: ClusterAnalysis }> : null)
+      .then(data => {
+        if (cancelled) return;
+        if (!data || data.status === "no-embeddings") { setClusterState("no-embeddings"); return; }
+        if (data.status !== "ready" || !data.analysis) { setClusterState("too-few"); return; }
+        setClusters(data.analysis);
         setClusterState("ready");
-      }).catch(() => setClusterState("no-embeddings"));
-    };
-    // requestIdleCallback wo verfügbar, sonst setTimeout
-    type IdleAPI = (cb: () => void, opts?: { timeout: number }) => number;
-    const ric = (window as unknown as { requestIdleCallback?: IdleAPI }).requestIdleCallback;
-    if (typeof ric === "function") ric(run, { timeout: 2000 });
-    else setTimeout(run, 50);
-  }, [index]);
+      })
+      .catch(() => { if (!cancelled) setClusterState("no-embeddings"); });
+    return () => { cancelled = true; };
+  }, []);
 
   const stats = useMemo(() => index ? computeStats(index.entries) : null, [index]);
 

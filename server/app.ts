@@ -9,11 +9,14 @@ import express from "express";
 import { createServer, type Server } from "http";
 import path from "path";
 import type { Express } from "express";
+import { blockHeavyAssets } from "./lib/blockHeavyAssets.js";
+import { compressResponses } from "./lib/compressResponses.js";
 import { createEbookLoader } from "./lib/ebookContent.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { canonicalHostRedirect } from "./lib/seo.js";
 import { securityHeaders, staticCacheControl } from "./lib/securityHeaders.js";
 import { createAdminRouter } from "./routes/admin.js";
+import { createCorpusReadRouter } from "./routes/corpusRead.js";
 import { createAnalyseRouter } from "./routes/analyse.js";
 import { createAskRouter } from "./routes/ask.js";
 import { createDialogRouter } from "./routes/dialog.js";
@@ -43,6 +46,11 @@ export function createApp(serverDir: string): { app: Express; server: Server } {
   // de-Domain. ENV-gated (CANONICAL_REDIRECT=1) — inert bis zum DNS-Flip, danach
   // bündelt es alle SEO-Signale auf eine Domain. Muss ganz vorne stehen.
   app.use(canonicalHostRedirect);
+
+  // Brotli/gzip für Text. Embedding-Blobs (werk-chunks, *-embeddings) bleiben
+  // serverseitig — der Browser bekommt sie weder über Raw noch über static.
+  app.use(compressResponses);
+  app.use(blockHeavyAssets);
 
   // Serve static files from dist/public in production
   const staticPath =
@@ -78,6 +86,9 @@ export function createApp(serverDir: string): { app: Express; server: Server } {
   app.use(createAdminRouter());
   app.use(createEmbedRouter());
   app.use(createPdfRouter(staticPath));
+  // Kapiteltext und Ähnlichkeitssuche: kleine Antworten, Vektoren bleiben hier.
+  // Vor dem SEO-Catch-all, sonst schluckt GET * die neuen Pfade.
+  app.use(createCorpusReadRouter());
   app.use(createSeoRouter(staticPath));
 
   return { app, server };
