@@ -19,7 +19,7 @@ jobs:
     steps:
       # Action-SHAs gepinnt (Repo-Policy: keine Tag-Refs erlaubt)
       - name: Checkout
-        uses: actions/checkout@93cb6efe18208431cddfb8368fd83d5badbf9bfd  # v5
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v5
         with:
           fetch-depth: 1
           # Auf demselben Branch committen, von dem der Workflow lief
@@ -28,13 +28,13 @@ jobs:
       # pnpm MUSS vor setup-node@v5 stehen — v5 liest packageManager aus
       # package.json und erwartet pnpm-Binär bereits im PATH.
       - name: Setup pnpm
-        uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6.0.9
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
         with:
           run_install: false
           # Version kommt aus package.json packageManager-Feld
 
       - name: Setup Node
-        uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444  # v5
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
         with:
           node-version: '24'
 
