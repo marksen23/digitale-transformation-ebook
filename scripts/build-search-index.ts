@@ -6,13 +6,19 @@
  *   client/public/philosophers-embeddings.json (PHILOSOPHERS aus philosophyMap.ts)
  *
  * Format pro Datei:
- *   { generatedAt, model, embeddings: { [id: string]: number[] } }
+ *   { generatedAt, model, embeddings: { [id: string]: number[] }, hashes: { [id: string]: string } }
+ *
+ * Reuse (scripts/lib/embeddingReuse.ts): Ein Vektor wird übernommen, wenn
+ * Modell und Hash(Text + Modell) passen. Nur neue/geänderte Texte kosten
+ * Gemini-Calls; ohne Änderungen wird die Datei gar nicht geschrieben.
+ * SEARCH_INDEX_FORCE=1 erzwingt eine komplette Neu-Einbettung.
  *
  * Voraussetzung: GEMINI_API_KEY in env. Run via:
  *   pnpm tsx scripts/build-search-index.ts
  *
  * Wird in der CI (validate-corpus.yml) nach build-resonanzen-index aufgerufen.
- * Skip wenn kein Key — fail-soft, damit lokale Builds ohne Key durchlaufen.
+ * Ohne Key: reiner Reuse läuft durch; gibt es Neues einzubetten, wird die
+ * Datei übersprungen (fail-soft, damit lokale Builds ohne Key durchlaufen).
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -20,6 +26,7 @@ import { fileURLToPath } from "node:url";
 import { NODES } from "../client/src/data/conceptGraph.js";
 import { philosophersByBirth, getTradition } from "../client/src/data/philosophyMap.js";
 import { fetchEmbedding as sharedFetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
+import { buildEmbeddingSet, planReuse, type EmbedItem, type EmbeddingFile } from "./lib/embeddingReuse.js";
 
 // M2: Build-Zeit unkritisch → höhere Retry-Toleranz als der Server.
 const fetchEmbedding = (text: string) => sharedFetchEmbedding(text, { maxRetries: 3 });
@@ -29,47 +36,57 @@ const __dirname = path.dirname(__filename);
 const ROOT = path.resolve(__dirname, "..");
 const CONCEPTS_OUT = path.join(ROOT, "client/public/concepts-embeddings.json");
 const PHILOSOPHERS_OUT = path.join(ROOT, "client/public/philosophers-embeddings.json");
-const MODEL = process.env.GEMINI_EMBED_MODEL ?? "gemini-embedding-001";
+// Gleiche Normalisierung wie embeddingClient.ts (leerer String → Default).
+const MODEL = (process.env.GEMINI_EMBED_MODEL ?? "").trim() || "gemini-embedding-001";
 
-async function embedAll(
-  items: Array<{ id: string; text: string }>,
-  label: string,
-): Promise<Record<string, number[]>> {
-  const out: Record<string, number[]> = {};
-  let okCount = 0;
-  let failCount = 0;
-  for (const item of items) {
-    const vec = await fetchEmbedding(item.text);
-    if (vec) {
-      out[item.id] = vec;
-      okCount++;
-    } else {
-      failCount++;
-    }
+const FORCE = (process.env.SEARCH_INDEX_FORCE ?? "").trim() === "1";
+
+function readExisting(file: string): EmbeddingFile | null {
+  if (!fs.existsSync(file)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf-8")) as EmbeddingFile;
+  } catch {
+    console.warn(`[build-search-index] ${path.basename(file)} nicht lesbar — bette alles neu ein`);
+    return null;
+  }
+}
+
+/**
+ * Bettet nur neue oder geänderte Texte ein (Hash über Text + Modell) und
+ * schreibt die Datei nur, wenn sich ihr Inhalt ändert. Ohne Änderungen:
+ * kein Gemini-Call, kein Schreiben.
+ */
+async function buildFile(label: string, items: EmbedItem[], outFile: string): Promise<void> {
+  const existing = readExisting(outFile);
+  const res = await buildEmbeddingSet({
+    label,
+    items,
+    existing,
+    model: MODEL,
+    embed: fetchEmbedding,
+    force: FORCE,
     // sanfte Drossel — Gemini Free-Tier hat ~60 RPM
-    await new Promise(r => setTimeout(r, 150));
+    throttleMs: 150,
+  });
+  const why =
+    res.reason === "forced" ? " (SEARCH_INDEX_FORCE=1)"
+    : res.reason === "model-mismatch" ? ` (Modell gewechselt: ${existing?.model ?? "?"} → ${MODEL})`
+    : res.reason === "no-file" ? " (keine bestehende Datei)"
+    : res.legacy ? " (Altbestand ohne Hashes: einmalig per ID übernommen)"
+    : "";
+  console.log(
+    `[build-search-index] ${label}: ${items.length} Einträge — ${res.reused} wiederverwendet, ` +
+    `${res.added} neu, ${res.failed} fehlgeschlagen${why}`,
+  );
+  if (!res.file) {
+    console.log(`[build-search-index] ${path.basename(outFile)} unverändert — nicht geschrieben`);
+    return;
   }
-  console.log(`[build-search-index] ${label}: ${okCount} ok · ${failCount} failed`);
-  // Fail-fast wie build-resonanzen-index: 0 Erfolge bei nicht-leerem Input
-  // bedeutet API down (Key tot, Quota erschöpft, Billing-Block). Wir werfen,
-  // damit der Workflow rot wird und KEINE leere Datei eine gute überschreibt.
-  if (items.length > 0 && okCount === 0) {
-    throw new Error(
-      `[build-search-index] FATAL: 0 erfolgreiche Embedding-Calls bei ${items.length} Versuchen (${label}). ` +
-      `Wahrscheinliche Ursachen: ungültiger/zahlungsgesperrter GEMINI_API_KEY (403 PERMISSION_DENIED / dunning), ` +
-      `erschöpfte Quota, oder Modell-Endpoint entfernt. Siehe Fetch-Fehler oben.`
-    );
-  }
-  return out;
+  fs.writeFileSync(outFile, JSON.stringify(res.file, null, 2));
+  console.log(`[build-search-index] wrote ${outFile}`);
 }
 
 async function main(): Promise<void> {
-  // M2: getKeys() statt GEMINI_API_KEY direkt — läuft auch bei Fallback-only-Config.
-  if (getKeys().length === 0) {
-    console.warn("[build-search-index] kein Embedding-Key (GEMINI_API_KEY[S]/FALLBACK) — Skip.");
-    process.exit(0);
-  }
-
   // Concepts: fullLabel + description als Embed-Text. fullLabel kommt zuerst,
   // damit es im Vektor stärker gewichtet ist als die längere Beschreibung.
   const conceptItems = NODES
@@ -95,14 +112,18 @@ async function main(): Promise<void> {
   } catch (err) {
     console.warn(`[build-search-index] concept-nodes.json nicht ladbar: ${err instanceof Error ? err.message : err}`);
   }
-  console.log(`[build-search-index] concepts: ${conceptItems.length} zu embedden`);
-  const conceptEmbeddings = await embedAll(conceptItems, "concepts");
-  fs.writeFileSync(CONCEPTS_OUT, JSON.stringify({
-    generatedAt: new Date().toISOString(),
-    model: MODEL,
-    embeddings: conceptEmbeddings,
-  }, null, 2));
-  console.log(`[build-search-index] wrote ${CONCEPTS_OUT}`);
+  // M2: getKeys() statt GEMINI_API_KEY direkt — läuft auch bei Fallback-only-Config.
+  // Ohne Key nur weitermachen, wenn nichts neu einzubetten ist (reiner Reuse).
+  const hasKeys = getKeys().length > 0;
+  const embedOrSkip = async (label: string, items: EmbedItem[], outFile: string) => {
+    if (!hasKeys && planReuse(items, readExisting(outFile), MODEL, { force: FORCE }).toEmbed.length > 0) {
+      console.warn(`[build-search-index] kein Embedding-Key (GEMINI_API_KEY[S]/FALLBACK) — ${label} übersprungen.`);
+      return;
+    }
+    await buildFile(label, items, outFile);
+  };
+
+  await embedOrSkip("concepts", conceptItems, CONCEPTS_OUT);
 
   // Philosophers: Name + Tradition + Werke + resonanzNote als Embed-Text.
   const philosophers = philosophersByBirth();
@@ -112,14 +133,7 @@ async function main(): Promise<void> {
     const text = `${p.name} (${tradLabel}). ${p.resonanzNote ?? ""} Werke: ${works}.`;
     return { id: p.id, text };
   });
-  console.log(`[build-search-index] philosophers: ${philItems.length} zu embedden`);
-  const philEmbeddings = await embedAll(philItems, "philosophers");
-  fs.writeFileSync(PHILOSOPHERS_OUT, JSON.stringify({
-    generatedAt: new Date().toISOString(),
-    model: MODEL,
-    embeddings: philEmbeddings,
-  }, null, 2));
-  console.log(`[build-search-index] wrote ${PHILOSOPHERS_OUT}`);
+  await embedOrSkip("philosophers", philItems, PHILOSOPHERS_OUT);
 
   console.log("[build-search-index] DONE");
 }
