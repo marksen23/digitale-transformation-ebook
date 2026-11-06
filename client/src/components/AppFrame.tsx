@@ -430,6 +430,7 @@ export default function AppFrame({ children }: { children: React.ReactNode }) {
           {[
             { label: "Status", href: "/status" },
             { label: "Impressum", href: "/impressum" },
+            { label: "Datenschutz", href: "/datenschutz" },
             { label: "Kontakt", href: "/kontakt" },
             { label: "Nutzungsbedingungen", href: "/nutzungsbedingungen" },
             { label: "Lizenz", href: "/lizenz" },

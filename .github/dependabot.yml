@@ -1,0 +1,28 @@
+# Dependabot: wöchentliche Updates, ohne eine PR-Flut.
+# npm erkennt pnpm am pnpm-lock.yaml. Minor- und Patch-Updates aller
+# Pakete landen in EINER gruppierten PR; Major-Updates bleiben einzeln
+# und teilen sich das Limit mit der Gruppe.
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        patterns:
+          - "*"
+        update-types:
+          - minor
+          - patch
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      actions:
+        patterns:
+          - "*"

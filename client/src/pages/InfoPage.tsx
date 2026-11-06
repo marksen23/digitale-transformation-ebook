@@ -1,16 +1,17 @@
 /**
  * InfoPage — statische Info-/Rechtsseiten (Projektbeschreibung, Impressum,
- * Kontakt). Eigener position:fixed-Scroll-Container (App-Scroll-Modell, s.
- * SiteFooter) + Footer am Ende.
+ * Kontakt, Datenschutz). Eigener position:fixed-Scroll-Container (App-Scroll-
+ * Modell, s. SiteFooter) + Footer am Ende.
  *
- * Projektbeschreibung ist echter Inhalt; Impressum + Kontakt sind bewusst
- * PLATZHALTER (rechtlich relevante Angaben füllt der Betreiber selbst).
+ * Projektbeschreibung ist echter Inhalt; Impressum, Kontakt und die
+ * Verantwortlichen-Angaben im Datenschutz sind bewusst PLATZHALTER
+ * (rechtlich relevante Angaben füllt der Betreiber selbst).
  */
 import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, DISPLAY, MAX_WIDTH, MONO, SERIF, SERIF_BODY, type Palette, RADIUS } from "@/lib/theme";
 import SiteFooter from "@/components/SiteFooter";
 
-type InfoKind = "projekt" | "impressum" | "kontakt" | "nutzung" | "lizenz";
+type InfoKind = "projekt" | "impressum" | "kontakt" | "nutzung" | "lizenz" | "datenschutz";
 
 const TITLES: Record<InfoKind, string> = {
   projekt: "Projektbeschreibung",
@@ -18,6 +19,7 @@ const TITLES: Record<InfoKind, string> = {
   kontakt: "Kontakt",
   nutzung: "Nutzungsbedingungen",
   lizenz: "Lizenz",
+  datenschutz: "Datenschutz",
 };
 
 function Placeholder({ c, lines }: { c: Palette; lines: string[] }) {
@@ -120,8 +122,9 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
             <p style={{ ...para, color: c.muted, fontSize: "0.9rem" }}>
               Hinweis: Über die Reader-Funktionen (Kapitel-Frage, Begriffsnetz-Dialog, Enkidu)
               erzeugte Eingaben können — ggf. anonymisiert — in den öffentlichen Korpus aufgenommen
-              werden. Details in der <a href="/lizenz" style={a}>Lizenz</a> und den{" "}
-              <a href="/nutzungsbedingungen" style={a}>Nutzungsbedingungen</a>.
+              werden. Details in der <a href="/lizenz" style={a}>Lizenz</a>, den{" "}
+              <a href="/nutzungsbedingungen" style={a}>Nutzungsbedingungen</a> und der{" "}
+              <a href="/datenschutz" style={a}>Datenschutzerklärung</a>.
             </p>
           </>
         )}
@@ -192,6 +195,73 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
               Diese Bedingungen können angepasst werden; maßgeblich ist die jeweils hier
               veröffentlichte Fassung. Es gilt deutsches Recht. Sollten einzelne Bestimmungen
               unwirksam sein, bleibt der übrige Text wirksam.
+            </p>
+          </>
+        )}
+
+        {kind === "datenschutz" && (
+          <>
+            <div style={note}>
+              ◇ Entwurf / Vorlage — sachliche Beschreibung der tatsächlichen Verarbeitung,
+              keine Rechtsberatung. Anschrift und Kontakt trägt der Betreiber ein; vor dem
+              produktiven Einsatz bitte prüfen lassen.
+            </div>
+            <p style={para}>
+              Diese Erklärung gilt für die Web-Anwendung „Resonanzvernunft — Die Digitale
+              Transformation". Es gibt kein Nutzerkonto. Was du liest und markierst, bleibt
+              in diesem Browser, soweit unten nichts anderes steht.
+            </p>
+
+            <H2>Verantwortlicher</H2>
+            <Placeholder c={c} lines={[
+              "Verantwortlich im Sinne der DSGVO:",
+              "",
+              "Name:     Markus Oehring",
+              "Anschrift: — Straße, PLZ Ort —",
+              "E-Mail:   — kontakt@… —",
+            ]} />
+
+            <H2>Aufruf der Seiten</H2>
+            <p style={para}>
+              Der Server (Render) nimmt die Verbindung entgegen. Die IP-Adresse dient der
+              technischen Auslieferung und einer Ratenbegrenzung der KI-Endpunkte. Diese
+              Zähler liegen nur im Arbeitsspeicher des Prozesses und werden mit dem
+              Zeitfenster verworfen — es entsteht daraus kein Profil.
+            </p>
+
+            <H2>Speicherung in deinem Browser</H2>
+            <p style={para}>
+              Lesestand, Darstellung, Suchhistorie, die Lese-Trajektorie unter{" "}
+              <a href="/mein-werk" style={a}>Mein Werk</a>, Weiterdenken-Fäden und eigene
+              Notizen am Begriffsnetz liegen im lokalen Speicher dieses Browsers. Das Angebot
+              setzt dafür keine Cookies. Zurücksetzen und Export gibt es auf „Mein Werk".
+            </p>
+
+            <H2>KI-Funktionen und öffentlicher Korpus</H2>
+            <p style={para}>
+              Was du in Kapitel-Frage, Übersetzung, Begriffsnetz oder Enkidu eingibst, wird
+              zur Erzeugung der Antwort an den KI-Dienst übermittelt. Eingabe und Antwort
+              können nach Kuratierung in den öffentlichen Korpus aufgenommen werden und sind
+              dann unter einer Resonanz-Adresse abrufbar. Gib dort keine personenbezogenen
+              oder vertraulichen Daten ein. Näheres in den{" "}
+              <a href="/nutzungsbedingungen" style={a}>Nutzungsbedingungen</a>.
+            </p>
+
+            <H2>Schriften und optionale Reichweitenmessung</H2>
+            <p style={para}>
+              Schriften werden von Google Fonts und cdnfonts geladen; dabei sieht der jeweilige
+              Anbieter die üblichen Verbindungsdaten. Eine Reichweitenmessung (Umami) ist nur
+              aktiv, wenn der Betreiber sie eingerichtet hat. Dann lädt der Browser ein Skript
+              von diesem Host und übermittelt Seitenaufrufe ohne Tracking-Cookie. Ohne diese
+              Einrichtung findet kein solcher Abruf statt.
+            </p>
+
+            <H2>Deine Rechte</H2>
+            <p style={para}>
+              Du hast die Rechte auf Auskunft, Berichtigung, Löschung, Einschränkung und
+              Datenübertragbarkeit sowie ein Beschwerderecht bei einer Aufsichtsbehörde,
+              soweit die DSGVO sie dir einräumt. Wende dich dazu an die oben genannte Stelle.
+              Daten, die nur in deinem Browser liegen, löschst du dort selbst.
             </p>
           </>
         )}

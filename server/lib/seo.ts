@@ -128,11 +128,51 @@ const ROUTE_META: Record<string, Meta> = {
   },
   "/lizenz": { title: `Lizenz — ${WORK_TITLE}`, description: "Lizenz und Nutzungsrechte." },
   "/status": { title: `Status — ${WORK_TITLE}`, description: "Betriebs- und Korpus-Status." },
+  "/erkunden": {
+    title: `Erkunden — Ein Begriffsraum, drei Linsen · ${WORK_TITLE}`,
+    description:
+      "Einstieg in Begriffsnetz, Wissens-Landkarte und Philosophie: derselbe Begriffsraum der Resonanzvernunft, aus drei Blickwinkeln.",
+  },
+  "/mein-werk": {
+    title: `Mein Werk — ${WORK_TITLE}`,
+    description:
+      "Die persönliche Lese-Trajektorie: besuchte Begriffe, Weiterdenken-Fäden und offene Fragen. Gespeichert nur in diesem Browser.",
+  },
+  "/datenschutz": {
+    title: `Datenschutz — ${WORK_TITLE}`,
+    description:
+      "Datenschutzerklärung: lokale Lesedaten im Browser, KI-Eingaben, optionale Reichweitenmessung und deine Rechte.",
+  },
+  "/404": {
+    title: `Seite nicht gefunden — ${WORK_TITLE}`,
+    description: "Diese Adresse gibt es im Werk nicht.",
+  },
 };
 
+/** Interne Flächen. Sie erben nicht die Startseiten-Beschreibung, sondern noindex. */
+const PRIVATE_PREFIXES = ["/admin", "/dev"];
+
+function stripLocale(path: string): string {
+  if (path === "/en") return "/";
+  if (path.startsWith("/en/")) {
+    const rest = path.slice(3);
+    return rest.startsWith("/") ? rest : `/${rest}`;
+  }
+  return path;
+}
+
 function routeMeta(path: string): Meta {
-  const base = path.startsWith("/en/") ? path.slice(3) : path === "/en" ? "/" : path;
-  return ROUTE_META[base] ?? ROUTE_META["/"];
+  const base = stripLocale(path);
+  if (ROUTE_META[base]) return ROUTE_META[base];
+  // Kapitel-URLs (/werk/:id) teilen Titel und Beschreibung des Lesetexts.
+  // Ohne dieses Präfix fiele jede Kapiteladresse auf die Startseite zurück.
+  if (base.startsWith("/werk/")) return ROUTE_META["/werk"];
+  return ROUTE_META["/"];
+}
+
+function isPrivatePath(path: string): boolean {
+  const base = stripLocale(path);
+  return PRIVATE_PREFIXES.some((prefix) => base === prefix || base.startsWith(`${prefix}/`));
 }
 
 function normalizePath(p: string): string {
@@ -205,8 +245,9 @@ function headTags(opts: {
   description: string;
   type?: string;
   jsonLd: object[];
+  robots?: string;
 }): string {
-  const { canonical, title, description, type = "website", jsonLd } = opts;
+  const { canonical, title, description, type = "website", jsonLd, robots } = opts;
   const lines = [
     `<link rel="canonical" href="${escapeAttr(canonical)}" />`,
     `<link rel="alternate" hreflang="de" href="${SITE_URL}/" />`,
@@ -224,6 +265,7 @@ function headTags(opts: {
     `<meta name="twitter:description" content="${escapeAttr(description)}" />`,
     `<meta name="twitter:image" content="${escapeAttr(OG_IMAGE)}" />`,
   ];
+  if (robots) lines.push(`<meta name="robots" content="${escapeAttr(robots)}" />`);
   for (const ld of jsonLd) {
     // </script> + < in JSON unschädlich machen (XSS-/Parser-Schutz im <script>-Kontext)
     const json = JSON.stringify(ld).replace(/</g, "\\u003c");
@@ -280,10 +322,19 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
   let type = "website";
   let jsonLd: object[];
   let snapshot: string;
+  let robots: string | undefined;
   const canonical = `${SITE_URL}${path === "/" ? "/" : path}`;
 
   const m = path.match(/^\/resonanz\/([A-Za-z0-9-]+)$/);
-  if (m) {
+  if (isPrivatePath(path)) {
+    meta = {
+      title: `Intern — ${WORK_TITLE}`,
+      description: "Interner Bereich. Diese Seite ist nicht zur Indexierung bestimmt.",
+    };
+    jsonLd = [];
+    snapshot = pageSnapshot(meta);
+    robots = "noindex, nofollow";
+  } else if (m) {
     const e = await findEntry(m[1]);
     if (e) {
       meta = {
@@ -310,7 +361,7 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
     snapshot = pageSnapshot(meta);
   }
 
-  const head = headTags({ canonical, title: meta.title, description: meta.description, type, jsonLd });
+  const head = headTags({ canonical, title: meta.title, description: meta.description, type, jsonLd, robots });
   return template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`)
     .replace(
@@ -358,24 +409,11 @@ export async function buildLlmsFullText(): Promise<string> {
 }
 
 // ─── Sitemap ─────────────────────────────────────────────────────────────
-const SITEMAP_STATIC = [
-  "/",
-  "/werk",
-  "/begriffsnetz",
-  "/philosophie",
-  "/resonanzen",
-  "/fragen",
-  "/erkenntnisse",
-  "/landkarte",
-  "/live",
-  "/blog",
-  "/projekt",
-  "/statistik",
-  "/impressum",
-  "/kontakt",
-  "/nutzungsbedingungen",
-  "/lizenz",
-];
+/** Nicht indexieren: die Fehlerseite hat Meta, gehört aber nicht in die Sitemap. */
+const SITEMAP_SKIP = new Set(["/404"]);
+// Abgeleitet aus ROUTE_META, damit eine neue öffentliche Route nicht wieder
+// nur in der Meta-Tabelle steht und in der Sitemap fehlt (so war /status).
+const SITEMAP_STATIC = Object.keys(ROUTE_META).filter((route) => !SITEMAP_SKIP.has(route));
 /** Dynamische sitemap.xml aus dem Live-Index (alle nicht-rejected Resonanzen). */
 export async function buildSitemap(): Promise<string> {
   const entries = await cachedIndex();

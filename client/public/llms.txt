@@ -40,4 +40,5 @@ Sprache: Deutsch. Autor: Markus Oehring. Lizenz: siehe /lizenz.
 ## Über / Rechtliches
 - [Das Projekt](https://digitale-transformation-ebook.de/projekt)
 - [Impressum](https://digitale-transformation-ebook.de/impressum)
+- [Datenschutz](https://digitale-transformation-ebook.de/datenschutz)
 - [Lizenz](https://digitale-transformation-ebook.de/lizenz)

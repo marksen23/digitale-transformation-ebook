@@ -128,6 +128,9 @@ function Router() {
       <Route path={"/lizenz"}>
         <Framed><Suspense fallback={fallback}><InfoPage kind="lizenz" /></Suspense></Framed>
       </Route>
+      <Route path={"/datenschutz"}>
+        <Framed><Suspense fallback={fallback}><InfoPage kind="datenschutz" /></Suspense></Framed>
+      </Route>
       <Route path={"/statistik"}>
         <Framed><Suspense fallback={fallback}><StatistikPage /></Suspense></Framed>
       </Route>
