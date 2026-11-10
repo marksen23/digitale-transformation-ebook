@@ -1,16 +1,32 @@
 {
-  "generatedAt": "2026-11-06T22:31:42.813Z",
-  "count": 250,
+  "generatedAt": "2026-11-10T07:50:28.076Z",
+  "count": 251,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 250,
+    "total": 251,
     "answered": 211,
-    "open": 39,
-    "embedded": 5
+    "open": 40,
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWAE3FJK-C7122206",
+      "question": "Die Existenz beider Wege zeigt die Vielschichtigkeit des Begriffsnetzes und die Möglichkeit, zu zentralen Erkenntnissen auf unterschiedlichen Routen zu gelangen. Das Werk entfaltet eine Struktur, in der Schlüsselbegriffe wie \"Unverfügbarkeit\" aus verschiedenen Perspektiven beleuchtet werden können, ohne an Kohärenz zu verlieren. Es offenbart, dass die ontologische Qualität der Unverfügbarkeit sowohl durch die Verortung im \"Zwischen\" als auch durch die Verankerung im \"Moment\" verständlich wird. Das Begriffsnetz ist somit reich an Querbeziehungen, die ein dichtes und resonantes Verständnis ermöglichen. Welche weiteren temporalen oder räumlichen Kategorien könnten noch unerwartete Pfade zur Unverfügbarkeit aufzeigen?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanz+unverfuegbarkeit",
+      "nodeIds": [
+        "moment",
+        "resonanz",
+        "unverfuegbarkeit",
+        "zwischen"
+      ],
+      "ts": "2026-11-10T07:49:41.365Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MASTER-31CE5C0B",
       "question": "Unter welchen Bedingungen gerinnt der Schock der Einsicht nicht zur Erstarrung, sondern wird zum Quellpunkt einer neu gefalteten Weltbeziehung?",
@@ -862,6 +878,10 @@
         {
           "id": "MTNBAIUZ-299AC7D8",
           "score": 0.739
+        },
+        {
+          "id": "MWAE3FJK-C7122206",
+          "score": 0.735
         }
       ],
       "answered": true
@@ -1712,7 +1732,7 @@
           "score": 0.754
         },
         {
-          "id": "MTNBAIUZ-299AC7D8",
+          "id": "MWAE3FJK-C7122206",
           "score": 0.743
         }
       ],

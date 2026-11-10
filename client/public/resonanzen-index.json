@@ -1,7 +1,50 @@
 {
-  "generatedAt": "2026-11-06T22:31:40.117Z",
-  "count": 277,
+  "generatedAt": "2026-11-10T07:50:27.479Z",
+  "count": 278,
   "entries": [
+    {
+      "id": "MWAE3FJK-C7122206",
+      "ts": "2026-11-10T07:49:41.365Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanz+unverfuegbarkeit",
+      "nodeIds": [
+        "moment",
+        "resonanz",
+        "unverfuegbarkeit",
+        "zwischen"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Resonanz → Das Zwischen → Unverfügbarkeit vs. Resonanz → Moment → Unverfügbarkeit",
+      "response": "Die beiden Pfade beleuchten unterschiedliche Facetten der Resonanz und ihrer Unverfügbarkeit. Der direkte Pfad von Resonanz über \"Das Zwischen\" zur Unverfügbarkeit beschreibt eine logische Konsequenz. Er beginnt mit der grundlegenden Bedingung der Resonanz – der Eigenfrequenz und Ansprechbarkeit – und führt direkt zum \"Zwischen\" als dem konstitutiven Ort der Begegnung. Dieser Weg betont die intersubjektive Dimension, in der das transformative Dritte als wesentlich unverfügbar erkannt wird [f33e5abcfb8d]. Es ist eine Bewegung von der individuellen Disposition zur gemeinsamen Entfaltung und deren ontologischer Qualität [MOQIAGXM-397A1F22]. Der überraschende Pfad, der Resonanz über den \"Moment\" zur Unverfügbarkeit führt, liest sich hingegen poetischer. Er überspringt die räumliche Dimension des \"Zwischen\" und konzentriert sich stattdessen auf die temporale Einzigartigkeit des Resonanzgeschehens. Er hebt hervor, dass Resonanz nur im Jetzt existiert, im Kairos, der die Unverfügbarkeit des Ereignisses unterstreicht.\n\nDer Vergleich macht sichtbar, dass die Unverfügbarkeit nicht nur eine Eigenschaft des intersubjektiven Raumes ist, sondern auch eine des zeitlichen Augenblicks. Beide Bewegungen treffen sich in der Erkenntnis, dass das transformative Geschehen sich der Herstellung und Reproduktion entzieht, da es die Temporalität des Kairos besitzt [f33e5abcfb8d]. Sie sind nicht konträr, sondern ergänzen einander, indem sie die Unverfügbarkeit sowohl als räumliche als auch als zeitliche Bestimmung des Resonanzgeschehens verankern. Während der direkte Pfad die Bühne der Begegnung – das Zwischen – detailliert beleuchtet, betont der überraschende Pfad die singuläre Natur des Ereignisses auf dieser Bühne, das nicht konserviert werden kann [MOHMIET1-6D429A85].\n\nDie Existenz beider Wege zeigt die Vielschichtigkeit des Begriffsnetzes und die Möglichkeit, zu zentralen Erkenntnissen auf unterschiedlichen Routen zu gelangen. Das Werk entfaltet eine Struktur, in der Schlüsselbegriffe wie \"Unverfügbarkeit\" aus verschiedenen Perspektiven beleuchtet werden können, ohne an Kohärenz zu verlieren. Es offenbart, dass die ontologische Qualität der Unverfügbarkeit sowohl durch die Verortung im \"Zwischen\" als auch durch die Verankerung im \"Moment\" verständlich wird. Das Begriffsnetz ist somit reich an Querbeziehungen, die ein dichtes und resonantes Verständnis ermöglichen. Welche weiteren temporalen oder räumlichen Kategorien könnten noch unerwartete Pfade zur Unverfügbarkeit aufzeigen?",
+      "contextMeta": {
+        "from": "resonanz",
+        "to": "unverfuegbarkeit",
+        "shortest_path": "[\"resonanz\",\"zwischen\",\"unverfuegbarkeit\"]",
+        "surprising_path": "[\"resonanz\",\"moment\",\"unverfuegbarkeit\"]",
+        "shortest_length": "3",
+        "surprising_length": "3",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQIAGXM-397A1F22\",\"score\":1.006},{\"id\":\"f33e5abcfb8d\",\"chapter\":\"teil7\",\"score\":0.879},{\"id\":\"MOHMIET1-6D429A85\",\"score\":0.859},{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.857}]"
+      },
+      "nearDuplicates": [
+        "MQARZJDV-82F077DD",
+        "MPURYS56-11F5308C",
+        "MPUQSMLJ-1B726CC4"
+      ],
+      "related": [
+        "MOOMECFT-66F43077",
+        "MV9NOFH9-7634B79F",
+        "MOQID47V-A12862EA",
+        "MOQIAGXM-397A1F22",
+        "MOQ7OBNT-57882C8D"
+      ],
+      "werkVoiceScore": 0.8506866993577219,
+      "corpusVoiceScore": 0.7922082714678197,
+      "conceptVoiceScore": 0.7440749641878136,
+      "conceptAnchor": "unverfuegbarkeit"
+    },
     {
       "id": "MASTER-31CE5C0B",
       "ts": "2026-11-06T22:28:40.902Z",
@@ -398,8 +441,8 @@
         "MP0ZE9C8-A9D02716",
         "MQARZJDV-82F077DD",
         "MPMSSG1X-8451DE38",
-        "MOPFJTND-AAE76B2B",
-        "MOHV84M5-1825A399"
+        "MWAE3FJK-C7122206",
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.8849507536925271,
       "corpusVoiceScore": 0.8540450760966177,
@@ -546,11 +589,11 @@
         "MQARZJDV-82F077DD"
       ],
       "related": [
+        "MWAE3FJK-C7122206",
         "MP0ZE9C8-A9D02716",
         "MOP0LEAL-E2568DCC",
         "MPMSSG1X-8451DE38",
-        "MQ5WPJ3V-CF0A30C7",
-        "MOPFJTND-AAE76B2B"
+        "MQ5WPJ3V-CF0A30C7"
       ],
       "werkVoiceScore": 0.8673352515736881,
       "corpusVoiceScore": 0.836935016377595,
@@ -1693,6 +1736,7 @@
       "ai_score_model": "gemini-2.5-pro",
       "nearDuplicates": [
         "MPURYS56-11F5308C",
+        "MWAE3FJK-C7122206",
         "MPUQSMLJ-1B726CC4",
         "MOQ7OBNT-57882C8D",
         "MOOMECFT-66F43077",
@@ -2988,6 +3032,7 @@
         "MP497SNT-5E1D2074",
         "MPUNXFU1-3B1F056A",
         "MPEV1D2J-55138734",
+        "MWAE3FJK-C7122206",
         "MPF4FISZ-67000E01",
         "MPK0H3SM-B25CFBB3",
         "MOUKLLK4-C38517C1",
@@ -3065,10 +3110,10 @@
       ],
       "related": [
         "MPMSSG1X-8451DE38",
+        "MWAE3FJK-C7122206",
         "MPAS5OM5-A1F522F4",
         "MOP0LEAL-E2568DCC",
-        "MOQIGG2B-2F0C3F5D",
-        "MOQIAGXM-397A1F22"
+        "MOQIGG2B-2F0C3F5D"
       ],
       "werkVoiceScore": 0.879892060534195,
       "corpusVoiceScore": 0.8129448250644302,
@@ -3981,6 +4026,7 @@
         "MP8UIMZW-BADE77E5",
         "MOOMECFT-66F43077",
         "MOQ7OBNT-57882C8D",
+        "MWAE3FJK-C7122206",
         "MOQID47V-A12862EA",
         "MTL33KWJ-642DD246",
         "MPF4FISZ-67000E01",
@@ -4071,6 +4117,7 @@
         "MP0ZE9C8-A9D02716",
         "MQARZJDV-82F077DD",
         "MOQID47V-A12862EA",
+        "MWAE3FJK-C7122206",
         "MOUKLLK4-C38517C1",
         "MPUO08SE-67E0912A",
         "MOUA3PLK-548F1A0A",
@@ -5766,8 +5813,8 @@
         "MPMSSG1X-8451DE38",
         "MOP0LEAL-E2568DCC",
         "MQARZJDV-82F077DD",
-        "MOUBETTU-F31C5206",
-        "MPAS5OM5-A1F522F4"
+        "MWAE3FJK-C7122206",
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.894711896557449,
       "corpusVoiceScore": 0.8321518011866103,
@@ -6863,8 +6910,8 @@
         "MQARZJDV-82F077DD",
         "MOQIGG2B-2F0C3F5D",
         "MOPFJTND-AAE76B2B",
-        "MPMSSG1X-8451DE38",
-        "MOP0LEAL-E2568DCC"
+        "MWAE3FJK-C7122206",
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8829594300103812,
       "corpusVoiceScore": 0.8134219466625775,
@@ -7013,7 +7060,7 @@
         "MPMSSG1X-8451DE38",
         "MQARZJDV-82F077DD",
         "MOUBETTU-F31C5206",
-        "MOP0LEAL-E2568DCC"
+        "MWAE3FJK-C7122206"
       ],
       "werkVoiceScore": 0.8889868000370375,
       "corpusVoiceScore": 0.82242643651912,
@@ -7178,9 +7225,9 @@
       "related": [
         "MOP0LEAL-E2568DCC",
         "MOIXN434-9D5CBFC0",
+        "MWAE3FJK-C7122206",
         "MOPFJTND-AAE76B2B",
-        "MOLNG57A-2F155772",
-        "MPMJC8TR-592D4EF0"
+        "MOLNG57A-2F155772"
       ],
       "werkVoiceScore": 0.8898205025431605,
       "corpusVoiceScore": 0.8246803139487086,
@@ -8179,8 +8226,8 @@
         "MTL33KWJ-642DD246",
         "MOP0LEAL-E2568DCC",
         "MOPFJTND-AAE76B2B",
-        "MPMSSG1X-8451DE38",
-        "MQ5WPJ3V-CF0A30C7"
+        "MWAE3FJK-C7122206",
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8807245510393147,
       "corpusVoiceScore": 0.8247894132063388,

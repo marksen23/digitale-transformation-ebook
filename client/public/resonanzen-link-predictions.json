@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T22:31:40.126Z",
+  "generatedAt": "2026-11-10T07:50:27.488Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -69,6 +69,34 @@
       ]
     },
     {
+      "source": "moment",
+      "target": "zwischen",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 4
+      },
+      "sampleEntryIds": [
+        "MWAE3FJK-C7122206",
+        "MQARZJDV-82F077DD",
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 4
+      },
+      "sampleEntryIds": [
+        "MWAE3FJK-C7122206",
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C",
+        "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
       "source": "antwort",
       "target": "zwischen",
       "cooccurrence": 4,
@@ -110,19 +138,6 @@
       ]
     },
     {
-      "source": "moment",
-      "target": "zwischen",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 3
-      },
-      "sampleEntryIds": [
-        "MQARZJDV-82F077DD",
-        "MQ5B6CTT-AB0A3D97",
-        "MPURYS56-11F5308C"
-      ]
-    },
-    {
       "source": "klang",
       "target": "moment",
       "cooccurrence": 3,
@@ -134,19 +149,6 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPCV5LR8-9AD1527C"
-      ]
-    },
-    {
-      "source": "resonanz",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 3
-      },
-      "sampleEntryIds": [
-        "MQ5B6CTT-AB0A3D97",
-        "MPURYS56-11F5308C",
-        "MPUQSMLJ-1B726CC4"
       ]
     },
     {

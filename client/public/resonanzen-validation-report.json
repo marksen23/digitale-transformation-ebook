@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-06T22:31:27.145Z",
-  "filesChecked": 283,
+  "generatedAt": "2026-11-10T07:50:15.950Z",
+  "filesChecked": 284,
   "errors": 0,
-  "warnings": 27,
+  "warnings": 28,
   "issues": [
     {
       "level": "warning",
@@ -165,6 +165,12 @@
       "file": "content/resonanzen/raw/graph-chat/2026-09-20-MUAD2ZEF-BF1C7E18.md",
       "rule": "content-hash-mismatch",
       "detail": "expected abc3238d7172511a, computed 177f855132b32a48 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "index:MTDDG179-491119D2",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
     }
   ],
   "aggregates": {
@@ -174,12 +180,12 @@
       "dialog": 36,
       "enkidu": 59,
       "graph-chat": 34,
-      "path-analyse": 43,
+      "path-analyse": 44,
       "translate": 6
     },
     "byStatus": {
       "published": 151,
-      "raw": 54,
+      "raw": 55,
       "rejected": 24,
       "approved": 54
     },
@@ -190,6 +196,6 @@
       "weiterdenken"
     ],
     "danglingLinks": 0,
-    "redundantDuplicates": 0
+    "redundantDuplicates": 1
   }
 }
