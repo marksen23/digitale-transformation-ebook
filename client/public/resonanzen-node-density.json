@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T16:29:44.759Z",
+  "generatedAt": "2026-11-11T16:41:54.365Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 23,
@@ -24,16 +24,16 @@
       }
     },
     "zwischen": {
-      "count": 19,
+      "count": 20,
       "endpoints": {
-        "path-analyse": 12,
+        "path-analyse": 13,
         "analyse": 7
       }
     },
     "sprache": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "dialog": 8,
+        "dialog": 9,
         "analyse": 4,
         "path-analyse": 3
       }
@@ -46,10 +46,10 @@
       }
     },
     "stimme": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 3
+        "analyse": 4,
+        "path-analyse": 4
       }
     },
     "schweigen": {
@@ -74,18 +74,18 @@
       }
     },
     "erkenntnis": {
-      "count": 41,
+      "count": 42,
       "endpoints": {
+        "dialog": 28,
         "path-analyse": 6,
-        "analyse": 8,
-        "dialog": 27
+        "analyse": 8
       }
     },
     "wahrheit": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 9
+        "analyse": 10,
+        "path-analyse": 4
       }
     },
     "denken": {
@@ -118,10 +118,10 @@
       }
     },
     "raum": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
+        "dialog": 8,
         "analyse": 6,
-        "dialog": 7,
         "path-analyse": 1
       }
     },
@@ -147,9 +147,9 @@
       }
     },
     "antwort": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 6,
         "analyse": 2
       }
     },
@@ -225,10 +225,10 @@
       }
     },
     "lm-spiegel": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 5,
-        "analyse": 4
+        "analyse": 5,
+        "path-analyse": 5
       }
     },
     "lm-begegnung": {
@@ -254,10 +254,10 @@
       }
     },
     "lm-verwandlung": {
-      "count": 37,
+      "count": 38,
       "endpoints": {
+        "analyse": 9,
         "path-analyse": 9,
-        "analyse": 8,
         "dialog": 20
       }
     },
@@ -372,7 +372,7 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 41,
+    "maxCount": 42,
     "median": 7,
     "totalNodes": 52,
     "zeroResonanceNodes": [

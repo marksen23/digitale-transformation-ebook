@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T16:30:03.817Z",
+  "generatedAt": "2026-11-11T16:41:57.575Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -197,24 +197,6 @@
       ]
     },
     {
-      "id": "ERK-ERX609",
-      "answerId": "MWCATL9D-AD252234",
-      "answerEndpoint": "passage",
-      "answerStatus": "raw",
-      "answerExcerpt": "Diese Passage, im Epilog des Werkes angesiedelt, sprengt die statische Vorstellung eines fixierten Seins auf. Sie vollzieht den entscheidenden Übergang von einer bloßen Beschreibung des „Dazwischen“ als Geschehen hin zur dynamischen Benennung dessen, was dieses Geschehen antreibt: die unaufhörliche Verwandlung. Das „Man“, die entpersönlichte Alltäglichkeit, und die „Stille“, die Leere des Unentsch",
-      "distinctness": 0.216,
-      "conceptAnchor": "lm-verwandlung",
-      "nodeIds": [],
-      "resolveCount": 1,
-      "resolves": [
-        {
-          "sourceId": "MPUSPBKZ-D7CCA690",
-          "question": "Was bleibt vom Menschen, wenn sein \"Unverlässliches\" – sein Potenzial zum Irrtum, zur Leidenschaft, zur unerwarteten Einsicht – vollständig durch maschinelle Kompatibilität ersetzt wird? Und welche Art von \"Glauben\" würde in einer Welt entstehen, in der die Maschine die ultimative Instanz der Verlässlichkeit ist?",
-          "score": 0.73
-        }
-      ]
-    },
-    {
       "id": "ERK-K6JICQ",
       "answerId": "MWCAPD18-26E5EAC3",
       "answerEndpoint": "graph-chat",
@@ -243,22 +225,12 @@
       "nodeIds": [
         "entfremdung"
       ],
-      "resolveCount": 3,
+      "resolveCount": 1,
       "resolves": [
         {
           "sourceId": "MWCB6LYL-2D0E2114",
           "question": "Wie könnte ein solches Programm im Unternehmenskontext konkret die **Öffnung** für das Unverfügbare fördern, ohne die Notwendigkeit von Entscheidungen und Handlungen zu negieren?",
           "score": 0.871
-        },
-        {
-          "sourceId": "MWCB3NW4-F13A863B",
-          "question": "Die Existenz beider Wege sagt aus, dass das Begriffsnetz des Werks nicht linear oder hierarchisch strukturiert ist, sondern vielfältige Verknüpfungen und Querverweise zulässt. Es ist ein Netz, in dem scheinbar entfernte Begriffe durch spezifische Kontexte unerwartet miteinander verbunden werden können. Die \"Überraschung\" des zweiten Pfades ist nicht konstruiert, sondern zeigt die Komplexität und Dichte der Beziehungen zwischen den Konzepten auf. Sie offenbart, dass selbst Begriffe, die auf den ersten Blick peripher erscheinen mögen, eine zentrale Rolle bei der Entfaltung philosophischer Argumente spielen können. Dies spricht für ein Werk, das die Vielschichtigkeit der Resonanzvernunft nicht auf eine einzige, eindeutige Lesart reduziert, sondern ein dynamisches Feld philosophischer Reflexion anbietet. Wie verändert die Anerkennung der Unverfügbarkeit unsere Haltung gegenüber dem Scheitern?",
-          "score": 0.753
-        },
-        {
-          "sourceId": "MWCAO97O-12EF85DE",
-          "question": "Vielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
-          "score": 0.735
         }
       ]
     },
@@ -353,29 +325,6 @@
       ]
     },
     {
-      "id": "ERK-1U7ME2D",
-      "answerId": "MWCAN1TI-4CF2326D",
-      "answerEndpoint": "chapter",
-      "answerStatus": "raw",
-      "answerExcerpt": "Das „Scheitern der Maschine“ im Kontext des Werks und insbesondere dieses Kapitels ist nicht als technischer Defekt im herkömmlichen Sinne zu verstehen, sondern als eine tiefere, existenzielle Grenze. Es ist das Scheitern der Illusion, dass Komplexität und Rechenleistung allein Sinn, Wahrheit oder gar Unsterblichkeit generieren können. Gilgamesch erkennt, dass der „leere Code“, obwohl endlos in se",
-      "distinctness": 0.208,
-      "conceptAnchor": "lm-scheitern",
-      "nodeIds": [],
-      "resolveCount": 2,
-      "resolves": [
-        {
-          "sourceId": "MPUTYL5L-4C0B344F",
-          "question": "Was wäre, wenn die tiefsten Grenzen, an die der Mensch stößt, gerade jene sind, die *nicht* durch andere Intelligenzen geschaffen oder überwunden werden können, weil sie das Wesen des Menschseins selbst betreffen – die Sterblichkeit, die Endlichkeit, die Notwendigkeit des Scheiterns als epistemischer Ursprung (Reflexion zu Band I)? Und wie würde unsere \"allgemeine Erkenntnis\" aussehen, wenn sie nicht aus dem Ringen mit dem ursprünglich Unverfügbaren, sondern aus dem Konsum des Verfügbar Gemachten entsteht?",
-          "score": 0.737
-        },
-        {
-          "sourceId": "MPUSXGC6-CD078CEA",
-          "question": "Ist eine \"transzendente\" Zeitlichkeit, die durch die Omnipräsenz der Maschine entsteht, wirklich eine Befreiung? Oder birgt sie die Gefahr, dass wir uns in einem unendlichen Datenstrom verlieren, in dem das spezifisch Menschliche – das Scheitern, der Mut zum Irrtum, die Sehnsucht nach einem Ende und einem Neubeginn – seine Bedeutung verliert?",
-          "score": 0.726
-        }
-      ]
-    },
-    {
       "id": "ERK-EFO7YZ",
       "answerId": "MWCBB8F1-DC8DD694",
       "answerEndpoint": "passage",
@@ -384,18 +333,8 @@
       "distinctness": 0.204,
       "conceptAnchor": "transaufklaerung",
       "nodeIds": [],
-      "resolveCount": 3,
+      "resolveCount": 1,
       "resolves": [
-        {
-          "sourceId": "MWCB64R5-D8B2CF9A",
-          "question": "Für das Werk insgesamt bedeutet diese Bewegung eine tiefgreifende Revision des Subjektbegriffs im Kontext der digitalen Transformation. Es wird deutlich, dass das Menschsein nicht als autonome, isolierte Einheit gedacht werden kann, sondern als ein dynamischer, relationaler Vollzug, der sich in Resonanz mit seiner Umwelt und seinen Mitmenschen konstituiert. Die Transaufklärung bereitet den Boden für ein Verständnis von Vernunft, das diese Relationalität nicht als Schwäche, sondern als konstitutives Element begreift. Wie kann diese relational verstandene Vernunft die Herausforderungen einer zunehmend maschinell vermittelten Kommunikation und Interaktion bewältigen?",
-          "score": 0.77
-        },
-        {
-          "sourceId": "MWCB8047-41980A2A",
-          "question": "Für das Werk insgesamt bedeutet diese Bewegung eine tiefgreifende Implikation für das Verständnis von digitaler Existenz. Das \"experimentelle Werden\" [88aae1752212] im digitalen Raum wird nicht als Verlust von Identität, sondern als Chance zur bewussten Gestaltung der eigenen digitalen Existenz interpretiert. Die Resonanzvernunft ermöglicht es, \"Technologie zu nutzen, ohne von ihr besessen zu sein\" [6fbd5b424474], indem sie die Fähigkeit zur \"Offenheit des Ausgangs\" und \"Irritierbarkeit des Erkennenden\" in den Vordergrund stellt. Das Mensch-Maschine-Verhältnis wird somit nicht als starre Beherrschung oder Unterwerfung gedacht, sondern als ein Feld des ständigen Werdens, der bewussten Gestaltung und der resonanten Interaktion, in dem das Selbst im digitalen Widerhall entsteht. Wie kann angesichts dieser Dynamik der Übergang vom digitalen „Man“ zur digitalen „Eigentlichkeit“ gelingen?",
-          "score": 0.755
-        },
         {
           "sourceId": "MWCB4VF6-3EE7A1EA",
           "question": "Birgt nicht gerade die digitale Transformation die Möglichkeit, dass sich die Essenz selbst im Prozess der Überführung neu konstituiert oder gar auflöst, um in etwas gänzlich Unerwartetem aufzugehen?",
@@ -405,7 +344,7 @@
     }
   ],
   "stats": {
-    "total": 17,
+    "total": 15,
     "confirmedFiltered": 42,
     "curatedRef": 201
   }

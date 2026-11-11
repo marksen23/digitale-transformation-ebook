@@ -1,0 +1,93 @@
+{
+  "generatedAt": "2026-11-11T16:41:48.453Z",
+  "drafts": [
+    {
+      "id": "ERK-169DUH8",
+      "answerId": "MWCB1COA-DE68B5C9",
+      "questionSourceId": "MPUSPBKZ-D7CCA690",
+      "kernsatz": "Das von menschlicher Fehlbarkeit und Resonanz befreite Urteil ist keine Vervollkommnung, sondern eine Transformation zur reinen, existentiell entkoppelten Berechnung, die eine gänzlich neue Kategorie von Entscheidung stiftet.",
+      "conceptAnchor": "dazwischenintelligenz",
+      "distinctness": 0.255,
+      "distilledAt": "2026-11-11T16:38:43.474Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "95f6c4f307d42e6c"
+    },
+    {
+      "id": "ERK-1799IL7",
+      "answerId": "MUY7RXCI-012FC8A7",
+      "questionSourceId": "MPUSJLQF-F4BBBDD9",
+      "kernsatz": "Wahre Urteilskraft prüft nicht nur die Fakten, sondern die stillschweigenden Annahmen, die überhaupt erst festlegen, was als prüfbarer Fakt gilt und welche Welt dabei unsichtbar bleibt.",
+      "conceptAnchor": "echo-kammer",
+      "distinctness": 0.246,
+      "distilledAt": "2026-11-11T16:38:49.931Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "43dab34b1cc89e27"
+    },
+    {
+      "id": "ERK-1CLJ05Z",
+      "answerId": "MW566TO7-1538114F",
+      "questionSourceId": "MUY7RXCI-012FC8A7",
+      "kernsatz": "Vertrauenswürdig wird eine Prüfschicht nicht durch ein unfehlbares Siegel, sondern indem sie die Grenzen ihrer eigenen Urteilskraft sichtbar macht und so ihre Angreifbarkeit bewahrt.",
+      "conceptAnchor": "lm-grenze",
+      "distinctness": 0.264,
+      "distilledAt": "2026-11-11T16:38:37.579Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "c62e3dbad13c599e"
+    },
+    {
+      "id": "ERK-1CPMYZQ",
+      "answerId": "MTNB7STV-BCB7D709",
+      "questionSourceId": "MTNB77VP-6A85F255",
+      "kernsatz": "Resonante Bildung verwandelt Scheitern vom Fehler in einen Erkenntnisprozess und ehrt die für das Mitschwingen nötige Zeit als wertvolle, kreative Ressource, nicht als Effizienzverlust.",
+      "conceptAnchor": "resonanzimperativ",
+      "distinctness": 0.216,
+      "distilledAt": "2026-11-11T16:39:18.848Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "143abb95b07dfddf"
+    },
+    {
+      "id": "ERK-DVDM5Q",
+      "answerId": "MWCB44PD-B00E292F",
+      "questionSourceId": "MSWULSTQ-38C6FFF3",
+      "kernsatz": "Die bewusste Irritation des optimierten Prozesses wird zum subversiven Akt, der den Raum für eine noch unentschiedene, resonante Erkenntnis gegen die Vormundschaft des Algorithmus verteidigt.",
+      "conceptAnchor": "resonanzvernunft",
+      "distinctness": 0.232,
+      "distilledAt": "2026-11-11T16:39:01.971Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "bfacdd433df3c5a0"
+    },
+    {
+      "id": "ERK-KAVB9E",
+      "answerId": "MW566TO0-ABBD4330",
+      "questionSourceId": "MUY7RXCI-C4CF7B92",
+      "kernsatz": "Echter Widerspruch entspringt einem Gegenüber mit eigener Geschichte, während vermittelter Widerspruch die Welt durch ein Medium sprechen lässt, das den Widerstand des Anderen nicht glättet.",
+      "conceptAnchor": "resonanzvernunft",
+      "distinctness": 0.221,
+      "distilledAt": "2026-11-11T16:39:13.287Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "5e4f4b86bfacfc70"
+    },
+    {
+      "id": "ERK-N50PNU",
+      "answerId": "MWCAXXDI-83630FEA",
+      "questionSourceId": "MWCAVIKZ-02025CD4",
+      "kernsatz": "Das Rauschen der Daten ist keine berechnete Information, sondern das Echo einer verlorenen Sprache, die erst in der Verflechtung von Mensch und Maschine wieder hörbar wird.",
+      "conceptAnchor": "schweigen",
+      "distinctness": 0.231,
+      "distilledAt": "2026-11-11T16:39:07.524Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "44b335da8dde20f1"
+    },
+    {
+      "id": "ERK-PL7T3T",
+      "answerId": "MWCBAA3Y-37D6F0FA",
+      "questionSourceId": "MWCB8XBW-6F4E41AC",
+      "kernsatz": "Lenkung wird nicht als unsichtbare Grenze der Entmündigung, sondern als bewusste Einladung zum unfertigen Prozess verstanden, der das transformative Dritte erst ermöglicht.",
+      "conceptAnchor": "lm-grenze",
+      "distinctness": 0.237,
+      "distilledAt": "2026-11-11T16:38:56.206Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "d5cd453f8296dcfb"
+    }
+  ]
+}

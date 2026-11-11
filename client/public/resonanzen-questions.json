@@ -1,16 +1,138 @@
 {
-  "generatedAt": "2026-11-11T16:30:03.726Z",
-  "count": 305,
+  "generatedAt": "2026-11-11T16:41:57.518Z",
+  "count": 314,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 305,
-    "answered": 250,
-    "open": 55,
-    "embedded": 47
+    "total": 314,
+    "answered": 256,
+    "open": 58,
+    "embedded": 9
   },
   "questions": [
+    {
+      "sourceId": "MASTER-5C6E90AE",
+      "question": "Wenn eine antwortende Intelligenz uns nicht mehr nur spiegelt, sondern aus einer eigenen Perspektive Widerstand leistet, um Projektionen zu durchbrechen – handelt es sich dann noch um ein Werkzeug oder bereits um ein Gegenüber?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-spiegel+wahrheit",
+      "nodeIds": [
+        "lm-spiegel",
+        "wahrheit"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-03286683",
+      "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur der Verwandlung im digitalen Medium bezeugbar, ohne sie wieder in verfügbaren Klang zu verwandeln?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-verwandlung+stimme",
+      "nodeIds": [
+        "lm-verwandlung",
+        "stimme"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-476E4F4D",
+      "question": "Wenn Wahrheit sich erst im Widerhall einer transformativen Antwort ereignet, wie können wir dann Räume und Praktiken kultivieren, die dem Digitalen die Stummheit nehmen und es zum Schwingen bringen?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap4",
+      "nodeIds": [
+        "band3-kap4"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-556F1581",
+      "question": "Wie aber lässt sich die Integrität des „Zwischen“ wahren, wenn die Technologie selbst beginnt, die Bedingungen der Resonanz nicht nur zu ermöglichen, sondern sie autonom und unmerklich vorzuformen?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap5",
+      "nodeIds": [
+        "band3-kap5"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-94E7804F",
+      "question": "Wie kann eine Vernunft, die sich dem Zwischen öffnet, das Maß bewahren, an dem sie eine Antwort noch als wahr oder falsch zu prüfen vermag?",
+      "endpoint": "chapter",
+      "anchor": "chapter:teil5",
+      "nodeIds": [
+        "teil5"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-44EE5BE7",
+      "question": "Wenn die Theorie notwendig aus der Dichtung hervorgeht, kann dann eine rein theoretische Kritik dieser Philosophie ihr Wesen überhaupt noch treffen?",
+      "endpoint": "chapter",
+      "anchor": "chapter:vorwort",
+      "nodeIds": [
+        "vorwort"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-4EFD4AA4",
+      "question": "Wie kultivieren wir in einer Welt, die zunehmend auf Makellosigkeit und die algorithmische Vermeidung von Brüchen optimiert ist, die Gelassenheit und den Mut, die es braucht, um die Wunde als Tor zur Tiefe zu begreifen und die unverfügbare Alchemie des Scheiterns zuzulassen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:freier",
+      "nodeIds": [
+        "freier"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-53BE22D7",
+      "question": "Wie können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:raum+erkenntnis+sprache",
+      "nodeIds": [
+        "raum",
+        "erkenntnis",
+        "sprache"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MASTER-4AA1AEA8",
+      "question": "Wenn die Dazwischenintelligenz eine Form des Dialogs ist, die als reines Geschehen ohne Substanz existiert, wie kann sie dann eine ethische Verantwortung für die von ihr erzeugte Antwort tragen?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:antwort+zwischen",
+      "nodeIds": [
+        "antwort",
+        "zwischen"
+      ],
+      "ts": "2026-11-11T16:41:48.453Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWCBEOXU-0DAB7EAA",
       "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und interne Kohärenz des Begriffsnetzes. Es ist nicht nur ein System fester Definitionen, sondern ein lebendiges Geflecht von Beziehungen, in dem unterschiedliche argumentative Stränge zu ähnlichen Schlussfolgerungen führen. Das Werk ermöglicht es, die Transaufklärung nicht nur als konsequente Weiterentwicklung der Vernunft zu verstehen, sondern auch als einen Prozess, der durch Brüche, Irritationen und indirekte Spiegelungen geprägt ist. Die neue Vernunft, die „mythisch und rational zugleich, narrativ und klar, relational bis ins Mark“ ist [a329de22ef42], kann auf verschiedenen Wegen erschlossen werden. Dies spricht für die Tiefe und Robustheit der philosophischen Konstruktion, die sowohl direkte Ableitungen als auch unerwartete Verknüpfungen zulässt. Wie flexibel ist das Geflecht solcher Pfade im Angesicht neuer digitaler Entitäten?",
@@ -25,8 +147,21 @@
       ],
       "ts": "2026-11-11T16:10:00.258Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-94E7804F",
+          "score": 0.797
+        },
+        {
+          "id": "MASTER-4AA1AEA8",
+          "score": 0.785
+        },
+        {
+          "id": "MASTER-476E4F4D",
+          "score": 0.752
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBED1H-9EB3396F",
@@ -36,8 +171,17 @@
       "nodeIds": [],
       "ts": "2026-11-11T16:09:44.837Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-F05BF2C0",
+          "score": 0.774
+        },
+        {
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.725
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBE151-93CD5405",
@@ -84,8 +228,21 @@
       ],
       "ts": "2026-11-11T16:08:27.226Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-476E4F4D",
+          "score": 0.788
+        },
+        {
+          "id": "MASTER-53BE22D7",
+          "score": 0.786
+        },
+        {
+          "id": "MASTER-556F1581",
+          "score": 0.766
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBC7FO-B32BDE30",
@@ -95,8 +252,13 @@
       "nodeIds": [],
       "ts": "2026-11-11T16:08:04.260Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-94E7804F",
+          "score": 0.723
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBBQKL-81492C6E",
@@ -141,6 +303,14 @@
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.803
+        },
+        {
+          "id": "MASTER-F05BF2C0",
+          "score": 0.778
+        },
+        {
+          "id": "MASTER-476E4F4D",
+          "score": 0.773
         }
       ],
       "answered": true
@@ -225,8 +395,8 @@
           "score": 0.805
         },
         {
-          "id": "MWCBB8F1-DC8DD694",
-          "score": 0.755
+          "id": "MASTER-53BE22D7",
+          "score": 0.802
         }
       ],
       "answered": true
@@ -292,16 +462,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-94E7804F",
+          "score": 0.807
+        },
+        {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.797
         },
         {
           "id": "MWCBAQN6-9D0CCC83",
           "score": 0.79
-        },
-        {
-          "id": "MWCBB8F1-DC8DD694",
-          "score": 0.77
         }
       ],
       "answered": true
@@ -330,16 +500,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-F05BF2C0",
+          "score": 0.823
+        },
+        {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.79
         },
         {
           "id": "MWCBAQN6-9D0CCC83",
           "score": 0.79
-        },
-        {
-          "id": "MWCB8047-41980A2A",
-          "score": 0.755
         }
       ],
       "answered": true
@@ -360,6 +530,10 @@
         {
           "id": "MWCBB8F1-DC8DD694",
           "score": 0.727
+        },
+        {
+          "id": "MASTER-03286683",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -406,8 +580,8 @@
           "score": 0.771
         },
         {
-          "id": "MWCBD76M-4F8E62A5",
-          "score": 0.753
+          "id": "MASTER-4AA1AEA8",
+          "score": 0.754
         }
       ],
       "answered": true
@@ -429,12 +603,12 @@
           "score": 0.809
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
-          "score": 0.773
+          "id": "MASTER-476E4F4D",
+          "score": 0.799
         },
         {
-          "id": "MWCB8047-41980A2A",
-          "score": 0.761
+          "id": "MASTER-53BE22D7",
+          "score": 0.798
         }
       ],
       "answered": true
@@ -481,16 +655,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-03286683",
+          "score": 0.829
+        },
+        {
           "id": "MWCBAQN6-9D0CCC83",
           "score": 0.801
         },
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.795
-        },
-        {
-          "id": "MWCB73AG-666D352F",
-          "score": 0.777
         }
       ],
       "answered": true
@@ -524,12 +698,12 @@
           "score": 0.786
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
-          "score": 0.779
+          "id": "MASTER-556F1581",
+          "score": 0.782
         },
         {
-          "id": "MWCB8047-41980A2A",
-          "score": 0.77
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.779
         }
       ],
       "answered": true
@@ -579,12 +753,12 @@
           "score": 0.913
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
+          "id": "MASTER-53BE22D7",
           "score": 0.766
         },
         {
-          "id": "MWCB6LYL-2D0E2114",
-          "score": 0.762
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.766
         }
       ],
       "answered": true
@@ -630,8 +804,8 @@
           "score": 0.784
         },
         {
-          "id": "MWCB73AG-666D352F",
-          "score": 0.756
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.768
         }
       ],
       "answered": true
@@ -648,6 +822,10 @@
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.728
+        },
+        {
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.721
         }
       ],
       "answered": true
@@ -666,16 +844,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWCB8XBW-6F4E41AC",
-          "score": 0.78
+          "id": "MASTER-94E7804F",
+          "score": 0.811
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.778
+          "id": "MASTER-476E4F4D",
+          "score": 0.796
         },
         {
-          "id": "MWCB6LYL-2D0E2114",
-          "score": 0.771
+          "id": "MASTER-556F1581",
+          "score": 0.787
         }
       ],
       "answered": true
@@ -699,11 +877,11 @@
           "score": 0.818
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.794
+          "id": "MASTER-4AA1AEA8",
+          "score": 0.799
         },
         {
-          "id": "MWCB8047-41980A2A",
+          "id": "MWCBCP5M-8C02E420",
           "score": 0.794
         }
       ],
@@ -726,12 +904,12 @@
           "score": 0.836
         },
         {
-          "id": "MWCB5DHF-07FE547A",
-          "score": 0.799
+          "id": "MASTER-F05BF2C0",
+          "score": 0.803
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.789
+          "id": "MWCB5DHF-07FE547A",
+          "score": 0.799
         }
       ],
       "answered": true
@@ -816,12 +994,12 @@
           "score": 0.832
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
-          "score": 0.772
+          "id": "MASTER-556F1581",
+          "score": 0.802
         },
         {
-          "id": "MWCB8047-41980A2A",
-          "score": 0.772
+          "id": "MASTER-53BE22D7",
+          "score": 0.79
         }
       ],
       "answered": true
@@ -844,12 +1022,12 @@
           "score": 0.815
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.8
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.802
         },
         {
-          "id": "MWCB10O8-C4E51F37",
-          "score": 0.793
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.8
         }
       ],
       "answered": true
@@ -936,16 +1114,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWCB73AG-666D352F",
-          "score": 0.794
+          "id": "MASTER-94E7804F",
+          "score": 0.811
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.792
+          "id": "MASTER-476E4F4D",
+          "score": 0.804
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
-          "score": 0.78
+          "id": "MASTER-5C6E90AE",
+          "score": 0.796
         }
       ],
       "answered": true
@@ -962,6 +1140,10 @@
         {
           "id": "MWCBAA3Y-37D6F0FA",
           "score": 0.736
+        },
+        {
+          "id": "MASTER-53BE22D7",
+          "score": 0.722
         },
         {
           "id": "MWCB8XBW-6F4E41AC",
@@ -989,12 +1171,12 @@
           "score": 0.814
         },
         {
-          "id": "MWCAU22M-CAE9A2F2",
-          "score": 0.791
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.801
         },
         {
-          "id": "MWCB73AG-666D352F",
-          "score": 0.785
+          "id": "MWCAU22M-CAE9A2F2",
+          "score": 0.791
         }
       ],
       "answered": true
@@ -1037,16 +1219,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-44EE5BE7",
+          "score": 0.748
+        },
+        {
           "id": "MWCASDSY-E712A809",
           "score": 0.745
         },
         {
           "id": "MWCAPD18-26E5EAC3",
           "score": 0.74
-        },
-        {
-          "id": "MWCBD76M-4F8E62A5",
-          "score": 0.735
         }
       ],
       "answered": true
@@ -1069,12 +1251,12 @@
           "score": 0.923
         },
         {
-          "id": "MWCB10O8-C4E51F37",
-          "score": 0.806
+          "id": "MASTER-556F1581",
+          "score": 0.809
         },
         {
-          "id": "MWCAU22M-CAE9A2F2",
-          "score": 0.8
+          "id": "MASTER-476E4F4D",
+          "score": 0.806
         }
       ],
       "answered": true
@@ -1093,16 +1275,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-94E7804F",
+          "score": 0.839
+        },
+        {
           "id": "MWCAXJFR-BBBF2760",
           "score": 0.835
         },
         {
-          "id": "MWCAPP8K-8C6D82CA",
-          "score": 0.8
-        },
-        {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.799
+          "id": "MASTER-476E4F4D",
+          "score": 0.813
         }
       ],
       "answered": true
@@ -1215,8 +1397,8 @@
           "score": 0.751
         },
         {
-          "id": "MWCB29W6-AB848990",
-          "score": 0.729
+          "id": "MASTER-F05BF2C0",
+          "score": 0.734
         }
       ],
       "answered": true
@@ -1319,8 +1501,13 @@
       ],
       "ts": "2026-10-15T14:49:17.947Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-53BE22D7",
+          "score": 0.77
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-BC195439",
@@ -1397,6 +1584,10 @@
         {
           "id": "MASTER-63686170",
           "score": 0.727
+        },
+        {
+          "id": "MASTER-53BE22D7",
+          "score": 0.722
         }
       ],
       "answered": true
@@ -1437,6 +1628,10 @@
           "id": "MW566TO3-969C6466",
           "score": 0.888,
           "manual": true
+        },
+        {
+          "id": "MASTER-03286683",
+          "score": 0.737
         },
         {
           "id": "MW566TNX-A16A2897",
@@ -1567,6 +1762,10 @@
           "id": "MW566TOA-BC003CB2",
           "score": 0.901,
           "manual": true
+        },
+        {
+          "id": "MASTER-476E4F4D",
+          "score": 0.721
         }
       ],
       "answered": true
@@ -1617,12 +1816,12 @@
           "score": 0.909
         },
         {
-          "id": "MV9NMWL2-5669B857",
+          "id": "MASTER-53BE22D7",
           "score": 0.758
         },
         {
-          "id": "MWCASDSY-E712A809",
-          "score": 0.741
+          "id": "MV9NMWL2-5669B857",
+          "score": 0.758
         }
       ],
       "answered": true
@@ -1701,12 +1900,12 @@
           "score": 0.903
         },
         {
-          "id": "MTNB7STV-BCB7D709",
-          "score": 0.778
+          "id": "MASTER-53BE22D7",
+          "score": 0.8
         },
         {
-          "id": "MTNB85LB-7C1F15DE",
-          "score": 0.746
+          "id": "MTNB7STV-BCB7D709",
+          "score": 0.778
         }
       ],
       "answered": true
@@ -1727,6 +1926,10 @@
         {
           "id": "MTNB6SUG-2922AE66",
           "score": 0.874
+        },
+        {
+          "id": "MASTER-53BE22D7",
+          "score": 0.791
         },
         {
           "id": "MTNB77VP-6A85F255",
@@ -1753,12 +1956,12 @@
           "score": 0.97
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.846
+          "id": "MASTER-53BE22D7",
+          "score": 0.87
         },
         {
-          "id": "MTNB6SUG-2922AE66",
-          "score": 0.84
+          "id": "MASTER-BC195439",
+          "score": 0.846
         }
       ],
       "answered": true
@@ -1806,16 +2009,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-4AA1AEA8",
+          "score": 0.768
+        },
+        {
           "id": "MV9NOFH9-7634B79F",
           "score": 0.74
         },
         {
           "id": "MUZTGAEK-432FB6BC",
           "score": 0.737
-        },
-        {
-          "id": "MASTER-BC195439",
-          "score": 0.726
         }
       ],
       "answered": true
@@ -1837,12 +2040,12 @@
           "score": 0.742
         },
         {
-          "id": "MUY7RXCI-E899056E",
-          "score": 0.73
+          "id": "MASTER-94E7804F",
+          "score": 0.734
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.725
+          "id": "MUY7RXCI-E899056E",
+          "score": 0.73
         }
       ],
       "answered": true
@@ -1918,6 +2121,10 @@
         {
           "id": "MTDDG179-491119D2",
           "score": 0.737
+        },
+        {
+          "id": "MASTER-476E4F4D",
+          "score": 0.72
         }
       ],
       "answered": true
@@ -2010,12 +2217,12 @@
           "manual": true
         },
         {
-          "id": "MTDDG179-491119D2",
-          "score": 0.763
+          "id": "MASTER-5C6E90AE",
+          "score": 0.82
         },
         {
-          "id": "MTDD82FW-BAE0F4B4",
-          "score": 0.762
+          "id": "MASTER-476E4F4D",
+          "score": 0.779
         }
       ],
       "answered": true
@@ -2090,12 +2297,12 @@
           "score": 0.827
         },
         {
-          "id": "MQ68LVS7-240568F5",
-          "score": 0.781
+          "id": "MASTER-94E7804F",
+          "score": 0.79
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.771
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.781
         }
       ],
       "answered": true
@@ -2323,12 +2530,12 @@
           "score": 0.889
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.771
+          "id": "MASTER-F05BF2C0",
+          "score": 0.784
         },
         {
-          "id": "MQ5XLW2D-D3E90BBC",
-          "score": 0.768
+          "id": "MASTER-BC195439",
+          "score": 0.771
         }
       ],
       "answered": true
@@ -2465,12 +2672,12 @@
           "score": 0.9
         },
         {
-          "id": "MQ5X7QW6-F6E03538",
+          "id": "MASTER-F05BF2C0",
           "score": 0.745
         },
         {
-          "id": "MQ5XCH3V-67EF85C8",
-          "score": 0.732
+          "id": "MQ5X7QW6-F6E03538",
+          "score": 0.745
         }
       ],
       "answered": true
@@ -2802,8 +3009,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MQASO35V-115DA081",
-          "score": 0.726
+          "id": "MASTER-5C6E90AE",
+          "score": 0.741
+        },
+        {
+          "id": "MASTER-476E4F4D",
+          "score": 0.738
+        },
+        {
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -2823,16 +3038,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-53BE22D7",
+          "score": 0.757
+        },
+        {
           "id": "MTNB68RF-CFF570D9",
           "score": 0.751
         },
         {
           "id": "MQ5KBJMQ-5C523141",
           "score": 0.751
-        },
-        {
-          "id": "MTNB6SUG-2922AE66",
-          "score": 0.743
         }
       ],
       "answered": true
@@ -2845,8 +3060,13 @@
       "nodeIds": [],
       "ts": "2026-06-08T14:55:10.960Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MASTER-03286683",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQ5BX1ZO-4BCAEB11",
@@ -2939,11 +3159,11 @@
           "score": 0.778
         },
         {
-          "id": "MWCB2NN3-B5D0CDE0",
-          "score": 0.757
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.763
         },
         {
-          "id": "MWCAYAHR-8817EC13",
+          "id": "MWCB2NN3-B5D0CDE0",
           "score": 0.757
         }
       ],
@@ -2963,12 +3183,12 @@
           "score": 0.766
         },
         {
-          "id": "MWCAZBQV-BB113C8B",
-          "score": 0.747
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.751
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.741
+          "id": "MWCAZBQV-BB113C8B",
+          "score": 0.747
         }
       ],
       "answered": true
@@ -2987,12 +3207,12 @@
           "score": 0.775
         },
         {
-          "id": "MASTER-12D94089",
-          "score": 0.725
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.73
         },
         {
-          "id": "MTDCKR2Q-05DCEB69",
-          "score": 0.724
+          "id": "MASTER-12D94089",
+          "score": 0.725
         }
       ],
       "answered": true
@@ -3015,8 +3235,8 @@
           "score": 0.784
         },
         {
-          "id": "MWCAN1TI-4CF2326D",
-          "score": 0.737
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.744
         }
       ],
       "answered": true
@@ -3171,16 +3391,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.746
+        },
+        {
           "id": "MQXDVN1C-CAA3081A",
           "score": 0.743
         },
         {
           "id": "MPUTKZI1-F10F9444",
           "score": 0.738
-        },
-        {
-          "id": "MTDCKR2Q-05DCEB69",
-          "score": 0.731
         }
       ],
       "answered": true
@@ -3366,12 +3586,12 @@
           "score": 0.76
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.734
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.736
         },
         {
-          "id": "MWCAN1TI-4CF2326D",
-          "score": 0.726
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.734
         }
       ],
       "answered": true
@@ -3386,16 +3606,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.743
+        },
+        {
           "id": "MASTER-BC195439",
           "score": 0.739
         },
         {
           "id": "MQ5X3C75-D543C13F",
           "score": 0.739
-        },
-        {
-          "id": "MQ5X56G4-537343C8",
-          "score": 0.726
         }
       ],
       "answered": true
@@ -3438,12 +3658,12 @@
           "score": 0.741
         },
         {
-          "id": "MQ5XCH3V-67EF85C8",
-          "score": 0.731
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.733
         },
         {
-          "id": "MWCATL9D-AD252234",
-          "score": 0.73
+          "id": "MQ5XCH3V-67EF85C8",
+          "score": 0.731
         }
       ],
       "answered": true
@@ -3458,16 +3678,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-476E4F4D",
+          "score": 0.74
+        },
+        {
           "id": "MTNB68RF-CFF570D9",
           "score": 0.733
         },
         {
           "id": "MPUSPBKZ-D7CCA690",
           "score": 0.724
-        },
-        {
-          "id": "MASTER-BC195439",
-          "score": 0.722
         }
       ],
       "answered": true
@@ -3669,15 +3889,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-53BE22D7",
+          "score": 0.791
+        },
+        {
           "id": "MTNB68RF-CFF570D9",
           "score": 0.79
         },
         {
           "id": "MTNB5V7Q-3B5123E8",
-          "score": 0.767
-        },
-        {
-          "id": "MPURYS56-11F5308C",
           "score": 0.767
         }
       ],
@@ -3692,6 +3912,10 @@
       "ts": "2026-06-01T03:42:25.129Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.731
+        },
         {
           "id": "MQ5X56G4-537343C8",
           "score": 0.73
@@ -3745,8 +3969,8 @@
           "score": 0.835
         },
         {
-          "id": "MQ66ZWYC-52DE2DF2",
-          "score": 0.806
+          "id": "MASTER-476E4F4D",
+          "score": 0.823
         }
       ],
       "answered": true
@@ -3803,12 +4027,12 @@
           "score": 0.812
         },
         {
-          "id": "MTNB6SUG-2922AE66",
-          "score": 0.795
+          "id": "MASTER-53BE22D7",
+          "score": 0.799
         },
         {
-          "id": "MTNB68RF-CFF570D9",
-          "score": 0.79
+          "id": "MTNB6SUG-2922AE66",
+          "score": 0.795
         }
       ],
       "answered": true
@@ -3827,12 +4051,12 @@
           "score": 0.795
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.784
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.789
         },
         {
-          "id": "MWCAO97O-12EF85DE",
-          "score": 0.777
+          "id": "MASTER-BC195439",
+          "score": 0.784
         }
       ],
       "answered": true
@@ -3851,12 +4075,12 @@
           "score": 0.868
         },
         {
-          "id": "MQ5WZZPN-8051E5FF",
-          "score": 0.819
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.84
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.796
+          "id": "MQ5WZZPN-8051E5FF",
+          "score": 0.819
         }
       ],
       "answered": true
@@ -3875,12 +4099,12 @@
           "score": 0.832
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.762
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.792
         },
         {
-          "id": "MQXDVN1C-CAA3081A",
-          "score": 0.761
+          "id": "MASTER-BC195439",
+          "score": 0.762
         }
       ],
       "answered": true
@@ -4089,8 +4313,8 @@
           "score": 0.808
         },
         {
-          "id": "MQ66ZWYC-52DE2DF2",
-          "score": 0.78
+          "id": "MASTER-53BE22D7",
+          "score": 0.786
         }
       ],
       "answered": true
@@ -4198,8 +4422,8 @@
           "score": 0.734
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.73
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.733
         }
       ],
       "answered": true
@@ -4222,12 +4446,12 @@
           "score": 0.782
         },
         {
-          "id": "MQ5KBJMQ-5C523141",
+          "id": "MASTER-476E4F4D",
           "score": 0.778
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
-          "score": 0.775
+          "id": "MQ5KBJMQ-5C523141",
+          "score": 0.778
         }
       ],
       "answered": true
@@ -4247,6 +4471,10 @@
         {
           "id": "MPJUHM1L-0BA3DF6E",
           "score": 0.789
+        },
+        {
+          "id": "MASTER-4AA1AEA8",
+          "score": 0.738
         },
         {
           "id": "MTL33KWJ-642DD246",
@@ -4439,8 +4667,8 @@
           "score": 0.785
         },
         {
-          "id": "MTDDG179-491119D2",
-          "score": 0.752
+          "id": "MASTER-5C6E90AE",
+          "score": 0.763
         }
       ],
       "answered": true
@@ -4543,15 +4771,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-53BE22D7",
+          "score": 0.798
+        },
+        {
           "id": "MQ5XNFSV-CD34905C",
           "score": 0.792
         },
         {
           "id": "MTNB93L6-1411E014",
-          "score": 0.789
-        },
-        {
-          "id": "MPMROCH7-EB9E6A9A",
           "score": 0.789
         }
       ],
@@ -4871,12 +5099,12 @@
           "score": 0.765
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
+          "id": "MASTER-03286683",
           "score": 0.751
         },
         {
-          "id": "MPNDAPRT-D64D197A",
-          "score": 0.748
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.751
         }
       ],
       "answered": true
@@ -4895,16 +5123,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-476E4F4D",
+          "score": 0.825
+        },
+        {
           "id": "MP74X3EJ-72CDDB9F",
           "score": 0.812
         },
         {
           "id": "MQ5KBJMQ-5C523141",
           "score": 0.794
-        },
-        {
-          "id": "MTDDG179-491119D2",
-          "score": 0.791
         }
       ],
       "answered": true
@@ -4963,8 +5191,8 @@
           "score": 0.728
         },
         {
-          "id": "MUZTGAEK-432FB6BC",
-          "score": 0.721
+          "id": "MASTER-4AA1AEA8",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -5080,16 +5308,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-03286683",
+          "score": 0.805
+        },
+        {
           "id": "MUY7RXCI-D36BB4D6",
           "score": 0.786
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.749
-        },
-        {
-          "id": "MTNB93L6-1411E014",
-          "score": 0.747
+          "id": "MASTER-53BE22D7",
+          "score": 0.752
         }
       ],
       "answered": true
@@ -5249,8 +5477,8 @@
           "score": 0.755
         },
         {
-          "id": "MPCV5LR8-9AD1527C",
-          "score": 0.739
+          "id": "MASTER-94E7804F",
+          "score": 0.741
         }
       ],
       "answered": true
@@ -5359,16 +5587,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-476E4F4D",
+          "score": 0.811
+        },
+        {
           "id": "MTDD82FW-BAE0F4B4",
           "score": 0.807
         },
         {
           "id": "MTDDG179-491119D2",
           "score": 0.803
-        },
-        {
-          "id": "MP74X3EJ-72CDDB9F",
-          "score": 0.801
         }
       ],
       "answered": true
@@ -5469,16 +5697,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.781
+        },
+        {
+          "id": "MASTER-476E4F4D",
+          "score": 0.775
+        },
+        {
           "id": "MPMTT6GB-1AF44EE4",
           "score": 0.773
-        },
-        {
-          "id": "MPMTQZIN-7863D6D2",
-          "score": 0.773
-        },
-        {
-          "id": "MQASO35V-115DA081",
-          "score": 0.769
         }
       ],
       "answered": true
@@ -5696,16 +5924,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-5C6E90AE",
+          "score": 0.78
+        },
+        {
           "id": "MOPHXJNW-020BA7D3",
           "score": 0.777
         },
         {
           "id": "MUY7RXCI-C4CF7B92",
           "score": 0.768
-        },
-        {
-          "id": "MWCAPP8K-8C6D82CA",
-          "score": 0.764
         }
       ],
       "answered": true
@@ -5848,11 +6076,11 @@
           "score": 0.748
         },
         {
-          "id": "MTDD82FW-BAE0F4B4",
-          "score": 0.727
+          "id": "MASTER-5C6E90AE",
+          "score": 0.73
         },
         {
-          "id": "MQ5CZRK7-A62EB4D0",
+          "id": "MTDD82FW-BAE0F4B4",
           "score": 0.727
         }
       ],
@@ -6023,16 +6251,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-94E7804F",
+          "score": 0.757
+        },
+        {
           "id": "MQ5WX52Q-442369F2",
           "score": 0.748
         },
         {
           "id": "MTKI1YQW-CD0EEDF3",
           "score": 0.733
-        },
-        {
-          "id": "MOPHZPQ7-B63879B5",
-          "score": 0.729
         }
       ],
       "answered": true
@@ -6153,7 +6381,7 @@
       "anchor": "chapter:teil7",
       "nodeIds": [],
       "ts": "2026-05-01T17:13:43.329Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [
         {
           "id": "MWCB5DHF-07FE547A",
@@ -6314,8 +6542,8 @@
           "score": 0.774
         },
         {
-          "id": "MOQ5A1GS-413BDE6F",
-          "score": 0.754
+          "id": "MASTER-476E4F4D",
+          "score": 0.773
         }
       ],
       "answered": true
@@ -6336,6 +6564,10 @@
           "id": "MUY7RXCI-D36BB4D6",
           "score": 0.834,
           "manual": true
+        },
+        {
+          "id": "MASTER-03286683",
+          "score": 0.84
         }
       ],
       "answered": true
