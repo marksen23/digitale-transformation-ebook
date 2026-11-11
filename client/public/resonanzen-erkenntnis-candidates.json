@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-10T07:50:28.151Z",
+  "generatedAt": "2026-11-11T15:47:48.204Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -102,6 +102,39 @@
       ]
     },
     {
+      "id": "ERK-1BL9FKL",
+      "answerId": "MWCAL7ON-CA4F38AF",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Frage nach der Selbstverschuldung im Kontext der algorithmischen Vormundschaft berührt den Kern der philosophischen Auseinandersetzung des Werks. Kant definierte die Unmündigkeit als das \"Unvermögen, sich seines Verstandes ohne Leitung eines anderen zu bedienen\", und betonte ihre Selbstverschuldung, wenn die Ursache nicht im Mangel des Verstandes, sondern der Entschließung und des Mutes liegt,",
+      "distinctness": 0.212,
+      "conceptAnchor": "resonanzimperativ",
+      "nodeIds": [],
+      "resolveCount": 4,
+      "resolves": [
+        {
+          "sourceId": "MPUS94IT-9CEEC40A",
+          "question": "Wie kann man die \"Unmündigkeit\", von der Kant spricht, als \"Zielgröße\" in einem Algorithmus abbilden? Und was würde es bedeuten, wenn wir die menschliche Mündigkeit als oberste Zielgröße definieren würden – für uns, nicht für die Maschine?",
+          "score": 0.8
+        },
+        {
+          "sourceId": "MPMM2YAK-A7491D44",
+          "question": "Was bleibt von einem *Ausgang aus selbstverschuldeter Unmündigkeit*, wenn selbst die Idee der Mündigkeit ein Produkt des Systems sein könnte? Und welche Form von *Widerstand* ist noch möglich, wenn der Widerstand selbst eine vorprogrammierte Schleife sein könnte?",
+          "score": 0.745
+        },
+        {
+          "sourceId": "MPUU3ASH-7093F1A3",
+          "question": "Was wäre, wenn die größte Erkenntnis darüber, \"welcher Teil man ist\", nicht durch die Mitteilung eines Systems, sondern durch das *Ringen* mit dem eigenen Scheitern (Reflexion zu Band I), der eigenen Unvollkommenheit und der Notwendigkeit der Selbstbestimmung entsteht? Und wenn das \"Whiten der Blackbox\" bedeutet, dass uns die Maschine die Wahrheit *zeigt*, anstatt uns den Weg zu *lehren*, wie wir selbst Licht hineintragen können – ist das dann noch \"Aufklärung\" im Kantischen Sinne (Band II, Prolog), oder eine neue Form der algorithmischen Vormundschaft, die uns zwar informiert, aber nicht mündig macht?",
+          "score": 0.733
+        },
+        {
+          "sourceId": "MP8O4O23-B2B71E51",
+          "question": "Was bleibt von der Mündigkeit, wenn jede naheliegende Antwort schon vor dem Entschluss berechnet wurde?",
+          "score": 0.723
+        }
+      ]
+    },
+    {
       "id": "ERK-3OUZPV",
       "answerId": "MUY7RXCI-C4CF7B92",
       "answerEndpoint": "analyse",
@@ -129,7 +162,7 @@
     }
   ],
   "stats": {
-    "total": 5,
+    "total": 6,
     "confirmedFiltered": 42,
     "curatedRef": 201
   }
