@@ -3,7 +3,17 @@ import fs from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { extractFrageAntwort, parseFrontmatter } from "../lib/frontmatter.js";
-import { cleanKernsatz, contentHashFor, renderMasterMarkdown, voiceViolations } from "../lib/insightRegen.js";
+import {
+  cleanKernsatz,
+  contentHashFor,
+  freshMasterFm,
+  masterIdForAnchor,
+  masterRelPath,
+  planKernsatzCandidates,
+  planMaster,
+  renderMasterMarkdown,
+  voiceViolations,
+} from "../lib/insightRegen.js";
 
 describe("cleanKernsatz", () => {
   it("nimmt den Satz und streift Anführungszeichen", () => {
@@ -67,6 +77,113 @@ describe("renderMasterMarkdown", () => {
     expect(response).toContain("Ein geschlossener Gedanke.");
     expect(response.trimEnd().endsWith("Was folgt daraus?")).toBe(true);
     expect(parsed.content_hash).toBe(contentHashFor(prompt, response));
+  });
+});
+
+describe("planMaster", () => {
+  it("legt einen Master erst ab zwei Varianten an", () => {
+    expect(planMaster({
+      endpoint: "dialog",
+      anchor: "dialog:freiheit",
+      variantIds: ["a"],
+      masterOf: null,
+    }).action).toBe("skip");
+    const created = planMaster({
+      endpoint: "dialog",
+      anchor: "dialog:freiheit+werden",
+      variantIds: ["a", "b"],
+      masterOf: null,
+    });
+    expect(created.action).toBe("create");
+    expect(created.newIds).toEqual(["a", "b"]);
+  });
+
+  it("schreibt einen bestehenden Master nur bei genug neuen Varianten neu", () => {
+    expect(planMaster({
+      endpoint: "analyse",
+      anchor: "analyse:echo+werden",
+      variantIds: ["a", "b", "c"],
+      masterOf: ["a", "b"],
+    })).toMatchObject({ action: "skip", reason: "unchanged", newIds: ["c"] });
+    const updated = planMaster({
+      endpoint: "analyse",
+      anchor: "analyse:echo+werden",
+      variantIds: ["a", "b", "c", "d"],
+      masterOf: ["a", "b"],
+    });
+    expect(updated.action).toBe("update");
+    expect(updated.newIds).toEqual(["c", "d"]);
+    expect(updated.variantIds).toEqual(["a", "b", "c", "d"]);
+  });
+
+  it("lässt Sammel-Anker ohne Begriffspaar aus", () => {
+    expect(planMaster({
+      endpoint: "enkidu",
+      anchor: "enkidu",
+      variantIds: ["a", "b", "c"],
+      masterOf: null,
+    }).reason).toBe("skipped-endpoint");
+    expect(planMaster({
+      endpoint: "graph-chat",
+      anchor: "graph",
+      variantIds: ["a", "b"],
+      masterOf: null,
+    }).reason).toBe("skipped-endpoint");
+  });
+});
+
+describe("planKernsatzCandidates", () => {
+  const candidates = [
+    { id: "ERK-1", answerId: "A", questionSourceId: "Q", conceptAnchor: "freiheit", distinctness: 0.3 },
+    { id: "ERK-2", answerId: "B", questionSourceId: "Q", conceptAnchor: null, distinctness: 0.2 },
+    { id: "ERK-3", answerId: "C", questionSourceId: "Q", conceptAnchor: null, distinctness: 0.2 },
+  ];
+  const hashes = new Map([["A", "ha"], ["B", "hb"], ["C", "hc"]]);
+
+  it("nimmt nur Kandidaten ohne Bestätigung und ohne gleichen Entwurf", () => {
+    const picked = planKernsatzCandidates({
+      candidates,
+      confirmedAnswerIds: ["A"],
+      drafts: [{ answerId: "B", sourceHash: "hb" }],
+      answerHashById: hashes,
+    });
+    expect(picked.map(c => c.answerId)).toEqual(["C"]);
+  });
+
+  it("destilliert einen Entwurf neu, wenn die Antwort sich geändert hat", () => {
+    const picked = planKernsatzCandidates({
+      candidates,
+      confirmedAnswerIds: [],
+      drafts: [{ answerId: "A", sourceHash: "alt" }],
+      answerHashById: hashes,
+      limit: 1,
+    });
+    expect(picked.map(c => c.answerId)).toEqual(["A"]);
+  });
+});
+
+describe("neuer Master", () => {
+  it("behält eine stabile Id zum Anker", () => {
+    expect(masterIdForAnchor("dialog:freiheit+werden")).toBe(masterIdForAnchor("dialog:freiheit+werden"));
+    expect(masterRelPath("dialog", "dialog:freiheit+werden")).toBe(
+      "content/resonanzen/master/dialog/dialog_freiheit-werden.md",
+    );
+    const fm = freshMasterFm({ endpoint: "dialog", anchor: "dialog:freiheit+werden", now: "2026-11-11T00:00:00.000Z" });
+    expect(fm).toContain("status: raw");
+    expect(fm).toContain("is_master: true");
+  });
+});
+
+describe("Workflow Erkenntnisse neu erzeugen", () => {
+  it("läuft sonntags, über die Trigger-Datei, und pusht direkt nach main", () => {
+    const yml = fs.readFileSync(".github/workflows/regenerate-erkenntnisse.yml", "utf8");
+    expect(yml).toMatch(/cron:\s*'0 5 \* \* 0'/);
+    expect(yml).toContain(".github/triggers/regenerate-erkenntnisse");
+    expect(yml).toContain("git push origin HEAD:main");
+    expect(yml).toContain("scripts/validate-resonanzen.ts");
+    expect(yml).toContain("insightVoice.test.ts");
+    expect(yml).not.toContain("gh pr create");
+    expect(fs.existsSync(".github/triggers/regenerate-erkenntnisse")).toBe(true);
   });
 });
 
