@@ -26,6 +26,26 @@ export function getLastGeminiError(): string | null { return _lastError; }
 
 export function isGeminiAvailable(): boolean { return getKeys().length > 0; }
 
+/** gemini-2.5-pro lehnt thinkingBudget 0 ab („only works in thinking mode“). */
+export const PRO_THINKING_BUDGET = 1024;
+
+/** Pro (nicht Flash) darf nicht mit Budget 0 aufgerufen werden. Flash bleibt bei 0. */
+export function modelRequiresThinking(model: string): boolean {
+  const m = model.trim().toLowerCase();
+  if (!m.includes("gemini") || m.includes("flash")) return false;
+  return m.includes("pro");
+}
+
+/**
+ * Angefordertes Denk-Budget, angehoben auf PRO_THINKING_BUDGET wenn das Modell
+ * Thinking erzwingt und 0 (oder nichts) gesetzt wurde. Flash akzeptiert 0.
+ */
+export function resolveThinkingBudget(model: string, requested: number | undefined): number {
+  const asked = typeof requested === "number" && Number.isFinite(requested) && requested > 0 ? requested : 0;
+  if (asked === 0 && modelRequiresThinking(model)) return PRO_THINKING_BUDGET;
+  return asked;
+}
+
 /**
  * Sichtbares Ausgabe-Budget plus Denk-Budget.
  * Bei Gemini zählen Thinking-Tokens gegen maxOutputTokens. Liegt das Denk-Budget
@@ -122,8 +142,13 @@ export async function callGemini(opts: {
   const model = opts.model?.trim() || DEFAULT_GEMINI_TEXT_MODEL;
   // Weggelassenes thinkingBudget heißt 0, nicht Modell-Default. Dynamisches
   // Thinking von gemini-2.5-pro frisst sonst das gesamte maxOutputTokens und
-  // die sichtbare Antwort kommt leer oder abgeschnitten zurück.
-  const thinking = typeof opts.thinkingBudget === "number" ? opts.thinkingBudget : 0;
+  // die sichtbare Antwort kommt leer oder abgeschnitten zurück. Pro akzeptiert
+  // 0 nicht — resolveThinkingBudget hebt das auf ein gültiges Budget an.
+  // outputTokenBudget legt das Denk-Budget obendrauf, damit die Prosa bleibt.
+  const thinking = resolveThinkingBudget(
+    model,
+    typeof opts.thinkingBudget === "number" ? opts.thinkingBudget : 0,
+  );
   const first = await geminiOnce({
     model,
     system: opts.system,
@@ -145,8 +170,8 @@ export async function callGemini(opts: {
     system: opts.system,
     contents: [{ role: "user", parts: [{ text: continuationPrompt(partial) }] }],
     temperature: 0.3,
-    maxTokens: 4096,
-    thinkingBudget: 0,
+    maxTokens: outputTokenBudget(4096, thinking),
+    thinkingBudget: thinking,
   }));
   if (!finished.text) {
     _lastError = (first.errorDetail ?? "leere Antwort").slice(0, 300);
@@ -302,7 +327,10 @@ export async function generateFlashContent(opts: {
     };
   }
   const model = opts.model?.trim() || USER_FLASH_MODEL;
-  const thinking = typeof opts.thinkingBudget === "number" ? opts.thinkingBudget : 0;
+  const thinking = resolveThinkingBudget(
+    model,
+    typeof opts.thinkingBudget === "number" ? opts.thinkingBudget : 0,
+  );
   const temperature = opts.temperature ?? 0.7;
   const first = await geminiOnce({
     model,
@@ -323,8 +351,8 @@ export async function generateFlashContent(opts: {
     system: opts.system,
     contents: [{ role: "user", parts: [{ text: continuationPrompt(partial) }] }],
     temperature: Math.min(temperature, 0.4),
-    maxTokens: 4096,
-    thinkingBudget: 0,
+    maxTokens: outputTokenBudget(4096, thinking),
+    thinkingBudget: thinking,
   }));
   return {
     ok: !!finished.text,

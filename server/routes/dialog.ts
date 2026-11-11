@@ -11,6 +11,7 @@ import { endsComplete, generateFlashContent } from "../lib/geminiText.js";
 import { GRAPH_SYSTEM_PROMPT } from "../lib/graphContext.js";
 import { flashErrorDetail, FLASH_THINKING_BUDGET, PROSE_MAX_TOKENS } from "../lib/proseAssist.js";
 import { OUTPUT_VOICE_RULE } from "../lib/promptSafety.js";
+import { prepareDialogPersist, resolveDialogAnchor } from "../lib/dialogAnchor.js";
 import { logResonanz } from "../lib/resonanzLog.js";
 import { prepareWeiterdenken, weiterdenkenSafetySuffix } from "../lib/weiterdenkenPrompt.js";
 import { buildWerkContext } from "../lib/werkRetrieval.js";
@@ -129,43 +130,23 @@ export function createDialogRouter(): Router {
   // er hier persistiert — als endpoint="dialog" mit der gesamten
   // Vorgeschichte in contextMeta.dialog_history.
   router.post("/api/dialog/persist", rateLimiter('dialog-persist', 30, 60 * 60_000), async (req, res) => {
-    const { sessionId, focus, turns, focusedNodeIds } = req.body as {
-      sessionId?: string;
-      focus?: string;
-      focusedNodeIds?: string[];
-      turns?: Array<{ role: "user" | "model"; text: string }>;
-    };
-    if (!Array.isArray(turns) || turns.length < 2) {
-      return res.status(400).json({ error: "Mindestens 2 Turns (1 User + 1 Antwort) nötig" });
-    }
-    if (turns.length > 24) {
-      return res.status(400).json({ error: "Zu viele Turns — Limit 24" });
-    }
-
-    // Der letzte Turn muss eine Model-Antwort sein (das ist, was persistiert wird)
-    const lastTurn = turns[turns.length - 1];
-    if (lastTurn.role !== "model") {
-      return res.status(400).json({ error: "Letzter Turn muss eine Model-Antwort sein" });
-    }
-
-    // Letzte User-Anfrage als Prompt (für FAQ-Aggregation sinnvoller als
-    // die gesamte History)
-    const lastUserTurn = [...turns].reverse().find(t => t.role === "user");
-    if (!lastUserTurn) return res.status(400).json({ error: "Keine User-Anfrage gefunden" });
-
-    const anchor = focus ? `dialog:${focus.slice(0, 40)}` : "dialog:freier";
+    const prepared = prepareDialogPersist(req.body);
+    if (!prepared.ok) return res.status(400).json({ error: prepared.error });
+    const { anchor, nodeIds, prompt, response, sessionId, focus, turns } = prepared.value;
+    // Spam, Länge und Anker sind geprüft. Dedup läuft in logResonanz,
+    // derselbe Pfad wie bei den anderen Endpunkten.
     void logResonanz({
       endpoint: "dialog",
       anchor,
-      nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
-      prompt: lastUserTurn.text,
-      response: lastTurn.text,
+      nodeIds,
+      prompt,
+      response,
       model: "gemini-2.5-flash",
       contextMeta: {
-        session_id: sessionId ?? null,
+        session_id: sessionId,
         turn_count: turns.length,
         dialog_history: turns.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),
-        focus: focus ?? null,
+        focus,
       },
     });
 
@@ -224,6 +205,27 @@ ${OUTPUT_VOICE_RULE}`;
     return { reflection: trimmed, nextQuestion: "" };
   }
 
+  function logWeiterdenken(
+    focus: unknown,
+    focusedNodeIds: unknown,
+    entry: { prompt: string; response: string; contextMeta: Record<string, unknown> },
+  ): void {
+    const logged = resolveDialogAnchor(focus, focusedNodeIds, "weiterdenken");
+    if (!logged) {
+      console.warn(`[weiterdenken] Anker abgelehnt, kein Korpus-Eintrag: ${String(focus).slice(0, 80)}`);
+      return;
+    }
+    void logResonanz({
+      endpoint: "dialog",
+      anchor: logged.anchor,
+      nodeIds: logged.nodeIds,
+      prompt: entry.prompt,
+      response: entry.response,
+      model: "gemini-2.5-flash",
+      contextMeta: entry.contextMeta,
+    });
+  }
+
   router.post("/api/weiterdenken", rateLimiter('weiterdenken', 30, 60 * 60_000), async (req, res) => {
     if (getKeys().length === 0) return res.status(503).json({ error: "Gemini API nicht konfiguriert." });
 
@@ -269,13 +271,9 @@ ${OUTPUT_VOICE_RULE}`;
       });
 
       // Korpus-Append: der weitergedachte Schritt als dialog-Eintrag.
-      void logResonanz({
-        endpoint: "dialog",
-        anchor: focus ? `dialog:${focus.slice(0, 40)}` : "dialog:weiterdenken",
-        nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
+      logWeiterdenken(focus, focusedNodeIds, {
         prompt: logPrompt,
         response: full,
-        model: "gemini-2.5-flash",
         contextMeta: {
           kind: "weiterdenken",
           thread: safeThread.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),
@@ -325,13 +323,9 @@ ${OUTPUT_VOICE_RULE}`;
     }
     sseSend(res, { done: true, citedChunks: passages.map(p => ({ source: p.source, id: p.id, chapter: p.chapter, partTitle: p.partTitle, chapterTitle: p.chapterTitle, endpoint: p.endpoint, prompt: p.prompt })) });
     res.end();
-    void logResonanz({
-      endpoint: "dialog",
-      anchor: focus ? `dialog:${focus.slice(0, 40)}` : "dialog:weiterdenken",
-      nodeIds: Array.isArray(focusedNodeIds) ? focusedNodeIds.filter(s => typeof s === "string") : [],
+    logWeiterdenken(focus, focusedNodeIds, {
       prompt: logPrompt,
       response: full,
-      model: "gemini-2.5-flash",
       contextMeta: {
         kind: "weiterdenken", streamed: true,
         thread: safeThread.map(t => ({ role: t.role, text: t.text.slice(0, 800) })),

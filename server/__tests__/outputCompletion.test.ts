@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { endsComplete, outputTokenBudget, spliceContinuation } from "../lib/geminiText.js";
+import { endsComplete, outputTokenBudget, resolveThinkingBudget, spliceContinuation } from "../lib/geminiText.js";
 
 describe("outputTokenBudget", () => {
   it("legt ein Denk-Budget auf das sichtbare Ausgabe-Budget", () => {
@@ -9,6 +9,15 @@ describe("outputTokenBudget", () => {
   it("lässt das Budget unverändert, wenn nicht gedacht wird", () => {
     expect(outputTokenBudget(8192, 0)).toBe(8192);
     expect(outputTokenBudget(250, undefined)).toBe(250);
+  });
+
+  it("legt ein Pro-Denk-Budget auf die sichtbare Ausgabe, Flash bleibt bei 0", () => {
+    expect(resolveThinkingBudget("gemini-2.5-pro", 0)).toBe(1024);
+    expect(resolveThinkingBudget("gemini-2.5-pro", undefined)).toBe(1024);
+    expect(outputTokenBudget(8192, resolveThinkingBudget("gemini-2.5-pro", 0))).toBe(9216);
+    expect(resolveThinkingBudget("gemini-2.5-flash", 0)).toBe(0);
+    expect(resolveThinkingBudget("gemini-2.5-flash", undefined)).toBe(0);
+    expect(resolveThinkingBudget("gemini-2.5-pro", 512)).toBe(512);
   });
 });
 

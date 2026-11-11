@@ -50,3 +50,30 @@ export function buildPath(entryId: string, endpoint: ResonanzEndpoint, anchor: s
     : `content/resonanzen/raw/${endpoint}`;
   return `${dirPath}/${date}-${safeId}.md`;
 }
+
+/**
+ * GitHub Contents-API antwortet bei parallelen Commits (Snapshot, Live-Append)
+ * mit 409. Manche Pfade nennen das zusätzlich „not a fast forward“.
+ */
+export function isNonFastForwardConflict(status: number, reason: string): boolean {
+  if (status === 409) return true;
+  return /not a fast[- ]forward|non-fast-forward|is at [0-9a-f]{7,} but expected/i.test(reason);
+}
+
+export type ConflictResume =
+  | { kind: "retry-create" }
+  | { kind: "landed" }
+  | { kind: "retry-update"; sha: string };
+
+/**
+ * Nach einem Non-Fast-Forward: Datei fehlt noch → Create erneut (HEAD hat sich
+ * bewegt). Inhalt ist schon unserer → fertig. Sonst mit dem frischen SHA updaten.
+ */
+export function resumeAfterConflict(
+  remote: { sha: string; text: string } | null,
+  desiredText: string,
+): ConflictResume {
+  if (!remote?.sha) return { kind: "retry-create" };
+  if (remote.text === desiredText) return { kind: "landed" };
+  return { kind: "retry-update", sha: remote.sha };
+}
