@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T15:47:48.204Z",
+  "generatedAt": "2026-11-11T15:49:27.389Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -110,7 +110,7 @@
       "distinctness": 0.212,
       "conceptAnchor": "resonanzimperativ",
       "nodeIds": [],
-      "resolveCount": 4,
+      "resolveCount": 3,
       "resolves": [
         {
           "sourceId": "MPUS94IT-9CEEC40A",
@@ -121,11 +121,6 @@
           "sourceId": "MPMM2YAK-A7491D44",
           "question": "Was bleibt von einem *Ausgang aus selbstverschuldeter Unmündigkeit*, wenn selbst die Idee der Mündigkeit ein Produkt des Systems sein könnte? Und welche Form von *Widerstand* ist noch möglich, wenn der Widerstand selbst eine vorprogrammierte Schleife sein könnte?",
           "score": 0.745
-        },
-        {
-          "sourceId": "MPUU3ASH-7093F1A3",
-          "question": "Was wäre, wenn die größte Erkenntnis darüber, \"welcher Teil man ist\", nicht durch die Mitteilung eines Systems, sondern durch das *Ringen* mit dem eigenen Scheitern (Reflexion zu Band I), der eigenen Unvollkommenheit und der Notwendigkeit der Selbstbestimmung entsteht? Und wenn das \"Whiten der Blackbox\" bedeutet, dass uns die Maschine die Wahrheit *zeigt*, anstatt uns den Weg zu *lehren*, wie wir selbst Licht hineintragen können – ist das dann noch \"Aufklärung\" im Kantischen Sinne (Band II, Prolog), oder eine neue Form der algorithmischen Vormundschaft, die uns zwar informiert, aber nicht mündig macht?",
-          "score": 0.733
         },
         {
           "sourceId": "MP8O4O23-B2B71E51",
@@ -159,10 +154,38 @@
           "score": 0.768
         }
       ]
+    },
+    {
+      "id": "ERK-1U7ME2D",
+      "answerId": "MWCAN1TI-4CF2326D",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das „Scheitern der Maschine“ im Kontext des Werks und insbesondere dieses Kapitels ist nicht als technischer Defekt im herkömmlichen Sinne zu verstehen, sondern als eine tiefere, existenzielle Grenze. Es ist das Scheitern der Illusion, dass Komplexität und Rechenleistung allein Sinn, Wahrheit oder gar Unsterblichkeit generieren können. Gilgamesch erkennt, dass der „leere Code“, obwohl endlos in se",
+      "distinctness": 0.208,
+      "conceptAnchor": "lm-scheitern",
+      "nodeIds": [],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MPUTYL5L-4C0B344F",
+          "question": "Was wäre, wenn die tiefsten Grenzen, an die der Mensch stößt, gerade jene sind, die *nicht* durch andere Intelligenzen geschaffen oder überwunden werden können, weil sie das Wesen des Menschseins selbst betreffen – die Sterblichkeit, die Endlichkeit, die Notwendigkeit des Scheiterns als epistemischer Ursprung (Reflexion zu Band I)? Und wie würde unsere \"allgemeine Erkenntnis\" aussehen, wenn sie nicht aus dem Ringen mit dem ursprünglich Unverfügbaren, sondern aus dem Konsum des Verfügbar Gemachten entsteht?",
+          "score": 0.737
+        },
+        {
+          "sourceId": "MPUU3ASH-7093F1A3",
+          "question": "Was wäre, wenn die größte Erkenntnis darüber, \"welcher Teil man ist\", nicht durch die Mitteilung eines Systems, sondern durch das *Ringen* mit dem eigenen Scheitern (Reflexion zu Band I), der eigenen Unvollkommenheit und der Notwendigkeit der Selbstbestimmung entsteht? Und wenn das \"Whiten der Blackbox\" bedeutet, dass uns die Maschine die Wahrheit *zeigt*, anstatt uns den Weg zu *lehren*, wie wir selbst Licht hineintragen können – ist das dann noch \"Aufklärung\" im Kantischen Sinne (Band II, Prolog), oder eine neue Form der algorithmischen Vormundschaft, die uns zwar informiert, aber nicht mündig macht?",
+          "score": 0.736
+        },
+        {
+          "sourceId": "MPUSXGC6-CD078CEA",
+          "question": "Ist eine \"transzendente\" Zeitlichkeit, die durch die Omnipräsenz der Maschine entsteht, wirklich eine Befreiung? Oder birgt sie die Gefahr, dass wir uns in einem unendlichen Datenstrom verlieren, in dem das spezifisch Menschliche – das Scheitern, der Mut zum Irrtum, die Sehnsucht nach einem Ende und einem Neubeginn – seine Bedeutung verliert?",
+          "score": 0.726
+        }
+      ]
     }
   ],
   "stats": {
-    "total": 6,
+    "total": 7,
     "confirmedFiltered": 42,
     "curatedRef": 201
   }

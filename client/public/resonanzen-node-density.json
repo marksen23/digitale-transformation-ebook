@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T15:47:47.782Z",
+  "generatedAt": "2026-11-11T15:49:26.670Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 21,
@@ -16,9 +16,9 @@
       }
     },
     "vernunft": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "analyse": 11,
+        "analyse": 12,
         "path-analyse": 4
       }
     },
@@ -108,9 +108,9 @@
       }
     },
     "zeit": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
-        "analyse": 1
+        "analyse": 2
       }
     },
     "raum": {
@@ -264,9 +264,9 @@
       }
     },
     "entfremdung": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
-        "analyse": 1
+        "analyse": 2
       }
     },
     "echo-kammer": {
@@ -284,15 +284,15 @@
       }
     },
     "transaufklaerung": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
-        "analyse": 1
+        "analyse": 2
       }
     },
     "resonanzimperativ": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
-        "analyse": 1
+        "analyse": 2
       }
     },
     "unverfuegbarkeit": {
@@ -316,9 +316,9 @@
       }
     },
     "licht": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
-        "analyse": 1
+        "analyse": 2
       }
     },
     "raumfaltung": {

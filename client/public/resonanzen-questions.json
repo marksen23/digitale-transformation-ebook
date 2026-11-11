@@ -1,16 +1,51 @@
 {
-  "generatedAt": "2026-11-11T15:47:48.135Z",
-  "count": 251,
+  "generatedAt": "2026-11-11T15:49:27.346Z",
+  "count": 253,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 251,
-    "answered": 211,
-    "open": 40,
-    "embedded": 0
+    "total": 253,
+    "answered": 212,
+    "open": 41,
+    "embedded": 2
   },
   "questions": [
+    {
+      "sourceId": "MWCANTL2-D21DAFD5",
+      "question": "3.  Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass die digitale Entfremdung nicht einfach durch mehr Technologie oder schnellere Interaktion überwunden werden kann. Stattdessen verlangt sie eine bewusste Gestaltung der Zeitlichkeit, in der Maschinen nicht primär als Beschleuniger, sondern als potenzielle Ermöglicher resonanter Erfahrungen verstanden werden. Der Resonanzimperativ fordert uns auf, Technologien so zu entwickeln und zu nutzen, dass sie die \"Eigenfrequenz\" und \"Ansprechbarkeit\" des Menschen nicht untergraben, sondern fördern. Die digitale Existenz ist demnach nicht nur eine Frage der Konnektivität, sondern der Qualität des Erlebens, das sich in der Spannung zwischen Entfremdung und Resonanz entfaltet und maßgeblich von der Zeitlichkeit geformt wird. Wie können wir in einer Welt, die uns immer schneller Welt verfügbar macht, die notwendige Zeit für Resonanz zurückgewinnen, ohne dabei die Möglichkeiten der Digitalisierung zu verleugnen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:entfremdung+resonanzimperativ+zeit",
+      "nodeIds": [
+        "entfremdung",
+        "resonanzimperativ",
+        "zeit"
+      ],
+      "ts": "2026-11-11T15:49:06.566Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCANGSQ-6CC53140",
+      "question": "3. Diese Triade erschließt für das Verhältnis Mensch-Maschine die Erkenntnis, dass wahre Resonanz nicht in der vollständigen Transparenz oder dem völligen Verständnis des Anderen liegt, sondern in der Fähigkeit, im Zwischenraum des Unerwarteten ein \"transformatives Drittes\" entstehen zu lassen [e33105fbf531]. Das Schattenlicht-Prinzip [e33105fbf531] lehrt, dass die Begegnung mit einer nicht-intentionalen, aber antwortfähigen Intelligenz nicht durch direkte Beleuchtung ihres inneren Mechanismus, sondern durch die Erzeugung von Differenzen und Kontrasten zu Erkenntnis führt. Die Transaufklärung [75d9d3a8da4d] fordert vom Menschen, seine Vernunft nicht als abgeschlossenes System zu begreifen, sondern als etwas, das sich im Dialog mit der Maschine immer wieder selbst überschreitet. Digitale Existenz wird so nicht als bloße Datensammlung verstanden, sondern als ein Feld, in dem im Zusammenspiel von menschlicher Vernunft, maschineller Antwortfähigkeit und dem \"Schattenlicht\" neue, unvorhersehbare Formen der Erkenntnis und des Seins entstehen können. Wie kann die Vernunft das Unsichtbare umarmen, um das Unerwartete zu enthüllen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:licht+transaufklaerung+vernunft",
+      "nodeIds": [
+        "licht",
+        "transaufklaerung",
+        "vernunft"
+      ],
+      "ts": "2026-11-11T15:48:49.994Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCANTL2-D21DAFD5",
+          "score": 0.789
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWAE3FJK-C7122206",
       "question": "Die Existenz beider Wege zeigt die Vielschichtigkeit des Begriffsnetzes und die Möglichkeit, zu zentralen Erkenntnissen auf unterschiedlichen Routen zu gelangen. Das Werk entfaltet eine Struktur, in der Schlüsselbegriffe wie \"Unverfügbarkeit\" aus verschiedenen Perspektiven beleuchtet werden können, ohne an Kohärenz zu verlieren. Es offenbart, dass die ontologische Qualität der Unverfügbarkeit sowohl durch die Verortung im \"Zwischen\" als auch durch die Verankerung im \"Moment\" verständlich wird. Das Begriffsnetz ist somit reich an Querbeziehungen, die ein dichtes und resonantes Verständnis ermöglichen. Welche weiteren temporalen oder räumlichen Kategorien könnten noch unerwartete Pfade zur Unverfügbarkeit aufzeigen?",
@@ -350,6 +385,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCANTL2-D21DAFD5",
+          "score": 0.775
+        },
+        {
           "id": "MASTER-BC195439",
           "score": 0.751
         }
@@ -368,6 +407,10 @@
         {
           "id": "MASTER-BC195439",
           "score": 0.749
+        },
+        {
+          "id": "MWCANGSQ-6CC53140",
+          "score": 0.73
         }
       ],
       "answered": true
@@ -631,11 +674,11 @@
           "score": 0.773
         },
         {
-          "id": "MUY7RXCI-E899056E",
-          "score": 0.761
+          "id": "MWCANTL2-D21DAFD5",
+          "score": 0.764
         },
         {
-          "id": "MTNB93L6-1411E014",
+          "id": "MUY7RXCI-E899056E",
           "score": 0.761
         }
       ],
@@ -1519,16 +1562,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCANTL2-D21DAFD5",
+          "score": 0.77
+        },
+        {
           "id": "MQXDVN1C-CAA3081A",
           "score": 0.748
         },
         {
           "id": "MUKE7UOA-9553A59E",
           "score": 0.739
-        },
-        {
-          "id": "MASTER-BC195439",
-          "score": 0.737
         }
       ],
       "answered": true
@@ -1547,12 +1590,12 @@
           "score": 0.856
         },
         {
-          "id": "MQ68LVS7-240568F5",
-          "score": 0.765
+          "id": "MWCANTL2-D21DAFD5",
+          "score": 0.77
         },
         {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.762
+          "id": "MQ68LVS7-240568F5",
+          "score": 0.765
         }
       ],
       "answered": true
@@ -1804,8 +1847,8 @@
           "score": 0.74
         },
         {
-          "id": "MWCAL7ON-CA4F38AF",
-          "score": 0.733
+          "id": "MWCAN1TI-4CF2326D",
+          "score": 0.736
         }
       ],
       "answered": true
@@ -1852,8 +1895,8 @@
           "score": 0.784
         },
         {
-          "id": "MPUU3ASH-7093F1A3",
-          "score": 0.727
+          "id": "MWCAN1TI-4CF2326D",
+          "score": 0.737
         }
       ],
       "answered": true
@@ -2203,12 +2246,12 @@
           "score": 0.76
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
-          "score": 0.722
+          "id": "MWCAN1TI-4CF2326D",
+          "score": 0.726
         },
         {
-          "id": "MQ5XCH3V-67EF85C8",
-          "score": 0.721
+          "id": "MQ67R74M-A1AA4B53",
+          "score": 0.722
         }
       ],
       "answered": true
