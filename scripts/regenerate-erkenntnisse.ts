@@ -19,7 +19,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { callClaude, getClaudeModel, getLastClaudeError, isClaudeAvailable } from "../server/lib/claudeClient.js";
 import { getKeys } from "../server/lib/embeddingClient.js";
-import { callGemini, getLastGeminiError } from "../server/lib/geminiText.js";
+import { callGemini, getLastGeminiError, resolveThinkingBudget } from "../server/lib/geminiText.js";
 import {
   ERKENNTNIS_DISTILL_SYSTEM,
   MASTER_SYNTHESIS_SYSTEM,
@@ -64,7 +64,9 @@ async function callText(opts: {
       maxTokens: opts.maxTokens,
       temperature: opts.temperature,
       model: opts.geminiModel,
-      thinkingBudget: opts.thinkingBudget ?? 0,
+      // Pro lehnt 0 ab; Flash darf 0. callGemini legt das Denk-Budget über
+      // outputTokenBudget auf das Ausgabe-Budget, damit die Prosa bleibt.
+      thinkingBudget: resolveThinkingBudget(opts.geminiModel, opts.thinkingBudget ?? 0),
     });
     return { text, model: opts.geminiModel, error: text ? null : getLastGeminiError() };
   }
@@ -194,7 +196,7 @@ async function synthesizeMaster(
       maxTokens: 8192,
       temperature: 0.7,
       geminiModel: SYNTH_MODEL,
-      thinkingBudget: 0,
+      thinkingBudget: resolveThinkingBudget(SYNTH_MODEL, 0),
     });
     if (!text) {
       if (isBilling(error)) throw new Error(`LLM-Guthaben oder Berechtigung: ${error}`);

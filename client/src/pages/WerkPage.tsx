@@ -880,7 +880,7 @@ export function PassageResonanzModal({
                   key={result.entryId}
                   c={C}
                   initialQuestion={q}
-                  focus={`passage:${chunkId.slice(0, 8)}`}
+                  focus={`passage-${chunkId.slice(0, 8).toLowerCase().replace(/[^a-f0-9]/g, "")}`}
                 />
               );
             })()}

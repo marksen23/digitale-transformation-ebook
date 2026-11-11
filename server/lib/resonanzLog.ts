@@ -15,7 +15,8 @@ import crypto from "crypto";
 import { NODES } from "../../client/src/data/conceptGraph.js";
 import { detectEchoes, getEchoDetectorHealth } from "./echoDetector.js";
 import { appendToIndex, getIndexUpdaterHealth, loadIndex } from "./indexUpdater.js";
-import { buildPath, contentHash, yamlString } from "./resonanz-log-utils.js";
+import { prepareCorpusAnchor } from "./dialogAnchor.js";
+import { buildPath, contentHash, isNonFastForwardConflict, resumeAfterConflict, yamlString } from "./resonanz-log-utils.js";
 
 // Bei Server-Start: Set aller validen Konzept-IDs aus dem Begriffsnetz.
 // Verwendet, um Tippfehler oder veraltete IDs in nodeIds beim Logging
@@ -153,6 +154,7 @@ let _resonanzLogFailureCount = 0;
 let _resonanzLogSkippedNoToken = 0;
 let _resonanzLogSkippedSpam = 0;
 let _resonanzLogSkippedDuplicate = 0;
+let _resonanzLogSkippedInvalidAnchor = 0;
 let _lastSuccess: { id: string; ts: string; endpoint: string; anchor: string } | null = null;
 let _lastFailure: { ts: string; endpoint: string; reason: string } | null = null;
 
@@ -171,6 +173,7 @@ export function getResonanzLogHealth() {
     skippedNoToken: _resonanzLogSkippedNoToken,
     skippedSpamFilter: _resonanzLogSkippedSpam,
     skippedDuplicate: _resonanzLogSkippedDuplicate,
+    skippedInvalidAnchor: _resonanzLogSkippedInvalidAnchor,
     lastSuccess: _lastSuccess,
     lastFailure: _lastFailure,
     echoDetector: getEchoDetectorHealth(),
@@ -209,15 +212,37 @@ async function _putToGithub(
   };
 }
 
-const RETRY_DELAYS_MS = [0, 1000, 5000]; // 3 Versuche: sofort, 1s, 5s
+const RETRY_DELAYS_MS = [0, 1000, 5000]; // transiente Fehler: sofort, 1s, 5s
+
+async function readRemoteFile(token: string, url: string): Promise<{ sha: string; text: string } | null> {
+  try {
+    const res = await fetch(url, {
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Accept": "application/vnd.github+json",
+        "X-GitHub-Api-Version": "2022-11-28",
+        "User-Agent": "dt-resonanz-log",
+      },
+    });
+    if (!res.ok) return null;
+    const data = await res.json() as { sha?: string; content?: string };
+    if (!data.sha || typeof data.content !== "string") return null;
+    const text = Buffer.from(data.content.replace(/\n/g, ""), "base64").toString("utf8");
+    return { sha: data.sha, text };
+  } catch {
+    return null;
+  }
+}
 
 /**
  * Schreibt einen Resonanz-Eintrag ins Repo.
  * Wirft NIE — Fehler werden geloggt, aber nicht propagiert (fire-and-forget).
  *
  * Retry-Verhalten:
- *   - Transiente Fehler (429, 5xx, network): bis zu 3 Versuche mit Backoff
- *   - Dauerhafte Fehler (401, 403, 422, andere 4xx): sofort aufgeben
+ *   - Transiente Fehler (429, 5xx, network): bis zu 5 Versuche mit Backoff
+ *   - Non-fast-forward / 409 (paralleler Snapshot-Commit): erneut, mit frischem
+ *     SHA falls die Datei inzwischen existiert
+ *   - Dauerhafte Fehler (401, 403, 422 ohne Fast-Forward-Hinweis): sofort aufgeben
  */
 export async function logResonanz(entry: ResonanzEntry): Promise<void> {
   const token = process.env.GITHUB_TOKEN;
@@ -230,6 +255,14 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
     _resonanzLogSkippedSpam++;
     return;
   }
+
+  const prepared = prepareCorpusAnchor(entry.endpoint, entry.anchor, entry.nodeIds);
+  if (!prepared) {
+    _resonanzLogSkippedInvalidAnchor++;
+    console.warn(`[resonanzLog] skip invalid anchor ${entry.endpoint} ${entry.anchor}`);
+    return;
+  }
+  entry = { ...entry, anchor: prepared.anchor, nodeIds: prepared.nodeIds };
 
   // ─── Ingest-Dedup (Ursache der Dubletten-Anlagerung) ─────────────────────
   // Deterministische Wiederholungen (gleicher Endpoint + Anker + Frage) fluten
@@ -299,36 +332,53 @@ export async function logResonanz(entry: ResonanzEntry): Promise<void> {
     branch: REPO_BRANCH,
   };
 
-  let lastReason = "no attempt";
-  for (let attempt = 0; attempt < RETRY_DELAYS_MS.length; attempt++) {
-    if (RETRY_DELAYS_MS[attempt] > 0) {
-      await new Promise(r => setTimeout(r, RETRY_DELAYS_MS[attempt]));
+  const committed = () => {
+    _resonanzLogSuccessCount++;
+    _lastSuccess = { id, ts, endpoint: entry.endpoint, anchor: entry.anchor };
+    if (_resonanzLogSuccessCount % 100 === 0) {
+      console.info(`[resonanzLog] ${_resonanzLogSuccessCount} entries logged total`);
     }
-    const result = await _putToGithub(token, url, body);
+    // Inkrementelles Index-Update: damit der neue Eintrag sofort in
+    // /resonanzen sichtbar ist, ohne auf den CI-Workflow zu warten.
+    // Fire-and-forget — Fehler werden in indexUpdater intern getrackt.
+    void appendToIndex({
+      id, ts,
+      endpoint: entry.endpoint,
+      anchor: entry.anchor,
+      nodeIds: entry.nodeIds ?? [],
+      status: "raw",
+      prompt: entry.prompt,
+      response: entry.response,
+      contextMeta: entry.contextMeta ?? {},
+      ...(echoIds.length > 0 ? { echoes_of: echoIds } : {}),
+    });
+  };
+
+  let sha: string | undefined;
+  let lastReason = "no attempt";
+  const MAX_PUTS = 5;
+  for (let attempt = 0; attempt < MAX_PUTS; attempt++) {
+    const result = await _putToGithub(token, url, { ...body, ...(sha ? { sha } : {}) });
     if (result.ok) {
-      _resonanzLogSuccessCount++;
-      _lastSuccess = { id, ts, endpoint: entry.endpoint, anchor: entry.anchor };
-      if (_resonanzLogSuccessCount % 100 === 0) {
-        console.info(`[resonanzLog] ${_resonanzLogSuccessCount} entries logged total`);
-      }
-      // Inkrementelles Index-Update: damit der neue Eintrag sofort in
-      // /resonanzen sichtbar ist, ohne auf den CI-Workflow zu warten.
-      // Fire-and-forget — Fehler werden in indexUpdater intern getrackt.
-      void appendToIndex({
-        id, ts,
-        endpoint: entry.endpoint,
-        anchor: entry.anchor,
-        nodeIds: entry.nodeIds ?? [],
-        status: "raw",
-        prompt: entry.prompt,
-        response: entry.response,
-        contextMeta: entry.contextMeta ?? {},
-        ...(echoIds.length > 0 ? { echoes_of: echoIds } : {}),
-      });
+      committed();
       return;
     }
     lastReason = result.reason;
-    if (!result.transient) break; // dauerhafter Fehler — nicht retry-sinnvoll
+    if (isNonFastForwardConflict(result.status, result.reason)) {
+      const remote = await readRemoteFile(token, url);
+      const resume = resumeAfterConflict(remote, md);
+      if (resume.kind === "landed") {
+        console.info(`[resonanzLog] ${repoPath} already on branch after conflict`);
+        committed();
+        return;
+      }
+      sha = resume.kind === "retry-update" ? resume.sha : undefined;
+      if (attempt === MAX_PUTS - 1) break;
+      await new Promise(r => setTimeout(r, 200 * (attempt + 1)));
+      continue;
+    }
+    if (!result.transient || attempt === MAX_PUTS - 1) break;
+    await new Promise(r => setTimeout(r, RETRY_DELAYS_MS[Math.min(attempt + 1, RETRY_DELAYS_MS.length - 1)]));
   }
   // Alle Versuche fehlgeschlagen oder dauerhafter Fehler — als error sichtbar machen.
   // In-Memory-Dedup-Key freigeben, damit ein späterer Retry nicht fälschlich als

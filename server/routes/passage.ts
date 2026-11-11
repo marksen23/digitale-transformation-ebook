@@ -98,8 +98,8 @@ export function createPassageRouter(): Router {
       // synthetische Reference; der echte Eintrag bekommt seine ID intern.
       // Für UX-Zwecke ist das ausreichend ("erscheint nach CI-Build").
       const userDescriptor = mode === "frei" ? (userPrompt ?? "").slice(0, 200) : `${mode}: "${selectedText.slice(0, 100)}…"`;
-      const anchorTail = chunkId.slice(0, 8);
-      void logResonanz({
+      const anchorTail = chunkId.toLowerCase().replace(/[^a-f0-9]/g, "").slice(0, 8);
+      if (/^[a-f0-9]{8}$/.test(anchorTail)) void logResonanz({
         endpoint: "passage",
         anchor: `passage:${anchorTail}`,
         prompt: userDescriptor,

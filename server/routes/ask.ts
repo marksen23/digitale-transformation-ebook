@@ -23,7 +23,7 @@ export function createAskRouter(getAskChapters: () => Map<string, AskChapterSour
     const clip = (value: unknown, max: number) =>
       typeof value === "string" ? value.trim().slice(0, max) : "";
     const question = clip(body.question, 2000);
-    const chapterId = clip(body.chapterId, 80).replace(/[^a-z0-9äöüß_-]/gi, "");
+    const chapterId = clip(body.chapterId, 80).toLowerCase().replace(/_/g, "-").replace(/[^a-z0-9äöüß-]/g, "");
     if (!question) {
       return res.status(400).json({ error: "Frage ist erforderlich." });
     }

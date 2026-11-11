@@ -24,7 +24,7 @@ export function createTranslateRouter(): Router {
     if ("error" in translated) return res.status(400).json({ error: translated.error });
     const { text, targetLang, sourceLang, targetName, sourceName } = translated;
     const chapterId = typeof body.chapterId === "string"
-      ? body.chapterId.replace(/[^a-z0-9äöüß_-]/gi, "").slice(0, 80)
+      ? body.chapterId.toLowerCase().replace(/[^a-z0-9äöüß_-]/g, "").slice(0, 80)
       : "";
     const chapterTitle = typeof body.chapterTitle === "string"
       ? body.chapterTitle.replace(/\s+/g, " ").trim().slice(0, 300)
