@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T15:49:26.670Z",
+  "generatedAt": "2026-11-11T15:51:02.223Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 21,
@@ -52,9 +52,9 @@
       }
     },
     "schweigen": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "analyse": 5
+        "analyse": 6
       }
     },
     "echo": {
@@ -156,8 +156,9 @@
       }
     },
     "werden": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
+        "analyse": 1,
         "path-analyse": 1
       }
     },
@@ -195,10 +196,10 @@
       }
     },
     "freiheit": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 2
+        "analyse": 3,
+        "path-analyse": 4
       }
     },
     "öffnung": {
@@ -229,9 +230,9 @@
       }
     },
     "lm-scheitern": {
-      "count": 1,
+      "count": 2,
       "endpoints": {
-        "analyse": 1
+        "analyse": 2
       }
     },
     "lm-grenze": {
@@ -277,9 +278,9 @@
       }
     },
     "gelassenheit": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 1,
+        "analyse": 2,
         "path-analyse": 2
       }
     },
@@ -310,15 +311,15 @@
       }
     },
     "schatten": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
-        "analyse": 2
+        "analyse": 3
       }
     },
     "licht": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
-        "analyse": 2
+        "analyse": 3
       }
     },
     "raumfaltung": {

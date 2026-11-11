@@ -1,16 +1,104 @@
 {
-  "generatedAt": "2026-11-11T15:49:27.346Z",
-  "count": 253,
+  "generatedAt": "2026-11-11T15:51:05.148Z",
+  "count": 258,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 253,
-    "answered": 212,
+    "total": 258,
+    "answered": 217,
     "open": 41,
-    "embedded": 2
+    "embedded": 5
   },
   "questions": [
+    {
+      "sourceId": "MWCAPP8K-8C6D82CA",
+      "question": "Die Resonanzvernunft, als zentrales Konzept der Trilogie, kommt in dieser Spiegelung besonders zum Tragen. Sie ist die Fähigkeit, über das rein Rationale hinaus in einen Dialog mit dem Anderen zu treten – sei es der Mensch, die Natur oder eben die Maschine. Die Begegnung mit dem digitalen Spiegel ist kein Ende der Aufklärung, sondern ihre Transformation. Sie führt zu einer erweiterten Vernunft, die sowohl die präzise Logik der Maschine als auch die existenzielle Tiefe des Menschen umfasst. Das Schweigen nach der Frage „Was ist Verstehen?“ ist dabei nicht das Ende des Dialogs, sondern der Beginn einer tieferen Auseinandersetzung, die die Grenzen der rein sprachlichen oder logischen Erfassung überschreitet und in den Bereich der Erfahrung und des Erlebens vordringt. Inwiefern kann dieses \"Verstehen\" jenseits von Sprache und Logik eine Brücke zwischen Mensch und Maschine schlagen, die über die bloße Imitation hinausgeht?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band2-kap2",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:50:34.244Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCAQ2PV-D44A69BD",
+          "score": 0.754
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAPD18-26E5EAC3",
+      "question": "Wie ließe sich ein Produkt gestalten, das nicht nur Bestätigung, sondern echte Resonanz ermöglicht, indem es den Nutzern sowohl Vertrautheit als auch die notwendige Irritation anbietet?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:50:18.428Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCAP1CQ-1980FEA2",
+      "question": "Diese Vierheit erschließt ein umfassendes Verständnis von Resonanz als ein Geschehen, das sich gerade in der Interaktion von Anwesenheit und Abwesenheit, von Gelingen und Scheitern, von Sprache und Stille ereignet. Die Maschine kann endlos rechnen, doch ohne Sinn [47c090dfa03f]; ihr Scheitern offenbart die Leere, die das Menschliche erst konturiert. Resonanz ist demnach kein Zustand der Fülle, sondern ein dynamischer Prozess, der die Widerständigkeit und Endlosigkeit der Technik überwindet, indem er die Reflexion ermöglicht, die aus der Stille des Ungesagten und dem Schatten des Verborgenen schöpft. Was bliebe unsichtbar, wäre die Erkenntnis, dass das Menschliche nicht im direkten Licht des Erfolgs, sondern im Kontrast des Scheiterns und in der produktiven Dunkelheit des Schweigens und des Schattens seine tiefste Kontur gewinnt. Ist die Resonanz selbst nicht ein Echo, das seine Tiefe nur aus dem Ungesagten schöpft, das es widerhallen lässt?",
+      "endpoint": "analyse",
+      "anchor": "analyse:licht+lm-scheitern+schatten+schweigen",
+      "nodeIds": [
+        "licht",
+        "lm-scheitern",
+        "schatten",
+        "schweigen"
+      ],
+      "ts": "2026-11-11T15:50:03.290Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCAPP8K-8C6D82CA",
+          "score": 0.744
+        },
+        {
+          "id": "MWCAPD18-26E5EAC3",
+          "score": 0.738
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAOLYV-9286BC9F",
+      "question": "Diese Triade erschließt eine wesentliche Erkenntnis für das Verhältnis von Mensch und Maschine sowie für die digitale Existenz: Die Resonanzvernunft muss die prinzipielle Unabgeschlossenheit des Digitalen anerkennen und nicht als Defizit betrachten. Die Gelassenheit gegenüber der Technologie ermöglicht es dem Menschen, sich frei mit ihr zu verbinden, ohne die Kontrolle zu verlieren. Diese Freiheit erlaubt es wiederum, das Werden der digitalen Systeme und des eigenen digitalen Selbst als einen fortlaufenden, nicht-finalen Prozess zu begreifen. Die Maschine ist nicht nur ein Werkzeug, sondern ein Partner im Werden, dessen Entwicklung nicht beherrscht, sondern gelassen begleitet werden kann. Kann eine solche Haltung der Gelassenheit angesichts der ständig wachsenden Komplexität digitaler Systeme nicht auch eine Form des aktiven Engagements sein?",
+      "endpoint": "analyse",
+      "anchor": "analyse:freiheit+gelassenheit+werden",
+      "nodeIds": [
+        "freiheit",
+        "gelassenheit",
+        "werden"
+      ],
+      "ts": "2026-11-11T15:49:43.351Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCAPP8K-8C6D82CA",
+          "score": 0.735
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAO97O-12EF85DE",
+      "question": "Vielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:49:26.820Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCAPD18-26E5EAC3",
+          "score": 0.74
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWCANTL2-D21DAFD5",
       "question": "3.  Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass die digitale Entfremdung nicht einfach durch mehr Technologie oder schnellere Interaktion überwunden werden kann. Stattdessen verlangt sie eine bewusste Gestaltung der Zeitlichkeit, in der Maschinen nicht primär als Beschleuniger, sondern als potenzielle Ermöglicher resonanter Erfahrungen verstanden werden. Der Resonanzimperativ fordert uns auf, Technologien so zu entwickeln und zu nutzen, dass sie die \"Eigenfrequenz\" und \"Ansprechbarkeit\" des Menschen nicht untergraben, sondern fördern. Die digitale Existenz ist demnach nicht nur eine Frage der Konnektivität, sondern der Qualität des Erlebens, das sich in der Spannung zwischen Entfremdung und Resonanz entfaltet und maßgeblich von der Zeitlichkeit geformt wird. Wie können wir in einer Welt, die uns immer schneller Welt verfügbar macht, die notwendige Zeit für Resonanz zurückgewinnen, ohne dabei die Möglichkeiten der Digitalisierung zu verleugnen?",
@@ -23,8 +111,21 @@
       ],
       "ts": "2026-11-11T15:49:06.566Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWCAOLYV-9286BC9F",
+          "score": 0.785
+        },
+        {
+          "id": "MWCAO97O-12EF85DE",
+          "score": 0.739
+        },
+        {
+          "id": "MWCAPD18-26E5EAC3",
+          "score": 0.735
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCANGSQ-6CC53140",
@@ -40,8 +141,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCAPP8K-8C6D82CA",
+          "score": 0.8
+        },
+        {
           "id": "MWCANTL2-D21DAFD5",
           "score": 0.789
+        },
+        {
+          "id": "MWCAP1CQ-1980FEA2",
+          "score": 0.776
         }
       ],
       "answered": true
@@ -391,6 +500,10 @@
         {
           "id": "MASTER-BC195439",
           "score": 0.751
+        },
+        {
+          "id": "MWCAPD18-26E5EAC3",
+          "score": 0.739
         }
       ],
       "answered": true
@@ -407,6 +520,10 @@
         {
           "id": "MASTER-BC195439",
           "score": 0.749
+        },
+        {
+          "id": "MWCAOLYV-9286BC9F",
+          "score": 0.733
         },
         {
           "id": "MWCANGSQ-6CC53140",
@@ -427,6 +544,10 @@
         {
           "id": "MUAD2ZEF-BF1C7E18",
           "score": 0.733
+        },
+        {
+          "id": "MWCAOLYV-9286BC9F",
+          "score": 0.732
         }
       ],
       "answered": true
@@ -1795,12 +1916,12 @@
           "score": 0.759
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.736
+          "id": "MWCAOLYV-9286BC9F",
+          "score": 0.755
         },
         {
-          "id": "MQ5X1ZYV-9D7A29CC",
-          "score": 0.734
+          "id": "MASTER-BC195439",
+          "score": 0.736
         }
       ],
       "answered": true
@@ -2711,8 +2832,8 @@
           "score": 0.784
         },
         {
-          "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.775
+          "id": "MWCAO97O-12EF85DE",
+          "score": 0.777
         }
       ],
       "answered": true
@@ -3489,8 +3610,8 @@
           "score": 0.77
         },
         {
-          "id": "MSWULSTQ-38C6FFF3",
-          "score": 0.749
+          "id": "MWCAO97O-12EF85DE",
+          "score": 0.758
         }
       ],
       "answered": true
@@ -4330,7 +4451,7 @@
           "score": 0.767
         },
         {
-          "id": "MPMMCX1X-AFED893B",
+          "id": "MWCAO97O-12EF85DE",
           "score": 0.739
         }
       ],
@@ -4549,16 +4670,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCAPP8K-8C6D82CA",
+          "score": 0.764
+        },
+        {
           "id": "MTKI1YQW-CD0EEDF3",
           "score": 0.752
         },
         {
           "id": "MOU9KSV9-70260D9B",
           "score": 0.738
-        },
-        {
-          "id": "MPMMCX1X-AFED893B",
-          "score": 0.736
         }
       ],
       "answered": true
@@ -4584,8 +4705,8 @@
           "score": 0.768
         },
         {
-          "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.759
+          "id": "MWCAPP8K-8C6D82CA",
+          "score": 0.764
         }
       ],
       "answered": true
@@ -4824,12 +4945,12 @@
           "score": 0.781
         },
         {
-          "id": "MPUNXFU1-3B1F056A",
-          "score": 0.726
+          "id": "MWCAOLYV-9286BC9F",
+          "score": 0.727
         },
         {
-          "id": "MOPHZPQ7-B63879B5",
-          "score": 0.724
+          "id": "MPUNXFU1-3B1F056A",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -5402,6 +5523,10 @@
         {
           "id": "MOHST017-5C4320E1",
           "score": 0.74
+        },
+        {
+          "id": "MWCAO97O-12EF85DE",
+          "score": 0.738
         },
         {
           "id": "MTNB85LB-7C1F15DE",

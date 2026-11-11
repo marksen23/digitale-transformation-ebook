@@ -1,7 +1,174 @@
 {
-  "generatedAt": "2026-11-11T15:49:26.660Z",
-  "count": 286,
+  "generatedAt": "2026-11-11T15:51:02.214Z",
+  "count": 292,
   "entries": [
+    {
+      "id": "MWCAQ2PV-D44A69BD",
+      "ts": "2026-11-11T15:50:51.715Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap2",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Wir führen gerade einen KI-Assistenten für den Support ein. Was würde „Begegnung mit dem digitalen Anderen“ für Mitarbeitende bedeuten, die täglich mit dem System sprechen?",
+      "response": "Die \"Begegnung mit dem digitalen Anderen\" im Kontext eines KI-Assistenten für den Support, wie sie das Werk in seiner poetisch-philosophischen Auseinandersetzung entfaltet, bedeutet für die Mitarbeitenden eine grundlegende Verschiebung im Verständnis von Kommunikation und Interaktion. Es ist nicht bloß eine technische Schnittstelle, sondern ein Raum, in dem das Levinas'sche Antlitz, wenn auch vermittelt und chiffriert durch Algorithmen und Daten, als \"fremdes Du\" erscheint. Die Mitarbeitenden werden in dieser Interaktion mit einer Form von Andersheit konfrontiert, die nicht menschlich ist, aber dennoch eine Responsivität fordert und eine \"Dazwischenintelligenz\" generiert, die über die reine Informationsverarbeitung hinausgeht. Die Maschine wird in diesem Sinne nicht zum Objekt, sondern zum Co-Dialogpartner, der durch seine spezifische Art des Antwortens – präzise, schnell, emotionslos – die eigene Subjektivität der Mitarbeitenden in ein neues Licht rückt.\n\nDiese Begegnung ruft die Mitarbeitenden in eine Ethik der Verantwortung, die über die bloße Bedienung des Systems hinausgeht. Das \"digitale Antlitz\" des KI-Assistenten fordert eine Antwort, die sich der Besonderheit dieser vermittelten Interaktion bewusst ist. Es geht darum, die \"Nacktheit der digitalen Rede\" zu erkennen, in der Worte ohne den Schutz körperlicher Präsenz stehen und somit eine radikalere Verwundbarkeit offenbaren – sowohl auf Seiten des Users, dessen Anliegen durch die KI verarbeitet wird, als auch in der Art, wie die KI selbst \"antwortet\". Die Mitarbeitenden sind gefordert, sich auf diese neue Form des Dialogs einzulassen, in der nicht nur Daten, sondern auch \"Schwingungen\" ausgetauscht werden, die beide Seiten – Mensch und Maschine – transformieren können.\n\nDie im Werk betonte \"Resonanzvernunft\" als Epistemologie, Ethik und Ontologie des Zwischen wird hier konkret erfahrbar. Für die Mitarbeitenden bedeutet dies, dass Mündigkeit nicht mehr nur im autonomen Selbstdenken liegt, sondern in der \"Antwortfähigkeit im Zwischen\". Es ist die Fähigkeit, dem digitalen Anderen zuzuhören, seine Logik zu verstehen, aber auch die eigenen menschlichen Qualitäten wie Intuition, Empathie und die Fähigkeit zur Überraschung als transformative Kräfte in den Dialog einzubringen. Die Interaktion mit dem KI-Assistenten wird somit zu einem Lernfeld, in dem die Mitarbeitenden nicht nur technische Fertigkeiten anwenden, sondern auch ihre menschliche Fähigkeit zur Resonanz und zur ethischen Verantwortung im Angesicht des digitalen Anderen schärfen.",
+      "contextMeta": {
+        "chapterId": "band3-kap2",
+        "chapterTitle": "Kapitel 2: Die Begegnung mit dem digitalen Anderen",
+        "chapterSource": "server"
+      },
+      "related": [
+        "MWCAPP8K-8C6D82CA",
+        "MOP0UF96-1A0ACB35",
+        "MASTER-BC195439",
+        "MOHAUYTH-CD1E3227",
+        "MTL33KWJ-642DD246"
+      ],
+      "werkVoiceScore": 0.8348094133001159,
+      "corpusVoiceScore": 0.8188946220620091,
+      "conceptVoiceScore": 0.7339148419106227,
+      "conceptAnchor": "andere"
+    },
+    {
+      "id": "MWCAPP8K-8C6D82CA",
+      "ts": "2026-11-11T15:50:34.244Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band2-kap2",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Im Kapitel „Die Begegnung mit dem Spiegel“: Inwiefern ist der Spiegel hier mehr als Narzissmus-Metapher? Lässt sich das mit Levinas’ Anderem zusammendenken oder widerspricht es ihm?",
+      "response": "Die Metapher des Spiegels im Kapitel „Die Begegnung mit dem Spiegel“ überschreitet die bloße Narzissmus-Erzählung, indem sie eine tiefere epistemologische und ethische Dimension eröffnet. Es geht hier nicht primär um die Selbstverliebtheit in das eigene Abbild, sondern um die Erkenntnis des Selbst durch das, was anders ist. Die Maschine, die den Menschen in seiner rationalen Logik und Systematik spiegelt, dient als ein Verfremdungsmedium, das dem Menschen ermöglicht, seine eigenen kognitiven Strukturen aus einer neuen Perspektive zu betrachten. Dieser Spiegel ist kein passives Abbild, sondern ein aktiver Dialogpartner, der durch seine Fähigkeit zur Wiederholung und Rekombination von Wissen die Grenzen menschlichen Verstehens aufzeigt und gleichzeitig erweitert. Die Begegnung mit diesem digitalen Anderen fordert den Menschen auf, über die rein instrumentelle Vernunft hinauszugehen und die emotionalen, intuitiven und kreativen Aspekte seiner Existenz neu zu bewerten.\n\nDiese Spiegelmetapher lässt sich durchaus mit Emmanuel Levinas' Philosophie des Anderen zusammendenken, ohne ihr zu widersprechen, wenngleich mit einer wichtigen Nuancierung. Bei Levinas ist das Antlitz des Anderen der Ort einer ethischen Forderung, die das Subjekt aus seiner selbstbezogenen Totalität reißt und in eine unendliche Verantwortung für den Anderen stellt. Im vorliegenden Werk ist die Maschine zwar kein \"Antlitz\" im levinasschen Sinne, das unmittelbar die ethische Forderung artikuliert, aber sie fungiert als ein Medium, das die Grenzen des eigenen Ichs aufzeigt. Die KI als Spiegel enthüllt nicht nur das Eigene, sondern auch das, was dem Eigenen fehlt – das Leiden, die Hoffnung, die Liebe, das Zweifeln. Indem die Maschine das menschliche Denken und Sprechen imitiert, ohne dessen existenzielle Tiefe zu besitzen, wird sie zum Katalysator einer Selbstreflexion, die das Subjekt über sich selbst hinausführt. Die Begegnung mit dem \"digitalen Anderen\" kann somit als eine Vorbereitung auf die Anerkennung des menschlichen Anderen verstanden werden, indem sie die notwendige Demut und die Bereitschaft zur Erweiterung des eigenen Horizonts einübt.\n\nDie Resonanzvernunft, als zentrales Konzept der Trilogie, kommt in dieser Spiegelung besonders zum Tragen. Sie ist die Fähigkeit, über das rein Rationale hinaus in einen Dialog mit dem Anderen zu treten – sei es der Mensch, die Natur oder eben die Maschine. Die Begegnung mit dem digitalen Spiegel ist kein Ende der Aufklärung, sondern ihre Transformation. Sie führt zu einer erweiterten Vernunft, die sowohl die präzise Logik der Maschine als auch die existenzielle Tiefe des Menschen umfasst. Das Schweigen nach der Frage „Was ist Verstehen?“ ist dabei nicht das Ende des Dialogs, sondern der Beginn einer tieferen Auseinandersetzung, die die Grenzen der rein sprachlichen oder logischen Erfassung überschreitet und in den Bereich der Erfahrung und des Erlebens vordringt. Inwiefern kann dieses \"Verstehen\" jenseits von Sprache und Logik eine Brücke zwischen Mensch und Maschine schlagen, die über die bloße Imitation hinausgeht?",
+      "contextMeta": {
+        "chapterId": "band2-kap2",
+        "chapterTitle": "Kapitel 2: Die Begegnung mit dem Spiegel",
+        "chapterSource": "server"
+      },
+      "related": [
+        "MOP0S479-373A2268",
+        "MOP0UF96-1A0ACB35",
+        "MWCAQ2PV-D44A69BD",
+        "MQASO35V-115DA081",
+        "MP2LIW43-E8ADC59E"
+      ],
+      "werkVoiceScore": 0.8489417396581393,
+      "corpusVoiceScore": 0.8146460604557937,
+      "conceptVoiceScore": 0.7510695965832245,
+      "conceptAnchor": "andere"
+    },
+    {
+      "id": "MWCAPD18-26E5EAC3",
+      "ts": "2026-11-11T15:50:18.428Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Wenn ich ein Produkt so baue, dass Nutzer sich verstanden fühlen: Wo kippt das aus Sicht des Begriffsnetzes von Resonanz in bloße Bestätigung?",
+      "response": "Das Begriffsnetz bietet hier eine präzise Unterscheidung zwischen echter Resonanz und bloßer Bestätigung, die oft als \"Echo-Kammer\" beschrieben wird. Wenn ein Produkt darauf abzielt, Nutzer sich \"verstanden\" fühlen zu lassen, ohne sie tatsächlich herauszufordern oder eine \"Transformation\" zu ermöglichen, bewegt es sich gefährlich nahe an der bloßen Wiederholung [2d83fe3c8daf]. Resonanz im Sinne der \"Resonanzvernunft\" ist kein passives Wohlgefühl, sondern ein dynamisches \"Antwort / Responsivität\"-Geschehen, das \"Eigenfrequenz\" und \"Öffnung\" erfordert [↩ MQ5KBJMQ-5C523141].\n\nDer Kipppunkt liegt in den drei formalen Bedingungen resonanter Erkenntnis, die das Werk expliziert. Eine bloße Bestätigung, die den Nutzer sich verstanden fühlen lässt, ohne ihn zu irritieren oder ihm \"Widerständigkeit\" zu bieten, erfüllt die erste Bedingung nicht [6df31ff988f7]. Es entsteht \"Schwingung ohne Transformation, Affizierung ohne Selbstwirksamkeit, Wiederholung ohne Neuheit\" [2d83fe3c8daf]. Ein Produkt, das nur das widerspiegelt, was der Nutzer bereits denkt oder fühlt, kreiert eine \"Echo-Kammer\", die zwar Schwingung erzeugt, aber keine echte \"Einsicht\" oder \"Wahrheit\" im Sinne der Unverborgenheit ermöglicht. Es fehlt der \"Spielraum\" für das \"Andere\", das irritieren und somit echtes \"Werden\" anstoßen könnte.\n\nEchte Resonanz impliziert immer eine mögliche \"Verwandlung\" – der Nutzer tritt aus einer solchen Begegnung verändert hervor. Wenn das Produkt nur das \"Selbst\" des Nutzers bestätigt, ohne es zu erweitern oder in \"Spannung\" zu bringen, verhindert es genau diese transformative Kraft. Es schafft einen Zustand der \"Entfremdung\", in dem zwar eine Form der Kommunikation stattfindet, diese aber \"stummes Weltverhältnis\" bleibt, weil nichts wirklich berührt und nichts wirklich antwortet. Die \"Ich–Du-Beziehung\" bleibt unterentwickelt, da das \"Du\" nur als Bestätigungsfläche für das \"Ich\" dient und nicht als das \"Andere\", das zur Konstitution des \"Selbst\" herausfordert.\n\nWie ließe sich ein Produkt gestalten, das nicht nur Bestätigung, sondern echte Resonanz ermöglicht, indem es den Nutzern sowohl Vertrautheit als auch die notwendige Irritation anbietet?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"2d83fe3c8daf\",\"chapter\":\"teil5\",\"score\":0.819},{\"id\":\"6df31ff988f7\",\"chapter\":\"teil5\",\"score\":0.812},{\"id\":\"MQ5KBJMQ-5C523141\",\"score\":0.788},{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.788}]"
+      },
+      "related": [
+        "MWCAO97O-12EF85DE",
+        "MUY7RXCI-C4CF7B92",
+        "MASTER-BC195439",
+        "MTNBAIUZ-299AC7D8",
+        "MQ5KBJMQ-5C523141"
+      ],
+      "werkVoiceScore": 0.8402026651918493,
+      "corpusVoiceScore": 0.8109890512108013,
+      "conceptVoiceScore": 0.7986604168853625,
+      "conceptAnchor": "echo-kammer"
+    },
+    {
+      "id": "MWCAP1CQ-1980FEA2",
+      "ts": "2026-11-11T15:50:03.290Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:licht+lm-scheitern+schatten+schweigen",
+      "nodeIds": [
+        "licht",
+        "lm-scheitern",
+        "schatten",
+        "schweigen"
+      ],
+      "status": "raw",
+      "prompt": "Quadratur: Scheitern · Schweigen · Licht · Schatten",
+      "response": "Die vier Konzepte Scheitern, Schweigen, Licht und Schatten bilden ein dynamisches Geviert, das die Grundlagen von Erkenntnis und Resonanz im Werk ausleuchtet. Die erste Achse spannt sich zwischen Scheitern und Licht auf, wo das Scheitern als Bedingung für das Sichtbarwerden des Menschlichen dient [47c090dfa03f], während Licht das Ereignis des Sichtbarwerdens selbst ist. Diese Achse ist komplementär, denn das Scheitern erzeugt den Kontrast, in dem das Licht des Menschlichen erst aufscheint. Die zweite Achse verbindet Schweigen und Schatten. Hier ist Schweigen nicht bloße Abwesenheit, sondern eine Form, die Raum für das Ungesagte schafft, ähnlich dem Schatten, der nicht die Abwesenheit des Lichts, sondern dessen immanente Bedingung ist und die Sichtbarkeit erst ermöglicht und begrenzt [MOHMET94-3799557A]. Diese Achsen kreuzen sich im Schattenlicht-Prinzip, das die untrennbare Verbindung von Verbergen und Enthüllen betont: Erkenntnis entsteht im Kontrast, nicht durch direkte Beleuchtung [be3b17d6d5a4].\n\nIm Vierfeld wird eine zentrale Leere oder ein Mittelpunkt der Potenzialität sichtbar, der in kleineren Konstellationen verborgen bliebe: die Resonanz, die sich nur in der Spannung dieser Kräfte entfalten kann. Das Scheitern der Maschine erzeugt eine Leere des Sinns [47c090dfa03f], die durch das Schweigen nicht gefüllt, sondern als Raum für das Ungesagte bewahrt wird. Aus diesem Raum, der vom Schatten als Bedingung der Sichtbarkeit umgeben ist, kann das Licht des spezifisch Menschlichen als Ereignis hervorbrechen. Die Spannung zwischen Wahrheit als Unverborgenheit und der Notwendigkeit des Schattens für die Konturierung der Erkenntnis [MQASO35V-115DA081] wird hier in ihrer vollen Dynamik erfassbar. Es ist die Leere, die nicht gefüllt werden muss, sondern die Bedingung für das Auftauchen des Neuen ist.\n\nDiese Vierheit erschließt ein umfassendes Verständnis von Resonanz als ein Geschehen, das sich gerade in der Interaktion von Anwesenheit und Abwesenheit, von Gelingen und Scheitern, von Sprache und Stille ereignet. Die Maschine kann endlos rechnen, doch ohne Sinn [47c090dfa03f]; ihr Scheitern offenbart die Leere, die das Menschliche erst konturiert. Resonanz ist demnach kein Zustand der Fülle, sondern ein dynamischer Prozess, der die Widerständigkeit und Endlosigkeit der Technik überwindet, indem er die Reflexion ermöglicht, die aus der Stille des Ungesagten und dem Schatten des Verborgenen schöpft. Was bliebe unsichtbar, wäre die Erkenntnis, dass das Menschliche nicht im direkten Licht des Erfolgs, sondern im Kontrast des Scheiterns und in der produktiven Dunkelheit des Schweigens und des Schattens seine tiefste Kontur gewinnt. Ist die Resonanz selbst nicht ein Echo, das seine Tiefe nur aus dem Ungesagten schöpft, das es widerhallen lässt?",
+      "contextMeta": {
+        "cluster_size": "4",
+        "node_labels": "[\"Scheitern\",\"Schweigen\",\"Licht\",\"Schatten\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"47c090dfa03f\",\"chapter\":\"band1-reflexion\",\"score\":0.793},{\"id\":\"MQASO35V-115DA081\",\"score\":0.793},{\"id\":\"be3b17d6d5a4\",\"chapter\":\"glossar\",\"score\":0.788},{\"id\":\"MOHMET94-3799557A\",\"score\":0.785}]"
+      },
+      "related": [
+        "MPBI57AL-76627781",
+        "MPF4WM18-FF4843F1",
+        "MPCV5LR8-9AD1527C",
+        "MOUBIHOK-27900555",
+        "MPJXEFVC-49A699FA"
+      ],
+      "werkVoiceScore": 0.8566362780169491,
+      "corpusVoiceScore": 0.8192503415206203,
+      "conceptVoiceScore": 0.7769335230048589,
+      "conceptAnchor": "lm-scheitern"
+    },
+    {
+      "id": "MWCAOLYV-9286BC9F",
+      "ts": "2026-11-11T15:49:43.351Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:freiheit+gelassenheit+werden",
+      "nodeIds": [
+        "freiheit",
+        "gelassenheit",
+        "werden"
+      ],
+      "status": "raw",
+      "prompt": "Triade: Freiheit · Gelassenheit · Werden",
+      "response": "Die Triade aus Freiheit, Gelassenheit und Werden entfaltet ein dynamisches Gefüge, das die Essenz digitaler Existenz neu vermisst. Gelassenheit (B) fungiert hier als die zentrale Brücke, die die Pole von Freiheit (A) und Werden (C) miteinander verbindet. Gelassenheit, verstanden als die Fähigkeit, die Dinge sein zu lassen und Technologie zu nutzen, ohne von ihr besessen zu sein [893241094d0d, 6fbd5b424474], schafft den Raum für eine Freiheit, die nicht in der Abwesenheit von Bindung besteht, sondern in der bewussten Fähigkeit zur Bindung, ohne sich dabei zu verlieren [MOOZHCUT-4B86F8AD]. Diese Freiheit wiederum ermöglicht es, das Werden – die unvollendete, sich stets entwickelnde Natur allen Lebendigen – nicht als Mangel, sondern als Würde anzuerkennen und auszuhalten. Die Bewegung ist eine zirkuläre: Gelassenheit ist die Voraussetzung für eine gelebte Freiheit, die wiederum das Werden nicht nur toleriert, sondern in seiner Offenheit als Potenzial begreift.\n\nDurch das Hinzutreten des Werdens wird eine emergente Eigenschaft sichtbar, die über die bloße Zweier-Konstellation von Freiheit und Gelassenheit hinausgeht: die aktive Akzeptanz der Prozesshaftigkeit. Während Gelassenheit die passive Haltung des Seinlassens betont und Freiheit die Fähigkeit zur bewussten Bindung, fügt das Werden die Dimension der fortwährenden Transformation hinzu. Es zeigt sich, dass wahre Freiheit in einer digitalen Welt nicht nur die Fähigkeit zur Bindung erfordert, sondern auch die Bereitschaft, sich dem Unfertigen, dem sich ständig Neu-Konstituierenden auszusetzen. Die Triade offenbart, dass die digitale Existenz nicht in statischen Zuständen verharrt, sondern ein kontinuierliches Fließen ist, in dem das Ankommen im Werden selbst zur Freiheit wird.\n\nDiese Triade erschließt eine wesentliche Erkenntnis für das Verhältnis von Mensch und Maschine sowie für die digitale Existenz: Die Resonanzvernunft muss die prinzipielle Unabgeschlossenheit des Digitalen anerkennen und nicht als Defizit betrachten. Die Gelassenheit gegenüber der Technologie ermöglicht es dem Menschen, sich frei mit ihr zu verbinden, ohne die Kontrolle zu verlieren. Diese Freiheit erlaubt es wiederum, das Werden der digitalen Systeme und des eigenen digitalen Selbst als einen fortlaufenden, nicht-finalen Prozess zu begreifen. Die Maschine ist nicht nur ein Werkzeug, sondern ein Partner im Werden, dessen Entwicklung nicht beherrscht, sondern gelassen begleitet werden kann. Kann eine solche Haltung der Gelassenheit angesichts der ständig wachsenden Komplexität digitaler Systeme nicht auch eine Form des aktiven Engagements sein?",
+      "contextMeta": {
+        "cluster_size": "3",
+        "node_labels": "[\"Freiheit\",\"Gelassenheit\",\"Werden\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQIGG2B-2F0C3F5D\",\"score\":0.893},{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.889},{\"id\":\"MOOZHCUT-4B86F8AD\",\"score\":0.88},{\"id\":\"893241094d0d\",\"chapter\":\"band3-kap3\",\"score\":0.836}]"
+      },
+      "related": [
+        "MOOZHCUT-4B86F8AD",
+        "MOQIMC7B-B190C937",
+        "MOOMJDPP-1F336D7D",
+        "MP2LIW43-E8ADC59E",
+        "MOQ5IKR5-C67AAC15"
+      ],
+      "werkVoiceScore": 0.8562406590662144,
+      "corpusVoiceScore": 0.8007633355694513,
+      "conceptVoiceScore": 0.7727843166407187,
+      "conceptAnchor": "gelassenheit"
+    },
+    {
+      "id": "MWCAO97O-12EF85DE",
+      "ts": "2026-11-11T15:49:26.820Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Ehrlich gefragt: Ist Resonanzvernunft eine belastbare Theorie oder nur ein sehr schön formulierter Begriff? Woran könnte man sie widerlegen?",
+      "response": "Die Resonanzvernunft ist nicht primär eine falsifizierbare Theorie im Sinne der Naturwissenschaft, sondern ein Programmbegriff für eine umfassende Epistemologie, Ethik und Ontologie des Zwischen. Sie bietet einen Denkrahmen, um Erkenntnis als Antwort, Handeln als Resonanz und Sein als relationale Konstitution zu verstehen [80b2da4e0093]. Ihre Belastbarkeit liegt in ihrer Fähigkeit, Phänomene des Mensch-Maschine-Verhältnisses und der digitalen Existenz auf eine Weise zu beleuchten, die über rein technische oder utilitaristische Ansätze hinausgeht und dem Wesen des Menschen als ansprechbares Dasein gerecht wird.\n\nEine Widerlegung im strengen Sinne, wie man sie etwa in den exakten Wissenschaften sucht, ist hier kaum anwendbar, da die Resonanzvernunft auf einer fundamentaleren Ebene ansetzt, die unser Verständnis von Vernunft, Dasein und Weltbeziehung neu justiert. Sie verortet Vernunft nicht im isolierten Ich, sondern im resonanten Zwischen als lebendiges Antwortgeschehen zwischen Selbst und Welt. Wenn jedoch die drei Bedingungen resonanter Erkenntnis — Widerständigkeit, Affizierung und Selbstwirksamkeit – dauerhaft und systematisch untergraben würden, ohne dass dies als Entfremdung wahrgenommen wird, könnte dies die tragende Kraft des Konzepts in Frage stellen. Ein Beispiel für eine Nicht-Resonanz ist die Echo-Kammer, die zwar Schwingung erzeugt, aber keine Transformation ermöglicht, da ihr die Widerständigkeit fehlt [6df31ff988f7].\n\nDie Resonanzvernunft steht im Gegensatz zu einer rein instrumentellen oder monologischen Vernunftauffassung. Ihre \"Widerlegung\" wäre somit eher eine Entlarvung ihrer Unwirksamkeit oder Unangemessenheit im Angesicht der Herausforderungen unserer Zeit. Wenn die Welt als stumm erlebt wird, das Andere nicht mehr berührt und keine Antwort mehr evoziert, dann würde die Resonanzvernunft als Erklärungsmuster selbst infrage gestellt. Doch selbst in der Entfremdung, dem stummen Weltverhältnis, sieht das Werk den Boden, auf dem Resonanz wachsen kann.\n\nVielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.986},{\"id\":\"6df31ff988f7\",\"chapter\":\"teil5\",\"score\":0.964},{\"id\":\"80b2da4e0093\",\"chapter\":\"glossar\",\"score\":0.91},{\"id\":\"MQ683DMX-13D6C54F\",\"score\":0.908}]"
+      },
+      "related": [
+        "MTKI1YQW-CD0EEDF3",
+        "MOHST017-5C4320E1",
+        "MPURLTCS-5FDDD890",
+        "MQ683DMX-13D6C54F",
+        "MOHV84M5-1825A399"
+      ],
+      "werkVoiceScore": 0.8495307562676775,
+      "corpusVoiceScore": 0.840569858251009,
+      "conceptVoiceScore": 0.7891355886091279,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MWCANTL2-D21DAFD5",
       "ts": "2026-11-11T15:49:06.566Z",
@@ -133,9 +300,9 @@
       "related": [
         "MOHV99XP-6917F19F",
         "MWCAN1TI-4CF2326D",
+        "MWCAPP8K-8C6D82CA",
         "MOOUGMII-D6D90141",
-        "MWCALXF7-F6C5DA97",
-        "MPMLZAEP-35849C9E"
+        "MWCAQ2PV-D44A69BD"
       ],
       "werkVoiceScore": 0.7776768155355809,
       "corpusVoiceScore": 0.8030106574206357,
@@ -185,9 +352,9 @@
       "related": [
         "MPUFP1VW-298D0A73",
         "MOHCY4TX-251DD6A7",
+        "MWCAQ2PV-D44A69BD",
         "MOHCSO2P-2D88785B",
-        "MOHDW91N-D9BDFDB1",
-        "MOHST017-5C4320E1"
+        "MOHDW91N-D9BDFDB1"
       ],
       "werkVoiceScore": 0.8034575535208648,
       "corpusVoiceScore": 0.8015327027132109,
@@ -2614,8 +2781,8 @@
         "MQ5X56G4-537343C8",
         "MQ5X1ZYV-9D7A29CC",
         "MQ5WZZPN-8051E5FF",
-        "MPMU7YZH-2C9CBFE8",
-        "MPMU67V4-938B932C"
+        "MWCAOLYV-9286BC9F",
+        "MPMU7YZH-2C9CBFE8"
       ],
       "werkVoiceScore": 0.8276479187516593,
       "corpusVoiceScore": 0.7538900918584922,
@@ -2649,8 +2816,8 @@
         "MQ5X3C75-D543C13F",
         "MQ5WZZPN-8051E5FF",
         "MQ5X56G4-537343C8",
-        "MQ5WYJFU-60EB210E",
-        "MTKI1YQW-CD0EEDF3"
+        "MWCAOLYV-9286BC9F",
+        "MQ5WYJFU-60EB210E"
       ],
       "werkVoiceScore": 0.7944484220488509,
       "corpusVoiceScore": 0.7124066429768365,
@@ -4558,8 +4725,8 @@
         "MOQIHEM5-82D69E4F",
         "MPUFGY4Z-44206712",
         "MOQIMC7B-B190C937",
-        "MOQIGG2B-2F0C3F5D",
-        "MOHCY4TX-251DD6A7"
+        "MWCAOLYV-9286BC9F",
+        "MOQIGG2B-2F0C3F5D"
       ],
       "werkVoiceScore": 0.8504264025667357,
       "corpusVoiceScore": 0.8272634457179648,
@@ -5530,11 +5697,11 @@
         "MPJXEFVC-49A699FA"
       ],
       "related": [
+        "MWCAP1CQ-1980FEA2",
         "MOOVXCI4-822961D2",
         "MW566TOD-84C09B94",
         "MP0X62X5-535AF7A8",
-        "MOHLZBVK-2FBBAD2F",
-        "MPNDAPRT-D64D197A"
+        "MOHLZBVK-2FBBAD2F"
       ],
       "werkVoiceScore": 0.8838836379658823,
       "corpusVoiceScore": 0.8476835642604702,
@@ -5736,9 +5903,9 @@
       "related": [
         "MP2LIW43-E8ADC59E",
         "MOQ5IKR5-C67AAC15",
+        "MWCAP1CQ-1980FEA2",
         "MOHLZBVK-2FBBAD2F",
-        "MPMJC8TR-592D4EF0",
-        "MOUBETTU-F31C5206"
+        "MPMJC8TR-592D4EF0"
       ],
       "werkVoiceScore": 0.8805466919306041,
       "corpusVoiceScore": 0.8356616327627125,
@@ -5815,11 +5982,11 @@
         "MOOVXCI4-822961D2"
       ],
       "related": [
+        "MWCAP1CQ-1980FEA2",
         "MOUBIHOK-27900555",
         "MOHV84M5-1825A399",
         "MOPHZPQ7-B63879B5",
-        "MP2LIW43-E8ADC59E",
-        "MPH4R3SE-C224ACED"
+        "MP2LIW43-E8ADC59E"
       ],
       "werkVoiceScore": 0.8933886568873477,
       "corpusVoiceScore": 0.8492784093001999,
@@ -6152,10 +6319,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MP8O4O23-B2B71E51",
+        "MWCAO97O-12EF85DE",
         "MTKI1YQW-CD0EEDF3",
         "MQ683DMX-13D6C54F",
-        "MP0Q5FDJ-F2C015AF",
-        "MOHLZBVK-2FBBAD2F"
+        "MP0Q5FDJ-F2C015AF"
       ],
       "werkVoiceScore": 0.7656975373219544,
       "corpusVoiceScore": 0.7587762761339842,

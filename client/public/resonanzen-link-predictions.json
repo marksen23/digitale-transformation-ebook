@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T15:49:26.674Z",
+  "generatedAt": "2026-11-11T15:51:02.224Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -541,7 +541,7 @@
     }
   ],
   "stats": {
-    "totalPairs": 258,
+    "totalPairs": 266,
     "candidatesCount": 41,
     "existingEdges": 116,
     "maxCooccurrence": 25

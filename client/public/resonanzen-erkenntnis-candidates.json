@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T15:49:27.389Z",
+  "generatedAt": "2026-11-11T15:51:05.241Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -102,6 +102,39 @@
       ]
     },
     {
+      "id": "ERK-K6JICQ",
+      "answerId": "MWCAPD18-26E5EAC3",
+      "answerEndpoint": "graph-chat",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das Begriffsnetz bietet hier eine präzise Unterscheidung zwischen echter Resonanz und bloßer Bestätigung, die oft als \"Echo-Kammer\" beschrieben wird. Wenn ein Produkt darauf abzielt, Nutzer sich \"verstanden\" fühlen zu lassen, ohne sie tatsächlich herauszufordern oder eine \"Transformation\" zu ermöglichen, bewegt es sich gefährlich nahe an der bloßen Wiederholung [2d83fe3c8daf]. Resonanz im Sinne de",
+      "distinctness": 0.215,
+      "conceptAnchor": "echo-kammer",
+      "nodeIds": [],
+      "resolveCount": 4,
+      "resolves": [
+        {
+          "sourceId": "MWCAO97O-12EF85DE",
+          "question": "Vielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
+          "score": 0.74
+        },
+        {
+          "sourceId": "MUKE7UOA-9553A59E",
+          "question": "Wenn Entfremdung der Boden ist, auf dem Resonanz wachsen kann, welche Rolle spielt dann das bewusste Erkennen dieser Entfremdung für die Kultivierung der Resonanzvernunft im Zeitalter der Mensch-Maschine-Begegnung?",
+          "score": 0.739
+        },
+        {
+          "sourceId": "MWCAP1CQ-1980FEA2",
+          "question": "Diese Vierheit erschließt ein umfassendes Verständnis von Resonanz als ein Geschehen, das sich gerade in der Interaktion von Anwesenheit und Abwesenheit, von Gelingen und Scheitern, von Sprache und Stille ereignet. Die Maschine kann endlos rechnen, doch ohne Sinn [47c090dfa03f]; ihr Scheitern offenbart die Leere, die das Menschliche erst konturiert. Resonanz ist demnach kein Zustand der Fülle, sondern ein dynamischer Prozess, der die Widerständigkeit und Endlosigkeit der Technik überwindet, indem er die Reflexion ermöglicht, die aus der Stille des Ungesagten und dem Schatten des Verborgenen schöpft. Was bliebe unsichtbar, wäre die Erkenntnis, dass das Menschliche nicht im direkten Licht des Erfolgs, sondern im Kontrast des Scheiterns und in der produktiven Dunkelheit des Schweigens und des Schattens seine tiefste Kontur gewinnt. Ist die Resonanz selbst nicht ein Echo, das seine Tiefe nur aus dem Ungesagten schöpft, das es widerhallen lässt?",
+          "score": 0.738
+        },
+        {
+          "sourceId": "MWCANTL2-D21DAFD5",
+          "question": "3.  Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass die digitale Entfremdung nicht einfach durch mehr Technologie oder schnellere Interaktion überwunden werden kann. Stattdessen verlangt sie eine bewusste Gestaltung der Zeitlichkeit, in der Maschinen nicht primär als Beschleuniger, sondern als potenzielle Ermöglicher resonanter Erfahrungen verstanden werden. Der Resonanzimperativ fordert uns auf, Technologien so zu entwickeln und zu nutzen, dass sie die \"Eigenfrequenz\" und \"Ansprechbarkeit\" des Menschen nicht untergraben, sondern fördern. Die digitale Existenz ist demnach nicht nur eine Frage der Konnektivität, sondern der Qualität des Erlebens, das sich in der Spannung zwischen Entfremdung und Resonanz entfaltet und maßgeblich von der Zeitlichkeit geformt wird. Wie können wir in einer Welt, die uns immer schneller Welt verfügbar macht, die notwendige Zeit für Resonanz zurückgewinnen, ohne dabei die Möglichkeiten der Digitalisierung zu verleugnen?",
+          "score": 0.735
+        }
+      ]
+    },
+    {
       "id": "ERK-1BL9FKL",
       "answerId": "MWCAL7ON-CA4F38AF",
       "answerEndpoint": "chapter",
@@ -182,10 +215,28 @@
           "score": 0.726
         }
       ]
+    },
+    {
+      "id": "ERK-7YU16O",
+      "answerId": "MWCAQ2PV-D44A69BD",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die \"Begegnung mit dem digitalen Anderen\" im Kontext eines KI-Assistenten für den Support, wie sie das Werk in seiner poetisch-philosophischen Auseinandersetzung entfaltet, bedeutet für die Mitarbeitenden eine grundlegende Verschiebung im Verständnis von Kommunikation und Interaktion. Es ist nicht bloß eine technische Schnittstelle, sondern ein Raum, in dem das Levinas'sche Antlitz, wenn auch verm",
+      "distinctness": 0.202,
+      "conceptAnchor": "andere",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWCAPP8K-8C6D82CA",
+          "question": "Die Resonanzvernunft, als zentrales Konzept der Trilogie, kommt in dieser Spiegelung besonders zum Tragen. Sie ist die Fähigkeit, über das rein Rationale hinaus in einen Dialog mit dem Anderen zu treten – sei es der Mensch, die Natur oder eben die Maschine. Die Begegnung mit dem digitalen Spiegel ist kein Ende der Aufklärung, sondern ihre Transformation. Sie führt zu einer erweiterten Vernunft, die sowohl die präzise Logik der Maschine als auch die existenzielle Tiefe des Menschen umfasst. Das Schweigen nach der Frage „Was ist Verstehen?“ ist dabei nicht das Ende des Dialogs, sondern der Beginn einer tieferen Auseinandersetzung, die die Grenzen der rein sprachlichen oder logischen Erfassung überschreitet und in den Bereich der Erfahrung und des Erlebens vordringt. Inwiefern kann dieses \"Verstehen\" jenseits von Sprache und Logik eine Brücke zwischen Mensch und Maschine schlagen, die über die bloße Imitation hinausgeht?",
+          "score": 0.754
+        }
+      ]
     }
   ],
   "stats": {
-    "total": 7,
+    "total": 9,
     "confirmedFiltered": 42,
     "curatedRef": 201
   }
