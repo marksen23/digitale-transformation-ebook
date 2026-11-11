@@ -1,13 +1,16 @@
 /**
  * regenerate-erkenntnisse.ts — erzeugt die Erkenntnisse der Seite neu.
  *
- * 1. Destilliert jeden bestätigten Kernsatz in client/public/resonanzen-erkenntnisse.json
- *    aus der aktuellen Antwort (dieselbe Prompt-Zeile wie /api/admin/distill-erkenntnis).
- * 2. Synthetisiert jede Master-Datei in content/resonanzen/master aus den aktuellen
- *    Varianten neu (dieselbe Prompt-Zeile wie /api/admin/synthesize-master), ohne den
- *    alten Mastertext einzuspeisen. Die id bleibt, damit Permalinks halten.
- * 3. Löscht die Master-Embeddings, damit der anschließende Index-Build sie aus dem
- *    neuen Text neu rechnet (Reuse ist id-basiert und würde den alten Vektor behalten).
+ * Inkrementell, nicht als Voll-Lauf:
+ * 1. Destilliert neue Erkenntnis-Kandidaten (noch nicht bestätigt, Entwurf
+ *    fehlt oder die Antwort hat sich geändert) nach
+ *    client/public/resonanzen-erkenntnis-drafts.json. Bestätigte Kernsätze
+ *    bleiben unangetastet.
+ * 2. Schreibt Master nur für Anker mit genug neuen Varianten (Default 2).
+ *    Ein unveränderter Anker wird nicht neu synthetisiert.
+ * 3. Wenn nichts fällig ist, bleibt der Baum unangetastet (changed: false).
+ * 4. Geänderte Master-Embeddings kommen auf die Refresh-Liste, damit der
+ *    anschließende Index-Build sie neu rechnet.
  *
  * Braucht GEMINI_API_KEY (oder FALLBACK / GEMINI_API_KEYS). Der Workflow
  * .github/workflows/regenerate-erkenntnisse.yml setzt das Repo-Secret.
@@ -28,16 +31,33 @@ import {
 import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
 import {
   cleanKernsatz,
+  contentHashFor,
+  freshMasterFm,
+  masterIdForAnchor,
+  masterRelPath,
+  planKernsatzCandidates,
+  planMaster,
   renderMasterMarkdown,
   synthesisShapeOk,
   voiceViolations,
+  type KernsatzCandidate,
+  type KernsatzDraftRef,
 } from "./lib/insightRegen.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const ROOT = path.resolve(path.dirname(__filename), "..");
 const ERKENNTNISSE = path.join(ROOT, "client/public/resonanzen-erkenntnisse.json");
+const CANDIDATES = path.join(ROOT, "client/public/resonanzen-erkenntnis-candidates.json");
+const DRAFTS = path.join(ROOT, "client/public/resonanzen-erkenntnis-drafts.json");
 const EMBEDDING_REFRESH = path.join(ROOT, "client/public/resonanzen-embedding-refresh.json");
 const REPORT = path.join(ROOT, "regenerate-erkenntnisse-report.json");
+const MIN_NEW = positiveInt(process.env.ERKENNTNIS_MIN_NEW_VARIANTS, 2);
+const CANDIDATE_LIMIT = positiveInt(process.env.ERKENNTNIS_CANDIDATE_LIMIT, 8);
+
+function positiveInt(raw: string | undefined, fallback: number): number {
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 1 ? Math.floor(n) : fallback;
+}
 
 const DISTILL_MODEL = process.env.PRESCORE_MODEL?.trim() || "gemini-2.5-pro";
 const SYNTH_MODEL = process.env.SYNTHESIS_MODEL?.trim() || "gemini-2.5-pro";
@@ -224,146 +244,287 @@ function dropMasterEmbeddings(ids: string[]): number {
   return ids.length;
 }
 
+interface DraftRecord extends KernsatzDraftRef {
+  id: string;
+  questionSourceId: string;
+  kernsatz: string;
+  conceptAnchor: string | null;
+  distinctness: number;
+  distilledAt: string;
+  distilledModel: string;
+}
+
 interface Report {
   generatedAt: string;
+  changed: boolean;
+  needsIndexRebuild: boolean;
+  minNewVariants: number;
   distillModel: string;
   synthesisModel: string;
   distilled: number;
   synthesized: number;
+  skippedMasters: number;
   embeddingsDropped: number;
   failures: Array<{ id: string; error: string }>;
   kernsatz: Array<{ id: string; words: number; text: string }>;
-  masters: Array<{ id: string; anchor: string; chars: number; ending: string }>;
+  masters: Array<{ id: string; anchor: string; action: "create" | "update"; chars: number; ending: string }>;
+}
+
+function readJson<T>(file: string, fallback: T): T {
+  try {
+    if (!fs.existsSync(file)) return fallback;
+    return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
+  } catch {
+    return fallback;
+  }
+}
+
+function anchorKey(endpoint: string, anchor: string): string {
+  return `${endpoint}\n${anchor}`;
+}
+
+function masterOfIds(doc: CorpusDoc): string[] {
+  const raw = fs.readFileSync(doc.filePath, "utf-8");
+  const { fm } = parseFrontmatter(raw);
+  return Array.isArray(fm.master_of) ? fm.master_of.map(String) : [];
+}
+
+function loadCandidates(): KernsatzCandidate[] {
+  const file = readJson<{ candidates?: Array<Record<string, unknown>> }>(CANDIDATES, { candidates: [] });
+  const out: KernsatzCandidate[] = [];
+  for (const c of file.candidates ?? []) {
+    const answerId = String(c.answerId ?? "");
+    if (!answerId) continue;
+    const resolves = Array.isArray(c.resolves) ? c.resolves : [];
+    const first = resolves[0] as { sourceId?: string } | undefined;
+    out.push({
+      id: String(c.id ?? answerId),
+      answerId,
+      questionSourceId: String(first?.sourceId ?? ""),
+      conceptAnchor: c.conceptAnchor == null ? null : String(c.conceptAnchor),
+      distinctness: typeof c.distinctness === "number" ? c.distinctness : 0,
+    });
+  }
+  return out;
 }
 
 async function main(): Promise<void> {
-  if (process.argv.includes("--plan")) {
-    const corpus = loadCorpus();
-    const byId = new Map(corpus.map(d => [d.id, d]));
-    const erkFile = JSON.parse(fs.readFileSync(ERKENNTNISSE, "utf-8")) as { erkenntnisse: ErkenntnisRecord[] };
-    const missing = (erkFile.erkenntnisse ?? []).filter(e => !byId.get(e.answerId)?.response.trim());
-    const masters = corpus.filter(d => d.isMaster);
-    for (const doc of masters) {
-      const anchorBody = doc.anchor.split(":")[1] ?? doc.anchor;
-      const variantDir = path.join(ROOT, "content/resonanzen/raw", doc.endpoint, anchorBody);
-      const n = corpus.filter(d => !d.isMaster && d.filePath.startsWith(variantDir + path.sep) && d.response.trim()).length;
-      console.log(`[plan] ${doc.id} ${doc.anchor} varianten=${n} antwort=${doc.response.length}`);
+  const corpus = loadCorpus();
+  const byId = new Map(corpus.map(d => [d.id, d]));
+  const variantsByAnchor = new Map<string, CorpusDoc[]>();
+  const masterByAnchor = new Map<string, CorpusDoc>();
+  for (const doc of corpus) {
+    const key = anchorKey(doc.endpoint, doc.anchor);
+    if (doc.isMaster) masterByAnchor.set(key, doc);
+    else if (doc.response.trim()) {
+      const list = variantsByAnchor.get(key) ?? [];
+      list.push(doc);
+      variantsByAnchor.set(key, list);
     }
-    console.log(`[plan] erkenntnisse=${erkFile.erkenntnisse.length} fehlendeAntworten=${missing.length} keys=${getKeys().length}`);
-    if (missing.length) console.log(missing.map(e => e.id + " " + e.answerId).join("\n"));
+  }
+
+  const keys = new Set<string>([...variantsByAnchor.keys(), ...masterByAnchor.keys()]);
+  const masterPlans = [...keys].map(key => {
+    const [endpoint, anchor] = key.split("\n");
+    const variants = (variantsByAnchor.get(key) ?? []).sort((a, b) => a.ts.localeCompare(b.ts));
+    const master = masterByAnchor.get(key);
+    const plan = planMaster({
+      endpoint,
+      anchor,
+      variantIds: variants.map(v => v.id),
+      masterOf: master ? masterOfIds(master) : null,
+      minNew: MIN_NEW,
+    });
+    return { endpoint, anchor, variants, master, plan };
+  });
+
+  const erkFile = readJson<{ erkenntnisse?: ErkenntnisRecord[] }>(ERKENNTNISSE, { erkenntnisse: [] });
+  const confirmed = new Set((erkFile.erkenntnisse ?? []).map(e => e.answerId));
+  const draftFile = readJson<{ drafts?: DraftRecord[] }>(DRAFTS, { drafts: [] });
+  const drafts = draftFile.drafts ?? [];
+  const answerHashById = new Map<string, string>();
+  for (const doc of corpus) {
+    if (!doc.isMaster && doc.response.trim()) answerHashById.set(doc.id, contentHashFor(doc.prompt, doc.response));
+  }
+  const kernPlans = planKernsatzCandidates({
+    candidates: loadCandidates(),
+    confirmedAnswerIds: confirmed,
+    drafts,
+    answerHashById,
+    limit: CANDIDATE_LIMIT,
+  });
+  const dueMasters = masterPlans.filter(p => p.plan.action !== "skip");
+  console.log(`[regenerate-erkenntnisse] fällig: ${kernPlans.length} Kernsatz-Kandidaten, ${dueMasters.length} Master, übersprungen ${masterPlans.length - dueMasters.length}, Backend=${llmBackend()}`);
+  for (const p of masterPlans) {
+    if (p.plan.action === "skip") continue;
+    console.log(`[plan] ${p.plan.action} ${p.anchor} neu=${p.plan.newIds.length} varianten=${p.plan.variantIds.length}`);
+  }
+
+  const failures: Report["failures"] = [];
+  const distilled: DraftRecord[] = [];
+  const synthesized: Array<{
+    id: string;
+    endpoint: string;
+    anchor: string;
+    filePath: string;
+    fmRaw: string;
+    text: string;
+    model: string;
+    variantIds: string[];
+    action: "create" | "update";
+  }> = [];
+
+  if (kernPlans.length === 0 && dueMasters.length === 0) {
+    const report = emptyReport(failures, masterPlans.length);
+    fs.writeFileSync(REPORT, JSON.stringify(report, null, 2));
+    console.log("[regenerate-erkenntnisse] nichts geändert");
+    return;
+  }
+  if (process.argv.includes("--plan")) {
+    const report = emptyReport(failures, masterPlans.filter(p => p.plan.action === "skip").length);
+    report.distilled = kernPlans.length;
+    report.synthesized = dueMasters.length;
+    fs.writeFileSync(REPORT, JSON.stringify(report, null, 2));
     return;
   }
   if (getKeys().length === 0 && !isClaudeAvailable()) {
     throw new Error("Kein GEMINI_API_KEY / GEMINI_API_KEYS / GEMINI_API_KEY_FALLBACK und kein ANTHROPIC_API_KEY");
   }
-  const corpus = loadCorpus();
-  const byId = new Map(corpus.map(d => [d.id, d]));
-  const erkFile = JSON.parse(fs.readFileSync(ERKENNTNISSE, "utf-8")) as { erkenntnisse: ErkenntnisRecord[] };
-  const erkenntnisse = erkFile.erkenntnisse ?? [];
-  const masters = corpus.filter(d => d.isMaster);
-  console.log(`[regenerate-erkenntnisse] ${erkenntnisse.length} Erkenntnisse, ${masters.length} Master, Backend=${llmBackend()}`);
 
-  const failures: Report["failures"] = [];
-  const newKern = new Map<string, { kernsatz: string; model: string }>();
-
-  for (let i = 0; i < erkenntnisse.length; i++) {
-    const e = erkenntnisse[i];
-    const doc = byId.get(e.answerId);
-    if (!doc || !doc.response.trim()) {
-      failures.push({ id: e.id, error: `Antwort ${e.answerId} nicht gefunden oder leer` });
-      console.error(`[distill ${i + 1}/${erkenntnisse.length}] ${e.id} FEHLT ${e.answerId}`);
+  let billing = false;
+  for (let i = 0; i < kernPlans.length; i++) {
+    const c = kernPlans[i];
+    const doc = byId.get(c.answerId);
+    if (!doc?.response.trim()) {
+      console.log(`[distill ${i + 1}/${kernPlans.length}] ${c.id} ohne Antwort im Korpus, übersprungen`);
       continue;
     }
     try {
       const kern = await distillKernsatz(doc.response);
-      newKern.set(e.id, kern);
-      console.log(`[distill ${i + 1}/${erkenntnisse.length}] ${e.id} (${kern.kernsatz.split(/\s+/).length} Wörter) ${kern.kernsatz}`);
+      distilled.push({
+        id: c.id,
+        answerId: c.answerId,
+        questionSourceId: c.questionSourceId,
+        kernsatz: kern.kernsatz,
+        conceptAnchor: c.conceptAnchor,
+        distinctness: c.distinctness,
+        distilledAt: new Date().toISOString(),
+        distilledModel: kern.model,
+        sourceHash: answerHashById.get(c.answerId),
+      });
+      console.log(`[distill ${i + 1}/${kernPlans.length}] ${c.id} (${kern.kernsatz.split(/\s+/).length} Wörter) ${kern.kernsatz}`);
     } catch (err) {
       const msg = err instanceof Error ? err.message : String(err);
-      failures.push({ id: e.id, error: msg });
-      console.error(`[distill ${i + 1}/${erkenntnisse.length}] ${e.id} ${msg}`);
-      if (isBilling(msg)) break;
+      failures.push({ id: c.id, error: msg });
+      console.error(`[distill ${i + 1}/${kernPlans.length}] ${c.id} ${msg}`);
+      if (isBilling(msg)) { billing = true; break; }
     }
     await sleep(400);
   }
 
-  const synthesized: Array<{ doc: CorpusDoc; text: string; model: string; variantIds: string[] }> = [];
-  if (!failures.some(f => isBilling(f.error))) {
-    for (let i = 0; i < masters.length; i++) {
-      const doc = masters[i];
-      const anchorBody = doc.anchor.split(":")[1] ?? doc.anchor;
-      const variantDir = path.join(ROOT, "content/resonanzen/raw", doc.endpoint, anchorBody);
-      const variants = corpus
-        .filter(d => !d.isMaster && d.filePath.startsWith(variantDir + path.sep) && d.response.trim())
-        .sort((a, b) => a.ts.localeCompare(b.ts))
-        .map(d => ({ id: d.id, ts: d.ts, prompt: d.prompt, response: d.response }));
-      if (variants.length < 2) {
-        failures.push({ id: doc.id, error: `nur ${variants.length} Variante(n) unter ${variantDir}` });
-        console.error(`[synth ${i + 1}/${masters.length}] ${doc.id} zu wenige Varianten`);
-        continue;
-      }
+  if (!billing) {
+    for (let i = 0; i < dueMasters.length; i++) {
+      const item = dueMasters[i];
+      const variants = item.variants.map(d => ({ id: d.id, ts: d.ts, prompt: d.prompt, response: d.response }));
       try {
-        console.log(`[synth ${i + 1}/${masters.length}] ${doc.anchor} aus ${variants.length} Varianten …`);
+        console.log(`[synth ${i + 1}/${dueMasters.length}] ${item.plan.action} ${item.anchor} aus ${variants.length} Varianten (${item.plan.newIds.length} neu) …`);
         const text = await synthesizeMaster(variants);
-        synthesized.push({ doc, text: text.text, model: text.model, variantIds: variants.map(v => v.id) });
-        console.log(`[synth ${i + 1}/${masters.length}] ${doc.id} ${text.text.length} Zeichen, Schluss: ${text.text.trim().slice(-80).replace(/\s+/g, " ")}`);
+        const action = item.plan.action === "create" ? "create" : "update";
+        const filePath = item.master?.filePath ?? path.join(ROOT, masterRelPath(item.endpoint, item.anchor));
+        synthesized.push({
+          id: item.master?.id ?? masterIdForAnchor(item.anchor),
+          endpoint: item.endpoint,
+          anchor: item.anchor,
+          filePath,
+          fmRaw: item.master?.fmRaw ?? freshMasterFm({ endpoint: item.endpoint, anchor: item.anchor, now: new Date().toISOString() }),
+          text: text.text,
+          model: text.model,
+          variantIds: item.plan.variantIds,
+          action,
+        });
+        console.log(`[synth ${i + 1}/${dueMasters.length}] ${item.anchor} ${text.text.length} Zeichen`);
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err);
-        failures.push({ id: doc.id, error: msg });
-        console.error(`[synth ${i + 1}/${masters.length}] ${doc.id} ${msg}`);
-        if (isBilling(msg)) break;
+        failures.push({ id: item.anchor, error: msg });
+        console.error(`[synth ${i + 1}/${dueMasters.length}] ${item.anchor} ${msg}`);
+        if (isBilling(msg)) { billing = true; break; }
       }
     }
   }
 
+  const now = new Date().toISOString();
+  if (distilled.length > 0) {
+    const byAnswer = new Map(drafts.map(d => [d.answerId, d]));
+    for (const d of distilled) byAnswer.set(d.answerId, d);
+    fs.mkdirSync(path.dirname(DRAFTS), { recursive: true });
+    fs.writeFileSync(DRAFTS, JSON.stringify({
+      generatedAt: now,
+      drafts: [...byAnswer.values()].sort((a, b) => a.id.localeCompare(b.id)),
+    }, null, 2) + "\n");
+  }
+  for (const s of synthesized) {
+    const md = renderMasterMarkdown({
+      fmRaw: s.fmRaw,
+      now,
+      variantIds: s.variantIds,
+      synthesisText: s.text,
+      model: s.model,
+      event: s.action === "create" ? "synthesized" : "re-synthesized",
+    });
+    fs.mkdirSync(path.dirname(s.filePath), { recursive: true });
+    fs.writeFileSync(s.filePath, md);
+  }
+
   const report: Report = {
-    generatedAt: new Date().toISOString(),
-    distillModel: [...newKern.values()][0]?.model ?? DISTILL_MODEL,
+    ...emptyReport(failures, masterPlans.filter(p => p.plan.action === "skip").length),
+    changed: distilled.length > 0 || synthesized.length > 0,
+    needsIndexRebuild: synthesized.length > 0,
+    distillModel: distilled[0]?.distilledModel ?? DISTILL_MODEL,
     synthesisModel: synthesized[0]?.model ?? SYNTH_MODEL,
-    distilled: newKern.size,
+    distilled: distilled.length,
     synthesized: synthesized.length,
-    embeddingsDropped: 0,
-    failures,
-    kernsatz: erkenntnisse.filter(e => newKern.has(e.id)).map(e => {
-      const text = newKern.get(e.id)!.kernsatz;
-      return { id: e.id, words: text.split(/\s+/).filter(Boolean).length, text };
-    }),
+    embeddingsDropped: synthesized.length > 0 ? dropMasterEmbeddings(synthesized.map(s => s.id)) : 0,
+    kernsatz: distilled.map(d => ({
+      id: d.id,
+      words: d.kernsatz.split(/\s+/).filter(Boolean).length,
+      text: d.kernsatz,
+    })),
     masters: synthesized.map(s => ({
-      id: s.doc.id,
-      anchor: s.doc.anchor,
+      id: s.id,
+      anchor: s.anchor,
+      action: s.action,
       chars: s.text.length,
       ending: s.text.trim().slice(-90).replace(/\s+/g, " "),
     })),
   };
   fs.writeFileSync(REPORT, JSON.stringify(report, null, 2));
-
-  if (failures.length > 0 || newKern.size !== erkenntnisse.length || synthesized.length !== masters.length) {
-    throw new Error(`Unvollständig: ${newKern.size}/${erkenntnisse.length} Kernsätze, ${synthesized.length}/${masters.length} Master, ${failures.length} Fehler. Nichts geschrieben.`);
+  console.log(`[regenerate-erkenntnisse] geschrieben: ${distilled.length} Entwürfe, ${synthesized.length} Master, geändert=${report.changed}`);
+  if (billing && distilled.length === 0 && synthesized.length === 0) {
+    throw new Error(`LLM-Guthaben oder Berechtigung, nichts geschrieben. ${failures.length} Fehler.`);
   }
-
-  const now = new Date().toISOString();
-  const updated = erkenntnisse.map(e => ({
-    ...e,
-    kernsatz: newKern.get(e.id)!.kernsatz,
-    redistilledAt: now,
-    distilledModel: newKern.get(e.id)!.model,
-  }));
-  fs.writeFileSync(ERKENNTNISSE, JSON.stringify({ generatedAt: now, erkenntnisse: updated }, null, 2) + "\n");
-
-  for (const s of synthesized) {
-    const md = renderMasterMarkdown({
-      fmRaw: s.doc.fmRaw,
-      now,
-      variantIds: s.variantIds,
-      synthesisText: s.text,
-      model: s.model,
-    });
-    fs.writeFileSync(s.doc.filePath, md);
+  if ((kernPlans.length > 0 || dueMasters.length > 0) && distilled.length === 0 && synthesized.length === 0 && failures.length > 0) {
+    throw new Error(`Nichts geschrieben. ${failures.length} Fehler.`);
   }
-  report.embeddingsDropped = dropMasterEmbeddings(synthesized.map(s => s.doc.id));
-  fs.writeFileSync(REPORT, JSON.stringify(report, null, 2));
-  console.log(`[regenerate-erkenntnisse] geschrieben: ${updated.length} Kernsätze, ${synthesized.length} Master, ${report.embeddingsDropped} Embeddings zum Neu-Rechnen freigegeben`);
 }
+
+function emptyReport(failures: Report["failures"], skippedMasters: number): Report {
+  return {
+    generatedAt: new Date().toISOString(),
+    changed: false,
+    needsIndexRebuild: false,
+    minNewVariants: MIN_NEW,
+    distillModel: DISTILL_MODEL,
+    synthesisModel: SYNTH_MODEL,
+    distilled: 0,
+    synthesized: 0,
+    skippedMasters,
+    embeddingsDropped: 0,
+    failures,
+    kernsatz: [],
+    masters: [],
+  };
+}
+
 
 main().catch(err => {
   console.error(`[regenerate-erkenntnisse] ${err instanceof Error ? err.message : err}`);

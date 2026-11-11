@@ -1,0 +1,3 @@
+# Diese Datei auf main anfassen, damit „Erkenntnisse neu erzeugen“ einmal läuft.
+# Wöchentlich zusätzlich: Sonntag 05:00 UTC, nach Auto-Curate (04:00 UTC).
+reason: wöchentlicher Lauf und einmaliger Start nach dem Schedule-Merge
