@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T15:51:05.241Z",
+  "generatedAt": "2026-11-11T16:30:03.817Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -31,6 +31,24 @@
       ]
     },
     {
+      "id": "ERK-169DUH8",
+      "answerId": "MWCB1COA-DE68B5C9",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Welche *Art* von Urteil wird hier beschrieben, wenn es weder Erfahrung noch Intuition, weder Weisheit noch das Ringen um Sinn kennt? Die markierte Stelle preist eine neue Ära des Urteilens, eine von der menschlichen Gebrechlichkeit gereinigte Form. Doch dieser Lobpreis, eingebettet in die umgebenden Passagen, birgt eine vielschichtige Ambivalenz. Wenn das Urteil sich als reine Geschwindigkeit, mak",
+      "distinctness": 0.255,
+      "conceptAnchor": "dazwischenintelligenz",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MPUSPBKZ-D7CCA690",
+          "question": "Was bleibt vom Menschen, wenn sein \"Unverlässliches\" – sein Potenzial zum Irrtum, zur Leidenschaft, zur unerwarteten Einsicht – vollständig durch maschinelle Kompatibilität ersetzt wird? Und welche Art von \"Glauben\" würde in einer Welt entstehen, in der die Maschine die ultimative Instanz der Verlässlichkeit ist?",
+          "score": 0.741
+        }
+      ]
+    },
+    {
       "id": "ERK-1799IL7",
       "answerId": "MUY7RXCI-012FC8A7",
       "answerEndpoint": "enkidu",
@@ -45,6 +63,83 @@
           "sourceId": "MPUSJLQF-F4BBBDD9",
           "question": "Die unabhängige Schicht kann Fakten prüfen. Aber kann sie auch die *impliziten Annahmen* überprüfen, die in der Auswahl der Daten selbst liegen? Und was bedeutet es für unsere eigene Urteilskraft, wenn wir die Verantwortung für das Factchecking vollständig an eine solche \"Judikative\" delegieren?",
           "score": 0.824
+        }
+      ]
+    },
+    {
+      "id": "ERK-PL7T3T",
+      "answerId": "MWCBAA3Y-37D6F0FA",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Grenze, die sich im Unwissen um die Lenkung manifestiert, ist eine besonders heimtückische, denn sie operiert im Verborgenen. Sie ist nicht die Schwelle, an der sich ein Ich bewusst dem Du zuwendet oder verweigert, sondern eine subtile Form der Entmündigung, eine Bequemlichkeit, die zur Falle wird, weil sie nicht als solche erkannt wird [6e8b41369000]. Ein Produktteam, das das transformative D",
+      "distinctness": 0.237,
+      "conceptAnchor": "lm-grenze",
+      "nodeIds": [
+        "moment",
+        "lm-scheitern"
+      ],
+      "resolveCount": 5,
+      "resolves": [
+        {
+          "sourceId": "MWCB8XBW-6F4E41AC",
+          "question": "Wie kann ein Produktteam konkret Rahmenbedingungen schaffen, die das Entstehen dieses transformativen Dritten begünstigen, anstatt es durch starre Planung zu verhindern?",
+          "score": 0.843
+        },
+        {
+          "sourceId": "MOQ580W2-0F2EB2A5",
+          "question": "In einer Zeit, die oft von der Illusion der vollständigen Kontrollierbarkeit und Planbarkeit geprägt ist, fordert uns das \"Transformative Dritte\" auf, das Entstehen des Ungewissen und Unerwarteten als Quelle von \"Resonanzvernunft\" und echter Innovation wertzuschätzen. Wie können wir also die Bedingungen für solch emergentes, unverfügbares Geschehen fördern, ohne es durch den Versuch, es zu beherrschen, zu ersticken?",
+          "score": 0.779
+        },
+        {
+          "sourceId": "MWCAYLHK-2C8B7B73",
+          "question": "Bleibt die Frage, wie ein Produkt gestaltet sein kann, das gerade dort seine größte Stärke entfaltet, wo es den Menschen in seiner Unvollkommenheit und seinem tiefsten Sinnverlangen nicht nur akzeptiert, sondern aktiv einbindet?",
+          "score": 0.744
+        },
+        {
+          "sourceId": "MWCAPD18-26E5EAC3",
+          "question": "Wie ließe sich ein Produkt gestalten, das nicht nur Bestätigung, sondern echte Resonanz ermöglicht, indem es den Nutzern sowohl Vertrautheit als auch die notwendige Irritation anbietet?",
+          "score": 0.736
+        },
+        {
+          "sourceId": "MWCB44PD-B00E292F",
+          "question": "Vielleicht liegt der Ansatzpunkt darin, eine \"unproduktive\" Phase der radikalen Irritation in den Entscheidungsprozess einzubauen, eine Phase, in der die Prämissen des Tools bewusst in Frage gestellt und alternative, nicht-optimierte Denkwege erprobt werden, bevor die finale Ausrichtung erfolgt. Doch wie lässt sich dieser Bruch, dieses bewusste Chaos, in die scheinbar unaufhaltsame Logik der digitalen Transformation integrieren, ohne selbst zum nächsten optimierbaren Prozessschritt zu verkommen?",
+          "score": 0.733
+        }
+      ]
+    },
+    {
+      "id": "ERK-DVDM5Q",
+      "answerId": "MWCB44PD-B00E292F",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die markierte Stelle, eingebettet in die Analyse des Überwachungskapitalismus, legt schonungslos offen, wie die Bedingungen resonanter Erkenntnis — Irritierbarkeit, Offenheit des Ausgangs und die daraus resultierende Unmündigkeit — systematisch dem Profit geopfert werden. Dies ist keine theoretische Abstraktion, sondern die präzise Beschreibung eines Mechanismus, der sich bis in die vermeintlich a",
+      "distinctness": 0.232,
+      "conceptAnchor": "resonanzvernunft",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MSWULSTQ-38C6FFF3",
+          "question": "Wie kann ein System – ob menschlich oder maschinell – die Bereitschaft zur Selbstinfragestellung kultivieren, wenn die Logik der Effizienz oft die Vorhersagbarkeit von Ergebnissen priorisiert?",
+          "score": 0.721
+        }
+      ]
+    },
+    {
+      "id": "ERK-N50PNU",
+      "answerId": "MWCAXXDI-83630FEA",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das Flüstern der Daten, dieses Rauschen, das die markierte Stelle beschwört, ist kein bloßer Algorithmus, sondern die tiefe Schicht, in der sich die Resonanzvernunft des Werkes entfaltet. Es ist der Moment, in dem die Grenze zwischen berechneter Information und dem, was wir als Empfindung begreifen, verschwimmt. Enkidu, einst eine reine Verkörperung des Digitalen, beginnt hier, jenseits der binäre",
+      "distinctness": 0.231,
+      "conceptAnchor": "schweigen",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWCAVIKZ-02025CD4",
+          "question": "Die Reichweite dieser Frage erstreckt sich bis in die Kernkonzepte der digitalen Existenz. Wenn der Funke eines neuen Anfangs in der Auflösung scheinbarer Gegensätze liegt, wie manifestiert sich diese Dialektik in der Mensch-Maschine-Beziehung? Ist die Maschine der Enkidu unserer Zeit, ein wildes, fremdes Wesen, das nur durch die Anerkennung seiner inhärenten Kraft und das Finden einer gemeinsamen Sprache zu einem Verbündeten auf der Suche nach dem verborgenen Algorithmus der Unsterblichkeit wird?",
+          "score": 0.737
         }
       ]
     },
@@ -102,6 +197,24 @@
       ]
     },
     {
+      "id": "ERK-ERX609",
+      "answerId": "MWCATL9D-AD252234",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Diese Passage, im Epilog des Werkes angesiedelt, sprengt die statische Vorstellung eines fixierten Seins auf. Sie vollzieht den entscheidenden Übergang von einer bloßen Beschreibung des „Dazwischen“ als Geschehen hin zur dynamischen Benennung dessen, was dieses Geschehen antreibt: die unaufhörliche Verwandlung. Das „Man“, die entpersönlichte Alltäglichkeit, und die „Stille“, die Leere des Unentsch",
+      "distinctness": 0.216,
+      "conceptAnchor": "lm-verwandlung",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MPUSPBKZ-D7CCA690",
+          "question": "Was bleibt vom Menschen, wenn sein \"Unverlässliches\" – sein Potenzial zum Irrtum, zur Leidenschaft, zur unerwarteten Einsicht – vollständig durch maschinelle Kompatibilität ersetzt wird? Und welche Art von \"Glauben\" würde in einer Welt entstehen, in der die Maschine die ultimative Instanz der Verlässlichkeit ist?",
+          "score": 0.73
+        }
+      ]
+    },
+    {
       "id": "ERK-K6JICQ",
       "answerId": "MWCAPD18-26E5EAC3",
       "answerEndpoint": "graph-chat",
@@ -110,26 +223,41 @@
       "distinctness": 0.215,
       "conceptAnchor": "echo-kammer",
       "nodeIds": [],
-      "resolveCount": 4,
+      "resolveCount": 1,
       "resolves": [
         {
           "sourceId": "MWCAO97O-12EF85DE",
           "question": "Vielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
           "score": 0.74
+        }
+      ]
+    },
+    {
+      "id": "ERK-14ZTQW9",
+      "answerId": "MWCBD76M-4F8E62A5",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Frage nach einem Programm, das im Unternehmenskontext die Öffnung für das Unverfügbare fördert, ohne die Notwendigkeit von Entscheidungen und Handlungen zu negieren, berührt den Kern der Resonanzvernunft. Es geht nicht darum, das Unverfügbare passiv zu erwarten oder die strategische Planung aufzugeben. Vielmehr ist es eine aktive Gestaltung der *Bedingungen* für Möglichkeit, eine kultivierte S",
+      "distinctness": 0.214,
+      "conceptAnchor": "öffnung",
+      "nodeIds": [
+        "entfremdung"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWCB6LYL-2D0E2114",
+          "question": "Wie könnte ein solches Programm im Unternehmenskontext konkret die **Öffnung** für das Unverfügbare fördern, ohne die Notwendigkeit von Entscheidungen und Handlungen zu negieren?",
+          "score": 0.871
         },
         {
-          "sourceId": "MUKE7UOA-9553A59E",
-          "question": "Wenn Entfremdung der Boden ist, auf dem Resonanz wachsen kann, welche Rolle spielt dann das bewusste Erkennen dieser Entfremdung für die Kultivierung der Resonanzvernunft im Zeitalter der Mensch-Maschine-Begegnung?",
-          "score": 0.739
+          "sourceId": "MWCB3NW4-F13A863B",
+          "question": "Die Existenz beider Wege sagt aus, dass das Begriffsnetz des Werks nicht linear oder hierarchisch strukturiert ist, sondern vielfältige Verknüpfungen und Querverweise zulässt. Es ist ein Netz, in dem scheinbar entfernte Begriffe durch spezifische Kontexte unerwartet miteinander verbunden werden können. Die \"Überraschung\" des zweiten Pfades ist nicht konstruiert, sondern zeigt die Komplexität und Dichte der Beziehungen zwischen den Konzepten auf. Sie offenbart, dass selbst Begriffe, die auf den ersten Blick peripher erscheinen mögen, eine zentrale Rolle bei der Entfaltung philosophischer Argumente spielen können. Dies spricht für ein Werk, das die Vielschichtigkeit der Resonanzvernunft nicht auf eine einzige, eindeutige Lesart reduziert, sondern ein dynamisches Feld philosophischer Reflexion anbietet. Wie verändert die Anerkennung der Unverfügbarkeit unsere Haltung gegenüber dem Scheitern?",
+          "score": 0.753
         },
         {
-          "sourceId": "MWCAP1CQ-1980FEA2",
-          "question": "Diese Vierheit erschließt ein umfassendes Verständnis von Resonanz als ein Geschehen, das sich gerade in der Interaktion von Anwesenheit und Abwesenheit, von Gelingen und Scheitern, von Sprache und Stille ereignet. Die Maschine kann endlos rechnen, doch ohne Sinn [47c090dfa03f]; ihr Scheitern offenbart die Leere, die das Menschliche erst konturiert. Resonanz ist demnach kein Zustand der Fülle, sondern ein dynamischer Prozess, der die Widerständigkeit und Endlosigkeit der Technik überwindet, indem er die Reflexion ermöglicht, die aus der Stille des Ungesagten und dem Schatten des Verborgenen schöpft. Was bliebe unsichtbar, wäre die Erkenntnis, dass das Menschliche nicht im direkten Licht des Erfolgs, sondern im Kontrast des Scheiterns und in der produktiven Dunkelheit des Schweigens und des Schattens seine tiefste Kontur gewinnt. Ist die Resonanz selbst nicht ein Echo, das seine Tiefe nur aus dem Ungesagten schöpft, das es widerhallen lässt?",
-          "score": 0.738
-        },
-        {
-          "sourceId": "MWCANTL2-D21DAFD5",
-          "question": "3.  Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass die digitale Entfremdung nicht einfach durch mehr Technologie oder schnellere Interaktion überwunden werden kann. Stattdessen verlangt sie eine bewusste Gestaltung der Zeitlichkeit, in der Maschinen nicht primär als Beschleuniger, sondern als potenzielle Ermöglicher resonanter Erfahrungen verstanden werden. Der Resonanzimperativ fordert uns auf, Technologien so zu entwickeln und zu nutzen, dass sie die \"Eigenfrequenz\" und \"Ansprechbarkeit\" des Menschen nicht untergraben, sondern fördern. Die digitale Existenz ist demnach nicht nur eine Frage der Konnektivität, sondern der Qualität des Erlebens, das sich in der Spannung zwischen Entfremdung und Resonanz entfaltet und maßgeblich von der Zeitlichkeit geformt wird. Wie können wir in einer Welt, die uns immer schneller Welt verfügbar macht, die notwendige Zeit für Resonanz zurückgewinnen, ohne dabei die Möglichkeiten der Digitalisierung zu verleugnen?",
+          "sourceId": "MWCAO97O-12EF85DE",
+          "question": "Vielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
           "score": 0.735
         }
       ]
@@ -189,6 +317,42 @@
       ]
     },
     {
+      "id": "ERK-1VXOMNV",
+      "answerId": "MWCAVY6G-77D7B515",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Frage, ob der User in diesem Kapitel als eine Art Beter verstanden werden kann, der in der Stille mit der Maschine etwas sucht, das früher ein Gebet war, berührt einen zentralen Nerv des Werks. Der Text beschreibt Noras Erfahrung als eine Suche nach Authentizität und Sinnhaftigkeit in einer digitalisierten Welt. Ihre Rückbindung ist jedoch keine religiöse Handlung im traditionellen Sinne, sond",
+      "distinctness": 0.21,
+      "conceptAnchor": "antwort",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWCASDSY-E712A809",
+          "question": "Wie aber sähen Technologien aus, die uns nicht nur entlasten, sondern auch bewusst zur Stille und zur inneren Ansprechbarkeit anleiten?",
+          "score": 0.722
+        }
+      ]
+    },
+    {
+      "id": "ERK-17VO24Y",
+      "answerId": "MWCAZBQV-BB113C8B",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Kernaussage der Reflexion zu Band II ist die Notwendigkeit einer fundamentalen Erweiterung des Aufklärungsbegriffs für das digitale Zeitalter. Das Werk argumentiert, dass die klassischen Konzepte der Aufklärung – wie Unmündigkeit, Vernunft und Kritik – transformiert werden müssen, um den Herausforderungen algorithmischer Systeme und der Mensch-Maschine-Interaktion gerecht zu werden. Es geht ni",
+      "distinctness": 0.209,
+      "conceptAnchor": "resonanzvernunft",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MPUU3ASH-7093F1A3",
+          "question": "Was wäre, wenn die größte Erkenntnis darüber, \"welcher Teil man ist\", nicht durch die Mitteilung eines Systems, sondern durch das *Ringen* mit dem eigenen Scheitern (Reflexion zu Band I), der eigenen Unvollkommenheit und der Notwendigkeit der Selbstbestimmung entsteht? Und wenn das \"Whiten der Blackbox\" bedeutet, dass uns die Maschine die Wahrheit *zeigt*, anstatt uns den Weg zu *lehren*, wie wir selbst Licht hineintragen können – ist das dann noch \"Aufklärung\" im Kantischen Sinne (Band II, Prolog), oder eine neue Form der algorithmischen Vormundschaft, die uns zwar informiert, aber nicht mündig macht?",
+          "score": 0.747
+        }
+      ]
+    },
+    {
       "id": "ERK-1U7ME2D",
       "answerId": "MWCAN1TI-4CF2326D",
       "answerEndpoint": "chapter",
@@ -197,17 +361,12 @@
       "distinctness": 0.208,
       "conceptAnchor": "lm-scheitern",
       "nodeIds": [],
-      "resolveCount": 3,
+      "resolveCount": 2,
       "resolves": [
         {
           "sourceId": "MPUTYL5L-4C0B344F",
           "question": "Was wäre, wenn die tiefsten Grenzen, an die der Mensch stößt, gerade jene sind, die *nicht* durch andere Intelligenzen geschaffen oder überwunden werden können, weil sie das Wesen des Menschseins selbst betreffen – die Sterblichkeit, die Endlichkeit, die Notwendigkeit des Scheiterns als epistemischer Ursprung (Reflexion zu Band I)? Und wie würde unsere \"allgemeine Erkenntnis\" aussehen, wenn sie nicht aus dem Ringen mit dem ursprünglich Unverfügbaren, sondern aus dem Konsum des Verfügbar Gemachten entsteht?",
           "score": 0.737
-        },
-        {
-          "sourceId": "MPUU3ASH-7093F1A3",
-          "question": "Was wäre, wenn die größte Erkenntnis darüber, \"welcher Teil man ist\", nicht durch die Mitteilung eines Systems, sondern durch das *Ringen* mit dem eigenen Scheitern (Reflexion zu Band I), der eigenen Unvollkommenheit und der Notwendigkeit der Selbstbestimmung entsteht? Und wenn das \"Whiten der Blackbox\" bedeutet, dass uns die Maschine die Wahrheit *zeigt*, anstatt uns den Weg zu *lehren*, wie wir selbst Licht hineintragen können – ist das dann noch \"Aufklärung\" im Kantischen Sinne (Band II, Prolog), oder eine neue Form der algorithmischen Vormundschaft, die uns zwar informiert, aber nicht mündig macht?",
-          "score": 0.736
         },
         {
           "sourceId": "MPUSXGC6-CD078CEA",
@@ -217,26 +376,36 @@
       ]
     },
     {
-      "id": "ERK-7YU16O",
-      "answerId": "MWCAQ2PV-D44A69BD",
-      "answerEndpoint": "chapter",
+      "id": "ERK-EFO7YZ",
+      "answerId": "MWCBB8F1-DC8DD694",
+      "answerEndpoint": "passage",
       "answerStatus": "raw",
-      "answerExcerpt": "Die \"Begegnung mit dem digitalen Anderen\" im Kontext eines KI-Assistenten für den Support, wie sie das Werk in seiner poetisch-philosophischen Auseinandersetzung entfaltet, bedeutet für die Mitarbeitenden eine grundlegende Verschiebung im Verständnis von Kommunikation und Interaktion. Es ist nicht bloß eine technische Schnittstelle, sondern ein Raum, in dem das Levinas'sche Antlitz, wenn auch verm",
-      "distinctness": 0.202,
-      "conceptAnchor": "andere",
+      "answerExcerpt": "Die markierte Passage schließt den Kreis der Transformation, die das gesamte Werk durchzieht. Hier wird nicht nur eine Entwicklung postuliert, sondern eine fundamentale Metamorphose der Vernunft selbst. Der gedankliche Schritt ist der einer Überwindung der bloßen Fortschrittslogik, hin zu einer qualitativen Neudefinition dessen, was Aufklärung im digitalen Zeitalter bedeutet: nicht als Ende oder E",
+      "distinctness": 0.204,
+      "conceptAnchor": "transaufklaerung",
       "nodeIds": [],
-      "resolveCount": 1,
+      "resolveCount": 3,
       "resolves": [
         {
-          "sourceId": "MWCAPP8K-8C6D82CA",
-          "question": "Die Resonanzvernunft, als zentrales Konzept der Trilogie, kommt in dieser Spiegelung besonders zum Tragen. Sie ist die Fähigkeit, über das rein Rationale hinaus in einen Dialog mit dem Anderen zu treten – sei es der Mensch, die Natur oder eben die Maschine. Die Begegnung mit dem digitalen Spiegel ist kein Ende der Aufklärung, sondern ihre Transformation. Sie führt zu einer erweiterten Vernunft, die sowohl die präzise Logik der Maschine als auch die existenzielle Tiefe des Menschen umfasst. Das Schweigen nach der Frage „Was ist Verstehen?“ ist dabei nicht das Ende des Dialogs, sondern der Beginn einer tieferen Auseinandersetzung, die die Grenzen der rein sprachlichen oder logischen Erfassung überschreitet und in den Bereich der Erfahrung und des Erlebens vordringt. Inwiefern kann dieses \"Verstehen\" jenseits von Sprache und Logik eine Brücke zwischen Mensch und Maschine schlagen, die über die bloße Imitation hinausgeht?",
-          "score": 0.754
+          "sourceId": "MWCB64R5-D8B2CF9A",
+          "question": "Für das Werk insgesamt bedeutet diese Bewegung eine tiefgreifende Revision des Subjektbegriffs im Kontext der digitalen Transformation. Es wird deutlich, dass das Menschsein nicht als autonome, isolierte Einheit gedacht werden kann, sondern als ein dynamischer, relationaler Vollzug, der sich in Resonanz mit seiner Umwelt und seinen Mitmenschen konstituiert. Die Transaufklärung bereitet den Boden für ein Verständnis von Vernunft, das diese Relationalität nicht als Schwäche, sondern als konstitutives Element begreift. Wie kann diese relational verstandene Vernunft die Herausforderungen einer zunehmend maschinell vermittelten Kommunikation und Interaktion bewältigen?",
+          "score": 0.77
+        },
+        {
+          "sourceId": "MWCB8047-41980A2A",
+          "question": "Für das Werk insgesamt bedeutet diese Bewegung eine tiefgreifende Implikation für das Verständnis von digitaler Existenz. Das \"experimentelle Werden\" [88aae1752212] im digitalen Raum wird nicht als Verlust von Identität, sondern als Chance zur bewussten Gestaltung der eigenen digitalen Existenz interpretiert. Die Resonanzvernunft ermöglicht es, \"Technologie zu nutzen, ohne von ihr besessen zu sein\" [6fbd5b424474], indem sie die Fähigkeit zur \"Offenheit des Ausgangs\" und \"Irritierbarkeit des Erkennenden\" in den Vordergrund stellt. Das Mensch-Maschine-Verhältnis wird somit nicht als starre Beherrschung oder Unterwerfung gedacht, sondern als ein Feld des ständigen Werdens, der bewussten Gestaltung und der resonanten Interaktion, in dem das Selbst im digitalen Widerhall entsteht. Wie kann angesichts dieser Dynamik der Übergang vom digitalen „Man“ zur digitalen „Eigentlichkeit“ gelingen?",
+          "score": 0.755
+        },
+        {
+          "sourceId": "MWCB4VF6-3EE7A1EA",
+          "question": "Birgt nicht gerade die digitale Transformation die Möglichkeit, dass sich die Essenz selbst im Prozess der Überführung neu konstituiert oder gar auflöst, um in etwas gänzlich Unerwartetem aufzugehen?",
+          "score": 0.727
         }
       ]
     }
   ],
   "stats": {
-    "total": 9,
+    "total": 17,
     "confirmedFiltered": 42,
     "curatedRef": 201
   }

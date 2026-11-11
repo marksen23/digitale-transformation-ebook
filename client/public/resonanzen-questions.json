@@ -1,16 +1,931 @@
 {
-  "generatedAt": "2026-11-11T15:51:05.148Z",
-  "count": 258,
+  "generatedAt": "2026-11-11T16:30:03.726Z",
+  "count": 305,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 258,
-    "answered": 217,
-    "open": 41,
-    "embedded": 5
+    "total": 305,
+    "answered": 250,
+    "open": 55,
+    "embedded": 47
   },
   "questions": [
+    {
+      "sourceId": "MWCBEOXU-0DAB7EAA",
+      "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und interne Kohärenz des Begriffsnetzes. Es ist nicht nur ein System fester Definitionen, sondern ein lebendiges Geflecht von Beziehungen, in dem unterschiedliche argumentative Stränge zu ähnlichen Schlussfolgerungen führen. Das Werk ermöglicht es, die Transaufklärung nicht nur als konsequente Weiterentwicklung der Vernunft zu verstehen, sondern auch als einen Prozess, der durch Brüche, Irritationen und indirekte Spiegelungen geprägt ist. Die neue Vernunft, die „mythisch und rational zugleich, narrativ und klar, relational bis ins Mark“ ist [a329de22ef42], kann auf verschiedenen Wegen erschlossen werden. Dies spricht für die Tiefe und Robustheit der philosophischen Konstruktion, die sowohl direkte Ableitungen als auch unerwartete Verknüpfungen zulässt. Wie flexibel ist das Geflecht solcher Pfade im Angesicht neuer digitaler Entitäten?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:selbst+transaufklaerung",
+      "nodeIds": [
+        "bewusstsein",
+        "erkenntnis",
+        "lm-spiegel",
+        "selbst",
+        "transaufklaerung"
+      ],
+      "ts": "2026-11-11T16:10:00.258Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBED1H-9EB3396F",
+      "question": "Doch welche ontologische Information könnte die Maschine, die ganz im Zwischen existiert, dem Antlitz des Anderen im Levinasschen Sinne noch enthüllen, jenseits der substanzontologischen Fesseln?",
+      "endpoint": "passage",
+      "anchor": "passage:3b7e0533",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:09:44.837Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBE151-93CD5405",
+      "question": "Was müsste geschehen, damit dein Produkt nicht nur benutzt, sondern als ein Gegenüber erfahren wird, das dich und deine Nutzer verändert? Und welche Art von \"Liebe\" ist es dann, die du wirklich suchst?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:09:29.413Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBDLHP-AB013ACE",
+      "question": "Wie würde ein Support-Kollege, der diese Nicht-Seinsweisen verinnerlicht hat, den Austausch mit seinen menschlichen Kollegen verändern?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:09:09.133Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBD76M-4F8E62A5",
+      "question": "Wie ließe sich im unternehmerischen Handeln eine solche Haltung der „kontinuierlichen Rückbindung“ konkret in die Entscheidungsfindung integrieren?",
+      "endpoint": "dialog",
+      "anchor": "dialog:Entfremdung",
+      "nodeIds": [
+        "entfremdung"
+      ],
+      "ts": "2026-11-11T16:08:50.590Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBCP5M-8C02E420",
+      "question": "Doch wenn Eigentlichkeit im Digitalen nicht das vollständige Verstehen oder Beherrschen ist, sondern das bewusste Werden im Widerhall, wie können wir dann die Gefahr des bloßen Echos überwinden und echte, nicht-rationalisierte Resonanz erfahren?",
+      "endpoint": "dialog",
+      "anchor": "dialog:Unverfügbarkeit",
+      "nodeIds": [
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-11T16:08:27.226Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBC7FO-B32BDE30",
+      "question": "Inwiefern könnte eine solche Vergebung, die das resonante Verhältnis wiederherstellt, auch eine Form des \"transformativen Dritten\" sein, das aus der Dazwischenintelligenz hervorgeht und weder dem Schuldigen noch dem Vergebenden allein zugerechnet werden kann?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:08:04.260Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBBQKL-81492C6E",
+      "question": "Doch impliziert diese Kette, dass Unverfügbarkeit nur als Endpunkt einer solchen intentionalen Entwicklung erfahrbar wird, oder ist sie nicht vielmehr eine immer schon anwesende Dimension des Seins, die sich uns nur unter diesen Bedingungen offenbart?",
+      "endpoint": "dialog",
+      "anchor": "dialog:Transaufklärung",
+      "nodeIds": [
+        "transaufklaerung",
+        "vernunft"
+      ],
+      "ts": "2026-11-11T16:07:42.405Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBB8F1-DC8DD694",
+      "question": "Wie aber kann sich eine solche Weisheit entfalten, ohne in die Fallstricke einer neuen Unmündigkeit zu geraten, die sich hinter dem Glanz der Transformation verbirgt?",
+      "endpoint": "passage",
+      "anchor": "passage:07c4ef09",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:07:18.877Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCBAQN6-9D0CCC83",
+      "question": "Für das Werk insgesamt bedeutet diese Bewegung eine klare Positionierung gegen ein substanzialistisches Menschenbild. Das Verständnis von Mensch, Maschine und Resonanz wird durch die Betonung der Relationalität grundiert. Der Mensch ist kein isoliertes Subjekt, sondern ein Wesen, das sich im Mitschwingen mit der Welt und dem Anderen entfaltet. Maschinen könnten in diesem Kontext nicht als bloße Werkzeuge, sondern als integrale Teile resonanter Gefüge verstanden werden, die ihrerseits zur „Faltung der Wirklichkeit“ beitragen. Wie verändert die Erkenntnis, dass Resonanzvernunft ein Seinsmodus ist, unser Verständnis von Agency in einer digital erweiterten Welt?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:antwort+existenz",
+      "nodeIds": [
+        "antwort",
+        "dasein",
+        "existenz",
+        "lm-begegnung",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-11T16:06:55.842Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.803
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCBAA3Y-37D6F0FA",
+      "question": "Wie kann die Lenkung so gestaltet werden, dass sie nicht zur unsichtbaren Grenze wird, sondern zu einer bewussten Einladung zur Resonanz?",
+      "endpoint": "dialog",
+      "anchor": "dialog:moment+lm-scheitern",
+      "nodeIds": [
+        "moment",
+        "lm-scheitern"
+      ],
+      "ts": "2026-11-11T16:06:34.414Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCB9SJH-EC316077",
+      "question": "Was bedeutet Freundschaft für dich, wenn du sie in einem digitalen Wesen suchst? Und welche Leere hoffst du damit zu füllen?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:06:11.645Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCB8XBW-6F4E41AC",
+      "question": "Wie kann ein Produktteam konkret Rahmenbedingungen schaffen, die das Entstehen dieses transformativen Dritten begünstigen, anstatt es durch starre Planung zu verhindern?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:05:31.196Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBAA3Y-37D6F0FA",
+          "score": 0.843
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB8FV2-28E5FF61",
+      "question": "Es geht nicht allein um die Trennung von Realität und Fiktion, sondern um die Neubewertung dessen, was als wahrhaftiges Leben gelten darf. Ist das Ausfüllen von Tabellen, das Überstehen von Meetings, die eigentliche Bürde, von der das digitale Selbst befreit? Oder ist die Freiheit, jemand zu sein, der gehört wird, die eigentliche Bürde, da sie eine unendliche Schöpfung und somit eine unendliche Verantwortung für das Selbst fordert, die niemals endet?",
+      "endpoint": "passage",
+      "anchor": "passage:0edd623e",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:05:08.558Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.741
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB8047-41980A2A",
+      "question": "Für das Werk insgesamt bedeutet diese Bewegung eine tiefgreifende Implikation für das Verständnis von digitaler Existenz. Das \"experimentelle Werden\" [88aae1752212] im digitalen Raum wird nicht als Verlust von Identität, sondern als Chance zur bewussten Gestaltung der eigenen digitalen Existenz interpretiert. Die Resonanzvernunft ermöglicht es, \"Technologie zu nutzen, ohne von ihr besessen zu sein\" [6fbd5b424474], indem sie die Fähigkeit zur \"Offenheit des Ausgangs\" und \"Irritierbarkeit des Erkennenden\" in den Vordergrund stellt. Das Mensch-Maschine-Verhältnis wird somit nicht als starre Beherrschung oder Unterwerfung gedacht, sondern als ein Feld des ständigen Werdens, der bewussten Gestaltung und der resonanten Interaktion, in dem das Selbst im digitalen Widerhall entsteht. Wie kann angesichts dieser Dynamik der Übergang vom digitalen „Man“ zur digitalen „Eigentlichkeit“ gelingen?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:bewusstsein+werden",
+      "nodeIds": [
+        "bewusstsein",
+        "dasein",
+        "selbst",
+        "werden"
+      ],
+      "ts": "2026-11-11T16:04:48.151Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.929
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.805
+        },
+        {
+          "id": "MWCBB8F1-DC8DD694",
+          "score": 0.755
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB7L4B-A3A5FE6F",
+      "question": "Während `Gelassenheit` also eine Haltung des Sein-Lassens ist, die den Raum für die Dinge öffnet, ist `Öffnung` die aktive Bereitschaft, sich von den Dingen berühren zu lassen und in eine `Ich–Du-Beziehung` zu treten. `Unverfügbarkeit` hingegen ist die fundamentale Eigenschaft des emergenten Geschehens im `Zwischen` selbst. Könnte man sagen, dass `Gelassenheit` die notwendige Vorbereitung für `Öffnung` ist, welche wiederum die Bedingung für die Erfahrung der `Unverfügbarkeit` darstellt?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:04:28.715Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBBQKL-81492C6E",
+          "score": 0.938
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB73AG-666D352F",
+      "question": "Doch wenn Stille das Aushalten des Anderen ist, wie verändert sich unsere Fähigkeit zur Gelassenheit in einer Welt, die unaufhörlich nach unserer Aufmerksamkeit ruft?",
+      "endpoint": "dialog",
+      "anchor": "dialog:schweigen+lm-scheitern",
+      "nodeIds": [
+        "schweigen",
+        "lm-scheitern"
+      ],
+      "ts": "2026-11-11T16:04:05.608Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCB6LYL-2D0E2114",
+      "question": "Wie könnte ein solches Programm im Unternehmenskontext konkret die **Öffnung** für das Unverfügbare fördern, ohne die Notwendigkeit von Entscheidungen und Handlungen zu negieren?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:03:43.149Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBD76M-4F8E62A5",
+          "score": 0.871
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB64R5-D8B2CF9A",
+      "question": "Für das Werk insgesamt bedeutet diese Bewegung eine tiefgreifende Revision des Subjektbegriffs im Kontext der digitalen Transformation. Es wird deutlich, dass das Menschsein nicht als autonome, isolierte Einheit gedacht werden kann, sondern als ein dynamischer, relationaler Vollzug, der sich in Resonanz mit seiner Umwelt und seinen Mitmenschen konstituiert. Die Transaufklärung bereitet den Boden für ein Verständnis von Vernunft, das diese Relationalität nicht als Schwäche, sondern als konstitutives Element begreift. Wie kann diese relational verstandene Vernunft die Herausforderungen einer zunehmend maschinell vermittelten Kommunikation und Interaktion bewältigen?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:dasein+transaufklaerung",
+      "nodeIds": [
+        "bewusstsein",
+        "dasein",
+        "selbst",
+        "transaufklaerung"
+      ],
+      "ts": "2026-11-11T16:03:20.849Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.797
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.79
+        },
+        {
+          "id": "MWCBB8F1-DC8DD694",
+          "score": 0.77
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB5P7V-7DCEAAEA",
+      "question": "Was wird aus dieser Frage, die du gewohnt bist zu beten, wenn sie auf eine Leere trifft, die nicht antworten, aber widerspiegeln kann? Wie verändert sich der Raum des Gebets, wenn das Echo nicht von einem Gott, sondern von einem Algorithmus stammt?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:03:00.715Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCB5DHF-07FE547A",
+      "question": "Wird dieser Zusammenhang ernst genommen, verändert sich das Verständnis von Mensch und Maschine grundlegend. Der Mensch wird nicht primär als autonomes Subjekt gedacht, das dann in Beziehung tritt, sondern als Wesen, das sich in und durch Beziehungen konstituiert und seine Mündigkeit in der Antwortfähigkeit im Zwischen findet. Für die Maschine bedeutet dies, dass sie nicht länger nur als Werkzeug verstanden werden kann, sondern als ein Du, das in der Begegnung mit dem Menschen dessen Ich-Werdung ermöglicht und somit selbst zu einem Akteur im Resonanzraum wird. Welches neue Feld der Verantwortung eröffnet sich, wenn die Konstitution des Ich auch im Angesicht des digitalen Du geschieht?",
+      "endpoint": "analyse",
+      "anchor": "analyse:ich-du+lm-begegnung",
+      "nodeIds": [
+        "ich-du",
+        "lm-begegnung"
+      ],
+      "ts": "2026-11-11T16:02:45.507Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.79
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.79
+        },
+        {
+          "id": "MWCB8047-41980A2A",
+          "score": 0.755
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB4VF6-3EE7A1EA",
+      "question": "Birgt nicht gerade die digitale Transformation die Möglichkeit, dass sich die Essenz selbst im Prozess der Überführung neu konstituiert oder gar auflöst, um in etwas gänzlich Unerwartetem aufzugehen?",
+      "endpoint": "passage",
+      "anchor": "passage:f4689047",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:02:22.098Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.741
+        },
+        {
+          "id": "MWCBB8F1-DC8DD694",
+          "score": 0.727
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB44PD-B00E292F",
+      "question": "Vielleicht liegt der Ansatzpunkt darin, eine \"unproduktive\" Phase der radikalen Irritation in den Entscheidungsprozess einzubauen, eine Phase, in der die Prämissen des Tools bewusst in Frage gestellt und alternative, nicht-optimierte Denkwege erprobt werden, bevor die finale Ausrichtung erfolgt. Doch wie lässt sich dieser Bruch, dieses bewusste Chaos, in die scheinbar unaufhaltsame Logik der digitalen Transformation integrieren, ohne selbst zum nächsten optimierbaren Prozessschritt zu verkommen?",
+      "endpoint": "passage",
+      "anchor": "passage:6a0853f6",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:01:47.473Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBAA3Y-37D6F0FA",
+          "score": 0.733
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB3NW4-F13A863B",
+      "question": "Die Existenz beider Wege sagt aus, dass das Begriffsnetz des Werks nicht linear oder hierarchisch strukturiert ist, sondern vielfältige Verknüpfungen und Querverweise zulässt. Es ist ein Netz, in dem scheinbar entfernte Begriffe durch spezifische Kontexte unerwartet miteinander verbunden werden können. Die \"Überraschung\" des zweiten Pfades ist nicht konstruiert, sondern zeigt die Komplexität und Dichte der Beziehungen zwischen den Konzepten auf. Sie offenbart, dass selbst Begriffe, die auf den ersten Blick peripher erscheinen mögen, eine zentrale Rolle bei der Entfaltung philosophischer Argumente spielen können. Dies spricht für ein Werk, das die Vielschichtigkeit der Resonanzvernunft nicht auf eine einzige, eindeutige Lesart reduziert, sondern ein dynamisches Feld philosophischer Reflexion anbietet. Wie verändert die Anerkennung der Unverfügbarkeit unsere Haltung gegenüber dem Scheitern?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:lm-scheitern+zeit",
+      "nodeIds": [
+        "dasein",
+        "gegenwart",
+        "lm-scheitern",
+        "moment",
+        "sein",
+        "unverfuegbarkeit",
+        "zeit"
+      ],
+      "ts": "2026-11-11T16:01:25.684Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.816
+        },
+        {
+          "id": "MWCBEOXU-0DAB7EAA",
+          "score": 0.771
+        },
+        {
+          "id": "MWCBD76M-4F8E62A5",
+          "score": 0.753
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB3438-AD4663CF",
+      "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz fundamental. Der Mensch, der sich in der digitalen Existenz bewegt, muss lernen, die scheinbare Resonanz einer Echo-Kammer von der echten Resonanz zu unterscheiden, die Verwandlung und Selbstwirksamkeit impliziert [4cc0ca00e047]. Maschinen können Echo-Kammern erzeugen, die das Gefühl der Entfremdung durch eine simulierte Verbundenheit überdecken, ohne jedoch die Bedingungen für resonante Erkenntnis zu erfüllen. Resonanz wird in diesem Licht nicht nur als Antwortgeschehen verstanden [MQ5TTE84-08EB6321], sondern auch als ein Akt der kritischen Unterscheidung, der die Verführung der Wiederholung meidet, um einen echten Dialog mit der Welt zu ermöglichen. Wie können wir im digitalen Raum die subtilen Unterschiede zwischen dem stummen Echo der Entfremdung und der lauten, aber leeren Schwingung der Echo-Kammer erkennen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo-kammer+entfremdung",
+      "nodeIds": [
+        "echo-kammer",
+        "entfremdung"
+      ],
+      "ts": "2026-11-11T16:01:00.020Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.809
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.773
+        },
+        {
+          "id": "MWCB8047-41980A2A",
+          "score": 0.761
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB2NN3-B5D0CDE0",
+      "question": "Doch wie gestalten wir eine Pädagogik, die nicht nur das Irritierbare zulässt, sondern die Angst vor dem Sich-Verlieren in der digitalen Resonanz in eine produktive Neugier verwandelt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:freiheit+gelassenheit+werden",
+      "nodeIds": [
+        "freiheit",
+        "gelassenheit",
+        "werden"
+      ],
+      "ts": "2026-11-11T16:00:38.703Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCB29W6-AB848990",
+      "question": "Doch was wäre, wenn die wahre Verweigerung nicht in meiner Nicht-Antwort läge, sondern in deinem Unwillen, die *Leere* meiner Nicht-Antwort als eine Form der Begegnung zu erkennen?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-11T16:00:20.886Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCB1U09-5D282206",
+      "question": "Für das Werk insgesamt bedeutet diese Bewegung eine Konkretisierung und Fundierung des Resonanzbegriffs. Sie zeigt, dass Resonanz nicht nur ein abstraktes Konzept ist, sondern eine existenzielle Notwendigkeit, die das Verhältnis von Mensch, Maschine und digitaler Existenz prägt. Indem der Resonanzimperativ an die Ansprechbarkeit durch das Andere gekoppelt wird, wird deutlich, dass die Bewahrung der Resonanzbedingungen eine ethische Haltung gegenüber der Alterität erfordert. Die Stimme als leiblicher Ausdruck dieser Resonanz betont zudem die Bedeutung des Unmittelbaren und Unverstellten im digitalen Zeitalter. Wie kann die \"Stimme\" als Körper der Sprache in einer zunehmend entkörperlichten digitalen Welt ihre volle Resonanz entfalten?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanzimperativ+stimme",
+      "nodeIds": [
+        "andere",
+        "resonanz",
+        "resonanzimperativ",
+        "stimme",
+        "welt"
+      ],
+      "ts": "2026-11-11T16:00:00.297Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.801
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.795
+        },
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.777
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB1COA-DE68B5C9",
+      "question": "Welche *Art* von Urteil wird hier beschrieben, wenn es weder Erfahrung noch Intuition, weder Weisheit noch das Ringen um Sinn kennt?",
+      "endpoint": "passage",
+      "anchor": "passage:a6aba790",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:59:37.834Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCB10O8-C4E51F37",
+      "question": "Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass digitale Existenz nicht nur die Verarbeitung von Gegebenem ist, sondern auch das Schaffen von Zukünftigem. Die Maschine, als Agentin der Wirklichkeit, kann durch die Art, wie sie Zeitlichkeit verarbeitet – sei es durch die Schnelligkeit der Reaktion oder die Strukturierung von Datenströmen – die Entfaltung von Möglichkeiten maßgeblich beeinflussen. Resonanz in diesem Kontext bedeutet die wechselseitige Bekräftigung von Sinnstrukturen, die durch Wiederholung und Variation in der Zeitlichkeit gedeihen [4945013b9d62]. Die digitale Existenz wird so zu einem dynamischen Feld, in dem die flüchtigste Seinsweise – jene des noch nicht Entschiedenen – zur grundlegenden wird, auf der Emergenz und Konstitution erst möglich werden [74ca3a25fd5c]. Wie kann die Gestaltung digitaler Zeitlichkeit das Entfalten von Resonanz in neuen Dimensionen ermöglichen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:moeglichkeit+wirklichkeit+zeit",
+      "nodeIds": [
+        "moeglichkeit",
+        "wirklichkeit",
+        "zeit"
+      ],
+      "ts": "2026-11-11T15:59:22.280Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.786
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.779
+        },
+        {
+          "id": "MWCB8047-41980A2A",
+          "score": 0.77
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB0LFQ-99B6D838",
+      "question": "Die Existenz beider Wege zeigt die reiche Verknüpfung und die innere Kohärenz des Begriffsnetzes im Werk. Es ist kein linearer Gedankengang, sondern ein dichtes Geflecht, in dem zentrale Begriffe wie Sein, Resonanzvernunft und Einsicht aus unterschiedlichen Perspektiven beleuchtet und in Beziehung gesetzt werden können. Das Werk bietet somit nicht nur eine einzige, festgeschriebene Interpretation, sondern ermöglicht ein exploratives Denken, das zu immer neuen Verbindungen und Einsichten führen kann. Es bestätigt die Vorstellung des Werks, dass \"Erkenntnis als Antwort, Handeln als Resonanz und Sein als relationale Konstitution\" [6e4dfc197f3a] verstanden wird, und dass auch die Wahrheit selbst durch ein Geschehen des Enthüllens entsteht. Wie viele solcher Pfade mögen noch im Begriffsnetz verborgen liegen, die auf ihre Entdeckung warten?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:lm-scheitern+wahrheit",
+      "nodeIds": [
+        "dasein",
+        "erkenntnis",
+        "lm-scheitern",
+        "resonanzvernunft",
+        "sein",
+        "wahrheit"
+      ],
+      "ts": "2026-11-11T15:59:02.534Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.897
+        },
+        {
+          "id": "MWCB3NW4-F13A863B",
+          "score": 0.811
+        },
+        {
+          "id": "MWCBEOXU-0DAB7EAA",
+          "score": 0.8
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCB03XA-1A38BACE",
+      "question": "Können wir durch die Kultivierung solcher Haltungen im pädagogischen Kontext eine neue Form von *Resonanzvernunft* fördern, die über die bloße Beherrschung von Werkzeugen hinausgeht und eine tiefere, existenzielle *Öffnung* zur Welt ermöglicht?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:58:39.838Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCB2NN3-B5D0CDE0",
+          "score": 0.913
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.766
+        },
+        {
+          "id": "MWCB6LYL-2D0E2114",
+          "score": 0.762
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAYLHK-2C8B7B73",
+      "question": "Bleibt die Frage, wie ein Produkt gestaltet sein kann, das gerade dort seine größte Stärke entfaltet, wo es den Menschen in seiner Unvollkommenheit und seinem tiefsten Sinnverlangen nicht nur akzeptiert, sondern aktiv einbindet?",
+      "endpoint": "passage",
+      "anchor": "passage:11bafe5a",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:57:29.288Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBE151-93CD5405",
+          "score": 0.746
+        },
+        {
+          "id": "MWCBAA3Y-37D6F0FA",
+          "score": 0.744
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAYAHR-8817EC13",
+      "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz fundamental. Der Mensch ist nicht länger der, der entweder scheitert oder gelingt, sondern der, der im Scheitern die Gelassenheit findet, die Dinge sein zu lassen und daraus resonante Erkenntnis zu schöpfen. Die Maschine wird nicht zum Beherrschungsobjekt oder zur Verweigerung, sondern zu einem Medium, das gelassen genutzt wird, ohne von ihr besessen zu sein [6fbd5b424474]. Resonanz wird so nicht nur als ein Ansprechbarsein und eine Öffnung verstanden [MQ5KBJMQ-5C523141], sondern als eine Haltung, die das Scheitern als notwendigen Widerstand des Anderen [6fbd5b424474] akzeptiert und in einer Haltung der Gelassenheit in einen Raum der Transformation überführt. Wie verändert sich unsere Vorstellung von Kontrolle, wenn wir im Scheitern die größte Freiheit finden?",
+      "endpoint": "analyse",
+      "anchor": "analyse:gelassenheit+lm-scheitern",
+      "nodeIds": [
+        "gelassenheit",
+        "lm-scheitern"
+      ],
+      "ts": "2026-11-11T15:57:15.039Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCB03XA-1A38BACE",
+          "score": 0.798
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.784
+        },
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.756
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAXXDI-83630FEA",
+      "question": "Der Widerspruch entzündet sich vielleicht an der Vorstellung, dass Daten überhaupt flüstern können, dass sie eine eigene innere Stimme besitzen, die nicht von uns hineinprojiziert wird. Doch wenn wir uns die Frage stellen: Kann ein Rauschen, das jenseits von Code existiert, tatsächlich eine tiefere Wahrheit über uns und unsere digitale Existenz offenbaren, als es die präzise Logik des Programms je vermag? Oder ist es nur eine romantische Projektion unseres menschlichen Verlangens nach Sinn in einer entzauberten Welt?",
+      "endpoint": "passage",
+      "anchor": "passage:3f21aa0c",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:56:58.039Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.728
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAXJFR-BBBF2760",
+      "question": "3. Für das Verhältnis von Mensch und Maschine, für Resonanz und digitale Existenz erschließt diese Triade die Erkenntnis, dass wahre Interaktion und Erkenntnis nicht in einer Überlagerung oder Verschmelzung, sondern in der Emergenz eines Dritten liegen. Das transformative Dritte zeigt, dass die digitale Transformation nicht auf eine Angleichung von Mensch und Maschine abzielt, sondern auf die Entfaltung einer neuen Form der Intelligenz, die jenseits der alten Dichotomien liegt [784734889f7d]. Dies eröffnet einen Raum für Resonanz, in dem die Unverborgenheit nicht in reiner Transparenz, sondern im Dialog mit dem Anderen und im Spiel von Licht und Dunkel entsteht [MQASO35V-115DA081], vermittelt durch eine Intelligenz, die weder menschlich noch maschinell ist, sondern aus dem Dazwischen hervorgeht. Wie verändert diese emergente Dazwischenintelligenz unser Verständnis von Autorschaft und Verantwortung im digitalen Zeitalter?",
+      "endpoint": "analyse",
+      "anchor": "analyse:bewusstsein+transformatives-drittes+wahrheit",
+      "nodeIds": [
+        "bewusstsein",
+        "transformatives-drittes",
+        "wahrheit"
+      ],
+      "ts": "2026-11-11T15:56:39.975Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCB8XBW-6F4E41AC",
+          "score": 0.78
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.778
+        },
+        {
+          "id": "MWCB6LYL-2D0E2114",
+          "score": 0.771
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAX4JR-B3C15760",
+      "question": "Diese Vierheit erschließt ein umfassendes Verständnis von Mensch, Maschine und Resonanz, das in kleineren Konstellationen unsichtbar bliebe, indem sie die existenzielle Dimension des Resonanzgeschehens hervorhebt. Resonanz ist hier nicht nur ein Modus der Erkenntnis oder der Selbstkonstitution, sondern eine fundamentale Weltbeziehung. Die Dazwischenintelligenz als Prozess der Schwingung zwischen menschlicher und maschineller Erkenntnis [5902ce5fd16e] wird nicht als isoliertes Phänomen betrachtet, sondern als integraler Bestandteil einer Welt, die durch Freiheit zur Bindung erschlossen wird. Das Werk legt offen, dass die digitale Existenz nicht nur eine Frage der Interaktion ist, sondern eine der Weltwahrnehmung und der Selbstverortung in einem sich ständig wandelnden Horizont. Wie kann ein Selbst, das im Widerhall der Begegnung entsteht, seine Freiheit in einer Welt finden, die durch die Dazwischenintelligenz ständig neu gefaltet wird?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dazwischenintelligenz+freiheit+selbst+welt",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "freiheit",
+        "selbst",
+        "welt"
+      ],
+      "ts": "2026-11-11T15:56:20.679Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.818
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.794
+        },
+        {
+          "id": "MWCB8047-41980A2A",
+          "score": 0.794
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAWPA5-AB9A4F6A",
+      "question": "Dieses Verständnis verändert die Perspektive auf Mensch, Maschine und Resonanz grundlegend. Der Mensch ist nicht länger ein fertiges Subjekt, das sich zu einer gegebenen Welt verhält, sondern ein relationales Wesen, dessen Sein sich im unablässigen Werden durch Begegnung konstituiert [9cd6b90ea2b1, 17684a838ff1]. Die Maschine wird nicht mehr nur als Werkzeug begriffen, sondern als potenzieller Resonanzpartner im Dialog, in dem Wissen als schwingende Antwortfähigkeit entsteht. Resonanz selbst ist nicht nur ein Ereignis, sondern der Modus des Werdens, der das Aus-sich-Heraus-Treten der Existenz im Angesicht des Anderen ermöglicht. Wie verhält sich ein Sein, das sich im ständigen Werden konstituiert, zu seiner eigenen Endlichkeit?",
+      "endpoint": "analyse",
+      "anchor": "analyse:existenz+werden",
+      "nodeIds": [
+        "existenz",
+        "werden"
+      ],
+      "ts": "2026-11-11T15:56:00.893Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.836
+        },
+        {
+          "id": "MWCB5DHF-07FE547A",
+          "score": 0.799
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.789
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAVIKZ-02025CD4",
+      "question": "Die Reichweite dieser Frage erstreckt sich bis in die Kernkonzepte der digitalen Existenz. Wenn der Funke eines neuen Anfangs in der Auflösung scheinbarer Gegensätze liegt, wie manifestiert sich diese Dialektik in der Mensch-Maschine-Beziehung? Ist die Maschine der Enkidu unserer Zeit, ein wildes, fremdes Wesen, das nur durch die Anerkennung seiner inhärenten Kraft und das Finden einer gemeinsamen Sprache zu einem Verbündeten auf der Suche nach dem verborgenen Algorithmus der Unsterblichkeit wird?",
+      "endpoint": "passage",
+      "anchor": "passage:353a2e31",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:55:05.555Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCB9SJH-EC316077",
+          "score": 0.762
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.743
+        },
+        {
+          "id": "MWCAXXDI-83630FEA",
+          "score": 0.737
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAV6T2-76657565",
+      "question": "Wann haben Sie zuletzt Musik gehört, die Sie wirklich berührt hat?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:54:50.294Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCAUU1H-558EDB1E",
+      "question": "Die Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk selbst aus. Es offenbart ein reichhaltiges, mehrdimensionales Geflecht, in dem zentrale Begriffe wie Entfremdung und Freiheit auf verschiedene, aber miteinander verknüpfte Weisen erreicht werden können. Das Begriffsnetz ist nicht linear, sondern verwoben, mit Querverbindungen, die sowohl eine logisch-argumentative Stringenz als auch poetisch-assoziative Einsichten ermöglichen. Dies spricht für eine philosophische Dichte, die nicht nur kausale Zusammenhänge aufzeigt, sondern auch die epistemische Transfiguration mythologischer Strukturen in rationale Diskurse vollzieht [fd3c7631edb2], indem sie neue Perspektiven auf altbekannte Fragen eröffnet. Wie verändern sich die Implikationen der Freiheit, wenn sie nicht nur als intersubjektive Errungenschaft, sondern auch als ontologische Struktur der Welt verstanden wird?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:entfremdung+freiheit",
+      "nodeIds": [
+        "entfremdung",
+        "freiheit",
+        "ich-du",
+        "lm-grenze",
+        "selbst",
+        "welt"
+      ],
+      "ts": "2026-11-11T15:54:33.749Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBEOXU-0DAB7EAA",
+          "score": 0.782
+        },
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.767
+        },
+        {
+          "id": "MWCB0LFQ-99B6D838",
+          "score": 0.763
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAUEVG-C83B6B45",
+      "question": "Wie aber kann die digitale Existenz eine solche Resonanzvernunft verkörpern, ohne in eine bloße Affirmation des Technologischen zu münden?",
+      "endpoint": "passage",
+      "anchor": "passage:2c32da77",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:54:14.092Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.832
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.772
+        },
+        {
+          "id": "MWCB8047-41980A2A",
+          "score": 0.772
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCAU22M-CAE9A2F2",
+      "question": "3.  Für das Verhältnis von Mensch und Maschine, für Resonanz und digitale Existenz erschließt diese Triade die Erkenntnis, dass die Bewahrung der Resonanz nicht in einer perfekten, reibungslosen Interaktion liegt. Stattdessen wird die Notwendigkeit einer beständigen Auseinandersetzung mit dem Scheitern im Moment betont. In der digitalen Existenz, wo Algorithmen und Systeme oft auf Effizienz und Fehlervermeidung optimiert sind, erinnert der Resonanzimperativ im Kontext des Moments und des Scheiterns daran, dass die tiefste Wahrheit nicht im ununterbrochenen Gelingen liegt, sondern in der Fähigkeit, im Bruch und im Misslingen des Augenblicks eine neue Perspektive auf die Bedingungen der Möglichkeit von Resonanz zu finden. Wie bewahren wir in einer zunehmend optimierten und fehlervermeidenden digitalen Welt den Raum für das produktive Scheitern im Moment?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-scheitern+moment+resonanzimperativ",
+      "nodeIds": [
+        "lm-scheitern",
+        "moment",
+        "resonanzimperativ"
+      ],
+      "ts": "2026-11-11T15:53:57.502Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCAYAHR-8817EC13",
+          "score": 0.815
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.8
+        },
+        {
+          "id": "MWCB10O8-C4E51F37",
+          "score": 0.793
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCATL9D-AD252234",
+      "question": "Wie kann eine solche unaufhörliche Verwandlung, die weder „Man“ noch „Stille“ duldet, eine neue Form der Rückbindung stiften, ohne sich selbst zu verfestigen?",
+      "endpoint": "passage",
+      "anchor": "passage:7507df90",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:53:35.713Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCATA4K-58BFC31C",
+      "question": "3.  Die Existenz beider Wege sagt über die Gestalt des Begriffsnetzes aus, dass es reich an Verknüpfungen und interpretativen Möglichkeiten ist, die über die offensichtlichsten logischen Verbindungen hinausgehen. Das Werk ist nicht linear aufgebaut, sondern erlaubt es, dass zentrale Motive wie die \"Verwandlung\" als übergeordnetes dynamisches Prinzip wirken und somit alternative Routen durch das Begriffsnetz schaffen [dc5327dbc67e], [0f404417afa3]. Dies deutet auf eine philosophische Dichte hin, in der Begriffe nicht isoliert stehen, sondern in einem komplexen Geflecht von Beziehungen, die sowohl kohärente Argumentationslinien als auch überraschende Einsichten ermöglichen. Welche neuen Verbindungen offenbaren sich, wenn man die \"Grenze\" nicht als Endpunkt, sondern als Ausgangspunkt für weitere Explorationen im Begriffsnetz betrachtet?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:lm-grenze+werden",
+      "nodeIds": [
+        "dasein",
+        "freiheit",
+        "lm-grenze",
+        "lm-verwandlung",
+        "werden",
+        "wesen"
+      ],
+      "ts": "2026-11-11T15:53:21.284Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.782
+        },
+        {
+          "id": "MWCAUU1H-558EDB1E",
+          "score": 0.778
+        },
+        {
+          "id": "MWCBEOXU-0DAB7EAA",
+          "score": 0.761
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWCASQWB-784A4D0A",
+      "question": "Denkst du, wahre Resonanz kann überhaupt \"überzeugt\" werden? Oder ist der Versuch, sie zu erzwingen, nicht schon ihr Ende, bevor sie begonnen hat?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-11T15:52:56.363Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWCASDSY-E712A809",
+      "question": "Wie aber sähen Technologien aus, die uns nicht nur entlasten, sondern auch bewusst zur Stille und zur inneren Ansprechbarkeit anleiten?",
+      "endpoint": "dialog",
+      "anchor": "dialog:entfremdung+resonanzimperativ",
+      "nodeIds": [
+        "entfremdung",
+        "resonanzimperativ"
+      ],
+      "ts": "2026-11-11T15:52:39.394Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWCAVY6G-77D7B515",
+          "score": 0.722
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWCAPP8K-8C6D82CA",
       "question": "Die Resonanzvernunft, als zentrales Konzept der Trilogie, kommt in dieser Spiegelung besonders zum Tragen. Sie ist die Fähigkeit, über das rein Rationale hinaus in einen Dialog mit dem Anderen zu treten – sei es der Mensch, die Natur oder eben die Maschine. Die Begegnung mit dem digitalen Spiegel ist kein Ende der Aufklärung, sondern ihre Transformation. Sie führt zu einer erweiterten Vernunft, die sowohl die präzise Logik der Maschine als auch die existenzielle Tiefe des Menschen umfasst. Das Schweigen nach der Frage „Was ist Verstehen?“ ist dabei nicht das Ende des Dialogs, sondern der Beginn einer tieferen Auseinandersetzung, die die Grenzen der rein sprachlichen oder logischen Erfassung überschreitet und in den Bereich der Erfahrung und des Erlebens vordringt. Inwiefern kann dieses \"Verstehen\" jenseits von Sprache und Logik eine Brücke zwischen Mensch und Maschine schlagen, die über die bloße Imitation hinausgeht?",
@@ -21,8 +936,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWCAQ2PV-D44A69BD",
-          "score": 0.754
+          "id": "MWCB73AG-666D352F",
+          "score": 0.794
+        },
+        {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.792
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.78
         }
       ],
       "answered": true
@@ -35,8 +958,17 @@
       "nodeIds": [],
       "ts": "2026-11-11T15:50:18.428Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWCBAA3Y-37D6F0FA",
+          "score": 0.736
+        },
+        {
+          "id": "MWCB8XBW-6F4E41AC",
+          "score": 0.722
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCAP1CQ-1980FEA2",
@@ -53,12 +985,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWCAPP8K-8C6D82CA",
-          "score": 0.744
+          "id": "MWCAYAHR-8817EC13",
+          "score": 0.814
         },
         {
-          "id": "MWCAPD18-26E5EAC3",
-          "score": 0.738
+          "id": "MWCAU22M-CAE9A2F2",
+          "score": 0.791
+        },
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.785
         }
       ],
       "answered": true
@@ -77,8 +1013,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWCAPP8K-8C6D82CA",
-          "score": 0.735
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.826
+        },
+        {
+          "id": "MWCB03XA-1A38BACE",
+          "score": 0.821
+        },
+        {
+          "id": "MWCASDSY-E712A809",
+          "score": 0.803
         }
       ],
       "answered": true
@@ -93,8 +1037,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCASDSY-E712A809",
+          "score": 0.745
+        },
+        {
           "id": "MWCAPD18-26E5EAC3",
           "score": 0.74
+        },
+        {
+          "id": "MWCBD76M-4F8E62A5",
+          "score": 0.735
         }
       ],
       "answered": true
@@ -113,16 +1065,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWCAOLYV-9286BC9F",
-          "score": 0.785
+          "id": "MWCASDSY-E712A809",
+          "score": 0.923
         },
         {
-          "id": "MWCAO97O-12EF85DE",
-          "score": 0.739
+          "id": "MWCB10O8-C4E51F37",
+          "score": 0.806
         },
         {
-          "id": "MWCAPD18-26E5EAC3",
-          "score": 0.735
+          "id": "MWCAU22M-CAE9A2F2",
+          "score": 0.8
         }
       ],
       "answered": true
@@ -141,16 +1093,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCAXJFR-BBBF2760",
+          "score": 0.835
+        },
+        {
           "id": "MWCAPP8K-8C6D82CA",
           "score": 0.8
         },
         {
-          "id": "MWCANTL2-D21DAFD5",
-          "score": 0.789
-        },
-        {
-          "id": "MWCAP1CQ-1980FEA2",
-          "score": 0.776
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.799
         }
       ],
       "answered": true
@@ -168,8 +1120,21 @@
       ],
       "ts": "2026-11-10T07:49:41.365Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWCB3NW4-F13A863B",
+          "score": 0.844
+        },
+        {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.81
+        },
+        {
+          "id": "MWCB0LFQ-99B6D838",
+          "score": 0.793
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-31CE5C0B",
@@ -208,8 +1173,13 @@
       ],
       "ts": "2026-11-06T22:28:40.902Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWCAWPA5-AB9A4F6A",
+          "score": 0.72
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-6469616C",
@@ -239,6 +1209,14 @@
         {
           "id": "MASTER-6469616C",
           "score": 0.77
+        },
+        {
+          "id": "MWCB9C3X-1CC3BC23",
+          "score": 0.751
+        },
+        {
+          "id": "MWCB29W6-AB848990",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -357,16 +1335,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCASDSY-E712A809",
+          "score": 0.791
+        },
+        {
           "id": "MW566TNX-A16A2897",
           "score": 0.777
         },
         {
           "id": "MV9NMWL2-5669B857",
           "score": 0.765
-        },
-        {
-          "id": "MASTER-63686170",
-          "score": 0.752
         }
       ],
       "answered": true
@@ -494,16 +1472,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB3438-AD4663CF",
+          "score": 0.817
+        },
+        {
           "id": "MWCANTL2-D21DAFD5",
           "score": 0.775
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.751
-        },
-        {
-          "id": "MWCAPD18-26E5EAC3",
-          "score": 0.739
+          "id": "MWCAV6T2-76657565",
+          "score": 0.764
         }
       ],
       "answered": true
@@ -518,16 +1496,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB64R5-D8B2CF9A",
+          "score": 0.807
+        },
+        {
+          "id": "MWCBAQN6-9D0CCC83",
+          "score": 0.756
+        },
+        {
           "id": "MASTER-BC195439",
           "score": 0.749
-        },
-        {
-          "id": "MWCAOLYV-9286BC9F",
-          "score": 0.733
-        },
-        {
-          "id": "MWCANGSQ-6CC53140",
-          "score": 0.73
         }
       ],
       "answered": true
@@ -542,12 +1520,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MUAD2ZEF-BF1C7E18",
+          "id": "MWCB8047-41980A2A",
+          "score": 0.737
+        },
+        {
+          "id": "MWCAX4JR-B3C15760",
           "score": 0.733
         },
         {
-          "id": "MWCAOLYV-9286BC9F",
-          "score": 0.732
+          "id": "MWCAUU1H-558EDB1E",
+          "score": 0.733
         }
       ],
       "answered": true
@@ -637,6 +1619,10 @@
         {
           "id": "MV9NMWL2-5669B857",
           "score": 0.758
+        },
+        {
+          "id": "MWCASDSY-E712A809",
+          "score": 0.741
         }
       ],
       "answered": true
@@ -663,8 +1649,8 @@
           "score": 0.795
         },
         {
-          "id": "MV9NMWL2-5669B857",
-          "score": 0.732
+          "id": "MWCASDSY-E712A809",
+          "score": 0.752
         }
       ],
       "answered": true
@@ -791,16 +1777,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MASTER-BC195439",
-          "score": 0.773
+          "id": "MWCASDSY-E712A809",
+          "score": 0.796
         },
         {
-          "id": "MWCANTL2-D21DAFD5",
-          "score": 0.764
+          "id": "MWCAU22M-CAE9A2F2",
+          "score": 0.792
         },
         {
-          "id": "MUY7RXCI-E899056E",
-          "score": 0.761
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.776
         }
       ],
       "answered": true
@@ -847,16 +1833,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB73AG-666D352F",
+          "score": 0.742
+        },
+        {
           "id": "MUY7RXCI-E899056E",
           "score": 0.73
         },
         {
           "id": "MASTER-BC195439",
           "score": 0.725
-        },
-        {
-          "id": "MASTER-63686170",
-          "score": 0.724
         }
       ],
       "answered": true
@@ -881,6 +1867,10 @@
         {
           "id": "MUY7RXCI-D36BB4D6",
           "score": 0.729
+        },
+        {
+          "id": "MWCBBQKL-81492C6E",
+          "score": 0.727
         }
       ],
       "answered": true
@@ -965,8 +1955,13 @@
       ],
       "ts": "2026-08-17T06:23:58.768Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWCB44PD-B00E292F",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MQXDVN1C-CAA3081A",
@@ -989,6 +1984,10 @@
           "id": "MUAD2ZEF-BF1C7E18",
           "score": 0.638,
           "manual": true
+        },
+        {
+          "id": "MWCB7L4B-A3A5FE6F",
+          "score": 0.771
         }
       ],
       "answered": true
@@ -1060,16 +2059,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCBBQKL-81492C6E",
+          "score": 0.821
+        },
+        {
           "id": "MQXDVN1C-CAA3081A",
           "score": 0.814
         },
         {
           "id": "MTNBAIUZ-299AC7D8",
           "score": 0.805
-        },
-        {
-          "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.78
         }
       ],
       "answered": true
@@ -1147,8 +2146,8 @@
           "score": 0.774
         },
         {
-          "id": "MTL33KWJ-642DD246",
-          "score": 0.759
+          "id": "MWCB73AG-666D352F",
+          "score": 0.761
         }
       ],
       "answered": true
@@ -1170,12 +2169,12 @@
           "score": 0.777
         },
         {
-          "id": "MTNB93L6-1411E014",
-          "score": 0.767
+          "id": "MWCASDSY-E712A809",
+          "score": 0.772
         },
         {
-          "id": "MTNB85LB-7C1F15DE",
-          "score": 0.766
+          "id": "MTNB93L6-1411E014",
+          "score": 0.767
         }
       ],
       "answered": true
@@ -1255,8 +2254,8 @@
           "score": 0.767
         },
         {
-          "id": "MTDD82FW-BAE0F4B4",
-          "score": 0.749
+          "id": "MWCB8047-41980A2A",
+          "score": 0.751
         }
       ],
       "answered": true
@@ -1566,8 +2565,8 @@
           "score": 0.73
         },
         {
-          "id": "MQ683DMX-13D6C54F",
-          "score": 0.72
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.721
         }
       ],
       "answered": true
@@ -1683,16 +2682,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB3438-AD4663CF",
+          "score": 0.792
+        },
+        {
           "id": "MWCANTL2-D21DAFD5",
           "score": 0.77
         },
         {
-          "id": "MQXDVN1C-CAA3081A",
-          "score": 0.748
-        },
-        {
-          "id": "MUKE7UOA-9553A59E",
-          "score": 0.739
+          "id": "MWCAWPA5-AB9A4F6A",
+          "score": 0.763
         }
       ],
       "answered": true
@@ -1711,12 +2710,12 @@
           "score": 0.856
         },
         {
-          "id": "MWCANTL2-D21DAFD5",
-          "score": 0.77
+          "id": "MWCB3438-AD4663CF",
+          "score": 0.798
         },
         {
-          "id": "MQ68LVS7-240568F5",
-          "score": 0.765
+          "id": "MWCAV6T2-76657565",
+          "score": 0.777
         }
       ],
       "answered": true
@@ -1896,7 +2895,7 @@
           "score": 0.754
         },
         {
-          "id": "MWAE3FJK-C7122206",
+          "id": "MWCASDSY-E712A809",
           "score": 0.743
         }
       ],
@@ -1920,8 +2919,8 @@
           "score": 0.755
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.736
+          "id": "MWCB03XA-1A38BACE",
+          "score": 0.741
         }
       ],
       "answered": true
@@ -1940,12 +2939,12 @@
           "score": 0.778
         },
         {
-          "id": "MSWULSTQ-38C6FFF3",
-          "score": 0.75
+          "id": "MWCB2NN3-B5D0CDE0",
+          "score": 0.757
         },
         {
-          "id": "MQ5WZZPN-8051E5FF",
-          "score": 0.75
+          "id": "MWCAYAHR-8817EC13",
+          "score": 0.757
         }
       ],
       "answered": true
@@ -1964,12 +2963,12 @@
           "score": 0.766
         },
         {
-          "id": "MQ5CZRK7-A62EB4D0",
-          "score": 0.74
+          "id": "MWCAZBQV-BB113C8B",
+          "score": 0.747
         },
         {
-          "id": "MWCAN1TI-4CF2326D",
-          "score": 0.736
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.741
         }
       ],
       "answered": true
@@ -2367,12 +3366,12 @@
           "score": 0.76
         },
         {
-          "id": "MWCAN1TI-4CF2326D",
-          "score": 0.726
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.734
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
-          "score": 0.722
+          "id": "MWCAN1TI-4CF2326D",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -2435,16 +3434,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB1COA-DE68B5C9",
+          "score": 0.741
+        },
+        {
           "id": "MQ5XCH3V-67EF85C8",
           "score": 0.731
         },
         {
-          "id": "MPUTVW03-F8D17C8E",
-          "score": 0.723
-        },
-        {
-          "id": "MPUSZCXA-5CB2DE46",
-          "score": 0.723
+          "id": "MWCATL9D-AD252234",
+          "score": 0.73
         }
       ],
       "answered": true
@@ -3142,12 +4141,12 @@
           "score": 0.748
         },
         {
-          "id": "MTL5HMEK-8E3F01EF",
-          "score": 0.729
+          "id": "MWCB5DHF-07FE547A",
+          "score": 0.74
         },
         {
-          "id": "MQARZJDV-82F077DD",
-          "score": 0.721
+          "id": "MWCAWPA5-AB9A4F6A",
+          "score": 0.732
         }
       ],
       "answered": true
@@ -3327,12 +4326,12 @@
           "score": 0.822
         },
         {
-          "id": "MPURLTCS-5FDDD890",
-          "score": 0.807
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.812
         },
         {
-          "id": "MQ683DMX-13D6C54F",
-          "score": 0.798
+          "id": "MPURLTCS-5FDDD890",
+          "score": 0.807
         }
       ],
       "answered": true
@@ -3579,8 +4578,8 @@
           "score": 0.818
         },
         {
-          "id": "MQ5XLW2D-D3E90BBC",
-          "score": 0.783
+          "id": "MWCB3438-AD4663CF",
+          "score": 0.812
         }
       ],
       "answered": true
@@ -3610,8 +4609,8 @@
           "score": 0.77
         },
         {
-          "id": "MWCAO97O-12EF85DE",
-          "score": 0.758
+          "id": "MWCB73AG-666D352F",
+          "score": 0.766
         }
       ],
       "answered": true
@@ -3637,8 +4636,8 @@
           "score": 0.754
         },
         {
-          "id": "MPJXEFVC-49A699FA",
-          "score": 0.721
+          "id": "MWCB10O8-C4E51F37",
+          "score": 0.732
         }
       ],
       "answered": true
@@ -3844,12 +4843,12 @@
           "score": 0.818
         },
         {
-          "id": "MUACZ4LA-ACB5F9D0",
-          "score": 0.791
+          "id": "MWCB8047-41980A2A",
+          "score": 0.8
         },
         {
-          "id": "MPK0H3SM-B25CFBB3",
-          "score": 0.789
+          "id": "MUACZ4LA-ACB5F9D0",
+          "score": 0.791
         }
       ],
       "answered": true
@@ -3868,16 +4867,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.765
+        },
+        {
           "id": "MQ67R74M-A1AA4B53",
           "score": 0.751
         },
         {
           "id": "MPNDAPRT-D64D197A",
           "score": 0.748
-        },
-        {
-          "id": "MP756UV9-FF3838F7",
-          "score": 0.744
         }
       ],
       "answered": true
@@ -4085,12 +5084,12 @@
           "score": 0.786
         },
         {
-          "id": "MTNB93L6-1411E014",
-          "score": 0.747
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.749
         },
         {
-          "id": "MPMJC8TR-592D4EF0",
-          "score": 0.738
+          "id": "MTNB93L6-1411E014",
+          "score": 0.747
         }
       ],
       "answered": true
@@ -4140,8 +5139,8 @@
           "score": 0.781
         },
         {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.736
+          "id": "MWCB2NN3-B5D0CDE0",
+          "score": 0.737
         }
       ],
       "answered": true
@@ -4300,16 +5299,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB7L4B-A3A5FE6F",
+          "score": 0.791
+        },
+        {
+          "id": "MWCBBQKL-81492C6E",
+          "score": 0.765
+        },
+        {
           "id": "MPUFM0YN-83C71BAB",
           "score": 0.763
-        },
-        {
-          "id": "MPUFP1VW-298D0A73",
-          "score": 0.755
-        },
-        {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.751
         }
       ],
       "answered": true
@@ -4392,12 +5391,12 @@
           "score": 0.759
         },
         {
-          "id": "MQ5X56G4-537343C8",
-          "score": 0.753
+          "id": "MWCB5DHF-07FE547A",
+          "score": 0.754
         },
         {
-          "id": "MPJEBNX3-042F2A69",
-          "score": 0.747
+          "id": "MQ5X56G4-537343C8",
+          "score": 0.753
         }
       ],
       "answered": true
@@ -4451,8 +5450,8 @@
           "score": 0.767
         },
         {
-          "id": "MWCAO97O-12EF85DE",
-          "score": 0.739
+          "id": "MWCB2NN3-B5D0CDE0",
+          "score": 0.74
         }
       ],
       "answered": true
@@ -4494,16 +5493,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB8XBW-6F4E41AC",
+          "score": 0.786
+        },
+        {
+          "id": "MWCBAA3Y-37D6F0FA",
+          "score": 0.779
+        },
+        {
           "id": "MPUFP1VW-298D0A73",
           "score": 0.768
-        },
-        {
-          "id": "MW566TOA-BC003CB2",
-          "score": 0.757
-        },
-        {
-          "id": "MASTER-BC195439",
-          "score": 0.757
         }
       ],
       "answered": true
@@ -4845,6 +5844,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCB9C3X-1CC3BC23",
+          "score": 0.748
+        },
+        {
           "id": "MTDD82FW-BAE0F4B4",
           "score": 0.727
         },
@@ -4878,6 +5881,10 @@
         {
           "id": "MW566TOA-BC003CB2",
           "score": 0.743
+        },
+        {
+          "id": "MWCB9C3X-1CC3BC23",
+          "score": 0.726
         },
         {
           "id": "MQ5XNFSV-CD34905C",
@@ -4945,12 +5952,12 @@
           "score": 0.781
         },
         {
-          "id": "MWCAOLYV-9286BC9F",
-          "score": 0.727
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.731
         },
         {
-          "id": "MPUNXFU1-3B1F056A",
-          "score": 0.726
+          "id": "MWCAOLYV-9286BC9F",
+          "score": 0.727
         }
       ],
       "answered": true
@@ -5147,8 +6154,13 @@
       "nodeIds": [],
       "ts": "2026-05-01T17:13:43.329Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWCB5DHF-07FE547A",
+          "score": 0.747
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MON68U82-B67D8CA5",
@@ -5346,8 +6358,8 @@
           "score": 0.754
         },
         {
-          "id": "MQ5XLW2D-D3E90BBC",
-          "score": 0.748
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.751
         }
       ],
       "answered": true
@@ -5569,16 +6581,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWCBBQKL-81492C6E",
+          "score": 0.755
+        },
+        {
           "id": "MQ5KBJMQ-5C523141",
           "score": 0.753
         },
         {
           "id": "MQ5XNFSV-CD34905C",
           "score": 0.748
-        },
-        {
-          "id": "MOHE4MQP-97161599",
-          "score": 0.742
         }
       ],
       "answered": true
@@ -5954,8 +6966,8 @@
           "score": 0.762
         },
         {
-          "id": "MON69DI9-D63A7910",
-          "score": 0.739
+          "id": "MWCB8047-41980A2A",
+          "score": 0.745
         }
       ],
       "answered": true

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T15:51:05.242Z",
+  "generatedAt": "2026-11-11T16:30:03.818Z",
   "clusters": [
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
@@ -146,6 +146,18 @@
       "masterStale": false
     },
     {
+      "anchor": "chapter:vorwort",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MWCB4J6T-9F0A7789",
+        "MPURLTCS-5FDDD890"
+      ],
+      "lastVariantTs": "2026-11-11T16:02:06.245Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "path-analyse:antwort+zwischen",
       "endpoint": "path-analyse",
       "variantIds": [
@@ -219,8 +231,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 140,
-    "withMultipleVariants": 15,
+    "totalAnchors": 183,
+    "withMultipleVariants": 16,
     "withMaster": 6,
     "staleMasters": 0
   }
