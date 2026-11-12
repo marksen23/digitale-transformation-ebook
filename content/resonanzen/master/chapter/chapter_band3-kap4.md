@@ -8,7 +8,8 @@ is_master: true
 master_of: [MP74VXSM-5DEA06F3, MP74X3EJ-72CDDB9F, MP756UV9-FF3838F7]
 variant_count: 3
 nodeIds: [band3-kap4]
-status: raw
+status: published
+auto_published: true
 content_hash: 185f1acdb34d56df
 llm: gemini-2.5-pro
 audit_trail:

@@ -9,6 +9,8 @@
  */
 import { useEffect, useState } from "react";
 import { loadErkenntnisCandidates, invalidateErkenntnisCandidates, type ErkenntnisCandidate } from "@/lib/erkenntnisCandidates";
+import { loadErkenntnisse, invalidateErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
+import { invalidateResonanzenIndexCache, loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { callAdminAction } from "@/lib/adminAuth";
 import { MONO, SERIF, type Palette } from "@/lib/theme";
 import SectionLabel from "@/components/SectionLabel";
@@ -101,6 +103,113 @@ function ErkenntnisRow({ C, cand, onConfirmed }: {
   );
 }
 
+function AutoPublishedSection({ C }: { C: Palette }) {
+  const [kern, setKern] = useState<Erkenntnis[] | null>(null);
+  const [masters, setMasters] = useState<ResonanzEntry[] | null>(null);
+  const [held, setHeld] = useState<Array<{ kind: "kernsatz" | "master"; id: string; label: string }>>([]);
+  const [busy, setBusy] = useState<string | null>(null);
+  const [msg, setMsg] = useState<string | null>(null);
+
+  const reload = () => {
+    invalidateErkenntnisse();
+    invalidateResonanzenIndexCache();
+    loadErkenntnisse().then(list => setKern(list.filter(e => e.actor === "auto")));
+    loadResonanzenIndexLazy().then(idx => {
+      setMasters((idx?.entries ?? []).filter(e => e.is_master && e.autoPublished && e.status === "published"));
+    });
+    fetch(`/resonanzen-erkenntnis-withdrawn.json?_=${Date.now()}`, { cache: "no-store" })
+      .then(r => (r.ok ? r.json() : null))
+      .then(data => {
+        const kernsaetze = Array.isArray(data?.kernsaetze) ? data.kernsaetze as Erkenntnis[] : [];
+        const masterIds = Array.isArray(data?.masterIds) ? data.masterIds as string[] : [];
+        setHeld([
+          ...kernsaetze.map(e => ({ kind: "kernsatz" as const, id: e.id, label: e.kernsatz })),
+          ...masterIds.map(id => ({ kind: "master" as const, id, label: id })),
+        ]);
+      })
+      .catch(() => setHeld([]));
+  };
+  useEffect(() => { reload(); }, []);
+
+  const withdraw = async (kind: "kernsatz" | "master", id: string) => {
+    setBusy(id); setMsg(null);
+    const r = await callAdminAction("withdraw-erkenntnis", { kind, id });
+    setBusy(null);
+    if (r.ok) reload();
+    else setMsg(r.error ?? "Zurücknehmen fehlgeschlagen");
+  };
+  const restore = async (kind: "kernsatz" | "master", id: string) => {
+    setBusy(id); setMsg(null);
+    const r = await callAdminAction("restore-erkenntnis", { kind, id });
+    setBusy(null);
+    if (r.ok) reload();
+    else setMsg(r.error ?? "Wiederherstellen fehlgeschlagen");
+  };
+
+  const rows = [
+    ...(kern ?? []).map(e => ({ kind: "kernsatz" as const, id: e.id, label: e.kernsatz })),
+    ...(masters ?? []).map(e => ({ kind: "master" as const, id: e.id, label: e.anchor })),
+  ];
+
+  return (
+    <div style={{ marginBottom: "1.1rem" }}>
+      <SectionLabel c={C} size="sm" tracking="open" variant="arbeit">Automatisch veröffentlicht</SectionLabel>
+      <p style={{ marginTop: "0.3rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim, lineHeight: 1.5 }}>
+        Diese Kernsätze und Master stehen auf /erkenntnisse. Zurücknehmen nimmt sie von der Seite
+        und sperrt sie gegen eine erneute automatische Veröffentlichung.
+        Wiederherstellen legt sie zurück. Beides läuft über{" "}
+        <span style={{ fontFamily: MONO, fontSize: "0.72rem" }}>/api/admin/withdraw-erkenntnis</span> und{" "}
+        <span style={{ fontFamily: MONO, fontSize: "0.72rem" }}>/api/admin/restore-erkenntnis</span>.
+      </p>
+      {msg && <div style={{ marginTop: "0.4rem", fontFamily: MONO, fontSize: "0.55rem", color: "#c48282" }}>{msg}</div>}
+      {kern === null || masters === null ? (
+        <div style={{ marginTop: "0.6rem", fontFamily: MONO, fontSize: "0.6rem", color: C.muted }}>lädt …</div>
+      ) : rows.length === 0 ? (
+        <div style={{ marginTop: "0.6rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.8rem", color: C.muted }}>
+          Keine automatisch veröffentlichten Erkenntnisse.
+        </div>
+      ) : (
+        <div style={{ display: "grid", gap: "0.45rem", marginTop: "0.7rem" }}>
+          {rows.map(row => (
+            <div key={`${row.kind}:${row.id}`} style={{ display: "flex", justifyContent: "space-between", gap: "0.6rem", alignItems: "center", border: `1px solid ${C.border}`, borderRadius: 4, padding: "0.45rem 0.6rem" }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText }}>
+                  automatisch · {row.kind === "master" ? "Master" : "Kernsatz"}
+                </div>
+                <div style={{ fontFamily: SERIF, fontSize: "0.82rem", color: C.text, lineHeight: 1.4 }}>{row.label}</div>
+              </div>
+              <button
+                onClick={() => withdraw(row.kind, row.id)}
+                disabled={busy !== null}
+                style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.void, background: C.accent, border: "none", borderRadius: 3, padding: "0.4rem 0.6rem", cursor: "pointer", flexShrink: 0 }}
+              >{busy === row.id ? "…" : "Zurücknehmen"}</button>
+            </div>
+          ))}
+        </div>
+      )}
+      {held.length > 0 && (
+        <div style={{ display: "grid", gap: "0.45rem", marginTop: "0.7rem" }}>
+          {held.map(row => (
+            <div key={`held:${row.kind}:${row.id}`} style={{ display: "flex", justifyContent: "space-between", gap: "0.6rem", alignItems: "center", border: `1px solid ${C.border}`, borderRadius: 4, padding: "0.45rem 0.6rem" }}>
+              <div style={{ minWidth: 0 }}>
+                <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted }}>
+                  zurückgenommen · {row.kind === "master" ? "Master" : "Kernsatz"}
+                </div>
+                <div style={{ fontFamily: SERIF, fontSize: "0.82rem", color: C.textDim, lineHeight: 1.4 }}>{row.label}</div>
+              </div>
+              <button
+                onClick={() => restore(row.kind, row.id)}
+                disabled={busy !== null}
+                style={{ fontFamily: MONO, fontSize: "0.55rem", letterSpacing: "0.06em", textTransform: "uppercase", color: C.accentText, background: "none", border: `1px solid ${C.border}`, borderRadius: 3, padding: "0.4rem 0.6rem", cursor: "pointer", flexShrink: 0 }}
+              >{busy === row.id ? "…" : "Wiederherstellen"}</button>
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function ErkenntnisCandidatesPanel({ C }: { C: Palette }) {
   const [cands, setCands] = useState<ErkenntnisCandidate[] | null>(null);
   const [confirmed, setConfirmed] = useState<Set<string>>(new Set());
@@ -111,6 +220,7 @@ export default function ErkenntnisCandidatesPanel({ C }: { C: Palette }) {
 
   return (
     <section style={{ marginBottom: "1.5rem", border: `1px solid ${C.border}`, borderRadius: 6, padding: "1rem 1.1rem", background: C.surface }}>
+      <AutoPublishedSection C={C} />
       <SectionLabel c={C} size="sm" tracking="open" variant="arbeit">Erkenntnis-Kandidaten (aus den Antwort-Ketten)</SectionLabel>
       <p style={{ marginTop: "0.3rem", fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim, lineHeight: 1.5 }}>
         Antworten, die offene Schlussfragen des Werks lösen und distinkt zum Kanon sind.

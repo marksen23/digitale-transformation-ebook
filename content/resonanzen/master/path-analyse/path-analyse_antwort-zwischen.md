@@ -8,7 +8,8 @@ is_master: true
 master_of: [MTL33KWJ-642DD246, MV9NOFH9-7634B79F]
 variant_count: 2
 nodeIds: [antwort, zwischen]
-status: raw
+status: published
+auto_published: true
 content_hash: 3a306743f5ab1f43
 llm: gemini-2.5-pro
 audit_trail:

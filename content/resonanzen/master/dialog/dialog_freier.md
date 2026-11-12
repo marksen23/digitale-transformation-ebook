@@ -8,7 +8,8 @@ is_master: true
 master_of: [MPMTT6GB-1AF44EE4, MPMU7YZH-2C9CBFE8]
 variant_count: 2
 nodeIds: [freier]
-status: raw
+status: published
+auto_published: true
 content_hash: 5858a10f9e9c69be
 llm: gemini-2.5-pro
 audit_trail:

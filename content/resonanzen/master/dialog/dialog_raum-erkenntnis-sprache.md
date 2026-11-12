@@ -8,7 +8,8 @@ is_master: true
 master_of: [MTNB68RF-CFF570D9, MTNB6SUG-2922AE66, MTNB77VP-6A85F255, MTNB7STV-BCB7D709, MTNB85LB-7C1F15DE, MTNB93L6-1411E014, MV9NMWL2-5669B857]
 variant_count: 7
 nodeIds: [raum, erkenntnis, sprache]
-status: raw
+status: published
+auto_published: true
 content_hash: 3895b63b13168aa5
 llm: gemini-2.5-pro
 audit_trail:

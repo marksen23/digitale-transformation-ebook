@@ -8,7 +8,8 @@ is_master: true
 master_of: [MPURLTCS-5FDDD890, MWCB4J6T-9F0A7789]
 variant_count: 2
 nodeIds: [vorwort]
-status: raw
+status: published
+auto_published: true
 content_hash: 69b5365b55e13fdf
 llm: gemini-2.5-pro
 audit_trail:

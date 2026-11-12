@@ -647,6 +647,78 @@ export function createAdminRouter(): Router {
     return res.json({ ok: true, id, already: r.already ?? false });
   });
 
+  // Automatisch Veröffentlichte von der Seite nehmen oder zurücklegen.
+  // Die Sperrliste verhindert, dass der nächste Erkenntnisse-Lauf sie wieder setzt.
+  router.post("/api/admin/withdraw-erkenntnis", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { kind, id } = req.body as { kind?: string; id?: string };
+    if (!id || (kind !== "kernsatz" && kind !== "master")) {
+      return res.status(400).json({ error: "kind (kernsatz|master) und id erforderlich" });
+    }
+    if (kind === "kernsatz") {
+      const { withdrawAutoKernsatz } = await import("../lib/erkenntnisse.js");
+      const r = await withdrawAutoKernsatz(id);
+      recordAdminAction({
+        type: "withdraw-erkenntnis", actor: "admin", targetId: id, ok: r.ok,
+        reason: r.ok ? undefined : r.error, payload: { kind },
+      });
+      if (!r.ok) return res.status(502).json({ ok: false, error: r.error });
+      return res.json({ ok: true, id, kind });
+    }
+    const { setMasterWithdrawn } = await import("../lib/erkenntnisse.js");
+    const blocked = await setMasterWithdrawn(id, true);
+    if (!blocked.ok) {
+      recordAdminAction({
+        type: "withdraw-erkenntnis", actor: "admin", targetId: id, ok: false,
+        reason: blocked.error, payload: { kind },
+      });
+      return res.status(502).json({ ok: false, error: blocked.error });
+    }
+    const curated = await curateEntryStatus(id, "raw", "withdraw-erkenntnis");
+    if (curated.ok) await updateInIndex(id, { autoPublished: false });
+    recordAdminAction({
+      type: "withdraw-erkenntnis", actor: "admin", targetId: id, ok: curated.ok,
+      reason: curated.ok ? undefined : curated.error, payload: { kind, newStatus: "raw" },
+    });
+    if (!curated.ok) return res.status(curated.code).json({ ok: false, error: curated.error });
+    return res.json({ ok: true, id, kind, newStatus: "raw" });
+  });
+
+  router.post("/api/admin/restore-erkenntnis", async (req, res) => {
+    if (!checkAdminToken(req)) return res.status(401).json({ error: "Nicht autorisiert" });
+    const { kind, id } = req.body as { kind?: string; id?: string };
+    if (!id || (kind !== "kernsatz" && kind !== "master")) {
+      return res.status(400).json({ error: "kind (kernsatz|master) und id erforderlich" });
+    }
+    if (kind === "kernsatz") {
+      const { restoreAutoKernsatz } = await import("../lib/erkenntnisse.js");
+      const r = await restoreAutoKernsatz(id);
+      recordAdminAction({
+        type: "restore-erkenntnis", actor: "admin", targetId: id, ok: r.ok,
+        reason: r.ok ? undefined : r.error, payload: { kind },
+      });
+      if (!r.ok) return res.status(502).json({ ok: false, error: r.error });
+      return res.json({ ok: true, id, kind });
+    }
+    const { setMasterWithdrawn } = await import("../lib/erkenntnisse.js");
+    const opened = await setMasterWithdrawn(id, false);
+    if (!opened.ok) {
+      recordAdminAction({
+        type: "restore-erkenntnis", actor: "admin", targetId: id, ok: false,
+        reason: opened.error, payload: { kind },
+      });
+      return res.status(502).json({ ok: false, error: opened.error });
+    }
+    const curated = await curateEntryStatus(id, "published", "restore-erkenntnis");
+    if (curated.ok) await updateInIndex(id, { autoPublished: true });
+    recordAdminAction({
+      type: "restore-erkenntnis", actor: "admin", targetId: id, ok: curated.ok,
+      reason: curated.ok ? undefined : curated.error, payload: { kind, newStatus: "published" },
+    });
+    if (!curated.ok) return res.status(curated.code).json({ ok: false, error: curated.error });
+    return res.json({ ok: true, id, kind, newStatus: "published" });
+  });
+
   // ─── AI-Pre-Score (Tier-1-3-Roadmap, Feature E) ──────────────────────────
   // Bewertet einen oder mehrere raw/pending-Einträge auf einer 1-5-Skala
   // gegen das stilistische und thematische Profil des Werks. Schreibt

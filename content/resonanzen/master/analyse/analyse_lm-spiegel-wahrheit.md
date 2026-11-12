@@ -8,7 +8,8 @@ is_master: true
 master_of: [MQASO35V-115DA081, MUY7RXCI-C4CF7B92]
 variant_count: 2
 nodeIds: [lm-spiegel, wahrheit]
-status: raw
+status: published
+auto_published: true
 content_hash: 3a39183099e0297e
 llm: gemini-2.5-pro
 audit_trail:

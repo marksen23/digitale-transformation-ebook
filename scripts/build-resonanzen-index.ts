@@ -109,6 +109,8 @@ interface ResonanzEntry {
   is_master?: boolean;
   master_of?: string[];
   variant_count?: number;
+  /** Vom Erkenntnisse-Lauf veröffentlicht, im Admin zurücknehmbar. */
+  autoPublished?: boolean;
   /**
    * Werkstreue-Score: 0–1, wie nah dieser Eintrag am semantischen Zentrum
    * der approved/published Einträge liegt. Werte < 0.55 deuten auf Drift
@@ -265,6 +267,7 @@ async function main() {
               variant_count: typeof fm.variant_count === "number" ? fm.variant_count :
                              typeof fm.variant_count === "string" ? parseInt(fm.variant_count, 10) || 0 :
                              (Array.isArray(fm.master_of) ? fm.master_of.length : 0),
+              ...((fm.auto_published === true || fm.auto_published === "true") ? { autoPublished: true } : {}),
             }
           : {}),
         // AI-Pre-Score (Feature E) — durchreichen falls vorhanden
