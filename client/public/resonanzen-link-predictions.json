@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T06:48:17.507Z",
+  "generatedAt": "2026-11-12T15:49:20.093Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -278,6 +278,18 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "antwort",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWDQ2THL-B9BA920A",
+        "MWCBAQN6-9D0CCC83"
       ]
     },
     {
@@ -740,7 +752,7 @@
   ],
   "stats": {
     "totalPairs": 339,
-    "candidatesCount": 56,
+    "candidatesCount": 57,
     "existingEdges": 116,
     "maxCooccurrence": 25
   }

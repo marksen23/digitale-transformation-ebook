@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-12T06:48:17.505Z",
+  "generatedAt": "2026-11-12T15:49:20.091Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 23,
+      "count": 24,
       "endpoints": {
-        "path-analyse": 17,
+        "path-analyse": 18,
         "analyse": 6
       }
     },
@@ -31,11 +31,11 @@
       }
     },
     "sprache": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
+        "path-analyse": 4,
         "dialog": 9,
-        "analyse": 4,
-        "path-analyse": 3
+        "analyse": 4
       }
     },
     "dasein": {
@@ -147,9 +147,9 @@
       }
     },
     "antwort": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 7,
         "analyse": 2
       }
     },

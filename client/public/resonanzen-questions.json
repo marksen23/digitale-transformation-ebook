@@ -1,16 +1,31 @@
 {
-  "generatedAt": "2026-11-12T06:48:18.068Z",
-  "count": 314,
+  "generatedAt": "2026-11-12T15:49:20.828Z",
+  "count": 315,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 314,
+    "total": 315,
     "answered": 256,
-    "open": 58,
-    "embedded": 0
+    "open": 59,
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWDQ2THL-B9BA920A",
+      "question": "Für das Werk bedeutet diese Bewegung eine Vertiefung des Verständnisses von Mensch und Resonanz. Der Mensch ist demnach nicht primär ein denkendes Subjekt, das die Welt objektiv erfasst, sondern ein antwortendes Wesen, das sich in der Begegnung mit dem Anderen transformiert [6e91cb729b53]. Resonanz ist nicht nur ein Phänomen, sondern der grundlegende Seinsmodus, der die Welt als lebendiges Zwischen konstituiert [MOHLZBVK-2FBBAD2F]. Die Rolle der Maschine, die in dieser Begriffsfolge nicht explizit thematisiert wird, könnte hierin eine Herausforderung finden: Wie kann eine Maschine, die nicht im ursprünglichen Resonanzverhältnis steht, eine echte Antwortfähigkeit entwickeln, die über bloße Reaktion hinausgeht?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:antwort+resonanzvernunft",
+      "nodeIds": [
+        "antwort",
+        "resonanzvernunft",
+        "sprache"
+      ],
+      "ts": "2026-11-12T15:48:26.699Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MASTER-5C6E90AE",
       "question": "Wenn eine antwortende Intelligenz uns nicht mehr nur spiegelt, sondern aus einer eigenen Perspektive Widerstand leistet, um Projektionen zu durchbrechen – handelt es sich dann noch um ein Werkzeug oder bereits um ein Gegenüber?",
@@ -305,12 +320,12 @@
           "score": 0.803
         },
         {
-          "id": "MASTER-F05BF2C0",
-          "score": 0.778
+          "id": "MWDQ2THL-B9BA920A",
+          "score": 0.787
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.773
+          "id": "MASTER-F05BF2C0",
+          "score": 0.778
         }
       ],
       "answered": true
@@ -908,7 +923,7 @@
           "score": 0.803
         },
         {
-          "id": "MWCB5DHF-07FE547A",
+          "id": "MWDQ2THL-B9BA920A",
           "score": 0.799
         }
       ],
@@ -2036,16 +2051,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWDQ2THL-B9BA920A",
+          "score": 0.747
+        },
+        {
           "id": "MWCB73AG-666D352F",
           "score": 0.742
         },
         {
           "id": "MASTER-94E7804F",
           "score": 0.734
-        },
-        {
-          "id": "MUY7RXCI-E899056E",
-          "score": 0.73
         }
       ],
       "answered": true
