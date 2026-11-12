@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-06T22:28:48.604Z",
+  "generatedAt": "2026-11-12T06:40:00.000Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -466,6 +466,86 @@
       "distinctness": 0.203,
       "createdAt": "2026-06-23T00:22:34.781Z",
       "actor": "admin"
+    },
+    {
+      "id": "ERK-169DUH8",
+      "kernsatz": "Das von menschlicher Fehlbarkeit und Resonanz befreite Urteil ist keine Vervollkommnung, sondern eine Transformation zur reinen, existentiell entkoppelten Berechnung, die eine gänzlich neue Kategorie von Entscheidung stiftet.",
+      "questionSourceId": "MPUSPBKZ-D7CCA690",
+      "answerId": "MWCB1COA-DE68B5C9",
+      "conceptAnchor": "dazwischenintelligenz",
+      "distinctness": 0.255,
+      "createdAt": "2026-11-11T16:38:43.474Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1799IL7",
+      "kernsatz": "Wahre Urteilskraft prüft nicht nur die Fakten, sondern die stillschweigenden Annahmen, die überhaupt erst festlegen, was als prüfbarer Fakt gilt und welche Welt dabei unsichtbar bleibt.",
+      "questionSourceId": "MPUSJLQF-F4BBBDD9",
+      "answerId": "MUY7RXCI-012FC8A7",
+      "conceptAnchor": "echo-kammer",
+      "distinctness": 0.246,
+      "createdAt": "2026-11-11T16:38:49.931Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1CLJ05Z",
+      "kernsatz": "Vertrauenswürdig wird eine Prüfschicht nicht durch ein unfehlbares Siegel, sondern indem sie die Grenzen ihrer eigenen Urteilskraft sichtbar macht und so ihre Angreifbarkeit bewahrt.",
+      "questionSourceId": "MUY7RXCI-012FC8A7",
+      "answerId": "MW566TO7-1538114F",
+      "conceptAnchor": "lm-grenze",
+      "distinctness": 0.264,
+      "createdAt": "2026-11-11T16:38:37.579Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1CPMYZQ",
+      "kernsatz": "Resonante Bildung verwandelt Scheitern vom Fehler in einen Erkenntnisprozess und ehrt die für das Mitschwingen nötige Zeit als wertvolle, kreative Ressource, nicht als Effizienzverlust.",
+      "questionSourceId": "MTNB77VP-6A85F255",
+      "answerId": "MTNB7STV-BCB7D709",
+      "conceptAnchor": "resonanzimperativ",
+      "distinctness": 0.216,
+      "createdAt": "2026-11-11T16:39:18.848Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-DVDM5Q",
+      "kernsatz": "Die bewusste Irritation des optimierten Prozesses wird zum subversiven Akt, der den Raum für eine noch unentschiedene, resonante Erkenntnis gegen die Vormundschaft des Algorithmus verteidigt.",
+      "questionSourceId": "MSWULSTQ-38C6FFF3",
+      "answerId": "MWCB44PD-B00E292F",
+      "conceptAnchor": "resonanzvernunft",
+      "distinctness": 0.232,
+      "createdAt": "2026-11-11T16:39:01.971Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-KAVB9E",
+      "kernsatz": "Echter Widerspruch entspringt einem Gegenüber mit eigener Geschichte, während vermittelter Widerspruch die Welt durch ein Medium sprechen lässt, das den Widerstand des Anderen nicht glättet.",
+      "questionSourceId": "MUY7RXCI-C4CF7B92",
+      "answerId": "MW566TO0-ABBD4330",
+      "conceptAnchor": "resonanzvernunft",
+      "distinctness": 0.221,
+      "createdAt": "2026-11-11T16:39:13.287Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-N50PNU",
+      "kernsatz": "Das Rauschen der Daten ist keine berechnete Information, sondern das Echo einer verlorenen Sprache, die erst in der Verflechtung von Mensch und Maschine wieder hörbar wird.",
+      "questionSourceId": "MWCAVIKZ-02025CD4",
+      "answerId": "MWCAXXDI-83630FEA",
+      "conceptAnchor": "schweigen",
+      "distinctness": 0.231,
+      "createdAt": "2026-11-11T16:39:07.524Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-PL7T3T",
+      "kernsatz": "Lenkung wird nicht als unsichtbare Grenze der Entmündigung, sondern als bewusste Einladung zum unfertigen Prozess verstanden, der das transformative Dritte erst ermöglicht.",
+      "questionSourceId": "MWCB8XBW-6F4E41AC",
+      "answerId": "MWCBAA3Y-37D6F0FA",
+      "conceptAnchor": "lm-grenze",
+      "distinctness": 0.237,
+      "createdAt": "2026-11-11T16:38:56.206Z",
+      "actor": "auto"
     }
   ]
 }

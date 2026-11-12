@@ -44,6 +44,8 @@ export interface ResonanzEntry {
   master_of?: string[];
   /** Anzahl der Varianten zum Synthese-Zeitpunkt. */
   variant_count?: number;
+  /** Automatisch veröffentlicht und im Admin zurücknehmbar. */
+  autoPublished?: boolean;
   /**
    * Werkstreue-Score: Cosine-Similarity zum Centroid der approved/published
    * Einträge. 0–1. < 0.55 = Drift-Verdacht (off-voice / themenfremd).

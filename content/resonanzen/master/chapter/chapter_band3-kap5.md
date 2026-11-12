@@ -8,7 +8,8 @@ is_master: true
 master_of: [MOHC41N2-21D1E505, MOHC5VWC-1EB0E6AA, MOHC8GKH-8E301C89]
 variant_count: 3
 nodeIds: [band3-kap5]
-status: raw
+status: published
+auto_published: true
 content_hash: afa18c56173949fa
 llm: gemini-2.5-pro
 audit_trail:

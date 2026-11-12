@@ -8,7 +8,8 @@ is_master: true
 master_of: [MON602G2-9C9A59E5, MON646UY-E4326634, MON68U82-B67D8CA5, MON69DI9-D63A7910, MON6GME8-A2CB2CF7]
 variant_count: 5
 nodeIds: [teil7]
-status: raw
+status: published
+auto_published: true
 content_hash: 430ca2be79c1e994
 llm: gemini-2.5-pro
 audit_trail:

@@ -4,6 +4,7 @@ import path from "node:path";
 import { describe, expect, it } from "vitest";
 import { extractFrageAntwort, parseFrontmatter } from "../lib/frontmatter.js";
 import {
+  autoKernsaetzeToPublish,
   cleanKernsatz,
   contentHashFor,
   freshMasterFm,
@@ -130,6 +131,16 @@ describe("planMaster", () => {
       masterOf: null,
     }).reason).toBe("skipped-endpoint");
   });
+
+  it("fasst abgelehnte und zurückgenommene Master nicht an", () => {
+    expect(planMaster({
+      endpoint: "dialog",
+      anchor: "dialog:freiheit+werden",
+      variantIds: ["a", "b", "c", "d"],
+      masterOf: ["a", "b"],
+      blocked: true,
+    }).reason).toBe("human");
+  });
 });
 
 describe("planKernsatzCandidates", () => {
@@ -150,6 +161,17 @@ describe("planKernsatzCandidates", () => {
     expect(picked.map(c => c.answerId)).toEqual(["C"]);
   });
 
+  it("lässt zurückgenommene Antworten aus", () => {
+    const picked = planKernsatzCandidates({
+      candidates,
+      confirmedAnswerIds: [],
+      withdrawnAnswerIds: ["A", "B"],
+      drafts: [],
+      answerHashById: hashes,
+    });
+    expect(picked.map(c => c.answerId)).toEqual(["C"]);
+  });
+
   it("destilliert einen Entwurf neu, wenn die Antwort sich geändert hat", () => {
     const picked = planKernsatzCandidates({
       candidates,
@@ -162,6 +184,41 @@ describe("planKernsatzCandidates", () => {
   });
 });
 
+describe("autoKernsaetzeToPublish", () => {
+  const draft = {
+    id: "ERK-1",
+    answerId: "A",
+    questionSourceId: "Q",
+    kernsatz: "Die Grenze wird erst im Sprung sichtbar.",
+    conceptAnchor: "freiheit",
+    distinctness: 0.3,
+    distilledAt: "2026-11-11T16:00:00.000Z",
+  };
+
+  it("veröffentlicht einen stimmigen Entwurf und lässt Bestehendes stehen", () => {
+    const published = autoKernsaetzeToPublish({
+      drafts: [draft, { ...draft, id: "ERK-2", answerId: "B", kernsatz: "Markus schreibt unvollständig" }],
+      existing: [{ id: "ERK-ALT", answerId: "Z", actor: "admin" }],
+      withdrawnAnswerIds: [],
+    });
+    expect(published.map(e => e.answerId)).toEqual(["A"]);
+    expect(published[0].actor).toBe("auto");
+  });
+
+  it("überschreibt weder Bestätigtes noch Zurückgenommenes", () => {
+    expect(autoKernsaetzeToPublish({
+      drafts: [draft],
+      existing: [{ id: "ERK-1", answerId: "A", actor: "admin" }],
+      withdrawnAnswerIds: [],
+    })).toEqual([]);
+    expect(autoKernsaetzeToPublish({
+      drafts: [draft],
+      existing: [],
+      withdrawnAnswerIds: ["A"],
+    })).toEqual([]);
+  });
+});
+
 describe("neuer Master", () => {
   it("behält eine stabile Id zum Anker", () => {
     expect(masterIdForAnchor("dialog:freiheit+werden")).toBe(masterIdForAnchor("dialog:freiheit+werden"));
@@ -169,7 +226,8 @@ describe("neuer Master", () => {
       "content/resonanzen/master/dialog/dialog_freiheit-werden.md",
     );
     const fm = freshMasterFm({ endpoint: "dialog", anchor: "dialog:freiheit+werden", now: "2026-11-11T00:00:00.000Z" });
-    expect(fm).toContain("status: raw");
+    expect(fm).toContain("status: published");
+    expect(fm).toContain("auto_published: true");
     expect(fm).toContain("is_master: true");
   });
 });

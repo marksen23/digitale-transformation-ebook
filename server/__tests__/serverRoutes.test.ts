@@ -39,6 +39,8 @@ const ROUTES = [
   "POST /api/admin/propose-concept",
   "POST /api/admin/distill-erkenntnis",
   "POST /api/admin/confirm-erkenntnis",
+  "POST /api/admin/withdraw-erkenntnis",
+  "POST /api/admin/restore-erkenntnis",
   "POST /api/admin/pre-score",
   "POST /api/admin/auto-curate",
   "POST /api/admin/synthesize-master",

@@ -11,6 +11,7 @@ import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, RADIUS } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
+import { buildErkenntnisFeed } from "@/lib/erkenntnisFeed";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 
 const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] ?? ep;
@@ -30,10 +31,10 @@ export default function MobileErkenntnisse() {
     loadResonanzenIndexLazy().then(idx => { if (idx) setById(new Map(idx.entries.map(e => [e.id, e]))); });
   }, []);
 
-  const items = useMemo(() => (erk ?? []).slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt)), [erk]);
+  const items = useMemo(() => buildErkenntnisFeed(erk ?? [], Array.from(byId.values())), [erk, byId]);
 
   return (
-    <MobileScreenShell C={C} title="Erkenntnisse" meta={erk ? `${items.length} BESTÄTIGT` : ""} isDark={isDark}>
+    <MobileScreenShell C={C} title="Erkenntnisse" meta={erk ? `${items.length}` : ""} isDark={isDark}>
       <div style={{ fontFamily: DISPLAY, fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
         Erkenntnisse <span style={{ color: C.accentText }}>·</span> Was sich gezeigt hat
       </div>
@@ -55,10 +56,11 @@ export default function MobileErkenntnisse() {
           const isOpen = open === e.id;
           return (
             <div key={e.id} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "15px 16px", marginBottom: 12 }}>
-              <div style={{ fontFamily: DISPLAY, fontSize: 23, lineHeight: 1.28, color: C.textBright }}>{e.kernsatz}</div>
+              <div style={{ fontFamily: DISPLAY, fontSize: 23, lineHeight: 1.28, color: C.textBright }}>{e.text}</div>
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.06em", color: C.muted }}>
-                  Distinktheit {e.distinctness.toFixed(2)}
+                  {e.kind === "master" ? "Synthese" : e.distinctness != null ? `Distinktheit ${e.distinctness.toFixed(2)}` : "Erkenntnis"}
+                  {e.auto && <> · <span style={{ color: C.accentText }}>automatisch</span></>}
                   {e.conceptAnchor && <> · <span style={{ color: C.accentText }}>{e.conceptAnchor}</span></>}
                 </span>
                 <button

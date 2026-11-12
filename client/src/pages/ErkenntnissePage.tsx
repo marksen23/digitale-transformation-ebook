@@ -16,6 +16,7 @@ import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, DISPLAY, RADIUS, type Palette 
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
+import { buildErkenntnisFeed } from "@/lib/erkenntnisFeed";
 import SiteFooter from "@/components/SiteFooter";
 import { useIsMobile } from "@/hooks/useMobile";
 import MobileErkenntnisse from "@/pages/mobile/MobileErkenntnisse";
@@ -36,9 +37,10 @@ export default function ErkenntnissePage() {
     loadResonanzenIndexLazy().then(idx => { if (idx) setById(new Map(idx.entries.map(e => [e.id, e]))); });
   }, []);
 
-  const items = useMemo(() => {
-    return (erk ?? []).slice().sort((a, b) => b.createdAt.localeCompare(a.createdAt));
-  }, [erk]);
+  const items = useMemo(
+    () => buildErkenntnisFeed(erk ?? [], Array.from(byId.values())),
+    [erk, byId],
+  );
 
   if (isMobile) {
     return <MobileErkenntnisse />;
@@ -69,7 +71,7 @@ export default function ErkenntnissePage() {
 
         {erk && (
           <div style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.06em", color: c.muted, marginBottom: "1.2rem" }}>
-            {items.length} bestätigte Erkenntnis{items.length === 1 ? "" : "se"}
+            {items.length} Erkenntnis{items.length === 1 ? "" : "se"}
           </div>
         )}
 
@@ -91,11 +93,12 @@ export default function ErkenntnissePage() {
                 <div key={e.id} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: 6, padding: "0.95rem 1.1rem" }}>
                   {/* Kernsatz — die Erkenntnis selbst */}
                   <div style={{ fontFamily: SERIF, fontSize: "1.15rem", color: c.textBright, lineHeight: 1.45 }}>
-                    {e.kernsatz}
+                    {e.text}
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
                     <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.06em", color: c.muted }}>
-                      Distinktheit {e.distinctness.toFixed(2)}
+                      {e.kind === "master" ? "Synthese" : e.distinctness != null ? `Distinktheit ${e.distinctness.toFixed(2)}` : "Erkenntnis"}
+                      {e.auto ? <> · <span style={{ color: c.accentText }}>automatisch</span></> : null}
                       {e.conceptAnchor ? <> · <span style={{ color: c.accentText }}>{e.conceptAnchor}</span></> : null}
                     </span>
                     <button onClick={() => setOpen(isOpen ? null : e.id)}

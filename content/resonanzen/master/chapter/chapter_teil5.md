@@ -8,7 +8,8 @@ is_master: true
 master_of: [MOOK5A30-F596F31D, MOOK96F0-C8AEFE68]
 variant_count: 2
 nodeIds: [teil5]
-status: raw
+status: published
+auto_published: true
 content_hash: ef05f12d9da78dfb
 llm: gemini-2.5-pro
 audit_trail:

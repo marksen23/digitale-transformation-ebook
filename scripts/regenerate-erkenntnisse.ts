@@ -35,6 +35,7 @@ import {
   freshMasterFm,
   masterIdForAnchor,
   masterRelPath,
+  autoKernsaetzeToPublish,
   planKernsatzCandidates,
   planMaster,
   renderMasterMarkdown,
@@ -49,6 +50,7 @@ const ROOT = path.resolve(path.dirname(__filename), "..");
 const ERKENNTNISSE = path.join(ROOT, "client/public/resonanzen-erkenntnisse.json");
 const CANDIDATES = path.join(ROOT, "client/public/resonanzen-erkenntnis-candidates.json");
 const DRAFTS = path.join(ROOT, "client/public/resonanzen-erkenntnis-drafts.json");
+const WITHDRAWN = path.join(ROOT, "client/public/resonanzen-erkenntnis-withdrawn.json");
 const EMBEDDING_REFRESH = path.join(ROOT, "client/public/resonanzen-embedding-refresh.json");
 const REPORT = path.join(ROOT, "regenerate-erkenntnisse-report.json");
 const MIN_NEW = positiveInt(process.env.ERKENNTNIS_MIN_NEW_VARIANTS, 2);
@@ -121,6 +123,7 @@ interface CorpusDoc {
   endpoint: string;
   anchor: string;
   isMaster: boolean;
+  status: string;
   prompt: string;
   response: string;
 }
@@ -158,6 +161,7 @@ function loadCorpus(): CorpusDoc[] {
       endpoint: String(fm.endpoint),
       anchor: String(fm.anchor ?? ""),
       isMaster: fm.is_master === true || fm.is_master === "true",
+      status: String(fm.status ?? ""),
       prompt,
       response,
     });
@@ -323,6 +327,10 @@ async function main(): Promise<void> {
     }
   }
 
+  const withdrawn = readJson<{ answerIds?: string[]; masterIds?: string[] }>(WITHDRAWN, {});
+  const withdrawnAnswerIds = new Set(withdrawn.answerIds ?? []);
+  const withdrawnMasterIds = new Set(withdrawn.masterIds ?? []);
+
   const keys = new Set<string>([...variantsByAnchor.keys(), ...masterByAnchor.keys()]);
   const masterPlans = [...keys].map(key => {
     const [endpoint, anchor] = key.split("\n");
@@ -333,6 +341,7 @@ async function main(): Promise<void> {
       anchor,
       variantIds: variants.map(v => v.id),
       masterOf: master ? masterOfIds(master) : null,
+      blocked: master ? isMasterBlocked(master, withdrawnMasterIds) : false,
       minNew: MIN_NEW,
     });
     return { endpoint, anchor, variants, master, plan };
@@ -349,6 +358,7 @@ async function main(): Promise<void> {
   const kernPlans = planKernsatzCandidates({
     candidates: loadCandidates(),
     confirmedAnswerIds: confirmed,
+    withdrawnAnswerIds,
     drafts,
     answerHashById,
     limit: CANDIDATE_LIMIT,
@@ -457,10 +467,22 @@ async function main(): Promise<void> {
     const byAnswer = new Map(drafts.map(d => [d.answerId, d]));
     for (const d of distilled) byAnswer.set(d.answerId, d);
     fs.mkdirSync(path.dirname(DRAFTS), { recursive: true });
+    const mergedDrafts = [...byAnswer.values()].sort((a, b) => a.id.localeCompare(b.id));
     fs.writeFileSync(DRAFTS, JSON.stringify({
       generatedAt: now,
-      drafts: [...byAnswer.values()].sort((a, b) => a.id.localeCompare(b.id)),
+      drafts: mergedDrafts,
     }, null, 2) + "\n");
+    const published = autoKernsaetzeToPublish({
+      drafts: mergedDrafts,
+      existing: erkFile.erkenntnisse ?? [],
+      withdrawnAnswerIds,
+    });
+    if (published.length > 0) {
+      fs.writeFileSync(ERKENNTNISSE, JSON.stringify({
+        generatedAt: now,
+        erkenntnisse: [...(erkFile.erkenntnisse ?? []), ...published],
+      }, null, 2) + "\n");
+    }
   }
   for (const s of synthesized) {
     const md = renderMasterMarkdown({
@@ -505,6 +527,11 @@ async function main(): Promise<void> {
   if ((kernPlans.length > 0 || dueMasters.length > 0) && distilled.length === 0 && synthesized.length === 0 && failures.length > 0) {
     throw new Error(`Nichts geschrieben. ${failures.length} Fehler.`);
   }
+}
+
+function isMasterBlocked(master: CorpusDoc, withdrawnMasterIds: Set<string>): boolean {
+  if (withdrawnMasterIds.has(master.id)) return true;
+  return master.status === "rejected";
 }
 
 function emptyReport(failures: Report["failures"], skippedMasters: number): Report {

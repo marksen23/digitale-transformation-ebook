@@ -8,7 +8,8 @@ is_master: true
 master_of: [MOHVDNEU-D3F7EEB5, MUY7RXCI-D36BB4D6]
 variant_count: 2
 nodeIds: [lm-verwandlung, stimme]
-status: raw
+status: published
+auto_published: true
 content_hash: bea3e9cba4e92b47
 llm: gemini-2.5-pro
 audit_trail:

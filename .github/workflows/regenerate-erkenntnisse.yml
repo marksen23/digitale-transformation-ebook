@@ -106,6 +106,7 @@ jobs:
           git add \
             content/resonanzen/master \
             client/public/resonanzen-erkenntnis-drafts.json \
+            client/public/resonanzen-erkenntnis-withdrawn.json \
             client/public/resonanzen-erkenntnisse.json \
             client/public/resonanzen-index.json \
             client/public/resonanzen-embeddings.json \

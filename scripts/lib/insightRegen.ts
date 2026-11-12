@@ -107,7 +107,7 @@ const SKIP_MASTER_ENDPOINTS = new Set(["graph-chat", "enkidu", "translate"]);
 
 export interface MasterPlan {
   action: "create" | "update" | "skip";
-  reason: "ready" | "too-few" | "unchanged" | "skipped-endpoint";
+  reason: "ready" | "too-few" | "unchanged" | "skipped-endpoint" | "human";
   /** Varianten, die im letzten Master noch nicht standen. */
   newIds: string[];
   /** Alle Varianten, aus denen der Master geschrieben würde. */
@@ -125,10 +125,13 @@ export function planMaster(opts: {
   variantIds: string[];
   /** null = noch kein Master. Sonst die IDs aus master_of. */
   masterOf: string[] | null;
+  /** rejected oder eine menschliche Zurücknahme: nicht anfassen. */
+  blocked?: boolean;
   minNew?: number;
 }): MasterPlan {
   const minNew = opts.minNew ?? DEFAULT_MIN_NEW_VARIANTS;
   const empty = { newIds: [] as string[], variantIds: opts.variantIds };
+  if (opts.blocked) return { action: "skip", reason: "human", ...empty };
   if (SKIP_MASTER_ENDPOINTS.has(opts.endpoint) || !opts.anchor.includes(":")) {
     return { action: "skip", reason: "skipped-endpoint", ...empty };
   }
@@ -164,7 +167,8 @@ export function freshMasterFm(opts: { endpoint: string; anchor: string; now: str
     `master_of: []`,
     `variant_count: 0`,
     `nodeIds: [${nodeIds.join(", ")}]`,
-    `status: raw`,
+    `status: published`,
+    `auto_published: true`,
     `content_hash: 0000000000000000`,
     `llm: pending`,
     `audit_trail:`,
@@ -191,15 +195,18 @@ export interface KernsatzDraftRef {
 export function planKernsatzCandidates(opts: {
   candidates: KernsatzCandidate[];
   confirmedAnswerIds: Iterable<string>;
+  /** Zurückgenommene Antwort-IDs. Werden nie wieder automatisch destilliert. */
+  withdrawnAnswerIds?: Iterable<string>;
   drafts: KernsatzDraftRef[];
   answerHashById: Map<string, string>;
   limit?: number;
 }): KernsatzCandidate[] {
   const confirmed = new Set(opts.confirmedAnswerIds);
+  const withdrawn = new Set(opts.withdrawnAnswerIds ?? []);
   const draftByAnswer = new Map(opts.drafts.map(d => [d.answerId, d]));
   const fresh: KernsatzCandidate[] = [];
   for (const c of opts.candidates) {
-    if (!c.answerId || confirmed.has(c.answerId)) continue;
+    if (!c.answerId || confirmed.has(c.answerId) || withdrawn.has(c.answerId)) continue;
     const hash = opts.answerHashById.get(c.answerId);
     if (!hash) continue;
     const draft = draftByAnswer.get(c.answerId);
@@ -208,6 +215,68 @@ export function planKernsatzCandidates(opts: {
     if (fresh.length >= (opts.limit ?? 8)) break;
   }
   return fresh;
+}
+
+export interface AutoKernsatz {
+  id: string;
+  kernsatz: string;
+  questionSourceId: string;
+  answerId: string;
+  conceptAnchor: string | null;
+  distinctness: number;
+  createdAt: string;
+  actor: "auto";
+}
+
+export interface ExistingErkenntnisRef {
+  id: string;
+  answerId: string;
+  actor?: string;
+}
+
+/**
+ * Kernsätze, die automatisch in die öffentliche Liste dürfen.
+ * Schon bestätigte, zurückgenommene und stimmlich ungeeignete Sätze bleiben draußen.
+ * Bestehende Einträge werden nie ersetzt.
+ */
+export function autoKernsaetzeToPublish(opts: {
+  drafts: Array<{
+    id: string;
+    answerId: string;
+    questionSourceId: string;
+    kernsatz: string;
+    conceptAnchor: string | null;
+    distinctness: number;
+    distilledAt: string;
+  }>;
+  existing: ExistingErkenntnisRef[];
+  withdrawnAnswerIds: Iterable<string>;
+}): AutoKernsatz[] {
+  const taken = new Set<string>();
+  for (const e of opts.existing) {
+    taken.add(e.id);
+    taken.add(e.answerId);
+  }
+  const withdrawn = new Set(opts.withdrawnAnswerIds);
+  const out: AutoKernsatz[] = [];
+  for (const d of opts.drafts) {
+    if (!d.answerId || !d.kernsatz.trim() || !d.questionSourceId) continue;
+    if (taken.has(d.id) || taken.has(d.answerId) || withdrawn.has(d.answerId)) continue;
+    if (voiceViolations(d.kernsatz).length > 0) continue;
+    taken.add(d.id);
+    taken.add(d.answerId);
+    out.push({
+      id: d.id,
+      kernsatz: d.kernsatz.trim(),
+      questionSourceId: d.questionSourceId,
+      answerId: d.answerId,
+      conceptAnchor: d.conceptAnchor,
+      distinctness: d.distinctness,
+      createdAt: d.distilledAt,
+      actor: "auto",
+    });
+  }
+  return out;
 }
 
 /** true, wenn die Synthese die verlangten Abschnitte trägt und zu Ende kommt. */
