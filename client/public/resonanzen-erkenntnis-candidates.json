@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T15:49:20.921Z",
+  "generatedAt": "2026-11-12T16:53:46.817Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -87,10 +87,28 @@
           "score": 0.722
         }
       ]
+    },
+    {
+      "id": "ERK-15ABCWP",
+      "answerId": "MWDSDR89-C66887AA",
+      "answerEndpoint": "graph-chat",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die teleologische Dimension, die das Benennen eines Ergebnisses vor dessen Durchführung in den Blick nimmt, trifft im Begriffsnetz der Resonanzvernunft auf ein vielschichtiges Spannungsfeld. Einerseits betont die Resonanzvernunft die fundamentale **Unverfügbarkeit** der Resonanz [68bec796a2be]. Das **Transformative Drittes**, als emergentes Ergebnis von **Dazwischenintelligenz**, kann weder herges",
+      "distinctness": 0.204,
+      "conceptAnchor": "spannung",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MUZTN3NV-0C28E8DB",
+          "question": "Was sagt die Möglichkeit, das Ergebnis vor dem expliziten Prozess zu benennen, über die Rolle der Teleologie im Denken der Resonanzvernunft aus?",
+          "score": 0.855
+        }
+      ]
     }
   ],
   "stats": {
-    "total": 4,
+    "total": 5,
     "confirmedFiltered": 50,
     "curatedRef": 211
   }

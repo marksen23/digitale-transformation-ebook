@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-12T15:48:58.991Z",
-  "filesChecked": 366,
+  "generatedAt": "2026-11-12T16:53:32.008Z",
+  "filesChecked": 367,
   "errors": 0,
-  "warnings": 44,
+  "warnings": 45,
   "issues": [
     {
       "level": "warning",
@@ -264,6 +264,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/graph-chat/2026-11-12-MWDSDR89-C66887AA.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 3180f8e3e40a859f, computed d1cda78b4443a0d3 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "index:MTDDG179-491119D2",
       "rule": "duplicate-entries",
       "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
@@ -276,13 +282,13 @@
       "dialog": 45,
       "path-analyse": 55,
       "enkidu": 66,
-      "graph-chat": 42,
+      "graph-chat": 43,
       "passage": 11,
       "translate": 6
     },
     "byStatus": {
       "published": 161,
-      "raw": 127,
+      "raw": 128,
       "rejected": 24,
       "approved": 54
     },

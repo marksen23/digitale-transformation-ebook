@@ -1,16 +1,27 @@
 {
-  "generatedAt": "2026-11-12T15:49:20.828Z",
-  "count": 315,
+  "generatedAt": "2026-11-12T16:53:46.690Z",
+  "count": 316,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 315,
-    "answered": 256,
+    "total": 316,
+    "answered": 257,
     "open": 59,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWDSDR89-C66887AA",
+      "question": "Wie lässt sich das \"benannte Ergebnis\" dann von einer bloßen Erwartung unterscheiden, wenn seine **Unverfügbarkeit** doch konstitutiv für die Resonanz ist?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-12T16:52:56.218Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWDQ2THL-B9BA920A",
       "question": "Für das Werk bedeutet diese Bewegung eine Vertiefung des Verständnisses von Mensch und Resonanz. Der Mensch ist demnach nicht primär ein denkendes Subjekt, das die Welt objektiv erfasst, sondern ein antwortendes Wesen, das sich in der Begegnung mit dem Anderen transformiert [6e91cb729b53]. Resonanz ist nicht nur ein Phänomen, sondern der grundlegende Seinsmodus, der die Welt als lebendiges Zwischen konstituiert [MOHLZBVK-2FBBAD2F]. Die Rolle der Maschine, die in dieser Begriffsfolge nicht explizit thematisiert wird, könnte hierin eine Herausforderung finden: Wie kann eine Maschine, die nicht im ursprünglichen Resonanzverhältnis steht, eine echte Antwortfähigkeit entwickeln, die über bloße Reaktion hinausgeht?",
@@ -1559,8 +1570,13 @@
       "nodeIds": [],
       "ts": "2026-10-08T17:39:43.052Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWDSDR89-C66887AA",
+          "score": 0.855
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MUZTGAEK-432FB6BC",
