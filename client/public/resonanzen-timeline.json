@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-11T16:30:04.267Z",
+  "generatedAt": "2026-11-12T06:48:18.792Z",
   "buckets": [
     {
       "date": "2026-05-03",
@@ -508,33 +508,54 @@
     },
     {
       "date": "2026-11-11",
-      "totalEntries": 349,
+      "totalEntries": 355,
       "byStatus": {
+        "published": 151,
+        "raw": 126,
+        "rejected": 24,
+        "approved": 54
+      },
+      "byEndpoint": {
+        "analyse": 86,
+        "chapter": 48,
+        "dialog": 43,
+        "enkidu": 66,
+        "graph-chat": 42,
+        "passage": 11,
+        "path-analyse": 53,
+        "translate": 6
+      },
+      "publishedRatio": 0.4253521126760563
+    },
+    {
+      "date": "2026-11-12",
+      "totalEntries": 359,
+      "byStatus": {
+        "published": 158,
         "raw": 124,
-        "published": 148,
         "approved": 53,
         "rejected": 24
       },
       "byEndpoint": {
-        "path-analyse": 53,
+        "analyse": 88,
+        "chapter": 53,
+        "dialog": 45,
+        "path-analyse": 54,
         "passage": 11,
         "enkidu": 66,
-        "dialog": 43,
-        "graph-chat": 42,
-        "analyse": 86,
-        "chapter": 48
+        "graph-chat": 42
       },
-      "publishedRatio": 0.42406876790830944,
-      "medianWerkVoice": 0.8555169997050253,
-      "medianCorpusVoice": 0.8182458030698297,
-      "echoRatio": 0.4355300859598854,
+      "publishedRatio": 0.4401114206128134,
+      "medianWerkVoice": 0.8565810574505157,
+      "medianCorpusVoice": 0.8187774203964588,
+      "echoRatio": 0.4456824512534819,
       "noveltyRatio": 0
     }
   ],
   "stats": {
-    "totalSnapshots": 28,
-    "avgGrowthPerDay": 1.34,
-    "latestEchoRatio": 0.4355300859598854,
+    "totalSnapshots": 29,
+    "avgGrowthPerDay": 1.38,
+    "latestEchoRatio": 0.4456824512534819,
     "latestNoveltyRatio": 0
   }
 }

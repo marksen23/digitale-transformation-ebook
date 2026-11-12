@@ -1,12 +1,24 @@
 {
-  "generatedAt": "2026-11-11T16:28:45.298Z",
-  "filesChecked": 355,
+  "generatedAt": "2026-11-12T06:48:07.735Z",
+  "filesChecked": 365,
   "errors": 0,
-  "warnings": 28,
+  "warnings": 44,
   "issues": [
     {
       "level": "warning",
       "file": "content/resonanzen/master/analyse/analyse_erkenntnis-lm-verwandlung.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint analyse"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/analyse/analyse_lm-spiegel-wahrheit.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint analyse"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/analyse/analyse_lm-verwandlung-stimme.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint analyse"
     },
@@ -24,6 +36,30 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band3-kap4.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'band3-kap4' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band3-kap4.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band3-kap5.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'band3-kap5' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band3-kap5.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/master/chapter/chapter_teil4.md",
       "rule": "orphan-nodeid",
       "detail": "nodeId 'teil4' not found in conceptGraph NODES"
@@ -31,6 +67,18 @@
     {
       "level": "warning",
       "file": "content/resonanzen/master/chapter/chapter_teil4.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil5.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'teil5' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil5.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint chapter"
     },
@@ -48,7 +96,49 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil7.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'teil7' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_teil7.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_vorwort.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'vorwort' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_vorwort.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/master/dialog/dialog_erkenntnis-lm-verwandlung.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_freier.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'freier' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_freier.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_raum-erkenntnis-sprache.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
     },
@@ -63,6 +153,12 @@
       "file": "content/resonanzen/master/dialog/dialog_weiterdenken.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/path-analyse/path-analyse_antwort-zwischen.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint path-analyse"
     },
     {
       "level": "warning",
@@ -175,25 +271,31 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 86,
-      "chapter": 48,
-      "dialog": 43,
+      "analyse": 88,
+      "chapter": 53,
+      "dialog": 45,
+      "path-analyse": 54,
       "enkidu": 66,
       "graph-chat": 42,
       "passage": 11,
-      "path-analyse": 53,
       "translate": 6
     },
     "byStatus": {
-      "published": 151,
+      "published": 161,
       "raw": 126,
       "rejected": 24,
       "approved": 54
     },
     "orphanNodeIds": [
       "band3-kap3",
+      "band3-kap4",
+      "band3-kap5",
+      "freier",
       "teil4",
+      "teil5",
       "teil6",
+      "teil7",
+      "vorwort",
       "weiterdenken"
     ],
     "danglingLinks": 0,
