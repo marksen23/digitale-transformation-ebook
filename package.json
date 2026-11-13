@@ -93,7 +93,7 @@
     "@vitejs/plugin-react": "^5.0.4",
     "autoprefixer": "^10.6.2",
     "esbuild": "^0.28.2",
-    "happy-dom": "^18.0.1",
+    "happy-dom": "^21.0.4",
     "postcss": "^8.5.32",
     "prettier": "^3.9.10",
     "sharp": "^0.35.5",
