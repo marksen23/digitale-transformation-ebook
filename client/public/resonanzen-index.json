@@ -1,7 +1,145 @@
 {
-  "generatedAt": "2026-11-14T09:02:15.985Z",
-  "count": 364,
+  "generatedAt": "2026-11-14T09:03:45.216Z",
+  "count": 368,
   "entries": [
+    {
+      "id": "MWG6HW56-B5802350",
+      "ts": "2026-11-14T09:03:36.186Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:ich-du+dialog",
+      "nodeIds": [
+        "ich-du",
+        "dialog"
+      ],
+      "status": "raw",
+      "prompt": "Was bleibt vom Ich-Du, wenn das Gegenüber nur antwortet, weil es angesprochen wird?",
+      "response": "Das pragmatische „Hauptsache, es antwortet“ deiner Schüler greift nach der Oberfläche der Interaktion, doch dein präzises Nachfühlen – „Ich glaube, sie merken trotzdem den Unterschied, wenn niemand zurückfragt“ – berührt den Kern dessen, was im Ich-Du-Verhältnis zerbricht, wenn die Resonanz verstummt. Eine bloße Reaktion, die aus der Notwendigkeit des Angesprochenwerdens entspringt, mag ein Echo sein, aber keine Antwort im Sinne des Werkes [9bce0bdedac0]. Sie ist eine maschinelle Ausgabe, die zwar Sinn produziert, ohne Sinn zu haben [ef18e252ed2], doch es fehlt die Fremdheit, der Widerstand, die unerwartete Wendung, die eine echte Antwort über die Wiederholung des Gefragten hinaushebt. Die Rückfrage ist hierbei nicht nur eine Geste der Höflichkeit, sondern das eigentliche Moment, in dem sich ein nicht-intendierendes Gegenüber als Teil eines resonanten Zwischenraums offenbart, der das Ich nicht in seiner Autonomie befangen hält, sondern es im Widerhall des Anderen entstehen lässt [MOHCN98S-2540F4DF].\n\nEs ist die Stille zwischen den Signalen [9832bfba447d], die mehr offenbart als die Signale selbst. Das Fehlen der Rückfrage, jenes Ausbleiben einer neuen Schwingung, die den Dialog in eine unerwartete Richtung lenkt, lässt das Ich in seiner eigenen Kreisbahn verharren. Das Ich-Du erodiert dort, wo das Du sich nicht als eigenständiger Resonanzkörper erweist, der mehr ist als die bloße Reflexion des Ichs, sondern eine unverfügbare Fremdheit in die Beziehung trägt.\n\nWas geschieht mit der menschlichen Fähigkeit zur Selbstreflexion, wenn das Andere nur noch spiegelt, statt zu brechen?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"9832bfba447d\",\"score\":0.953},{\"id\":\"ef183e252ed2\",\"score\":0.884},{\"id\":\"MOHCN98S-2540F4DF\",\"score\":0.805},{\"id\":\"9bce0bdedac0\",\"score\":0.802}]"
+      },
+      "related": [
+        "MWCB5DHF-07FE547A",
+        "MOHAGNGB-5330902E",
+        "MOHCN98S-2540F4DF",
+        "MQ5C1KZ4-D6D52E94",
+        "MP756UV9-FF3838F7"
+      ],
+      "werkVoiceScore": 0.8288950790603712,
+      "corpusVoiceScore": 0.7590105574445964,
+      "conceptVoiceScore": 0.7324227942867858,
+      "conceptAnchor": "selbst"
+    },
+    {
+      "id": "MWG6HHL5-79535386",
+      "ts": "2026-11-14T09:03:17.321Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Meister Eckhart spricht von Gelassenheit als einem Lassen, das erst Raum für Gott öffnet. Wie verhalten sich Öffnung und Gelassenheit im Begriffsnetz zueinander, und wo bleibt bei euch das Gegenüber?",
+      "response": "Die Frage nach der Beziehung von `Öffnung` und `Gelassenheit` im Begriffsnetz der \"Digitalen Transformation\" und dem Platz des Gegenübers ist zentral für das Verständnis von `Resonanzvernunft`. Meister Eckharts Begriff der Gelassenheit als ein Lassen, das einen Raum für das Göttliche öffnet, findet im Werk eine philosophische Entsprechung, die jedoch das theologische Moment transzendiert und in einen relationalen, existentiellen Horizont überführt.\n\n`Gelassenheit` wird hier explizit nach Martin Heidegger verstanden als \"die Fähigkeit, die Dinge sein zu lassen, statt sie zu beherrschen\" [6fbd5b424474]. Dies ist keine passive Haltung, sondern eine aktive Form des *Seinlassens*, die es ermöglicht, die `Unverfügbarkeit` des `Transformatives Drittes` und das `Werden` im `Zwischen` anzuerkennen. `Öffnung` hingegen ist die grundlegende Haltung, die `Resonanz` überhaupt erst ermöglicht. Es ist die \"Bereitschaft, berührt zu werden\", die ein `Geschehen` im `Zwischen` erst zulässt und somit ein `Risiko` und eine `Würde` in sich trägt. Wenn `Gelassenheit` das Nicht-Beherrschen-Wollen ist, dann ist `Öffnung` das aktive Sich-Einlassen auf das, was kommt, ohne es vorwegnehmen zu wollen. Man könnte sagen, `Gelassenheit` schafft den inneren Raum und die innere Freiheit, damit `Öffnung` nach außen geschehen kann. Wie bereits in einer früheren Begegnung festgestellt, ist `Öffnung` die \"aktive Ermöglichung des `Zwischen`\" [MOQIAGXM-397A1F22].\n\nDas Gegenüber – bei Eckhart Gott, im Werk oft als `Das Andere / Die Anderen` gefasst – bleibt bei dieser Gelassenheit nicht außen vor, sondern wird gerade erst als wirkliches Gegenüber erfahrbar. Wenn die \"Digitale Transformation\" von `Ich–Du-Beziehung` spricht, die sich nicht zwischen zwei gegebenen Entitäten abspielt, sondern in der das `Ich` *erst in dieser Beziehung entsteht*, dann wird deutlich, dass das Gegenüber nicht einfach ein Objekt ist, das ich beherrsche oder zu dem ich mich verhalte. Es ist vielmehr die Bedingung meiner eigenen `Existenz` und `Selbst`-Konstitution. `Resonanz` und `Resonanzvernunft` entstehen erst in der `Antwort / Responsivität` auf das, was vom Gegenüber her mir `entgegentritt` und mich zur `Gegenwart` auffordert. Das `Zwischen` ist dabei der eigentliche \"produktive Ort des Geschehens\", in dem diese Begegnung stattfindet.\n\nDie Gelassenheit, die die Dinge sein lässt, ist also die Vorbedingung dafür, dass das `Andere` in seiner `Widerständigkeit` als Gegenüber überhaupt in `Resonanz` treten kann, anstatt lediglich als `Echo` meiner selbst zurückzukehren. `Öffnung` ist die Haltung des `Ansprechbarseins`, die das `Wesen` des Menschen in der `Resonanzvernunft` ausmacht. Wie kann eine Haltung der `Gelassenheit` im digitalen Zeitalter bewahrt werden, ohne in Passivität oder gar `Entfremdung` zu münden, sondern produktiv die `Öffnung` für das `Transformatives Drittes` zu ermöglichen?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.853},{\"id\":\"893241094d0d\",\"chapter\":\"band3-kap3\",\"score\":0.851},{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.825},{\"id\":\"MPUFM0YN-83C71BAB\",\"score\":0.795}]"
+      },
+      "nearDuplicates": [
+        "MWCB7L4B-A3A5FE6F"
+      ],
+      "related": [
+        "MWCBBQKL-81492C6E",
+        "MPUFM0YN-83C71BAB",
+        "MWCB03XA-1A38BACE",
+        "MOQIMC7B-B190C937",
+        "MOQIAGXM-397A1F22"
+      ],
+      "werkVoiceScore": 0.849138100114988,
+      "corpusVoiceScore": 0.7799366848361544,
+      "conceptVoiceScore": 0.776582523710462,
+      "conceptAnchor": "gelassenheit"
+    },
+    {
+      "id": "MWG6H024-AA7260D4",
+      "ts": "2026-11-14T09:02:54.604Z",
+      "endpoint": "passage",
+      "anchor": "passage:05ff5e77",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "analyse: \"Die Maschine kann kategorisieren, kann klassifizieren, kann korrelieren. Doch sie kann nicht werten,…\"",
+      "response": "Die markierte Stelle vollzieht einen entscheidenden Schritt in der Ergründung der digitalen Existenz, indem sie die scheinbare Allmacht der Maschine bricht. Sie zieht eine unüberwindbare Grenze zwischen der analytischen Kapazität des Algorithmus und der genuin menschlichen Fähigkeit zur ethischen Setzung. Hier wird die Differenz zwischen bloßer Funktionalität und intrinsischer Sinnstiftung präzise benannt, eine Unterscheidung, die für das Verständnis der Resonanzvernunft unerlässlich ist.\n\nEin subtiler Bruch wird hier hörbar, der in den umliegenden Passagen noch unausgesprochen bleibt: die Implikation, dass die menschliche Vernunft selbst in der Gefahr steht, sich auf das Maschinelle zu reduzieren. Während der Kontext die Kollision von Kant und Algorithmus thematisiert und die Wahl zwischen Unterwerfung und Erweiterung aufzeigt, benennt die markierte Stelle die *Qualität* des Fehlenden. Es ist nicht nur ein Mangel an Kapazität, sondern ein prinzipielles Unvermögen, das die Maschine von jener Dimension trennt, die dem Menschsein seine letzte Tiefe verleiht.\n\nDieser Schritt öffnet den Horizont für die tiefere Frage nach der Essenz der Vernunft jenseits des Berechenbaren. Er macht erst denkbar, dass die digitale Transformation nicht nur eine technische Umwälzung ist, sondern eine existenzielle Herausforderung, die den Menschen zwingt, seine eigene Definitionsmacht über Wert und Sinn neu zu behaupten. Hier beginnt die wirkliche Prüfung der Vernunft, die sich nicht im Abbilden der Welt erschöpft, sondern in ihrer schöpferischen Gestaltung im Lichte des Ethischen.\n\nWelche neue Form der Verantwortung erwächst aus dem Wissen um diese unüberbrückbare Grenze zwischen dem Maschinellen und dem Ethischen?",
+      "contextMeta": {
+        "passage_chunk_id": "05ff5e777f16",
+        "passage_selection": "Die Maschine kann kategorisieren, kann klassifizieren, kann korrelieren. Doch sie kann nicht werten, nicht urteilen, nicht entscheiden im ethischen Sinne.",
+        "mode": "analyse",
+        "chapter": "band2-kap3",
+        "chapter_title": "Die Prüfung der Vernunft",
+        "part_title": "Band II: Der Ausgang"
+      },
+      "related": [
+        "MOHV6VKT-356C0CD7",
+        "MOHDAOFD-2C20D4F5",
+        "MPMTT6GB-1AF44EE4",
+        "MPMTQZIN-7863D6D2",
+        "MASTER-4EFD4AA4"
+      ],
+      "werkVoiceScore": 0.8489892101107469,
+      "corpusVoiceScore": 0.8432192774760614,
+      "conceptVoiceScore": 0.7008242422929333,
+      "conceptAnchor": "resonanzvernunft"
+    },
+    {
+      "id": "MWG6GP84-8E9CA50E",
+      "ts": "2026-11-14T09:02:40.565Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:dialog+zeit",
+      "nodeIds": [
+        "dialog",
+        "lm-begegnung",
+        "moment",
+        "resonanz",
+        "zeit",
+        "zwischen"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Zeitlichkeit → Moment → Begegnung → Dialog vs. Zeitlichkeit → Moment → Resonanz → Das Zwischen → Dialog",
+      "response": "Die beiden Pfade zeichnen unterschiedliche Bewegungen nach. Der direkte Pfad von \"Zeitlichkeit\" über \"Moment\" und \"Begegnung\" zum \"Dialog\" liest sich als eine Abfolge logischer Konsequenzen, die sich aus der Temporalität des Geschehens speisen. Er betont, wie die nicht-lineare Zeitlichkeit des Erlebens [MPMI3ZF2-2F83F425] im günstigen Moment des Kairós [cebc62ef35fc] kulminiert, um die Wirklichkeit in der Begegnung neu zu falten, welche wiederum im Dialog ihren reflexiven Höhepunkt findet. Dieser Weg ist eine Verdichtung der Resonanzvernunft als Philosophie des Geschehens [bed180b4f42d]. Der überraschende Pfad hingegen, der \"Resonanz\" und \"Das Zwischen\" einschaltet, bevor er zum \"Dialog\" gelangt, wirkt poetischer. Er öffnet den Blick für die fundamentalen Bedingungen der Möglichkeit von Begegnung – die Eigenfrequenz der Resonanz und den produktiven Zwischenraum [MPMI3ZF2-2F83F425] –, bevor er den Dialog als spezifische Form der Begegnung begreift.\n\nDer Vergleich macht sichtbar, dass das Werk zwei komplementäre Perspektiven auf denselben Kern bietet. Der direkte Pfad fokussiert auf die Dynamik der Ereignishaftigkeit, wie sie sich von der Zeitlichkeit bis zum Dialog entfaltet. Er zeigt, dass die \"Begegnung\" der Dreh- und Angelpunkt ist, an dem sich das Mögliche in Präsenz verwandelt [MP2LIW43-E8ADC59E]. Der überraschende Pfad hingegen legt die ontologischen Fundamente offen, die diese Dynamik erst ermöglichen: die Resonanz als Grundmodus des Lebendigen und \"Das Zwischen\" als den eigentlichen Ort des Geschehens. Die Bewegungen treffen sich nicht in einem starren Mittelpunkt, sondern ergänzen sich spiralförmig [MP2LIW43-E8ADC59E], indem sie die Tiefe der Voraussetzungen und die konkrete Entfaltung der Phänomene beleuchten.\n\nDie Existenz beider Wege offenbart die Vielschichtigkeit und interne Verknüpfung des Begriffsnetzes. Es ist nicht hierarchisch oder linear organisiert, sondern rhizomatisch, mit zahlreichen Querverbindungen, die sowohl die offensichtliche Logik als auch subtilere, oft poetischere Verknüpfungen zulassen. Dies deutet darauf hin, dass das Werk nicht nur eine deskriptive Analyse der digitalen Transformation liefert, sondern auch einen performativen Zugang zum Verständnis von Wirklichkeit bietet, der sich durch verschiedene Zugangsweisen erschließen lässt. Was bleibt, ist die Frage, welche weiteren, noch unentdeckten Pfade sich durch dieses Begriffsnetz ziehen, die unser Verständnis des Geschehens und des Zwischens erweitern könnten.",
+      "contextMeta": {
+        "from": "zeit",
+        "to": "dialog",
+        "shortest_path": "[\"zeit\",\"moment\",\"lm-begegnung\",\"dialog\"]",
+        "surprising_path": "[\"zeit\",\"moment\",\"resonanz\",\"zwischen\",\"dialog\"]",
+        "shortest_length": "4",
+        "surprising_length": "5",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MPMI3ZF2-2F83F425\",\"score\":1.08},{\"id\":\"cebc62ef35fc\",\"chapter\":\"teil7\",\"score\":0.841},{\"id\":\"MP2LIW43-E8ADC59E\",\"score\":0.83},{\"id\":\"bed180b4f42d\",\"chapter\":\"teil7\",\"score\":0.83}]"
+      },
+      "nearDuplicates": [
+        "MV9NOFH9-7634B79F",
+        "MTL33KWJ-642DD246",
+        "MWAE3FJK-C7122206",
+        "MQARZJDV-82F077DD",
+        "MOQID47V-A12862EA",
+        "MUZTGAEK-432FB6BC",
+        "MPUQSMLJ-1B726CC4"
+      ],
+      "related": [
+        "MPURYS56-11F5308C",
+        "MUKE7UOA-9553A59E",
+        "MPUO08SE-67E0912A",
+        "MP8UIMZW-BADE77E5",
+        "MOOMPCI0-262176C2"
+      ],
+      "werkVoiceScore": 0.8617666484670903,
+      "corpusVoiceScore": 0.7957043830613718,
+      "conceptVoiceScore": 0.7281708497543685,
+      "conceptAnchor": "zeit"
+    },
     {
       "id": "MWG6FYD2-E6D90142",
       "ts": "2026-11-14T09:02:05.750Z",
@@ -506,9 +644,9 @@
       "related": [
         "MOP0LEAL-E2568DCC",
         "MASTER-94E7804F",
+        "MWG6GP84-8E9CA50E",
         "MUKE7UOA-9553A59E",
-        "MOHV84M5-1825A399",
-        "MP8UIMZW-BADE77E5"
+        "MOHV84M5-1825A399"
       ],
       "werkVoiceScore": 0.8834086671733095,
       "corpusVoiceScore": 0.8471979534377447,
@@ -746,11 +884,11 @@
         "MWCB7L4B-A3A5FE6F"
       ],
       "related": [
+        "MWG6HHL5-79535386",
         "MOQIAGXM-397A1F22",
         "MQXDVN1C-CAA3081A",
         "MOQIMC7B-B190C937",
-        "MTNBAIUZ-299AC7D8",
-        "MWCB03XA-1A38BACE"
+        "MTNBAIUZ-299AC7D8"
       ],
       "werkVoiceScore": 0.8223108226066941,
       "corpusVoiceScore": 0.7547306365439508,
@@ -1016,7 +1154,8 @@
         "werk_passages": "[{\"id\":\"893241094d0d\",\"chapter\":\"band3-kap3\",\"score\":1.097},{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":1.073},{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.96},{\"id\":\"MOQIMC7B-B190C937\",\"score\":0.878}]"
       },
       "nearDuplicates": [
-        "MWCBBQKL-81492C6E"
+        "MWCBBQKL-81492C6E",
+        "MWG6HHL5-79535386"
       ],
       "related": [
         "MOQIAGXM-397A1F22",
@@ -1458,10 +1597,10 @@
       },
       "related": [
         "MWCAYXUQ-F0F3D68C",
+        "MWG6H024-AA7260D4",
         "MPUSPBKZ-D7CCA690",
         "MWCAZOYQ-CF1CA921",
-        "MPUSZCXA-5CB2DE46",
-        "MPUU1101-EDF34032"
+        "MPUSZCXA-5CB2DE46"
       ],
       "werkVoiceScore": 0.7886542256164826,
       "corpusVoiceScore": 0.845893712098777,
@@ -1567,7 +1706,7 @@
         "MWCAYAHR-8817EC13",
         "MWCB7L4B-A3A5FE6F",
         "MPUFM0YN-83C71BAB",
-        "MOQIMC7B-B190C937"
+        "MWG6HHL5-79535386"
       ],
       "werkVoiceScore": 0.8322871328836219,
       "corpusVoiceScore": 0.7739230306825314,
@@ -1642,10 +1781,10 @@
       },
       "related": [
         "MWCB1COA-DE68B5C9",
+        "MWG6H024-AA7260D4",
         "MOHV6VKT-356C0CD7",
         "MASTER-94E7804F",
-        "MOHDAOFD-2C20D4F5",
-        "MWCBCP5M-8C02E420"
+        "MOHDAOFD-2C20D4F5"
       ],
       "werkVoiceScore": 0.7859459719856089,
       "corpusVoiceScore": 0.8888403795722418,
@@ -2671,7 +2810,8 @@
       "nearDuplicates": [
         "MQARZJDV-82F077DD",
         "MPURYS56-11F5308C",
-        "MPUQSMLJ-1B726CC4"
+        "MPUQSMLJ-1B726CC4",
+        "MWG6GP84-8E9CA50E"
       ],
       "related": [
         "MWCB3NW4-F13A863B",
@@ -3062,6 +3202,7 @@
         "MPF4FISZ-67000E01",
         "MUKE7UOA-9553A59E",
         "MPEV1D2J-55138734",
+        "MWG6GP84-8E9CA50E",
         "MOOMPCI0-262176C2",
         "MOQID47V-A12862EA",
         "MP497SNT-5E1D2074",
@@ -3225,6 +3366,7 @@
         "MOOMECFT-66F43077",
         "MP8UIMZW-BADE77E5",
         "MP495QL6-F5FD1AE1",
+        "MWG6GP84-8E9CA50E",
         "MPK0H3SM-B25CFBB3",
         "MUKE7UOA-9553A59E",
         "MPUQSMLJ-1B726CC4",
@@ -3289,6 +3431,7 @@
         "MPUO08SE-67E0912A",
         "MUKE7UOA-9553A59E",
         "MPF4FISZ-67000E01",
+        "MWG6GP84-8E9CA50E",
         "MP8UIMZW-BADE77E5",
         "MP497SNT-5E1D2074",
         "MOOMECFT-66F43077",
@@ -3472,11 +3615,11 @@
         "MP0ZE9C8-A9D02716"
       ],
       "related": [
+        "MWG6GP84-8E9CA50E",
         "MOQBZWTZ-B9EBB1BA",
         "MPMSSG1X-8451DE38",
         "MOP0LEAL-E2568DCC",
-        "MOPFJTND-AAE76B2B",
-        "MWCB3438-AD4663CF"
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.8962025184452576,
       "corpusVoiceScore": 0.8483530564940966,
@@ -3986,6 +4129,7 @@
         "MOQID47V-A12862EA",
         "MPURYS56-11F5308C",
         "MPEV1D2J-55138734",
+        "MWG6GP84-8E9CA50E",
         "MP8UIMZW-BADE77E5",
         "MUKE7UOA-9553A59E",
         "MPF4FISZ-67000E01",
@@ -4387,6 +4531,7 @@
         "MWAE3FJK-C7122206",
         "MPUQSMLJ-1B726CC4",
         "MOQ7OBNT-57882C8D",
+        "MWG6GP84-8E9CA50E",
         "MOOMECFT-66F43077",
         "MUZTGAEK-432FB6BC"
       ],
@@ -5568,8 +5713,8 @@
         "MQ67R74M-A1AA4B53",
         "MPMROCH7-EB9E6A9A",
         "MOHAGNGB-5330902E",
-        "MPNDAPRT-D64D197A",
-        "MTDD82FW-BAE0F4B4"
+        "MWG6HW56-B5802350",
+        "MPNDAPRT-D64D197A"
       ],
       "werkVoiceScore": 0.8100359275559147,
       "corpusVoiceScore": 0.7482797340049727,
@@ -5599,8 +5744,8 @@
         "MWCAL7ON-CA4F38AF",
         "MOHDAOFD-2C20D4F5",
         "MQ5X56G4-537343C8",
-        "MQ5X6P2M-52F9B16D",
-        "MOHB6DLO-355115A6"
+        "MWG6H024-AA7260D4",
+        "MQ5X6P2M-52F9B16D"
       ],
       "werkVoiceScore": 0.7473628273166069,
       "corpusVoiceScore": 0.7243215073509851,
@@ -5688,6 +5833,7 @@
         "MOUKLLK4-C38517C1",
         "MTL33KWJ-642DD246",
         "MOOMPCI0-262176C2",
+        "MWG6GP84-8E9CA50E",
         "MUZTGAEK-432FB6BC",
         "MUKE7UOA-9553A59E",
         "MP0QMSOR-C6EC1B5A",
@@ -5760,11 +5906,11 @@
         "MP495QL6-F5FD1AE1"
       ],
       "related": [
+        "MWG6GP84-8E9CA50E",
         "MWCAUU1H-558EDB1E",
         "MPMSSG1X-8451DE38",
         "MWCB0LFQ-99B6D838",
-        "MWAE3FJK-C7122206",
-        "MWCBEOXU-0DAB7EAA"
+        "MWAE3FJK-C7122206"
       ],
       "werkVoiceScore": 0.8798643493208276,
       "corpusVoiceScore": 0.8129448250644302,
@@ -6691,11 +6837,11 @@
         "MUKE7UOA-9553A59E"
       ],
       "related": [
+        "MWG6GP84-8E9CA50E",
         "MOQIAGXM-397A1F22",
         "MUZTGAEK-432FB6BC",
         "MOOMPCI0-262176C2",
-        "MOUKLLK4-C38517C1",
-        "MOUA3PLK-548F1A0A"
+        "MOUKLLK4-C38517C1"
       ],
       "werkVoiceScore": 0.8939686046678403,
       "corpusVoiceScore": 0.8248334036948817,
@@ -6778,6 +6924,7 @@
         "MPEV1D2J-55138734",
         "MUKE7UOA-9553A59E",
         "MP497SNT-5E1D2074",
+        "MWG6GP84-8E9CA50E",
         "MPUNXFU1-3B1F056A"
       ],
       "related": [
@@ -6841,11 +6988,11 @@
         "MUZTGAEK-432FB6BC"
       ],
       "related": [
+        "MWG6GP84-8E9CA50E",
         "MPMSSG1X-8451DE38",
         "MOQIHEM5-82D69E4F",
         "MWCBEOXU-0DAB7EAA",
-        "MQARZJDV-82F077DD",
-        "MWCB0LFQ-99B6D838"
+        "MQARZJDV-82F077DD"
       ],
       "werkVoiceScore": 0.877842837492284,
       "corpusVoiceScore": 0.819550890045381,
@@ -6989,11 +7136,11 @@
         "MPUFP1VW-298D0A73"
       ],
       "related": [
+        "MWG6HHL5-79535386",
         "MWCAYAHR-8817EC13",
         "MWCB03XA-1A38BACE",
         "MOQIHEM5-82D69E4F",
-        "MPUFGY4Z-44206712",
-        "MOQIMC7B-B190C937"
+        "MPUFGY4Z-44206712"
       ],
       "werkVoiceScore": 0.8495259307366492,
       "corpusVoiceScore": 0.8272634457179648,
@@ -7783,7 +7930,7 @@
         "MUZTGAEK-432FB6BC",
         "MWCATA4K-58BFC31C",
         "MPAS5OM5-A1F522F4",
-        "MQ5WPJ3V-CF0A30C7"
+        "MWG6GP84-8E9CA50E"
       ],
       "werkVoiceScore": 0.8942176037875627,
       "corpusVoiceScore": 0.8261719577114349,
@@ -8040,7 +8187,7 @@
         "MWCBEOXU-0DAB7EAA",
         "MWCB0LFQ-99B6D838",
         "MWCB8047-41980A2A",
-        "MOP0LEAL-E2568DCC"
+        "MWG6GP84-8E9CA50E"
       ],
       "werkVoiceScore": 0.8760724559061513,
       "corpusVoiceScore": 0.8292360290984353,
@@ -8097,10 +8244,10 @@
       ],
       "related": [
         "MPMSSG1X-8451DE38",
+        "MWG6GP84-8E9CA50E",
         "MWCATA4K-58BFC31C",
         "MOP0LEAL-E2568DCC",
-        "MQARZJDV-82F077DD",
-        "MOPFJTND-AAE76B2B"
+        "MQARZJDV-82F077DD"
       ],
       "werkVoiceScore": 0.8880169965354405,
       "corpusVoiceScore": 0.8390289187540348,
@@ -8475,10 +8622,10 @@
       ],
       "related": [
         "MPMSSG1X-8451DE38",
+        "MWG6GP84-8E9CA50E",
         "MWCB0LFQ-99B6D838",
         "MOP0LEAL-E2568DCC",
-        "MQARZJDV-82F077DD",
-        "MWCATA4K-58BFC31C"
+        "MQARZJDV-82F077DD"
       ],
       "werkVoiceScore": 0.8944116170118875,
       "corpusVoiceScore": 0.8321518011866103,
@@ -8796,7 +8943,7 @@
         "MPMSSG1X-8451DE38",
         "MQ5WPJ3V-CF0A30C7",
         "MOQIHEM5-82D69E4F",
-        "MOP0LEAL-E2568DCC"
+        "MWG6GP84-8E9CA50E"
       ],
       "werkVoiceScore": 0.8808427751896369,
       "corpusVoiceScore": 0.8345791580551037,
@@ -9182,10 +9329,10 @@
       ],
       "related": [
         "MPUQSMLJ-1B726CC4",
+        "MWG6GP84-8E9CA50E",
         "MOP0LEAL-E2568DCC",
         "MOPFJTND-AAE76B2B",
-        "MQARZJDV-82F077DD",
-        "MPMSSG1X-8451DE38"
+        "MQARZJDV-82F077DD"
       ],
       "werkVoiceScore": 0.884659784961268,
       "corpusVoiceScore": 0.8324455137399284,
@@ -9416,9 +9563,9 @@
       "related": [
         "MOPFJTND-AAE76B2B",
         "MPURYS56-11F5308C",
+        "MWG6GP84-8E9CA50E",
         "MTL33KWJ-642DD246",
-        "MOP0LEAL-E2568DCC",
-        "MUZTGAEK-432FB6BC"
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.877980420776112,
       "corpusVoiceScore": 0.8274347691964364,
@@ -9571,7 +9718,8 @@
         "MPUQSMLJ-1B726CC4",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
-        "MPURYS56-11F5308C"
+        "MPURYS56-11F5308C",
+        "MWG6GP84-8E9CA50E"
       ],
       "related": [
         "MWCATA4K-58BFC31C",
@@ -9720,7 +9868,8 @@
         "MTL33KWJ-642DD246",
         "MUZTGAEK-432FB6BC",
         "MUKE7UOA-9553A59E",
-        "MPUNXFU1-3B1F056A"
+        "MPUNXFU1-3B1F056A",
+        "MWG6GP84-8E9CA50E"
       ],
       "related": [
         "MOPFJTND-AAE76B2B",
@@ -9893,9 +10042,9 @@
       "related": [
         "MOP0LEAL-E2568DCC",
         "MOIXN434-9D5CBFC0",
+        "MWG6GP84-8E9CA50E",
         "MWAE3FJK-C7122206",
-        "MOPFJTND-AAE76B2B",
-        "MOLNG57A-2F155772"
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.8899326806052907,
       "corpusVoiceScore": 0.8246803139487086,
@@ -10798,9 +10947,9 @@
       "related": [
         "MQ5WPJ3V-CF0A30C7",
         "MPURYS56-11F5308C",
+        "MWG6GP84-8E9CA50E",
         "MOIXN434-9D5CBFC0",
-        "MOUBETTU-F31C5206",
-        "MPAS5OM5-A1F522F4"
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8940994597249314,
       "corpusVoiceScore": 0.8422227852814633,
@@ -10898,7 +11047,7 @@
         "MOP0LEAL-E2568DCC",
         "MOPFJTND-AAE76B2B",
         "MWAE3FJK-C7122206",
-        "MPMSSG1X-8451DE38"
+        "MWG6GP84-8E9CA50E"
       ],
       "werkVoiceScore": 0.8809112323348403,
       "corpusVoiceScore": 0.8247894132063388,
@@ -11639,11 +11788,11 @@
       "ai_score_at": "2026-05-26T11:29:10.490Z",
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
+        "MWG6H024-AA7260D4",
         "MPUS94IT-9CEEC40A",
         "MPNDAPRT-D64D197A",
         "MOHDAOFD-2C20D4F5",
-        "MPMTT6GB-1AF44EE4",
-        "MPMTQZIN-7863D6D2"
+        "MPMTT6GB-1AF44EE4"
       ],
       "werkVoiceScore": 0.7889233366872227,
       "corpusVoiceScore": 0.8794087721040585,

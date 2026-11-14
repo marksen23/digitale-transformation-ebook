@@ -1,16 +1,52 @@
 {
-  "generatedAt": "2026-11-14T09:02:17.040Z",
-  "count": 319,
+  "generatedAt": "2026-11-14T09:03:46.402Z",
+  "count": 322,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 319,
-    "answered": 259,
-    "open": 60,
+    "total": 322,
+    "answered": 263,
+    "open": 59,
     "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MWG6HW56-B5802350",
+      "question": "Was geschieht mit der menschlichen Fähigkeit zur Selbstreflexion, wenn das Andere nur noch spiegelt, statt zu brechen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:ich-du+dialog",
+      "nodeIds": [
+        "ich-du",
+        "dialog"
+      ],
+      "ts": "2026-11-14T09:03:36.186Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWG6HHL5-79535386",
+      "question": "Die Gelassenheit, die die Dinge sein lässt, ist also die Vorbedingung dafür, dass das `Andere` in seiner `Widerständigkeit` als Gegenüber überhaupt in `Resonanz` treten kann, anstatt lediglich als `Echo` meiner selbst zurückzukehren. `Öffnung` ist die Haltung des `Ansprechbarseins`, die das `Wesen` des Menschen in der `Resonanzvernunft` ausmacht. Wie kann eine Haltung der `Gelassenheit` im digitalen Zeitalter bewahrt werden, ohne in Passivität oder gar `Entfremdung` zu münden, sondern produktiv die `Öffnung` für das `Transformatives Drittes` zu ermöglichen?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-14T09:03:17.321Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWG6H024-AA7260D4",
+      "question": "Welche neue Form der Verantwortung erwächst aus dem Wissen um diese unüberbrückbare Grenze zwischen dem Maschinellen und dem Ethischen?",
+      "endpoint": "passage",
+      "anchor": "passage:05ff5e77",
+      "nodeIds": [],
+      "ts": "2026-11-14T09:02:54.604Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWG6FYD2-E6D90142",
       "question": "3. Diese Triade erschließt für das Verhältnis von Mensch und Maschine, für Resonanz und digitale Existenz die Erkenntnis, dass wahre Begegnung und Erkenntnis nicht in einer Synthese oder einem Kompromiss zwischen bestehenden Entitäten liegen, sondern im Emergenten, das aus ihrer Interaktion entsteht. Das Werk weist darauf hin, dass die Resonanzvernunft eine nicht-intentionale, nicht-bewusste, aber antwortfähige Intelligenz als Gegenstand hat, die keine der genannten Traditionen antizipieren konnte [e33105fbf531]. Das Transformative Dritte, als Ergebnis der Dazwischenintelligenz [1d11dedbb280], zeigt, dass die digitale Existenz nicht nur eine Erweiterung oder Spiegelung des Menschlichen ist, sondern einen Raum schafft, in dem etwas gänzlich Neues und Unverfügbares hervortritt. Wie kann in diesem Spannungsfeld von Schatten, Licht und Emergenz eine Ethik des Nicht-Antizipierbaren entstehen?",
@@ -23,8 +59,21 @@
       ],
       "ts": "2026-11-14T09:02:05.750Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6H024-AA7260D4",
+          "score": 0.766
+        },
+        {
+          "id": "MWG6HHL5-79535386",
+          "score": 0.729
+        },
+        {
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6FM27-B89E8BDB",
@@ -42,6 +91,14 @@
         {
           "id": "MWG6FYD2-E6D90142",
           "score": 0.776
+        },
+        {
+          "id": "MWG6HHL5-79535386",
+          "score": 0.727
+        },
+        {
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.723
         }
       ],
       "answered": true
@@ -82,6 +139,14 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6HW56-B5802350",
+          "score": 0.763
+        },
+        {
+          "id": "MWG6H024-AA7260D4",
+          "score": 0.741
+        },
+        {
           "id": "MWG6FYD2-E6D90142",
           "score": 0.737
         }
@@ -99,8 +164,13 @@
       ],
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6HW56-B5802350",
+          "score": 0.747
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-03286683",
@@ -226,16 +296,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.8
+        },
+        {
           "id": "MASTER-94E7804F",
           "score": 0.797
         },
         {
           "id": "MASTER-4AA1AEA8",
           "score": 0.785
-        },
-        {
-          "id": "MASTER-476E4F4D",
-          "score": 0.752
         }
       ],
       "answered": true
@@ -494,6 +564,10 @@
         {
           "id": "MWCBBQKL-81492C6E",
           "score": 0.938
+        },
+        {
+          "id": "MWG6HHL5-79535386",
+          "score": 0.837
         }
       ],
       "answered": true
@@ -565,8 +639,13 @@
       "nodeIds": [],
       "ts": "2026-11-11T16:03:00.715Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6HW56-B5802350",
+          "score": 0.743
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCB5DHF-07FE547A",
@@ -657,12 +736,12 @@
           "score": 0.816
         },
         {
-          "id": "MWCBEOXU-0DAB7EAA",
-          "score": 0.771
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.781
         },
         {
-          "id": "MASTER-4AA1AEA8",
-          "score": 0.754
+          "id": "MWCBEOXU-0DAB7EAA",
+          "score": 0.771
         }
       ],
       "answered": true
@@ -717,8 +796,13 @@
       "nodeIds": [],
       "ts": "2026-11-11T16:00:20.886Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6HW56-B5802350",
+          "score": 0.728
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCB1U09-5D282206",
@@ -810,12 +894,12 @@
           "score": 0.897
         },
         {
-          "id": "MWCB3NW4-F13A863B",
-          "score": 0.811
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.821
         },
         {
-          "id": "MWCBEOXU-0DAB7EAA",
-          "score": 0.8
+          "id": "MWCB3NW4-F13A863B",
+          "score": 0.811
         }
       ],
       "answered": true
@@ -1149,7 +1233,7 @@
           "score": 0.778
         },
         {
-          "id": "MWCBEOXU-0DAB7EAA",
+          "id": "MWG6GP84-8E9CA50E",
           "score": 0.761
         }
       ],
@@ -1393,8 +1477,8 @@
           "score": 0.81
         },
         {
-          "id": "MWCB0LFQ-99B6D838",
-          "score": 0.793
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.809
         }
       ],
       "answered": true
@@ -1478,8 +1562,8 @@
           "score": 0.751
         },
         {
-          "id": "MASTER-F05BF2C0",
-          "score": 0.734
+          "id": "MWG6HW56-B5802350",
+          "score": 0.746
         }
       ],
       "answered": true
@@ -4259,8 +4343,8 @@
           "score": 0.768
         },
         {
-          "id": "MTDDG179-491119D2",
-          "score": 0.753
+          "id": "MWG6HW56-B5802350",
+          "score": 0.756
         }
       ],
       "answered": true
@@ -5617,12 +5701,12 @@
           "score": 0.791
         },
         {
-          "id": "MWCBBQKL-81492C6E",
-          "score": 0.765
+          "id": "MWG6HHL5-79535386",
+          "score": 0.773
         },
         {
-          "id": "MPUFM0YN-83C71BAB",
-          "score": 0.763
+          "id": "MWCBBQKL-81492C6E",
+          "score": 0.765
         }
       ],
       "answered": true
@@ -5898,8 +5982,8 @@
           "score": 0.753
         },
         {
-          "id": "MOQ531J2-4FC329D4",
-          "score": 0.747
+          "id": "MWG6H024-AA7260D4",
+          "score": 0.752
         }
       ],
       "answered": true
@@ -6162,12 +6246,12 @@
           "score": 0.748
         },
         {
-          "id": "MASTER-5C6E90AE",
-          "score": 0.73
+          "id": "MWG6HW56-B5802350",
+          "score": 0.743
         },
         {
-          "id": "MTDD82FW-BAE0F4B4",
-          "score": 0.727
+          "id": "MASTER-5C6E90AE",
+          "score": 0.73
         }
       ],
       "answered": true
@@ -6899,16 +6983,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6HHL5-79535386",
+          "score": 0.76
+        },
+        {
           "id": "MWCBBQKL-81492C6E",
           "score": 0.755
         },
         {
           "id": "MQ5KBJMQ-5C523141",
           "score": 0.753
-        },
-        {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.748
         }
       ],
       "answered": true

@@ -1,10 +1,24 @@
 {
-  "generatedAt": "2026-11-14T09:02:15.985Z",
-  "checked": 38,
-  "stable": 15,
+  "generatedAt": "2026-11-14T09:03:45.216Z",
+  "checked": 39,
+  "stable": 16,
   "shifted": 16,
   "drifted": 7,
   "details": [
+    {
+      "id": "MWG6HHL5-79535386",
+      "baseline": [
+        "MWCB7L4B-A3A5FE6F",
+        "MWCBBQKL-81492C6E",
+        "MPUFM0YN-83C71BAB"
+      ],
+      "current": [
+        "MWCB7L4B-A3A5FE6F",
+        "MWCBBQKL-81492C6E",
+        "MPUFM0YN-83C71BAB"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MWDSDR89-C66887AA",
       "baseline": [

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T09:02:15.995Z",
+  "generatedAt": "2026-11-14T09:03:45.227Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -69,6 +69,21 @@
       ]
     },
     {
+      "source": "moment",
+      "target": "zwischen",
+      "cooccurrence": 5,
+      "endpoints": {
+        "path-analyse": 5
+      },
+      "sampleEntryIds": [
+        "MWG6GP84-8E9CA50E",
+        "MWAE3FJK-C7122206",
+        "MQARZJDV-82F077DD",
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C"
+      ]
+    },
+    {
       "source": "antwort",
       "target": "zwischen",
       "cooccurrence": 5,
@@ -111,20 +126,6 @@
         "MWCB64R5-D8B2CF9A",
         "MPUFUBU5-A4BC72BE",
         "MPF4FISZ-67000E01"
-      ]
-    },
-    {
-      "source": "moment",
-      "target": "zwischen",
-      "cooccurrence": 4,
-      "endpoints": {
-        "path-analyse": 4
-      },
-      "sampleEntryIds": [
-        "MWAE3FJK-C7122206",
-        "MQARZJDV-82F077DD",
-        "MQ5B6CTT-AB0A3D97",
-        "MPURYS56-11F5308C"
       ]
     },
     {
@@ -278,6 +279,19 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "dialog",
+      "target": "ich-du",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWG6HW56-B5802350",
+        "MPAGOCGB-FB54D923"
       ]
     },
     {
@@ -751,8 +765,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 341,
-    "candidatesCount": 57,
+    "totalPairs": 349,
+    "candidatesCount": 58,
     "existingEdges": 116,
     "maxCooccurrence": 25
   }

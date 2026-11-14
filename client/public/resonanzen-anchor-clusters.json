@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T09:02:17.126Z",
+  "generatedAt": "2026-11-14T09:03:46.510Z",
   "clusters": [
     {
       "anchor": "dialog:erkenntnis+lm-verwandlung",
@@ -231,7 +231,7 @@
     }
   ],
   "stats": {
-    "totalAnchors": 187,
+    "totalAnchors": 190,
     "withMultipleVariants": 16,
     "withMaster": 16,
     "staleMasters": 0
