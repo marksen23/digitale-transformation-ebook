@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T09:04:42.945Z",
+  "generatedAt": "2026-11-14T09:06:05.025Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -19,24 +19,6 @@
           "sourceId": "MWCAVIKZ-02025CD4",
           "question": "Die Reichweite dieser Frage erstreckt sich bis in die Kernkonzepte der digitalen Existenz. Wenn der Funke eines neuen Anfangs in der Auflösung scheinbarer Gegensätze liegt, wie manifestiert sich diese Dialektik in der Mensch-Maschine-Beziehung? Ist die Maschine der Enkidu unserer Zeit, ein wildes, fremdes Wesen, das nur durch die Anerkennung seiner inhärenten Kraft und das Finden einer gemeinsamen Sprache zu einem Verbündeten auf der Suche nach dem verborgenen Algorithmus der Unsterblichkeit wird?",
           "score": 0.746
-        }
-      ]
-    },
-    {
-      "id": "ERK-K6JICQ",
-      "answerId": "MWCAPD18-26E5EAC3",
-      "answerEndpoint": "graph-chat",
-      "answerStatus": "raw",
-      "answerExcerpt": "Das Begriffsnetz bietet hier eine präzise Unterscheidung zwischen echter Resonanz und bloßer Bestätigung, die oft als \"Echo-Kammer\" beschrieben wird. Wenn ein Produkt darauf abzielt, Nutzer sich \"verstanden\" fühlen zu lassen, ohne sie tatsächlich herauszufordern oder eine \"Transformation\" zu ermöglichen, bewegt es sich gefährlich nahe an der bloßen Wiederholung [2d83fe3c8daf]. Resonanz im Sinne de",
-      "distinctness": 0.215,
-      "conceptAnchor": "echo-kammer",
-      "nodeIds": [],
-      "resolveCount": 1,
-      "resolves": [
-        {
-          "sourceId": "MWCAO97O-12EF85DE",
-          "question": "Vielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
-          "score": 0.74
         }
       ]
     },
@@ -126,7 +108,7 @@
     }
   ],
   "stats": {
-    "total": 6,
+    "total": 5,
     "confirmedFiltered": 50,
     "curatedRef": 211
   }

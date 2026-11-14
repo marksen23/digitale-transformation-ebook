@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-14T09:04:35.744Z",
-  "filesChecked": 376,
+  "generatedAt": "2026-11-14T09:05:57.823Z",
+  "filesChecked": 381,
   "errors": 0,
-  "warnings": 46,
+  "warnings": 47,
   "issues": [
     {
       "level": "warning",
@@ -204,6 +204,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/resonanzimperativ+transaufklaerung/2026-11-14-MWG6K2GK-71CA57FA.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected ea47fac19409212f, computed 7b0d28c960182806 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
       "rule": "content-hash-mismatch",
       "detail": "expected e48a72c68ccd4265, computed 0271ad49cdc26452 — Tampering oder nachträgliche Edit?"
@@ -283,10 +289,10 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 90,
-      "chapter": 54,
-      "dialog": 46,
-      "path-analyse": 56,
+      "analyse": 91,
+      "chapter": 55,
+      "dialog": 48,
+      "path-analyse": 57,
       "enkidu": 66,
       "graph-chat": 45,
       "passage": 13,
@@ -294,7 +300,7 @@
     },
     "byStatus": {
       "published": 161,
-      "raw": 137,
+      "raw": 142,
       "rejected": 24,
       "approved": 54
     },

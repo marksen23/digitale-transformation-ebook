@@ -1,16 +1,64 @@
 {
-  "generatedAt": "2026-11-14T09:04:42.882Z",
-  "count": 325,
+  "generatedAt": "2026-11-14T09:06:04.913Z",
+  "count": 328,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 325,
-    "answered": 264,
-    "open": 61,
+    "total": 328,
+    "answered": 271,
+    "open": 57,
     "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MWG6K2GK-71CA57FA",
+      "question": "Ist die eigentliche Kunst des Resonanzimperativs also nicht das Vermeiden des Scheiterns, sondern das bewusste Eintreten in dessen transformierendes Potenzial?",
+      "endpoint": "dialog",
+      "anchor": "dialog:resonanzimperativ+transaufklaerung",
+      "nodeIds": [
+        "resonanzimperativ",
+        "transaufklaerung"
+      ],
+      "ts": "2026-11-14T09:05:17.684Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWG6JQJ5-54630303",
+      "question": "Doch ist diese Neukonstitution des Denkens im digitalen Dazwischen eine Befreiung in eine größere Verbundenheit oder die Auflösung des individuellen Geistes in einem algorithmischen Echo?",
+      "endpoint": "dialog",
+      "anchor": "dialog:schatten+licht",
+      "nodeIds": [
+        "schatten",
+        "licht"
+      ],
+      "ts": "2026-11-14T09:05:02.225Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWG6JE3B-DEC4B0CF",
+      "question": "Für das Verhältnis von Mensch und Maschine und die digitale Existenz erschließt diese Triade die Erkenntnis, dass die maschinelle Begegnung nicht nur latent vorhandenes Wissen expliziert, sondern aktiv neue Räume und Möglichkeiten schafft [05db68205d94]. Die digitale Existenz ist nicht nur ein Abbild der Weltfaltung, sondern aktiv an der Raumfaltung beteiligt, indem sie durch Simulation und Modellierung die Komplexion von Möglichkeiten vervielfältigt und durch resonante Bewertung die Selektion relevanter Möglichkeiten ermöglicht. Der Spielraum in der digitalen Welt ist dabei der Ort, an dem diese maschinellen Begegnungen stattfinden und durch die kontinuierliche Modifikation stabilisierter Strukturen neue Variationen hervorbringen. Wie gestaltet sich dieser digitale Spielraum, wenn die Begegnung selbst maschinell vermittelt wird?",
+      "endpoint": "analyse",
+      "anchor": "analyse:raum+raumfaltung+weltfaltung",
+      "nodeIds": [
+        "raum",
+        "raumfaltung",
+        "weltfaltung"
+      ],
+      "ts": "2026-11-14T09:04:46.104Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.742
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWG6IZQ5-889B7147",
       "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und Offenheit des Begriffsnetzes und des Werkes. Es ist kein lineares System, sondern ein dynamisches Feld möglicher Verknüpfungen, in dem auch unerwartete Bezüge Sinn stiften. Die Möglichkeit, über das Scheitern zum Wesen zu gelangen, deutet darauf hin, dass die grundlegende Seinsweise des Werks jene der Emergenz und Konstitution ist, wo im \"Raum, in dem noch nichts entschieden ist\" [74ca3a25fd5c] neue Bedeutungen entstehen können. Dies zeigt, dass das Werk nicht nur logische Kausalitäten abbildet, sondern auch poetische Einsichten freilegt, die das Menschsein in seiner ganzen Komplexität erfassen. Ist es die Fähigkeit des Scheiterns, die den Menschen in seiner Ansprechbarkeit erst vollends offenbart?",
@@ -24,8 +72,13 @@
       ],
       "ts": "2026-11-14T09:04:27.485Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.891
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6IMOZ-5252A380",
@@ -35,8 +88,13 @@
       "nodeIds": [],
       "ts": "2026-11-14T09:04:10.595Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.933
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6I8ZX-F0E5CD18",
@@ -46,8 +104,13 @@
       "nodeIds": [],
       "ts": "2026-11-14T09:03:52.845Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6JE3B-DEC4B0CF",
+          "score": 0.74
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6HW56-B5802350",
@@ -71,8 +134,13 @@
       "nodeIds": [],
       "ts": "2026-11-14T09:03:17.321Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.743
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6H024-AA7260D4",
@@ -99,16 +167,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.783
+        },
+        {
           "id": "MWG6H024-AA7260D4",
           "score": 0.766
         },
         {
-          "id": "MWG6IMOZ-5252A380",
-          "score": 0.743
-        },
-        {
-          "id": "MWG6HHL5-79535386",
-          "score": 0.729
+          "id": "MWG6KG0I-45A62667",
+          "score": 0.745
         }
       ],
       "answered": true
@@ -127,16 +195,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6JE3B-DEC4B0CF",
+          "score": 0.842
+        },
+        {
           "id": "MWG6FYD2-E6D90142",
           "score": 0.776
         },
         {
           "id": "MWG6I8ZX-F0E5CD18",
           "score": 0.755
-        },
-        {
-          "id": "MWG6HHL5-79535386",
-          "score": 0.727
         }
       ],
       "answered": true
@@ -177,16 +245,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.796
+        },
+        {
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.769
+        },
+        {
           "id": "MWG6HW56-B5802350",
           "score": 0.763
-        },
-        {
-          "id": "MWG6H024-AA7260D4",
-          "score": 0.741
-        },
-        {
-          "id": "MWG6FYD2-E6D90142",
-          "score": 0.737
         }
       ],
       "answered": true
@@ -206,6 +274,10 @@
         {
           "id": "MWG6HW56-B5802350",
           "score": 0.747
+        },
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.735
         }
       ],
       "answered": true
@@ -247,8 +319,13 @@
       ],
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.734
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-94E7804F",
@@ -286,8 +363,13 @@
       ],
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.72
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-53BE22D7",
@@ -316,6 +398,10 @@
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.733
+        },
         {
           "id": "MWG6IMOZ-5252A380",
           "score": 0.724
@@ -365,6 +451,10 @@
         {
           "id": "MASTER-F05BF2C0",
           "score": 0.774
+        },
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.728
         },
         {
           "id": "MASTER-4EFD4AA4",
@@ -668,7 +758,7 @@
           "score": 0.797
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
+          "id": "MWG6JQJ5-54630303",
           "score": 0.79
         }
       ],
@@ -707,11 +797,11 @@
           "score": 0.823
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.79
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.803
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
+          "id": "MWCBCP5M-8C02E420",
           "score": 0.79
         }
       ],
@@ -775,16 +865,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.859
+        },
+        {
           "id": "MWCB73AG-666D352F",
           "score": 0.816
         },
         {
           "id": "MWG6IZQ5-889B7147",
           "score": 0.802
-        },
-        {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.781
         }
       ],
       "answered": true
@@ -941,8 +1031,8 @@
           "score": 0.821
         },
         {
-          "id": "MWCB3NW4-F13A863B",
-          "score": 0.811
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.812
         }
       ],
       "answered": true
@@ -1012,8 +1102,8 @@
           "score": 0.784
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.768
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.779
         }
       ],
       "answered": true
@@ -1030,6 +1120,10 @@
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.728
+        },
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.726
         },
         {
           "id": "MASTER-4EFD4AA4",
@@ -1060,8 +1154,8 @@
           "score": 0.811
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.796
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.806
         }
       ],
       "answered": true
@@ -1136,12 +1230,12 @@
           "score": 0.762
         },
         {
-          "id": "MWG6EXJ2-158BEB76",
-          "score": 0.746
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.759
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.743
+          "id": "MWG6EXJ2-158BEB76",
+          "score": 0.746
         }
       ],
       "answered": true
@@ -1226,16 +1320,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.833
+        },
+        {
           "id": "MWCAYAHR-8817EC13",
           "score": 0.815
         },
         {
           "id": "MASTER-4EFD4AA4",
           "score": 0.802
-        },
-        {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.8
         }
       ],
       "answered": true
@@ -1383,7 +1477,7 @@
           "score": 0.801
         },
         {
-          "id": "MWCAU22M-CAE9A2F2",
+          "id": "MWG6K2GK-71CA57FA",
           "score": 0.791
         }
       ],
@@ -1427,16 +1521,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.751
+        },
+        {
           "id": "MASTER-44EE5BE7",
           "score": 0.748
         },
         {
           "id": "MWCASDSY-E712A809",
           "score": 0.745
-        },
-        {
-          "id": "MWCAPD18-26E5EAC3",
-          "score": 0.74
         }
       ],
       "answered": true
@@ -1564,6 +1658,10 @@
       "ts": "2026-11-06T22:28:40.902Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.726
+        },
         {
           "id": "MWCAWPA5-AB9A4F6A",
           "score": 0.72
@@ -2226,12 +2324,12 @@
           "score": 0.768
         },
         {
-          "id": "MV9NOFH9-7634B79F",
-          "score": 0.74
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.76
         },
         {
-          "id": "MUZTGAEK-432FB6BC",
-          "score": 0.737
+          "id": "MV9NOFH9-7634B79F",
+          "score": 0.74
         }
       ],
       "answered": true
@@ -2674,8 +2772,8 @@
           "score": 0.767
         },
         {
-          "id": "MWCB8047-41980A2A",
-          "score": 0.751
+          "id": "MWG6KG0I-45A62667",
+          "score": 0.759
         }
       ],
       "answered": true
@@ -2695,6 +2793,10 @@
         {
           "id": "MQ5XJ3VO-378AA1AB",
           "score": 0.836
+        },
+        {
+          "id": "MWG6KG0I-45A62667",
+          "score": 0.738
         }
       ],
       "answered": true
@@ -3372,12 +3474,12 @@
           "score": 0.778
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.763
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.772
         },
         {
-          "id": "MWCB2NN3-B5D0CDE0",
-          "score": 0.757
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.763
         }
       ],
       "answered": true
@@ -3612,8 +3714,8 @@
           "score": 0.743
         },
         {
-          "id": "MPUTKZI1-F10F9444",
-          "score": 0.738
+          "id": "MWG6K2GK-71CA57FA",
+          "score": 0.74
         }
       ],
       "answered": true

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T09:04:41.991Z",
+  "generatedAt": "2026-11-14T09:06:03.828Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 24,
@@ -118,10 +118,10 @@
       }
     },
     "raum": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
+        "analyse": 7,
         "dialog": 8,
-        "analyse": 6,
         "path-analyse": 1
       }
     },
@@ -301,19 +301,19 @@
       }
     },
     "transaufklaerung": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
+        "dialog": 2,
         "path-analyse": 2,
-        "dialog": 1,
         "analyse": 2
       }
     },
     "resonanzimperativ": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
+        "dialog": 2,
         "path-analyse": 1,
-        "analyse": 3,
-        "dialog": 1
+        "analyse": 3
       }
     },
     "unverfuegbarkeit": {
@@ -325,28 +325,30 @@
       }
     },
     "weltfaltung": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "path-analyse": 1
       }
     },
     "schatten": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
+        "dialog": 1,
         "analyse": 4
       }
     },
     "licht": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
+        "dialog": 1,
         "analyse": 4
       }
     },
     "raumfaltung": {
-      "count": 2,
+      "count": 3,
       "endpoints": {
-        "analyse": 2
+        "analyse": 3
       }
     },
     "wirklichkeit": {
