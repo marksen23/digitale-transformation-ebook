@@ -1,0 +1,186 @@
+{
+  "ts": "2026-11-14T09:49:35.376Z",
+  "schema_version": 1,
+  "total_files": 381,
+  "corpus_hash": "sha256:974ce4a61b0cba53",
+  "counts_by_endpoint": {
+    "analyse": 91,
+    "chapter": 55,
+    "dialog": 48,
+    "path-analyse": 57,
+    "enkidu": 66,
+    "graph-chat": 45,
+    "passage": 13,
+    "translate": 6
+  },
+  "status_distribution": {
+    "published": 161,
+    "raw": 142,
+    "rejected": 24,
+    "approved": 54
+  },
+  "top_anchors": [
+    {
+      "key": "enkidu",
+      "count": 66
+    },
+    {
+      "key": "graph",
+      "count": 45
+    },
+    {
+      "key": "dialog:erkenntnis+lm-verwandlung",
+      "count": 20
+    },
+    {
+      "key": "dialog:raum+erkenntnis+sprache",
+      "count": 8
+    },
+    {
+      "key": "chapter:band3-kap3",
+      "count": 6
+    },
+    {
+      "key": "chapter:teil7",
+      "count": 6
+    },
+    {
+      "key": "dialog:weiterdenken",
+      "count": 6
+    },
+    {
+      "key": "chapter:teil6",
+      "count": 5
+    },
+    {
+      "key": "chapter:band3-kap4",
+      "count": 4
+    },
+    {
+      "key": "chapter:band3-kap5",
+      "count": 4
+    },
+    {
+      "key": "chapter:teil4",
+      "count": 4
+    },
+    {
+      "key": "analyse:erkenntnis+lm-verwandlung",
+      "count": 3
+    },
+    {
+      "key": "analyse:lm-spiegel+wahrheit",
+      "count": 3
+    },
+    {
+      "key": "analyse:lm-verwandlung+stimme",
+      "count": 3
+    },
+    {
+      "key": "chapter:teil5",
+      "count": 3
+    },
+    {
+      "key": "chapter:vorwort",
+      "count": 3
+    },
+    {
+      "key": "dialog:freier",
+      "count": 3
+    },
+    {
+      "key": "path-analyse:antwort+zwischen",
+      "count": 3
+    },
+    {
+      "key": "chapter:band2-kap3",
+      "count": 2
+    },
+    {
+      "key": "analyse:andere+bewusstsein+lm-grenze+welt",
+      "count": 1
+    }
+  ],
+  "top_tags": [
+    {
+      "key": "erkenntnis",
+      "count": 42
+    },
+    {
+      "key": "lm-verwandlung",
+      "count": 38
+    },
+    {
+      "key": "resonanzvernunft",
+      "count": 24
+    },
+    {
+      "key": "zwischen",
+      "count": 21
+    },
+    {
+      "key": "resonanz",
+      "count": 21
+    },
+    {
+      "key": "sprache",
+      "count": 17
+    },
+    {
+      "key": "vernunft",
+      "count": 17
+    },
+    {
+      "key": "raum",
+      "count": 16
+    },
+    {
+      "key": "selbst",
+      "count": 15
+    },
+    {
+      "key": "wahrheit",
+      "count": 14
+    },
+    {
+      "key": "dasein",
+      "count": 14
+    },
+    {
+      "key": "unverfuegbarkeit",
+      "count": 14
+    },
+    {
+      "key": "bewusstsein",
+      "count": 12
+    },
+    {
+      "key": "lm-grenze",
+      "count": 12
+    },
+    {
+      "key": "welt",
+      "count": 12
+    },
+    {
+      "key": "moment",
+      "count": 12
+    },
+    {
+      "key": "freiheit",
+      "count": 11
+    },
+    {
+      "key": "lm-spiegel",
+      "count": 10
+    },
+    {
+      "key": "spannung",
+      "count": 10
+    },
+    {
+      "key": "antwort",
+      "count": 9
+    }
+  ]
+}
