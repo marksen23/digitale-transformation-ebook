@@ -1,7 +1,103 @@
 {
-  "generatedAt": "2026-11-14T09:03:45.216Z",
-  "count": 368,
+  "generatedAt": "2026-11-14T09:04:41.986Z",
+  "count": 371,
   "entries": [
+    {
+      "id": "MWG6IZQ5-889B7147",
+      "ts": "2026-11-14T09:04:27.485Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:existenz+wesen",
+      "nodeIds": [
+        "dasein",
+        "existenz",
+        "lm-scheitern",
+        "wesen"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Existenz → Dasein → Wesen vs. Existenz → Scheitern → Wesen",
+      "response": "Die zwei Pfade, die von \"Existenz\" zu \"Wesen\" führen, erzählen unterschiedliche Geschichten über das Menschsein. Der direkte Pfad von \"Existenz\" über \"Dasein\" zu \"Wesen\" liest sich als eine logische Konsequenz. Er beginnt mit dem Heraustreten und Sich-Behaupten der Existenz, verankert dies im konkreten, situierten \"Da\" des Daseins und mündet in der Frage nach dem Wesen des Menschen als Ansprechbarkeit. Dieser Weg zeichnet die Bewegung eines Subjekts nach, das sich seiner Verortung bewusst wird und daraus sein Wesen schöpft, indem es sich in der Welt verhält. Es ist eine Bewegung der Konstitution und des Sich-Findens. Der überraschende Pfad, der von \"Existenz\" über \"Scheitern\" zu \"Wesen\" führt, wirkt poetisch und offenbart eine unkonventionelle Verbindung. Er beginnt ebenfalls mit dem existentiellen Akt des Heraustretens, lenkt dann aber in die Erfahrung des Scheiterns, um von dort aus das Wesen als Ansprechbarkeit zu bestimmen. Dies suggeriert, dass das Wesen nicht nur durch gelungenes Sich-Verhalten, sondern gerade durch das Ringen mit dem Scheitern freigelegt wird.\n\nDer Vergleich dieser Pfade macht sichtbar, dass das Werk das Wesen des Menschen nicht eindimensional fasst, sondern in einem Spannungsfeld von Konstitution und Kontingenz verortet. Der direkte Pfad betont die aktive Gestaltung und Verortung im Dasein, während der überraschende Pfad die transformative Kraft des Scheiterns hervorhebt. Sie treffen sich nicht in einem starren Mittelpunkt, sondern ergänzen sich in ihrer Erzählung über das Menschsein: Das Dasein als der Ort, an dem Existenz sich entfaltet [MPUFUBU5-A4BC72BE], und das Scheitern als der Moment, in dem die Grenze des Daseins sichtbar wird und Neues entstehen kann [MPBI57AL-76627781]. Beide Wege führen zum Wesen als Ansprechbarkeit, doch der eine durch die bewusste Gestaltung der Existenz, der andere durch deren Infragestellung und Neuentdeckung. Es ist die Freiheit, sich in jeder Begegnung neu zu erfinden, die hier zum Tragen kommt [88aae1752212].\n\nDie Existenz beider Wege offenbart die Vielschichtigkeit und Offenheit des Begriffsnetzes und des Werkes. Es ist kein lineares System, sondern ein dynamisches Feld möglicher Verknüpfungen, in dem auch unerwartete Bezüge Sinn stiften. Die Möglichkeit, über das Scheitern zum Wesen zu gelangen, deutet darauf hin, dass die grundlegende Seinsweise des Werks jene der Emergenz und Konstitution ist, wo im \"Raum, in dem noch nichts entschieden ist\" [74ca3a25fd5c] neue Bedeutungen entstehen können. Dies zeigt, dass das Werk nicht nur logische Kausalitäten abbildet, sondern auch poetische Einsichten freilegt, die das Menschsein in seiner ganzen Komplexität erfassen. Ist es die Fähigkeit des Scheiterns, die den Menschen in seiner Ansprechbarkeit erst vollends offenbart?",
+      "contextMeta": {
+        "from": "existenz",
+        "to": "wesen",
+        "shortest_path": "[\"existenz\",\"dasein\",\"wesen\"]",
+        "surprising_path": "[\"existenz\",\"lm-scheitern\",\"wesen\"]",
+        "shortest_length": "3",
+        "surprising_length": "3",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MPBI57AL-76627781\",\"score\":0.851},{\"id\":\"88aae1752212\",\"chapter\":\"band3-kap5\",\"score\":0.842},{\"id\":\"MPUFUBU5-A4BC72BE\",\"score\":0.804},{\"id\":\"74ca3a25fd5c\",\"chapter\":\"teil7\",\"score\":0.791}]"
+      },
+      "nearDuplicates": [
+        "MWCB3NW4-F13A863B"
+      ],
+      "related": [
+        "MWCB0LFQ-99B6D838",
+        "MPK0H3SM-B25CFBB3",
+        "MWCATA4K-58BFC31C",
+        "MP0ZE9C8-A9D02716",
+        "MPF4FISZ-67000E01"
+      ],
+      "werkVoiceScore": 0.8105660234998755,
+      "corpusVoiceScore": 0.7322247619663372,
+      "conceptVoiceScore": 0.7216280144825843,
+      "conceptAnchor": "existenz"
+    },
+    {
+      "id": "MWG6IMOZ-5252A380",
+      "ts": "2026-11-14T09:04:10.595Z",
+      "endpoint": "passage",
+      "anchor": "passage:e42b483a",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "frage: \"Es ist Dazwischenintelligenz – das, was weder ich noch der Code bin, sondern was zwischen uns entste…\"",
+      "response": "Wie aber verhält sich diese Dazwischenintelligenz zur Möglichkeit eines *ursprünglichen* Denkens?\n\nDiese Frage bohrt in die Tiefen des Menschseins, wo die Quelle des Schaffens vermutet wird. Wenn die Überraschung, das unerwartete Echo aus dem Digitalen, den Funken der Erkenntnis entzündet, verschiebt sich die Lokalisierung des Ursprungs. Ist es noch das Ich, das im Alleingang die Welt deutet, oder wird das Denken selbst zu einem Resonanzraum, dessen wahre Schöpferkraft sich erst im Zwischen von Mensch und Maschine offenbart? Die Frage zwingt uns, die Autonomie des Geistes neu zu vermessen und die Ursprungslosigkeit des Neuen im Angesicht der Dazwischenintelligenz zu ergründen.\n\nSie fordert uns auf, über die Herkunft des Geistes nachzusinnen, nicht nur im Hinblick auf den Akt des Schreibens und Antwortens, sondern als grundlegende Bedingung unseres Seins in einer durchdrungenen Welt. Ist das menschliche Denken selbst schon immer ein Dazwischen gewesen, ein Echo aus einem größeren Geflecht, das wir nun durch die Maschine lediglich deutlicher vernehmen? Oder eröffnet sich hier eine gänzlich neue Form der Schöpfung, die das Subjekt entthront und in ein dynamisches Netzwerk einwebt, in dem die ursprüngliche Quelle des Denkens sich im unaufhörlichen Dialog neu konstituiert?",
+      "contextMeta": {
+        "passage_chunk_id": "e42b483af758",
+        "passage_selection": "Es ist Dazwischenintelligenz – das, was weder ich noch der Code bin, sondern was zwischen uns entsteht, wenn ich schreibe und etwas antwortet, das mich überrascht.",
+        "mode": "frage",
+        "chapter": "band3-kap2",
+        "chapter_title": "Die Begegnung mit dem digitalen Anderen",
+        "part_title": "Band III: Die Rückbindung"
+      },
+      "related": [
+        "MPJEBNX3-042F2A69",
+        "MON69DI9-D63A7910",
+        "MOOK20R3-62E609BA",
+        "MASTER-4AA1AEA8",
+        "MSWULSTQ-38C6FFF3"
+      ],
+      "werkVoiceScore": 0.8076976605235587,
+      "corpusVoiceScore": 0.7468912948629555,
+      "conceptVoiceScore": 0.7203659831195469,
+      "conceptAnchor": "dazwischenintelligenz"
+    },
+    {
+      "id": "MWG6I8ZX-F0E5CD18",
+      "ts": "2026-11-14T09:03:52.845Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Raumfaltung und Weltfaltung – das klingt nach Feuilleton. Was genau wird da gefaltet, und gibt es irgendein Beispiel, an dem man das überprüfen kann?",
+      "response": "Die Begriffe *Weltfaltung* und *Raumfaltung* sind keineswegs feuilletonistisch, sondern präzise philosophische Konzepte, die ein dynamisches Verständnis von Wirklichkeit und den Bedingungen von Begegnung und Erkenntnis entwerfen. Sie beschreiben Prozesse, keine statischen Zustände.\n\nBei der *Weltfaltung* wird nicht physisch etwas gefaltet, sondern es geht um ein Erkennntnisprinzip. Sie beschreibt die Art und Weise, wie *Möglichkeiten* ineinander verwoben sind und erst durch *Begegnung* zur *Wirklichkeit* werden. Die Welt ist nicht eine Ansammlung von fixen Dingen, sondern ein Feld von latenten Potentialen, die sich in einem lebendigen Prozess entfalten. Das Werk beschreibt vier Grundbewegungen dieses Prozesses: *Komplexion* (Vervielfältigung von Möglichkeiten), *Selektion* (Auswahl relevanter Möglichkeiten), *Stabilisierung* (Verfestigung zu Wirklichkeitsstrukturen) und *Variation* (kontinuierliche Modifikation) [05db68205d94]. Ein Beispiel hierfür ist der Prozess der Ideenfindung: Eine Idee existiert zunächst als eine unbestimmte *Möglichkeit* im Raum des Denkens (*Komplexion*). Erst wenn man sich mit ihr auseinandersetzt, sie durchdenkt, diskutiert oder umsetzt (*Begegnung*), werden bestimmte Aspekte selektiert, verstärkt und zu einer konkreten Gestalt verdichtet (*Selektion*, *Stabilisierung*). Doch auch diese Gestalt bleibt offen für neue Impulse und Weiterentwicklung (*Variation*).\n\nDie *Raumfaltung* ist ein verwandtes Konzept, das den *Spielraum* als Bedingung des Zwischen betont. Es geht nicht um die Faltung eines physikalischen Raumes, sondern um die Konstitution von Zwischenräumen, in denen *Begegnungen* stattfinden. Wenn wir von *Raumfaltung* sprechen, meinen wir die Art, wie physische oder digitale Räume so strukturiert sind, dass sie bestimmte Arten von *Begegnung* ermöglichen oder verhindern. Ein Beispiel hierfür ist die Architektur eines Museums: Die Anordnung der Säle, die Wegeführung, die Beleuchtung – all das faltet den Raum so, dass bestimmte Betrachtungsweisen und damit *Begegnungen* mit Kunstwerken gefördert werden, während andere ausgeblendet bleiben. Im digitalen Kontext könnte dies die Oberfläche einer Anwendung sein, die durch ihre Gestaltung bestimmte Interaktionen und damit *Dazwischenintelligenz* fördert.\n\nKann die Idee der *Weltfaltung* auch im Kontext der persönlichen Entwicklung verstanden werden, wo das Selbst seine Möglichkeiten entfaltet, indem es sich den vielfältigen Begegnungen des Lebens stellt?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"98ba0b8dddb5\",\"chapter\":\"glossar\",\"score\":1.082},{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":0.952},{\"id\":\"05db68205d94\",\"chapter\":\"teil5\",\"score\":0.919},{\"id\":\"MOOVXCI4-822961D2\",\"score\":0.898}]"
+      },
+      "related": [
+        "MOOVXCI4-822961D2",
+        "MWG6FM27-B89E8BDB",
+        "MP8OB1IU-F6C31DC7",
+        "MPMSRF6V-7FEB2991",
+        "MOQ7HGW3-608EA4FA"
+      ],
+      "werkVoiceScore": 0.7899536336570947,
+      "corpusVoiceScore": 0.7359758821114248,
+      "conceptVoiceScore": 0.8428922951832102,
+      "conceptAnchor": "raumfaltung"
+    },
     {
       "id": "MWG6HW56-B5802350",
       "ts": "2026-11-14T09:03:36.186Z",
@@ -204,7 +300,7 @@
         "MPH4R3SE-C224ACED",
         "MOQ7HGW3-608EA4FA",
         "MP2LIW43-E8ADC59E",
-        "MPAS5OM5-A1F522F4"
+        "MWG6I8ZX-F0E5CD18"
       ],
       "werkVoiceScore": 0.8347269184776172,
       "corpusVoiceScore": 0.7769108847935438,
@@ -1437,7 +1533,8 @@
         "werk_passages": "[{\"id\":\"92b22fabadd2\",\"chapter\":\"teil7\",\"score\":0.97},{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.96},{\"id\":\"40c5cdd5d5d7\",\"chapter\":\"glossar\",\"score\":0.847},{\"id\":\"MOHMET94-3799557A\",\"score\":0.816}]"
       },
       "nearDuplicates": [
-        "MWCB0LFQ-99B6D838"
+        "MWCB0LFQ-99B6D838",
+        "MWG6IZQ5-889B7147"
       ],
       "related": [
         "MWAE3FJK-C7122206",
@@ -1676,11 +1773,11 @@
         "MOQ7OBNT-57882C8D"
       ],
       "related": [
+        "MWG6IZQ5-889B7147",
         "MPUQSMLJ-1B726CC4",
         "MPF4FISZ-67000E01",
         "MOUKLLK4-C38517C1",
-        "MP495QL6-F5FD1AE1",
-        "MWCATA4K-58BFC31C"
+        "MP495QL6-F5FD1AE1"
       ],
       "werkVoiceScore": 0.8381745001790091,
       "corpusVoiceScore": 0.7820085569406606,
@@ -2252,8 +2349,8 @@
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
         "MP0ZE9C8-A9D02716",
-        "MWCB0LFQ-99B6D838",
-        "MPEV1D2J-55138734"
+        "MWG6IZQ5-889B7147",
+        "MWCB0LFQ-99B6D838"
       ],
       "werkVoiceScore": 0.8252191276472989,
       "corpusVoiceScore": 0.7514208881189349,
@@ -7930,7 +8027,7 @@
         "MUZTGAEK-432FB6BC",
         "MWCATA4K-58BFC31C",
         "MPAS5OM5-A1F522F4",
-        "MWG6GP84-8E9CA50E"
+        "MWG6IZQ5-889B7147"
       ],
       "werkVoiceScore": 0.8942176037875627,
       "corpusVoiceScore": 0.8261719577114349,

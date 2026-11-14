@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-14T09:03:45.215Z",
+  "generatedAt": "2026-11-14T09:04:41.985Z",
   "baseline": {
     "MPF4FISZ-67000E01": {
       "neighbors": [
@@ -368,6 +368,22 @@
         "MPUFM0YN-83C71BAB"
       ],
       "computedAt": "2026-11-14T09:03:45.169Z"
+    },
+    "MWG6IZQ5-889B7147": {
+      "neighbors": [
+        "MWCB3NW4-F13A863B",
+        "MWCB0LFQ-99B6D838",
+        "MPK0H3SM-B25CFBB3"
+      ],
+      "computedAt": "2026-11-14T09:04:41.959Z"
+    },
+    "MWG6I8ZX-F0E5CD18": {
+      "neighbors": [
+        "MOOVXCI4-822961D2",
+        "MWG6FM27-B89E8BDB",
+        "MP8OB1IU-F6C31DC7"
+      ],
+      "computedAt": "2026-11-14T09:04:41.960Z"
     }
   }
 }

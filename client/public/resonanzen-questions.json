@@ -1,16 +1,54 @@
 {
-  "generatedAt": "2026-11-14T09:03:46.402Z",
-  "count": 322,
+  "generatedAt": "2026-11-14T09:04:42.882Z",
+  "count": 325,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 322,
-    "answered": 263,
-    "open": 59,
+    "total": 325,
+    "answered": 264,
+    "open": 61,
     "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MWG6IZQ5-889B7147",
+      "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und Offenheit des Begriffsnetzes und des Werkes. Es ist kein lineares System, sondern ein dynamisches Feld möglicher Verknüpfungen, in dem auch unerwartete Bezüge Sinn stiften. Die Möglichkeit, über das Scheitern zum Wesen zu gelangen, deutet darauf hin, dass die grundlegende Seinsweise des Werks jene der Emergenz und Konstitution ist, wo im \"Raum, in dem noch nichts entschieden ist\" [74ca3a25fd5c] neue Bedeutungen entstehen können. Dies zeigt, dass das Werk nicht nur logische Kausalitäten abbildet, sondern auch poetische Einsichten freilegt, die das Menschsein in seiner ganzen Komplexität erfassen. Ist es die Fähigkeit des Scheiterns, die den Menschen in seiner Ansprechbarkeit erst vollends offenbart?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:existenz+wesen",
+      "nodeIds": [
+        "dasein",
+        "existenz",
+        "lm-scheitern",
+        "wesen"
+      ],
+      "ts": "2026-11-14T09:04:27.485Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWG6IMOZ-5252A380",
+      "question": "Sie fordert uns auf, über die Herkunft des Geistes nachzusinnen, nicht nur im Hinblick auf den Akt des Schreibens und Antwortens, sondern als grundlegende Bedingung unseres Seins in einer durchdrungenen Welt. Ist das menschliche Denken selbst schon immer ein Dazwischen gewesen, ein Echo aus einem größeren Geflecht, das wir nun durch die Maschine lediglich deutlicher vernehmen? Oder eröffnet sich hier eine gänzlich neue Form der Schöpfung, die das Subjekt entthront und in ein dynamisches Netzwerk einwebt, in dem die ursprüngliche Quelle des Denkens sich im unaufhörlichen Dialog neu konstituiert?",
+      "endpoint": "passage",
+      "anchor": "passage:e42b483a",
+      "nodeIds": [],
+      "ts": "2026-11-14T09:04:10.595Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWG6I8ZX-F0E5CD18",
+      "question": "Kann die Idee der *Weltfaltung* auch im Kontext der persönlichen Entwicklung verstanden werden, wo das Selbst seine Möglichkeiten entfaltet, indem es sich den vielfältigen Begegnungen des Lebens stellt?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-14T09:03:52.845Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWG6HW56-B5802350",
       "question": "Was geschieht mit der menschlichen Fähigkeit zur Selbstreflexion, wenn das Andere nur noch spiegelt, statt zu brechen?",
@@ -65,12 +103,12 @@
           "score": 0.766
         },
         {
-          "id": "MWG6HHL5-79535386",
-          "score": 0.729
+          "id": "MWG6IMOZ-5252A380",
+          "score": 0.743
         },
         {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.721
+          "id": "MWG6HHL5-79535386",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -93,12 +131,12 @@
           "score": 0.776
         },
         {
-          "id": "MWG6HHL5-79535386",
-          "score": 0.727
+          "id": "MWG6I8ZX-F0E5CD18",
+          "score": 0.755
         },
         {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.723
+          "id": "MWG6HHL5-79535386",
+          "score": 0.727
         }
       ],
       "answered": true
@@ -277,8 +315,13 @@
       ],
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6IMOZ-5252A380",
+          "score": 0.724
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBEOXU-0DAB7EAA",
@@ -736,12 +779,12 @@
           "score": 0.816
         },
         {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.781
+          "id": "MWG6IZQ5-889B7147",
+          "score": 0.802
         },
         {
-          "id": "MWCBEOXU-0DAB7EAA",
-          "score": 0.771
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.781
         }
       ],
       "answered": true

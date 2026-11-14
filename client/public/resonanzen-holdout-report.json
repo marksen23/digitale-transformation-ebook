@@ -1,10 +1,38 @@
 {
-  "generatedAt": "2026-11-14T09:03:45.216Z",
-  "checked": 39,
-  "stable": 16,
+  "generatedAt": "2026-11-14T09:04:41.985Z",
+  "checked": 41,
+  "stable": 18,
   "shifted": 16,
   "drifted": 7,
   "details": [
+    {
+      "id": "MWG6IZQ5-889B7147",
+      "baseline": [
+        "MWCB3NW4-F13A863B",
+        "MWCB0LFQ-99B6D838",
+        "MPK0H3SM-B25CFBB3"
+      ],
+      "current": [
+        "MWCB3NW4-F13A863B",
+        "MWCB0LFQ-99B6D838",
+        "MPK0H3SM-B25CFBB3"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MWG6I8ZX-F0E5CD18",
+      "baseline": [
+        "MOOVXCI4-822961D2",
+        "MWG6FM27-B89E8BDB",
+        "MP8OB1IU-F6C31DC7"
+      ],
+      "current": [
+        "MOOVXCI4-822961D2",
+        "MWG6FM27-B89E8BDB",
+        "MP8OB1IU-F6C31DC7"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MWG6HHL5-79535386",
       "baseline": [

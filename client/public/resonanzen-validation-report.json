@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-14T09:03:36.508Z",
-  "filesChecked": 373,
+  "generatedAt": "2026-11-14T09:04:35.744Z",
+  "filesChecked": 376,
   "errors": 0,
-  "warnings": 45,
+  "warnings": 46,
   "issues": [
     {
       "level": "warning",
@@ -198,6 +198,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/ich-du+dialog/2026-11-14-MWG6HW56-B5802350.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected e9fed378ee220340, computed 4b132d2214c3d9da — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
       "rule": "content-hash-mismatch",
       "detail": "expected e48a72c68ccd4265, computed 0271ad49cdc26452 — Tampering oder nachträgliche Edit?"
@@ -279,16 +285,16 @@
     "byEndpoint": {
       "analyse": 90,
       "chapter": 54,
-      "dialog": 45,
+      "dialog": 46,
       "path-analyse": 56,
       "enkidu": 66,
-      "graph-chat": 44,
-      "passage": 12,
+      "graph-chat": 45,
+      "passage": 13,
       "translate": 6
     },
     "byStatus": {
       "published": 161,
-      "raw": 134,
+      "raw": 137,
       "rejected": 24,
       "approved": 54
     },
