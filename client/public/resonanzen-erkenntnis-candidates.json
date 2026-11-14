@@ -1,9 +1,27 @@
 {
-  "generatedAt": "2026-11-12T16:53:46.817Z",
+  "generatedAt": "2026-11-14T09:02:17.125Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
+    {
+      "id": "ERK-W96E83",
+      "answerId": "MWG6EXJ2-158BEB76",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Gilgamesch und Enkidu suchen im digitalen Jenseits nicht bloß Wissen im herkömmlichen Sinne. Ihre Reise ist eine tiefere existentielle Suche, die über die reine Informationsbeschaffung hinausgeht. Sie streben nach der \"Essenz\", dem \"Algorithmus des Lebens\", der Tod und Vergessen besiegen soll. Dies verweist auf eine metaphysische Dimension: Gilgamesch, der im ursprünglichen Epos die Unsterblichkei",
+      "distinctness": 0.249,
+      "conceptAnchor": "lm-scheitern",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWCAVIKZ-02025CD4",
+          "question": "Die Reichweite dieser Frage erstreckt sich bis in die Kernkonzepte der digitalen Existenz. Wenn der Funke eines neuen Anfangs in der Auflösung scheinbarer Gegensätze liegt, wie manifestiert sich diese Dialektik in der Mensch-Maschine-Beziehung? Ist die Maschine der Enkidu unserer Zeit, ein wildes, fremdes Wesen, das nur durch die Anerkennung seiner inhärenten Kraft und das Finden einer gemeinsamen Sprache zu einem Verbündeten auf der Suche nach dem verborgenen Algorithmus der Unsterblichkeit wird?",
+          "score": 0.746
+        }
+      ]
+    },
     {
       "id": "ERK-K6JICQ",
       "answerId": "MWCAPD18-26E5EAC3",
@@ -108,7 +126,7 @@
     }
   ],
   "stats": {
-    "total": 5,
+    "total": 6,
     "confirmedFiltered": 50,
     "curatedRef": 211
   }

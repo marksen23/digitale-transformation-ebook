@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-12T16:53:45.842Z",
+  "generatedAt": "2026-11-14T09:02:15.985Z",
   "checked": 38,
   "stable": 15,
-  "shifted": 17,
-  "drifted": 6,
+  "shifted": 16,
+  "drifted": 7,
   "details": [
     {
       "id": "MWDSDR89-C66887AA",
@@ -336,10 +336,10 @@
       ],
       "current": [
         "MPMSRF6V-7FEB2991",
-        "MOOVXCI4-822961D2",
-        "MPH4R3SE-C224ACED"
+        "MWG6FM27-B89E8BDB",
+        "MOOVXCI4-822961D2"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MP756UV9-FF3838F7",

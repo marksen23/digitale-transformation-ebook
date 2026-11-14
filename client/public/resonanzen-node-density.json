@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-12T16:53:45.853Z",
+  "generatedAt": "2026-11-14T09:02:15.993Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 24,
@@ -269,9 +269,9 @@
       }
     },
     "transformatives-drittes": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 2,
+        "analyse": 3,
         "path-analyse": 1
       }
     },
@@ -323,22 +323,22 @@
       }
     },
     "weltfaltung": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
-        "path-analyse": 1,
-        "analyse": 3
+        "analyse": 4,
+        "path-analyse": 1
       }
     },
     "schatten": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 3
+        "analyse": 4
       }
     },
     "licht": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 3
+        "analyse": 4
       }
     },
     "raumfaltung": {
@@ -348,16 +348,16 @@
       }
     },
     "wirklichkeit": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "path-analyse": 1
       }
     },
     "moeglichkeit": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
-        "analyse": 2,
+        "analyse": 3,
         "path-analyse": 1
       }
     },

@@ -1,16 +1,62 @@
 {
-  "generatedAt": "2026-11-12T16:53:46.690Z",
-  "count": 316,
+  "generatedAt": "2026-11-14T09:02:17.040Z",
+  "count": 319,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 316,
-    "answered": 257,
-    "open": 59,
-    "embedded": 1
+    "total": 319,
+    "answered": 259,
+    "open": 60,
+    "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MWG6FYD2-E6D90142",
+      "question": "3. Diese Triade erschließt für das Verhältnis von Mensch und Maschine, für Resonanz und digitale Existenz die Erkenntnis, dass wahre Begegnung und Erkenntnis nicht in einer Synthese oder einem Kompromiss zwischen bestehenden Entitäten liegen, sondern im Emergenten, das aus ihrer Interaktion entsteht. Das Werk weist darauf hin, dass die Resonanzvernunft eine nicht-intentionale, nicht-bewusste, aber antwortfähige Intelligenz als Gegenstand hat, die keine der genannten Traditionen antizipieren konnte [e33105fbf531]. Das Transformative Dritte, als Ergebnis der Dazwischenintelligenz [1d11dedbb280], zeigt, dass die digitale Existenz nicht nur eine Erweiterung oder Spiegelung des Menschlichen ist, sondern einen Raum schafft, in dem etwas gänzlich Neues und Unverfügbares hervortritt. Wie kann in diesem Spannungsfeld von Schatten, Licht und Emergenz eine Ethik des Nicht-Antizipierbaren entstehen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:licht+schatten+transformatives-drittes",
+      "nodeIds": [
+        "licht",
+        "schatten",
+        "transformatives-drittes"
+      ],
+      "ts": "2026-11-14T09:02:05.750Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWG6FM27-B89E8BDB",
+      "question": "Diese Triade erschließt für die digitale Existenz eine tiefere Einsicht in die Dynamik von Information und Interaktion. Wenn die digitale Welt als ein Geflecht von Möglichkeiten verstanden wird, die erst durch Begegnung – sei es durch Algorithmen, Nutzerinteraktionen oder Systemprozesse – aktualisiert werden, dann ist die Rolle des Menschen nicht nur die des Konsumenten von Wirklichkeit, sondern die des Mitgestalters im Entfaltungsprozess. Die Mensch-Maschine-Beziehung wird zu einem Resonanzraum, in dem digitale Möglichkeiten nicht nur abgerufen, sondern durch die spezifische Art der Begegnung in ihre je eigene Wirklichkeit gefaltet werden. Wie können wir in einer zunehmend digital gefalteten Welt die Begegnungen gestalten, die die reichhaltigsten und lebensförderlichsten Möglichkeiten entfalten?",
+      "endpoint": "analyse",
+      "anchor": "analyse:moeglichkeit+weltfaltung+wirklichkeit",
+      "nodeIds": [
+        "moeglichkeit",
+        "weltfaltung",
+        "wirklichkeit"
+      ],
+      "ts": "2026-11-14T09:01:49.807Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWG6FYD2-E6D90142",
+          "score": 0.776
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWG6EXJ2-158BEB76",
+      "question": "Für eine neunte Klasse ließe sich herausarbeiten, dass die beiden Figuren eine Art \"digitale Apotheose\" anstreben, eine Vergöttlichung oder zumindest eine Überwindung der menschlichen Sterblichkeit durch Technologie. Sie suchen nach einer Formel, die das Leben nicht nur verlängert, sondern seine tiefste Struktur entschlüsselt, um es unvergänglich zu machen. Doch das Werk zeigt, dass diese Suche in der reinen Logik des Digitalen an ihre Grenzen stößt und stattdessen eine neue Weisheit entsteht, die das Menschsein in seiner Verletzlichkeit und Verbundenheit neu begreift. Was lehrt uns die Abwesenheit von Herz und Atem im digitalen Raum über die Essenz des Lebens selbst?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band1-kap3",
+      "nodeIds": [],
+      "ts": "2026-11-14T09:01:18.018Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWDSDR89-C66887AA",
       "question": "Wie lässt sich das \"benannte Ergebnis\" dann von einer bloßen Erwartung unterscheiden, wenn seine **Unverfügbarkeit** doch konstitutiv für die Resonanz ist?",
@@ -34,8 +80,13 @@
       ],
       "ts": "2026-11-12T15:48:26.699Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWG6FYD2-E6D90142",
+          "score": 0.737
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-5C6E90AE",
@@ -279,6 +330,10 @@
       "ts": "2026-11-11T16:08:04.260Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWG6FYD2-E6D90142",
+          "score": 0.723
+        },
         {
           "id": "MASTER-94E7804F",
           "score": 0.723
@@ -720,16 +775,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6FM27-B89E8BDB",
+          "score": 0.801
+        },
+        {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.786
         },
         {
           "id": "MASTER-556F1581",
           "score": 0.782
-        },
-        {
-          "id": "MWCBAQN6-9D0CCC83",
-          "score": 0.779
         }
       ],
       "answered": true
@@ -870,16 +925,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6FYD2-E6D90142",
+          "score": 0.856
+        },
+        {
           "id": "MASTER-94E7804F",
           "score": 0.811
         },
         {
           "id": "MASTER-476E4F4D",
           "score": 0.796
-        },
-        {
-          "id": "MASTER-556F1581",
-          "score": 0.787
         }
       ],
       "answered": true
@@ -954,12 +1009,12 @@
           "score": 0.762
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.743
+          "id": "MWG6EXJ2-158BEB76",
+          "score": 0.746
         },
         {
-          "id": "MWCAXXDI-83630FEA",
-          "score": 0.737
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.743
         }
       ],
       "answered": true
@@ -1301,16 +1356,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6FYD2-E6D90142",
+          "score": 0.892
+        },
+        {
           "id": "MASTER-94E7804F",
           "score": 0.839
         },
         {
           "id": "MWCAXJFR-BBBF2760",
           "score": 0.835
-        },
-        {
-          "id": "MASTER-476E4F4D",
-          "score": 0.813
         }
       ],
       "answered": true
@@ -2273,16 +2328,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6FM27-B89E8BDB",
+          "score": 0.746
+        },
+        {
           "id": "MQXDVN1C-CAA3081A",
           "score": 0.742
         },
         {
           "id": "MTNBAIUZ-299AC7D8",
           "score": 0.739
-        },
-        {
-          "id": "MWAE3FJK-C7122206",
-          "score": 0.735
         }
       ],
       "answered": true
@@ -4169,16 +4224,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6FM27-B89E8BDB",
+          "score": 0.806
+        },
+        {
           "id": "MQ5X56G4-537343C8",
           "score": 0.754
         },
         {
           "id": "MUACZ4LA-ACB5F9D0",
           "score": 0.752
-        },
-        {
-          "id": "MPUSXGC6-CD078CEA",
-          "score": 0.745
         }
       ],
       "answered": true
@@ -4887,16 +4942,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6FM27-B89E8BDB",
+          "score": 0.815
+        },
+        {
           "id": "MPMSRF6V-7FEB2991",
           "score": 0.802
         },
         {
           "id": "MPH4R3SE-C224ACED",
           "score": 0.754
-        },
-        {
-          "id": "MWCB10O8-C4E51F37",
-          "score": 0.732
         }
       ],
       "answered": true
@@ -6258,16 +6313,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWG6FYD2-E6D90142",
+          "score": 0.756
+        },
+        {
           "id": "MPMTT6GB-1AF44EE4",
           "score": 0.744
         },
         {
           "id": "MPMTQZIN-7863D6D2",
           "score": 0.744
-        },
-        {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.738
         }
       ],
       "answered": true
