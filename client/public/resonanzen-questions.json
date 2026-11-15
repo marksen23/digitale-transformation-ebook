@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:05:54.984Z",
+  "generatedAt": "2026-11-15T09:06:56.428Z",
   "count": 340,
   "thresholds": {
     "ANSWER_SIM": 0.72
@@ -8,7 +8,7 @@
     "total": 340,
     "answered": 284,
     "open": 56,
-    "embedded": 4
+    "embedded": 0
   },
   "questions": [
     {
