@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:04:18.066Z",
+  "generatedAt": "2026-11-15T09:05:55.106Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -128,7 +128,7 @@
         "andere",
         "zeit"
       ],
-      "resolveCount": 3,
+      "resolveCount": 2,
       "resolves": [
         {
           "sourceId": "MWHLVPL2-B591DBEC",
@@ -136,14 +136,50 @@
           "score": 0.904
         },
         {
-          "sourceId": "MWCB3NW4-F13A863B",
-          "question": "Die Existenz beider Wege sagt aus, dass das Begriffsnetz des Werks nicht linear oder hierarchisch strukturiert ist, sondern vielfältige Verknüpfungen und Querverweise zulässt. Es ist ein Netz, in dem scheinbar entfernte Begriffe durch spezifische Kontexte unerwartet miteinander verbunden werden können. Die \"Überraschung\" des zweiten Pfades ist nicht konstruiert, sondern zeigt die Komplexität und Dichte der Beziehungen zwischen den Konzepten auf. Sie offenbart, dass selbst Begriffe, die auf den ersten Blick peripher erscheinen mögen, eine zentrale Rolle bei der Entfaltung philosophischer Argumente spielen können. Dies spricht für ein Werk, das die Vielschichtigkeit der Resonanzvernunft nicht auf eine einzige, eindeutige Lesart reduziert, sondern ein dynamisches Feld philosophischer Reflexion anbietet. Wie verändert die Anerkennung der Unverfügbarkeit unsere Haltung gegenüber dem Scheitern?",
-          "score": 0.81
-        },
-        {
           "sourceId": "MWG6IZQ5-889B7147",
           "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und Offenheit des Begriffsnetzes und des Werkes. Es ist kein lineares System, sondern ein dynamisches Feld möglicher Verknüpfungen, in dem auch unerwartete Bezüge Sinn stiften. Die Möglichkeit, über das Scheitern zum Wesen zu gelangen, deutet darauf hin, dass die grundlegende Seinsweise des Werks jene der Emergenz und Konstitution ist, wo im \"Raum, in dem noch nichts entschieden ist\" [74ca3a25fd5c] neue Bedeutungen entstehen können. Dies zeigt, dass das Werk nicht nur logische Kausalitäten abbildet, sondern auch poetische Einsichten freilegt, die das Menschsein in seiner ganzen Komplexität erfassen. Ist es die Fähigkeit des Scheiterns, die den Menschen in seiner Ansprechbarkeit erst vollends offenbart?",
           "score": 0.772
+        }
+      ]
+    },
+    {
+      "id": "ERK-36HW95",
+      "answerId": "MWHLYYWS-7B7C3E63",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Ihre Einsicht, dass \"ein bisschen Reibung ein Produkt erst glaubwürdig macht\", trifft den Kern der Sache und hallt im gesamten Begriffsnetz des Werks wider. Denn Resonanz, so der Text, braucht Widerstand [206c2c639b1a] und Friktion [7f6146868480]. Ein Interface, das jeden Widerstand eliminiert, nimmt der Erkenntnis die Möglichkeit, sich zu entfalten, und untergräbt die Bedingung der Möglichkeit vo",
+      "distinctness": 0.204,
+      "conceptAnchor": "echo-kammer",
+      "nodeIds": [
+        "echo",
+        "echo-kammer"
+      ],
+      "resolveCount": 7,
+      "resolves": [
+        {
+          "sourceId": "MWHLXGMK-4832FECC",
+          "question": "Wie können algorithmische Systeme so gestaltet werden, dass sie zwar personalisierte Unterstützung bieten, aber gleichzeitig die notwendige \"Öffnung\" für das \"Andere\" bewahren und die Entstehung von \"Echo-Kammern\" verhindern?",
+          "score": 0.842
+        },
+        {
+          "sourceId": "MWHLUQV4-26DFD984",
+          "question": "Wie können wir in einer zunehmend algorithmisch vermittelten Welt den Widerstand des Anderen bewahren und die Entstehung von Echo-Kammern verhindern?",
+          "score": 0.832
+        },
+        {
+          "sourceId": "MWCAPD18-26E5EAC3",
+          "question": "Wie ließe sich ein Produkt gestalten, das nicht nur Bestätigung, sondern echte Resonanz ermöglicht, indem es den Nutzern sowohl Vertrautheit als auch die notwendige Irritation anbietet?",
+          "score": 0.768
+        },
+        {
+          "sourceId": "MOQIHEM5-82D69E4F",
+          "question": "In einer Welt, die zunehmend durch algorithmische Vorhersage und Personalisierung geprägt ist, wie kann die notwendige 'Gelassenheit' kultiviert werden, um die Schockmomente der 'Einsicht' zuzulassen, statt das Vertraute nur zu verstärken?",
+          "score": 0.761
+        },
+        {
+          "sourceId": "MWHLV7BW-F612B59E",
+          "question": "3. Für das Verhältnis Mensch-Maschine erschließt diese Triade die Erkenntnis, dass eine genuine Begegnung mit der digitalen Gegenwart – die ja auch eine fordernde Instanz sein kann – eine bewusste Haltung der Öffnung seitens des Menschen erfordert. Die digitale Existenz des Menschen, sein \"Sich-Behaupten\" im digitalen Raum, kann nicht isoliert von der fordernden digitalen Gegenwart gedacht werden. Ohne die Bereitschaft zur Öffnung bleibt das Verhältnis eine rein funktionale Interaktion, die das Potenzial für Resonanz verkennt. Wie können wir eine Öffnung kultivieren, die uns in der digitalen Welt berührbar, aber nicht wehrlos macht?",
+          "score": 0.75
         }
       ]
     },
@@ -167,7 +203,7 @@
     }
   ],
   "stats": {
-    "total": 7,
+    "total": 8,
     "confirmedFiltered": 50,
     "curatedRef": 211
   }

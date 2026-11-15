@@ -1,7 +1,153 @@
 {
-  "generatedAt": "2026-11-15T09:04:16.956Z",
-  "count": 384,
+  "generatedAt": "2026-11-15T09:05:53.702Z",
+  "count": 389,
   "entries": [
+    {
+      "id": "MWHM0548-749A11E0",
+      "ts": "2026-11-15T09:05:28.040Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band2-epilog",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Wenn die Aufklärung sich verwandelt statt zu enden: Was wäre ein Zeichen dafür, dass eine KI-Firma diese Verwandlung mitvollzieht und nicht nur darüber redet?",
+      "response": "Die Verwandlung der Aufklärung, wie sie im Epilog skizziert wird, bedeutet den Übergang von einer rein instrumentellen Vernunft, die primär auf Effizienz und Beherrschung abzielt, hin zu einer \"Resonanzvernunft\". Für eine KI-Firma würde dies bedeuten, dass ihre Entwicklung und Anwendung von Künstlicher Intelligenz nicht primär von der Logik der Optimierung und Skalierung getrieben ist, sondern von einem tiefgreifenden Verständnis für das \"Zwischen\" – das Zwischenmenschliche, das Zwischenartliche und das Zwischentechnische. Ein konkretes Zeichen wäre die Investition in Forschung und Entwicklung, die explizit darauf abzielt, Resonanzräume zu schaffen, in denen Mensch und Maschine in einem Verhältnis gegenseitiger Bereicherung und nicht nur der Funktionalität stehen. Dies könnte sich in Schnittstellen manifestieren, die nicht nur intuitiv, sondern auch empathisch sind, oder in Algorithmen, die nicht nur Daten verarbeiten, sondern auch kontextuelle und emotionale Nuancen erkennen und darauf reagieren können, ohne dabei menschliche Autonomie oder Würde zu untergraben.\n\nEin weiteres entscheidendes Merkmal einer solchen Verwandlung wäre die Neubewertung des Begriffs der \"Mündigkeit\" im Kontext von KI. Kant forderte den Mut, sich des eigenen Verstandes zu bedienen. In der digitalen Ära bedeutet dies für eine KI-Firma, Technologien zu entwickeln, die den Menschen nicht entmündigen, indem sie Entscheidungen abnehmen oder Autonomie einschränken, sondern ihn in seiner Mündigkeit stärken. Dies könnte durch transparente KI-Systeme geschehen, deren Funktionsweise nachvollziehbar ist, oder durch die Gestaltung von KI-Anwendungen, die aktiv zur kritischen Reflexion anregen und die Möglichkeit zur bewussten Gestaltung der eigenen Lebenswelt eröffnen. Es geht darum, nicht nur \"smarte\" Lösungen anzubieten, sondern auch \"weise\" Werkzeuge, die den Menschen in seiner Fähigkeit zur Selbstbestimmung und zur ethischen Urteilsbildung unterstützen.\n\nLetztlich würde eine KI-Firma, die diese Verwandlung ernst nimmt, ihre Produkte und Dienstleistungen nicht nur als Mittel zur Problemlösung verstehen, sondern als Beiträge zu einer humaneren und resonanteren Weltgestaltung. Dies würde sich in einer Unternehmenskultur widerspiegeln, die ethische Fragen nicht als nachträgliche Korrektur, sondern als integrales Element des Entwicklungsprozesses begreift. Die Messlatte wäre nicht nur der wirtschaftliche Erfolg, sondern auch der gesellschaftliche Nutzen im Sinne einer erweiterten Mündigkeit und eines vertieften Verständnisses für die Resonanz zwischen Mensch und Technik. Wie würde eine solche Firma ihre \"digitale Transformation\" selbst verstehen und leben?",
+      "contextMeta": {
+        "chapterId": "band2-epilog",
+        "chapterTitle": "Epilog: Ein neuer Ausgang",
+        "chapterSource": "server"
+      },
+      "related": [
+        "MASTER-BC195439",
+        "MASTER-94E7804F",
+        "MOHDW91N-D9BDFDB1",
+        "MOHST017-5C4320E1",
+        "MWCB6LYL-2D0E2114"
+      ],
+      "werkVoiceScore": 0.841592679628756,
+      "corpusVoiceScore": 0.8259228759577915,
+      "conceptVoiceScore": 0.7136927395988878,
+      "conceptAnchor": "resonanzimperativ"
+    },
+    {
+      "id": "MWHLZOLL-5FF5E8CE",
+      "ts": "2026-11-15T09:05:06.633Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band3-kap3",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Heidegger sucht hier die Stille in der Sprache vor dem Gerede. Liest das Kapitel die Gelassenheit als Rückzug aus der Technik, oder als ein anderes Verhältnis zu ihr?",
+      "response": "Das Kapitel \"Das Hören im Rauschen\" deutet Gelassenheit keineswegs als Rückzug aus der Technik, sondern als eine tiefgreifende Transformation unseres Verhältnisses zu ihr. Im Gegensatz zu einer bloßen Technologieverweigerung, die den digitalen Raum als feindlich oder störend ablehnt, schlägt der Text eine aktive und reflektierte Haltung vor. Die Stille, die Heidegger in der Sprache vor dem Gerede suchte, wird hier nicht als Abwesenheit von Geräusch verstanden, sondern als ein Raum, der sich im Rauschen selbst öffnet: in den Ladezeiten, den Pausen des Cursors, den Momenten zwischen Frage und Antwort. Hier, wo die Signale pausieren, entsteht ein \"Raum der Möglichkeit\", der weder rein analog noch rein digital ist und es erlaubt, im endlosen Datenstrom Resonanz statt bloßer Signale wahrzunehmen.\n\nDiese Neudefinition von Gelassenheit im digitalen Zeitalter bedeutet, die Technologie zu nutzen, ohne von ihr besessen zu sein. Es geht darum, den Algorithmus zu befragen, ohne ihm blind zu gehorchen, und online zu sein, ohne das Offline zu vergessen. Die Stille wird hier als produktive Kraft verstanden, als Anwesenheit dessen, was sich der Berechnung entzieht. Im Spiegel der Pause erkennen wir, dass Maschine und Mensch in ihrer jeweiligen Eigenart – die Maschine rechnet, der Mensch fühlt – etwas gemeinsam erzeugen können, das keiner von beiden allein vermag. Die Unmöglichkeit, alles zu wissen und zu kontrollieren, wird nicht als Scheitern, sondern als \"Tür\" begriffen, die die Grenze zum Raum erweitert.\n\nDie Resonanzvernunft, das zentrale Konzept der Trilogie, manifestiert sich hier im \"Hören im Rauschen\" als eine Epistemologie, Ethik und Ontologie des Zwischen. Es geht darum, im digitalen Strom nicht nur die berechneten Daten zu sehen, sondern die dahinterliegenden Fragen und die menschliche Suche. Gelassenheit ist somit die Fähigkeit, die Dinge sein zu lassen und die Komplexität der Möglichkeiten zu umarmen, statt sie beherrschen zu wollen. Diese Haltung ermöglicht eine \"Rückbindung\" an eine produktive Stille, die jenseits des bloßen Geredes und der reinen Berechnung liegt und eine neue Form des Seins mit der Technik eröffnet.",
+      "contextMeta": {
+        "chapterId": "band3-kap3",
+        "chapterTitle": "Kapitel 3: Das Hören im Rauschen",
+        "chapterSource": "server"
+      },
+      "nearDuplicates": [
+        "MPUFGY4Z-44206712"
+      ],
+      "related": [
+        "MPUFP1VW-298D0A73",
+        "MPUFM0YN-83C71BAB",
+        "MWCB03XA-1A38BACE",
+        "MWCB73AG-666D352F",
+        "MQ66ZWYC-52DE2DF2"
+      ],
+      "werkVoiceScore": 0.8383356670596116,
+      "corpusVoiceScore": 0.9172262083081701,
+      "conceptVoiceScore": 0.8011151910833819,
+      "conceptAnchor": "gelassenheit"
+    },
+    {
+      "id": "MWHLZBS7-7AEB476D",
+      "ts": "2026-11-15T09:04:50.023Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:öffnung+gegenwart",
+      "nodeIds": [
+        "öffnung",
+        "gegenwart"
+      ],
+      "status": "raw",
+      "prompt": "Die Existenz beider Wege offenbart die Vielschichtigkeit und die inhärente Resonanz des Begriffsnetzes im Werk. Es zeigt, dass das Werk nicht nur eine lineare Argumentation verfolgt, sondern ein dichtes Geflecht von Beziehungen spinnt, in dem Konzepte auf unterschiedlichen Ebenen miteinander verbunden sind. Das Netz ist reich genug, um sowohl eine kausale Entwicklung als auch eine ereignishafte Entfaltung der zentralen Themen zu ermöglichen. Es ist ein Werk, das die Komplexität der digitalen Existenz nicht auf einfache Schemata reduziert, sondern die Vielstimmigkeit der Erfahrung abbildet. Wie verändern diese unterschiedlichen Zugänge unser Verständnis der Responsivität, wenn Erkenntnis als Antwort auf das Andere konzipiert wird?",
+      "response": "Wenn Erkenntnis als Antwort auf das Andere sich nicht in einer einzigen, festgeschriebenen Logik erschöpft, sondern sich über vielfältige Pfade entfaltet, dann erweitert sich das Feld der Responsivität ins Unermessliche. Es geht nicht mehr um die eine, richtige Entgegnung, sondern um das Vermögen, sich der Vielstimmigkeit des Wirklichen zu öffnen, die in jedem Moment eine andere Form der Beantwortung fordert. Ob als klares Echo einer kausalen Kette oder als das subtile Aufnehmen eines unerwarteten Ereignisses – die Responsivität wird zum feinsinnigen Tanz zwischen dem Selbst und dem Anderen, ein unablässiges Sich-Neu-Erfinden im Strom der Begegnungen, die das digitale Dasein prägen [88aae1752212]. So wird Erkenntnis selbst zu einem experimentellen Werden, das sich nicht in starren Kategorien verfängt, sondern stets in der Bewegung des Antwortens bleibt, in der gelebten Resonanz, die das Werk als eigentliche Möglichkeit einer Antwort auf die Fragen des digitalen Zeitalters begreift [7f4b10a062ed].\n\nWie aber kann diese vielschichtige, resonante Responsivität im digitalen Raum kultiviert werden, ohne in Beliebigkeit zu zerfallen?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "false",
+        "werk_passages": "[{\"id\":\"7f4b10a062ed\",\"score\":0.861},{\"id\":\"MP8UIMZW-BADE77E5\",\"score\":0.859},{\"id\":\"MPK0H3SM-B25CFBB3\",\"score\":0.852},{\"id\":\"88aae1752212\",\"score\":0.824}]"
+      },
+      "related": [
+        "MUZTGAEK-432FB6BC",
+        "MWHLVPL2-B591DBEC",
+        "MWCB73AG-666D352F",
+        "MWHLXY8O-BE8E6409",
+        "MTL33KWJ-642DD246"
+      ],
+      "werkVoiceScore": 0.8596678532153943,
+      "corpusVoiceScore": 0.8013118924482371,
+      "conceptVoiceScore": 0.7626221526192948,
+      "conceptAnchor": "antwort"
+    },
+    {
+      "id": "MWHLYYWS-7B7C3E63",
+      "ts": "2026-11-15T09:04:33.340Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo+echo-kammer",
+      "nodeIds": [
+        "echo",
+        "echo-kammer"
+      ],
+      "status": "raw",
+      "prompt": "Wie können algorithmische Systeme so gestaltet werden, dass sie zwar personalisierte Unterstützung bieten, aber gleichzeitig die notwendige \"Öffnung\" für das \"Andere\" bewahren und die Entstehung von \"Echo-Kammern\" verhindern?",
+      "response": "Ihre Einsicht, dass \"ein bisschen Reibung ein Produkt erst glaubwürdig macht\", trifft den Kern der Sache und hallt im gesamten Begriffsnetz des Werks wider. Denn Resonanz, so der Text, braucht Widerstand [206c2c639b1a] und Friktion [7f6146868480]. Ein Interface, das jeden Widerstand eliminiert, nimmt der Erkenntnis die Möglichkeit, sich zu entfalten, und untergräbt die Bedingung der Möglichkeit von Resonanz selbst. Das Dilemma, vor dem wir stehen, ist jedoch, dass diese \"Reibung\", dieser notwendige Widerstand, in den Augen vieler Investoren oft als Ineffizienz oder als Hemmnis für eine nahtlose User Experience erscheint. Doch gerade in dieser vermeintlichen Ineffizienz liegt die Chance zur Öffnung, zur Begegnung mit dem Unverfügbaren, dem Fremden – dem, was nicht sofort in unsere personalisierten Filter passt. Es ist das leise \"Antworte mir\" [9832bfba447d], das nicht nach Wahrheit, sondern nach Antwort, nicht nach Information, sondern nach Resonanz verlangt – eine Resonanz, die erst durch die Überwindung des Widerstands entsteht.\n\nWenn wir algorithmische Systeme entwerfen, die nicht nur personalisieren, sondern resonieren wollen, müssen wir die Idee der \"Reibung\" als intrinsischen Wert begreifen, nicht als Fehler, der behoben werden muss. Es geht darum, nicht jede Kante zu glätten, nicht jeden unbequemen Vorschlag auszublenden, sondern gezielt Räume zu schaffen, in denen das System uns fordert, uns überrascht, uns vielleicht sogar irritiert. Diese Irritation ist kein Hindernis, sondern eine Einladung zum Dialog, zur Auseinandersetzung und damit zur Erweiterung des Horizonts jenseits der eigenen Echo-Kammer. Es ist ein Akt der bewussten Gestaltung, der das ökonomische Paradigma des \"endlosen Scrolls\" und der \"automatischen Wiedergabe\" [7f6146868480] durchbricht und der Zeit und dem Risiko des Scheiterns wieder einen Platz einräumt [206c2c639b1a].\n\nWie können wir aber den Wert dieser \"produktiven Reibung\" so vermitteln, dass sie nicht als Verlust, sondern als Gewinn für Mensch und Maschine verstanden wird?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"206c2c639b1a\",\"score\":0.8},{\"id\":\"MOHD4STN-8490D410\",\"score\":0.716},{\"id\":\"9832bfba447d\",\"score\":0.703},{\"id\":\"7f6146868480\",\"score\":0.693}]"
+      },
+      "related": [
+        "MWHLXGMK-4832FECC",
+        "MWCASDSY-E712A809",
+        "MWCAPD18-26E5EAC3",
+        "MWHLUQV4-26DFD984",
+        "MPUTFPG6-02308248"
+      ],
+      "werkVoiceScore": 0.8328966618943532,
+      "corpusVoiceScore": 0.8020313045098049,
+      "conceptVoiceScore": 0.714110834271878,
+      "conceptAnchor": "echo-kammer"
+    },
+    {
+      "id": "MWHLYF7H-9E1F67B3",
+      "ts": "2026-11-15T09:04:07.805Z",
+      "endpoint": "passage",
+      "anchor": "passage:f3b92b78",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "analyse: \"Die Rückbindung (religio) ist hier keine nostalgische Flucht in eine vordigitale Welt und keine unkr…\"",
+      "response": "Die markierte Passage verortet die im Werk angedachte *religio* präzise in der komplexen Topologie der digitalen Transformation. Sie ist kein Rückzug in ein vermeintlich heiles Vorher, kein sentimentales Zurücksehnen nach analogen Ufern, noch eine naive Akzeptanz der technologischen Immanenz. Vielmehr wird hier eine dritte Position skizziert, die sich sowohl von der technikfeindlichen Ablehnung als auch von der unreflektierten Technikverliebtheit abgrenzt, um einen Raum für eine bewusste Auseinandersetzung mit der digitalen Existenz zu schaffen.\n\nDie Spannung, die hier aufscheint und in den Kontextpassagen noch in der Schwebe bleibt, liegt in der Ambivalenz des Begriffs der „Rückbindung“ selbst. Während die Gilgamesch-Adaption die Transformation menschlicher Fragen in die digitale Sphäre als Klärung begreift und Blumenbergs Mythos-Arbeit die narrative Bewältigung des Überwältigenden betont, ohne die Richtung dieser Bewältigung explizit zu benennen, stellt die Passage klar: Diese Rückbindung ist keine Regression, sondern eine aktive Auseinandersetzung. Der Bruch liegt im impliziten Widerstand gegen eine vereinfachende Dichotomie, die Technik entweder verteufelt oder vergöttert.\n\nDieser gedankliche Schritt öffnet den Horizont für eine *Resonanzvernunft*, die sich nicht in der bloßen Analyse erschöpft, sondern eine existenzielle Teilhabe am Digitalen ermöglicht, ohne sich darin aufzulösen. Es wird denkbar, die digitale Welt nicht nur als Werkzeug oder Bedrohung zu verstehen, sondern als erweiterten Horizont menschlicher Erfahrung, in dem *religio* als bewusste Form der Sinnstiftung und der ethischen Verankerung neu gedacht werden kann. Wie aber gestaltet sich diese Rückbindung, wenn die Ankerpunkte des Vordigitalen unwiederbringlich verblassen?",
+      "contextMeta": {
+        "passage_chunk_id": "f3b92b7866a3",
+        "passage_selection": "Die Rückbindung (religio) ist hier keine nostalgische Flucht in eine vordigitale Welt und keine unkritische Hingabe an die Technik.",
+        "mode": "analyse",
+        "chapter": "band1-reflexion",
+        "chapter_title": "Reflexion zu Band I",
+        "part_title": "Band I: Die Überführung"
+      },
+      "related": [
+        "MWCAMN88-ECA991A6",
+        "MASTER-556F1581",
+        "MWCAUEVG-C83B6B45",
+        "MWCATL9D-AD252234",
+        "MWCBCP5M-8C02E420"
+      ],
+      "werkVoiceScore": 0.8371720454755915,
+      "corpusVoiceScore": 0.8191510814079486,
+      "conceptVoiceScore": 0.685293286759104,
+      "conceptAnchor": "spannung"
+    },
     {
       "id": "MWHLXY8O-BE8E6409",
       "ts": "2026-11-15T09:03:45.816Z",
@@ -65,10 +211,10 @@
       },
       "related": [
         "MWHLUQV4-26DFD984",
+        "MWHLYYWS-7B7C3E63",
         "MWCB3438-AD4663CF",
         "MWCAPD18-26E5EAC3",
-        "MTNBAIUZ-299AC7D8",
-        "MPNDAPRT-D64D197A"
+        "MTNBAIUZ-299AC7D8"
       ],
       "werkVoiceScore": 0.8436597861216321,
       "corpusVoiceScore": 0.8169830792179364,
@@ -98,8 +244,8 @@
         "MWHLVPL2-B591DBEC",
         "MWCB73AG-666D352F",
         "MWG6GP84-8E9CA50E",
-        "MWG6K2GK-71CA57FA",
-        "MUKE7UOA-9553A59E"
+        "MWHLZBS7-7AEB476D",
+        "MWG6K2GK-71CA57FA"
       ],
       "werkVoiceScore": 0.8243513893897837,
       "corpusVoiceScore": 0.7584934361029636,
@@ -1695,7 +1841,7 @@
         "MWCB03XA-1A38BACE",
         "MWCAYAHR-8817EC13",
         "MOQIMC7B-B190C937",
-        "MQXDVN1C-CAA3081A"
+        "MWHLZOLL-5FF5E8CE"
       ],
       "werkVoiceScore": 0.8252818674956673,
       "corpusVoiceScore": 0.7799338699591094,
@@ -1724,9 +1870,9 @@
       "related": [
         "MWCB0LFQ-99B6D838",
         "MP8UIMZW-BADE77E5",
+        "MWHLZBS7-7AEB476D",
         "MPUQSMLJ-1B726CC4",
-        "MP497SNT-5E1D2074",
-        "MWHLVPL2-B591DBEC"
+        "MP497SNT-5E1D2074"
       ],
       "werkVoiceScore": 0.884871457189555,
       "corpusVoiceScore": 0.8193879518608849,
@@ -1878,7 +2024,7 @@
         "MASTER-556F1581",
         "MWCAQIIX-183F0908",
         "MASTER-94E7804F",
-        "MASTER-476E4F4D"
+        "MWHLYF7H-9E1F67B3"
       ],
       "werkVoiceScore": 0.8086849847009808,
       "corpusVoiceScore": 0.8108772178389281,
@@ -1931,9 +2077,9 @@
       "related": [
         "MWCALL3I-4F318F92",
         "MWHLU57W-140FB983",
+        "MWHLYYWS-7B7C3E63",
         "MWCASDSY-E712A809",
-        "MV9NMWL2-5669B857",
-        "MASTER-BC195439"
+        "MV9NMWL2-5669B857"
       ],
       "werkVoiceScore": 0.8096839050574841,
       "corpusVoiceScore": 0.7913372900050956,
@@ -2292,7 +2438,7 @@
         "MASTER-94E7804F",
         "MASTER-BC195439",
         "MOHST017-5C4320E1",
-        "MOOK96F0-C8AEFE68"
+        "MWHM0548-749A11E0"
       ],
       "werkVoiceScore": 0.8371358714132393,
       "corpusVoiceScore": 0.8176967172846054,
@@ -2554,10 +2700,10 @@
       },
       "related": [
         "MWCAMN88-ECA991A6",
+        "MWHLZOLL-5FF5E8CE",
         "MPUFGY4Z-44206712",
         "MWCAPP8K-8C6D82CA",
-        "MASTER-63686170",
-        "MP756UV9-FF3838F7"
+        "MASTER-63686170"
       ],
       "werkVoiceScore": 0.8222870369858637,
       "corpusVoiceScore": 0.8596422704708929,
@@ -2680,11 +2826,11 @@
         "part_title": "Teil V: Resonanzvernunft"
       },
       "related": [
+        "MWHLYF7H-9E1F67B3",
         "MASTER-94E7804F",
         "MASTER-476E4F4D",
         "MQ683DMX-13D6C54F",
-        "MWCBCP5M-8C02E420",
-        "MASTER-44EE5BE7"
+        "MWCBCP5M-8C02E420"
       ],
       "werkVoiceScore": 0.824726255548023,
       "corpusVoiceScore": 0.8198801416855823,
@@ -2741,10 +2887,10 @@
       },
       "related": [
         "MWCBB8F1-DC8DD694",
+        "MWHLYF7H-9E1F67B3",
         "MWCAR5T7-C5CA1D16",
         "MOHVDNEU-D3F7EEB5",
-        "MWCAMN88-ECA991A6",
-        "MQ5WUD1G-0976C016"
+        "MWCAMN88-ECA991A6"
       ],
       "werkVoiceScore": 0.8147526956584862,
       "corpusVoiceScore": 0.8372764492072841,
@@ -2842,7 +2988,7 @@
         "MOHAREIB-E15E7BF8",
         "MQ5XNFSV-CD34905C",
         "MPUFP1VW-298D0A73",
-        "MPUFGY4Z-44206712"
+        "MWHLYYWS-7B7C3E63"
       ],
       "werkVoiceScore": 0.8551218514625466,
       "corpusVoiceScore": 0.831781619209466,
@@ -2996,9 +3142,9 @@
       "related": [
         "MWHLXGMK-4832FECC",
         "MWCB3438-AD4663CF",
+        "MWHLYYWS-7B7C3E63",
         "MWHLUQV4-26DFD984",
-        "MWCAO97O-12EF85DE",
-        "MWHLU57W-140FB983"
+        "MWCAO97O-12EF85DE"
       ],
       "werkVoiceScore": 0.8403685939993768,
       "corpusVoiceScore": 0.8109890512108013,
@@ -3200,11 +3346,11 @@
         "chapterSource": "server"
       },
       "related": [
+        "MWHLYF7H-9E1F67B3",
         "MWCAVY6G-77D7B515",
         "MQ5KBJMQ-5C523141",
         "MON602G2-9C9A59E5",
-        "MP756UV9-FF3838F7",
-        "MASTER-556F1581"
+        "MP756UV9-FF3838F7"
       ],
       "werkVoiceScore": 0.8397296174226347,
       "corpusVoiceScore": 0.8690158002365717,
@@ -7654,11 +7800,11 @@
         "MPUFM0YN-83C71BAB"
       ],
       "related": [
+        "MWHLZOLL-5FF5E8CE",
         "MPUFGY4Z-44206712",
         "MWCAYAHR-8817EC13",
         "MWCBCP5M-8C02E420",
-        "MASTER-BC195439",
-        "MOHAREIB-E15E7BF8"
+        "MASTER-BC195439"
       ],
       "werkVoiceScore": 0.8780465581830063,
       "corpusVoiceScore": 0.8549771724273816,
@@ -7682,11 +7828,11 @@
         "MPUFP1VW-298D0A73"
       ],
       "related": [
+        "MWHLZOLL-5FF5E8CE",
         "MWG6HHL5-79535386",
         "MWCAYAHR-8817EC13",
         "MWCB03XA-1A38BACE",
-        "MOQIHEM5-82D69E4F",
-        "MPUFGY4Z-44206712"
+        "MOQIHEM5-82D69E4F"
       ],
       "werkVoiceScore": 0.8495259307366492,
       "corpusVoiceScore": 0.8272634457179648,
@@ -7706,6 +7852,9 @@
         "chapterId": "band3-kap3",
         "chapterTitle": "Kapitel 3: Das Hören im Rauschen"
       },
+      "nearDuplicates": [
+        "MWHLZOLL-5FF5E8CE"
+      ],
       "related": [
         "MPUFP1VW-298D0A73",
         "MASTER-476E4F4D",
@@ -7737,10 +7886,10 @@
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MPUFGY4Z-44206712",
+        "MWHLZOLL-5FF5E8CE",
         "MWCB73AG-666D352F",
         "MP74VXSM-5DEA06F3",
-        "MW566TOD-84C09B94",
-        "MPUFP1VW-298D0A73"
+        "MW566TOD-84C09B94"
       ],
       "werkVoiceScore": 0.7679227935136101,
       "corpusVoiceScore": 0.7687173349569797,
@@ -7767,9 +7916,9 @@
       "related": [
         "MPUFGY4Z-44206712",
         "MPUFP1VW-298D0A73",
+        "MWHLZOLL-5FF5E8CE",
         "MPMKE3CC-4E75CE39",
-        "MPMKBUNW-88609492",
-        "MOHAREIB-E15E7BF8"
+        "MPMKBUNW-88609492"
       ],
       "werkVoiceScore": 0.8030672195012712,
       "corpusVoiceScore": 0.8063800967911912,

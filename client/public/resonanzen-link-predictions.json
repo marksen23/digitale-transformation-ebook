@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:04:16.966Z",
+  "generatedAt": "2026-11-15T09:05:53.714Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -292,6 +292,19 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "gegenwart",
+      "target": "öffnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWHLZBS7-7AEB476D",
+        "MWHLV7BW-F612B59E"
       ]
     },
     {
@@ -842,7 +855,7 @@
   ],
   "stats": {
     "totalPairs": 374,
-    "candidatesCount": 64,
+    "candidatesCount": 65,
     "existingEdges": 116,
     "maxCooccurrence": 25
   }
