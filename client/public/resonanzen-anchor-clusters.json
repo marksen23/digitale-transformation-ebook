@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:02:49.848Z",
+  "generatedAt": "2026-11-15T09:04:18.067Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap4",
@@ -244,7 +244,7 @@
     }
   ],
   "stats": {
-    "totalAnchors": 199,
+    "totalAnchors": 201,
     "withMultipleVariants": 17,
     "withMaster": 16,
     "staleMasters": 1

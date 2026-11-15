@@ -1,16 +1,59 @@
 {
-  "generatedAt": "2026-11-15T09:02:49.766Z",
-  "count": 333,
+  "generatedAt": "2026-11-15T09:04:17.962Z",
+  "count": 336,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 333,
-    "answered": 275,
-    "open": 58,
-    "embedded": 4
+    "total": 336,
+    "answered": 279,
+    "open": 57,
+    "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MWHLXY8O-BE8E6409",
+      "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und die inhärente Resonanz des Begriffsnetzes im Werk. Es zeigt, dass das Werk nicht nur eine lineare Argumentation verfolgt, sondern ein dichtes Geflecht von Beziehungen spinnt, in dem Konzepte auf unterschiedlichen Ebenen miteinander verbunden sind. Das Netz ist reich genug, um sowohl eine kausale Entwicklung als auch eine ereignishafte Entfaltung der zentralen Themen zu ermöglichen. Es ist ein Werk, das die Komplexität der digitalen Existenz nicht auf einfache Schemata reduziert, sondern die Vielstimmigkeit der Erfahrung abbildet. Wie verändern diese unterschiedlichen Zugänge unser Verständnis der Responsivität, wenn Erkenntnis als Antwort auf das Andere konzipiert wird?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:andere+gegenwart",
+      "nodeIds": [
+        "andere",
+        "dasein",
+        "gegenwart",
+        "lm-begegnung",
+        "moment",
+        "selbst"
+      ],
+      "ts": "2026-11-15T09:03:45.816Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWHLXGMK-4832FECC",
+      "question": "Wie können algorithmische Systeme so gestaltet werden, dass sie zwar personalisierte Unterstützung bieten, aber gleichzeitig die notwendige \"Öffnung\" für das \"Andere\" bewahren und die Entstehung von \"Echo-Kammern\" verhindern?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-15T09:03:22.988Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWHLWXJ6-FBB227D8",
+      "question": "Ist die Unzufriedenheit trotz grüner Kennzahlen ein Signal, das uns zur Rückbindung an eine tiefere, nicht-quantifizierbare Wirklichkeit drängt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:andere+zeit",
+      "nodeIds": [
+        "andere",
+        "zeit"
+      ],
+      "ts": "2026-11-15T09:02:58.242Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWHLWM05-8EEB6E7F",
       "question": "Kann es Resonanz geben, wenn das Antlitz des Anderen nicht mehr als ursprüngliche ethische Forderung verstanden wird, sondern zu einem bloßen Datenpunkt im Zwischen degradiert wird?",
@@ -19,8 +62,17 @@
       "nodeIds": [],
       "ts": "2026-11-15T09:02:43.301Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWHLXY8O-BE8E6409",
+          "score": 0.726
+        },
+        {
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.722
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWHLW24R-959992F9",
@@ -48,8 +100,17 @@
       ],
       "ts": "2026-11-15T09:02:01.286Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWHLWXJ6-FBB227D8",
+          "score": 0.904
+        },
+        {
+          "id": "MWHLXY8O-BE8E6409",
+          "score": 0.815
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWHLV7BW-F612B59E",
@@ -83,8 +144,13 @@
       ],
       "ts": "2026-11-15T09:01:16.289Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.817
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6K2GK-71CA57FA",
@@ -116,8 +182,13 @@
       ],
       "ts": "2026-11-14T09:05:02.225Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.733
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6JE3B-DEC4B0CF",
@@ -164,6 +235,10 @@
         {
           "id": "MWG6K2GK-71CA57FA",
           "score": 0.891
+        },
+        {
+          "id": "MWHLWXJ6-FBB227D8",
+          "score": 0.772
         },
         {
           "id": "MWHLVPL2-B591DBEC",
@@ -412,6 +487,10 @@
           "score": 0.743
         },
         {
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.731
+        },
+        {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.73
         }
@@ -430,16 +509,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.739
+        },
+        {
           "id": "MWG6JQJ5-54630303",
           "score": 0.734
         },
         {
           "id": "MWHLU57W-140FB983",
           "score": 0.725
-        },
-        {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.723
         }
       ],
       "answered": true
@@ -644,8 +723,8 @@
           "score": 0.786
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.766
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.775
         }
       ],
       "answered": true
@@ -1007,8 +1086,8 @@
           "score": 0.816
         },
         {
-          "id": "MWG6IZQ5-889B7147",
-          "score": 0.802
+          "id": "MWHLWXJ6-FBB227D8",
+          "score": 0.81
         }
       ],
       "answered": true
@@ -1026,16 +1105,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.835
+        },
+        {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.831
         },
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.809
-        },
-        {
-          "id": "MASTER-476E4F4D",
-          "score": 0.799
         }
       ],
       "answered": true
@@ -1165,8 +1244,8 @@
           "score": 0.836
         },
         {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.821
+          "id": "MWHLXY8O-BE8E6409",
+          "score": 0.828
         }
       ],
       "answered": true
@@ -2217,8 +2296,8 @@
           "score": 0.767
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.721
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.76
         }
       ],
       "answered": true
@@ -2241,12 +2320,12 @@
           "score": 0.77
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.755
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.756
         },
         {
-          "id": "MV9NMWL2-5669B857",
-          "score": 0.754
+          "id": "MWHLUQV4-26DFD984",
+          "score": 0.755
         }
       ],
       "answered": true
@@ -4480,16 +4559,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.814
+        },
+        {
           "id": "MQ5XNFSV-CD34905C",
           "score": 0.812
         },
         {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.807
-        },
-        {
-          "id": "MASTER-53BE22D7",
-          "score": 0.799
         }
       ],
       "answered": true
@@ -5556,11 +5635,11 @@
           "score": 0.765
         },
         {
-          "id": "MASTER-03286683",
-          "score": 0.751
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.755
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
+          "id": "MASTER-03286683",
           "score": 0.751
         }
       ],
@@ -5717,8 +5796,8 @@
           "score": 0.792
         },
         {
-          "id": "MW566TOD-84C09B94",
-          "score": 0.784
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.791
         }
       ],
       "answered": true
@@ -6568,11 +6647,11 @@
           "score": 0.743
         },
         {
-          "id": "MWCB9C3X-1CC3BC23",
-          "score": 0.726
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.734
         },
         {
-          "id": "MQ5XNFSV-CD34905C",
+          "id": "MWCB9C3X-1CC3BC23",
           "score": 0.726
         }
       ],

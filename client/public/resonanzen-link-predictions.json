@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:02:48.606Z",
+  "generatedAt": "2026-11-15T09:04:16.966Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -143,6 +143,19 @@
       ]
     },
     {
+      "source": "dasein",
+      "target": "moment",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWHLXY8O-BE8E6409",
+        "MWCB3NW4-F13A863B",
+        "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
       "source": "lm-scheitern",
       "target": "moment",
       "cooccurrence": 3,
@@ -282,6 +295,56 @@
       ]
     },
     {
+      "source": "andere",
+      "target": "moment",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWHLXY8O-BE8E6409",
+        "MWHLVPL2-B591DBEC"
+      ]
+    },
+    {
+      "source": "dasein",
+      "target": "lm-begegnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWHLXY8O-BE8E6409",
+        "MWCBAQN6-9D0CCC83"
+      ]
+    },
+    {
+      "source": "lm-begegnung",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWHLXY8O-BE8E6409",
+        "MP2LIW43-E8ADC59E"
+      ]
+    },
+    {
+      "source": "andere",
+      "target": "zeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWHLWXJ6-FBB227D8",
+        "MWHLVPL2-B591DBEC"
+      ]
+    },
+    {
       "source": "lm-begegnung",
       "target": "zeit",
       "cooccurrence": 2,
@@ -354,18 +417,6 @@
       "sampleEntryIds": [
         "MWCB73AG-666D352F",
         "MWCAP1CQ-1980FEA2"
-      ]
-    },
-    {
-      "source": "dasein",
-      "target": "moment",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWCB3NW4-F13A863B",
-        "MPUQSMLJ-1B726CC4"
       ]
     },
     {
@@ -790,8 +841,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 368,
-    "candidatesCount": 60,
+    "totalPairs": 374,
+    "candidatesCount": 64,
     "existingEdges": 116,
     "maxCooccurrence": 25
   }

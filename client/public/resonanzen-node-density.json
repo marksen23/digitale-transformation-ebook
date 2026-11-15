@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:02:48.604Z",
+  "generatedAt": "2026-11-15T09:04:16.964Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 24,
@@ -39,9 +39,9 @@
       }
     },
     "dasein": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "path-analyse": 11,
+        "path-analyse": 12,
         "analyse": 3
       }
     },
@@ -103,16 +103,17 @@
       }
     },
     "moment": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
-        "path-analyse": 10,
+        "path-analyse": 11,
         "dialog": 1,
         "analyse": 2
       }
     },
     "zeit": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 3,
         "analyse": 3
       }
@@ -126,10 +127,10 @@
       }
     },
     "gegenwart": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "analyse": 6,
-        "path-analyse": 2
+        "path-analyse": 3,
+        "analyse": 6
       }
     },
     "dialog": {
@@ -185,16 +186,17 @@
       }
     },
     "selbst": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "path-analyse": 9,
+        "path-analyse": 10,
         "analyse": 6
       }
     },
     "andere": {
-      "count": 8,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 3,
+        "dialog": 1,
         "analyse": 6
       }
     },
@@ -235,9 +237,9 @@
       }
     },
     "lm-begegnung": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 6,
         "analyse": 3
       }
     },
