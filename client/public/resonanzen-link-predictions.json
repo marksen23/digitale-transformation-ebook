@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:01:29.651Z",
+  "generatedAt": "2026-11-15T09:02:48.606Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -279,6 +279,31 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "lm-begegnung",
+      "target": "zeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWHLVPL2-B591DBEC",
+        "MWG6GP84-8E9CA50E"
+      ]
+    },
+    {
+      "source": "moment",
+      "target": "welt",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWHLVPL2-B591DBEC",
+        "MPCV5LR8-9AD1527C"
       ]
     },
     {
@@ -765,8 +790,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 357,
-    "candidatesCount": 58,
+    "totalPairs": 368,
+    "candidatesCount": 60,
     "existingEdges": 116,
     "maxCooccurrence": 25
   }

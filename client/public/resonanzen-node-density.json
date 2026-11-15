@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:01:29.649Z",
+  "generatedAt": "2026-11-15T09:02:48.604Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 24,
@@ -103,33 +103,33 @@
       }
     },
     "moment": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "path-analyse": 9,
+        "path-analyse": 10,
         "dialog": 1,
         "analyse": 2
       }
     },
     "zeit": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 3,
         "analyse": 3
       }
     },
     "raum": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
+        "path-analyse": 2,
         "analyse": 7,
-        "dialog": 8,
-        "path-analyse": 1
+        "dialog": 8
       }
     },
     "gegenwart": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "path-analyse": 2,
-        "analyse": 5
+        "analyse": 6,
+        "path-analyse": 2
       }
     },
     "dialog": {
@@ -171,10 +171,10 @@
       }
     },
     "existenz": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
-        "path-analyse": 2,
-        "analyse": 3
+        "analyse": 4,
+        "path-analyse": 2
       }
     },
     "wesen": {
@@ -192,16 +192,16 @@
       }
     },
     "andere": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "analyse": 6,
-        "path-analyse": 1
+        "path-analyse": 2,
+        "analyse": 6
       }
     },
     "welt": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 7,
         "analyse": 6
       }
     },
@@ -214,8 +214,9 @@
       }
     },
     "öffnung": {
-      "count": 5,
+      "count": 6,
       "endpoints": {
+        "analyse": 1,
         "path-analyse": 5
       }
     },
@@ -234,9 +235,9 @@
       }
     },
     "lm-begegnung": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 5,
         "analyse": 3
       }
     },
@@ -377,7 +378,7 @@
   "stats": {
     "minCount": 0,
     "maxCount": 42,
-    "median": 7,
+    "median": 8,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "schattenlicht",

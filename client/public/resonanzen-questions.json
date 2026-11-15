@@ -1,16 +1,76 @@
 {
-  "generatedAt": "2026-11-15T09:01:30.429Z",
-  "count": 329,
+  "generatedAt": "2026-11-15T09:02:49.766Z",
+  "count": 333,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 329,
-    "answered": 273,
-    "open": 56,
-    "embedded": 1
+    "total": 333,
+    "answered": 275,
+    "open": 58,
+    "embedded": 4
   },
   "questions": [
+    {
+      "sourceId": "MWHLWM05-8EEB6E7F",
+      "question": "Kann es Resonanz geben, wenn das Antlitz des Anderen nicht mehr als ursprüngliche ethische Forderung verstanden wird, sondern zu einem bloßen Datenpunkt im Zwischen degradiert wird?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-15T09:02:43.301Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWHLW24R-959992F9",
+      "question": "Wie können wir Technologie gestalten, die nicht nur nützlich ist, sondern uns in unserer menschlichen Existenz bewusster und präsenter macht, anstatt uns in der Flut des Unendlichen zu verlieren?",
+      "endpoint": "passage",
+      "anchor": "passage:809b3f92",
+      "nodeIds": [],
+      "ts": "2026-11-15T09:02:17.547Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWHLVPL2-B591DBEC",
+      "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und innere Vernetzung des Begriffsnetzes. Es zeigt, dass die Resonanzvernunft nicht monokausal gedacht wird, sondern ein komplexes Gefüge von interdependenten Faktoren darstellt. Das Werk bietet nicht nur eine einzige, stringente Argumentationslinie, sondern eröffnet multiple Zugänge zu seinen Kernkonzepten. Dies spricht für ein dynamisches und oszillierendes Gefüge, in dem jeder Begriff den anderen bedingt und zugleich übersteigt [MP2LIW43-E8ADC59E]. Die \"Überraschung\" des zweiten Pfades liegt in der Erweiterung des Blickfeldes von der direkten Interaktion zur umfassenderen Existenzbedingung. Was sagt uns diese Doppelung über die Natur der Erkenntnis selbst, wenn sie sich auf so vielfältige Weise erschließen lässt?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:andere+zeit",
+      "nodeIds": [
+        "andere",
+        "lm-begegnung",
+        "moment",
+        "raum",
+        "welt",
+        "zeit"
+      ],
+      "ts": "2026-11-15T09:02:01.286Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWHLV7BW-F612B59E",
+      "question": "3. Für das Verhältnis Mensch-Maschine erschließt diese Triade die Erkenntnis, dass eine genuine Begegnung mit der digitalen Gegenwart – die ja auch eine fordernde Instanz sein kann – eine bewusste Haltung der Öffnung seitens des Menschen erfordert. Die digitale Existenz des Menschen, sein \"Sich-Behaupten\" im digitalen Raum, kann nicht isoliert von der fordernden digitalen Gegenwart gedacht werden. Ohne die Bereitschaft zur Öffnung bleibt das Verhältnis eine rein funktionale Interaktion, die das Potenzial für Resonanz verkennt. Wie können wir eine Öffnung kultivieren, die uns in der digitalen Welt berührbar, aber nicht wehrlos macht?",
+      "endpoint": "analyse",
+      "anchor": "analyse:existenz+gegenwart+öffnung",
+      "nodeIds": [
+        "existenz",
+        "gegenwart",
+        "öffnung"
+      ],
+      "ts": "2026-11-15T09:01:37.628Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWHLW24R-959992F9",
+          "score": 0.732
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWHLUQV4-26DFD984",
       "question": "Wie können wir in einer zunehmend algorithmisch vermittelten Welt den Widerstand des Anderen bewahren und die Entstehung von Echo-Kammern verhindern?",
@@ -73,6 +133,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWHLV7BW-F612B59E",
+          "score": 0.787
+        },
+        {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.766
         },
@@ -100,6 +164,10 @@
         {
           "id": "MWG6K2GK-71CA57FA",
           "score": 0.891
+        },
+        {
+          "id": "MWHLVPL2-B591DBEC",
+          "score": 0.768
         }
       ],
       "answered": true
@@ -160,15 +228,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWHLV7BW-F612B59E",
+          "score": 0.792
+        },
+        {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.761
         },
         {
           "id": "MWHLU57W-140FB983",
-          "score": 0.743
-        },
-        {
-          "id": "MWG6JQJ5-54630303",
           "score": 0.743
         }
       ],
@@ -207,8 +275,8 @@
           "score": 0.783
         },
         {
-          "id": "MWG6H024-AA7260D4",
-          "score": 0.766
+          "id": "MWHLV7BW-F612B59E",
+          "score": 0.769
         }
       ],
       "answered": true
@@ -231,12 +299,12 @@
           "score": 0.842
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.788
+          "id": "MWHLV7BW-F612B59E",
+          "score": 0.823
         },
         {
-          "id": "MWG6FYD2-E6D90142",
-          "score": 0.776
+          "id": "MWHLUQV4-26DFD984",
+          "score": 0.788
         }
       ],
       "answered": true
@@ -454,6 +522,10 @@
         {
           "id": "MWG6IMOZ-5252A380",
           "score": 0.724
+        },
+        {
+          "id": "MWHLWM05-8EEB6E7F",
+          "score": 0.721
         }
       ],
       "answered": true
@@ -474,16 +546,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWHLVPL2-B591DBEC",
+          "score": 0.814
+        },
+        {
           "id": "MWG6GP84-8E9CA50E",
           "score": 0.8
         },
         {
           "id": "MASTER-94E7804F",
           "score": 0.797
-        },
-        {
-          "id": "MASTER-4AA1AEA8",
-          "score": 0.785
         }
       ],
       "answered": true
@@ -502,12 +574,12 @@
           "score": 0.774
         },
         {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.728
+          "id": "MWHLWM05-8EEB6E7F",
+          "score": 0.761
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.725
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.728
         }
       ],
       "answered": true
@@ -520,8 +592,13 @@
       "nodeIds": [],
       "ts": "2026-11-11T16:09:29.413Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWHLW24R-959992F9",
+          "score": 0.728
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBDLHP-AB013ACE",
@@ -750,6 +827,10 @@
         {
           "id": "MWG6HHL5-79535386",
           "score": 0.837
+        },
+        {
+          "id": "MWHLV7BW-F612B59E",
+          "score": 0.753
         }
       ],
       "answered": true
@@ -1049,12 +1130,12 @@
           "score": 0.801
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.786
+          "id": "MWHLV7BW-F612B59E",
+          "score": 0.787
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.784
+          "id": "MWCBCP5M-8C02E420",
+          "score": 0.786
         }
       ],
       "answered": true
@@ -1080,12 +1161,12 @@
           "score": 0.897
         },
         {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.821
+          "id": "MWHLVPL2-B591DBEC",
+          "score": 0.836
         },
         {
-          "id": "MWG6K2GK-71CA57FA",
-          "score": 0.812
+          "id": "MWG6GP84-8E9CA50E",
+          "score": 0.821
         }
       ],
       "answered": true
@@ -1325,12 +1406,12 @@
           "score": 0.782
         },
         {
-          "id": "MWCB73AG-666D352F",
-          "score": 0.767
+          "id": "MWHLVPL2-B591DBEC",
+          "score": 0.769
         },
         {
-          "id": "MWCB0LFQ-99B6D838",
-          "score": 0.763
+          "id": "MWCB73AG-666D352F",
+          "score": 0.767
         }
       ],
       "answered": true
@@ -1423,8 +1504,8 @@
           "score": 0.778
         },
         {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.761
+          "id": "MWHLVPL2-B591DBEC",
+          "score": 0.769
         }
       ],
       "answered": true
@@ -1452,6 +1533,10 @@
       "ts": "2026-11-11T15:52:39.394Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWHLW24R-959992F9",
+          "score": 0.743
+        },
         {
           "id": "MWCAVY6G-77D7B515",
           "score": 0.722
@@ -7515,12 +7600,12 @@
           "score": 0.807
         },
         {
-          "id": "MPNDAPRT-D64D197A",
-          "score": 0.759
+          "id": "MWHLWM05-8EEB6E7F",
+          "score": 0.762
         },
         {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.75
+          "id": "MPNDAPRT-D64D197A",
+          "score": 0.759
         }
       ],
       "answered": true

@@ -1,22 +1,22 @@
 {
   "date": "2026-11-15",
-  "generatedAt": "2026-11-15T09:01:36.511Z",
-  "commit": "a8b62cd4fa87d7203147f5614ee984e7a8c01a3a",
-  "filesChecked": 382,
+  "generatedAt": "2026-11-15T09:02:44.494Z",
+  "commit": "b89ea5a941fe4ac96adf8382a71c7a4bebd9bb37",
+  "filesChecked": 386,
   "aggregates": {
     "byEndpoint": {
-      "analyse": 91,
+      "analyse": 93,
       "chapter": 56,
       "dialog": 48,
-      "path-analyse": 57,
+      "path-analyse": 58,
       "enkidu": 66,
       "graph-chat": 45,
-      "passage": 13,
+      "passage": 14,
       "translate": 6
     },
     "byStatus": {
       "published": 161,
-      "raw": 143,
+      "raw": 147,
       "rejected": 24,
       "approved": 54
     },
@@ -37,5 +37,5 @@
   },
   "errors": 0,
   "warnings": 47,
-  "recovery": false
+  "recovery": true
 }

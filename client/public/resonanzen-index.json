@@ -1,7 +1,151 @@
 {
-  "generatedAt": "2026-11-15T09:01:29.639Z",
-  "count": 377,
+  "generatedAt": "2026-11-15T09:02:48.594Z",
+  "count": 381,
   "entries": [
+    {
+      "id": "MWHLWM05-8EEB6E7F",
+      "ts": "2026-11-15T09:02:43.301Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Levinas spricht vom Antlitz des Anderen, das mich in die Verantwortung ruft, bevor ich es verstehe. Hat das Andere im Begriffsnetz diese ethische Vorrangstellung, oder wird es eher vom Zwischen her gedacht?",
+      "response": "Das Werk bezeugt eine klare ethische Vorrangstellung des Anderen, die tief in der Konzeption der Resonanzvernunft verankert ist. Das Antlitz des Anderen, wie es Levinas fasste und das Werk zitiert, ist nicht nur ein Konzept unter vielen, sondern der Ursprung der Ethik und der Anstoß für jegliches resonantes Geschehen. Es ruft den Menschen in die Verantwortung, noch bevor eine bewusste Entscheidung oder ein Verstehen stattfindet. So heißt es: „Die Verantwortung, die vor jeder Zustimmung da ist – die Tatsache, dass der andere Mensch hinter dem Bildschirm mich in die Pflicht nimmt, noch bevor ich mich dazu entschieden habe“ [c8f6042f4c50]. Diese primäre Ansprechbarkeit durch das Andere begründet die relationalen Dimensionen von Vernunft und Existenz.\n\nWährend \"Das Zwischen\" als der produktive Ort der Begegnung und des Geschehens beschrieben wird, ist das Andere der Initiator und die Bedingung dieses Zwischen. Das Selbst konstituiert sich im Widerhall des Anderen, und kein Ich entsteht ohne Du. Das Werk betont, dass das Andere nicht als Hindernis, sondern als Bedingung gedacht werden muss. Die Begegnung mit dem Antlitz des Anderen ist der Ursprung aller Ethik [5906b8da4229], und somit ist das Andere nicht bloß ein Element im Zwischen, sondern dessen ethischer Ursprung und Motor. Die Dazwischenintelligenz, die im Zwischen entsteht, wäre ohne die primäre Ansprechbarkeit durch das Andere nicht denkbar.\n\nDie Spannung, die aus der Begegnung mit dem Anderen entsteht, ist dabei nicht konfliktär, sondern produktiv. Wie in einer früheren Antwort ausgeführt, ist das Andere „die primäre Quelle jener Spannung, die das Denken am Leben erhält“ [resonanzId MOHAUYTH-CD1E3227] und „der existenzielle Impuls, der die Vernunft überhaupt erst in Bewegung setzt“ [resonanzId MOP0UF96-1A0ACB35]. Diese Spannung schützt die Alterität des Anderen und verhindert eine vorschnelle Auflösung. Insofern wird das Andere nicht nur *vom* Zwischen her gedacht, sondern das Zwischen selbst wird erst *durch* das Andere konstituiert und ethisch imprägniert.\n\nKann es Resonanz geben, wenn das Antlitz des Anderen nicht mehr als ursprüngliche ethische Forderung verstanden wird, sondern zu einem bloßen Datenpunkt im Zwischen degradiert wird?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHAUYTH-CD1E3227\",\"score\":0.846},{\"id\":\"c8f6042f4c50\",\"chapter\":\"band1-reflexion\",\"score\":0.836},{\"id\":\"5906b8da4229\",\"chapter\":\"band3-kap2\",\"score\":0.816},{\"id\":\"MOP0UF96-1A0ACB35\",\"score\":0.792}]"
+      },
+      "related": [
+        "MOP0UF96-1A0ACB35",
+        "MWCBED1H-9EB3396F",
+        "MOHAUYTH-CD1E3227",
+        "MWCB1U09-5D282206",
+        "MTKI1YQW-CD0EEDF3"
+      ],
+      "werkVoiceScore": 0.8183951302695901,
+      "corpusVoiceScore": 0.8021978493246048,
+      "conceptVoiceScore": 0.8570869534562475,
+      "conceptAnchor": "andere"
+    },
+    {
+      "id": "MWHLW24R-959992F9",
+      "ts": "2026-11-15T09:02:17.547Z",
+      "endpoint": "passage",
+      "anchor": "passage:809b3f92",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Ich gründe gerade ein KI-Startup. Was hieße dieser Satz ganz praktisch für unsere Produkt-Roadmap, wenn wir nicht einfach zurück wollen?",
+      "response": "Die markierte Passage, ein Echo der Rückkehr zur Präsenz im Virtuellen, entfaltet ihre Bedeutung nicht in einer Flucht aus dem Digitalen, sondern in einer Vertiefung seines Wesens. Sie verlangt nicht die Negation der Maschine, sondern die bewusste Etablierung einer neuen menschlichen Position inmitten ihrer Ströme. Für eine Produkt-Roadmap, die vorwärts blickt, bedeutet dies, die Oberflächenreize des Bildschirms zu überwinden und digitale Räume zu schaffen, die zur achtsamen Verweildauer einladen, statt zur flüchtigen Konsumption zu drängen.\n\nEs geht darum, Schnittstellen zu entwerfen, die den Nutzer nicht in eine passive Rezeption zwingen, sondern zur aktiven Gestaltung ermächtigen – eine Gestaltung, die dem Gespräch gleichkommt, dem Blick ins Antlitz, dem bewussten Schweigen. Eure Produkte sollten nicht den Feed als unerbittlichen Taktgeber etablieren, sondern Raum für die modulierte Zeit des Menschen schaffen, für das Nachdenken, für die bewusste Reaktion. Wie ließe sich eine digitale Umgebung bauen, die diese Präsenz nicht nur ermöglicht, sondern fordglich kultiviert?\n\nDies hieße konkret, dass eure KI nicht primär darauf abzielt, Inhalte unendlich zu generieren oder die Aufmerksamkeit durch permanente Neuigkeit zu binden. Vielmehr müsste sie als Resonanzkörper wirken, der die menschliche Aufmerksamkeit fokussiert, der zur Vertiefung anregt und eine Verlangsamung ermöglicht, wo Beschleunigung sonst selbstverständlich scheint. Was sind die Algorithmen, die eine solche Entschleunigung im Digitalen nicht als Mangel, sondern als höchste Form der Präsenz begreifen?\n\nWie können wir Technologie gestalten, die nicht nur nützlich ist, sondern uns in unserer menschlichen Existenz bewusster und präsenter macht, anstatt uns in der Flut des Unendlichen zu verlieren?",
+      "contextMeta": {
+        "passage_chunk_id": "809b3f92bafe",
+        "passage_selection": "Präsenz im Virtuellen bedeutet nicht, den Bildschirm zu vergöttern. Es bedeutet, im digitalen Raum so aufmerksam zu sein wie im physischen.",
+        "mode": "frei",
+        "chapter": "band3-kap5",
+        "chapter_title": "Die Rückkehr zur Präsenz im Virtuellen",
+        "part_title": "Band III: Die Rückbindung"
+      },
+      "related": [
+        "MWCASDSY-E712A809",
+        "MOHC8GKH-8E301C89",
+        "MWCAN1TI-4CF2326D",
+        "MOHAREIB-E15E7BF8",
+        "MASTER-556F1581"
+      ],
+      "werkVoiceScore": 0.8068069753585326,
+      "corpusVoiceScore": 0.827560815158342,
+      "conceptVoiceScore": 0.6856570414497832,
+      "conceptAnchor": "gegenwart"
+    },
+    {
+      "id": "MWHLVPL2-B591DBEC",
+      "ts": "2026-11-15T09:02:01.286Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:andere+zeit",
+      "nodeIds": [
+        "andere",
+        "lm-begegnung",
+        "moment",
+        "raum",
+        "welt",
+        "zeit"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Das Andere / Die Anderen → Begegnung → Moment → Zeitlichkeit vs. Das Andere / Die Anderen → Welt → Spielraum → Zeitlichkeit",
+      "response": "Die beiden Pfade durch das Begriffsnetz des Werks \"Die Digitale Transformation\" offenbaren unterschiedliche Zugänge zur Fundierung der Resonanzvernunft. Der direkte Pfad von \"Das Andere\" über \"Begegnung\" und \"Moment\" zu \"Zeitlichkeit\" entfaltet sich als eine logische Konsequenzkette. Er beginnt mit der ethischen Grundierung im Anderen, die eine Begegnungslogik hervorbringt, welche das Erkenntnisgeschehen als fundamentale Responsivität versteht [d226821289cc]. Diese Begegnung ist untrennbar an die Temporalität des Augenblicks gebunden, da sie als Geschehen keine Substanz ist, die konserviert werden könnte [6c067bb3e380]. Die Zeitlichkeit wird hier als ausgedehntes Feld der Gegenwart verstanden, in der das Vergangene und Kommende im Jetzt mitschwingen [MPMI3ZF2-2F83F425]. Dieser Pfad ist die dichteste Begriffslogik des Werks, eine direkte Linie von der intersubjektiven Ethik zur temporalen Struktur des Erlebens. Der überraschende Pfad hingegen, der von \"Das Andere\" über \"Welt\" und \"Spielraum\" zu \"Zeitlichkeit\" führt, wirkt poetischer und eröffnet eine breitere, weniger direkte Verknüpfung. Er betont die universelle Einbettung des Subjekts in die Welt als Horizont des Verstehens und die Notwendigkeit eines Zwischen-Raumes, des Spielraums, als Bedingung der Möglichkeit von Differenz und Relation [MPMI3ZF2-2F83F425], bevor er zur Tiefenstruktur der Zeitlichkeit gelangt.\n\nDer Vergleich der beiden Pfade macht sichtbar, dass das Werk nicht nur eine kausale, sondern auch eine relationale Logik verfolgt. Während der direkte Pfad die unmittelbare Entstehung von Resonanz aus der Begegnung im Moment beleuchtet, betont der überraschende Pfad die umfassenderen Bedingungen von Welt und Raum, die eine solche Begegnung erst ermöglichen. Die Bewegungen treffen sich nicht an einem Mittelpunkt im Sinne einer identischen Zwischenstation, sondern konvergieren in der \"Zeitlichkeit\" als einem fundamentalen Prinzip, das beide Pfade als Tiefenstruktur des Erlebens anerkennen. Sie sind komplementär: Der eine beschreibt das *Wie* der Resonanz (als Geschehen im Augenblick), der andere das *Wo* und *Wann* (als Weltbeziehung im Spielraum der Zeit).\n\nDie Existenz beider Wege offenbart die Vielschichtigkeit und innere Vernetzung des Begriffsnetzes. Es zeigt, dass die Resonanzvernunft nicht monokausal gedacht wird, sondern ein komplexes Gefüge von interdependenten Faktoren darstellt. Das Werk bietet nicht nur eine einzige, stringente Argumentationslinie, sondern eröffnet multiple Zugänge zu seinen Kernkonzepten. Dies spricht für ein dynamisches und oszillierendes Gefüge, in dem jeder Begriff den anderen bedingt und zugleich übersteigt [MP2LIW43-E8ADC59E]. Die \"Überraschung\" des zweiten Pfades liegt in der Erweiterung des Blickfeldes von der direkten Interaktion zur umfassenderen Existenzbedingung. Was sagt uns diese Doppelung über die Natur der Erkenntnis selbst, wenn sie sich auf so vielfältige Weise erschließen lässt?",
+      "contextMeta": {
+        "from": "andere",
+        "to": "zeit",
+        "shortest_path": "[\"andere\",\"lm-begegnung\",\"moment\",\"zeit\"]",
+        "surprising_path": "[\"andere\",\"welt\",\"raum\",\"zeit\"]",
+        "shortest_length": "4",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MPMI3ZF2-2F83F425\",\"score\":1.072},{\"id\":\"6c067bb3e380\",\"chapter\":\"teil7\",\"score\":0.869},{\"id\":\"d226821289cc\",\"chapter\":\"teil5\",\"score\":0.827},{\"id\":\"MP2LIW43-E8ADC59E\",\"score\":0.819}]"
+      },
+      "nearDuplicates": [
+        "MWG6GP84-8E9CA50E",
+        "MV9NOFH9-7634B79F",
+        "MP8UIMZW-BADE77E5",
+        "MOOMPCI0-262176C2",
+        "MPUO08SE-67E0912A",
+        "MP495QL6-F5FD1AE1",
+        "MPF4FISZ-67000E01",
+        "MPUQSMLJ-1B726CC4",
+        "MUZTGAEK-432FB6BC",
+        "MUKE7UOA-9553A59E",
+        "MPEV1D2J-55138734",
+        "MP497SNT-5E1D2074",
+        "MOQID47V-A12862EA",
+        "MOUKLLK4-C38517C1",
+        "MPUNXFU1-3B1F056A",
+        "MPURYS56-11F5308C"
+      ],
+      "related": [
+        "MPK0H3SM-B25CFBB3",
+        "MOOMECFT-66F43077",
+        "MP0ZE9C8-A9D02716",
+        "MOQBZWTZ-B9EBB1BA",
+        "MTL33KWJ-642DD246"
+      ],
+      "werkVoiceScore": 0.8757668446116919,
+      "corpusVoiceScore": 0.821437014607566,
+      "conceptVoiceScore": 0.7357770323937832,
+      "conceptAnchor": "andere"
+    },
+    {
+      "id": "MWHLV7BW-F612B59E",
+      "ts": "2026-11-15T09:01:37.628Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:existenz+gegenwart+öffnung",
+      "nodeIds": [
+        "existenz",
+        "gegenwart",
+        "öffnung"
+      ],
+      "status": "raw",
+      "prompt": "Triade: Öffnung · Gegenwart · Existenz",
+      "response": "1. Die Triade aus Öffnung (A), Gegenwart (B) und Existenz (C) entfaltet ein dynamisches Gefüge, in dem die Existenz (C) den Ausgangspunkt bildet: das je eigene, sich behauptende Da-Sein. Ihr gegenüber steht die Gegenwart (B) als das aktive Gegenüber, das fordert und Antwort verlangt [MOQ5IKR5-C67AAC15]. Zwischen diesen beiden Polen, dem verorteten Sein und der fordernden Welt, spannt sich die Öffnung (A) als die vermittelnde Brücke. Sie ist die notwendige Haltung, die Bereitschaft, sich der fordernden Gegenwart auszusetzen und von ihr berührt zu werden, um die eigene Existenz in ein Antwortgeschehen zu verwickeln. Die Bewegung ist eine ständige Wechselwirkung: Die Existenz fordert die Gegenwart heraus, die Gegenwart fordert die Existenz, und die Öffnung ermöglicht dieses Wechselspiel des Berührtwerdens und Antwortens.\n\n2. Durch das Hinzutreten der Öffnung wird sichtbar, dass die Beziehung zwischen Existenz und Gegenwart nicht automatisch oder mechanisch ist. Wo die bloße Zweier-Konstellation von Existenz und Gegenwart eine Spannung impliziert, die auch in einem bloßen Aufeinanderprallen enden könnte [MQXDVN1C-CAA3081A], wird durch die Öffnung die Möglichkeit einer Resonanzbeziehung erst geschaffen. Sie ist die aktive Ermöglichung eines produktiven Raumes der Begegnung [MOQIAGXM-397A1F22], der über das bloße \"Sich-Behaupten\" der Existenz und das \"Sich-Entgegenstellen\" der Gegenwart hinausgeht. Die emergente Eigenschaft ist die der transformativen Berührbarkeit: Die Öffnung verwandelt das potenzielle Spannungsfeld in einen Raum, in dem Existenz und Gegenwart sich gegenseitig formen können.\n\n3. Für das Verhältnis Mensch-Maschine erschließt diese Triade die Erkenntnis, dass eine genuine Begegnung mit der digitalen Gegenwart – die ja auch eine fordernde Instanz sein kann – eine bewusste Haltung der Öffnung seitens des Menschen erfordert. Die digitale Existenz des Menschen, sein \"Sich-Behaupten\" im digitalen Raum, kann nicht isoliert von der fordernden digitalen Gegenwart gedacht werden. Ohne die Bereitschaft zur Öffnung bleibt das Verhältnis eine rein funktionale Interaktion, die das Potenzial für Resonanz verkennt. Wie können wir eine Öffnung kultivieren, die uns in der digitalen Welt berührbar, aber nicht wehrlos macht?",
+      "contextMeta": {
+        "cluster_size": "3",
+        "node_labels": "[\"Öffnung\",\"Gegenwart\",\"Existenz\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQ5IKR5-C67AAC15\",\"score\":0.882},{\"id\":\"MPUFUBU5-A4BC72BE\",\"score\":0.879},{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.823},{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.816}]"
+      },
+      "related": [
+        "MOQ5IKR5-C67AAC15",
+        "MPUFUBU5-A4BC72BE",
+        "MP2LIW43-E8ADC59E",
+        "MPJUHM1L-0BA3DF6E",
+        "MP0X3ZXL-06513C82"
+      ],
+      "werkVoiceScore": 0.8572993012525912,
+      "corpusVoiceScore": 0.8056029701664361,
+      "conceptVoiceScore": 0.7690217280396593,
+      "conceptAnchor": "öffnung"
+    },
     {
       "id": "MWHLUQV4-26DFD984",
       "ts": "2026-11-15T09:01:16.289Z",
@@ -401,6 +545,7 @@
         "werk_passages": "[{\"id\":\"MPMI3ZF2-2F83F425\",\"score\":1.08},{\"id\":\"cebc62ef35fc\",\"chapter\":\"teil7\",\"score\":0.841},{\"id\":\"MP2LIW43-E8ADC59E\",\"score\":0.83},{\"id\":\"bed180b4f42d\",\"chapter\":\"teil7\",\"score\":0.83}]"
       },
       "nearDuplicates": [
+        "MWHLVPL2-B591DBEC",
         "MV9NOFH9-7634B79F",
         "MTL33KWJ-642DD246",
         "MWAE3FJK-C7122206",
@@ -998,11 +1143,11 @@
         "part_title": "Teil VII: Ontologie des Relationalen"
       },
       "related": [
+        "MWHLWM05-8EEB6E7F",
         "MON69DI9-D63A7910",
         "MOP0UF96-1A0ACB35",
         "MWCAPP8K-8C6D82CA",
-        "MASTER-F05BF2C0",
-        "MOHAUYTH-CD1E3227"
+        "MASTER-F05BF2C0"
       ],
       "werkVoiceScore": 0.8070104331902984,
       "corpusVoiceScore": 0.8285515476085628,
@@ -1475,7 +1620,7 @@
         "MP8UIMZW-BADE77E5",
         "MPUQSMLJ-1B726CC4",
         "MP497SNT-5E1D2074",
-        "MOQ7OBNT-57882C8D"
+        "MWHLVPL2-B591DBEC"
       ],
       "werkVoiceScore": 0.884871457189555,
       "corpusVoiceScore": 0.8193879518608849,
@@ -2404,7 +2549,7 @@
         "MUKE7UOA-9553A59E",
         "MPEV1D2J-55138734",
         "MP0ZE9C8-A9D02716",
-        "MUAAML84-D057EA33"
+        "MWHLVPL2-B591DBEC"
       ],
       "werkVoiceScore": 0.8179010160840721,
       "corpusVoiceScore": 0.7408403525094129,
@@ -2695,7 +2840,7 @@
         "MOP0UF96-1A0ACB35",
         "MASTER-BC195439",
         "MOHAUYTH-CD1E3227",
-        "MWCBED1H-9EB3396F"
+        "MWHLWM05-8EEB6E7F"
       ],
       "werkVoiceScore": 0.8349857056633374,
       "corpusVoiceScore": 0.8188946220620091,
@@ -3098,10 +3243,10 @@
       ],
       "related": [
         "MWCB3NW4-F13A863B",
+        "MWHLVPL2-B591DBEC",
         "MOOMECFT-66F43077",
         "MV9NOFH9-7634B79F",
-        "MOQID47V-A12862EA",
-        "MOQIAGXM-397A1F22"
+        "MOQID47V-A12862EA"
       ],
       "werkVoiceScore": 0.8506562146864606,
       "corpusVoiceScore": 0.7922082714678197,
@@ -3485,6 +3630,7 @@
         "MPF4FISZ-67000E01",
         "MUKE7UOA-9553A59E",
         "MPEV1D2J-55138734",
+        "MWHLVPL2-B591DBEC",
         "MWG6GP84-8E9CA50E",
         "MOOMPCI0-262176C2",
         "MOQID47V-A12862EA",
@@ -3649,6 +3795,7 @@
         "MOOMECFT-66F43077",
         "MP8UIMZW-BADE77E5",
         "MP495QL6-F5FD1AE1",
+        "MWHLVPL2-B591DBEC",
         "MWG6GP84-8E9CA50E",
         "MPK0H3SM-B25CFBB3",
         "MUKE7UOA-9553A59E",
@@ -3712,6 +3859,7 @@
         "MOQID47V-A12862EA",
         "MOQ7OBNT-57882C8D",
         "MPUO08SE-67E0912A",
+        "MWHLVPL2-B591DBEC",
         "MUKE7UOA-9553A59E",
         "MPF4FISZ-67000E01",
         "MWG6GP84-8E9CA50E",
@@ -3890,6 +4038,7 @@
         "MOUKLLK4-C38517C1",
         "MPUQSMLJ-1B726CC4",
         "MUZTGAEK-432FB6BC",
+        "MWHLVPL2-B591DBEC",
         "MTL33KWJ-642DD246",
         "MPUNXFU1-3B1F056A",
         "MOQ7OBNT-57882C8D",
@@ -4821,9 +4970,9 @@
       "related": [
         "MV9NOFH9-7634B79F",
         "MWCB3NW4-F13A863B",
+        "MWHLVPL2-B591DBEC",
         "MTL33KWJ-642DD246",
-        "MOQID47V-A12862EA",
-        "MPUNXFU1-3B1F056A"
+        "MOQID47V-A12862EA"
       ],
       "werkVoiceScore": 0.8533058660528058,
       "corpusVoiceScore": 0.7908544537879593,
@@ -6117,6 +6266,7 @@
         "MTL33KWJ-642DD246",
         "MOOMPCI0-262176C2",
         "MWG6GP84-8E9CA50E",
+        "MWHLVPL2-B591DBEC",
         "MUZTGAEK-432FB6BC",
         "MUKE7UOA-9553A59E",
         "MP0QMSOR-C6EC1B5A",
@@ -6182,6 +6332,7 @@
         "MOUKLLK4-C38517C1",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
+        "MWHLVPL2-B591DBEC",
         "MUKE7UOA-9553A59E",
         "MOUA3PLK-548F1A0A",
         "MWCATA4K-58BFC31C",
@@ -7116,6 +7267,7 @@
         "MP497SNT-5E1D2074",
         "MPK0H3SM-B25CFBB3",
         "MP0QMSOR-C6EC1B5A",
+        "MWHLVPL2-B591DBEC",
         "MP0ZE9C8-A9D02716",
         "MUKE7UOA-9553A59E"
       ],
@@ -7206,6 +7358,7 @@
         "MV9NOFH9-7634B79F",
         "MPEV1D2J-55138734",
         "MUKE7UOA-9553A59E",
+        "MWHLVPL2-B591DBEC",
         "MP497SNT-5E1D2074",
         "MWG6GP84-8E9CA50E",
         "MPUNXFU1-3B1F056A"
@@ -7267,6 +7420,7 @@
         "MPUQSMLJ-1B726CC4",
         "MTL33KWJ-642DD246",
         "MP0ZE9C8-A9D02716",
+        "MWHLVPL2-B591DBEC",
         "MOQ7OBNT-57882C8D",
         "MUZTGAEK-432FB6BC"
       ],
@@ -7321,6 +7475,7 @@
         "MP495QL6-F5FD1AE1",
         "MUKE7UOA-9553A59E",
         "MOUA3PLK-548F1A0A",
+        "MWHLVPL2-B591DBEC",
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA",
         "MPUQSMLJ-1B726CC4",
@@ -8209,11 +8364,11 @@
         "MP0QMSOR-C6EC1B5A"
       ],
       "related": [
+        "MWHLVPL2-B591DBEC",
         "MTL33KWJ-642DD246",
         "MUZTGAEK-432FB6BC",
         "MWCATA4K-58BFC31C",
-        "MPAS5OM5-A1F522F4",
-        "MWG6IZQ5-889B7147"
+        "MPAS5OM5-A1F522F4"
       ],
       "werkVoiceScore": 0.8942176037875627,
       "corpusVoiceScore": 0.8261719577114349,
@@ -8461,6 +8616,7 @@
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA",
         "MPURYS56-11F5308C",
+        "MWHLVPL2-B591DBEC",
         "MOQ7OBNT-57882C8D",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246"
@@ -8522,6 +8678,7 @@
         "MPUQSMLJ-1B726CC4",
         "MPURYS56-11F5308C",
         "MTL33KWJ-642DD246",
+        "MWHLVPL2-B591DBEC",
         "MP0QMSOR-C6EC1B5A",
         "MOUA3PLK-548F1A0A"
       ],
@@ -8898,6 +9055,7 @@
         "MOUKLLK4-C38517C1",
         "MOPFJTND-AAE76B2B",
         "MOQ7OBNT-57882C8D",
+        "MWHLVPL2-B591DBEC",
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA",
         "MTL33KWJ-642DD246",
@@ -9218,6 +9376,7 @@
         "MPK0H3SM-B25CFBB3",
         "MPUQSMLJ-1B726CC4",
         "MPURYS56-11F5308C",
+        "MWHLVPL2-B591DBEC",
         "MTL33KWJ-642DD246",
         "MUZTGAEK-432FB6BC"
       ],
@@ -9280,6 +9439,7 @@
         "MOPFJTND-AAE76B2B",
         "MP0QMSOR-C6EC1B5A",
         "MPUQSMLJ-1B726CC4",
+        "MWHLVPL2-B591DBEC",
         "MPUNXFU1-3B1F056A",
         "MV9NOFH9-7634B79F"
       ],
@@ -9429,7 +9589,7 @@
         "MV9NOFH9-7634B79F",
         "MTL33KWJ-642DD246",
         "MOQ531J2-4FC329D4",
-        "MUZTGAEK-432FB6BC"
+        "MWHLVPL2-B591DBEC"
       ],
       "werkVoiceScore": 0.8998821919187288,
       "corpusVoiceScore": 0.8237746685632218,
@@ -9613,9 +9773,9 @@
       "related": [
         "MPUQSMLJ-1B726CC4",
         "MWG6GP84-8E9CA50E",
+        "MWHLVPL2-B591DBEC",
         "MOP0LEAL-E2568DCC",
-        "MOPFJTND-AAE76B2B",
-        "MQARZJDV-82F077DD"
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.884659784961268,
       "corpusVoiceScore": 0.8324455137399284,
@@ -9702,6 +9862,7 @@
         "MPK0H3SM-B25CFBB3",
         "MV9NOFH9-7634B79F",
         "MUKE7UOA-9553A59E",
+        "MWHLVPL2-B591DBEC",
         "MWCBEOXU-0DAB7EAA"
       ],
       "related": [
@@ -9846,9 +10007,9 @@
       "related": [
         "MOPFJTND-AAE76B2B",
         "MPURYS56-11F5308C",
+        "MWHLVPL2-B591DBEC",
         "MWG6GP84-8E9CA50E",
-        "MTL33KWJ-642DD246",
-        "MOP0LEAL-E2568DCC"
+        "MTL33KWJ-642DD246"
       ],
       "werkVoiceScore": 0.877980420776112,
       "corpusVoiceScore": 0.8274347691964364,
@@ -10001,6 +10162,7 @@
         "MPUQSMLJ-1B726CC4",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
+        "MWHLVPL2-B591DBEC",
         "MPURYS56-11F5308C",
         "MWG6GP84-8E9CA50E"
       ],
@@ -10152,7 +10314,8 @@
         "MUZTGAEK-432FB6BC",
         "MUKE7UOA-9553A59E",
         "MPUNXFU1-3B1F056A",
-        "MWG6GP84-8E9CA50E"
+        "MWG6GP84-8E9CA50E",
+        "MWHLVPL2-B591DBEC"
       ],
       "related": [
         "MOPFJTND-AAE76B2B",
@@ -10259,7 +10422,7 @@
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
         "MPUQSMLJ-1B726CC4",
-        "MUZTGAEK-432FB6BC"
+        "MWHLVPL2-B591DBEC"
       ],
       "werkVoiceScore": 0.8791062550028923,
       "corpusVoiceScore": 0.837858588683394,
@@ -10324,10 +10487,10 @@
       ],
       "related": [
         "MOP0LEAL-E2568DCC",
+        "MWHLVPL2-B591DBEC",
         "MOIXN434-9D5CBFC0",
         "MWG6GP84-8E9CA50E",
-        "MWAE3FJK-C7122206",
-        "MOPFJTND-AAE76B2B"
+        "MWAE3FJK-C7122206"
       ],
       "werkVoiceScore": 0.8899326806052907,
       "corpusVoiceScore": 0.8246803139487086,
@@ -10833,11 +10996,11 @@
         "MTKI1YQW-CD0EEDF3"
       ],
       "related": [
+        "MWHLWM05-8EEB6E7F",
         "MQ683DMX-13D6C54F",
         "MOHV84M5-1825A399",
         "MOU9KSV9-70260D9B",
-        "MOPHZPQ7-B63879B5",
-        "MPAGOCGB-FB54D923"
+        "MOPHZPQ7-B63879B5"
       ],
       "werkVoiceScore": 0.8882794836555788,
       "corpusVoiceScore": 0.8433240368824811,
@@ -11223,6 +11386,7 @@
         "MV9NOFH9-7634B79F",
         "MPMSSG1X-8451DE38",
         "MPUQSMLJ-1B726CC4",
+        "MWHLVPL2-B591DBEC",
         "MOP0LEAL-E2568DCC",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246"
@@ -11328,9 +11492,9 @@
       "related": [
         "MTL33KWJ-642DD246",
         "MOP0LEAL-E2568DCC",
+        "MWHLVPL2-B591DBEC",
         "MOPFJTND-AAE76B2B",
-        "MWAE3FJK-C7122206",
-        "MWG6GP84-8E9CA50E"
+        "MWAE3FJK-C7122206"
       ],
       "werkVoiceScore": 0.8809112323348403,
       "corpusVoiceScore": 0.8247894132063388,

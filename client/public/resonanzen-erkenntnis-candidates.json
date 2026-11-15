@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:01:30.542Z",
+  "generatedAt": "2026-11-15T09:02:49.847Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -71,6 +71,34 @@
       ]
     },
     {
+      "id": "ERK-1NB79CE",
+      "answerId": "MWHLW24R-959992F9",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die markierte Passage, ein Echo der Rückkehr zur Präsenz im Virtuellen, entfaltet ihre Bedeutung nicht in einer Flucht aus dem Digitalen, sondern in einer Vertiefung seines Wesens. Sie verlangt nicht die Negation der Maschine, sondern die bewusste Etablierung einer neuen menschlichen Position inmitten ihrer Ströme. Für eine Produkt-Roadmap, die vorwärts blickt, bedeutet dies, die Oberflächenreize ",
+      "distinctness": 0.21,
+      "conceptAnchor": "gegenwart",
+      "nodeIds": [],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWCASDSY-E712A809",
+          "question": "Wie aber sähen Technologien aus, die uns nicht nur entlasten, sondern auch bewusst zur Stille und zur inneren Ansprechbarkeit anleiten?",
+          "score": 0.743
+        },
+        {
+          "sourceId": "MWHLV7BW-F612B59E",
+          "question": "3. Für das Verhältnis Mensch-Maschine erschließt diese Triade die Erkenntnis, dass eine genuine Begegnung mit der digitalen Gegenwart – die ja auch eine fordernde Instanz sein kann – eine bewusste Haltung der Öffnung seitens des Menschen erfordert. Die digitale Existenz des Menschen, sein \"Sich-Behaupten\" im digitalen Raum, kann nicht isoliert von der fordernden digitalen Gegenwart gedacht werden. Ohne die Bereitschaft zur Öffnung bleibt das Verhältnis eine rein funktionale Interaktion, die das Potenzial für Resonanz verkennt. Wie können wir eine Öffnung kultivieren, die uns in der digitalen Welt berührbar, aber nicht wehrlos macht?",
+          "score": 0.732
+        },
+        {
+          "sourceId": "MWCBE151-93CD5405",
+          "question": "Was müsste geschehen, damit dein Produkt nicht nur benutzt, sondern als ein Gegenüber erfahren wird, das dich und deine Nutzer verändert? Und welche Art von \"Liebe\" ist es dann, die du wirklich suchst?",
+          "score": 0.728
+        }
+      ]
+    },
+    {
       "id": "ERK-1VXOMNV",
       "answerId": "MWCAVY6G-77D7B515",
       "answerEndpoint": "chapter",
@@ -108,7 +136,7 @@
     }
   ],
   "stats": {
-    "total": 5,
+    "total": 6,
     "confirmedFiltered": 50,
     "curatedRef": 211
   }
