@@ -1,16 +1,30 @@
 {
-  "generatedAt": "2026-11-16T15:26:29.265Z",
-  "count": 360,
+  "generatedAt": "2026-11-16T15:32:12.383Z",
+  "count": 361,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 360,
-    "answered": 302,
+    "total": 361,
+    "answered": 303,
     "open": 58,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWJF8ASK-16B3DB91",
+      "question": "Welche neuen Formen der systemischen Korrektur könnten entstehen, die das Scheitern nicht als Ende, sondern als kritischen Impuls zur Vertiefung der Resonanz nutzen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:antwort+resonanz",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "ts": "2026-11-16T15:31:23.685Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWJEZNVB-D1367E36",
       "question": "Doch wie lässt sich die Nicht-Erfüllung dieser prozessualen Rechenschaftspflicht sanktionieren, ohne das Vertrauen in die Resonanzfähigkeit des Systems zu zerstören?",
@@ -22,8 +36,13 @@
       ],
       "ts": "2026-11-16T15:24:40.727Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWJF8ASK-16B3DB91",
+          "score": 0.883
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJEYZU2-D00A3283",
@@ -40,6 +59,10 @@
         {
           "id": "MWJEZNVB-D1367E36",
           "score": 0.865
+        },
+        {
+          "id": "MWJF8ASK-16B3DB91",
+          "score": 0.742
         }
       ],
       "answered": true
