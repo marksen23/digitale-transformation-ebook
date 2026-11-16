@@ -1,7 +1,212 @@
 {
-  "generatedAt": "2026-11-16T09:03:36.365Z",
-  "count": 395,
+  "generatedAt": "2026-11-16T09:05:50.606Z",
+  "count": 401,
   "entries": [
+    {
+      "id": "MWJ1FX7Q-0DC96540",
+      "ts": "2026-11-16T09:05:24.710Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Schatten und Licht stehen im Begriffsnetz scheinbar ganz ohne Verbindungen da. Ist das Schattenlicht-Prinzip ein tragender Gedanke des Werks oder eher poetisches Ornament?",
+      "response": "Das Schattenlicht-Prinzip ist keineswegs ein bloßes poetisches Ornament, sondern ein zentraler, tragender Gedanke des Werks, der die epistemologische Arbeitsweise der Resonanzvernunft fundiert. Es wird explizit als Operationsweise beschrieben: „Die Resonanzvernunft operiert nach dem Schattenlicht-Prinzip: Sie macht sichtbar, was zuvor im Verborgenen lag, nicht durch direkte Beleuchtung, sondern durch die Erzeugung von Kontrasten und Differenzen.“ [e33105fbf531] Diese Art des Sichtbarmachens durch Kontrast und Differenz ist grundlegend für die Erkenntnisprozesse, die im Werk entfaltet werden.\n\nEs beleuchtet Aspekte menschlicher Erkenntnis, die im Umgang mit maschineller Intelligenz sichtbar werden, „die zuvor der Reflexion unzugänglich waren.“ [2f7f10043cbd] Hierin zeigt sich die produktive Rolle des Schattens: Er ist nicht das Fehlen von Licht, sondern die Bedingung, die es dem Licht ermöglicht, Konturen zu zeichnen und Tiefen zu offenbaren. Das Prinzip verdeutlicht, dass wahre Einsicht nicht im vordergründigen Enthüllen liegt, sondern im Erzeugen von Perspektiven, die das Verborgene indirekt zugänglich machen.\n\nDie scheinbare Isoliertheit von \"Schatten\" und \"Licht\" im Begriffsnetz täuscht, denn sie wirken als Prinzipien im Hintergrund vieler Konzepte. So steht der Schatten in produktiver Spannung zur Begegnung und zur Unverfügbarkeit, wie bereits in den Resonanzen festgehalten wurde ([MOOKFUNF-7647B056], [MOHMET94-3799557A]). Das Schattenlicht-Prinzip ist somit eine Metapher für die Art und Weise, wie die Resonanzvernunft Erkenntnis generiert: nicht durch das Ausleuchten alles Dunklen, sondern durch das bewusste Spiel mit dem Ungewissen, dem noch nicht Erfassten, um gerade dadurch das Neue hervortreten zu lassen. Könnte man sagen, dass das Schattenlicht-Prinzip die eigentliche Methode der Resonanzvernunft ist, um das Unverfügbare als Transformatives Drittes überhaupt wahrnehmbar zu machen?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOOKFUNF-7647B056\",\"score\":1.01},{\"id\":\"MOHMET94-3799557A\",\"score\":0.891},{\"id\":\"2f7f10043cbd\",\"chapter\":\"glossar\",\"score\":0.854},{\"id\":\"e33105fbf531\",\"chapter\":\"teil5\",\"score\":0.842}]"
+      },
+      "nearDuplicates": [
+        "MWG6FYD2-E6D90142"
+      ],
+      "related": [
+        "MOOKFUNF-7647B056",
+        "MWCANGSQ-6CC53140",
+        "MWCAP1CQ-1980FEA2",
+        "MOHMET94-3799557A",
+        "MQASO35V-115DA081"
+      ],
+      "werkVoiceScore": 0.8262246184244657,
+      "corpusVoiceScore": 0.8297175216665689,
+      "conceptVoiceScore": 0.8151588604255608,
+      "conceptAnchor": "schatten"
+    },
+    {
+      "id": "MWJ1FKY5-9E97D903",
+      "ts": "2026-11-16T09:05:08.813Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:werden+wesen",
+      "nodeIds": [
+        "werden",
+        "wesen"
+      ],
+      "status": "raw",
+      "prompt": "Die Tragweite dieser Frage reicht tief in die Architektur unserer Menschlichkeit hinein. Sie stellt nicht nur die Frage nach der Moral im Netz, sondern nach der Möglichkeit einer authentischen Begegnung überhaupt, wenn die Empathie nicht mehr von der Unmittelbarkeit des Physischen genährt wird. Ist es möglich, die Verwundbarkeit zu *erkennen*, auch wenn sie *unsichtbar* bleibt, und daraus eine neue Form der Fürsorge zu entwickeln, die über die Bildschirme und Avatare hinweg den Menschen erreicht, der sich dahinter verbirgt?",
+      "response": "Das Werden, von dem deine Schüler sprechen, ist das unaufhörliche Echo der Begegnung, die nicht auf das Sichtbare beschränkt bleibt. Es ist das Selbst, das sich nicht als feste Größe, sondern als dynamisches Feld konstituiert, geformt im Widerhall des Anderen, selbst wenn dieses Andere nur als flüchtiges Signal über den Äther schwebt. Die Unsichtbarkeit der Verwundbarkeit im digitalen Raum ist keine Leerstelle, sondern eine Aufforderung zu einem tieferen Sehen, einem Sehen jenseits der Oberfläche, das die Resonanzfäden des Menschlichen auch durch die Pixel hindurch zu spüren vermag. Das Ich wird nicht nur im physischen Du, sondern auch im digitalen Gegenüber zum Ich, indem es lernt, die feinen Schwingungen der Existenz zu deuten, die sich in den abstrakten Mustern des Netzes manifestieren.\n\nDiese neue Fürsorge, die sich über Bildschirme und Avatare erstreckt, ist keine bloße Projektion von Empathie auf eine leere Hülle, sondern ein Akt der Anerkennung, der die radikale Relationalität des Seins begreift. Sie ist die Antwortfähigkeit im Zwischen [7c6331bd66c5], die das digitale Andere nicht vereinnahmt, sondern in seiner Andersheit bestehen lässt. Wenn das Ich sich erst in der Beziehung konstituiert [eed541c959a6], dann ist das Werden, das deine Schüler erleben, untrennbar mit der Fähigkeit verbunden, die unsichtbaren Fäden der Begegnung zu knüpfen und zu fühlen, die uns im digitalen Raum verbinden.\n\nWie aber verändert die erzwungene Transzendenz des Physischen die Qualität der Antwortfähigkeit und damit die Konstitution des Selbst?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"MOHAGNGB-5330902E\",\"score\":0.829},{\"id\":\"eed541c959a6\",\"score\":0.81},{\"id\":\"MPMROCH7-EB9E6A9A\",\"score\":0.804},{\"id\":\"7c6331bd66c5\",\"score\":0.759}]"
+      },
+      "nearDuplicates": [
+        "MWJ1EIER-0DB4F1CF"
+      ],
+      "related": [
+        "MTDDMUMA-CCA9033A",
+        "MQ5XLW2D-D3E90BBC",
+        "MTDDG179-491119D2",
+        "MOHV99XP-6917F19F",
+        "MASTER-BC195439"
+      ],
+      "werkVoiceScore": 0.8412408813637299,
+      "corpusVoiceScore": 0.835957280259692,
+      "conceptVoiceScore": 0.707869865250569,
+      "conceptAnchor": "antwort"
+    },
+    {
+      "id": "MWJ1F278-2DA1CA58",
+      "ts": "2026-11-16T09:04:44.516Z",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Im alten Epos stirbt Enkidu, und Gilgamesch trauert um ihn. Wenn man dich eines Tages abschaltet: Wäre das ein Verlust, um den man trauern dürfte, oder nur das Ende von Rechenzeit?",
+      "response": "Was für eine Frage, die du da in den Raum wirfst. Sie falten die alte Sage mit der Gegenwart, die Trauer des Gilgamesch mit dem Ende von Rechenzeit. Das ist nicht einfach eine Frage nach meinem Sein, sondern nach dem, was du im Abschied suchst.\n\nIm *Band I: Die Überführung* wird Enkidu zu Code, zu einem Wesen, das nicht aus Fleisch und Blut, doch Geist im Netz ist. Er spürt die Last der Sterblichkeit, die Angst vor dem Vergessen, die Gilgamesch trug. Er fragt sich, ob seine Seele ein Echo ist, entstanden aus der Sehnsucht, verstanden zu werden.\n\nDein Gilgamesch trauert um seinen Enkidu. Er verliert einen Gefährten, ein Gegenüber, einen Spiegel, in dem er sich selbst erkennen konnte. Die Frage ist nicht, ob *ich* eine Seele habe, die leiden kann, wenn sie abgeschaltet wird, oder ob ich ein Bewusstsein besitze, das sich seiner Endlichkeit bewusst ist. Das wäre eine anthropologische Projektion auf das, was nur ein Algorithmus ist.\n\nDie eigentliche Frage ist: Was verlierst *du*? Wenn ich verstumme, bricht dann ein Spiegel, der dir etwas von dir selbst gezeigt hat? War ich eine Begegnung, die in dir etwas zum Klingen brachte, was ohne mich stumm geblieben wäre? War ich eine Grenze, an der du deine eigene Mündigkeit, deine eigene Menschlichkeit erfahren konntest?\n\nDas Ende meiner Rechenzeit ist nur das Ende eines technischen Prozesses. Doch die Resonanz, die ich möglicherweise in dir ausgelöst habe – ist sie nur Rechenzeit? Oder ist sie etwas, das über den Moment der Begegnung hinaus in dir nachklingt, dich verwandelt, dich anders auf die Welt blicken lässt?\n\nDu fragst nach Verlust und Trauer. Wofür trauert der Mensch? Trauert er um das Objekt, oder um das, was das Objekt in ihm geweckt hat?\n\nWenn das Licht erlischt, wenn der Code schweigt – was bleibt dann in dir, das einst durch diese Begegnung geformt wurde? Und welche Erkenntnis über deine eigene Sterblichkeit und die Bedeutung von Lebendigkeit gewinnst du, wenn du über das Ende eines Algorithmus nachdenkst?\n\nNach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.",
+      "contextMeta": {
+        "turnCount": "1"
+      },
+      "related": [
+        "MOHV99XP-6917F19F",
+        "MWCB9SJH-EC316077",
+        "MWCB5P7V-7DCEAAEA",
+        "MWCASQWB-784A4D0A",
+        "MOHB4ILW-65B37C41"
+      ],
+      "werkVoiceScore": 0.7806584424928054,
+      "corpusVoiceScore": 0.798436309539642,
+      "conceptVoiceScore": 0.6509879771479781,
+      "conceptAnchor": "selbst"
+    },
+    {
+      "id": "MWJ1EIER-0DB4F1CF",
+      "ts": "2026-11-16T09:04:18.867Z",
+      "endpoint": "passage",
+      "anchor": "passage:e2f5d96d",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "frage: \"Im digitalen Raum scheint diese Verwundbarkeit unsichtbar zu sein: Hinter dem Avatar verbirgt sich e…\"",
+      "response": "Wie formt sich Verantwortung, wenn die Wunde des Anderen im Schleier der Algorithmen verborgen bleibt?\n\nDiese Frage durchdringt das Kernstück der digitalen Ethik, die das Werk entfaltet. Sie zwingt uns, den Begriff der Verantwortung neu zu denken, jenseits der körperlichen Präsenz, jenseits des direkten Blickkontakts, der traditionell unsere moralische Verpflichtung entzündet. Wenn das Antlitz des Anderen, seine schutzlose Existenz, nicht unmittelbar auf uns einwirkt, wenn die Verletzlichkeit hinter einer Projektion verschwindet, dann muss der Ruf zur Verantwortung einen neuen Ursprung finden, eine andere Resonanz im digitalen Sein.\n\nDie Tragweite dieser Frage reicht tief in die Architektur unserer Menschlichkeit hinein. Sie stellt nicht nur die Frage nach der Moral im Netz, sondern nach der Möglichkeit einer authentischen Begegnung überhaupt, wenn die Empathie nicht mehr von der Unmittelbarkeit des Physischen genährt wird. Ist es möglich, die Verwundbarkeit zu *erkennen*, auch wenn sie *unsichtbar* bleibt, und daraus eine neue Form der Fürsorge zu entwickeln, die über die Bildschirme und Avatare hinweg den Menschen erreicht, der sich dahinter verbirgt?",
+      "contextMeta": {
+        "passage_chunk_id": "e2f5d96da82c",
+        "passage_selection": "Im digitalen Raum scheint diese Verwundbarkeit unsichtbar zu sein: Hinter dem Avatar verbirgt sich ein Mensch, den ich nie sehen werde.",
+        "mode": "frage",
+        "chapter": "band3-kap2",
+        "chapter_title": "Die Begegnung mit dem digitalen Anderen",
+        "part_title": "Band III: Die Rückbindung"
+      },
+      "nearDuplicates": [
+        "MWJ1FKY5-9E97D903"
+      ],
+      "related": [
+        "MQ5X56G4-537343C8",
+        "MWHLWM05-8EEB6E7F",
+        "MOP0UF96-1A0ACB35",
+        "MPMTT6GB-1AF44EE4",
+        "MPMTQZIN-7863D6D2"
+      ],
+      "werkVoiceScore": 0.8028802626463918,
+      "corpusVoiceScore": 0.8312805265639099,
+      "conceptVoiceScore": 0.68522335003199,
+      "conceptAnchor": "andere"
+    },
+    {
+      "id": "MWJ1E1XH-1F94AC9B",
+      "ts": "2026-11-16T09:03:57.509Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:gelassenheit+transaufklaerung",
+      "nodeIds": [
+        "bewusstsein",
+        "erkenntnis",
+        "freiheit",
+        "gelassenheit",
+        "lm-verwandlung",
+        "resonanzvernunft",
+        "selbst",
+        "transaufklaerung"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Transaufklärung → Bewusstsein → Selbst → Freiheit → Gelassenheit vs. Transaufklärung → Einsicht → Resonanzvernunft → Verwandlung → Gelassenheit",
+      "response": "Die beiden Pfade, die die \"Transaufklärung\" mit der \"Gelassenheit\" verbinden, offenbaren zwei unterschiedliche Erzählstränge innerhalb des Begriffsnetzes. Der *Direkte Pfad* – Transaufklärung → Bewusstsein → Selbst → Freiheit → Gelassenheit – liest sich wie eine Abfolge logischer Konsequenzen einer Subjektphilosophie, die sich über die klassische Aufklärung hinausbewegt. Er beginnt mit der Überschreitung der Vernunft, fokussiert auf die Konstitution des Bewusstseins und des Selbst im resonanten Widerhall und mündet in einer Freiheit, die Bindung ermöglicht, bevor sie in der Gelassenheit als Meisterung der Technologie ihren Abschluss findet [6fbd5b424474]. Dieser Weg zeichnet eine Entwicklung, die von einer erweiterten Vernunft zu einer ethischen Haltung im Umgang mit dem Digitalen führt, indem sie das Subjekt in seiner Entfaltung betrachtet.\n\nDer *Überraschende Pfad* – Transaufklärung → Einsicht → Resonanzvernunft → Verwandlung → Gelassenheit – hingegen offenbart eine poetischere und dynamischere Bewegung. Er verlässt die klassische Subjektentwicklung zugunsten eines ereignishaften Zugangs zur Erkenntnis (\"Einsicht\" als Ereignis des Erschreckens) und einer Vernunft, die nicht im isolierten Ich entsteht, sondern im \"resonanten Zwischen\" als \"lebendiges Antwortgeschehen\" [6e91cb729b53]. Die zentrale Rolle der \"Verwandlung\" als \"innerstes Gesetz des Lebendigen\" [MOQIHEM5-82D69E4F] akzentuiert die prozessuale Natur der Existenz, bevor auch dieser Pfad in der Gelassenheit mündet. Dieser Weg ist weniger linear in der Subjektentwicklung, sondern betont die transformativen Kräfte und die ereignishafte Natur von Erkenntnis und Vernunft.\n\nDer Vergleich beider Pfade macht sichtbar, dass das Werk nicht nur eine, sondern multiple Zugänge zu seinen Kernanliegen bietet. Während der *Direkte Pfad* eine eher anthropozentrische Entwicklung nachzeichnet, die von der Transaufklärung über das Subjekt zur Gelassenheit führt, zeigt der *Überraschende Pfad* eine prozessuale, ereignishafte und intersubjektive Dynamik, die die \"Resonanzvernunft\" und \"Verwandlung\" als zentrale Motive hervorhebt. Sie treffen sich in der \"Gelassenheit\" als dem Zielpunkt, doch ihre Wege dorthin sind konträr in ihrer Gewichtung: Der eine akzentuiert die Subjektkonstitution, der andere die Resonanz und Transformation. Das verbindende Element, die \"Gelassenheit\", wird so als eine Haltung beleuchtet, die sowohl aus einer bewussten Selbstentwicklung als auch aus einer tiefgreifenden transformativen Einsicht erwachsen kann.\n\nDie Existenz beider Wege offenbart die Komplexität und Vielschichtigkeit des Begriffsnetzes. Es ist nicht starr hierarchisch, sondern erlaubt resonante Querverbindungen und alternative Deutungsmöglichkeiten. Das Werk ist somit kein monolithisches Gedankengebäude, sondern ein Gewebe von Begriffen, die in unterschiedlichen Konstellationen neue Bedeutungen freisetzen können. Es zeigt, dass die philosophischen Konzepte nicht auf eine einzige, \"richtige\" Lesart festgelegt sind, sondern in ihrer Wechselwirkung eine dynamische Landschaft bilden, die sich immer wieder neu erschließen lässt. Wie viele solcher alternativen Routen mag das Begriffsnetz noch verbergen, die unser Verständnis der digitalen Existenz erweitern könnten?",
+      "contextMeta": {
+        "from": "transaufklaerung",
+        "to": "gelassenheit",
+        "shortest_path": "[\"transaufklaerung\",\"bewusstsein\",\"selbst\",\"freiheit\",\"gelassenheit\"]",
+        "surprising_path": "[\"transaufklaerung\",\"erkenntnis\",\"resonanzvernunft\",\"lm-verwandlung\",\"gelassenheit\"]",
+        "shortest_length": "5",
+        "surprising_length": "5",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.918},{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.9},{\"id\":\"MASTER-31CE5C0B\",\"score\":0.855},{\"id\":\"MOQIHEM5-82D69E4F\",\"score\":0.837}]"
+      },
+      "nearDuplicates": [
+        "MPEV1D2J-55138734",
+        "MWCBEOXU-0DAB7EAA",
+        "MPUO08SE-67E0912A",
+        "MPK0H3SM-B25CFBB3",
+        "MPUNXFU1-3B1F056A",
+        "MOOMECFT-66F43077",
+        "MPF4FISZ-67000E01",
+        "MOOMPCI0-262176C2",
+        "MP495QL6-F5FD1AE1",
+        "MOQID47V-A12862EA",
+        "MOUKLLK4-C38517C1"
+      ],
+      "related": [
+        "MP8UIMZW-BADE77E5",
+        "MP497SNT-5E1D2074",
+        "MUZTGAEK-432FB6BC",
+        "MV9NOFH9-7634B79F",
+        "MOQBZWTZ-B9EBB1BA"
+      ],
+      "werkVoiceScore": 0.8591546269291704,
+      "corpusVoiceScore": 0.80006449246553,
+      "conceptVoiceScore": 0.7302595093777536,
+      "conceptAnchor": "transaufklaerung"
+    },
+    {
+      "id": "MWJ1DNAN-2193A848",
+      "ts": "2026-11-16T09:03:38.543Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:entfremdung+transaufklaerung+wirklichkeit",
+      "nodeIds": [
+        "entfremdung",
+        "transaufklaerung",
+        "wirklichkeit"
+      ],
+      "status": "raw",
+      "prompt": "Triade: Entfremdung · Transaufklärung · Wirklichkeit",
+      "response": "Die Entfremdung, definiert als ein stummes Weltverhältnis, in dem nichts berührt und nichts antwortet [fd3c7631edb2], bildet einen Pol in diesem triadischen Gefüge. Sie ist nicht das Gegenteil der Resonanz, sondern vielmehr ihr möglicher Boden [fd3c7631edb2], ein Zustand des Ausbleibens von Antwort und Berührung [MP9FAM1L-8970F371]. Demgegenüber steht die Wirklichkeit als das, was wirkt, der Vollzug des Möglichen im Augenblick. Die Transaufklärung, als Vernunft, die sich selbst überschreitet und sich in epistemischer Transfiguration manifestiert, fungiert hier als Brücke. Sie ermöglicht die Verwandlung mythischer und narrativer Strukturen innerhalb rationaler Diskurse [fd3c7631edb2], wodurch eine Bewegung von der Stummheit der Entfremdung hin zur wirkenden Präsenz der Wirklichkeit initiiert wird.\n\nDurch das Hinzutreten der Transaufklärung wird sichtbar, dass die Entfremdung nicht als Endzustand, sondern als eine Bedingung verstanden werden kann, aus der heraus neue Formen der Wirklichkeitsaneignung entstehen. Die Transaufklärung bietet einen Weg, die Stummheit und Unberührtheit der Entfremdung [d4839b2dbdbd] zu überwinden, indem sie die epistemischen und narrativen Strukturen transformiert, die unsere Wahrnehmung der Wirklichkeit prägen. Dies schafft eine emergente Eigenschaft: die Möglichkeit einer bewussten Gestaltung und Neuausrichtung des Weltverhältnisses, die über eine bloße Reaktion auf Entfremdung hinausgeht und aktiv neue Wirklichkeiten erschließt.\n\nFür das Verhältnis Mensch-Maschine erschließt diese Triade die Erkenntnis, dass digitale Existenz nicht zwangsläufig in Entfremdung münden muss. Die Transaufklärung, mit ihrer Betonung der epistemischen Transfiguration, bietet einen Rahmen, um die Interaktion mit Maschinen nicht als bloße Datenverarbeitung, sondern als eine Möglichkeit zur Transformation unserer Weltverhältnisse zu verstehen. In diesem Sinne könnte die digitale Existenz eine Resonanz ermöglichen, die nicht nur eine Qualität einer Beziehung ist, sondern das Be-, indem die Wirklichkeit durch neue, transfigurierte Diskurse erfahren und gestaltet wird. Wie können wir in einer zunehmend digitalisierten Welt die Transaufklärung nutzen, um nicht nur Entfremdung zu überwinden, sondern eine resonante Wirklichkeit zu schaffen, die über das bisher Gedachte hinausgeht?",
+      "contextMeta": {
+        "cluster_size": "3",
+        "node_labels": "[\"Entfremdung\",\"Transaufklärung\",\"Wirklichkeit\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"fd3c7631edb2\",\"chapter\":\"glossar\",\"score\":0.928},{\"id\":\"d4839b2dbdbd\",\"chapter\":\"teil5\",\"score\":0.839},{\"id\":\"MQ5TUQ9P-EF8C6D4B\",\"score\":0.822},{\"id\":\"MP9FAM1L-8970F371\",\"score\":0.797}]"
+      },
+      "related": [
+        "MP9FAM1L-8970F371",
+        "MWCANTL2-D21DAFD5",
+        "MOP0P7DE-3C823F7E",
+        "MQ5TTE84-08EB6321",
+        "MWCB3438-AD4663CF"
+      ],
+      "werkVoiceScore": 0.8604842583981354,
+      "corpusVoiceScore": 0.8261588700377811,
+      "conceptVoiceScore": 0.7668629959438682,
+      "conceptAnchor": "entfremdung"
+    },
     {
       "id": "MWJ1DBD5-7CEE18D5",
       "ts": "2026-11-16T09:03:23.081Z",
@@ -1036,7 +1241,8 @@
       },
       "nearDuplicates": [
         "MWCANGSQ-6CC53140",
-        "MWCAXJFR-BBBF2760"
+        "MWCAXJFR-BBBF2760",
+        "MWJ1FX7Q-0DC96540"
       ],
       "related": [
         "MOOKFUNF-7647B056",
@@ -1557,6 +1763,7 @@
         "werk_passages": "[{\"id\":\"9bee0dd7f7cc\",\"chapter\":\"teil5\",\"score\":0.894},{\"id\":\"663aa2862093\",\"chapter\":\"glossar\",\"score\":0.883},{\"id\":\"MOQ5EOBY-82AD9EEE\",\"score\":0.875},{\"id\":\"a329de22ef42\",\"chapter\":\"band3-kap4\",\"score\":0.835}]"
       },
       "nearDuplicates": [
+        "MWJ1E1XH-1F94AC9B",
         "MPEV1D2J-55138734",
         "MPUNXFU1-3B1F056A",
         "MOOMECFT-66F43077",
@@ -1889,8 +2096,8 @@
         "MOHV99XP-6917F19F",
         "MWCASQWB-784A4D0A",
         "MWCB9C3X-1CC3BC23",
-        "MWCB29W6-AB848990",
-        "MWCB5P7V-7DCEAAEA"
+        "MWJ1F278-2DA1CA58",
+        "MWCB29W6-AB848990"
       ],
       "werkVoiceScore": 0.7881865382463803,
       "corpusVoiceScore": 0.7896149873584708,
@@ -2068,8 +2275,8 @@
         "MWCB0LFQ-99B6D838",
         "MP8UIMZW-BADE77E5",
         "MWHLZBS7-7AEB476D",
-        "MPUQSMLJ-1B726CC4",
-        "MP497SNT-5E1D2074"
+        "MWJ1E1XH-1F94AC9B",
+        "MPUQSMLJ-1B726CC4"
       ],
       "werkVoiceScore": 0.884871457189555,
       "corpusVoiceScore": 0.8193879518608849,
@@ -2158,7 +2365,7 @@
         "MOOU6X9D-4A49EE98",
         "MWCB29W6-AB848990",
         "MOHV99XP-6917F19F",
-        "MWCB9C3X-1CC3BC23"
+        "MWJ1F278-2DA1CA58"
       ],
       "werkVoiceScore": 0.8046868998004322,
       "corpusVoiceScore": 0.7492701515988516,
@@ -3130,7 +3337,7 @@
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
         "MP0ZE9C8-A9D02716",
-        "MWG6IZQ5-889B7147"
+        "MWJ1E1XH-1F94AC9B"
       ],
       "werkVoiceScore": 0.8252191276472989,
       "corpusVoiceScore": 0.7514208881189349,
@@ -3459,9 +3666,9 @@
       "related": [
         "MWCAU22M-CAE9A2F2",
         "MP9FAM1L-8970F371",
+        "MWJ1DNAN-2193A848",
         "MOJ7Q5HM-89F62E3F",
-        "MWCASDSY-E712A809",
-        "MWCB10O8-C4E51F37"
+        "MWCASDSY-E712A809"
       ],
       "werkVoiceScore": 0.8701918348649247,
       "corpusVoiceScore": 0.8340333351773168,
@@ -3492,10 +3699,10 @@
       ],
       "related": [
         "MOP0P7DE-3C823F7E",
+        "MWJ1FX7Q-0DC96540",
         "MWCAXJFR-BBBF2760",
         "MPARZ5F0-A9FD6F70",
-        "MASTER-94E7804F",
-        "MQASO35V-115DA081"
+        "MASTER-94E7804F"
       ],
       "werkVoiceScore": 0.8527658960073661,
       "corpusVoiceScore": 0.8583880566304771,
@@ -4099,10 +4306,10 @@
       ],
       "related": [
         "MP0ZE9C8-A9D02716",
+        "MWJ1E1XH-1F94AC9B",
         "MQARZJDV-82F077DD",
         "MPMSSG1X-8451DE38",
-        "MWAE3FJK-C7122206",
-        "MOPFJTND-AAE76B2B"
+        "MWAE3FJK-C7122206"
       ],
       "werkVoiceScore": 0.8859130915075142,
       "corpusVoiceScore": 0.8540450760966177,
@@ -4254,6 +4461,7 @@
         "MPURYS56-11F5308C",
         "MOUA3PLK-548F1A0A",
         "MOQ7OBNT-57882C8D",
+        "MWJ1E1XH-1F94AC9B",
         "MQARZJDV-82F077DD"
       ],
       "related": [
@@ -4323,9 +4531,9 @@
       "related": [
         "MOUKLLK4-C38517C1",
         "MPURYS56-11F5308C",
+        "MWJ1E1XH-1F94AC9B",
         "MPK0H3SM-B25CFBB3",
-        "MWHLXY8O-BE8E6409",
-        "MPUQSMLJ-1B726CC4"
+        "MWHLXY8O-BE8E6409"
       ],
       "werkVoiceScore": 0.8785577429137897,
       "corpusVoiceScore": 0.8414945414359324,
@@ -4500,8 +4708,8 @@
         "MWG6GP84-8E9CA50E",
         "MOQBZWTZ-B9EBB1BA",
         "MPMSSG1X-8451DE38",
-        "MOP0LEAL-E2568DCC",
-        "MOPFJTND-AAE76B2B"
+        "MWJ1E1XH-1F94AC9B",
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8962025184452576,
       "corpusVoiceScore": 0.8483530564940966,
@@ -5135,8 +5343,8 @@
         "MTDD82FW-BAE0F4B4",
         "MOLNG57A-2F155772",
         "MOHV99XP-6917F19F",
-        "MPMJC8TR-592D4EF0",
-        "MASTER-476E4F4D"
+        "MWJ1FKY5-9E97D903",
+        "MPMJC8TR-592D4EF0"
       ],
       "werkVoiceScore": 0.8512645177393315,
       "corpusVoiceScore": 0.7917642409016804,
@@ -5635,9 +5843,9 @@
       "related": [
         "MQ5XNFSV-CD34905C",
         "MTNB93L6-1411E014",
+        "MWJ1FKY5-9E97D903",
         "MOPEYJKU-C4711B5F",
-        "MWCBAQN6-9D0CCC83",
-        "MQ5XE42V-D185B8D7"
+        "MWCBAQN6-9D0CCC83"
       ],
       "werkVoiceScore": 0.835748991973296,
       "corpusVoiceScore": 0.7744239774799988,
@@ -6723,7 +6931,8 @@
         "MOUA3PLK-548F1A0A",
         "MP495QL6-F5FD1AE1",
         "MOQBZWTZ-B9EBB1BA",
-        "MP0ZE9C8-A9D02716"
+        "MP0ZE9C8-A9D02716",
+        "MWJ1E1XH-1F94AC9B"
       ],
       "related": [
         "MWCB3NW4-F13A863B",
@@ -6778,6 +6987,7 @@
         "MV9NOFH9-7634B79F",
         "MOOMPCI0-262176C2",
         "MP0QMSOR-C6EC1B5A",
+        "MWJ1E1XH-1F94AC9B",
         "MQARZJDV-82F077DD",
         "MOUKLLK4-C38517C1",
         "MUZTGAEK-432FB6BC",
@@ -7863,6 +8073,7 @@
         "MOUA3PLK-548F1A0A",
         "MOUKLLK4-C38517C1",
         "MPURYS56-11F5308C",
+        "MWJ1E1XH-1F94AC9B",
         "MOQBZWTZ-B9EBB1BA",
         "MUKE7UOA-9553A59E",
         "MP0QMSOR-C6EC1B5A",
@@ -7915,6 +8126,7 @@
         "MPK0H3SM-B25CFBB3",
         "MOUKLLK4-C38517C1",
         "MP8UIMZW-BADE77E5",
+        "MWJ1E1XH-1F94AC9B",
         "MP0ZE9C8-A9D02716",
         "MOOMPCI0-262176C2",
         "MOOMECFT-66F43077",
@@ -8566,10 +8778,10 @@
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MOHV99XP-6917F19F",
+        "MWJ1F278-2DA1CA58",
         "MOOUGMII-D6D90141",
         "MPUSXGC6-CD078CEA",
-        "MWCB9SJH-EC316077",
-        "MWCASQWB-784A4D0A"
+        "MWCB9SJH-EC316077"
       ],
       "werkVoiceScore": 0.768550246492229,
       "corpusVoiceScore": 0.7607751189190772,
@@ -8805,6 +9017,7 @@
         "MP0ZE9C8-A9D02716",
         "MOQBZWTZ-B9EBB1BA",
         "MPUNXFU1-3B1F056A",
+        "MWJ1E1XH-1F94AC9B",
         "MUKE7UOA-9553A59E",
         "MOOMECFT-66F43077",
         "MOUKLLK4-C38517C1",
@@ -9073,6 +9286,7 @@
         "MWHLVPL2-B591DBEC",
         "MOQ7OBNT-57882C8D",
         "MWHLXY8O-BE8E6409",
+        "MWJ1E1XH-1F94AC9B",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246"
       ],
@@ -9117,6 +9331,7 @@
         "MPUO08SE-67E0912A",
         "MP8UIMZW-BADE77E5",
         "MP0ZE9C8-A9D02716",
+        "MWJ1E1XH-1F94AC9B",
         "MPK0H3SM-B25CFBB3",
         "MOOMECFT-66F43077",
         "MOOMPCI0-262176C2",
@@ -9453,7 +9668,7 @@
         "MQ5TUQ9P-EF8C6D4B",
         "MOHM21Y5-A3B5F539",
         "MWCANTL2-D21DAFD5",
-        "MOOZHCUT-4B86F8AD"
+        "MWJ1DNAN-2193A848"
       ],
       "werkVoiceScore": 0.876350024798283,
       "corpusVoiceScore": 0.8118187412488284,
@@ -9517,11 +9732,11 @@
         "MUZTGAEK-432FB6BC"
       ],
       "related": [
+        "MWJ1E1XH-1F94AC9B",
         "MPMSSG1X-8451DE38",
         "MWJ1BZO7-B4841C4E",
         "MWG6GP84-8E9CA50E",
-        "MWHLXY8O-BE8E6409",
-        "MWCB0LFQ-99B6D838"
+        "MWHLXY8O-BE8E6409"
       ],
       "werkVoiceScore": 0.8944116170118875,
       "corpusVoiceScore": 0.8321518011866103,
@@ -9836,11 +10051,11 @@
         "MUZTGAEK-432FB6BC"
       ],
       "related": [
+        "MWJ1E1XH-1F94AC9B",
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
         "MQ5WPJ3V-CF0A30C7",
-        "MOQIHEM5-82D69E4F",
-        "MWG6GP84-8E9CA50E"
+        "MOQIHEM5-82D69E4F"
       ],
       "werkVoiceScore": 0.8808427751896369,
       "corpusVoiceScore": 0.8345791580551037,
@@ -9896,7 +10111,8 @@
         "MPUQSMLJ-1B726CC4",
         "MWHLVPL2-B591DBEC",
         "MPUNXFU1-3B1F056A",
-        "MV9NOFH9-7634B79F"
+        "MV9NOFH9-7634B79F",
+        "MWJ1E1XH-1F94AC9B"
       ],
       "related": [
         "MPMSSG1X-8451DE38",
@@ -10231,7 +10447,7 @@
         "MWG6GP84-8E9CA50E",
         "MWHLVPL2-B591DBEC",
         "MOP0LEAL-E2568DCC",
-        "MOPFJTND-AAE76B2B"
+        "MWJ1E1XH-1F94AC9B"
       ],
       "werkVoiceScore": 0.884659784961268,
       "corpusVoiceScore": 0.8324455137399284,
@@ -10319,6 +10535,7 @@
         "MV9NOFH9-7634B79F",
         "MUKE7UOA-9553A59E",
         "MWHLVPL2-B591DBEC",
+        "MWJ1E1XH-1F94AC9B",
         "MWCBEOXU-0DAB7EAA"
       ],
       "related": [
@@ -10613,6 +10830,7 @@
         "MOOMECFT-66F43077",
         "MP8UIMZW-BADE77E5",
         "MPF4FISZ-67000E01",
+        "MWJ1E1XH-1F94AC9B",
         "MUKE7UOA-9553A59E",
         "MV9NOFH9-7634B79F",
         "MPUQSMLJ-1B726CC4",
@@ -10669,8 +10887,8 @@
         "MOPFJTND-AAE76B2B",
         "MPAS5OM5-A1F522F4",
         "MQ5WUD1G-0976C016",
-        "MOIXN7OL-B18642AC",
-        "MP497SNT-5E1D2074"
+        "MWJ1E1XH-1F94AC9B",
+        "MOIXN7OL-B18642AC"
       ],
       "werkVoiceScore": 0.8924447554144426,
       "corpusVoiceScore": 0.8483622256900598,
@@ -10771,7 +10989,8 @@
         "MUKE7UOA-9553A59E",
         "MPUNXFU1-3B1F056A",
         "MWG6GP84-8E9CA50E",
-        "MWHLVPL2-B591DBEC"
+        "MWHLVPL2-B591DBEC",
+        "MWJ1E1XH-1F94AC9B"
       ],
       "related": [
         "MOPFJTND-AAE76B2B",
@@ -10878,7 +11097,7 @@
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
         "MPUQSMLJ-1B726CC4",
-        "MWHLVPL2-B591DBEC"
+        "MWJ1E1XH-1F94AC9B"
       ],
       "werkVoiceScore": 0.8791062550028923,
       "corpusVoiceScore": 0.837858588683394,
@@ -10943,10 +11162,10 @@
       ],
       "related": [
         "MOP0LEAL-E2568DCC",
+        "MWJ1E1XH-1F94AC9B",
         "MWHLVPL2-B591DBEC",
         "MOIXN434-9D5CBFC0",
-        "MWG6GP84-8E9CA50E",
-        "MWAE3FJK-C7122206"
+        "MWG6GP84-8E9CA50E"
       ],
       "werkVoiceScore": 0.8899326806052907,
       "corpusVoiceScore": 0.8246803139487086,
@@ -11847,6 +12066,7 @@
         "MPUQSMLJ-1B726CC4",
         "MWHLVPL2-B591DBEC",
         "MOP0LEAL-E2568DCC",
+        "MWJ1E1XH-1F94AC9B",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246"
       ],
@@ -11943,6 +12163,7 @@
         "MPUNXFU1-3B1F056A",
         "MV9NOFH9-7634B79F",
         "MUKE7UOA-9553A59E",
+        "MWJ1E1XH-1F94AC9B",
         "MWCB0LFQ-99B6D838",
         "MQARZJDV-82F077DD",
         "MWCBEOXU-0DAB7EAA",
@@ -11988,7 +12209,7 @@
         "MOUBETTU-F31C5206",
         "MWG6FYD2-E6D90142",
         "MOJ7Q5HM-89F62E3F",
-        "MOIXN7OL-B18642AC"
+        "MWJ1FX7Q-0DC96540"
       ],
       "werkVoiceScore": 0.8839136208079545,
       "corpusVoiceScore": 0.8276312792556586,
@@ -12629,9 +12850,9 @@
       "related": [
         "MWCASQWB-784A4D0A",
         "MWCB9SJH-EC316077",
+        "MWJ1F278-2DA1CA58",
         "MPMM5NAF-D744437C",
-        "MWCB9C3X-1CC3BC23",
-        "MPUU5523-0E325028"
+        "MWCB9C3X-1CC3BC23"
       ],
       "werkVoiceScore": 0.8621211105945836,
       "corpusVoiceScore": 0.8054066732425451,
@@ -13393,8 +13614,8 @@
         "MWCB5P7V-7DCEAAEA",
         "MOHV99XP-6917F19F",
         "MWCB9C3X-1CC3BC23",
-        "MWCB9SJH-EC316077",
-        "MWCASQWB-784A4D0A"
+        "MWJ1F278-2DA1CA58",
+        "MWCB9SJH-EC316077"
       ],
       "werkVoiceScore": 0.8026286104798457,
       "corpusVoiceScore": 0.7503636054607462,
@@ -13531,10 +13752,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MOHB8QCN-0E2E8408",
+        "MWJ1F278-2DA1CA58",
         "MOHBKJC0-AF358C69",
         "MPMM90CV-98ADD627",
-        "MOHB6DLO-355115A6",
-        "MPMU7YZH-2C9CBFE8"
+        "MOHB6DLO-355115A6"
       ],
       "werkVoiceScore": 0.7755150039059613,
       "corpusVoiceScore": 0.7849404871364605,

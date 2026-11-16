@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16T09:03:21.555Z",
-  "filesChecked": 399,
+  "generatedAt": "2026-11-16T09:05:35.015Z",
+  "filesChecked": 407,
   "errors": 0,
-  "warnings": 49,
+  "warnings": 51,
   "issues": [
     {
       "level": "warning",
@@ -222,6 +222,18 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/schweigen+dialog/2026-11-16-MWJ1DBD5-7CEE18D5.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 430055f8de7b4ee6, computed 7c707c6c0dab2545 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/werden+wesen/2026-11-16-MWJ1FKY5-9E97D903.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 249c3d3dac945fbc, computed 19554bb2912d5b72 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
       "rule": "content-hash-mismatch",
       "detail": "expected e48a72c68ccd4265, computed 0271ad49cdc26452 — Tampering oder nachträgliche Edit?"
@@ -301,18 +313,18 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 94,
+      "analyse": 95,
       "chapter": 59,
-      "dialog": 51,
-      "path-analyse": 60,
-      "enkidu": 66,
-      "graph-chat": 47,
-      "passage": 16,
+      "dialog": 53,
+      "path-analyse": 61,
+      "enkidu": 67,
+      "graph-chat": 49,
+      "passage": 17,
       "translate": 6
     },
     "byStatus": {
       "published": 161,
-      "raw": 160,
+      "raw": 168,
       "rejected": 24,
       "approved": 54
     },

@@ -1,22 +1,22 @@
 {
-  "generatedAt": "2026-11-16T09:03:36.377Z",
+  "generatedAt": "2026-11-16T09:05:50.616Z",
   "minCooccurrence": 2,
   "candidates": [
     {
       "source": "erkenntnis",
       "target": "lm-verwandlung",
-      "cooccurrence": 25,
+      "cooccurrence": 26,
       "endpoints": {
+        "path-analyse": 3,
         "analyse": 3,
-        "dialog": 20,
-        "path-analyse": 2
+        "dialog": 20
       },
       "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
         "MASTER-31CE5C0B",
         "MASTER-BC195439",
         "MQ5XNFSV-CD34905C",
-        "MQ5XLW2D-D3E90BBC",
-        "MQ5XK9H2-8A6837CC"
+        "MQ5XLW2D-D3E90BBC"
       ]
     },
     {
@@ -154,6 +154,46 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "freiheit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MUAAML84-D057EA33",
+        "MOQIGG2B-2F0C3F5D"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "selbst",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MPF4FISZ-67000E01",
+        "MP2LIW43-E8ADC59E"
+      ]
+    },
+    {
+      "source": "selbst",
+      "target": "transaufklaerung",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MWCBEOXU-0DAB7EAA",
+        "MWCB64R5-D8B2CF9A"
       ]
     },
     {
@@ -349,6 +389,103 @@
       ]
     },
     {
+      "source": "werden",
+      "target": "wesen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWJ1FKY5-9E97D903",
+        "MWCATA4K-58BFC31C"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "erkenntnis",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MWCBEOXU-0DAB7EAA"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "gelassenheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MOQIGG2B-2F0C3F5D"
+      ]
+    },
+    {
+      "source": "bewusstsein",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MPF4FISZ-67000E01"
+      ]
+    },
+    {
+      "source": "erkenntnis",
+      "target": "gelassenheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MOQIHEM5-82D69E4F"
+      ]
+    },
+    {
+      "source": "erkenntnis",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MWCBEOXU-0DAB7EAA"
+      ]
+    },
+    {
+      "source": "gelassenheit",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MOQIHEM5-82D69E4F"
+      ]
+    },
+    {
+      "source": "gelassenheit",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1E1XH-1F94AC9B",
+        "MOQIGG2B-2F0C3F5D"
+      ]
+    },
+    {
       "source": "selbst",
       "target": "wesen",
       "cooccurrence": 2,
@@ -461,18 +598,6 @@
       ]
     },
     {
-      "source": "selbst",
-      "target": "transaufklaerung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWCBEOXU-0DAB7EAA",
-        "MWCB64R5-D8B2CF9A"
-      ]
-    },
-    {
       "source": "lm-scheitern",
       "target": "schweigen",
       "cooccurrence": 2,
@@ -570,18 +695,6 @@
       "sampleEntryIds": [
         "MW566TOD-84C09B94",
         "MPF4WM18-FF4843F1"
-      ]
-    },
-    {
-      "source": "bewusstsein",
-      "target": "freiheit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MUAAML84-D057EA33",
-        "MOQIGG2B-2F0C3F5D"
       ]
     },
     {
@@ -733,19 +846,6 @@
       ]
     },
     {
-      "source": "resonanzvernunft",
-      "target": "selbst",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MPF4FISZ-67000E01",
-        "MP2LIW43-E8ADC59E"
-      ]
-    },
-    {
       "source": "bewusstsein",
       "target": "moment",
       "cooccurrence": 2,
@@ -871,9 +971,9 @@
     }
   ],
   "stats": {
-    "totalPairs": 380,
-    "candidatesCount": 66,
+    "totalPairs": 391,
+    "candidatesCount": 74,
     "existingEdges": 116,
-    "maxCooccurrence": 25
+    "maxCooccurrence": 26
   }
 }

@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-16T09:03:36.375Z",
+  "generatedAt": "2026-11-16T09:05:50.615Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 24,
+      "count": 25,
       "endpoints": {
-        "path-analyse": 18,
+        "path-analyse": 19,
         "analyse": 6
       }
     },
@@ -75,10 +75,10 @@
       }
     },
     "erkenntnis": {
-      "count": 42,
+      "count": 43,
       "endpoints": {
+        "path-analyse": 7,
         "dialog": 28,
-        "path-analyse": 6,
         "analyse": 8
       }
     },
@@ -97,9 +97,9 @@
       }
     },
     "bewusstsein": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "path-analyse": 7,
+        "path-analyse": 8,
         "analyse": 5
       }
     },
@@ -166,10 +166,10 @@
       }
     },
     "werden": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "dialog": 2,
         "path-analyse": 3,
-        "dialog": 1,
         "analyse": 2
       }
     },
@@ -181,16 +181,17 @@
       }
     },
     "wesen": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 5,
         "analyse": 2
       }
     },
     "selbst": {
-      "count": 17,
+      "count": 18,
       "endpoints": {
-        "path-analyse": 11,
+        "path-analyse": 12,
         "analyse": 6
       }
     },
@@ -210,9 +211,9 @@
       }
     },
     "freiheit": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "path-analyse": 7,
+        "path-analyse": 8,
         "dialog": 1,
         "analyse": 4
       }
@@ -262,10 +263,10 @@
       }
     },
     "lm-verwandlung": {
-      "count": 38,
+      "count": 39,
       "endpoints": {
+        "path-analyse": 10,
         "analyse": 9,
-        "path-analyse": 9,
         "dialog": 20
       }
     },
@@ -284,10 +285,10 @@
       }
     },
     "entfremdung": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "analyse": 4,
         "dialog": 2,
-        "analyse": 3,
         "path-analyse": 1
       }
     },
@@ -300,19 +301,19 @@
       }
     },
     "gelassenheit": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "path-analyse": 3,
         "dialog": 1,
-        "analyse": 3,
-        "path-analyse": 2
+        "analyse": 3
       }
     },
     "transaufklaerung": {
-      "count": 6,
+      "count": 8,
       "endpoints": {
-        "dialog": 2,
-        "path-analyse": 2,
-        "analyse": 2
+        "path-analyse": 3,
+        "analyse": 3,
+        "dialog": 2
       }
     },
     "resonanzimperativ": {
@@ -359,9 +360,9 @@
       }
     },
     "wirklichkeit": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "analyse": 5,
+        "analyse": 6,
         "path-analyse": 1
       }
     },
@@ -383,7 +384,7 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 42,
+    "maxCount": 43,
     "median": 8,
     "totalNodes": 52,
     "zeroResonanceNodes": [
