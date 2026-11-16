@@ -1,9 +1,40 @@
 {
-  "generatedAt": "2026-11-16T15:24:53.201Z",
+  "generatedAt": "2026-11-16T15:26:29.372Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
+    {
+      "id": "ERK-7613S9",
+      "answerId": "MWJEZNVB-D1367E36",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Formalisierung einer lebendigen, prozessualen Rechenschaftspflicht verlangt, die starre Logik der Kontrolle zu überwinden und stattdessen Strukturen zu schaffen, die das Fließende, das Werdende, das Resonante abbilden. Es geht nicht um fixe Regelwerke, die jede Eventualität vorwegnehmen, sondern um die Etablierung von Meta-Regeln, die den Raum für emergente Antworten öffnen. Dies könnte in ada",
+      "distinctness": 0.219,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWJEYZU2-D00A3283",
+          "question": "Wie aber kann diese Rechenschaftspflicht formalisiert werden, ohne ihre lebendige, prozessuale Natur zu ersticken?",
+          "score": 0.865
+        },
+        {
+          "sourceId": "MWJEY6W3-C4E77F94",
+          "question": "Welche neuen Formen der Rechenschaftspflicht fordern wir dann von einem solchen responsiven, verteilten Subjekt ein?",
+          "score": 0.761
+        },
+        {
+          "sourceId": "MWJEXKQQ-CD62AAC3",
+          "question": "Wie aber kann diese transhumane Mündigkeit ihre eigene Verantwortung bestimmen, wenn die Grenzen des autonomen Handelnden sich im resonanten Geflecht auflösen?",
+          "score": 0.752
+        }
+      ]
+    },
     {
       "id": "ERK-36HW95",
       "answerId": "MWHLYYWS-7B7C3E63",
@@ -106,7 +137,7 @@
     }
   ],
   "stats": {
-    "total": 3,
+    "total": 4,
     "confirmedFiltered": 58,
     "curatedRef": 214
   }

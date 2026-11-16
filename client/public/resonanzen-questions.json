@@ -1,16 +1,30 @@
 {
-  "generatedAt": "2026-11-16T15:24:53.108Z",
-  "count": 359,
+  "generatedAt": "2026-11-16T15:26:29.265Z",
+  "count": 360,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 359,
-    "answered": 301,
+    "total": 360,
+    "answered": 302,
     "open": 58,
-    "embedded": 3
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWJEZNVB-D1367E36",
+      "question": "Doch wie lässt sich die Nicht-Erfüllung dieser prozessualen Rechenschaftspflicht sanktionieren, ohne das Vertrauen in die Resonanzfähigkeit des Systems zu zerstören?",
+      "endpoint": "dialog",
+      "anchor": "dialog:antwort+resonanz",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "ts": "2026-11-16T15:24:40.727Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWJEYZU2-D00A3283",
       "question": "Wie aber kann diese Rechenschaftspflicht formalisiert werden, ohne ihre lebendige, prozessuale Natur zu ersticken?",
@@ -22,8 +36,13 @@
       ],
       "ts": "2026-11-16T15:24:09.579Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWJEZNVB-D1367E36",
+          "score": 0.865
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJEY6W3-C4E77F94",
@@ -40,6 +59,10 @@
         {
           "id": "MWJEYZU2-D00A3283",
           "score": 0.891
+        },
+        {
+          "id": "MWJEZNVB-D1367E36",
+          "score": 0.761
         }
       ],
       "answered": true
@@ -63,6 +86,10 @@
         {
           "id": "MWJEYZU2-D00A3283",
           "score": 0.807
+        },
+        {
+          "id": "MWJEZNVB-D1367E36",
+          "score": 0.752
         }
       ],
       "answered": true

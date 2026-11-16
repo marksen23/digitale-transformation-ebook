@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T15:24:53.202Z",
+  "generatedAt": "2026-11-16T15:26:29.374Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -108,6 +108,20 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:antwort+resonanz",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWJEZNVB-D1367E36",
+        "MWJEYZU2-D00A3283",
+        "MWJEY6W3-C4E77F94",
+        "MWJEXKQQ-CD62AAC3"
+      ],
+      "lastVariantTs": "2026-11-16T15:24:40.727Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:teil6",
       "endpoint": "chapter",
       "variantIds": [
@@ -119,19 +133,6 @@
       "lastVariantTs": "2026-05-16T18:18:38.925Z",
       "masterId": "MASTER-03059588",
       "masterTs": "2026-11-06T22:28:40.902Z",
-      "masterStale": false
-    },
-    {
-      "anchor": "dialog:antwort+resonanz",
-      "endpoint": "dialog",
-      "variantIds": [
-        "MWJEYZU2-D00A3283",
-        "MWJEY6W3-C4E77F94",
-        "MWJEXKQQ-CD62AAC3"
-      ],
-      "lastVariantTs": "2026-11-16T15:24:09.579Z",
-      "masterId": null,
-      "masterTs": null,
       "masterStale": false
     },
     {

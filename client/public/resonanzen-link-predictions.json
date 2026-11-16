@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T15:24:52.036Z",
+  "generatedAt": "2026-11-16T15:26:28.410Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -71,18 +71,18 @@
     {
       "source": "antwort",
       "target": "resonanz",
-      "cooccurrence": 5,
+      "cooccurrence": 6,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "analyse": 1,
         "path-analyse": 1
       },
       "sampleEntryIds": [
+        "MWJEZNVB-D1367E36",
         "MWJEYZU2-D00A3283",
         "MWJEY6W3-C4E77F94",
         "MWJEXKQQ-CD62AAC3",
-        "MWJEWOY7-62FCEE55",
-        "MP0QMSOR-C6EC1B5A"
+        "MWJEWOY7-62FCEE55"
       ]
     },
     {
