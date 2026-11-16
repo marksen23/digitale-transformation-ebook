@@ -42,10 +42,25 @@ describe("Erkenntnisse auf der Seite", () => {
     const data = readJson("client/public/resonanzen-erkenntnis-candidates.json") as {
       candidates: Array<{ id: string; answerExcerpt?: string; answerId: string }>;
     };
-    expect(data.candidates.length).toBeGreaterThanOrEqual(1);
-    for (const c of data.candidates) {
-      const hits = voiceViolations(c.answerExcerpt ?? "").filter(v => v !== "unvollständig");
-      expect(hits, c.id).toEqual([]);
-    }
+    // Leer ist gültig: der Index-Build nimmt Antworten heraus, die schon bestätigt
+    // oder automatisch veröffentlicht sind. Am 15.11. blieb dadurch 0 übrig
+    // (58 herausgefiltert), und die Untergrenze ≥ 1 brach den Sonntagslauf ab.
+    expect(Array.isArray(data.candidates)).toBe(true);
+    assertNoCandidateFloskel(data.candidates);
+  });
+
+  it("eine leere Kandidatenmenge besteht, eine Floskel im Auszug nicht", () => {
+    assertNoCandidateFloskel([]);
+    expect(() => assertNoCandidateFloskel([
+      { id: "x", answerExcerpt: "Markus Oehring denkt den Begriffsraum tiefgründig." },
+    ])).toThrow();
   });
 });
+
+/** Auszüge sind absichtlich gekürzt, deshalb zählt „unvollständig“ hier nicht. */
+function assertNoCandidateFloskel(candidates: Array<{ id: string; answerExcerpt?: string }>): void {
+  for (const c of candidates) {
+    const hits = voiceViolations(c.answerExcerpt ?? "").filter(v => v !== "unvollständig");
+    expect(hits, c.id).toEqual([]);
+  }
+}
