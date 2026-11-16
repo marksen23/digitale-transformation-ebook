@@ -1,13 +1,13 @@
 {
-  "generatedAt": "2026-11-15T09:06:56.428Z",
+  "generatedAt": "2026-11-16T09:02:22.603Z",
   "count": 340,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
     "total": 340,
-    "answered": 284,
-    "open": 56,
+    "answered": 285,
+    "open": 55,
     "embedded": 0
   },
   "questions": [
@@ -33,8 +33,13 @@
       ],
       "ts": "2026-11-15T09:04:50.023Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWJ1AUUK-598DE0C9",
+          "score": 0.721
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWHLYYWS-7B7C3E63",
@@ -140,6 +145,10 @@
       "ts": "2026-11-15T09:02:43.301Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWJ1AUUK-598DE0C9",
+          "score": 0.754
+        },
         {
           "id": "MWHLXY8O-BE8E6409",
           "score": 0.726
@@ -260,6 +269,10 @@
         {
           "id": "MWHLU57W-140FB983",
           "score": 0.743
+        },
+        {
+          "id": "MWJ1AUUK-598DE0C9",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -615,7 +628,7 @@
           "score": 0.739
         },
         {
-          "id": "MWG6JQJ5-54630303",
+          "id": "MWJ1AUUK-598DE0C9",
           "score": 0.734
         }
       ],
@@ -1845,16 +1858,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJ1AUUK-598DE0C9",
+          "score": 0.795
+        },
+        {
           "id": "MWG6K2GK-71CA57FA",
           "score": 0.751
         },
         {
           "id": "MASTER-44EE5BE7",
           "score": 0.748
-        },
-        {
-          "id": "MWCASDSY-E712A809",
-          "score": 0.745
         }
       ],
       "answered": true

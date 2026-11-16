@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-15T09:06:56.498Z",
+  "generatedAt": "2026-11-16T09:02:22.710Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -148,6 +148,18 @@
       "masterStale": false
     },
     {
+      "anchor": "chapter:schlussreflexion",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MWJ1AUUK-598DE0C9",
+        "MWCAQIIX-183F0908"
+      ],
+      "lastVariantTs": "2026-11-16T09:01:28.368Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:band2-kap3",
       "endpoint": "chapter",
       "variantIds": [
@@ -246,7 +258,7 @@
   ],
   "stats": {
     "totalAnchors": 205,
-    "withMultipleVariants": 17,
+    "withMultipleVariants": 18,
     "withMaster": 16,
     "staleMasters": 2
   }
