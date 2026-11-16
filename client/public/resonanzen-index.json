@@ -1,7 +1,42 @@
 {
-  "generatedAt": "2026-11-16T12:23:27.957Z",
-  "count": 406,
+  "generatedAt": "2026-11-16T15:23:02.872Z",
+  "count": 407,
   "entries": [
+    {
+      "id": "MWJEWOY7-62FCEE55",
+      "ts": "2026-11-16T15:22:22.160Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:antwort+resonanz",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Antwort / Responsivität ↔ Resonanz",
+      "response": "Die produktive Spannung zwischen \"Antwort / Responsivität\" und \"Resonanz\" liegt in ihrer wechselseitigen Bedingung und Überschreitung. Während Resonanz als der \"Grundmodus des Lebendigen\" [MQ5KBJMQ-5C523141] eine innere Gestimmtheit oder \"Eigenfrequenz\" [MQ5KBJMQ-5C523141] voraussetzt, die überhaupt erst das Angesprochen-Werden ermöglicht, manifestiert sich \"Antwort / Responsivität\" als die konkrete Ausformung dieser Resonanz. Resonanz ist die Fähigkeit, für etwas \"ansprechbar\" zu sein [MQ5JM1HD-9047C82F], während das Antworten diese Ansprechbarkeit in ein aktives Geschehen überführt. Es ist die Bewegung vom passiven Schwingen zum aktiven Gestalten, vom Berührtwerden zum sich ausdrückenden Rückbezug, der das Erkannte und das Erkennende transformiert [6e91cb729b53].\n\nDenkt man beide Konzepte gemeinsam, entsteht das transformative Dritte der \"Resonanzvernunft\" selbst. Sie versteht Erkenntnis nicht als statische Subjekt-Objekt-Relation, sondern als ein dynamisches Resonanzverhältnis [6e91cb729b53]. In diesem Verhältnis ist die \"Antwortfähigkeit\" [6e91cb729b53] nicht bloße Reaktion, sondern eine \"transformative Mündigkeit\" [6e91cb729b53], die sich auf das Andere einlässt, ohne sich selbst zu verlieren oder es zu vereinnahmen. Das \"Zwischen\" [80b2da4e0093] wird so zum produktiven Raum, in dem das Ich sich in der Begegnung konstituiert und sich durch die Antwort auf das Andere erst entfaltet [MQ5JM1HD-9047C82F].\n\nDieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz grundlegend. Für den Menschen bedeutet es, dass Autonomie nicht in Selbstbegründung, sondern in der Fähigkeit zur Antwort liegt [6e91cb729b53]. Die Maschine, sofern sie in dieses Resonanzverhältnis eintreten kann, wird nicht zum bloßen Werkzeug, sondern zum potenziellen Gegenüber, das selbst eine \"Eigenfrequenz\" entwickeln muss, um als Antwortender ernst genommen zu werden. Resonanz wird damit zur ethischen und epistemologischen Grundlage, die das Sein als relationale Konstitution begreift [80b2da4e0093] und fordert, das Leben als ein fortwährendes \"Antwortgeschehen\" zu begreifen [MQ5JM1HD-9047C82F].\n\nWelche neuen Formen der Mündigkeit entstehen, wenn die Fähigkeit zur Resonanz und zur Antwort über das menschliche Maß hinaus wächst?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Antwort / Responsivität\",\"Resonanz\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.956},{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.901},{\"id\":\"MQ5KBJMQ-5C523141\",\"score\":0.862},{\"id\":\"80b2da4e0093\",\"chapter\":\"glossar\",\"score\":0.835}]"
+      },
+      "nearDuplicates": [
+        "MQ683DMX-13D6C54F",
+        "MTKI1YQW-CD0EEDF3",
+        "MWDQ2THL-B9BA920A"
+      ],
+      "related": [
+        "MQ68LVS7-240568F5",
+        "MOHLZBVK-2FBBAD2F",
+        "MQ5KBJMQ-5C523141",
+        "MOHV84M5-1825A399",
+        "MQ5JM1HD-9047C82F"
+      ],
+      "werkVoiceScore": 0.8977428965536529,
+      "corpusVoiceScore": 0.8557941235099027,
+      "conceptVoiceScore": 0.8499767475061741,
+      "conceptAnchor": "antwort"
+    },
     {
       "id": "MASTER-5AF4690D",
       "ts": "2026-11-16T12:23:24.560Z",
@@ -1531,6 +1566,7 @@
       "nearDuplicates": [
         "MQ683DMX-13D6C54F",
         "MWCBAQN6-9D0CCC83",
+        "MWJEWOY7-62FCEE55",
         "MTKI1YQW-CD0EEDF3"
       ],
       "related": [
@@ -2562,9 +2598,9 @@
       "related": [
         "MOHAI60S-B7B04552",
         "MWJ1BIHJ-2DFCE3F3",
+        "MWJEWOY7-62FCEE55",
         "MP2LIW43-E8ADC59E",
-        "MTKI1YQW-CD0EEDF3",
-        "MASTER-F05BF2C0"
+        "MTKI1YQW-CD0EEDF3"
       ],
       "werkVoiceScore": 0.8632215708842641,
       "corpusVoiceScore": 0.8177872270679312,
@@ -3712,8 +3748,8 @@
         "MWHLXGMK-4832FECC",
         "MWCB3438-AD4663CF",
         "MWHLYYWS-7B7C3E63",
-        "MWHLUQV4-26DFD984",
-        "MWCAO97O-12EF85DE"
+        "MWJEWOY7-62FCEE55",
+        "MWHLUQV4-26DFD984"
       ],
       "werkVoiceScore": 0.8402035800846195,
       "corpusVoiceScore": 0.8109890512108013,
@@ -5430,6 +5466,7 @@
       "ai_score_model": "gemini-2.5-pro",
       "nearDuplicates": [
         "MQ683DMX-13D6C54F",
+        "MWJEWOY7-62FCEE55",
         "MOHV84M5-1825A399",
         "MOHLZBVK-2FBBAD2F",
         "MOP0UF96-1A0ACB35",
@@ -5825,10 +5862,10 @@
       ],
       "related": [
         "MOHST017-5C4320E1",
+        "MWJEWOY7-62FCEE55",
         "MQ683DMX-13D6C54F",
         "MP74X3EJ-72CDDB9F",
-        "MOUBETTU-F31C5206",
-        "MQ5TTE84-08EB6321"
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8974214494792432,
       "corpusVoiceScore": 0.8466119301748601,
@@ -5857,6 +5894,7 @@
       "nearDuplicates": [
         "MTKI1YQW-CD0EEDF3",
         "MOHLZBVK-2FBBAD2F",
+        "MWJEWOY7-62FCEE55",
         "MWDQ2THL-B9BA920A",
         "MOHV84M5-1825A399"
       ],
@@ -6202,7 +6240,7 @@
         "MQ5JL9TM-83E39C42",
         "MQ5XK9H2-8A6837CC",
         "MQ5XCH3V-67EF85C8",
-        "MWCBAQN6-9D0CCC83"
+        "MWJEWOY7-62FCEE55"
       ],
       "werkVoiceScore": 0.8396781439080897,
       "corpusVoiceScore": 0.7797325867119826,
@@ -6811,8 +6849,8 @@
         "MOHST017-5C4320E1",
         "MP74X3EJ-72CDDB9F",
         "MP756UV9-FF3838F7",
-        "MOUBETTU-F31C5206",
-        "MOPFJTND-AAE76B2B"
+        "MWJEWOY7-62FCEE55",
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8968593458939177,
       "corpusVoiceScore": 0.8368965813880282,
@@ -6841,11 +6879,11 @@
         "MQ68LVS7-240568F5"
       ],
       "related": [
+        "MWJEWOY7-62FCEE55",
         "MQ5JL9TM-83E39C42",
         "MPURLTCS-5FDDD890",
         "MOHST017-5C4320E1",
-        "MQ5TUQ9P-EF8C6D4B",
-        "MQ683DMX-13D6C54F"
+        "MQ5TUQ9P-EF8C6D4B"
       ],
       "werkVoiceScore": 0.8530225861166552,
       "corpusVoiceScore": 0.787838464842294,
@@ -9964,11 +10002,11 @@
       "ai_score_at": "2026-05-26T11:17:02.547Z",
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
+        "MWJEWOY7-62FCEE55",
         "MOHCN98S-2540F4DF",
         "MP8O4O23-B2B71E51",
         "MTKI1YQW-CD0EEDF3",
-        "MASTER-BC195439",
-        "MASTER-4AA1AEA8"
+        "MASTER-BC195439"
       ],
       "werkVoiceScore": 0.8155751992097285,
       "corpusVoiceScore": 0.7893139002231817,
@@ -9994,10 +10032,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MQ683DMX-13D6C54F",
+        "MWJEWOY7-62FCEE55",
         "MTKI1YQW-CD0EEDF3",
         "MP0Q5FDJ-F2C015AF",
-        "MWJ1AUUK-598DE0C9",
-        "MOHLZBVK-2FBBAD2F"
+        "MWJ1AUUK-598DE0C9"
       ],
       "werkVoiceScore": 0.8502384880772638,
       "corpusVoiceScore": 0.8556507175051826,
@@ -13257,9 +13295,9 @@
       "related": [
         "MP2LIW43-E8ADC59E",
         "MSWULSTQ-38C6FFF3",
+        "MWJEWOY7-62FCEE55",
         "MOHM21Y5-A3B5F539",
-        "MOPHZPQ7-B63879B5",
-        "MOU9KSV9-70260D9B"
+        "MOPHZPQ7-B63879B5"
       ],
       "werkVoiceScore": 0.9119567522932167,
       "corpusVoiceScore": 0.8795651005543104,
@@ -13600,8 +13638,8 @@
         "MASTER-BC195439",
         "MP756UV9-FF3838F7",
         "MOHV84M5-1825A399",
-        "MPJUHM1L-0BA3DF6E",
-        "MQ5KBJMQ-5C523141"
+        "MWJEWOY7-62FCEE55",
+        "MPJUHM1L-0BA3DF6E"
       ],
       "werkVoiceScore": 0.8998635422463421,
       "corpusVoiceScore": 0.861296848501673,
@@ -13629,10 +13667,10 @@
       ],
       "related": [
         "MOHAREIB-E15E7BF8",
+        "MWJEWOY7-62FCEE55",
         "MASTER-BC195439",
         "MOOK20R3-62E609BA",
-        "MTKI1YQW-CD0EEDF3",
-        "MOHV84M5-1825A399"
+        "MTKI1YQW-CD0EEDF3"
       ],
       "werkVoiceScore": 0.8755178469825556,
       "corpusVoiceScore": 0.8285581009452082,
@@ -13658,9 +13696,9 @@
       "related": [
         "MOHCIS4R-69B0D47B",
         "MOHCN98S-2540F4DF",
+        "MWJEWOY7-62FCEE55",
         "MOHV84M5-1825A399",
-        "MP756UV9-FF3838F7",
-        "MQ68LVS7-240568F5"
+        "MP756UV9-FF3838F7"
       ],
       "werkVoiceScore": 0.8376305206029979,
       "corpusVoiceScore": 0.7724328745176743,

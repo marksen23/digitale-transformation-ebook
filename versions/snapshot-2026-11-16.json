@@ -1,12 +1,12 @@
 {
   "date": "2026-11-16",
-  "generatedAt": "2026-11-16T09:07:26.888Z",
-  "commit": "cb949399a39556e8eadcda6000fe3e3a38ecb8ad",
-  "filesChecked": 409,
+  "generatedAt": "2026-11-16T15:23:09.029Z",
+  "commit": "efde1d077c042f066039a3800bb7ceb7fff9aa80",
+  "filesChecked": 413,
   "aggregates": {
     "byEndpoint": {
-      "analyse": 95,
-      "chapter": 60,
+      "analyse": 96,
+      "chapter": 63,
       "dialog": 54,
       "path-analyse": 61,
       "enkidu": 67,
@@ -15,16 +15,19 @@
       "translate": 6
     },
     "byStatus": {
-      "published": 161,
-      "raw": 170,
+      "published": 164,
+      "raw": 171,
       "rejected": 24,
       "approved": 54
     },
     "orphanNodeIds": [
+      "band1-kap5",
+      "band2-kap3",
       "band3-kap3",
       "band3-kap4",
       "band3-kap5",
       "freier",
+      "schlussreflexion",
       "teil4",
       "teil5",
       "teil6",
@@ -36,6 +39,6 @@
     "redundantDuplicates": 1
   },
   "errors": 0,
-  "warnings": 52,
+  "warnings": 58,
   "recovery": false
 }

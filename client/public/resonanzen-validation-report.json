@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16T09:07:04.523Z",
-  "filesChecked": 409,
+  "generatedAt": "2026-11-16T15:22:49.597Z",
+  "filesChecked": 413,
   "errors": 0,
-  "warnings": 52,
+  "warnings": 58,
   "issues": [
     {
       "level": "warning",
@@ -21,6 +21,30 @@
       "file": "content/resonanzen/master/analyse/analyse_lm-verwandlung-stimme.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint analyse"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band1-kap5.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'band1-kap5' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band1-kap5.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band2-kap3.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'band2-kap3' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band2-kap3.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
     },
     {
       "level": "warning",
@@ -55,6 +79,18 @@
     {
       "level": "warning",
       "file": "content/resonanzen/master/chapter/chapter_band3-kap5.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_schlussreflexion.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'schlussreflexion' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_schlussreflexion.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint chapter"
     },
@@ -319,8 +355,8 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 95,
-      "chapter": 60,
+      "analyse": 96,
+      "chapter": 63,
       "dialog": 54,
       "path-analyse": 61,
       "enkidu": 67,
@@ -329,16 +365,19 @@
       "translate": 6
     },
     "byStatus": {
-      "published": 161,
-      "raw": 170,
+      "published": 164,
+      "raw": 171,
       "rejected": 24,
       "approved": 54
     },
     "orphanNodeIds": [
+      "band1-kap5",
+      "band2-kap3",
       "band3-kap3",
       "band3-kap4",
       "band3-kap5",
       "freier",
+      "schlussreflexion",
       "teil4",
       "teil5",
       "teil6",
