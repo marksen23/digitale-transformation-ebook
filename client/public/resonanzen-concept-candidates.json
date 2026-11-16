@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:07:20.705Z",
+  "generatedAt": "2026-11-16T12:23:28.015Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -44,6 +44,45 @@
         "MPUTC3HP-C68436E5",
         "MPUT5G5K-075966B7",
         "MPUT47UR-103C16A3"
+      ]
+    },
+    {
+      "suggestedLabel": "erkenntnis",
+      "keywords": [
+        {
+          "word": "erkenntnis",
+          "count": 4
+        },
+        {
+          "word": "andere",
+          "count": 4
+        },
+        {
+          "word": "entsteht",
+          "count": 2
+        },
+        {
+          "word": "grenze",
+          "count": 2
+        },
+        {
+          "word": "delegiert",
+          "count": 2
+        },
+        {
+          "word": "können",
+          "count": 2
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.269,
+      "nearestConcept": "dazwischenintelligenz",
+      "nearestSim": 0.731,
+      "sampleEntryIds": [
+        "MTDCKR2Q-05DCEB69",
+        "MPUTYL5L-4C0B344F",
+        "MPUTT58G-25E5A1AC",
+        "MPUTKZI1-F10F9444"
       ]
     },
     {
@@ -161,46 +200,6 @@
       ]
     },
     {
-      "suggestedLabel": "erkenntnis",
-      "keywords": [
-        {
-          "word": "erkenntnis",
-          "count": 4
-        },
-        {
-          "word": "andere",
-          "count": 4
-        },
-        {
-          "word": "grenze",
-          "count": 3
-        },
-        {
-          "word": "entsteht",
-          "count": 2
-        },
-        {
-          "word": "delegiert",
-          "count": 2
-        },
-        {
-          "word": "wäre",
-          "count": 2
-        }
-      ],
-      "evidence": 5,
-      "distinctness": 0.244,
-      "nearestConcept": "dazwischenintelligenz",
-      "nearestSim": 0.756,
-      "sampleEntryIds": [
-        "MTDCKR2Q-05DCEB69",
-        "MPUTYL5L-4C0B344F",
-        "MPUTT58G-25E5A1AC",
-        "MPUTKZI1-F10F9444",
-        "MPUSXGC6-CD078CEA"
-      ]
-    },
-    {
       "suggestedLabel": "freiheit",
       "keywords": [
         {
@@ -243,39 +242,39 @@
       "keywords": [
         {
           "word": "pfad",
-          "count": 21
-        },
-        {
-          "word": "vergleich",
           "count": 16
         },
         {
           "word": "resonanzvernunft",
-          "count": 16
+          "count": 13
         },
         {
-          "word": "resonanz",
-          "count": 15
-        },
-        {
-          "word": "verwandlung",
+          "word": "vergleich",
           "count": 11
         },
         {
-          "word": "dasein",
-          "count": 8
+          "word": "resonanz",
+          "count": 11
+        },
+        {
+          "word": "verwandlung",
+          "count": 9
+        },
+        {
+          "word": "logos",
+          "count": 6
         }
       ],
-      "evidence": 21,
-      "distinctness": 0.231,
+      "evidence": 16,
+      "distinctness": 0.226,
       "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.769,
+      "nearestSim": 0.774,
       "sampleEntryIds": [
         "MQARZJDV-82F077DD",
-        "MPURYS56-11F5308C",
-        "MPUQSMLJ-1B726CC4",
         "MPUO08SE-67E0912A",
-        "MPMSSG1X-8451DE38"
+        "MPMSSG1X-8451DE38",
+        "MPMSRF6V-7FEB2991",
+        "MPF4FISZ-67000E01"
       ]
     },
     {
@@ -370,10 +369,6 @@
           "count": 2
         },
         {
-          "word": "unverfügbarkeit",
-          "count": 2
-        },
-        {
           "word": "rolle",
           "count": 1
         },
@@ -384,18 +379,62 @@
         {
           "word": "bewusste",
           "count": 1
+        },
+        {
+          "word": "pause",
+          "count": 1
         }
       ],
-      "evidence": 8,
-      "distinctness": 0.193,
-      "nearestConcept": "antwort",
-      "nearestSim": 0.807,
+      "evidence": 6,
+      "distinctness": 0.189,
+      "nearestConcept": "spannung",
+      "nearestSim": 0.811,
       "sampleEntryIds": [
         "MUY7RXCI-E899056E",
         "MUY7RXCI-D36BB4D6",
         "MQ66ZWYC-52DE2DF2",
         "MPF4WM18-FF4843F1",
         "MOQIMC7B-B190C937"
+      ]
+    },
+    {
+      "suggestedLabel": "synthese",
+      "keywords": [
+        {
+          "word": "synthese",
+          "count": 15
+        },
+        {
+          "word": "varianten",
+          "count": 15
+        },
+        {
+          "word": "chapter",
+          "count": 10
+        },
+        {
+          "word": "pfad",
+          "count": 8
+        },
+        {
+          "word": "vergleich",
+          "count": 7
+        },
+        {
+          "word": "band",
+          "count": 5
+        }
+      ],
+      "evidence": 26,
+      "distinctness": 0.186,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.814,
+      "sampleEntryIds": [
+        "MASTER-5AF4690D",
+        "MASTER-5476DCEA",
+        "MASTER-2C637ECA",
+        "MASTER-476E4F4D",
+        "MASTER-556F1581"
       ]
     },
     {
@@ -480,9 +519,9 @@
     }
   ],
   "stats": {
-    "curated": 211,
-    "uncovered": 211,
-    "candidatesCount": 12,
+    "curated": 214,
+    "uncovered": 214,
+    "candidatesCount": 13,
     "concepts": 50,
     "maxEvidence": 33
   }

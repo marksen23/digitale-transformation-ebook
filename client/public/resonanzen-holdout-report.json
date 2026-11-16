@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16T09:07:20.657Z",
+  "generatedAt": "2026-11-16T12:23:27.956Z",
   "checked": 46,
-  "stable": 20,
-  "shifted": 19,
+  "stable": 19,
+  "shifted": 20,
   "drifted": 7,
   "details": [
     {
@@ -154,10 +154,10 @@
       ],
       "current": [
         "MWCB8047-41980A2A",
-        "MASTER-BC195439",
-        "MPUFP1VW-298D0A73"
+        "MASTER-2C637ECA",
+        "MASTER-BC195439"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MWCBB8F1-DC8DD694",
@@ -225,9 +225,9 @@
       "current": [
         "MWCB4J6T-9F0A7789",
         "MWCB4VF6-3EE7A1EA",
-        "MOOK5A30-F596F31D"
+        "MASTER-2C637ECA"
       ],
-      "overlap": 1
+      "overlap": 0
     },
     {
       "id": "MW566TO7-1538114F",

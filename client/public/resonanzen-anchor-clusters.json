@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:07:21.494Z",
+  "generatedAt": "2026-11-16T12:23:29.334Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -155,8 +155,8 @@
         "MWCAW9PI-E08E90ED"
       ],
       "lastVariantTs": "2026-11-16T09:05:46.899Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-5AF4690D",
+      "masterTs": "2026-11-16T12:23:24.560Z",
       "masterStale": false
     },
     {
@@ -167,8 +167,8 @@
         "MWCAQIIX-183F0908"
       ],
       "lastVariantTs": "2026-11-16T09:01:28.368Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-2C637ECA",
+      "masterTs": "2026-11-16T12:23:24.560Z",
       "masterStale": false
     },
     {
@@ -179,8 +179,8 @@
         "MOHV6VKT-356C0CD7"
       ],
       "lastVariantTs": "2026-11-14T09:05:35.251Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-5476DCEA",
+      "masterTs": "2026-11-16T12:23:24.560Z",
       "masterStale": false
     },
     {
@@ -271,7 +271,7 @@
   "stats": {
     "totalAnchors": 214,
     "withMultipleVariants": 19,
-    "withMaster": 16,
+    "withMaster": 19,
     "staleMasters": 2
   }
 }

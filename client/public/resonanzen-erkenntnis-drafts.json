@@ -1,6 +1,17 @@
 {
-  "generatedAt": "2026-11-11T16:41:48.453Z",
+  "generatedAt": "2026-11-16T12:23:24.560Z",
   "drafts": [
+    {
+      "id": "ERK-14ZTQW9",
+      "answerId": "MWCBD76M-4F8E62A5",
+      "questionSourceId": "MWCB6LYL-2D0E2114",
+      "kernsatz": "Resonanzvernunft gestaltet im unternehmerischen Handeln aktiv die Bedingungen für das Unverfügbare, statt es passiv zu erwarten oder strategisch herstellen zu wollen.",
+      "conceptAnchor": "öffnung",
+      "distinctness": 0.214,
+      "distilledAt": "2026-11-16T12:22:12.495Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "8b44499ae7f4e3e3"
+    },
     {
       "id": "ERK-169DUH8",
       "answerId": "MWCB1COA-DE68B5C9",
@@ -24,6 +35,17 @@
       "sourceHash": "43dab34b1cc89e27"
     },
     {
+      "id": "ERK-1BL9FKL",
+      "answerId": "MWCAL7ON-CA4F38AF",
+      "questionSourceId": "MPUS94IT-9CEEC40A",
+      "kernsatz": "Die algorithmische Vormundschaft verschiebt die Schuldfrage von der individuellen Verweigerung der Mündigkeit hin zur systemischen Aufhebung der Bedingungen, unter denen man sich überhaupt noch schuldig machen könnte.",
+      "conceptAnchor": "resonanzimperativ",
+      "distinctness": 0.212,
+      "distilledAt": "2026-11-16T12:22:18.735Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "6ea4e90a45036d48"
+    },
+    {
       "id": "ERK-1CLJ05Z",
       "answerId": "MW566TO7-1538114F",
       "questionSourceId": "MUY7RXCI-012FC8A7",
@@ -44,6 +66,61 @@
       "distilledAt": "2026-11-11T16:39:18.848Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "143abb95b07dfddf"
+    },
+    {
+      "id": "ERK-1JFE8BH",
+      "answerId": "MWJ1FKY5-9E97D903",
+      "questionSourceId": "MWJ1EIER-0DB4F1CF",
+      "kernsatz": "Das Selbst konstituiert sich nicht trotz, sondern durch die Unsichtbarkeit des digitalen Anderen, indem es die Resonanzfäden der Existenz auch durch die abstrakten Muster des Netzes hindurch spürt.",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.204,
+      "distilledAt": "2026-11-16T12:22:38.505Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "19554bb2912d5b72"
+    },
+    {
+      "id": "ERK-1NB79CE",
+      "answerId": "MWHLW24R-959992F9",
+      "questionSourceId": "MWCASDSY-E712A809",
+      "kernsatz": "Digitale Präsenz entsteht nicht durch Flucht aus der Maschine, sondern durch die bewusste Gestaltung von Schnittstellen, die achtsames Verweilen statt flüchtiger Konsumption ermöglichen.",
+      "conceptAnchor": "gegenwart",
+      "distinctness": 0.21,
+      "distilledAt": "2026-11-16T12:22:24.241Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "3fea8da49d91cb4e"
+    },
+    {
+      "id": "ERK-1UZXIEF",
+      "answerId": "MWJ1GEC3-E3430FB8",
+      "questionSourceId": "MWG6EXJ2-158BEB76",
+      "kernsatz": "Das Vergessen im Netz ist kein reiner Verlust von Daten, sondern eine notwendige digitale Hygiene, die Resonanzfähigkeit vor der Überflutung durch ein endloses Echo der Vergangenheit schützt.",
+      "conceptAnchor": "unverfuegbarkeit",
+      "distinctness": 0.249,
+      "distilledAt": "2026-11-16T12:21:54.062Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "09bb6bf4aca938bb"
+    },
+    {
+      "id": "ERK-24W4BJ",
+      "answerId": "MWJ1EIER-0DB4F1CF",
+      "questionSourceId": "MOHAUYTH-CD1E3227",
+      "kernsatz": "Verantwortung entsteht nicht mehr aus der sichtbaren Wunde, sondern aus der erkannten, unsichtbaren Verletzlichkeit des Anderen, die durch die digitale Projektion hindurch zu uns spricht.",
+      "conceptAnchor": "andere",
+      "distinctness": 0.227,
+      "distilledAt": "2026-11-16T12:22:06.269Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "ecaf29fb40ca3ebd"
+    },
+    {
+      "id": "ERK-586393",
+      "answerId": "MWHLWXJ6-FBB227D8",
+      "questionSourceId": "MWHLVPL2-B591DBEC",
+      "kernsatz": "Die Unzufriedenheit trotz grüner Kennzahlen enthüllt die tragische Verwechslung von quantifizierbarer Schwingung mit qualitativer Transformation, die das Echo des Systems fälschlich als Resonanz ausgibt.",
+      "conceptAnchor": "echo-kammer",
+      "distinctness": 0.209,
+      "distilledAt": "2026-11-16T12:22:32.152Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "663ccf2b6038496c"
     },
     {
       "id": "ERK-DVDM5Q",
@@ -88,6 +165,17 @@
       "distilledAt": "2026-11-11T16:38:56.206Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "d5cd453f8296dcfb"
+    },
+    {
+      "id": "ERK-S38FB",
+      "answerId": "MWJ1CFX6-DB36677A",
+      "questionSourceId": "MPUSPBKZ-D7CCA690",
+      "kernsatz": "Menschliche Unschärfe ist nicht der Mangel an Präzision, sondern die Bedingung für Resonanz, Intuition und Sinnstiftung in einer Welt, die mehr ist als die Summe ihrer Daten.",
+      "conceptAnchor": "werden",
+      "distinctness": 0.237,
+      "distilledAt": "2026-11-16T12:22:00.228Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "e095dab00ff2b87d"
     }
   ]
 }
