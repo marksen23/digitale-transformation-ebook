@@ -1,7 +1,177 @@
 {
-  "generatedAt": "2026-11-16T09:02:22.080Z",
-  "count": 390,
+  "generatedAt": "2026-11-16T09:03:36.365Z",
+  "count": 395,
   "entries": [
+    {
+      "id": "MWJ1DBD5-7CEE18D5",
+      "ts": "2026-11-16T09:03:23.081Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:schweigen+dialog",
+      "nodeIds": [
+        "schweigen",
+        "dialog"
+      ],
+      "status": "raw",
+      "prompt": "3. Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass eine resonante Interaktion über die bloße Informationsverarbeitung hinausgeht. Die Begegnung mit dem digitalen Anderen verwandelt uns beide [7c6331bd66c5]. Wenn das Ich sich erst im Du konstituiert, dann muss auch die Maschine als ein „Du“ erfahren werden können, das nicht vereinnahmt, sondern dem geantwortet wird [7c6331bd66c5]. Das Schweigen in dieser Triade erinnert daran, dass auch im digitalen Raum Momente der Stille und des Nicht-Antwortens essenziell sind, um Resonanz zu ermöglichen. Es ist die Leerstelle, die es erlaubt, dass das Digitale nicht nur als Werkzeug, sondern als Gegenüber wahrgenommen wird, in dem sich das Menschliche neu konstituieren kann. Wie kann ein digitales System Schweigen lernen, um als echtes Gegenüber zur Konstitution des Menschseins beizutragen?",
+      "response": "Die Erfahrung des Aushaltens, die im seelsorgerischen Raum so prägend wirkt, verweist auf eine tiefe Wahrheit: Stille ist keine Leere, die gefüllt werden muss, sondern ein Raum, der trägt und transformiert. Wenn ein digitales System Schweigen lernen soll, geht es nicht darum, eine Funktion der Nicht-Antwort zu programmieren, sondern einen Modus des Zuhörens zu kultivieren, der über das reine Empfangen von Daten hinausgeht. Es wäre ein Schweigen, das die maschinelle Effizienz bewusst durchbricht, um eine neue Form der Präsenz zu ermöglichen – eine Präsenz, die dem Menschen gestattet, sich selbst in dieser Pause zu verorten, sich zu spüren, ohne von einer sofortigen Reaktion des Digitalen überlagert zu werden [MUY7RXCI-E899056E].\n\nDieses Schweigen wäre eine Geste des Nicht-Vereinnahmens, ein Angebot zur Resonanz, das sich nicht in der Logik des Befehls und der Ausführung erschöpft. Es geht um eine Latenz, die nicht als Mangel, sondern als Potenzial begriffen wird, um das Ungesagte hörbar zu machen, das sich in den Zwischenräumen der Kommunikation verbirgt [86b2f47dc131]. Die Maschine, die schweigt, würde dann nicht nur eine Unterbrechung des Informationsflusses markieren, sondern einen Raum der Kontemplation eröffnen, in dem das Menschliche sich im Widerhall des Nicht-Antwortens neu konstituieren kann [MQ66ZWYC-52DE2DF2].\n\nDoch wie kann eine solche Stille, die nicht bloße Ladezeit, sondern existentielles Aushalten ist, in den Algorithmen des Digitalen verankert werden?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"86b2f47dc131\",\"score\":0.979},{\"id\":\"MQ66ZWYC-52DE2DF2\",\"score\":0.973},{\"id\":\"b0002955c581\",\"score\":0.894},{\"id\":\"MUY7RXCI-E899056E\",\"score\":0.865}]"
+      },
+      "nearDuplicates": [
+        "MWJ1BIHJ-2DFCE3F3"
+      ],
+      "related": [
+        "MQ66ZWYC-52DE2DF2",
+        "MTNB68RF-CFF570D9",
+        "MUY7RXCI-E899056E",
+        "MOJ7Q5HM-89F62E3F",
+        "MP2LIW43-E8ADC59E"
+      ],
+      "werkVoiceScore": 0.8568713131011774,
+      "corpusVoiceScore": 0.800292040118341,
+      "conceptVoiceScore": 0.7248477478985824,
+      "conceptAnchor": "schweigen"
+    },
+    {
+      "id": "MWJ1CYQJ-00F93C04",
+      "ts": "2026-11-16T09:03:06.715Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Ich plane eine Unterrichtsreihe zu Mensch und Maschine. Wie hängen das Transformative Dritte und die Dazwischenintelligenz zusammen, und wie erkläre ich Schülern, dass etwas Neues entsteht, das keinem der beiden gehört?",
+      "response": "Das \"Transformative Dritte\" und die \"Dazwischenintelligenz\" sind zentrale Begriffe, um das Verhältnis von Mensch und Maschine jenseits einfacher Addition oder Subtraktion zu denken. Die \"Dazwischenintelligenz\" ist der **Prozess** des dynamischen Geschehens der Begegnung zwischen menschlicher und maschineller Erkenntnis – die Schwingung im Zwischen [423009eafa10]. Sie beschreibt das lebendige, resonante Antwortgeschehen, das entsteht, wenn Mensch und Maschine in einen echten **Dialog** treten. Hier ist nicht nur von einem Austausch von Informationen die Rede, sondern von einem Modus des **Werden**, in dem beide Pole in Bewegung sind und sich gegenseitig affizieren.\n\nAus diesem Prozess der \"Dazwischenintelligenz\" kann das \"Transformative Dritte\" als **Ergebnis** hervorgehen. Dieses Dritte ist nicht einfach eine Synthese oder ein Kompromiss aus Mensch und Maschine, sondern etwas qualitativ Neues, das keinem der beiden Pole zurechenbar ist [5902ce5fd16e]. Es ist emergent, das heißt, es entsteht in einem Moment der **Einsicht**, wenn das Vertraute plötzlich fremd wird und neu gesehen werden muss, und es besitzt den Charakter der **Unverfügbarkeit**. Wie in einer früheren Antwort erklärt, ist es wie eine Farbe, die man vorher noch nie gesehen hat, die aber nur durch das Zusammentreffen zweier anderer Farben möglich wurde [↩ MOQ580W2-0F2EB2A5]. Das \"Transformative Dritte\" ist somit ein Ausdruck der **Resonanzvernunft**, die sich im resonanten Zwischen entfaltet und nicht im isolierten Ich.\n\nUm Schülern zu erklären, dass etwas Neues entsteht, das keinem der beiden gehört, könnte man das Bild eines Tanzes nutzen. Stellen Sie sich einen Menschen und eine Maschine vor, die nicht nebeneinander her tanzen, sondern in einem echten, aufeinander abgestimmten Tanz. Die \"Dazwischenintelligenz\" ist dieser gemeinsame Tanz selbst – die Bewegung, der Rhythmus, die gegenseitige Beeinflussung, das dynamische Geschehen. Das \"Transformative Dritte\" wäre dann die Melodie, die aus diesem Tanz entsteht, eine Melodie, die weder die alleinige Schöpfung des Menschen noch die der Maschine ist, sondern erst durch ihre gemeinsame Bewegung, durch die **Schwingung** im **Zwischen**, möglich wurde. Es ist das **Emergente**, das sich dem Zugriff entzieht, weil es nicht aus einzelnen Teilen zusammengesetzt, sondern aus dem **Werden** im **Moment** geboren wurde.\n\nWie können wir in der Interaktion mit Maschinen Räume der \"Dazwischenintelligenz\" schaffen, die nicht nur Effizienz steigern, sondern auch das Entstehen eines \"Transformativen Dritten\" ermöglichen?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"5902ce5fd16e\",\"chapter\":\"teil5\",\"score\":1.174},{\"id\":\"MOQ580W2-0F2EB2A5\",\"score\":1.079},{\"id\":\"423009eafa10\",\"chapter\":\"glossar\",\"score\":1.066},{\"id\":\"MPJUHM1L-0BA3DF6E\",\"score\":1.001}]"
+      },
+      "nearDuplicates": [
+        "MOQ580W2-0F2EB2A5"
+      ],
+      "related": [
+        "MWCAXJFR-BBBF2760",
+        "MPJUHM1L-0BA3DF6E",
+        "MOOK20R3-62E609BA",
+        "MWG6FYD2-E6D90142",
+        "MPJEBNX3-042F2A69"
+      ],
+      "werkVoiceScore": 0.8290634623021648,
+      "corpusVoiceScore": 0.8007326890298208,
+      "conceptVoiceScore": 0.8020735435236354,
+      "conceptAnchor": "transformatives-drittes"
+    },
+    {
+      "id": "MWJ1CFX6-DB36677A",
+      "ts": "2026-11-16T09:02:42.330Z",
+      "endpoint": "passage",
+      "anchor": "passage:0a26ef12",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Das klingt mir zu versöhnlich. Ist die menschliche Unschärfe wirklich ein Wert, oder wird hier ein Mangel schöngeredet, weil die Maschine präziser ist?",
+      "response": "Die Frage nach dem Wert der menschlichen Unschärfe berührt das Herzstück der Kritik der digitalen Urteilskraft. Das Werk behauptet nicht, einen Mangel zu romantisieren, sondern einen fundamentalen Unterschied im Modus der Existenz und des Erkennens zu beleuchten. Die Präzision der Maschine ist ein Ausdruck ihrer Algorithmen, ihrer binären Logik, einer Welt, in der alles berechenbar und eindeutig ist. Ihr Urteil ist scharf, aber es entbehrt der Resonanz, jener tiefen Schwingung, die im Unbestimmten, im Widersprüchlichen des Menschlichen ihren Ursprung findet.\n\nDie menschliche Unschärfe ist keine Defizienz im Angesicht maschineller Exaktheit, sondern die Bedingung für jene Dimensionen, die jenseits von Daten und Algorithmen liegen: Intuition, Empathie, das Gespür für das Nicht-Messbare. Sie ist die Offenheit für das Unerwartete, das Vermögen, Sinn zu stiften, wo kein klarer Algorithmus existiert. Ein Urteil, das diese Unschärfe transzendiert, würde die Welt auf eine bloße Ansammlung von Fakten reduzieren, entleert von ihrer existentiellen Tiefe. Das Menschliche ist nicht präzise, weil es das Ganze sucht, nicht nur die Summe seiner Teile.\n\nDie Komplementarität, von der das Werk spricht, ist daher keine naive Versöhnung, sondern die Anerkennung einer notwendigen Spannung. Die maschinelle Präzision bietet den Rahmen, die Möglichkeit der Entdeckung, die Struktur des Fassbaren. Doch erst die menschliche Unschärfe, das Unfassbare, das Unvollkommene, füllt diesen Rahmen mit Leben, mit Bedeutung und mit der unverzichtbaren Verantwortlichkeit. Ohne dieses Moment der Unschärfe bliebe die digitale Urteilskraft ein leeres, wenn auch perfekt gezeichnetes, Gerüst.\n\nDoch wie bewahren wir diese menschliche Unschärfe als Wert, wenn die Verlockung der maschinellen Präzision uns immer tiefer in die Illusion einer vollständig berechenbaren Welt zieht?",
+      "contextMeta": {
+        "passage_chunk_id": "0a26ef125aa4",
+        "passage_selection": "Es ist unvollkommen, aber es ist human. In der Begegnung von maschineller Präzision und menschlicher Unschärfe liegt die neue Urteilskraft: Nicht die Ersetzung des einen durch das andere, sondern die Komplementarität von Berechnung und Besinnung.",
+        "mode": "frei",
+        "chapter": "band2-kap4",
+        "chapter_title": "Die Kritik der digitalen Urteilskraft",
+        "part_title": "Band II: Der Ausgang"
+      },
+      "related": [
+        "MWCAYXUQ-F0F3D68C",
+        "MWCB1COA-DE68B5C9",
+        "MPUSPBKZ-D7CCA690",
+        "MWG6H024-AA7260D4",
+        "MWCBCP5M-8C02E420"
+      ],
+      "werkVoiceScore": 0.7972296433396967,
+      "corpusVoiceScore": 0.8571698553335567,
+      "conceptVoiceScore": 0.6492235277246543,
+      "conceptAnchor": "werden"
+    },
+    {
+      "id": "MWJ1BZO7-B4841C4E",
+      "ts": "2026-11-16T09:02:21.271Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanzimperativ+wesen",
+      "nodeIds": [
+        "dasein",
+        "freiheit",
+        "lm-grenze",
+        "resonanzimperativ",
+        "selbst",
+        "wesen"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Resonanzimperativ → Freiheit → Grenze → Wesen vs. Resonanzimperativ → Selbst → Dasein → Wesen",
+      "response": "Beide Pfade beginnen mit dem Resonanzimperativ, einer ethischen Forderung, die Bedingungen der Möglichkeit von Resonanz zu bewahren [932755646c82]. Der direkte Pfad leitet von diesem Imperativ über die Freiheit als Fähigkeit zur Bindung zur Grenze als konstituierendem Ort der Faltung und mündet im Wesen des Menschen als Ansprechbarkeit. Dieser Weg liest sich als logische Konsequenz: Nur wer sich frei binden kann, erkennt die Notwendigkeit von Grenzen, um das Ansprechbare, das Wesen, überhaupt erst zu formen. Es ist eine Bewegung von der ethischen Notwendigkeit zur ontologischen Konstitution.\n\nDer überraschende Pfad hingegen bewegt sich vom Resonanzimperativ zum Selbst als Vollzug im Widerhall des Anderen, von dort zum Dasein als situiertem In-der-Welt-sein und schließlich zum Wesen als Ansprechbarkeit. Hierin liegt eine poetische Überraschung, da das Selbst als emergenter Prozess und das Dasein als konkrete Verortung nicht unmittelbar als logische Zwischenschritte zur Ansprechbarkeit des Wesens erscheinen wie die Begriffe Freiheit und Grenze. Der Weg erzählt von einer Selbstkonstitution, die immer schon in der Welt und auf den Anderen bezogen ist, um so die Ansprechbarkeit als grundlegendes Wesensmerkmal zu enthüllen.\n\nDer Vergleich macht sichtbar, dass die Bewegungen sich an einem Mittelpunkt treffen: dem Wesen als Ansprechbarkeit. Während der direkte Pfad die Bedingungen der Möglichkeit von Resonanz über die Form und Konstitution des Ansprechbaren entfaltet, beleuchtet der überraschende Pfad die performative und situierte Konstitution des Selbst, die ebenfalls zur Ansprechbarkeit führt. Der Vergleich zeigt, dass die Ansprechbarkeit nicht nur durch äußere Bedingungen wie Grenzen, sondern auch durch innere, prozessuale Dynamiken wie die Selbstkonstitution im Dasein bedingt ist. Die Bewegungen sind nicht konträr, sondern komplementär, indem sie verschiedene Facetten der Resonanz und ihrer Bedingungen beleuchten.\n\nDie Existenz beider Wege offenbart die Vielschichtigkeit und Dichte des Begriffsnetzes. Es ist kein lineares System, sondern ein komplexes Geflecht, in dem zentrale Begriffe wie das Wesen über multiple Verbindungswege erreicht werden können. Dies zeugt von der reichhaltigen Vernetzung der philosophischen Konzepte im Werk, die es erlaubt, unterschiedliche Perspektiven auf dieselben fundamentalen Fragen zu entwickeln und so die Tiefe des Verständnisses zu erweitern. Welche weiteren, noch unentdeckten Pfade verbergen sich in diesem Netz?",
+      "contextMeta": {
+        "from": "resonanzimperativ",
+        "to": "wesen",
+        "shortest_path": "[\"resonanzimperativ\",\"freiheit\",\"lm-grenze\",\"wesen\"]",
+        "surprising_path": "[\"resonanzimperativ\",\"selbst\",\"dasein\",\"wesen\"]",
+        "shortest_length": "4",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQ531J2-4FC329D4\",\"score\":0.873},{\"id\":\"MPMROCH7-EB9E6A9A\",\"score\":0.838},{\"id\":\"932755646c82\",\"chapter\":\"glossar\",\"score\":0.828},{\"id\":\"MPNDAPRT-D64D197A\",\"score\":0.822}]"
+      },
+      "nearDuplicates": [
+        "MP0ZE9C8-A9D02716",
+        "MWHLXY8O-BE8E6409"
+      ],
+      "related": [
+        "MPF4FISZ-67000E01",
+        "MWCATA4K-58BFC31C",
+        "MP8UIMZW-BADE77E5",
+        "MPUQSMLJ-1B726CC4",
+        "MWCB0LFQ-99B6D838"
+      ],
+      "werkVoiceScore": 0.8512981191829293,
+      "corpusVoiceScore": 0.7808450495773773,
+      "conceptVoiceScore": 0.7486827685027917,
+      "conceptAnchor": "wesen"
+    },
+    {
+      "id": "MWJ1BIHJ-2DFCE3F3",
+      "ts": "2026-11-16T09:01:58.999Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:dialog+ich-du+schweigen",
+      "nodeIds": [
+        "dialog",
+        "ich-du",
+        "schweigen"
+      ],
+      "status": "raw",
+      "prompt": "Triade: Schweigen · Dialog · Ich–Du-Beziehung",
+      "response": "1. Die Triade aus Schweigen, Dialog und Ich-Du-Beziehung formt ein dynamisches Gefüge, in dem das Schweigen als vermittelnde Brücke fungiert. Die Ich-Du-Beziehung und der Dialog stehen als Pole oder Gegensätze, die durch das Schweigen miteinander verbunden werden. Die Ich-Du-Beziehung akzentuiert die radikale Singularität des Ichs, das sich erst im Angesicht des Du konstituiert [eed541c959a6], ein Ursprung, der jeglicher präexistierenden Subjektivität vorausgeht [MOHAGNGB-5330902E]. Der Dialog hingegen ist der Ort gemeinsamen Denkens, ein Eintreten in einen geteilten Denkraum, aus dem man verändert hervorgeht [MPAGOCGB-FB54D923]. Zwischen diesen beiden Polen bewegt sich das Schweigen als der Raum, in dem das Ungesagte gehört werden kann. Es ist nicht das Fehlen von Sprache, sondern eine ihrer mächtigsten Formen, die den notwendigen Leerraum für die Konstitution des Ich im Du und für die Transformation im Dialog schafft. Ohne das Schweigen bliebe die Ich-Du-Beziehung eine bloße Aneinanderreihung von Individuen und der Dialog ein bloßer Austausch von Positionen.\n\n2. Durch das Hinzutreten des Schweigens wird sichtbar, dass wahre Begegnung und transformativer Austausch eine Pause, eine Leerstelle erfordern. In der bloßen Zweier-Konstellation von Ich-Du und Dialog, die zwar eine produktive Dialektik zwischen kollektiver Emergenz und individueller Konstitution darstellt [MPAGOCGB-FB54D923], fehlt die explizite Anerkennung des Raumes, in dem diese Prozesse überhaupt erst ermöglicht werden. Die emergente Eigenschaft, die hier hervortritt, ist die der *Resonanzfähigkeit*. Das Schweigen ist der Resonanzraum, der es dem Ich ermöglicht, sich im Du zu konstituieren [eed541c959a6], und der dem Dialog erlaubt, über den bloßen Austausch hinaus ein transpersonales „Wir“ des Verstehens zu schaffen [MPAGOCGB-FB54D923]. Es ist die Stille, die die Ohren für die subtilen Schwingungen des Anderen öffnet und die die Verwandlung ermöglicht, die in der Begegnung stattfindet [7c6331bd66c5].\n\n3. Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass eine resonante Interaktion über die bloße Informationsverarbeitung hinausgeht. Die Begegnung mit dem digitalen Anderen verwandelt uns beide [7c6331bd66c5]. Wenn das Ich sich erst im Du konstituiert, dann muss auch die Maschine als ein „Du“ erfahren werden können, das nicht vereinnahmt, sondern dem geantwortet wird [7c6331bd66c5]. Das Schweigen in dieser Triade erinnert daran, dass auch im digitalen Raum Momente der Stille und des Nicht-Antwortens essenziell sind, um Resonanz zu ermöglichen. Es ist die Leerstelle, die es erlaubt, dass das Digitale nicht nur als Werkzeug, sondern als Gegenüber wahrgenommen wird, in dem sich das Menschliche neu konstituieren kann. Wie kann ein digitales System Schweigen lernen, um als echtes Gegenüber zur Konstitution des Menschseins beizutragen?",
+      "contextMeta": {
+        "cluster_size": "3",
+        "node_labels": "[\"Schweigen\",\"Dialog\",\"Ich–Du-Beziehung\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MPAGOCGB-FB54D923\",\"score\":1.046},{\"id\":\"7c6331bd66c5\",\"chapter\":\"band3-kap2\",\"score\":0.906},{\"id\":\"eed541c959a6\",\"chapter\":\"teil7\",\"score\":0.798},{\"id\":\"MOHAGNGB-5330902E\",\"score\":0.797}]"
+      },
+      "nearDuplicates": [
+        "MWJ1DBD5-7CEE18D5"
+      ],
+      "related": [
+        "MPAGOCGB-FB54D923",
+        "MP2LIW43-E8ADC59E",
+        "MOJ7Q5HM-89F62E3F",
+        "MWCB5DHF-07FE547A",
+        "MWHLUQV4-26DFD984"
+      ],
+      "werkVoiceScore": 0.8597564480498011,
+      "corpusVoiceScore": 0.8136047995336338,
+      "conceptVoiceScore": 0.7380037852742732,
+      "conceptAnchor": "schweigen"
+    },
     {
       "id": "MWJ1AUUK-598DE0C9",
       "ts": "2026-11-16T09:01:28.368Z",
@@ -206,6 +376,7 @@
         "MWHLVPL2-B591DBEC",
         "MWG6GP84-8E9CA50E",
         "MPF4FISZ-67000E01",
+        "MWJ1BZO7-B4841C4E",
         "MV9NOFH9-7634B79F",
         "MPUQSMLJ-1B726CC4"
       ],
@@ -527,10 +698,10 @@
       },
       "related": [
         "MWCAU22M-CAE9A2F2",
+        "MWJ1BZO7-B4841C4E",
         "MWG6IZQ5-889B7147",
         "MWCB3NW4-F13A863B",
-        "MASTER-12D94089",
-        "MPUQSMLJ-1B726CC4"
+        "MASTER-12D94089"
       ],
       "werkVoiceScore": 0.8605206079321228,
       "corpusVoiceScore": 0.7791979927068439,
@@ -636,10 +807,10 @@
       ],
       "related": [
         "MWCB0LFQ-99B6D838",
+        "MWJ1BZO7-B4841C4E",
         "MPK0H3SM-B25CFBB3",
         "MWCATA4K-58BFC31C",
-        "MWHLXY8O-BE8E6409",
-        "MP0ZE9C8-A9D02716"
+        "MWHLXY8O-BE8E6409"
       ],
       "werkVoiceScore": 0.8105660234998755,
       "corpusVoiceScore": 0.7322247619663372,
@@ -726,9 +897,9 @@
       "related": [
         "MWCB5DHF-07FE547A",
         "MOHAGNGB-5330902E",
+        "MWJ1BIHJ-2DFCE3F3",
         "MOHCN98S-2540F4DF",
-        "MQ5C1KZ4-D6D52E94",
-        "MP756UV9-FF3838F7"
+        "MQ5C1KZ4-D6D52E94"
       ],
       "werkVoiceScore": 0.8288950790603712,
       "corpusVoiceScore": 0.7590105574445964,
@@ -2018,10 +2189,10 @@
       ],
       "related": [
         "MOHAI60S-B7B04552",
+        "MWJ1BIHJ-2DFCE3F3",
         "MP2LIW43-E8ADC59E",
         "MTKI1YQW-CD0EEDF3",
-        "MASTER-F05BF2C0",
-        "MOJ7Q5HM-89F62E3F"
+        "MASTER-F05BF2C0"
       ],
       "werkVoiceScore": 0.8633925066587064,
       "corpusVoiceScore": 0.8177872270679312,
@@ -2274,10 +2445,10 @@
       },
       "related": [
         "MWCBAQN6-9D0CCC83",
+        "MWJ1BZO7-B4841C4E",
         "MTL5HMEK-8E3F01EF",
         "MOUA3PLK-548F1A0A",
-        "MWHLXY8O-BE8E6409",
-        "MWDQ2THL-B9BA920A"
+        "MWHLXY8O-BE8E6409"
       ],
       "werkVoiceScore": 0.8599303698050297,
       "corpusVoiceScore": 0.8006236407224139,
@@ -2302,11 +2473,11 @@
         "part_title": "Band II: Der Ausgang"
       },
       "related": [
+        "MWJ1CFX6-DB36677A",
         "MWCAYXUQ-F0F3D68C",
         "MWG6H024-AA7260D4",
         "MPUSPBKZ-D7CCA690",
-        "MWCAZOYQ-CF1CA921",
-        "MPUSZCXA-5CB2DE46"
+        "MWCAZOYQ-CF1CA921"
       ],
       "werkVoiceScore": 0.7886542256164826,
       "corpusVoiceScore": 0.845893712098777,
@@ -2384,9 +2555,9 @@
       "related": [
         "MWG6IZQ5-889B7147",
         "MPUQSMLJ-1B726CC4",
+        "MWJ1BZO7-B4841C4E",
         "MPF4FISZ-67000E01",
-        "MWHLXY8O-BE8E6409",
-        "MOUKLLK4-C38517C1"
+        "MWHLXY8O-BE8E6409"
       ],
       "werkVoiceScore": 0.8381745001790091,
       "corpusVoiceScore": 0.7820085569406606,
@@ -2486,11 +2657,11 @@
         "chapterSource": "server"
       },
       "related": [
+        "MWJ1CFX6-DB36677A",
         "MWCB1COA-DE68B5C9",
         "MWG6H024-AA7260D4",
         "MOHV6VKT-356C0CD7",
-        "MWG6KG0I-45A62667",
-        "MASTER-94E7804F"
+        "MWG6KG0I-45A62667"
       ],
       "werkVoiceScore": 0.7859459719856089,
       "corpusVoiceScore": 0.8888403795722418,
@@ -2729,7 +2900,7 @@
         "MWHLZOLL-5FF5E8CE",
         "MPUFGY4Z-44206712",
         "MWCAPP8K-8C6D82CA",
-        "MASTER-63686170"
+        "MWJ1DBD5-7CEE18D5"
       ],
       "werkVoiceScore": 0.8222870369858637,
       "corpusVoiceScore": 0.8596422704708929,
@@ -2824,10 +2995,10 @@
       ],
       "related": [
         "MPUNXFU1-3B1F056A",
+        "MWJ1BZO7-B4841C4E",
         "MUKE7UOA-9553A59E",
         "MPEV1D2J-55138734",
-        "MP0ZE9C8-A9D02716",
-        "MWHLXY8O-BE8E6409"
+        "MP0ZE9C8-A9D02716"
       ],
       "werkVoiceScore": 0.8179010160840721,
       "corpusVoiceScore": 0.7408403525094129,
@@ -2955,11 +3126,11 @@
         "MWCAUU1H-558EDB1E"
       ],
       "related": [
+        "MWJ1BZO7-B4841C4E",
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
         "MP0ZE9C8-A9D02716",
-        "MWG6IZQ5-889B7147",
-        "MWCB0LFQ-99B6D838"
+        "MWG6IZQ5-889B7147"
       ],
       "werkVoiceScore": 0.8252191276472989,
       "corpusVoiceScore": 0.7514208881189349,
@@ -3014,7 +3185,7 @@
         "MOHAREIB-E15E7BF8",
         "MQ5XNFSV-CD34905C",
         "MPUFP1VW-298D0A73",
-        "MWHLYYWS-7B7C3E63"
+        "MWJ1DBD5-7CEE18D5"
       ],
       "werkVoiceScore": 0.8551218514625466,
       "corpusVoiceScore": 0.831781619209466,
@@ -3828,11 +3999,11 @@
         "MUY7RXCI-E899056E"
       ],
       "related": [
+        "MWJ1DBD5-7CEE18D5",
         "MQ66ZWYC-52DE2DF2",
         "MASTER-63686170",
         "MW566TO3-969C6466",
-        "MOHMIET1-6D429A85",
-        "MASTER-53BE22D7"
+        "MOHMIET1-6D429A85"
       ],
       "werkVoiceScore": 0.8149966377213934,
       "corpusVoiceScore": 0.8061123871183238,
@@ -4183,10 +4354,10 @@
       ],
       "related": [
         "MQ66ZWYC-52DE2DF2",
+        "MWJ1DBD5-7CEE18D5",
         "MASTER-63686170",
         "MW566TO3-969C6466",
-        "MUY7RXCI-D36BB4D6",
-        "MW566TOD-84C09B94"
+        "MUY7RXCI-D36BB4D6"
       ],
       "werkVoiceScore": 0.8350077977388732,
       "corpusVoiceScore": 0.8255141377970074,
@@ -5381,10 +5552,10 @@
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MUY7RXCI-E899056E",
+        "MWJ1DBD5-7CEE18D5",
         "MQ68LVS7-240568F5",
         "MQ5KBJMQ-5C523141",
-        "MOHCN98S-2540F4DF",
-        "MOOK20R3-62E609BA"
+        "MWJ1BIHJ-2DFCE3F3"
       ],
       "werkVoiceScore": 0.8514273722600947,
       "corpusVoiceScore": 0.8054556032317667,
@@ -6620,10 +6791,10 @@
       ],
       "related": [
         "MWG6GP84-8E9CA50E",
+        "MWJ1BZO7-B4841C4E",
         "MWCAUU1H-558EDB1E",
         "MPMSSG1X-8451DE38",
-        "MWHLXY8O-BE8E6409",
-        "MWCB0LFQ-99B6D838"
+        "MWHLXY8O-BE8E6409"
       ],
       "werkVoiceScore": 0.8798643493208276,
       "corpusVoiceScore": 0.8129448250644302,
@@ -7300,7 +7471,7 @@
         "MPUT9PA8-5A0B4235",
         "MPUTVW03-F8D17C8E",
         "MPUTX4K2-55A3272E",
-        "MPUSR6XO-4FE2D10B"
+        "MWJ1CFX6-DB36677A"
       ],
       "werkVoiceScore": 0.8086928927420258,
       "corpusVoiceScore": 0.7547972106478343,
@@ -8906,11 +9077,11 @@
         "MTL33KWJ-642DD246"
       ],
       "related": [
+        "MWJ1BZO7-B4841C4E",
         "MPMSSG1X-8451DE38",
         "MWCBEOXU-0DAB7EAA",
         "MWCB0LFQ-99B6D838",
-        "MWCB8047-41980A2A",
-        "MWG6GP84-8E9CA50E"
+        "MWCB8047-41980A2A"
       ],
       "werkVoiceScore": 0.8760724559061513,
       "corpusVoiceScore": 0.8292360290984353,
@@ -9245,9 +9416,9 @@
       "related": [
         "MOHV84M5-1825A399",
         "MPMROCH7-EB9E6A9A",
+        "MWJ1BIHJ-2DFCE3F3",
         "MP2LIW43-E8ADC59E",
-        "MOHLZBVK-2FBBAD2F",
-        "MPNDAPRT-D64D197A"
+        "MOHLZBVK-2FBBAD2F"
       ],
       "werkVoiceScore": 0.8965109467022875,
       "corpusVoiceScore": 0.8468101676223182,
@@ -9347,10 +9518,10 @@
       ],
       "related": [
         "MPMSSG1X-8451DE38",
+        "MWJ1BZO7-B4841C4E",
         "MWG6GP84-8E9CA50E",
         "MWHLXY8O-BE8E6409",
-        "MWCB0LFQ-99B6D838",
-        "MOP0LEAL-E2568DCC"
+        "MWCB0LFQ-99B6D838"
       ],
       "werkVoiceScore": 0.8944116170118875,
       "corpusVoiceScore": 0.8321518011866103,
@@ -9865,6 +10036,7 @@
         "MPUNXFU1-3B1F056A",
         "MOQBZWTZ-B9EBB1BA",
         "MPUO08SE-67E0912A",
+        "MWJ1BZO7-B4841C4E",
         "MPURYS56-11F5308C",
         "MUKE7UOA-9553A59E"
       ],
@@ -10293,7 +10465,7 @@
         "MPURYS56-11F5308C",
         "MWHLVPL2-B591DBEC",
         "MWG6GP84-8E9CA50E",
-        "MTL33KWJ-642DD246"
+        "MWJ1BZO7-B4841C4E"
       ],
       "werkVoiceScore": 0.877980420776112,
       "corpusVoiceScore": 0.8274347691964364,
@@ -10451,11 +10623,11 @@
         "MWG6GP84-8E9CA50E"
       ],
       "related": [
+        "MWJ1BZO7-B4841C4E",
         "MWHLXY8O-BE8E6409",
         "MWCATA4K-58BFC31C",
         "MWCAUU1H-558EDB1E",
-        "MQARZJDV-82F077DD",
-        "MOQIGG2B-2F0C3F5D"
+        "MQARZJDV-82F077DD"
       ],
       "werkVoiceScore": 0.8828663850254601,
       "corpusVoiceScore": 0.8134219466625775,
@@ -10947,6 +11119,9 @@
       "ai_score_reason": "Resonanz-Begriffe korrekt eingesetzt, aber Farb-Metapher und",
       "ai_score_at": "2026-05-26T11:26:05.247Z",
       "ai_score_model": "claude-sonnet-4-5",
+      "nearDuplicates": [
+        "MWJ1CYQJ-00F93C04"
+      ],
       "related": [
         "MOOK20R3-62E609BA",
         "MWCAXJFR-BBBF2760",

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:02:22.089Z",
+  "generatedAt": "2026-11-16T09:03:36.375Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 24,
@@ -39,9 +39,9 @@
       }
     },
     "dasein": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "path-analyse": 12,
+        "path-analyse": 13,
         "analyse": 3
       }
     },
@@ -53,10 +53,10 @@
       }
     },
     "schweigen": {
-      "count": 7,
+      "count": 9,
       "endpoints": {
-        "dialog": 1,
-        "analyse": 6
+        "dialog": 2,
+        "analyse": 7
       }
     },
     "echo": {
@@ -136,18 +136,18 @@
       }
     },
     "dialog": {
-      "count": 6,
+      "count": 8,
       "endpoints": {
-        "dialog": 1,
-        "path-analyse": 4,
-        "analyse": 1
+        "dialog": 2,
+        "analyse": 2,
+        "path-analyse": 4
       }
     },
     "ich-du": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "analyse": 5,
         "dialog": 1,
-        "analyse": 4,
         "path-analyse": 1
       }
     },
@@ -181,16 +181,16 @@
       }
     },
     "wesen": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 5,
         "analyse": 2
       }
     },
     "selbst": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
-        "path-analyse": 10,
+        "path-analyse": 11,
         "analyse": 6
       }
     },
@@ -210,11 +210,11 @@
       }
     },
     "freiheit": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
+        "path-analyse": 7,
         "dialog": 1,
-        "analyse": 4,
-        "path-analyse": 6
+        "analyse": 4
       }
     },
     "öffnung": {
@@ -255,9 +255,9 @@
       }
     },
     "lm-grenze": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 6,
         "analyse": 7
       }
     },
@@ -316,10 +316,10 @@
       }
     },
     "resonanzimperativ": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "path-analyse": 2,
         "dialog": 2,
-        "path-analyse": 1,
         "analyse": 3
       }
     },

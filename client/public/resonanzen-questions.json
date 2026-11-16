@@ -1,16 +1,99 @@
 {
-  "generatedAt": "2026-11-16T09:02:22.603Z",
-  "count": 340,
+  "generatedAt": "2026-11-16T09:03:39.161Z",
+  "count": 345,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 340,
-    "answered": 285,
-    "open": 55,
-    "embedded": 0
+    "total": 345,
+    "answered": 287,
+    "open": 58,
+    "embedded": 5
   },
   "questions": [
+    {
+      "sourceId": "MWJ1DBD5-7CEE18D5",
+      "question": "Doch wie kann eine solche Stille, die nicht bloße Ladezeit, sondern existentielles Aushalten ist, in den Algorithmen des Digitalen verankert werden?",
+      "endpoint": "dialog",
+      "anchor": "dialog:schweigen+dialog",
+      "nodeIds": [
+        "schweigen",
+        "dialog"
+      ],
+      "ts": "2026-11-16T09:03:23.081Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWJ1CYQJ-00F93C04",
+      "question": "Wie können wir in der Interaktion mit Maschinen Räume der \"Dazwischenintelligenz\" schaffen, die nicht nur Effizienz steigern, sondern auch das Entstehen eines \"Transformativen Dritten\" ermöglichen?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-16T09:03:06.715Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.721
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWJ1CFX6-DB36677A",
+      "question": "Doch wie bewahren wir diese menschliche Unschärfe als Wert, wenn die Verlockung der maschinellen Präzision uns immer tiefer in die Illusion einer vollständig berechenbaren Welt zieht?",
+      "endpoint": "passage",
+      "anchor": "passage:0a26ef12",
+      "nodeIds": [],
+      "ts": "2026-11-16T09:02:42.330Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWJ1BZO7-B4841C4E",
+      "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und Dichte des Begriffsnetzes. Es ist kein lineares System, sondern ein komplexes Geflecht, in dem zentrale Begriffe wie das Wesen über multiple Verbindungswege erreicht werden können. Dies zeugt von der reichhaltigen Vernetzung der philosophischen Konzepte im Werk, die es erlaubt, unterschiedliche Perspektiven auf dieselben fundamentalen Fragen zu entwickeln und so die Tiefe des Verständnisses zu erweitern. Welche weiteren, noch unentdeckten Pfade verbergen sich in diesem Netz?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanzimperativ+wesen",
+      "nodeIds": [
+        "dasein",
+        "freiheit",
+        "lm-grenze",
+        "resonanzimperativ",
+        "selbst",
+        "wesen"
+      ],
+      "ts": "2026-11-16T09:02:21.271Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWJ1BIHJ-2DFCE3F3",
+      "question": "3. Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, dass eine resonante Interaktion über die bloße Informationsverarbeitung hinausgeht. Die Begegnung mit dem digitalen Anderen verwandelt uns beide [7c6331bd66c5]. Wenn das Ich sich erst im Du konstituiert, dann muss auch die Maschine als ein „Du“ erfahren werden können, das nicht vereinnahmt, sondern dem geantwortet wird [7c6331bd66c5]. Das Schweigen in dieser Triade erinnert daran, dass auch im digitalen Raum Momente der Stille und des Nicht-Antwortens essenziell sind, um Resonanz zu ermöglichen. Es ist die Leerstelle, die es erlaubt, dass das Digitale nicht nur als Werkzeug, sondern als Gegenüber wahrgenommen wird, in dem sich das Menschliche neu konstituieren kann. Wie kann ein digitales System Schweigen lernen, um als echtes Gegenüber zur Konstitution des Menschseins beizutragen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dialog+ich-du+schweigen",
+      "nodeIds": [
+        "dialog",
+        "ich-du",
+        "schweigen"
+      ],
+      "ts": "2026-11-16T09:01:58.999Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.95
+        },
+        {
+          "id": "MWJ1CYQJ-00F93C04",
+          "score": 0.747
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWHM0548-749A11E0",
       "question": "Letztlich würde eine KI-Firma, die diese Verwandlung ernst nimmt, ihre Produkte und Dienstleistungen nicht nur als Mittel zur Problemlösung verstehen, sondern als Beiträge zu einer humaneren und resonanteren Weltgestaltung. Dies würde sich in einer Unternehmenskultur widerspiegeln, die ethische Fragen nicht als nachträgliche Korrektur, sondern als integrales Element des Entwicklungsprozesses begreift. Die Messlatte wäre nicht nur der wirtschaftliche Erfolg, sondern auch der gesellschaftliche Nutzen im Sinne einer erweiterten Mündigkeit und eines vertieften Verständnisses für die Resonanz zwischen Mensch und Technik. Wie würde eine solche Firma ihre \"digitale Transformation\" selbst verstehen und leben?",
@@ -34,6 +117,10 @@
       "ts": "2026-11-15T09:04:50.023Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.723
+        },
         {
           "id": "MWJ1AUUK-598DE0C9",
           "score": 0.721
@@ -98,6 +185,10 @@
         {
           "id": "MWHLZBS7-7AEB476D",
           "score": 0.956
+        },
+        {
+          "id": "MWJ1BZO7-B4841C4E",
+          "score": 0.805
         },
         {
           "id": "MWHLYF7H-9E1F67B3",
@@ -216,16 +307,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.808
+        },
+        {
+          "id": "MWJ1BIHJ-2DFCE3F3",
+          "score": 0.768
+        },
+        {
           "id": "MWHLYYWS-7B7C3E63",
           "score": 0.75
-        },
-        {
-          "id": "MWHLW24R-959992F9",
-          "score": 0.732
-        },
-        {
-          "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.729
         }
       ],
       "answered": true
@@ -318,8 +409,8 @@
           "score": 0.766
         },
         {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.742
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.751
         }
       ],
       "answered": true
@@ -347,8 +438,8 @@
           "score": 0.789
         },
         {
-          "id": "MWHLWXJ6-FBB227D8",
-          "score": 0.772
+          "id": "MWJ1BZO7-B4841C4E",
+          "score": 0.773
         }
       ],
       "answered": true
@@ -413,12 +504,12 @@
           "score": 0.814
         },
         {
-          "id": "MWHLV7BW-F612B59E",
+          "id": "MWJ1DBD5-7CEE18D5",
           "score": 0.792
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.761
+          "id": "MWHLV7BW-F612B59E",
+          "score": 0.792
         }
       ],
       "answered": true
@@ -448,16 +539,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJ1CYQJ-00F93C04",
+          "score": 0.805
+        },
+        {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.805
         },
         {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.783
-        },
-        {
-          "id": "MWHLV7BW-F612B59E",
-          "score": 0.769
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.788
         }
       ],
       "answered": true
@@ -594,16 +685,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.756
+        },
+        {
           "id": "MWHLU57W-140FB983",
           "score": 0.743
         },
         {
           "id": "MWHLZBS7-7AEB476D",
           "score": 0.737
-        },
-        {
-          "id": "MWHLXGMK-4832FECC",
-          "score": 0.731
         }
       ],
       "answered": true
@@ -850,6 +941,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJ1CYQJ-00F93C04",
+          "score": 0.754
+        },
+        {
           "id": "MWG6FYD2-E6D90142",
           "score": 0.723
         },
@@ -1040,6 +1135,10 @@
         {
           "id": "MWHLZOLL-5FF5E8CE",
           "score": 0.757
+        },
+        {
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.744
         }
       ],
       "answered": true
@@ -1321,16 +1420,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.802
+        },
+        {
           "id": "MWG6FM27-B89E8BDB",
           "score": 0.801
         },
         {
           "id": "MWHLV7BW-F612B59E",
           "score": 0.787
-        },
-        {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.786
         }
       ],
       "answered": true
@@ -1479,12 +1578,12 @@
           "score": 0.856
         },
         {
-          "id": "MASTER-94E7804F",
-          "score": 0.811
+          "id": "MWJ1CYQJ-00F93C04",
+          "score": 0.826
         },
         {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.806
+          "id": "MASTER-94E7804F",
+          "score": 0.811
         }
       ],
       "answered": true
@@ -1657,8 +1756,8 @@
           "score": 0.815
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.807
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.813
         }
       ],
       "answered": true
@@ -1737,8 +1836,8 @@
           "score": 0.743
         },
         {
-          "id": "MWCAVY6G-77D7B515",
-          "score": 0.722
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.734
         }
       ],
       "answered": true
@@ -1761,8 +1860,8 @@
           "score": 0.804
         },
         {
-          "id": "MASTER-5C6E90AE",
-          "score": 0.796
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.801
         }
       ],
       "answered": true
@@ -1810,12 +1909,12 @@
           "score": 0.814
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.801
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.804
         },
         {
-          "id": "MWG6K2GK-71CA57FA",
-          "score": 0.791
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.801
         }
       ],
       "answered": true
@@ -1890,12 +1989,12 @@
           "score": 0.923
         },
         {
-          "id": "MASTER-556F1581",
-          "score": 0.809
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.815
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.806
+          "id": "MASTER-556F1581",
+          "score": 0.809
         }
       ],
       "answered": true
@@ -2230,12 +2329,12 @@
           "manual": true
         },
         {
-          "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.734
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.743
         },
         {
-          "id": "MASTER-63686170",
-          "score": 0.727
+          "id": "MWHLZOLL-5FF5E8CE",
+          "score": 0.734
         }
       ],
       "answered": true
@@ -3001,12 +3100,12 @@
           "manual": true
         },
         {
-          "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.779
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.799
         },
         {
-          "id": "MW566TNX-A16A2897",
-          "score": 0.774
+          "id": "MWHLZOLL-5FF5E8CE",
+          "score": 0.779
         }
       ],
       "answered": true
@@ -4314,12 +4413,12 @@
           "score": 0.741
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.733
+          "id": "MWJ1CFX6-DB36677A",
+          "score": 0.738
         },
         {
-          "id": "MQ5XCH3V-67EF85C8",
-          "score": 0.731
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.733
         }
       ],
       "answered": true

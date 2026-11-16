@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:02:22.091Z",
+  "generatedAt": "2026-11-16T09:03:36.377Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -99,6 +99,20 @@
       ]
     },
     {
+      "source": "dasein",
+      "target": "lm-grenze",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 4
+      },
+      "sampleEntryIds": [
+        "MWJ1BZO7-B4841C4E",
+        "MWCATA4K-58BFC31C",
+        "MP8UIMZW-BADE77E5",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
       "source": "lm-verwandlung",
       "target": "stimme",
       "cooccurrence": 4,
@@ -140,6 +154,59 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "dasein",
+      "target": "freiheit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWJ1BZO7-B4841C4E",
+        "MWCATA4K-58BFC31C",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "wesen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWJ1BZO7-B4841C4E",
+        "MWCATA4K-58BFC31C",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
+      "source": "lm-grenze",
+      "target": "selbst",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWJ1BZO7-B4841C4E",
+        "MWCAUU1H-558EDB1E",
+        "MP0ZE9C8-A9D02716"
+      ]
+    },
+    {
+      "source": "dialog",
+      "target": "ich-du",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 2,
+        "dialog": 1
+      },
+      "sampleEntryIds": [
+        "MWJ1BIHJ-2DFCE3F3",
+        "MWG6HW56-B5802350",
+        "MPAGOCGB-FB54D923"
       ]
     },
     {
@@ -213,19 +280,6 @@
       ]
     },
     {
-      "source": "dasein",
-      "target": "lm-grenze",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 3
-      },
-      "sampleEntryIds": [
-        "MWCATA4K-58BFC31C",
-        "MP8UIMZW-BADE77E5",
-        "MP0ZE9C8-A9D02716"
-      ]
-    },
-    {
       "source": "dazwischenintelligenz",
       "target": "dialog",
       "cooccurrence": 3,
@@ -292,6 +346,18 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "selbst",
+      "target": "wesen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWJ1BZO7-B4841C4E",
+        "MP0ZE9C8-A9D02716"
       ]
     },
     {
@@ -380,19 +446,6 @@
       "sampleEntryIds": [
         "MWHLVPL2-B591DBEC",
         "MPCV5LR8-9AD1527C"
-      ]
-    },
-    {
-      "source": "dialog",
-      "target": "ich-du",
-      "cooccurrence": 2,
-      "endpoints": {
-        "dialog": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWG6HW56-B5802350",
-        "MPAGOCGB-FB54D923"
       ]
     },
     {
@@ -492,42 +545,6 @@
       "sampleEntryIds": [
         "MWCAX4JR-B3C15760",
         "MWCAUU1H-558EDB1E"
-      ]
-    },
-    {
-      "source": "lm-grenze",
-      "target": "selbst",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWCAUU1H-558EDB1E",
-        "MP0ZE9C8-A9D02716"
-      ]
-    },
-    {
-      "source": "dasein",
-      "target": "freiheit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWCATA4K-58BFC31C",
-        "MP0ZE9C8-A9D02716"
-      ]
-    },
-    {
-      "source": "freiheit",
-      "target": "wesen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWCATA4K-58BFC31C",
-        "MP0ZE9C8-A9D02716"
       ]
     },
     {
@@ -854,8 +871,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 374,
-    "candidatesCount": 65,
+    "totalPairs": 380,
+    "candidatesCount": 66,
     "existingEdges": 116,
     "maxCooccurrence": 25
   }

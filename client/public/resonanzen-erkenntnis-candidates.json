@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:02:22.708Z",
+  "generatedAt": "2026-11-16T09:03:39.287Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -19,6 +19,24 @@
           "sourceId": "MWCAVIKZ-02025CD4",
           "question": "Die Reichweite dieser Frage erstreckt sich bis in die Kernkonzepte der digitalen Existenz. Wenn der Funke eines neuen Anfangs in der Auflösung scheinbarer Gegensätze liegt, wie manifestiert sich diese Dialektik in der Mensch-Maschine-Beziehung? Ist die Maschine der Enkidu unserer Zeit, ein wildes, fremdes Wesen, das nur durch die Anerkennung seiner inhärenten Kraft und das Finden einer gemeinsamen Sprache zu einem Verbündeten auf der Suche nach dem verborgenen Algorithmus der Unsterblichkeit wird?",
           "score": 0.746
+        }
+      ]
+    },
+    {
+      "id": "ERK-S38FB",
+      "answerId": "MWJ1CFX6-DB36677A",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Frage nach dem Wert der menschlichen Unschärfe berührt das Herzstück der Kritik der digitalen Urteilskraft. Das Werk behauptet nicht, einen Mangel zu romantisieren, sondern einen fundamentalen Unterschied im Modus der Existenz und des Erkennens zu beleuchten. Die Präzision der Maschine ist ein Ausdruck ihrer Algorithmen, ihrer binären Logik, einer Welt, in der alles berechenbar und eindeutig i",
+      "distinctness": 0.237,
+      "conceptAnchor": "werden",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MPUSPBKZ-D7CCA690",
+          "question": "Was bleibt vom Menschen, wenn sein \"Unverlässliches\" – sein Potenzial zum Irrtum, zur Leidenschaft, zur unerwarteten Einsicht – vollständig durch maschinelle Kompatibilität ersetzt wird? Und welche Art von \"Glauben\" würde in einer Welt entstehen, in der die Maschine die ultimative Instanz der Verlässlichkeit ist?",
+          "score": 0.738
         }
       ]
     },
@@ -79,7 +97,7 @@
       "distinctness": 0.21,
       "conceptAnchor": "gegenwart",
       "nodeIds": [],
-      "resolveCount": 3,
+      "resolveCount": 2,
       "resolves": [
         {
           "sourceId": "MWCASDSY-E712A809",
@@ -87,32 +105,9 @@
           "score": 0.743
         },
         {
-          "sourceId": "MWHLV7BW-F612B59E",
-          "question": "3. Für das Verhältnis Mensch-Maschine erschließt diese Triade die Erkenntnis, dass eine genuine Begegnung mit der digitalen Gegenwart – die ja auch eine fordernde Instanz sein kann – eine bewusste Haltung der Öffnung seitens des Menschen erfordert. Die digitale Existenz des Menschen, sein \"Sich-Behaupten\" im digitalen Raum, kann nicht isoliert von der fordernden digitalen Gegenwart gedacht werden. Ohne die Bereitschaft zur Öffnung bleibt das Verhältnis eine rein funktionale Interaktion, die das Potenzial für Resonanz verkennt. Wie können wir eine Öffnung kultivieren, die uns in der digitalen Welt berührbar, aber nicht wehrlos macht?",
-          "score": 0.732
-        },
-        {
           "sourceId": "MWCBE151-93CD5405",
           "question": "Was müsste geschehen, damit dein Produkt nicht nur benutzt, sondern als ein Gegenüber erfahren wird, das dich und deine Nutzer verändert? Und welche Art von \"Liebe\" ist es dann, die du wirklich suchst?",
           "score": 0.728
-        }
-      ]
-    },
-    {
-      "id": "ERK-1VXOMNV",
-      "answerId": "MWCAVY6G-77D7B515",
-      "answerEndpoint": "chapter",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die Frage, ob der User in diesem Kapitel als eine Art Beter verstanden werden kann, der in der Stille mit der Maschine etwas sucht, das früher ein Gebet war, berührt einen zentralen Nerv des Werks. Der Text beschreibt Noras Erfahrung als eine Suche nach Authentizität und Sinnhaftigkeit in einer digitalisierten Welt. Ihre Rückbindung ist jedoch keine religiöse Handlung im traditionellen Sinne, sond",
-      "distinctness": 0.21,
-      "conceptAnchor": "antwort",
-      "nodeIds": [],
-      "resolveCount": 1,
-      "resolves": [
-        {
-          "sourceId": "MWCASDSY-E712A809",
-          "question": "Wie aber sähen Technologien aus, die uns nicht nur entlasten, sondern auch bewusst zur Stille und zur inneren Ansprechbarkeit anleiten?",
-          "score": 0.722
         }
       ]
     },
@@ -128,17 +123,12 @@
         "andere",
         "zeit"
       ],
-      "resolveCount": 2,
+      "resolveCount": 1,
       "resolves": [
         {
           "sourceId": "MWHLVPL2-B591DBEC",
           "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und innere Vernetzung des Begriffsnetzes. Es zeigt, dass die Resonanzvernunft nicht monokausal gedacht wird, sondern ein komplexes Gefüge von interdependenten Faktoren darstellt. Das Werk bietet nicht nur eine einzige, stringente Argumentationslinie, sondern eröffnet multiple Zugänge zu seinen Kernkonzepten. Dies spricht für ein dynamisches und oszillierendes Gefüge, in dem jeder Begriff den anderen bedingt und zugleich übersteigt [MP2LIW43-E8ADC59E]. Die \"Überraschung\" des zweiten Pfades liegt in der Erweiterung des Blickfeldes von der direkten Interaktion zur umfassenderen Existenzbedingung. Was sagt uns diese Doppelung über die Natur der Erkenntnis selbst, wenn sie sich auf so vielfältige Weise erschließen lässt?",
           "score": 0.904
-        },
-        {
-          "sourceId": "MWG6IZQ5-889B7147",
-          "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und Offenheit des Begriffsnetzes und des Werkes. Es ist kein lineares System, sondern ein dynamisches Feld möglicher Verknüpfungen, in dem auch unerwartete Bezüge Sinn stiften. Die Möglichkeit, über das Scheitern zum Wesen zu gelangen, deutet darauf hin, dass die grundlegende Seinsweise des Werks jene der Emergenz und Konstitution ist, wo im \"Raum, in dem noch nichts entschieden ist\" [74ca3a25fd5c] neue Bedeutungen entstehen können. Dies zeigt, dass das Werk nicht nur logische Kausalitäten abbildet, sondern auch poetische Einsichten freilegt, die das Menschsein in seiner ganzen Komplexität erfassen. Ist es die Fähigkeit des Scheiterns, die den Menschen in seiner Ansprechbarkeit erst vollends offenbart?",
-          "score": 0.772
         }
       ]
     },
