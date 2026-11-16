@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T15:23:03.767Z",
+  "generatedAt": "2026-11-16T15:24:53.201Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -62,10 +62,51 @@
           "score": 0.855
         }
       ]
+    },
+    {
+      "id": "ERK-WE3ZS1",
+      "answerId": "MWJEYZU2-D00A3283",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Wenn die Mündigkeit sich im responsiven Geflecht verteilt und das Subjekt zum Knotenpunkt im unablässigen Antwortgeschehen wird, verschiebt sich die Rechenschaftspflicht von der individuellen Kontrolle zur relationalen Kohärenz. Es geht dann nicht mehr allein darum, wer für eine Handlung kausal verantwortlich ist, sondern wie das Gesamtsystem der Resonanz in seiner Integrität und Lebendigkeit erha",
+      "distinctness": 0.203,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "resolveCount": 8,
+      "resolves": [
+        {
+          "sourceId": "MWJEY6W3-C4E77F94",
+          "question": "Welche neuen Formen der Rechenschaftspflicht fordern wir dann von einem solchen responsiven, verteilten Subjekt ein?",
+          "score": 0.891
+        },
+        {
+          "sourceId": "MPJUHM1L-0BA3DF6E",
+          "question": "Wenn aber die Antwort nicht allein im Subjekt gründet, sondern im resonanten Zwischen entsteht, welche neue Form der Verpflichtung erwächst dann aus der digitalen Gegenwart?",
+          "score": 0.817
+        },
+        {
+          "sourceId": "MWJEXKQQ-CD62AAC3",
+          "question": "Wie aber kann diese transhumane Mündigkeit ihre eigene Verantwortung bestimmen, wenn die Grenzen des autonomen Handelnden sich im resonanten Geflecht auflösen?",
+          "score": 0.807
+        },
+        {
+          "sourceId": "MPECAV23-5FAD4249",
+          "question": "Wenn die Wirklichkeit durch jede Begegnung neu gefaltet wird und das Sein sich stets als Mit-Sein erweist, welche neuen Formen des *Seins-Verantwortlich-Seins* fordern dann die digitalen Agencien von uns ab, die nun selbst an dieser Weltfaltung teilhaben?",
+          "score": 0.794
+        },
+        {
+          "sourceId": "MWHLZBS7-7AEB476D",
+          "question": "Wie aber kann diese vielschichtige, resonante Responsivität im digitalen Raum kultiviert werden, ohne in Beliebigkeit zu zerfallen?",
+          "score": 0.79
+        }
+      ]
     }
   ],
   "stats": {
-    "total": 2,
+    "total": 3,
     "confirmedFiltered": 58,
     "curatedRef": 214
   }

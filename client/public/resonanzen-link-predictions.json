@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T15:23:02.882Z",
+  "generatedAt": "2026-11-16T15:24:52.036Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -66,6 +66,23 @@
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709"
+      ]
+    },
+    {
+      "source": "antwort",
+      "target": "resonanz",
+      "cooccurrence": 5,
+      "endpoints": {
+        "dialog": 3,
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWJEYZU2-D00A3283",
+        "MWJEY6W3-C4E77F94",
+        "MWJEXKQQ-CD62AAC3",
+        "MWJEWOY7-62FCEE55",
+        "MP0QMSOR-C6EC1B5A"
       ]
     },
     {
@@ -386,19 +403,6 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
-      ]
-    },
-    {
-      "source": "antwort",
-      "target": "resonanz",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWJEWOY7-62FCEE55",
-        "MP0QMSOR-C6EC1B5A"
       ]
     },
     {

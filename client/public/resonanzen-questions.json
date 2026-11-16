@@ -1,16 +1,72 @@
 {
-  "generatedAt": "2026-11-16T15:23:03.661Z",
-  "count": 356,
+  "generatedAt": "2026-11-16T15:24:53.108Z",
+  "count": 359,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 356,
-    "answered": 297,
-    "open": 59,
-    "embedded": 1
+    "total": 359,
+    "answered": 301,
+    "open": 58,
+    "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MWJEYZU2-D00A3283",
+      "question": "Wie aber kann diese Rechenschaftspflicht formalisiert werden, ohne ihre lebendige, prozessuale Natur zu ersticken?",
+      "endpoint": "dialog",
+      "anchor": "dialog:antwort+resonanz",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "ts": "2026-11-16T15:24:09.579Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWJEY6W3-C4E77F94",
+      "question": "Welche neuen Formen der Rechenschaftspflicht fordern wir dann von einem solchen responsiven, verteilten Subjekt ein?",
+      "endpoint": "dialog",
+      "anchor": "dialog:antwort+resonanz",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "ts": "2026-11-16T15:23:32.068Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.891
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWJEXKQQ-CD62AAC3",
+      "question": "Wie aber kann diese transhumane Mündigkeit ihre eigene Verantwortung bestimmen, wenn die Grenzen des autonomen Handelnden sich im resonanten Geflecht auflösen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:antwort+resonanz",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "ts": "2026-11-16T15:23:03.363Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.898
+        },
+        {
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.807
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWJEWOY7-62FCEE55",
       "question": "Welche neuen Formen der Mündigkeit entstehen, wenn die Fähigkeit zur Resonanz und zur Antwort über das menschliche Maß hinaus wächst?",
@@ -22,8 +78,21 @@
       ],
       "ts": "2026-11-16T15:22:22.160Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.896
+        },
+        {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.807
+        },
+        {
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.787
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-5AF4690D",
@@ -52,6 +121,10 @@
         {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.743
+        },
+        {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.739
         }
       ],
       "answered": true
@@ -118,8 +191,13 @@
       ],
       "ts": "2026-11-16T09:05:08.813Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.736
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJ1F278-2DA1CA58",
@@ -203,8 +281,8 @@
           "score": 0.755
         },
         {
-          "id": "MASTER-5476DCEA",
-          "score": 0.751
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.752
         }
       ],
       "answered": true
@@ -334,16 +412,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.762
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.79
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.752
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.773
         },
         {
-          "id": "MWJ1FKY5-9E97D903",
-          "score": 0.741
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.764
         }
       ],
       "answered": true
@@ -376,12 +454,12 @@
           "score": 0.806
         },
         {
-          "id": "MASTER-5476DCEA",
-          "score": 0.765
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.768
         },
         {
-          "id": "MASTER-5AF4690D",
-          "score": 0.759
+          "id": "MASTER-5476DCEA",
+          "score": 0.765
         }
       ],
       "answered": true
@@ -694,12 +772,12 @@
           "score": 0.933
         },
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.729
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.733
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.725
+          "id": "MWJEWOY7-62FCEE55",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -767,6 +845,14 @@
       "ts": "2026-11-14T09:02:54.604Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.752
+        },
+        {
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.732
+        },
         {
           "id": "MWJ1EIER-0DB4F1CF",
           "score": 0.722
@@ -951,16 +1037,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.758
+        },
+        {
           "id": "MWJ1DBD5-7CEE18D5",
           "score": 0.756
         },
         {
           "id": "MASTER-2C637ECA",
           "score": 0.752
-        },
-        {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.745
         }
       ],
       "answered": true
@@ -1063,16 +1149,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.742
+        },
+        {
           "id": "MWG6JQJ5-54630303",
           "score": 0.733
         },
         {
           "id": "MWG6IMOZ-5252A380",
           "score": 0.724
-        },
-        {
-          "id": "MWHLWM05-8EEB6E7F",
-          "score": 0.721
         }
       ],
       "answered": true
@@ -1483,16 +1569,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.836
+        },
+        {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.831
+        },
+        {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.826
-        },
-        {
-          "id": "MASTER-F05BF2C0",
-          "score": 0.823
-        },
-        {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.803
         }
       ],
       "answered": true
@@ -2728,16 +2814,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.767
+        },
+        {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.751
+        },
+        {
           "id": "MWCB8047-41980A2A",
           "score": 0.737
-        },
-        {
-          "id": "MWCAX4JR-B3C15760",
-          "score": 0.733
-        },
-        {
-          "id": "MWCAUU1H-558EDB1E",
-          "score": 0.733
         }
       ],
       "answered": true
@@ -3701,12 +3787,12 @@
           "score": 0.9
         },
         {
-          "id": "MASTER-F05BF2C0",
-          "score": 0.745
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.779
         },
         {
-          "id": "MQ5X7QW6-F6E03538",
-          "score": 0.745
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.747
         }
       ],
       "answered": true
@@ -5476,16 +5562,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.792
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.817
         },
         {
-          "id": "MPNDAPRT-D64D197A",
-          "score": 0.782
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.816
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.778
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.806
         }
       ],
       "answered": true
@@ -5507,12 +5593,12 @@
           "score": 0.789
         },
         {
-          "id": "MASTER-4AA1AEA8",
-          "score": 0.738
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.763
         },
         {
-          "id": "MTL33KWJ-642DD246",
-          "score": 0.728
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.738
         }
       ],
       "answered": true
@@ -5636,16 +5722,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.795
+        },
+        {
+          "id": "MWJEYZU2-D00A3283",
+          "score": 0.794
+        },
+        {
           "id": "MPMSRF6V-7FEB2991",
           "score": 0.783
-        },
-        {
-          "id": "MPJEBNX3-042F2A69",
-          "score": 0.777
-        },
-        {
-          "id": "MUACZ4LA-ACB5F9D0",
-          "score": 0.771
         }
       ],
       "answered": true
@@ -5927,6 +6013,10 @@
         {
           "id": "MPUTC3HP-C68436E5",
           "score": 0.746
+        },
+        {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.732
         },
         {
           "id": "MWCAL7ON-CA4F38AF",
@@ -6838,16 +6928,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJEY6W3-C4E77F94",
+          "score": 0.761
+        },
+        {
           "id": "MPH4R3SE-C224ACED",
           "score": 0.761
         },
         {
-          "id": "MPJXEFVC-49A699FA",
-          "score": 0.753
-        },
-        {
-          "id": "MWG6H024-AA7260D4",
-          "score": 0.752
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.758
         }
       ],
       "answered": true
