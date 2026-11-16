@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:05:50.616Z",
+  "generatedAt": "2026-11-16T09:07:20.667Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -386,6 +386,19 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "moeglichkeit",
+      "target": "raumfaltung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWJ1GVRC-945E92E3",
+        "MOOVXCI4-822961D2"
       ]
     },
     {
@@ -972,7 +985,7 @@
   ],
   "stats": {
     "totalPairs": 391,
-    "candidatesCount": 74,
+    "candidatesCount": 75,
     "existingEdges": 116,
     "maxCooccurrence": 26
   }

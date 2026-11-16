@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16T09:05:35.015Z",
-  "filesChecked": 407,
+  "generatedAt": "2026-11-16T09:07:04.523Z",
+  "filesChecked": 409,
   "errors": 0,
-  "warnings": 51,
+  "warnings": 52,
   "issues": [
     {
       "level": "warning",
@@ -216,6 +216,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/moeglichkeit+raumfaltung/2026-11-16-MWJ1GVRC-945E92E3.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 535586f2feab8a62, computed 429091adbcaa2f05 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/resonanzimperativ+transaufklaerung/2026-11-14-MWG6K2GK-71CA57FA.md",
       "rule": "content-hash-mismatch",
       "detail": "expected ea47fac19409212f, computed 7b0d28c960182806 — Tampering oder nachträgliche Edit?"
@@ -314,8 +320,8 @@
   "aggregates": {
     "byEndpoint": {
       "analyse": 95,
-      "chapter": 59,
-      "dialog": 53,
+      "chapter": 60,
+      "dialog": 54,
       "path-analyse": 61,
       "enkidu": 67,
       "graph-chat": 49,
@@ -324,7 +330,7 @@
     },
     "byStatus": {
       "published": 161,
-      "raw": 168,
+      "raw": 170,
       "rejected": 24,
       "approved": 54
     },

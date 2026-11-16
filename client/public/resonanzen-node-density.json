@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:05:50.615Z",
+  "generatedAt": "2026-11-16T09:07:20.666Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 25,
@@ -354,8 +354,9 @@
       }
     },
     "raumfaltung": {
-      "count": 3,
+      "count": 4,
       "endpoints": {
+        "dialog": 1,
         "analyse": 3
       }
     },
@@ -367,8 +368,9 @@
       }
     },
     "moeglichkeit": {
-      "count": 4,
+      "count": 5,
       "endpoints": {
+        "dialog": 1,
         "analyse": 3,
         "path-analyse": 1
       }

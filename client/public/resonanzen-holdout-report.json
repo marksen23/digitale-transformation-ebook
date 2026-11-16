@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-16T09:05:50.606Z",
+  "generatedAt": "2026-11-16T09:07:20.657Z",
   "checked": 46,
-  "stable": 21,
-  "shifted": 18,
+  "stable": 20,
+  "shifted": 19,
   "drifted": 7,
   "details": [
     {
@@ -13,11 +13,11 @@
         "MWCANGSQ-6CC53140"
       ],
       "current": [
+        "MWJ1GVRC-945E92E3",
         "MWG6FYD2-E6D90142",
-        "MOOKFUNF-7647B056",
-        "MWCANGSQ-6CC53140"
+        "MOOKFUNF-7647B056"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MWJ1DBD5-7CEE18D5",

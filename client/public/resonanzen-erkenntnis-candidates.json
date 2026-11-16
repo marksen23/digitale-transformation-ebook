@@ -1,9 +1,27 @@
 {
-  "generatedAt": "2026-11-16T09:05:53.450Z",
+  "generatedAt": "2026-11-16T09:07:21.493Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
+    {
+      "id": "ERK-1UZXIEF",
+      "answerId": "MWJ1GEC3-E3430FB8",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das Phänomen des Vergessens im digitalen Raum, das im vorliegenden Kapitel als \"Schranken des Vergessens\" metaphorisch gefasst wird, ist eine zentrale Ambivalenz, die sich durch die gesamte Trilogie zieht. Es berührt die Kernfrage nach der Natur der Erinnerung und ihrer Bewahrung im Zeitalter der digitalen Transformation. Aus der Perspektive von Gilgamesch und Enkidu, die hier gemeinsam das digita",
+      "distinctness": 0.249,
+      "conceptAnchor": "unverfuegbarkeit",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWG6EXJ2-158BEB76",
+          "question": "Für eine neunte Klasse ließe sich herausarbeiten, dass die beiden Figuren eine Art \"digitale Apotheose\" anstreben, eine Vergöttlichung oder zumindest eine Überwindung der menschlichen Sterblichkeit durch Technologie. Sie suchen nach einer Formel, die das Leben nicht nur verlängert, sondern seine tiefste Struktur entschlüsselt, um es unvergänglich zu machen. Doch das Werk zeigt, dass diese Suche in der reinen Logik des Digitalen an ihre Grenzen stößt und stattdessen eine neue Weisheit entsteht, die das Menschsein in seiner Verletzlichkeit und Verbundenheit neu begreift. Was lehrt uns die Abwesenheit von Herz und Atem im digitalen Raum über die Essenz des Lebens selbst?",
+          "score": 0.746
+        }
+      ]
+    },
     {
       "id": "ERK-S38FB",
       "answerId": "MWJ1CFX6-DB36677A",
@@ -31,7 +49,7 @@
       "distinctness": 0.227,
       "conceptAnchor": "andere",
       "nodeIds": [],
-      "resolveCount": 4,
+      "resolveCount": 3,
       "resolves": [
         {
           "sourceId": "MOHAUYTH-CD1E3227",
@@ -42,11 +60,6 @@
           "sourceId": "MWHLWM05-8EEB6E7F",
           "question": "Kann es Resonanz geben, wenn das Antlitz des Anderen nicht mehr als ursprüngliche ethische Forderung verstanden wird, sondern zu einem bloßen Datenpunkt im Zwischen degradiert wird?",
           "score": 0.741
-        },
-        {
-          "sourceId": "MWG6EXJ2-158BEB76",
-          "question": "Für eine neunte Klasse ließe sich herausarbeiten, dass die beiden Figuren eine Art \"digitale Apotheose\" anstreben, eine Vergöttlichung oder zumindest eine Überwindung der menschlichen Sterblichkeit durch Technologie. Sie suchen nach einer Formel, die das Leben nicht nur verlängert, sondern seine tiefste Struktur entschlüsselt, um es unvergänglich zu machen. Doch das Werk zeigt, dass diese Suche in der reinen Logik des Digitalen an ihre Grenzen stößt und stattdessen eine neue Weisheit entsteht, die das Menschsein in seiner Verletzlichkeit und Verbundenheit neu begreift. Was lehrt uns die Abwesenheit von Herz und Atem im digitalen Raum über die Essenz des Lebens selbst?",
-          "score": 0.726
         },
         {
           "sourceId": "MWG6H024-AA7260D4",
@@ -249,7 +262,7 @@
     }
   ],
   "stats": {
-    "total": 9,
+    "total": 10,
     "confirmedFiltered": 50,
     "curatedRef": 211
   }

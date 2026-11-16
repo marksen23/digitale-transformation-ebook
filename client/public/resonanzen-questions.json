@@ -1,16 +1,30 @@
 {
-  "generatedAt": "2026-11-16T09:05:53.322Z",
-  "count": 351,
+  "generatedAt": "2026-11-16T09:07:21.391Z",
+  "count": 352,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 351,
-    "answered": 293,
+    "total": 352,
+    "answered": 294,
     "open": 58,
-    "embedded": 6
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWJ1GVRC-945E92E3",
+      "question": "Doch wenn das Schattenlicht-Prinzip eine solche Haltung ist, wie kann sie in einer Welt, die von algorithmischer Transparenz und maximaler Verwertbarkeit geprägt ist, überhaupt noch gelebt werden?",
+      "endpoint": "dialog",
+      "anchor": "dialog:moeglichkeit+raumfaltung",
+      "nodeIds": [
+        "moeglichkeit",
+        "raumfaltung"
+      ],
+      "ts": "2026-11-16T09:06:09.480Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWJ1FX7Q-0DC96540",
       "question": "Die scheinbare Isoliertheit von \"Schatten\" und \"Licht\" im Begriffsnetz täuscht, denn sie wirken als Prinzipien im Hintergrund vieler Konzepte. So steht der Schatten in produktiver Spannung zur Begegnung und zur Unverfügbarkeit, wie bereits in den Resonanzen festgehalten wurde ([MOOKFUNF-7647B056], [MOHMET94-3799557A]). Das Schattenlicht-Prinzip ist somit eine Metapher für die Art und Weise, wie die Resonanzvernunft Erkenntnis generiert: nicht durch das Ausleuchten alles Dunklen, sondern durch das bewusste Spiel mit dem Ungewissen, dem noch nicht Erfassten, um gerade dadurch das Neue hervortreten zu lassen. Könnte man sagen, dass das Schattenlicht-Prinzip die eigentliche Methode der Resonanzvernunft ist, um das Unverfügbare als Transformatives Drittes überhaupt wahrnehmbar zu machen?",
@@ -19,8 +33,13 @@
       "nodeIds": [],
       "ts": "2026-11-16T09:05:24.710Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWJ1GVRC-945E92E3",
+          "score": 0.919
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJ1FKY5-9E97D903",
@@ -713,12 +732,12 @@
           "score": 0.748
         },
         {
-          "id": "MWJ1F278-2DA1CA58",
-          "score": 0.729
+          "id": "MWJ1GEC3-E3430FB8",
+          "score": 0.746
         },
         {
-          "id": "MWJ1EIER-0DB4F1CF",
-          "score": 0.726
+          "id": "MWJ1F278-2DA1CA58",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -7122,15 +7141,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWJ1GVRC-945E92E3",
+          "score": 0.801
+        },
+        {
           "id": "MWJ1FKY5-9E97D903",
           "score": 0.762
         },
         {
           "id": "MWJ1FX7Q-0DC96540",
-          "score": 0.756
-        },
-        {
-          "id": "MWG6FYD2-E6D90142",
           "score": 0.756
         }
       ],
@@ -7586,12 +7605,12 @@
           "score": 0.796
         },
         {
-          "id": "MQXDVN1C-CAA3081A",
-          "score": 0.785
+          "id": "MWJ1GVRC-945E92E3",
+          "score": 0.79
         },
         {
-          "id": "MOOK20R3-62E609BA",
-          "score": 0.782
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.785
         }
       ],
       "answered": true
