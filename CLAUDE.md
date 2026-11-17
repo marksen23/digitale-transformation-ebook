@@ -48,8 +48,10 @@ Vitest ist in Betrieb: `pnpm test` (= `vitest run`) deckt Stand 2026-11-17
 **45 Test-Files mit 350 Tests** ab (`client/src/**/__tests__`, `scripts/__tests__`,
 `server/__tests__` — Include-Liste in `vitest.config.ts`). Reine Logik gehört
 nach `scripts/lib/*-utils.ts`, damit sie ohne IO testbar bleibt.
-`pnpm check` (= `tsc --noEmit`) bleibt der zweite Quality-Gate.
-`pnpm check` (= `tsc --noEmit`) ist der primäre Quality-Gate.
+
+Zusammen mit `pnpm check` (= `tsc --noEmit`) bilden die Tests das Quality-Gate:
+`.github/workflows/ci.yml` führt bei **jedem** Pull Request beide aus, und ein
+roter `pnpm check` blockiert damit jeden PR im Repo.
 
 ---
 
