@@ -48,6 +48,13 @@ export async function callClaude(opts: {
   system: string;
   user: string;
   maxTokens?: number;
+  /**
+   * Wird NICHT mehr an Anthropic gesendet: seit API-Version 2026-10-21 lehnt
+   * die Messages-API `temperature`/`top_p`/`top_k` auf jedem Modell mit 400 ab
+   * — auch beim Defaultwert. Das Feld bleibt in der Signatur, weil
+   * `callTextLLM` (routes/admin.ts) dasselbe Opts-Objekt an Gemini
+   * weiterreicht, und Gemini akzeptiert temperature weiterhin.
+   */
   temperature?: number;
 }): Promise<string | null> {
   if (!client) {
@@ -62,7 +69,6 @@ export async function callClaude(opts: {
     const res = await client.messages.create({
       model: DEFAULT_MODEL,
       max_tokens: opts.maxTokens ?? 4096,
-      temperature: opts.temperature ?? 0.7,
       system: opts.system,
       messages: [{ role: "user", content: opts.user }],
     });
