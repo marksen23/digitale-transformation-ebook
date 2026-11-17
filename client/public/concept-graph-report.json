@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-11-17T18:03:06.305Z",
+  "status": "warning",
+  "totals": {
+    "nodes": 50,
+    "edges": 121,
+    "components": 4,
+    "isolatedNodes": 2,
+    "reachableFromMain": 44,
+    "unreachableFromMain": 6,
+    "danglingEdges": 0,
+    "redundantPromotedEdges": 1
+  },
+  "mainComponentSize": 44,
+  "detachedComponents": [
+    {
+      "size": 4,
+      "nodeIds": [
+        "moeglichkeit",
+        "raumfaltung",
+        "weltfaltung",
+        "wirklichkeit"
+      ]
+    },
+    {
+      "size": 1,
+      "nodeIds": [
+        "licht"
+      ]
+    },
+    {
+      "size": 1,
+      "nodeIds": [
+        "schatten"
+      ]
+    }
+  ],
+  "isolatedNodes": [
+    "licht",
+    "schatten"
+  ],
+  "issues": [
+    {
+      "level": "warning",
+      "rule": "redundant-promoted-edge",
+      "detail": "freiheit ↔ lm-grenze: in concept-edges.json erhoben, existiert aber bereits in LEITMOTIV_EDGES"
+    },
+    {
+      "level": "warning",
+      "rule": "isolated-node",
+      "detail": "licht hat keine einzige Kante — im Netz nicht erreichbar"
+    },
+    {
+      "level": "warning",
+      "rule": "isolated-node",
+      "detail": "schatten hat keine einzige Kante — im Netz nicht erreichbar"
+    },
+    {
+      "level": "warning",
+      "rule": "detached-component",
+      "detail": "4 Knoten hängen nur untereinander zusammen: moeglichkeit, raumfaltung, weltfaltung, wirklichkeit"
+    }
+  ],
+  "layers": {
+    "staticNodes": 50,
+    "dynamicNodes": 0,
+    "staticEdges": 114,
+    "promotedEdges": 7
+  }
+}

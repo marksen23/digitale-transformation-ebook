@@ -653,7 +653,8 @@ export const EDGES: ConceptEdge[] = [
   { source: "erkenntnis",  target: "wahrheit" },
   { source: "denken",      target: "bewusstsein" },
   { source: "denken",      target: "sprache" },
-  { source: "bewusstsein", target: "selbst" },
+  // bewusstsein ↔ selbst steht bereits im Self-Cluster oben — das Netz wird
+  // ungerichtet ausgewertet, eine zweite Nennung wäre eine tote Dublette.
 
   // ── Glossary additions ──────────────────────────────────────────────────
   { source: "dazwischenintelligenz", target: "zwischen" },
