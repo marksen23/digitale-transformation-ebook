@@ -96,8 +96,21 @@ zusammengedacht — **genau die Kanten, die jetzt gezogen wurden**. Das Netz
 hinkte seinem eigenen Korpus hinterher. Die Kanten sind damit doppelt belegt:
 aus der Prosa der Beschreibungen und aus den Querverweisen des Korpus.
 
+### Nachtrag: die drei zurückgestellten Kanten (auf Zuruf gezogen)
+
+| Kante | Belegtyp |
+|---|---|
+| `raumfaltung ↔ moeglichkeit` | Zitat: „erzeugt damit **neue Möglichkeiten**" |
+| `moeglichkeit ↔ werden` | geteilte Wendung „des Lebendigen" — keine wechselseitige Nennung |
+| `weltfaltung ↔ welt` | **morphologisch**, nicht zitatgestützt: keine der beiden Beschreibungen nennt die andere |
+
+Die dritte Kante trägt einen anderen Belegtyp als die 15 vorigen. Das steht als
+Kommentar an der Kante selbst, damit sie überprüfbar bleibt und nicht als
+zitatgestützt durchgeht.
+
+Stand danach: 139 Kanten, 1 Komponente, 0 isolierte Knoten. Im laufenden
+Begriffsnetz gegengeprüft: 139 `<path>` im SVG, keine Konsolenfehler.
+
 ### Offen
 
 - `freiheit ↔ lm-grenze` in `concept-edges.json` — tote Dublette, unverändert.
-- Belegt, aber nicht gezogen: `raumfaltung ↔ moeglichkeit`,
-  `moeglichkeit ↔ werden`, `weltfaltung ↔ welt`. Auf Zuruf nachtragbar.

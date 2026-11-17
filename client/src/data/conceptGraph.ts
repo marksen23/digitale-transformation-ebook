@@ -707,6 +707,17 @@ export const EDGES: ConceptEdge[] = [
   { source: "raumfaltung", target: "denken" },
   // wirklichkeit: "die im Augenblick verdichtete Möglichkeit"
   { source: "wirklichkeit", target: "moment" },
+  // raumfaltung: "erzeugt damit neue Möglichkeiten"
+  { source: "raumfaltung", target: "moeglichkeit" },
+  // moeglichkeit: "der Atemraum des Lebendigen" ↔ werden: "das Vorzeichen
+  // allen Lebendigen" — geteilte Wendung, keine wechselseitige Nennung.
+  { source: "moeglichkeit", target: "werden" },
+  // weltfaltung ↔ welt: ANDERER Belegtyp als die Kanten darüber. Keine der
+  // beiden Beschreibungen nennt die andere; die Verbindung steckt im Namen
+  // ("Welt"-faltung = Entfaltung von Welt) und in raumfaltung: "Denken als
+  // Weltfaltung". Morphologisch, nicht zitatgestützt — bewusst so vermerkt,
+  // damit die Kante überprüfbar bleibt.
+  { source: "weltfaltung", target: "welt" },
 ];
 
 // ─── Leitmotiv Resonance Edges ────────────────────────────────────────────────
