@@ -692,6 +692,21 @@ export const EDGES: ConceptEdge[] = [
   { source: "weltfaltung", target: "raumfaltung" },
   { source: "weltfaltung", target: "wirklichkeit" },
   { source: "weltfaltung", target: "moeglichkeit" },
+
+  // ── Erkenntnisprinzipien ans Begriffsnetz ───────────────────────────────
+  // Bis 2026-11-17 hing die Prinzip-Ebene als eigene Komponente neben dem
+  // Netz (aufgedeckt von scripts/check-concept-graph.ts). Jede Kante hier
+  // belegt ein Satz, der bereits in einer der beiden Beschreibungen steht —
+  // sie macht explizit, was die Prosa ohnehin behauptet.
+  //
+  // schatten: "Das Schattenlicht-Prinzip: Erkennen entsteht im Kontrast"
+  { source: "schatten",    target: "erkenntnis" },
+  // raumfaltung: "jeder Akt der Begegnung faltet einen neuen Raum auf"
+  { source: "raumfaltung", target: "raum" },
+  // raumfaltung: "Denken als Weltfaltung."
+  { source: "raumfaltung", target: "denken" },
+  // wirklichkeit: "die im Augenblick verdichtete Möglichkeit"
+  { source: "wirklichkeit", target: "moment" },
 ];
 
 // ─── Leitmotiv Resonance Edges ────────────────────────────────────────────────
@@ -704,6 +719,10 @@ export const LEITMOTIV_EDGES: ConceptEdge[] = [
   { source: "lm-spiegel", target: "wahrheit" },
   { source: "lm-spiegel", target: "resonanz" },
   { source: "lm-spiegel", target: "selbst" },
+  // "Schattenlicht: das Licht des Spiegels ist geborgt … Erkenntnis entsteht
+  //  im Zwischenraum von Licht und Schatten."
+  { source: "lm-spiegel", target: "schatten" },
+  { source: "lm-spiegel", target: "licht" },
 
   // BEGEGNUNG — Wirklichkeit faltet sich im Augenblick der Begegnung
   // Also receives resonance arcs from the core concept cluster (moved from EDGES)
@@ -714,6 +733,14 @@ export const LEITMOTIV_EDGES: ConceptEdge[] = [
   { source: "lm-begegnung",   target: "ich-du" },
   { source: "lm-begegnung",   target: "moment" },
   { source: "lm-begegnung",   target: "andere" },
+  // "Wirklichkeit faltet sich im Augenblick der Begegnung … das Mögliche
+  //  wird zur Gegenwart durch das Wagnis der Begegnung."
+  { source: "lm-begegnung",   target: "wirklichkeit" },
+  { source: "lm-begegnung",   target: "moeglichkeit" },
+  // weltfaltung: "Möglichkeiten, die … durch Begegnung aktualisiert werden";
+  // raumfaltung: "jeder Akt der Begegnung faltet einen neuen Raum auf"
+  { source: "lm-begegnung",   target: "weltfaltung" },
+  { source: "lm-begegnung",   target: "raumfaltung" },
 
   // SCHEITERN — being, becoming, existence under pressure
   { source: "lm-scheitern", target: "existenz" },
@@ -721,6 +748,10 @@ export const LEITMOTIV_EDGES: ConceptEdge[] = [
   { source: "lm-scheitern", target: "dasein" },
   { source: "lm-scheitern", target: "sein" },
   { source: "lm-scheitern", target: "wesen" },
+  // "Schattenlicht: der Schatten des Scheiterns ist kein Dunkel … er ist der
+  //  Raum, aus dem neues Licht entstehen kann."
+  { source: "lm-scheitern", target: "schatten" },
+  { source: "lm-scheitern", target: "licht" },
 
   // GRENZE — Grenzen konstituieren; radiates archetypal connections
   // Also receives resonance arcs formerly in EDGES (moved here for visual consistency)
@@ -730,6 +761,10 @@ export const LEITMOTIV_EDGES: ConceptEdge[] = [
   { source: "lm-grenze",  target: "spannung" },
   { source: "lm-grenze",  target: "welt" },
   { source: "lm-grenze",  target: "wesen" },
+  // "An der Grenze faltet sich das Innen nach außen, das Mögliche in das
+  //  Wirkliche." — die Faltungs-Ebene, die der Satz benennt.
+  { source: "lm-grenze",  target: "moeglichkeit" },
+  { source: "lm-grenze",  target: "wirklichkeit" },
 
   // VERWANDLUNG — übergeordnetes Leitmotiv; innerstes Gesetz des Lebendigen.
   // Encompasses Wandel (removed as concept node) and reaches across the whole network.
@@ -741,6 +776,8 @@ export const LEITMOTIV_EDGES: ConceptEdge[] = [
   { source: "lm-verwandlung", target: "welt" },
   { source: "lm-verwandlung", target: "gelassenheit" },
   { source: "lm-verwandlung", target: "transformatives-drittes" },
+  // "Schattenlicht und Faltung zur Wirklichkeit vereinen sich."
+  { source: "lm-verwandlung", target: "weltfaltung" },
 ];
 
 // ─── Erkenntnisprinzipien — Grouped Toggles ───────────────────────────────────
