@@ -45,7 +45,7 @@ pnpm build:resonanzen-index   # Nur Index-Rebuild
 ### Tests
 
 Vitest ist in Betrieb: `pnpm test` (= `vitest run`) deckt Stand 2026-11-17
-**45 Test-Files mit 350 Tests** ab (`client/src/**/__tests__`, `scripts/__tests__`,
+**46 Test-Files mit 362 Tests** ab (`client/src/**/__tests__`, `scripts/__tests__`,
 `server/__tests__` — Include-Liste in `vitest.config.ts`). Reine Logik gehört
 nach `scripts/lib/*-utils.ts`, damit sie ohne IO testbar bleibt.
 
@@ -407,8 +407,15 @@ JSON-Schichten lagern sich an:
   Rechnung in `scripts/lib/concept-graph-utils.ts`, Report nach
   `client/public/concept-graph-report.json`. Exit 1 nur bei Datenfehler;
   Isolation ist `warning` — ob ein Begriff angebunden gehört, ist Begriffsarbeit.
-  **Offener Befund:** die 6 Prinzip-Knoten (`schatten`, `licht`, `weltfaltung`,
-  `raumfaltung`, `wirklichkeit`, `moeglichkeit`) hängen nicht am Hauptnetz.
+  **Stand 2026-11-17: `status: ok`** — 50 Knoten, 138 Kanten, eine einzige
+  Zusammenhangskomponente, keine Warnung. Die 6 Prinzip-Knoten (`schatten`,
+  `licht`, `weltfaltung`, `raumfaltung`, `wirklichkeit`, `moeglichkeit`) hingen
+  bis dahin als eigene Inseln neben dem Netz; sie sind mit 18 Kanten angebunden,
+  jede durch einen Satz aus den Begriffsbeschreibungen belegt (der Beleg steht
+  als Kommentar an der Kante). Eine Kante — `weltfaltung ↔ welt` — trägt bewusst
+  einen schwächeren, nur morphologischen Beleg und ist im Code so markiert.
+  `promoteEdge` dedupliziert seitdem auch gegen den statischen Kanon
+  (`graphContext.canonicalEdgeKeys`), damit keine Kante doppelt erhoben wird.
 - `scripts/netlify-ignore.sh` — Build-Ignore-Hook (überspringt Netlify-Deploys
   ohne Frontend-Relevanz — siehe Fallstrick #6)
 
