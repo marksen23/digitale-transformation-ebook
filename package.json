@@ -17,6 +17,7 @@
     "start": "node dist/index.js",
     "preview": "vite preview --host",
     "check": "tsc --noEmit",
+  "check:graph": "tsx scripts/check-concept-graph.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "format": "prettier --write .",

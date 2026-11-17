@@ -44,8 +44,14 @@ pnpm build:resonanzen-index   # Nur Index-Rebuild
 
 ### Tests
 
-Es gibt aktuell keine zentrale Test-Suite (Vitest installiert aber unbenutzt).
-`pnpm check` (= `tsc --noEmit`) ist der primäre Quality-Gate.
+Vitest ist in Betrieb: `pnpm test` (= `vitest run`) deckt Stand 2026-11-17
+**45 Test-Files mit 350 Tests** ab (`client/src/**/__tests__`, `scripts/__tests__`,
+`server/__tests__` — Include-Liste in `vitest.config.ts`). Reine Logik gehört
+nach `scripts/lib/*-utils.ts`, damit sie ohne IO testbar bleibt.
+
+Zusammen mit `pnpm check` (= `tsc --noEmit`) bilden die Tests das Quality-Gate:
+`.github/workflows/ci.yml` führt bei **jedem** Pull Request beide aus, und ein
+roter `pnpm check` blockiert damit jeden PR im Repo.
 
 ---
 
@@ -396,6 +402,13 @@ JSON-Schichten lagern sich an:
 - `scripts/build-search-index.ts` — concepts + philosophers Embeddings (Phase B)
 - `scripts/validate-resonanzen.ts` — Schema-/Anchor-/Hash-Wächter
 - `scripts/check-corpus-drift.ts` — Aggregat-Drift-Detector
+- `scripts/check-concept-graph.ts` — Topologie-Wächter fürs Begriffsnetz
+  (Zusammenhangskomponenten, isolierte Knoten, Kanten ins Leere, Dubletten).
+  Rechnung in `scripts/lib/concept-graph-utils.ts`, Report nach
+  `client/public/concept-graph-report.json`. Exit 1 nur bei Datenfehler;
+  Isolation ist `warning` — ob ein Begriff angebunden gehört, ist Begriffsarbeit.
+  **Offener Befund:** die 6 Prinzip-Knoten (`schatten`, `licht`, `weltfaltung`,
+  `raumfaltung`, `wirklichkeit`, `moeglichkeit`) hängen nicht am Hauptnetz.
 - `scripts/netlify-ignore.sh` — Build-Ignore-Hook (überspringt Netlify-Deploys
   ohne Frontend-Relevanz — siehe Fallstrick #6)
 

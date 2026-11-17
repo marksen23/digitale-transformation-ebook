@@ -19,6 +19,8 @@ on:
       - "scripts/build-resonanzen-index.ts"
       - "scripts/build-search-index.ts"
       - "scripts/check-corpus-drift.ts"
+      - "scripts/check-concept-graph.ts"
+      - "scripts/lib/concept-graph-utils.ts"
       - "client/src/data/conceptGraph.ts"
       - "client/src/data/philosophyMap.ts"
   workflow_dispatch:  # manuell triggerbar zum Auf-Verlangen-Check
@@ -74,6 +76,22 @@ jobs:
           if [ -f client/public/resonanzen-validation-report.json ]; then
             echo "report_path=client/public/resonanzen-validation-report.json" >> $GITHUB_OUTPUT
           fi
+          exit $EXIT
+
+      # ─── Topologie des Begriffsnetzes: statische Quelle, kein Korpus-Bezug.
+      # Darf wie die Validierung hart fehlschlagen — ein Alarm bedeutet eine
+      # Kante ins Leere oder eine Dublette, also einen echten Datenfehler im
+      # committeten conceptGraph.ts. Isolation ist bewusst nur `warning`.
+      - name: Check Begriffsnetz-Topologie
+        id: graph
+        run: |
+          set +e
+          pnpm tsx scripts/check-concept-graph.ts > graph-output.txt 2>&1
+          EXIT=$?
+          echo "exit_code=$EXIT" >> $GITHUB_OUTPUT
+          echo "=== concept-graph output ==="
+          cat graph-output.txt
+          rm -f graph-output.txt
           exit $EXIT
 
       - name: Open issue on validation failure
@@ -303,6 +321,7 @@ jobs:
             case "$1" in
               client/public/resonanzen-*.json) return 0 ;;
               client/public/werk-chunks.json) return 0 ;;
+              client/public/concept-graph-report.json) return 0 ;;
               client/public/concepts-embeddings.json) return 0 ;;
               client/public/philosophers-embeddings.json) return 0 ;;
               client/public/exports/resonanzvernunft.pdf) return 0 ;;
@@ -346,6 +365,7 @@ jobs:
                 client/public/resonanzen-holdout-baseline.json \
                 client/public/resonanzen-holdout-report.json \
                 client/public/resonanzen-drift-report.json \
+                client/public/concept-graph-report.json \
                 client/public/resonanzen-validation-report.json \
                 client/public/resonanzen-chapter-hashes.json \
                 client/public/resonanzen-node-density.json \
@@ -415,6 +435,7 @@ jobs:
             pnpm tsx scripts/build-werk-pdf.ts
             pnpm tsx scripts/check-corpus-drift.ts > drift-output.txt 2>&1 || true
             cat drift-output.txt || true
+            pnpm tsx scripts/check-concept-graph.ts --quiet || true
             echo "[push] CONFLICT-RECOVERY: rebuild fertig"
           }
 
