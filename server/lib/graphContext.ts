@@ -2,8 +2,9 @@
  * Begriffsnetz-Kontext für Graph-Chat und Knotenprüfungen.
  * Einmalig beim Laden aufgebaut, wie zuvor beim Import von server/index.ts.
  */
-import { EDGES, NODES } from "../../client/src/data/conceptGraph.js";
+import { EDGES, LEITMOTIV_EDGES, NODES } from "../../client/src/data/conceptGraph.js";
 import { OUTPUT_VOICE_RULE, UNTRUSTED_RULE } from "./promptSafety.js";
+import { pairKey } from "./conceptEdges.js";
 
 // ─── Begriffsnetz-Kontext für Graph-Chat (einmalig beim Start aufgebaut) ──────
 const CAT_DE: Record<string, string> = {
@@ -15,6 +16,14 @@ const conceptNodes   = NODES.filter(n => n.category !== "leitmotiv" && n.categor
 const leitmovNodes   = NODES.filter(n => n.category === "leitmotiv");
 const prinzipNodes   = NODES.filter(n => n.category === "prinzip");
 export const nodeSrv        = new Map(NODES.map(n => [n.id, n]));
+
+/** Richtungslose Schlüssel ALLER statisch-kanonischen Kanten (EDGES +
+ *  LEITMOTIV_EDGES). `promoteEdge` dedupliziert dagegen, damit eine Kante,
+ *  die im Kanon längst steht, nicht ein zweites Mal in concept-edges.json
+ *  landet. Genau so entstand die tote Dublette freiheit↔lm-grenze. */
+export const canonicalEdgeKeys = new Set<string>(
+  [...EDGES, ...LEITMOTIV_EDGES].map(e => pairKey(e.source, e.target)),
+);
 const crossCatSrv    = EDGES.filter(e => nodeSrv.get(e.source)?.category !== nodeSrv.get(e.target)?.category).length;
 
 export const GRAPH_SYSTEM_PROMPT = `Du bist ein philosophischer Gesprächspartner des Werks "Die Digitale Transformation" — einer poetisch-philosophischen Trilogie über Resonanzvernunft, Mensch-Maschine-Verhältnis und digitale Existenz.

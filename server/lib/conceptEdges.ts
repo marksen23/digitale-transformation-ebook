@@ -76,11 +76,20 @@ const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
  *
  * `validIds` (optional): wenn gesetzt, müssen source UND target darin liegen
  * (statische NODES ∪ dynamische Begriffe) — verhindert Kanten auf Unsinn-IDs.
+ *
+ * `canonicalKeys` (optional): pairKeys der statischen Kanten aus
+ * conceptGraph.ts (graphContext.canonicalEdgeKeys). Steht die Verbindung dort
+ * schon, wird NICHTS geschrieben — sonst entsteht eine tote Dublette, die zur
+ * Laufzeit nichts bewirkt (das ADJACENCY-Set im Client dedupt ohnehin) und nur
+ * die Wachstums-Schicht verrauscht. Das ist kein Fehler: die Verbindung, die
+ * der Admin erheben will, existiert ja bereits — daher `already: true` plus
+ * `canonical: true`, damit die Oberfläche beide Fälle unterscheiden kann.
  */
 export async function promoteEdge(input: {
   source: string; target: string; note?: string; evidence?: number; actor: string;
   validIds?: Set<string>;
-}): Promise<{ ok: true; already?: boolean } | { ok: false; error: string }> {
+  canonicalKeys?: Set<string>;
+}): Promise<{ ok: true; already?: boolean; canonical?: boolean } | { ok: false; error: string }> {
   const token = process.env.GITHUB_TOKEN;
   if (!token) return { ok: false, error: "GITHUB_TOKEN fehlt — Kante nicht persistierbar" };
 
@@ -94,6 +103,11 @@ export async function promoteEdge(input: {
   }
 
   const key = pairKey(source, target);
+
+  // Steht die Kante bereits statisch im Kanon? Dann ist nichts zu tun — kein
+  // Netzwerk-Call, kein Schreiben.
+  if (input.canonicalKeys?.has(key)) return { ok: true, already: true, canonical: true };
+
   const MAX_ATTEMPTS = 8;
   for (let attempt = 0; attempt < MAX_ATTEMPTS; attempt++) {
     try {

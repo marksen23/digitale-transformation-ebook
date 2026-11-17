@@ -17,7 +17,7 @@ import {
 } from "../lib/adminConfig.js";
 import { getCitationStats } from "../lib/citationTracker.js";
 import { findExactDuplicates } from "../lib/dedupCorpus.js";
-import { nodeSrv } from "../lib/graphContext.js";
+import { canonicalEdgeKeys, nodeSrv } from "../lib/graphContext.js";
 import { loadIndex, removeFromIndex, removeManyFromIndex, updateInIndex, updateManyInIndex } from "../lib/indexUpdater.js";
 import { getResonanzLogHealth } from "../lib/resonanzLog.js";
 import { invalidateResonanzRetrievalCache } from "../lib/werkRetrieval.js";
@@ -503,7 +503,8 @@ export function createAdminRouter(): Router {
     // Kanten auf Unsinn-/Tipp-IDs.
     const dynIds = await loadDynamicNodeIds().catch(() => new Set<string>());
     const validIds = new Set<string>([...Array.from(nodeSrv.keys()), ...Array.from(dynIds)]);
-    const r = await promoteEdge({ source, target, note, evidence, actor: "admin", validIds });
+    const r = await promoteEdge({ source, target, note, evidence, actor: "admin", validIds,
+      canonicalKeys: canonicalEdgeKeys });
     recordAdminAction({
       type: "promote-edge", actor: "admin", targetId: `${source}→${target}`, ok: r.ok,
       reason: r.ok ? undefined : r.error,
@@ -514,7 +515,7 @@ export function createAdminRouter(): Router {
       const code = r.error.startsWith("unbekannter Begriff") ? 400 : 502;
       return res.status(code).json({ error: r.error });
     }
-    return res.json({ ok: true, already: r.already ?? false, source, target });
+    return res.json({ ok: true, already: r.already ?? false, canonical: r.canonical ?? false, source, target });
   });
 
   // ─── Begriffsnetz-Wachstum: neue Begriffe / Wortschöpfungen (Phase 5c) ────
