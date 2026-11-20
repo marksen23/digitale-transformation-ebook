@@ -19,6 +19,7 @@ import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
 import { buildErkenntnisFeed } from "@/lib/erkenntnisFeed";
 import SiteFooter from "@/components/SiteFooter";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import SpeakButton from "@/components/SpeakButton";
 import { useIsMobile } from "@/hooks/useMobile";
 import MobileErkenntnisse from "@/pages/mobile/MobileErkenntnisse";
 
@@ -67,7 +68,8 @@ export default function ErkenntnissePage() {
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1.2rem", lineHeight: 1.5 }}>
           Wo eine offene Frage des Werks eine Antwort fand, die wirklich einen Schritt
           weitergeht — geprüft und bestätigt. Jede Erkenntnis mit ihrer Entstehung:
-          aus welcher Frage, aus welcher Antwort sie erwuchs.
+          aus welcher Frage, aus welcher Antwort sie erwuchs.{" "}
+          <Link href="/hoeren" style={{ color: c.accentText }}>Hörfassung</Link>
         </p>
         <NewsletterSignup C={c} />
 
@@ -103,6 +105,7 @@ export default function ErkenntnissePage() {
                       {e.auto ? <> · <span style={{ color: c.accentText }}>automatisch</span></> : null}
                       {e.conceptAnchor ? <> · <span style={{ color: c.accentText }}>{e.conceptAnchor}</span></> : null}
                     </span>
+                    <SpeakButton id={`kern-${e.id}`} text={e.text} color={c.accentText} />
                     <button onClick={() => setOpen(isOpen ? null : e.id)}
                       style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: RADIUS.micro, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
                       {isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}

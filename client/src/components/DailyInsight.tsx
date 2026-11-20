@@ -4,6 +4,7 @@
 import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { pickDailyErkenntnis } from "@shared/dailyErkenntnis";
+import SpeakButton from "@/components/SpeakButton";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
 
 export default function DailyInsight({ compact = false }: { compact?: boolean }) {
@@ -61,6 +62,10 @@ export default function DailyInsight({ compact = false }: { compact?: boolean })
         </Link>
         <a href="/feed/erkenntnisse.xml" style={{ color: "#a8a29e", fontSize: compact ? 11 : 12, textDecoration: "none" }}>
           Feed
+        </a>
+        <SpeakButton id={`tag-${item.id}`} text={item.kernsatz} light />
+        <a href="/hoeren" style={{ color: "#a8a29e", fontSize: compact ? 11 : 12, textDecoration: "none" }}>
+          Hörfassung
         </a>
       </div>
     </div>

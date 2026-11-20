@@ -245,6 +245,14 @@ Der Atom-Feed `/feed/erkenntnisse.xml` bleibt die Inhaltsquelle des Digests.
 Es wird nichts an X oder an einen externen Newsletter-Dienst gepusht, außer
 die einzelne Mail über den gewählten Anbieter.
 
+## Hörfassung
+
+`/hoeren` spricht Kernsätze und die ersten beiden Sätze eines Kapitels mit der
+Sprachausgabe des Browsers (Web Speech API), mit Abspielen und Pause. Eine
+Podcast-RSS mit festen Audiodateien ist der nächste Schritt: im Build ist kein
+kostenloser TTS vorhanden, und `client/public/audio` ist leer. Sobald Dateien
+offline erzeugt sind, kann ein Feed darauf zeigen.
+
 ## 📞 Support
 
 Für Fragen oder Probleme:

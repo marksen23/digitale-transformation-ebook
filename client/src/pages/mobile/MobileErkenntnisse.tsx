@@ -14,6 +14,7 @@ import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
 import { buildErkenntnisFeed } from "@/lib/erkenntnisFeed";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 import NewsletterSignup from "@/components/NewsletterSignup";
+import SpeakButton from "@/components/SpeakButton";
 
 const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] ?? ep;
 const epColor = (ep: string, fb: string) => ENDPOINT_COLOR[ep as ResonanzEntry["endpoint"]] ?? fb;
@@ -65,6 +66,7 @@ export default function MobileErkenntnisse() {
                   {e.auto && <> · <span style={{ color: C.accentText }}>automatisch</span></>}
                   {e.conceptAnchor && <> · <span style={{ color: C.accentText }}>{e.conceptAnchor}</span></>}
                 </span>
+                <SpeakButton id={`kern-${e.id}`} text={e.text} color={C.accentText} />
                 <button
                   type="button" onClick={() => setOpen(isOpen ? null : e.id)}
                   style={{ minHeight: 44, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: RADIUS.micro, color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
