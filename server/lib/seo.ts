@@ -114,6 +114,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Wie das Begriffsnetz dichter wurde: ein Schieber über die echten Tage des Korpus, Dichte je Begriff.",
   },
+  "/dialoge": {
+    title: `Leser-Dialoge — ${WORK_TITLE}`,
+    description:
+      "Gesicherte Fragen, Antworten und Weiterdenken-Folgen je Begriff, gelesen aus dem öffentlichen Korpus.",
+  },
   "/live": {
     title: `Live — ${WORK_TITLE}`,
     description: "Der lebendige Strom: die jüngsten Resonanzen des Werks in Echtzeit.",
@@ -178,6 +183,7 @@ function routeMeta(path: string): Meta {
   // Ohne dieses Präfix fiele jede Kapiteladresse auf die Startseite zurück.
   if (base.startsWith("/werk/")) return ROUTE_META["/werk"];
   if (base === "/lesepfade" || base.startsWith("/lesepfade/")) return ROUTE_META["/lesepfade"];
+  if (base === "/dialoge" || base.startsWith("/dialoge/")) return ROUTE_META["/dialoge"];
   return ROUTE_META["/"];
 }
 

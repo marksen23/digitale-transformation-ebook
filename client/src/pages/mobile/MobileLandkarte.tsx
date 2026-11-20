@@ -424,6 +424,16 @@ export default function MobileLandkarte({
               >Im Begriffsnetz öffnen</button>
               <button
                 type="button"
+                onClick={() => navigate(`/dialoge/${encodeURIComponent(sheetNode.id)}`)}
+                style={{
+                  flex: 1, minHeight: 48, background: "transparent",
+                  border: `1px solid ${C.accentText}`, borderRadius: 6,
+                  color: C.accentText, fontFamily: MONO, fontSize: 10,
+                  letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer",
+                }}
+              >Dialoge</button>
+              <button
+                type="button"
                 onClick={() => setSelected(null)}
                 style={{
                   minHeight: 48, padding: "0 16px",

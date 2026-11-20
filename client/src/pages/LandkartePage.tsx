@@ -224,6 +224,14 @@ export default function LandkartePage() {
           >
             Zeitraffer
           </button>
+          {" · "}
+          <button
+            type="button"
+            onClick={() => navigate("/dialoge")}
+            style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText, background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          >
+            Dialoge
+          </button>
         </p>
       </header>
 
@@ -336,6 +344,7 @@ export default function LandkartePage() {
               <h2 style={{ margin: "0.3rem 0 0.2rem", fontFamily: SERIF, fontSize: "1.25rem", color: C.textBright }}>{selNode.fullLabel}</h2>
               <p style={{ margin: 0, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim, lineHeight: 1.5 }}>{selNode.description}</p>
               <button onClick={() => navigate(`/begriffsnetz?node=${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>im Begriffsnetz öffnen →</button>
+              <button onClick={() => navigate(`/dialoge/${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>Leser-Dialoge →</button>
 
               {selectedEmerging.length > 0 && (
                 <div style={{ marginTop: "1rem" }}>
