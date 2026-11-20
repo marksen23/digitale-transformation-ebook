@@ -79,12 +79,15 @@ export function applyAnswerOverrides(opts: {
   rule: AnswerOverrideRule | undefined;
   entriesById: Map<string, AnswerOverrideEntry>;
   scoreOf?: (id: string) => number | null;
+  /** Eintrag trägt die Frage selbst (Quelle, Dublette, eigener Master) → nie Antwort. */
+  isSelf?: (id: string) => boolean;
   cap?: number;
 }): { answeredBy: AnswerRef[]; warnings: string[] } {
   const cap = opts.cap ?? DEFAULT_CAP;
   const warnings: string[] = [];
   const rule = opts.rule;
-  const cosineKept = opts.cosine.filter(a => !isExcluded(a.id, rule));
+  const isSelf = opts.isSelf ?? (() => false);
+  const cosineKept = opts.cosine.filter(a => !isExcluded(a.id, rule) && !isSelf(a.id));
 
   if (!rule) {
     return {
@@ -98,6 +101,10 @@ export function applyAnswerOverrides(opts: {
   const seen = new Set<string>();
   for (const id of rule.pin ?? []) {
     if (!id || seen.has(id) || id === opts.sourceId) continue;
+    if (isSelf(id)) {
+      warnings.push(`pin ${id} für ${opts.sourceId} trägt dieselbe Frage (Dublette oder eigener Master)`);
+      continue;
+    }
     if (isExcluded(id, rule)) {
       warnings.push(`pin ${id} für ${opts.sourceId} ist ausgeschlossen`);
       continue;
@@ -125,4 +132,140 @@ export function applyAnswerOverrides(opts: {
     .map(a => ({ id: a.id, score: a.score }));
   const limit = Math.max(cap, pins.length);
   return { answeredBy: [...pins, ...rest].slice(0, limit), warnings };
+}
+
+// ─── Fragen-Extraktion: Scheinfragen vermeiden ────────────────────────────
+//
+// Zwei Quellen erzeugten offene Fragen, die keine eigenständigen Fragen sind:
+//   1. Schlussfragen aus `rejected`-Einträgen. Der Eintrag ist kuratorisch
+//      verworfen, seine Frage gehört nicht in die Fragenansicht.
+//   2. Master-Synthesen (`is_master`, `master_of`), die die Schlussfrage einer
+//      ihrer Varianten (fast) wortgleich übernehmen. Die Frage erschien dann
+//      doppelt (Variante beantwortet, Master offen), und der Cosine-Abgleich
+//      buchte den Master als „Antwort“ auf die eigene Variante.
+// Die Logik liegt hier (ohne IO), damit sie ohne Build testbar ist.
+
+export interface QuestionSourceEntry {
+  id: string;
+  ts: string;
+  status?: string;
+  endpoint: string;
+  anchor?: string;
+  nodeIds?: string[];
+  is_master?: boolean;
+  master_of?: string[];
+}
+
+export interface CollectedQuestion {
+  sourceId: string;
+  question: string;
+  endpoint: string;
+  anchor: string;
+  nodeIds: string[];
+  ts: string;
+  /** Weitere Einträge mit derselben Frage (normalisiert gleich oder gefaltete Master). */
+  dupIds: string[];
+}
+
+export const normalizeQuestion = (s: string): string => s.toLowerCase().replace(/\s+/g, " ").trim();
+
+/**
+ * Extrahiert die Schlussfragen. Überspringt `rejected`-Quellen und faltet
+ * normalisiert identische Fragen auf die älteste Quelle.
+ */
+export function collectQuestions<E extends QuestionSourceEntry>(
+  entries: E[],
+  extract: (e: E) => string,
+  minLength = 12,
+): { questions: CollectedQuestion[]; skippedRejected: number } {
+  const byNorm = new Map<string, CollectedQuestion>();
+  let skippedRejected = 0;
+  for (const e of [...entries].sort((a, b) => a.ts.localeCompare(b.ts))) {
+    const q = extract(e);
+    if (q.length < minLength) continue;
+    if (e.status === "rejected") { skippedRejected++; continue; }
+    const k = normalizeQuestion(q);
+    const ex = byNorm.get(k);
+    if (ex) ex.dupIds.push(e.id);
+    else byNorm.set(k, {
+      sourceId: e.id, question: q, endpoint: e.endpoint, anchor: e.anchor ?? "",
+      nodeIds: e.nodeIds ?? [], ts: e.ts, dupIds: [],
+    });
+  }
+  return { questions: [...byNorm.values()], skippedRejected };
+}
+
+/** Wort-Dice (Tokens ≥ 3 Buchstaben, kleingeschrieben) zwischen zwei Fragen, 0–1. */
+export function questionTextSimilarity(a: string, b: string): number {
+  const tok = (s: string) => new Set(s.toLowerCase().match(/[a-zäöüß]{3,}/g) ?? []);
+  const A = tok(a), B = tok(b);
+  if (A.size === 0 || B.size === 0) return 0;
+  let inter = 0;
+  A.forEach(t => { if (B.has(t)) inter++; });
+  return (2 * inter) / (A.size + B.size);
+}
+
+export const MASTER_QUESTION_TEXT_SIM = 0.6;
+export const MASTER_QUESTION_COSINE_SIM = 0.92;
+
+/**
+ * Faltet die Frage eines Masters auf die Frage einer seiner Varianten, wenn
+ * sie dieselbe Frage ist: Wort-Dice ≥ textSim ODER Cosine ≥ cosineSim
+ * (Cosine nur, wenn beide Vektoren vorliegen). Die Variante bleibt Quelle
+ * (älter, trägt die Kuratierung), der Master wandert in ihre dupIds.
+ * Mehrere passende Varianten: die ähnlichste gewinnt.
+ */
+export function foldMasterQuestions(
+  questions: CollectedQuestion[],
+  entriesById: Map<string, QuestionSourceEntry>,
+  opts: { cosine?: (a: string, b: string) => number | null; textSim?: number; cosineSim?: number } = {},
+): { questions: CollectedQuestion[]; folded: Array<{ masterId: string; intoId: string }> } {
+  const textSim = opts.textSim ?? MASTER_QUESTION_TEXT_SIM;
+  const cosineSim = opts.cosineSim ?? MASTER_QUESTION_COSINE_SIM;
+  // Jede Eintrags-ID → die Frage, unter der sie geführt wird.
+  const byMember = new Map<string, CollectedQuestion>();
+  for (const q of questions) {
+    byMember.set(q.sourceId, q);
+    for (const d of q.dupIds) byMember.set(d, q);
+  }
+  const removed = new Set<CollectedQuestion>();
+  const folded: Array<{ masterId: string; intoId: string }> = [];
+  for (const q of questions) {
+    const master = entriesById.get(q.sourceId);
+    if (!master?.is_master || !master.master_of?.length) continue;
+    let best: { target: CollectedQuestion; score: number } | null = null;
+    for (const vid of master.master_of) {
+      const target = byMember.get(vid);
+      if (!target || target === q || removed.has(target)) continue;
+      const t = questionTextSimilarity(q.question, target.question);
+      const c = opts.cosine?.(q.question, target.question) ?? null;
+      const same = t >= textSim || (typeof c === "number" && c >= cosineSim);
+      if (!same) continue;
+      const score = Math.max(t, c ?? 0);
+      if (!best || score > best.score) best = { target, score };
+    }
+    if (!best) continue;
+    best.target.dupIds.push(q.sourceId, ...q.dupIds);
+    removed.add(q);
+    folded.push({ masterId: q.sourceId, intoId: best.target.sourceId });
+  }
+  return { questions: questions.filter(q => !removed.has(q)), folded };
+}
+
+/**
+ * true, wenn `candidate` die Frage `q` nicht beantworten darf: der Eintrag
+ * trägt die Frage selbst (Quelle oder Dublette), oder er ist ein Master, der
+ * die Quelle oder eine Dublette der Frage als Variante synthetisiert.
+ */
+export function isSelfAnswer(
+  q: { sourceId: string; dupIds: string[] },
+  candidate: { id: string; is_master?: boolean; master_of?: string[] } | undefined,
+): boolean {
+  if (!candidate) return false;
+  if (candidate.id === q.sourceId || q.dupIds.includes(candidate.id)) return true;
+  if (candidate.is_master && candidate.master_of?.length) {
+    const own = new Set([q.sourceId, ...q.dupIds]);
+    return candidate.master_of.some(v => own.has(v));
+  }
+  return false;
 }

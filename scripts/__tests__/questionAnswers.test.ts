@@ -1,7 +1,11 @@
 import { describe, it, expect } from "vitest";
 import fs from "node:fs";
 import path from "node:path";
-import { applyAnswerOverrides, loadAnswerOverrides, type AnswerOverrideEntry } from "../lib/questionAnswers.js";
+import {
+  applyAnswerOverrides, loadAnswerOverrides, type AnswerOverrideEntry,
+  collectQuestions, foldMasterQuestions, isSelfAnswer, questionTextSimilarity,
+  type QuestionSourceEntry,
+} from "../lib/questionAnswers.js";
 import { parseFrontmatter, extractFrageAntwort } from "../lib/frontmatter.js";
 import { contentHashFor } from "../lib/resonanzen-utils.js";
 
@@ -187,5 +191,111 @@ describe("question-answer-overrides.json und neue Resonanzen", () => {
     expect(pause).toContain("MUY7RXCI-D36BB4D6");
     const echtheit = fs.readFileSync(byId.get("MUY7RXCI-C4CF7B92")!, "utf8");
     expect(echtheit).toContain("MUY7RXCI-012FC8A7");
+  });
+});
+
+// ─── Scheinfragen: rejected-Quellen und Master-Dubletten ──────────────────
+// Echte Fragetexte aus dem Korpus (Stand 2026-11-20).
+const Q_PAUSE_VARIANT = "Was würde sich an einer Antwort ändern, wenn sie nicht nur die Wörter, sondern die Pause hörte, aus der sie gesprochen wurden?";
+const Q_PAUSE_MASTER = "Was würde sich an einer Antwort ändern, wenn sie nicht nur die Wörter hörte, sondern die Pause, aus der sie gesprochen wurden?";
+const Q_SCHOCK_VARIANT = "Wie lässt sich das Erschrecken der Einsicht als konstitutiver Teil einer Resonanzvernunft verstehen, die sich dem kontinuierlichen Fluss der Verwandlung verschreibt?";
+const Q_SCHOCK_MASTER = "Unter welchen Bedingungen gerinnt der Schock der Einsicht nicht zur Erstarrung, sondern wird zum Quellpunkt einer neu gefalteten Weltbeziehung?";
+
+type E = QuestionSourceEntry & { q: string };
+const ent = (id: string, ts: string, q: string, extra: Partial<E> = {}): E =>
+  ({ id, ts, q, endpoint: "chapter", anchor: "chapter:x", nodeIds: [], status: "raw", ...extra });
+
+describe("collectQuestions", () => {
+  it("überspringt Schlussfragen aus rejected-Einträgen", () => {
+    const { questions, skippedRejected } = collectQuestions([
+      ent("REJ", "2026-05-01", "Wie unterscheidet sich eine Wiederholung von einer, die die Stille mitträgt?", { status: "rejected" }),
+      ent("OK", "2026-05-02", "Was bleibt vom Selbst, wenn die Maschine zu antworten beginnt?"),
+    ], e => e.q);
+    expect(questions.map(q => q.sourceId)).toEqual(["OK"]);
+    expect(skippedRejected).toBe(1);
+  });
+
+  it("macht bei gleicher Frage den ältesten NICHT-abgelehnten Eintrag zur Quelle", () => {
+    const { questions } = collectQuestions([
+      ent("REJ", "2026-05-01", "Gleiche Frage nach der Stille?", { status: "rejected" }),
+      ent("B", "2026-05-03", "gleiche  frage nach der Stille?"),
+      ent("A", "2026-05-02", "Gleiche Frage nach der Stille?"),
+    ], e => e.q);
+    expect(questions).toHaveLength(1);
+    expect(questions[0].sourceId).toBe("A");
+    expect(questions[0].dupIds).toEqual(["B"]);
+  });
+});
+
+describe("foldMasterQuestions", () => {
+  const variant = ent("MPUFECMA-7E85D8E2", "2026-05-31", Q_PAUSE_VARIANT, { status: "published" });
+  const master = ent("MASTER-63686170", "2026-11-06", Q_PAUSE_MASTER, {
+    status: "published", is_master: true, master_of: ["MPUFECMA-7E85D8E2", "MPUFFZZO-69A41658"],
+  });
+  const schockVariant = ent("MQ5WUD1G-0976C016", "2026-06-09", Q_SCHOCK_VARIANT, { status: "published" });
+  const schockMaster = ent("MASTER-31CE5C0B", "2026-11-06", Q_SCHOCK_MASTER, {
+    status: "published", is_master: true, master_of: ["MQ5WUD1G-0976C016"],
+  });
+  const all = [variant, master, schockVariant, schockMaster];
+  const byId = new Map<string, QuestionSourceEntry>(all.map(e => [e.id, e]));
+
+  it("faltet eine Master-Frage, die die Variante wortgleich übernimmt, auf die Variante", () => {
+    expect(questionTextSimilarity(Q_PAUSE_MASTER, Q_PAUSE_VARIANT)).toBeGreaterThan(0.9);
+    const { questions } = collectQuestions(all, e => e.q);
+    const { questions: out, folded } = foldMasterQuestions(questions, byId);
+    expect(folded).toEqual([{ masterId: "MASTER-63686170", intoId: "MPUFECMA-7E85D8E2" }]);
+    expect(out.map(q => q.sourceId)).not.toContain("MASTER-63686170");
+    expect(out.find(q => q.sourceId === "MPUFECMA-7E85D8E2")!.dupIds).toContain("MASTER-63686170");
+  });
+
+  it("lässt thematisch nahe, aber eigenständige Master-Fragen stehen", () => {
+    const { questions } = collectQuestions(all, e => e.q);
+    const { questions: out } = foldMasterQuestions(questions, byId);
+    expect(out.map(q => q.sourceId)).toContain("MASTER-31CE5C0B");
+  });
+
+  it("nutzt Cosine als zweites Signal, aber nur oberhalb der strengen Schwelle", () => {
+    const { questions } = collectQuestions([schockVariant, schockMaster], e => e.q);
+    const high = foldMasterQuestions(questions.map(q => ({ ...q, dupIds: [...q.dupIds] })), byId, { cosine: () => 0.95 });
+    expect(high.folded).toHaveLength(1);
+    const mid = foldMasterQuestions(questions.map(q => ({ ...q, dupIds: [...q.dupIds] })), byId, { cosine: () => 0.8 });
+    expect(mid.folded).toHaveLength(0);
+  });
+
+  it("faltet nicht auf Varianten außerhalb von master_of", () => {
+    const stranger = ent("OTHER", "2026-05-01", Q_PAUSE_VARIANT.replace("Antwort", "Rückfrage"));
+    const lone = ent("MASTER-X", "2026-11-06", Q_PAUSE_MASTER, { is_master: true, master_of: ["NOPE"] });
+    const m = new Map<string, QuestionSourceEntry>([[stranger.id, stranger], [lone.id, lone]]);
+    const { questions } = collectQuestions([stranger, lone], e => e.q);
+    expect(foldMasterQuestions(questions, m).folded).toEqual([]);
+  });
+});
+
+describe("isSelfAnswer", () => {
+  const q = { sourceId: "MV9NMWL2-5669B857", dupIds: ["DUP"] };
+  it("verbietet den eigenen Master als Antwort auf seine Variante", () => {
+    expect(isSelfAnswer(q, { id: "MASTER-53BE22D7", is_master: true, master_of: ["MTNB6SUG-2922AE66", "MV9NMWL2-5669B857"] })).toBe(true);
+  });
+  it("verbietet Einträge, die dieselbe Frage tragen", () => {
+    expect(isSelfAnswer(q, { id: "DUP" })).toBe(true);
+    expect(isSelfAnswer(q, { id: "MV9NMWL2-5669B857" })).toBe(true);
+  });
+  it("erlaubt fremde Master und gewöhnliche Antworten", () => {
+    expect(isSelfAnswer(q, { id: "MASTER-OTHER", is_master: true, master_of: ["ZZZ"] })).toBe(false);
+    expect(isSelfAnswer(q, { id: "MWP7PHLX-B52303F9" })).toBe(false);
+  });
+  it("filtert eigene Master aus Cosine-Treffern und Pins in applyAnswerOverrides", () => {
+    const corpus = entries([["MASTER-53BE22D7", "published"], ["MWP7PHLX-B52303F9", "raw"]]);
+    const isSelf = (id: string) => id === "MASTER-53BE22D7";
+    const viaCosine = applyAnswerOverrides({
+      sourceId: q.sourceId, cosine: [{ id: "MASTER-53BE22D7", score: 0.99 }], rule: undefined, entriesById: corpus, isSelf,
+    });
+    expect(viaCosine.answeredBy).toEqual([]);
+    const viaPin = applyAnswerOverrides({
+      sourceId: q.sourceId, cosine: [], entriesById: corpus, isSelf,
+      rule: { sourceId: q.sourceId, pin: ["MASTER-53BE22D7", "MWP7PHLX-B52303F9"] },
+    });
+    expect(viaPin.answeredBy.map(a => a.id)).toEqual(["MWP7PHLX-B52303F9"]);
+    expect(viaPin.warnings.join(" ")).toMatch(/dieselbe Frage/);
   });
 });
