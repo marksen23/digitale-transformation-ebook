@@ -1,8 +1,8 @@
 {
   "date": "2026-11-20",
-  "generatedAt": "2026-11-20T18:07:19.761Z",
-  "commit": "1b55c3483de52756c90d69f7b7856f3e25255c5a",
-  "triggeredBy": "1b55c3483de52756c90d69f7b7856f3e25255c5a",
+  "generatedAt": "2026-11-20T18:18:49.177Z",
+  "commit": "fe005847b6b94fd26de8bb20f3153ee3b8237169",
+  "triggeredBy": "fe005847b6b94fd26de8bb20f3153ee3b8237169",
   "filesChecked": 488,
   "aggregates": {
     "byEndpoint": {
@@ -41,6 +41,6 @@
     "redundantDuplicates": 2
   },
   "errors": 0,
-  "warnings": 81,
+  "warnings": 73,
   "recovery": false
 }

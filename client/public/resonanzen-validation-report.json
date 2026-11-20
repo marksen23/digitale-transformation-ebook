@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T18:07:02.807Z",
+  "generatedAt": "2026-11-20T18:18:31.828Z",
   "filesChecked": 488,
   "errors": 0,
-  "warnings": 81,
+  "warnings": 73,
   "issues": [
     {
       "level": "warning",
@@ -411,54 +411,6 @@
       "file": "content/resonanzen/raw/enkidu/2026-04-27-MOHBFIBQ-A6678A87.md",
       "rule": "content-hash-mismatch",
       "detail": "expected e48a72c68ccd4265, computed 0271ad49cdc26452 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMLW8I0-8852B480.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected 49624a3d4a12c003, computed 406c99c051df5c76 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMLZAEP-35849C9E.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected 668643cb68e466dd, computed c45939221d8ad652 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMM2YAK-A7491D44.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected 2f52bc790f5fb803, computed 3fb317d12e83d5c3 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-05-26-MPMM5NAF-D744437C.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected 598f6b5c1389d53b, computed e1c35e2c8c214a39 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDCKR2Q-05DCEB69.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected 4f4e72e0d8264a0c, computed 20897c5a7d552a07 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDD82FW-BAE0F4B4.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected 6c2f62bc8804d19f, computed 80c24094dbd70c27 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDDG179-491119D2.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected d1f02ede6af5a578, computed 98313add4665b5b4 — Tampering oder nachträgliche Edit?"
-    },
-    {
-      "level": "warning",
-      "file": "content/resonanzen/raw/enkidu/2026-08-28-MTDDMUMA-CCA9033A.md",
-      "rule": "content-hash-mismatch",
-      "detail": "expected 927e1ed4ba2eaf65, computed 671d7ed91a8df935 — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
