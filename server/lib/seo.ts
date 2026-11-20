@@ -104,6 +104,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Begriffsnetz × Korpus: die Landkarte des wachsenden Werks — Begriffe, Korpus-Gravitation und werdende Verbindungen.",
   },
+  "/lesepfade": {
+    title: `Geführte Lesepfade — ${WORK_TITLE}`,
+    description:
+      "Drei kuratierte Wege durch das Begriffsnetz: Stationen mit Frage und Stimmen aus dem veröffentlichten Korpus.",
+  },
   "/live": {
     title: `Live — ${WORK_TITLE}`,
     description: "Der lebendige Strom: die jüngsten Resonanzen des Werks in Echtzeit.",
@@ -167,6 +172,7 @@ function routeMeta(path: string): Meta {
   // Kapitel-URLs (/werk/:id) teilen Titel und Beschreibung des Lesetexts.
   // Ohne dieses Präfix fiele jede Kapiteladresse auf die Startseite zurück.
   if (base.startsWith("/werk/")) return ROUTE_META["/werk"];
+  if (base === "/lesepfade" || base.startsWith("/lesepfade/")) return ROUTE_META["/lesepfade"];
   return ROUTE_META["/"];
 }
 
