@@ -2,8 +2,9 @@
  * /api/admin/* — Auth, Kuration, Begriffsnetz, Erkenntnisse, Synthese, Hosting.
  * Aus server/index.ts unverändert herausgelöst.
  */
-import { createHash, timingSafeEqual } from "crypto";
+import { createHash } from "crypto";
 import express, { Router } from "express";
+import { isAdminRequest } from "../lib/adminToken.js";
 import { CANVAS_H, CANVAS_W } from "../../client/src/data/conceptGraph.js";
 import { getAdminActionLog, getAdminActionLogStats, recordAdminAction } from "../lib/adminActionLog.js";
 import {
@@ -32,16 +33,7 @@ export function createAdminRouter(): Router {
   // Phase 1: Read-Only Auth-Check für Dashboard-Zugang.
   // Phase 2 später: curate, delete (mit Schreib-Operationen via GitHub-API).
   function checkAdminToken(req: express.Request): boolean {
-    const expected = process.env.ADMIN_TOKEN;
-    if (!expected) return false; // Wenn nicht gesetzt: Admin-Zugang deaktiviert
-    const auth = req.headers.authorization ?? "";
-    const m = auth.match(/^Bearer\s+(.+)$/);
-    if (m === null) return false;
-    // Konstant-zeitiger Vergleich (kein ===): via SHA-256-Digest beider Seiten
-    // sind die Puffer gleich lang → timingSafeEqual ohne Längen-Leak.
-    const a = createHash("sha256").update(m[1]).digest();
-    const b = createHash("sha256").update(expected).digest();
-    return timingSafeEqual(a, b);
+    return isAdminRequest(req);
   }
 
   router.post("/api/admin/check", async (req, res) => {

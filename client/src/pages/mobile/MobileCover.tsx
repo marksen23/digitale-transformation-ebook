@@ -14,6 +14,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF_BODY } from "@/lib/theme";
 import type { EbookFile } from "@/lib/werkChunks";
 import DailyInsight from "@/components/DailyInsight";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
@@ -41,12 +42,14 @@ export default function MobileCover() {
 
   return (
     <div style={{
-      position: "fixed", inset: 0, display: "flex", flexDirection: "column",
-      alignItems: "center", justifyContent: "center", padding: "20px 18px",
-      background: coverBg,
+      position: "fixed", inset: 0, overflowY: "auto", background: coverBg,
       paddingTop: "calc(20px + env(safe-area-inset-top, 0px))",
       paddingBottom: "calc(20px + env(safe-area-inset-bottom, 0px))",
     }}>
+      <div style={{
+        minHeight: "100%", display: "flex", alignItems: "center", justifyContent: "center",
+        padding: "20px 18px", boxSizing: "border-box",
+      }}>
       <div style={{
         width: "100%", maxWidth: 340, background: "rgba(255,255,255,0.05)",
         border: "1px solid rgba(255,255,255,0.10)", borderRadius: 18,
@@ -90,6 +93,8 @@ export default function MobileCover() {
           >Inhalt</button>
         </div>
         <DailyInsight compact />
+        <NewsletterSignup tone="cover" compact />
+      </div>
       </div>
       <div style={{ fontFamily: MONO, fontSize: 8.5, color: "#44403c", textAlign: "center", marginTop: 14, letterSpacing: "0.06em" }}>
         {ebook?.meta.copyright ?? "© 2026 Markus Oehring · Alle Rechte vorbehalten"}

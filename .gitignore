@@ -127,3 +127,6 @@ eval/rag-results-2*.json
 
 # Lokale Kuratierungs-Liste (generiert, nicht committen)
 curation-worklist.md
+
+# Newsletter-Adressen (personenbezogen, nie ins Repo)
+data/newsletter/

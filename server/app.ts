@@ -24,6 +24,7 @@ import { createEmbedRouter } from "./routes/embed.js";
 import { createEnkiduRouter } from "./routes/enkidu.js";
 import { createHealthRouter } from "./routes/health.js";
 import { createPassageRouter } from "./routes/passage.js";
+import { createNewsletterRouter } from "./routes/newsletter.js";
 import { createPdfRouter } from "./routes/pdf.js";
 import { createSeoRouter } from "./routes/seo.js";
 import { createTranslateRouter } from "./routes/translate.js";
@@ -96,6 +97,7 @@ export function createApp(serverDir: string): { app: Express; server: Server } {
   app.use(createDialogRouter());
   app.use(createPassageRouter());
   app.use(createAdminRouter());
+  app.use(createNewsletterRouter());
   app.use(createEmbedRouter());
   app.use(createPdfRouter(staticPath));
   // Kapiteltext und Ähnlichkeitssuche: kleine Antworten, Vektoren bleiben hier.

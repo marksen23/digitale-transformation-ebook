@@ -70,3 +70,26 @@ services:
       # Render-Dashboard manuell hinterlegen (sync: false).
       - key: GITHUB_TOKEN
         sync: false
+      # Newsletter „Erkenntnis des Tages". Ohne Provider (oder ohne Key/Absender)
+      # wird nichts gesendet — Anmeldungen bleiben pending, der Server loggt nur.
+      # Empfehlung: brevo (EU, Free-Tier). Werte nur im Dashboard, nie im Repo.
+      # NEWSLETTER_STORE_PATH auf eine Persistent Disk legen, sonst ist die
+      # Liste nach einem Redeploy weg. Siehe README, Abschnitt Newsletter.
+      - key: NEWSLETTER_PROVIDER
+        sync: false
+      - key: NEWSLETTER_API_KEY
+        sync: false
+      - key: NEWSLETTER_FROM
+        sync: false
+      - key: NEWSLETTER_SMTP_HOST
+        sync: false
+      - key: NEWSLETTER_SMTP_PORT
+        sync: false
+      - key: NEWSLETTER_SMTP_USER
+        sync: false
+      - key: NEWSLETTER_SMTP_PASS
+        sync: false
+      - key: NEWSLETTER_STORE_PATH
+        sync: false
+      - key: NEWSLETTER_SCHEDULE
+        value: "0"
