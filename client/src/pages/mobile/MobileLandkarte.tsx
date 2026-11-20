@@ -112,6 +112,13 @@ export default function MobileLandkarte({
         <span style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.28em", textTransform: "uppercase", color: C.accentText }}>
           WISSENS-LANDKARTE
         </span>
+        <button
+          type="button"
+          onClick={() => navigate("/lesepfade")}
+          style={{ minHeight: 44, background: "none", border: "none", color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.12em", textTransform: "uppercase", cursor: "pointer", padding: "0 4px" }}
+        >
+          Pfade
+        </button>
         <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
           <span style={{ fontFamily: MONO, fontSize: 9, color: C.muted }}>{Math.round(canvas.zoom * 100)}%</span>
           <button

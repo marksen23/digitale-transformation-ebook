@@ -208,7 +208,14 @@ export default function LandkartePage() {
           Das Begriffsnetz als Rückgrat — der Korpus lagert sich an. Jeder Begriff wächst mit den
           Erkenntnissen, die ihn berühren. <strong>Gestrichelte</strong> Linien sind <em>werdende
           Verbindungen</em>: Begriffe, die Erkenntnisse gemeinsam berühren, aber noch keine
-          kanonische Kante des Netzes sind — Entdeckung, bevor sie in den Kanon erhoben wird.
+          kanonische Kante des Netzes sind — Entdeckung, bevor sie in den Kanon erhoben wird.{" "}
+          <button
+            type="button"
+            onClick={() => navigate("/lesepfade")}
+            style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText, background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          >
+            Geführte Lesepfade
+          </button>
         </p>
       </header>
 
