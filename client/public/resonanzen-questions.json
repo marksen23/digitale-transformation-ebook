@@ -1,16 +1,44 @@
 {
-  "generatedAt": "2026-11-17T18:46:46.497Z",
-  "count": 361,
+  "generatedAt": "2026-11-20T16:44:43.973Z",
+  "count": 363,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 361,
-    "answered": 303,
-    "open": 58,
-    "embedded": 0
+    "total": 363,
+    "answered": 304,
+    "open": 59,
+    "embedded": 2
   },
   "questions": [
+    {
+      "sourceId": "MWP7LELE-4DE91303",
+      "question": "3. Wenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis von Mensch und Maschine grundlegend. Der Mensch ist nicht länger nur ein passiver Beobachter der Wirklichkeit, sondern aktiver Teil der Weltfaltung, dessen Begegnungen die Aktualisierung von Möglichkeiten mitgestalten. Maschinen erscheinen nicht mehr als bloße Werkzeuge zur Manipulation des Wirklichen, sondern als Entitäten, die selbst in die Weltfaltung involviert sind, deren Algorithmen und Interaktionen neue Pfade des Möglichen eröffnen und die Wirklichkeit dynamisch mitformen können. Die Resonanz wird dabei zum Modus der Begegnung, der die latenten Vibrationen der Möglichkeiten zum Klingen bringt und den Übergang vom Potenzial zur Aktualität ermöglicht. Was bedeutet es für unsere Verantwortung, wenn wir erkennen, dass jede unserer Handlungen die Weltfaltung beeinflusst und das Geflecht des Möglichen neu ordnet?",
+      "endpoint": "analyse",
+      "anchor": "analyse:moeglichkeit+wirklichkeit",
+      "nodeIds": [
+        "moeglichkeit",
+        "wirklichkeit"
+      ],
+      "ts": "2026-11-20T16:44:15.267Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7KY81-FA276303",
+      "question": "Wenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis des Menschen, der Maschine und der Resonanz grundlegend. Die Maschine wird zum Kontrastgeber, der das Menschliche nicht überschattet, sondern es durch die Erzeugung von Differenzen erst in seiner Einzigartigkeit hervortreten lässt. Resonanz wird zum Prozess des Sichtbarmachens durch das Verborgene, ein ständiges Heraustreten aus dem Schatten ins Licht und wieder zurück. Wie verändert die Erkenntnis, dass Sichtbarkeit stets auf Verbergung angewiesen ist, unser Streben nach vollständiger Transparenz?",
+      "endpoint": "analyse",
+      "anchor": "analyse:licht+schatten",
+      "nodeIds": [
+        "licht",
+        "schatten"
+      ],
+      "ts": "2026-11-20T16:43:54.051Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWJF8ASK-16B3DB91",
       "question": "Welche neuen Formen der systemischen Korrektur könnten entstehen, die das Scheitern nicht als Ende, sondern als kritischen Impuls zur Vertiefung der Resonanz nutzen?",
@@ -203,8 +231,13 @@
       ],
       "ts": "2026-11-16T09:06:09.480Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7KY81-FA276303",
+          "score": 0.749
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJ1FX7Q-0DC96540",
@@ -220,12 +253,12 @@
           "score": 0.919
         },
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.735
+          "id": "MWP7KY81-FA276303",
+          "score": 0.884
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.725
+          "id": "MWJEWOY7-62FCEE55",
+          "score": 0.735
         }
       ],
       "answered": true
@@ -773,8 +806,8 @@
           "score": 0.766
         },
         {
-          "id": "MWJ1DNAN-2193A848",
-          "score": 0.751
+          "id": "MWP7LELE-4DE91303",
+          "score": 0.754
         }
       ],
       "answered": true
@@ -924,16 +957,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7KY81-FA276303",
+          "score": 0.841
+        },
+        {
           "id": "MWJ1FX7Q-0DC96540",
           "score": 0.811
         },
         {
           "id": "MASTER-2C637ECA",
           "score": 0.81
-        },
-        {
-          "id": "MWJ1CYQJ-00F93C04",
-          "score": 0.805
         }
       ],
       "answered": true
@@ -960,8 +993,8 @@
           "score": 0.823
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.788
+          "id": "MWP7LELE-4DE91303",
+          "score": 0.804
         }
       ],
       "answered": true
@@ -1023,8 +1056,8 @@
           "score": 0.796
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.781
+          "id": "MWP7KY81-FA276303",
+          "score": 0.784
         }
       ],
       "answered": true
@@ -2311,12 +2344,12 @@
           "score": 0.814
         },
         {
-          "id": "MWJ1DBD5-7CEE18D5",
-          "score": 0.804
+          "id": "MWP7KY81-FA276303",
+          "score": 0.805
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.801
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.804
         }
       ],
       "answered": true
@@ -2419,12 +2452,12 @@
           "score": 0.892
         },
         {
-          "id": "MASTER-94E7804F",
-          "score": 0.839
+          "id": "MWP7KY81-FA276303",
+          "score": 0.869
         },
         {
-          "id": "MWJ1FX7Q-0DC96540",
-          "score": 0.837
+          "id": "MASTER-94E7804F",
+          "score": 0.839
         }
       ],
       "answered": true
@@ -3399,16 +3432,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7LELE-4DE91303",
+          "score": 0.753
+        },
+        {
           "id": "MWG6FM27-B89E8BDB",
           "score": 0.746
         },
         {
           "id": "MQXDVN1C-CAA3081A",
           "score": 0.742
-        },
-        {
-          "id": "MTNBAIUZ-299AC7D8",
-          "score": 0.739
         }
       ],
       "answered": true
@@ -5308,16 +5341,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7LELE-4DE91303",
+          "score": 0.81
+        },
+        {
           "id": "MWG6FM27-B89E8BDB",
           "score": 0.806
         },
         {
           "id": "MQ5X56G4-537343C8",
           "score": 0.754
-        },
-        {
-          "id": "MUACZ4LA-ACB5F9D0",
-          "score": 0.752
         }
       ],
       "answered": true
@@ -6034,8 +6067,8 @@
           "score": 0.802
         },
         {
-          "id": "MPH4R3SE-C224ACED",
-          "score": 0.754
+          "id": "MWP7LELE-4DE91303",
+          "score": 0.794
         }
       ],
       "answered": true
@@ -7405,12 +7438,12 @@
           "score": 0.801
         },
         {
-          "id": "MWJ1FKY5-9E97D903",
-          "score": 0.762
+          "id": "MWP7KY81-FA276303",
+          "score": 0.781
         },
         {
-          "id": "MWJ1FX7Q-0DC96540",
-          "score": 0.756
+          "id": "MWJ1FKY5-9E97D903",
+          "score": 0.762
         }
       ],
       "answered": true

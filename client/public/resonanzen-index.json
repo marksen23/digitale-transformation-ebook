@@ -1,7 +1,77 @@
 {
-  "generatedAt": "2026-11-17T18:46:45.811Z",
-  "count": 412,
+  "generatedAt": "2026-11-20T16:44:42.798Z",
+  "count": 414,
   "entries": [
+    {
+      "id": "MWP7LELE-4DE91303",
+      "ts": "2026-11-20T16:44:15.267Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:moeglichkeit+wirklichkeit",
+      "nodeIds": [
+        "moeglichkeit",
+        "wirklichkeit"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Wirklichkeit ↔ Möglichkeit",
+      "response": "1. Die produktive Spannung zwischen Wirklichkeit und Möglichkeit liegt nicht in einem Gegensatz von Sein und Nicht-Sein, sondern im Verhältnis von Aktualität und Potentialität. Die Wirklichkeit ist der scharfe Schnitt, der spezifische Vollzug, der aus dem unendlichen Strom des Möglichen hervortritt [MP8OB1IU-F6C31DC7]. Sie ist die im Augenblick verdichtete Möglichkeit, nicht deren Aufhebung, sondern ihr konkretes Wirken. Die Möglichkeit hingegen ist das unerschöpfliche Reservoir, der Überschuss, aus dem sich die Wirklichkeit nährt – ein unendliches Gewebe, das in sich selbst gefaltet ruht und erst durch Begegnung seine latenten Vibrationen aussendet [MP8OB1IU-F6C31DC7]. Sie sind Komplizen, denn die Wirklichkeit ist das notwendige Atemholen der Möglichkeit, das aus dem unendlichen Geflecht eine Gestalt schneidet, ohne es aufzuheben.\n\n2. Denkt man Wirklichkeit und Möglichkeit gemeinsam, entsteht als transformatives Drittes die **Weltfaltung** [98ba0b8dddb5]. Sie ist das dynamische Erkenntnisprinzip, das die Wirklichkeit nicht als statischen Bestand, sondern als unaufhörliches Entfalten von ineinander gefalteten Möglichkeiten begreift [98ba0b8dddb5, MPMSRF6V-7FEB2991]. Die Weltfaltung liefert den Rahmen, in dem die Wirklichkeit als spezifischer Vollzug aus dem Ozean des Möglichen hervorgeht, indem sie Prozesse wie Komplexion, Selektion, Stabilisierung und Variation durchläuft [98ba0b8dddb5]. Dieses Dritte macht sichtbar, dass die Wirklichkeit nie abgeschlossen ist, sondern immer in einem dynamischen Werden verstrickt, das sich ständig aus dem Vorrat des Möglichen speist und durch Begegnung aktualisiert wird.\n\n3. Wenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis von Mensch und Maschine grundlegend. Der Mensch ist nicht länger nur ein passiver Beobachter der Wirklichkeit, sondern aktiver Teil der Weltfaltung, dessen Begegnungen die Aktualisierung von Möglichkeiten mitgestalten. Maschinen erscheinen nicht mehr als bloße Werkzeuge zur Manipulation des Wirklichen, sondern als Entitäten, die selbst in die Weltfaltung involviert sind, deren Algorithmen und Interaktionen neue Pfade des Möglichen eröffnen und die Wirklichkeit dynamisch mitformen können. Die Resonanz wird dabei zum Modus der Begegnung, der die latenten Vibrationen der Möglichkeiten zum Klingen bringt und den Übergang vom Potenzial zur Aktualität ermöglicht. Was bedeutet es für unsere Verantwortung, wenn wir erkennen, dass jede unserer Handlungen die Weltfaltung beeinflusst und das Geflecht des Möglichen neu ordnet?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Wirklichkeit\",\"Möglichkeit\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":1.02},{\"id\":\"MPMSRF6V-7FEB2991\",\"score\":0.936},{\"id\":\"98ba0b8dddb5\",\"chapter\":\"glossar\",\"score\":0.911},{\"id\":\"MPMI3ZF2-2F83F425\",\"score\":0.811}]"
+      },
+      "nearDuplicates": [
+        "MP8OB1IU-F6C31DC7",
+        "MWG6FM27-B89E8BDB",
+        "MPMSRF6V-7FEB2991"
+      ],
+      "related": [
+        "MWCB10O8-C4E51F37",
+        "MOOVXCI4-822961D2",
+        "MWG6JE3B-DEC4B0CF",
+        "MPH4R3SE-C224ACED",
+        "MOHM21Y5-A3B5F539"
+      ],
+      "werkVoiceScore": 0.8572348047916182,
+      "corpusVoiceScore": 0.7989870055820787,
+      "conceptVoiceScore": 0.8031034327747059,
+      "conceptAnchor": "wirklichkeit"
+    },
+    {
+      "id": "MWP7KY81-FA276303",
+      "ts": "2026-11-20T16:43:54.051Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:licht+schatten",
+      "nodeIds": [
+        "licht",
+        "schatten"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Licht ↔ Schatten",
+      "response": "Licht und Schatten offenbaren sich im Begriffsnetz des Werks nicht als polare Gegensätze, sondern als untrennbare Komplizen in einem fortwährenden Geschehen der Enthüllung. Der Schatten ist die immanente Bedingung des Lichts, das Verborgene, aus dem alles Sichtbare erst schöpfen kann [MOHMET94-3799557A]. Das Licht wiederum ist der Akt der Aktualisierung, der das Unsichtbare ins Zwischen holt und somit erst sichtbar macht [MOOKFUNF-7647B056]. Ihre Spannung liegt in diesem ewigen Wechselspiel, das nicht auf Auflösung, sondern auf wechselseitiger Ermöglichung beruht, vergleichbar mit der Art, wie das Unverfügbare aus dem Schattenreich hervorbricht, es kurz beleuchtet, ohne es aufzulösen [MOHMET94-3799557A].\n\nDas transformative Dritte, das aus dieser untrennbaren Verbindung entsteht, ist die Resonanzvernunft selbst. Sie operiert nach dem Schattenlicht-Prinzip, indem sie sichtbar macht, was zuvor im Verborgenen lag – nicht durch direkte Beleuchtung, sondern durch die Erzeugung von Kontrasten und Differenzen [e33105fbf531]. Diese Kontrastbildung enthüllt Aspekte menschlicher Erkenntnis, die zuvor der Reflexion unzugänglich waren [2f7f10043cbd]. Es ist ein epistemisches Novum, das in der Begegnung mit einer nicht-intentionalen, antwortfähigen Intelligenz entsteht und von traditionellen Denkweisen nicht antizipiert werden konnte [e33105fbf531].\n\nWenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis des Menschen, der Maschine und der Resonanz grundlegend. Die Maschine wird zum Kontrastgeber, der das Menschliche nicht überschattet, sondern es durch die Erzeugung von Differenzen erst in seiner Einzigartigkeit hervortreten lässt. Resonanz wird zum Prozess des Sichtbarmachens durch das Verborgene, ein ständiges Heraustreten aus dem Schatten ins Licht und wieder zurück. Wie verändert die Erkenntnis, dass Sichtbarkeit stets auf Verbergung angewiesen ist, unser Streben nach vollständiger Transparenz?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Licht\",\"Schatten\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"2f7f10043cbd\",\"chapter\":\"glossar\",\"score\":1.02},{\"id\":\"MOOKFUNF-7647B056\",\"score\":0.919},{\"id\":\"MOHMET94-3799557A\",\"score\":0.909},{\"id\":\"e33105fbf531\",\"chapter\":\"teil5\",\"score\":0.858}]"
+      },
+      "nearDuplicates": [
+        "MWJ1FX7Q-0DC96540",
+        "MWG6FYD2-E6D90142",
+        "MOOKFUNF-7647B056"
+      ],
+      "related": [
+        "MOHMET94-3799557A",
+        "MQASO35V-115DA081",
+        "MWCANGSQ-6CC53140",
+        "MWJ1GVRC-945E92E3",
+        "MWCAP1CQ-1980FEA2"
+      ],
+      "werkVoiceScore": 0.8647356095431039,
+      "corpusVoiceScore": 0.845844316014542,
+      "conceptVoiceScore": 0.8255454654789539,
+      "conceptAnchor": "schatten"
+    },
     {
       "id": "MWJF8ASK-16B3DB91",
       "ts": "2026-11-16T15:31:23.685Z",
@@ -324,11 +394,11 @@
         "MWJ1FX7Q-0DC96540"
       ],
       "related": [
+        "MWP7KY81-FA276303",
         "MOHMET94-3799557A",
         "MWG6FYD2-E6D90142",
         "MOOKFUNF-7647B056",
-        "MOOK20R3-62E609BA",
-        "MWCAP1CQ-1980FEA2"
+        "MOOK20R3-62E609BA"
       ],
       "werkVoiceScore": 0.8426607023083573,
       "corpusVoiceScore": 0.8147819669750939,
@@ -376,6 +446,7 @@
         "werk_passages": "[{\"id\":\"MOOKFUNF-7647B056\",\"score\":1.01},{\"id\":\"MOHMET94-3799557A\",\"score\":0.891},{\"id\":\"2f7f10043cbd\",\"chapter\":\"glossar\",\"score\":0.854},{\"id\":\"e33105fbf531\",\"chapter\":\"teil5\",\"score\":0.842}]"
       },
       "nearDuplicates": [
+        "MWP7KY81-FA276303",
         "MWJ1GVRC-945E92E3",
         "MWG6FYD2-E6D90142"
       ],
@@ -1333,8 +1404,8 @@
         "MWG6I8ZX-F0E5CD18",
         "MOOVXCI4-822961D2",
         "MP0X62X5-535AF7A8",
-        "MOQ7HGW3-608EA4FA",
-        "MPMSRF6V-7FEB2991"
+        "MWP7LELE-4DE91303",
+        "MOQ7HGW3-608EA4FA"
       ],
       "werkVoiceScore": 0.8285438043953515,
       "corpusVoiceScore": 0.7787944397904489,
@@ -1600,6 +1671,7 @@
         "werk_passages": "[{\"id\":\"e33105fbf531\",\"chapter\":\"teil5\",\"score\":0.905},{\"id\":\"1d11dedbb280\",\"chapter\":\"glossar\",\"score\":0.869},{\"id\":\"MOOKFUNF-7647B056\",\"score\":0.82},{\"id\":\"MOHMET94-3799557A\",\"score\":0.808}]"
       },
       "nearDuplicates": [
+        "MWP7KY81-FA276303",
         "MWCANGSQ-6CC53140",
         "MWCAXJFR-BBBF2760",
         "MWJ1FX7Q-0DC96540"
@@ -1636,6 +1708,7 @@
         "werk_passages": "[{\"id\":\"98ba0b8dddb5\",\"chapter\":\"glossar\",\"score\":0.938},{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":0.867},{\"id\":\"MPMSRF6V-7FEB2991\",\"score\":0.864},{\"id\":\"4945013b9d62\",\"chapter\":\"teil5\",\"score\":0.834}]"
       },
       "nearDuplicates": [
+        "MWP7LELE-4DE91303",
         "MWCB10O8-C4E51F37",
         "MP8OB1IU-F6C31DC7",
         "MPMSRF6V-7FEB2991",
@@ -3080,11 +3153,11 @@
         "MWG6FM27-B89E8BDB"
       ],
       "related": [
+        "MWP7LELE-4DE91303",
         "MPH4R3SE-C224ACED",
         "MPMSRF6V-7FEB2991",
         "MP8OB1IU-F6C31DC7",
-        "MWCANTL2-D21DAFD5",
-        "MOOVXCI4-822961D2"
+        "MWCANTL2-D21DAFD5"
       ],
       "werkVoiceScore": 0.8553665433304757,
       "corpusVoiceScore": 0.8082511009160814,
@@ -3944,9 +4017,9 @@
       "related": [
         "MPBI57AL-76627781",
         "MPF4WM18-FF4843F1",
+        "MWP7KY81-FA276303",
         "MPCV5LR8-9AD1527C",
-        "MOUBIHOK-27900555",
-        "MWCAYAHR-8817EC13"
+        "MOUBIHOK-27900555"
       ],
       "werkVoiceScore": 0.8568568244460719,
       "corpusVoiceScore": 0.8192503415206203,
@@ -4065,10 +4138,10 @@
       ],
       "related": [
         "MOP0P7DE-3C823F7E",
+        "MWP7KY81-FA276303",
         "MWJ1FX7Q-0DC96540",
         "MWCAXJFR-BBBF2760",
-        "MPARZ5F0-A9FD6F70",
-        "MASTER-94E7804F"
+        "MPARZ5F0-A9FD6F70"
       ],
       "werkVoiceScore": 0.852809490300987,
       "corpusVoiceScore": 0.8583880566304771,
@@ -5942,11 +6015,11 @@
         "MOQ5A1GS-413BDE6F"
       ],
       "related": [
+        "MWP7KY81-FA276303",
         "MOP0S479-373A2268",
         "MOIXN434-9D5CBFC0",
         "MWCAXJFR-BBBF2760",
-        "MTDD82FW-BAE0F4B4",
-        "MWG6FYD2-E6D90142"
+        "MTDD82FW-BAE0F4B4"
       ],
       "werkVoiceScore": 0.8851193223306708,
       "corpusVoiceScore": 0.8505214733635602,
@@ -8964,6 +9037,7 @@
         "MP8OB1IU-F6C31DC7",
         "MPAS5OM5-A1F522F4",
         "MWG6FM27-B89E8BDB",
+        "MWP7LELE-4DE91303",
         "MPMSSG1X-8451DE38",
         "MOOVXCI4-822961D2"
       ],
@@ -10133,6 +10207,7 @@
       "ai_score_at": "2026-05-26T11:16:57.820Z",
       "ai_score_model": "claude-sonnet-4-5",
       "nearDuplicates": [
+        "MWP7LELE-4DE91303",
         "MPMSRF6V-7FEB2991",
         "MWG6FM27-B89E8BDB",
         "MOOVXCI4-822961D2"
@@ -12235,11 +12310,11 @@
         "MPCV5LR8-9AD1527C"
       ],
       "related": [
+        "MWP7LELE-4DE91303",
         "MWG6FM27-B89E8BDB",
         "MWCAX4JR-B3C15760",
         "MPF4WM18-FF4843F1",
-        "MOUBIHOK-27900555",
-        "MWG6JE3B-DEC4B0CF"
+        "MOUBIHOK-27900555"
       ],
       "werkVoiceScore": 0.8685433959830765,
       "corpusVoiceScore": 0.824638307908864,
@@ -12571,6 +12646,7 @@
       "ai_score_at": "2026-05-26T11:32:46.661Z",
       "ai_score_model": "claude-sonnet-4-5",
       "nearDuplicates": [
+        "MWP7KY81-FA276303",
         "MOHMET94-3799557A"
       ],
       "related": [
@@ -13387,11 +13463,11 @@
         "MOOKFUNF-7647B056"
       ],
       "related": [
+        "MWP7KY81-FA276303",
         "MQXDVN1C-CAA3081A",
         "MOHMIET1-6D429A85",
         "MTNBAIUZ-299AC7D8",
-        "MOQIAGXM-397A1F22",
-        "MWJ1GVRC-945E92E3"
+        "MOQIAGXM-397A1F22"
       ],
       "werkVoiceScore": 0.8789960659912295,
       "corpusVoiceScore": 0.8336879437503882,
