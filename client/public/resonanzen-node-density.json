@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:00:34.228Z",
+  "generatedAt": "2026-11-20T17:01:43.612Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 27,
@@ -146,17 +146,17 @@
       }
     },
     "ich-du": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
+        "dialog": 2,
         "path-analyse": 2,
-        "analyse": 6,
-        "dialog": 1
+        "analyse": 6
       }
     },
     "antwort": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "dialog": 5,
+        "dialog": 6,
         "analyse": 3,
         "path-analyse": 7
       }
@@ -223,11 +223,11 @@
       }
     },
     "öffnung": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "dialog": 3,
         "path-analyse": 6,
-        "analyse": 2,
-        "dialog": 2
+        "analyse": 2
       }
     },
     "spannung": {
@@ -307,11 +307,11 @@
       }
     },
     "gelassenheit": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
+        "dialog": 2,
         "path-analyse": 4,
-        "analyse": 4,
-        "dialog": 1
+        "analyse": 4
       }
     },
     "transaufklaerung": {
@@ -347,17 +347,17 @@
       }
     },
     "schatten": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "path-analyse": 1,
         "analyse": 5
       }
     },
     "licht": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "path-analyse": 1,
         "analyse": 5
       }
@@ -400,7 +400,7 @@
   "stats": {
     "minCount": 0,
     "maxCount": 43,
-    "median": 10,
+    "median": 11,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "wirklichkeit-moeglichkeit"

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:00:37.102Z",
+  "generatedAt": "2026-11-20T17:01:44.635Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -137,6 +137,19 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:licht+schatten",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWP86K27-E36FC029",
+        "MWP814CF-E3AF9641",
+        "MWP7ZZFB-4CCC5381"
+      ],
+      "lastVariantTs": "2026-11-20T17:00:42.127Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:teil4",
       "endpoint": "chapter",
       "variantIds": [
@@ -182,18 +195,6 @@
         "MWP7OI4B-71BADB55"
       ],
       "lastVariantTs": "2026-11-20T16:56:47.346Z",
-      "masterId": null,
-      "masterTs": null,
-      "masterStale": false
-    },
-    {
-      "anchor": "dialog:licht+schatten",
-      "endpoint": "dialog",
-      "variantIds": [
-        "MWP814CF-E3AF9641",
-        "MWP7ZZFB-4CCC5381"
-      ],
-      "lastVariantTs": "2026-11-20T16:56:28.479Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false
@@ -332,7 +333,7 @@
     }
   ],
   "stats": {
-    "totalAnchors": 243,
+    "totalAnchors": 245,
     "withMultipleVariants": 24,
     "withMaster": 19,
     "staleMasters": 2

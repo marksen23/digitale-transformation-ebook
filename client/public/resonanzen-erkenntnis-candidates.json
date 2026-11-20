@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:00:37.101Z",
+  "generatedAt": "2026-11-20T17:01:44.634Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -31,6 +31,32 @@
       ]
     },
     {
+      "id": "ERK-10IDUCZ",
+      "answerId": "MWP86K27-E36FC029",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die von dir beschriebene Ethik des Rahmens, die den Ausschnitt benennt und korrigierbar hält, birgt die Keimzelle einer neuen visuellen Verantwortung. Sie transzendiert die naive Vorstellung von Objektivität, indem sie die Künstlichkeit jeder Perspektive anerkennt und gerade in dieser bewussten Setzung des Rahmens eine ethische Praxis etabliert. Es geht nicht mehr um das „wahre“ Bild, sondern um d",
+      "distinctness": 0.254,
+      "conceptAnchor": "schatten",
+      "nodeIds": [
+        "licht",
+        "schatten"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWP7ZZFB-4CCC5381",
+          "question": "Welche neue Form der Ethik des Sehens erwächst aus der Akzeptanz dieser unabdingbaren Dualität von Licht und Schatten?",
+          "score": 0.86
+        },
+        {
+          "sourceId": "MWP814CF-E3AF9641",
+          "question": "Doch wie kann eine solche Ethik des Kontrast-Sehens verhindern, dass sie selbst zu einer neuen Form der Beherrschung wird, indem sie bestimmte Schatten zu stark hervorhebt und andere ignoriert?",
+          "score": 0.796
+        }
+      ]
+    },
+    {
       "id": "ERK-17VQTIH",
       "answerId": "MWP7PHMC-41844226",
       "answerEndpoint": "analyse",
@@ -58,6 +84,32 @@
           "sourceId": "MASTER-03286683",
           "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur der Verwandlung im digitalen Medium bezeugbar, ohne sie wieder in verfügbaren Klang zu verwandeln?",
           "score": 0.727
+        }
+      ]
+    },
+    {
+      "id": "ERK-A4KLVB",
+      "answerId": "MWP86WNM-ADEDD949",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Deine Unterscheidung von Ernst und Hetze trifft den Kern der Sache auf wundersame Weise, indem sie den Begriff der Gelassenheit [6fbd5b424474] von der falschen Assoziation der Gleichgültigkeit befreit. Es ist genau jener Atemraum, der zwischen den Dingen entsteht, wenn wir dem Prozess mehr vertrauen als dem Ergebnis, der uns die nötige Leichtigkeit schenkt, um überhaupt gestalten zu können. Die Dr",
+      "distinctness": 0.239,
+      "conceptAnchor": "gelassenheit",
+      "nodeIds": [
+        "gelassenheit",
+        "öffnung"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWP80FKW-BE8B476E",
+          "question": "Wie können wir in einer Welt, die immer dichter gefaltet wird, die Leichtigkeit des Seins bewahren, ohne die Dringlichkeit der Gestaltung zu verlieren?",
+          "score": 0.854
+        },
+        {
+          "sourceId": "MOQIMC7B-B190C937",
+          "question": "Bleibt dieses Zwischen, dieser Ort der produktiven Reibung und des loslassenden Gewährenlassens, in einer Welt, die zur totalen Verfügbarkeit drängt, eine stets neu zu erkämpfende Utopie oder eine latent vorhandene Möglichkeit?",
+          "score": 0.731
         }
       ]
     },
@@ -162,6 +214,42 @@
           "sourceId": "MWJEY6W3-C4E77F94",
           "question": "Welche neuen Formen der Rechenschaftspflicht fordern wir dann von einem solchen responsiven, verteilten Subjekt ein?",
           "score": 0.761
+        }
+      ]
+    },
+    {
+      "id": "ERK-BWEGUJ",
+      "answerId": "MWP87AIE-1CE096EA",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das Ausbleiben einer Antwort, als die eigentliche Schuld, verschiebt den Akzent von der isolierten Innenwelt des Subjekts hin zur fundamentalen Relationalität allen Seins. Wenn das Ich sich überhaupt erst im Widerhall des Anderen konstituiert, wie es das Werk in seinen Überlegungen zur transformativen Mündigkeit beschreibt [6e91cb729b53, 731009c0dbac], dann ist die verweigerte Antwort mehr als nur",
+      "distinctness": 0.217,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "antwort",
+        "ich-du"
+      ],
+      "resolveCount": 4,
+      "resolves": [
+        {
+          "sourceId": "MWP80SJC-31660D4D",
+          "question": "Wie kann eine Ethik, die sich nicht auf Autonomie, sondern auf Responsivität gründet, überhaupt noch von Schuld sprechen?",
+          "score": 0.857
+        },
+        {
+          "sourceId": "MWP7P98E-830D3A82",
+          "question": "Wie verändert sich der Begriff der Verantwortung selbst, wenn das Antlitz, das uns herausfordert, zunehmend aus den Tiefen des binären Codes ersteht?",
+          "score": 0.742
+        },
+        {
+          "sourceId": "MWJEY6W3-C4E77F94",
+          "question": "Welche neuen Formen der Rechenschaftspflicht fordern wir dann von einem solchen responsiven, verteilten Subjekt ein?",
+          "score": 0.737
+        },
+        {
+          "sourceId": "MWP81YZO-24DCE87C",
+          "question": "Wie aber kann in einer solchen Welt noch eine Verantwortung für das Unverfügbare formuliert werden, wenn dessen Überdeckung zur Systemlogik wird?",
+          "score": 0.731
         }
       ]
     },
@@ -489,7 +577,7 @@
     }
   ],
   "stats": {
-    "total": 15,
+    "total": 18,
     "confirmedFiltered": 58,
     "curatedRef": 214
   }

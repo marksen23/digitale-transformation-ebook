@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T17:00:34.218Z",
+  "generatedAt": "2026-11-20T17:01:43.603Z",
   "checked": 48,
-  "stable": 15,
-  "shifted": 24,
+  "stable": 14,
+  "shifted": 25,
   "drifted": 9,
   "details": [
     {
@@ -27,11 +27,11 @@
         "MWJEY6W3-C4E77F94"
       ],
       "current": [
+        "MWP86WNM-ADEDD949",
         "MWP7OI4B-71BADB55",
-        "MWP80FKW-BE8B476E",
-        "MWJEY6W3-C4E77F94"
+        "MWP80FKW-BE8B476E"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MWJ1FX7Q-0DC96540",
