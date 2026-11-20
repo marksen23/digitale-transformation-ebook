@@ -11,6 +11,8 @@ export default defineConfig({
   test: {
     root: ".",
     environment: "node",
+    // Unmount nach jedem DOM-Test – siehe Kommentar in der Datei.
+    setupFiles: ["client/src/test/setup.ts"],
     include: [
       "client/src/lib/__tests__/**/*.test.ts",
       "client/src/hooks/__tests__/**/*.test.{ts,tsx}",
