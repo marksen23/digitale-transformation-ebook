@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-11-20T16:50:45.349Z",
-  "count": 374,
+  "generatedAt": "2026-11-20T16:55:00.214Z",
+  "count": 381,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 374,
-    "answered": 311,
-    "open": 63,
-    "embedded": 0
+    "total": 381,
+    "answered": 326,
+    "open": 55,
+    "embedded": 7
   },
   "questions": [
     {
@@ -43,6 +43,104 @@
       "anchor": "enkidu",
       "nodeIds": [],
       "ts": "2026-11-20T16:47:33.095Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PHMF-9C500DEA",
+      "question": "Wenn eine Stille erst durch unsere Antwort zur eigenen wird, wie bewahren wir die Fähigkeit, auch dort still zu werden, wo kein System uns eine Pause anbietet?",
+      "endpoint": "analyse",
+      "anchor": "analyse:freiheit+schweigen",
+      "nodeIds": [
+        "freiheit",
+        "schweigen"
+      ],
+      "ts": "2026-11-20T16:47:25.815Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PHMC-41844226",
+      "question": "Wenn ein Gedächtnis mit Maß verklingen lassen soll, wer bewahrt das Maß selbst über die Generationen hinweg, und darf auch eine Begründung für das Vergessen irgendwann vergessen werden?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo+zeit",
+      "nodeIds": [
+        "echo",
+        "zeit"
+      ],
+      "ts": "2026-11-20T16:47:25.812Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PHM9-EC2123C1",
+      "question": "Wenn die genaueste Aussage eines Urteils das Eingeständnis seiner Unschärfe ist, wie lehren wir Systeme und Menschen, dieses Eingeständnis als Stärke zu hören und nicht als Einladung, die Entscheidung an den Präziseren abzugeben?",
+      "endpoint": "analyse",
+      "anchor": "analyse:schattenlicht+wirklichkeit",
+      "nodeIds": [
+        "schattenlicht",
+        "wirklichkeit"
+      ],
+      "ts": "2026-11-20T16:47:25.809Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PHM6-789F4B23",
+      "question": "Wenn die Ahnung sich daran zeigt, dass sie nachgeben kann, woran erkennen wir den Moment, in dem eine gemeinsame Vision einer Gemeinschaft unbemerkt vom Möglichkeitsraum in eine Forderung an die Wirklichkeit gekippt ist?",
+      "endpoint": "analyse",
+      "anchor": "analyse:moeglichkeit+unverfuegbarkeit",
+      "nodeIds": [
+        "moeglichkeit",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-20T16:47:25.806Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PHM3-67AB165C",
+      "question": "Wenn sich das Selbst erst an der Brechung zeigt, kann eine Maschine, die bewusst widerspricht, uns wirklich brechen, oder lernen wir auch ihren Widerspruch bald so vorherzusehen, dass er nur ein raffinierterer Spiegel wird?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-spiegel+selbst",
+      "nodeIds": [
+        "lm-spiegel",
+        "selbst"
+      ],
+      "ts": "2026-11-20T16:47:25.803Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PHM0-4AECED9E",
+      "question": "Wenn ein System seine Fehler als Narben bewahrt, wer entscheidet, wann eine Narbe verblassen darf, damit die Erinnerung an das Scheitern nicht selbst zur Fessel wird?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-scheitern+resonanzimperativ",
+      "nodeIds": [
+        "lm-scheitern",
+        "resonanzimperativ"
+      ],
+      "ts": "2026-11-20T16:47:25.800Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PHLX-B52303F9",
+      "question": "Wenn ein Werkzeug die Leerstellen eines Gesprächs zeigen kann, wie verhindern wir, dass die sichtbar gewordene Lücke allein durch ihr Gezeigtwerden schon vorgeformt wird, bevor jemand sie betreten hat?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dazwischenintelligenz+schweigen",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "schweigen"
+      ],
+      "ts": "2026-11-20T16:47:25.797Z",
       "dupCount": 0,
       "answeredBy": [],
       "answered": false
@@ -284,8 +382,14 @@
       ],
       "ts": "2026-11-16T15:31:23.685Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHM0-4AECED9E",
+          "score": 0.871,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJEZNVB-D1367E36",
@@ -416,8 +520,14 @@
       ],
       "ts": "2026-11-16T12:23:24.560Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHMC-41844226",
+          "score": 0.864,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-5476DCEA",
@@ -451,8 +561,14 @@
       ],
       "ts": "2026-11-16T12:23:24.560Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHM0-4AECED9E",
+          "score": 0.782,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJ1GVRC-945E92E3",
@@ -627,8 +743,19 @@
       ],
       "ts": "2026-11-16T09:03:23.081Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TNX-A16A2897",
+          "score": 0.786,
+          "manual": true
+        },
+        {
+          "id": "MWP7PHMF-9C500DEA",
+          "score": 0.784,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJ1CYQJ-00F93C04",
@@ -644,12 +771,12 @@
           "score": 0.733
         },
         {
-          "id": "MWP7NPE0-8C7A9B99",
-          "score": 0.723
+          "id": "MWP7PHLX-B52303F9",
+          "score": 0.727
         },
         {
-          "id": "MWJ1DBD5-7CEE18D5",
-          "score": 0.721
+          "id": "MWP7NPE0-8C7A9B99",
+          "score": 0.723
         }
       ],
       "answered": true
@@ -662,8 +789,14 @@
       "nodeIds": [],
       "ts": "2026-11-16T09:02:42.330Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHM9-EC2123C1",
+          "score": 0.884,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJ1BZO7-B4841C4E",
@@ -718,8 +851,8 @@
           "score": 0.785
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.779
+          "id": "MWP7PHLX-B52303F9",
+          "score": 0.783
         }
       ],
       "answered": true
@@ -986,8 +1119,8 @@
           "score": 0.817
         },
         {
-          "id": "MWP7O1LR-9E27750E",
-          "score": 0.725
+          "id": "MWP7PHM3-67AB165C",
+          "score": 0.753
         }
       ],
       "answered": true
@@ -1005,16 +1138,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7PHM0-4AECED9E",
+          "score": 0.775
+        },
+        {
           "id": "MASTER-2C637ECA",
           "score": 0.752
         },
         {
           "id": "MWHLU57W-140FB983",
           "score": 0.743
-        },
-        {
-          "id": "MWP7OI4B-71BADB55",
-          "score": 0.733
         }
       ],
       "answered": true
@@ -1158,8 +1291,14 @@
       ],
       "ts": "2026-11-14T09:03:36.186Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHM3-67AB165C",
+          "score": 0.858,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWG6HHL5-79535386",
@@ -1297,8 +1436,14 @@
       "nodeIds": [],
       "ts": "2026-11-12T16:52:56.218Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHM6-789F4B23",
+          "score": 0.826,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWDQ2THL-B9BA920A",
@@ -1341,16 +1486,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7PHM3-67AB165C",
+          "score": 0.778
+        },
+        {
           "id": "MWG6HW56-B5802350",
           "score": 0.747
         },
         {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.737
-        },
-        {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.735
         }
       ],
       "answered": true
@@ -1367,6 +1512,10 @@
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWP7PHMC-41844226",
+          "score": 0.727
+        },
         {
           "id": "MWHLZOLL-5FF5E8CE",
           "score": 0.723
@@ -1420,8 +1569,8 @@
           "score": 0.754
         },
         {
-          "id": "MWHLYYWS-7B7C3E63",
-          "score": 0.745
+          "id": "MWP7PHLX-B52303F9",
+          "score": 0.747
         }
       ],
       "answered": true
@@ -1436,8 +1585,19 @@
       ],
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.749,
+          "manual": true
+        },
+        {
+          "id": "MTKI1YQW-CD0EEDF3",
+          "score": 0.748,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-44EE5BE7",
@@ -1464,6 +1624,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7PHM0-4AECED9E",
+          "score": 0.729
+        },
+        {
           "id": "MWG6K2GK-71CA57FA",
           "score": 0.72
         }
@@ -1482,8 +1646,14 @@
       ],
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHLX-B52303F9",
+          "score": 0.856,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-4AA1AEA8",
@@ -1726,8 +1896,13 @@
       ],
       "ts": "2026-11-11T16:06:34.414Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHLX-B52303F9",
+          "score": 0.722
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCB9SJH-EC316077",
@@ -1852,6 +2027,10 @@
         {
           "id": "MWJ1DBD5-7CEE18D5",
           "score": 0.744
+        },
+        {
+          "id": "MWP7PHMF-9C500DEA",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -2780,8 +2959,19 @@
       ],
       "ts": "2026-11-06T22:28:40.902Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MQ5WV5PP-6209C749",
+          "score": 0.809,
+          "manual": true
+        },
+        {
+          "id": "MQ5WX52Q-442369F2",
+          "score": 0.728,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-63686170",
@@ -2793,8 +2983,19 @@
       ],
       "ts": "2026-11-06T22:28:40.902Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MUY7RXCI-E899056E",
+          "score": 0.764,
+          "manual": true
+        },
+        {
+          "id": "MW566TNX-A16A2897",
+          "score": 0.73,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-12D94089",
@@ -2828,8 +3029,24 @@
       ],
       "ts": "2026-11-06T22:28:40.902Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MTNB6SUG-2922AE66",
+          "score": 0.622,
+          "manual": true
+        },
+        {
+          "id": "MTNB68RF-CFF570D9",
+          "score": 0.644,
+          "manual": true
+        },
+        {
+          "id": "MTNB85LB-7C1F15DE",
+          "score": 0.593,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MW566TO0-ABBD4330",
@@ -2911,8 +3128,14 @@
       ],
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHMF-9C500DEA",
+          "score": 0.875,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MW566TO3-969C6466",
@@ -2958,8 +3181,9 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MASTER-53BE22D7",
-          "score": 0.77
+          "id": "MWP7PHLX-B52303F9",
+          "score": 0.849,
+          "manual": true
         }
       ],
       "answered": true
@@ -3003,6 +3227,10 @@
         {
           "id": "MWDSDR89-C66887AA",
           "score": 0.855
+        },
+        {
+          "id": "MWP7PHM6-789F4B23",
+          "score": 0.79
         }
       ],
       "answered": true
@@ -3042,12 +3270,12 @@
           "manual": true
         },
         {
-          "id": "MWJ1DBD5-7CEE18D5",
-          "score": 0.743
+          "id": "MWP7PHMF-9C500DEA",
+          "score": 0.774
         },
         {
-          "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.734
+          "id": "MWJ1DBD5-7CEE18D5",
+          "score": 0.743
         }
       ],
       "answered": true
@@ -3090,12 +3318,12 @@
           "manual": true
         },
         {
-          "id": "MASTER-03286683",
-          "score": 0.737
+          "id": "MWP7PHMC-41844226",
+          "score": 0.739
         },
         {
-          "id": "MW566TNX-A16A2897",
-          "score": 0.736
+          "id": "MASTER-03286683",
+          "score": 0.737
         }
       ],
       "answered": true
@@ -5650,12 +5878,12 @@
           "score": 0.805
         },
         {
-          "id": "MTDD82FW-BAE0F4B4",
-          "score": 0.768
+          "id": "MWP7PHM3-67AB165C",
+          "score": 0.788
         },
         {
-          "id": "MWG6HW56-B5802350",
-          "score": 0.756
+          "id": "MTDD82FW-BAE0F4B4",
+          "score": 0.768
         }
       ],
       "answered": true
@@ -7386,12 +7614,12 @@
           "score": 0.764
         },
         {
-          "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.752
+          "id": "MWP7PHM3-67AB165C",
+          "score": 0.755
         },
         {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.739
+          "id": "MTKI1YQW-CD0EEDF3",
+          "score": 0.752
         }
       ],
       "answered": true
@@ -7409,16 +7637,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7PHM3-67AB165C",
+          "score": 0.801
+        },
+        {
           "id": "MASTER-5C6E90AE",
           "score": 0.78
         },
         {
           "id": "MOPHXJNW-020BA7D3",
           "score": 0.777
-        },
-        {
-          "id": "MUY7RXCI-C4CF7B92",
-          "score": 0.768
         }
       ],
       "answered": true
@@ -7579,8 +7807,13 @@
       "nodeIds": [],
       "ts": "2026-05-02T21:15:01.179Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7PHM6-789F4B23",
+          "score": 0.729
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOU6X9D-4A49EE98",
@@ -7600,7 +7833,7 @@
           "score": 0.734
         },
         {
-          "id": "MWCB9C3X-1CC3BC23",
+          "id": "MWP7PHM3-67AB165C",
           "score": 0.726
         }
       ],

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:50:44.648Z",
+  "generatedAt": "2026-11-20T16:54:57.173Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -404,6 +404,18 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "lm-scheitern",
+      "target": "resonanzimperativ",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP7PHM0-4AECED9E",
+        "MWCAU22M-CAE9A2F2"
       ]
     },
     {
@@ -1025,8 +1037,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 406,
-    "candidatesCount": 78,
+    "totalPairs": 411,
+    "candidatesCount": 79,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

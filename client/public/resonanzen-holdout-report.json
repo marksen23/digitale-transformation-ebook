@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T16:50:44.634Z",
+  "generatedAt": "2026-11-20T16:54:57.159Z",
   "checked": 46,
-  "stable": 18,
-  "shifted": 19,
+  "stable": 16,
+  "shifted": 21,
   "drifted": 9,
   "details": [
     {
@@ -125,11 +125,11 @@
         "MQ683DMX-13D6C54F"
       ],
       "current": [
+        "MWP7PHM6-789F4B23",
         "MOHCIS4R-69B0D47B",
-        "MTKI1YQW-CD0EEDF3",
-        "MQ683DMX-13D6C54F"
+        "MTKI1YQW-CD0EEDF3"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MASTER-F05BF2C0",
@@ -238,10 +238,10 @@
       ],
       "current": [
         "MUY7RXCI-012FC8A7",
-        "MPUSJLQF-F4BBBDD9",
-        "MW566TO3-969C6466"
+        "MWP7PHM0-4AECED9E",
+        "MPUSJLQF-F4BBBDD9"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MUY7RXCI-012FC8A7",

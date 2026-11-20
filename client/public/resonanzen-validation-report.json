@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-11-20T16:50:33.593Z",
-  "filesChecked": 432,
+  "generatedAt": "2026-11-20T16:54:42.408Z",
+  "filesChecked": 439,
   "errors": 0,
   "warnings": 60,
   "issues": [
@@ -367,7 +367,7 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 99,
+      "analyse": 106,
       "chapter": 64,
       "dialog": 62,
       "path-analyse": 64,
@@ -378,7 +378,7 @@
     },
     "byStatus": {
       "published": 164,
-      "raw": 190,
+      "raw": 197,
       "rejected": 24,
       "approved": 54
     },

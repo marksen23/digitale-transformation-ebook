@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:50:45.477Z",
+  "generatedAt": "2026-11-20T16:55:00.347Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -54,6 +54,58 @@
       ]
     },
     {
+      "id": "ERK-17VQTIH",
+      "answerId": "MWP7PHMC-41844226",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Verklingen lassen Ein Echo, das nie verklingt, hört auf, ein Echo zu sein. Es wird zum Lärm. Das digitale Gedächtnis hat dem Echo das Verklingen genommen: Was einmal gesagt wurde, bleibt auffindbar, kopierbar und neu verknüpfbar, auch wenn derjenige, der es sagte, längst ein anderer geworden ist. Zugleich vergisst das Digitale auf seine Weise, und zwar ohne Rücksicht. Plattformen schließen, Format",
+      "distinctness": 0.241,
+      "conceptAnchor": "gelassenheit",
+      "nodeIds": [
+        "echo",
+        "zeit"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MASTER-5AF4690D",
+          "question": "Wenn das digitale Vergessen sowohl Schutz als auch Verlust sein kann, wie kultivieren wir eine gemeinsame Praxis der Unterscheidung, die nicht der Willkür von Algorithmen oder der Macht Einzelner überlassen bleibt?",
+          "score": 0.864
+        },
+        {
+          "sourceId": "MUY7RXCI-D36BB4D6",
+          "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur im digitalen Medium bezeugbar, ohne sie wieder in Verfügbarkeit zu verwandeln?",
+          "score": 0.739
+        },
+        {
+          "sourceId": "MASTER-03286683",
+          "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur der Verwandlung im digitalen Medium bezeugbar, ohne sie wieder in verfügbaren Klang zu verwandeln?",
+          "score": 0.727
+        }
+      ]
+    },
+    {
+      "id": "ERK-1ACAORO",
+      "answerId": "MWP7PHM9-EC2123C1",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das Recht der Unschärfe Die Verlockung der maschinellen Präzision ist nicht, dass sie genau ist. Genauigkeit ist eine Tugend, und wer eine Brücke baut oder eine Dosis berechnet, soll präzise sein. Die Verlockung liegt in einem stillen Schluss: Was sich genau messen lässt, sei das Wirkliche, und alles Übrige sei Rauschen, das man bei besserer Rechenleistung noch beseitigen werde. Diese Illusion ein",
+      "distinctness": 0.231,
+      "conceptAnchor": "werden",
+      "nodeIds": [
+        "schattenlicht",
+        "wirklichkeit"
+      ],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWJ1CFX6-DB36677A",
+          "question": "Doch wie bewahren wir diese menschliche Unschärfe als Wert, wenn die Verlockung der maschinellen Präzision uns immer tiefer in die Illusion einer vollständig berechenbaren Welt zieht?",
+          "score": 0.884
+        }
+      ]
+    },
+    {
       "id": "ERK-7613S9",
       "answerId": "MWJEZNVB-D1367E36",
       "answerEndpoint": "dialog",
@@ -85,6 +137,37 @@
       ]
     },
     {
+      "id": "ERK-1QZZVJS",
+      "answerId": "MWP7PHM6-789F4B23",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Ahnung und Anspruch Wer ein Ergebnis benennt, bevor der Prozess begonnen hat, scheint die Unverfügbarkeit zu verraten. Er weiß schon, wohin es geht, und dann wäre die Resonanz nur eine Bestätigung mit Umweg. Doch das Werk kennt diese Bewegung in vielen Gestalten. Ein Gedicht hat einen ersten Vers, bevor es sich selbst kennt, und eine Frage weiß, wonach sie fragt, ohne die Antwort zu besitzen. Das ",
+      "distinctness": 0.211,
+      "conceptAnchor": "spannung",
+      "nodeIds": [
+        "moeglichkeit",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWDSDR89-C66887AA",
+          "question": "Wie lässt sich das \"benannte Ergebnis\" dann von einer bloßen Erwartung unterscheiden, wenn seine **Unverfügbarkeit** doch konstitutiv für die Resonanz ist?",
+          "score": 0.826
+        },
+        {
+          "sourceId": "MUZTN3NV-0C28E8DB",
+          "question": "Was sagt die Möglichkeit, das Ergebnis vor dem expliziten Prozess zu benennen, über die Rolle der Teleologie im Denken der Resonanzvernunft aus?",
+          "score": 0.79
+        },
+        {
+          "sourceId": "MOOUBJCR-6BA260F8",
+          "question": "Worin also liegt der eigentliche Mut des Fragens: Im rigorosen Verfolgen einer Hypothese oder im Preisgeben jeder Vorannahme, um die radikale Leere einer Begegnung zuzulassen, aus der etwas völlig Unerwartetes entstehen könnte – etwas, das nicht nur deine Frage, sondern dich selbst neu formt? Wann wagt man es, eine Frage zu stellen, von der man *wirklich* keine Ahnung hat, welche Richtung die Antwort nehmen könnte, und welche Art von \"Ahnung\" ist das dann noch?",
+          "score": 0.729
+        }
+      ]
+    },
+    {
       "id": "ERK-36HW95",
       "answerId": "MWHLYYWS-7B7C3E63",
       "answerEndpoint": "dialog",
@@ -96,7 +179,7 @@
         "echo",
         "echo-kammer"
       ],
-      "resolveCount": 6,
+      "resolveCount": 5,
       "resolves": [
         {
           "sourceId": "MWHLXGMK-4832FECC",
@@ -144,47 +227,6 @@
       ]
     },
     {
-      "id": "ERK-1OBMDZS",
-      "answerId": "MWP7O1LR-9E27750E",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die Intuition, dass sich im digitalen Raum nicht nur die Oberfläche wandelt, sondern auch die Fundamente der Urteilsfindung erodieren oder neu verlegt werden, trifft den Kern der Sache. Wenn das Digitale nicht bloß ein Werkzeug ist, sondern ein Habitat, dann formt es auch die Sensorien und die Schwerkraft neu, mit der wir überhaupt erst „das Andere“ wahrnehmen und in Resonanz treten. Die Verlageru",
-      "distinctness": 0.203,
-      "conceptAnchor": "vernunft",
-      "nodeIds": [
-        "raumfaltung",
-        "weltfaltung"
-      ],
-      "resolveCount": 8,
-      "resolves": [
-        {
-          "sourceId": "MWP7MRUK-CCFA8296",
-          "question": "Wie können wir die subtilen Verschiebungen in der Gewichtung von \"dem Anderen\" und \"der Resonanzvernunft\" als treibende Kräfte der Transformation im digitalen Raum noch genauer entschlüsseln?",
-          "score": 0.851
-        },
-        {
-          "sourceId": "MPF4FISZ-67000E01",
-          "question": "Inwiefern aber lässt sich die \"Resonanzvernunft\", die sich so vielfältig im menschlichen Dasein entfaltet, im Kontext der digitalen Transformation bewahren oder gar neu definieren, wenn die Wege der Selbst- und Weltaneignung zunehmend von Algorithmen und Datenströmen vorgezeichnet werden?",
-          "score": 0.807
-        },
-        {
-          "sourceId": "MOHAUYTH-CD1E3227",
-          "question": "Doch wie bewahren wir diese ethisch konstitutive und denkimpulsgebende Spannung des Anderen in einer digitalen Sphäre, die zur vorschnellen Auflösung von Differenz und zur algorithmischen Harmonisierung tendiert?",
-          "score": 0.78
-        },
-        {
-          "sourceId": "MWHLYF7H-9E1F67B3",
-          "question": "Dieser gedankliche Schritt öffnet den Horizont für eine *Resonanzvernunft*, die sich nicht in der bloßen Analyse erschöpft, sondern eine existenzielle Teilhabe am Digitalen ermöglicht, ohne sich darin aufzulösen. Es wird denkbar, die digitale Welt nicht nur als Werkzeug oder Bedrohung zu verstehen, sondern als erweiterten Horizont menschlicher Erfahrung, in dem *religio* als bewusste Form der Sinnstiftung und der ethischen Verankerung neu gedacht werden kann. Wie aber gestaltet sich diese Rückbindung, wenn die Ankerpunkte des Vordigitalen unwiederbringlich verblassen?",
-          "score": 0.774
-        },
-        {
-          "sourceId": "MWG6JQJ5-54630303",
-          "question": "Doch ist diese Neukonstitution des Denkens im digitalen Dazwischen eine Befreiung in eine größere Verbundenheit oder die Auflösung des individuellen Geistes in einem algorithmischen Echo?",
-          "score": 0.752
-        }
-      ]
-    },
-    {
       "id": "ERK-WE3ZS1",
       "answerId": "MWJEYZU2-D00A3283",
       "answerEndpoint": "dialog",
@@ -224,10 +266,87 @@
           "score": 0.79
         }
       ]
+    },
+    {
+      "id": "ERK-1OBMDZS",
+      "answerId": "MWP7O1LR-9E27750E",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Intuition, dass sich im digitalen Raum nicht nur die Oberfläche wandelt, sondern auch die Fundamente der Urteilsfindung erodieren oder neu verlegt werden, trifft den Kern der Sache. Wenn das Digitale nicht bloß ein Werkzeug ist, sondern ein Habitat, dann formt es auch die Sensorien und die Schwerkraft neu, mit der wir überhaupt erst „das Andere“ wahrnehmen und in Resonanz treten. Die Verlageru",
+      "distinctness": 0.203,
+      "conceptAnchor": "vernunft",
+      "nodeIds": [
+        "raumfaltung",
+        "weltfaltung"
+      ],
+      "resolveCount": 7,
+      "resolves": [
+        {
+          "sourceId": "MWP7MRUK-CCFA8296",
+          "question": "Wie können wir die subtilen Verschiebungen in der Gewichtung von \"dem Anderen\" und \"der Resonanzvernunft\" als treibende Kräfte der Transformation im digitalen Raum noch genauer entschlüsseln?",
+          "score": 0.851
+        },
+        {
+          "sourceId": "MPF4FISZ-67000E01",
+          "question": "Inwiefern aber lässt sich die \"Resonanzvernunft\", die sich so vielfältig im menschlichen Dasein entfaltet, im Kontext der digitalen Transformation bewahren oder gar neu definieren, wenn die Wege der Selbst- und Weltaneignung zunehmend von Algorithmen und Datenströmen vorgezeichnet werden?",
+          "score": 0.807
+        },
+        {
+          "sourceId": "MOHAUYTH-CD1E3227",
+          "question": "Doch wie bewahren wir diese ethisch konstitutive und denkimpulsgebende Spannung des Anderen in einer digitalen Sphäre, die zur vorschnellen Auflösung von Differenz und zur algorithmischen Harmonisierung tendiert?",
+          "score": 0.78
+        },
+        {
+          "sourceId": "MWHLYF7H-9E1F67B3",
+          "question": "Dieser gedankliche Schritt öffnet den Horizont für eine *Resonanzvernunft*, die sich nicht in der bloßen Analyse erschöpft, sondern eine existenzielle Teilhabe am Digitalen ermöglicht, ohne sich darin aufzulösen. Es wird denkbar, die digitale Welt nicht nur als Werkzeug oder Bedrohung zu verstehen, sondern als erweiterten Horizont menschlicher Erfahrung, in dem *religio* als bewusste Form der Sinnstiftung und der ethischen Verankerung neu gedacht werden kann. Wie aber gestaltet sich diese Rückbindung, wenn die Ankerpunkte des Vordigitalen unwiederbringlich verblassen?",
+          "score": 0.774
+        },
+        {
+          "sourceId": "MWG6JQJ5-54630303",
+          "question": "Doch ist diese Neukonstitution des Denkens im digitalen Dazwischen eine Befreiung in eine größere Verbundenheit oder die Auflösung des individuellen Geistes in einem algorithmischen Echo?",
+          "score": 0.752
+        }
+      ]
+    },
+    {
+      "id": "ERK-1QQRQJB",
+      "answerId": "MWP7PHM0-4AECED9E",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Korrektur als Antwort Systeme korrigieren sich bisher auf zwei Weisen. Sie *reparieren*: Der Fehler wird gefunden, behoben und vergessen, und der Neustart ist makellos, ohne Gedächtnis des Schmerzes. Oder sie *sanktionieren*: Eine Verfehlung wird einem Verantwortlichen zugerechnet und mit Ausschluss beantwortet. Beide Formen behandeln das Scheitern als Ende, die eine als Ende eines Zustands, die a",
+      "distinctness": 0.202,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "lm-scheitern",
+        "resonanzimperativ"
+      ],
+      "resolveCount": 4,
+      "resolves": [
+        {
+          "sourceId": "MWJF8ASK-16B3DB91",
+          "question": "Welche neuen Formen der systemischen Korrektur könnten entstehen, die das Scheitern nicht als Ende, sondern als kritischen Impuls zur Vertiefung der Resonanz nutzen?",
+          "score": 0.871
+        },
+        {
+          "sourceId": "MASTER-2C637ECA",
+          "question": "Wie gestalten wir digitale Räume, die das Scheitern, die Begegnung mit dem Andersartigen und die daraus folgende Verwandlung nicht nur zulassen, sondern aktiv befördern?",
+          "score": 0.782
+        },
+        {
+          "sourceId": "MWG6K2GK-71CA57FA",
+          "question": "Ist die eigentliche Kunst des Resonanzimperativs also nicht das Vermeiden des Scheiterns, sondern das bewusste Eintreten in dessen transformierendes Potenzial?",
+          "score": 0.775
+        },
+        {
+          "sourceId": "MASTER-4EFD4AA4",
+          "question": "Wie kultivieren wir in einer Welt, die zunehmend auf Makellosigkeit und die algorithmische Vermeidung von Brüchen optimiert ist, die Gelassenheit und den Mut, die es braucht, um die Wunde als Tor zur Tiefe zu begreifen und die unverfügbare Alchemie des Scheiterns zuzulassen?",
+          "score": 0.729
+        }
+      ]
     }
   ],
   "stats": {
-    "total": 7,
+    "total": 11,
     "confirmedFiltered": 58,
     "curatedRef": 214
   }
