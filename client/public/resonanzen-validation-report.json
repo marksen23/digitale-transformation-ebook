@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T16:54:42.408Z",
-  "filesChecked": 439,
+  "generatedAt": "2026-11-20T16:56:15.488Z",
+  "filesChecked": 440,
   "errors": 0,
-  "warnings": 60,
+  "warnings": 61,
   "issues": [
     {
       "level": "warning",
@@ -252,6 +252,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/licht+schatten/2026-11-20-MWP7ZZFB-4CCC5381.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected d4155454999de2b9, computed 6661dbca6c8b502e — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/moeglichkeit+raumfaltung/2026-11-16-MWJ1GVRC-945E92E3.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 535586f2feab8a62, computed 429091adbcaa2f05 — Tampering oder nachträgliche Edit?"
@@ -369,7 +375,7 @@
     "byEndpoint": {
       "analyse": 106,
       "chapter": 64,
-      "dialog": 62,
+      "dialog": 63,
       "path-analyse": 64,
       "enkidu": 68,
       "graph-chat": 51,
@@ -378,7 +384,7 @@
     },
     "byStatus": {
       "published": 164,
-      "raw": 197,
+      "raw": 198,
       "rejected": 24,
       "approved": 54
     },
