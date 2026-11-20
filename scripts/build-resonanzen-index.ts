@@ -19,7 +19,10 @@ import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
 import { fetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
 import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
-import { applyAnswerOverrides, loadAnswerOverrides } from "./lib/questionAnswers.js";
+import {
+  applyAnswerOverrides, loadAnswerOverrides, collectQuestions, foldMasterQuestions,
+  isSelfAnswer, normalizeQuestion,
+} from "./lib/questionAnswers.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -771,20 +774,12 @@ function extractClosingQuestion(text: string): string {
 type QuestionChain = { sourceId: string; question: string; answeredBy: Array<{ id: string; score: number | null }> };
 async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<string, number[]> | null): Promise<QuestionChain[]> {
   const ANSWER_SIM = parseFloat(process.env.QUESTIONS_ANSWER_SIM ?? "0.72");
-  const norm = (s: string) => s.toLowerCase().replace(/\s+/g, " ").trim();
+  const norm = normalizeQuestion;
 
   // 1. Extrahieren (translate ist via CORPUS_EXCLUDED_ENDPOINTS bereits raus).
-  type Q = { sourceId: string; question: string; endpoint: string; anchor: string; nodeIds: string[]; ts: string; dupIds: string[] };
-  const byNorm = new Map<string, Q>();
-  for (const e of [...entries].sort((a, b) => a.ts.localeCompare(b.ts))) {
-    const q = extractClosingQuestion(e.response ?? "");
-    if (q.length < 12) continue;
-    const k = norm(q);
-    const ex = byNorm.get(k);
-    if (ex) ex.dupIds.push(e.id);  // exakt-normalisierte Dublette → Quelle bleibt die älteste
-    else byNorm.set(k, { sourceId: e.id, question: q, endpoint: e.endpoint, anchor: e.anchor ?? "", nodeIds: e.nodeIds ?? [], ts: e.ts, dupIds: [] });
-  }
-  const questions = [...byNorm.values()];
+  //    rejected-Quellen fallen raus; normalisiert gleiche Fragen → älteste Quelle.
+  const collected = collectQuestions(entries, e => extractClosingQuestion(e.response ?? ""));
+  let questions = collected.questions;
 
   // 2. Frage-Embeddings mit Reuse-Cache (keyed by normalisiertem Fragetext).
   let qEmb: Record<string, number[]> = {};
@@ -805,11 +800,27 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
     fs.writeFileSync(QUESTION_EMB_OUTPUT, JSON.stringify({ generatedAt: new Date().toISOString(), embeddings: qEmb }, null, 2));
   }
 
+  // 2b. Master-Synthesen, die die Frage einer Variante übernehmen, auf die
+  //     Variante falten (eine Frage, nicht zwei). Embeddings bleiben für alle
+  //     extrahierten Fragen im Cache, damit das Falten keine Neu-Embeddings auslöst.
+  const entriesById = new Map(entries.map(e => [e.id, e]));
+  const foldedRes = foldMasterQuestions(questions, entriesById, {
+    cosine: (a, b) => {
+      const va = qEmb[norm(a)], vb = qEmb[norm(b)];
+      return va && vb ? cosineSim(va, vb) : null;
+    },
+  });
+  questions = foldedRes.questions;
+  console.log(
+    `[build-resonanzen-index] questions: ${collected.skippedRejected} rejected-Quellen übersprungen, ` +
+    `${foldedRes.folded.length} Master-Fragen auf Varianten gefaltet` +
+    (foldedRes.folded.length ? ` (${foldedRes.folded.map(f => `${f.masterId}→${f.intoId}`).join(", ")})` : ""),
+  );
+
   // 3. Matching: jede Frage gegen spätere, nicht-rejected Einträge.
   //    Danach Kuratierung: Pins unter der Schwelle aufnehmen, Ausschlüsse
   //    (z. B. MTNB… nicht auf Stimme/Judikative) vor dem Top-3 anwenden.
   const overrideRules = loadAnswerOverrides(QUESTION_OVERRIDES_PATH);
-  const entriesById = new Map(entries.map(e => [e.id, e]));
   let curatedLinks = 0;
   let overrideWarnings = 0;
   const out = questions.map(q => {
@@ -817,7 +828,7 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
     const scored: Array<{ id: string; score: number }> = [];
     if (qv && embeddings) {
       for (const e of entries) {
-        if (e.id === q.sourceId || e.status === "rejected" || e.ts <= q.ts) continue;
+        if (e.status === "rejected" || e.ts <= q.ts || isSelfAnswer(q, e)) continue;
         const ev = embeddings[e.id];
         if (!ev) continue;
         const s = cosineSim(qv, ev);
@@ -830,6 +841,7 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
       cosine: scored,
       rule: overrideRules.get(q.sourceId),
       entriesById,
+      isSelf: (id) => isSelfAnswer(q, entriesById.get(id)),
       scoreOf: (id) => {
         const ev = embeddings?.[id];
         if (!qv || !ev) return null;

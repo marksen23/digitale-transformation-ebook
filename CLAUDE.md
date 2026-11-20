@@ -44,8 +44,8 @@ pnpm build:resonanzen-index   # Nur Index-Rebuild
 
 ### Tests
 
-Vitest ist in Betrieb: `pnpm test` (= `vitest run`) deckt Stand 2026-11-17
-**46 Test-Files mit 362 Tests** ab (`client/src/**/__tests__`, `scripts/__tests__`,
+Vitest ist in Betrieb: `pnpm test` (= `vitest run`) deckt Stand 2026-11-20
+**46 Test-Files mit 372 Tests** ab (`client/src/**/__tests__`, `scripts/__tests__`,
 `server/__tests__` — Include-Liste in `vitest.config.ts`). Reine Logik gehört
 nach `scripts/lib/*-utils.ts`, damit sie ohne IO testbar bleibt.
 
@@ -259,6 +259,30 @@ aufgebraucht (402)“.
   nicht → nach Modellwechsel Embedding-Dateien bewusst neu bauen.
 - Ein roter Search-Index-Step blockiert den Resonanz-Index (Steps laufen
   nacheinander) — Reuse verhindert das, solange sich keine Begriffe ändern.
+
+### 10. „Offene Fragen in `/fragen`, die keine sind“ (Scheinfragen)
+
+`writeQuestions` (`build-resonanzen-index.ts`) zieht die Schlussfrage jedes
+Eintrags. Die reine Logik liegt in `scripts/lib/questionAnswers.ts`
+(`collectQuestions`, `foldMasterQuestions`, `isSelfAnswer`), Tests in
+`scripts/__tests__/questionAnswers.test.ts`. Seit 2026-11-20 gilt:
+- **`rejected`-Quellen liefern keine Frage.** Vorher standen Fragen verworfener
+  Einträge als „offen“ in der Ansicht.
+- **Master-Synthesen, die die Frage einer `master_of`-Variante übernehmen**
+  (Wort-Dice ≥ 0.6 oder Frage-Cosine ≥ 0.92), werden auf die Variante gefaltet:
+  eine Frage, der Master steht in ihren `dupIds` (`dupCount`). Vorher erschien
+  dieselbe Frage doppelt (Variante beantwortet, Master offen).
+- **Ein Eintrag beantwortet nie die eigene Frage:** weder die Quelle noch eine
+  Dublette noch ein Master, der die Quelle/Dublette als Variante synthetisiert.
+  Gilt für Cosine-Treffer und Pins (Pin wird mit Warnung verworfen). Vorher buchte
+  der Cosine-Abgleich z. B. `MASTER-53BE22D7` als Antwort auf seine Variante
+  `MV9NMWL2-5669B857`.
+- Override-Regeln (`question-answer-overrides.json`) auf eine gefaltete
+  Master-ID sind danach wirkungslos (die Frage läuft unter der Variante). Sie
+  schaden nicht, Kuratierung gehört aber an die Variante.
+- Rauschen (Test-Prompts, kontextlose Rückfragen) gehört auf `rejected`
+  (`/admin` → Kuratierung bzw. `curateEntryStatus` mit `audit_trail`-Eintrag),
+  nicht in einen Override.
 
 ---
 
