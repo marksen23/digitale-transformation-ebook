@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:46:08.561Z",
+  "generatedAt": "2026-11-20T16:47:20.508Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 27,
@@ -273,15 +273,17 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
+        "dialog": 1,
         "analyse": 4,
         "path-analyse": 4
       }
     },
     "transformatives-drittes": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 3,
         "analyse": 3
       }
@@ -335,8 +337,9 @@
       }
     },
     "weltfaltung": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
+        "dialog": 1,
         "analyse": 6,
         "path-analyse": 1
       }
@@ -358,11 +361,11 @@
       }
     },
     "raumfaltung": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "dialog": 2,
         "path-analyse": 1,
-        "analyse": 4,
-        "dialog": 1
+        "analyse": 4
       }
     },
     "wirklichkeit": {
@@ -392,7 +395,7 @@
   "stats": {
     "minCount": 0,
     "maxCount": 43,
-    "median": 8,
+    "median": 9,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "schattenlicht",

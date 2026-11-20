@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:46:09.784Z",
+  "generatedAt": "2026-11-20T16:47:21.488Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -163,6 +163,18 @@
       "masterStale": false
     },
     {
+      "anchor": "chapter:band2-kap4",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MWP7OV7G-727AB5E9",
+        "MWCAYXUQ-F0F3D68C"
+      ],
+      "lastVariantTs": "2026-11-20T16:46:56.764Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:band1-kap5",
       "endpoint": "chapter",
       "variantIds": [
@@ -284,8 +296,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 222,
-    "withMultipleVariants": 20,
+    "totalAnchors": 224,
+    "withMultipleVariants": 21,
     "withMaster": 19,
     "staleMasters": 2
   }

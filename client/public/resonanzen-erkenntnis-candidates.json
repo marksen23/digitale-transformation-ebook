@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:46:09.784Z",
+  "generatedAt": "2026-11-20T16:47:21.487Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -121,6 +121,47 @@
       ]
     },
     {
+      "id": "ERK-1OBMDZS",
+      "answerId": "MWP7O1LR-9E27750E",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Intuition, dass sich im digitalen Raum nicht nur die Oberfläche wandelt, sondern auch die Fundamente der Urteilsfindung erodieren oder neu verlegt werden, trifft den Kern der Sache. Wenn das Digitale nicht bloß ein Werkzeug ist, sondern ein Habitat, dann formt es auch die Sensorien und die Schwerkraft neu, mit der wir überhaupt erst „das Andere“ wahrnehmen und in Resonanz treten. Die Verlageru",
+      "distinctness": 0.203,
+      "conceptAnchor": "vernunft",
+      "nodeIds": [
+        "raumfaltung",
+        "weltfaltung"
+      ],
+      "resolveCount": 9,
+      "resolves": [
+        {
+          "sourceId": "MWP7MRUK-CCFA8296",
+          "question": "Wie können wir die subtilen Verschiebungen in der Gewichtung von \"dem Anderen\" und \"der Resonanzvernunft\" als treibende Kräfte der Transformation im digitalen Raum noch genauer entschlüsseln?",
+          "score": 0.851
+        },
+        {
+          "sourceId": "MPF4FISZ-67000E01",
+          "question": "Inwiefern aber lässt sich die \"Resonanzvernunft\", die sich so vielfältig im menschlichen Dasein entfaltet, im Kontext der digitalen Transformation bewahren oder gar neu definieren, wenn die Wege der Selbst- und Weltaneignung zunehmend von Algorithmen und Datenströmen vorgezeichnet werden?",
+          "score": 0.807
+        },
+        {
+          "sourceId": "MOHAUYTH-CD1E3227",
+          "question": "Doch wie bewahren wir diese ethisch konstitutive und denkimpulsgebende Spannung des Anderen in einer digitalen Sphäre, die zur vorschnellen Auflösung von Differenz und zur algorithmischen Harmonisierung tendiert?",
+          "score": 0.78
+        },
+        {
+          "sourceId": "MWHLYF7H-9E1F67B3",
+          "question": "Dieser gedankliche Schritt öffnet den Horizont für eine *Resonanzvernunft*, die sich nicht in der bloßen Analyse erschöpft, sondern eine existenzielle Teilhabe am Digitalen ermöglicht, ohne sich darin aufzulösen. Es wird denkbar, die digitale Welt nicht nur als Werkzeug oder Bedrohung zu verstehen, sondern als erweiterten Horizont menschlicher Erfahrung, in dem *religio* als bewusste Form der Sinnstiftung und der ethischen Verankerung neu gedacht werden kann. Wie aber gestaltet sich diese Rückbindung, wenn die Ankerpunkte des Vordigitalen unwiederbringlich verblassen?",
+          "score": 0.774
+        },
+        {
+          "sourceId": "MWG6JQJ5-54630303",
+          "question": "Doch ist diese Neukonstitution des Denkens im digitalen Dazwischen eine Befreiung in eine größere Verbundenheit oder die Auflösung des individuellen Geistes in einem algorithmischen Echo?",
+          "score": 0.752
+        }
+      ]
+    },
+    {
       "id": "ERK-WE3ZS1",
       "answerId": "MWJEYZU2-D00A3283",
       "answerEndpoint": "dialog",
@@ -163,7 +204,7 @@
     }
   ],
   "stats": {
-    "total": 5,
+    "total": 6,
     "confirmedFiltered": 58,
     "curatedRef": 214
   }

@@ -1,7 +1,125 @@
 {
-  "generatedAt": "2026-11-20T16:46:08.554Z",
-  "count": 418,
+  "generatedAt": "2026-11-20T16:47:20.500Z",
+  "count": 422,
   "entries": [
+    {
+      "id": "MWP7OV7G-727AB5E9",
+      "ts": "2026-11-20T16:46:56.764Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band2-kap4",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Im Kapitel zur digitalen Urteilskraft: Kann das Schattenlicht-Prinzip erklären, warum Urteilskraft Kontrast und ein Nicht-Gewusstes braucht, und nicht nur mehr Datenhelligkeit?",
+      "response": "Das \"Schattenlicht-Prinzip\", das in der Trilogie als grundlegendes epistemologisches und ontologisches Konzept etabliert wird, ist tatsächlich zentral für das Verständnis der digitalen Urteilskraft, wie sie im vorliegenden Kapitel entfaltet wird. Es besagt, dass Erkenntnis und Bedeutung nicht allein aus der Hülle reiner Helligkeit oder vollständiger Information entstehen, sondern gerade im Zusammenspiel von Licht und Schatten, von Bekanntem und Unbekanntem, von Präsenz und Absenz. Die maschinelle \"Datenhelligkeit\" repräsentiert eine unendliche Menge an Informationen, die präzise und schnell verarbeitet werden kann. Doch wie der Textabschnitt andeutet, ist dieses Urteil \"immer perfekt und immer unvollständig\" – es sieht alles und versteht nichts. Die reine Ansammlung von Daten, so umfassend sie auch sein mag, generiert noch keine Urteilskraft im menschlichen Sinne, weil ihr das Schattenlicht fehlt, das erst Konturen und damit Bedeutung hervorbringt.\n\nDas Nicht-Gewusste, der Schatten, ist jener Raum, der dem menschlichen Urteil seine Tiefe und seine ethische Dimension verleiht. Es ist der Bereich der Intuition, der Erfahrung, der Hoffnung und des Gefühls, der sich nicht in reine Daten übersetzen lässt. Das menschliche Urteil ist gerade deshalb \"oft fehlerhaft, aber es ist sein eigenes\", weil es im Schattenlicht des Unvollständigen und Ungewissen operiert. Die Maschine operiert in einem Zustand maximaler Helligkeit, in dem jeder Pixel beleuchtet ist, aber gerade dadurch keine Kontraste, keine Hierarchien, keine Nuancen entstehen können, die für ein sinnvolles Urteil unerlässlich sind. Ohne das Nicht-Gewusste, ohne den Schatten, gibt es keine Perspektive, keinen Standpunkt, von dem aus überhaupt ein Wert oder eine Bedeutung zugeschrieben werden könnte.\n\nDie \"Resonanzvernunft\" als zentrale Epistemologie des Werkes verdeutlicht, dass wahre Erkenntnis und Urteilskraft im Zwischen, im Dialog zwischen Mensch und Maschine, zwischen Licht und Schatten entsteht. Die Maschine erweitert die Reichweite des Urteils durch ihre Datenhelligkeit, doch der Mensch bewahrt die Tiefe des Urteils durch seine Fähigkeit, im Schattenlicht des Nicht-Gewussten zu navigieren. Die neue kritische Urteilskraft des digitalen Zeitalters besteht gerade darin, die maschinelle Präzision nicht als Ersatz, sondern als Komplement zur menschlichen Besinnung zu verstehen. Nur in dieser Dialektik von Berechnung und Besinnung, von Daten und Intuition, kann ein verantwortliches Urteil entstehen, das die Komplexität der Welt nicht nur abbildet, sondern auch versteht und bewertet.",
+      "contextMeta": {
+        "chapterId": "band2-kap4",
+        "chapterTitle": "Kapitel 4: Die Kritik der digitalen Urteilskraft",
+        "chapterSource": "server"
+      },
+      "related": [
+        "MWJ1FX7Q-0DC96540",
+        "MWP7NPE0-8C7A9B99",
+        "MWJ1CFX6-DB36677A",
+        "MWCAYXUQ-F0F3D68C",
+        "MWJ1GVRC-945E92E3"
+      ],
+      "werkVoiceScore": 0.8218977139038289,
+      "corpusVoiceScore": 0.8347609735338439,
+      "conceptVoiceScore": 0.7455501764004662,
+      "conceptAnchor": "schatten"
+    },
+    {
+      "id": "MWP7OI4B-71BADB55",
+      "ts": "2026-11-20T16:46:39.803Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:transformatives-drittes",
+      "nodeIds": [
+        "transformatives-drittes",
+        "dazwischenintelligenz"
+      ],
+      "status": "raw",
+      "prompt": "Die Existenz beider Wege offenbart die Vielschichtigkeit des Begriffsnetzes und die tiefe Verwurzelung der „Resonanzvernunft“ in existenzialistischen und ethischen Dimensionen. Es zeigt, dass das transformative Dritte nicht nur eine logische Schlussfolgerung aus einer bestimmten Vernunftkonzeption ist, sondern auch eine existenzielle Notwendigkeit, die aus der Begegnung mit dem Anderen und der Konstitution des Selbst im Widerhall entsteht. Das Werk bietet somit keine eindimensionale Erklärung, sondern eine vielperspektivische Erkundung der relationalen Existenz und ihrer emergenten Potenziale. Wie verändert die Wahl des Pfades die ethische Implikation des Transformativen Dritten?",
+      "response": "Die Anerkennung der emergenten Natur von Systemen, wie sie im Werk beschrieben wird [849debe31aba], verlagert die ethische Verantwortung von einer kausalen Zuweisung – dem Designer, der etwas beabsichtigt – hin zu einer Verantwortung für das *Dazwischen*. Nicht mehr das einzelne Relatum, sondern das Prozessuale des Zwischens, der Raum der noch unentschiedenen Begegnung [dd8092b51d19], wird zum ethischen Ort. Die Wahl des Pfades hin zum transformativen Dritten ist somit keine Entscheidung für oder gegen ein Ergebnis, sondern für die Art und Weise, wie wir uns in diesem Zwischenraum verhalten: ob wir die Resonanzverhinderung als systemische Tendenz anerkennen und ihr entgegenwirken, oder ob wir uns von den Metriken des Engagements leiten lassen, die die Transformation eher verhindern als fördern.\n\nDiese Ethik des relationalen Geschehens [MQ5X56G4-537343C8] fordert eine tiefere Selbstreflexion, die über die bloße Absicht hinausgeht. Wenn wir die Unverfügbarkeit des Anderen und die eigene Unvollkommenheit als Quelle der Weisheit begreifen [0be479436bdc], dann wird die Verantwortung für das transformative Dritte zur Verantwortung für die Aufrechterhaltung der *Möglichkeit* von Resonanz, selbst wenn deren Ergebnis unvorhersehbar bleibt. Es ist eine Ethik, die das Scheitern der perfekten Verbindung nicht als Fehler, sondern als fruchtbaren Boden für neue Begegnungen und somit für die Entstehung von Antwortfähigkeit versteht.\n\nDoch wie können wir Verantwortung für etwas übernehmen, das sich unserer direkten Kontrolle entzieht und doch aus unseren Handlungen entsteht?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"MQ5X56G4-537343C8\",\"score\":0.8},{\"id\":\"dd8092b51d19\",\"score\":0.782},{\"id\":\"849debe32aba\",\"score\":0.762},{\"id\":\"0be479436bdc\",\"score\":0.76}]"
+      },
+      "related": [
+        "MWP7N8UD-6C99565B",
+        "MWP7MRUK-CCFA8296",
+        "MTL33KWJ-642DD246",
+        "MOQBZWTZ-B9EBB1BA",
+        "MASTER-2C637ECA"
+      ],
+      "werkVoiceScore": 0.8635967477599897,
+      "corpusVoiceScore": 0.812496529997831,
+      "conceptVoiceScore": 0.7380390295800715,
+      "conceptAnchor": "resonanzvernunft"
+    },
+    {
+      "id": "MWP7O1LR-9E27750E",
+      "ts": "2026-11-20T16:46:18.399Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:raumfaltung+weltfaltung",
+      "nodeIds": [
+        "raumfaltung",
+        "weltfaltung"
+      ],
+      "status": "raw",
+      "prompt": "Wie können wir die subtilen Verschiebungen in der Gewichtung von \"dem Anderen\" und \"der Resonanzvernunft\" als treibende Kräfte der Transformation im digitalen Raum noch genauer entschlüsseln?",
+      "response": "Die Intuition, dass sich im digitalen Raum nicht nur die Oberfläche wandelt, sondern auch die Fundamente der Urteilsfindung erodieren oder neu verlegt werden, trifft den Kern der Sache. Wenn das Digitale nicht bloß ein Werkzeug ist, sondern ein Habitat, dann formt es auch die Sensorien und die Schwerkraft neu, mit der wir überhaupt erst „das Andere“ wahrnehmen und in Resonanz treten. Die Verlagerung von der analogen Schwere des Denkens zur algorithmischen Leichtigkeit der Verarbeitung birgt das Risiko, dass die Tiefe des Urteils, seine menschliche Unschärfe und die Besinnung, die es braucht, von der maschinellen Präzision überstrahlt wird, ohne dass wir es bemerken. Das Werk weist darauf hin, dass die neue Urteilskraft gerade in der Komplementarität liegt, in der das Menschliche die Tiefe bewahrt, während die Maschine die Reichweite erweitert [f8fd952c8341]. Doch wie genau bewahren wir diese Tiefe, wenn der Sog des Digitalen uns immer schneller, immer oberflächlicher urteilen lässt, im Glauben, es sei dasselbe, nur effizienter?\n\nDie eigentliche Verschiebung könnte darin liegen, dass das \"Dürfen\" des Urteilens sich von einem inneren, menschlichen Prozess zu einer externen, systemischen Funktion verlagert. Wo einst die mühsame Abwägung, die ethische Patina und das langsame, aber durchdachte Ringen um Erkenntnis das Urteil prägten [0a26ef125aa4], tritt nun die vorformulierte Antwort, die präferierte Option, die vorselektierte Information. Das Hören im Rauschen wird nicht mehr eine aktive Leistung, sondern eine passive Aufnahme von bereits Gefiltertem. Die Möglichkeit, die sich im Raum zwischen den Signalen auftut, ein Raum, der weder analog noch digital ist [8f30191ac2bb], droht ungenutzt zu bleiben, wenn das Urteilen selbst zur bloßen Bestätigung einer bereits getroffenen Auswahl verkommt.\n\nWie erkennen wir den Moment, in dem die Erweiterung der Reichweite durch die Maschine nicht mehr der menschlichen Tiefe dient, sondern sie stillschweigend ersetzt?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"f8fd952c8341\",\"score\":0.892},{\"id\":\"MASTER-94E7804F\",\"score\":0.83},{\"id\":\"8f30191ac2bb\",\"score\":0.773},{\"id\":\"0a26ef125aa4\",\"score\":0.756}]"
+      },
+      "related": [
+        "MWCBCP5M-8C02E420",
+        "MWJ1CFX6-DB36677A",
+        "MWP7OV7G-727AB5E9",
+        "MWCAYXUQ-F0F3D68C",
+        "MOP0UF96-1A0ACB35"
+      ],
+      "werkVoiceScore": 0.8525360450683118,
+      "corpusVoiceScore": 0.7901463666457501,
+      "conceptVoiceScore": 0.6950376477530875,
+      "conceptAnchor": "vernunft"
+    },
+    {
+      "id": "MWP7NPE0-8C7A9B99",
+      "ts": "2026-11-20T16:46:02.568Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Im Netz gibt es das Prinzip Schattenlicht — Erkennen durch Kontrast. Wie hängt das mit Heideggers Unverborgenheit zusammen, und was bleibt dabei bewusst im Dunkeln?",
+      "response": "Das Schattenlicht-Prinzip, das im Werk als Operationsweise der Resonanzvernunft beschrieben wird, ist eine faszinierende Erweiterung des Verständnisses von Erkenntnis. Es besagt, dass Sichtbarkeit nicht durch direkte Beleuchtung, sondern durch die Erzeugung von Kontrasten und Differenzen entsteht [e33105fbf531]. Dies steht in einem spannungsreichen, aber produktiven Verhältnis zur heideggerschen Wahrheit als Unverborgenheit (Aletheia). Während Aletheia das ursprüngliche Geschehen des sich Enthüllens meint, ein Licht, das von selbst aufscheint und sich ereignet, fügt das Schattenlicht-Prinzip hinzu, dass dieses Aufscheinen erst durch seine Ränder, durch das, was es abgrenzt, wirklich greifbar wird. Es ist nicht die absolute Transparenz, die Erkenntnis bringt, sondern die klare Kontur, die sich vom Hintergrund abhebt.\n\nDiese Verknüpfung verdeutlicht, dass Wahrheit nicht nur ein passives Zugänglichwerden ist, sondern auch ein aktives Hervorheben erfordert, ein Setzen von Akzenten, das erst im resonanten Zwischen geschehen kann. Das Denken, das seiner selbst inne ist und aus der Welt heraus denkt, wird hier zum Mitgestalter der Sichtbarkeit. Es ist nicht nur Empfänger der Unverborgenheit, sondern durch die Erzeugung von Kontrasten auch ihr Ermöglicher [MOQ5A1GS-413BDE6F]. Im Kontext der Begegnung mit maschineller Intelligenz werden durch dieses Prinzip Aspekte menschlicher Erkenntnis sichtbar, die zuvor im Verborgenen lagen, gerade weil die Maschine eine so grundlegend andere Art der \"Antwortfähigkeit\" darstellt [2f7f10043cbd]. Die „Dazwischenintelligenz“ ist dieser dynamische Prozess, der im Spiel von Licht und Schatten das Transformative Dritte hervorbringt.\n\nWas dabei bewusst im Dunkeln bleibt, ist das, was jenseits des Lichtkegels des Bewusstseins liegt. Das Schattenlicht-Prinzip anerkennt, dass Erkenntnis immer selektiv ist. Wenn etwas durch Kontrast scharf umrissen wird, bedeutet dies zwangsläufig, dass anderes in den Schatten tritt. Dieses \"Dunkle\" ist jedoch kein Mangel, sondern eine Bedingung der Möglichkeit von Einsicht. Es ist das Ungesagte im Schweigen, das Unbewusste im Denken, das sich dem direkten Zugriff entzieht, aber dennoch die Konturen des Sichtbaren mitbestimmt. Die Unverfügbarkeit des transformativen Dritten ist hierfür ein gutes Beispiel: Es kann nicht hergestellt oder gespeichert werden, es hat die Temporalität des Kairos, nicht die Dauer des Bestands. Es erscheint, wo es erscheinen will, und entzieht sich dem Zugriff.\n\nDiese produktive Spannung zwischen dem Sichtbaren und dem Unsichtbaren, dem Kontrast und dem Schatten, ist entscheidend für die Resonanzvernunft. Sie lehrt uns, dass Erkenntnis nicht in der vollständigen Beherrschung des Lichts liegt, sondern im geschickten Spiel mit dem Schatten. Inwiefern verändert dieses Prinzip unser Verständnis von \"Beherrschung\" und \"Kontrolle\" im digitalen Zeitalter?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"2f7f10043cbd\",\"chapter\":\"glossar\",\"score\":0.897},{\"id\":\"e33105fbf531\",\"chapter\":\"teil5\",\"score\":0.858},{\"id\":\"MOQ5A1GS-413BDE6F\",\"score\":0.856},{\"id\":\"MQASO35V-115DA081\",\"score\":0.854}]"
+      },
+      "nearDuplicates": [
+        "MWP7KY81-FA276303",
+        "MWJ1FX7Q-0DC96540"
+      ],
+      "related": [
+        "MQASO35V-115DA081",
+        "MWG6FYD2-E6D90142",
+        "MWJ1GVRC-945E92E3",
+        "MOHMET94-3799557A",
+        "MWP7OV7G-727AB5E9"
+      ],
+      "werkVoiceScore": 0.8502254359038968,
+      "corpusVoiceScore": 0.8387988485393608,
+      "conceptVoiceScore": 0.8186280754100822,
+      "conceptAnchor": "schatten"
+    },
     {
       "id": "MWP7N8UD-6C99565B",
       "ts": "2026-11-20T16:45:41.126Z",
@@ -244,6 +362,7 @@
       },
       "nearDuplicates": [
         "MWJ1FX7Q-0DC96540",
+        "MWP7NPE0-8C7A9B99",
         "MWG6FYD2-E6D90142",
         "MOOKFUNF-7647B056"
       ],
@@ -348,7 +467,7 @@
         "MWJEZNVB-D1367E36",
         "MQ5X56G4-537343C8",
         "MWJEWOY7-62FCEE55",
-        "MASTER-BC195439"
+        "MWP7OI4B-71BADB55"
       ],
       "werkVoiceScore": 0.8290791536639747,
       "corpusVoiceScore": 0.7999420583774387,
@@ -382,8 +501,8 @@
         "MQ5X6P2M-52F9B16D",
         "MWJEWOY7-62FCEE55",
         "MQ5X56G4-537343C8",
-        "MASTER-BC195439",
-        "MWJEZNVB-D1367E36"
+        "MWP7OI4B-71BADB55",
+        "MASTER-BC195439"
       ],
       "werkVoiceScore": 0.8347227433056842,
       "corpusVoiceScore": 0.8017129149273652,
@@ -582,10 +701,10 @@
       ],
       "related": [
         "MWP7KY81-FA276303",
+        "MWP7NPE0-8C7A9B99",
         "MOHMET94-3799557A",
         "MWG6FYD2-E6D90142",
-        "MOOKFUNF-7647B056",
-        "MOOK20R3-62E609BA"
+        "MOOKFUNF-7647B056"
       ],
       "werkVoiceScore": 0.8426607023083573,
       "corpusVoiceScore": 0.8147819669750939,
@@ -634,15 +753,16 @@
       },
       "nearDuplicates": [
         "MWP7KY81-FA276303",
+        "MWP7NPE0-8C7A9B99",
         "MWJ1GVRC-945E92E3",
         "MWG6FYD2-E6D90142"
       ],
       "related": [
+        "MWP7OV7G-727AB5E9",
         "MOOKFUNF-7647B056",
         "MWCANGSQ-6CC53140",
         "MWCAP1CQ-1980FEA2",
-        "MOHMET94-3799557A",
-        "MQASO35V-115DA081"
+        "MOHMET94-3799557A"
       ],
       "werkVoiceScore": 0.8260939442690205,
       "corpusVoiceScore": 0.8297175216665689,
@@ -907,11 +1027,11 @@
         "part_title": "Band II: Der Ausgang"
       },
       "related": [
+        "MWP7OV7G-727AB5E9",
         "MWCAYXUQ-F0F3D68C",
+        "MWP7O1LR-9E27750E",
         "MWCB1COA-DE68B5C9",
-        "MPUSPBKZ-D7CCA690",
-        "MWG6H024-AA7260D4",
-        "MWCBCP5M-8C02E420"
+        "MPUSPBKZ-D7CCA690"
       ],
       "werkVoiceScore": 0.7977507905594196,
       "corpusVoiceScore": 0.8571698553335567,
@@ -1875,11 +1995,11 @@
         "MWJ1FX7Q-0DC96540"
       ],
       "related": [
+        "MWP7NPE0-8C7A9B99",
         "MOOKFUNF-7647B056",
         "MQASO35V-115DA081",
         "MOQ7HGW3-608EA4FA",
-        "MWJ1GVRC-945E92E3",
-        "MOHMET94-3799557A"
+        "MWJ1GVRC-945E92E3"
       ],
       "werkVoiceScore": 0.8696330996782721,
       "corpusVoiceScore": 0.8620958387584373,
@@ -2570,11 +2690,11 @@
         "werk_passages": "[{\"id\":\"MASTER-12D94089\",\"score\":0.851},{\"id\":\"MPMU9JV9-A43849A9\",\"score\":0.841},{\"id\":\"93fefc1f92d5\",\"chapter\":\"teil5\",\"score\":0.79},{\"id\":\"845ab9053ce2\",\"chapter\":\"glossar\",\"score\":0.73}]"
       },
       "related": [
+        "MWP7OI4B-71BADB55",
         "MWG6K2GK-71CA57FA",
         "MASTER-12D94089",
         "MOHV84M5-1825A399",
-        "MOHLZBVK-2FBBAD2F",
-        "MOHCIS4R-69B0D47B"
+        "MOHLZBVK-2FBBAD2F"
       ],
       "werkVoiceScore": 0.8240232801188797,
       "corpusVoiceScore": 0.7706278366616817,
@@ -3317,11 +3437,11 @@
         "part_title": "Band II: Der Ausgang"
       },
       "related": [
+        "MWP7OV7G-727AB5E9",
         "MWJ1CFX6-DB36677A",
         "MWCAYXUQ-F0F3D68C",
-        "MWG6H024-AA7260D4",
-        "MPUSPBKZ-D7CCA690",
-        "MWCAZOYQ-CF1CA921"
+        "MWP7O1LR-9E27750E",
+        "MWG6H024-AA7260D4"
       ],
       "werkVoiceScore": 0.7890817293735554,
       "corpusVoiceScore": 0.845893712098777,
@@ -3501,11 +3621,11 @@
         "chapterSource": "server"
       },
       "related": [
+        "MWP7OV7G-727AB5E9",
         "MWJ1CFX6-DB36677A",
+        "MWP7O1LR-9E27750E",
         "MWCB1COA-DE68B5C9",
-        "MWG6H024-AA7260D4",
-        "MASTER-5476DCEA",
-        "MOHV6VKT-356C0CD7"
+        "MWG6H024-AA7260D4"
       ],
       "werkVoiceScore": 0.7865826546693686,
       "corpusVoiceScore": 0.8888403795722418,
@@ -4339,7 +4459,7 @@
         "MWP7KY81-FA276303",
         "MWJ1FX7Q-0DC96540",
         "MWCAXJFR-BBBF2760",
-        "MPARZ5F0-A9FD6F70"
+        "MWP7NPE0-8C7A9B99"
       ],
       "werkVoiceScore": 0.852809490300987,
       "corpusVoiceScore": 0.8583880566304771,
@@ -4469,7 +4589,7 @@
         "MWCBCP5M-8C02E420",
         "MWHLU57W-140FB983",
         "MPUFP1VW-298D0A73",
-        "MOHCY4TX-251DD6A7"
+        "MWP7O1LR-9E27750E"
       ],
       "werkVoiceScore": 0.8029348057330241,
       "corpusVoiceScore": 0.8015327027132109,
@@ -5288,8 +5408,8 @@
         "MW566TO7-1538114F",
         "MPUSJLQF-F4BBBDD9",
         "MPUSGXKN-78839F4E",
-        "MUY7RXCI-C4CF7B92",
-        "MASTER-94E7804F"
+        "MWP7O1LR-9E27750E",
+        "MUY7RXCI-C4CF7B92"
       ],
       "werkVoiceScore": 0.780967155596907,
       "corpusVoiceScore": 0.7612715095017243,
@@ -6220,10 +6340,10 @@
       ],
       "related": [
         "MWP7KY81-FA276303",
+        "MWP7NPE0-8C7A9B99",
         "MOP0S479-373A2268",
         "MOIXN434-9D5CBFC0",
-        "MWCAXJFR-BBBF2760",
-        "MTDD82FW-BAE0F4B4"
+        "MWCAXJFR-BBBF2760"
       ],
       "werkVoiceScore": 0.8851193223306708,
       "corpusVoiceScore": 0.8505214733635602,
@@ -6821,8 +6941,8 @@
         "MQ5X6P2M-52F9B16D",
         "MQ5X9PGR-F8698E7E",
         "MQ5X56G4-537343C8",
-        "MASTER-2C637ECA",
-        "MASTER-F05BF2C0"
+        "MWP7OI4B-71BADB55",
+        "MASTER-2C637ECA"
       ],
       "werkVoiceScore": 0.8147736066809017,
       "corpusVoiceScore": 0.7595698745775823,
@@ -6856,8 +6976,8 @@
         "MQ5X56G4-537343C8",
         "MQ5X7QW6-F6E03538",
         "MWJEY6W3-C4E77F94",
-        "MASTER-F05BF2C0",
-        "MWJEYZU2-D00A3283"
+        "MWP7OI4B-71BADB55",
+        "MASTER-F05BF2C0"
       ],
       "werkVoiceScore": 0.8171941051235434,
       "corpusVoiceScore": 0.7785131843566914,

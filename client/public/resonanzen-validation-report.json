@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T16:45:54.832Z",
-  "filesChecked": 423,
+  "generatedAt": "2026-11-20T16:47:09.288Z",
+  "filesChecked": 427,
   "errors": 0,
-  "warnings": 58,
+  "warnings": 60,
   "issues": [
     {
       "level": "warning",
@@ -258,6 +258,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/raumfaltung+weltfaltung/2026-11-20-MWP7O1LR-9E27750E.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 6b59e31c2f169ac9, computed 8d21768cbe1aeb50 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/resonanzimperativ+transaufklaerung/2026-11-14-MWG6K2GK-71CA57FA.md",
       "rule": "content-hash-mismatch",
       "detail": "expected ea47fac19409212f, computed 7b0d28c960182806 — Tampering oder nachträgliche Edit?"
@@ -267,6 +273,12 @@
       "file": "content/resonanzen/raw/dialog/schweigen+dialog/2026-11-16-MWJ1DBD5-7CEE18D5.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 430055f8de7b4ee6, computed 7c707c6c0dab2545 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/transformatives-drittes/2026-11-20-MWP7OI4B-71BADB55.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 9312281d57a1492d, computed 0f2af57c4bce9a2c — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
@@ -357,16 +369,16 @@
     "byEndpoint": {
       "analyse": 99,
       "chapter": 63,
-      "dialog": 59,
-      "path-analyse": 63,
+      "dialog": 61,
+      "path-analyse": 64,
       "enkidu": 67,
-      "graph-chat": 49,
+      "graph-chat": 50,
       "passage": 17,
       "translate": 6
     },
     "byStatus": {
       "published": 164,
-      "raw": 181,
+      "raw": 185,
       "rejected": 24,
       "approved": 54
     },

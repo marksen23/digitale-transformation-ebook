@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:46:08.554Z",
+  "generatedAt": "2026-11-20T16:47:20.500Z",
   "checked": 46,
   "stable": 18,
   "shifted": 19,
@@ -14,10 +14,10 @@
       ],
       "current": [
         "MWP7KY81-FA276303",
-        "MWJ1GVRC-945E92E3",
-        "MWG6FYD2-E6D90142"
+        "MWP7NPE0-8C7A9B99",
+        "MWJ1GVRC-945E92E3"
       ],
-      "overlap": 1
+      "overlap": 0
     },
     {
       "id": "MWJ1DBD5-7CEE18D5",
