@@ -6,7 +6,7 @@ endpoint: enkidu
 model: gemini-2.5-flash
 anchor: enkidu
 nodeIds: []
-status: raw
+status: rejected
 content_hash: 487b3334a656dc17
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
@@ -16,6 +16,11 @@ audit_trail:
     ts: 2026-11-11T16:09:09.133Z
     actor: system
     content_hash: 487b3334a656dc17
+  - event: status-changed
+    ts: 2026-11-20T16:59:35.030Z
+    actor: admin
+    from: raw
+    to: rejected
 context_meta:
   turnCount: 1
 ---
