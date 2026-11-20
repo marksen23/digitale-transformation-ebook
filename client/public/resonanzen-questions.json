@@ -1,16 +1,128 @@
 {
-  "generatedAt": "2026-11-20T17:38:46.898Z",
-  "count": 391,
+  "generatedAt": "2026-11-20T18:00:00.911Z",
+  "count": 399,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 391,
-    "answered": 349,
-    "open": 42,
+    "total": 399,
+    "answered": 360,
+    "open": 39,
     "embedded": 8
   },
   "questions": [
+    {
+      "sourceId": "MWPA16O7-287F34C5",
+      "question": "Wenn ein Dritter für die sprechen soll, die noch nicht da sind, woher nimmt er das Recht, für künftige Menschen zu entscheiden, was sie über das Scheitern ihrer Vorgänger wissen müssen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo+lm-scheitern",
+      "nodeIds": [
+        "echo",
+        "lm-scheitern"
+      ],
+      "ts": "2026-11-20T17:52:30.727Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWPA16O4-913B0D8F",
+      "question": "Wenn das Ohne planmäßig geübt werden muss, welche Fähigkeiten verdienen diese Mühe, und wer entscheidet, welches Können wir getrost dem Werkzeug überlassen dürfen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dazwischenintelligenz+freiheit",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "freiheit"
+      ],
+      "ts": "2026-11-20T17:52:30.724Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWPA16O1-CC6EA6AD",
+      "question": "Wenn die neuen Faltungen im Zwischen entstehen und keinem allein gehören, woran erkennt man, ob eine Rückfaltung die Welt vertieft oder nur das eigene Wählen immer enger zurückspiegelt?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dazwischenintelligenz+raumfaltung",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "raumfaltung"
+      ],
+      "ts": "2026-11-20T17:52:30.721Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWPA16NY-3D5DD901",
+      "question": "Wenn Rückbindung im Versprechen liegt, das Ansprechbarkeit trotz Verwandlung zusagt, kann dann auch eine Maschine, die sich mit jedem Update verwandelt, ein Versprechen geben, oder bleibt das Versprechen immer bei denen, die sie verwandeln?",
+      "endpoint": "analyse",
+      "anchor": "analyse:werden+zeit",
+      "nodeIds": [
+        "werden",
+        "zeit"
+      ],
+      "ts": "2026-11-20T17:52:30.718Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWPA16NV-4FFCF6BE",
+      "question": "Wenn Reibung erst rückblickend als Gewinn erkannt wird, wie geht man mit denen um, die nie zurückblicken, weil sie das System schon beim ersten Widerstand verlassen haben?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo-kammer+spannung",
+      "nodeIds": [
+        "echo-kammer",
+        "spannung"
+      ],
+      "ts": "2026-11-20T17:52:30.715Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWPA16NS-54BBB39F",
+      "question": "Wenn sich Technik daran messen soll, ob die Zeit gut verbracht war, wer darf das beurteilen, der Mensch im Moment, der Mensch eine Woche später, oder die, mit denen er die Zeit sonst verbracht hätte?",
+      "endpoint": "analyse",
+      "anchor": "analyse:gegenwart+welt",
+      "nodeIds": [
+        "gegenwart",
+        "welt"
+      ],
+      "ts": "2026-11-20T17:52:30.712Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWPA16NP-F307CE71",
+      "question": "Wenn eine Einsicht als Befund ihren Anspruch verliert, kann ein anderer, der nur den Befund kennt, den Anspruch je wieder spüren, oder braucht jede Einsicht ihre eigene Begegnung, um wieder zu fordern?",
+      "endpoint": "analyse",
+      "anchor": "analyse:erkenntnis+ich-du",
+      "nodeIds": [
+        "erkenntnis",
+        "ich-du"
+      ],
+      "ts": "2026-11-20T17:52:30.709Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWPA16NM-2C6538A1",
+      "question": "Wenn die Schwelle mit der Tragweite wachsen soll, wer bestimmt dann die Tragweite einer Handlung, das System, das sie vorbereitet, oder der Mensch, der erst hinterher weiß, was sie ihm bedeutet hat?",
+      "endpoint": "analyse",
+      "anchor": "analyse:antwort+freiheit",
+      "nodeIds": [
+        "antwort",
+        "freiheit"
+      ],
+      "ts": "2026-11-20T17:52:30.706Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWP942QG-F15146A5",
       "question": "Wenn ein System ehrlicherweise nur seine Grenze anzeigen kann, verlernen wir dann, das Schweigen eines Menschen auszuhalten, weil wir jedes Schweigen als Grenzmeldung zu lesen gewohnt sind?",
@@ -248,7 +360,7 @@
           "score": 0.749
         },
         {
-          "id": "MWP942QG-F15146A5",
+          "id": "MWPA16NV-4FFCF6BE",
           "score": 0.73
         }
       ],
@@ -312,8 +424,14 @@
       ],
       "ts": "2026-11-20T17:03:02.529Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16O4-913B0D8F",
+          "score": 0.835,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP89KE6-947D0134",
@@ -340,8 +458,14 @@
       ],
       "ts": "2026-11-20T17:03:02.523Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16O4-913B0D8F",
+          "score": 0.79,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP888HX-9EF62C70",
@@ -642,6 +766,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWPA16NV-4FFCF6BE",
+          "score": 0.742
+        },
+        {
           "id": "MWP888HX-9EF62C70",
           "score": 0.726
         }
@@ -901,8 +1029,14 @@
       ],
       "ts": "2026-11-20T16:47:25.812Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16O7-287F34C5",
+          "score": 0.79,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP7PHM9-EC2123C1",
@@ -952,8 +1086,14 @@
       ],
       "ts": "2026-11-20T16:47:25.803Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MW566TO0-ABBD4330",
+          "score": 0.787,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP7PHM0-4AECED9E",
@@ -966,8 +1106,14 @@
       ],
       "ts": "2026-11-20T16:47:25.800Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16O7-287F34C5",
+          "score": 0.868,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP7PHLX-B52303F9",
@@ -1423,6 +1569,10 @@
         {
           "id": "MWP942PY-5EF7032A",
           "score": 0.728
+        },
+        {
+          "id": "MWPA16O7-287F34C5",
+          "score": 0.724
         }
       ],
       "answered": true
@@ -1681,16 +1831,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWPA16O1-CC6EA6AD",
+          "score": 0.752
+        },
+        {
           "id": "MASTER-0ACC14CB",
           "score": 0.748
         },
         {
           "id": "MWP7QJEL-0AF70B09",
           "score": 0.733
-        },
-        {
-          "id": "MWP7PHLX-B52303F9",
-          "score": 0.727
         }
       ],
       "answered": true
@@ -1841,8 +1991,14 @@
       ],
       "ts": "2026-11-15T09:04:33.340Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16NV-4FFCF6BE",
+          "score": 0.859,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWHLYF7H-9E1F67B3",
@@ -1967,8 +2123,14 @@
       "nodeIds": [],
       "ts": "2026-11-15T09:02:17.547Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16NS-54BBB39F",
+          "score": 0.854,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWHLVPL2-B591DBEC",
@@ -3564,8 +3726,14 @@
       "nodeIds": [],
       "ts": "2026-11-11T15:53:35.713Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16NY-3D5DD901",
+          "score": 0.838,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCATA4K-58BFC31C",
@@ -3632,16 +3800,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWPA16NS-54BBB39F",
+          "score": 0.756
+        },
+        {
           "id": "MWHLZOLL-5FF5E8CE",
           "score": 0.756
         },
         {
           "id": "MWHLW24R-959992F9",
           "score": 0.743
-        },
-        {
-          "id": "MWJ1DBD5-7CEE18D5",
-          "score": 0.734
         }
       ],
       "answered": true
@@ -3881,6 +4049,10 @@
           "id": "MQ5WX52Q-442369F2",
           "score": 0.728,
           "manual": true
+        },
+        {
+          "id": "MWPA16NP-F307CE71",
+          "score": 0.746
         }
       ],
       "answered": true
@@ -6369,6 +6541,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWPA16NY-3D5DD901",
+          "score": 0.737
+        },
+        {
           "id": "MASTER-4EFD4AA4",
           "score": 0.731
         },
@@ -6742,8 +6918,14 @@
       "nodeIds": [],
       "ts": "2026-05-26T12:19:12.373Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16NP-F307CE71",
+          "score": 0.806,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MPMKBUNW-88609492",
@@ -7295,12 +7477,12 @@
           "score": 0.746
         },
         {
-          "id": "MWJEXKQQ-CD62AAC3",
-          "score": 0.732
+          "id": "MWPA16NM-2C6538A1",
+          "score": 0.739
         },
         {
-          "id": "MWP89KE9-5CA26BFA",
-          "score": 0.726
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.732
         }
       ],
       "answered": true
@@ -7563,8 +7745,14 @@
       "nodeIds": [],
       "ts": "2026-05-11T04:51:31.736Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16NM-2C6538A1",
+          "score": 0.854,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOUKLLK4-C38517C1",
@@ -8345,8 +8533,14 @@
       ],
       "ts": "2026-05-02T21:59:58.348Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWPA16O1-CC6EA6AD",
+          "score": 0.865,
+          "manual": true
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MOOUGMII-D6D90141",

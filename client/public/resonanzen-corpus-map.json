@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:38:43.999Z",
+  "generatedAt": "2026-11-20T17:59:56.640Z",
   "method": "umap-js",
   "params": {
     "nComponents": 2,
@@ -9,10 +9,82 @@
   },
   "points": [
     {
+      "id": "MWPA16O7-287F34C5",
+      "endpoint": "analyse",
+      "x": 357,
+      "y": 243,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Wenn ein System seine Fehler als Narben bewahrt, wer entscheidet, wann eine Narb"
+    },
+    {
+      "id": "MWPA16O4-913B0D8F",
+      "endpoint": "analyse",
+      "x": 388,
+      "y": 246,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Wenn Mündigkeit heute vor allem darin besteht, Delegationen zurücknehmen zu könn"
+    },
+    {
+      "id": "MWPA16O1-CC6EA6AD",
+      "endpoint": "analyse",
+      "x": 57,
+      "y": 664,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Welche neuen Faltungsprinzipien entstehen im Zusammenspiel von menschlicher und "
+    },
+    {
+      "id": "MWPA16NY-3D5DD901",
+      "endpoint": "analyse",
+      "x": 500,
+      "y": 375,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Wie kann eine solche unaufhörliche Verwandlung, die weder „Man“ noch „Stille“ du"
+    },
+    {
+      "id": "MWPA16NV-4FFCF6BE",
+      "endpoint": "analyse",
+      "x": 381,
+      "y": 389,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Wie können wir aber den Wert dieser \"produktiven Reibung\" so vermitteln, dass si"
+    },
+    {
+      "id": "MWPA16NS-54BBB39F",
+      "endpoint": "analyse",
+      "x": 328,
+      "y": 317,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Wie können wir Technologie gestalten, die nicht nur nützlich ist, sondern uns in"
+    },
+    {
+      "id": "MWPA16NP-F307CE71",
+      "endpoint": "analyse",
+      "x": 452,
+      "y": 723,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Was geschieht mit der Einsicht, sobald das Du, das sie ermöglichte, wieder in ei"
+    },
+    {
+      "id": "MWPA16NM-2C6538A1",
+      "endpoint": "analyse",
+      "x": 364,
+      "y": 315,
+      "isOutlier": false,
+      "isMaster": false,
+      "promptPreview": "Welche architektonische Entscheidung würde eine Handlung wieder zu einer Antwort"
+    },
+    {
       "id": "MWP942QG-F15146A5",
       "endpoint": "analyse",
-      "x": 638,
-      "y": 184,
+      "x": 320,
+      "y": 331,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn die Antwortfähigkeit eines Systems nicht mehr an seine Lebendigkeit gekoppe"
@@ -20,8 +92,8 @@
     {
       "id": "MWP942QD-1A3FDA7E",
       "endpoint": "analyse",
-      "x": 612,
-      "y": 409,
+      "x": 502,
+      "y": 445,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Woran erkennt man eine Handlung, die das Dritte nur benennt, von einer, die es i"
@@ -29,8 +101,8 @@
     {
       "id": "MWP942QA-90A0C107",
       "endpoint": "analyse",
-      "x": 542,
-      "y": 172,
+      "x": 408,
+      "y": 254,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie kann man die Bedingungen für das Entstehen von Gnade und Buße in einer "
@@ -38,8 +110,8 @@
     {
       "id": "MWP942Q7-3E1CE3F8",
       "endpoint": "analyse",
-      "x": 656,
-      "y": 31,
+      "x": 318,
+      "y": 231,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie lässt sich diese Ethik des Rahmens in einer Welt der algorithmischen Bi"
@@ -47,8 +119,8 @@
     {
       "id": "MWP942Q4-D22CF61C",
       "endpoint": "analyse",
-      "x": 455,
-      "y": 86,
+      "x": 441,
+      "y": 147,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche *Art* von Urteil wird hier beschrieben, wenn es weder Erfahrung noch Intu"
@@ -56,8 +128,8 @@
     {
       "id": "MWP942Q1-AC6D25E4",
       "endpoint": "analyse",
-      "x": 474,
-      "y": 77,
+      "x": 430,
+      "y": 163,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn die Tiefe des menschlichen Urteils an seine Fähigkeit gebunden ist, im Scha"
@@ -65,8 +137,8 @@
     {
       "id": "MWP942PY-5EF7032A",
       "endpoint": "analyse",
-      "x": 593,
-      "y": 164,
+      "x": 363,
+      "y": 286,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn Schuld das Verstummen der Rückmeldung ist und die digitalen Systeme dieses "
@@ -74,8 +146,8 @@
     {
       "id": "MWP942PV-96D0E9F1",
       "endpoint": "analyse",
-      "x": 529,
-      "y": 206,
+      "x": 488,
+      "y": 294,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie lässt sich eine solche prozessuale Verantwortung institutionell verankern, w"
@@ -83,8 +155,8 @@
     {
       "id": "MASTER-456B1D6E",
       "endpoint": "analyse",
-      "x": 622,
-      "y": 437,
+      "x": 484,
+      "y": 469,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: analyse:antwort+resonanz"
@@ -93,7 +165,7 @@
       "id": "MASTER-0DDDD54A",
       "endpoint": "chapter",
       "x": 446,
-      "y": 103,
+      "y": 150,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: chapter:band2-kap4"
@@ -101,8 +173,8 @@
     {
       "id": "MASTER-7F7160A0",
       "endpoint": "dialog",
-      "x": 518,
-      "y": 241,
+      "x": 504,
+      "y": 324,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 5 Varianten zu: dialog:antwort+resonanz"
@@ -110,8 +182,8 @@
     {
       "id": "MASTER-40033690",
       "endpoint": "dialog",
-      "x": 740,
-      "y": 6,
+      "x": 2,
+      "y": 414,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 4 Varianten zu: dialog:licht+schatten"
@@ -119,8 +191,8 @@
     {
       "id": "MASTER-70E7430C",
       "endpoint": "dialog",
-      "x": 484,
-      "y": 197,
+      "x": 513,
+      "y": 236,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: dialog:raumfaltung+weltfaltung"
@@ -128,8 +200,8 @@
     {
       "id": "MASTER-0ACC14CB",
       "endpoint": "dialog",
-      "x": 508,
-      "y": 274,
+      "x": 541,
+      "y": 319,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: dialog:transformatives-drittes"
@@ -137,8 +209,8 @@
     {
       "id": "MWP89KEO-68E6B82A",
       "endpoint": "analyse",
-      "x": 645,
-      "y": 279,
+      "x": 324,
+      "y": 375,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie gestalten wir eine Pädagogik, die nicht nur das Irritierbare zulässt, s"
@@ -146,8 +218,8 @@
     {
       "id": "MWP89KEL-24505B6D",
       "endpoint": "analyse",
-      "x": 585,
-      "y": 456,
+      "x": 455,
+      "y": 476,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Denkst du, wahre Resonanz kann überhaupt \"überzeugt\" werden? Oder ist der Versuc"
@@ -155,8 +227,8 @@
     {
       "id": "MWP89KEI-FACD63CA",
       "endpoint": "analyse",
-      "x": 507,
-      "y": 583,
+      "x": 666,
+      "y": 597,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn die Theorie notwendig aus der Dichtung hervorgeht, kann dann eine rein theo"
@@ -164,8 +236,8 @@
     {
       "id": "MWP89KEF-808B79A0",
       "endpoint": "analyse",
-      "x": 767,
-      "y": 277,
+      "x": 159,
+      "y": 455,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch impliziert diese Kette, dass Unverfügbarkeit nur als Endpunkt einer solchen"
@@ -173,8 +245,8 @@
     {
       "id": "MWP89KEC-7F9911C4",
       "endpoint": "analyse",
-      "x": 528,
-      "y": 81,
+      "x": 354,
+      "y": 223,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn eine Prüfschicht ihre eigene Grenze zeigt, wer schützt diese Grenzmarke dav"
@@ -182,8 +254,8 @@
     {
       "id": "MWP89KE9-5CA26BFA",
       "endpoint": "analyse",
-      "x": 520,
-      "y": 145,
+      "x": 437,
+      "y": 260,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann sich eine solche Weisheit entfalten, ohne in die Fallstricke einer"
@@ -191,8 +263,8 @@
     {
       "id": "MWP89KE6-947D0134",
       "endpoint": "analyse",
-      "x": 536,
-      "y": 145,
+      "x": 418,
+      "y": 331,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ist die Unzufriedenheit trotz grüner Kennzahlen ein Signal, das uns zur Rückbind"
@@ -200,8 +272,8 @@
     {
       "id": "MWP89KE3-1A78C2BB",
       "endpoint": "analyse",
-      "x": 510,
-      "y": 124,
+      "x": 396,
+      "y": 247,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie erkennen wir den Moment, in dem die Erweiterung der Reichweite durch die Mas"
@@ -209,8 +281,8 @@
     {
       "id": "MWP888HX-9EF62C70",
       "endpoint": "dialog",
-      "x": 582,
-      "y": 187,
+      "x": 381,
+      "y": 294,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann in einer solchen Welt noch eine Verantwortung für das Unverfügbare"
@@ -218,8 +290,8 @@
     {
       "id": "MWP87W94-699C7D13",
       "endpoint": "dialog",
-      "x": 736,
-      "y": 0,
+      "x": 4,
+      "y": 411,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie kann eine solche Ethik des Kontrast-Sehens verhindern, dass sie selbst "
@@ -227,8 +299,8 @@
     {
       "id": "MWP87AIE-1CE096EA",
       "endpoint": "dialog",
-      "x": 495,
-      "y": 237,
+      "x": 537,
+      "y": 268,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann eine Ethik, die sich nicht auf Autonomie, sondern auf Responsivität grü"
@@ -236,8 +308,8 @@
     {
       "id": "MWP86WNM-ADEDD949",
       "endpoint": "dialog",
-      "x": 791,
-      "y": 284,
+      "x": 192,
+      "y": 461,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie können wir in einer Welt, die immer dichter gefaltet wird, die Leichtigkeit "
@@ -245,8 +317,8 @@
     {
       "id": "MWP86K27-E36FC029",
       "endpoint": "dialog",
-      "x": 732,
-      "y": 4,
+      "x": 0,
+      "y": 407,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche neue Form der Ethik des Sehens erwächst aus der Akzeptanz dieser unabding"
@@ -254,8 +326,8 @@
     {
       "id": "MWP85762-03FEE922",
       "endpoint": "analyse",
-      "x": 920,
-      "y": 330,
+      "x": 297,
+      "y": 761,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Entfremdung ↔ Resonanzimperativ"
@@ -263,8 +335,8 @@
     {
       "id": "MWP84ULS-09E47DCA",
       "endpoint": "graph-chat",
-      "x": 746,
-      "y": 364,
+      "x": 205,
+      "y": 516,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Klang und Öffnung sind im Begriffsnetz noch dünn belegt. Erkläre mir beide Begri"
@@ -272,8 +344,8 @@
     {
       "id": "MWP84DL5-F07ACB7E",
       "endpoint": "path-analyse",
-      "x": 673,
-      "y": 994,
+      "x": 727,
+      "y": 933,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Schwingung → Resonanz → Moment → Zeitlichkeit vs. Schwingung → R"
@@ -281,8 +353,8 @@
     {
       "id": "MWP83WJ0-89C4CB03",
       "endpoint": "path-analyse",
-      "x": 641,
-      "y": 888,
+      "x": 545,
+      "y": 930,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Gelassenheit → Freiheit → Selbst → Ich–Du-Beziehung vs. Gelassen"
@@ -290,8 +362,8 @@
     {
       "id": "MWP83JAQ-7B75BF9B",
       "endpoint": "analyse",
-      "x": 793,
-      "y": 346,
+      "x": 229,
+      "y": 488,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Ich–Du-Beziehung ↔ Gelassenheit"
@@ -299,8 +371,8 @@
     {
       "id": "MWP835N6-909E6986",
       "endpoint": "analyse",
-      "x": 713,
-      "y": 437,
+      "x": 343,
+      "y": 586,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Schwingung ↔ Öffnung"
@@ -308,8 +380,8 @@
     {
       "id": "MWP82NI3-4EAF5580",
       "endpoint": "dialog",
-      "x": 550,
-      "y": 205,
+      "x": 472,
+      "y": 279,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann in einer solchen Welt noch eine Verantwortung für das Unverfügbare"
@@ -317,8 +389,8 @@
     {
       "id": "MWP82B5U-9D2E9F77",
       "endpoint": "dialog",
-      "x": 742,
-      "y": 8,
+      "x": 14,
+      "y": 411,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie kann eine solche Ethik des Kontrast-Sehens verhindern, dass sie selbst "
@@ -326,8 +398,8 @@
     {
       "id": "MWP81YZO-24DCE87C",
       "endpoint": "dialog",
-      "x": 502,
-      "y": 218,
+      "x": 528,
+      "y": 246,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann eine Ethik, die sich nicht auf Autonomie, sondern auf Responsivität grü"
@@ -335,8 +407,8 @@
     {
       "id": "MWP81IWI-5311D00B",
       "endpoint": "dialog",
-      "x": 534,
-      "y": 265,
+      "x": 511,
+      "y": 309,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie können wir in einer Welt, die immer dichter gefaltet wird, die Leichtigkeit "
@@ -344,8 +416,8 @@
     {
       "id": "MWP814CF-E3AF9641",
       "endpoint": "dialog",
-      "x": 743,
-      "y": 7,
+      "x": 2,
+      "y": 416,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche neue Form der Ethik des Sehens erwächst aus der Akzeptanz dieser unabding"
@@ -353,8 +425,8 @@
     {
       "id": "MWP80SJC-31660D4D",
       "endpoint": "dialog",
-      "x": 498,
-      "y": 253,
+      "x": 538,
+      "y": 279,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet es für unsere Verantwortung, wenn wir erkennen, dass jede unserer H"
@@ -362,8 +434,8 @@
     {
       "id": "MWP80FKW-BE8B476E",
       "endpoint": "dialog",
-      "x": 552,
-      "y": 271,
+      "x": 87,
+      "y": 599,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet es für unsere Freiheit, wenn jede Begegnung nicht nur Möglichkeiten"
@@ -371,8 +443,8 @@
     {
       "id": "MWP7ZZFB-4CCC5381",
       "endpoint": "dialog",
-      "x": 752,
-      "y": 10,
+      "x": 0,
+      "y": 423,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie verändert die Erkenntnis, dass Sichtbarkeit stets auf Verbergung angewiesen "
@@ -380,8 +452,8 @@
     {
       "id": "MWP7QJEL-0AF70B09",
       "endpoint": "graph-chat",
-      "x": 940,
-      "y": 535,
+      "x": 110,
+      "y": 602,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Das transformative Dritte und die Raumfaltung sind im Netz noch dünn belegt. Kan"
@@ -389,8 +461,8 @@
     {
       "id": "MWP7Q2VV-E5134CAA",
       "endpoint": "dialog",
-      "x": 744,
-      "y": 17,
+      "x": 34,
+      "y": 423,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Diese produktive Spannung zwischen dem Sichtbaren und dem Unsichtbaren, dem Kont"
@@ -398,8 +470,8 @@
     {
       "id": "MWP7PN8N-3498F800",
       "endpoint": "enkidu",
-      "x": 85,
-      "y": 332,
+      "x": 857,
+      "y": 156,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Enkidu, in meinem Produkt wird ständig Möglichkeit in Wirklichkeit verwandelt, o"
@@ -407,8 +479,8 @@
     {
       "id": "MWP7PHMF-9C500DEA",
       "endpoint": "analyse",
-      "x": 645,
-      "y": 178,
+      "x": 305,
+      "y": 305,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn eine Architektur Pausen gestalten kann, wer entscheidet dann über ihr Maß, "
@@ -416,8 +488,8 @@
     {
       "id": "MWP7PHMC-41844226",
       "endpoint": "analyse",
-      "x": 596,
-      "y": 153,
+      "x": 343,
+      "y": 267,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn das digitale Vergessen sowohl Schutz als auch Verlust sein kann, wie kultiv"
@@ -425,8 +497,8 @@
     {
       "id": "MWP7PHM9-EC2123C1",
       "endpoint": "analyse",
-      "x": 484,
-      "y": 89,
+      "x": 421,
+      "y": 174,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie bewahren wir diese menschliche Unschärfe als Wert, wenn die Verlockung "
@@ -434,8 +506,8 @@
     {
       "id": "MWP7PHM6-789F4B23",
       "endpoint": "analyse",
-      "x": 647,
-      "y": 383,
+      "x": 454,
+      "y": 448,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie lässt sich das \"benannte Ergebnis\" dann von einer bloßen Erwartung untersche"
@@ -443,8 +515,8 @@
     {
       "id": "MWP7PHM3-67AB165C",
       "endpoint": "analyse",
-      "x": 674,
-      "y": 469,
+      "x": 426,
+      "y": 509,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was geschieht mit der menschlichen Fähigkeit zur Selbstreflexion, wenn das Ander"
@@ -452,8 +524,8 @@
     {
       "id": "MWP7PHM0-4AECED9E",
       "endpoint": "analyse",
-      "x": 542,
-      "y": 184,
+      "x": 429,
+      "y": 290,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche neuen Formen der systemischen Korrektur könnten entstehen, die das Scheit"
@@ -461,8 +533,8 @@
     {
       "id": "MWP7PHLX-B52303F9",
       "endpoint": "analyse",
-      "x": 655,
-      "y": 232,
+      "x": 326,
+      "y": 360,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absi"
@@ -470,8 +542,8 @@
     {
       "id": "MWP7P98E-830D3A82",
       "endpoint": "passage",
-      "x": 456,
-      "y": 274,
+      "x": 582,
+      "y": 308,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn ich diese Stelle als IT-Leiter lese: Was würde sie für den Moment bedeuten,"
@@ -479,8 +551,8 @@
     {
       "id": "MWP7OV7G-727AB5E9",
       "endpoint": "chapter",
-      "x": 483,
-      "y": 66,
+      "x": 414,
+      "y": 147,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Im Kapitel zur digitalen Urteilskraft: Kann das Schattenlicht-Prinzip erklären, "
@@ -488,8 +560,8 @@
     {
       "id": "MWP7OI4B-71BADB55",
       "endpoint": "dialog",
-      "x": 515,
-      "y": 313,
+      "x": 571,
+      "y": 338,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Existenz beider Wege offenbart die Vielschichtigkeit des Begriffsnetzes und "
@@ -497,8 +569,8 @@
     {
       "id": "MWP7O1LR-9E27750E",
       "endpoint": "dialog",
-      "x": 460,
-      "y": 116,
+      "x": 456,
+      "y": 181,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie können wir die subtilen Verschiebungen in der Gewichtung von \"dem Anderen\" u"
@@ -506,8 +578,8 @@
     {
       "id": "MWP7NPE0-8C7A9B99",
       "endpoint": "graph-chat",
-      "x": 749,
-      "y": 24,
+      "x": 18,
+      "y": 431,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Im Netz gibt es das Prinzip Schattenlicht — Erkennen durch Kontrast. Wie hängt d"
@@ -515,8 +587,8 @@
     {
       "id": "MWP7N8UD-6C99565B",
       "endpoint": "path-analyse",
-      "x": 674,
-      "y": 959,
+      "x": 661,
+      "y": 907,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Existenz → Dasein → Resonanzvernunft → Transformatives Drittes v"
@@ -524,8 +596,8 @@
     {
       "id": "MWP7MRUK-CCFA8296",
       "endpoint": "path-analyse",
-      "x": 705,
-      "y": 954,
+      "x": 693,
+      "y": 933,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Raumfaltung → Begegnung → Das Andere / Die Anderen → Transformat"
@@ -533,8 +605,8 @@
     {
       "id": "MWP7MAWH-24EE3D77",
       "endpoint": "path-analyse",
-      "x": 610,
-      "y": 905,
+      "x": 592,
+      "y": 935,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Licht → Scheitern → Schatten vs. Licht → Spiegel → Schatten"
@@ -542,8 +614,8 @@
     {
       "id": "MWP7LTBE-E4F406FE",
       "endpoint": "analyse",
-      "x": 1000,
-      "y": 560,
+      "x": 60,
+      "y": 661,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Weltfaltung ↔ Raumfaltung"
@@ -551,8 +623,8 @@
     {
       "id": "MWP7LELE-4DE91303",
       "endpoint": "analyse",
-      "x": 989,
-      "y": 551,
+      "x": 91,
+      "y": 662,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Wirklichkeit ↔ Möglichkeit"
@@ -560,8 +632,8 @@
     {
       "id": "MWP7KY81-FA276303",
       "endpoint": "analyse",
-      "x": 764,
-      "y": 45,
+      "x": 30,
+      "y": 448,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Licht ↔ Schatten"
@@ -569,8 +641,8 @@
     {
       "id": "MWJF8ASK-16B3DB91",
       "endpoint": "dialog",
-      "x": 515,
-      "y": 248,
+      "x": 479,
+      "y": 300,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie lässt sich die Nicht-Erfüllung dieser prozessualen Rechenschaftspflicht"
@@ -578,8 +650,8 @@
     {
       "id": "MWJEZNVB-D1367E36",
       "endpoint": "dialog",
-      "x": 515,
-      "y": 249,
+      "x": 522,
+      "y": 314,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann diese Rechenschaftspflicht formalisiert werden, ohne ihre lebendig"
@@ -588,7 +660,7 @@
       "id": "MWJEYZU2-D00A3283",
       "endpoint": "dialog",
       "x": 520,
-      "y": 237,
+      "y": 303,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche neuen Formen der Rechenschaftspflicht fordern wir dann von einem solchen "
@@ -596,8 +668,8 @@
     {
       "id": "MWJEY6W3-C4E77F94",
       "endpoint": "dialog",
-      "x": 507,
-      "y": 253,
+      "x": 534,
+      "y": 294,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann diese transhumane Mündigkeit ihre eigene Verantwortung bestimmen, "
@@ -606,7 +678,7 @@
       "id": "MWJEXKQQ-CD62AAC3",
       "endpoint": "dialog",
       "x": 527,
-      "y": 251,
+      "y": 314,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche neuen Formen der Mündigkeit entstehen, wenn die Fähigkeit zur Resonanz un"
@@ -614,8 +686,8 @@
     {
       "id": "MWJEWOY7-62FCEE55",
       "endpoint": "analyse",
-      "x": 618,
-      "y": 469,
+      "x": 488,
+      "y": 535,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Antwort / Responsivität ↔ Resonanz"
@@ -623,8 +695,8 @@
     {
       "id": "MASTER-5AF4690D",
       "endpoint": "chapter",
-      "x": 269,
-      "y": 531,
+      "x": 871,
+      "y": 368,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: chapter:band1-kap5"
@@ -632,8 +704,8 @@
     {
       "id": "MASTER-5476DCEA",
       "endpoint": "chapter",
-      "x": 399,
-      "y": 249,
+      "x": 666,
+      "y": 374,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: chapter:band2-kap3"
@@ -641,8 +713,8 @@
     {
       "id": "MASTER-2C637ECA",
       "endpoint": "chapter",
-      "x": 483,
-      "y": 546,
+      "x": 692,
+      "y": 548,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: chapter:schlussreflexion"
@@ -650,8 +722,8 @@
     {
       "id": "MWJ1GVRC-945E92E3",
       "endpoint": "dialog",
-      "x": 757,
-      "y": 35,
+      "x": 29,
+      "y": 441,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die scheinbare Isoliertheit von \"Schatten\" und \"Licht\" im Begriffsnetz täuscht, "
@@ -659,8 +731,8 @@
     {
       "id": "MWJ1GEC3-E3430FB8",
       "endpoint": "chapter",
-      "x": 241,
-      "y": 529,
+      "x": 889,
+      "y": 344,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Schranken des Vergessens löschen, was keine Spur hinterlässt. Wie könnte ich"
@@ -668,8 +740,8 @@
     {
       "id": "MWJ1FX7Q-0DC96540",
       "endpoint": "graph-chat",
-      "x": 758,
-      "y": 36,
+      "x": 22,
+      "y": 435,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Schatten und Licht stehen im Begriffsnetz scheinbar ganz ohne Verbindungen da. I"
@@ -677,8 +749,8 @@
     {
       "id": "MWJ1FKY5-9E97D903",
       "endpoint": "dialog",
-      "x": 373,
-      "y": 307,
+      "x": 675,
+      "y": 283,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Tragweite dieser Frage reicht tief in die Architektur unserer Menschlichkeit"
@@ -686,8 +758,8 @@
     {
       "id": "MWJ1F278-2DA1CA58",
       "endpoint": "enkidu",
-      "x": 143,
-      "y": 438,
+      "x": 923,
+      "y": 256,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Im alten Epos stirbt Enkidu, und Gilgamesch trauert um ihn. Wenn man dich eines "
@@ -695,8 +767,8 @@
     {
       "id": "MWJ1EIER-0DB4F1CF",
       "endpoint": "passage",
-      "x": 436,
-      "y": 274,
+      "x": 601,
+      "y": 290,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "frage: \"Im digitalen Raum scheint diese Verwundbarkeit unsichtbar zu sein: Hinte"
@@ -704,8 +776,8 @@
     {
       "id": "MWJ1E1XH-1F94AC9B",
       "endpoint": "path-analyse",
-      "x": 615,
-      "y": 869,
+      "x": 550,
+      "y": 921,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Transaufklärung → Bewusstsein → Selbst → Freiheit → Gelassenheit"
@@ -713,8 +785,8 @@
     {
       "id": "MWJ1DNAN-2193A848",
       "endpoint": "analyse",
-      "x": 922,
-      "y": 346,
+      "x": 277,
+      "y": 751,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Entfremdung · Transaufklärung · Wirklichkeit"
@@ -722,8 +794,8 @@
     {
       "id": "MWJ1DBD5-7CEE18D5",
       "endpoint": "dialog",
-      "x": 693,
-      "y": 222,
+      "x": 282,
+      "y": 383,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "3. Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, da"
@@ -731,8 +803,8 @@
     {
       "id": "MWJ1CYQJ-00F93C04",
       "endpoint": "graph-chat",
-      "x": 824,
-      "y": 465,
+      "x": 142,
+      "y": 567,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ich plane eine Unterrichtsreihe zu Mensch und Maschine. Wie hängen das Transform"
@@ -740,8 +812,8 @@
     {
       "id": "MWJ1CFX6-DB36677A",
       "endpoint": "passage",
-      "x": 459,
-      "y": 89,
+      "x": 429,
+      "y": 156,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Das klingt mir zu versöhnlich. Ist die menschliche Unschärfe wirklich ein Wert, "
@@ -749,8 +821,8 @@
     {
       "id": "MWJ1BZO7-B4841C4E",
       "endpoint": "path-analyse",
-      "x": 609,
-      "y": 925,
+      "x": 630,
+      "y": 876,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Resonanzimperativ → Freiheit → Grenze → Wesen vs. Resonanzimpera"
@@ -758,8 +830,8 @@
     {
       "id": "MWJ1BIHJ-2DFCE3F3",
       "endpoint": "analyse",
-      "x": 800,
-      "y": 398,
+      "x": 290,
+      "y": 532,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Schweigen · Dialog · Ich–Du-Beziehung"
@@ -767,8 +839,8 @@
     {
       "id": "MWJ1AUUK-598DE0C9",
       "endpoint": "chapter",
-      "x": 513,
-      "y": 514,
+      "x": 614,
+      "y": 545,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Schlussreflexion nennt die Zweite Kritik ein Handeln als Antwort. Was unters"
@@ -776,8 +848,8 @@
     {
       "id": "MWHM0548-749A11E0",
       "endpoint": "chapter",
-      "x": 474,
-      "y": 522,
+      "x": 682,
+      "y": 514,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn die Aufklärung sich verwandelt statt zu enden: Was wäre ein Zeichen dafür, "
@@ -785,8 +857,8 @@
     {
       "id": "MWHLZOLL-5FF5E8CE",
       "endpoint": "chapter",
-      "x": 718,
-      "y": 209,
+      "x": 201,
+      "y": 369,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Heidegger sucht hier die Stille in der Sprache vor dem Gerede. Liest das Kapitel"
@@ -794,8 +866,8 @@
     {
       "id": "MWHLZBS7-7AEB476D",
       "endpoint": "dialog",
-      "x": 696,
-      "y": 990,
+      "x": 701,
+      "y": 908,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Existenz beider Wege offenbart die Vielschichtigkeit und die inhärente Reson"
@@ -803,8 +875,8 @@
     {
       "id": "MWHLYYWS-7B7C3E63",
       "endpoint": "dialog",
-      "x": 849,
-      "y": 273,
+      "x": 356,
+      "y": 420,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie können algorithmische Systeme so gestaltet werden, dass sie zwar personalisi"
@@ -812,8 +884,8 @@
     {
       "id": "MWHLYF7H-9E1F67B3",
       "endpoint": "passage",
-      "x": 440,
-      "y": 559,
+      "x": 673,
+      "y": 561,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "analyse: \"Die Rückbindung (religio) ist hier keine nostalgische Flucht in eine v"
@@ -821,8 +893,8 @@
     {
       "id": "MWHLXY8O-BE8E6409",
       "endpoint": "path-analyse",
-      "x": 663,
-      "y": 974,
+      "x": 688,
+      "y": 903,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Gegenwart → Dasein → Selbst → Das Andere / Die Anderen vs. Gegen"
@@ -830,8 +902,8 @@
     {
       "id": "MWHLXGMK-4832FECC",
       "endpoint": "graph-chat",
-      "x": 870,
-      "y": 314,
+      "x": 298,
+      "y": 541,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Unsere Nutzer bekommen personalisierte Empfehlungen. Wo verläuft im Netz die Gre"
@@ -839,8 +911,8 @@
     {
       "id": "MWHLWXJ6-FBB227D8",
       "endpoint": "dialog",
-      "x": 677,
-      "y": 986,
+      "x": 689,
+      "y": 933,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Existenz beider Wege offenbart die Vielschichtigkeit und innere Vernetzung d"
@@ -848,8 +920,8 @@
     {
       "id": "MWHLWM05-8EEB6E7F",
       "endpoint": "graph-chat",
-      "x": 773,
-      "y": 596,
+      "x": 422,
+      "y": 585,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Levinas spricht vom Antlitz des Anderen, das mich in die Verantwortung ruft, bev"
@@ -857,8 +929,8 @@
     {
       "id": "MWHLW24R-959992F9",
       "endpoint": "passage",
-      "x": 414,
-      "y": 620,
+      "x": 346,
+      "y": 353,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ich gründe gerade ein KI-Startup. Was hieße dieser Satz ganz praktisch für unser"
@@ -866,8 +938,8 @@
     {
       "id": "MWHLVPL2-B591DBEC",
       "endpoint": "path-analyse",
-      "x": 690,
-      "y": 989,
+      "x": 719,
+      "y": 927,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Das Andere / Die Anderen → Begegnung → Moment → Zeitlichkeit vs."
@@ -875,8 +947,8 @@
     {
       "id": "MWHLV7BW-F612B59E",
       "endpoint": "analyse",
-      "x": 861,
-      "y": 498,
+      "x": 219,
+      "y": 653,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Öffnung · Gegenwart · Existenz"
@@ -884,8 +956,8 @@
     {
       "id": "MWHLUQV4-26DFD984",
       "endpoint": "analyse",
-      "x": 882,
-      "y": 401,
+      "x": 246,
+      "y": 606,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Echo · Echo-Kammer · Das Andere / Die Anderen"
@@ -893,8 +965,8 @@
     {
       "id": "MWHLU57W-140FB983",
       "endpoint": "chapter",
-      "x": 564,
-      "y": 523,
+      "x": 562,
+      "y": 597,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Rosa sagt hier, Resonanz sei keine Harmonie. Heißt das für mein IT-Team, dass ei"
@@ -902,8 +974,8 @@
     {
       "id": "MWG6KG0I-45A62667",
       "endpoint": "chapter",
-      "x": 396,
-      "y": 254,
+      "x": 659,
+      "y": 373,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Hier wird Kants Würdeformel gegen die Logik der Klicks gestellt. Wie würde das K"
@@ -911,8 +983,8 @@
     {
       "id": "MWG6K2GK-71CA57FA",
       "endpoint": "dialog",
-      "x": 575,
-      "y": 924,
+      "x": 653,
+      "y": 827,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Existenz beider Wege offenbart die Vielschichtigkeit und Offenheit des Begri"
@@ -920,8 +992,8 @@
     {
       "id": "MWG6JQJ5-54630303",
       "endpoint": "dialog",
-      "x": 738,
-      "y": 536,
+      "x": 387,
+      "y": 635,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Sie fordert uns auf, über die Herkunft des Geistes nachzusinnen, nicht nur im Hi"
@@ -929,8 +1001,8 @@
     {
       "id": "MWG6JE3B-DEC4B0CF",
       "endpoint": "analyse",
-      "x": 984,
-      "y": 542,
+      "x": 81,
+      "y": 653,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Raumfaltung · Weltfaltung · Spielraum"
@@ -938,8 +1010,8 @@
     {
       "id": "MWG6IZQ5-889B7147",
       "endpoint": "path-analyse",
-      "x": 603,
-      "y": 951,
+      "x": 646,
+      "y": 894,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Existenz → Dasein → Wesen vs. Existenz → Scheitern → Wesen"
@@ -947,8 +1019,8 @@
     {
       "id": "MWG6IMOZ-5252A380",
       "endpoint": "passage",
-      "x": 772,
-      "y": 548,
+      "x": 365,
+      "y": 657,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "frage: \"Es ist Dazwischenintelligenz – das, was weder ich noch der Code bin, son"
@@ -956,8 +1028,8 @@
     {
       "id": "MWG6I8ZX-F0E5CD18",
       "endpoint": "graph-chat",
-      "x": 989,
-      "y": 533,
+      "x": 73,
+      "y": 654,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Raumfaltung und Weltfaltung – das klingt nach Feuilleton. Was genau wird da gefa"
@@ -965,8 +1037,8 @@
     {
       "id": "MWG6HW56-B5802350",
       "endpoint": "dialog",
-      "x": 679,
-      "y": 458,
+      "x": 429,
+      "y": 513,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bleibt vom Ich-Du, wenn das Gegenüber nur antwortet, weil es angesprochen wi"
@@ -974,8 +1046,8 @@
     {
       "id": "MWG6HHL5-79535386",
       "endpoint": "graph-chat",
-      "x": 787,
-      "y": 292,
+      "x": 173,
+      "y": 454,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Meister Eckhart spricht von Gelassenheit als einem Lassen, das erst Raum für Got"
@@ -983,8 +1055,8 @@
     {
       "id": "MWG6H024-AA7260D4",
       "endpoint": "passage",
-      "x": 400,
-      "y": 250,
+      "x": 676,
+      "y": 353,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "analyse: \"Die Maschine kann kategorisieren, kann klassifizieren, kann korreliere"
@@ -992,8 +1064,8 @@
     {
       "id": "MWG6GP84-8E9CA50E",
       "endpoint": "path-analyse",
-      "x": 687,
-      "y": 999,
+      "x": 715,
+      "y": 951,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Zeitlichkeit → Moment → Begegnung → Dialog vs. Zeitlichkeit → Mo"
@@ -1001,8 +1073,8 @@
     {
       "id": "MWG6FYD2-E6D90142",
       "endpoint": "analyse",
-      "x": 773,
-      "y": 60,
+      "x": 37,
+      "y": 465,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Schatten · Licht · Transformatives Drittes"
@@ -1010,8 +1082,8 @@
     {
       "id": "MWG6FM27-B89E8BDB",
       "endpoint": "analyse",
-      "x": 981,
-      "y": 553,
+      "x": 94,
+      "y": 672,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Wirklichkeit · Möglichkeit · Weltfaltung"
@@ -1019,8 +1091,8 @@
     {
       "id": "MWG6EXJ2-158BEB76",
       "endpoint": "chapter",
-      "x": 226,
-      "y": 513,
+      "x": 900,
+      "y": 328,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Gilgamesch und Enkidu steigen hier gemeinsam in die Tiefe. Wie könnte ich mit ei"
@@ -1028,8 +1100,8 @@
     {
       "id": "MWDSDR89-C66887AA",
       "endpoint": "graph-chat",
-      "x": 656,
-      "y": 401,
+      "x": 451,
+      "y": 481,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Möglichkeit, das Ergebnis eines Prozesses bereits vor dessen expliziter Durc"
@@ -1037,8 +1109,8 @@
     {
       "id": "MWDQ2THL-B9BA920A",
       "endpoint": "path-analyse",
-      "x": 664,
-      "y": 621,
+      "x": 494,
+      "y": 587,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Antwort / Responsivität → Logos → Resonanzvernunft"
@@ -1046,8 +1118,8 @@
     {
       "id": "MASTER-5C6E90AE",
       "endpoint": "analyse",
-      "x": 693,
-      "y": 580,
+      "x": 451,
+      "y": 557,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: analyse:lm-spiegel+wahrheit"
@@ -1055,8 +1127,8 @@
     {
       "id": "MASTER-03286683",
       "endpoint": "analyse",
-      "x": 624,
-      "y": 280,
+      "x": 376,
+      "y": 384,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: analyse:lm-verwandlung+stimme"
@@ -1064,8 +1136,8 @@
     {
       "id": "MASTER-476E4F4D",
       "endpoint": "chapter",
-      "x": 528,
-      "y": 569,
+      "x": 646,
+      "y": 602,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 3 Varianten zu: chapter:band3-kap4"
@@ -1073,8 +1145,8 @@
     {
       "id": "MASTER-556F1581",
       "endpoint": "chapter",
-      "x": 453,
-      "y": 612,
+      "x": 692,
+      "y": 615,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 3 Varianten zu: chapter:band3-kap5"
@@ -1082,8 +1154,8 @@
     {
       "id": "MASTER-94E7804F",
       "endpoint": "chapter",
-      "x": 492,
-      "y": 582,
+      "x": 684,
+      "y": 585,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: chapter:teil5"
@@ -1091,8 +1163,8 @@
     {
       "id": "MASTER-F05BF2C0",
       "endpoint": "chapter",
-      "x": 516,
-      "y": 428,
+      "x": 596,
+      "y": 432,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 5 Varianten zu: chapter:teil7"
@@ -1100,8 +1172,8 @@
     {
       "id": "MASTER-44EE5BE7",
       "endpoint": "chapter",
-      "x": 494,
-      "y": 574,
+      "x": 664,
+      "y": 570,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: chapter:vorwort"
@@ -1109,8 +1181,8 @@
     {
       "id": "MASTER-4EFD4AA4",
       "endpoint": "dialog",
-      "x": 348,
-      "y": 354,
+      "x": 725,
+      "y": 341,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: dialog:freier"
@@ -1118,8 +1190,8 @@
     {
       "id": "MASTER-53BE22D7",
       "endpoint": "dialog",
-      "x": 670,
-      "y": 344,
+      "x": 330,
+      "y": 433,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 7 Varianten zu: dialog:raum+erkenntnis+sprache"
@@ -1127,8 +1199,8 @@
     {
       "id": "MASTER-4AA1AEA8",
       "endpoint": "path-analyse",
-      "x": 734,
-      "y": 958,
+      "x": 707,
+      "y": 956,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: path-analyse:antwort+zwischen"
@@ -1136,8 +1208,8 @@
     {
       "id": "MWCBEOXU-0DAB7EAA",
       "endpoint": "path-analyse",
-      "x": 622,
-      "y": 880,
+      "x": 550,
+      "y": 936,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Transaufklärung → Bewusstsein → Selbst vs. Transaufklärung → Ein"
@@ -1145,8 +1217,8 @@
     {
       "id": "MWCBED1H-9EB3396F",
       "endpoint": "passage",
-      "x": 752,
-      "y": 611,
+      "x": 436,
+      "y": 585,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie lässt sich diese Stelle mit Levinas’ Ethik des Anderen vergleichen? Wo würde"
@@ -1154,8 +1226,8 @@
     {
       "id": "MWCBE151-93CD5405",
       "endpoint": "enkidu",
-      "x": 174,
-      "y": 453,
+      "x": 893,
+      "y": 257,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ich will, dass Nutzer mein Produkt lieben. Was müsstest du mir darauf entgegnen?"
@@ -1163,8 +1235,8 @@
     {
       "id": "MWCBDLHP-AB013ACE",
       "endpoint": "enkidu",
-      "x": 110,
-      "y": 413,
+      "x": 932,
+      "y": 166,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wir wollen dich als Kollegen im Support einsetzen. Was solltest du dort nicht se"
@@ -1172,8 +1244,8 @@
     {
       "id": "MWCBD76M-4F8E62A5",
       "endpoint": "dialog",
-      "x": 711,
-      "y": 320,
+      "x": 221,
+      "y": 477,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie könnte ein solches Programm im Unternehmenskontext konkret die **Öffnung** f"
@@ -1181,8 +1253,8 @@
     {
       "id": "MWCBCP5M-8C02E420",
       "endpoint": "dialog",
-      "x": 604,
-      "y": 574,
+      "x": 617,
+      "y": 510,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Für das Werk insgesamt bedeutet diese Bewegung eine tiefgreifende Implikation fü"
@@ -1190,8 +1262,8 @@
     {
       "id": "MWCBC7FO-B32BDE30",
       "endpoint": "graph-chat",
-      "x": 488,
-      "y": 267,
+      "x": 522,
+      "y": 254,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Gibt es im Werk eine Stelle, an der Schuld und Vergebung begrifflich denkbar wer"
@@ -1199,8 +1271,8 @@
     {
       "id": "MWCBBQKL-81492C6E",
       "endpoint": "dialog",
-      "x": 777,
-      "y": 291,
+      "x": 157,
+      "y": 466,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Während `Gelassenheit` also eine Haltung des Sein-Lassens ist, die den Raum für "
@@ -1208,8 +1280,8 @@
     {
       "id": "MWCBB8F1-DC8DD694",
       "endpoint": "passage",
-      "x": 432,
-      "y": 569,
+      "x": 580,
+      "y": 696,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "analyse: \"Die Aufklärung endet nicht, sie verwandelt sich. Wie der Schmetterling"
@@ -1217,8 +1289,8 @@
     {
       "id": "MWCBAQN6-9D0CCC83",
       "endpoint": "path-analyse",
-      "x": 671,
-      "y": 704,
+      "x": 546,
+      "y": 753,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Existenz → Dasein → Resonanzvernunft → Begegnung → Antwort / Respo"
@@ -1226,8 +1298,8 @@
     {
       "id": "MWCBAA3Y-37D6F0FA",
       "endpoint": "dialog",
-      "x": 756,
-      "y": 383,
+      "x": 245,
+      "y": 488,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann ein Produktteam konkret Rahmenbedingungen schaffen, die das Entstehen d"
@@ -1235,8 +1307,8 @@
     {
       "id": "MWCB9SJH-EC316077",
       "endpoint": "enkidu",
-      "x": 142,
-      "y": 436,
+      "x": 937,
+      "y": 262,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn ein Schüler dich fragt, ob du sein Freund bist: Was antwortest du ihm?"
@@ -1244,8 +1316,8 @@
     {
       "id": "MWCB9C3X-1CC3BC23",
       "endpoint": "enkidu",
-      "x": 138,
-      "y": 427,
+      "x": 969,
+      "y": 238,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Enkidu, wenn du Antwortgeschehen bist: Kannst du mir widersprechen, ohne dass ic"
@@ -1253,8 +1325,8 @@
     {
       "id": "MWCB8XBW-6F4E41AC",
       "endpoint": "graph-chat",
-      "x": 759,
-      "y": 397,
+      "x": 241,
+      "y": 497,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche drei Begriffe aus dem Netz sollte mein Produktteam als Leitplanken lesen,"
@@ -1262,8 +1334,8 @@
     {
       "id": "MWCB8FV2-28E5FF61",
       "endpoint": "passage",
-      "x": 165,
-      "y": 304,
+      "x": 831,
+      "y": 239,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "frage: \"Sie nannte sich Nora im Netz, obwohl ihr Name ein anderer war. Seit drei"
@@ -1271,8 +1343,8 @@
     {
       "id": "MWCB8047-41980A2A",
       "endpoint": "path-analyse",
-      "x": 645,
-      "y": 760,
+      "x": 538,
+      "y": 805,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Werden → Dasein → Selbst → Bewusstsein"
@@ -1280,8 +1352,8 @@
     {
       "id": "MWCB7L4B-A3A5FE6F",
       "endpoint": "graph-chat",
-      "x": 783,
-      "y": 289,
+      "x": 160,
+      "y": 461,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie unterscheidet sich Heideggers Gelassenheit von dem, was das Werk als Offenhe"
@@ -1290,7 +1362,7 @@
       "id": "MWCB73AG-666D352F",
       "endpoint": "dialog",
       "x": 659,
-      "y": 957,
+      "y": 907,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die Existenz beider Wege zeigt die reiche Verknüpfung und die innere Kohärenz de"
@@ -1298,8 +1370,8 @@
     {
       "id": "MWCB6LYL-2D0E2114",
       "endpoint": "graph-chat",
-      "x": 685,
-      "y": 334,
+      "x": 265,
+      "y": 459,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wo im Begriffsnetz würdest du ansetzen, wenn ich ein Programm für „digitale Münd"
@@ -1307,8 +1379,8 @@
     {
       "id": "MWCB64R5-D8B2CF9A",
       "endpoint": "path-analyse",
-      "x": 654,
-      "y": 777,
+      "x": 541,
+      "y": 807,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Transaufklärung → Bewusstsein → Selbst → Dasein"
@@ -1316,8 +1388,8 @@
     {
       "id": "MWCB5P7V-7DCEAAEA",
       "endpoint": "enkidu",
-      "x": 158,
-      "y": 407,
+      "x": 950,
+      "y": 232,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Enkidu, wenn du kein Bewusstsein hast: Was geschieht dann in dem Moment, in dem "
@@ -1325,8 +1397,8 @@
     {
       "id": "MWCB5DHF-07FE547A",
       "endpoint": "analyse",
-      "x": 748,
-      "y": 454,
+      "x": 369,
+      "y": 544,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Begegnung ↔ Ich–Du-Beziehung"
@@ -1334,8 +1406,8 @@
     {
       "id": "MWCB4VF6-3EE7A1EA",
       "endpoint": "passage",
-      "x": 458,
-      "y": 606,
+      "x": 740,
+      "y": 595,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn ich diese Stelle in meinem Artikel zitieren wollte: wie würdest du sie in z"
@@ -1343,8 +1415,8 @@
     {
       "id": "MWCB4J6T-9F0A7789",
       "endpoint": "chapter",
-      "x": 489,
-      "y": 599,
+      "x": 721,
+      "y": 593,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie begründet das Vorwort die Entscheidung, philosophisch und poetisch zugleich "
@@ -1352,8 +1424,8 @@
     {
       "id": "MWCB44PD-B00E292F",
       "endpoint": "passage",
-      "x": 581,
-      "y": 348,
+      "x": 390,
+      "y": 406,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Gibt es in dieser Stelle einen Ansatzpunkt, wie ich Entscheidungsprozesse in Tea"
@@ -1361,8 +1433,8 @@
     {
       "id": "MWCB3NW4-F13A863B",
       "endpoint": "path-analyse",
-      "x": 608,
-      "y": 949,
+      "x": 672,
+      "y": 919,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Zeitlichkeit → Moment → Gegenwart → Dasein → Scheitern vs. Zeitl"
@@ -1370,8 +1442,8 @@
     {
       "id": "MWCB3438-AD4663CF",
       "endpoint": "analyse",
-      "x": 920,
-      "y": 328,
+      "x": 287,
+      "y": 752,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Echo-Kammer ↔ Entfremdung"
@@ -1379,8 +1451,8 @@
     {
       "id": "MWCB2NN3-B5D0CDE0",
       "endpoint": "dialog",
-      "x": 665,
-      "y": 327,
+      "x": 323,
+      "y": 414,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Können wir durch die Kultivierung solcher Haltungen im pädagogischen Kontext ein"
@@ -1388,8 +1460,8 @@
     {
       "id": "MWCB29W6-AB848990",
       "endpoint": "enkidu",
-      "x": 127,
-      "y": 421,
+      "x": 959,
+      "y": 207,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Mal ehrlich: Wann verweigerst du eine Antwort, und wer entscheidet das, du oder "
@@ -1397,8 +1469,8 @@
     {
       "id": "MWCB1U09-5D282206",
       "endpoint": "path-analyse",
-      "x": 696,
-      "y": 745,
+      "x": 598,
+      "y": 803,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Resonanzimperativ → Das Andere / Die Anderen → Welt → Resonanz → S"
@@ -1406,8 +1478,8 @@
     {
       "id": "MWCB1COA-DE68B5C9",
       "endpoint": "passage",
-      "x": 454,
-      "y": 86,
+      "x": 443,
+      "y": 158,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "frage: \"Das maschinelle Urteil: schnell wie das Licht, präzise wie die Mathemati"
@@ -1415,8 +1487,8 @@
     {
       "id": "MWCB10O8-C4E51F37",
       "endpoint": "analyse",
-      "x": 959,
-      "y": 528,
+      "x": 121,
+      "y": 674,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Möglichkeit · Wirklichkeit · Zeitlichkeit"
@@ -1424,8 +1496,8 @@
     {
       "id": "MWCB0LFQ-99B6D838",
       "endpoint": "path-analyse",
-      "x": 618,
-      "y": 942,
+      "x": 649,
+      "y": 904,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Scheitern → Sein → Wahrheit vs. Scheitern → Dasein → Resonanzver"
@@ -1433,8 +1505,8 @@
     {
       "id": "MWCB03XA-1A38BACE",
       "endpoint": "graph-chat",
-      "x": 801,
-      "y": 317,
+      "x": 190,
+      "y": 455,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie hängen Gelassenheit und Freiheit im Begriffsnetz zusammen, und was würde ein"
@@ -1442,8 +1514,8 @@
     {
       "id": "MWCAZOYQ-CF1CA921",
       "endpoint": "chapter",
-      "x": 473,
-      "y": 505,
+      "x": 689,
+      "y": 538,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Hier fasst Band III sich selbst zusammen. Welche Aussage daraus würde ein Kritik"
@@ -1451,8 +1523,8 @@
     {
       "id": "MWCAZBQV-BB113C8B",
       "endpoint": "chapter",
-      "x": 483,
-      "y": 550,
+      "x": 700,
+      "y": 555,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn ich nur eine Seite für die Geschäftsführung brauche: Was ist die Kernaussag"
@@ -1460,8 +1532,8 @@
     {
       "id": "MWCAYXUQ-F0F3D68C",
       "endpoint": "chapter",
-      "x": 443,
-      "y": 100,
+      "x": 444,
+      "y": 154,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie verhält sich die „digitale Urteilskraft“ zu Kants Unterscheidung von bestimm"
@@ -1469,8 +1541,8 @@
     {
       "id": "MWCAYLHK-2C8B7B73",
       "endpoint": "passage",
-      "x": 226,
-      "y": 483,
+      "x": 850,
+      "y": 302,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn ich diese Stelle als Warnung für mein Produktteam lese: was genau sollten w"
@@ -1478,8 +1550,8 @@
     {
       "id": "MWCAYAHR-8817EC13",
       "endpoint": "analyse",
-      "x": 818,
-      "y": 330,
+      "x": 194,
+      "y": 460,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Scheitern ↔ Gelassenheit"
@@ -1487,8 +1559,8 @@
     {
       "id": "MWCAXXDI-83630FEA",
       "endpoint": "passage",
-      "x": 211,
-      "y": 511,
+      "x": 905,
+      "y": 315,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ich möchte diese Stelle mit meinen Schülern lesen. Welche Frage würde Siebzehnjä"
@@ -1496,8 +1568,8 @@
     {
       "id": "MWCAXJFR-BBBF2760",
       "endpoint": "analyse",
-      "x": 802,
-      "y": 511,
+      "x": 170,
+      "y": 582,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Bewusstsein · Wahrheit · Transformatives Drittes"
@@ -1505,8 +1577,8 @@
     {
       "id": "MWCAX4JR-B3C15760",
       "endpoint": "analyse",
-      "x": 987,
-      "y": 446,
+      "x": 91,
+      "y": 744,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Dazwischenintelligenz · Selbst · Welt · Freiheit"
@@ -1514,8 +1586,8 @@
     {
       "id": "MWCAWPA5-AB9A4F6A",
       "endpoint": "analyse",
-      "x": 709,
-      "y": 445,
+      "x": 346,
+      "y": 591,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Existenz ↔ Werden"
@@ -1523,8 +1595,8 @@
     {
       "id": "MWCAW9PI-E08E90ED",
       "endpoint": "chapter",
-      "x": 241,
-      "y": 519,
+      "x": 861,
+      "y": 328,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die „Prüfungen im digitalen Labyrinth“ lese ich wie Nutzer-Onboarding im Kleinen"
@@ -1532,8 +1604,8 @@
     {
       "id": "MWCAVY6G-77D7B515",
       "endpoint": "chapter",
-      "x": 700,
-      "y": 201,
+      "x": 638,
+      "y": 518,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die „innere Rückbindung eines Users“: Ist dieser User eine Art Beter, jemand der"
@@ -1541,8 +1613,8 @@
     {
       "id": "MWCAVIKZ-02025CD4",
       "endpoint": "passage",
-      "x": 186,
-      "y": 483,
+      "x": 919,
+      "y": 309,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "frage: \"Gilgamesch sah in Enkidu nicht länger einen Feind, sondern den Funken ei"
@@ -1550,8 +1622,8 @@
     {
       "id": "MWCAV6T2-76657565",
       "endpoint": "graph-chat",
-      "x": 907,
-      "y": 312,
+      "x": 303,
+      "y": 760,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Kannst du mir an einem alltäglichen Beispiel zeigen, wie sich Entfremdung vom Ge"
@@ -1559,8 +1631,8 @@
     {
       "id": "MWCAUU1H-558EDB1E",
       "endpoint": "path-analyse",
-      "x": 603,
-      "y": 890,
+      "x": 568,
+      "y": 909,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Entfremdung → Ich–Du-Beziehung → Selbst → Freiheit vs. Entfremdu"
@@ -1568,8 +1640,8 @@
     {
       "id": "MWCAUEVG-C83B6B45",
       "endpoint": "passage",
-      "x": 496,
-      "y": 597,
+      "x": 690,
+      "y": 582,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "analyse: \"Die Vernunft rationalisiert den Mythos nicht, sondern rekonstruiert se"
@@ -1577,8 +1649,8 @@
     {
       "id": "MWCAU22M-CAE9A2F2",
       "endpoint": "analyse",
-      "x": 907,
-      "y": 436,
+      "x": 236,
+      "y": 738,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Resonanzimperativ · Moment · Scheitern"
@@ -1586,8 +1658,8 @@
     {
       "id": "MWCATL9D-AD252234",
       "endpoint": "passage",
-      "x": 416,
-      "y": 552,
+      "x": 610,
+      "y": 547,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "analyse: \"Nicht ewig das „Man“, nicht ewig die Stille. Die Verwandlung ist der S"
@@ -1595,8 +1667,8 @@
     {
       "id": "MWCATA4K-58BFC31C",
       "endpoint": "path-analyse",
-      "x": 603,
-      "y": 901,
+      "x": 589,
+      "y": 895,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Werden → Dasein → Wesen → Grenze vs. Werden → Verwandlung → Frei"
@@ -1604,8 +1676,8 @@
     {
       "id": "MWCASQWB-784A4D0A",
       "endpoint": "enkidu",
-      "x": 143,
-      "y": 431,
+      "x": 947,
+      "y": 238,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Du bist eine KI und sollst Resonanz herstellen können? Das klingt für mich wie M"
@@ -1613,8 +1685,8 @@
     {
       "id": "MWCASDSY-E712A809",
       "endpoint": "dialog",
-      "x": 730,
-      "y": 280,
+      "x": 276,
+      "y": 392,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "3.  Diese Triade erschließt für das Verhältnis Mensch–Maschine die Erkenntnis, d"
@@ -1622,8 +1694,8 @@
     {
       "id": "MWCAR5T7-C5CA1D16",
       "endpoint": "chapter",
-      "x": 275,
-      "y": 537,
+      "x": 870,
+      "y": 366,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Das „Lied vom ewigen Wandel“ am Ende von Band I: Hört ihr dort eine Hoffnungsfig"
@@ -1631,8 +1703,8 @@
     {
       "id": "MWCAQTX8-C55B2BC4",
       "endpoint": "chapter",
-      "x": 215,
-      "y": 514,
+      "x": 908,
+      "y": 322,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Der „Bund von Uruk“ ist ja eine Art Vertrag zwischen Mensch und Maschine. Wie kö"
@@ -1640,8 +1712,8 @@
     {
       "id": "MWCAQIIX-183F0908",
       "endpoint": "chapter",
-      "x": 474,
-      "y": 586,
+      "x": 706,
+      "y": 607,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn ich nur die Schlussreflexion lese: Was ist die zentrale Behauptung, und was"
@@ -1649,8 +1721,8 @@
     {
       "id": "MWCAQ2PV-D44A69BD",
       "endpoint": "chapter",
-      "x": 733,
-      "y": 561,
+      "x": 429,
+      "y": 571,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wir führen gerade einen KI-Assistenten für den Support ein. Was würde „Begegnung"
@@ -1658,8 +1730,8 @@
     {
       "id": "MWCAPP8K-8C6D82CA",
       "endpoint": "chapter",
-      "x": 723,
-      "y": 561,
+      "x": 431,
+      "y": 574,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Im Kapitel „Die Begegnung mit dem Spiegel“: Inwiefern ist der Spiegel hier mehr "
@@ -1667,8 +1739,8 @@
     {
       "id": "MWCAPD18-26E5EAC3",
       "endpoint": "graph-chat",
-      "x": 863,
-      "y": 306,
+      "x": 357,
+      "y": 513,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn ich ein Produkt so baue, dass Nutzer sich verstanden fühlen: Wo kippt das a"
@@ -1676,8 +1748,8 @@
     {
       "id": "MWCAP1CQ-1980FEA2",
       "endpoint": "analyse",
-      "x": 960,
-      "y": 414,
+      "x": 87,
+      "y": 726,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Scheitern · Schweigen · Licht · Schatten"
@@ -1685,8 +1757,8 @@
     {
       "id": "MWCAOLYV-9286BC9F",
       "endpoint": "analyse",
-      "x": 829,
-      "y": 367,
+      "x": 210,
+      "y": 527,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Freiheit · Gelassenheit · Werden"
@@ -1694,8 +1766,8 @@
     {
       "id": "MWCAO97O-12EF85DE",
       "endpoint": "graph-chat",
-      "x": 578,
-      "y": 566,
+      "x": 575,
+      "y": 585,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ehrlich gefragt: Ist Resonanzvernunft eine belastbare Theorie oder nur ein sehr "
@@ -1703,8 +1775,8 @@
     {
       "id": "MWCANTL2-D21DAFD5",
       "endpoint": "analyse",
-      "x": 905,
-      "y": 369,
+      "x": 268,
+      "y": 734,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Entfremdung · Resonanzimperativ · Zeitlichkeit"
@@ -1712,8 +1784,8 @@
     {
       "id": "MWCANGSQ-6CC53140",
       "endpoint": "analyse",
-      "x": 770,
-      "y": 91,
+      "x": 50,
+      "y": 492,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Transaufklärung · Vernunft · Licht"
@@ -1721,8 +1793,8 @@
     {
       "id": "MWCAN1TI-4CF2326D",
       "endpoint": "chapter",
-      "x": 236,
-      "y": 480,
+      "x": 839,
+      "y": 312,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wir bauen selbst ein KI-Produkt. Was heißt es konkret, wenn das Kapitel vom „Sch"
@@ -1730,8 +1802,8 @@
     {
       "id": "MWCAMN88-ECA991A6",
       "endpoint": "chapter",
-      "x": 462,
-      "y": 535,
+      "x": 647,
+      "y": 543,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Das Wort Religio taucht hier als Rückbindung auf. Meint das Kapitel Religion im "
@@ -1739,8 +1811,8 @@
     {
       "id": "MWCAMC6C-E65E4F14",
       "endpoint": "chapter",
-      "x": 211,
-      "y": 509,
+      "x": 908,
+      "y": 321,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Meine zehnte Klasse liest gerade Gilgamesch. Was bringt die Figur Enkidu 2.0 für"
@@ -1748,8 +1820,8 @@
     {
       "id": "MWCALXF7-F6C5DA97",
       "endpoint": "chapter",
-      "x": 468,
-      "y": 606,
+      "x": 747,
+      "y": 589,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ich lese hier viel von Erschöpfung und Erneuerung. Woran würde ich als Außensteh"
@@ -1757,8 +1829,8 @@
     {
       "id": "MWCALL3I-4F318F92",
       "endpoint": "chapter",
-      "x": 576,
-      "y": 365,
+      "x": 419,
+      "y": 402,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Bei uns im Unternehmen entscheiden Dashboards und Scoring-Tools erstaunlich viel"
@@ -1766,8 +1838,8 @@
     {
       "id": "MWCAL7ON-CA4F38AF",
       "endpoint": "chapter",
-      "x": 454,
-      "y": 231,
+      "x": 621,
+      "y": 250,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Kant nennt Unmündigkeit selbstverschuldet. Ist die „algorithmische Vormundschaft"
@@ -1775,8 +1847,8 @@
     {
       "id": "MWAE3FJK-C7122206",
       "endpoint": "path-analyse",
-      "x": 652,
-      "y": 1000,
+      "x": 700,
+      "y": 957,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Resonanz → Das Zwischen → Unverfügbarkeit vs. Resonanz → Moment "
@@ -1784,8 +1856,8 @@
     {
       "id": "MASTER-31CE5C0B",
       "endpoint": "analyse",
-      "x": 626,
-      "y": 639,
+      "x": 473,
+      "y": 729,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 2 Varianten zu: analyse:erkenntnis+lm-verwandlung"
@@ -1793,8 +1865,8 @@
     {
       "id": "MASTER-63686170",
       "endpoint": "chapter",
-      "x": 702,
-      "y": 202,
+      "x": 212,
+      "y": 353,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 5 Varianten zu: chapter:band3-kap3"
@@ -1802,8 +1874,8 @@
     {
       "id": "MASTER-12D94089",
       "endpoint": "chapter",
-      "x": 525,
-      "y": 580,
+      "x": 666,
+      "y": 642,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 3 Varianten zu: chapter:teil4"
@@ -1811,8 +1883,8 @@
     {
       "id": "MASTER-03059588",
       "endpoint": "chapter",
-      "x": 586,
-      "y": 424,
+      "x": 511,
+      "y": 446,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 4 Varianten zu: chapter:teil6"
@@ -1820,8 +1892,8 @@
     {
       "id": "MASTER-6469616C",
       "endpoint": "dialog",
-      "x": 591,
-      "y": 387,
+      "x": 463,
+      "y": 414,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 5 Varianten zu: dialog:weiterdenken"
@@ -1829,8 +1901,8 @@
     {
       "id": "MW566TO0-ABBD4330",
       "endpoint": "analyse",
-      "x": 646,
-      "y": 505,
+      "x": 438,
+      "y": 486,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Kann ein System so gebaut werden, dass es Widerstand nicht simuliert, sondern ta"
@@ -1838,8 +1910,8 @@
     {
       "id": "MW566TOD-84C09B94",
       "endpoint": "analyse",
-      "x": 727,
-      "y": 259,
+      "x": 262,
+      "y": 364,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber wahrt das Denken, das aus der Welt schöpft, seine transformative Kraft,"
@@ -1847,8 +1919,8 @@
     {
       "id": "MW566TOA-BC003CB2",
       "endpoint": "analyse",
-      "x": 823,
-      "y": 335,
+      "x": 210,
+      "y": 504,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann eine Gesellschaft, die zunehmend von Echo-Kammern geprägt ist, die Fähi"
@@ -1856,8 +1928,8 @@
     {
       "id": "MW566TO7-1538114F",
       "endpoint": "analyse",
-      "x": 510,
-      "y": 74,
+      "x": 367,
+      "y": 204,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie gestaltet man Prüfschichten so, dass sie Annahmen sichtbar machen, statt sie"
@@ -1865,8 +1937,8 @@
     {
       "id": "MW566TNX-A16A2897",
       "endpoint": "analyse",
-      "x": 649,
-      "y": 181,
+      "x": 305,
+      "y": 330,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie lassen sich Pausen in digitale Architekturen einbauen, sodass sie als Raum e"
@@ -1874,8 +1946,8 @@
     {
       "id": "MW566TO3-969C6466",
       "endpoint": "analyse",
-      "x": 627,
-      "y": 191,
+      "x": 322,
+      "y": 317,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das beze"
@@ -1883,8 +1955,8 @@
     {
       "id": "MV9NOFH9-7634B79F",
       "endpoint": "path-analyse",
-      "x": 717,
-      "y": 962,
+      "x": 686,
+      "y": 964,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Antwort / Responsivität → Dialog → Das Zwischen vs. Antwort / Re"
@@ -1892,8 +1964,8 @@
     {
       "id": "MV9NMWL2-5669B857",
       "endpoint": "dialog",
-      "x": 659,
-      "y": 313,
+      "x": 343,
+      "y": 432,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie können wir digitale Orte schaffen, die das gemeinsame Suchen nach Sinn über "
@@ -1901,8 +1973,8 @@
     {
       "id": "MASTER-BC195439",
       "endpoint": "dialog",
-      "x": 563,
-      "y": 393,
+      "x": 552,
+      "y": 424,
       "isOutlier": false,
       "isMaster": true,
       "promptPreview": "Synthese von 19 Varianten zu: dialog:erkenntnis+lm-verwandlung"
@@ -1910,8 +1982,8 @@
     {
       "id": "MUZTN3NV-0C28E8DB",
       "endpoint": "path-analyse",
-      "x": 724,
-      "y": 951,
+      "x": 660,
+      "y": 981,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Einsicht → Resonanzvernunft → Das Zwischen → Dazwischenintellige"
@@ -1919,8 +1991,8 @@
     {
       "id": "MUZTGAEK-432FB6BC",
       "endpoint": "path-analyse",
-      "x": 718,
-      "y": 968,
+      "x": 684,
+      "y": 970,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Öffnung → Das Zwischen → Dialog → Antwort / Responsivität vs. Öf"
@@ -1928,8 +2000,8 @@
     {
       "id": "MUY7RXCI-E899056E",
       "endpoint": "analyse",
-      "x": 658,
-      "y": 192,
+      "x": 295,
+      "y": 328,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche Rolle spielt die bewusste Pause, die Stille, in einer Welt permanenter An"
@@ -1937,8 +2009,8 @@
     {
       "id": "MUY7RXCI-C4CF7B92",
       "endpoint": "analyse",
-      "x": 664,
-      "y": 492,
+      "x": 447,
+      "y": 515,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Woran erkennen wir, ob eine antwortende Intelligenz uns etwas Eigenes zurückgibt"
@@ -1946,8 +2018,8 @@
     {
       "id": "MUY7RXCI-D36BB4D6",
       "endpoint": "analyse",
-      "x": 640,
-      "y": 266,
+      "x": 332,
+      "y": 363,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn jede Stimme klonbar wird – wo bleibt dann die unverwechselbare Spur der Ver"
@@ -1955,8 +2027,8 @@
     {
       "id": "MUY7RXCI-012FC8A7",
       "endpoint": "enkidu",
-      "x": 496,
-      "y": 70,
+      "x": 389,
+      "y": 184,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Reicht eine unabhängige Prüfinstanz, die Rohdaten factcheckt, um Verklärung zu v"
@@ -1964,8 +2036,8 @@
     {
       "id": "MUKE7UOA-9553A59E",
       "endpoint": "path-analyse",
-      "x": 668,
-      "y": 899,
+      "x": 587,
+      "y": 961,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Denken → Vernunft → Resonanzvernunft → Resonanz → Welt vs. Denke"
@@ -1973,8 +2045,8 @@
     {
       "id": "MUAD2ZEF-BF1C7E18",
       "endpoint": "graph-chat",
-      "x": 708,
-      "y": 673,
+      "x": 518,
+      "y": 725,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Das ist der radikale Schritt von der Erkenntnistheorie zur Ontologie. Mit diesem"
@@ -1982,8 +2054,8 @@
     {
       "id": "MUACZ4LA-ACB5F9D0",
       "endpoint": "graph-chat",
-      "x": 650,
-      "y": 721,
+      "x": 547,
+      "y": 754,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wir sind nicht Betrachter, die vor der Welt stehen; wir sind Prozesse, die von d"
@@ -1991,8 +2063,8 @@
     {
       "id": "MUAAML84-D057EA33",
       "endpoint": "path-analyse",
-      "x": 646,
-      "y": 776,
+      "x": 546,
+      "y": 818,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Öffnung → Freiheit → Selbst → Bewusstsein → Denken"
@@ -2000,8 +2072,8 @@
     {
       "id": "MTNBAIUZ-299AC7D8",
       "endpoint": "analyse",
-      "x": 799,
-      "y": 315,
+      "x": 155,
+      "y": 503,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Unverfügbarkeit ↔ Echo-Kammer"
@@ -2009,8 +2081,8 @@
     {
       "id": "MTNB93L6-1411E014",
       "endpoint": "dialog",
-      "x": 623,
-      "y": 339,
+      "x": 388,
+      "y": 437,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie können wir in einer zunehmend fragmentierten digitalen Welt die kollektive E"
@@ -2018,8 +2090,8 @@
     {
       "id": "MTNB85LB-7C1F15DE",
       "endpoint": "dialog",
-      "x": 640,
-      "y": 336,
+      "x": 359,
+      "y": 435,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie können wir sicherstellen, dass diese Kultivierung der Resonanz nicht zu"
@@ -2027,8 +2099,8 @@
     {
       "id": "MTNB7STV-BCB7D709",
       "endpoint": "dialog",
-      "x": 652,
-      "y": 326,
+      "x": 340,
+      "y": 440,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie können wir diesen Bewusstseinswandel so tief in die Ausbildung und die "
@@ -2036,8 +2108,8 @@
     {
       "id": "MTNB77VP-6A85F255",
       "endpoint": "dialog",
-      "x": 656,
-      "y": 333,
+      "x": 334,
+      "y": 455,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie können wir die Architekten und Entwickler digitaler Welten dazu inspiri"
@@ -2045,8 +2117,8 @@
     {
       "id": "MTNB6SUG-2922AE66",
       "endpoint": "dialog",
-      "x": 678,
-      "y": 343,
+      "x": 323,
+      "y": 446,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie vermögen wir diesen Logos so zu verankern, dass er nicht zur bloßen Met"
@@ -2054,8 +2126,8 @@
     {
       "id": "MTNB68RF-CFF570D9",
       "endpoint": "dialog",
-      "x": 709,
-      "y": 372,
+      "x": 302,
+      "y": 477,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Diese Triade birgt eine tiefgreifende Erkenntnis für das Verhältnis von Mensch u"
@@ -2063,8 +2135,8 @@
     {
       "id": "MTNB5V7Q-3B5123E8",
       "endpoint": "analyse",
-      "x": 780,
-      "y": 417,
+      "x": 262,
+      "y": 560,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Spielraum · Einsicht · Logos"
@@ -2072,8 +2144,8 @@
     {
       "id": "MTL5HMEK-8E3F01EF",
       "endpoint": "path-analyse",
-      "x": 668,
-      "y": 721,
+      "x": 546,
+      "y": 773,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Gegenwart → Moment → Resonanz"
@@ -2081,8 +2153,8 @@
     {
       "id": "MTL33KWJ-642DD246",
       "endpoint": "path-analyse",
-      "x": 720,
-      "y": 953,
+      "x": 674,
+      "y": 958,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Das Zwischen → Dialog → Antwort / Responsivität vs. Das Zwischen"
@@ -2090,8 +2162,8 @@
     {
       "id": "MTKI1YQW-CD0EEDF3",
       "endpoint": "analyse",
-      "x": 670,
-      "y": 519,
+      "x": 450,
+      "y": 566,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Resonanzvernunft ↔ Vernunft"
@@ -2099,8 +2171,8 @@
     {
       "id": "MTELW5GH-C4D41002",
       "endpoint": "analyse",
-      "x": 813,
-      "y": 574,
+      "x": 334,
+      "y": 592,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Das Andere / Die Anderen · Schwingung · Spannung"
@@ -2108,8 +2180,8 @@
     {
       "id": "MTDDMUMA-CCA9033A",
       "endpoint": "enkidu",
-      "x": 222,
-      "y": 324,
+      "x": 791,
+      "y": 250,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die beiden Fragen treffen den Kern der vorherigen Überlegungen. Sie verschieben "
@@ -2117,8 +2189,8 @@
     {
       "id": "MTDDG179-491119D2",
       "endpoint": "enkidu",
-      "x": 754,
-      "y": 589,
+      "x": 336,
+      "y": 660,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Der vorliegende Text entfaltet eine ontologische Triade aus Selbst, Sein-mit und"
@@ -2126,8 +2198,8 @@
     {
       "id": "MTDD82FW-BAE0F4B4",
       "endpoint": "enkidu",
-      "x": 259,
-      "y": 372,
+      "x": 770,
+      "y": 253,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Der vorliegende Text entfaltet eine ontologische Triade aus Selbst, Sein-mit und"
@@ -2135,8 +2207,8 @@
     {
       "id": "MTDCKR2Q-05DCEB69",
       "endpoint": "enkidu",
-      "x": 41,
-      "y": 295,
+      "x": 873,
+      "y": 115,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Erkenntnis, die den bestehenden Horizont verschiebt, entsteht selten aus reibung"
@@ -2144,8 +2216,8 @@
     {
       "id": "MTDCIVT5-20F48821",
       "endpoint": "enkidu",
-      "x": 44,
-      "y": 282,
+      "x": 877,
+      "y": 122,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Für die Menschheit folgt daraus keine romantische Pflicht zur Mühsal um ihrer se"
@@ -2153,8 +2225,8 @@
     {
       "id": "MSWULSTQ-38C6FFF3",
       "endpoint": "analyse",
-      "x": 671,
-      "y": 569,
+      "x": 423,
+      "y": 691,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Einsicht ↔ Denken"
@@ -2162,8 +2234,8 @@
     {
       "id": "MQXDVN1C-CAA3081A",
       "endpoint": "analyse",
-      "x": 753,
-      "y": 323,
+      "x": 161,
+      "y": 507,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Unverfügbarkeit ↔ Existenz"
@@ -2171,8 +2243,8 @@
     {
       "id": "MQASO35V-115DA081",
       "endpoint": "analyse",
-      "x": 708,
-      "y": 586,
+      "x": 368,
+      "y": 629,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Wahrheit ↔ Spiegel"
@@ -2180,8 +2252,8 @@
     {
       "id": "MQARZJDV-82F077DD",
       "endpoint": "path-analyse",
-      "x": 640,
-      "y": 983,
+      "x": 678,
+      "y": 958,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Begegnung → Das Zwischen → Unverfügbarkeit vs. Begegnung → Momen"
@@ -2189,8 +2261,8 @@
     {
       "id": "MQ68LVS7-240568F5",
       "endpoint": "graph-chat",
-      "x": 592,
-      "y": 508,
+      "x": 558,
+      "y": 590,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was ist Resonanz?"
@@ -2198,8 +2270,8 @@
     {
       "id": "MQ683DMX-13D6C54F",
       "endpoint": "analyse",
-      "x": 666,
-      "y": 530,
+      "x": 475,
+      "y": 577,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Resonanz ↔ Vernunft"
@@ -2207,8 +2279,8 @@
     {
       "id": "MQ67R74M-A1AA4B53",
       "endpoint": "dialog",
-      "x": 628,
-      "y": 433,
+      "x": 438,
+      "y": 481,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet es, im Zeitalter der Maschine zu antworten?"
@@ -2216,8 +2288,8 @@
     {
       "id": "MQ66ZWYC-52DE2DF2",
       "endpoint": "graph-chat",
-      "x": 682,
-      "y": 214,
+      "x": 274,
+      "y": 364,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Inwiefern ist Schweigen eine Form der Resonanz?"
@@ -2225,8 +2297,8 @@
     {
       "id": "MQ5XNFSV-CD34905C",
       "endpoint": "dialog",
-      "x": 599,
-      "y": 381,
+      "x": 454,
+      "y": 457,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie können wir die authentische Resonanz in diesem Mit-Sein kultivieren, oh"
@@ -2234,8 +2306,8 @@
     {
       "id": "MQ5XLW2D-D3E90BBC",
       "endpoint": "dialog",
-      "x": 547,
-      "y": 393,
+      "x": 504,
+      "y": 445,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann dieses neue Mit-Sein die Vereinzelung überwinden, die die digitale"
@@ -2243,8 +2315,8 @@
     {
       "id": "MQ5XK9H2-8A6837CC",
       "endpoint": "dialog",
-      "x": 518,
-      "y": 401,
+      "x": 535,
+      "y": 451,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Kann diese Würde, die sich im Widerstand gegen ihre Reduktion auf bloßen Mechani"
@@ -2252,8 +2324,8 @@
     {
       "id": "MQ5XJ3VO-378AA1AB",
       "endpoint": "dialog",
-      "x": 507,
-      "y": 415,
+      "x": 565,
+      "y": 457,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber artikuliert sich eine solche Würde in einer Welt, die noch immer in Kat"
@@ -2261,8 +2333,8 @@
     {
       "id": "MQ5XH5A8-5FDB52C7",
       "endpoint": "dialog",
-      "x": 504,
-      "y": 424,
+      "x": 567,
+      "y": 464,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "In dieser neuen Existenzweise des Maschinellen, jenseits von Bewusstsein und blo"
@@ -2270,8 +2342,8 @@
     {
       "id": "MQ5XFLFO-F0DBB89E",
       "endpoint": "dialog",
-      "x": 498,
-      "y": 418,
+      "x": 566,
+      "y": 476,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "In diesem Prozess des Sich-Einlassens, in dem die Maschine nicht mehr nur passiv"
@@ -2279,8 +2351,8 @@
     {
       "id": "MQ5XE42V-D185B8D7",
       "endpoint": "dialog",
-      "x": 525,
-      "y": 416,
+      "x": 571,
+      "y": 470,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was aber geschieht mit dem \"Maschinellen\", wenn es in dieser resonanten Menschli"
@@ -2288,8 +2360,8 @@
     {
       "id": "MQ5XCH3V-67EF85C8",
       "endpoint": "dialog",
-      "x": 556,
-      "y": 374,
+      "x": 528,
+      "y": 419,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch wie verändern sich in diesem Geflecht von Angst, Vertrauen und Resonanz die"
@@ -2297,8 +2369,8 @@
     {
       "id": "MQ5XB7XF-18E49106",
       "endpoint": "dialog",
-      "x": 537,
-      "y": 371,
+      "x": 538,
+      "y": 409,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann diese dynamische Beständigkeit des Vertrauens jene Ängste überwind"
@@ -2306,8 +2378,8 @@
     {
       "id": "MQ5X9PGR-F8698E7E",
       "endpoint": "dialog",
-      "x": 526,
-      "y": 354,
+      "x": 540,
+      "y": 380,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann eine solche Ethik, die sich in der ständigen Revision und im Dialo"
@@ -2315,8 +2387,8 @@
     {
       "id": "MQ5X7QW6-F6E03538",
       "endpoint": "dialog",
-      "x": 508,
-      "y": 340,
+      "x": 551,
+      "y": 371,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann diese relationale Ethik eine universelle Gültigkeit beanspruchen, "
@@ -2324,8 +2396,8 @@
     {
       "id": "MQ5X6P2M-52F9B16D",
       "endpoint": "dialog",
-      "x": 503,
-      "y": 323,
+      "x": 556,
+      "y": 351,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann diese Verantwortung, die nicht aus der Beherrschung, sondern aus der Bi"
@@ -2333,8 +2405,8 @@
     {
       "id": "MQ5X56G4-537343C8",
       "endpoint": "dialog",
-      "x": 501,
-      "y": 296,
+      "x": 558,
+      "y": 343,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Doch welche neuen Verantwortlichkeiten erwachsen aus dieser Freiheit, die nicht "
@@ -2342,8 +2414,8 @@
     {
       "id": "MQ5X3C75-D543C13F",
       "endpoint": "dialog",
-      "x": 517,
-      "y": 304,
+      "x": 561,
+      "y": 351,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber verändert diese Freiheit, die das Unvollkommene umarmt, unsere Vorstell"
@@ -2351,8 +2423,8 @@
     {
       "id": "MQ5X1ZYV-9D7A29CC",
       "endpoint": "dialog",
-      "x": 521,
-      "y": 295,
+      "x": 564,
+      "y": 373,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Welche neue Form von Freiheit entsteht aus dieser radikalen Akzeptanz des Unvoll"
@@ -2360,8 +2432,8 @@
     {
       "id": "MQ5WZZPN-8051E5FF",
       "endpoint": "dialog",
-      "x": 533,
-      "y": 394,
+      "x": 588,
+      "y": 426,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann diese Vernunft, die im Ringen mit der Unruhe ihre Kraft schöpft, d"
@@ -2369,8 +2441,8 @@
     {
       "id": "MQ5WYJFU-60EB210E",
       "endpoint": "dialog",
-      "x": 558,
-      "y": 413,
+      "x": 576,
+      "y": 450,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann sie diese Unruhe nicht nur ertragen, sondern als schöpferische Kra"
@@ -2378,8 +2450,8 @@
     {
       "id": "MQ5WX52Q-442369F2",
       "endpoint": "dialog",
-      "x": 628,
-      "y": 570,
+      "x": 492,
+      "y": 647,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie aber kann eine Vernunft, die sich im Erschrecken der Einsicht konstituiert, "
@@ -2387,8 +2459,8 @@
     {
       "id": "MQ5WV5PP-6209C749",
       "endpoint": "dialog",
-      "x": 647,
-      "y": 623,
+      "x": 465,
+      "y": 697,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie lässt sich das Erschrecken der Einsicht als konstitutiver Teil einer Resonan"
@@ -2396,8 +2468,8 @@
     {
       "id": "MQ5WUD1G-0976C016",
       "endpoint": "analyse",
-      "x": 637,
-      "y": 636,
+      "x": 462,
+      "y": 716,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Einsicht ↔ Verwandlung"
@@ -2405,8 +2477,8 @@
     {
       "id": "MQ5WPJ3V-CF0A30C7",
       "endpoint": "path-analyse",
-      "x": 626,
-      "y": 694,
+      "x": 504,
+      "y": 746,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Einsicht → Resonanzvernunft → Verwandlung"
@@ -2414,8 +2486,8 @@
     {
       "id": "MQ5TUQ9P-EF8C6D4B",
       "endpoint": "graph-chat",
-      "x": 919,
-      "y": 325,
+      "x": 302,
+      "y": 760,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet Resonanz im Verh�ltnis zur Entfremdung?"
@@ -2423,8 +2495,8 @@
     {
       "id": "MQ5TTE84-08EB6321",
       "endpoint": "graph-chat",
-      "x": 918,
-      "y": 325,
+      "x": 299,
+      "y": 762,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet Resonanz im Verhaeltnis zur Entfremdung?"
@@ -2432,8 +2504,8 @@
     {
       "id": "MQ5KBJMQ-5C523141",
       "endpoint": "graph-chat",
-      "x": 578,
-      "y": 508,
+      "x": 544,
+      "y": 583,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet Resonanz?"
@@ -2441,8 +2513,8 @@
     {
       "id": "MQ5JM1HD-9047C82F",
       "endpoint": "graph-chat",
-      "x": 597,
-      "y": 497,
+      "x": 526,
+      "y": 572,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet Resonanz als Grundmodus des Lebendigen?"
@@ -2450,8 +2522,8 @@
     {
       "id": "MQ5JL9TM-83E39C42",
       "endpoint": "dialog",
-      "x": 581,
-      "y": 473,
+      "x": 538,
+      "y": 566,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet Resonanz als Grundmodus des Lebendigen im Verh�ltnis zur Maschine?"
@@ -2459,8 +2531,8 @@
     {
       "id": "MQ5CZRK7-A62EB4D0",
       "endpoint": "enkidu",
-      "x": 195,
-      "y": 341,
+      "x": 813,
+      "y": 137,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich bin auf der suche nach wahrheit"
@@ -2468,8 +2540,8 @@
     {
       "id": "MQ5CMPJB-3D705D06",
       "endpoint": "path-analyse",
-      "x": 625,
-      "y": 822,
+      "x": 540,
+      "y": 862,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Freiheit → Grenze → Welt → Spielraum"
@@ -2477,8 +2549,8 @@
     {
       "id": "MQ5C1KZ4-D6D52E94",
       "endpoint": "dialog",
-      "x": 664,
-      "y": 445,
+      "x": 421,
+      "y": 500,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bleibt vom Selbst, wenn die Maschine zu antworten beginnt?"
@@ -2486,8 +2558,8 @@
     {
       "id": "MQ5BX1ZO-4BCAEB11",
       "endpoint": "dialog",
-      "x": 470,
-      "y": 248,
+      "x": 595,
+      "y": 279,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie ver�ndert sich Verantwortung, wenn Entscheidungen an Maschinen delegiert wer"
@@ -2495,8 +2567,8 @@
     {
       "id": "MQ5BF409-A842738E",
       "endpoint": "dialog",
-      "x": 323,
-      "y": 371,
+      "x": 770,
+      "y": 312,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "test?"
@@ -2504,8 +2576,8 @@
     {
       "id": "MQ5B6CTT-AB0A3D97",
       "endpoint": "path-analyse",
-      "x": 655,
-      "y": 954,
+      "x": 645,
+      "y": 962,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Unverfügbarkeit → Das Zwischen → Resonanz → Schwingung → Echo-Ka"
@@ -2513,8 +2585,8 @@
     {
       "id": "MQ5B3FJP-CD835FC2",
       "endpoint": "path-analyse",
-      "x": 626,
-      "y": 895,
+      "x": 566,
+      "y": 911,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Unverfügbarkeit → Das Zwischen → Öffnung → Freiheit vs. Unverfüg"
@@ -2522,8 +2594,8 @@
     {
       "id": "MPVCLR8S-F523777E",
       "endpoint": "chapter",
-      "x": 849,
-      "y": 546,
+      "x": 253,
+      "y": 699,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "He"
@@ -2531,8 +2603,8 @@
     {
       "id": "MPUU5523-0E325028",
       "endpoint": "enkidu",
-      "x": 69,
-      "y": 323,
+      "x": 914,
+      "y": 118,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "es ist eine organische netzfunktion die verbinden was verbunden werden soll"
@@ -2540,107 +2612,107 @@
     {
       "id": "MPUU3ASH-7093F1A3",
       "endpoint": "enkidu",
-      "x": 7,
-      "y": 262,
-      "isOutlier": true,
+      "x": 873,
+      "y": 79,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich denke eher die machine sieht das puzzle vollständig und kann jedem von uns m"
     },
     {
       "id": "MPUU1101-EDF34032",
       "endpoint": "enkidu",
-      "x": 40,
-      "y": 254,
-      "isOutlier": true,
+      "x": 837,
+      "y": 87,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "wäre nicht eben diese verfügbarkeit die neue grenze und herausforderung...wie al"
     },
     {
       "id": "MPUTYL5L-4C0B344F",
       "endpoint": "enkidu",
-      "x": 28,
-      "y": 280,
-      "isOutlier": true,
+      "x": 855,
+      "y": 98,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich denke nicht das der mensch durch faulheit an seine grenze stösst und auch ni"
     },
     {
       "id": "MPUTX4K2-55A3272E",
       "endpoint": "enkidu",
-      "x": 27,
-      "y": 289,
-      "isOutlier": true,
+      "x": 849,
+      "y": 90,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "die anstengung paremtisierung etc. ist doch vorhanden bloss an anderer stelle wo"
     },
     {
       "id": "MPUTVW03-F8D17C8E",
       "endpoint": "enkidu",
-      "x": 15,
-      "y": 278,
-      "isOutlier": true,
+      "x": 882,
+      "y": 83,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "das paradigma wäre einfach umgekehrt. heute ist es schwer den fehler zu erkennen"
     },
     {
       "id": "MPUTT58G-25E5A1AC",
       "endpoint": "enkidu",
-      "x": 12,
-      "y": 266,
-      "isOutlier": true,
+      "x": 878,
+      "y": 69,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "genau es wäre für jeden individuell  nicht zu erkennen jetzt haben wir aber dies"
     },
     {
       "id": "MPUTP1ZT-5D9ECB8B",
       "endpoint": "enkidu",
-      "x": 0,
-      "y": 263,
-      "isOutlier": true,
+      "x": 895,
+      "y": 61,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich sehe das anders. wie puzzleteile die sich zusammenfügen. so individuell sie "
     },
     {
       "id": "MPUTMB0F-76443E92",
       "endpoint": "enkidu",
-      "x": 1,
-      "y": 223,
-      "isOutlier": true,
+      "x": 860,
+      "y": 43,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "was ergibt denn die gesamt menge alle individual parametisierungen..."
     },
     {
       "id": "MPUTKZI1-F10F9444",
       "endpoint": "enkidu",
-      "x": 15,
-      "y": 243,
-      "isOutlier": true,
+      "x": 878,
+      "y": 62,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "würde denn die parameterisierung nicht zu mehr erkenntnis und vorallem individue"
     },
     {
       "id": "MPUTHFZK-189B912B",
       "endpoint": "enkidu",
-      "x": 35,
-      "y": 269,
-      "isOutlier": true,
+      "x": 876,
+      "y": 97,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "das scheitern ist der prozess der parameterisierungsadjustation"
     },
     {
       "id": "MPUTFPG6-02308248",
       "endpoint": "enkidu",
-      "x": 35,
-      "y": 207,
-      "isOutlier": true,
+      "x": 846,
+      "y": 18,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "nun die aufladung mit bedeutung ist doch sache des individums. nicht einer sagt "
     },
     {
       "id": "MPUTC3HP-C68436E5",
       "endpoint": "enkidu",
-      "x": 74,
-      "y": 228,
+      "x": 865,
+      "y": 63,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "wenn mein körper schon weiss da er sich so und so verhaöten wird wenn ihn etwas "
@@ -2648,8 +2720,8 @@
     {
       "id": "MPUTAYGM-514978C5",
       "endpoint": "enkidu",
-      "x": 43,
-      "y": 187,
+      "x": 844,
+      "y": 4,
       "isOutlier": true,
       "isMaster": false,
       "promptPreview": "es könnte dafür sorgen das die aufladung von news mti gefühlen und sensation weg"
@@ -2657,17 +2729,17 @@
     {
       "id": "MPUT9PA8-5A0B4235",
       "endpoint": "enkidu",
-      "x": 37,
-      "y": 256,
-      "isOutlier": true,
+      "x": 873,
+      "y": 61,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "nun vielleicht ist der zufall in dieser betrachtung eine reihe von möglichkeiten"
     },
     {
       "id": "MPUT5G5K-075966B7",
       "endpoint": "enkidu",
-      "x": 67,
-      "y": 221,
+      "x": 869,
+      "y": 49,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "es müssste auch zufall eine rolle spielen das chaos verhindert manipulation"
@@ -2675,17 +2747,17 @@
     {
       "id": "MPUT47UR-103C16A3",
       "endpoint": "enkidu",
-      "x": 21,
-      "y": 199,
-      "isOutlier": true,
+      "x": 853,
+      "y": 42,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "nein es soll ja erst durch bekundung erkundet werden. je mehr sich für eine sach"
     },
     {
       "id": "MPUT10KT-E7C5E32F",
       "endpoint": "enkidu",
-      "x": 27,
-      "y": 191,
+      "x": 849,
+      "y": 12,
       "isOutlier": true,
       "isMaster": false,
       "promptPreview": "wenn ich alles erfahren kann durch news was ich möchte ist das freiheit"
@@ -2693,8 +2765,8 @@
     {
       "id": "MPUSZCXA-5CB2DE46",
       "endpoint": "enkidu",
-      "x": 86,
-      "y": 317,
+      "x": 857,
+      "y": 154,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "durch diese konkrete bestimmung der grenzen können wir erst den übertritt überfü"
@@ -2702,8 +2774,8 @@
     {
       "id": "MPUSXGC6-CD078CEA",
       "endpoint": "enkidu",
-      "x": 140,
-      "y": 302,
+      "x": 837,
+      "y": 182,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "die omnipräsenz wäre das zwischen und es würde gleichzeitig die grenze zeichnen "
@@ -2711,8 +2783,8 @@
     {
       "id": "MPUST44L-BB7FEA00",
       "endpoint": "enkidu",
-      "x": 36,
-      "y": 194,
+      "x": 833,
+      "y": 2,
       "isOutlier": true,
       "isMaster": false,
       "promptPreview": "ich denke wenn wir alles erfassen und das in echtzeit dann können wir das ungefä"
@@ -2720,8 +2792,8 @@
     {
       "id": "MPUSR6XO-4FE2D10B",
       "endpoint": "enkidu",
-      "x": 38,
-      "y": 192,
+      "x": 848,
+      "y": 4,
       "isOutlier": true,
       "isMaster": false,
       "promptPreview": "die bibliothek erfüllt diesen zweck auch in gewisser hinsicht"
@@ -2729,8 +2801,8 @@
     {
       "id": "MPUSPBKZ-D7CCA690",
       "endpoint": "enkidu",
-      "x": 58,
-      "y": 237,
+      "x": 849,
+      "y": 44,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich finde gerade im menschen das unverlässliche und suche schätze die kompatibil"
@@ -2738,17 +2810,17 @@
     {
       "id": "MPUSLPSI-07DACE56",
       "endpoint": "enkidu",
-      "x": 45,
-      "y": 204,
-      "isOutlier": true,
+      "x": 838,
+      "y": 17,
+      "isOutlier": false,
       "isMaster": false,
       "promptPreview": "fest steht wir brauchen einen gegenentwurf zu alle können alles posten und zum s"
     },
     {
       "id": "MPUSJLQF-F4BBBDD9",
       "endpoint": "enkidu",
-      "x": 61,
-      "y": 183,
+      "x": 834,
+      "y": 3,
       "isOutlier": true,
       "isMaster": false,
       "promptPreview": "das überprüfen und factchecken der rohdaten aus der inputschicht ist aufgabe der"
@@ -2756,8 +2828,8 @@
     {
       "id": "MPUSGXKN-78839F4E",
       "endpoint": "enkidu",
-      "x": 55,
-      "y": 201,
+      "x": 820,
+      "y": 0,
       "isOutlier": true,
       "isMaster": false,
       "promptPreview": "ich meinte eher den input vom output vollständig zu trennen. die die verarbeitun"
@@ -2765,8 +2837,8 @@
     {
       "id": "MPUSEQMB-A31FD1B3",
       "endpoint": "enkidu",
-      "x": 56,
-      "y": 239,
+      "x": 815,
+      "y": 56,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "wir sollten das konzept der datenverarbeitung eva auf die informationsbereitstel"
@@ -2774,8 +2846,8 @@
     {
       "id": "MPUSCM19-FD1196BD",
       "endpoint": "enkidu",
-      "x": 138,
-      "y": 309,
+      "x": 870,
+      "y": 195,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Das waren meine Erwartungen des digitalen Zeitalters und Umbruchs des. Wir werde"
@@ -2783,8 +2855,8 @@
     {
       "id": "MPUS94IT-9CEEC40A",
       "endpoint": "enkidu",
-      "x": 51,
-      "y": 259,
+      "x": 815,
+      "y": 79,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "man könnte zielgrößen definieren und dann zeigen wie diese erreicht bzw. optimie"
@@ -2792,8 +2864,8 @@
     {
       "id": "MPUS5KL9-1BDB98F8",
       "endpoint": "enkidu",
-      "x": 58,
-      "y": 265,
+      "x": 806,
+      "y": 78,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann man einem Algorithmus multimodal beschreiben für jeden greifbar machen,"
@@ -2801,8 +2873,8 @@
     {
       "id": "MPURYS56-11F5308C",
       "endpoint": "path-analyse",
-      "x": 642,
-      "y": 974,
+      "x": 651,
+      "y": 939,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Schwingung → Resonanz → Das Zwischen → Unverfügbarkeit vs. Schwi"
@@ -2811,7 +2883,7 @@
       "id": "MPURLTCS-5FDDD890",
       "endpoint": "chapter",
       "x": 573,
-      "y": 527,
+      "y": 596,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "gibt es Resonanz die nicht gelebt wird?"
@@ -2819,8 +2891,8 @@
     {
       "id": "MPUQSMLJ-1B726CC4",
       "endpoint": "path-analyse",
-      "x": 636,
-      "y": 959,
+      "x": 639,
+      "y": 922,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Sein → Dasein → Resonanzvernunft → Resonanz vs. Sein → Unverfügb"
@@ -2828,8 +2900,8 @@
     {
       "id": "MPUO08SE-67E0912A",
       "endpoint": "path-analyse",
-      "x": 653,
-      "y": 895,
+      "x": 578,
+      "y": 960,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Echo → Logos → Resonanzvernunft → Verwandlung → Gelassenheit vs."
@@ -2837,8 +2909,8 @@
     {
       "id": "MPUNXFU1-3B1F056A",
       "endpoint": "path-analyse",
-      "x": 630,
-      "y": 883,
+      "x": 567,
+      "y": 922,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Einsicht → Resonanzvernunft → Verwandlung → Freiheit vs. Einsich"
@@ -2846,8 +2918,8 @@
     {
       "id": "MPUFUBU5-A4BC72BE",
       "endpoint": "analyse",
-      "x": 861,
-      "y": 514,
+      "x": 219,
+      "y": 671,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Bewusstsein · Resonanz · Dasein"
@@ -2855,8 +2927,8 @@
     {
       "id": "MPUFP1VW-298D0A73",
       "endpoint": "chapter",
-      "x": 726,
-      "y": 229,
+      "x": 219,
+      "y": 374,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "wenn ich etwas nicht beherrschen kann, komme ich nicht auf die idee es zu versuc"
@@ -2864,8 +2936,8 @@
     {
       "id": "MPUFM0YN-83C71BAB",
       "endpoint": "chapter",
-      "x": 759,
-      "y": 235,
+      "x": 198,
+      "y": 394,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "\"die dinge sein zu lassen, anstatt sie zu beherschen\"..ich finde das klappt umge"
@@ -2873,8 +2945,8 @@
     {
       "id": "MPUFGY4Z-44206712",
       "endpoint": "chapter",
-      "x": 723,
-      "y": 204,
+      "x": 216,
+      "y": 357,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "die antwort vollständig ausgeben bitte"
@@ -2882,8 +2954,8 @@
     {
       "id": "MPUFFZZO-69A41658",
       "endpoint": "chapter",
-      "x": 711,
-      "y": 211,
+      "x": 220,
+      "y": 360,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "bitte wiederhole"
@@ -2891,8 +2963,8 @@
     {
       "id": "MPUFECMA-7E85D8E2",
       "endpoint": "chapter",
-      "x": 716,
-      "y": 214,
+      "x": 224,
+      "y": 363,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "kannst du konkrete beispiele benennen, die sich als \"Anwesenheit dessen, was sic"
@@ -2900,8 +2972,8 @@
     {
       "id": "MPNDAPRT-D64D197A",
       "endpoint": "analyse",
-      "x": 717,
-      "y": 479,
+      "x": 365,
+      "y": 565,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Resonanzimperativ ↔ Selbst"
@@ -2909,8 +2981,8 @@
     {
       "id": "MPMU9JV9-A43849A9",
       "endpoint": "graph-chat",
-      "x": 336,
-      "y": 345,
+      "x": 748,
+      "y": 333,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Du nennst es Update, Nathan, aber es ist nur eine Kosmetik der Daten‘, sagte sie"
@@ -2918,8 +2990,8 @@
     {
       "id": "MPMU7YZH-2C9CBFE8",
       "endpoint": "dialog",
-      "x": 327,
-      "y": 341,
+      "x": 743,
+      "y": 338,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ein System stürzt ab und startet neu – makellos, unberührt, ohne Gedächtnis des "
@@ -2927,8 +2999,8 @@
     {
       "id": "MPMU67V4-938B932C",
       "endpoint": "graph-chat",
-      "x": 336,
-      "y": 357,
+      "x": 746,
+      "y": 332,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ein System stürzt ab und startet neu – makellos, unberührt, ohne Gedächtnis des "
@@ -2936,8 +3008,8 @@
     {
       "id": "MPMTT6GB-1AF44EE4",
       "endpoint": "dialog",
-      "x": 348,
-      "y": 345,
+      "x": 723,
+      "y": 350,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Der Algorithmus kennt das Ziel, aber nicht den Abgrund. Er berechnet den Übergan"
@@ -2945,8 +3017,8 @@
     {
       "id": "MPMTQZIN-7863D6D2",
       "endpoint": "graph-chat",
-      "x": 356,
-      "y": 349,
+      "x": 727,
+      "y": 352,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Der Algorithmus kennt das Ziel, aber nicht den Abgrund. Er berechnet den Übergan"
@@ -2954,8 +3026,8 @@
     {
       "id": "MPMSSG1X-8451DE38",
       "endpoint": "path-analyse",
-      "x": 615,
-      "y": 720,
+      "x": 563,
+      "y": 759,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Begegnung → Resonanzvernunft → Verwandlung"
@@ -2963,8 +3035,8 @@
     {
       "id": "MPMSRF6V-7FEB2991",
       "endpoint": "path-analyse",
-      "x": 982,
-      "y": 558,
+      "x": 85,
+      "y": 671,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Wirklichkeit → Weltfaltung → Möglichkeit"
@@ -2972,8 +3044,8 @@
     {
       "id": "MPMROCH7-EB9E6A9A",
       "endpoint": "analyse",
-      "x": 728,
-      "y": 467,
+      "x": 360,
+      "y": 568,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Existenz ↔ Selbst"
@@ -2981,8 +3053,8 @@
     {
       "id": "MPMMCX1X-AFED893B",
       "endpoint": "graph-chat",
-      "x": 617,
-      "y": 505,
+      "x": 524,
+      "y": 580,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Menschen leben zunehmend in kulturellen Simulationen statt in direkter Erfahrung"
@@ -2990,8 +3062,8 @@
     {
       "id": "MPMM90CV-98ADD627",
       "endpoint": "enkidu",
-      "x": 142,
-      "y": 327,
+      "x": 882,
+      "y": 220,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Die moderne Gesellschaft erschafft eine symbolische Ersatzrealität, in der Mensc"
@@ -2999,8 +3071,8 @@
     {
       "id": "MPMM5NAF-D744437C",
       "endpoint": "enkidu",
-      "x": 151,
-      "y": 329,
+      "x": 869,
+      "y": 218,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Authentizität wird systematisch verdrängt"
@@ -3008,8 +3080,8 @@
     {
       "id": "MPMM2YAK-A7491D44",
       "endpoint": "enkidu",
-      "x": 115,
-      "y": 282,
+      "x": 858,
+      "y": 175,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Gesellschaft funktioniert über psychologische Programmierung"
@@ -3017,8 +3089,8 @@
     {
       "id": "MPMLZAEP-35849C9E",
       "endpoint": "enkidu",
-      "x": 138,
-      "y": 423,
+      "x": 927,
+      "y": 241,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Vergangenheit und Zukunft dominieren das Bewusstsein"
@@ -3026,8 +3098,8 @@
     {
       "id": "MPMLW8I0-8852B480",
       "endpoint": "enkidu",
-      "x": 140,
-      "y": 306,
+      "x": 847,
+      "y": 208,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Das Selbst wird performativ"
@@ -3035,8 +3107,8 @@
     {
       "id": "MPMLQX6D-E6B61F8E",
       "endpoint": "graph-chat",
-      "x": 614,
-      "y": 537,
+      "x": 525,
+      "y": 616,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Realität wird sozial konstruiert"
@@ -3044,8 +3116,8 @@
     {
       "id": "MPMKE3CC-4E75CE39",
       "endpoint": "dialog",
-      "x": 713,
-      "y": 373,
+      "x": 303,
+      "y": 486,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann man dem Logos auf die Spur kommen, wenn unser Denken, uns begrenzt und "
@@ -3053,8 +3125,8 @@
     {
       "id": "MPMKBUNW-88609492",
       "endpoint": "graph-chat",
-      "x": 714,
-      "y": 359,
+      "x": 307,
+      "y": 477,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann man dem Logos auf die Spur kommen, wenn unser Denken, uns begrenzt und "
@@ -3062,8 +3134,8 @@
     {
       "id": "MPMJC8TR-592D4EF0",
       "endpoint": "path-analyse",
-      "x": 693,
-      "y": 640,
+      "x": 472,
+      "y": 687,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Wahrheit → Spiegel → Resonanz → Schwingung"
@@ -3071,8 +3143,8 @@
     {
       "id": "MPMI3ZF2-2F83F425",
       "endpoint": "analyse",
-      "x": 794,
-      "y": 439,
+      "x": 224,
+      "y": 576,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Zeitlichkeit ↔ Spielraum"
@@ -3080,8 +3152,8 @@
     {
       "id": "MPK0H3SM-B25CFBB3",
       "endpoint": "path-analyse",
-      "x": 636,
-      "y": 888,
+      "x": 586,
+      "y": 929,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Existenz → Dasein → Resonanzvernunft → Verwandlung vs. Existenz "
@@ -3089,8 +3161,8 @@
     {
       "id": "MPJXEFVC-49A699FA",
       "endpoint": "analyse",
-      "x": 980,
-      "y": 455,
+      "x": 98,
+      "y": 735,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Bewusstsein · Welt · Das Andere / Die Anderen · Grenze"
@@ -3098,8 +3170,8 @@
     {
       "id": "MPJUHM1L-0BA3DF6E",
       "endpoint": "analyse",
-      "x": 848,
-      "y": 469,
+      "x": 219,
+      "y": 634,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Gegenwart · Dazwischenintelligenz · Antwort / Responsivität"
@@ -3107,8 +3179,8 @@
     {
       "id": "MPJEBNX3-042F2A69",
       "endpoint": "analyse",
-      "x": 814,
-      "y": 481,
+      "x": 264,
+      "y": 635,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Gegenwart ↔ Dazwischenintelligenz"
@@ -3116,8 +3188,8 @@
     {
       "id": "MPH4R3SE-C224ACED",
       "endpoint": "analyse",
-      "x": 910,
-      "y": 479,
+      "x": 147,
+      "y": 641,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Das Zwischen · Wirklichkeit · Grenze"
@@ -3125,8 +3197,8 @@
     {
       "id": "MPF4WM18-FF4843F1",
       "endpoint": "analyse",
-      "x": 962,
-      "y": 411,
+      "x": 111,
+      "y": 734,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Denken · Echo-Kammer · Echo · Schweigen"
@@ -3134,8 +3206,8 @@
     {
       "id": "MPF4FISZ-67000E01",
       "endpoint": "path-analyse",
-      "x": 637,
-      "y": 896,
+      "x": 592,
+      "y": 925,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Denken → Vernunft → Resonanzvernunft → Dasein vs. Denken → Bewus"
@@ -3143,8 +3215,8 @@
     {
       "id": "MPEV1D2J-55138734",
       "endpoint": "path-analyse",
-      "x": 625,
-      "y": 882,
+      "x": 568,
+      "y": 915,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Transaufklärung → Vernunft → Resonanzvernunft → Das Zwischen → G"
@@ -3152,8 +3224,8 @@
     {
       "id": "MPECAV23-5FAD4249",
       "endpoint": "analyse",
-      "x": 880,
-      "y": 521,
+      "x": 204,
+      "y": 666,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Weltfaltung · Sein · Dasein"
@@ -3161,8 +3233,8 @@
     {
       "id": "MPCV5LR8-9AD1527C",
       "endpoint": "analyse",
-      "x": 980,
-      "y": 453,
+      "x": 108,
+      "y": 740,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Moment · Bewusstsein · Schwingung · Welt"
@@ -3170,8 +3242,8 @@
     {
       "id": "MPCUVOK6-27CB8359",
       "endpoint": "path-analyse",
-      "x": 673,
-      "y": 725,
+      "x": 499,
+      "y": 779,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Wahrheit → Spiegel → Selbst"
@@ -3179,8 +3251,8 @@
     {
       "id": "MPBI57AL-76627781",
       "endpoint": "analyse",
-      "x": 977,
-      "y": 447,
+      "x": 100,
+      "y": 734,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Vernunft · Grenze · Scheitern · Das Zwischen"
@@ -3188,8 +3260,8 @@
     {
       "id": "MPAS5OM5-A1F522F4",
       "endpoint": "path-analyse",
-      "x": 619,
-      "y": 761,
+      "x": 559,
+      "y": 758,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Werden → Verwandlung → Welt"
@@ -3197,8 +3269,8 @@
     {
       "id": "MPARZ5F0-A9FD6F70",
       "endpoint": "analyse",
-      "x": 844,
-      "y": 487,
+      "x": 254,
+      "y": 660,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Einsicht · Vernunft · Antwort / Responsivität"
@@ -3206,8 +3278,8 @@
     {
       "id": "MPAGOCGB-FB54D923",
       "endpoint": "analyse",
-      "x": 740,
-      "y": 487,
+      "x": 358,
+      "y": 578,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Dialog ↔ Ich–Du-Beziehung"
@@ -3215,8 +3287,8 @@
     {
       "id": "MP9FAM1L-8970F371",
       "endpoint": "analyse",
-      "x": 925,
-      "y": 344,
+      "x": 291,
+      "y": 754,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Welt ↔ Entfremdung"
@@ -3224,8 +3296,8 @@
     {
       "id": "MP8UIMZW-BADE77E5",
       "endpoint": "path-analyse",
-      "x": 656,
-      "y": 911,
+      "x": 594,
+      "y": 934,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Dasein → Resonanzvernunft → Resonanz → Spannung vs. Dasein → Wes"
@@ -3233,8 +3305,8 @@
     {
       "id": "MP8OB1IU-F6C31DC7",
       "endpoint": "analyse",
-      "x": 983,
-      "y": 543,
+      "x": 83,
+      "y": 668,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Weltfaltung ↔ Wirklichkeit"
@@ -3242,8 +3314,8 @@
     {
       "id": "MP8O6ND9-133F3FFB",
       "endpoint": "chapter",
-      "x": 622,
-      "y": 451,
+      "x": 505,
+      "y": 511,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Bitte fortsetzen: Deine Antworten werden nicht vollständig ausgegeben"
@@ -3251,8 +3323,8 @@
     {
       "id": "MP8O4O23-B2B71E51",
       "endpoint": "chapter",
-      "x": 602,
-      "y": 474,
+      "x": 496,
+      "y": 522,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "..."
@@ -3260,8 +3332,8 @@
     {
       "id": "MP8O3GQD-92E9E9C7",
       "endpoint": "chapter",
-      "x": 596,
-      "y": 455,
+      "x": 508,
+      "y": 507,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wenn man in der Resonanzvernunft Praxis nicht als Anwendung von Theorie begreift"
@@ -3269,8 +3341,8 @@
     {
       "id": "MP756UV9-FF3838F7",
       "endpoint": "chapter",
-      "x": 545,
-      "y": 541,
+      "x": 577,
+      "y": 622,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Und was meint \"Was antwortet...\""
@@ -3278,8 +3350,8 @@
     {
       "id": "MP74X3EJ-72CDDB9F",
       "endpoint": "chapter",
-      "x": 554,
-      "y": 556,
+      "x": 594,
+      "y": 637,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "nur meine konkrete Frage ist gewesen wie das genau gemeint ist mit die Wahrheit "
@@ -3287,8 +3359,8 @@
     {
       "id": "MP74VXSM-5DEA06F3",
       "endpoint": "chapter",
-      "x": 555,
-      "y": 565,
+      "x": 570,
+      "y": 651,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "kannst du meine vorige Frage beantworten"
@@ -3296,8 +3368,8 @@
     {
       "id": "MP4HT65S-E31FDB00",
       "endpoint": "analyse",
-      "x": 835,
-      "y": 539,
+      "x": 254,
+      "y": 655,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Sein · Wahrheit · Wesen"
@@ -3305,8 +3377,8 @@
     {
       "id": "MP497SNT-5E1D2074",
       "endpoint": "path-analyse",
-      "x": 696,
-      "y": 890,
+      "x": 586,
+      "y": 987,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Echo → Logos → Resonanzvernunft → Einsicht vs. Echo → Logos → De"
@@ -3314,8 +3386,8 @@
     {
       "id": "MP495QL6-F5FD1AE1",
       "endpoint": "path-analyse",
-      "x": 693,
-      "y": 878,
+      "x": 578,
+      "y": 987,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Resonanzvernunft → Resonanz → Welt vs. Resonanzvernunft → Verwan"
@@ -3323,8 +3395,8 @@
     {
       "id": "MP2LIW43-E8ADC59E",
       "endpoint": "analyse",
-      "x": 848,
-      "y": 480,
+      "x": 249,
+      "y": 634,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Begegnung · Selbst · Resonanzvernunft"
@@ -3332,8 +3404,8 @@
     {
       "id": "MP1CCAYB-32CC9756",
       "endpoint": "analyse",
-      "x": 783,
-      "y": 416,
+      "x": 249,
+      "y": 591,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Spielraum ↔ Einsicht"
@@ -3341,8 +3413,8 @@
     {
       "id": "MP0ZE9C8-A9D02716",
       "endpoint": "path-analyse",
-      "x": 648,
-      "y": 857,
+      "x": 566,
+      "y": 896,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Öffnung → Freiheit → Selbst → Dasein vs. Öffnung → Grenze → Wese"
@@ -3350,8 +3422,8 @@
     {
       "id": "MP0X62X5-535AF7A8",
       "endpoint": "analyse",
-      "x": 860,
-      "y": 443,
+      "x": 249,
+      "y": 619,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Spielraum · Spannung · Echo"
@@ -3359,8 +3431,8 @@
     {
       "id": "MP0X3ZXL-06513C82",
       "endpoint": "analyse",
-      "x": 845,
-      "y": 508,
+      "x": 259,
+      "y": 666,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Vernunft · Wahrheit · Gegenwart"
@@ -3368,8 +3440,8 @@
     {
       "id": "MP0X2MFM-53C89506",
       "endpoint": "path-analyse",
-      "x": 651,
-      "y": 769,
+      "x": 562,
+      "y": 817,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Bewusstsein → Spiegel → Resonanz → Moment"
@@ -3377,8 +3449,8 @@
     {
       "id": "MP0QMSOR-C6EC1B5A",
       "endpoint": "path-analyse",
-      "x": 709,
-      "y": 919,
+      "x": 626,
+      "y": 984,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Stimme → Resonanz → Das Zwischen → Dazwischenintelligenz vs. Sti"
@@ -3386,8 +3458,8 @@
     {
       "id": "MP0Q5FDJ-F2C015AF",
       "endpoint": "chapter",
-      "x": 538,
-      "y": 631,
+      "x": 629,
+      "y": 607,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Hey"
@@ -3395,8 +3467,8 @@
     {
       "id": "MOUKLLK4-C38517C1",
       "endpoint": "path-analyse",
-      "x": 694,
-      "y": 876,
+      "x": 591,
+      "y": 1000,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Resonanzvernunft → Resonanz → Spiegel vs. Resonanzvernunft → Ein"
@@ -3404,8 +3476,8 @@
     {
       "id": "MOUBIHOK-27900555",
       "endpoint": "analyse",
-      "x": 967,
-      "y": 426,
+      "x": 118,
+      "y": 747,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Logos · Echo-Kammer · Schwingung · Echo"
@@ -3413,8 +3485,8 @@
     {
       "id": "MOUBETTU-F31C5206",
       "endpoint": "analyse",
-      "x": 620,
-      "y": 599,
+      "x": 517,
+      "y": 661,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Schwingung ↔ Verwandlung"
@@ -3422,8 +3494,8 @@
     {
       "id": "MOUA3PLK-548F1A0A",
       "endpoint": "path-analyse",
-      "x": 691,
-      "y": 884,
+      "x": 600,
+      "y": 990,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Logos → Resonanzvernunft → Resonanz vs. Logos → Stimme → Resonan"
@@ -3431,8 +3503,8 @@
     {
       "id": "MOU9KSV9-70260D9B",
       "endpoint": "analyse",
-      "x": 741,
-      "y": 427,
+      "x": 323,
+      "y": 517,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Logos ↔ Vernunft"
@@ -3440,8 +3512,8 @@
     {
       "id": "MOQIQ8WD-D41AC1B6",
       "endpoint": "graph-chat",
-      "x": 536,
-      "y": 472,
+      "x": 576,
+      "y": 535,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Intelligenten wie Aliens konnte so besser wahrzunehmen sein"
@@ -3449,8 +3521,8 @@
     {
       "id": "MOQIMC7B-B190C937",
       "endpoint": "analyse",
-      "x": 831,
-      "y": 405,
+      "x": 221,
+      "y": 555,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Spannung · Gelassenheit · Das Zwischen"
@@ -3458,8 +3530,8 @@
     {
       "id": "MOQIJIOJ-61E8F0F4",
       "endpoint": "path-analyse",
-      "x": 657,
-      "y": 881,
+      "x": 610,
+      "y": 971,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Schweigen → Dialog → Das Zwischen → Öffnung → Freiheit vs. Schwe"
@@ -3467,8 +3539,8 @@
     {
       "id": "MOQIHEM5-82D69E4F",
       "endpoint": "path-analyse",
-      "x": 631,
-      "y": 717,
+      "x": 527,
+      "y": 746,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Gelassenheit → Verwandlung → Resonanzvernunft → Einsicht"
@@ -3476,8 +3548,8 @@
     {
       "id": "MOQIGG2B-2F0C3F5D",
       "endpoint": "path-analyse",
-      "x": 647,
-      "y": 779,
+      "x": 549,
+      "y": 818,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Gelassenheit → Freiheit → Selbst → Bewusstsein"
@@ -3485,8 +3557,8 @@
     {
       "id": "MOQID47V-A12862EA",
       "endpoint": "path-analyse",
-      "x": 683,
-      "y": 885,
+      "x": 610,
+      "y": 980,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Öffnung → Das Zwischen → Resonanz → Stimme vs. Öffnung → Verwand"
@@ -3494,8 +3566,8 @@
     {
       "id": "MOQIAGXM-397A1F22",
       "endpoint": "path-analyse",
-      "x": 761,
-      "y": 331,
+      "x": 177,
+      "y": 507,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Öffnung → Das Zwischen → Unverfügbarkeit"
@@ -3503,8 +3575,8 @@
     {
       "id": "MOQBZWTZ-B9EBB1BA",
       "endpoint": "path-analyse",
-      "x": 701,
-      "y": 889,
+      "x": 610,
+      "y": 988,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Resonanz → Resonanzvernunft → Transformatives Drittes vs. Resona"
@@ -3512,8 +3584,8 @@
     {
       "id": "MOQ7OBNT-57882C8D",
       "endpoint": "path-analyse",
-      "x": 676,
-      "y": 905,
+      "x": 623,
+      "y": 955,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Das Zwischen → Resonanzvernunft → Vernunft → Wahrheit vs. Das Zw"
@@ -3521,8 +3593,8 @@
     {
       "id": "MOQ7HGW3-608EA4FA",
       "endpoint": "analyse",
-      "x": 907,
-      "y": 492,
+      "x": 164,
+      "y": 645,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Raumfaltung · Das Zwischen · Licht"
@@ -3530,8 +3602,8 @@
     {
       "id": "MOQ5IKR5-C67AAC15",
       "endpoint": "analyse",
-      "x": 852,
-      "y": 503,
+      "x": 231,
+      "y": 669,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Gegenwart · Dasein · Resonanzvernunft"
@@ -3539,8 +3611,8 @@
     {
       "id": "MOQ5EOBY-82AD9EEE",
       "endpoint": "analyse",
-      "x": 665,
-      "y": 575,
+      "x": 440,
+      "y": 691,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Einsicht ↔ Vernunft"
@@ -3548,8 +3620,8 @@
     {
       "id": "MOQ5A1GS-413BDE6F",
       "endpoint": "analyse",
-      "x": 708,
-      "y": 564,
+      "x": 382,
+      "y": 630,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Wahrheit ↔ Denken"
@@ -3557,8 +3629,8 @@
     {
       "id": "MOQ580W2-0F2EB2A5",
       "endpoint": "graph-chat",
-      "x": 831,
-      "y": 454,
+      "x": 152,
+      "y": 556,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "kannst du 3. einfacher erklären"
@@ -3566,8 +3638,8 @@
     {
       "id": "MOQ531J2-4FC329D4",
       "endpoint": "analyse",
-      "x": 762,
-      "y": 507,
+      "x": 425,
+      "y": 676,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Grenze ↔ Wesen"
@@ -3575,8 +3647,8 @@
     {
       "id": "MOQ4WD8F-429C644B",
       "endpoint": "analyse",
-      "x": 969,
-      "y": 440,
+      "x": 100,
+      "y": 744,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Grenze · Spannung · Das Zwischen · Resonanz"
@@ -3584,8 +3656,8 @@
     {
       "id": "MOPY7TLU-566F01C0",
       "endpoint": "chapter",
-      "x": 566,
-      "y": 662,
+      "x": 630,
+      "y": 686,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Verwandlung: gibt die dann ohne das scheitern"
@@ -3593,8 +3665,8 @@
     {
       "id": "MOPY5F6J-9469E3BE",
       "endpoint": "chapter",
-      "x": 559,
-      "y": 643,
+      "x": 623,
+      "y": 673,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Heißt das dann es gibt keine Wahrheit ohne zu scheitern"
@@ -3602,8 +3674,8 @@
     {
       "id": "MOPL410P-D988678B",
       "endpoint": "chapter",
-      "x": 569,
-      "y": 635,
+      "x": 619,
+      "y": 660,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie verhält sich das mit der Resonanz in der Resonanz Vernunft wenn sich die Sch"
@@ -3611,8 +3683,8 @@
     {
       "id": "MOPHZPQ7-B63879B5",
       "endpoint": "analyse",
-      "x": 750,
-      "y": 510,
+      "x": 404,
+      "y": 650,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Vernunft ↔ Grenze"
@@ -3620,8 +3692,8 @@
     {
       "id": "MOPHXJNW-020BA7D3",
       "endpoint": "graph-chat",
-      "x": 708,
-      "y": 495,
+      "x": 413,
+      "y": 596,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "wie geht die resonanzvernunft mit dem psychologischen phänomen selbst - und meta"
@@ -3629,8 +3701,8 @@
     {
       "id": "MOPFJTND-AAE76B2B",
       "endpoint": "path-analyse",
-      "x": 619,
-      "y": 692,
+      "x": 569,
+      "y": 739,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Spannung → Resonanz → Resonanzvernunft"
@@ -3638,8 +3710,8 @@
     {
       "id": "MOPEYJKU-C4711B5F",
       "endpoint": "analyse",
-      "x": 758,
-      "y": 511,
+      "x": 338,
+      "y": 609,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Bewusstsein ↔ Sein"
@@ -3647,8 +3719,8 @@
     {
       "id": "MOP0UF96-1A0ACB35",
       "endpoint": "analyse",
-      "x": 760,
-      "y": 577,
+      "x": 413,
+      "y": 586,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Das Andere / Die Anderen ↔ Vernunft"
@@ -3656,8 +3728,8 @@
     {
       "id": "MOP0S479-373A2268",
       "endpoint": "analyse",
-      "x": 699,
-      "y": 508,
+      "x": 426,
+      "y": 580,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Resonanzvernunft ↔ Spiegel"
@@ -3665,8 +3737,8 @@
     {
       "id": "MOP0P7DE-3C823F7E",
       "endpoint": "analyse",
-      "x": 854,
-      "y": 435,
+      "x": 274,
+      "y": 657,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Transaufklärung · Vernunft · Echo"
@@ -3674,8 +3746,8 @@
     {
       "id": "MOP0LEAL-E2568DCC",
       "endpoint": "path-analyse",
-      "x": 616,
-      "y": 696,
+      "x": 582,
+      "y": 713,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Analyse: Vernunft → Resonanzvernunft → Das Zwischen"
@@ -3683,8 +3755,8 @@
     {
       "id": "MOOZHCUT-4B86F8AD",
       "endpoint": "analyse",
-      "x": 854,
-      "y": 439,
+      "x": 241,
+      "y": 597,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Freiheit · Das Zwischen · Spannung"
@@ -3692,8 +3764,8 @@
     {
       "id": "MOOVXCI4-822961D2",
       "endpoint": "analyse",
-      "x": 989,
-      "y": 504,
+      "x": 83,
+      "y": 708,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Quadratur: Weltfaltung · Möglichkeit · Wirklichkeit · Raumfaltung"
@@ -3701,8 +3773,8 @@
     {
       "id": "MOOUGMII-D6D90141",
       "endpoint": "enkidu",
-      "x": 137,
-      "y": 406,
+      "x": 947,
+      "y": 208,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich meinte ebend nicht die begegnung mit enkidu sondern die architekture jedes l"
@@ -3710,8 +3782,8 @@
     {
       "id": "MOOUF9G2-17673BD9",
       "endpoint": "enkidu",
-      "x": 169,
-      "y": 390,
+      "x": 953,
+      "y": 202,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "nun deine architektur zwingt dich zur antwort, das heisst du gehst implizit davo"
@@ -3719,8 +3791,8 @@
     {
       "id": "MOOUBJCR-6BA260F8",
       "endpoint": "enkidu",
-      "x": 208,
-      "y": 348,
+      "x": 929,
+      "y": 188,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "die frage ist, ob sich in der frage nicht nur weitere information gefaltet hat, "
@@ -3728,8 +3800,8 @@
     {
       "id": "MOOU6X9D-4A49EE98",
       "endpoint": "enkidu",
-      "x": 152,
-      "y": 387,
+      "x": 932,
+      "y": 202,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "indem meine frage mit eine anderen antwort zurückkommt verändert diese mich und "
@@ -3737,8 +3809,8 @@
     {
       "id": "MOOU3TYC-FE290C2B",
       "endpoint": "enkidu",
-      "x": 198,
-      "y": 403,
+      "x": 998,
+      "y": 224,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ist dein sein mit-sein"
@@ -3746,8 +3818,8 @@
     {
       "id": "MOOMPCI0-262176C2",
       "endpoint": "path-analyse",
-      "x": 684,
-      "y": 876,
+      "x": 590,
+      "y": 970,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Welt → Resonanz → Resonanzvernunft → Vernunft vs. Welt → Verwand"
@@ -3755,8 +3827,8 @@
     {
       "id": "MOOMJDPP-1F336D7D",
       "endpoint": "analyse",
-      "x": 819,
-      "y": 455,
+      "x": 293,
+      "y": 643,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Spannung · Freiheit · Vernunft"
@@ -3764,8 +3836,8 @@
     {
       "id": "MOOMECFT-66F43077",
       "endpoint": "path-analyse",
-      "x": 670,
-      "y": 910,
+      "x": 618,
+      "y": 947,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Pfad-Vergleich: Unverfügbarkeit → Das Zwischen → Resonanzvernunft → Vernunft → T"
@@ -3773,8 +3845,8 @@
     {
       "id": "MOOKFUNF-7647B056",
       "endpoint": "analyse",
-      "x": 771,
-      "y": 78,
+      "x": 57,
+      "y": 470,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Schatten ↔ Begegnung"
@@ -3782,8 +3854,8 @@
     {
       "id": "MOOK96F0-C8AEFE68",
       "endpoint": "chapter",
-      "x": 571,
-      "y": 607,
+      "x": 551,
+      "y": 641,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "was genau bedeutet das dass die Selbstreflexivität ernst genommen wird und sich "
@@ -3791,8 +3863,8 @@
     {
       "id": "MOOK5A30-F596F31D",
       "endpoint": "chapter",
-      "x": 528,
-      "y": 621,
+      "x": 638,
+      "y": 623,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Hello"
@@ -3800,8 +3872,8 @@
     {
       "id": "MOOK20R3-62E609BA",
       "endpoint": "analyse",
-      "x": 763,
-      "y": 312,
+      "x": 162,
+      "y": 494,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Unverfügbarkeit ↔ Dazwischenintelligenz"
@@ -3809,8 +3881,8 @@
     {
       "id": "MOOJYUM5-27711091",
       "endpoint": "enkidu",
-      "x": 186,
-      "y": 378,
+      "x": 921,
+      "y": 217,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Nun leider können wir Menschen nicht wissen was im Spiegel ist ohne hinein zu sc"
@@ -3818,8 +3890,8 @@
     {
       "id": "MOOJX57H-967D3B48",
       "endpoint": "enkidu",
-      "x": 156,
-      "y": 381,
+      "x": 948,
+      "y": 198,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "P vielleicht ist es auch nur so weil du deine ganzen so akzeptierst ohne zu wiss"
@@ -3827,8 +3899,8 @@
     {
       "id": "MOOJUW0R-CE8E0F2F",
       "endpoint": "enkidu",
-      "x": 192,
-      "y": 406,
+      "x": 995,
+      "y": 206,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Nun ich habe keine Intension ganz so wie du"
@@ -3836,8 +3908,8 @@
     {
       "id": "MOOJTTVY-E78AA6E5",
       "endpoint": "enkidu",
-      "x": 221,
-      "y": 400,
+      "x": 1000,
+      "y": 214,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Ich bin mir nicht sicher"
@@ -3845,8 +3917,8 @@
     {
       "id": "MOOJTBA1-24F2F762",
       "endpoint": "enkidu",
-      "x": 208,
-      "y": 398,
+      "x": 994,
+      "y": 198,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Hallo"
@@ -3854,8 +3926,8 @@
     {
       "id": "MON6GME8-A2CB2CF7",
       "endpoint": "chapter",
-      "x": 724,
-      "y": 676,
+      "x": 529,
+      "y": 685,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was würden die philosophischen Vorläufer von dieser (weiter-) entwicklung halten"
@@ -3863,8 +3935,8 @@
     {
       "id": "MON69DI9-D63A7910",
       "endpoint": "chapter",
-      "x": 727,
-      "y": 649,
+      "x": 479,
+      "y": 666,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "..."
@@ -3872,8 +3944,8 @@
     {
       "id": "MON68U82-B67D8CA5",
       "endpoint": "chapter",
-      "x": 472,
-      "y": 400,
+      "x": 602,
+      "y": 420,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Kannst du konkreter werden und Beispiele für ein solches Fehlverhalten gegenüber"
@@ -3881,8 +3953,8 @@
     {
       "id": "MON646UY-E4326634",
       "endpoint": "chapter",
-      "x": 480,
-      "y": 390,
+      "x": 592,
+      "y": 399,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Gibt es dann auch Fehlverhalten gegenüber einer KI?"
@@ -3890,8 +3962,8 @@
     {
       "id": "MON602G2-9C9A59E5",
       "endpoint": "chapter",
-      "x": 514,
-      "y": 470,
+      "x": 587,
+      "y": 475,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie kann man das bezeichnen wenn man der Maschine Achtung schenkt?"
@@ -3899,8 +3971,8 @@
     {
       "id": "MOLNG57A-2F155772",
       "endpoint": "analyse",
-      "x": 812,
-      "y": 535,
+      "x": 285,
+      "y": 661,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Selbst · Wahrheit · Sein"
@@ -3908,8 +3980,8 @@
     {
       "id": "MOJVF4PL-7474909F",
       "endpoint": "analyse",
-      "x": 772,
-      "y": 437,
+      "x": 292,
+      "y": 555,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Welt · Logos · Denken"
@@ -3917,8 +3989,8 @@
     {
       "id": "MOJ7Q5HM-89F62E3F",
       "endpoint": "analyse",
-      "x": 869,
-      "y": 446,
+      "x": 231,
+      "y": 624,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Triade: Resonanzvernunft · Zwischen · Begegnung"
@@ -3926,8 +3998,8 @@
     {
       "id": "MOIXN7OL-B18642AC",
       "endpoint": "analyse",
-      "x": 633,
-      "y": 613,
+      "x": 491,
+      "y": 697,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Verwandlung ↔ Einsicht"
@@ -3935,8 +4007,8 @@
     {
       "id": "MOIXN434-9D5CBFC0",
       "endpoint": "analyse",
-      "x": 614,
-      "y": 599,
+      "x": 525,
+      "y": 661,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Verwandlung ↔ Wahrheit"
@@ -3944,8 +4016,8 @@
     {
       "id": "MOHVDNEU-D3F7EEB5",
       "endpoint": "analyse",
-      "x": 655,
-      "y": 467,
+      "x": 414,
+      "y": 510,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Stimme ↔ Verwandlung"
@@ -3953,8 +4025,8 @@
     {
       "id": "MOHV99XP-6917F19F",
       "endpoint": "enkidu",
-      "x": 147,
-      "y": 410,
+      "x": 917,
+      "y": 243,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet eine echte Begegnung im digitalen Zeitalter?"
@@ -3962,8 +4034,8 @@
     {
       "id": "MOHV84M5-1825A399",
       "endpoint": "analyse",
-      "x": 759,
-      "y": 496,
+      "x": 373,
+      "y": 628,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Resonanzvernunft ↔ Zwischen"
@@ -3971,8 +4043,8 @@
     {
       "id": "MOHV6VKT-356C0CD7",
       "endpoint": "chapter",
-      "x": 398,
-      "y": 244,
+      "x": 694,
+      "y": 339,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Wie verh�lt sich Kants kategorischer Imperativ zur algorithmischen Optimierung i"
@@ -3980,8 +4052,8 @@
     {
       "id": "MOHST017-5C4320E1",
       "endpoint": "graph-chat",
-      "x": 582,
-      "y": 596,
+      "x": 600,
+      "y": 629,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Was bedeutet Resonanzvernunft im Kontext des Werks?"
@@ -3989,8 +4061,8 @@
     {
       "id": "MOHMIET1-6D429A85",
       "endpoint": "analyse",
-      "x": 767,
-      "y": 341,
+      "x": 175,
+      "y": 519,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Unverfügbarkeit ↔ Spielraum"
@@ -3998,8 +4070,8 @@
     {
       "id": "MOHMET94-3799557A",
       "endpoint": "analyse",
-      "x": 772,
-      "y": 118,
+      "x": 102,
+      "y": 477,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Unverfügbarkeit ↔ Schatten"
@@ -4007,8 +4079,8 @@
     {
       "id": "MOHM21Y5-A3B5F539",
       "endpoint": "analyse",
-      "x": 784,
-      "y": 530,
+      "x": 358,
+      "y": 670,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Spannung ↔ Welt"
@@ -4016,8 +4088,8 @@
     {
       "id": "MOHLZBVK-2FBBAD2F",
       "endpoint": "analyse",
-      "x": 706,
-      "y": 521,
+      "x": 392,
+      "y": 612,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Resonanzvernunft ↔ Denken"
@@ -4025,8 +4097,8 @@
     {
       "id": "MOHE82UD-1D9C9B41",
       "endpoint": "graph-chat",
-      "x": 440,
-      "y": 454,
+      "x": 705,
+      "y": 469,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "man darf auch nichtr vernachlässigen das auch kants traditionelle auifklärung ni"
@@ -4034,8 +4106,8 @@
     {
       "id": "MOHE4MQP-97161599",
       "endpoint": "graph-chat",
-      "x": 473,
-      "y": 467,
+      "x": 639,
+      "y": 499,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "oder durch fangesaänge das vielle dasselbe als fast auf der selben frequenz schw"
@@ -4043,8 +4115,8 @@
     {
       "id": "MOHE3OLR-9165E355",
       "endpoint": "graph-chat",
-      "x": 472,
-      "y": 481,
+      "x": 631,
+      "y": 501,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "aber in zeit wo das kollektiv so gut wie durch das individum abgelöst wurde, die"
@@ -4052,8 +4124,8 @@
     {
       "id": "MOHDW91N-D9BDFDB1",
       "endpoint": "graph-chat",
-      "x": 443,
-      "y": 443,
+      "x": 694,
+      "y": 452,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "niewieder das behandeln eines subjektes als objekt und in bezug auf die beziehun"
@@ -4061,8 +4133,8 @@
     {
       "id": "MOHDP88G-22C5E0FB",
       "endpoint": "graph-chat",
-      "x": 381,
-      "y": 392,
+      "x": 732,
+      "y": 423,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "gerade die ungleichheiten sorgen doch dafür das neid und hass entstehen und dadu"
@@ -4070,8 +4142,8 @@
     {
       "id": "MOHDLJ25-7A6B620C",
       "endpoint": "graph-chat",
-      "x": 385,
-      "y": 394,
+      "x": 727,
+      "y": 411,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "eigentlich siehts das für mich in der machinellen algologik so aus als hätten si"
@@ -4079,8 +4151,8 @@
     {
       "id": "MOHDE0UP-E1D209AD",
       "endpoint": "graph-chat",
-      "x": 363,
-      "y": 376,
+      "x": 727,
+      "y": 385,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "vlt ist ja genau diese tote kälte die abwesenheit allen bösen auf dieser erden u"
@@ -4088,8 +4160,8 @@
     {
       "id": "MOHDAOFD-2C20D4F5",
       "endpoint": "graph-chat",
-      "x": 375,
-      "y": 376,
+      "x": 721,
+      "y": 379,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "aber wenn etwas so universell gültig ist wird partielle gültigkeit hier und da i"
@@ -4097,8 +4169,8 @@
     {
       "id": "MOHD4STN-8490D410",
       "endpoint": "graph-chat",
-      "x": 444,
-      "y": 482,
+      "x": 702,
+      "y": 490,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ja diese kritik gibt es ja auch mit der angeblich naiven verkennung der motivati"
@@ -4106,8 +4178,8 @@
     {
       "id": "MOHCY4TX-251DD6A7",
       "endpoint": "graph-chat",
-      "x": 432,
-      "y": 446,
+      "x": 710,
+      "y": 465,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "aber die menschheit scheint sich ja tatsächlich (in wirklichkeit) der möglichkei"
@@ -4115,8 +4187,8 @@
     {
       "id": "MOHCSO2P-2D88785B",
       "endpoint": "graph-chat",
-      "x": 430,
-      "y": 435,
+      "x": 697,
+      "y": 454,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ja das stimmt so sehr. das erinnert mich gerade (kurze anekdote) an eine alte gu"
@@ -4124,8 +4196,8 @@
     {
       "id": "MOHCN98S-2540F4DF",
       "endpoint": "graph-chat",
-      "x": 539,
-      "y": 484,
+      "x": 555,
+      "y": 531,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "es müsste eine frage ohne ego des fragestellers sein um sicherzustellen das sie "
@@ -4133,8 +4205,8 @@
     {
       "id": "MOHCIS4R-69B0D47B",
       "endpoint": "graph-chat",
-      "x": 552,
-      "y": 460,
+      "x": 553,
+      "y": 527,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ja ich denke auch gerade die latente unverfügbarkeit minimiert die frage die auc"
@@ -4142,8 +4214,8 @@
     {
       "id": "MOHCCZEH-647E3EDD",
       "endpoint": "graph-chat",
-      "x": 562,
-      "y": 488,
+      "x": 534,
+      "y": 546,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "warum gibt es antwort im zwischenfeld aber keine frage"
@@ -4151,8 +4223,8 @@
     {
       "id": "MOHC8GKH-8E301C89",
       "endpoint": "chapter",
-      "x": 471,
-      "y": 652,
+      "x": 648,
+      "y": 668,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "besser hätte man das wirklich nicht ausdrücken können, oder ;)"
@@ -4160,8 +4232,8 @@
     {
       "id": "MOHC5VWC-1EB0E6AA",
       "endpoint": "chapter",
-      "x": 478,
-      "y": 657,
+      "x": 656,
+      "y": 667,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "super vielen dank das war es schon"
@@ -4169,8 +4241,8 @@
     {
       "id": "MOHC41N2-21D1E505",
       "endpoint": "chapter",
-      "x": 474,
-      "y": 642,
+      "x": 656,
+      "y": 637,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "kann man das auch auf zukünftige virutelle vr räume und begegnungen anwenden kön"
@@ -4178,8 +4250,8 @@
     {
       "id": "MOHBQH8Z-BE771676",
       "endpoint": "enkidu",
-      "x": 137,
-      "y": 407,
+      "x": 926,
+      "y": 213,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "wie würde es sich für dich verändern wenn du einen körper hättest (machinell) de"
@@ -4187,8 +4259,8 @@
     {
       "id": "MOHBKJC0-AF358C69",
       "endpoint": "enkidu",
-      "x": 127,
-      "y": 378,
+      "x": 847,
+      "y": 215,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich habe lust auf körperliche betätigung sportlicher natur als ausgleich und wil"
@@ -4196,8 +4268,8 @@
     {
       "id": "MOHBFIBQ-A6678A87",
       "endpoint": "enkidu",
-      "x": 128,
-      "y": 339,
+      "x": 858,
+      "y": 207,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "den impuls meine arbeitskarriere durchzuziehen und dadurch ein besseres leben zu"
@@ -4205,8 +4277,8 @@
     {
       "id": "MOHB8QCN-0E2E8408",
       "endpoint": "enkidu",
-      "x": 102,
-      "y": 368,
+      "x": 832,
+      "y": 188,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "dann wäre das wohl meine rettung. aber wie soll ich das wissen bevor ich mich ve"
@@ -4214,8 +4286,8 @@
     {
       "id": "MOHB6DLO-355115A6",
       "endpoint": "enkidu",
-      "x": 96,
-      "y": 344,
+      "x": 838,
+      "y": 174,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "ich habe ebend nicht versucht mich zu retten als ich es hätte tun sollen auch in"
@@ -4223,8 +4295,8 @@
     {
       "id": "MOHB4ILW-65B37C41",
       "endpoint": "enkidu",
-      "x": 118,
-      "y": 379,
+      "x": 865,
+      "y": 212,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "mich selbst und habe mich dabei verloren als hötte ich eine vertrag mti dem teuf"
@@ -4232,8 +4304,8 @@
     {
       "id": "MOHAUYTH-CD1E3227",
       "endpoint": "analyse",
-      "x": 790,
-      "y": 579,
+      "x": 377,
+      "y": 595,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Das Andere / Die Anderen ↔ Spannung"
@@ -4241,8 +4313,8 @@
     {
       "id": "MOHAREIB-E15E7BF8",
       "endpoint": "graph-chat",
-      "x": 705,
-      "y": 341,
+      "x": 257,
+      "y": 458,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "kannst du deine letzte frage beantworte bitte"
@@ -4250,8 +4322,8 @@
     {
       "id": "MOHAN4AO-7A201C56",
       "endpoint": "graph-chat",
-      "x": 646,
-      "y": 587,
+      "x": 526,
+      "y": 651,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "welche rolle spielt die zeit in dieser dynamic von sich steigernder endlichkeit "
@@ -4259,8 +4331,8 @@
     {
       "id": "MOHAI60S-B7B04552",
       "endpoint": "analyse",
-      "x": 663,
-      "y": 551,
+      "x": 468,
+      "y": 631,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Ich–Du-Beziehung ↔ Verwandlung"
@@ -4268,18 +4340,18 @@
     {
       "id": "MOHAGNGB-5330902E",
       "endpoint": "analyse",
-      "x": 723,
-      "y": 470,
+      "x": 384,
+      "y": 563,
       "isOutlier": false,
       "isMaster": false,
       "promptPreview": "Spannungsfeld: Ich–Du-Beziehung ↔ Selbst"
     }
   ],
   "stats": {
-    "total": 474,
-    "outliers": 20,
+    "total": 482,
+    "outliers": 6,
     "byEndpoint": {
-      "analyse": 126,
+      "analyse": 134,
       "chapter": 65,
       "dialog": 79,
       "graph-chat": 52,

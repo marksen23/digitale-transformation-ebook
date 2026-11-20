@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:38:44.049Z",
+  "generatedAt": "2026-11-20T17:59:56.728Z",
   "baseline": {
     "MPF4FISZ-67000E01": {
       "neighbors": [
@@ -480,6 +480,22 @@
         "MUY7RXCI-E899056E"
       ],
       "computedAt": "2026-11-20T17:38:44.003Z"
+    },
+    "MWPA16O4-913B0D8F": {
+      "neighbors": [
+        "MWP89KE9-5CA26BFA",
+        "MWP942Q1-AC6D25E4",
+        "MWP942PY-5EF7032A"
+      ],
+      "computedAt": "2026-11-20T17:59:56.652Z"
+    },
+    "MWPA16NS-54BBB39F": {
+      "neighbors": [
+        "MWHLW24R-959992F9",
+        "MW566TNX-A16A2897",
+        "MWP942PY-5EF7032A"
+      ],
+      "computedAt": "2026-11-20T17:59:56.654Z"
     }
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:38:44.059Z",
+  "generatedAt": "2026-11-20T17:59:56.770Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -459,6 +459,18 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "dazwischenintelligenz",
+      "target": "freiheit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWPA16O4-913B0D8F",
+        "MWCAX4JR-B3C15760"
       ]
     },
     {
@@ -1168,8 +1180,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 437,
-    "candidatesCount": 89,
+    "totalPairs": 444,
+    "candidatesCount": 90,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

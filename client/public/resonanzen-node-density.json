@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:38:44.058Z",
+  "generatedAt": "2026-11-20T17:59:56.753Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 27,
@@ -62,9 +62,9 @@
       }
     },
     "echo": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "analyse": 7,
+        "analyse": 8,
         "dialog": 1,
         "path-analyse": 1
       }
@@ -77,9 +77,9 @@
       }
     },
     "erkenntnis": {
-      "count": 44,
+      "count": 45,
       "endpoints": {
-        "analyse": 9,
+        "analyse": 10,
         "path-analyse": 7,
         "dialog": 28
       }
@@ -114,10 +114,10 @@
       }
     },
     "zeit": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
+        "analyse": 5,
         "path-analyse": 4,
-        "analyse": 4,
         "dialog": 1
       }
     },
@@ -130,11 +130,11 @@
       }
     },
     "gegenwart": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "analyse": 7,
         "dialog": 1,
-        "path-analyse": 3,
-        "analyse": 6
+        "path-analyse": 3
       }
     },
     "dialog": {
@@ -146,17 +146,17 @@
       }
     },
     "ich-du": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "analyse": 7,
         "dialog": 2,
-        "path-analyse": 2,
-        "analyse": 6
+        "path-analyse": 2
       }
     },
     "antwort": {
-      "count": 21,
+      "count": 22,
       "endpoints": {
-        "analyse": 7,
+        "analyse": 8,
         "dialog": 7,
         "path-analyse": 7
       }
@@ -169,9 +169,9 @@
       }
     },
     "werden": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "analyse": 3,
+        "analyse": 4,
         "dialog": 3,
         "path-analyse": 3
       }
@@ -208,16 +208,16 @@
       }
     },
     "welt": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "path-analyse": 8,
-        "analyse": 6
+        "analyse": 7,
+        "path-analyse": 8
       }
     },
     "freiheit": {
-      "count": 17,
+      "count": 19,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 8,
         "path-analyse": 9,
         "dialog": 2
       }
@@ -231,9 +231,9 @@
       }
     },
     "spannung": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "analyse": 9,
+        "analyse": 10,
         "path-analyse": 2
       }
     },
@@ -252,9 +252,9 @@
       }
     },
     "lm-scheitern": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 7,
         "path-analyse": 4,
         "dialog": 2
       }
@@ -275,9 +275,9 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 12,
+      "count": 14,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 8,
         "dialog": 2,
         "path-analyse": 4
       }
@@ -299,10 +299,10 @@
       }
     },
     "echo-kammer": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
+        "analyse": 7,
         "dialog": 1,
-        "analyse": 6,
         "path-analyse": 1
       }
     },
@@ -363,11 +363,11 @@
       }
     },
     "raumfaltung": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
+        "analyse": 5,
         "dialog": 6,
-        "path-analyse": 1,
-        "analyse": 4
+        "path-analyse": 1
       }
     },
     "wirklichkeit": {
@@ -399,7 +399,7 @@
   },
   "stats": {
     "minCount": 0,
-    "maxCount": 44,
+    "maxCount": 45,
     "median": 12,
     "totalNodes": 52,
     "zeroResonanceNodes": [

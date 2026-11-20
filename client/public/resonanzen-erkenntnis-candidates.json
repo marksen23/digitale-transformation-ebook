@@ -1,9 +1,40 @@
 {
-  "generatedAt": "2026-11-20T17:38:46.978Z",
+  "generatedAt": "2026-11-20T18:00:01.042Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
+    {
+      "id": "ERK-PP6H71",
+      "answerId": "MWPA16O7-287F34C5",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Verblassen mit Begründung Eine Narbe, die nie verblasst, wird zur Fessel. Ein Gedächtnis, das alles vergisst, wiederholt seine Fehler. Zwischen diesen beiden Gefahren braucht jedes System, ob Mensch, Organisation oder Maschine, ein Maß. Die Frage, wer über dieses Maß entscheidet, lässt sich nicht mit einem Namen beantworten, wohl aber mit einem Verfahren. Der erste Schritt ist eine Unterscheidung:",
+      "distinctness": 0.29,
+      "conceptAnchor": "lm-scheitern",
+      "nodeIds": [
+        "echo",
+        "lm-scheitern"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWP7PHM0-4AECED9E",
+          "question": "Wenn ein System seine Fehler als Narben bewahrt, wer entscheidet, wann eine Narbe verblassen darf, damit die Erinnerung an das Scheitern nicht selbst zur Fessel wird?",
+          "score": 0.868
+        },
+        {
+          "sourceId": "MWP7PHMC-41844226",
+          "question": "Wenn ein Gedächtnis mit Maß verklingen lassen soll, wer bewahrt das Maß selbst über die Generationen hinweg, und darf auch eine Begründung für das Vergessen irgendwann vergessen werden?",
+          "score": 0.79
+        },
+        {
+          "sourceId": "MASTER-5AF4690D",
+          "question": "Wenn das digitale Vergessen sowohl Schutz als auch Verlust sein kann, wie kultivieren wir eine gemeinsame Praxis der Unterscheidung, die nicht der Willkür von Algorithmen oder der Macht Einzelner überlassen bleibt?",
+          "score": 0.724
+        }
+      ]
+    },
     {
       "id": "ERK-1H6ZXLU",
       "answerId": "MWP89KE6-947D0134",
@@ -27,6 +58,32 @@
           "sourceId": "MWCBD76M-4F8E62A5",
           "question": "Wie ließe sich im unternehmerischen Handeln eine solche Haltung der „kontinuierlichen Rückbindung“ konkret in die Entscheidungsfindung integrieren?",
           "score": 0.668
+        }
+      ]
+    },
+    {
+      "id": "ERK-1PH8E5T",
+      "answerId": "MWPA16O4-913B0D8F",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das Ohne üben Eine Delegation zurücknehmen kann nur, wer noch kann, was er delegiert hat. Fähigkeiten, die nicht geübt werden, verkümmern, und zwar leise. Man merkt ihren Verlust erst in dem Moment, in dem man sie braucht. Die Frage, wer uns diese Fähigkeiten erhält, hat deshalb eine unbequeme erste Antwort: niemand von selbst. Das Werkzeug hat kein Interesse daran, entbehrlich zu bleiben, und der",
+      "distinctness": 0.285,
+      "conceptAnchor": "gelassenheit",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "freiheit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWP89KE9-5CA26BFA",
+          "question": "Wenn Mündigkeit heute vor allem darin besteht, Delegationen zurücknehmen zu können, wer erhält uns die Fähigkeiten, die wir dafür bräuchten, wenn wir sie kaum noch üben?",
+          "score": 0.835
+        },
+        {
+          "sourceId": "MWP89KE3-1A78C2BB",
+          "question": "Wenn sich Ersetzung erst daran zeigt, dass wir etwas ohne Werkzeug nicht mehr können, wie üben wir das Ohne, ohne in eine bloße Verweigerung der Werkzeuge zu flüchten?",
+          "score": 0.79
         }
       ]
     },
@@ -83,6 +140,37 @@
       ]
     },
     {
+      "id": "ERK-BRWAW7",
+      "answerId": "MWPA16NV-4FFCF6BE",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Reibung, die sich auszahlt Man kann den Wert der Reibung nicht durch Argumente vermitteln. Wer im Moment der Reibung steckt, erlebt sie als Kosten: Etwas dauert länger, etwas widerspricht, etwas passt nicht. Der Gewinn zeigt sich erst später. Darin liegt die eigentliche Schwierigkeit der Frage. Es geht nicht darum, Menschen zu überzeugen, sondern darum, den zeitlichen Abstand zwischen Kosten und G",
+      "distinctness": 0.25,
+      "conceptAnchor": "spannung",
+      "nodeIds": [
+        "echo-kammer",
+        "spannung"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWHLYYWS-7B7C3E63",
+          "question": "Wie können wir aber den Wert dieser \"produktiven Reibung\" so vermitteln, dass sie nicht als Verlust, sondern als Gewinn für Mensch und Maschine verstanden wird?",
+          "score": 0.859
+        },
+        {
+          "sourceId": "MWP82B5U-9D2E9F77",
+          "question": "Doch wie bewahren wir diese Räume der Unschärfe und des Widerstands vor der Vereinnahmung durch Systeme, die selbst die Friktion zu einem optimierbaren Parameter machen wollen?",
+          "score": 0.742
+        },
+        {
+          "sourceId": "MWP89KEL-24505B6D",
+          "question": "Wenn Resonanz nur dort entsteht, wo sie auch hätte ausbleiben können, wie gestalten wir Begegnungen mit Maschinen so, dass das Ausbleiben eine echte und keine bloß behauptete Möglichkeit bleibt?",
+          "score": 0.73
+        }
+      ]
+    },
+    {
       "id": "ERK-LYM1MI",
       "answerId": "MWP942Q4-D22CF61C",
       "answerEndpoint": "analyse",
@@ -130,6 +218,32 @@
       ]
     },
     {
+      "id": "ERK-6UCEOO",
+      "answerId": "MWPA16NY-3D5DD901",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Versprechen statt Gehäuse Die Passage stellt ein echtes Dilemma. Rückbindung, die alte *religio*, braucht etwas, woran man sich bindet. Die unaufhörliche Verwandlung aber duldet nichts Bleibendes: weder das „Man“, das Gewohnheiten festschreibt, noch die Stille, in der sich etwas setzen könnte. Bindet man sich an eine Form, verfestigt sie sich. Bindet man sich an nichts, gibt es keine Rückbindung. ",
+      "distinctness": 0.226,
+      "conceptAnchor": "freiheit",
+      "nodeIds": [
+        "werden",
+        "zeit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWCATL9D-AD252234",
+          "question": "Wie kann eine solche unaufhörliche Verwandlung, die weder „Man“ noch „Stille“ duldet, eine neue Form der Rückbindung stiften, ohne sich selbst zu verfestigen?",
+          "score": 0.838
+        },
+        {
+          "sourceId": "MPUNXFU1-3B1F056A",
+          "question": "Welche neuen Formen der Bindung, die nicht im Verlust münden, werden uns in einer zunehmend algorithmisch vermittelten Welt abverlangt, wenn Freiheit wesentlich die Fähigkeit zur Bindung ist?",
+          "score": 0.737
+        }
+      ]
+    },
+    {
       "id": "ERK-APWEMZ",
       "answerId": "MWP89KE9-5CA26BFA",
       "answerEndpoint": "analyse",
@@ -141,7 +255,7 @@
         "freiheit",
         "transaufklaerung"
       ],
-      "resolveCount": 4,
+      "resolveCount": 3,
       "resolves": [
         {
           "sourceId": "MWCBB8F1-DC8DD694",
@@ -157,11 +271,84 @@
           "sourceId": "MPUS94IT-9CEEC40A",
           "question": "Wie kann man die \"Unmündigkeit\", von der Kant spricht, als \"Zielgröße\" in einem Algorithmus abbilden? Und was würde es bedeuten, wenn wir die menschliche Mündigkeit als oberste Zielgröße definieren würden – für uns, nicht für die Maschine?",
           "score": 0.742
+        }
+      ]
+    },
+    {
+      "id": "ERK-1KVSIXE",
+      "answerId": "MWPA16O1-CC6EA6AD",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Faltungen zu zweit Komplexion, Selektion, Stabilisierung und Variation beschreiben, wie Welt sich faltet: Möglichkeiten werden verknüpft, ausgewählt, festgehalten und wieder verändert. Die Frage, ob im Zusammenspiel von Mensch und Maschine neue Prinzipien entstehen, muss man redlich beantworten. Vieles, was neu aussieht, ist eine Beschleunigung der alten vier Bewegungen. Drei Bewegungen scheinen a",
+      "distinctness": 0.224,
+      "conceptAnchor": "weltfaltung",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "raumfaltung"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MOOVXCI4-822961D2",
+          "question": "Welche neuen Faltungsprinzipien entstehen im Zusammenspiel von menschlicher und maschineller Kognition, die über die vier Grundbewegungen der Komplexion, Selektion, Stabilisierung und Variation hinausgehen?",
+          "score": 0.865
+        },
+        {
+          "sourceId": "MWJ1CYQJ-00F93C04",
+          "question": "Wie können wir in der Interaktion mit Maschinen Räume der \"Dazwischenintelligenz\" schaffen, die nicht nur Effizienz steigern, sondern auch das Entstehen eines \"Transformativen Dritten\" ermöglichen?",
+          "score": 0.752
+        }
+      ]
+    },
+    {
+      "id": "ERK-1WD0VNP",
+      "answerId": "MWPA16NS-54BBB39F",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Technik, die zurückgibt Die Flut des Unendlichen ist kein Naturereignis. Sie ist eine Gestaltungsentscheidung. Der Feed ohne Ende, das Video, das von selbst weiterläuft, die Benachrichtigung, die jede Pause unterbricht: Das sind Formen, die gewählt wurden, weil sie Aufmerksamkeit binden. Technik, die präsenter macht, beginnt deshalb nicht mit einer neuen Funktion, sondern mit anderen Formen. Die e",
+      "distinctness": 0.222,
+      "conceptAnchor": "gegenwart",
+      "nodeIds": [
+        "gegenwart",
+        "welt"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWHLW24R-959992F9",
+          "question": "Wie können wir Technologie gestalten, die nicht nur nützlich ist, sondern uns in unserer menschlichen Existenz bewusster und präsenter macht, anstatt uns in der Flut des Unendlichen zu verlieren?",
+          "score": 0.854
+        },
+        {
+          "sourceId": "MWCASDSY-E712A809",
+          "question": "Wie aber sähen Technologien aus, die uns nicht nur entlasten, sondern auch bewusst zur Stille und zur inneren Ansprechbarkeit anleiten?",
+          "score": 0.756
+        }
+      ]
+    },
+    {
+      "id": "ERK-2KT39V",
+      "answerId": "MWPA16NM-2C6538A1",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die leere Voreinstellung Ein optimierter Reflex entsteht nicht dadurch, dass Menschen gedankenlos wären. Er entsteht, weil die Architektur die Antwort schon gegeben hat, bevor jemand gefragt wurde. Die vorausgewählte Option, der nächste Vorschlag, der automatisch startet, die Bestätigung, die nur noch ein Tippen verlangt: In all diesen Fällen ist die Entscheidung bereits gefallen, und der Mensch v",
+      "distinctness": 0.217,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "antwort",
+        "freiheit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MP0Q5FDJ-F2C015AF",
+          "question": "Welche architektonische Entscheidung würde eine Handlung wieder zu einer Antwort machen, statt sie als optimierten Reflex zu verwalten?",
+          "score": 0.854
         },
         {
           "sourceId": "MP8O4O23-B2B71E51",
           "question": "Was bleibt von der Mündigkeit, wenn jede naheliegende Antwort schon vor dem Entschluss berechnet wurde?",
-          "score": 0.726
+          "score": 0.739
         }
       ]
     },
@@ -426,7 +613,7 @@
     }
   ],
   "stats": {
-    "total": 14,
+    "total": 21,
     "confirmedFiltered": 66,
     "curatedRef": 219
   }
