@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T18:00:00.911Z",
+  "generatedAt": "2026-11-20T18:07:15.328Z",
   "count": 399,
   "thresholds": {
     "ANSWER_SIM": 0.72
@@ -7,8 +7,10 @@
   "stats": {
     "total": 399,
     "answered": 360,
-    "open": 39,
-    "embedded": 8
+    "open": 14,
+    "followUp": 41,
+    "followUpOpen": 25,
+    "embedded": 0
   },
   "questions": [
     {
@@ -23,7 +25,8 @@
       "ts": "2026-11-20T17:52:30.727Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWPA16O4-913B0D8F",
@@ -37,7 +40,8 @@
       "ts": "2026-11-20T17:52:30.724Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWPA16O1-CC6EA6AD",
@@ -51,7 +55,8 @@
       "ts": "2026-11-20T17:52:30.721Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWPA16NY-3D5DD901",
@@ -65,7 +70,8 @@
       "ts": "2026-11-20T17:52:30.718Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWPA16NV-4FFCF6BE",
@@ -79,7 +85,8 @@
       "ts": "2026-11-20T17:52:30.715Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWPA16NS-54BBB39F",
@@ -93,7 +100,8 @@
       "ts": "2026-11-20T17:52:30.712Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWPA16NP-F307CE71",
@@ -107,7 +115,8 @@
       "ts": "2026-11-20T17:52:30.709Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWPA16NM-2C6538A1",
@@ -121,7 +130,8 @@
       "ts": "2026-11-20T17:52:30.706Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942QG-F15146A5",
@@ -135,7 +145,8 @@
       "ts": "2026-11-20T17:26:45.976Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942QD-1A3FDA7E",
@@ -149,7 +160,8 @@
       "ts": "2026-11-20T17:26:45.973Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942QA-90A0C107",
@@ -163,7 +175,8 @@
       "ts": "2026-11-20T17:26:45.970Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942Q7-3E1CE3F8",
@@ -177,7 +190,8 @@
       "ts": "2026-11-20T17:26:45.967Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942Q4-D22CF61C",
@@ -191,7 +205,8 @@
       "ts": "2026-11-20T17:26:45.964Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942Q1-AC6D25E4",
@@ -205,7 +220,8 @@
       "ts": "2026-11-20T17:26:45.961Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942PY-5EF7032A",
@@ -219,7 +235,8 @@
       "ts": "2026-11-20T17:26:45.958Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP942PV-96D0E9F1",
@@ -233,7 +250,8 @@
       "ts": "2026-11-20T17:26:45.955Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MASTER-456B1D6E",
@@ -257,7 +275,8 @@
           "score": 0.728
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-0DDDD54A",
@@ -280,7 +299,8 @@
           "score": 0.72
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-70E7430C",
@@ -304,7 +324,8 @@
           "score": 0.723
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-0ACC14CB",
@@ -323,7 +344,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP89KEO-68E6B82A",
@@ -337,7 +359,8 @@
       "ts": "2026-11-20T17:03:02.544Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP89KEL-24505B6D",
@@ -364,7 +387,8 @@
           "score": 0.73
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP89KEI-FACD63CA",
@@ -378,7 +402,8 @@
       "ts": "2026-11-20T17:03:02.538Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP89KEF-808B79A0",
@@ -397,7 +422,8 @@
           "score": 0.736
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP89KEC-7F9911C4",
@@ -411,7 +437,8 @@
       "ts": "2026-11-20T17:03:02.532Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP89KE9-5CA26BFA",
@@ -431,7 +458,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP89KE6-947D0134",
@@ -445,7 +473,8 @@
       "ts": "2026-11-20T17:03:02.526Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP89KE3-1A78C2BB",
@@ -465,7 +494,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP888HX-9EF62C70",
@@ -485,7 +515,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP87W94-699C7D13",
@@ -505,7 +536,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP87AIE-1CE096EA",
@@ -532,7 +564,8 @@
           "score": 0.759
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP86WNM-ADEDD949",
@@ -555,7 +588,8 @@
           "score": 0.737
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP86K27-E36FC029",
@@ -575,7 +609,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP85762-03FEE922",
@@ -602,7 +637,8 @@
           "score": 0.759
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP84ULS-09E47DCA",
@@ -622,7 +658,8 @@
           "score": 0.731
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP84DL5-F07ACB7E",
@@ -653,7 +690,8 @@
           "score": 0.729
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP83WJ0-89C4CB03",
@@ -684,7 +722,8 @@
           "score": 0.732
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP83JAQ-7B75BF9B",
@@ -711,7 +750,8 @@
           "score": 0.767
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP835N6-909E6986",
@@ -730,7 +770,8 @@
           "score": 0.736
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP82NI3-4EAF5580",
@@ -751,7 +792,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP82B5U-9D2E9F77",
@@ -774,7 +816,8 @@
           "score": 0.726
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP81YZO-24DCE87C",
@@ -801,7 +844,8 @@
           "score": 0.757
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP81IWI-5311D00B",
@@ -821,7 +865,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP814CF-E3AF9641",
@@ -848,7 +893,8 @@
           "score": 0.796
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP80SJC-31660D4D",
@@ -876,7 +922,8 @@
           "score": 0.75
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP80FKW-BE8B476E",
@@ -900,7 +947,8 @@
           "score": 0.853
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7ZZFB-4CCC5381",
@@ -927,7 +975,8 @@
           "score": 0.78
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7QJEL-0AF70B09",
@@ -951,7 +1000,8 @@
           "score": 0.724
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7Q2VV-E5134CAA",
@@ -978,7 +1028,8 @@
           "score": 0.751
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7PN8N-3498F800",
@@ -989,7 +1040,8 @@
       "ts": "2026-11-20T16:47:33.095Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MWP7PHMF-9C500DEA",
@@ -1016,7 +1068,8 @@
           "score": 0.758
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP7PHMC-41844226",
@@ -1036,7 +1089,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP7PHM9-EC2123C1",
@@ -1059,7 +1113,8 @@
           "score": 0.725
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP7PHM6-789F4B23",
@@ -1073,7 +1128,8 @@
       "ts": "2026-11-20T16:47:25.806Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP7PHM3-67AB165C",
@@ -1093,7 +1149,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP7PHM0-4AECED9E",
@@ -1113,7 +1170,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MWP7PHLX-B52303F9",
@@ -1127,7 +1185,8 @@
       "ts": "2026-11-20T16:47:25.797Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MWP7P98E-830D3A82",
@@ -1151,7 +1210,8 @@
           "score": 0.749
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7OI4B-71BADB55",
@@ -1178,7 +1238,8 @@
           "score": 0.729
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7O1LR-9E27750E",
@@ -1198,7 +1259,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7NPE0-8C7A9B99",
@@ -1222,7 +1284,8 @@
           "score": 0.827
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7N8UD-6C99565B",
@@ -1253,7 +1316,8 @@
           "score": 0.796
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7MRUK-CCFA8296",
@@ -1283,7 +1347,8 @@
           "score": 0.743
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7MAWH-24EE3D77",
@@ -1312,7 +1377,8 @@
           "score": 0.774
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7LTBE-E4F406FE",
@@ -1339,7 +1405,8 @@
           "score": 0.773
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7LELE-4DE91303",
@@ -1366,7 +1433,8 @@
           "score": 0.794
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWP7KY81-FA276303",
@@ -1393,7 +1461,8 @@
           "score": 0.809
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJF8ASK-16B3DB91",
@@ -1417,7 +1486,8 @@
           "score": 0.73
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJEZNVB-D1367E36",
@@ -1440,7 +1510,8 @@
           "score": 0.739
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJEYZU2-D00A3283",
@@ -1467,7 +1538,8 @@
           "score": 0.742
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJEY6W3-C4E77F94",
@@ -1494,7 +1566,8 @@
           "score": 0.737
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJEXKQQ-CD62AAC3",
@@ -1521,7 +1594,8 @@
           "score": 0.793
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJEWOY7-62FCEE55",
@@ -1548,7 +1622,8 @@
           "score": 0.807
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-5AF4690D",
@@ -1575,7 +1650,8 @@
           "score": 0.724
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-5476DCEA",
@@ -1601,7 +1677,8 @@
           "score": 0.739
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-2C637ECA",
@@ -1628,7 +1705,8 @@
           "score": 0.73
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1GVRC-945E92E3",
@@ -1655,7 +1733,8 @@
           "score": 0.776
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1FX7Q-0DC96540",
@@ -1679,7 +1758,8 @@
           "score": 0.861
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1FKY5-9E97D903",
@@ -1698,7 +1778,8 @@
           "score": 0.736
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1F278-2DA1CA58",
@@ -1709,7 +1790,8 @@
       "ts": "2026-11-16T09:04:44.516Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1EIER-0DB4F1CF",
@@ -1729,7 +1811,8 @@
           "score": 0.722
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1E1XH-1F94AC9B",
@@ -1762,7 +1845,8 @@
           "score": 0.792
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1DNAN-2193A848",
@@ -1790,7 +1874,8 @@
           "score": 0.755
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1DBD5-7CEE18D5",
@@ -1819,7 +1904,8 @@
           "score": 0.77
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1CYQJ-00F93C04",
@@ -1843,7 +1929,8 @@
           "score": 0.733
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1CFX6-DB36677A",
@@ -1868,7 +1955,8 @@
           "score": 0.738
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1BZO7-B4841C4E",
@@ -1899,7 +1987,8 @@
           "score": 0.782
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWJ1BIHJ-2DFCE3F3",
@@ -1927,7 +2016,8 @@
           "score": 0.808
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHM0548-749A11E0",
@@ -1951,7 +2041,8 @@
           "score": 0.725
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLZBS7-7AEB476D",
@@ -1978,7 +2069,8 @@
           "score": 0.773
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLYYWS-7B7C3E63",
@@ -1998,7 +2090,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLYF7H-9E1F67B3",
@@ -2022,7 +2115,8 @@
           "score": 0.774
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLXY8O-BE8E6409",
@@ -2053,7 +2147,8 @@
           "score": 0.819
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLXGMK-4832FECC",
@@ -2069,7 +2164,8 @@
           "score": 0.842
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLWXJ6-FBB227D8",
@@ -2089,7 +2185,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLWM05-8EEB6E7F",
@@ -2113,7 +2210,8 @@
           "score": 0.768
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLW24R-959992F9",
@@ -2130,7 +2228,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLVPL2-B591DBEC",
@@ -2161,7 +2260,8 @@
           "score": 0.818
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLV7BW-F612B59E",
@@ -2189,7 +2289,8 @@
           "score": 0.785
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWHLUQV4-26DFD984",
@@ -2217,7 +2318,8 @@
           "score": 0.753
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6K2GK-71CA57FA",
@@ -2244,7 +2346,8 @@
           "score": 0.747
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6JQJ5-54630303",
@@ -2271,7 +2374,8 @@
           "score": 0.739
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6JE3B-DEC4B0CF",
@@ -2299,7 +2403,8 @@
           "score": 0.766
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6IZQ5-889B7147",
@@ -2328,7 +2433,8 @@
           "score": 0.789
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6IMOZ-5252A380",
@@ -2352,7 +2458,8 @@
           "score": 0.731
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6I8ZX-F0E5CD18",
@@ -2372,7 +2479,8 @@
           "score": 0.74
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6HW56-B5802350",
@@ -2392,7 +2500,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6HHL5-79535386",
@@ -2416,7 +2525,8 @@
           "score": 0.8
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6H024-AA7260D4",
@@ -2440,7 +2550,8 @@
           "score": 0.747
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6FYD2-E6D90142",
@@ -2468,7 +2579,8 @@
           "score": 0.821
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6FM27-B89E8BDB",
@@ -2496,7 +2608,8 @@
           "score": 0.804
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWG6EXJ2-158BEB76",
@@ -2520,7 +2633,8 @@
           "score": 0.734
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWDSDR89-C66887AA",
@@ -2545,7 +2659,8 @@
           "score": 0.725
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWDQ2THL-B9BA920A",
@@ -2573,7 +2688,8 @@
           "score": 0.817
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-5C6E90AE",
@@ -2600,7 +2716,8 @@
           "score": 0.738
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-476E4F4D",
@@ -2626,7 +2743,8 @@
           "score": 0.757
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-556F1581",
@@ -2652,7 +2770,8 @@
           "score": 0.753
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-44EE5BE7",
@@ -2671,7 +2790,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-4EFD4AA4",
@@ -2697,7 +2817,8 @@
           "score": 0.729
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-4AA1AEA8",
@@ -2724,7 +2845,8 @@
           "score": 0.742
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBEOXU-0DAB7EAA",
@@ -2754,7 +2876,8 @@
           "score": 0.816
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBED1H-9EB3396F",
@@ -2778,7 +2901,8 @@
           "score": 0.728
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBE151-93CD5405",
@@ -2798,7 +2922,8 @@
           "score": 0.728
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBD76M-4F8E62A5",
@@ -2817,7 +2942,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBCP5M-8C02E420",
@@ -2843,7 +2969,8 @@
           "score": 0.782
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBC7FO-B32BDE30",
@@ -2867,7 +2994,8 @@
           "score": 0.732
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBBQKL-81492C6E",
@@ -2887,7 +3015,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBB8F1-DC8DD694",
@@ -2904,7 +3033,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBAQN6-9D0CCC83",
@@ -2934,7 +3064,8 @@
           "score": 0.787
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCBAA3Y-37D6F0FA",
@@ -2957,7 +3088,8 @@
           "score": 0.722
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB9SJH-EC316077",
@@ -2968,7 +3100,8 @@
       "ts": "2026-11-11T16:06:11.645Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MWCB8XBW-6F4E41AC",
@@ -2992,7 +3125,8 @@
           "score": 0.722
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB8FV2-28E5FF61",
@@ -3012,7 +3146,8 @@
           "score": 0.724
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB8047-41980A2A",
@@ -3041,7 +3176,8 @@
           "score": 0.813
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB7L4B-A3A5FE6F",
@@ -3065,7 +3201,8 @@
           "score": 0.837
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB73AG-666D352F",
@@ -3092,7 +3229,8 @@
           "score": 0.743
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB6LYL-2D0E2114",
@@ -3108,7 +3246,8 @@
           "score": 0.871
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB64R5-D8B2CF9A",
@@ -3137,7 +3276,8 @@
           "score": 0.79
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB5P7V-7DCEAAEA",
@@ -3153,7 +3293,8 @@
           "score": 0.743
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB5DHF-07FE547A",
@@ -3180,7 +3321,8 @@
           "score": 0.826
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB4VF6-3EE7A1EA",
@@ -3204,7 +3346,8 @@
           "score": 0.726
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB44PD-B00E292F",
@@ -3228,7 +3371,8 @@
           "score": 0.728
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB3NW4-F13A863B",
@@ -3260,7 +3404,8 @@
           "score": 0.816
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB3438-AD4663CF",
@@ -3287,7 +3432,8 @@
           "score": 0.81
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB2NN3-B5D0CDE0",
@@ -3308,7 +3454,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB29W6-AB848990",
@@ -3324,7 +3471,8 @@
           "score": 0.728
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB1U09-5D282206",
@@ -3354,7 +3502,8 @@
           "score": 0.805
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB1COA-DE68B5C9",
@@ -3371,7 +3520,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB10O8-C4E51F37",
@@ -3399,7 +3549,8 @@
           "score": 0.787
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB0LFQ-99B6D838",
@@ -3430,7 +3581,8 @@
           "score": 0.836
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCB03XA-1A38BACE",
@@ -3454,7 +3606,8 @@
           "score": 0.77
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAYLHK-2C8B7B73",
@@ -3474,7 +3627,8 @@
           "score": 0.744
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAYAHR-8817EC13",
@@ -3501,7 +3655,8 @@
           "score": 0.784
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAXXDI-83630FEA",
@@ -3525,7 +3680,8 @@
           "score": 0.726
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAXJFR-BBBF2760",
@@ -3553,7 +3709,8 @@
           "score": 0.811
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAX4JR-B3C15760",
@@ -3582,7 +3739,8 @@
           "score": 0.799
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAWPA5-AB9A4F6A",
@@ -3609,7 +3767,8 @@
           "score": 0.827
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAVIKZ-02025CD4",
@@ -3633,7 +3792,8 @@
           "score": 0.746
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAUU1H-558EDB1E",
@@ -3664,7 +3824,8 @@
           "score": 0.769
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAUEVG-C83B6B45",
@@ -3688,7 +3849,8 @@
           "score": 0.802
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAU22M-CAE9A2F2",
@@ -3716,7 +3878,8 @@
           "score": 0.815
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCATL9D-AD252234",
@@ -3733,7 +3896,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCATA4K-58BFC31C",
@@ -3764,7 +3928,8 @@
           "score": 0.78
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCASQWB-784A4D0A",
@@ -3785,7 +3950,8 @@
           "score": 0.748
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCASDSY-E712A809",
@@ -3812,7 +3978,8 @@
           "score": 0.743
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAPP8K-8C6D82CA",
@@ -3836,7 +4003,8 @@
           "score": 0.801
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAPD18-26E5EAC3",
@@ -3860,7 +4028,8 @@
           "score": 0.722
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAP1CQ-1980FEA2",
@@ -3889,7 +4058,8 @@
           "score": 0.805
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAOLYV-9286BC9F",
@@ -3917,7 +4087,8 @@
           "score": 0.819
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCAO97O-12EF85DE",
@@ -3941,7 +4112,8 @@
           "score": 0.763
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCANTL2-D21DAFD5",
@@ -3969,7 +4141,8 @@
           "score": 0.815
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWCANGSQ-6CC53140",
@@ -3997,7 +4170,8 @@
           "score": 0.857
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MWAE3FJK-C7122206",
@@ -4026,7 +4200,8 @@
           "score": 0.809
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-31CE5C0B",
@@ -4055,7 +4230,8 @@
           "score": 0.746
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-12D94089",
@@ -4081,7 +4257,8 @@
           "score": 0.734
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MW566TO0-ABBD4330",
@@ -4108,7 +4285,8 @@
           "score": 0.746
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MW566TOD-84C09B94",
@@ -4122,7 +4300,8 @@
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MW566TOA-BC003CB2",
@@ -4136,7 +4315,8 @@
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MW566TO7-1538114F",
@@ -4156,7 +4336,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MW566TNX-A16A2897",
@@ -4184,7 +4365,8 @@
           "score": 0.72
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MW566TO3-969C6466",
@@ -4198,7 +4380,8 @@
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": true
     },
     {
       "sourceId": "MV9NOFH9-7634B79F",
@@ -4214,7 +4397,8 @@
       "ts": "2026-10-15T14:50:29.085Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MV9NMWL2-5669B857",
@@ -4235,7 +4419,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MASTER-BC195439",
@@ -4262,7 +4447,8 @@
           "score": 0.766
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MUZTGAEK-432FB6BC",
@@ -4279,7 +4465,8 @@
       "ts": "2026-10-08T17:34:25.198Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MUY7RXCI-E899056E",
@@ -4307,7 +4494,8 @@
           "score": 0.745
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MUY7RXCI-C4CF7B92",
@@ -4327,7 +4515,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MUY7RXCI-D36BB4D6",
@@ -4355,7 +4544,8 @@
           "score": 0.739
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MUY7RXCI-012FC8A7",
@@ -4376,7 +4566,8 @@
           "score": 0.736
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": true
     },
     {
       "sourceId": "MUKE7UOA-9553A59E",
@@ -4400,7 +4591,8 @@
           "score": 0.779
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MUAD2ZEF-BF1C7E18",
@@ -4424,7 +4616,8 @@
           "score": 0.749
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MUACZ4LA-ACB5F9D0",
@@ -4448,7 +4641,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MUAAML84-D057EA33",
@@ -4465,7 +4659,8 @@
       "ts": "2026-09-20T20:53:12.053Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MTNBAIUZ-299AC7D8",
@@ -4493,7 +4688,8 @@
           "score": 0.76
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTNB93L6-1411E014",
@@ -4521,7 +4717,8 @@
           "score": 0.755
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTNB85LB-7C1F15DE",
@@ -4549,7 +4746,8 @@
           "score": 0.741
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTNB7STV-BCB7D709",
@@ -4577,7 +4775,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTNB77VP-6A85F255",
@@ -4605,7 +4804,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTNB6SUG-2922AE66",
@@ -4633,7 +4833,8 @@
           "score": 0.746
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTNB68RF-CFF570D9",
@@ -4657,7 +4858,8 @@
           "score": 0.769
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTNB5V7Q-3B5123E8",
@@ -4685,7 +4887,8 @@
           "score": 0.846
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTL5HMEK-8E3F01EF",
@@ -4713,7 +4916,8 @@
           "score": 0.776
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTL33KWJ-642DD246",
@@ -4742,7 +4946,8 @@
           "score": 0.74
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTKI1YQW-CD0EEDF3",
@@ -4769,7 +4974,8 @@
           "score": 0.747
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTELW5GH-C4D41002",
@@ -4797,7 +5003,8 @@
           "score": 0.74
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTDDMUMA-CCA9033A",
@@ -4808,7 +5015,8 @@
       "ts": "2026-08-28T20:00:59.266Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MTDDG179-491119D2",
@@ -4828,7 +5036,8 @@
           "score": 0.73
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTDD82FW-BAE0F4B4",
@@ -4852,7 +5061,8 @@
           "score": 0.722
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MTDCKR2Q-05DCEB69",
@@ -4863,7 +5073,8 @@
       "ts": "2026-08-28T19:31:21.746Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MSWULSTQ-38C6FFF3",
@@ -4882,7 +5093,8 @@
           "score": 0.721
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQXDVN1C-CAA3081A",
@@ -4911,7 +5123,8 @@
           "score": 0.816
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQASO35V-115DA081",
@@ -4939,7 +5152,8 @@
           "score": 0.769
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQARZJDV-82F077DD",
@@ -4968,7 +5182,8 @@
           "score": 0.746
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ68LVS7-240568F5",
@@ -4992,7 +5207,8 @@
           "score": 0.805
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ683DMX-13D6C54F",
@@ -5019,7 +5235,8 @@
           "score": 0.79
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ67R74M-A1AA4B53",
@@ -5046,7 +5263,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ66ZWYC-52DE2DF2",
@@ -5071,7 +5289,8 @@
           "score": 0.779
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XNFSV-CD34905C",
@@ -5098,7 +5317,8 @@
           "score": 0.767
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XLW2D-D3E90BBC",
@@ -5125,7 +5345,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XK9H2-8A6837CC",
@@ -5152,7 +5373,8 @@
           "score": 0.751
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XJ3VO-378AA1AB",
@@ -5179,7 +5401,8 @@
           "score": 0.765
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XH5A8-5FDB52C7",
@@ -5206,7 +5429,8 @@
           "score": 0.738
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XFLFO-F0DBB89E",
@@ -5233,7 +5457,8 @@
           "score": 0.75
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XE42V-D185B8D7",
@@ -5260,7 +5485,8 @@
           "score": 0.784
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XCH3V-67EF85C8",
@@ -5287,7 +5513,8 @@
           "score": 0.767
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5XB7XF-18E49106",
@@ -5314,7 +5541,8 @@
           "score": 0.725
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5X9PGR-F8698E7E",
@@ -5333,7 +5561,8 @@
           "score": 0.861
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5X7QW6-F6E03538",
@@ -5352,7 +5581,8 @@
           "score": 0.899
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5X6P2M-52F9B16D",
@@ -5375,7 +5605,8 @@
           "score": 0.769
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5X56G4-537343C8",
@@ -5402,7 +5633,8 @@
           "score": 0.769
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5X3C75-D543C13F",
@@ -5429,7 +5661,8 @@
           "score": 0.732
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5X1ZYV-9D7A29CC",
@@ -5452,7 +5685,8 @@
           "score": 0.758
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5WZZPN-8051E5FF",
@@ -5479,7 +5713,8 @@
           "score": 0.749
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5WYJFU-60EB210E",
@@ -5506,7 +5741,8 @@
           "score": 0.721
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5WX52Q-442369F2",
@@ -5525,7 +5761,8 @@
           "score": 0.863
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5WV5PP-6209C749",
@@ -5552,7 +5789,8 @@
           "score": 0.74
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5WUD1G-0976C016",
@@ -5579,7 +5817,8 @@
           "score": 0.782
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5WPJ3V-CF0A30C7",
@@ -5607,7 +5846,8 @@
           "score": 0.801
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5TUQ9P-EF8C6D4B",
@@ -5631,7 +5871,8 @@
           "score": 0.77
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5TTE84-08EB6321",
@@ -5655,7 +5896,8 @@
           "score": 0.798
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5KBJMQ-5C523141",
@@ -5679,7 +5921,8 @@
           "score": 0.822
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5JM1HD-9047C82F",
@@ -5703,7 +5946,8 @@
           "score": 0.815
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5JL9TM-83E39C42",
@@ -5727,7 +5971,8 @@
           "score": 0.765
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5CZRK7-A62EB4D0",
@@ -5751,7 +5996,8 @@
           "score": 0.729
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MQ5C1KZ4-D6D52E94",
@@ -5767,7 +6013,8 @@
           "score": 0.731
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUU5523-0E325028",
@@ -5791,7 +6038,8 @@
           "score": 0.77
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUU3ASH-7093F1A3",
@@ -5815,7 +6063,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUU1101-EDF34032",
@@ -5839,7 +6088,8 @@
           "score": 0.725
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTYL5L-4C0B344F",
@@ -5863,7 +6113,8 @@
           "score": 0.744
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTX4K2-55A3272E",
@@ -5887,7 +6138,8 @@
           "score": 0.767
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTVW03-F8D17C8E",
@@ -5907,7 +6159,8 @@
           "score": 0.747
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTT58G-25E5A1AC",
@@ -5931,7 +6184,8 @@
           "score": 0.796
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTP1ZT-5D9ECB8B",
@@ -5955,7 +6209,8 @@
           "score": 0.725
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTMB0F-76443E92",
@@ -5979,7 +6234,8 @@
           "score": 0.735
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTKZI1-F10F9444",
@@ -6003,7 +6259,8 @@
           "score": 0.757
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTHFZK-189B912B",
@@ -6027,7 +6284,8 @@
           "score": 0.743
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTFPG6-02308248",
@@ -6051,7 +6309,8 @@
           "score": 0.78
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTC3HP-C68436E5",
@@ -6075,7 +6334,8 @@
           "score": 0.727
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUTAYGM-514978C5",
@@ -6091,7 +6351,8 @@
           "score": 0.738
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUT9PA8-5A0B4235",
@@ -6115,7 +6376,8 @@
           "score": 0.775
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUT5G5K-075966B7",
@@ -6139,7 +6401,8 @@
           "score": 0.72
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUT47UR-103C16A3",
@@ -6163,7 +6426,8 @@
           "score": 0.755
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUT10KT-E7C5E32F",
@@ -6187,7 +6451,8 @@
           "score": 0.729
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSZCXA-5CB2DE46",
@@ -6198,7 +6463,8 @@
       "ts": "2026-06-01T06:03:52.751Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MPUSXGC6-CD078CEA",
@@ -6222,7 +6488,8 @@
           "score": 0.734
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUST44L-BB7FEA00",
@@ -6246,7 +6513,8 @@
           "score": 0.739
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSR6XO-4FE2D10B",
@@ -6270,7 +6538,8 @@
           "score": 0.772
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSPBKZ-D7CCA690",
@@ -6294,7 +6563,8 @@
           "score": 0.733
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSLPSI-07DACE56",
@@ -6318,7 +6588,8 @@
           "score": 0.727
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSJLQF-F4BBBDD9",
@@ -6339,7 +6610,8 @@
           "score": 0.761
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSGXKN-78839F4E",
@@ -6363,7 +6635,8 @@
           "score": 0.736
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSEQMB-A31FD1B3",
@@ -6379,7 +6652,8 @@
           "score": 0.762
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUSCM19-FD1196BD",
@@ -6396,7 +6670,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUS94IT-9CEEC40A",
@@ -6420,7 +6695,8 @@
           "score": 0.738
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUS5KL9-1BDB98F8",
@@ -6444,7 +6720,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPURYS56-11F5308C",
@@ -6474,7 +6751,8 @@
           "score": 0.755
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUQSMLJ-1B726CC4",
@@ -6505,7 +6783,8 @@
           "score": 0.78
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUO08SE-67E0912A",
@@ -6529,7 +6808,8 @@
           "score": 0.767
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUNXFU1-3B1F056A",
@@ -6553,7 +6833,8 @@
           "score": 0.73
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUFUBU5-A4BC72BE",
@@ -6581,7 +6862,8 @@
           "score": 0.794
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUFGY4Z-44206712",
@@ -6605,7 +6887,8 @@
           "score": 0.823
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPUFECMA-7E85D8E2",
@@ -6629,7 +6912,8 @@
           "score": 0.731
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPNDAPRT-D64D197A",
@@ -6656,7 +6940,8 @@
           "score": 0.807
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMU9JV9-A43849A9",
@@ -6680,7 +6965,8 @@
           "score": 0.786
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMU67V4-938B932C",
@@ -6704,7 +6990,8 @@
           "score": 0.792
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMTQZIN-7863D6D2",
@@ -6728,7 +7015,8 @@
           "score": 0.751
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMSSG1X-8451DE38",
@@ -6748,7 +7036,8 @@
           "score": 0.747
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMSRF6V-7FEB2991",
@@ -6776,7 +7065,8 @@
           "score": 0.788
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMROCH7-EB9E6A9A",
@@ -6803,7 +7093,8 @@
           "score": 0.768
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMMCX1X-AFED893B",
@@ -6827,7 +7118,8 @@
           "score": 0.794
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMM90CV-98ADD627",
@@ -6838,7 +7130,8 @@
       "ts": "2026-05-26T12:33:16.303Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MPMM5NAF-D744437C",
@@ -6849,7 +7142,8 @@
       "ts": "2026-05-26T12:30:39.399Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MPMM2YAK-A7491D44",
@@ -6873,7 +7167,8 @@
           "score": 0.739
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMLZAEP-35849C9E",
@@ -6884,7 +7179,8 @@
       "ts": "2026-05-26T12:25:42.769Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MPMLW8I0-8852B480",
@@ -6908,7 +7204,8 @@
           "score": 0.763
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMLQX6D-E6B61F8E",
@@ -6925,7 +7222,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMKBUNW-88609492",
@@ -6949,7 +7247,8 @@
           "score": 0.78
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMJC8TR-592D4EF0",
@@ -6978,7 +7277,8 @@
           "score": 0.794
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPMI3ZF2-2F83F425",
@@ -7005,7 +7305,8 @@
           "score": 0.747
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPK0H3SM-B25CFBB3",
@@ -7029,7 +7330,8 @@
           "score": 0.773
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPJXEFVC-49A699FA",
@@ -7058,7 +7360,8 @@
           "score": 0.733
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPJUHM1L-0BA3DF6E",
@@ -7086,7 +7389,8 @@
           "score": 0.81
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPJEBNX3-042F2A69",
@@ -7113,7 +7417,8 @@
           "score": 0.763
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPH4R3SE-C224ACED",
@@ -7141,7 +7446,8 @@
           "score": 0.789
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPF4WM18-FF4843F1",
@@ -7163,7 +7469,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPF4FISZ-67000E01",
@@ -7194,7 +7501,8 @@
           "score": 0.807
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPEV1D2J-55138734",
@@ -7218,7 +7526,8 @@
           "score": 0.742
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPCV5LR8-9AD1527C",
@@ -7247,7 +7556,8 @@
           "score": 0.81
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPBI57AL-76627781",
@@ -7276,7 +7586,8 @@
           "score": 0.782
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPAS5OM5-A1F522F4",
@@ -7304,7 +7615,8 @@
           "score": 0.791
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPARZ5F0-A9FD6F70",
@@ -7332,7 +7644,8 @@
           "score": 0.854
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MPAGOCGB-FB54D923",
@@ -7359,7 +7672,8 @@
           "score": 0.789
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP9FAM1L-8970F371",
@@ -7386,7 +7700,8 @@
           "score": 0.812
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP8UIMZW-BADE77E5",
@@ -7417,7 +7732,8 @@
           "score": 0.766
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP8OB1IU-F6C31DC7",
@@ -7444,7 +7760,8 @@
           "score": 0.794
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP8O6ND9-133F3FFB",
@@ -7461,7 +7778,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP8O4O23-B2B71E51",
@@ -7485,7 +7803,8 @@
           "score": 0.732
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP8O3GQD-92E9E9C7",
@@ -7502,7 +7821,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP4HT65S-E31FDB00",
@@ -7530,7 +7850,8 @@
           "score": 0.791
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP497SNT-5E1D2074",
@@ -7560,7 +7881,8 @@
           "score": 0.753
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP495QL6-F5FD1AE1",
@@ -7589,7 +7911,8 @@
           "score": 0.767
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP2LIW43-E8ADC59E",
@@ -7617,7 +7940,8 @@
           "score": 0.777
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP0ZE9C8-A9D02716",
@@ -7648,7 +7972,8 @@
           "score": 0.791
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP0X62X5-535AF7A8",
@@ -7676,7 +8001,8 @@
           "score": 0.751
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP0X3ZXL-06513C82",
@@ -7704,7 +8030,8 @@
           "score": 0.794
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP0QMSOR-C6EC1B5A",
@@ -7735,7 +8062,8 @@
           "score": 0.73
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MP0Q5FDJ-F2C015AF",
@@ -7752,7 +8080,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOUKLLK4-C38517C1",
@@ -7781,7 +8110,8 @@
           "score": 0.79
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOUBIHOK-27900555",
@@ -7810,7 +8140,8 @@
           "score": 0.791
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOUBETTU-F31C5206",
@@ -7837,7 +8168,8 @@
           "score": 0.772
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOUA3PLK-548F1A0A",
@@ -7866,7 +8198,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOU9KSV9-70260D9B",
@@ -7893,7 +8226,8 @@
           "score": 0.785
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQIQ8WD-D41AC1B6",
@@ -7917,7 +8251,8 @@
           "score": 0.75
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQIMC7B-B190C937",
@@ -7945,7 +8280,8 @@
           "score": 0.731
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQIHEM5-82D69E4F",
@@ -7974,7 +8310,8 @@
           "score": 0.741
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQIGG2B-2F0C3F5D",
@@ -8003,7 +8340,8 @@
           "score": 0.741
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQID47V-A12862EA",
@@ -8033,7 +8371,8 @@
           "score": 0.784
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQIAGXM-397A1F22",
@@ -8061,7 +8400,8 @@
           "score": 0.79
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQBZWTZ-B9EBB1BA",
@@ -8090,7 +8430,8 @@
           "score": 0.807
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQ7OBNT-57882C8D",
@@ -8121,7 +8462,8 @@
           "score": 0.803
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQ7HGW3-608EA4FA",
@@ -8149,7 +8491,8 @@
           "score": 0.776
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQ5IKR5-C67AAC15",
@@ -8177,7 +8520,8 @@
           "score": 0.796
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQ5EOBY-82AD9EEE",
@@ -8204,7 +8548,8 @@
           "score": 0.74
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQ5A1GS-413BDE6F",
@@ -8231,7 +8576,8 @@
           "score": 0.773
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQ580W2-0F2EB2A5",
@@ -8255,7 +8601,8 @@
           "score": 0.779
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOQ531J2-4FC329D4",
@@ -8282,7 +8629,8 @@
           "score": 0.763
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOPHZPQ7-B63879B5",
@@ -8309,7 +8657,8 @@
           "score": 0.761
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOPHXJNW-020BA7D3",
@@ -8333,7 +8682,8 @@
           "score": 0.779
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOPFJTND-AAE76B2B",
@@ -8361,7 +8711,8 @@
           "score": 0.81
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOPEYJKU-C4711B5F",
@@ -8380,7 +8731,8 @@
           "score": 0.723
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOP0UF96-1A0ACB35",
@@ -8407,7 +8759,8 @@
           "score": 0.752
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOP0S479-373A2268",
@@ -8434,7 +8787,8 @@
           "score": 0.777
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOP0P7DE-3C823F7E",
@@ -8462,7 +8816,8 @@
           "score": 0.758
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOP0LEAL-E2568DCC",
@@ -8490,7 +8845,8 @@
           "score": 0.786
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOZHCUT-4B86F8AD",
@@ -8518,7 +8874,8 @@
           "score": 0.792
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOVXCI4-822961D2",
@@ -8540,7 +8897,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOUGMII-D6D90141",
@@ -8564,7 +8922,8 @@
           "score": 0.748
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOUF9G2-17673BD9",
@@ -8588,7 +8947,8 @@
           "score": 0.73
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOU6X9D-4A49EE98",
@@ -8612,7 +8972,8 @@
           "score": 0.726
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOU3TYC-FE290C2B",
@@ -8623,7 +8984,8 @@
       "ts": "2026-05-02T21:09:01.668Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MOOMPCI0-262176C2",
@@ -8653,7 +9015,8 @@
           "score": 0.818
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOMJDPP-1F336D7D",
@@ -8681,7 +9044,8 @@
           "score": 0.731
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOMECFT-66F43077",
@@ -8705,7 +9069,8 @@
           "score": 0.769
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOKFUNF-7647B056",
@@ -8732,7 +9097,8 @@
           "score": 0.802
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOK96F0-C8AEFE68",
@@ -8756,7 +9122,8 @@
           "score": 0.729
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOK20R3-62E609BA",
@@ -8783,7 +9150,8 @@
           "score": 0.774
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOJYUM5-27711091",
@@ -8799,7 +9167,8 @@
           "score": 0.722
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOJX57H-967D3B48",
@@ -8810,7 +9179,8 @@
       "ts": "2026-05-02T16:23:53.502Z",
       "dupCount": 0,
       "answeredBy": [],
-      "answered": false
+      "answered": false,
+      "followUp": false
     },
     {
       "sourceId": "MOOJTTVY-E78AA6E5",
@@ -8834,7 +9204,8 @@
           "score": 0.736
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOOJTBA1-24F2F762",
@@ -8854,7 +9225,8 @@
           "score": 0.728
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MON69DI9-D63A7910",
@@ -8870,7 +9242,8 @@
           "score": 0.747
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOLNG57A-2F155772",
@@ -8898,7 +9271,8 @@
           "score": 0.783
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOJVF4PL-7474909F",
@@ -8926,7 +9300,8 @@
           "score": 0.799
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOJ7Q5HM-89F62E3F",
@@ -8950,7 +9325,8 @@
           "score": 0.798
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOIXN7OL-B18642AC",
@@ -8977,7 +9353,8 @@
           "score": 0.795
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOIXN434-9D5CBFC0",
@@ -9004,7 +9381,8 @@
           "score": 0.773
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHVDNEU-D3F7EEB5",
@@ -9024,7 +9402,8 @@
           "manual": true
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHV99XP-6917F19F",
@@ -9048,7 +9427,8 @@
           "score": 0.754
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHV84M5-1825A399",
@@ -9075,7 +9455,8 @@
           "score": 0.739
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHST017-5C4320E1",
@@ -9099,7 +9480,8 @@
           "score": 0.82
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHMIET1-6D429A85",
@@ -9126,7 +9508,8 @@
           "score": 0.732
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHMET94-3799557A",
@@ -9153,7 +9536,8 @@
           "score": 0.785
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHM21Y5-A3B5F539",
@@ -9180,7 +9564,8 @@
           "score": 0.766
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHLZBVK-2FBBAD2F",
@@ -9207,7 +9592,8 @@
           "score": 0.764
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHE4MQP-97161599",
@@ -9231,7 +9617,8 @@
           "score": 0.732
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHE3OLR-9165E355",
@@ -9255,7 +9642,8 @@
           "score": 0.753
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHDW91N-D9BDFDB1",
@@ -9279,7 +9667,8 @@
           "score": 0.767
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHDLJ25-7A6B620C",
@@ -9303,7 +9692,8 @@
           "score": 0.732
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHDAOFD-2C20D4F5",
@@ -9327,7 +9717,8 @@
           "score": 0.781
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHD4STN-8490D410",
@@ -9351,7 +9742,8 @@
           "score": 0.783
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHCY4TX-251DD6A7",
@@ -9375,7 +9767,8 @@
           "score": 0.755
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHCSO2P-2D88785B",
@@ -9399,7 +9792,8 @@
           "score": 0.768
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHCN98S-2540F4DF",
@@ -9423,7 +9817,8 @@
           "score": 0.787
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHCIS4R-69B0D47B",
@@ -9447,7 +9842,8 @@
           "score": 0.798
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHB4ILW-65B37C41",
@@ -9471,7 +9867,8 @@
           "score": 0.724
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHAUYTH-CD1E3227",
@@ -9498,7 +9895,8 @@
           "score": 0.762
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHAN4AO-7A201C56",
@@ -9522,7 +9920,8 @@
           "score": 0.768
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHAI60S-B7B04552",
@@ -9549,7 +9948,8 @@
           "score": 0.745
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     },
     {
       "sourceId": "MOHAGNGB-5330902E",
@@ -9576,7 +9976,8 @@
           "score": 0.803
         }
       ],
-      "answered": true
+      "answered": true,
+      "followUp": false
     }
   ]
 }
