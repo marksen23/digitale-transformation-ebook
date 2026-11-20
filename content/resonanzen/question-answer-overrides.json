@@ -360,6 +360,83 @@
         "MWP942QG-F15146A5"
       ],
       "note": "Schweigen eines Systems: Scheitern oder Antwort"
+    },
+    {
+      "sourceId": "MP0Q5FDJ-F2C015AF",
+      "pin": [
+        "MWPA16NM-2C6538A1"
+      ],
+      "note": "Architektonische Entscheidung: Handlung wieder als Antwort statt Reflex"
+    },
+    {
+      "sourceId": "MPMLQX6D-E6B61F8E",
+      "pin": [
+        "MWPA16NP-F307CE71"
+      ],
+      "note": "Einsicht, wenn das Du wieder zum Es zurückgerechnet wird"
+    },
+    {
+      "sourceId": "MWHLW24R-959992F9",
+      "pin": [
+        "MWPA16NS-54BBB39F"
+      ],
+      "note": "Technik, die präsenter macht statt in die Flut zu ziehen"
+    },
+    {
+      "sourceId": "MWHLYYWS-7B7C3E63",
+      "pin": [
+        "MWPA16NV-4FFCF6BE"
+      ],
+      "note": "Wert produktiver Reibung als Gewinn vermitteln"
+    },
+    {
+      "sourceId": "MWCATL9D-AD252234",
+      "pin": [
+        "MWPA16NY-3D5DD901"
+      ],
+      "note": "Rückbindung in unaufhörlicher Verwandlung ohne Verfestigung"
+    },
+    {
+      "sourceId": "MOOVXCI4-822961D2",
+      "pin": [
+        "MWPA16O1-CC6EA6AD"
+      ],
+      "note": "Neue Faltungsprinzipien im Zusammenspiel menschlicher und maschineller Kognition"
+    },
+    {
+      "sourceId": "MWP89KE9-5CA26BFA",
+      "pin": [
+        "MWPA16O4-913B0D8F"
+      ],
+      "note": "Fähigkeiten erhalten, um Delegationen zurücknehmen zu können"
+    },
+    {
+      "sourceId": "MWP89KE3-1A78C2BB",
+      "pin": [
+        "MWPA16O4-913B0D8F"
+      ],
+      "note": "Dublette zu MWP89KE9: das Ohne üben ohne Verweigerung der Werkzeuge"
+    },
+    {
+      "sourceId": "MWP7PHM0-4AECED9E",
+      "pin": [
+        "MWPA16O7-287F34C5"
+      ],
+      "note": "Wann eine Narbe verblassen darf"
+    },
+    {
+      "sourceId": "MWP7PHMC-41844226",
+      "pin": [
+        "MWPA16O7-287F34C5"
+      ],
+      "note": "Dublette zu MWP7PHM0: wer das Maß des Verklingens bewahrt"
+    },
+    {
+      "sourceId": "MWP7PHM3-67AB165C",
+      "pin": [
+        "MW566TO0-ABBD4330"
+      ],
+      "note": "Bestehende Antwort „Der Widerspruch und das Werkzeug“: bestellter Widerspruch bleibt raffinierter Spiegel, echter kehrt in neuer Gestalt zurück"
     }
   ]
 }
