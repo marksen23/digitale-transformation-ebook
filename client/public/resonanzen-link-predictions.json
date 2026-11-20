@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:58:01.081Z",
+  "generatedAt": "2026-11-20T17:00:34.229Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -116,6 +116,21 @@
       ]
     },
     {
+      "source": "klang",
+      "target": "moment",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP84DL5-F07ACB7E",
+        "MQ5B6CTT-AB0A3D97",
+        "MPURYS56-11F5308C",
+        "MPCV5LR8-9AD1527C"
+      ]
+    },
+    {
       "source": "resonanzvernunft",
       "target": "selbst",
       "cooccurrence": 4,
@@ -186,6 +201,60 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "entfremdung",
+      "target": "resonanzimperativ",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 2,
+        "dialog": 1
+      },
+      "sampleEntryIds": [
+        "MWP85762-03FEE922",
+        "MWCASDSY-E712A809",
+        "MWCANTL2-D21DAFD5"
+      ]
+    },
+    {
+      "source": "moment",
+      "target": "welt",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP84DL5-F07ACB7E",
+        "MWHLVPL2-B591DBEC",
+        "MPCV5LR8-9AD1527C"
+      ]
+    },
+    {
+      "source": "gelassenheit",
+      "target": "selbst",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWP83WJ0-89C4CB03",
+        "MWJ1E1XH-1F94AC9B",
+        "MOQIGG2B-2F0C3F5D"
+      ]
+    },
+    {
+      "source": "selbst",
+      "target": "öffnung",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWP83WJ0-89C4CB03",
+        "MUAAML84-D057EA33",
+        "MP0ZE9C8-A9D02716"
       ]
     },
     {
@@ -351,20 +420,6 @@
       ]
     },
     {
-      "source": "klang",
-      "target": "moment",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MQ5B6CTT-AB0A3D97",
-        "MPURYS56-11F5308C",
-        "MPCV5LR8-9AD1527C"
-      ]
-    },
-    {
       "source": "dasein",
       "target": "resonanz",
       "cooccurrence": 3,
@@ -404,6 +459,94 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "welt",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP84DL5-F07ACB7E",
+        "MPCV5LR8-9AD1527C"
+      ]
+    },
+    {
+      "source": "resonanz",
+      "target": "zeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP84DL5-F07ACB7E",
+        "MWG6GP84-8E9CA50E"
+      ]
+    },
+    {
+      "source": "welt",
+      "target": "zeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP84DL5-F07ACB7E",
+        "MWHLVPL2-B591DBEC"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "ich-du",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP83WJ0-89C4CB03",
+        "MWCAUU1H-558EDB1E"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP83WJ0-89C4CB03",
+        "MOOZHCUT-4B86F8AD"
+      ]
+    },
+    {
+      "source": "gelassenheit",
+      "target": "ich-du",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP83WJ0-89C4CB03",
+        "MWP83JAQ-7B75BF9B"
+      ]
+    },
+    {
+      "source": "gelassenheit",
+      "target": "zwischen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP83WJ0-89C4CB03",
+        "MOQIMC7B-B190C937"
       ]
     },
     {
@@ -540,18 +683,6 @@
       ]
     },
     {
-      "source": "gelassenheit",
-      "target": "selbst",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWJ1E1XH-1F94AC9B",
-        "MOQIGG2B-2F0C3F5D"
-      ]
-    },
-    {
       "source": "selbst",
       "target": "wesen",
       "cooccurrence": 2,
@@ -636,19 +767,6 @@
       "sampleEntryIds": [
         "MWHLVPL2-B591DBEC",
         "MWG6GP84-8E9CA50E"
-      ]
-    },
-    {
-      "source": "moment",
-      "target": "welt",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWHLVPL2-B591DBEC",
-        "MPCV5LR8-9AD1527C"
       ]
     },
     {
@@ -739,19 +857,6 @@
       ]
     },
     {
-      "source": "entfremdung",
-      "target": "resonanzimperativ",
-      "cooccurrence": 2,
-      "endpoints": {
-        "dialog": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWCASDSY-E712A809",
-        "MWCANTL2-D21DAFD5"
-      ]
-    },
-    {
       "source": "echo",
       "target": "schweigen",
       "cooccurrence": 2,
@@ -773,18 +878,6 @@
       "sampleEntryIds": [
         "MUAAML84-D057EA33",
         "MPF4FISZ-67000E01"
-      ]
-    },
-    {
-      "source": "selbst",
-      "target": "öffnung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MUAAML84-D057EA33",
-        "MP0ZE9C8-A9D02716"
       ]
     },
     {
@@ -1037,8 +1130,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 416,
-    "candidatesCount": 79,
+    "totalPairs": 425,
+    "candidatesCount": 86,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

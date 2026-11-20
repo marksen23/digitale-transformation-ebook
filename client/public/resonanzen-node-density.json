@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:58:01.079Z",
+  "generatedAt": "2026-11-20T17:00:34.228Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 27,
@@ -9,11 +9,11 @@
       }
     },
     "resonanz": {
-      "count": 27,
+      "count": 28,
       "endpoints": {
+        "path-analyse": 19,
         "dialog": 5,
-        "analyse": 4,
-        "path-analyse": 18
+        "analyse": 4
       }
     },
     "vernunft": {
@@ -25,9 +25,9 @@
       }
     },
     "zwischen": {
-      "count": 21,
+      "count": 22,
       "endpoints": {
-        "path-analyse": 14,
+        "path-analyse": 15,
         "analyse": 7
       }
     },
@@ -70,10 +70,10 @@
       }
     },
     "klang": {
-      "count": 7,
+      "count": 9,
       "endpoints": {
-        "analyse": 4,
-        "path-analyse": 3
+        "path-analyse": 4,
+        "analyse": 5
       }
     },
     "erkenntnis": {
@@ -106,25 +106,25 @@
       }
     },
     "moment": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "path-analyse": 11,
+        "path-analyse": 12,
         "dialog": 1,
         "analyse": 2
       }
     },
     "zeit": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
+        "path-analyse": 4,
         "analyse": 4,
-        "dialog": 1,
-        "path-analyse": 3
+        "dialog": 1
       }
     },
     "raum": {
-      "count": 17,
+      "count": 18,
       "endpoints": {
-        "path-analyse": 2,
+        "path-analyse": 3,
         "analyse": 7,
         "dialog": 8
       }
@@ -146,11 +146,11 @@
       }
     },
     "ich-du": {
-      "count": 7,
+      "count": 9,
       "endpoints": {
-        "analyse": 5,
-        "dialog": 1,
-        "path-analyse": 1
+        "path-analyse": 2,
+        "analyse": 6,
+        "dialog": 1
       }
     },
     "antwort": {
@@ -193,10 +193,10 @@
       }
     },
     "selbst": {
-      "count": 20,
+      "count": 21,
       "endpoints": {
-        "analyse": 7,
-        "path-analyse": 13
+        "path-analyse": 14,
+        "analyse": 7
       }
     },
     "andere": {
@@ -208,26 +208,26 @@
       }
     },
     "welt": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
-        "path-analyse": 7,
+        "path-analyse": 8,
         "analyse": 6
       }
     },
     "freiheit": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
+        "path-analyse": 9,
         "dialog": 2,
-        "analyse": 5,
-        "path-analyse": 8
+        "analyse": 5
       }
     },
     "öffnung": {
-      "count": 8,
+      "count": 10,
       "endpoints": {
-        "dialog": 2,
-        "analyse": 1,
-        "path-analyse": 5
+        "path-analyse": 6,
+        "analyse": 2,
+        "dialog": 2
       }
     },
     "spannung": {
@@ -291,9 +291,9 @@
       }
     },
     "entfremdung": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "dialog": 2,
         "path-analyse": 1
       }
@@ -307,11 +307,11 @@
       }
     },
     "gelassenheit": {
-      "count": 7,
+      "count": 9,
       "endpoints": {
-        "path-analyse": 3,
-        "dialog": 1,
-        "analyse": 3
+        "path-analyse": 4,
+        "analyse": 4,
+        "dialog": 1
       }
     },
     "transaufklaerung": {
@@ -323,9 +323,9 @@
       }
     },
     "resonanzimperativ": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "path-analyse": 2,
         "dialog": 2
       }

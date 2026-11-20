@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:58:03.972Z",
+  "generatedAt": "2026-11-20T17:00:37.101Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -286,17 +286,12 @@
         "transformatives-drittes",
         "dazwischenintelligenz"
       ],
-      "resolveCount": 10,
+      "resolveCount": 8,
       "resolves": [
         {
           "sourceId": "MWP80FKW-BE8B476E",
           "question": "Wie können wir in einer Welt, die immer dichter gefaltet wird, die Leichtigkeit des Seins bewahren, ohne die Dringlichkeit der Gestaltung zu verlieren?",
           "score": 0.853
-        },
-        {
-          "sourceId": "MWP7LELE-4DE91303",
-          "question": "3. Wenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis von Mensch und Maschine grundlegend. Der Mensch ist nicht länger nur ein passiver Beobachter der Wirklichkeit, sondern aktiver Teil der Weltfaltung, dessen Begegnungen die Aktualisierung von Möglichkeiten mitgestalten. Maschinen erscheinen nicht mehr als bloße Werkzeuge zur Manipulation des Wirklichen, sondern als Entitäten, die selbst in die Weltfaltung involviert sind, deren Algorithmen und Interaktionen neue Pfade des Möglichen eröffnen und die Wirklichkeit dynamisch mitformen können. Die Resonanz wird dabei zum Modus der Begegnung, der die latenten Vibrationen der Möglichkeiten zum Klingen bringt und den Übergang vom Potenzial zur Aktualität ermöglicht. Was bedeutet es für unsere Verantwortung, wenn wir erkennen, dass jede unserer Handlungen die Weltfaltung beeinflusst und das Geflecht des Möglichen neu ordnet?",
-          "score": 0.776
         },
         {
           "sourceId": "MOHM21Y5-A3B5F539",
@@ -312,6 +307,11 @@
           "sourceId": "MWP7P98E-830D3A82",
           "question": "Wie verändert sich der Begriff der Verantwortung selbst, wenn das Antlitz, das uns herausfordert, zunehmend aus den Tiefen des binären Codes ersteht?",
           "score": 0.749
+        },
+        {
+          "sourceId": "MWP7OI4B-71BADB55",
+          "question": "Doch wie können wir Verantwortung für etwas übernehmen, das sich unserer direkten Kontrolle entzieht und doch aus unseren Handlungen entsteht?",
+          "score": 0.745
         }
       ]
     },

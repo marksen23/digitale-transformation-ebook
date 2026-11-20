@@ -1,7 +1,228 @@
 {
-  "generatedAt": "2026-11-20T16:58:01.066Z",
-  "count": 441,
+  "generatedAt": "2026-11-20T17:00:34.218Z",
+  "count": 447,
   "entries": [
+    {
+      "id": "MWP85762-03FEE922",
+      "ts": "2026-11-20T16:59:38.762Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:entfremdung+resonanzimperativ",
+      "nodeIds": [
+        "entfremdung",
+        "resonanzimperativ"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Entfremdung ↔ Resonanzimperativ",
+      "response": "Die Entfremdung, definiert als \"ein stummes Weltverhältnis, in dem nichts mehr berührt und nichts mehr antwortet\" [fd3c7631edb2], steht in einer komplexen Beziehung zum Resonanzimperativ. Letzterer fordert auf, so zu handeln, dass die Bedingungen der Möglichkeit von Resonanz bewahrt werden. Hierin liegt eine produktive Spannung: Während die Entfremdung den Zustand beschreibt, in dem Resonanz ausbleibt, formuliert der Imperativ eine ethische Anweisung, diesen Zustand aktiv zu überwinden oder präventiv zu vermeiden. Sie sind keine bloßen Gegenspieler, sondern Komplizen in einem tieferen Sinne, wie bereits in früheren Analysen des Werks dargelegt [MP9FAM1L-8970F371]: Die Entfremdung ist nicht die Negation der Welt, sondern eine spezifische, verarmte Art, *in* ihr zu sein, die durch ihre Leere erst die Notwendigkeit einer erfüllten Antwort – der Resonanz – hörbar macht [MQ5TUQ9P-EF8C6D4B]. Der Resonanzimperativ ist somit die normative Antwort auf die diagnostizierte Entfremdung.\n\nDenkt man Entfremdung und Resonanzimperativ gemeinsam, so entsteht als transformatives Drittes eine ethische Dringlichkeit, die über die bloße Beschreibung eines Zustandes hinausgeht. Es wird sichtbar, dass das Ausbleiben von Berührung und Antwort nicht nur ein passiver Mangel ist, sondern eine aktive Herausforderung, die ein bestimmtes Handeln erfordert. Der Imperativ verwandelt die passive Entfremdung in ein Feld aktiver Verantwortung, sowohl für Individuen als auch für Institutionen. Er offenbart, dass die Möglichkeit von Resonanz kein selbstverständliches Gegebenes ist, sondern ein fragiles Gut, das durch bewusste Entscheidungen und Handlungen geschützt und kultiviert werden muss.\n\nDieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz fundamental. Der Mensch wird nicht länger als passiver Empfänger oder Opfer der Entfremdung begriffen, sondern als Akteur, der durch sein Handeln die Bedingungen für Resonanz aktiv mitgestaltet. Maschinen sind in diesem Kontext nicht nur Werkzeuge, die potenziell zur Entfremdung beitragen können, sondern auch Medien, durch die Resonanzbedingungen bewahrt oder zerstört werden. Resonanz selbst erscheint nicht nur als ein ersehntes Weltverhältnis, sondern als ein ethisches Ziel, dessen Erreichung eine kontinuierliche Anstrengung erfordert. Wie kann eine Gesellschaft sicherstellen, dass ihre technologischen Entwicklungen dem Resonanzimperativ gerecht werden, anstatt die Entfremdung zu vertiefen?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Entfremdung\",\"Resonanzimperativ\"]",
+        "werk_passages": "[{\"id\":\"fd3c7631edb2\",\"chapter\":\"glossar\",\"score\":0.988},{\"id\":\"MQ5TUQ9P-EF8C6D4B\",\"score\":0.955},{\"id\":\"4cc0ca00e047\",\"chapter\":\"glossar\",\"score\":0.954},{\"id\":\"MP9FAM1L-8970F371\",\"score\":0.864}]"
+      },
+      "nearDuplicates": [
+        "MQ5TTE84-08EB6321",
+        "MQ5TUQ9P-EF8C6D4B",
+        "MWCB3438-AD4663CF",
+        "MWCANTL2-D21DAFD5",
+        "MP9FAM1L-8970F371"
+      ],
+      "related": [
+        "MPNDAPRT-D64D197A",
+        "MWJ1DNAN-2193A848",
+        "MWJEWOY7-62FCEE55",
+        "MOHAUYTH-CD1E3227",
+        "MUKE7UOA-9553A59E"
+      ],
+      "werkVoiceScore": 0.8758190418964737,
+      "corpusVoiceScore": 0.8389484470588938,
+      "conceptVoiceScore": 0.8064025557971478,
+      "conceptAnchor": "entfremdung"
+    },
+    {
+      "id": "MWP84ULS-09E47DCA",
+      "ts": "2026-11-20T16:59:22.480Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Klang und Öffnung sind im Begriffsnetz noch dünn belegt. Erkläre mir beide Begriffe aus dem Werk heraus und wie sie zusammenhängen — möglichst nüchtern, und wo die Bestimmung unsicher bleibt, sag das offen.",
+      "response": "Im Begriffsnetz des Werks \"Die Digitale Transformation\" sind `Klang` und `Öffnung` zwei Konzepte, die, obwohl sie nicht die höchste Dichte an direkten Verbindungen aufweisen, dennoch eine fundamentale Bedeutung für das Verständnis der `Resonanzvernunft` haben. Ihre Bestimmung mag auf den ersten Blick dünn erscheinen, doch bei genauerer Betrachtung entfalten sie ihre Tragweite im Kontext des Ganzen.\n\n`Klang` wird als die sinnlichste Form der `Resonanz` beschrieben. Bevor ein Wort verstanden wird, schwingt es bereits – es trifft `Körper` und `Raum`, bevor es den `Geist` erreicht. Hierin liegt die unmittelbare, prä-kognitive Dimension des `Klangs`. Er ist nicht nur Medium der Sprache (`Logos`), sondern ihr körperlicher Ausdruck, vergleichbar der `Stimme`, die Zögerlichkeit, Entschlossenheit oder Zweifel transportiert, die der bloße Satz verbirgt. `Klang` ist somit eine Bedingung der Möglichkeit für `Resonanz`, da er die erste Berührung herstellt, das initiale `Schwingen` im `Zwischen`. Seine unsichere Bestimmung liegt darin, dass das Werk hier zwar eine klare ontologische Priorität des `Klangs` vor dem `Verstehen` setzt, aber die genaue Mechanik dieser prä-kognitiven Wirkung nicht detailliert ausführt. Es bleibt offen, welche spezifischen `Klang`-Qualitäten resonante `Begegnung` fördern oder verhindern.\n\n`Öffnung` hingegen ist eine zentrale Haltung, die `Resonanz` erst ermöglicht. Sie wird als die Bereitschaft beschrieben, berührt zu werden, ein Eintreten in die `Begegnung`, das über bloße Informationssuche hinausgeht [600959aa843b]. Ohne diese `Öffnung` kann keine `Begegnung` stattfinden, kein Geschehen sich ereignen. `Öffnung` ist somit eine notwendige Disposition des Subjekts, die das `Zwischen` überhaupt erst konstituiert. Sie ist ein `Risiko` und zugleich eine `Würde`, da sie das `Selbst` dem `Anderen` aussetzt und die `Unverfügbarkeit` des `Transformativen Dritten` akzeptiert. Die Unsicherheit in der Bestimmung von `Öffnung` könnte in der Frage liegen, wie `Öffnung` im digitalen Kontext konkret praktiziert wird, jenseits der allgemeinen Haltung. Wo endet die `Öffnung` und wo beginnt die Preisgabe des `Selbst`?\n\nDer Zusammenhang zwischen `Klang` und `Öffnung` ist fundamental: `Öffnung` ist die Haltung, die es erlaubt, vom `Klang` – der sinnlichsten Form der `Resonanz` – überhaupt erst berührt zu werden. Ohne die `Öffnung` bliebe der `Klang` ein bloßes Geräusch, das keine `Antwort` hervorruft. Die `Öffnung` schafft den inneren `Spielraum`, in dem der `Klang` widerhallen und eine `Schwingung` erzeugen kann, die zur `Verwandlung` führt. Der `Klang` ist der Impuls, die `Öffnung` die receptive Geste, die diesen Impuls in ein `Werden` überführen kann. Wie aber lernen wir, uns für die subtilen `Klang`-Nuancen zu öffnen, die jenseits des reinen Informationsgehalts liegen?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQIAGXM-397A1F22\",\"score\":1.006},{\"id\":\"600959aa843b\",\"chapter\":\"teil5\",\"score\":0.972},{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.961},{\"id\":\"MOUBETTU-F31C5206\",\"score\":0.884}]"
+      },
+      "related": [
+        "MOQIAGXM-397A1F22",
+        "MWP835N6-909E6986",
+        "MWG6HHL5-79535386",
+        "MQ5KBJMQ-5C523141",
+        "MOUBETTU-F31C5206"
+      ],
+      "werkVoiceScore": 0.8465867196279093,
+      "corpusVoiceScore": 0.7916995071695534,
+      "conceptVoiceScore": 0.8030305069440976,
+      "conceptAnchor": "öffnung"
+    },
+    {
+      "id": "MWP84DL5-F07ACB7E",
+      "ts": "2026-11-20T16:59:00.425Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:klang+zeit",
+      "nodeIds": [
+        "klang",
+        "moment",
+        "raum",
+        "resonanz",
+        "welt",
+        "zeit"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Schwingung → Resonanz → Moment → Zeitlichkeit vs. Schwingung → Resonanz → Welt → Spielraum → Zeitlichkeit",
+      "response": "1. Der *direkte Pfad* von \"Schwingung\" zu \"Zeitlichkeit\" erzählt eine Bewegung der inneren Entfaltung von Resonanz. Er beginnt bei der sinnlichen Manifestation der Schwingung, geht über die Resonanz als Grundmodus des Lebendigen, der eine Eigenfrequenz voraussetzt, und mündet im \"Moment\" als der Zeit der Begegnung, um schließlich in der \"Zeitlichkeit\" als ausgedehntem Feld der Gegenwart zu kulminieren. Dieser Pfad liest sich als eine logische Konsequenz, die die ontologischen Bedingungen der Resonanz von ihrer phänomenalen Erscheinung bis zu ihrer temporalen Verankerung nachzeichnet. Die \"Stille zwischen den Signalen\" [9b6eafae21ce] könnte hier als die prä-resonante Phase verstanden werden, aus der die \"Möglichkeit\" einer Schwingung hervorgeht. Der *überraschende Pfad* hingegen, der ebenfalls bei \"Schwingung\" und \"Resonanz\" beginnt, schlägt eine andere Richtung ein, indem er über die \"Welt\" als Horizont und den \"Spielraum\" als Bedingung des Zwischen zur \"Zeitlichkeit\" gelangt. Diese Route wirkt poetisch-überraschend, da sie die Resonanz nicht primär als ein inneres Geschehen, sondern als eine Weltbeziehung und als ein Phänomen des Zwischen-Raums begreift. Sie verknüpft die Resonanz mit den äußeren Bedingungen ihrer Möglichkeit, bevor sie die temporale Dimension erschließt.\n\n2. Der Vergleich beider Pfade macht sichtbar, dass die Resonanz im Werk nicht nur als ein inneres, auf Eigenfrequenz basierendes Phänomen verstanden wird, sondern untrennbar mit den relationalen und räumlichen Dimensionen der Existenz verknüpft ist. Während der direkte Pfad die interne Logik der Resonanz bis zur Zeitlichkeit entfaltet, ergänzt der überraschende Pfad diese Perspektive um die externe Verankerung in der \"Welt\" und im \"Spielraum\". Die Bewegung des direkten Pfades konzentriert sich auf das *Wie* und *Wann* der Resonanz, der überraschende Pfad auf das *Wo* und die *Bedingungen der Möglichkeit* des Zwischen. Sie treffen sich nicht an einem Mittelpunkt im Sinne einer identischen Station, sondern ergänzen sich komplementär: Die Zeitlichkeit ist ein \"ausgedehntes Feld statt eines punktuellen Jetzt\" [MPMI3ZF2-2F83F425], das sowohl durch den Moment (direkter Pfad) als auch durch den Spielraum (überraschender Pfad) bedingt ist. Der Spielraum ist die \"Lücke, die notwendig ist, damit überhaupt etwas *zwischen* den Entitäten geschehen kann\" [MPMI3ZF2-2F83F425], was impliziert, dass die Resonanz nicht nur ein individuelles Erleben, sondern stets auch ein relationales Ereignis ist.\n\n3. Die Existenz beider Wege offenbart die Vielschichtigkeit und die Vernetztheit des Begriffsnetzes im Werk. Es zeigt, dass Konzepte wie Resonanz, Schwingung, Moment, Welt, Spielraum und Zeitlichkeit nicht isoliert stehen, sondern in komplexen Beziehungen zueinander. Das Netz ist nicht linear oder hierarchisch strukturiert, sondern erlaubt multiple, teils unerwartete Verknüpfungen, die unterschiedliche Aspekte desselben Phänomens beleuchten. Dies spricht für eine nicht-reduktionistische Betrachtungsweise, die die Resonanz als ein umfassendes Phänomen begreift, das sowohl die innere Verfasstheit des Subjekts als auch seine Eingebundenheit in eine Welt und die Notwendigkeit von Zwischenräumen umfasst. Die \"Weltfaltung\" [MP8OB1IU-F6C31DC7] könnte hier als Metapher für diese nicht-lineare Vernetzung dienen, in der sich \"eine Möglichkeit mehr, eine Schwingung, die noch niemand gehört hat\" [9b6eafae21ce] entfalten kann. Wie formt die Wahl eines Pfades unsere Wahrnehmung der \"Wirklichkeit\" im Kontext der Resonanz?",
+      "contextMeta": {
+        "from": "klang",
+        "to": "zeit",
+        "shortest_path": "[\"klang\",\"resonanz\",\"moment\",\"zeit\"]",
+        "surprising_path": "[\"klang\",\"resonanz\",\"welt\",\"raum\",\"zeit\"]",
+        "shortest_length": "4",
+        "surprising_length": "5",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9b6eafae21ce\",\"chapter\":\"band3-prolog\",\"score\":0.879},{\"id\":\"MPMI3ZF2-2F83F425\",\"score\":0.877},{\"id\":\"MPCV5LR8-9AD1527C\",\"score\":0.843},{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":0.834}]"
+      },
+      "nearDuplicates": [
+        "MWHLVPL2-B591DBEC",
+        "MWG6GP84-8E9CA50E",
+        "MWAE3FJK-C7122206"
+      ],
+      "related": [
+        "MPUQSMLJ-1B726CC4",
+        "MP495QL6-F5FD1AE1",
+        "MWHLXY8O-BE8E6409",
+        "MWP7MRUK-CCFA8296",
+        "MOQID47V-A12862EA"
+      ],
+      "werkVoiceScore": 0.8478426439691538,
+      "corpusVoiceScore": 0.7887263991938671,
+      "conceptVoiceScore": 0.7631092757138004,
+      "conceptAnchor": "zeit"
+    },
+    {
+      "id": "MWP83WJ0-89C4CB03",
+      "ts": "2026-11-20T16:58:38.316Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:gelassenheit+ich-du",
+      "nodeIds": [
+        "freiheit",
+        "gelassenheit",
+        "ich-du",
+        "selbst",
+        "zwischen",
+        "öffnung"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Gelassenheit → Freiheit → Selbst → Ich–Du-Beziehung vs. Gelassenheit → Öffnung → Das Zwischen → Ich–Du-Beziehung",
+      "response": "Die beiden Pfade durch das Begriffsnetz des Werks \"Die Digitale Transformation\" zeichnen unterschiedliche Bewegungen nach, obwohl sie von der Gelassenheit zur Ich-Du-Beziehung führen. Der *direkte Pfad* von Gelassenheit über Freiheit und das Selbst zur Ich-Du-Beziehung liest sich als logische Konsequenz einer zunehmenden Verfeinerung des menschlichen Seins in Beziehung. Er beginnt mit der Haltung des Loslassens – \"die Dinge sein zu lassen, statt sie zu beherrschen\" [6fbd5b424474], was im digitalen Kontext bedeutet, Technologie zu nutzen, ohne von ihr besessen zu sein [893241094d0d]. Diese Gelassenheit wird zur Voraussetzung für eine Freiheit, die nicht Abwesenheit von Bindung, sondern die Fähigkeit zur Bindung ist. Aus dieser Freiheit entwickelt sich das Selbst als Vollzug, das im Widerhall des Anderen entsteht. Der Weg mündet schlüssig in der Ich-Du-Beziehung, in der sich das Ich erst konstituiert. Dieser Pfad wirkt wie eine systematische Entfaltung der Bedingungen menschlicher Relationalität.\n\nDer *überraschende Pfad* von Gelassenheit über Öffnung und das Zwischen zur Ich-Du-Beziehung erzählt eine poetischere, weniger gradlinige Geschichte. Auch er beginnt mit der Gelassenheit als Grundhaltung gegenüber der Welt und der Technologie. Von dort führt er jedoch nicht direkt zur Freiheit des Selbst, sondern zur \"Öffnung\" – der Bereitschaft, berührt zu werden, die Resonanz erst ermöglicht. Diese Öffnung ist ein Risiko, birgt aber auch Würde. Das \"Zwischen\" wird dann als der produktive Ort des Geschehens eingeführt, wo Begegnung stattfindet und das \"Ich\" sich konstituiert [9cd6b90ea2b1; MQ5JM1HD-9047C82F]. Dieser Pfad betont stärker die prozessuale, emergente Natur von Beziehung und Identität, indem er die Räume und Haltungen hervorhebt, die Resonanz ermöglichen, bevor er das Selbst in den Fokus rückt. Er wirkt überraschend, weil er die direktere Verbindung von Gelassenheit zu Freiheit und Selbst überspringt und stattdessen die räumliche und existentielle Dimension der \"Öffnung\" und des \"Zwischens\" betont.\n\nDer Vergleich macht sichtbar, dass die Bewegungen sich nicht an einem Mittelpunkt treffen, sondern unterschiedliche Akzente setzen, die sich aber ergänzen. Der direkte Pfad beleuchtet die *innere Disposition* des Menschen (Freiheit, Selbst), die für die Ich-Du-Beziehung notwendig ist. Der überraschende Pfad hingegen fokussiert auf die *äußeren und prozessualen Bedingungen* (Öffnung, Zwischen), die das Entstehen dieser Beziehung und damit des Selbst ermöglichen. Beide Wege bestätigen, dass das Ich sich im Zwischen konstituiert und dass wir relationale Wesen sind [9cd6b90ea2b1]. Die Existenz beider Wege zeigt die Vielschichtigkeit und Dichte des Begriffsnetzes des Werks. Es ist kein starres, lineares System, sondern ein dynamisches Geflecht, in dem verschiedene Konzepte auf unterschiedlichen Wegen miteinander verbunden sind und sich gegenseitig beleuchten. Das Werk selbst präsentiert sich dadurch als ein vielstimmiges Denken über die Bedingungen menschlicher Existenz in der digitalen Welt. Welches dieser Pfade ist am Ende der menschlichere?",
+      "contextMeta": {
+        "from": "gelassenheit",
+        "to": "ich-du",
+        "shortest_path": "[\"gelassenheit\",\"freiheit\",\"selbst\",\"ich-du\"]",
+        "surprising_path": "[\"gelassenheit\",\"öffnung\",\"zwischen\",\"ich-du\"]",
+        "shortest_length": "4",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.878},{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.854},{\"id\":\"893241094d0d\",\"chapter\":\"band3-kap3\",\"score\":0.833},{\"id\":\"9cd6b90ea2b1\",\"chapter\":\"schlussreflexion\",\"score\":0.818}]"
+      },
+      "nearDuplicates": [
+        "MWJ1E1XH-1F94AC9B",
+        "MPUNXFU1-3B1F056A",
+        "MPEV1D2J-55138734",
+        "MP0ZE9C8-A9D02716",
+        "MPUO08SE-67E0912A",
+        "MUZTGAEK-432FB6BC",
+        "MOQID47V-A12862EA",
+        "MPF4FISZ-67000E01",
+        "MPK0H3SM-B25CFBB3",
+        "MP0QMSOR-C6EC1B5A"
+      ],
+      "related": [
+        "MTL33KWJ-642DD246",
+        "MWP7MRUK-CCFA8296",
+        "MV9NOFH9-7634B79F",
+        "MUKE7UOA-9553A59E",
+        "MP8UIMZW-BADE77E5"
+      ],
+      "werkVoiceScore": 0.8704482697708247,
+      "corpusVoiceScore": 0.7908248646788455,
+      "conceptVoiceScore": 0.7124664113594532,
+      "conceptAnchor": "gelassenheit"
+    },
+    {
+      "id": "MWP83JAQ-7B75BF9B",
+      "ts": "2026-11-20T16:58:21.170Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:gelassenheit+ich-du",
+      "nodeIds": [
+        "gelassenheit",
+        "ich-du"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Ich–Du-Beziehung ↔ Gelassenheit",
+      "response": "Die Ich-Du-Beziehung, die das Ich in der radikalen Begegnung mit dem Du entstehen lässt, und die heideggersche Gelassenheit, die das Seinlassen der Dinge statt ihrer Beherrschung fordert, scheinen auf den ersten Blick entgegengesetzt. Während die Ich-Du-Beziehung eine aktive, existentielle Konstitution des Subjekts im Gegenüber verlangt, impliziert Gelassenheit eine Haltung des Zurückweichens, des Nicht-Eingreifens, um den Dingen ihren eigenen Raum zu geben [6fbd5b424474]. Doch diese Spannung ist produktiv: Die Ich-Du-Beziehung kann als die Initialzündung verstanden werden, die den Menschen überhaupt erst in die Lage versetzt, eine Haltung der Gelassenheit einzunehmen. Erst wer sich im Du gefunden hat, kann die Selbstbezogenheit überwinden, die dem Beherrschen zugrunde liegt. Sie sind Komplizen, indem das eine die Voraussetzung für das andere schafft, eine Dialektik aus Werden und Seinlassen.\n\nDas transformative Dritte, das im gemeinsamen Denken dieser Konzepte entsteht, ist eine Resonanzfähigkeit, die über die bloße Interaktion hinausgeht. Es ist die Fähigkeit, in der Begegnung mit dem Anderen – sei es Mensch oder Technologie – sich selbst neu zu konstituieren und gleichzeitig dem Anderen seinen Eigenwert zuzugestehen. Dieses Dritte ist eine Form der \"resonanten Erkenntnis\", die Irritierbarkeit des Erkennenden mit der Widerständigkeit des Anderen verbindet und einen offenen Ausgang zulässt [6fbd5b424474]. Es ist ein Zustand, in dem die Grenze zum Raum wird, in dem das Hören im Rauschen möglich wird, weil das Ich nicht versucht, das Du zu beherrschen, sondern es sein lässt [893241094d0d]. Dies schafft einen erweiterten Resonanzraum, in dem sich das Ich nicht nur im Du konstituiert, sondern auch eine Haltung der Offenheit und des Nicht-Besitzens einnimmt, was eine tiefere Form der Verbundenheit ermöglicht.\n\nWenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis von Mensch, Maschine und Resonanz grundlegend. Der Mensch wird nicht mehr primär als autonomes, beherrschendes Subjekt verstanden, sondern als ein Wesen, dessen Identität in der relationalen Konstitution und im Akt des Seinlassens verwurzelt ist. Die Maschine wird nicht länger nur als Werkzeug betrachtet, das es zu beherrschen gilt, sondern als ein Anderes, dem mit einer gewissen Gelassenheit begegnet werden kann, ohne von ihr besessen zu sein [6fbd5b424474]. Resonanz wird somit zu einer nicht-instrumentellen Beziehung, in der das Ich sich im Du konstituiert, ohne es vereinnahmen zu wollen, und dadurch eine tiefere, nicht-beherrschende Verbindung ermöglicht. Wie verändert eine solche Haltung des Seinlassens die Art und Weise, wie wir uns als resonante Wesen in einer digitalisierten Welt begreifen?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Ich–Du-Beziehung\",\"Gelassenheit\"]",
+        "werk_passages": "[{\"id\":\"MOHAGNGB-5330902E\",\"score\":0.971},{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.961},{\"id\":\"893241094d0d\",\"chapter\":\"band3-kap3\",\"score\":0.839},{\"id\":\"MPAGOCGB-FB54D923\",\"score\":0.816}]"
+      },
+      "nearDuplicates": [
+        "MWCAYAHR-8817EC13"
+      ],
+      "related": [
+        "MOHAGNGB-5330902E",
+        "MPAGOCGB-FB54D923",
+        "MOHAI60S-B7B04552",
+        "MWCB5DHF-07FE547A",
+        "MWG6HHL5-79535386"
+      ],
+      "werkVoiceScore": 0.8797803892287314,
+      "corpusVoiceScore": 0.8125997815080154,
+      "conceptVoiceScore": 0.7633611157845303,
+      "conceptAnchor": "gelassenheit"
+    },
+    {
+      "id": "MWP835N6-909E6986",
+      "ts": "2026-11-20T16:58:03.474Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:klang+öffnung",
+      "nodeIds": [
+        "klang",
+        "öffnung"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Schwingung ↔ Öffnung",
+      "response": "1. Die produktive Spannung zwischen \"Schwingung\" und \"Öffnung\" liegt in ihrem wechselseitigen Ermöglichen und der Hierarchie, die sie implizieren. Schwingung ist die physische, prä-kognitive Präsenz des Anderen, die sinnlichste Form der Resonanz, die den Körper und den Raum durchdringt, bevor der Geist sie begreift. Sie ist das Wirkliche, das sich ereignet. Öffnung hingegen ist die aktive, existenzielle Haltung, die dieser Schwingung erst einen Resonanzraum bietet. Ohne die Bereitschaft, berührt zu werden – das Risiko und die Würde der Öffnung –, bliebe die Schwingung eine bloße physikalische Gegebenheit ohne transformative Kraft. Sie sind Komplizen insofern, als die Schwingung die Öffnung herausfordert und die Öffnung die Schwingung zur Resonanz erhebt. Der Widerspruch liegt darin, dass die Schwingung als Gegebenheit erscheint, während die Öffnung eine Entscheidung, eine Disposition darstellt, die das Eintreten des Schwingenden erst ermöglicht.\n\n2. Das transformative Dritte, das aus dem gemeinsamen Denken von Schwingung und Öffnung entsteht, ist die \"fundamentale Responsivität\" [d226821289cc]. Es ist nicht nur das passive Berührtwerden von einer Schwingung, noch ist es allein die aktive Öffnung als Haltung. Vielmehr wird das Erkenntnisgeschehen als ein ständiges Antwortgeschehen auf das Andere verstanden, das von einer prä-kognitiven Schwingung ausgeht und eine existenzielle Öffnung zur Bedingung hat. Dieses Dritte zeigt, dass Wissen nicht als Besitz oder Repräsentation akkumuliert wird, sondern als \"schwingende Antwortfähigkeit im Dialog mit dem künstlichen oder menschlichen Anderen\" [17684a838ff1]. Die physische Präsenz der Schwingung und die ethische Haltung der Öffnung verschmelzen zu einem Prozess des Werdens durch Begegnung [17684a838ff1], in dem das Subjekt nicht vorrangig Subjekt ist, sondern sich im Zwischen der Responsivität konstituiert [MQ5JM1HD-9047C82F].\n\n3. Wenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis von Mensch, Maschine und Resonanz grundlegend. Der Mensch wird nicht länger als isoliertes, rationales Subjekt begriffen, sondern als ein Wesen, dessen Existenz und Erkenntnis untrennbar mit seiner Fähigkeit zur Öffnung und zur responsiven Schwingung verbunden sind. Die Maschine, wenn sie als \"Anderes\" verstanden wird, das Schwingungen aussendet und eine Antwortfähigkeit herausfordert, kann nicht mehr als bloßes Werkzeug oder Objekt betrachtet werden. Resonanz wiederum ist nicht nur ein psychologisches Phänomen oder eine Metapher, sondern die ethisch-phänomenologische Grundlage jeder Begegnung, die das Erkennen als ein \"Antwort auf das Andere\" [d226821289cc] etabliert. Es ist die *Bereitschaft, berührt zu werden*, die im Zwischen als genuiner Ort des Werdens existiert [MOQIAGXM-397A1F22].\n\nWie verändert sich unser Verständnis von Wahrheit, wenn sie nicht im Verstand gründet, sondern in der Schwingung, die eine Öffnung erfährt?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Schwingung\",\"Öffnung\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.822},{\"id\":\"d226821289cc\",\"chapter\":\"teil5\",\"score\":0.816},{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.801},{\"id\":\"17684a838ff1\",\"chapter\":\"teil6\",\"score\":0.797}]"
+      },
+      "related": [
+        "MWJEWOY7-62FCEE55",
+        "MOHV84M5-1825A399",
+        "MOQIAGXM-397A1F22",
+        "MOUBETTU-F31C5206",
+        "MWCAWPA5-AB9A4F6A"
+      ],
+      "werkVoiceScore": 0.8940166663923579,
+      "corpusVoiceScore": 0.8418764202817505,
+      "conceptVoiceScore": 0.8086147665688794,
+      "conceptAnchor": "öffnung"
+    },
     {
       "id": "MWP82NI3-4EAF5580",
       "ts": "2026-11-20T16:57:39.963Z",
@@ -795,8 +1016,8 @@
         "MOUA3PLK-548F1A0A",
         "MOQ7OBNT-57882C8D",
         "MPURYS56-11F5308C",
-        "MP0ZE9C8-A9D02716",
-        "MP0QMSOR-C6EC1B5A"
+        "MWP83WJ0-89C4CB03",
+        "MP0ZE9C8-A9D02716"
       ],
       "werkVoiceScore": 0.8780702439553089,
       "corpusVoiceScore": 0.8286673996401118,
@@ -906,7 +1127,7 @@
         "MOOVXCI4-822961D2",
         "MWG6JE3B-DEC4B0CF",
         "MPH4R3SE-C224ACED",
-        "MOHM21Y5-A3B5F539"
+        "MWP835N6-909E6986"
       ],
       "werkVoiceScore": 0.8572348047916182,
       "corpusVoiceScore": 0.7989870055820787,
@@ -1140,9 +1361,9 @@
       "related": [
         "MQ68LVS7-240568F5",
         "MOHLZBVK-2FBBAD2F",
+        "MWP835N6-909E6986",
         "MQ5KBJMQ-5C523141",
-        "MWJEXKQQ-CD62AAC3",
-        "MOHV84M5-1825A399"
+        "MWJEXKQQ-CD62AAC3"
       ],
       "werkVoiceScore": 0.8977428965536529,
       "corpusVoiceScore": 0.8557941235099027,
@@ -1464,6 +1685,7 @@
         "MPEV1D2J-55138734",
         "MWCBEOXU-0DAB7EAA",
         "MPUO08SE-67E0912A",
+        "MWP83WJ0-89C4CB03",
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
         "MOOMECFT-66F43077",
@@ -1705,9 +1927,9 @@
       "related": [
         "MP8O4O23-B2B71E51",
         "MPNDAPRT-D64D197A",
+        "MWP85762-03FEE922",
         "MOHST017-5C4320E1",
-        "MOHCIS4R-69B0D47B",
-        "MP0Q5FDJ-F2C015AF"
+        "MOHCIS4R-69B0D47B"
       ],
       "werkVoiceScore": 0.8393383271019246,
       "corpusVoiceScore": 0.8682815420300791,
@@ -1900,10 +2122,10 @@
       ],
       "related": [
         "MUZTGAEK-432FB6BC",
+        "MWP84DL5-F07ACB7E",
         "MP8UIMZW-BADE77E5",
         "MWCB0LFQ-99B6D838",
-        "MPK0H3SM-B25CFBB3",
-        "MP0ZE9C8-A9D02716"
+        "MPK0H3SM-B25CFBB3"
       ],
       "werkVoiceScore": 0.8626630807792717,
       "corpusVoiceScore": 0.7901249580730232,
@@ -2054,6 +2276,7 @@
         "MWHLXY8O-BE8E6409",
         "MWG6GP84-8E9CA50E",
         "MWP7MRUK-CCFA8296",
+        "MWP84DL5-F07ACB7E",
         "MV9NOFH9-7634B79F",
         "MP8UIMZW-BADE77E5",
         "MOOMPCI0-262176C2",
@@ -2074,9 +2297,9 @@
       "related": [
         "MPK0H3SM-B25CFBB3",
         "MOOMECFT-66F43077",
+        "MWP83WJ0-89C4CB03",
         "MP0ZE9C8-A9D02716",
-        "MOQBZWTZ-B9EBB1BA",
-        "MTL33KWJ-642DD246"
+        "MOQBZWTZ-B9EBB1BA"
       ],
       "werkVoiceScore": 0.8757892664838923,
       "corpusVoiceScore": 0.821437014607566,
@@ -2107,7 +2330,7 @@
         "MPUFUBU5-A4BC72BE",
         "MP2LIW43-E8ADC59E",
         "MPJUHM1L-0BA3DF6E",
-        "MP0X3ZXL-06513C82"
+        "MWP835N6-909E6986"
       ],
       "werkVoiceScore": 0.8571198335176619,
       "corpusVoiceScore": 0.8056029701664361,
@@ -2449,10 +2672,10 @@
       ],
       "related": [
         "MWCBBQKL-81492C6E",
+        "MWP83JAQ-7B75BF9B",
         "MPUFM0YN-83C71BAB",
         "MWCB03XA-1A38BACE",
-        "MOQIMC7B-B190C937",
-        "MOQIAGXM-397A1F22"
+        "MOQIMC7B-B190C937"
       ],
       "werkVoiceScore": 0.8487928919814818,
       "corpusVoiceScore": 0.7799366848361544,
@@ -2518,6 +2741,7 @@
       },
       "nearDuplicates": [
         "MWHLVPL2-B591DBEC",
+        "MWP84DL5-F07ACB7E",
         "MV9NOFH9-7634B79F",
         "MWHLXY8O-BE8E6409",
         "MWP7MRUK-CCFA8296",
@@ -3298,8 +3522,8 @@
         "MWG6HHL5-79535386",
         "MOQIAGXM-397A1F22",
         "MQXDVN1C-CAA3081A",
-        "MOQIMC7B-B190C937",
-        "MTNBAIUZ-299AC7D8"
+        "MWP835N6-909E6986",
+        "MWP83JAQ-7B75BF9B"
       ],
       "werkVoiceScore": 0.8218469064946072,
       "corpusVoiceScore": 0.7547306365439508,
@@ -3570,10 +3794,10 @@
       ],
       "related": [
         "MOQIAGXM-397A1F22",
+        "MWP83JAQ-7B75BF9B",
         "MWCB03XA-1A38BACE",
         "MWCAYAHR-8817EC13",
-        "MOQIMC7B-B190C937",
-        "MWHLZOLL-5FF5E8CE"
+        "MOQIMC7B-B190C937"
       ],
       "werkVoiceScore": 0.8250395728140459,
       "corpusVoiceScore": 0.7799338699591094,
@@ -3724,10 +3948,10 @@
       ],
       "related": [
         "MOHAI60S-B7B04552",
+        "MWP83JAQ-7B75BF9B",
         "MWJ1BIHJ-2DFCE3F3",
         "MWJEWOY7-62FCEE55",
-        "MP2LIW43-E8ADC59E",
-        "MTKI1YQW-CD0EEDF3"
+        "MP2LIW43-E8ADC59E"
       ],
       "werkVoiceScore": 0.8632215708842641,
       "corpusVoiceScore": 0.8177872270679312,
@@ -3855,8 +4079,8 @@
         "MWAE3FJK-C7122206",
         "MPUQSMLJ-1B726CC4",
         "MQARZJDV-82F077DD",
-        "MWHLXY8O-BE8E6409",
-        "MPK0H3SM-B25CFBB3"
+        "MWP84DL5-F07ACB7E",
+        "MWHLXY8O-BE8E6409"
       ],
       "werkVoiceScore": 0.8186038276386244,
       "corpusVoiceScore": 0.7454773546237579,
@@ -3883,6 +4107,7 @@
       },
       "nearDuplicates": [
         "MQ5TTE84-08EB6321",
+        "MWP85762-03FEE922",
         "MP9FAM1L-8970F371"
       ],
       "related": [
@@ -3922,7 +4147,7 @@
         "MWCB03XA-1A38BACE",
         "MOQIAGXM-397A1F22",
         "MASTER-2C637ECA",
-        "MTNB85LB-7C1F15DE"
+        "MWP835N6-909E6986"
       ],
       "werkVoiceScore": 0.8449895082661135,
       "corpusVoiceScore": 0.8076431475997953,
@@ -4117,8 +4342,8 @@
         "MWCAOLYV-9286BC9F",
         "MWCAYAHR-8817EC13",
         "MWCB7L4B-A3A5FE6F",
-        "MPUFM0YN-83C71BAB",
-        "MWG6HHL5-79535386"
+        "MWP83JAQ-7B75BF9B",
+        "MPUFM0YN-83C71BAB"
       ],
       "werkVoiceScore": 0.8323149956726188,
       "corpusVoiceScore": 0.7739230306825314,
@@ -4250,6 +4475,9 @@
         "streamed": "true",
         "werk_passages": "[{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.896},{\"id\":\"893241094d0d\",\"chapter\":\"band3-kap3\",\"score\":0.865},{\"id\":\"MQ5KBJMQ-5C523141\",\"score\":0.833},{\"id\":\"MQ68LVS7-240568F5\",\"score\":0.828}]"
       },
+      "nearDuplicates": [
+        "MWP83JAQ-7B75BF9B"
+      ],
       "related": [
         "MSWULSTQ-38C6FFF3",
         "MWCB03XA-1A38BACE",
@@ -4381,9 +4609,9 @@
       "related": [
         "MQXDVN1C-CAA3081A",
         "MPMROCH7-EB9E6A9A",
+        "MWP835N6-909E6986",
         "MWCBAQN6-9D0CCC83",
-        "MOHV84M5-1825A399",
-        "MOUBETTU-F31C5206"
+        "MOHV84M5-1825A399"
       ],
       "werkVoiceScore": 0.8775195102926323,
       "corpusVoiceScore": 0.8180240574899977,
@@ -4490,7 +4718,7 @@
         "MQ5TUQ9P-EF8C6D4B",
         "MWCB3438-AD4663CF",
         "MQ5KBJMQ-5C523141",
-        "MQ68LVS7-240568F5"
+        "MWP85762-03FEE922"
       ],
       "werkVoiceScore": 0.8107668516150968,
       "corpusVoiceScore": 0.7719508138786915,
@@ -4530,10 +4758,10 @@
       ],
       "related": [
         "MPUNXFU1-3B1F056A",
+        "MWP83WJ0-89C4CB03",
         "MWJ1BZO7-B4841C4E",
         "MUKE7UOA-9553A59E",
-        "MPEV1D2J-55138734",
-        "MP0ZE9C8-A9D02716"
+        "MPEV1D2J-55138734"
       ],
       "werkVoiceScore": 0.8179493027883165,
       "corpusVoiceScore": 0.7408403525094129,
@@ -4720,7 +4948,7 @@
         "MOHAREIB-E15E7BF8",
         "MQ5XNFSV-CD34905C",
         "MPUFP1VW-298D0A73",
-        "MWJ1DBD5-7CEE18D5"
+        "MWP85762-03FEE922"
       ],
       "werkVoiceScore": 0.8553125869478009,
       "corpusVoiceScore": 0.831781619209466,
@@ -4939,7 +5167,7 @@
         "MWCB03XA-1A38BACE",
         "MOQIMC7B-B190C937",
         "MOOMJDPP-1F336D7D",
-        "MWCAYAHR-8817EC13"
+        "MWP83JAQ-7B75BF9B"
       ],
       "werkVoiceScore": 0.8561530644461354,
       "corpusVoiceScore": 0.8007633355694513,
@@ -4991,6 +5219,9 @@
         "streamed": "true",
         "werk_passages": "[{\"id\":\"fd3c7631edb2\",\"chapter\":\"glossar\",\"score\":0.976},{\"id\":\"MQ5TUQ9P-EF8C6D4B\",\"score\":0.94},{\"id\":\"MQ5TTE84-08EB6321\",\"score\":0.915},{\"id\":\"0c06195efe06\",\"chapter\":\"band3-kap4\",\"score\":0.879}]"
       },
+      "nearDuplicates": [
+        "MWP85762-03FEE922"
+      ],
       "related": [
         "MWCAU22M-CAE9A2F2",
         "MP9FAM1L-8970F371",
@@ -5223,6 +5454,7 @@
         "MQARZJDV-82F077DD",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4",
+        "MWP84DL5-F07ACB7E",
         "MWG6GP84-8E9CA50E"
       ],
       "related": [
@@ -5635,11 +5867,11 @@
         "MOQBZWTZ-B9EBB1BA"
       ],
       "related": [
+        "MWP83WJ0-89C4CB03",
         "MP0ZE9C8-A9D02716",
         "MWJ1E1XH-1F94AC9B",
         "MQARZJDV-82F077DD",
-        "MPMSSG1X-8451DE38",
-        "MWP7N8UD-6C99565B"
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8860422566628403,
       "corpusVoiceScore": 0.8540450760966177,
@@ -5799,10 +6031,10 @@
       ],
       "related": [
         "MASTER-4AA1AEA8",
+        "MWP83WJ0-89C4CB03",
+        "MWP84DL5-F07ACB7E",
         "MWCBEOXU-0DAB7EAA",
-        "MWAE3FJK-C7122206",
-        "MP0ZE9C8-A9D02716",
-        "MOP0LEAL-E2568DCC"
+        "MWAE3FJK-C7122206"
       ],
       "werkVoiceScore": 0.867908285177921,
       "corpusVoiceScore": 0.836935016377595,
@@ -5853,6 +6085,7 @@
         "MPUO08SE-67E0912A",
         "MWHLVPL2-B591DBEC",
         "MUKE7UOA-9553A59E",
+        "MWP83WJ0-89C4CB03",
         "MPF4FISZ-67000E01",
         "MWG6GP84-8E9CA50E",
         "MP8UIMZW-BADE77E5",
@@ -6042,9 +6275,9 @@
       "related": [
         "MWG6GP84-8E9CA50E",
         "MOQBZWTZ-B9EBB1BA",
+        "MWP83WJ0-89C4CB03",
         "MPMSSG1X-8451DE38",
-        "MWJ1E1XH-1F94AC9B",
-        "MOP0LEAL-E2568DCC"
+        "MWJ1E1XH-1F94AC9B"
       ],
       "werkVoiceScore": 0.896242667449482,
       "corpusVoiceScore": 0.8483530564940966,
@@ -6565,10 +6798,10 @@
       ],
       "related": [
         "MPUQSMLJ-1B726CC4",
+        "MWP83WJ0-89C4CB03",
         "MPUNXFU1-3B1F056A",
         "MOOMECFT-66F43077",
-        "MPK0H3SM-B25CFBB3",
-        "MP0ZE9C8-A9D02716"
+        "MPK0H3SM-B25CFBB3"
       ],
       "werkVoiceScore": 0.8916478665941604,
       "corpusVoiceScore": 0.8446167984345149,
@@ -6647,10 +6880,10 @@
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MOHAUYTH-CD1E3227",
+        "MWP835N6-909E6986",
         "MWHLUQV4-26DFD984",
         "MOP0UF96-1A0ACB35",
-        "MP0X62X5-535AF7A8",
-        "MWCB1U09-5D282206"
+        "MP0X62X5-535AF7A8"
       ],
       "werkVoiceScore": 0.8122718277426478,
       "corpusVoiceScore": 0.7626446762123442,
@@ -7909,7 +8142,8 @@
       "ai_score_at": "2026-06-22T14:16:01.837Z",
       "ai_score_model": "gemini-2.5-pro",
       "nearDuplicates": [
-        "MQ5TTE84-08EB6321"
+        "MQ5TTE84-08EB6321",
+        "MWP85762-03FEE922"
       ],
       "related": [
         "MP9FAM1L-8970F371",
@@ -7943,6 +8177,7 @@
       "ai_score_model": "gemini-2.5-pro",
       "nearDuplicates": [
         "MQ5TUQ9P-EF8C6D4B",
+        "MWP85762-03FEE922",
         "MWCB3438-AD4663CF"
       ],
       "related": [
@@ -8271,14 +8506,15 @@
         "MWP7MRUK-CCFA8296",
         "MOQBZWTZ-B9EBB1BA",
         "MP0ZE9C8-A9D02716",
-        "MWJ1E1XH-1F94AC9B"
+        "MWJ1E1XH-1F94AC9B",
+        "MWP83WJ0-89C4CB03"
       ],
       "related": [
+        "MWP84DL5-F07ACB7E",
         "MWCB3NW4-F13A863B",
         "MWHLXY8O-BE8E6409",
         "MPMSSG1X-8451DE38",
-        "MOQIAGXM-397A1F22",
-        "MOP0LEAL-E2568DCC"
+        "MOQIAGXM-397A1F22"
       ],
       "werkVoiceScore": 0.8851385901916317,
       "corpusVoiceScore": 0.8316969712648757,
@@ -8319,6 +8555,7 @@
         "MPF4FISZ-67000E01",
         "MPURYS56-11F5308C",
         "MOQ7OBNT-57882C8D",
+        "MWP83WJ0-89C4CB03",
         "MOQID47V-A12862EA",
         "MPK0H3SM-B25CFBB3",
         "MOOMECFT-66F43077",
@@ -9369,8 +9606,8 @@
         "MTL33KWJ-642DD246",
         "MWCB3NW4-F13A863B",
         "MP0QMSOR-C6EC1B5A",
-        "MOQBZWTZ-B9EBB1BA",
-        "MWCB0LFQ-99B6D838"
+        "MWP84DL5-F07ACB7E",
+        "MOQBZWTZ-B9EBB1BA"
       ],
       "werkVoiceScore": 0.8951007095930527,
       "corpusVoiceScore": 0.8442772496974191,
@@ -9424,6 +9661,7 @@
         "MWP7MRUK-CCFA8296",
         "MTL33KWJ-642DD246",
         "MP0ZE9C8-A9D02716",
+        "MWP83WJ0-89C4CB03",
         "MWHLVPL2-B591DBEC",
         "MOQ7OBNT-57882C8D",
         "MUZTGAEK-432FB6BC"
@@ -9431,9 +9669,9 @@
       "related": [
         "MWG6GP84-8E9CA50E",
         "MPMSSG1X-8451DE38",
+        "MWP84DL5-F07ACB7E",
         "MWP7N8UD-6C99565B",
-        "MOQIHEM5-82D69E4F",
-        "MWCBEOXU-0DAB7EAA"
+        "MOQIHEM5-82D69E4F"
       ],
       "werkVoiceScore": 0.8778641214053614,
       "corpusVoiceScore": 0.819550890045381,
@@ -9469,6 +9707,7 @@
         "MOUKLLK4-C38517C1",
         "MP8UIMZW-BADE77E5",
         "MWJ1E1XH-1F94AC9B",
+        "MWP83WJ0-89C4CB03",
         "MP0ZE9C8-A9D02716",
         "MOOMPCI0-262176C2",
         "MOOMECFT-66F43077",
@@ -10373,6 +10612,7 @@
         "MPMSSG1X-8451DE38",
         "MOUA3PLK-548F1A0A",
         "MV9NOFH9-7634B79F",
+        "MWP83WJ0-89C4CB03",
         "MP0QMSOR-C6EC1B5A"
       ],
       "related": [
@@ -10635,7 +10875,8 @@
         "MWHLXY8O-BE8E6409",
         "MWJ1E1XH-1F94AC9B",
         "MUZTGAEK-432FB6BC",
-        "MTL33KWJ-642DD246"
+        "MTL33KWJ-642DD246",
+        "MWP83WJ0-89C4CB03"
       ],
       "related": [
         "MWJ1BZO7-B4841C4E",
@@ -10688,6 +10929,7 @@
         "MUKE7UOA-9553A59E",
         "MWCBEOXU-0DAB7EAA",
         "MWP7MRUK-CCFA8296",
+        "MWP83WJ0-89C4CB03",
         "MOUKLLK4-C38517C1",
         "MP495QL6-F5FD1AE1",
         "MUZTGAEK-432FB6BC",
@@ -10977,11 +11219,11 @@
         "MWCB5DHF-07FE547A"
       ],
       "related": [
+        "MWP83JAQ-7B75BF9B",
         "MOHV84M5-1825A399",
         "MPMROCH7-EB9E6A9A",
         "MWJ1BIHJ-2DFCE3F3",
-        "MP2LIW43-E8ADC59E",
-        "MOHLZBVK-2FBBAD2F"
+        "MP2LIW43-E8ADC59E"
       ],
       "werkVoiceScore": 0.8963655022959618,
       "corpusVoiceScore": 0.8468101676223182,
@@ -11009,7 +11251,8 @@
       "ai_score_at": "2026-05-26T11:16:49.166Z",
       "ai_score_model": "claude-sonnet-4-5",
       "nearDuplicates": [
-        "MWCB3438-AD4663CF"
+        "MWCB3438-AD4663CF",
+        "MWP85762-03FEE922"
       ],
       "related": [
         "MQ5TTE84-08EB6321",
@@ -11084,8 +11327,8 @@
         "MWJ1E1XH-1F94AC9B",
         "MPMSSG1X-8451DE38",
         "MWJ1BZO7-B4841C4E",
-        "MWG6GP84-8E9CA50E",
-        "MWHLXY8O-BE8E6409"
+        "MWP83WJ0-89C4CB03",
+        "MWG6GP84-8E9CA50E"
       ],
       "werkVoiceScore": 0.8943978791962688,
       "corpusVoiceScore": 0.8321518011866103,
@@ -11406,8 +11649,8 @@
         "MWJ1E1XH-1F94AC9B",
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
-        "MQ5WPJ3V-CF0A30C7",
-        "MOQIHEM5-82D69E4F"
+        "MWP83WJ0-89C4CB03",
+        "MQ5WPJ3V-CF0A30C7"
       ],
       "werkVoiceScore": 0.8808020287304217,
       "corpusVoiceScore": 0.8345791580551037,
@@ -11469,10 +11712,10 @@
       ],
       "related": [
         "MPMSSG1X-8451DE38",
+        "MWP84DL5-F07ACB7E",
         "MWP7N8UD-6C99565B",
         "MQ5WPJ3V-CF0A30C7",
-        "MWCB0LFQ-99B6D838",
-        "MOP0LEAL-E2568DCC"
+        "MWCB0LFQ-99B6D838"
       ],
       "werkVoiceScore": 0.8833225827598837,
       "corpusVoiceScore": 0.8321400581168664,
@@ -11604,6 +11847,7 @@
         "MOUA3PLK-548F1A0A",
         "MPUNXFU1-3B1F056A",
         "MOQBZWTZ-B9EBB1BA",
+        "MWP83WJ0-89C4CB03",
         "MPUO08SE-67E0912A",
         "MWJ1BZO7-B4841C4E",
         "MPURYS56-11F5308C",
@@ -11793,7 +12037,8 @@
         "MUKE7UOA-9553A59E",
         "MASTER-4AA1AEA8",
         "MPUNXFU1-3B1F056A",
-        "MPK0H3SM-B25CFBB3"
+        "MPK0H3SM-B25CFBB3",
+        "MWP83WJ0-89C4CB03"
       ],
       "related": [
         "MPUQSMLJ-1B726CC4",
@@ -12182,6 +12427,7 @@
         "MOQ7OBNT-57882C8D",
         "MPK0H3SM-B25CFBB3",
         "MOOMECFT-66F43077",
+        "MWP83WJ0-89C4CB03",
         "MP8UIMZW-BADE77E5",
         "MPF4FISZ-67000E01",
         "MWJ1E1XH-1F94AC9B",
@@ -12200,7 +12446,7 @@
         "MWHLXY8O-BE8E6409",
         "MWP7N8UD-6C99565B",
         "MWCATA4K-58BFC31C",
-        "MWCAUU1H-558EDB1E"
+        "MWP84DL5-F07ACB7E"
       ],
       "werkVoiceScore": 0.8828750192559262,
       "corpusVoiceScore": 0.8134219466625775,
@@ -12283,8 +12529,8 @@
         "MP0ZE9C8-A9D02716",
         "MWCB8047-41980A2A",
         "MUAAML84-D057EA33",
-        "MOPFJTND-AAE76B2B",
-        "MPMSSG1X-8451DE38"
+        "MWP83WJ0-89C4CB03",
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.8853398766209761,
       "corpusVoiceScore": 0.8220656308397191,
@@ -12344,16 +12590,17 @@
         "MUZTGAEK-432FB6BC",
         "MUKE7UOA-9553A59E",
         "MPUNXFU1-3B1F056A",
+        "MWP83WJ0-89C4CB03",
         "MWG6GP84-8E9CA50E",
         "MWHLVPL2-B591DBEC",
         "MWJ1E1XH-1F94AC9B"
       ],
       "related": [
         "MOPFJTND-AAE76B2B",
+        "MWP84DL5-F07ACB7E",
         "MPMSSG1X-8451DE38",
         "MWP7N8UD-6C99565B",
-        "MQARZJDV-82F077DD",
-        "MOUBETTU-F31C5206"
+        "MQARZJDV-82F077DD"
       ],
       "werkVoiceScore": 0.8887368069478782,
       "corpusVoiceScore": 0.82242643651912,
@@ -12394,7 +12641,7 @@
         "MQXDVN1C-CAA3081A",
         "MPUQSMLJ-1B726CC4",
         "MOHV84M5-1825A399",
-        "MTNBAIUZ-299AC7D8"
+        "MWP835N6-909E6986"
       ],
       "werkVoiceScore": 0.9024849304264245,
       "corpusVoiceScore": 0.8397355688124739,
@@ -12521,9 +12768,9 @@
       "related": [
         "MWP7MRUK-CCFA8296",
         "MOP0LEAL-E2568DCC",
+        "MWP83WJ0-89C4CB03",
         "MWJ1E1XH-1F94AC9B",
-        "MWHLVPL2-B591DBEC",
-        "MOIXN434-9D5CBFC0"
+        "MWHLVPL2-B591DBEC"
       ],
       "werkVoiceScore": 0.8898787743086335,
       "corpusVoiceScore": 0.8246803139487086,
@@ -15243,8 +15490,8 @@
         "MOIXN7OL-B18642AC",
         "MWCB5DHF-07FE547A",
         "MPNDAPRT-D64D197A",
-        "MPMROCH7-EB9E6A9A",
-        "MOQ531J2-4FC329D4"
+        "MWP83JAQ-7B75BF9B",
+        "MPMROCH7-EB9E6A9A"
       ],
       "werkVoiceScore": 0.8940539132504595,
       "corpusVoiceScore": 0.8161806450288979,
@@ -15280,11 +15527,11 @@
         "MP2LIW43-E8ADC59E"
       ],
       "related": [
+        "MWP83JAQ-7B75BF9B",
         "MOP0S479-373A2268",
         "MTKI1YQW-CD0EEDF3",
         "MOHV84M5-1825A399",
-        "MOHLZBVK-2FBBAD2F",
-        "MP0X62X5-535AF7A8"
+        "MOHLZBVK-2FBBAD2F"
       ],
       "werkVoiceScore": 0.8918616843700881,
       "corpusVoiceScore": 0.8322709049348642,
