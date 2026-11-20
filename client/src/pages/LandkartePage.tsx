@@ -101,6 +101,12 @@ export default function LandkartePage() {
 
   const nodeById = useMemo(() => new Map<string, ConceptNode>(allNodes.map(n => [n.id, n])), [allNodes]);
 
+  // Deep-Link von der Erkenntnis des Tages: /landkarte?begriff=<id>
+  useEffect(() => {
+    const id = new URLSearchParams(window.location.search).get("begriff");
+    if (id && nodeById.has(id)) setSelected(id);
+  }, [nodeById]);
+
   const curatedCount = useMemo(
     () => (allEntries ?? []).filter(e => CURATED.has(e.status)).length,
     [allEntries],

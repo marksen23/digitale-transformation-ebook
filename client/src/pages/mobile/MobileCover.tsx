@@ -13,6 +13,7 @@ import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF_BODY } from "@/lib/theme";
 import type { EbookFile } from "@/lib/werkChunks";
+import DailyInsight from "@/components/DailyInsight";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
 
@@ -88,6 +89,7 @@ export default function MobileCover() {
             style={{ minHeight: 44, background: "transparent", border: "1px solid rgba(245,158,11,0.35)", borderRadius: 8, color: "#f59e0b", fontFamily: MONO, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}
           >Inhalt</button>
         </div>
+        <DailyInsight compact />
       </div>
       <div style={{ fontFamily: MONO, fontSize: 8.5, color: "#44403c", textAlign: "center", marginTop: 14, letterSpacing: "0.06em" }}>
         {ebook?.meta.copyright ?? "© 2026 Markus Oehring · Alle Rechte vorbehalten"}
