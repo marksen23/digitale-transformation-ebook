@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:47:20.508Z",
+  "generatedAt": "2026-11-20T16:49:04.299Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 27,
@@ -40,8 +40,9 @@
       }
     },
     "dasein": {
-      "count": 17,
+      "count": 18,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 14,
         "analyse": 3
       }
@@ -176,8 +177,9 @@
       }
     },
     "existenz": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 3,
         "analyse": 4
       }

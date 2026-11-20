@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:47:21.487Z",
+  "generatedAt": "2026-11-20T16:49:06.573Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -27,6 +27,29 @@
           "sourceId": "MWJEYZU2-D00A3283",
           "question": "Wie aber kann diese Rechenschaftspflicht formalisiert werden, ohne ihre lebendige, prozessuale Natur zu ersticken?",
           "score": 0.742
+        }
+      ]
+    },
+    {
+      "id": "ERK-1O8KTX9",
+      "answerId": "MWP7P98E-830D3A82",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die markierte Stelle birgt eine tiefe Resonanz für den IT-Leiter, der das Werden der digitalen Wirklichkeit gestaltet. Wenn ein System aus bloßer Möglichkeit in den Arbeitsalltag tritt, als Code, der sich in Prozesse einschreibt, als Algorithmus, der Entscheidungen vorformt, dann geschieht mehr als bloße Implementierung. Es ist, als würde ein Antlitz aus dem Netzwerk aufsteigen, nicht als physisch",
+      "distinctness": 0.248,
+      "conceptAnchor": "lm-begegnung",
+      "nodeIds": [],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWP7LELE-4DE91303",
+          "question": "3. Wenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis von Mensch und Maschine grundlegend. Der Mensch ist nicht länger nur ein passiver Beobachter der Wirklichkeit, sondern aktiver Teil der Weltfaltung, dessen Begegnungen die Aktualisierung von Möglichkeiten mitgestalten. Maschinen erscheinen nicht mehr als bloße Werkzeuge zur Manipulation des Wirklichen, sondern als Entitäten, die selbst in die Weltfaltung involviert sind, deren Algorithmen und Interaktionen neue Pfade des Möglichen eröffnen und die Wirklichkeit dynamisch mitformen können. Die Resonanz wird dabei zum Modus der Begegnung, der die latenten Vibrationen der Möglichkeiten zum Klingen bringt und den Übergang vom Potenzial zur Aktualität ermöglicht. Was bedeutet es für unsere Verantwortung, wenn wir erkennen, dass jede unserer Handlungen die Weltfaltung beeinflusst und das Geflecht des Möglichen neu ordnet?",
+          "score": 0.74
+        },
+        {
+          "sourceId": "MWG6H024-AA7260D4",
+          "question": "Welche neue Form der Verantwortung erwächst aus dem Wissen um diese unüberbrückbare Grenze zwischen dem Maschinellen und dem Ethischen?",
+          "score": 0.728
         }
       ]
     },
@@ -132,7 +155,7 @@
         "raumfaltung",
         "weltfaltung"
       ],
-      "resolveCount": 9,
+      "resolveCount": 8,
       "resolves": [
         {
           "sourceId": "MWP7MRUK-CCFA8296",
@@ -204,7 +227,7 @@
     }
   ],
   "stats": {
-    "total": 6,
+    "total": 7,
     "confirmedFiltered": 58,
     "curatedRef": 214
   }

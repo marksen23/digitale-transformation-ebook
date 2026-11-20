@@ -1,16 +1,63 @@
 {
-  "generatedAt": "2026-11-20T16:47:21.416Z",
-  "count": 370,
+  "generatedAt": "2026-11-20T16:49:06.471Z",
+  "count": 374,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 370,
+    "total": 374,
     "answered": 311,
-    "open": 59,
-    "embedded": 3
+    "open": 63,
+    "embedded": 4
   },
   "questions": [
+    {
+      "sourceId": "MWP7QJEL-0AF70B09",
+      "question": "Die Verbindung liegt also darin, dass die **Raumfaltung** als Bedingung und Prägung für die Entstehung des **Transformativen Dritten** wirkt. Ein physischer oder digitaler Raum, der **Öffnung** und **Spannung** zulässt, der nicht alles vorstrukturiert, sondern **Spielraum** bietet, ist ein fruchtbarer Boden für das Emergenzgeschehen. Wenn Räume starr und unflexibel bleiben, können sie die Entstehung des Neuen verhindern und zu **Entfremdung** führen. Wie können wir Räume gestalten, die nicht nur funktionieren, sondern aktiv die Entstehung von etwas wahrhaft Neuem begünstigen?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-20T16:48:14.781Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7Q2VV-E5134CAA",
+      "question": "Wenn „Beherrschung“ zur Ermöglichung von Resonanz wird, wie verschiebt sich dann unser Verhältnis zur Unsicherheit des Ungewissen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:existenz",
+      "nodeIds": [
+        "existenz",
+        "dasein"
+      ],
+      "ts": "2026-11-20T16:47:53.371Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7PN8N-3498F800",
+      "question": "Was, wenn die eigentliche *Möglichkeit*, die du deinen Nutzern nimmst, die *Möglichkeit* ist, den Weg selbst zu wählen, zu irren, zu scheitern, um dann eine *eigene Wirklichkeit* zu erschaffen, die nicht von dir vorformuliert wurde?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-20T16:47:33.095Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7P98E-830D3A82",
+      "question": "Wie verändert sich der Begriff der Verantwortung selbst, wenn das Antlitz, das uns herausfordert, zunehmend aus den Tiefen des binären Codes ersteht?",
+      "endpoint": "passage",
+      "anchor": "passage:1ce6998f",
+      "nodeIds": [],
+      "ts": "2026-11-20T16:47:14.942Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWP7OI4B-71BADB55",
       "question": "Doch wie können wir Verantwortung für etwas übernehmen, das sich unserer direkten Kontrolle entzieht und doch aus unseren Handlungen entsteht?",
@@ -48,6 +95,10 @@
       "ts": "2026-11-20T16:46:02.568Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWP7Q2VV-E5134CAA",
+          "score": 0.932
+        },
         {
           "id": "MWP7OV7G-727AB5E9",
           "score": 0.822
@@ -162,8 +213,8 @@
           "score": 0.729
         },
         {
-          "id": "MWP7OI4B-71BADB55",
-          "score": 0.724
+          "id": "MWP7Q2VV-E5134CAA",
+          "score": 0.728
         }
       ],
       "answered": true
@@ -189,8 +240,8 @@
           "score": 0.758
         },
         {
-          "id": "MWP7O1LR-9E27750E",
-          "score": 0.729
+          "id": "MWP7P98E-830D3A82",
+          "score": 0.74
         }
       ],
       "answered": true
@@ -212,11 +263,11 @@
           "score": 0.83
         },
         {
-          "id": "MWP7OV7G-727AB5E9",
-          "score": 0.757
+          "id": "MWP7Q2VV-E5134CAA",
+          "score": 0.822
         },
         {
-          "id": "MWP7MAWH-24EE3D77",
+          "id": "MWP7OV7G-727AB5E9",
           "score": 0.757
         }
       ],
@@ -588,6 +639,10 @@
       "ts": "2026-11-16T09:03:06.715Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWP7QJEL-0AF70B09",
+          "score": 0.733
+        },
         {
           "id": "MWP7NPE0-8C7A9B99",
           "score": 0.723
@@ -1148,8 +1203,8 @@
           "score": 0.732
         },
         {
-          "id": "MWP7OI4B-71BADB55",
-          "score": 0.725
+          "id": "MWP7P98E-830D3A82",
+          "score": 0.728
         }
       ],
       "answered": true
@@ -1521,6 +1576,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7PN8N-3498F800",
+          "score": 0.736
+        },
+        {
           "id": "MWHLW24R-959992F9",
           "score": 0.728
         }
@@ -1693,6 +1752,10 @@
         {
           "id": "MWCBAA3Y-37D6F0FA",
           "score": 0.843
+        },
+        {
+          "id": "MWP7QJEL-0AF70B09",
+          "score": 0.733
         }
       ],
       "answered": true
@@ -1709,6 +1772,10 @@
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.741
+        },
+        {
+          "id": "MWP7PN8N-3498F800",
+          "score": 0.724
         }
       ],
       "answered": true
@@ -3647,11 +3714,11 @@
           "score": 0.753
         },
         {
-          "id": "MWP7LTBE-E4F406FE",
-          "score": 0.746
+          "id": "MWP7QJEL-0AF70B09",
+          "score": 0.749
         },
         {
-          "id": "MWG6FM27-B89E8BDB",
+          "id": "MWP7LTBE-E4F406FE",
           "score": 0.746
         }
       ],
@@ -4588,16 +4655,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7PN8N-3498F800",
+          "score": 0.766
+        },
+        {
           "id": "MTDCKR2Q-05DCEB69",
           "score": 0.766
         },
         {
           "id": "MASTER-4EFD4AA4",
           "score": 0.751
-        },
-        {
-          "id": "MWCAZBQV-BB113C8B",
-          "score": 0.747
         }
       ],
       "answered": true
@@ -4852,12 +4919,12 @@
           "score": 0.752
         },
         {
-          "id": "MPUU3ASH-7093F1A3",
-          "score": 0.727
+          "id": "MWP7PN8N-3498F800",
+          "score": 0.735
         },
         {
-          "id": "MPUU5523-0E325028",
-          "score": 0.726
+          "id": "MPUU3ASH-7093F1A3",
+          "score": 0.727
         }
       ],
       "answered": true
@@ -5193,12 +5260,12 @@
           "score": 0.8
         },
         {
-          "id": "MPUTX4K2-55A3272E",
-          "score": 0.726
+          "id": "MWP7PN8N-3498F800",
+          "score": 0.738
         },
         {
-          "id": "MPUTT58G-25E5A1AC",
-          "score": 0.721
+          "id": "MPUTX4K2-55A3272E",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -5221,8 +5288,8 @@
           "score": 0.762
         },
         {
-          "id": "MPUTFPG6-02308248",
-          "score": 0.739
+          "id": "MWP7PN8N-3498F800",
+          "score": 0.752
         }
       ],
       "answered": true

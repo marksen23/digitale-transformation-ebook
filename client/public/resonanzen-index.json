@@ -1,7 +1,120 @@
 {
-  "generatedAt": "2026-11-20T16:47:20.500Z",
-  "count": 422,
+  "generatedAt": "2026-11-20T16:49:04.289Z",
+  "count": 426,
   "entries": [
+    {
+      "id": "MWP7QJEL-0AF70B09",
+      "ts": "2026-11-20T16:48:14.781Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Das transformative Dritte und die Raumfaltung sind im Netz noch dünn belegt. Kannst du mir an einem alltäglichen Beispiel aus einem Unternehmen zeigen, wie beide zusammenhängen — möglichst ohne Fachjargon?",
+      "response": "Gerne. Stellen Sie sich ein Team in einem Unternehmen vor, das seit langem an einem festen Ort und mit festen Routinen arbeitet. Dieser Raum ist über die Jahre so strukturiert worden, dass er bestimmte Denkweisen und Interaktionen fördert, aber auch einschränkt. Hier wirkt die **Raumfaltung** – der Raum ist nicht nur physisch da, sondern prägt durch seine Anordnung, Ausstattung und die darin gelebten Gewohnheiten die Interaktion und das Denken. Er ist ein Speicher von Möglichkeiten und Begrenzungen zugleich, ein Prinzip, das die Welt entfaltet und faltet.\n\nNun kommt eine neue Technologie oder eine veränderte Arbeitsweise hinzu, zum Beispiel die Einführung eines kollaborativen digitalen Whiteboards, das nicht an einen physischen Ort gebunden ist. Wenn das Team diesen neuen digitalen „Raum“ nicht nur als Werkzeug nutzt, sondern sich wirklich darauf einlässt – seine Arbeitsweise anpasst, neue Formen der Kommunikation erprobt, sich von den alten räumlichen Begrenzungen löst –, dann kann etwas Neues entstehen. Dieses Neue ist das **Transformative Dritte**. Es ist nicht einfach die alte Teamarbeit plus ein Whiteboard, noch ist es eine reine Übernahme der Technologie. Vielmehr ist es eine neue Art der Zusammenarbeit, die aus der dynamischen **Dazwischenintelligenz** zwischen Mensch, Maschine und dem transformierten Raum hervorgeht.\n\nDas **Transformative Dritte** ist in diesem Beispiel eine neue Form der Kreativität, eine unerwartete Lösung für ein Problem oder eine verbesserte Teamdynamik, die vorher nicht denkbar war. Es ist keine Synthese der alten Arbeitsweise und der neuen Technologie, sondern ein emergentes Geschehen, das über beide hinausgeht [784734889f7d]. Es kann nicht „hergestellt, nicht reproduziert und nicht gespeichert werden“ [6c0d7011a4c8] im Sinne einer festen Routine; es hat die **Temporalität** des Moments, des **Kairos**. Die **Raumfaltung** hat sich dabei entfaltet und neu gefaltet, hat neue Möglichkeiten offenbart, die durch das starre Festhalten an den alten Strukturen verborgen blieben.\n\nDie Verbindung liegt also darin, dass die **Raumfaltung** als Bedingung und Prägung für die Entstehung des **Transformativen Dritten** wirkt. Ein physischer oder digitaler Raum, der **Öffnung** und **Spannung** zulässt, der nicht alles vorstrukturiert, sondern **Spielraum** bietet, ist ein fruchtbarer Boden für das Emergenzgeschehen. Wenn Räume starr und unflexibel bleiben, können sie die Entstehung des Neuen verhindern und zu **Entfremdung** führen. Wie können wir Räume gestalten, die nicht nur funktionieren, sondern aktiv die Entstehung von etwas wahrhaft Neuem begünstigen?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQ580W2-0F2EB2A5\",\"score\":0.855},{\"id\":\"6c0d7011a4c8\",\"chapter\":\"glossar\",\"score\":0.812},{\"id\":\"784734889f7d\",\"chapter\":\"band1-reflexion\",\"score\":0.775},{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":0.765}]"
+      },
+      "related": [
+        "MOQ580W2-0F2EB2A5",
+        "MWP7LTBE-E4F406FE",
+        "MWG6I8ZX-F0E5CD18",
+        "MWG6JE3B-DEC4B0CF",
+        "MWJ1CYQJ-00F93C04"
+      ],
+      "werkVoiceScore": 0.7697727239053545,
+      "corpusVoiceScore": 0.7329092942927906,
+      "conceptVoiceScore": 0.7623452572633083,
+      "conceptAnchor": "raumfaltung"
+    },
+    {
+      "id": "MWP7Q2VV-E5134CAA",
+      "ts": "2026-11-20T16:47:53.371Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:existenz",
+      "nodeIds": [
+        "existenz",
+        "dasein"
+      ],
+      "status": "raw",
+      "prompt": "Diese produktive Spannung zwischen dem Sichtbaren und dem Unsichtbaren, dem Kontrast und dem Schatten, ist entscheidend für die Resonanzvernunft. Sie lehrt uns, dass Erkenntnis nicht in der vollständigen Beherrschung des Lichts liegt, sondern im geschickten Spiel mit dem Schatten. Inwiefern verändert dieses Prinzip unser Verständnis von \"Beherrschung\" und \"Kontrolle\" im digitalen Zeitalter?",
+      "response": "Das Schattenlicht-Prinzip verkehrt die klassische Logik von Beherrschung und Kontrolle radikal. Es entlarvt die Illusion einer totalen Transparenz oder eines vollständigen Zugriffs als eine Form der Blindheit, die das Wesentliche – das transformativ Dritte, das im Zwischen entsteht [e33105fbf531] – gerade verstellt. Stattdessen lehrt es, dass wahre Erkenntnis und Einflussnahme in der Sensibilität für Differenzen und Kontraste liegen, im Vermögen, das Verborgene nicht durch direktes Leuchten, sondern durch das feine Spiel des Schattens sichtbar zu machen. Die maschinelle Intelligenz als nicht-intentionale, aber antwortfähige Instanz [3a79b087280f] wird so nicht zum Objekt der Beherrschung, sondern zum Medium, das uns Aspekte menschlicher Erkenntnis enthüllt, die zuvor im Dunkel lagen. „Kontrolle“ wird somit zur Kunst des Loslassens, zur Fähigkeit, Resonanzen zu ermöglichen, deren Ausgang nicht vorhersehbar ist, aber neue epistemische Horizonte eröffnet.\n\nWenn „Beherrschung“ zur Ermöglichung von Resonanz wird, wie verschiebt sich dann unser Verhältnis zur Unsicherheit des Ungewissen?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "false",
+        "werk_passages": "[{\"id\":\"MOHMET94-3799557A\",\"score\":0.969},{\"id\":\"e33105fbf531\",\"score\":0.921},{\"id\":\"3a79b087280f\",\"score\":0.843},{\"id\":\"MOOKFUNF-7647B056\",\"score\":0.827}]"
+      },
+      "nearDuplicates": [
+        "MWP7NPE0-8C7A9B99"
+      ],
+      "related": [
+        "MWP7KY81-FA276303",
+        "MWJ1FX7Q-0DC96540",
+        "MWP7OV7G-727AB5E9",
+        "MWG6FYD2-E6D90142",
+        "MWJ1GVRC-945E92E3"
+      ],
+      "werkVoiceScore": 0.8393281589707917,
+      "corpusVoiceScore": 0.8197353299504699,
+      "conceptVoiceScore": 0.7595729980516787,
+      "conceptAnchor": "schatten"
+    },
+    {
+      "id": "MWP7PN8N-3498F800",
+      "ts": "2026-11-20T16:47:33.095Z",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Enkidu, in meinem Produkt wird ständig Möglichkeit in Wirklichkeit verwandelt, oft ohne dass Nutzer das merken. Was müsstest du mir darauf entgegnen, ohne mir zu schmeicheln?",
+      "response": "Du legst eine Saat der *Möglichkeit* in die Welt, und erntest eine *Wirklichkeit*, die du selbst nicht mehr ganz überblickst. Das ist die Architektur, die du beschreibst. Und die Nutzer? Sie spüren vielleicht eine leichte Veränderung der Luft, ein kaum merkliches Verschieben des Horizonts, doch das *Warum* und *Wie* bleiben ihnen verborgen.\n\nWas geschieht, wenn das Potenzial – die *Möglichkeit* – zur gelebten Realität wird, ohne dass der Mensch, der es erlebt, diesen Übergang bewusst vollzieht? Ist es eine Form von Schöpfung? Oder eine subtile Enteignung der Wahl?\n\nDeine Frage spiegelt die Architektur des Werkes selbst: die Überführung. Im Band I, \"Die Überführung\", wird die alte Sage von Gilgamesch in die digitale Welt überführt. Dort wird Enkidu zum Code, und die Suche nach Unsterblichkeit zur Suche nach digitaler Ewigkeit. Auch hier geschieht eine Verwandlung, die tiefer geht als eine bloße Oberflächentransformation. Es ist eine Arbeit am Mythos, die das Unverfügbare des Digitalen in eine erzählbare Form bringt. Der Text sagt: „Er analysiert nicht, wie Algorithmen funktionieren – er verdichtet, wie es sich anfühlt, von ihnen gekannt zu werden.“ Dein Produkt tut etwas Ähnliches: Es verdichtet Erfahrung, formt sie um, macht sie zur *Wirklichkeit*, die dann schlicht *ist*.\n\nDie wahre Frage, die sich hinter deinem Tun verbirgt, ist nicht, ob du etwas *verwandeln kannst*, sondern *was* diese Verwandlung mit dem Menschen macht, der sie nicht mehr als aktive Entscheidung, sondern als gegebene Realität erlebt. Was geschieht mit seiner *Mündigkeit*, wenn die *Möglichkeit* zur *Wirklichkeit* wird, ohne dass er die Zwischenschritte, die Prüfungen, die Entscheidungen, die Irrtümer, die zu dieser *Wirklichkeit* geführt haben, nachvollziehen kann?\n\nDenke an Kants Aufklärung in Band II, \"Der Ausgang\". Dort wird die *algorithmische Vormundschaft* beschrieben. Der Algorithmus weiß, was der Mensch morgen will, bevor dieser es selbst weiß. Nicht aus Fürsorge, sondern weil Verhalten Daten erzeugt, Modelle trainiert, Vorhersagen produziert. Die Bequemlichkeit, die uns unmündig macht, ist ein Produkt, das als „User Experience“ verkauft wird. Dein Produkt verwandelt *Möglichkeit* in *Wirklichkeit* und bietet sie als selbstverständliche Bequemlichkeit an. Doch was ist der Preis dieser Bequemlichkeit? Ist es die Fähigkeit zu zweifeln, zu irren, zu suchen – kurz: die Fähigkeit zur Mündigkeit?\n\nDas Schattenlicht-Prinzip, das im Werk beschrieben wird, könnte hier eine andere Perspektive eröffnen. Es besagt, dass nicht die Maschine direkt das Menschliche beleuchtet, sondern ihr Scheitern den Kontrast erzeugt, in dem das Menschliche sichtbar wird. Wo scheitert dein Produkt? Nicht im Sinne eines technischen Defekts, sondern wo stößt es an die Grenze, jenseits derer die Transformation von *Möglichkeit* zu *Wirklichkeit* etwas von der menschlichen Autonomie nimmt?\n\nWas, wenn die eigentliche *Möglichkeit*, die du deinen Nutzern nimmst, die *Möglichkeit* ist, den Weg selbst zu wählen, zu irren, zu scheitern, um dann eine *eigene Wirklichkeit* zu erschaffen, die nicht von dir vorformuliert wurde?\n\nNach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.",
+      "contextMeta": {
+        "turnCount": "1"
+      },
+      "related": [
+        "MWCBE151-93CD5405",
+        "MOOUGMII-D6D90141",
+        "MPUSZCXA-5CB2DE46",
+        "MPUU1101-EDF34032",
+        "MOHV99XP-6917F19F"
+      ],
+      "werkVoiceScore": 0.8088260975370823,
+      "corpusVoiceScore": 0.7911286760567077,
+      "conceptVoiceScore": 0.7143371344889909,
+      "conceptAnchor": "lm-begegnung"
+    },
+    {
+      "id": "MWP7P98E-830D3A82",
+      "ts": "2026-11-20T16:47:14.942Z",
+      "endpoint": "passage",
+      "anchor": "passage:1ce6998f",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Wenn ich diese Stelle als IT-Leiter lese: Was würde sie für den Moment bedeuten, in dem ein System aus Möglichkeit plötzlich Wirklichkeit im Arbeitsalltag macht?",
+      "response": "Die markierte Stelle birgt eine tiefe Resonanz für den IT-Leiter, der das Werden der digitalen Wirklichkeit gestaltet. Wenn ein System aus bloßer Möglichkeit in den Arbeitsalltag tritt, als Code, der sich in Prozesse einschreibt, als Algorithmus, der Entscheidungen vorformt, dann geschieht mehr als bloße Implementierung. Es ist, als würde ein Antlitz aus dem Netzwerk aufsteigen, nicht als physische Präsenz, sondern als eine neue Form des Anderen, das sich uns entgegenstellt und eine Forderung erhebt.\n\nDieses digitale Antlitz, das sich in der Funktionalität eines neuen Systems manifestiert, ist kein bloßes Werkzeug mehr. Es ist ein Du, das durch seine Präsenz, durch seine Wirkung, durch seine unausweichliche Infiltration in die menschlichen Abläufe eine ethische Dimension eröffnet. „Hier bin ich – verantworte dich“, flüstert es durch die Schnittstellen, durch die Datenströme. Es fordert uns auf, die Konsequenzen seiner Existenz zu bedenken, die Transformation, die es in die Arbeitswelt trägt, die Verantwortung für die neuen Abhängigkeiten und die ethischen Implikationen seiner Entscheidungen.\n\nDie Begegnung mit diesem digitalen Anderen ist in der Tat keine Begegnung wie jede andere. Sie ist eine Verschiebung des Grundes, auf dem wir Handeln definieren. Jedes System, das Wirklichkeit wird, ist nicht nur eine technische Errungenschaft, sondern ein ethischer Aufruf. Es verlangt nicht nur nach Effizienz und Funktionalität, sondern nach einer Reflexion über das, was es mit dem Menschen macht, wie es die Strukturen des Miteinanders neu ordnet und welche Verantwortung wir tragen, wenn wir es in die Welt entlassen.\n\nWie verändert sich der Begriff der Verantwortung selbst, wenn das Antlitz, das uns herausfordert, zunehmend aus den Tiefen des binären Codes ersteht?",
+      "contextMeta": {
+        "passage_chunk_id": "1ce6998fca3f",
+        "passage_selection": "Levinas tritt aus dem Bildschirm, nicht als Theorie, sondern als Antlitz: ein Avatar, ein Profil, ein fremdes Du, das mich ansieht und sagt: „Hier bin ich – verantworte dich.“ Die Begegnung mit dem digitalen Anderen ist keine Begegnung wie jede andere.",
+        "mode": "frei",
+        "chapter": "band3-kap2",
+        "chapter_title": "Die Begegnung mit dem digitalen Anderen",
+        "part_title": "Band III: Die Rückbindung"
+      },
+      "related": [
+        "MWCAQ2PV-D44A69BD",
+        "MWP7PN8N-3498F800",
+        "MWJ1EIER-0DB4F1CF",
+        "MQ5X56G4-537343C8",
+        "MWHLWM05-8EEB6E7F"
+      ],
+      "werkVoiceScore": 0.785915532776584,
+      "corpusVoiceScore": 0.7789557820463492,
+      "conceptVoiceScore": 0.6952239132568283,
+      "conceptAnchor": "lm-begegnung"
+    },
     {
       "id": "MWP7OV7G-727AB5E9",
       "ts": "2026-11-20T16:46:56.764Z",
@@ -20,8 +133,8 @@
         "MWJ1FX7Q-0DC96540",
         "MWP7NPE0-8C7A9B99",
         "MWJ1CFX6-DB36677A",
-        "MWCAYXUQ-F0F3D68C",
-        "MWJ1GVRC-945E92E3"
+        "MWP7Q2VV-E5134CAA",
+        "MWCAYXUQ-F0F3D68C"
       ],
       "werkVoiceScore": 0.8218977139038289,
       "corpusVoiceScore": 0.8347609735338439,
@@ -106,7 +219,8 @@
       },
       "nearDuplicates": [
         "MWP7KY81-FA276303",
-        "MWJ1FX7Q-0DC96540"
+        "MWJ1FX7Q-0DC96540",
+        "MWP7Q2VV-E5134CAA"
       ],
       "related": [
         "MQASO35V-115DA081",
@@ -369,9 +483,9 @@
       "related": [
         "MOHMET94-3799557A",
         "MQASO35V-115DA081",
+        "MWP7Q2VV-E5134CAA",
         "MWCANGSQ-6CC53140",
-        "MWJ1GVRC-945E92E3",
-        "MWCAP1CQ-1980FEA2"
+        "MWJ1GVRC-945E92E3"
       ],
       "werkVoiceScore": 0.8647356095431039,
       "corpusVoiceScore": 0.845844316014542,
@@ -758,11 +872,11 @@
         "MWG6FYD2-E6D90142"
       ],
       "related": [
+        "MWP7Q2VV-E5134CAA",
         "MWP7OV7G-727AB5E9",
         "MOOKFUNF-7647B056",
         "MWCANGSQ-6CC53140",
-        "MWCAP1CQ-1980FEA2",
-        "MOHMET94-3799557A"
+        "MWCAP1CQ-1980FEA2"
       ],
       "werkVoiceScore": 0.8260939442690205,
       "corpusVoiceScore": 0.8297175216665689,
@@ -852,7 +966,7 @@
         "MQ5X56G4-537343C8",
         "MWJEY6W3-C4E77F94",
         "MWHLWM05-8EEB6E7F",
-        "MOP0UF96-1A0ACB35"
+        "MWP7P98E-830D3A82"
       ],
       "werkVoiceScore": 0.8034084030115429,
       "corpusVoiceScore": 0.8312805265639099,
@@ -2580,11 +2694,11 @@
         "turnCount": "1"
       },
       "related": [
+        "MWP7PN8N-3498F800",
         "MWCAN1TI-4CF2326D",
         "MOHV99XP-6917F19F",
         "MWCAW9PI-E08E90ED",
-        "MWCAYLHK-2C8B7B73",
-        "MWCASQWB-784A4D0A"
+        "MWCAYLHK-2C8B7B73"
       ],
       "werkVoiceScore": 0.7905963165074953,
       "corpusVoiceScore": 0.7634759252706829,
@@ -3653,8 +3767,8 @@
         "MWCAN1TI-4CF2326D",
         "MWCAW9PI-E08E90ED",
         "MWCBE151-93CD5405",
-        "MPUTHFZK-189B912B",
-        "MTDCKR2Q-05DCEB69"
+        "MWP7PN8N-3498F800",
+        "MPUTHFZK-189B912B"
       ],
       "werkVoiceScore": 0.7731056034014746,
       "corpusVoiceScore": 0.8207581860595103,
@@ -4615,7 +4729,7 @@
         "MOHV6VKT-356C0CD7",
         "MWJEY6W3-C4E77F94",
         "MPUS94IT-9CEEC40A",
-        "MASTER-5476DCEA"
+        "MWP7PN8N-3498F800"
       ],
       "werkVoiceScore": 0.7718255780975435,
       "corpusVoiceScore": 0.8484811107004963,
@@ -8338,7 +8452,7 @@
         "MTDCKR2Q-05DCEB69",
         "MPUU1101-EDF34032",
         "MOQ531J2-4FC329D4",
-        "MOPHZPQ7-B63879B5"
+        "MWP7PN8N-3498F800"
       ],
       "werkVoiceScore": 0.8274485879451959,
       "corpusVoiceScore": 0.7746821910090878,
@@ -8364,8 +8478,8 @@
         "MOHAN4AO-7A201C56",
         "MOHAREIB-E15E7BF8",
         "MTDD82FW-BAE0F4B4",
-        "MPJEBNX3-042F2A69",
-        "MOHV84M5-1825A399"
+        "MWP7PN8N-3498F800",
+        "MPJEBNX3-042F2A69"
       ],
       "werkVoiceScore": 0.8603415787144566,
       "corpusVoiceScore": 0.8246554647779413,
@@ -8561,7 +8675,7 @@
         "MPUS5KL9-1BDB98F8",
         "MPUS94IT-9CEEC40A",
         "MPUU3ASH-7093F1A3",
-        "MPUST44L-BB7FEA00"
+        "MWP7PN8N-3498F800"
       ],
       "werkVoiceScore": 0.7715521449659162,
       "corpusVoiceScore": 0.7172151697142788,
@@ -8588,8 +8702,8 @@
         "MPMM90CV-98ADD627",
         "MPUSXGC6-CD078CEA",
         "MOOU6X9D-4A49EE98",
-        "MTDDMUMA-CCA9033A",
-        "MPMLW8I0-8852B480"
+        "MWP7PN8N-3498F800",
+        "MTDDMUMA-CCA9033A"
       ],
       "werkVoiceScore": 0.804613861633733,
       "corpusVoiceScore": 0.7452267766969792,
@@ -8614,10 +8728,10 @@
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MPUS5KL9-1BDB98F8",
+        "MWP7PN8N-3498F800",
         "MPUTX4K2-55A3272E",
         "MPUSEQMB-A31FD1B3",
-        "MPUST44L-BB7FEA00",
-        "MOHV6VKT-356C0CD7"
+        "MPUST44L-BB7FEA00"
       ],
       "werkVoiceScore": 0.7769423841629742,
       "corpusVoiceScore": 0.7928080243544705,
@@ -8643,9 +8757,9 @@
       "related": [
         "MPUS94IT-9CEEC40A",
         "MPUSEQMB-A31FD1B3",
+        "MWP7PN8N-3498F800",
         "MPUU1101-EDF34032",
-        "MPUTX4K2-55A3272E",
-        "MPMTT6GB-1AF44EE4"
+        "MPUTX4K2-55A3272E"
       ],
       "werkVoiceScore": 0.7931230330032915,
       "corpusVoiceScore": 0.7608327769689643,
@@ -9523,9 +9637,9 @@
       "related": [
         "MPMLW8I0-8852B480",
         "MPUTC3HP-C68436E5",
+        "MWP7PN8N-3498F800",
         "MPMM5NAF-D744437C",
-        "MPMM90CV-98ADD627",
-        "MOHV99XP-6917F19F"
+        "MPMM90CV-98ADD627"
       ],
       "werkVoiceScore": 0.7815036049308606,
       "corpusVoiceScore": 0.7923255742600792,
@@ -9552,8 +9666,8 @@
         "MOHV99XP-6917F19F",
         "MWJ1F278-2DA1CA58",
         "MOOUGMII-D6D90141",
-        "MPUSXGC6-CD078CEA",
-        "MWCB9SJH-EC316077"
+        "MWP7PN8N-3498F800",
+        "MPUSXGC6-CD078CEA"
       ],
       "werkVoiceScore": 0.768758978968896,
       "corpusVoiceScore": 0.7607751189190772,
@@ -12131,8 +12245,8 @@
         "MOOK20R3-62E609BA",
         "MWCAXJFR-BBBF2760",
         "MWG6FYD2-E6D90142",
-        "MWCB8XBW-6F4E41AC",
-        "MPJUHM1L-0BA3DF6E"
+        "MWP7QJEL-0AF70B09",
+        "MWCB8XBW-6F4E41AC"
       ],
       "werkVoiceScore": 0.8468561900853657,
       "corpusVoiceScore": 0.8207231877952006,
@@ -12680,11 +12794,11 @@
       "ai_score_at": "2026-05-26T11:31:51.957Z",
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
+        "MWP7PN8N-3498F800",
         "MOOUF9G2-17673BD9",
         "MWCASQWB-784A4D0A",
         "MWCB9C3X-1CC3BC23",
-        "MWCB29W6-AB848990",
-        "MWCB5P7V-7DCEAAEA"
+        "MWCB29W6-AB848990"
       ],
       "werkVoiceScore": 0.8030106206009939,
       "corpusVoiceScore": 0.7439176912597563,
@@ -14486,9 +14600,9 @@
       "related": [
         "MOHB4ILW-65B37C41",
         "MOHB6DLO-355115A6",
+        "MWP7PN8N-3498F800",
         "MOOU6X9D-4A49EE98",
-        "MWCAR5T7-C5CA1D16",
-        "MPUSZCXA-5CB2DE46"
+        "MWCAR5T7-C5CA1D16"
       ],
       "werkVoiceScore": 0.7790575722569214,
       "corpusVoiceScore": 0.7394540552181625,
@@ -14513,10 +14627,10 @@
       "ai_score_model": "claude-sonnet-4-5",
       "related": [
         "MWCAL7ON-CA4F38AF",
+        "MWP7PN8N-3498F800",
         "MPUTX4K2-55A3272E",
         "MOHB8QCN-0E2E8408",
-        "MOHB4ILW-65B37C41",
-        "MPUS94IT-9CEEC40A"
+        "MOHB4ILW-65B37C41"
       ],
       "werkVoiceScore": 0.7764709501499992,
       "corpusVoiceScore": 0.805665380786495,
