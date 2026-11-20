@@ -283,6 +283,23 @@ Eintrags. Die reine Logik liegt in `scripts/lib/questionAnswers.ts`
 - Rauschen (Test-Prompts, kontextlose Rückfragen) gehört auf `rejected`
   (`/admin` → Kuratierung bzw. `curateEntryStatus` mit `audit_trail`-Eintrag),
   nicht in einen Override.
+- **Anschlussfragen sind eine eigene Kategorie, nicht „offen“** (Entscheidung
+  2026-11-20). Redaktionelle Antwort-Resonanzen enden bewusst mit einer
+  „Offenen Anschlussfrage“, jede beantwortete Frage erzeugte also eine neue
+  offene. Regel (`isFollowUpQuestion`, aus den Daten, keine ID-Listen): Quelle
+  trägt `context_meta.origin: editorial` **und** keine nicht-redaktionelle
+  Nicht-Master-Dublette stellt dieselbe Frage (dann bleibt sie echt). Ein Pin
+  als Kriterium taugt nicht, auch Live-Einträge sind Pin-Ziele.
+  - Pro Frage `followUp: boolean`. `stats`: `total` (alle), `answered` (alle
+    beantworteten, **inkl.** beantworteter Anschlussfragen), `open` (nur echte
+    offene), `followUp` (alle Anschlussfragen), `followUpOpen` (unbeantwortete).
+    Invariante: `total = answered + open + followUpOpen`.
+  - Client: `questionStatus` / `questionCounts` / `matchesQuestionFilter` in
+    `client/src/lib/questions.ts`; `/fragen` (Desktop + Mobile) zeigt den Chip
+    „Anschlussfragen“, der Index-Overlay zählt nur echte offene.
+  - Neue redaktionelle Einträge brauchen `model: editorial` **und**
+    `context_meta.origin: editorial`; der Validator warnt (`origin-missing`,
+    `origin-value`), ein Korpus-Test prüft es.
 
 ### 11. „Validate-Korpus: `path=CONFLICT-RECOVERY` in Serie“ (CI überholt CI)
 

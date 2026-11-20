@@ -269,3 +269,71 @@ export function isSelfAnswer(
   }
   return false;
 }
+
+// ─── Anschlussfragen: eigene Kategorie statt „offen“ ──────────────────────
+//
+// Redaktionelle Antwort-Resonanzen (#33, #73, #76, #79, #82 …) enden bewusst
+// mit einer „Offenen Anschlussfrage“. Jede beantwortete Frage erzeugte so eine
+// neue offene Frage, und die Zahl „offen“ sank kaum. Seit 2026-11-20
+// (Entscheidung Markus) zählen diese Fragen als eigene Kategorie
+// „Anschlussfragen“: weiter gelistet und beantwortbar, aber nicht „offen“.
+//
+// Regel (aus den Daten, keine ID-Listen): Die Quelle ist eine redaktionelle
+// Resonanz, erkennbar am Frontmatter-Marker `context_meta.origin: editorial`,
+// den die redaktionelle Pipeline schreibt (der Validator prüft den Wert).
+// Hat dieselbe Frage (normalisiert) auch eine nicht-redaktionelle Quelle, ist
+// sie eine echte Frage. Gefaltete Master zählen dabei nicht: sie übernehmen
+// die Frage nur.
+
+export const EDITORIAL_ORIGIN = "editorial";
+export const KNOWN_CONTEXT_ORIGINS: ReadonlySet<string> = new Set([EDITORIAL_ORIGIN]);
+
+export interface FollowUpSourceEntry {
+  contextMeta?: Record<string, unknown> | null;
+  is_master?: boolean;
+}
+
+/** true, wenn der Eintrag eine redaktionelle Resonanz ist (Quelle von Anschlussfragen). */
+export function isEditorialEntry(e: FollowUpSourceEntry | undefined): boolean {
+  return e?.contextMeta?.origin === EDITORIAL_ORIGIN;
+}
+
+/**
+ * true, wenn die Frage eine Anschlussfrage ist: Quelle redaktionell und keine
+ * nicht-redaktionelle Dublette (Master in den dupIds werden übergangen).
+ */
+export function isFollowUpQuestion(
+  q: { sourceId: string; dupIds: string[] },
+  entriesById: Map<string, FollowUpSourceEntry>,
+): boolean {
+  if (!isEditorialEntry(entriesById.get(q.sourceId))) return false;
+  return q.dupIds.every(id => {
+    const e = entriesById.get(id);
+    return !e || e.is_master === true || isEditorialEntry(e);
+  });
+}
+
+export interface QuestionStats {
+  /** Alle Fragen, Anschlussfragen eingeschlossen. */
+  total: number;
+  /** Alle beantworteten Fragen, beantwortete Anschlussfragen eingeschlossen. */
+  answered: number;
+  /** Echte offene Fragen: unbeantwortet und keine Anschlussfrage. */
+  open: number;
+  /** Alle Anschlussfragen (beantwortet oder nicht). */
+  followUp: number;
+  /** Unbeantwortete Anschlussfragen. */
+  followUpOpen: number;
+}
+
+/** Invariante: total = answered + open + followUpOpen. */
+export function summarizeQuestions(qs: Array<{ answered: boolean; followUp?: boolean }>): QuestionStats {
+  let answered = 0, open = 0, followUp = 0, followUpOpen = 0;
+  for (const q of qs) {
+    if (q.followUp) followUp++;
+    if (q.answered) answered++;
+    else if (q.followUp) followUpOpen++;
+    else open++;
+  }
+  return { total: qs.length, answered, open, followUp, followUpOpen };
+}

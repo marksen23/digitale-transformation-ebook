@@ -1,5 +1,5 @@
 /**
- * MobileFragen — Reader-first-Design, Bereich "Fragen": alle+offen+beantwortet
+ * MobileFragen — Reader-first-Design, Bereich "Fragen": alle+offen+beantwortet+Anschlussfragen
  * Filter, real loadQuestions() cards, "Das Werk antwortet"-Previews.
  * Tippen auf die Frage springt in den Reader, wenn der Eintrag eine echte
  * Werk-Stelle trägt (contextMeta.passage_chunk_id/werk_passages) — sonst
@@ -13,12 +13,14 @@ import {
   loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR,
   type ResonanzEntry,
 } from "@/lib/resonanzenIndex";
-import { formatAnswerScore, loadQuestions, type QuestionEntry } from "@/lib/questions";
+import {
+  formatAnswerScore, loadQuestions, questionCounts, questionStatus, matchesQuestionFilter,
+  QUESTION_STATUS_LABEL, type QuestionEntry, type QuestionFilter,
+} from "@/lib/questions";
 import { findPassageForEntry } from "@/lib/conceptPassageLink";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
 import MobilePill from "@/pages/mobile/MobilePill";
 
-type StatusFilter = "all" | "open" | "answered";
 const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] ?? ep;
 const epColor = (ep: string, fallback: string) => ENDPOINT_COLOR[ep as ResonanzEntry["endpoint"]] ?? fallback;
 
@@ -29,7 +31,7 @@ export default function MobileFragen() {
   const [, navigate] = useLocation();
   const [questions, setQuestions] = useState<QuestionEntry[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
-  const [status, setStatus] = useState<StatusFilter>("all");
+  const [status, setStatus] = useState<QuestionFilter>("all");
 
   useEffect(() => {
     loadQuestions().then(f => setQuestions(f?.questions ?? []));
@@ -38,21 +40,13 @@ export default function MobileFragen() {
     });
   }, []);
 
-  const counts = useMemo(() => {
-    const all = questions ?? [];
-    return {
-      total: all.length,
-      answered: all.filter(q => q.answered).length,
-      open: all.filter(q => !q.answered).length,
-    };
-  }, [questions]);
+  // Anschlussfragen zählen getrennt, nicht als „offen“ (lib/questions.ts).
+  const counts = useMemo(() => questionCounts(questions ?? []), [questions]);
 
-  const shown = useMemo(() => {
-    const all = questions ?? [];
-    if (status === "open") return all.filter(q => !q.answered);
-    if (status === "answered") return all.filter(q => q.answered);
-    return all;
-  }, [questions, status]);
+  const shown = useMemo(
+    () => (questions ?? []).filter(q => matchesQuestionFilter(q, status)),
+    [questions, status],
+  );
 
   async function jumpToQuestion(q: QuestionEntry) {
     const link = await findPassageForEntry(q.sourceId);
@@ -66,12 +60,13 @@ export default function MobileFragen() {
         Offene Fragen <span style={{ color: C.accentText }}>·</span> Der Denk-Horizont
       </div>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 12 }}>
-        Jede Antwort des Werks endet mit einer offenen Frage. Hier sind sie gesammelt — und sichtbar gemacht, welche das Werk sich selbst beantwortet hat.
+        Jede Antwort des Werks endet mit einer offenen Frage. Hier sind sie gesammelt — und sichtbar gemacht, welche das Werk sich selbst beantwortet hat. Anschlussfragen kuratierter Antworten stehen daneben, zählen aber nicht als offen.
       </div>
 
       {questions && (
         <div style={{ fontFamily: MONO, fontSize: 9.5, letterSpacing: "0.06em", color: C.muted, marginBottom: 12 }}>
           {counts.total} Fragen · <span style={{ color: "#7ab898" }}>{counts.answered} beantwortet</span> · <span style={{ color: C.accentText }}>{counts.open} offen</span>
+          {counts.followUp > 0 && <> · <span style={{ color: C.textDim }}>{counts.followUp} Anschlussfragen</span></>}
         </div>
       )}
 
@@ -79,13 +74,14 @@ export default function MobileFragen() {
         <MobilePill C={C} label="alle" active={status === "all"} onClick={() => setStatus("all")} />
         <MobilePill C={C} label="offen" active={status === "open"} onClick={() => setStatus("open")} />
         <MobilePill C={C} label="beantwortet" active={status === "answered"} onClick={() => setStatus("answered")} />
+        <MobilePill C={C} label="Anschlussfragen" active={status === "followUp"} onClick={() => setStatus("followUp")} />
       </div>
 
       {!questions ? (
         <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>
       ) : shown.length === 0 ? (
         <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted, lineHeight: 1.6 }}>
-          Keine {status === "open" ? "offenen" : "beantworteten"} Fragen — {counts.total} insgesamt warten.{" "}
+          Keine {status === "open" ? "offenen Fragen" : status === "followUp" ? "Anschlussfragen" : "beantworteten Fragen"} — {counts.total} insgesamt warten.{" "}
           <button
             onClick={() => setStatus("all")}
             style={{ fontFamily: MONO, fontSize: 10.5, color: C.accentText, background: "none", border: "none", cursor: "pointer", textDecoration: "underline", padding: 0 }}
@@ -106,7 +102,7 @@ export default function MobileFragen() {
                 {epLabel(q.endpoint)}{q.anchor?.includes(":") ? ` · ${q.anchor.split(":").slice(1).join(":")}` : ""}
               </button>
               <span style={{ fontFamily: MONO, fontSize: 8.5, letterSpacing: "0.08em", textTransform: "uppercase", color: q.answered ? "#7ab898" : C.muted, flexShrink: 0 }}>
-                {q.answered ? "beantwortet" : "offen"}
+                {QUESTION_STATUS_LABEL[questionStatus(q)]}{q.answered && q.followUp ? " · Anschluss" : ""}
               </span>
             </div>
 

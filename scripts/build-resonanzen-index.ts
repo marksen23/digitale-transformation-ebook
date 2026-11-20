@@ -21,7 +21,7 @@ import { fetchEmbedding, getKeys } from "../server/lib/embeddingClient.js";
 import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
 import {
   applyAnswerOverrides, loadAnswerOverrides, collectQuestions, foldMasterQuestions,
-  isSelfAnswer, normalizeQuestion,
+  isSelfAnswer, normalizeQuestion, isFollowUpQuestion, summarizeQuestions,
 } from "./lib/questionAnswers.js";
 
 const __filename = fileURLToPath(import.meta.url);
@@ -857,19 +857,22 @@ async function writeQuestions(entries: ResonanzEntry[], embeddings: Record<strin
       sourceId: q.sourceId, question: q.question, endpoint: q.endpoint,
       anchor: q.anchor, nodeIds: q.nodeIds, ts: q.ts, dupCount: q.dupIds.length,
       answeredBy: applied.answeredBy, answered: applied.answeredBy.length > 0,
+      // Anschlussfrage einer redaktionellen Antwort-Resonanz (CLAUDE.md, Fallstrick #10).
+      followUp: isFollowUpQuestion(q, entriesById),
     };
   }).sort((a, b) => b.ts.localeCompare(a.ts));
 
-  const answered = out.filter(q => q.answered).length;
+  const stats = summarizeQuestions(out);
   fs.writeFileSync(QUESTIONS_OUTPUT, JSON.stringify({
     generatedAt: new Date().toISOString(),
     count: out.length,
     thresholds: { ANSWER_SIM },
-    stats: { total: out.length, answered, open: out.length - answered, embedded },
+    stats: { ...stats, embedded },
     questions: out,
   }, null, 2));
   console.log(
-    `[build-resonanzen-index] questions: ${out.length} (${answered} beantwortet, ${out.length - answered} offen, ${embedded} neu embeddet, ` +
+    `[build-resonanzen-index] questions: ${out.length} (${stats.answered} beantwortet, ${stats.open} offen, ` +
+    `${stats.followUpOpen} Anschlussfragen offen von ${stats.followUp}, ${embedded} neu embeddet, ` +
     `${overrideRules.size} Override-Regeln, ${curatedLinks} kuratierte Kanten, ${overrideWarnings} Override-Warnungen)`,
   );
   return out.map(q => ({ sourceId: q.sourceId, question: q.question, answeredBy: q.answeredBy }));
