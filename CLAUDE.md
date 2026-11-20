@@ -284,6 +284,36 @@ Eintrags. Die reine Logik liegt in `scripts/lib/questionAnswers.ts`
   (`/admin` → Kuratierung bzw. `curateEntryStatus` mit `audit_trail`-Eintrag),
   nicht in einen Override.
 
+### 11. „Validate-Korpus: `path=CONFLICT-RECOVERY` in Serie“ (CI überholt CI)
+
+`actions/checkout` holt bei push-Events den **auslösenden** SHA, nicht den
+main-Tip. Die concurrency-Gruppe `corpus-rebuild-main` serialisiert die Läufe,
+aber ein wartender Lauf startete trotzdem auf seinem alten Trigger-SHA, obwohl
+der vorherige Lauf main schon mit seinem Guardian-Commit weitergeschoben hatte.
+Der Rebase kollidierte dann in rein CI-geschriebenen Artefakten (PDF,
+Embeddings, anchor-clusters). Am 20.11.2026 passierte das 6× in ~20 min, Beleg
+Run `44776899760`: gebaut auf `6668300f`, der Guardian-Commit `86e242bd` des
+Vorläufers landete danach. Live-Append war daran **nicht** beteiligt.
+- Seitdem setzt der Step „Build-Basis auf aktuellen main-Tip setzen“ vor dem
+  Build per `git fetch` + `reset --hard` auf `origin/main` und loggt
+  `[base] triggered=<sha> built-on=<sha>`. Bei `triggered ≠ built-on` hat der
+  Lauf aufgeholt. Eine Warnung erscheint, wenn der Trigger-SHA nicht im Tip
+  enthalten ist (Force-Push).
+- `workflow_dispatch` auf einem anderen Ref wird nicht zurückgesetzt und ist
+  ein reiner Prüf-Lauf. Der Commit-Step läuft nur bei
+  `github.ref == refs/heads/main` (vorher hätte er Branch-Commits nach main
+  geschoben).
+- Der Snapshot (`versions/snapshot-*.json`) speichert in `commit` die
+  Build-Basis, in `triggeredBy` den Trigger.
+- Die Konflikt-Recovery bleibt als Netz für Live-Append-Commits, die
+  **während** des Builds landen. Treten trotz dieses Fixes noch Serien auf,
+  ist das das Signal für Stufe 2 der Entkopplung
+  (`docs/live-append-index-entkopplung.md`).
+- Andere Workflows: `regenerate-erkenntnisse` und `daily-history-snapshot`
+  checken `ref: <branch>` aus und holen damit den Tip. Der Snapshot-Workflow
+  rebased jetzt vor dem Push mit Retry. `auto-curate` (nur API) und
+  `fix-orphan-leitmotive` (Contents-API) pushen nichts aus einem Checkout.
+
 ---
 
 ## Korpus-Datenfluss

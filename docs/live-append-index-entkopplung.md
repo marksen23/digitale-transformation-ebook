@@ -78,6 +78,24 @@ Abhängigkeit zur CI-Härte (Recovery + Re-Validate nach Reset): parallel sinnvo
 | Coolify-Migration | Overlay gegen GitHub-Raw beibehalten oder lokales FS auf dem VPS lesen? |
 | RAG | Dürfen brandneue Raw-Einträge ohne Embedding erst nach CI retrievebar sein? |
 
+## Entscheidungen 20.11.2026 (Markus)
+
+**Befund vorab:** Die Push-Konflikte vom 20.11.2026 (6× `path=CONFLICT-RECOVERY` in ~20 min, alle mit SUCCESS beendet) kamen **nicht** von der doppelten Schreibautorität Live↔CI. Es waren Konflikte zwischen CI-Läufen.
+- `actions/checkout` holte bei einem wartenden Guardian-Lauf den auslösenden SHA statt des main-Tips. Der Vorläufer hatte main da schon weitergeschoben.
+- Beleg: Run `44776899760`, gebaut auf `6668300f`. Der Guardian-Commit `86e242bd` des Vorläufers landete danach.
+- Die Konflikte lagen in rein CI-geschriebenen Dateien: PDF, Embeddings, anchor-clusters.
+- Option A hätte das nicht behoben. Behoben wird es durch den Build-Basis-Fix in `validate-corpus.yml` (CLAUDE.md, Fallstrick #11).
+
+| # | Frage | Entscheidung |
+|---|---|---|
+| 1 | CI-Basis zuerst reparieren? | **Ja.** Der Build startet vom aktuellen `origin/main`-Tip und loggt `[base] triggered=… built-on=…`. Die Recovery bleibt als Netz. |
+| 2 | Latenz-Toleranz | **Sichtbarkeit wie heute** (Live-Index-PUT + Recovery). Option A kommt später, in Stufen hinter `LIVE_INDEX_WRITES`, und erst wenn sich nach dem Fix zu 1 zeigt, ob noch Konflikte bleiben. |
+| 3 | Admin-Sofortigkeit (Curate/Delete) | **Status greift mit dem nächsten CI-Lauf.** Sobald der Overlay kommt, markiert das UI solche Einträge als „ausstehend“. |
+| 4 | Quelle des Overlays | **Jetzt ein von CI geschriebenes Manifest** (Liste der Markdown-SHAs). **Nach der Coolify-Migration** das lokale Dateisystem auf dem VPS. Kein Tree-Listing über die GitHub-API. |
+| 5 | RAG / Ähnlichkeitssuche für Einträge ohne Embedding | **Erst nach CI.** Kein lexikalischer Fallback für brandneue Einträge. |
+
+**Nächster Schritt:** Nach dem Merge des Build-Basis-Fixes die Push-Pfade der Validate-Läufe einige Tage beobachten. Treten weiterhin `CONFLICT-RECOVERY`-Serien auf, ist das das Signal für Stufe 2: Overlay-MVP mit Manifest.
+
 ## Betroffene Dateien (bei Umsetzung)
 
 - `server/lib/indexUpdater.ts`, `server/lib/resonanzLog.ts`, `server/lib/rawAssets.ts`
