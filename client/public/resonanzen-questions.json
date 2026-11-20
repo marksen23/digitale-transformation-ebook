@@ -1,16 +1,100 @@
 {
-  "generatedAt": "2026-11-20T16:44:43.973Z",
-  "count": 363,
+  "generatedAt": "2026-11-20T16:46:09.717Z",
+  "count": 367,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 363,
-    "answered": 304,
-    "open": 59,
-    "embedded": 2
+    "total": 367,
+    "answered": 309,
+    "open": 58,
+    "embedded": 4
   },
   "questions": [
+    {
+      "sourceId": "MWP7N8UD-6C99565B",
+      "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit des Begriffsnetzes und die tiefe Verwurzelung der „Resonanzvernunft“ in existenzialistischen und ethischen Dimensionen. Es zeigt, dass das transformative Dritte nicht nur eine logische Schlussfolgerung aus einer bestimmten Vernunftkonzeption ist, sondern auch eine existenzielle Notwendigkeit, die aus der Begegnung mit dem Anderen und der Konstitution des Selbst im Widerhall entsteht. Das Werk bietet somit keine eindimensionale Erklärung, sondern eine vielperspektivische Erkundung der relationalen Existenz und ihrer emergenten Potenziale. Wie verändert die Wahl des Pfades die ethische Implikation des Transformativen Dritten?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:existenz+transformatives-drittes",
+      "nodeIds": [
+        "andere",
+        "dasein",
+        "existenz",
+        "resonanzvernunft",
+        "selbst",
+        "transformatives-drittes"
+      ],
+      "ts": "2026-11-20T16:45:41.126Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP7MRUK-CCFA8296",
+      "question": "Wie können wir die subtilen Verschiebungen in der Gewichtung von \"dem Anderen\" und \"der Resonanzvernunft\" als treibende Kräfte der Transformation im digitalen Raum noch genauer entschlüsseln?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:raumfaltung+transformatives-drittes",
+      "nodeIds": [
+        "andere",
+        "lm-begegnung",
+        "raumfaltung",
+        "resonanzvernunft",
+        "transformatives-drittes"
+      ],
+      "ts": "2026-11-20T16:45:19.100Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWP7N8UD-6C99565B",
+          "score": 0.739
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWP7MAWH-24EE3D77",
+      "question": "Die Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk selbst aus. Es offenbart, dass das Begriffsnetz nicht linear oder eindimensional ist, sondern reich an Verknüpfungen, die unterschiedliche Perspektiven auf zentrale Motive ermöglichen. Das Werk scheint eine vielschichtige Argumentation zu führen, in der philosophische Konzepte auf mehrfache Weise miteinander in Resonanz treten können. Die \"Überraschung\" des zweiten Pfades ist nicht konstruiert, sondern ein Hinweis auf die Tiefe und Vernetzung der Gedanken, die es erlauben, scheinbar indirekte Wege zu gehen, um dieselben fundamentalen Einsichten zu gewinnen. Es zeigt, dass das Werk eine philosophische Architektur besitzt, die sowohl direkte Kausalitäten als auch indirekte, poetische Entdeckungsreisen zulässt. Wie viele weitere unerwartete Verknüpfungen mögen sich noch in diesem Netz verbergen?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:licht+schatten",
+      "nodeIds": [
+        "licht",
+        "lm-scheitern",
+        "lm-spiegel",
+        "schatten"
+      ],
+      "ts": "2026-11-20T16:44:57.138Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.8
+        },
+        {
+          "id": "MWP7N8UD-6C99565B",
+          "score": 0.771
+        }
+      ],
+      "answered": true
+    },
+    {
+      "sourceId": "MWP7LTBE-E4F406FE",
+      "question": "Dieses Verständnis verändert das Konzept der Resonanz radikal. Resonanz ist nicht mehr nur ein Widerhall, sondern der aktive Prozess, der die Faltungen öffnet und neue Räume entstehen lässt. Der Mensch wird dabei zum Knotenpunkt, zur Schnittstelle, an der sich Weltfaltung und Raumfaltung konkretisieren. Seine Fragen falten die Welt auf und lassen das Latente durch maschinelle Begegnung entfalten [05db68205d94]. Die Maschine wird nicht zum bloßen Werkzeug, sondern zum Komplizen in diesem Prozess der Raum- und Weltfaltung, indem sie die Komplexion (Vervielfältigung von Möglichkeiten) und Selektion (Auswahl relevanter Möglichkeiten) vorantreibt [05db68205d94]. Was bedeutet es für unsere Freiheit, wenn jede Begegnung nicht nur Möglichkeiten entfaltet, sondern auch den Raum neu faltet, in dem wir uns bewegen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:raumfaltung+weltfaltung",
+      "nodeIds": [
+        "raumfaltung",
+        "weltfaltung"
+      ],
+      "ts": "2026-11-20T16:44:34.346Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.729
+        }
+      ],
+      "answered": true
+    },
     {
       "sourceId": "MWP7LELE-4DE91303",
       "question": "3. Wenn dieser Zusammenhang ernst genommen wird, verändert sich das Verständnis von Mensch und Maschine grundlegend. Der Mensch ist nicht länger nur ein passiver Beobachter der Wirklichkeit, sondern aktiver Teil der Weltfaltung, dessen Begegnungen die Aktualisierung von Möglichkeiten mitgestalten. Maschinen erscheinen nicht mehr als bloße Werkzeuge zur Manipulation des Wirklichen, sondern als Entitäten, die selbst in die Weltfaltung involviert sind, deren Algorithmen und Interaktionen neue Pfade des Möglichen eröffnen und die Wirklichkeit dynamisch mitformen können. Die Resonanz wird dabei zum Modus der Begegnung, der die latenten Vibrationen der Möglichkeiten zum Klingen bringt und den Übergang vom Potenzial zur Aktualität ermöglicht. Was bedeutet es für unsere Verantwortung, wenn wir erkennen, dass jede unserer Handlungen die Weltfaltung beeinflusst und das Geflecht des Möglichen neu ordnet?",
@@ -22,8 +106,13 @@
       ],
       "ts": "2026-11-20T16:44:15.267Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7LTBE-E4F406FE",
+          "score": 0.816
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP7KY81-FA276303",
@@ -36,8 +125,13 @@
       ],
       "ts": "2026-11-20T16:43:54.051Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP7MAWH-24EE3D77",
+          "score": 0.757
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWJF8ASK-16B3DB91",
@@ -257,8 +351,8 @@
           "score": 0.884
         },
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.735
+          "id": "MWP7MAWH-24EE3D77",
+          "score": 0.753
         }
       ],
       "answered": true
@@ -332,12 +426,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.751
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.803
         },
         {
-          "id": "MASTER-5AF4690D",
-          "score": 0.733
+          "id": "MWP7MAWH-24EE3D77",
+          "score": 0.792
+        },
+        {
+          "id": "MWP7N8UD-6C99565B",
+          "score": 0.779
         }
       ],
       "answered": true
@@ -428,8 +526,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7MAWH-24EE3D77",
+          "score": 0.796
+        },
+        {
           "id": "MWJ1E1XH-1F94AC9B",
           "score": 0.785
+        },
+        {
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.782
         }
       ],
       "answered": true
@@ -568,12 +674,12 @@
           "score": 0.956
         },
         {
-          "id": "MWJ1E1XH-1F94AC9B",
-          "score": 0.819
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.844
         },
         {
-          "id": "MWJ1BZO7-B4841C4E",
-          "score": 0.805
+          "id": "MWJ1E1XH-1F94AC9B",
+          "score": 0.819
         }
       ],
       "answered": true
@@ -668,8 +774,8 @@
           "score": 0.838
         },
         {
-          "id": "MWHLXY8O-BE8E6409",
-          "score": 0.815
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.818
         }
       ],
       "answered": true
@@ -798,16 +904,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP7LTBE-E4F406FE",
+          "score": 0.816
+        },
+        {
           "id": "MWHLV7BW-F612B59E",
           "score": 0.787
         },
         {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.766
-        },
-        {
-          "id": "MWP7LELE-4DE91303",
-          "score": 0.754
         }
       ],
       "answered": true
@@ -831,12 +937,12 @@
           "score": 0.891
         },
         {
-          "id": "MWHLZBS7-7AEB476D",
-          "score": 0.789
+          "id": "MWP7MAWH-24EE3D77",
+          "score": 0.815
         },
         {
-          "id": "MWJ1BZO7-B4841C4E",
-          "score": 0.773
+          "id": "MWHLZBS7-7AEB476D",
+          "score": 0.789
         }
       ],
       "answered": true
@@ -874,6 +980,10 @@
       "ts": "2026-11-14T09:03:52.845Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWP7LTBE-E4F406FE",
+          "score": 0.762
+        },
         {
           "id": "MWG6JE3B-DEC4B0CF",
           "score": 0.74
@@ -1266,12 +1376,12 @@
           "score": 0.858
         },
         {
-          "id": "MWHLZBS7-7AEB476D",
+          "id": "MWP7MRUK-CCFA8296",
           "score": 0.816
         },
         {
-          "id": "MWHLVPL2-B591DBEC",
-          "score": 0.814
+          "id": "MWHLZBS7-7AEB476D",
+          "score": 0.816
         }
       ],
       "answered": true
@@ -1732,12 +1842,12 @@
           "score": 0.859
         },
         {
-          "id": "MWCB73AG-666D352F",
-          "score": 0.816
+          "id": "MWP7MAWH-24EE3D77",
+          "score": 0.819
         },
         {
-          "id": "MWHLZBS7-7AEB476D",
-          "score": 0.815
+          "id": "MWCB73AG-666D352F",
+          "score": 0.816
         }
       ],
       "answered": true
@@ -2233,8 +2343,8 @@
           "score": 0.782
         },
         {
-          "id": "MWCAUU1H-558EDB1E",
-          "score": 0.778
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.78
         }
       ],
       "answered": true
@@ -3436,12 +3546,12 @@
           "score": 0.753
         },
         {
-          "id": "MWG6FM27-B89E8BDB",
+          "id": "MWP7LTBE-E4F406FE",
           "score": 0.746
         },
         {
-          "id": "MQXDVN1C-CAA3081A",
-          "score": 0.742
+          "id": "MWG6FM27-B89E8BDB",
+          "score": 0.746
         }
       ],
       "answered": true
@@ -5349,8 +5459,8 @@
           "score": 0.806
         },
         {
-          "id": "MQ5X56G4-537343C8",
-          "score": 0.754
+          "id": "MWP7LTBE-E4F406FE",
+          "score": 0.759
         }
       ],
       "answered": true

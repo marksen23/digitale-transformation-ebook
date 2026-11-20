@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:44:42.810Z",
+  "generatedAt": "2026-11-20T16:46:08.562Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -116,6 +116,21 @@
       ]
     },
     {
+      "source": "resonanzvernunft",
+      "target": "selbst",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP7N8UD-6C99565B",
+        "MWJ1E1XH-1F94AC9B",
+        "MPF4FISZ-67000E01",
+        "MP2LIW43-E8ADC59E"
+      ]
+    },
+    {
       "source": "dasein",
       "target": "lm-grenze",
       "cooccurrence": 4,
@@ -184,20 +199,6 @@
         "MWJ1E1XH-1F94AC9B",
         "MUAAML84-D057EA33",
         "MOQIGG2B-2F0C3F5D"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
-      "target": "selbst",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWJ1E1XH-1F94AC9B",
-        "MPF4FISZ-67000E01",
-        "MP2LIW43-E8ADC59E"
       ]
     },
     {
@@ -403,6 +404,42 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "andere",
+      "target": "dasein",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP7N8UD-6C99565B",
+        "MWHLXY8O-BE8E6409"
+      ]
+    },
+    {
+      "source": "andere",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP7N8UD-6C99565B",
+        "MWP7MRUK-CCFA8296"
+      ]
+    },
+    {
+      "source": "existenz",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP7N8UD-6C99565B",
+        "MWCBAQN6-9D0CCC83"
       ]
     },
     {
@@ -988,8 +1025,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 391,
-    "candidatesCount": 75,
+    "totalPairs": 405,
+    "candidatesCount": 78,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

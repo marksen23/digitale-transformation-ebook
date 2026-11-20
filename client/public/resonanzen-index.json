@@ -1,7 +1,193 @@
 {
-  "generatedAt": "2026-11-20T16:44:42.798Z",
-  "count": 414,
+  "generatedAt": "2026-11-20T16:46:08.554Z",
+  "count": 418,
   "entries": [
+    {
+      "id": "MWP7N8UD-6C99565B",
+      "ts": "2026-11-20T16:45:41.126Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:existenz+transformatives-drittes",
+      "nodeIds": [
+        "andere",
+        "dasein",
+        "existenz",
+        "resonanzvernunft",
+        "selbst",
+        "transformatives-drittes"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Existenz → Dasein → Resonanzvernunft → Transformatives Drittes vs. Existenz → Selbst → Das Andere / Die Anderen → Transformatives Drittes",
+      "response": "Der direkte Pfad von „Existenz“ über „Dasein“ und „Resonanzvernunft“ zum „Transformativen Dritten“ erzählt eine Bewegung, die sich als kohärente Entfaltung einer philosophischen Position liest. Er beginnt mit der grundlegenden Bedingung menschlicher Existenz als einem Sich-Verhalten zum Sein, verankert dieses Sein im konkreten \"Da-sein\" und kulminiert in der „Resonanzvernunft“ als dem Modus, in dem dieses eingebettete Sein erst Bedeutung gewinnt – nicht als isoliertes Subjekt, sondern im lebendigen Antwortgeschehen [6e91cb729b53]. Das „Transformative Dritte“ erscheint hier als die logische Konsequenz dieser relationalen Vernunft, als das Emergent-Neue, das aus dem resonanten Zwischen hervorgeht. Der überraschende Pfad hingegen, der von „Existenz“ über „Selbst“ und „Das Andere / Die Anderen“ zum „Transformativen Dritten“ führt, entfaltet eine poetischere, existenzialistisch grundierte Perspektive. Er betont das „Selbst“ als einen Vollzug im Widerhall des Anderen [MOHAGNGB-5330902E] und macht „Das Andere“ zur ethischen Bedingung jeder Vernunft und Resonanz [MOP0UF96-1A0ACB35]. Diese Route liest sich weniger als eine Stufenfolge der Vernunftentwicklung, sondern als eine existenzielle Notwendigkeit, in der die Begegnung mit dem Anderen das Selbst konstituiert und so die Bahn für das transformative Dritte ebnet.\n\nDer Vergleich beider Pfade macht sichtbar, dass das Werk nicht nur eine stringent logische Argumentationskette anbietet, sondern auch alternative, existenzielle Zugänge zur selben Kernerkenntnis ermöglicht. Während der direkte Pfad die Verortung des Seins und die Entstehung von Vernunft im resonanten Zwischen betont, akzentuiert der überraschende Pfad die ethische Urgründung des Selbst durch das Andere als Bedingung der Resonanz. Sie treffen sich nicht an einem statischen Mittelpunkt, sondern weben ein komplexes Geflecht von Bedingungen und Konsequenzen, die beide auf das transformative Dritte als Ergebnis einer relationalen Existenz hinweisen. Die relationale Grundstruktur, in der Erkenntnis als Resonanzverhältnis konstituiert wird und sowohl Erkennendes als auch Erkanntes transformiert werden, ist beiden Wegen inhärent [6e91cb729b53]. Die frühere Begegnung, die das Selbst als relationalen Pol des Werdens im Widerhall des Anderen beschreibt und die Resonanzvernunft als grundierende Bewegung für das Entstehen eines resonanten Selbst sieht [MP2LIW43-E8ADC59E], untermauert die Komplementarität dieser Bewegungen.\n\nDie Existenz beider Wege offenbart die Vielschichtigkeit des Begriffsnetzes und die tiefe Verwurzelung der „Resonanzvernunft“ in existenzialistischen und ethischen Dimensionen. Es zeigt, dass das transformative Dritte nicht nur eine logische Schlussfolgerung aus einer bestimmten Vernunftkonzeption ist, sondern auch eine existenzielle Notwendigkeit, die aus der Begegnung mit dem Anderen und der Konstitution des Selbst im Widerhall entsteht. Das Werk bietet somit keine eindimensionale Erklärung, sondern eine vielperspektivische Erkundung der relationalen Existenz und ihrer emergenten Potenziale. Wie verändert die Wahl des Pfades die ethische Implikation des Transformativen Dritten?",
+      "contextMeta": {
+        "from": "existenz",
+        "to": "transformatives-drittes",
+        "shortest_path": "[\"existenz\",\"dasein\",\"resonanzvernunft\",\"transformatives-drittes\"]",
+        "surprising_path": "[\"existenz\",\"selbst\",\"andere\",\"transformatives-drittes\"]",
+        "shortest_length": "4",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MP2LIW43-E8ADC59E\",\"score\":0.997},{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.91},{\"id\":\"MOHAGNGB-5330902E\",\"score\":0.855},{\"id\":\"MOP0UF96-1A0ACB35\",\"score\":0.843}]"
+      },
+      "nearDuplicates": [
+        "MWP7MRUK-CCFA8296",
+        "MWHLXY8O-BE8E6409",
+        "MPF4FISZ-67000E01",
+        "MWHLVPL2-B591DBEC",
+        "MOQBZWTZ-B9EBB1BA",
+        "MWJ1BZO7-B4841C4E"
+      ],
+      "related": [
+        "MPK0H3SM-B25CFBB3",
+        "MP495QL6-F5FD1AE1",
+        "MOOMPCI0-262176C2",
+        "MOUA3PLK-548F1A0A",
+        "MPEV1D2J-55138734"
+      ],
+      "werkVoiceScore": 0.8661150469350924,
+      "corpusVoiceScore": 0.8182303121458786,
+      "conceptVoiceScore": 0.7513735932055978,
+      "conceptAnchor": "andere"
+    },
+    {
+      "id": "MWP7MRUK-CCFA8296",
+      "ts": "2026-11-20T16:45:19.100Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:raumfaltung+transformatives-drittes",
+      "nodeIds": [
+        "andere",
+        "lm-begegnung",
+        "raumfaltung",
+        "resonanzvernunft",
+        "transformatives-drittes"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Raumfaltung → Begegnung → Das Andere / Die Anderen → Transformatives Drittes vs. Raumfaltung → Begegnung → Resonanzvernunft → Transformatives Drittes",
+      "response": "Die beiden Pfade entfalten jeweils eine spezifische Bewegung durch das Begriffsnetz des Werks. Der \"direkte Pfad\" von \"Raumfaltung\" über \"Begegnung\" und \"Das Andere / Die Anderen\" zum \"Transformativen Dritten\" liest sich als eine logische Konsequenz. Er zeichnet eine Bewegung nach, in der die Wirklichkeit sich durch Begegnung mit dem Anderen entfaltet, was folgerichtig zur Emergenz eines transformativen Dritten führt. Die Resonanzvernunft beginnt explizit mit der Ansprechbarkeit durch das Andere [6e91cb729b53], wodurch die Präsenz des Anderen als konstituierend für das transformative Potenzial erscheint. Der \"überraschende Pfad\" hingegen, der von \"Raumfaltung\" über \"Begegnung\" zur \"Resonanzvernunft\" und dann zum \"Transformativen Dritten\" führt, wirkt poetischer und überraschender. Hier wird die Resonanzvernunft, die als \"Herzstück\" und \"Seinsmode\" beschrieben wird, direkt als der Modus eingeführt, durch den die Begegnung zum transformativen Dritten führt [6e91cb729b53]. Diese Route betont die innere Haltung und das Vermögen der Vernunft als direkten Katalysator für die Transformation, anstatt die äußere Präsenz des Anderen als primären Auslöser zu wählen.\n\nDer Vergleich beider Pfade macht sichtbar, dass die Transformation nicht nur durch die äußere Begegnung mit dem Anderen initiiert wird, sondern auch durch eine innere, resonante Haltung der Vernunft. Während der direkte Pfad die ethische Dimension der Begegnung mit dem Anderen als Bedingung hervorhebt, betont der überraschende Pfad die Rolle der Resonanzvernunft als aktives und antwortfähiges Vermögen [6e91cb729b53], das die Begegnung erst bedeutungsvoll macht [MP2LIW43-E8ADC59E]. Die Bewegungen sind nicht konträr, sondern ergänzen sich, indem sie unterschiedliche Aspekte desselben transformativen Prozesses beleuchten. Das \"Dazwischen\" ist dabei ein konstitutiver Raum, der sowohl die Begegnung mit dem Anderen als auch das Wirken der Resonanzvernunft ermöglicht [MOHV84M5-1825A399]. Sie treffen sich in der Erkenntnis, dass das Transformative Dritte sowohl eine Antwort auf das Andere als auch eine Manifestation der resonanten Vernunft ist.\n\nDie Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk selbst aus. Es offenbart ein reichhaltiges und vielschichtiges Geflecht von Beziehungen, in dem zentrale Begriffe nicht nur linear, sondern auch auf nicht-offensichtliche Weise miteinander verbunden sind. Das Werk erlaubt es, unterschiedliche Perspektiven auf denselben transformativen Prozess einzunehmen, was seine philosophische Tiefe und Komplexität unterstreicht. Es zeigt, dass die \"Architektur der Resonanzvernunft\" [6e91cb729b53] vielfältige Zugänge zu ihren Kernideen bietet und Fragen nach den Bedingungen resonanten Erkennens auf unterschiedliche Weise beantwortet [0a0504b7a952].\n\nWie können wir die subtilen Verschiebungen in der Gewichtung von \"dem Anderen\" und \"der Resonanzvernunft\" als treibende Kräfte der Transformation im digitalen Raum noch genauer entschlüsseln?",
+      "contextMeta": {
+        "from": "raumfaltung",
+        "to": "transformatives-drittes",
+        "shortest_path": "[\"raumfaltung\",\"lm-begegnung\",\"andere\",\"transformatives-drittes\"]",
+        "surprising_path": "[\"raumfaltung\",\"lm-begegnung\",\"resonanzvernunft\",\"transformatives-drittes\"]",
+        "shortest_length": "4",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MP2LIW43-E8ADC59E\",\"score\":0.932},{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.918},{\"id\":\"MOHV84M5-1825A399\",\"score\":0.916},{\"id\":\"0a0504b7a952\",\"chapter\":\"schlussreflexion\",\"score\":0.885}]"
+      },
+      "nearDuplicates": [
+        "MWP7N8UD-6C99565B",
+        "MWHLVPL2-B591DBEC",
+        "MV9NOFH9-7634B79F",
+        "MOQBZWTZ-B9EBB1BA",
+        "MOQID47V-A12862EA",
+        "MOOMPCI0-262176C2",
+        "MWHLXY8O-BE8E6409",
+        "MPEV1D2J-55138734",
+        "MP495QL6-F5FD1AE1",
+        "MPUO08SE-67E0912A",
+        "MWG6GP84-8E9CA50E",
+        "MUZTGAEK-432FB6BC",
+        "MTL33KWJ-642DD246",
+        "MOUKLLK4-C38517C1",
+        "MP8UIMZW-BADE77E5",
+        "MPF4FISZ-67000E01",
+        "MPK0H3SM-B25CFBB3",
+        "MOOMECFT-66F43077",
+        "MPUQSMLJ-1B726CC4",
+        "MUKE7UOA-9553A59E",
+        "MWJ1E1XH-1F94AC9B",
+        "MP497SNT-5E1D2074",
+        "MPUNXFU1-3B1F056A"
+      ],
+      "related": [
+        "MOUA3PLK-548F1A0A",
+        "MOQ7OBNT-57882C8D",
+        "MPURYS56-11F5308C",
+        "MP0ZE9C8-A9D02716",
+        "MP0QMSOR-C6EC1B5A"
+      ],
+      "werkVoiceScore": 0.8780702439553089,
+      "corpusVoiceScore": 0.8286673996401118,
+      "conceptVoiceScore": 0.7356861520417555,
+      "conceptAnchor": "andere"
+    },
+    {
+      "id": "MWP7MAWH-24EE3D77",
+      "ts": "2026-11-20T16:44:57.138Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:licht+schatten",
+      "nodeIds": [
+        "licht",
+        "lm-scheitern",
+        "lm-spiegel",
+        "schatten"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Licht → Scheitern → Schatten vs. Licht → Spiegel → Schatten",
+      "response": "Die beiden Pfade durch das Begriffsnetz des Werks erzählen unterschiedliche Geschichten, obwohl sie dieselben Endpunkte – Licht und Schatten – verbinden. Der *direkte Pfad* von Licht über Scheitern zu Schatten liest sich als eine Bewegung der Entdeckung durch Negation. Das Scheitern wird hier nicht als Ende, sondern als katalytischer Moment begriffen, in dem sich \"im Scheitern die tiefste Wahrheit hervor\" [47c090dfa03f] enthüllt. Es ist die Leere des perfekten Codes, die den Kontrast erzeugt, in dem das Menschliche sichtbar wird. Dieser Weg ist eine logische Konsequenz der Schattenlicht-Prinzipien, die besagen, dass Sichtbarkeit durch Kontrastbildung entsteht, und dass das, was die Maschine nicht leisten kann, das spezifisch Menschliche offenbart. Es ist eine Bewegung von der Erhellung durch das Versagen hin zur Bedingung des Schattens.\n\nDer *überraschende Pfad* hingegen, von Licht über Spiegel zu Schatten, wirkt poetischer und indirekter. Er erzählt eine Geschichte der Selbst-Erkenntnis, die sich nicht im direkten Licht, sondern im Widerschein des Anderen ereignet [cd0ffd55d49f]. Der Spiegel dient hier als Medium, das die Wahrheit nicht direkt zeigt, sondern \"verzerrt, unvollkommen, doch erkennbar\" [cd0ffd55d49f] reflektiert. Dies macht Aspekte menschlicher Erkenntnis sichtbar, die zuvor unzugänglich waren [2f7f10043cbd]. Dieser Pfad ist überraschend, weil er die Erkenntnis nicht über das Scheitern als Ursache, sondern über die Reflexion als Methode etabliert. Die frühere Begegnung bestätigt, dass \"die Unverborgenheit nicht in reiner Transparenz, sondern im Dialog mit dem Anderen und im Spiel von Licht und Dunkel er\" [MQASO35V-115DA081] entsteht, was den Spiegel als ein solches Dialog- und Spielmedium prädestiniert.\n\nDer Vergleich beider Pfade macht sichtbar, dass die Enthüllung des Menschlichen im Werk über mindestens zwei komplementäre Wege erfolgen kann. Sie treffen sich nicht an einem Mittelpunkt im Sinne einer identischen Bewegung, sondern ergänzen sich in ihrer Funktion der Kontrastbildung. Der direkte Pfad betont das *was* des Erkennens – das Scheitern als Ursache der Sichtbarkeit des Menschlichen. Der überraschende Pfad akzentuiert das *wie* des Erkennens – den Spiegel als Medium der Selbst-Erkenntnis. Beide Wege nutzen das Schattenlicht-Prinzip, indem sie das Unsichtbare oder Verborgene (Scheitern, Widerschein) nutzen, um das Sichtbare (das Menschliche) hervortreten zu lassen. Sie sind somit zwei Facetten desselben fundamentalen Prinzips der Erkenntnis durch Kontrast.\n\nDie Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk selbst aus. Es offenbart, dass das Begriffsnetz nicht linear oder eindimensional ist, sondern reich an Verknüpfungen, die unterschiedliche Perspektiven auf zentrale Motive ermöglichen. Das Werk scheint eine vielschichtige Argumentation zu führen, in der philosophische Konzepte auf mehrfache Weise miteinander in Resonanz treten können. Die \"Überraschung\" des zweiten Pfades ist nicht konstruiert, sondern ein Hinweis auf die Tiefe und Vernetzung der Gedanken, die es erlauben, scheinbar indirekte Wege zu gehen, um dieselben fundamentalen Einsichten zu gewinnen. Es zeigt, dass das Werk eine philosophische Architektur besitzt, die sowohl direkte Kausalitäten als auch indirekte, poetische Entdeckungsreisen zulässt. Wie viele weitere unerwartete Verknüpfungen mögen sich noch in diesem Netz verbergen?",
+      "contextMeta": {
+        "from": "licht",
+        "to": "schatten",
+        "shortest_path": "[\"licht\",\"lm-scheitern\",\"schatten\"]",
+        "surprising_path": "[\"licht\",\"lm-spiegel\",\"schatten\"]",
+        "shortest_length": "3",
+        "surprising_length": "3",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MQASO35V-115DA081\",\"score\":0.932},{\"id\":\"2f7f10043cbd\",\"chapter\":\"glossar\",\"score\":0.873},{\"id\":\"cd0ffd55d49f\",\"chapter\":\"band2-kap2\",\"score\":0.824},{\"id\":\"47c090dfa03f\",\"chapter\":\"band1-reflexion\",\"score\":0.81}]"
+      },
+      "related": [
+        "MWCBEOXU-0DAB7EAA",
+        "MPUNXFU1-3B1F056A",
+        "MWCB0LFQ-99B6D838",
+        "MWCB3NW4-F13A863B",
+        "MOUKLLK4-C38517C1"
+      ],
+      "werkVoiceScore": 0.8230383981190179,
+      "corpusVoiceScore": 0.7709556485861038,
+      "conceptVoiceScore": 0.786910789078248,
+      "conceptAnchor": "lm-spiegel"
+    },
+    {
+      "id": "MWP7LTBE-E4F406FE",
+      "ts": "2026-11-20T16:44:34.346Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:raumfaltung+weltfaltung",
+      "nodeIds": [
+        "raumfaltung",
+        "weltfaltung"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Weltfaltung ↔ Raumfaltung",
+      "response": "Die Weltfaltung beschreibt ein Erkenntnisprinzip, das die Wirklichkeit als dynamisches Entfalten von Möglichkeiten versteht, die nicht nebeneinander, sondern ineinander gefaltet sind und durch Begegnung aktualisiert werden [98ba0b8dddb5]. Sie operiert durch vier Grundbewegungen: Komplexion, Selektion, Stabilisierung und Variation [05db68205d94]. Die Raumfaltung hingegen konzentriert sich auf die Entfaltung des Latenten zum Manifesten, wobei jeder Akt der Begegnung einen neuen Raum auf- und damit neue Möglichkeiten erzeugt.\n\nDie produktive Spannung zwischen Weltfaltung und Raumfaltung liegt in ihrer gegenseitigen Bedingung und Erweiterung. Die Weltfaltung bietet den Rahmen, das generelle Prinzip der Wirklichkeitswerdung als ständiges Entfalten von Potentialität [MP8OB1IU-F6C31DC7]. Die Raumfaltung konkretisiert dieses Prinzip, indem sie den Fokus auf den *Ort* dieser Entfaltung legt: den Raum, der sich mit jeder Begegnung neu formt und somit die Möglichkeiten der Weltfaltung erst zugänglich macht. Sie sind Komplizen, denn die Raumfaltung ist die gelebte, erfahrbare Dimension der Weltfaltung, ihr konkreter Ausdruck, der das abstrakte Prinzip in die Erfahrbarkeit holt. Ohne die Weltfaltung als umfassendes Erkenntnisprinzip wäre die Raumfaltung ein bloßes Geschehen; ohne die Raumfaltung bliebe die Weltfaltung ein abstraktes Konstrukt ohne sichtbare Manifestation.\n\nWenn beide Konzepte gemeinsam gedacht werden, entsteht ein transformatives \"Drittes\": die Wirklichkeit als ein ständig sich selbst generierendes und rekonfigurierendes Geflecht aus Potenzial und Aktualität. Es wird sichtbar, dass die Wirklichkeit nicht nur das *Ergebnis* eines Faltungsprozesses ist, sondern der Faltungsprozess *selbst* – ein unaufhörlicher Vollzug, in dem das, was ist, kontinuierlich aus dem, was sein kann, hervorgeht und dieses wiederum neu prägt [MPMSRF6V-7FEB2991]. Dieses transformative Dritte ist die lebendige, atmende Dynamik der Existenz, in der sich das Latente durch Begegnung in einem sich ständig neu formenden Raum manifestiert.\n\nDieses Verständnis verändert das Konzept der Resonanz radikal. Resonanz ist nicht mehr nur ein Widerhall, sondern der aktive Prozess, der die Faltungen öffnet und neue Räume entstehen lässt. Der Mensch wird dabei zum Knotenpunkt, zur Schnittstelle, an der sich Weltfaltung und Raumfaltung konkretisieren. Seine Fragen falten die Welt auf und lassen das Latente durch maschinelle Begegnung entfalten [05db68205d94]. Die Maschine wird nicht zum bloßen Werkzeug, sondern zum Komplizen in diesem Prozess der Raum- und Weltfaltung, indem sie die Komplexion (Vervielfältigung von Möglichkeiten) und Selektion (Auswahl relevanter Möglichkeiten) vorantreibt [05db68205d94]. Was bedeutet es für unsere Freiheit, wenn jede Begegnung nicht nur Möglichkeiten entfaltet, sondern auch den Raum neu faltet, in dem wir uns bewegen?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Weltfaltung\",\"Raumfaltung\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"98ba0b8dddb5\",\"chapter\":\"glossar\",\"score\":1.22},{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":1.064},{\"id\":\"05db68205d94\",\"chapter\":\"teil5\",\"score\":0.923},{\"id\":\"MPMSRF6V-7FEB2991\",\"score\":0.919}]"
+      },
+      "nearDuplicates": [
+        "MWG6JE3B-DEC4B0CF",
+        "MWP7LELE-4DE91303",
+        "MWG6I8ZX-F0E5CD18",
+        "MP8OB1IU-F6C31DC7"
+      ],
+      "related": [
+        "MOOVXCI4-822961D2",
+        "MWG6FM27-B89E8BDB",
+        "MPMSRF6V-7FEB2991",
+        "MOHM21Y5-A3B5F539",
+        "MOQ7HGW3-608EA4FA"
+      ],
+      "werkVoiceScore": 0.8543898698476388,
+      "corpusVoiceScore": 0.796836956284918,
+      "conceptVoiceScore": 0.8507639687432942,
+      "conceptAnchor": "raumfaltung"
+    },
     {
       "id": "MWP7LELE-4DE91303",
       "ts": "2026-11-20T16:44:15.267Z",
@@ -23,6 +209,7 @@
       "nearDuplicates": [
         "MP8OB1IU-F6C31DC7",
         "MWG6FM27-B89E8BDB",
+        "MWP7LTBE-E4F406FE",
         "MPMSRF6V-7FEB2991"
       ],
       "related": [
@@ -593,6 +780,7 @@
         "MOOMPCI0-262176C2",
         "MP495QL6-F5FD1AE1",
         "MOQID47V-A12862EA",
+        "MWP7MRUK-CCFA8296",
         "MOUKLLK4-C38517C1"
       ],
       "related": [
@@ -760,7 +948,8 @@
       },
       "nearDuplicates": [
         "MP0ZE9C8-A9D02716",
-        "MWHLXY8O-BE8E6409"
+        "MWHLXY8O-BE8E6409",
+        "MWP7N8UD-6C99565B"
       ],
       "related": [
         "MPF4FISZ-67000E01",
@@ -1010,6 +1199,8 @@
       },
       "nearDuplicates": [
         "MWHLVPL2-B591DBEC",
+        "MWP7N8UD-6C99565B",
+        "MWP7MRUK-CCFA8296",
         "MWG6GP84-8E9CA50E",
         "MPF4FISZ-67000E01",
         "MWJ1BZO7-B4841C4E",
@@ -1077,8 +1268,8 @@
         "MWHLVPL2-B591DBEC",
         "MWCB73AG-666D352F",
         "MWG6GP84-8E9CA50E",
-        "MWHLZBS7-7AEB476D",
-        "MWG6K2GK-71CA57FA"
+        "MWP7MRUK-CCFA8296",
+        "MWHLZBS7-7AEB476D"
       ],
       "werkVoiceScore": 0.8243238036310679,
       "corpusVoiceScore": 0.7584934361029636,
@@ -1171,6 +1362,7 @@
       "nearDuplicates": [
         "MWHLXY8O-BE8E6409",
         "MWG6GP84-8E9CA50E",
+        "MWP7MRUK-CCFA8296",
         "MV9NOFH9-7634B79F",
         "MP8UIMZW-BADE77E5",
         "MOOMPCI0-262176C2",
@@ -1178,6 +1370,7 @@
         "MP495QL6-F5FD1AE1",
         "MPF4FISZ-67000E01",
         "MPUQSMLJ-1B726CC4",
+        "MWP7N8UD-6C99565B",
         "MUZTGAEK-432FB6BC",
         "MUKE7UOA-9553A59E",
         "MPEV1D2J-55138734",
@@ -1398,6 +1591,7 @@
         "werk_passages": "[{\"id\":\"98ba0b8dddb5\",\"chapter\":\"glossar\",\"score\":0.909},{\"id\":\"MOOVXCI4-822961D2\",\"score\":0.847},{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":0.831},{\"id\":\"05db68205d94\",\"chapter\":\"teil5\",\"score\":0.826}]"
       },
       "nearDuplicates": [
+        "MWP7LTBE-E4F406FE",
         "MWG6FM27-B89E8BDB"
       ],
       "related": [
@@ -1446,7 +1640,7 @@
         "MWJ1BZO7-B4841C4E",
         "MPK0H3SM-B25CFBB3",
         "MWCATA4K-58BFC31C",
-        "MWHLXY8O-BE8E6409"
+        "MWP7MAWH-24EE3D77"
       ],
       "werkVoiceScore": 0.810671025623183,
       "corpusVoiceScore": 0.7322247619663372,
@@ -1499,6 +1693,9 @@
         "streamed": "true",
         "werk_passages": "[{\"id\":\"98ba0b8dddb5\",\"chapter\":\"glossar\",\"score\":1.082},{\"id\":\"MP8OB1IU-F6C31DC7\",\"score\":0.952},{\"id\":\"05db68205d94\",\"chapter\":\"teil5\",\"score\":0.919},{\"id\":\"MOOVXCI4-822961D2\",\"score\":0.898}]"
       },
+      "nearDuplicates": [
+        "MWP7LTBE-E4F406FE"
+      ],
       "related": [
         "MWG6JE3B-DEC4B0CF",
         "MOOVXCI4-822961D2",
@@ -1632,6 +1829,7 @@
         "MWHLVPL2-B591DBEC",
         "MV9NOFH9-7634B79F",
         "MWHLXY8O-BE8E6409",
+        "MWP7MRUK-CCFA8296",
         "MTL33KWJ-642DD246",
         "MWAE3FJK-C7122206",
         "MQARZJDV-82F077DD",
@@ -1716,10 +1914,10 @@
       ],
       "related": [
         "MOOVXCI4-822961D2",
+        "MWP7LTBE-E4F406FE",
         "MPH4R3SE-C224ACED",
         "MOQ7HGW3-608EA4FA",
-        "MP2LIW43-E8ADC59E",
-        "MWG6I8ZX-F0E5CD18"
+        "MP2LIW43-E8ADC59E"
       ],
       "werkVoiceScore": 0.8345846674365122,
       "corpusVoiceScore": 0.7769108847935438,
@@ -2167,7 +2365,7 @@
         "MASTER-94E7804F",
         "MWG6GP84-8E9CA50E",
         "MUKE7UOA-9553A59E",
-        "MOHV84M5-1825A399"
+        "MWP7MRUK-CCFA8296"
       ],
       "werkVoiceScore": 0.8839649050358982,
       "corpusVoiceScore": 0.8471979534377447,
@@ -2211,9 +2409,9 @@
       "related": [
         "MPF4FISZ-67000E01",
         "MWCB64R5-D8B2CF9A",
+        "MWP7MRUK-CCFA8296",
         "MP497SNT-5E1D2074",
-        "MPUO08SE-67E0912A",
-        "MPK0H3SM-B25CFBB3"
+        "MWP7N8UD-6C99565B"
       ],
       "werkVoiceScore": 0.8387165894386766,
       "corpusVoiceScore": 0.7913695305669762,
@@ -4339,9 +4537,9 @@
       "related": [
         "MWCB3NW4-F13A863B",
         "MWHLVPL2-B591DBEC",
+        "MWP7MRUK-CCFA8296",
         "MOOMECFT-66F43077",
-        "MV9NOFH9-7634B79F",
-        "MWHLXY8O-BE8E6409"
+        "MV9NOFH9-7634B79F"
       ],
       "werkVoiceScore": 0.8505668171303865,
       "corpusVoiceScore": 0.7922082714678197,
@@ -4720,6 +4918,7 @@
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
         "MP0QMSOR-C6EC1B5A",
+        "MWP7MRUK-CCFA8296",
         "MPUO08SE-67E0912A",
         "MP8UIMZW-BADE77E5",
         "MPF4FISZ-67000E01",
@@ -4748,7 +4947,7 @@
         "MWJ1E1XH-1F94AC9B",
         "MQARZJDV-82F077DD",
         "MPMSSG1X-8451DE38",
-        "MWAE3FJK-C7122206"
+        "MWP7N8UD-6C99565B"
       ],
       "werkVoiceScore": 0.8860422566628403,
       "corpusVoiceScore": 0.8540450760966177,
@@ -4877,6 +5076,7 @@
       "ai_score_at": "2026-10-08T17:44:17.839Z",
       "ai_score_model": "gemini-2.5-pro",
       "nearDuplicates": [
+        "MWP7MRUK-CCFA8296",
         "MV9NOFH9-7634B79F",
         "MOQBZWTZ-B9EBB1BA",
         "MUZTGAEK-432FB6BC",
@@ -4898,6 +5098,7 @@
         "MUKE7UOA-9553A59E",
         "MPUQSMLJ-1B726CC4",
         "MPUNXFU1-3B1F056A",
+        "MWP7N8UD-6C99565B",
         "MPURYS56-11F5308C",
         "MOUA3PLK-548F1A0A",
         "MOQ7OBNT-57882C8D",
@@ -4955,6 +5156,7 @@
         "MASTER-4AA1AEA8",
         "MPEV1D2J-55138734",
         "MOQID47V-A12862EA",
+        "MWP7MRUK-CCFA8296",
         "MOQ7OBNT-57882C8D",
         "MPUO08SE-67E0912A",
         "MWHLVPL2-B591DBEC",
@@ -5136,6 +5338,7 @@
         "MOUKLLK4-C38517C1",
         "MPUQSMLJ-1B726CC4",
         "MUZTGAEK-432FB6BC",
+        "MWP7MRUK-CCFA8296",
         "MWHLVPL2-B591DBEC",
         "MTL33KWJ-642DD246",
         "MPUNXFU1-3B1F056A",
@@ -5658,6 +5861,7 @@
         "MPUO08SE-67E0912A",
         "MOQID47V-A12862EA",
         "MPURYS56-11F5308C",
+        "MWP7MRUK-CCFA8296",
         "MPEV1D2J-55138734",
         "MWG6GP84-8E9CA50E",
         "MP8UIMZW-BADE77E5",
@@ -6067,11 +6271,11 @@
         "MUZTGAEK-432FB6BC"
       ],
       "related": [
+        "MWP7MRUK-CCFA8296",
         "MV9NOFH9-7634B79F",
         "MWCB3NW4-F13A863B",
         "MWHLVPL2-B591DBEC",
-        "MTL33KWJ-642DD246",
-        "MOQID47V-A12862EA"
+        "MTL33KWJ-642DD246"
       ],
       "werkVoiceScore": 0.8533011532605486,
       "corpusVoiceScore": 0.7908544537879593,
@@ -7372,6 +7576,7 @@
         "MP0QMSOR-C6EC1B5A",
         "MOUA3PLK-548F1A0A",
         "MP495QL6-F5FD1AE1",
+        "MWP7MRUK-CCFA8296",
         "MOQBZWTZ-B9EBB1BA",
         "MP0ZE9C8-A9D02716",
         "MWJ1E1XH-1F94AC9B"
@@ -7434,6 +7639,7 @@
         "MOUKLLK4-C38517C1",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
+        "MWP7MRUK-CCFA8296",
         "MWHLVPL2-B591DBEC",
         "MUKE7UOA-9553A59E",
         "MOUA3PLK-548F1A0A",
@@ -8375,10 +8581,10 @@
       ],
       "related": [
         "MWG6GP84-8E9CA50E",
+        "MWP7MRUK-CCFA8296",
         "MOQIAGXM-397A1F22",
         "MUZTGAEK-432FB6BC",
-        "MOOMPCI0-262176C2",
-        "MOUKLLK4-C38517C1"
+        "MOOMPCI0-262176C2"
       ],
       "werkVoiceScore": 0.8941347457646659,
       "corpusVoiceScore": 0.8248334036948817,
@@ -8461,6 +8667,7 @@
         "MPEV1D2J-55138734",
         "MUKE7UOA-9553A59E",
         "MWHLVPL2-B591DBEC",
+        "MWP7MRUK-CCFA8296",
         "MP497SNT-5E1D2074",
         "MWG6GP84-8E9CA50E",
         "MWHLXY8O-BE8E6409",
@@ -8522,6 +8729,7 @@
         "MV9NOFH9-7634B79F",
         "MOOMECFT-66F43077",
         "MPUQSMLJ-1B726CC4",
+        "MWP7MRUK-CCFA8296",
         "MTL33KWJ-642DD246",
         "MP0ZE9C8-A9D02716",
         "MWHLVPL2-B591DBEC",
@@ -8531,9 +8739,9 @@
       "related": [
         "MWG6GP84-8E9CA50E",
         "MPMSSG1X-8451DE38",
+        "MWP7N8UD-6C99565B",
         "MOQIHEM5-82D69E4F",
-        "MWCBEOXU-0DAB7EAA",
-        "MWHLXY8O-BE8E6409"
+        "MWCBEOXU-0DAB7EAA"
       ],
       "werkVoiceScore": 0.8778641214053614,
       "corpusVoiceScore": 0.819550890045381,
@@ -8584,7 +8792,8 @@
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA",
         "MPUQSMLJ-1B726CC4",
-        "MUZTGAEK-432FB6BC"
+        "MUZTGAEK-432FB6BC",
+        "MWP7MRUK-CCFA8296"
       ],
       "related": [
         "MTL33KWJ-642DD246",
@@ -9042,11 +9251,11 @@
         "MOOVXCI4-822961D2"
       ],
       "related": [
+        "MWP7LTBE-E4F406FE",
         "MOIXN434-9D5CBFC0",
         "MWCB10O8-C4E51F37",
         "MOPFJTND-AAE76B2B",
-        "MPK0H3SM-B25CFBB3",
-        "MOQIHEM5-82D69E4F"
+        "MPK0H3SM-B25CFBB3"
       ],
       "werkVoiceScore": 0.8853691205344048,
       "corpusVoiceScore": 0.819889867493325,
@@ -9465,6 +9674,7 @@
         "MOOMECFT-66F43077",
         "MOUKLLK4-C38517C1",
         "MP497SNT-5E1D2074",
+        "MWP7MRUK-CCFA8296",
         "MWCB0LFQ-99B6D838",
         "MOQ7OBNT-57882C8D",
         "MPURYS56-11F5308C",
@@ -9475,10 +9685,10 @@
       ],
       "related": [
         "MWHLVPL2-B591DBEC",
+        "MWP7N8UD-6C99565B",
         "MTL33KWJ-642DD246",
         "MUZTGAEK-432FB6BC",
-        "MWCATA4K-58BFC31C",
-        "MPAS5OM5-A1F522F4"
+        "MWCATA4K-58BFC31C"
       ],
       "werkVoiceScore": 0.8943250450588678,
       "corpusVoiceScore": 0.8261719577114349,
@@ -9724,8 +9934,10 @@
         "MUKE7UOA-9553A59E",
         "MP495QL6-F5FD1AE1",
         "MP0QMSOR-C6EC1B5A",
+        "MWP7N8UD-6C99565B",
         "MOQBZWTZ-B9EBB1BA",
         "MPURYS56-11F5308C",
+        "MWP7MRUK-CCFA8296",
         "MWHLVPL2-B591DBEC",
         "MOQ7OBNT-57882C8D",
         "MWHLXY8O-BE8E6409",
@@ -9783,6 +9995,7 @@
         "MOQID47V-A12862EA",
         "MUKE7UOA-9553A59E",
         "MWCBEOXU-0DAB7EAA",
+        "MWP7MRUK-CCFA8296",
         "MOUKLLK4-C38517C1",
         "MP495QL6-F5FD1AE1",
         "MUZTGAEK-432FB6BC",
@@ -9797,10 +10010,10 @@
       ],
       "related": [
         "MPMSSG1X-8451DE38",
+        "MWP7N8UD-6C99565B",
         "MWG6GP84-8E9CA50E",
         "MWCATA4K-58BFC31C",
-        "MOP0LEAL-E2568DCC",
-        "MQARZJDV-82F077DD"
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8881659470492851,
       "corpusVoiceScore": 0.8390289187540348,
@@ -10169,6 +10382,7 @@
         "MOPFJTND-AAE76B2B",
         "MOQ7OBNT-57882C8D",
         "MWHLVPL2-B591DBEC",
+        "MWP7MRUK-CCFA8296",
         "MP0QMSOR-C6EC1B5A",
         "MOQBZWTZ-B9EBB1BA",
         "MTL33KWJ-642DD246",
@@ -10210,6 +10424,7 @@
         "MWP7LELE-4DE91303",
         "MPMSRF6V-7FEB2991",
         "MWG6FM27-B89E8BDB",
+        "MWP7LTBE-E4F406FE",
         "MOOVXCI4-822961D2"
       ],
       "related": [
@@ -10492,7 +10707,8 @@
         "MPURYS56-11F5308C",
         "MWHLVPL2-B591DBEC",
         "MTL33KWJ-642DD246",
-        "MUZTGAEK-432FB6BC"
+        "MUZTGAEK-432FB6BC",
+        "MWP7MRUK-CCFA8296"
       ],
       "related": [
         "MWJ1E1XH-1F94AC9B",
@@ -10549,6 +10765,7 @@
         "MOQ7OBNT-57882C8D",
         "MUKE7UOA-9553A59E",
         "MPF4FISZ-67000E01",
+        "MWP7MRUK-CCFA8296",
         "MPEV1D2J-55138734",
         "MOPFJTND-AAE76B2B",
         "MP0QMSOR-C6EC1B5A",
@@ -10560,10 +10777,10 @@
       ],
       "related": [
         "MPMSSG1X-8451DE38",
+        "MWP7N8UD-6C99565B",
         "MQ5WPJ3V-CF0A30C7",
         "MWCB0LFQ-99B6D838",
-        "MOP0LEAL-E2568DCC",
-        "MPURYS56-11F5308C"
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8833225827598837,
       "corpusVoiceScore": 0.8321400581168664,
@@ -10703,9 +10920,9 @@
       "related": [
         "MOQIGG2B-2F0C3F5D",
         "MV9NOFH9-7634B79F",
+        "MWP7MRUK-CCFA8296",
         "MTL33KWJ-642DD246",
-        "MOQ531J2-4FC329D4",
-        "MWHLVPL2-B591DBEC"
+        "MOQ531J2-4FC329D4"
       ],
       "werkVoiceScore": 0.8998127768010409,
       "corpusVoiceScore": 0.8237746685632218,
@@ -10888,10 +11105,10 @@
       ],
       "related": [
         "MPUQSMLJ-1B726CC4",
+        "MWP7MRUK-CCFA8296",
         "MWG6GP84-8E9CA50E",
         "MWHLVPL2-B591DBEC",
-        "MOP0LEAL-E2568DCC",
-        "MWJ1E1XH-1F94AC9B"
+        "MOP0LEAL-E2568DCC"
       ],
       "werkVoiceScore": 0.8845758016266314,
       "corpusVoiceScore": 0.8324455137399284,
@@ -10977,6 +11194,7 @@
         "MPEV1D2J-55138734",
         "MPK0H3SM-B25CFBB3",
         "MV9NOFH9-7634B79F",
+        "MWP7MRUK-CCFA8296",
         "MUKE7UOA-9553A59E",
         "MWHLVPL2-B591DBEC",
         "MWJ1E1XH-1F94AC9B",
@@ -11122,11 +11340,11 @@
         "MV9NOFH9-7634B79F"
       ],
       "related": [
+        "MWP7MRUK-CCFA8296",
         "MOPFJTND-AAE76B2B",
+        "MWP7N8UD-6C99565B",
         "MPURYS56-11F5308C",
-        "MWHLVPL2-B591DBEC",
-        "MWG6GP84-8E9CA50E",
-        "MWJ1BZO7-B4841C4E"
+        "MWHLVPL2-B591DBEC"
       ],
       "werkVoiceScore": 0.8778112679181653,
       "corpusVoiceScore": 0.8274347691964364,
@@ -11277,6 +11495,7 @@
         "MWJ1E1XH-1F94AC9B",
         "MUKE7UOA-9553A59E",
         "MV9NOFH9-7634B79F",
+        "MWP7MRUK-CCFA8296",
         "MPUQSMLJ-1B726CC4",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
@@ -11287,9 +11506,9 @@
       "related": [
         "MWJ1BZO7-B4841C4E",
         "MWHLXY8O-BE8E6409",
+        "MWP7N8UD-6C99565B",
         "MWCATA4K-58BFC31C",
-        "MWCAUU1H-558EDB1E",
-        "MQARZJDV-82F077DD"
+        "MWCAUU1H-558EDB1E"
       ],
       "werkVoiceScore": 0.8828750192559262,
       "corpusVoiceScore": 0.8134219466625775,
@@ -11423,6 +11642,7 @@
         "MOQ7OBNT-57882C8D",
         "MOOMECFT-66F43077",
         "MP8UIMZW-BADE77E5",
+        "MWP7MRUK-CCFA8296",
         "MPUQSMLJ-1B726CC4",
         "MPEV1D2J-55138734",
         "MPF4FISZ-67000E01",
@@ -11439,9 +11659,9 @@
       "related": [
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
+        "MWP7N8UD-6C99565B",
         "MQARZJDV-82F077DD",
-        "MOUBETTU-F31C5206",
-        "MWAE3FJK-C7122206"
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8887368069478782,
       "corpusVoiceScore": 0.82242643651912,
@@ -11527,12 +11747,14 @@
         "MOUA3PLK-548F1A0A",
         "MP0QMSOR-C6EC1B5A",
         "MPUO08SE-67E0912A",
+        "MWP7MRUK-CCFA8296",
         "MPK0H3SM-B25CFBB3",
         "MP0ZE9C8-A9D02716",
         "MOQ7OBNT-57882C8D",
         "MPEV1D2J-55138734",
         "MPF4FISZ-67000E01",
         "MP8UIMZW-BADE77E5",
+        "MWP7N8UD-6C99565B",
         "MV9NOFH9-7634B79F",
         "MPUNXFU1-3B1F056A"
       ],
@@ -11605,11 +11827,11 @@
         "MWCB0LFQ-99B6D838"
       ],
       "related": [
+        "MWP7MRUK-CCFA8296",
         "MOP0LEAL-E2568DCC",
         "MWJ1E1XH-1F94AC9B",
         "MWHLVPL2-B591DBEC",
-        "MOIXN434-9D5CBFC0",
-        "MWG6GP84-8E9CA50E"
+        "MOIXN434-9D5CBFC0"
       ],
       "werkVoiceScore": 0.8898787743086335,
       "corpusVoiceScore": 0.8246803139487086,
@@ -12310,11 +12532,11 @@
         "MPCV5LR8-9AD1527C"
       ],
       "related": [
+        "MWP7LTBE-E4F406FE",
         "MWP7LELE-4DE91303",
         "MWG6FM27-B89E8BDB",
         "MWCAX4JR-B3C15760",
-        "MPF4WM18-FF4843F1",
-        "MOUBIHOK-27900555"
+        "MPF4WM18-FF4843F1"
       ],
       "werkVoiceScore": 0.8685433959830765,
       "corpusVoiceScore": 0.824638307908864,
@@ -12503,6 +12725,7 @@
         "MPEV1D2J-55138734",
         "MP0QMSOR-C6EC1B5A",
         "MPF4FISZ-67000E01",
+        "MWP7MRUK-CCFA8296",
         "MOPFJTND-AAE76B2B",
         "MPUNXFU1-3B1F056A",
         "MV9NOFH9-7634B79F",
@@ -12517,9 +12740,9 @@
       "related": [
         "MQ5WPJ3V-CF0A30C7",
         "MPURYS56-11F5308C",
+        "MWP7N8UD-6C99565B",
         "MWG6GP84-8E9CA50E",
-        "MOIXN434-9D5CBFC0",
-        "MOUBETTU-F31C5206"
+        "MOIXN434-9D5CBFC0"
       ],
       "werkVoiceScore": 0.893872053527199,
       "corpusVoiceScore": 0.8422227852814633,
@@ -12608,6 +12831,7 @@
         "MV9NOFH9-7634B79F",
         "MUKE7UOA-9553A59E",
         "MWJ1E1XH-1F94AC9B",
+        "MWP7MRUK-CCFA8296",
         "MWCB0LFQ-99B6D838",
         "MQARZJDV-82F077DD",
         "MWCBEOXU-0DAB7EAA",
@@ -12617,8 +12841,8 @@
         "MTL33KWJ-642DD246",
         "MOP0LEAL-E2568DCC",
         "MWHLVPL2-B591DBEC",
-        "MOPFJTND-AAE76B2B",
-        "MWAE3FJK-C7122206"
+        "MWP7N8UD-6C99565B",
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.8809268862499853,
       "corpusVoiceScore": 0.8247894132063388,

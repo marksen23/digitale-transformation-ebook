@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-20T16:44:42.808Z",
+  "generatedAt": "2026-11-20T16:46:08.561Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 25,
+      "count": 27,
       "endpoints": {
-        "path-analyse": 19,
+        "path-analyse": 21,
         "analyse": 6
       }
     },
@@ -40,9 +40,9 @@
       }
     },
     "dasein": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
-        "path-analyse": 13,
+        "path-analyse": 14,
         "analyse": 3
       }
     },
@@ -176,10 +176,10 @@
       }
     },
     "existenz": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "analyse": 4,
-        "path-analyse": 2
+        "path-analyse": 3,
+        "analyse": 4
       }
     },
     "wesen": {
@@ -191,16 +191,16 @@
       }
     },
     "selbst": {
-      "count": 18,
+      "count": 19,
       "endpoints": {
-        "path-analyse": 12,
+        "path-analyse": 13,
         "analyse": 6
       }
     },
     "andere": {
-      "count": 10,
+      "count": 12,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 5,
         "dialog": 1,
         "analyse": 6
       }
@@ -236,23 +236,23 @@
       }
     },
     "lm-spiegel": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "analyse": 5,
-        "path-analyse": 5
+        "path-analyse": 6,
+        "analyse": 5
       }
     },
     "lm-begegnung": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 7,
         "analyse": 3
       }
     },
     "lm-scheitern": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 3,
+        "path-analyse": 4,
         "dialog": 2,
         "analyse": 4
       }
@@ -280,10 +280,10 @@
       }
     },
     "transformatives-drittes": {
-      "count": 4,
+      "count": 6,
       "endpoints": {
-        "analyse": 3,
-        "path-analyse": 1
+        "path-analyse": 3,
+        "analyse": 3
       }
     },
     "entfremdung": {
@@ -335,31 +335,34 @@
       }
     },
     "weltfaltung": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
-        "analyse": 5,
+        "analyse": 6,
         "path-analyse": 1
       }
     },
     "schatten": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 5,
         "dialog": 1
       }
     },
     "licht": {
-      "count": 6,
+      "count": 7,
       "endpoints": {
+        "path-analyse": 1,
         "analyse": 5,
         "dialog": 1
       }
     },
     "raumfaltung": {
-      "count": 4,
+      "count": 6,
       "endpoints": {
-        "dialog": 1,
-        "analyse": 3
+        "path-analyse": 1,
+        "analyse": 4,
+        "dialog": 1
       }
     },
     "wirklichkeit": {
