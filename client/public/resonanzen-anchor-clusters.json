@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:56:23.263Z",
+  "generatedAt": "2026-11-20T16:58:03.973Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -163,6 +163,42 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:raumfaltung+weltfaltung",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWP81YZO-24DCE87C",
+        "MWP7O1LR-9E27750E"
+      ],
+      "lastVariantTs": "2026-11-20T16:57:08.196Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:transformatives-drittes",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWP81IWI-5311D00B",
+        "MWP7OI4B-71BADB55"
+      ],
+      "lastVariantTs": "2026-11-20T16:56:47.346Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:licht+schatten",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWP814CF-E3AF9641",
+        "MWP7ZZFB-4CCC5381"
+      ],
+      "lastVariantTs": "2026-11-20T16:56:28.479Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:band2-kap4",
       "endpoint": "chapter",
       "variantIds": [
@@ -296,8 +332,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 236,
-    "withMultipleVariants": 21,
+    "totalAnchors": 238,
+    "withMultipleVariants": 24,
     "withMaster": 19,
     "staleMasters": 2
   }

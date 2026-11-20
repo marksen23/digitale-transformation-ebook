@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T16:56:22.036Z",
+  "generatedAt": "2026-11-20T16:58:01.079Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 27,
@@ -169,9 +169,9 @@
       }
     },
     "werden": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "dialog": 2,
+        "dialog": 3,
         "path-analyse": 3,
         "analyse": 2
       }
@@ -223,9 +223,9 @@
       }
     },
     "öffnung": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "dialog": 1,
+        "dialog": 2,
         "analyse": 1,
         "path-analyse": 5
       }
@@ -275,17 +275,17 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "dialog": 2,
         "analyse": 5,
-        "dialog": 1,
         "path-analyse": 4
       }
     },
     "transformatives-drittes": {
-      "count": 7,
+      "count": 8,
       "endpoints": {
-        "dialog": 1,
+        "dialog": 2,
         "path-analyse": 3,
         "analyse": 3
       }
@@ -339,49 +339,49 @@
       }
     },
     "weltfaltung": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "analyse": 6,
         "path-analyse": 1
       }
     },
     "schatten": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "dialog": 2,
+        "dialog": 3,
         "path-analyse": 1,
         "analyse": 5
       }
     },
     "licht": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "dialog": 2,
+        "dialog": 3,
         "path-analyse": 1,
         "analyse": 5
       }
     },
     "raumfaltung": {
-      "count": 8,
+      "count": 10,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 5,
         "path-analyse": 1,
         "analyse": 4
       }
     },
     "wirklichkeit": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "dialog": 1,
+        "dialog": 2,
         "analyse": 8,
         "path-analyse": 1
       }
     },
     "moeglichkeit": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
-        "dialog": 2,
+        "dialog": 3,
         "analyse": 5,
         "path-analyse": 1
       }

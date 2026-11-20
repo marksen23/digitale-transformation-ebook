@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T09:05:50.605Z",
+  "generatedAt": "2026-11-20T16:58:01.065Z",
   "baseline": {
     "MPF4FISZ-67000E01": {
       "neighbors": [
@@ -424,6 +424,14 @@
         "MWCANGSQ-6CC53140"
       ],
       "computedAt": "2026-11-16T09:05:50.551Z"
+    },
+    "MWP81IWI-5311D00B": {
+      "neighbors": [
+        "MWP7OI4B-71BADB55",
+        "MWP80FKW-BE8B476E",
+        "MWJEY6W3-C4E77F94"
+      ],
+      "computedAt": "2026-11-20T16:58:01.007Z"
     }
   }
 }

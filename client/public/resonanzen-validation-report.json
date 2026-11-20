@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T16:56:15.488Z",
-  "filesChecked": 440,
+  "generatedAt": "2026-11-20T16:57:54.614Z",
+  "filesChecked": 447,
   "errors": 0,
-  "warnings": 61,
+  "warnings": 68,
   "issues": [
     {
       "level": "warning",
@@ -234,6 +234,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/_ffnung+raumfaltung/2026-11-20-MWP82B5U-9D2E9F77.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 10ff7b21ee2682ef, computed 4c0ab622313162c3 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/andere+zeit/2026-11-15-MWHLWXJ6-FBB227D8.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 3e9366ea316e15f3, computed 663ccf2b6038496c — Tampering oder nachträgliche Edit?"
@@ -258,15 +264,39 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/licht+schatten/2026-11-20-MWP814CF-E3AF9641.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 598557008cdbc2ed, computed 2cf5281bf46894a7 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/moeglichkeit+raumfaltung/2026-11-16-MWJ1GVRC-945E92E3.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 535586f2feab8a62, computed 429091adbcaa2f05 — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/moeglichkeit+wirklichkeit/2026-11-20-MWP82NI3-4EAF5580.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 6b7defda8c19e85c, computed 2e560eb9dd649186 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/raumfaltung+freiheit/2026-11-20-MWP80FKW-BE8B476E.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 4657a5c977713e62, computed 9b5159b794789823 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/raumfaltung+weltfaltung/2026-11-20-MWP7O1LR-9E27750E.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 6b59e31c2f169ac9, computed 8d21768cbe1aeb50 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/raumfaltung+weltfaltung/2026-11-20-MWP81YZO-24DCE87C.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected a86de18b9a741228, computed f04f4fb33f92bea7 — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
@@ -285,6 +315,18 @@
       "file": "content/resonanzen/raw/dialog/transformatives-drittes/2026-11-20-MWP7OI4B-71BADB55.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 9312281d57a1492d, computed 0f2af57c4bce9a2c — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/transformatives-drittes/2026-11-20-MWP81IWI-5311D00B.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 61aa36f8408c62d1, computed 15eda2a27b631004 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/weltfaltung/2026-11-20-MWP80SJC-31660D4D.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected ca38465370a30b2c, computed 8b32ca4d85278e43 — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
@@ -375,7 +417,7 @@
     "byEndpoint": {
       "analyse": 106,
       "chapter": 64,
-      "dialog": 63,
+      "dialog": 70,
       "path-analyse": 64,
       "enkidu": 68,
       "graph-chat": 51,
@@ -384,7 +426,7 @@
     },
     "byStatus": {
       "published": 164,
-      "raw": 198,
+      "raw": 205,
       "rejected": 24,
       "approved": 54
     },
