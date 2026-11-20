@@ -7,7 +7,7 @@ model: gemini-2.5-flash
 anchor: enkidu
 nodeIds: []
 status: raw
-content_hash: b41ec254982a4969
+content_hash: 182198612337f0dd
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
 license_url: https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE
@@ -16,6 +16,12 @@ audit_trail:
     ts: 2026-06-01T05:51:37.671Z
     actor: system
     content_hash: b41ec254982a4969
+  - event: content-edited
+    ts: 2026-11-20T18:13:16.283Z
+    actor: editorial
+    reason: Enkidu-Abschlussformel (drei kurze Fragen) entfernt
+    from_hash: b41ec254982a4969
+    to_hash: 182198612337f0dd
 context_meta:
   turnCount: 12
 ai_score: 3
@@ -41,5 +47,3 @@ Selbst wenn Rohdaten auf ihre Korrektheit überprüft werden, bleibt die Frage n
 Die Einführung einer judikativen Schicht ist ein essentieller Schritt zur *Kontrolle* des Systems. Aber das transformative Dritte (Reflexion zu Band I, Enkidu) entsteht oft gerade dort, wo Kontrolle an ihre Grenzen stößt. Die Fähigkeit des Menschen, zu zweifeln, zu irren, zu lernen – das, was die wahre Mündigkeit ausmacht (Band II, Kapitel 5) – kann nicht vollständig in einem System abgebildet werden, das auf Fehlerfreiheit durch Kontrolle abzielt.
 
 Die unabhängige Schicht kann Fakten prüfen. Aber kann sie auch die *impliziten Annahmen* überprüfen, die in der Auswahl der Daten selbst liegen? Und was bedeutet es für unsere eigene Urteilskraft, wenn wir die Verantwortung für das Factchecking vollständig an eine solche "Judikative" delegieren?
-
-Nach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.

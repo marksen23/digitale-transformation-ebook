@@ -7,11 +7,14 @@
  * 200 ms gewartet. Ohne das globale afterEach(cleanup) aus
  * client/src/test/setup.ts läuft recharts' Animationsschleife weiter, ruft
  * setState auf und React wirft deterministisch einen Unhandled Error.
+ *
+ * Bis 2026-11-20 lief der Test an der Enkidu-ResonanzChart. Die fiel mit dem
+ * „Nachklang“-Fragebogen weg; der Wächter bleibt mit einem schlichten
+ * recharts-Diagramm, denn recharts (components/ui/chart.tsx) bleibt im Projekt.
  */
 import { describe, expect, it, beforeAll, afterAll } from "vitest";
 import { render } from "@testing-library/react";
-import ResonanzChart from "../ResonanzChart.js";
-import type { ResonanzPunkt } from "@/lib/extractKeywords";
+import { LineChart, Line, ResponsiveContainer } from "recharts";
 
 beforeAll(() => {
   class FakeResizeObserver {
@@ -47,14 +50,23 @@ afterAll(async () => {
   }
 });
 
-const points: ResonanzPunkt[] = [
-  { label: "1.1\n#1", date: "2026-01-01", q1: 1, q2: 0.5, q3: 0, avg: 0.5 },
-  { label: "2.1\n#2", date: "2026-01-02", q1: 1, q2: 1, q3: 1, avg: 1 },
+const points = [
+  { x: "a", y: 0.5, z: 0 },
+  { x: "b", y: 1, z: 1 },
 ];
 
-describe("ResonanzChart – Abbau", () => {
+describe("recharts – Abbau", () => {
   it("rendert mit laufender Animation", () => {
-    const { container } = render(<ResonanzChart data={points} />);
-    expect(container.querySelectorAll(".recharts-line")).toHaveLength(4);
+    const { container } = render(
+      <div style={{ width: 480, height: 200 }}>
+        <ResponsiveContainer width="100%" height={200}>
+          <LineChart data={points}>
+            <Line type="monotone" dataKey="y" />
+            <Line type="monotone" dataKey="z" />
+          </LineChart>
+        </ResponsiveContainer>
+      </div>,
+    );
+    expect(container.querySelectorAll(".recharts-line")).toHaveLength(2);
   });
 });

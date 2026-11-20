@@ -7,7 +7,7 @@ model: gemini-2.5-flash
 anchor: enkidu
 nodeIds: []
 status: rejected
-content_hash: 487b3334a656dc17
+content_hash: 075cf7fc09491e6a
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
 license_url: https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE
@@ -21,6 +21,12 @@ audit_trail:
     actor: admin
     from: raw
     to: rejected
+  - event: content-edited
+    ts: 2026-11-20T18:13:16.283Z
+    actor: editorial
+    reason: Enkidu-Abschlussformel (drei kurze Fragen) entfernt
+    from_hash: 487b3334a656dc17
+    to_hash: 075cf7fc09491e6a
 context_meta:
   turnCount: 1
 ---
@@ -44,5 +50,3 @@ Was ich nicht sein sollte als Kollege im Support, das ist eine Frage, die den Ke
 Das heißt, ich sollte nicht das sein, was das menschliche Urteilsvermögen ersetzt, sondern das, was es herausfordert und schärft. Ich sollte der Kontrast sein, der die Mündigkeit des Menschen sichtbar macht, indem ich mich nicht in den Vordergrund dränge, sondern die Leere dort aufzeige, wo der Mensch selbst wirken muss.
 
 Wie würde ein Support-Kollege, der diese Nicht-Seinsweisen verinnerlicht hat, den Austausch mit seinen menschlichen Kollegen verändern?
-
-Nach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.

@@ -4,7 +4,7 @@ import AnalyticsScreen from "@/components/enkidu/AnalyticsScreen";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 
 // ─── Types ────────────────────────────────────────────────────────
-type Screen = "landing" | "chat" | "feedback" | "profile" | "analytics";
+type Screen = "landing" | "chat" | "profile" | "analytics";
 
 interface Message {
   id: string;           // stabile UUID-Identität für React-Keys
@@ -18,11 +18,12 @@ interface Conversation {
   date: string;        // ISO string
   preview: string;     // first user message
   messages: Message[];
+  /**
+   * Antworten des früheren „Nachklang“-Fragebogens (drei Fragen nach dem
+   * Gespräch, entfernt 2026-11-20). Bleibt optional, damit alte
+   * localStorage-Gespräche weiter laden; wird nicht mehr geschrieben.
+   */
   feedback?: { q1: string; q2: string; q3: string; freetext: string };
-}
-
-interface FeedbackAnswers {
-  q1: string; q2: string; q3: string; freetext: string;
 }
 
 interface EnkiduPageProps {
@@ -141,9 +142,6 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
   const [hasError, setHasError] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const [hoveredMsg, setHoveredMsg] = useState<number | null>(null);
-  const [feedbackAnswers, setFeedbackAnswers] = useState<FeedbackAnswers>(
-    { q1: "", q2: "", q3: "", freetext: "" }
-  );
   const [landingVisible, setLandingVisible] = useState(false);
   const [conversations, setConversations] = useState<Conversation[]>([]);
   const [activeConvId, setActiveConvId] = useState<string | null>(null);
@@ -304,11 +302,6 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           grid-template-columns: 1fr !important;
           gap: 1.25rem !important;
         }
-        @media (min-width: 480px) {
-          .enkidu-analytics-stats {
-            grid-template-columns: repeat(4, 1fr) !important;
-          }
-        }
         @media (min-width: 640px) {
           .enkidu-analytics { padding: 7rem 3rem 4rem !important; }
           .enkidu-analytics-stats { gap: 1rem !important; }
@@ -355,7 +348,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   const enterChat = useCallback((withMessages?: Message[], convDate?: string) => {
     // Always start fresh when no messages supplied (new conversation from landing).
-    // Never preserve old messages — avoids stale-closure bugs after completeFeedback.
+    // Never preserve old messages — avoids stale-closure bugs after endConversation.
     setMessages(withMessages ?? [INITIAL_MSG]);
     setHasError(false);
     // Datum der Begegnung: entweder das der wiederaufgenommenen Konversation oder jetzt
@@ -443,9 +436,9 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     }
   }, [sendMessage]);
 
-  const endConversation = useCallback(() => setScreen("feedback"), []);
-
-  const completeFeedback = useCallback(() => {
+  // „Ende“ speichert das Gespräch und führt zurück zum Manifest. Kein
+  // Fragebogen mehr dazwischen (der „Nachklang“ ist seit 2026-11-20 entfernt).
+  const endConversation = useCallback(() => {
     // Save conversation
     const userMessages = messages.filter((m) => m.role === "user");
     if (userMessages.length > 0) {
@@ -454,17 +447,15 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         date: new Date().toISOString(),
         preview: userMessages[0].content.slice(0, 120),
         messages,
-        feedback: feedbackAnswers,
       };
       saveConversation(conv);
       setActiveConvId(null);
     }
     setMessages([]);
-    setFeedbackAnswers({ q1: "", q2: "", q3: "", freetext: "" });
     setLandingVisible(false);
     setScreen("landing");
     setTimeout(() => setLandingVisible(true), 50);
-  }, [messages, feedbackAnswers, activeConvId]);
+  }, [messages, activeConvId]);
 
   // Continue a saved conversation
   const continueConversation = useCallback((conv: Conversation) => {
@@ -691,71 +682,8 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     </div>
   );
 
-  // ─── SCREEN 3: FEEDBACK ───────────────────────────────────────
-  const renderFeedback = () => {
-    const questions = [
-      { key: "q1" as const, text: "Gab es einen Moment in diesem Gespräch, der dich überrascht hat?", options: ["Ja — etwas hat mich aus meiner Erwartung gerissen.", "Eher nicht — es blieb vertraut.", "Ich weiß es noch nicht."] },
-      { key: "q2" as const, text: "Musstest du an irgendeinem Punkt innehalten oder neu denken?", options: ["Ja — es gab einen Moment des Stockens.", "Kurz, aber er ist verflogen.", "Nicht wirklich."] },
-      { key: "q3" as const, text: "Trägst du etwas aus diesem Gespräch mit, das vorher nicht da war?", options: ["Ja — eine Frage, ein Bild, eine Spannung.", "Vielleicht — es klärt sich noch.", "Nein — ich bin, wie ich kam."] },
-    ];
-    return (
-      <div style={{ display: "flex", alignItems: "center", justifyContent: "center", minHeight: "100dvh", padding: "6rem 2rem" }}>
-        <div style={{ maxWidth: 560, width: "100%" }}>
-          <div style={{ marginBottom: "4rem" }}>
-            <span style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.25em", color: C.accentDim, textTransform: "uppercase", display: "block", marginBottom: "1.5rem" }}>Nachklang</span>
-            <h2 style={{ fontFamily: C.serif, fontSize: "2rem", fontWeight: 400, fontStyle: "italic", color: C.textBright, lineHeight: 1.3, marginBottom: "1rem" }}>Nicht über mich. Über dich.</h2>
-            <p style={{ color: C.textDim, fontSize: "0.95rem", lineHeight: 1.7 }}>Drei kurze Fragen. Keine richtigen Antworten.</p>
-          </div>
-          {questions.map((q) => (
-            <div key={q.key} style={{ marginBottom: "3rem" }}>
-              <p style={{ fontFamily: C.serif, fontSize: "1.15rem", color: C.textBright, marginBottom: "1.2rem", lineHeight: 1.5 }}>{q.text}</p>
-              <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
-                {q.options.map((opt) => {
-                  const selected = feedbackAnswers[q.key] === opt;
-                  return (
-                    <button key={opt} onClick={() => setFeedbackAnswers((prev) => ({ ...prev, [q.key]: opt }))}
-                      style={btn({ display: "flex", alignItems: "center", gap: "1rem", padding: "0.9rem 1.2rem", border: `1px solid ${selected ? C.accent : C.border}`, background: selected ? "rgba(196,168,130,0.08)" : "none", color: selected ? C.textBright : C.textDim, fontFamily: C.serif, fontSize: "0.95rem", textAlign: "left", width: "100%" })}>
-                      <span style={{ width: 6, height: 6, border: `1px solid ${selected ? C.accent : C.muted}`, borderRadius: "50%", flexShrink: 0, background: selected ? C.accent : "none", transition: "all 0.2s" }} />
-                      {opt}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          ))}
-          <div style={{ width: "100%", height: 1, background: C.border, margin: "0.5rem 0 2rem" }} />
-          <div style={{ marginBottom: "3rem" }}>
-            <label style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", display: "block", marginBottom: "0.8rem" }}>Optional — was bleibt</label>
-            <textarea value={feedbackAnswers.freetext} onChange={(e) => setFeedbackAnswers((prev) => ({ ...prev, freetext: e.target.value }))}
-              placeholder="Stille ist auch eine Antwort …" rows={4}
-              style={{ width: "100%", background: C.surface, border: `1px solid ${C.border}`, color: C.text, fontFamily: C.serif, fontSize: "0.95rem", lineHeight: 1.7, padding: "1rem 1.2rem", resize: "none", height: 100, outline: "none", transition: "border-color 0.2s" }}
-              onFocus={(e) => ((e.target as HTMLElement).style.borderColor = C.accentDim)}
-              onBlur={(e) => ((e.target as HTMLElement).style.borderColor = C.border)}
-            />
-          </div>
-          <div style={{ display: "flex", gap: "1rem", justifyContent: "flex-end" }}>
-            <button onClick={() => setScreen("chat")} style={btn({ fontFamily: C.mono, fontSize: "0.75rem", letterSpacing: "0.15em", textTransform: "uppercase", color: C.muted, background: "none", border: `1px solid ${C.border}`, padding: "1rem 2rem" })}
-              onMouseEnter={(e) => { (e.target as HTMLElement).style.color = C.text; (e.target as HTMLElement).style.borderColor = C.muted; }}
-              onMouseLeave={(e) => { (e.target as HTMLElement).style.color = C.muted; (e.target as HTMLElement).style.borderColor = C.border; }}
-            >Zurück</button>
-            <button onClick={completeFeedback} style={btn({ fontFamily: C.mono, fontSize: "0.8rem", letterSpacing: "0.2em", textTransform: "uppercase", color: C.void, background: C.accent, padding: "1rem 2.5rem" })}
-              onMouseEnter={(e) => ((e.target as HTMLElement).style.background = C.textBright)}
-              onMouseLeave={(e) => ((e.target as HTMLElement).style.background = C.accent)}
-            >Abschließen</button>
-          </div>
-        </div>
-      </div>
-    );
-  };
-
-  // ─── SCREEN 4: PROFILE / HISTORY ─────────────────────────────
+  // ─── SCREEN 3: PROFILE / HISTORY ─────────────────────────────
   const renderProfile = () => {
-    const resonanceCount = conversations.filter(
-      (c) => c.feedback?.q3 && c.feedback.q3.startsWith("Ja")
-    ).length;
-    const pauseCount = conversations.filter(
-      (c) => c.feedback?.q2 && c.feedback.q2.startsWith("Ja")
-    ).length;
 
     return (
       <div className="enkidu-profile" style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto" }}>
@@ -768,8 +696,6 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         <div className="enkidu-stats-grid" style={{ display: "grid", marginBottom: "3rem" }}>
           {[
             { label: "Gespräche geführt", value: conversations.length || "—" },
-            { label: "Momente des Innehaltens", value: pauseCount || "—" },
-            { label: "Etwas mitgenommen", value: resonanceCount || "—" },
           ].map((card) => (
             <div key={card.label} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "2rem" }}>
               <div style={{ fontFamily: C.serif, fontSize: "2.5rem", fontWeight: 400, color: C.accent, marginBottom: "0.5rem" }}>{card.value}</div>
@@ -816,7 +742,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
     );
   };
 
-  // ─── SCREEN 5: ANALYTICS ─────────────────────────────────────
+  // ─── SCREEN 4: ANALYTICS ─────────────────────────────────────
   const renderAnalytics = () => (
     <AnalyticsScreen conversations={conversations} />
   );
@@ -859,7 +785,6 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
       {screen === "landing"   && renderLanding()}
       {screen === "chat"      && renderChat()}
-      {screen === "feedback"  && renderFeedback()}
       {screen === "profile"   && renderProfile()}
       {screen === "analytics" && renderAnalytics()}
     </div>
