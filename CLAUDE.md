@@ -355,6 +355,21 @@ Entscheidung Markus: beides weg.
 
 ---
 
+### 13. „Enkidu ist auf dem Telefon nicht erreichbar“
+
+Ursache: Enkidu war lange nur ein Overlay in der Desktop-Lese-UI (`Home.tsx`,
+Burger und Taste `e`) und hatte **keine eigene Route**. Unter 768 px ersetzt
+`MobileCover` diese UI komplett; das Inhaltsverzeichnis (`MobileIndexOverlay`)
+und `AppFrame` führten getrennte Nav-Listen, beide ohne Enkidu.
+
+Fix: Route `/enkidu` (`App.tsx`, eigene Vollbild-Seite, Schließen führt nach
+`/`). Die Cluster kommen aus `client/src/lib/siteNav.ts` — AppFrame und der
+mobile Inhalt (plus die globale Bereichssuche) lesen dieselbe Quelle, Status
+bleibt nur im Mobile-Index. Wächter: `client/src/lib/__tests__/siteNav.test.ts`
+(AppFrame-Einträge dürfen im Mobile-Index nicht fehlen).
+
+---
+
 ## Korpus-Datenfluss
 
 ```

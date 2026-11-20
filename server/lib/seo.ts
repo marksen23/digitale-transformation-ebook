@@ -294,6 +294,7 @@ function headTags(opts: {
 // ─── Body-Snapshots (für JS-lose Crawler/Agenten) ────────────────────────
 const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/werk", label: "Das Werk lesen" },
+  { href: "/enkidu", label: "Enkidu — Begegnung" },
   { href: "/begriffsnetz", label: "Begriffsnetz" },
   { href: "/philosophie", label: "Philosophie" },
   { href: "/resonanzen", label: "Wissen (Korpus)" },

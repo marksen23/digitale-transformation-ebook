@@ -26,6 +26,7 @@ import OnboardingHint from "@/components/OnboardingHint";
 import { useT, useLocale, switchLocaleHref } from "@/i18n";
 import { GlobalSearch } from "@/components/search/GlobalSearch";
 import { useIsMobile } from "@/hooks/useMobile";
+import { navClustersFor } from "@/lib/siteNav";
 
 const FRAME_HEIGHT_TOOL = 48;
 const FRAME_HEIGHT_READING = 40;
@@ -57,51 +58,7 @@ function isReadingPath(path: string): boolean {
   return false;
 }
 
-interface NavItem { href: string; i18nKey: string; match: RegExp }
-interface NavCluster { key: string; i18nKey: string; items: NavItem[] }
-
-// Vier Absichten statt neun Namen (Redesign Phase 1): Navigation gruppiert
-// sich danach, was die Leserin vorhat, statt nach Feature-Namen. Jeder
-// bisherige Nav-Punkt bleibt erreichbar — nur die Zuordnung ist neu. Betrieb
-// (Kuration/Metrics/Health) taucht hier bewusst nicht mehr auf; wer den
-// Admin-Token hat, geht über /admin?token=… wie schon bisher.
-const CLUSTERS: NavCluster[] = [
-  {
-    key: "lesen", i18nKey: "nav.read",
-    items: [
-      { href: "/",        i18nKey: "nav.werk",    match: /^\/$/ },
-      { href: "/projekt",  i18nKey: "nav.projekt", match: /^\/projekt/ },
-    ],
-  },
-  {
-    key: "erkunden", i18nKey: "nav.cluster.erkunden",
-    items: [
-      // Übersicht zuerst: erklärt, dass die drei folgenden Seiten denselben
-      // Begriffsnetz aus drei Blickwinkeln zeigen (Redesign Phase 2, Teil 2).
-      { href: "/erkunden",     i18nKey: "nav.erkunden.overview", match: /^\/erkunden/ },
-      { href: "/begriffsnetz", i18nKey: "nav.begriffsnetz", match: /^\/begriffsnetz/ },
-      { href: "/landkarte",    i18nKey: "nav.landkarte",    match: /^\/landkarte/ },
-      { href: "/philosophie",  i18nKey: "nav.philosophie",  match: /^\/philosophie/ },
-    ],
-  },
-  {
-    key: "mitdenken", i18nKey: "nav.cluster.mitdenken",
-    items: [
-      { href: "/fragen",       i18nKey: "nav.fragen",       match: /^\/fragen/ },
-      { href: "/erkenntnisse", i18nKey: "nav.erkenntnisse", match: /^\/erkenntnisse/ },
-      { href: "/resonanzen",   i18nKey: "nav.resonanzen",   match: /^\/resonanzen/ },
-      { href: "/live",         i18nKey: "nav.live",         match: /^\/live/ },
-      { href: "/statistik",    i18nKey: "nav.statistik",    match: /^\/statistik/ },
-    ],
-  },
-  {
-    key: "meins", i18nKey: "nav.cluster.meins",
-    items: [
-      { href: "/mein-werk", i18nKey: "nav.meinwerk", match: /^\/mein-werk/ },
-      { href: "/blog",      i18nKey: "nav.blog",      match: /^\/blog/ },
-    ],
-  },
-];
+const CLUSTERS = navClustersFor("appFrame");
 
 export default function AppFrame({ children }: { children: React.ReactNode }) {
   const isDark = useEbookTheme();

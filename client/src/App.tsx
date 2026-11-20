@@ -36,6 +36,7 @@ const ErkundenPage = lazy(() => import("./pages/ErkundenPage"));
 const LesepfadePage = lazy(() => import("./pages/LesepfadePage"));
 const ZeitrafferPage = lazy(() => import("./pages/ZeitrafferPage"));
 const DialogePage = lazy(() => import("./pages/DialogePage"));
+const EnkiduPage = lazy(() => import("./pages/EnkiduPage"));
 
 // Wrapper: Sub-Pages laufen alle unter dem globalen AppFrame.
 // Home (/) bleibt aussen vor — seine eigene Reading-UI bestimmt das Frame.
@@ -49,6 +50,9 @@ function Router() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/en"} component={Home} />
+      <Route path={"/enkidu"}>
+        <Suspense fallback={fallback}><EnkiduPage /></Suspense>
+      </Route>
       {/* English locale routes — same components, locale resolved from URL prefix. */}
       <Route path={"/en/resonanzen"}>
         <Framed><Suspense fallback={fallback}><ResonanzenPage /></Suspense></Framed>
