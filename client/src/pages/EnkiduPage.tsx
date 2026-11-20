@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { useLocation } from "wouter";
 import { useSpeechRecognition, useSpeechSynthesis } from "@/hooks/useSpeech";
 import AnalyticsScreen from "@/components/enkidu/AnalyticsScreen";
 import { useEbookTheme } from "@/hooks/useEbookTheme";
@@ -27,7 +28,9 @@ interface Conversation {
 }
 
 interface EnkiduPageProps {
-  onClose: () => void;
+  /** Schließt das Overlay (Desktop-Home). Fehlt der Callback — typisch
+   *  auf der eigenen Route /enkidu — führt der Schließen-Knopf nach Hause. */
+  onClose?: () => void;
 }
 
 // ─── localStorage helpers ─────────────────────────────────────────
@@ -133,6 +136,8 @@ const INITIAL_MSG: Message = {
 
 // ─── Main Component ───────────────────────────────────────────────
 export default function EnkiduPage({ onClose }: EnkiduPageProps) {
+  const [, navigate] = useLocation();
+  const close = onClose ?? (() => navigate("/"));
   const isDark = useEbookTheme();
   const C: { readonly [K in keyof typeof C_DARK]: string } = isDark ? C_DARK : C_LIGHT;
   const [screen, setScreen] = useState<Screen>("landing");
@@ -772,7 +777,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
         </ul>
         <button
           className="enkidu-close-btn"
-          onClick={onClose}
+          onClick={close}
           title="Schließen"
         >×</button>
       </nav>
