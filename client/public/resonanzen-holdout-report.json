@@ -1,10 +1,52 @@
 {
-  "generatedAt": "2026-11-20T17:03:38.648Z",
-  "checked": 49,
-  "stable": 15,
-  "shifted": 25,
-  "drifted": 9,
+  "generatedAt": "2026-11-20T17:06:54.279Z",
+  "checked": 52,
+  "stable": 18,
+  "shifted": 23,
+  "drifted": 11,
   "details": [
+    {
+      "id": "MWP89KEO-68E6B82A",
+      "baseline": [
+        "MWCB2NN3-B5D0CDE0",
+        "MASTER-BC195439",
+        "MWP7PHMC-41844226"
+      ],
+      "current": [
+        "MWCB2NN3-B5D0CDE0",
+        "MASTER-BC195439",
+        "MWP7PHMC-41844226"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MWP89KEF-808B79A0",
+      "baseline": [
+        "MWCBBQKL-81492C6E",
+        "MWCB7L4B-A3A5FE6F",
+        "MOQIAGXM-397A1F22"
+      ],
+      "current": [
+        "MWCBBQKL-81492C6E",
+        "MWCB7L4B-A3A5FE6F",
+        "MOQIAGXM-397A1F22"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MWP89KE3-1A78C2BB",
+      "baseline": [
+        "MASTER-6469616C",
+        "MWP7PHM9-EC2123C1",
+        "MTDCKR2Q-05DCEB69"
+      ],
+      "current": [
+        "MASTER-6469616C",
+        "MWP7PHM9-EC2123C1",
+        "MTDCKR2Q-05DCEB69"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MWP888HX-9EF62C70",
       "baseline": [
@@ -209,11 +251,11 @@
         "MPMSSG1X-8451DE38"
       ],
       "current": [
+        "MWP89KE9-5CA26BFA",
         "MASTER-94E7804F",
-        "MWCATL9D-AD252234",
-        "MOQIHEM5-82D69E4F"
+        "MWCATL9D-AD252234"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MWCB8FV2-28E5FF61",
@@ -280,10 +322,10 @@
       ],
       "current": [
         "MUY7RXCI-012FC8A7",
-        "MWP7PHM0-4AECED9E",
-        "MPUSJLQF-F4BBBDD9"
+        "MWP89KEC-7F9911C4",
+        "MWP7PHM0-4AECED9E"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MUY7RXCI-012FC8A7",

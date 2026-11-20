@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:03:40.052Z",
+  "generatedAt": "2026-11-20T17:06:57.831Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -177,6 +177,18 @@
       "masterStale": false
     },
     {
+      "anchor": "analyse:antwort+resonanz",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWP89KEL-24505B6D",
+        "MWJEWOY7-62FCEE55"
+      ],
+      "lastVariantTs": "2026-11-20T17:03:02.541Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "dialog:raumfaltung+weltfaltung",
       "endpoint": "dialog",
       "variantIds": [
@@ -334,8 +346,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 246,
-    "withMultipleVariants": 24,
+    "totalAnchors": 253,
+    "withMultipleVariants": 25,
     "withMaster": 19,
     "staleMasters": 2
   }

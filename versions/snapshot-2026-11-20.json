@@ -1,7 +1,7 @@
 {
   "date": "2026-11-20",
-  "generatedAt": "2026-11-20T17:03:31.315Z",
-  "commit": "908dcc3a066bdc19652c2dbe5a60a426d5b7f3d3",
+  "generatedAt": "2026-11-20T17:07:04.344Z",
+  "commit": "ac362cd8d4c46c16f2e063116b20ea16779cb7e8",
   "filesChecked": 458,
   "aggregates": {
     "byEndpoint": {
@@ -40,5 +40,5 @@
   },
   "errors": 0,
   "warnings": 74,
-  "recovery": true
+  "recovery": false
 }

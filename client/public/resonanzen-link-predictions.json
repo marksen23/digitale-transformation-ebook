@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:03:38.662Z",
+  "generatedAt": "2026-11-20T17:06:54.295Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -71,18 +71,18 @@
     {
       "source": "antwort",
       "target": "resonanz",
-      "cooccurrence": 7,
+      "cooccurrence": 8,
       "endpoints": {
+        "analyse": 2,
         "dialog": 5,
-        "analyse": 1,
         "path-analyse": 1
       },
       "sampleEntryIds": [
+        "MWP89KEL-24505B6D",
         "MWJF8ASK-16B3DB91",
         "MWJEZNVB-D1367E36",
         "MWJEYZU2-D00A3283",
-        "MWJEY6W3-C4E77F94",
-        "MWJEXKQQ-CD62AAC3"
+        "MWJEY6W3-C4E77F94"
       ]
     },
     {
@@ -459,6 +459,44 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "selbst",
+      "target": "werden",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP89KEO-68E6B82A",
+        "MWCB8047-41980A2A"
+      ]
+    },
+    {
+      "source": "freiheit",
+      "target": "transaufklaerung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWP89KE9-5CA26BFA",
+        "MWJ1E1XH-1F94AC9B"
+      ]
+    },
+    {
+      "source": "entfremdung",
+      "target": "wirklichkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWP89KE6-947D0134",
+        "MWJ1DNAN-2193A848"
       ]
     },
     {
@@ -1130,8 +1168,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 427,
-    "candidatesCount": 86,
+    "totalPairs": 429,
+    "candidatesCount": 89,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

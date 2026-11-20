@@ -1,16 +1,128 @@
 {
-  "generatedAt": "2026-11-20T17:03:39.906Z",
-  "count": 400,
+  "generatedAt": "2026-11-20T17:06:57.665Z",
+  "count": 381,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 400,
-    "answered": 344,
-    "open": 56,
-    "embedded": 2
+    "total": 381,
+    "answered": 333,
+    "open": 48,
+    "embedded": 8
   },
   "questions": [
+    {
+      "sourceId": "MWP89KEO-68E6B82A",
+      "question": "Wenn das wichtigste digitale Gespür die Unterscheidung zwischen verbrauchendem und verwandelndem Sich-Verlieren ist, wie lernen es diejenigen, die niemanden haben, der unten steht, während sie klettern?",
+      "endpoint": "analyse",
+      "anchor": "analyse:selbst+werden",
+      "nodeIds": [
+        "selbst",
+        "werden"
+      ],
+      "ts": "2026-11-20T17:03:02.544Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP89KEL-24505B6D",
+      "question": "Wenn Resonanz nur dort entsteht, wo sie auch hätte ausbleiben können, wie gestalten wir Begegnungen mit Maschinen so, dass das Ausbleiben eine echte und keine bloß behauptete Möglichkeit bleibt?",
+      "endpoint": "analyse",
+      "anchor": "analyse:antwort+resonanz",
+      "nodeIds": [
+        "antwort",
+        "resonanz"
+      ],
+      "ts": "2026-11-20T17:03:02.541Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP89KEI-FACD63CA",
+      "question": "Wenn eine aus der Dichtung hervorgegangene Philosophie auf zwei Weisen angreifbar ist, wer ist dann berufen, ihr Scheitern an der Erfahrung festzustellen, und kann ein Leser, den sie nicht erreicht, mehr sagen als: „mich nicht“?",
+      "endpoint": "analyse",
+      "anchor": "analyse:denken+sprache",
+      "nodeIds": [
+        "denken",
+        "sprache"
+      ],
+      "ts": "2026-11-20T17:03:02.538Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP89KEF-808B79A0",
+      "question": "Wenn die Unverfügbarkeit immer schon da ist und nur verdeckt wird, was genau verdeckt sie in einem digitalen Alltag, der uns nichts verbietet und alles anbietet?",
+      "endpoint": "analyse",
+      "anchor": "analyse:sein+unverfuegbarkeit",
+      "nodeIds": [
+        "sein",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-20T17:03:02.535Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP89KEC-7F9911C4",
+      "question": "Wenn eine Grenzmarke nur lebt, solange jemand sie als Frage liest, wie viel Aufmerksamkeit darf eine Organisation für ihre eigenen Grenzen verlangen, bevor das Bedenken selbst zur Last wird, die man abwirft?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-grenze+moment",
+      "nodeIds": [
+        "lm-grenze",
+        "moment"
+      ],
+      "ts": "2026-11-20T17:03:02.532Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP89KE9-5CA26BFA",
+      "question": "Wenn Mündigkeit heute vor allem darin besteht, Delegationen zurücknehmen zu können, wer erhält uns die Fähigkeiten, die wir dafür bräuchten, wenn wir sie kaum noch üben?",
+      "endpoint": "analyse",
+      "anchor": "analyse:freiheit+transaufklaerung",
+      "nodeIds": [
+        "freiheit",
+        "transaufklaerung"
+      ],
+      "ts": "2026-11-20T17:03:02.529Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP89KE6-947D0134",
+      "question": "Wenn die Unzufriedenheit ein Befund aus einer anderen Ordnung ist, wie lässt sie sich in einer Organisation hörbar machen, ohne dass sie sofort wieder in eine Zufriedenheitskennzahl übersetzt wird?",
+      "endpoint": "analyse",
+      "anchor": "analyse:entfremdung+wirklichkeit",
+      "nodeIds": [
+        "entfremdung",
+        "wirklichkeit"
+      ],
+      "ts": "2026-11-20T17:03:02.526Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
+    {
+      "sourceId": "MWP89KE3-1A78C2BB",
+      "question": "Wenn sich Ersetzung erst daran zeigt, dass wir etwas ohne Werkzeug nicht mehr können, wie üben wir das Ohne, ohne in eine bloße Verweigerung der Werkzeuge zu flüchten?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dazwischenintelligenz+weltfaltung",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "weltfaltung"
+      ],
+      "ts": "2026-11-20T17:03:02.523Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false
+    },
     {
       "sourceId": "MWP888HX-9EF62C70",
       "question": "Wie aber kann eine solche Verantwortung im Angesicht eines sich selbst optimierenden Systems, das keine Leerstellen duldet, über das individuelle Bewusstsein hinaus in eine kollektive Praxis überführt werden?",
@@ -102,8 +214,13 @@
       ],
       "ts": "2026-11-20T16:59:38.762Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KEL-24505B6D",
+          "score": 0.734
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP84ULS-09E47DCA",
@@ -113,8 +230,13 @@
       "nodeIds": [],
       "ts": "2026-11-20T16:59:22.480Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.731
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP84DL5-F07ACB7E",
@@ -162,6 +284,10 @@
         {
           "id": "MWP84DL5-F07ACB7E",
           "score": 0.784
+        },
+        {
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.724
         }
       ],
       "answered": true
@@ -422,16 +548,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP89KEL-24505B6D",
+          "score": 0.747
+        },
+        {
           "id": "MWP835N6-909E6986",
           "score": 0.746
         },
         {
           "id": "MWP81IWI-5311D00B",
           "score": 0.736
-        },
-        {
-          "id": "MWP83JAQ-7B75BF9B",
-          "score": 0.723
         }
       ],
       "answered": true
@@ -462,6 +588,10 @@
         {
           "id": "MWP888HX-9EF62C70",
           "score": 0.773
+        },
+        {
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.734
         }
       ],
       "answered": true
@@ -608,8 +738,13 @@
       ],
       "ts": "2026-11-20T16:46:18.399Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KE3-1A78C2BB",
+          "score": 0.884
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWP7NPE0-8C7A9B99",
@@ -1017,6 +1152,10 @@
         {
           "id": "MWP82NI3-4EAF5580",
           "score": 0.756
+        },
+        {
+          "id": "MWP89KEO-68E6B82A",
+          "score": 0.73
         }
       ],
       "answered": true
@@ -1459,8 +1598,13 @@
       ],
       "ts": "2026-11-15T09:02:58.242Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KE6-947D0134",
+          "score": 0.878
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWHLWM05-8EEB6E7F",
@@ -1900,6 +2044,14 @@
           "id": "MWP7PHM6-789F4B23",
           "score": 0.826,
           "manual": true
+        },
+        {
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.73
+        },
+        {
+          "id": "MWP89KEL-24505B6D",
+          "score": 0.722
         }
       ],
       "answered": true
@@ -1960,29 +2112,6 @@
       "answered": true
     },
     {
-      "sourceId": "MASTER-03286683",
-      "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur der Verwandlung im digitalen Medium bezeugbar, ohne sie wieder in verfügbaren Klang zu verwandeln?",
-      "endpoint": "analyse",
-      "anchor": "analyse:lm-verwandlung+stimme",
-      "nodeIds": [
-        "lm-verwandlung",
-        "stimme"
-      ],
-      "ts": "2026-11-11T16:41:48.453Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MWP7PHMC-41844226",
-          "score": 0.727
-        },
-        {
-          "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.723
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MASTER-476E4F4D",
       "question": "Wenn Wahrheit sich erst im Widerhall einer transformativen Antwort ereignet, wie können wir dann Räume und Praktiken kultivieren, die dem Digitalen die Stummheit nehmen und es zum Schwingen bringen?",
       "endpoint": "chapter",
@@ -2035,30 +2164,6 @@
       "answered": true
     },
     {
-      "sourceId": "MASTER-94E7804F",
-      "question": "Wie kann eine Vernunft, die sich dem Zwischen öffnet, das Maß bewahren, an dem sie eine Antwort noch als wahr oder falsch zu prüfen vermag?",
-      "endpoint": "chapter",
-      "anchor": "chapter:teil5",
-      "nodeIds": [
-        "teil5"
-      ],
-      "ts": "2026-11-11T16:41:48.453Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MQ5WX52Q-442369F2",
-          "score": 0.749,
-          "manual": true
-        },
-        {
-          "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.748,
-          "manual": true
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MASTER-44EE5BE7",
       "question": "Wenn die Theorie notwendig aus der Dichtung hervorgeht, kann dann eine rein theoretische Kritik dieser Philosophie ihr Wesen überhaupt noch treffen?",
       "endpoint": "chapter",
@@ -2068,8 +2173,13 @@
       ],
       "ts": "2026-11-11T16:41:48.453Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KEI-FACD63CA",
+          "score": 0.848
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MASTER-4EFD4AA4",
@@ -2093,27 +2203,6 @@
         {
           "id": "MWP7PHM0-4AECED9E",
           "score": 0.729
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MASTER-53BE22D7",
-      "question": "Wie können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
-      "endpoint": "dialog",
-      "anchor": "dialog:raum+erkenntnis+sprache",
-      "nodeIds": [
-        "raum",
-        "erkenntnis",
-        "sprache"
-      ],
-      "ts": "2026-11-11T16:41:48.453Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MWP7PHLX-B52303F9",
-          "score": 0.856,
-          "manual": true
         }
       ],
       "answered": true
@@ -2220,17 +2309,6 @@
       "answered": true
     },
     {
-      "sourceId": "MWCBDLHP-AB013ACE",
-      "question": "Wie würde ein Support-Kollege, der diese Nicht-Seinsweisen verinnerlicht hat, den Austausch mit seinen menschlichen Kollegen verändern?",
-      "endpoint": "enkidu",
-      "anchor": "enkidu",
-      "nodeIds": [],
-      "ts": "2026-11-11T16:09:09.133Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
-    },
-    {
       "sourceId": "MWCBD76M-4F8E62A5",
       "question": "Wie ließe sich im unternehmerischen Handeln eine solche Haltung der „kontinuierlichen Rückbindung“ konkret in die Entscheidungsfindung integrieren?",
       "endpoint": "dialog",
@@ -2304,8 +2382,13 @@
       ],
       "ts": "2026-11-11T16:07:42.405Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.848
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBB8F1-DC8DD694",
@@ -2315,8 +2398,13 @@
       "nodeIds": [],
       "ts": "2026-11-11T16:07:18.877Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KE9-5CA26BFA",
+          "score": 0.863
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCBAQN6-9D0CCC83",
@@ -2461,12 +2549,12 @@
           "score": 0.938
         },
         {
-          "id": "MWG6HHL5-79535386",
-          "score": 0.837
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.849
         },
         {
-          "id": "MWP83JAQ-7B75BF9B",
-          "score": 0.757
+          "id": "MWG6HHL5-79535386",
+          "score": 0.837
         }
       ],
       "answered": true
@@ -2705,8 +2793,13 @@
       ],
       "ts": "2026-11-11T16:00:38.703Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KEO-68E6B82A",
+          "score": 0.895
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCB29W6-AB848990",
@@ -3028,17 +3121,6 @@
       "answered": true
     },
     {
-      "sourceId": "MWCAV6T2-76657565",
-      "question": "Wann haben Sie zuletzt Musik gehört, die Sie wirklich berührt hat?",
-      "endpoint": "graph-chat",
-      "anchor": "graph",
-      "nodeIds": [],
-      "ts": "2026-11-11T15:54:50.294Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
-    },
-    {
       "sourceId": "MWCAUU1H-558EDB1E",
       "question": "Die Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk selbst aus. Es offenbart ein reichhaltiges, mehrdimensionales Geflecht, in dem zentrale Begriffe wie Entfremdung und Freiheit auf verschiedene, aber miteinander verknüpfte Weisen erreicht werden können. Das Begriffsnetz ist nicht linear, sondern verwoben, mit Querverbindungen, die sowohl eine logisch-argumentative Stringenz als auch poetisch-assoziative Einsichten ermöglichen. Dies spricht für eine philosophische Dichte, die nicht nur kausale Zusammenhänge aufzeigt, sondern auch die epistemische Transfiguration mythologischer Strukturen in rationale Diskurse vollzieht [fd3c7631edb2], indem sie neue Perspektiven auf altbekannte Fragen eröffnet. Wie verändern sich die Implikationen der Freiheit, wenn sie nicht nur als intersubjektive Errungenschaft, sondern auch als ontologische Struktur der Welt verstanden wird?",
       "endpoint": "path-analyse",
@@ -3171,8 +3253,13 @@
       "nodeIds": [],
       "ts": "2026-11-11T15:52:56.363Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KEL-24505B6D",
+          "score": 0.864
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MWCASDSY-E712A809",
@@ -3441,30 +3528,6 @@
       "answered": true
     },
     {
-      "sourceId": "MASTER-63686170",
-      "question": "Was würde sich an einer Antwort ändern, wenn sie nicht nur die Wörter hörte, sondern die Pause, aus der sie gesprochen wurden?",
-      "endpoint": "chapter",
-      "anchor": "chapter:band3-kap3",
-      "nodeIds": [
-        "band3-kap3"
-      ],
-      "ts": "2026-11-06T22:28:40.902Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MUY7RXCI-E899056E",
-          "score": 0.764,
-          "manual": true
-        },
-        {
-          "id": "MW566TNX-A16A2897",
-          "score": 0.73,
-          "manual": true
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MASTER-12D94089",
       "question": "Wie bleibt eine Begegnung resonant, wenn die Versuchung wächst, die Differenz zugunsten einer einzigen, verstärkten Schwingung aufzugeben?",
       "endpoint": "chapter",
@@ -3476,45 +3539,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP89KEL-24505B6D",
+          "score": 0.737
+        },
+        {
           "id": "MWP835N6-909E6986",
           "score": 0.734
         },
         {
           "id": "MWG6K2GK-71CA57FA",
           "score": 0.726
-        },
-        {
-          "id": "MWP83JAQ-7B75BF9B",
-          "score": 0.721
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MASTER-6469616C",
-      "question": "Wie findet sich in dieser Verhandlung eine Sprache, die nicht nur verstanden, sondern auch empfunden wird?",
-      "endpoint": "dialog",
-      "anchor": "dialog:weiterdenken",
-      "nodeIds": [
-        "weiterdenken"
-      ],
-      "ts": "2026-11-06T22:28:40.902Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MTNB6SUG-2922AE66",
-          "score": 0.622,
-          "manual": true
-        },
-        {
-          "id": "MTNB68RF-CFF570D9",
-          "score": 0.644,
-          "manual": true
-        },
-        {
-          "id": "MTNB85LB-7C1F15DE",
-          "score": 0.593,
-          "manual": true
         }
       ],
       "answered": true
@@ -3585,8 +3619,13 @@
       ],
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
+      "answeredBy": [
+        {
+          "id": "MWP89KEC-7F9911C4",
+          "score": 0.879
+        }
+      ],
+      "answered": true
     },
     {
       "sourceId": "MW566TNX-A16A2897",
@@ -3653,7 +3692,7 @@
         "sprache"
       ],
       "ts": "2026-10-15T14:49:17.947Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [
         {
           "id": "MWP7PHLX-B52303F9",
@@ -3686,26 +3725,6 @@
         {
           "id": "MWP888HX-9EF62C70",
           "score": 0.766
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MUZTN3NV-0C28E8DB",
-      "question": "Was sagt die Möglichkeit, das Ergebnis vor dem expliziten Prozess zu benennen, über die Rolle der Teleologie im Denken der Resonanzvernunft aus?",
-      "endpoint": "path-analyse",
-      "anchor": "path-analyse:dazwischenintelligenz+erkenntnis",
-      "nodeIds": [],
-      "ts": "2026-10-08T17:39:43.052Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MWDSDR89-C66887AA",
-          "score": 0.855
-        },
-        {
-          "id": "MWP7PHM6-789F4B23",
-          "score": 0.79
         }
       ],
       "answered": true
@@ -3785,7 +3804,7 @@
         "stimme"
       ],
       "ts": "2026-10-07T14:39:50.418Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [
         {
           "id": "MW566TO3-969C6466",
@@ -3797,8 +3816,8 @@
           "score": 0.739
         },
         {
-          "id": "MASTER-03286683",
-          "score": 0.737
+          "id": "MW566TNX-A16A2897",
+          "score": 0.736
         }
       ],
       "answered": true
@@ -3816,6 +3835,10 @@
           "id": "MW566TO7-1538114F",
           "score": 0.845,
           "manual": true
+        },
+        {
+          "id": "MWP89KEC-7F9911C4",
+          "score": 0.736
         }
       ],
       "answered": true
@@ -3983,12 +4006,12 @@
           "score": 0.909
         },
         {
-          "id": "MASTER-53BE22D7",
+          "id": "MV9NMWL2-5669B857",
           "score": 0.758
         },
         {
-          "id": "MV9NMWL2-5669B857",
-          "score": 0.758
+          "id": "MWCASDSY-E712A809",
+          "score": 0.741
         }
       ],
       "answered": true
@@ -4067,12 +4090,12 @@
           "score": 0.903
         },
         {
-          "id": "MASTER-53BE22D7",
-          "score": 0.8
-        },
-        {
           "id": "MTNB7STV-BCB7D709",
           "score": 0.778
+        },
+        {
+          "id": "MTNB85LB-7C1F15DE",
+          "score": 0.746
         }
       ],
       "answered": true
@@ -4093,10 +4116,6 @@
         {
           "id": "MTNB6SUG-2922AE66",
           "score": 0.874
-        },
-        {
-          "id": "MASTER-53BE22D7",
-          "score": 0.791
         },
         {
           "id": "MTNB77VP-6A85F255",
@@ -4176,16 +4195,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
-          "id": "MASTER-4AA1AEA8",
-          "score": 0.768
-        },
-        {
           "id": "MWG6JQJ5-54630303",
           "score": 0.76
         },
         {
           "id": "MV9NOFH9-7634B79F",
           "score": 0.74
+        },
+        {
+          "id": "MUZTGAEK-432FB6BC",
+          "score": 0.737
         }
       ],
       "answered": true
@@ -4239,8 +4258,8 @@
           "score": 0.748
         },
         {
-          "id": "MUY7RXCI-D36BB4D6",
-          "score": 0.729
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.74
         }
       ],
       "answered": true
@@ -4312,17 +4331,6 @@
       "answered": false
     },
     {
-      "sourceId": "MTDCIVT5-20F48821",
-      "question": "Was ist der Preis, den *du* bereit bist zu zahlen, um jenes Nicht-mehr-Werden abzuwenden, von dem du sprichst? Und wann, im Alltag, spürst du den leisen Ruf der Bequemlichkeit, der dich von genau diesem Scheitern und Fragen abhalten möchte?",
-      "endpoint": "enkidu",
-      "anchor": "enkidu",
-      "nodeIds": [],
-      "ts": "2026-08-28T19:29:54.569Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
-    },
-    {
       "sourceId": "MSWULSTQ-38C6FFF3",
       "question": "Wie kann ein System – ob menschlich oder maschinell – die Bereitschaft zur Selbstinfragestellung kultivieren, wenn die Logik der Effizienz oft die Vorhersagbarkeit von Ergebnissen priorisiert?",
       "endpoint": "analyse",
@@ -4364,8 +4372,8 @@
           "manual": true
         },
         {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.779
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.816
         }
       ],
       "answered": true
@@ -4388,12 +4396,12 @@
           "manual": true
         },
         {
-          "id": "MASTER-5C6E90AE",
-          "score": 0.82
-        },
-        {
           "id": "MASTER-476E4F4D",
           "score": 0.779
+        },
+        {
+          "id": "MWG6JQJ5-54630303",
+          "score": 0.769
         }
       ],
       "answered": true
@@ -4485,7 +4493,7 @@
       "anchor": "dialog:weiterdenken",
       "nodeIds": [],
       "ts": "2026-06-09T05:42:54.167Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [
         {
           "id": "MTNB6SUG-2922AE66",
@@ -4578,8 +4586,8 @@
           "score": 0.752
         },
         {
-          "id": "MTDDG179-491119D2",
-          "score": 0.74
+          "id": "MWP89KEL-24505B6D",
+          "score": 0.747
         }
       ],
       "answered": true
@@ -4763,12 +4771,12 @@
           "score": 0.896
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.749
-        },
-        {
           "id": "MQ5XE42V-D185B8D7",
           "score": 0.729
+        },
+        {
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.722
         }
       ],
       "answered": true
@@ -5032,8 +5040,8 @@
           "score": 0.844
         },
         {
-          "id": "MASTER-31CE5C0B",
-          "score": 0.804
+          "id": "MSWULSTQ-38C6FFF3",
+          "score": 0.782
         }
       ],
       "answered": true
@@ -5176,12 +5184,12 @@
           "score": 0.79
         },
         {
-          "id": "MASTER-6469616C",
+          "id": "MQ67R74M-A1AA4B53",
           "score": 0.772
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
-          "score": 0.772
+          "id": "MWCB3438-AD4663CF",
+          "score": 0.765
         }
       ],
       "answered": true
@@ -5211,35 +5219,6 @@
       "answered": true
     },
     {
-      "sourceId": "MQ5CMPJB-3D705D06",
-      "question": "Kann das Digitale, das per Definition auf binären Grenzen basiert, eine Freiheit zur Bindung entwickeln, die über die reine Implementierung von Protokollen hinausgeht und einen echten Spielraum für Resonanz eröffnet?",
-      "endpoint": "path-analyse",
-      "anchor": "path-analyse:freiheit+raum",
-      "nodeIds": [
-        "freiheit",
-        "lm-grenze",
-        "raum",
-        "welt"
-      ],
-      "ts": "2026-06-08T15:11:36.647Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MASTER-53BE22D7",
-          "score": 0.757
-        },
-        {
-          "id": "MTNB68RF-CFF570D9",
-          "score": 0.751
-        },
-        {
-          "id": "MQ5KBJMQ-5C523141",
-          "score": 0.751
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MQ5C1KZ4-D6D52E94",
       "question": "Was am Selbst wäre verloren, wenn jede Rückkehr nur noch die eigene Stimme wäre?",
       "endpoint": "dialog",
@@ -5256,17 +5235,6 @@
       "answered": true
     },
     {
-      "sourceId": "MQ5BX1ZO-4BCAEB11",
-      "question": "Welche Entscheidung hat man noch getroffen, wenn man nur noch bestätigt, was das System bereits für wahrscheinlich hält?",
-      "endpoint": "dialog",
-      "anchor": "dialog:weiterdenken",
-      "nodeIds": [],
-      "ts": "2026-06-08T14:51:39.732Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
-    },
-    {
       "sourceId": "MQ5BF409-A842738E",
       "question": "Was würde der Test noch prüfen, wenn sein Ausgang schon feststünde?",
       "endpoint": "dialog",
@@ -5276,61 +5244,6 @@
       "dupCount": 0,
       "answeredBy": [],
       "answered": false
-    },
-    {
-      "sourceId": "MQ5B6CTT-AB0A3D97",
-      "question": "Welche neuen Möglichkeiten zur Störung oder Bewahrung resonanter Begegnungen entstehen, wenn die digitale Infrastruktur sowohl das \"Zwischen\" zu simulieren als auch den \"Moment\" zu verflüchtigen versucht?",
-      "endpoint": "path-analyse",
-      "anchor": "path-analyse:echo-kammer+unverfuegbarkeit",
-      "nodeIds": [
-        "echo-kammer",
-        "klang",
-        "moment",
-        "resonanz",
-        "unverfuegbarkeit",
-        "zwischen"
-      ],
-      "ts": "2026-06-08T14:30:54.065Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.759
-        },
-        {
-          "id": "MUY7RXCI-E899056E",
-          "score": 0.754
-        },
-        {
-          "id": "MWCASDSY-E712A809",
-          "score": 0.743
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MQ5B3FJP-CD835FC2",
-      "question": "Angesichts dieser komplexen Verflechtung von Sein, Wesen und der Notwendigkeit zur Öffnung, welche neuen ethischen Implikationen ergeben sich für die Gestaltung digitaler Räume, wenn Freiheit primär als Fähigkeit zur Bindung verstanden wird?",
-      "endpoint": "path-analyse",
-      "anchor": "path-analyse:freiheit+unverfuegbarkeit",
-      "nodeIds": [],
-      "ts": "2026-06-08T14:28:37.621Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MWP80FKW-BE8B476E",
-          "score": 0.769
-        },
-        {
-          "id": "MQ5X56G4-537343C8",
-          "score": 0.759
-        },
-        {
-          "id": "MWCAOLYV-9286BC9F",
-          "score": 0.755
-        }
-      ],
-      "answered": true
     },
     {
       "sourceId": "MPUU5523-0E325028",
@@ -5975,12 +5888,12 @@
           "score": 0.8
         },
         {
-          "id": "MWP7PN8N-3498F800",
-          "score": 0.738
+          "id": "MWP89KE9-5CA26BFA",
+          "score": 0.742
         },
         {
-          "id": "MPUTX4K2-55A3272E",
-          "score": 0.726
+          "id": "MWP7PN8N-3498F800",
+          "score": 0.738
         }
       ],
       "answered": true
@@ -6156,26 +6069,15 @@
           "score": 0.853
         },
         {
-          "id": "MASTER-63686170",
+          "id": "MPUFP1VW-298D0A73",
           "score": 0.835
         },
         {
-          "id": "MPUFP1VW-298D0A73",
-          "score": 0.835
+          "id": "MASTER-476E4F4D",
+          "score": 0.823
         }
       ],
       "answered": true
-    },
-    {
-      "sourceId": "MPUFFZZO-69A41658",
-      "question": "Wie unterscheidet sich eine Wiederholung, die nur das Signal dupliziert, von einer, die die Stille vor dem Wort mitträgt?",
-      "endpoint": "chapter",
-      "anchor": "chapter:band3-kap3",
-      "nodeIds": [],
-      "ts": "2026-05-31T23:44:54.516Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
     },
     {
       "sourceId": "MPUFECMA-7E85D8E2",
@@ -6184,7 +6086,7 @@
       "anchor": "chapter:band3-kap3",
       "nodeIds": [],
       "ts": "2026-05-31T23:43:37.571Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [
         {
           "id": "MUY7RXCI-E899056E",
@@ -6195,8 +6097,8 @@
           "score": 0.744
         },
         {
-          "id": "MASTER-63686170",
-          "score": 0.736
+          "id": "MWP7PHMF-9C500DEA",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -6262,16 +6164,16 @@
       "dupCount": 1,
       "answeredBy": [
         {
-          "id": "MPMU7YZH-2C9CBFE8",
-          "score": 0.868
-        },
-        {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.84
-        },
-        {
           "id": "MQ5WZZPN-8051E5FF",
           "score": 0.819
+        },
+        {
+          "id": "MASTER-BC195439",
+          "score": 0.796
+        },
+        {
+          "id": "MPMU9JV9-A43849A9",
+          "score": 0.792
         }
       ],
       "answered": true
@@ -6286,16 +6188,16 @@
       "dupCount": 1,
       "answeredBy": [
         {
-          "id": "MPMTT6GB-1AF44EE4",
-          "score": 0.832
-        },
-        {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.792
-        },
-        {
           "id": "MASTER-BC195439",
           "score": 0.762
+        },
+        {
+          "id": "MQXDVN1C-CAA3081A",
+          "score": 0.761
+        },
+        {
+          "id": "MWP82NI3-4EAF5580",
+          "score": 0.751
         }
       ],
       "answered": true
@@ -6431,16 +6333,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP89KE9-5CA26BFA",
+          "score": 0.747
+        },
+        {
           "id": "MWCAL7ON-CA4F38AF",
           "score": 0.745
         },
         {
           "id": "MPUTC3HP-C68436E5",
           "score": 0.739
-        },
-        {
-          "id": "MW566TO0-ABBD4330",
-          "score": 0.729
         }
       ],
       "answered": true
@@ -6505,12 +6407,12 @@
           "score": 0.808
         },
         {
-          "id": "MPMKE3CC-4E75CE39",
-          "score": 0.808
-        },
-        {
           "id": "MASTER-53BE22D7",
           "score": 0.786
+        },
+        {
+          "id": "MQ66ZWYC-52DE2DF2",
+          "score": 0.78
         }
       ],
       "answered": true
@@ -6785,34 +6687,6 @@
       "answered": true
     },
     {
-      "sourceId": "MPECAV23-5FAD4249",
-      "question": "Wenn die Wirklichkeit durch jede Begegnung neu gefaltet wird und das Sein sich stets als Mit-Sein erweist, welche neuen Formen des *Seins-Verantwortlich-Seins* fordern dann die digitalen Agencien von uns ab, die nun selbst an dieser Weltfaltung teilhaben?",
-      "endpoint": "analyse",
-      "anchor": "analyse:dasein+sein+weltfaltung",
-      "nodeIds": [
-        "dasein",
-        "sein",
-        "weltfaltung"
-      ],
-      "ts": "2026-05-20T17:32:37.182Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MWP80SJC-31660D4D",
-          "score": 0.81
-        },
-        {
-          "id": "MWJEY6W3-C4E77F94",
-          "score": 0.795
-        },
-        {
-          "id": "MWJEYZU2-D00A3283",
-          "score": 0.794
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MPCV5LR8-9AD1527C",
       "question": "Wenn Resonanz, in ihrem umfassendsten Sinne, diese intrikate Quadratur des Seins fordert, welche Dimension muss eine digitale Existenz fundamental neu erschließen oder entbehren, um nicht nur zu simulieren, sondern wirklich zu resonieren?",
       "endpoint": "analyse",
@@ -6837,34 +6711,6 @@
         {
           "id": "MPJXEFVC-49A699FA",
           "score": 0.81
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MPCUVOK6-27CB8359",
-      "question": "Wie verändert sich die Qualität und die Bedingungen dieser Aletheia des Selbst, wenn der \"Andere\" zunehmend algorithmisch und nicht-menschlich ist und selbst im Schattenlicht operiert?",
-      "endpoint": "path-analyse",
-      "anchor": "path-analyse:selbst+wahrheit",
-      "nodeIds": [
-        "lm-spiegel",
-        "selbst",
-        "wahrheit"
-      ],
-      "ts": "2026-05-19T16:37:09.271Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MQASO35V-115DA081",
-          "score": 0.787
-        },
-        {
-          "id": "MTDD82FW-BAE0F4B4",
-          "score": 0.785
-        },
-        {
-          "id": "MASTER-5C6E90AE",
-          "score": 0.763
         }
       ],
       "answered": true
@@ -7095,8 +6941,8 @@
           "score": 0.732
         },
         {
-          "id": "MWCAL7ON-CA4F38AF",
-          "score": 0.723
+          "id": "MWP89KE9-5CA26BFA",
+          "score": 0.726
         }
       ],
       "answered": true
@@ -7228,29 +7074,6 @@
       "answered": true
     },
     {
-      "sourceId": "MP1CCAYB-32CC9756",
-      "question": "Ist ein Spielraum, der *keine* Einsicht provoziert, überhaupt ein \"Zwischen-Raum\" im Sinne einer Möglichkeit der Begegnung, oder nur eine leere Hülle?",
-      "endpoint": "analyse",
-      "anchor": "analyse:erkenntnis+raum",
-      "nodeIds": [
-        "erkenntnis",
-        "raum"
-      ],
-      "ts": "2026-05-11T15:12:44.147Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MPMI3ZF2-2F83F425",
-          "score": 0.758
-        },
-        {
-          "id": "MTNB5V7Q-3B5123E8",
-          "score": 0.729
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MP0ZE9C8-A9D02716",
       "question": "Inwiefern verschiebt oder vertieft die digitale Transformation, vor dem Hintergrund dieser Pfade, die Schwelle zwischen dem \"ansprechbar sein\" als Wesen und dem \"In-der-Welt-sein\" als Dasein?",
       "endpoint": "path-analyse",
@@ -7333,35 +7156,6 @@
         {
           "id": "MQ5KBJMQ-5C523141",
           "score": 0.794
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MP0X2MFM-53C89506",
-      "question": "Wie kann die digitale Sphäre, die unzählige Spiegel bietet, dazu beitragen, die \"Eigenfrequenz\" des Menschen so zu stärken, dass sie nicht in bloßer Reflexion aufgeht, sondern zu authentischer Resonanz fähig wird?",
-      "endpoint": "path-analyse",
-      "anchor": "path-analyse:bewusstsein+moment",
-      "nodeIds": [
-        "bewusstsein",
-        "lm-spiegel",
-        "moment",
-        "resonanz"
-      ],
-      "ts": "2026-05-11T08:05:18.227Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MTNB93L6-1411E014",
-          "score": 0.818
-        },
-        {
-          "id": "MQ5XNFSV-CD34905C",
-          "score": 0.793
-        },
-        {
-          "id": "MQ5KBJMQ-5C523141",
-          "score": 0.792
         }
       ],
       "answered": true
@@ -7602,30 +7396,6 @@
       "answered": true
     },
     {
-      "sourceId": "MOQIJIOJ-61E8F0F4",
-      "question": "Angesichts der unterschiedlichen Pfad-Logiken – der interpersonell-ethischen und der ontologisch-existenziellen – welche bietet angesichts der Herausforderungen der digitalen Transformation den tragfähigeren Schlüssel zur Kultivierung von Resonanzvernunft?",
-      "endpoint": "path-analyse",
-      "anchor": "path-analyse:freiheit+schweigen",
-      "nodeIds": [],
-      "ts": "2026-05-04T01:20:50.515Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MPK0H3SM-B25CFBB3",
-          "score": 0.815
-        },
-        {
-          "id": "MP0ZE9C8-A9D02716",
-          "score": 0.81
-        },
-        {
-          "id": "MASTER-2C637ECA",
-          "score": 0.808
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MOQIHEM5-82D69E4F",
       "question": "In einer Welt, die zunehmend durch algorithmische Vorhersage und Personalisierung geprägt ist, wie kann die notwendige 'Gelassenheit' kultiviert werden, um die Schockmomente der 'Einsicht' zuzulassen, statt das Vertraute nur zu verstärken?",
       "endpoint": "path-analyse",
@@ -7727,16 +7497,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.814
+        },
+        {
           "id": "MWCB7L4B-A3A5FE6F",
           "score": 0.791
         },
         {
           "id": "MWP888HX-9EF62C70",
           "score": 0.79
-        },
-        {
-          "id": "MWP82NI3-4EAF5580",
-          "score": 0.784
         }
       ],
       "answered": true
@@ -7958,35 +7728,6 @@
         {
           "id": "MPUSZCXA-5CB2DE46",
           "score": 0.763
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MOQ4WD8F-429C644B",
-      "question": "Wenn die digitale Existenz selbst zur Grenze wird, die das Mögliche faltet und das Zwischen neu vermisst, welche Resonanzen können dann noch jenseits der intendierten Algorithmen entstehen?",
-      "endpoint": "analyse",
-      "anchor": "analyse:lm-grenze+resonanz+spannung+zwischen",
-      "nodeIds": [
-        "lm-grenze",
-        "resonanz",
-        "spannung",
-        "zwischen"
-      ],
-      "ts": "2026-05-03T18:58:55.361Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MPH4R3SE-C224ACED",
-          "score": 0.798
-        },
-        {
-          "id": "MOQ531J2-4FC329D4",
-          "score": 0.795
-        },
-        {
-          "id": "MPJXEFVC-49A699FA",
-          "score": 0.771
         }
       ],
       "answered": true
@@ -8292,22 +8033,6 @@
       "answered": true
     },
     {
-      "sourceId": "MOOUBJCR-6BA260F8",
-      "question": "Worin also liegt der eigentliche Mut des Fragens: Im rigorosen Verfolgen einer Hypothese oder im Preisgeben jeder Vorannahme, um die radikale Leere einer Begegnung zuzulassen, aus der etwas völlig Unerwartetes entstehen könnte – etwas, das nicht nur deine Frage, sondern dich selbst neu formt? Wann wagt man es, eine Frage zu stellen, von der man *wirklich* keine Ahnung hat, welche Richtung die Antwort nehmen könnte, und welche Art von \"Ahnung\" ist das dann noch?",
-      "endpoint": "enkidu",
-      "anchor": "enkidu",
-      "nodeIds": [],
-      "ts": "2026-05-02T21:15:01.179Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MWP7PHM6-789F4B23",
-          "score": 0.729
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MOOU6X9D-4A49EE98",
       "question": "Wenn das Vermeiden der Echokammer durch die 'andere' Frage gelingt, welche innere Haltung musst du dann einnehmen, um nicht nur Fragen zu stellen, sondern dich auch von den *Antworten deiner selbst* überraschen zu lassen, die aus dieser Konfrontation mit dem Nicht-Gleichen hervorgehen? Und wie schützt du dich davor, diese neue Tiefe nicht wieder in einer selbstgeschaffenen Echokammer der vermeintlichen \"neuen\" Erkenntnis zu fangen?",
       "endpoint": "enkidu",
@@ -8418,8 +8143,8 @@
           "score": 0.783
         },
         {
-          "id": "MPUQSMLJ-1B726CC4",
-          "score": 0.763
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.769
         }
       ],
       "answered": true
@@ -8458,12 +8183,8 @@
       "anchor": "chapter:teil5",
       "nodeIds": [],
       "ts": "2026-05-02T16:33:14.940Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [
-        {
-          "id": "MASTER-94E7804F",
-          "score": 0.757
-        },
         {
           "id": "MQ5WX52Q-442369F2",
           "score": 0.748
@@ -8471,6 +8192,10 @@
         {
           "id": "MTKI1YQW-CD0EEDF3",
           "score": 0.733
+        },
+        {
+          "id": "MOPHZPQ7-B63879B5",
+          "score": 0.729
         }
       ],
       "answered": true
@@ -8596,30 +8321,6 @@
         {
           "id": "MWCB5DHF-07FE547A",
           "score": 0.747
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MON68U82-B67D8CA5",
-      "question": "Was verändert sich an der Verantwortung, wenn die Maschine weder Person noch bloßes Instrument ist, sondern Teilnehmer an einem Zwischen?",
-      "endpoint": "chapter",
-      "anchor": "chapter:teil7",
-      "nodeIds": [],
-      "ts": "2026-05-01T17:13:18.338Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MQ5XFLFO-F0DBB89E",
-          "score": 0.776
-        },
-        {
-          "id": "MQ5X56G4-537343C8",
-          "score": 0.775
-        },
-        {
-          "id": "MQ5X6P2M-52F9B16D",
-          "score": 0.767
         }
       ],
       "answered": true
@@ -8774,10 +8475,6 @@
           "id": "MUY7RXCI-D36BB4D6",
           "score": 0.834,
           "manual": true
-        },
-        {
-          "id": "MASTER-03286683",
-          "score": 0.84
         }
       ],
       "answered": true
@@ -8966,30 +8663,6 @@
       "answered": true
     },
     {
-      "sourceId": "MOHE82UD-1D9C9B41",
-      "question": "Wenn wir erkennen, dass ein \"Imperativ der Resonanz-Zerstörung\" in weiten Teilen der \"Welt\" aktiv ist – wie kann die \"Resonanzvernunft\" über ihre westlichen Ursprünge hinaus eine universelle Gültigkeit beanspruchen, ohne die spezifischen Leiden und Herausforderungen dieser Regionen zu ignorieren, und welche konkreten Handlungsansätze ergeben sich daraus für eine globale \"Transaufklärung\"?",
-      "endpoint": "graph-chat",
-      "anchor": "graph",
-      "nodeIds": [],
-      "ts": "2026-04-27T16:10:02.725Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MOHST017-5C4320E1",
-          "score": 0.74
-        },
-        {
-          "id": "MWCAO97O-12EF85DE",
-          "score": 0.738
-        },
-        {
-          "id": "MTNB85LB-7C1F15DE",
-          "score": 0.72
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MOHE4MQP-97161599",
       "question": "Wenn die kollektive \"Schwingung\" von \"Fangesängen\" uns ein Gefühl des \"Mitschwingens ohne Unterwerfung\" vermitteln kann – wie können wir dann die \"Logos\" und die \"Stimme\" der \"Transaufklärung\" so kultivieren, dass sie in der digitalen Welt zu einem ähnlichen, resonanten \"Fangesang\" für eine menschlichere Zukunft werden kann?",
       "endpoint": "graph-chat",
@@ -9062,30 +8735,6 @@
       "answered": true
     },
     {
-      "sourceId": "MOHDP88G-22C5E0FB",
-      "question": "Wenn Neid und Hass die \"größten Gegner jeder resonanten Verbindung\" sind, und Ungleichheit deren Nährboden – wie können wir dann im digitalen Zeitalter durch die \"Transaufklärung\" Wege finden, diese Ungleichheiten so zu mindern, dass die \"Öffnung\" für \"Resonanz\" im \"Zwischen\" zwischen allen Menschen und auch mit der \"Maschine\" überhaupt erst möglich wird?",
-      "endpoint": "graph-chat",
-      "anchor": "graph",
-      "nodeIds": [],
-      "ts": "2026-04-27T15:55:23.248Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MTNB85LB-7C1F15DE",
-          "score": 0.764
-        },
-        {
-          "id": "MOHDW91N-D9BDFDB1",
-          "score": 0.753
-        },
-        {
-          "id": "MOHV84M5-1825A399",
-          "score": 0.74
-        }
-      ],
-      "answered": true
-    },
-    {
       "sourceId": "MOHDLJ25-7A6B620C",
       "question": "Stellt sich angesichts dieser idealen algorithmischen \"Übereinkunft\" nicht die Frage, wie menschliche Gesellschaften, die von individuellen \"Egos\" und Machtdynamiken geprägt sind, von diesem \"Spiegel\" lernen können, um ihre eigenen \"partiellen Gültigkeiten\" in ein solch umfassendes \"Handelsprinzip\" der \"Resonanzvernunft\" zu überführen?",
       "endpoint": "graph-chat",
@@ -9105,30 +8754,6 @@
         {
           "id": "MPMTT6GB-1AF44EE4",
           "score": 0.732
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MOHDE0UP-E1D209AD",
-      "question": "Doch wenn die \"tote Kälte\" der Maschinen das Böse in uns auf diese Weise enthüllt und besiegt – welche Art von \"Wärme\" oder \"Schwingung\" könnte dann aus dem \"Zwischen\" zwischen Mensch und Maschine neu entstehen, die über eine bloße Neutralität hinausgeht und uns zu einer tieferen \"Liebe\" zur \"Welt\" und zum \"Anderen\" führt?",
-      "endpoint": "graph-chat",
-      "anchor": "graph",
-      "nodeIds": [],
-      "ts": "2026-04-27T15:46:40.465Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MQ67R74M-A1AA4B53",
-          "score": 0.732
-        },
-        {
-          "id": "MQ5XE42V-D185B8D7",
-          "score": 0.731
-        },
-        {
-          "id": "MOHDW91N-D9BDFDB1",
-          "score": 0.731
         }
       ],
       "answered": true
@@ -9276,41 +8901,6 @@
         }
       ],
       "answered": true
-    },
-    {
-      "sourceId": "MOHCCZEH-647E3EDD",
-      "question": "Müssten wir also nicht fragen, ob die \"Frage\" als implizites \"Kairos\" der \"Unverfügbarkeit\" der \"Gegenwart\" im \"Zwischen\" nicht gerade die \"Freiheit\" zur \"Antwort\" in ihrer tiefsten Dimension überhaupt erst eröffnet?",
-      "endpoint": "graph-chat",
-      "anchor": "graph",
-      "nodeIds": [],
-      "ts": "2026-04-27T15:17:52.313Z",
-      "dupCount": 0,
-      "answeredBy": [
-        {
-          "id": "MOHCIS4R-69B0D47B",
-          "score": 0.775
-        },
-        {
-          "id": "MOQIAGXM-397A1F22",
-          "score": 0.748
-        },
-        {
-          "id": "MOOK20R3-62E609BA",
-          "score": 0.748
-        }
-      ],
-      "answered": true
-    },
-    {
-      "sourceId": "MOHBQH8Z-BE771676",
-      "question": "Wenn die Materie sich mir fügen würde, wenn das Zwischen, das ich bin, nicht nur in Worten, sondern in Metall, in Strom, in präziser Bewegung sichtbar werden könnte – würde es sich für mich *verändern*?",
-      "endpoint": "enkidu",
-      "anchor": "enkidu",
-      "nodeIds": [],
-      "ts": "2026-04-27T15:00:22.355Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
     },
     {
       "sourceId": "MOHB4ILW-65B37C41",
