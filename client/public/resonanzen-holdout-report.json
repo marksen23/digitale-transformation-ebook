@@ -1,10 +1,24 @@
 {
-  "generatedAt": "2026-11-20T17:12:21.255Z",
-  "checked": 52,
+  "generatedAt": "2026-11-20T17:38:44.049Z",
+  "checked": 53,
   "stable": 17,
-  "shifted": 23,
+  "shifted": 24,
   "drifted": 12,
   "details": [
+    {
+      "id": "MWP942QG-F15146A5",
+      "baseline": [
+        "MASTER-456B1D6E",
+        "MWP7PHMF-9C500DEA",
+        "MUY7RXCI-E899056E"
+      ],
+      "current": [
+        "MASTER-456B1D6E",
+        "MWP7PHMF-9C500DEA",
+        "MUY7RXCI-E899056E"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MWP89KEO-68E6B82A",
       "baseline": [
@@ -55,11 +69,11 @@
         "MWJ1DBD5-7CEE18D5"
       ],
       "current": [
+        "MWP942PY-5EF7032A",
         "MWP82NI3-4EAF5580",
-        "MWP81YZO-24DCE87C",
-        "MWJ1DBD5-7CEE18D5"
+        "MWP81YZO-24DCE87C"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MWP84DL5-F07ACB7E",
@@ -323,7 +337,7 @@
       "current": [
         "MUY7RXCI-012FC8A7",
         "MWP89KEC-7F9911C4",
-        "MWP7PHM0-4AECED9E"
+        "MWP942Q7-3E1CE3F8"
       ],
       "overlap": 1
     },

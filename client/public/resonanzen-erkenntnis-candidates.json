@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:12:21.861Z",
+  "generatedAt": "2026-11-20T17:38:46.978Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -53,6 +53,58 @@
           "sourceId": "MUY7RXCI-012FC8A7",
           "question": "Wie gestaltet man Prüfschichten so, dass sie Annahmen sichtbar machen, statt sie als Meta-Fakten zu verhärten?",
           "score": 0.736
+        }
+      ]
+    },
+    {
+      "id": "ERK-1UAT90N",
+      "answerId": "MWP942QA-90A0C107",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Raum für Umkehr Buße und Gnade sind keine Gefühle, sondern Vorgänge mit Bedingungen. Buße setzt voraus, dass ein Fehler als *eigener* erkannt wird, dass es Zeit gibt, umzukehren, und dass es jemanden gibt, zu dem man umkehren kann. Gnade setzt voraus, dass jemand etwas gewährt, das nicht verdient wurde. Sie unterbricht die Rechnung von Schuld und Ausgleich. Beide brauchen eine Welt, in der Fehler ",
+      "distinctness": 0.258,
+      "conceptAnchor": "lm-scheitern",
+      "nodeIds": [
+        "lm-scheitern",
+        "moeglichkeit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWP82NI3-4EAF5580",
+          "question": "Doch wie kann man die Bedingungen für das Entstehen von Gnade und Buße in einer Welt schaffen, die ihre eigene Fehlbarkeit nicht mehr zu erkennen vermag?",
+          "score": 0.85
+        },
+        {
+          "sourceId": "MASTER-70E7430C",
+          "question": "Wenn Schuld das Verstummen der Rückmeldung ist und die digitalen Systeme dieses Verstummen zur Logik erheben, wie kann dann Verantwortung für das Unverfügbare noch als eine menschliche Praxis bewahrt werden?",
+          "score": 0.723
+        }
+      ]
+    },
+    {
+      "id": "ERK-LYM1MI",
+      "answerId": "MWP942Q4-D22CF61C",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Befund ohne Urteilende Die Passage nennt es Urteil, aber genau besehen beschreibt sie etwas anderes. Ein Urteil, das weder Erfahrung noch Intuition, weder Weisheit noch das Ringen um Sinn kennt, ist eine *Zuordnung*: Ein Fall wird unter eine Regel gebracht, ein Muster wird wiedererkannt, eine Wahrscheinlichkeit wird ausgegeben. Kant nannte diese Leistung bestimmende Urteilskraft. Sie subsumiert da",
+      "distinctness": 0.243,
+      "conceptAnchor": "vernunft",
+      "nodeIds": [
+        "denken",
+        "lm-grenze"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWCB1COA-DE68B5C9",
+          "question": "Welche *Art* von Urteil wird hier beschrieben, wenn es weder Erfahrung noch Intuition, weder Weisheit noch das Ringen um Sinn kennt?",
+          "score": 0.801
+        },
+        {
+          "sourceId": "MASTER-0DDDD54A",
+          "question": "Wenn die Tiefe des menschlichen Urteils an seine Fähigkeit gebunden ist, im Schatten des Nicht-Gewussten zu navigieren, wie kann diese Fähigkeit in einer Welt kultiviert werden, die zunehmend auf die totale Ausleuchtung durch maschinelle Datenhelligkeit setzt?",
+          "score": 0.72
         }
       ]
     },
@@ -140,6 +192,78 @@
       ]
     },
     {
+      "id": "ERK-BXG06",
+      "answerId": "MWP942PY-5EF7032A",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Gemeinsame Schonzeiten Wenn Schuld das Verstummen der Rückmeldung ist, dann ist die erste Form der Verantwortung schlicht: antworten. Nicht dem System, das ohnehin alles beantwortet, sondern einander. Wer eine Nachricht bekommt, die eine Antwort verdient, und sie in der Flut untergehen lässt, vollzieht im Kleinen, was die Systeme im Großen zur Logik machen. Die Verantwortung für das Unverfügbare b",
+      "distinctness": 0.215,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "andere",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 11,
+      "resolves": [
+        {
+          "sourceId": "MASTER-70E7430C",
+          "question": "Wenn Schuld das Verstummen der Rückmeldung ist und die digitalen Systeme dieses Verstummen zur Logik erheben, wie kann dann Verantwortung für das Unverfügbare noch als eine menschliche Praxis bewahrt werden?",
+          "score": 0.833
+        },
+        {
+          "sourceId": "MWP7PHMF-9C500DEA",
+          "question": "Wenn eine Stille erst durch unsere Antwort zur eigenen wird, wie bewahren wir die Fähigkeit, auch dort still zu werden, wo kein System uns eine Pause anbietet?",
+          "score": 0.758
+        },
+        {
+          "sourceId": "MWP81YZO-24DCE87C",
+          "question": "Wie aber kann in einer solchen Welt noch eine Verantwortung für das Unverfügbare formuliert werden, wenn dessen Überdeckung zur Systemlogik wird?",
+          "score": 0.757
+        },
+        {
+          "sourceId": "MWP86WNM-ADEDD949",
+          "question": "Wie aber können wir diesen Atemraum, dieses fruchtbare Zwischen, inmitten der Beschleunigung nicht nur bewahren, sondern aktiv kultivieren?",
+          "score": 0.752
+        },
+        {
+          "sourceId": "MUY7RXCI-D36BB4D6",
+          "question": "Welche Praktiken – die Stille vor dem Sprechen, die sichtbare Revision, das bezeugte Zögern – machen die Spur im digitalen Medium bezeugbar, ohne sie wieder in Verfügbarkeit zu verwandeln?",
+          "score": 0.75
+        }
+      ]
+    },
+    {
+      "id": "ERK-1ILMQTA",
+      "answerId": "MWP942Q1-AC6D25E4",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Im Halbdunkel üben Die totale Ausleuchtung ist ein Versprechen, keine Wirklichkeit. Jeder Datensatz hat einen Rahmen, der festlegt, was erfasst wurde und was nicht. Jedes Modell hat einen Horizont, jenseits dessen es nur noch extrapoliert. Die maschinelle Datenhelligkeit beseitigt den Schatten also nicht, sie verdeckt ihn. Sie leuchtet so gleichmäßig, dass man nicht mehr sieht, wo das Licht endet.",
+      "distinctness": 0.213,
+      "conceptAnchor": "schatten",
+      "nodeIds": [
+        "erkenntnis",
+        "schatten"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MASTER-0DDDD54A",
+          "question": "Wenn die Tiefe des menschlichen Urteils an seine Fähigkeit gebunden ist, im Schatten des Nicht-Gewussten zu navigieren, wie kann diese Fähigkeit in einer Welt kultiviert werden, die zunehmend auf die totale Ausleuchtung durch maschinelle Datenhelligkeit setzt?",
+          "score": 0.9
+        },
+        {
+          "sourceId": "MWP7PHM9-EC2123C1",
+          "question": "Wenn die genaueste Aussage eines Urteils das Eingeständnis seiner Unschärfe ist, wie lehren wir Systeme und Menschen, dieses Eingeständnis als Stärke zu hören und nicht als Einladung, die Entscheidung an den Präziseren abzugeben?",
+          "score": 0.769
+        },
+        {
+          "sourceId": "MWJ1CFX6-DB36677A",
+          "question": "Doch wie bewahren wir diese menschliche Unschärfe als Wert, wenn die Verlockung der maschinellen Präzision uns immer tiefer in die Illusion einer vollständig berechenbaren Welt zieht?",
+          "score": 0.738
+        }
+      ]
+    },
+    {
       "id": "ERK-1QZZVJS",
       "answerId": "MWP7PHM6-789F4B23",
       "answerEndpoint": "analyse",
@@ -157,6 +281,47 @@
           "sourceId": "MWDSDR89-C66887AA",
           "question": "Wie lässt sich das \"benannte Ergebnis\" dann von einer bloßen Erwartung unterscheiden, wenn seine **Unverfügbarkeit** doch konstitutiv für die Resonanz ist?",
           "score": 0.826
+        }
+      ]
+    },
+    {
+      "id": "ERK-1A84TXA",
+      "answerId": "MWP942PV-96D0E9F1",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Sorgfalt statt Ursache Der Einwand ist berechtigt: Recht und Ökonomie rechnen in Ursachen und Ergebnissen. Wer etwas verursacht hat, haftet; wer ein Ergebnis liefert, wird bezahlt. Eine Verantwortung für das Dazwischen, für Prozesse, deren Wirkung niemand vollständig vorhersieht, scheint in diesem Raster keinen Ort zu haben. Und je länger und feiner die Ketten zwischen Gestaltung und Wirkung werde",
+      "distinctness": 0.208,
+      "conceptAnchor": "resonanzimperativ",
+      "nodeIds": [
+        "antwort",
+        "transformatives-drittes"
+      ],
+      "resolveCount": 5,
+      "resolves": [
+        {
+          "sourceId": "MASTER-0ACC14CB",
+          "question": "Wie lässt sich eine solche prozessuale Verantwortung institutionell verankern, wenn unsere rechtlichen und ökonomischen Systeme weiterhin primär auf kausaler Zurechnung und der Kontrolle von Ergebnissen basieren?",
+          "score": 0.88
+        },
+        {
+          "sourceId": "MWP81IWI-5311D00B",
+          "question": "Doch wie lässt sich diese Verantwortung für das Emergenz in einer zunehmend undurchdringlichen Komplexität noch glaubhaft tragen, wenn die kausalen Ketten zwischen Gestaltung und Wirkung immer länger und feiner werden?",
+          "score": 0.785
+        },
+        {
+          "sourceId": "MWJEYZU2-D00A3283",
+          "question": "Wie aber kann diese Rechenschaftspflicht formalisiert werden, ohne ihre lebendige, prozessuale Natur zu ersticken?",
+          "score": 0.744
+        },
+        {
+          "sourceId": "MWJEZNVB-D1367E36",
+          "question": "Doch wie lässt sich die Nicht-Erfüllung dieser prozessualen Rechenschaftspflicht sanktionieren, ohne das Vertrauen in die Resonanzfähigkeit des Systems zu zerstören?",
+          "score": 0.739
+        },
+        {
+          "sourceId": "MWP7OI4B-71BADB55",
+          "question": "Doch wie können wir Verantwortung für etwas übernehmen, das sich unserer direkten Kontrolle entzieht und doch aus unseren Handlungen entsteht?",
+          "score": 0.729
         }
       ]
     },
@@ -261,7 +426,7 @@
     }
   ],
   "stats": {
-    "total": 9,
+    "total": 14,
     "confirmedFiltered": 66,
     "curatedRef": 219
   }

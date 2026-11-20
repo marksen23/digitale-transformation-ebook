@@ -1,11 +1,11 @@
 {
   "date": "2026-11-20",
-  "generatedAt": "2026-11-20T17:12:26.184Z",
-  "commit": "a83b5f06dd7a9423fc5654fba001282667f29bed",
-  "filesChecked": 472,
+  "generatedAt": "2026-11-20T17:38:51.338Z",
+  "commit": "b8092223db8e4932a237fec28dd311310dc89bc9",
+  "filesChecked": 480,
   "aggregates": {
     "byEndpoint": {
-      "analyse": 118,
+      "analyse": 126,
       "chapter": 65,
       "dialog": 79,
       "path-analyse": 66,
@@ -16,7 +16,7 @@
     },
     "byStatus": {
       "published": 169,
-      "raw": 221,
+      "raw": 229,
       "rejected": 28,
       "approved": 54
     },
