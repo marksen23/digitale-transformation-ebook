@@ -216,6 +216,14 @@ export default function LandkartePage() {
           >
             Geführte Lesepfade
           </button>
+          {" · "}
+          <button
+            type="button"
+            onClick={() => navigate("/zeitraffer")}
+            style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText, background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          >
+            Zeitraffer
+          </button>
         </p>
       </header>
 
