@@ -1,13 +1,13 @@
 {
   "date": "2026-11-20",
-  "generatedAt": "2026-11-20T17:08:43.979Z",
-  "commit": "cae147e4cbe86ed8627df61da4da870afe1f4f22",
-  "filesChecked": 466,
+  "generatedAt": "2026-11-20T17:12:26.184Z",
+  "commit": "a83b5f06dd7a9423fc5654fba001282667f29bed",
+  "filesChecked": 472,
   "aggregates": {
     "byEndpoint": {
-      "analyse": 117,
-      "chapter": 64,
-      "dialog": 75,
+      "analyse": 118,
+      "chapter": 65,
+      "dialog": 79,
       "path-analyse": 66,
       "enkidu": 68,
       "graph-chat": 52,
@@ -15,14 +15,15 @@
       "translate": 6
     },
     "byStatus": {
-      "published": 164,
-      "raw": 222,
-      "rejected": 26,
+      "published": 169,
+      "raw": 221,
+      "rejected": 28,
       "approved": 54
     },
     "orphanNodeIds": [
       "band1-kap5",
       "band2-kap3",
+      "band2-kap4",
       "band3-kap3",
       "band3-kap4",
       "band3-kap5",
@@ -39,6 +40,6 @@
     "redundantDuplicates": 2
   },
   "errors": 0,
-  "warnings": 74,
-  "recovery": true
+  "warnings": 81,
+  "recovery": false
 }

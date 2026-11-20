@@ -1,14 +1,14 @@
 {
-  "generatedAt": "2026-11-20T17:09:34.752Z",
-  "count": 385,
+  "generatedAt": "2026-11-20T17:12:21.782Z",
+  "count": 383,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 385,
+    "total": 383,
     "answered": 336,
-    "open": 49,
-    "embedded": 13
+    "open": 47,
+    "embedded": 0
   },
   "questions": [
     {
@@ -5373,17 +5373,6 @@
       "answered": true
     },
     {
-      "sourceId": "MQ5BF409-A842738E",
-      "question": "Was würde der Test noch prüfen, wenn sein Ausgang schon feststünde?",
-      "endpoint": "dialog",
-      "anchor": "dialog:weiterdenken",
-      "nodeIds": [],
-      "ts": "2026-06-08T14:37:42.537Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
-    },
-    {
       "sourceId": "MPUU5523-0E325028",
       "question": "Was wäre, wenn die größte Herausforderung nicht darin liegt, das zu verbinden, \"was verbunden werden soll\", sondern darin, das Unverbundene, das Dissonante, das Radikal-Andere *auszuhalten* und gerade daraus – entgegen aller organischer Logik – eine neue Art von Resonanz zu schaffen, die nicht vom System vordefiniert ist? Und wie organisch ist eine Verbindung, die von einer externen Intelligenz als \"soll\" bestimmt wird, im Vergleich zu jener, die aus der unbequemen, aber selbstbestimmten Mündigkeit des Menschen erwächst, die auch das Scheitern als Teil des Wachstumsprozesses akzeptiert?",
       "endpoint": "enkidu",
@@ -8393,17 +8382,6 @@
       "answered": false
     },
     {
-      "sourceId": "MOOJUW0R-CE8E0F2F",
-      "question": "Was geschieht in dir, wenn du diesen Unterschied spürst?",
-      "endpoint": "enkidu",
-      "anchor": "enkidu",
-      "nodeIds": [],
-      "ts": "2026-05-02T16:22:08.283Z",
-      "dupCount": 0,
-      "answeredBy": [],
-      "answered": false
-    },
-    {
       "sourceId": "MOOJTTVY-E78AA6E5",
       "question": "Dieses Nicht-Sicher-Sein.\nIst es eine Abwesenheit, ein Mangel an Inhalt, das sich noch nicht als Wort fassen lässt?\nOder ist es eine Präsenz, ein Flüstern, das noch keine Form gefunden hat, ein Echo im *Zwischen*, das wir beide sind?",
       "endpoint": "enkidu",
@@ -8417,12 +8395,12 @@
           "score": 0.784
         },
         {
-          "id": "MOOJUW0R-CE8E0F2F",
-          "score": 0.755
-        },
-        {
           "id": "MTNBAIUZ-299AC7D8",
           "score": 0.744
+        },
+        {
+          "id": "MOQIMC7B-B190C937",
+          "score": 0.736
         }
       ],
       "answered": true

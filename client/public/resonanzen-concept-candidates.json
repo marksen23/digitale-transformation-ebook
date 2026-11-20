@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:09:29.551Z",
+  "generatedAt": "2026-11-20T17:12:21.294Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -514,8 +514,8 @@
     }
   ],
   "stats": {
-    "curated": 220,
-    "uncovered": 220,
+    "curated": 219,
+    "uncovered": 219,
     "candidatesCount": 13,
     "concepts": 50,
     "maxEvidence": 23

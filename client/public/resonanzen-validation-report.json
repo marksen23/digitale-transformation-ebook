@@ -1,9 +1,15 @@
 {
-  "generatedAt": "2026-11-20T17:08:43.907Z",
-  "filesChecked": 466,
+  "generatedAt": "2026-11-20T17:12:08.498Z",
+  "filesChecked": 472,
   "errors": 0,
-  "warnings": 74,
+  "warnings": 81,
   "issues": [
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/analyse/analyse_antwort-resonanz.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint analyse"
+    },
     {
       "level": "warning",
       "file": "content/resonanzen/master/analyse/analyse_erkenntnis-lm-verwandlung.md",
@@ -43,6 +49,18 @@
     {
       "level": "warning",
       "file": "content/resonanzen/master/chapter/chapter_band2-kap3.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint chapter"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band2-kap4.md",
+      "rule": "orphan-nodeid",
+      "detail": "nodeId 'band2-kap4' not found in conceptGraph NODES"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/chapter/chapter_band2-kap4.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint chapter"
     },
@@ -156,6 +174,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_antwort-resonanz.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/master/dialog/dialog_erkenntnis-lm-verwandlung.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
@@ -174,7 +198,25 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_licht-schatten.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/master/dialog/dialog_raum-erkenntnis-sprache.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_raumfaltung-weltfaltung.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_transformatives-drittes.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
     },
@@ -451,9 +493,9 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 117,
-      "chapter": 64,
-      "dialog": 75,
+      "analyse": 118,
+      "chapter": 65,
+      "dialog": 79,
       "path-analyse": 66,
       "enkidu": 68,
       "graph-chat": 52,
@@ -461,14 +503,15 @@
       "translate": 6
     },
     "byStatus": {
-      "published": 164,
-      "raw": 222,
-      "rejected": 26,
+      "published": 169,
+      "raw": 221,
+      "rejected": 28,
       "approved": 54
     },
     "orphanNodeIds": [
       "band1-kap5",
       "band2-kap3",
+      "band2-kap4",
       "band3-kap3",
       "band3-kap4",
       "band3-kap5",
