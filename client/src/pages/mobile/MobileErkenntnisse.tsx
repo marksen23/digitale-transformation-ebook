@@ -13,6 +13,7 @@ import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
 import { buildErkenntnisFeed } from "@/lib/erkenntnisFeed";
 import MobileScreenShell from "@/pages/mobile/MobileScreenShell";
+import NewsletterSignup from "@/components/NewsletterSignup";
 
 const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] ?? ep;
 const epColor = (ep: string, fb: string) => ENDPOINT_COLOR[ep as ResonanzEntry["endpoint"]] ?? fb;
@@ -41,6 +42,7 @@ export default function MobileErkenntnisse() {
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 16 }}>
         Wo eine offene Frage des Werks eine Antwort fand, die wirklich einen Schritt weitergeht — geprüft und bestätigt. Jede mit ihrer Entstehung.
       </div>
+      <NewsletterSignup C={C} compact />
 
       {!erk ? (
         <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>

@@ -1,6 +1,7 @@
 import path from "path";
 import { fileURLToPath } from "url";
 import { createApp } from "./app.js";
+import { startNewsletterSchedule } from "./lib/newsletterDigest.js";
 
 // Verzeichnis des Entry-Points. import.meta.url bleibt hier, damit gebündelt
 // (dist/index.js) und ungebündelt (server/index.ts) dieselbe Basis wie zuvor
@@ -13,6 +14,7 @@ async function startServer() {
 
   server.listen(port, () => {
     console.log(`Server running on http://localhost:${port}/`);
+    startNewsletterSchedule();
   });
 }
 

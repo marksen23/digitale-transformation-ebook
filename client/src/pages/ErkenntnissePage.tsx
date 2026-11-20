@@ -18,6 +18,7 @@ import { extractClosingQuestion } from "@/lib/closingQuestion";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
 import { buildErkenntnisFeed } from "@/lib/erkenntnisFeed";
 import SiteFooter from "@/components/SiteFooter";
+import NewsletterSignup from "@/components/NewsletterSignup";
 import { useIsMobile } from "@/hooks/useMobile";
 import MobileErkenntnisse from "@/pages/mobile/MobileErkenntnisse";
 
@@ -68,6 +69,7 @@ export default function ErkenntnissePage() {
           weitergeht — geprüft und bestätigt. Jede Erkenntnis mit ihrer Entstehung:
           aus welcher Frage, aus welcher Antwort sie erwuchs.
         </p>
+        <NewsletterSignup C={c} />
 
         {erk && (
           <div style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.06em", color: c.muted, marginBottom: "1.2rem" }}>

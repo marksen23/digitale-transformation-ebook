@@ -92,6 +92,7 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
         )}
 
         {kind === "impressum" && (
+          <>
           <Placeholder c={c} lines={[
             "Angaben gemäß § 5 TMG / § 18 MStV:",
             "",
@@ -101,6 +102,15 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
             "",
             "Haftungs- und Urheberrechtshinweise: — zu ergänzen —",
           ]} />
+          <H2>Newsletter</H2>
+          <p style={para}>
+            Der Newsletter „Erkenntnis des Tages" verschickt einen veröffentlichten Kernsatz,
+            täglich oder wöchentlich. Verantwortlich ist die oben genannte Person. Angemeldet
+            ist nur, wer den Link in der Bestätigungsmail öffnet. Jede Mail enthält einen
+            Abmeldelink; damit ist die Adresse gelöscht. Solange kein Versanddienst eingerichtet
+            ist, geht keine Mail hinaus.
+          </p>
+          </>
         )}
 
         {kind === "kontakt" && (
@@ -254,6 +264,25 @@ export default function InfoPage({ kind }: { kind: InfoKind }) {
               aktiv, wenn der Betreiber sie eingerichtet hat. Dann lädt der Browser ein Skript
               von diesem Host und übermittelt Seitenaufrufe ohne Tracking-Cookie. Ohne diese
               Einrichtung findet kein solcher Abruf statt.
+            </p>
+
+            <H2>Newsletter</H2>
+            <p style={para}>
+              Wenn du den Newsletter „Erkenntnis des Tages" bestellst, speichern wir die
+              E-Mail-Adresse, den gewählten Rhythmus (täglich oder wöchentlich), den Zeitpunkt
+              der Einwilligung und — nach dem Klick auf den Bestätigungslink — den Zeitpunkt
+              der Bestätigung. Dazu kommen zwei zufällige Zeichenfolgen für Bestätigung und
+              Abmeldung. Rechtsgrundlage ist deine Einwilligung (Art. 6 Abs. 1 lit. a DSGVO).
+              Die Daten liegen nur auf dem Server des Angebots, nicht im öffentlichen Korpus
+              und nicht im Quelltext. Ohne eingerichteten Versanddienst wird keine Mail
+              verschickt; die Anmeldung bleibt dann unbestätigt liegen.
+            </p>
+            <p style={para}>
+              Erst eine echte Mail übermittelt die Adresse an den Versanddienst, den der
+              Betreiber eingesetzt hat (vorgesehen ist ein europäischer Dienst). Jede Mail
+              enthält einen Abmeldelink. Der Link löscht die Adresse. Dieselbe Löschung kann
+              der Betreiber im Admin vornehmen. Die IP-Adresse der Anmeldung speichern wir
+              nicht; die Ratenbegrenzung des Formulars liegt nur im Arbeitsspeicher.
             </p>
 
             <H2>Deine Rechte</H2>

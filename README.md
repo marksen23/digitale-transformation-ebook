@@ -199,6 +199,52 @@ Coolify-Schritte stehen in `SELF_HOSTING.md`.
 
 ---
 
+## Newsletter „Erkenntnis des Tages"
+
+Formular auf der Startseite und unter `/erkenntnisse`. Anmeldung ist
+Double-Opt-in: erst der Link in der Bestätigungsmail setzt die Adresse auf
+bestätigt. Jede Mail enthält einen Abmeldelink, der die Adresse löscht.
+Adressen liegen **nur auf dem Server** (`NEWSLETTER_STORE_PATH`, sonst
+`data/newsletter/subscribers.json`). Diese Datei ist gitignoriert und gehört
+nicht in `client/public` und nicht in den Korpus.
+
+Ohne fertigen Anbieter versendet der Server **nichts**. Er speichert die
+Anmeldung als `pending` und schreibt eine Log-Zeile (ohne Bestätigungslink,
+Empfänger gekürzt). Das Formular sagt das deutlich.
+
+**Empfehlung zum Livegang: [Brevo](https://www.brevo.com)** (früher Sendinblue).
+Der Free-Tarif erlaubt 300 Mails am Tag, das reicht für eine tägliche Ausgabe
+an eine kleine Leserschaft. Brevo sitzt in der EU, das passt zur DSGVO besser
+als ein reiner US-Versand. Resend geht ebenfalls (`NEWSLETTER_PROVIDER=resend`),
+der Free-Tarif ist enger (etwa 100 Mails am Tag). Die Liste bleibt bei uns;
+Brevo ist nur der Versandweg und sieht eine Adresse erst, wenn eine Mail
+hinausgeht.
+
+Auf Render setzen (Dashboard → Environment, oder die `sync: false`-Keys in
+`render.yaml`). Keine dieser Werte ins Repo:
+
+| Variable | Wann | Bedeutung |
+| --- | --- | --- |
+| `NEWSLETTER_PROVIDER` | zum Versand | `brevo`, `resend` oder `smtp`. Leer oder `log`: nur speichern. |
+| `NEWSLETTER_API_KEY` | bei brevo/resend | API-Key des Anbieters. |
+| `NEWSLETTER_FROM` | zum Versand | Verifizierte Absenderadresse, z. B. `Resonanzvernunft <newsletter@digitale-transformation-ebook.de>`. |
+| `NEWSLETTER_SMTP_HOST` | bei smtp | Server. Port 465 ist TLS, 587 ist STARTTLS. |
+| `NEWSLETTER_SMTP_PORT` | optional | Standard `465`. |
+| `NEWSLETTER_SMTP_USER` / `NEWSLETTER_SMTP_PASS` | bei smtp | Zugangsdaten, falls der Server Auth verlangt. |
+| `NEWSLETTER_STORE_PATH` | auf Render | Datei auf einer **Persistent Disk**, z. B. `/var/newsletter/subscribers.json`. Ohne Disk löscht jedes Redeploy die Liste. |
+| `NEWSLETTER_SCHEDULE` | optional | `1` prüft im Prozess ab 06:00 UTC, ob die tägliche Ausgabe fällig ist, sonntags zusätzlich die Woche. `0` (Blueprint-Default): nur der Knopf im Admin. |
+| `SITE_URL` | schon gesetzt | Links in den Mails. |
+| `ADMIN_TOKEN` | schon gesetzt | Unter `/admin`: Anzahl, Liste, Löschen, Digest anstoßen, offene Bestätigungen nachschicken. |
+
+Livegang, kurz: Absenderdomain bei Brevo verifizieren, die Variablen setzen,
+Disk einhängen, `NEWSLETTER_SCHEDULE=1`, neu deployen, mit der eigenen Adresse
+prüfen. Wer sich angemeldet hat, solange noch kein Anbieter konfiguriert war,
+bleibt `pending` — im Admin „Bestätigungen nachschicken", sobald der Versand steht.
+
+Der Atom-Feed `/feed/erkenntnisse.xml` bleibt die Inhaltsquelle des Digests.
+Es wird nichts an X oder an einen externen Newsletter-Dienst gepusht, außer
+die einzelne Mail über den gewählten Anbieter.
+
 ## 📞 Support
 
 Für Fragen oder Probleme:
