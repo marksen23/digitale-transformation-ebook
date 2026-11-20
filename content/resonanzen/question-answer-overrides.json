@@ -276,6 +276,90 @@
         "MWP89KEO-68E6B82A"
       ],
       "note": "Pädagogik: Angst vor dem Sich-Verlieren in produktive Neugier verwandeln"
+    },
+    {
+      "sourceId": "MASTER-0ACC14CB",
+      "pin": [
+        "MWP942PV-96D0E9F1"
+      ],
+      "note": "Prozessuale Verantwortung institutionell verankern trotz kausaler Zurechnung"
+    },
+    {
+      "sourceId": "MWP81IWI-5311D00B",
+      "pin": [
+        "MWP942PV-96D0E9F1"
+      ],
+      "note": "Dublette zu MASTER-0ACC14CB: Verantwortung für Emergenz bei langen Kausalketten"
+    },
+    {
+      "sourceId": "MASTER-70E7430C",
+      "pin": [
+        "MWP942PY-5EF7032A"
+      ],
+      "note": "Verantwortung für das Unverfügbare als menschliche Praxis bewahren"
+    },
+    {
+      "sourceId": "MWP888HX-9EF62C70",
+      "pin": [
+        "MWP942PY-5EF7032A"
+      ],
+      "note": "Dublette zu MASTER-70E7430C: Verantwortung als kollektive Praxis"
+    },
+    {
+      "sourceId": "MASTER-0DDDD54A",
+      "pin": [
+        "MWP942Q1-AC6D25E4"
+      ],
+      "note": "Urteil im Schatten des Nicht-Gewussten trotz Datenhelligkeit kultivieren"
+    },
+    {
+      "sourceId": "MWCB1COA-DE68B5C9",
+      "pin": [
+        "MWP942Q4-D22CF61C"
+      ],
+      "note": "Welche Art von Urteil ohne Erfahrung und Intuition"
+    },
+    {
+      "sourceId": "MWP86K27-E36FC029",
+      "pin": [
+        "MWP942Q7-3E1CE3F8"
+      ],
+      "note": "Ethik des Rahmens institutionalisieren ohne Doktrin"
+    },
+    {
+      "sourceId": "MWP87W94-699C7D13",
+      "pin": [
+        "MWP942Q7-3E1CE3F8"
+      ],
+      "note": "Dublette zu MWP86K27: Neubewertung der Schatten ohne Metanarrative"
+    },
+    {
+      "sourceId": "MWP82NI3-4EAF5580",
+      "pin": [
+        "MWP942QA-90A0C107"
+      ],
+      "note": "Bedingungen für Gnade und Buße"
+    },
+    {
+      "sourceId": "MP8O6ND9-133F3FFB",
+      "pin": [
+        "MWP942QD-1A3FDA7E"
+      ],
+      "note": "Das Dritte benennen oder im Vollzug entstehen lassen"
+    },
+    {
+      "sourceId": "MP8O3GQD-92E9E9C7",
+      "pin": [
+        "MWP942QD-1A3FDA7E"
+      ],
+      "note": "Dublette zu MP8O6ND9: Theorie als Haltung statt Anwendung"
+    },
+    {
+      "sourceId": "MASTER-456B1D6E",
+      "pin": [
+        "MWP942QG-F15146A5"
+      ],
+      "note": "Schweigen eines Systems: Scheitern oder Antwort"
     }
   ]
 }
