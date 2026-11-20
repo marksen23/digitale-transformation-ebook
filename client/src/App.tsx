@@ -34,6 +34,7 @@ const ProjektPage = lazy(() => import("./pages/ProjektPage"));
 const InfoPage = lazy(() => import("./pages/InfoPage"));
 const ErkundenPage = lazy(() => import("./pages/ErkundenPage"));
 const LesepfadePage = lazy(() => import("./pages/LesepfadePage"));
+const ZeitrafferPage = lazy(() => import("./pages/ZeitrafferPage"));
 
 // Wrapper: Sub-Pages laufen alle unter dem globalen AppFrame.
 // Home (/) bleibt aussen vor — seine eigene Reading-UI bestimmt das Frame.
@@ -80,6 +81,9 @@ function Router() {
       </Route>
       <Route path={"/lesepfade"}>
         <Framed><Suspense fallback={fallback}><LesepfadePage /></Suspense></Framed>
+      </Route>
+      <Route path={"/zeitraffer"}>
+        <Framed><Suspense fallback={fallback}><ZeitrafferPage /></Suspense></Framed>
       </Route>
       <Route path={"/landkarte"}>
         <Framed><Suspense fallback={fallback}><LandkartePage /></Suspense></Framed>

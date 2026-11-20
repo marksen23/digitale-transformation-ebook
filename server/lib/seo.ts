@@ -109,6 +109,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Drei kuratierte Wege durch das Begriffsnetz: Stationen mit Frage und Stimmen aus dem veröffentlichten Korpus.",
   },
+  "/zeitraffer": {
+    title: `Zeitraffer der Karte — ${WORK_TITLE}`,
+    description:
+      "Wie das Begriffsnetz dichter wurde: ein Schieber über die echten Tage des Korpus, Dichte je Begriff.",
+  },
   "/live": {
     title: `Live — ${WORK_TITLE}`,
     description: "Der lebendige Strom: die jüngsten Resonanzen des Werks in Echtzeit.",
