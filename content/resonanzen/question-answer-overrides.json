@@ -106,6 +106,113 @@
         "MW566TOD-84C09B94"
       ],
       "note": "Denken in einer verstummenden, sich wiederholenden Welt"
+    },
+    {
+      "sourceId": "MASTER-53BE22D7",
+      "pin": [
+        "MWP7PHLX-B52303F9"
+      ],
+      "note": "Werkzeuge, die das Unausgesprochene sichtbar machen (Synthese Raum · Einsicht · Logos)"
+    },
+    {
+      "sourceId": "MV9NMWL2-5669B857",
+      "pin": [
+        "MWP7PHLX-B52303F9"
+      ],
+      "exclude": [
+        "MASTER-53BE22D7"
+      ],
+      "note": "Wortgleiche Schlussfrage wie MASTER-53BE22D7. Die Master-Synthese trägt dieselbe Frage und ist keine Antwort darauf."
+    },
+    {
+      "sourceId": "MWJF8ASK-16B3DB91",
+      "pin": [
+        "MWP7PHM0-4AECED9E"
+      ],
+      "note": "Systemische Korrektur: Scheitern als Impuls"
+    },
+    {
+      "sourceId": "MASTER-2C637ECA",
+      "pin": [
+        "MWP7PHM0-4AECED9E"
+      ],
+      "note": "Schlussreflexion: digitale Räume, die Scheitern und Verwandlung befördern"
+    },
+    {
+      "sourceId": "MWG6HW56-B5802350",
+      "pin": [
+        "MWP7PHM3-67AB165C"
+      ],
+      "note": "Selbstreflexion, wenn das Andere nur spiegelt statt bricht"
+    },
+    {
+      "sourceId": "MWDSDR89-C66887AA",
+      "pin": [
+        "MWP7PHM6-789F4B23"
+      ],
+      "note": "Benanntes Ergebnis vs. Erwartung unter Unverfügbarkeit"
+    },
+    {
+      "sourceId": "MWJ1CFX6-DB36677A",
+      "pin": [
+        "MWP7PHM9-EC2123C1"
+      ],
+      "note": "Menschliche Unschärfe vs. maschinelle Präzision"
+    },
+    {
+      "sourceId": "MASTER-5AF4690D",
+      "pin": [
+        "MWP7PHMC-41844226"
+      ],
+      "note": "Digitales Vergessen: gemeinsame Praxis der Unterscheidung"
+    },
+    {
+      "sourceId": "MW566TNX-A16A2897",
+      "pin": [
+        "MWP7PHMF-9C500DEA"
+      ],
+      "note": "Wer bemisst die Stille? Anschlussfrage aus #33"
+    },
+    {
+      "sourceId": "MWJ1DBD5-7CEE18D5",
+      "pin": [
+        "MW566TNX-A16A2897",
+        "MWP7PHMF-9C500DEA"
+      ],
+      "note": "Near-Duplicate von MUY7RXCI-E899056E (Stille/Pause in Algorithmen verankern)"
+    },
+    {
+      "sourceId": "MASTER-63686170",
+      "pin": [
+        "MUY7RXCI-E899056E",
+        "MW566TNX-A16A2897"
+      ],
+      "note": "Dublette: Master-Synthese erbt die Schlussfrage ihrer Variante MPUFECMA-7E85D8E2 (fast wortgleich). Deren Antworten übernehmen."
+    },
+    {
+      "sourceId": "MASTER-94E7804F",
+      "pin": [
+        "MQ5WX52Q-442369F2",
+        "MTKI1YQW-CD0EEDF3"
+      ],
+      "note": "Dublette: Master-Synthese erbt die Schlussfrage ihrer Variante MOOK96F0-C8AEFE68 (Maß der geöffneten Vernunft). Deren Antworten übernehmen."
+    },
+    {
+      "sourceId": "MASTER-6469616C",
+      "pin": [
+        "MTNB6SUG-2922AE66",
+        "MTNB68RF-CFF570D9",
+        "MTNB85LB-7C1F15DE"
+      ],
+      "note": "Dublette: Master-Synthese erbt die Schlussfrage ihrer Variante MQ67R74M-A1AA4B53 (empfundene Sprache). Gleiche Pins wie dort."
+    },
+    {
+      "sourceId": "MASTER-31CE5C0B",
+      "pin": [
+        "MQ5WV5PP-6209C749",
+        "MQ5WX52Q-442369F2"
+      ],
+      "note": "Near-Duplicate: Master-Synthese über MQ5WUD1G-0976C016 (Erschrecken der Einsicht). Deren Antworten übernehmen."
     }
   ]
 }
