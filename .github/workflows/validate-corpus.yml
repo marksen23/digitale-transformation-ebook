@@ -29,8 +29,9 @@ on:
 # Parallel-Guard-Läufe (zwei content/-Pushes kurz hintereinander) würden sonst
 # beim Commit-Back um main rennen und in generierten Artefakten kollidieren.
 # cancel-in-progress: false = der zweite Lauf wird NICHT abgebrochen, sondern
-# reiht sich ein und rebuildet gegen das bereits aktualisierte main — kein
-# Datenverlust. Live-Append vom Render-Server (indexUpdater) ist KEIN Guard-
+# reiht sich ein. Dass er gegen das bereits aktualisierte main baut, sorgt
+# erst der Step "Build-Basis auf aktuellen main-Tip setzen" (checkout allein
+# holt den auslösenden SHA, nicht den Tip) — kein Datenverlust. Live-Append vom Render-Server (indexUpdater) ist KEIN Guard-
 # Lauf und wird hier nicht serialisiert; dagegen greift die Konflikt-Recovery
 # im Commit-Step (reset → rebuild → push), siehe unten.
 concurrency:
@@ -53,6 +54,42 @@ jobs:
           # mehr als den shallow Default (fetch-depth: 1), sonst bricht Rebase
           # auf fehlende Ancestors.
           fetch-depth: 0
+
+      # ─── Build-Basis = aktueller main-Tip, nicht der auslösende Commit ───
+      # actions/checkout holt bei push-Events github.sha. Wartet ein Lauf in
+      # der concurrency-Gruppe, hat der vorherige Lauf main inzwischen mit
+      # seinem Guardian-Commit weitergeschoben. Baut der wartende Lauf dann
+      # auf dem alten SHA, kollidiert sein Commit beim Rebase in rein
+      # CI-geschriebenen Artefakten (PDF, Embeddings, anchor-clusters) →
+      # CONFLICT-RECOVERY (20.11.2026: 6× in ~20 min, z. B. Run 44776899760).
+      # Darum vor dem Build auf origin/main zurücksetzen. Der auslösende
+      # Commit ist darin enthalten (Push auf main); ist er es nicht (Force-
+      # Push auf main), wird gewarnt und trotzdem der Tip gebaut — der ist
+      # die Wahrheit. Läufe auf anderen Refs (workflow_dispatch auf einem
+      # Branch) bleiben auf ihrem Ref und sind reine Prüf-Läufe (der
+      # Commit-Step läuft nur auf main). Die Konflikt-Recovery im Commit-
+      # Step bleibt als Netz für Live-Append-Commits während des Builds.
+      - name: Build-Basis auf aktuellen main-Tip setzen
+        id: base
+        run: |
+          set -euo pipefail
+          TRIGGERED="${{ github.sha }}"
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            git fetch --no-tags origin main
+            TIP=$(git rev-parse origin/main)
+            if [ "$TIP" != "$(git rev-parse HEAD)" ]; then
+              if ! git merge-base --is-ancestor "$TRIGGERED" "$TIP"; then
+                echo "::warning::Auslösender Commit $TRIGGERED ist nicht in origin/main enthalten (Force-Push?) — baue trotzdem auf dem Tip."
+              fi
+              git reset --hard "$TIP"
+            fi
+          else
+            echo "[base] ref=${{ github.ref }} ist nicht main — kein Reset, Prüf-Lauf ohne Push"
+          fi
+          BUILT_ON=$(git rev-parse HEAD)
+          echo "[base] triggered=$TRIGGERED built-on=$BUILT_ON ref=${{ github.ref }} event=${{ github.event_name }}"
+          echo "built_on=$BUILT_ON" >> "$GITHUB_OUTPUT"
+          echo "BUILT_ON_SHA=$BUILT_ON" >> "$GITHUB_ENV"
 
       - uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
         # Version aus package.json packageManager-Feld
@@ -191,7 +228,8 @@ jobs:
               const snap = {
                 date: '$DATE',
                 generatedAt: new Date().toISOString(),
-                commit: '${{ github.sha }}',
+                commit: '$BUILT_ON_SHA',
+                triggeredBy: '${{ github.sha }}',
                 filesChecked: r.filesChecked,
                 aggregates: r.aggregates,
                 errors: r.errors,
@@ -296,7 +334,10 @@ jobs:
           exit 0  # niemals fail — Drift ist Warning, kein Action-Fail
 
       - name: Commit snapshot + index + tag last-stable
-        if: success()
+        # Nur auf main: ein workflow_dispatch auf einem anderen Ref würde
+        # sonst per pull --rebase + push origin main Branch-Commits nach
+        # main schieben.
+        if: success() && github.ref == 'refs/heads/main'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Für Konflikt-Recovery (Rebuild nach reset auf origin/main):
@@ -394,13 +435,17 @@ jobs:
               return 1
             fi
             mkdir -p versions
+            # Nach Recovery-Reset ist HEAD = origin/main, nicht der Trigger-SHA.
+            local snap_commit
+            snap_commit=$(git rev-parse HEAD)
             node -e "
               const fs = require('fs');
               const r = JSON.parse(fs.readFileSync('client/public/resonanzen-validation-report.json', 'utf-8'));
               const snap = {
                 date: '$DATE',
                 generatedAt: new Date().toISOString(),
-                commit: '${{ github.sha }}',
+                commit: '$snap_commit',
+                triggeredBy: '${{ github.sha }}',
                 filesChecked: r.filesChecked,
                 aggregates: r.aggregates,
                 errors: r.errors,

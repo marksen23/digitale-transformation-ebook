@@ -46,6 +46,11 @@ jobs:
           node-version: "24"
           cache: pnpm
 
+      # `ref: github.ref_name` holt bereits den aktuellen Branch-Tip, nicht
+      # den auslösenden SHA. Hier nur protokollieren, worauf gebaut wird.
+      - name: Build-Basis protokollieren
+        run: echo "[base] triggered=${{ github.sha }} built-on=$(git rev-parse HEAD) ref=${{ github.ref }} event=${{ github.event_name }}"
+
       - run: pnpm install --frozen-lockfile
 
       - name: Neue Kernsätze und fällige Master

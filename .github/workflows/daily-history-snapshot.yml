@@ -15,13 +15,16 @@ permissions:
 jobs:
   snapshot:
     runs-on: ubuntu-latest
-    timeout-minutes: 5
+    timeout-minutes: 10
     steps:
       # Action-SHAs gepinnt (Repo-Policy: keine Tag-Refs erlaubt)
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v5
         with:
-          fetch-depth: 1
+          # Volle History, damit `git pull --rebase` vor dem Push nicht an
+          # fehlenden Ancestors scheitert.
+          fetch-depth: 0
+          # Branch-Ref statt Trigger-SHA: checkout holt so den aktuellen Tip.
           # Auf demselben Branch committen, von dem der Workflow lief
           ref: ${{ github.ref }}
 
@@ -55,4 +58,20 @@ jobs:
           fi
           DATE=$(date -u +%Y-%m-%d)
           git commit -m "history: daily snapshot $DATE [bot]"
-          git push
+          # Live-Append committet jederzeit auf main. Ein nackter `git push`
+          # scheitert dann non-fast-forward. Darum vor jedem Versuch auf den
+          # aktuellen Branch-Tip rebasen (content/history/ schreibt nur dieser
+          # Workflow → keine inhaltlichen Konflikte zu erwarten).
+          BRANCH="${{ github.ref_name }}"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin "$BRANCH"
+            echo "[base] triggered=${{ github.sha }} built-on=$(git rev-parse HEAD~1) attempt=$i"
+            if git push origin "HEAD:$BRANCH"; then
+              echo "Push gelungen (Versuch $i)"
+              exit 0
+            fi
+            echo "Push abgelehnt — erneut in $((2 * i))s"
+            sleep $((2 * i))
+          done
+          echo "::error::Snapshot konnte nicht gepusht werden."
+          exit 1
