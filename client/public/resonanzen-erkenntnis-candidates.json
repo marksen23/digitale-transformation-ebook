@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:06:57.829Z",
+  "generatedAt": "2026-11-20T17:08:55.404Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -16,12 +16,17 @@
         "entfremdung",
         "wirklichkeit"
       ],
-      "resolveCount": 1,
+      "resolveCount": 2,
       "resolves": [
         {
           "sourceId": "MWHLWXJ6-FBB227D8",
           "question": "Ist die Unzufriedenheit trotz grüner Kennzahlen ein Signal, das uns zur Rückbindung an eine tiefere, nicht-quantifizierbare Wirklichkeit drängt?",
           "score": 0.878
+        },
+        {
+          "sourceId": "MWCBD76M-4F8E62A5",
+          "question": "Wie ließe sich im unternehmerischen Handeln eine solche Haltung der „kontinuierlichen Rückbindung“ konkret in die Entscheidungsfindung integrieren?",
+          "score": 0.668
         }
       ]
     },

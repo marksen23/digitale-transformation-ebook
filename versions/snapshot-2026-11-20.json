@@ -1,11 +1,11 @@
 {
   "date": "2026-11-20",
-  "generatedAt": "2026-11-20T17:07:04.344Z",
-  "commit": "ac362cd8d4c46c16f2e063116b20ea16779cb7e8",
-  "filesChecked": 458,
+  "generatedAt": "2026-11-20T17:08:43.979Z",
+  "commit": "cae147e4cbe86ed8627df61da4da870afe1f4f22",
+  "filesChecked": 466,
   "aggregates": {
     "byEndpoint": {
-      "analyse": 109,
+      "analyse": 117,
       "chapter": 64,
       "dialog": 75,
       "path-analyse": 66,
@@ -16,8 +16,8 @@
     },
     "byStatus": {
       "published": 164,
-      "raw": 216,
-      "rejected": 24,
+      "raw": 222,
+      "rejected": 26,
       "approved": 54
     },
     "orphanNodeIds": [
@@ -40,5 +40,5 @@
   },
   "errors": 0,
   "warnings": 74,
-  "recovery": false
+  "recovery": true
 }
