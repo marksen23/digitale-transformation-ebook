@@ -61,6 +61,7 @@ const ROUTES = [
   "POST /api/corpus/similar",
   "GET /api/corpus/tensions",
   "GET /api/corpus/clusters",
+  "GET /feed/erkenntnisse.xml",
   "GET /sitemap.xml",
   "GET /llms-full.txt",
   "GET /{*splat}",
@@ -329,6 +330,11 @@ describe("server routes", () => {
   });
 
   it("liefert Sitemap und llms-full mit den bisherigen Headern", async () => {
+    const feed = await call("GET", "/feed/erkenntnisse.xml");
+    expect(feed.status).toBe(200);
+    expect(feed.headers["content-type"]).toBe("application/atom+xml; charset=utf-8");
+    expect(feed.body).toContain("<feed xmlns=\"http://www.w3.org/2005/Atom\">");
+
     const sitemap = await call("GET", "/sitemap.xml");
     expect(sitemap.status).toBe(200);
     expect(sitemap.headers["content-type"]).toBe("application/xml; charset=utf-8");

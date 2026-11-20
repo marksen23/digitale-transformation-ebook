@@ -6,12 +6,19 @@ import fs from "fs";
 import path from "path";
 import { Router } from "express";
 import { HTML_CACHE_CONTROL } from "../lib/securityHeaders.js";
+import { renderDailyFeedXml } from "../lib/erkenntnisFeed.js";
 import { buildLlmsFullText, buildSitemap, renderSeoHtml } from "../lib/seo.js";
 
 export function createSeoRouter(staticPath: string): Router {
   const router = Router();
   // Dynamische sitemap.xml aus dem Live-Index (alle nicht-rejected Resonanzen +
   // Haupt-Routen). Frisch ohne Build — neue Resonanzen erscheinen automatisch.
+  router.get("/feed/erkenntnisse.xml", (_req, res) => {
+    res.setHeader("Content-Type", "application/atom+xml; charset=utf-8");
+    res.setHeader("Cache-Control", "public, max-age=3600");
+    res.send(renderDailyFeedXml());
+  });
+
   router.get("/sitemap.xml", async (_req, res) => {
     try {
       const xml = await buildSitemap();

@@ -14,6 +14,7 @@ const EnkiduPage      = lazy(() => import('./EnkiduPage'));
 import { useLocation } from 'wouter';
 import { useIsMobile } from '@/hooks/useMobile';
 import MobileCover from '@/pages/mobile/MobileCover';
+import DailyInsight from '@/components/DailyInsight';
 import { useSpeechRecognition } from '@/hooks/useSpeech';
 import { useAudioPlayer, type VoiceGender } from '@/hooks/useAudioPlayer';
 import { UnifiedSearch } from '@/components/search/UnifiedSearch';
@@ -914,6 +915,7 @@ export default function Home() {
               PDF
             </a>
           </div>
+          <DailyInsight />
         </div>
 
         <p className="text-center text-stone-500 text-xs mt-6">
