@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:01:44.635Z",
+  "generatedAt": "2026-11-20T17:03:40.052Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -123,6 +123,20 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:licht+schatten",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWP87W94-699C7D13",
+        "MWP86K27-E36FC029",
+        "MWP814CF-E3AF9641",
+        "MWP7ZZFB-4CCC5381"
+      ],
+      "lastVariantTs": "2026-11-20T17:01:44.584Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:teil6",
       "endpoint": "chapter",
       "variantIds": [
@@ -134,19 +148,6 @@
       "lastVariantTs": "2026-05-16T18:18:38.925Z",
       "masterId": "MASTER-03059588",
       "masterTs": "2026-11-06T22:28:40.902Z",
-      "masterStale": false
-    },
-    {
-      "anchor": "dialog:licht+schatten",
-      "endpoint": "dialog",
-      "variantIds": [
-        "MWP86K27-E36FC029",
-        "MWP814CF-E3AF9641",
-        "MWP7ZZFB-4CCC5381"
-      ],
-      "lastVariantTs": "2026-11-20T17:00:42.127Z",
-      "masterId": null,
-      "masterTs": null,
       "masterStale": false
     },
     {
@@ -333,7 +334,7 @@
     }
   ],
   "stats": {
-    "totalAnchors": 245,
+    "totalAnchors": 246,
     "withMultipleVariants": 24,
     "withMaster": 19,
     "staleMasters": 2

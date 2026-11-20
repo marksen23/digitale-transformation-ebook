@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:01:43.612Z",
+  "generatedAt": "2026-11-20T17:03:38.660Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 27,
@@ -55,10 +55,10 @@
       }
     },
     "schweigen": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "analyse": 9,
-        "dialog": 2
+        "dialog": 3,
+        "analyse": 9
       }
     },
     "echo": {
@@ -331,10 +331,10 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
+        "dialog": 2,
         "analyse": 6,
-        "dialog": 1,
         "path-analyse": 8
       }
     },
@@ -347,17 +347,17 @@
       }
     },
     "schatten": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "dialog": 4,
+        "dialog": 5,
         "path-analyse": 1,
         "analyse": 5
       }
     },
     "licht": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "dialog": 4,
+        "dialog": 5,
         "path-analyse": 1,
         "analyse": 5
       }

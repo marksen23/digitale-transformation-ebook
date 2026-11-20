@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:00:34.218Z",
+  "generatedAt": "2026-11-20T17:03:38.647Z",
   "baseline": {
     "MPF4FISZ-67000E01": {
       "neighbors": [
@@ -440,6 +440,14 @@
         "MWAE3FJK-C7122206"
       ],
       "computedAt": "2026-11-20T17:00:34.161Z"
+    },
+    "MWP888HX-9EF62C70": {
+      "neighbors": [
+        "MWP82NI3-4EAF5580",
+        "MWP81YZO-24DCE87C",
+        "MWJ1DBD5-7CEE18D5"
+      ],
+      "computedAt": "2026-11-20T17:03:38.574Z"
     }
   }
 }

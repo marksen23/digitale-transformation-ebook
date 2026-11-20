@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-20T17:01:30.577Z",
-  "filesChecked": 455,
+  "generatedAt": "2026-11-20T17:03:31.250Z",
+  "filesChecked": 458,
   "errors": 0,
-  "warnings": 70,
+  "warnings": 74,
   "issues": [
     {
       "level": "warning",
@@ -246,6 +246,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/antwort+ich-du/2026-11-20-MWP87AIE-1CE096EA.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 4efdcf91c191bead, computed 77f6c0f1888e6364 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/echo+echo-kammer/2026-11-15-MWHLYYWS-7B7C3E63.md",
       "rule": "content-hash-mismatch",
       "detail": "expected a355cc7ac8496151, computed b5cb4ed76e5e8e71 — Tampering oder nachträgliche Edit?"
@@ -279,6 +285,12 @@
       "file": "content/resonanzen/raw/dialog/licht+schatten/2026-11-20-MWP86K27-E36FC029.md",
       "rule": "content-hash-mismatch",
       "detail": "expected f5606bfd5c0f23e6, computed 997d30d7559b93b7 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/licht+schatten/2026-11-20-MWP87W94-699C7D13.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 01658098ee34b9c6, computed a0b0316c94b284f4 — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
@@ -333,6 +345,12 @@
       "file": "content/resonanzen/raw/dialog/transformatives-drittes/2026-11-20-MWP81IWI-5311D00B.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 61aa36f8408c62d1, computed 15eda2a27b631004 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/unverfuegbarkeit/2026-11-20-MWP888HX-9EF62C70.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected dbfe05e797c10955, computed 0260f2a9671bae5d — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
@@ -420,6 +438,12 @@
     },
     {
       "level": "warning",
+      "file": "index:MWP86K27-E36FC029",
+      "rule": "duplicate-entries",
+      "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
+    },
+    {
+      "level": "warning",
       "file": "index:MTDDG179-491119D2",
       "rule": "duplicate-entries",
       "detail": "2× identische Begegnung (endpoint+anchor+Frage) — Bereinigung via dedup-corpus.ts"
@@ -429,7 +453,7 @@
     "byEndpoint": {
       "analyse": 109,
       "chapter": 64,
-      "dialog": 72,
+      "dialog": 75,
       "path-analyse": 66,
       "enkidu": 68,
       "graph-chat": 52,
@@ -438,7 +462,7 @@
     },
     "byStatus": {
       "published": 164,
-      "raw": 213,
+      "raw": 216,
       "rejected": 24,
       "approved": 54
     },
@@ -458,6 +482,6 @@
       "weiterdenken"
     ],
     "danglingLinks": 0,
-    "redundantDuplicates": 1
+    "redundantDuplicates": 2
   }
 }
