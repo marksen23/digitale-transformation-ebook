@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:08:55.405Z",
+  "generatedAt": "2026-11-20T17:09:34.896Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -88,8 +88,8 @@
         "MWJEXKQQ-CD62AAC3"
       ],
       "lastVariantTs": "2026-11-16T15:31:23.685Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-7F7160A0",
+      "masterTs": "2026-11-20T17:09:17.199Z",
       "masterStale": false
     },
     {
@@ -132,8 +132,8 @@
         "MWP7ZZFB-4CCC5381"
       ],
       "lastVariantTs": "2026-11-20T17:01:44.584Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-40033690",
+      "masterTs": "2026-11-20T17:09:17.199Z",
       "masterStale": false
     },
     {
@@ -184,8 +184,8 @@
         "MWJEWOY7-62FCEE55"
       ],
       "lastVariantTs": "2026-11-20T17:03:02.541Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-456B1D6E",
+      "masterTs": "2026-11-20T17:09:17.199Z",
       "masterStale": false
     },
     {
@@ -196,8 +196,8 @@
         "MWP7O1LR-9E27750E"
       ],
       "lastVariantTs": "2026-11-20T16:57:08.196Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-70E7430C",
+      "masterTs": "2026-11-20T17:09:17.199Z",
       "masterStale": false
     },
     {
@@ -208,8 +208,8 @@
         "MWP7OI4B-71BADB55"
       ],
       "lastVariantTs": "2026-11-20T16:56:47.346Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-0ACC14CB",
+      "masterTs": "2026-11-20T17:09:17.199Z",
       "masterStale": false
     },
     {
@@ -220,8 +220,8 @@
         "MWCAYXUQ-F0F3D68C"
       ],
       "lastVariantTs": "2026-11-20T16:46:56.764Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-0DDDD54A",
+      "masterTs": "2026-11-20T17:09:17.199Z",
       "masterStale": false
     },
     {
@@ -348,7 +348,7 @@
   "stats": {
     "totalAnchors": 253,
     "withMultipleVariants": 25,
-    "withMaster": 19,
+    "withMaster": 25,
     "staleMasters": 2
   }
 }

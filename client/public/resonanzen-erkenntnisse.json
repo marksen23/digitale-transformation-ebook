@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-16T12:23:24.560Z",
+  "generatedAt": "2026-11-20T17:09:17.199Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -625,6 +625,86 @@
       "conceptAnchor": "werden",
       "distinctness": 0.237,
       "createdAt": "2026-11-16T12:22:00.228Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-10IDUCZ",
+      "kernsatz": "Die Ethik des Rahmens verlagert visuelle Verantwortung von der Illusion objektiver Wahrheit zur transparenten, korrigierbaren Setzung der Perspektive selbst.",
+      "questionSourceId": "MWP7ZZFB-4CCC5381",
+      "answerId": "MWP86K27-E36FC029",
+      "conceptAnchor": "schatten",
+      "distinctness": 0.254,
+      "createdAt": "2026-11-20T17:07:42.098Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-17VQTIH",
+      "kernsatz": "Gemessenes Verklingen ist kein Löschen, sondern ein abgestuftes Leiserwerden, das dem Gewesenen seinen Ort lässt und dem Werdenden Raum gibt.",
+      "questionSourceId": "MASTER-5AF4690D",
+      "answerId": "MWP7PHMC-41844226",
+      "conceptAnchor": "gelassenheit",
+      "distinctness": 0.241,
+      "createdAt": "2026-11-20T17:07:46.504Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1ACAORO",
+      "kernsatz": "Menschliche Unschärfe ist kein Messfehler, sondern der Wahrnehmungsmodus, in dem das Nicht-Messbare als Ahnung des Ganzen überhaupt erst in den Blick kommt.",
+      "questionSourceId": "MWJ1CFX6-DB36677A",
+      "answerId": "MWP7PHM9-EC2123C1",
+      "conceptAnchor": "werden",
+      "distinctness": 0.231,
+      "createdAt": "2026-11-20T17:08:00.442Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-2AOR26",
+      "kernsatz": "Schuld ist nicht der Verstoß gegen ein Gesetz, sondern das Verstummen der Welt durch die Überdeckung ihrer Unverfügbarkeit, die den transformativen Widerhall einer Begegnung verhindert.",
+      "questionSourceId": "MWP80SJC-31660D4D",
+      "answerId": "MWP81YZO-24DCE87C",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.231,
+      "createdAt": "2026-11-20T17:07:56.023Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-A4KLVB",
+      "kernsatz": "Gelassenheit ist nicht die Abwesenheit von Dringlichkeit, sondern die aus dem Vertrauen in den Prozess gewonnene Leichtigkeit, die Gestaltung überhaupt erst ermöglicht.",
+      "questionSourceId": "MWP80FKW-BE8B476E",
+      "answerId": "MWP86WNM-ADEDD949",
+      "conceptAnchor": "gelassenheit",
+      "distinctness": 0.239,
+      "createdAt": "2026-11-20T17:07:51.072Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-CVN0DU",
+      "kernsatz": "Sanktion verlagert sich von der Bestrafung des Akteurs zur erzwungenen Reflexion und Re-Kalibrierung der gestörten systemischen Relation, um die Bedingungen für Resonanz wiederherzustellen.",
+      "questionSourceId": "MWJEZNVB-D1367E36",
+      "answerId": "MWJF8ASK-16B3DB91",
+      "conceptAnchor": "resonanzimperativ",
+      "distinctness": 0.268,
+      "createdAt": "2026-11-20T17:07:32.892Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-DB09P8",
+      "kernsatz": "Eine Ethik des Kontrast-Sehens macht die blinden Flecken der eigenen Wahrnehmung und kollektiver Erzählungen sichtbar, indem sie die Vielschichtigkeit des Verborgenen immer wieder neu befragt.",
+      "questionSourceId": "MWP814CF-E3AF9641",
+      "answerId": "MWP87W94-699C7D13",
+      "conceptAnchor": "schatten",
+      "distinctness": 0.256,
+      "createdAt": "2026-11-20T17:07:37.772Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-V5UC82",
+      "kernsatz": "Eine neue Ethik des Sehens sucht nicht nach makelloser Transparenz, sondern findet in der produktiven Reibung zwischen Sichtbarem und Unsichtbarem eine Quelle der Reflexion und des resonanten Erlebens.",
+      "questionSourceId": "MWP7ZZFB-4CCC5381",
+      "answerId": "MWP814CF-E3AF9641",
+      "conceptAnchor": "schatten",
+      "distinctness": 0.223,
+      "createdAt": "2026-11-20T17:08:04.920Z",
       "actor": "auto"
     }
   ]

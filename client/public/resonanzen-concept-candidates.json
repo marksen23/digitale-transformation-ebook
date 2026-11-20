@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:08:54.525Z",
+  "generatedAt": "2026-11-20T17:09:29.551Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -47,45 +47,6 @@
       ]
     },
     {
-      "suggestedLabel": "erkenntnis",
-      "keywords": [
-        {
-          "word": "erkenntnis",
-          "count": 4
-        },
-        {
-          "word": "andere",
-          "count": 4
-        },
-        {
-          "word": "entsteht",
-          "count": 2
-        },
-        {
-          "word": "grenze",
-          "count": 2
-        },
-        {
-          "word": "delegiert",
-          "count": 2
-        },
-        {
-          "word": "können",
-          "count": 2
-        }
-      ],
-      "evidence": 4,
-      "distinctness": 0.269,
-      "nearestConcept": "dazwischenintelligenz",
-      "nearestSim": 0.731,
-      "sampleEntryIds": [
-        "MTDCKR2Q-05DCEB69",
-        "MPUTYL5L-4C0B344F",
-        "MPUTT58G-25E5A1AC",
-        "MPUTKZI1-F10F9444"
-      ]
-    },
-    {
       "suggestedLabel": "frage",
       "keywords": [
         {
@@ -124,6 +85,82 @@
       ]
     },
     {
+      "suggestedLabel": "freiheit",
+      "keywords": [
+        {
+          "word": "freiheit",
+          "count": 3
+        },
+        {
+          "word": "neuen",
+          "count": 1
+        },
+        {
+          "word": "verantwortlichkeiten",
+          "count": 1
+        },
+        {
+          "word": "erwachsen",
+          "count": 1
+        },
+        {
+          "word": "perfektion",
+          "count": 1
+        },
+        {
+          "word": "strebt",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.263,
+      "nearestConcept": "freiheit",
+      "nearestSim": 0.737,
+      "sampleEntryIds": [
+        "MQ5X56G4-537343C8",
+        "MQ5X3C75-D543C13F",
+        "MQ5X1ZYV-9D7A29CC"
+      ]
+    },
+    {
+      "suggestedLabel": "können",
+      "keywords": [
+        {
+          "word": "können",
+          "count": 2
+        },
+        {
+          "word": "bloßen",
+          "count": 2
+        },
+        {
+          "word": "logos",
+          "count": 2
+        },
+        {
+          "word": "digitale",
+          "count": 1
+        },
+        {
+          "word": "orte",
+          "count": 1
+        },
+        {
+          "word": "schaffen",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.259,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.741,
+      "sampleEntryIds": [
+        "MV9NMWL2-5669B857",
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66"
+      ]
+    },
+    {
       "suggestedLabel": "neue",
       "keywords": [
         {
@@ -135,7 +172,7 @@
           "count": 2
         },
         {
-          "word": "maschine",
+          "word": "digitalen",
           "count": 2
         },
         {
@@ -151,90 +188,171 @@
           "count": 1
         }
       ],
-      "evidence": 3,
-      "distinctness": 0.257,
-      "nearestConcept": "sein",
-      "nearestSim": 0.743,
+      "evidence": 4,
+      "distinctness": 0.248,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.752,
       "sampleEntryIds": [
         "MQ5XLW2D-D3E90BBC",
         "MQ5XK9H2-8A6837CC",
-        "MQ5XFLFO-F0DBB89E"
+        "MQ5XE42V-D185B8D7",
+        "MOHV99XP-6917F19F"
       ]
     },
     {
-      "suggestedLabel": "verantwortung",
+      "suggestedLabel": "erkenntnis",
       "keywords": [
         {
-          "word": "verantwortung",
-          "count": 1
+          "word": "erkenntnis",
+          "count": 4
         },
         {
-          "word": "beherrschung",
-          "count": 1
+          "word": "andere",
+          "count": 4
         },
         {
-          "word": "bindung",
-          "count": 1
+          "word": "grenze",
+          "count": 3
         },
         {
-          "word": "erwächst",
-          "count": 1
-        },
-        {
-          "word": "ethischen",
-          "count": 1
-        },
-        {
-          "word": "implikationen",
-          "count": 1
-        }
-      ],
-      "evidence": 3,
-      "distinctness": 0.257,
-      "nearestConcept": "antwort",
-      "nearestSim": 0.743,
-      "sampleEntryIds": [
-        "MQ5X6P2M-52F9B16D",
-        "MQ5X56G4-537343C8",
-        "MON646UY-E4326634"
-      ]
-    },
-    {
-      "suggestedLabel": "freiheit",
-      "keywords": [
-        {
-          "word": "freiheit",
+          "word": "entsteht",
           "count": 2
         },
         {
-          "word": "verändert",
+          "word": "delegiert",
+          "count": 2
+        },
+        {
+          "word": "wäre",
+          "count": 2
+        }
+      ],
+      "evidence": 5,
+      "distinctness": 0.244,
+      "nearestConcept": "dazwischenintelligenz",
+      "nearestSim": 0.756,
+      "sampleEntryIds": [
+        "MTDCKR2Q-05DCEB69",
+        "MPUTYL5L-4C0B344F",
+        "MPUTT58G-25E5A1AC",
+        "MPUTKZI1-F10F9444",
+        "MPUSXGC6-CD078CEA"
+      ]
+    },
+    {
+      "suggestedLabel": "synthese",
+      "keywords": [
+        {
+          "word": "synthese",
+          "count": 3
+        },
+        {
+          "word": "varianten",
+          "count": 3
+        },
+        {
+          "word": "chapter",
+          "count": 2
+        },
+        {
+          "word": "band",
+          "count": 2
+        },
+        {
+          "word": "dialog",
           "count": 1
         },
         {
-          "word": "unvollkommene",
-          "count": 1
-        },
-        {
-          "word": "umarmt",
-          "count": 1
-        },
-        {
-          "word": "unsere",
-          "count": 1
-        },
-        {
-          "word": "vorstellung",
+          "word": "licht",
           "count": 1
         }
       ],
       "evidence": 3,
-      "distinctness": 0.238,
-      "nearestConcept": "werden",
-      "nearestSim": 0.762,
+      "distinctness": 0.24,
+      "nearestConcept": "schatten",
+      "nearestSim": 0.76,
       "sampleEntryIds": [
-        "MQ5X3C75-D543C13F",
-        "MQ5X1ZYV-9D7A29CC",
-        "MQ5WZZPN-8051E5FF"
+        "MASTER-0DDDD54A",
+        "MASTER-40033690",
+        "MASTER-5AF4690D"
+      ]
+    },
+    {
+      "suggestedLabel": "deine",
+      "keywords": [
+        {
+          "word": "deine",
+          "count": 2
+        },
+        {
+          "word": "unserer",
+          "count": 2
+        },
+        {
+          "word": "system",
+          "count": 2
+        },
+        {
+          "word": "stürzt",
+          "count": 2
+        },
+        {
+          "word": "startet",
+          "count": 2
+        },
+        {
+          "word": "makellos",
+          "count": 2
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.239,
+      "nearestConcept": "dazwischenintelligenz",
+      "nearestSim": 0.761,
+      "sampleEntryIds": [
+        "MPMU9JV9-A43849A9",
+        "MPMU7YZH-2C9CBFE8",
+        "MPMU67V4-938B932C",
+        "MOHDAOFD-2C20D4F5"
+      ]
+    },
+    {
+      "suggestedLabel": "triade",
+      "keywords": [
+        {
+          "word": "triade",
+          "count": 1
+        },
+        {
+          "word": "welt",
+          "count": 1
+        },
+        {
+          "word": "logos",
+          "count": 1
+        },
+        {
+          "word": "denken",
+          "count": 1
+        },
+        {
+          "word": "besser",
+          "count": 1
+        },
+        {
+          "word": "hätte",
+          "count": 1
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.235,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.765,
+      "sampleEntryIds": [
+        "MPVCLR8S-F523777E",
+        "MOJVF4PL-7474909F",
+        "MOHC8GKH-8E301C89",
+        "MOHAN4AO-7A201C56"
       ]
     },
     {
@@ -242,15 +360,15 @@
       "keywords": [
         {
           "word": "pfad",
-          "count": 16
-        },
-        {
-          "word": "resonanzvernunft",
-          "count": 13
+          "count": 21
         },
         {
           "word": "vergleich",
-          "count": 11
+          "count": 18
+        },
+        {
+          "word": "resonanzvernunft",
+          "count": 15
         },
         {
           "word": "resonanz",
@@ -262,179 +380,96 @@
         },
         {
           "word": "logos",
-          "count": 6
+          "count": 7
         }
       ],
-      "evidence": 16,
-      "distinctness": 0.226,
+      "evidence": 23,
+      "distinctness": 0.23,
       "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.774,
+      "nearestSim": 0.77,
       "sampleEntryIds": [
+        "MUZTGAEK-432FB6BC",
+        "MUKE7UOA-9553A59E",
         "MQARZJDV-82F077DD",
         "MPUO08SE-67E0912A",
-        "MPMSSG1X-8451DE38",
-        "MPMSRF6V-7FEB2991",
-        "MPF4FISZ-67000E01"
+        "MPUNXFU1-3B1F056A"
       ]
     },
     {
-      "suggestedLabel": "können",
+      "suggestedLabel": "vernunft",
       "keywords": [
         {
-          "word": "können",
-          "count": 5
+          "word": "vernunft",
+          "count": 2
         },
         {
-          "word": "logos",
-          "count": 4
+          "word": "unruhe",
+          "count": 2
         },
         {
-          "word": "denken",
-          "count": 4
+          "word": "kraft",
+          "count": 2
         },
         {
-          "word": "begrenzt",
-          "count": 4
+          "word": "widerstehen",
+          "count": 2
         },
         {
-          "word": "bloßen",
+          "word": "erschrecken",
+          "count": 2
+        },
+        {
+          "word": "ringen",
+          "count": 1
+        }
+      ],
+      "evidence": 4,
+      "distinctness": 0.2,
+      "nearestConcept": "spannung",
+      "nearestSim": 0.8,
+      "sampleEntryIds": [
+        "MQ5WZZPN-8051E5FF",
+        "MQ5WYJFU-60EB210E",
+        "MQ5WX52Q-442369F2",
+        "MPUFP1VW-298D0A73"
+      ]
+    },
+    {
+      "suggestedLabel": "alle",
+      "keywords": [
+        {
+          "word": "alle",
           "count": 3
         },
         {
-          "word": "resonanz",
-          "count": 2
-        }
-      ],
-      "evidence": 6,
-      "distinctness": 0.226,
-      "nearestConcept": "antwort",
-      "nearestSim": 0.774,
-      "sampleEntryIds": [
-        "MV9NMWL2-5669B857",
-        "MTNB77VP-6A85F255",
-        "MTNB6SUG-2922AE66",
-        "MQ5XNFSV-CD34905C",
-        "MPMKE3CC-4E75CE39"
-      ]
-    },
-    {
-      "suggestedLabel": "maschine",
-      "keywords": [
-        {
-          "word": "maschine",
-          "count": 4
-        },
-        {
-          "word": "bedeutet",
+          "word": "mich",
           "count": 2
         },
         {
-          "word": "zeitalter",
+          "word": "geschäftsmodell",
           "count": 2
         },
         {
-          "word": "antworten",
-          "count": 2
-        },
-        {
-          "word": "system",
-          "count": 2
-        },
-        {
-          "word": "stürzt",
-          "count": 2
-        }
-      ],
-      "evidence": 7,
-      "distinctness": 0.222,
-      "nearestConcept": "antwort",
-      "nearestSim": 0.778,
-      "sampleEntryIds": [
-        "MQ67R74M-A1AA4B53",
-        "MQ5XE42V-D185B8D7",
-        "MQ5XCH3V-67EF85C8",
-        "MQ5C1KZ4-D6D52E94",
-        "MPMU7YZH-2C9CBFE8"
-      ]
-    },
-    {
-      "suggestedLabel": "schweigen",
-      "keywords": [
-        {
-          "word": "schweigen",
-          "count": 2
-        },
-        {
-          "word": "echo",
-          "count": 2
-        },
-        {
-          "word": "rolle",
+          "word": "eigentlich",
           "count": 1
         },
         {
-          "word": "spielt",
+          "word": "siehts",
           "count": 1
         },
         {
-          "word": "bewusste",
-          "count": 1
-        },
-        {
-          "word": "pause",
+          "word": "machinellen",
           "count": 1
         }
       ],
-      "evidence": 6,
-      "distinctness": 0.189,
-      "nearestConcept": "spannung",
-      "nearestSim": 0.811,
-      "sampleEntryIds": [
-        "MUY7RXCI-E899056E",
-        "MUY7RXCI-D36BB4D6",
-        "MQ66ZWYC-52DE2DF2",
-        "MPF4WM18-FF4843F1",
-        "MOQIMC7B-B190C937"
-      ]
-    },
-    {
-      "suggestedLabel": "synthese",
-      "keywords": [
-        {
-          "word": "synthese",
-          "count": 15
-        },
-        {
-          "word": "varianten",
-          "count": 15
-        },
-        {
-          "word": "chapter",
-          "count": 10
-        },
-        {
-          "word": "pfad",
-          "count": 8
-        },
-        {
-          "word": "vergleich",
-          "count": 7
-        },
-        {
-          "word": "band",
-          "count": 5
-        }
-      ],
-      "evidence": 26,
-      "distinctness": 0.186,
+      "evidence": 3,
+      "distinctness": 0.195,
       "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.814,
+      "nearestSim": 0.805,
       "sampleEntryIds": [
-        "MASTER-5AF4690D",
-        "MASTER-5476DCEA",
-        "MASTER-2C637ECA",
-        "MASTER-476E4F4D",
-        "MASTER-556F1581"
+        "MOHDLJ25-7A6B620C",
+        "MOHD4STN-8490D410",
+        "MOHCSO2P-2D88785B"
       ]
     },
     {
@@ -476,53 +511,13 @@
         "MOP0P7DE-3C823F7E",
         "MOOVXCI4-822961D2"
       ]
-    },
-    {
-      "suggestedLabel": "resonanz",
-      "keywords": [
-        {
-          "word": "resonanz",
-          "count": 8
-        },
-        {
-          "word": "spannungsfeld",
-          "count": 6
-        },
-        {
-          "word": "bedeutet",
-          "count": 5
-        },
-        {
-          "word": "welt",
-          "count": 5
-        },
-        {
-          "word": "entfremdung",
-          "count": 4
-        },
-        {
-          "word": "triade",
-          "count": 4
-        }
-      ],
-      "evidence": 33,
-      "distinctness": 0.152,
-      "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.848,
-      "sampleEntryIds": [
-        "MQ68LVS7-240568F5",
-        "MQ5TUQ9P-EF8C6D4B",
-        "MQ5TTE84-08EB6321",
-        "MQ5KBJMQ-5C523141",
-        "MQ5JM1HD-9047C82F"
-      ]
     }
   ],
   "stats": {
-    "curated": 214,
-    "uncovered": 214,
+    "curated": 220,
+    "uncovered": 220,
     "candidatesCount": 13,
     "concepts": 50,
-    "maxEvidence": 33
+    "maxEvidence": 23
   }
 }

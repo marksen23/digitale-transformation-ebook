@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:08:54.465Z",
+  "generatedAt": "2026-11-20T17:09:29.495Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -17,6 +17,23 @@
         "MASTER-BC195439",
         "MQ5XNFSV-CD34905C",
         "MQ5XLW2D-D3E90BBC"
+      ]
+    },
+    {
+      "source": "antwort",
+      "target": "resonanz",
+      "cooccurrence": 10,
+      "endpoints": {
+        "analyse": 3,
+        "dialog": 6,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MASTER-456B1D6E",
+        "MASTER-7F7160A0",
+        "MWP89KEL-24505B6D",
+        "MWJF8ASK-16B3DB91",
+        "MWJEZNVB-D1367E36"
       ]
     },
     {
@@ -66,23 +83,6 @@
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709"
-      ]
-    },
-    {
-      "source": "antwort",
-      "target": "resonanz",
-      "cooccurrence": 8,
-      "endpoints": {
-        "analyse": 2,
-        "dialog": 5,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWP89KEL-24505B6D",
-        "MWJF8ASK-16B3DB91",
-        "MWJEZNVB-D1367E36",
-        "MWJEYZU2-D00A3283",
-        "MWJEY6W3-C4E77F94"
       ]
     },
     {
