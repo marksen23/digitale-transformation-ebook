@@ -24,6 +24,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
+import { EDITORIAL_ORIGIN, KNOWN_CONTEXT_ORIGINS } from "./lib/questionAnswers.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -266,6 +267,22 @@ async function main() {
             && !file.path.startsWith(`content/resonanzen/published/${ep}/`)) {
       issues.push({ level: "warning", file: file.path, rule: "path-mismatch",
         detail: `file path doesn't match endpoint ${ep}` });
+    }
+
+    // 8. Herkunfts-Marker: context_meta.origin steuert die Fragen-Kategorie
+    //    (origin: editorial → Schlussfrage zählt als Anschlussfrage, nicht als
+    //    offen). Unbekannte Werte oder ein redaktioneller Eintrag ohne Marker
+    //    würden still falsch zählen → Warnung.
+    const ctx = (fm.context_meta && typeof fm.context_meta === "object")
+      ? fm.context_meta as Record<string, unknown> : {};
+    const origin = ctx.origin;
+    if (origin !== undefined && !KNOWN_CONTEXT_ORIGINS.has(String(origin))) {
+      issues.push({ level: "warning", file: file.path, rule: "origin-value",
+        detail: `unknown context_meta.origin: ${String(origin)}` });
+    }
+    if (String(fm.model ?? "") === EDITORIAL_ORIGIN && origin !== EDITORIAL_ORIGIN) {
+      issues.push({ level: "warning", file: file.path, rule: "origin-missing",
+        detail: "model: editorial ohne context_meta.origin: editorial — Schlussfrage würde als offen statt als Anschlussfrage zählen" });
     }
 
     // Aggregate

@@ -5,6 +5,8 @@
  * (build-präkomputiert, resonanzen-questions.json) und zeigt, welche das Werk
  * sich SELBST bereits beantwortet hat (Cosine gegen spätere Einträge, plus
  * kuratierte Pins aus question-answer-overrides.json) und welche offen bleiben.
+ * Schlussfragen redaktioneller Antworten erscheinen als „Anschlussfragen“:
+ * gelistet und beantwortbar, aber nicht als „offen“ gezählt.
  *
  * Eigener position:fixed-Scroll-Container (App-Scroll-Modell) + SiteFooter.
  */
@@ -13,12 +15,14 @@ import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, RADIUS, SERIF, DISPLAY, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
-import { formatAnswerScore, loadQuestions, type QuestionEntry } from "@/lib/questions";
+import {
+  formatAnswerScore, loadQuestions, questionCounts, questionStatus, matchesQuestionFilter,
+  QUESTION_STATUS_LABEL, type QuestionEntry, type QuestionFilter,
+} from "@/lib/questions";
 import SiteFooter from "@/components/SiteFooter";
 import { useIsMobile } from "@/hooks/useMobile";
 import MobileFragen from "@/pages/mobile/MobileFragen";
 
-type StatusFilter = "all" | "open" | "answered";
 
 const epLabel = (ep: string) => ENDPOINT_LABEL[ep as ResonanzEntry["endpoint"]] ?? ep;
 const epColor = (ep: string, fallback: string) => ENDPOINT_COLOR[ep as ResonanzEntry["endpoint"]] ?? fallback;
@@ -28,7 +32,7 @@ export default function FragenPage() {
   const c: Palette = theme === "dark" ? C_DARK : C_LIGHT;
   const [questions, setQuestions] = useState<QuestionEntry[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
-  const [status, setStatus] = useState<StatusFilter>("all");
+  const [status, setStatus] = useState<QuestionFilter>("all");
   const [area, setArea] = useState<string | null>(null);
   const isMobile = useIsMobile();
 
@@ -45,15 +49,12 @@ export default function FragenPage() {
     return Array.from(set);
   }, [questions]);
 
-  const counts = useMemo(() => {
-    const all = questions ?? [];
-    return { total: all.length, answered: all.filter(q => q.answered).length, open: all.filter(q => !q.answered).length };
-  }, [questions]);
+  // Anschlussfragen (Schlussfragen redaktioneller Antworten) zählen getrennt,
+  // nicht als „offen“ — siehe lib/questions.ts.
+  const counts = useMemo(() => questionCounts(questions ?? []), [questions]);
 
   const shown = useMemo(() => {
-    let all = questions ?? [];
-    if (status === "open") all = all.filter(q => !q.answered);
-    if (status === "answered") all = all.filter(q => q.answered);
+    let all = (questions ?? []).filter(q => matchesQuestionFilter(q, status));
     if (area) all = all.filter(q => q.endpoint === area);
     return all;
   }, [questions, status, area]);
@@ -89,12 +90,15 @@ export default function FragenPage() {
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1rem", lineHeight: 1.5 }}>
           Jede Antwort des Werks endet mit einer offenen Frage. Hier sind sie gesammelt —
           und sichtbar gemacht, welche das Werk sich im Laufe seines Wachsens selbst
-          beantwortet hat und welche noch offen vor uns liegen.
+          beantwortet hat und welche noch offen vor uns liegen. Fragen, mit denen
+          kuratierte Antworten weiterführen, stehen als Anschlussfragen daneben —
+          beantwortbar, aber nicht als offen gezählt.
         </p>
 
         {questions && (
           <div style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.06em", color: c.muted, marginBottom: "1rem" }}>
             {counts.total} Fragen · <span style={{ color: "#7ab898" }}>{counts.answered} beantwortet</span> · <span style={{ color: c.accentText }}>{counts.open} offen</span>
+            {counts.followUp > 0 && <> · <span style={{ color: c.textDim }}>{counts.followUp} Anschlussfragen</span></>}
           </div>
         )}
 
@@ -102,6 +106,7 @@ export default function FragenPage() {
           <button style={chip(status === "all")} onClick={() => setStatus("all")}>alle</button>
           <button style={chip(status === "open")} onClick={() => setStatus("open")}>offen</button>
           <button style={chip(status === "answered")} onClick={() => setStatus("answered")}>beantwortet</button>
+          <button style={chip(status === "followUp")} onClick={() => setStatus("followUp")} title="Schlussfragen redaktioneller Antworten: beantwortbar, aber nicht als offen gezählt">Anschlussfragen</button>
         </div>
         {areas.length > 1 && (
           <div style={{ display: "flex", flexWrap: "wrap", gap: "0.4rem", marginBottom: "1.2rem" }}>
@@ -116,7 +121,7 @@ export default function FragenPage() {
           <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : shown.length === 0 ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted, lineHeight: 1.6 }}>
-            Keine Fragen {status === "open" ? "offen" : status === "answered" ? "beantwortet" : ""}
+            Keine {status === "followUp" ? "Anschlussfragen" : `Fragen ${status === "open" ? "offen" : status === "answered" ? "beantwortet" : ""}`}
             {area ? ` in „${epLabel(area)}"` : ""} — {counts.total} Fragen insgesamt warten in anderen Filtern.
             {" "}
             <button
@@ -135,7 +140,7 @@ export default function FragenPage() {
                     {epLabel(q.endpoint)}
                   </span>
                   <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: q.answered ? "#7ab898" : c.muted, flexShrink: 0 }}>
-                    {q.answered ? "beantwortet" : "offen"}
+                    {QUESTION_STATUS_LABEL[questionStatus(q)]}{q.answered && q.followUp ? " · Anschlussfrage" : ""}
                   </span>
                 </div>
 

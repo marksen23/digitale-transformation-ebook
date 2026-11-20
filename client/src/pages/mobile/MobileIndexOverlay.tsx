@@ -12,7 +12,7 @@ import { useEffect, useState } from "react";
 import { DISPLAY, MONO, SERIF, type Palette, RADIUS } from "@/lib/theme";
 import type { EbookChapter } from "@/lib/werkChunks";
 import { loadResonanzenIndexLazy } from "@/lib/resonanzenIndex";
-import { loadQuestions } from "@/lib/questions";
+import { loadQuestions, questionCounts } from "@/lib/questions";
 import { loadErkenntnisse } from "@/lib/erkenntnisse";
 import { getCompletedChapters } from "@/lib/readingProgress";
 
@@ -40,7 +40,9 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
   useEffect(() => {
     let live = true;
     loadResonanzenIndexLazy().then(idx => { if (live && idx) setCounts(c => ({ ...c, begegnungen: idx.count })); });
-    loadQuestions().then(q => { if (live && q) setCounts(c => ({ ...c, fragen: q.stats.open })); });
+    // Echte offene Fragen, ohne Anschlussfragen — aus den Fragen gezählt, damit
+    // auch ältere JSONs (ohne followUp) dieselbe Logik nutzen.
+    loadQuestions().then(q => { if (live && q) setCounts(c => ({ ...c, fragen: questionCounts(q.questions).open })); });
     loadErkenntnisse().then(e => { if (live) setCounts(c => ({ ...c, erk: e.length })); });
     return () => { live = false; };
   }, []);

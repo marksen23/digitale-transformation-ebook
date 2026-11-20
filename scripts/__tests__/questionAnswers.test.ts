@@ -5,6 +5,8 @@ import {
   applyAnswerOverrides, loadAnswerOverrides, type AnswerOverrideEntry,
   collectQuestions, foldMasterQuestions, isSelfAnswer, questionTextSimilarity,
   type QuestionSourceEntry,
+  isEditorialEntry, isFollowUpQuestion, summarizeQuestions, EDITORIAL_ORIGIN,
+  type FollowUpSourceEntry,
 } from "../lib/questionAnswers.js";
 import { parseFrontmatter, extractFrageAntwort } from "../lib/frontmatter.js";
 import { contentHashFor } from "../lib/resonanzen-utils.js";
@@ -297,5 +299,85 @@ describe("isSelfAnswer", () => {
     });
     expect(viaPin.answeredBy.map(a => a.id)).toEqual(["MWP7PHLX-B52303F9"]);
     expect(viaPin.warnings.join(" ")).toMatch(/dieselbe Frage/);
+  });
+});
+
+// ─── Anschlussfragen (seit 2026-11-20 eigene Kategorie, nicht „offen“) ────
+
+describe("isFollowUpQuestion", () => {
+  const byId = new Map<string, FollowUpSourceEntry>([
+    ["ED1", { contextMeta: { origin: EDITORIAL_ORIGIN } }],
+    ["ED2", { contextMeta: { origin: EDITORIAL_ORIGIN } }],
+    ["LIVE", { contextMeta: { nodeA: "x" } }],
+    ["NOMETA", {}],
+    ["MASTER", { is_master: true, contextMeta: {} }],
+  ]);
+
+  it("redaktionelle Quelle → Anschlussfrage", () => {
+    expect(isFollowUpQuestion({ sourceId: "ED1", dupIds: [] }, byId)).toBe(true);
+  });
+
+  it("Live-Quelle oder Eintrag ohne Marker → echte Frage", () => {
+    expect(isFollowUpQuestion({ sourceId: "LIVE", dupIds: [] }, byId)).toBe(false);
+    expect(isFollowUpQuestion({ sourceId: "NOMETA", dupIds: [] }, byId)).toBe(false);
+    expect(isFollowUpQuestion({ sourceId: "UNKNOWN", dupIds: [] }, byId)).toBe(false);
+  });
+
+  it("dieselbe Frage auch aus einer Live-Quelle → echte Frage", () => {
+    expect(isFollowUpQuestion({ sourceId: "ED1", dupIds: ["LIVE"] }, byId)).toBe(false);
+  });
+
+  it("redaktionelle Dubletten und gefaltete Master ändern nichts", () => {
+    expect(isFollowUpQuestion({ sourceId: "ED1", dupIds: ["ED2", "MASTER"] }, byId)).toBe(true);
+  });
+
+  it("nur der exakte Marker zählt", () => {
+    expect(isEditorialEntry({ contextMeta: { origin: "Editorial " } })).toBe(false);
+    expect(isEditorialEntry(undefined)).toBe(false);
+  });
+});
+
+describe("summarizeQuestions", () => {
+  it("zählt unbeantwortete Anschlussfragen nicht als offen", () => {
+    const s = summarizeQuestions([
+      { answered: false },                  // echte offene Frage
+      { answered: false, followUp: true },  // offene Anschlussfrage
+      { answered: true, followUp: true },   // beantwortete Anschlussfrage
+      { answered: true },
+    ]);
+    expect(s).toEqual({ total: 4, answered: 2, open: 1, followUp: 2, followUpOpen: 1 });
+  });
+
+  it("hält die Invariante total = answered + open + followUpOpen", () => {
+    const qs = Array.from({ length: 50 }, (_, i) => ({ answered: i % 3 === 0, followUp: i % 4 === 0 }));
+    const s = summarizeQuestions(qs);
+    expect(s.answered + s.open + s.followUpOpen).toBe(s.total);
+  });
+});
+
+describe("Korpus: redaktionelle Antworten tragen den Herkunfts-Marker", () => {
+  // Jede redaktionelle Antwort-Resonanz endet mit „Offene Anschlussfrage“.
+  // Fehlt der Marker, würde ihre Schlussfrage still wieder als „offen“ zählen.
+  const rawDir = path.join(ROOT, "content/resonanzen/raw");
+  const files: string[] = [];
+  const walk = (d: string) => {
+    for (const f of fs.readdirSync(d, { withFileTypes: true })) {
+      const p = path.join(d, f.name);
+      if (f.isDirectory()) walk(p);
+      else if (f.name.endsWith(".md")) files.push(p);
+    }
+  };
+  if (fs.existsSync(rawDir)) walk(rawDir);
+
+  it("model: editorial ⇒ context_meta.origin: editorial (und Antwort-Struktur)", () => {
+    const editorial = files
+      .map(f => ({ f, ...parseFrontmatter(fs.readFileSync(f, "utf-8")) }))
+      .filter(x => x.fm.model === "editorial");
+    expect(editorial.length).toBeGreaterThan(0);
+    for (const x of editorial) {
+      const ctx = (x.fm.context_meta ?? {}) as Record<string, unknown>;
+      expect({ file: path.relative(ROOT, x.f), origin: ctx.origin })
+        .toEqual({ file: path.relative(ROOT, x.f), origin: EDITORIAL_ORIGIN });
+    }
   });
 });
