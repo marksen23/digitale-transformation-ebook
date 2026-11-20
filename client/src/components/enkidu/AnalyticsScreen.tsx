@@ -1,10 +1,8 @@
 import { useMemo } from "react";
 import WordCloud from "./WordCloud";
-import ResonanzChart from "./ResonanzChart";
 import ThemenBalance from "./ThemenBalance";
 import {
   extractKeywords,
-  buildResonanzpfad,
   buildThemenBalance,
   type Conversation,
 } from "@/lib/extractKeywords";
@@ -65,13 +63,10 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
   const isDark = useEbookTheme();
   const C: CPalette = isDark ? C_DARK : C_LIGHT;
   const keywords  = useMemo(() => extractKeywords(conversations, 55), [conversations]);
-  const resonanz  = useMemo(() => buildResonanzpfad(conversations), [conversations]);
   const themen    = useMemo(() => buildThemenBalance(conversations), [conversations]);
 
   // Aggregate stats
   const total        = conversations.length;
-  const withFeedback = conversations.filter(c => c.feedback?.q1 || c.feedback?.q2 || c.feedback?.q3).length;
-  const resonanceHigh = resonanz.filter(p => p.avg >= 0.67).length;
   const totalMessages = conversations.reduce((sum, c) => sum + c.messages.filter(m => m.role === "user").length, 0);
 
   return (
@@ -91,8 +86,6 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
         {[
           { label: "Gespräche gesamt",      value: total        || "—" },
           { label: "Nachrichten verfasst",  value: totalMessages || "—" },
-          { label: "Mit Nachklang",         value: withFeedback  || "—" },
-          { label: "Hohe Resonanz",         value: resonanceHigh || "—" },
         ].map(card => (
           <div key={card.label} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "1.2rem 1.5rem" }}>
             <div style={{ fontFamily: SERIF, fontSize: "2rem", fontWeight: 400, color: C.accent, marginBottom: "0.3rem" }}>
@@ -114,23 +107,18 @@ export default function AnalyticsScreen({ conversations }: AnalyticsScreenProps)
           </Section>
         </div>
 
-        {/* Resonance chart */}
-        <Section c={C} title="Resonanzpfad — Nachklang-Verlauf">
-          <ResonanzChart data={resonanz} />
-          <p style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.06em", color: C.muted, marginTop: "0.75rem", lineHeight: 1.6 }}>
-            Amber: Ø Resonanz · Gestrichelt: Überraschung / Innehalten / Mitgenommen
-          </p>
-        </Section>
-
-        {/* Topic balance */}
-        <Section c={C} title="Themenbalance — Welche Begriffe dominieren">
-          <ThemenBalance data={themen} />
-        </Section>
+        {/* Topic balance — full width (der Resonanzpfad aus dem „Nachklang“-
+            Fragebogen ist seit 2026-11-20 entfernt) */}
+        <div style={{ gridColumn: "1 / -1" }}>
+          <Section c={C} title="Themenbalance — Welche Begriffe dominieren">
+            <ThemenBalance data={themen} />
+          </Section>
+        </div>
       </div>
 
       {total === 0 && (
         <div style={{ marginTop: "3rem", textAlign: "center", color: C.textDim, fontStyle: "italic", fontSize: "0.95rem", fontFamily: SERIF }}>
-          Noch keine Gespräche gespeichert. Beginne ein Gespräch, schließe es ab und kehre hier zurück.
+          Noch keine Gespräche gespeichert. Beginne ein Gespräch, beende es mit „Ende“ und kehre hier zurück.
         </div>
       )}
     </div>

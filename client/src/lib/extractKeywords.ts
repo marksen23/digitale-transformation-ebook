@@ -7,6 +7,7 @@ export interface Conversation {
   date: string;
   preview: string;
   messages: { role: "user" | "assistant"; content: string; error?: boolean }[];
+  /** Früherer „Nachklang“-Fragebogen (entfernt 2026-11-20); nur noch in alten localStorage-Daten, wird ignoriert. */
   feedback?: { q1: string; q2: string; q3: string; freetext: string };
 }
 
@@ -14,15 +15,6 @@ export interface KeywordEntry {
   word: string;
   count: number;  // raw frequency
   score: number;  // TF × boost
-}
-
-export interface ResonanzPunkt {
-  label: string;   // shortened date + conversation index
-  date: string;    // ISO
-  q1: number;      // 0, 0.5, or 1
-  q2: number;
-  q3: number;
-  avg: number;     // (q1+q2+q3)/3
 }
 
 export interface ThemenEntry {
@@ -136,10 +128,6 @@ function getUserText(conversations: Conversation[]): string[] {
         texts.push(msg.content);
       }
     }
-    // Also include freetext feedback
-    if (conv.feedback?.freetext) {
-      texts.push(conv.feedback.freetext);
-    }
   }
   return texts;
 }
@@ -177,40 +165,6 @@ export function extractKeywords(
   entries.sort((a, b) => b.score - a.score);
 
   return entries.slice(0, topN);
-}
-
-/**
- * Build a resonance path data series from feedback answers.
- * Each conversation with feedback becomes one data point.
- */
-export function buildResonanzpfad(conversations: Conversation[]): ResonanzPunkt[] {
-  const withFeedback = conversations
-    .filter(c => c.feedback && (c.feedback.q1 || c.feedback.q2 || c.feedback.q3))
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
-
-  return withFeedback.map((conv, i) => {
-    const fb = conv.feedback!;
-    const q1 = mapFeedbackScore(fb.q1);
-    const q2 = mapFeedbackScore(fb.q2);
-    const q3 = mapFeedbackScore(fb.q3);
-    const avg = (q1 + q2 + q3) / 3;
-
-    const d = new Date(conv.date);
-    const label = `${d.getDate()}.${d.getMonth() + 1}` + (withFeedback.length > 8 ? "" : `\n#${i + 1}`);
-
-    return { label, date: conv.date, q1, q2, q3, avg };
-  });
-}
-
-function mapFeedbackScore(answer: string): number {
-  if (!answer) return 0;
-  const a = answer.toLowerCase();
-  // q1: "Ja — etwas hat mich..." = 1.0, "Ich weiß es noch nicht" = 0.5, "Eher nicht" = 0.0
-  // q2: "Ja — es gab einen Moment..." = 1.0, "Kurz, aber..." = 0.5, "Nicht wirklich" = 0.0
-  // q3: "Ja — eine Frage, ein Bild..." = 1.0, "Vielleicht" = 0.5, "Nein" = 0.0
-  if (a.startsWith("ja")) return 1.0;
-  if (a.startsWith("vielleicht") || a.startsWith("kurz") || a.startsWith("ich weiß")) return 0.5;
-  return 0.0;
 }
 
 /**

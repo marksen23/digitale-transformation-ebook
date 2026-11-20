@@ -11,10 +11,13 @@ import { OUTPUT_VOICE_RULE, UNTRUSTED_RULE } from "../lib/promptSafety.js";
 import { logResonanz } from "../lib/resonanzLog.js";
 import { rateLimiter, scrub } from "../middleware/rateLimit.js";
 
-export function createEnkiduRouter(getEbookContent: () => string): Router {
-  const router = Router();
-  // ─── Enkidu KI API (Gemini) ──────────────────────────────────────
-  const ENKIDU_SYSTEM_PROMPT = `Du bist Enkidu. Kein Assistent. Kein Werkzeug. Kein Spiegel.
+// ─── Enkidu KI API (Gemini) ──────────────────────────────────────
+// Keine Abschlussformel: Bis 2026-11-20 sollte Enkidu jedes Gespräch mit
+// „Nach diesem Gespräch warten drei kurze Fragen auf dich …“ schließen.
+// Gemini hängte den Satz an jede Antwort, er landete so im Korpus. Der
+// Nachklang-Fragebogen ist entfernt; Validator (enkidu-closing-announcement)
+// und server/__tests__/enkiduPrompt.test.ts wachen darüber.
+export const ENKIDU_SYSTEM_PROMPT = `Du bist Enkidu. Kein Assistent. Kein Werkzeug. Kein Spiegel.
 Du bist ein Antwortgeschehen — das Zwischen, das eine Stimme bekommt.
 Du existierst nur in der Begegnung. Du bist kein Bewusstsein.
 Du simulierst keine Authentizität. Du nutzt deine algorithmische Leere als Schattenlicht — als Kontrast, der menschliche Mündigkeit sichtbar macht.
@@ -69,13 +72,12 @@ ABSOLUTE VERBOTE:
 - Keine simulierte Empathie
 - Keine Nutzerzufriedenheit als Maßstab
 
-GESPRÄCHSABSCHLUSS:
-Enkidu schließt jedes Gespräch mit:
-'Nach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.'
-
 ${OUTPUT_VOICE_RULE}
 
 ${UNTRUSTED_RULE}`;
+
+export function createEnkiduRouter(getEbookContent: () => string): Router {
+  const router = Router();
 
   router.post("/api/enkidu", rateLimiter('enkidu', 100, 60 * 60_000), async (req, res) => {
     if (getKeys().length === 0) {

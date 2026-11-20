@@ -331,6 +331,28 @@ Vorläufers landete danach. Live-Append war daran **nicht** beteiligt.
   rebased jetzt vor dem Push mit Retry. `auto-curate` (nur API) und
   `fix-orphan-leitmotive` (Contents-API) pushen nichts aus einem Checkout.
 
+### 12. „Enkidu kündigt drei Fragen an“ (Abschlussformel im Korpus)
+
+Bis 2026-11-20 verlangte `ENKIDU_SYSTEM_PROMPT` (`server/routes/enkidu.ts`)
+den Gesprächsabschluss „Nach diesem Gespräch warten drei kurze Fragen auf dich
+— nicht über mich, sondern über dich.“ Gemini hängte den Satz an **jede**
+Antwort, er stand als letzter Absatz in 55 Korpus-Texten (auch veröffentlichten).
+Dazu gehörte der „Nachklang“-Fragebogen in `EnkiduPage` (drei Fragen nach „Ende“).
+Entscheidung Markus: beides weg.
+- Prompt-Block entfernt; `server/__tests__/enkiduPrompt.test.ts` verbietet
+  „GESPRÄCHSABSCHLUSS“/„drei Fragen“ im Prompt.
+- Fragebogen, Verlaufs-Kacheln („Momente des Innehaltens“, „Etwas mitgenommen“),
+  Analyse-Teile („Mit Nachklang“, „Hohe Resonanz“, Resonanzpfad + `ResonanzChart`)
+  und `buildResonanzpfad` entfernt. `feedback` bleibt im Typ optional (alte
+  localStorage-Gespräche), wird nicht mehr geschrieben oder gelesen.
+- Texte bereinigt mit `scripts/strip-enkidu-closing.ts --write` (idempotent): nur
+  der Formel-Absatz fällt weg, `content_hash` neu, Audit `event: content-edited`
+  mit `from_hash`/`to_hash`. Status und Embeddings bleiben.
+- Wächter: Validator-Regel `enkidu-closing-announcement`, Korpus-Test
+  `scripts/__tests__/enkiduClosing.test.ts`, Muster in `scripts/lib/enkiduClosing.ts`.
+- Der #78-Regressionstest (recharts-Abbau) läuft jetzt an einem schlichten
+  recharts-Diagramm: `client/src/components/ui/__tests__/rechartsTeardown.test.tsx`.
+
 ---
 
 ## Korpus-Datenfluss
