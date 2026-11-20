@@ -263,19 +263,14 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
         /* ── Responsive profile ── */
         .enkidu-profile { padding: 4.5rem 1rem 3rem !important; }
-        .enkidu-stats-grid { grid-template-columns: 1fr !important; gap: 0.75rem !important; }
         .enkidu-history-row {
           display: flex !important; flex-direction: column !important;
           gap: 0.5rem !important; padding: 1rem 0 !important;
         }
         .enkidu-history-preview { white-space: normal !important; overflow: visible !important; }
         .enkidu-history-btns { display: flex; gap: 0.5rem; }
-        @media (min-width: 480px) {
-          .enkidu-stats-grid { grid-template-columns: repeat(3,1fr) !important; gap: 1rem !important; }
-        }
         @media (min-width: 640px) {
           .enkidu-profile { padding: 7rem 3rem 4rem !important; }
-          .enkidu-stats-grid { gap: 1.5rem !important; }
           .enkidu-history-row {
             display: grid !important;
             grid-template-columns: 140px 1fr auto !important;
@@ -684,7 +679,7 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
 
   // ─── SCREEN 3: PROFILE / HISTORY ─────────────────────────────
   const renderProfile = () => {
-
+    const count = conversations.length;
     return (
       <div className="enkidu-profile" style={{ maxWidth: MAX_WIDTH.reader, margin: "0 auto" }}>
         <div style={{ marginBottom: "4rem" }}>
@@ -692,21 +687,20 @@ export default function EnkiduPage({ onClose }: EnkiduPageProps) {
           <p style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase" }}>Spuren der Begegnung</p>
         </div>
 
-        {/* Stats */}
-        <div className="enkidu-stats-grid" style={{ display: "grid", marginBottom: "3rem" }}>
-          {[
-            { label: "Gespräche geführt", value: conversations.length || "—" },
-          ].map((card) => (
-            <div key={card.label} style={{ background: C.surface, border: `1px solid ${C.border}`, padding: "2rem" }}>
-              <div style={{ fontFamily: C.serif, fontSize: "2.5rem", fontWeight: 400, color: C.accent, marginBottom: "0.5rem" }}>{card.value}</div>
-              <div style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", lineHeight: 1.4 }}>{card.label}</div>
-            </div>
-          ))}
-        </div>
+        {/* Eine Kennzahl, als Zeile statt Kachel: Seit dem Wegfall des
+            Nachklang-Fragebogens (2026-11-20) gibt es nur noch diese eine. */}
+        {count > 0 && (
+          <div className="enkidu-profile-summary" style={{ display: "flex", alignItems: "baseline", gap: "1rem", marginBottom: "3rem", paddingLeft: "1.25rem", borderLeft: `2px solid ${C.accentDim}` }}>
+            <span style={{ fontFamily: C.serif, fontSize: "2.5rem", fontWeight: 400, lineHeight: 1, color: C.accent }}>{count}</span>
+            <span style={{ fontFamily: C.mono, fontSize: "0.65rem", letterSpacing: "0.15em", color: C.muted, textTransform: "uppercase", lineHeight: 1.4 }}>
+              {count === 1 ? "Gespräch geführt" : "Gespräche geführt"}
+            </span>
+          </div>
+        )}
 
         {/* History */}
-        {conversations.length === 0 ? (
-          <p style={{ color: C.textDim, fontStyle: "italic", fontSize: "0.95rem" }}>Noch keine abgeschlossenen Gespräche. Der Verlauf erscheint hier nach dem ersten Abschluss.</p>
+        {count === 0 ? (
+          <p style={{ color: C.textDim, fontStyle: "italic", fontSize: "0.95rem" }}>Noch keine abgeschlossenen Gespräche. Der Verlauf erscheint hier, sobald du ein Gespräch mit „Ende“ abschließt.</p>
         ) : (
           <div>
             <h3 style={{ fontFamily: C.mono, fontSize: "0.7rem", letterSpacing: "0.2em", color: C.muted, textTransform: "uppercase", marginBottom: "1.5rem", paddingBottom: "1rem", borderBottom: `1px solid ${C.border}` }}>Vergangene Begegnungen</h3>
