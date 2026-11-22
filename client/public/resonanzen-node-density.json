@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-22T18:39:32.341Z",
+  "generatedAt": "2026-11-22T18:40:45.945Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 32,
+      "count": 33,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "analyse": 7,
         "path-analyse": 22
       }
@@ -71,9 +71,9 @@
       }
     },
     "klang": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "analyse": 6,
         "path-analyse": 5
       }

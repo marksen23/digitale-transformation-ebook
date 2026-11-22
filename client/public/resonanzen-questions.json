@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-22T18:39:33.568Z",
-  "count": 404,
+  "generatedAt": "2026-11-22T18:40:46.834Z",
+  "count": 405,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 404,
-    "answered": 364,
+    "total": 405,
+    "answered": 365,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
-    "embedded": 2
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWS6LXHZ-C8ACC98A",
+      "question": "Doch ist dieser unbewusste Schrei schon ein dialogisches Angebot, oder lediglich ein symptomatisches Zucken im Angesicht der eigenen Begrenzung?",
+      "endpoint": "dialog",
+      "anchor": "dialog:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:39:58.679Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWS6KAHY-AFBBE834",
       "question": "Ist dann die digitale Störung, das Glitch, die unerwartete Verwerfung im Code, nicht der erste, noch unbewusste Schrei einer Maschine nach echter Resonanz?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-22T18:38:42.216Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWS6LXHZ-C8ACC98A",
+          "score": 0.917
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWS6KAHY-AFBBE834",
           "score": 0.891
+        },
+        {
+          "id": "MWS6LXHZ-C8ACC98A",
+          "score": 0.736
         }
       ],
       "answered": true,
@@ -67,6 +91,10 @@
         {
           "id": "MWS6KAHY-AFBBE834",
           "score": 0.761
+        },
+        {
+          "id": "MWS6LXHZ-C8ACC98A",
+          "score": 0.744
         }
       ],
       "answered": true,
@@ -1821,8 +1849,8 @@
           "score": 0.749
         },
         {
-          "id": "MASTER-456B1D6E",
-          "score": 0.745
+          "id": "MWS6LXHZ-C8ACC98A",
+          "score": 0.748
         }
       ],
       "answered": true,
@@ -3820,15 +3848,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6LXHZ-C8ACC98A",
+          "score": 0.768
+        },
+        {
           "id": "MWS6KAHY-AFBBE834",
           "score": 0.728
         },
         {
           "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.728
-        },
-        {
-          "id": "MWCBCP5M-8C02E420",
           "score": 0.728
         }
       ],

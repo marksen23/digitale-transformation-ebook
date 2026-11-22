@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T18:39:33.705Z",
+  "generatedAt": "2026-11-22T18:40:46.981Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -123,6 +123,20 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:klang+resonanzvernunft",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWS6LXHZ-C8ACC98A",
+        "MWS6KAHY-AFBBE834",
+        "MWS6JJMY-0D187AD0",
+        "MWS6IJ29-DD378DC7"
+      ],
+      "lastVariantTs": "2026-11-22T18:39:58.679Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "dialog:licht+schatten",
       "endpoint": "dialog",
       "variantIds": [
@@ -148,19 +162,6 @@
       "lastVariantTs": "2026-05-16T18:18:38.925Z",
       "masterId": "MASTER-03059588",
       "masterTs": "2026-11-06T22:28:40.902Z",
-      "masterStale": false
-    },
-    {
-      "anchor": "dialog:klang+resonanzvernunft",
-      "endpoint": "dialog",
-      "variantIds": [
-        "MWS6KAHY-AFBBE834",
-        "MWS6JJMY-0D187AD0",
-        "MWS6IJ29-DD378DC7"
-      ],
-      "lastVariantTs": "2026-11-22T18:38:42.216Z",
-      "masterId": null,
-      "masterTs": null,
       "masterStale": false
     },
     {
