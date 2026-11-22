@@ -1,7 +1,47 @@
 {
-  "generatedAt": "2026-11-20T18:18:44.161Z",
-  "count": 482,
+  "generatedAt": "2026-11-22T18:34:21.786Z",
+  "count": 483,
   "entries": [
+    {
+      "id": "MWS6DN7U-8C8768E3",
+      "ts": "2026-11-22T18:33:32.108Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanz",
+        "resonanzvernunft"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Analyse: Schwingung → Resonanz → Resonanzvernunft",
+      "response": "Diese Sequenz beschreibt eine Bewegung vom physischen Phänomen der Schwingung über den Grundmodus des Lebendigen zur Resonanzvernunft als relationalem Seinsmodus. Der tragende Übergang liegt zwischen Resonanz und Resonanzvernunft. Hier verschiebt sich die Bedeutung von einem existentiellen Grundprinzip hin zu einer epistemologischen, ethischen und ontologischen Haltung [80b2da4e0093]. Die Schwingung ist als Vorstufe zur Resonanz kontingent, da sie zwar die materielle Grundlage bildet, aber die eigentliche Verschiebung – vom passiven Empfang zum aktiven Antwortgeschehen – erst mit der Resonanz einsetzt [MQ68LVS7-240568F5].\n\nDurch diese spezifische Reihenfolge wird sichtbar, dass Vernunft nicht als isolierte kognitive Leistung verstanden werden kann, sondern als eine tief in der Lebendigkeit verwurzelte, relationale Konstitution. Der Text betont, dass Resonanz eine \"Eigenfrequenz\" voraussetzt und ein aktives \"Antwortgeschehen\" ist [MQ5JM1HD-9047C82F]. Dies deutet darauf hin, dass wahre Erkenntnis und Handeln aus einer inneren Gestimmtheit und der Fähigkeit zur Ansprechbarkeit entstehen, die sich im \"Zwischen\" manifestiert [MQ5JM1HD-9047C82F]. Eine philosophische These, die hier mitschwingt, ist, dass eine Vernunft, die sich der Resonanz verweigert – etwa durch fehlende Widerständigkeit in einer \"Echo-Kammer\" [6df31ff988f7] – keine wahre Resonanzvernunft sein kann.\n\nDiese Bewegung ist für das Werk insgesamt von zentraler Bedeutung, da sie das Verständnis von Mensch und Existenz grundlegend prägt. Der Mensch wird nicht als abgeschlossenes Subjekt, sondern als relationales Wesen im \"Zwischen\" konstituiert [MQ5JM1HD-9047C82F]. Resonanzvernunft ist demnach kein Werkzeug, das man anwendet, sondern ein Seinsmodus, der die Art und Weise bestimmt, wie wir die Welt erfahren, erkennen und in ihr handeln. Sie stellt eine fundamentale Abkehr von einer rein instrumentellen Vernunft dar. Wie kann eine solche Resonanzvernunft in einer zunehmend durch algorithmische Echo-Kammern geprägten digitalen Welt erhalten bleiben?",
+      "contextMeta": {
+        "from": "klang",
+        "to": "resonanzvernunft",
+        "shortest_path": "[\"klang\",\"resonanz\",\"resonanzvernunft\"]",
+        "shortest_length": "3",
+        "variant": "single",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"6df31ff988f7\",\"chapter\":\"teil5\",\"score\":0.904},{\"id\":\"80b2da4e0093\",\"chapter\":\"glossar\",\"score\":0.893},{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.856},{\"id\":\"MQ68LVS7-240568F5\",\"score\":0.845}]"
+      },
+      "nearDuplicates": [
+        "MOPFJTND-AAE76B2B",
+        "MOP0LEAL-E2568DCC",
+        "MWCBAQN6-9D0CCC83"
+      ],
+      "related": [
+        "MWDQ2THL-B9BA920A",
+        "MPMSSG1X-8451DE38",
+        "MQ5WPJ3V-CF0A30C7",
+        "MPMJC8TR-592D4EF0",
+        "MQ68LVS7-240568F5"
+      ],
+      "werkVoiceScore": 0.8921396911193086,
+      "corpusVoiceScore": 0.8458861944127112,
+      "conceptVoiceScore": 0.8227049489982907,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MWPA16O7-287F34C5",
       "ts": "2026-11-20T17:52:30.727Z",
@@ -3983,11 +4023,11 @@
         "MTKI1YQW-CD0EEDF3"
       ],
       "related": [
+        "MWS6DN7U-8C8768E3",
         "MOP0LEAL-E2568DCC",
         "MQ5WPJ3V-CF0A30C7",
         "MOPFJTND-AAE76B2B",
-        "MASTER-456B1D6E",
-        "MPMSSG1X-8451DE38"
+        "MASTER-456B1D6E"
       ],
       "werkVoiceScore": 0.8864623174264932,
       "corpusVoiceScore": 0.8421461003141606,
@@ -4648,6 +4688,7 @@
       },
       "nearDuplicates": [
         "MWDQ2THL-B9BA920A",
+        "MWS6DN7U-8C8768E3",
         "MPMSSG1X-8451DE38",
         "MOP0LEAL-E2568DCC"
       ],
@@ -5267,10 +5308,10 @@
       },
       "related": [
         "MWCBAQN6-9D0CCC83",
+        "MWS6DN7U-8C8768E3",
         "MWJ1BZO7-B4841C4E",
         "MTL5HMEK-8E3F01EF",
-        "MOUA3PLK-548F1A0A",
-        "MWHLXY8O-BE8E6409"
+        "MOUA3PLK-548F1A0A"
       ],
       "werkVoiceScore": 0.8603085539168787,
       "corpusVoiceScore": 0.8006236407224139,
@@ -6252,11 +6293,11 @@
         "werk_passages": "[{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.986},{\"id\":\"6df31ff988f7\",\"chapter\":\"teil5\",\"score\":0.964},{\"id\":\"80b2da4e0093\",\"chapter\":\"glossar\",\"score\":0.91},{\"id\":\"MQ683DMX-13D6C54F\",\"score\":0.908}]"
       },
       "related": [
+        "MWS6DN7U-8C8768E3",
         "MTKI1YQW-CD0EEDF3",
         "MASTER-2C637ECA",
         "MOHST017-5C4320E1",
-        "MPURLTCS-5FDDD890",
-        "MQ683DMX-13D6C54F"
+        "MPURLTCS-5FDDD890"
       ],
       "werkVoiceScore": 0.8503334610239673,
       "corpusVoiceScore": 0.840569858251009,
@@ -7803,10 +7844,10 @@
       "ai_score_model": "gemini-2.5-pro",
       "related": [
         "MWCBAQN6-9D0CCC83",
+        "MWS6DN7U-8C8768E3",
         "MOPFJTND-AAE76B2B",
         "MOQIAGXM-397A1F22",
-        "MPMSSG1X-8451DE38",
-        "MOQ5IKR5-C67AAC15"
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8829864564086941,
       "corpusVoiceScore": 0.8071298623399297,
@@ -9317,7 +9358,7 @@
         "MWJEWOY7-62FCEE55",
         "MQ5JL9TM-83E39C42",
         "MPURLTCS-5FDDD890",
-        "MOHST017-5C4320E1"
+        "MWS6DN7U-8C8768E3"
       ],
       "werkVoiceScore": 0.853100061451045,
       "corpusVoiceScore": 0.787838464842294,
@@ -11205,11 +11246,11 @@
         "MWCBAQN6-9D0CCC83"
       ],
       "related": [
+        "MWS6DN7U-8C8768E3",
         "MP495QL6-F5FD1AE1",
         "MP8UIMZW-BADE77E5",
         "MOQBZWTZ-B9EBB1BA",
-        "MPEV1D2J-55138734",
-        "MPF4FISZ-67000E01"
+        "MPEV1D2J-55138734"
       ],
       "werkVoiceScore": 0.9098392611938317,
       "corpusVoiceScore": 0.866322002910527,
@@ -14176,8 +14217,8 @@
         "MOHST017-5C4320E1",
         "MOPFJTND-AAE76B2B",
         "MOUBETTU-F31C5206",
-        "MQ68LVS7-240568F5",
-        "MOJ7Q5HM-89F62E3F"
+        "MWS6DN7U-8C8768E3",
+        "MQ68LVS7-240568F5"
       ],
       "werkVoiceScore": 0.8655333316926305,
       "corpusVoiceScore": 0.814172641489308,
@@ -14272,6 +14313,7 @@
       "nearDuplicates": [
         "MOP0LEAL-E2568DCC",
         "MPMSSG1X-8451DE38",
+        "MWS6DN7U-8C8768E3",
         "MOOMPCI0-262176C2",
         "MP8UIMZW-BADE77E5",
         "MP495QL6-F5FD1AE1",
@@ -14448,6 +14490,7 @@
       "nearDuplicates": [
         "MOPFJTND-AAE76B2B",
         "MPMSSG1X-8451DE38",
+        "MWS6DN7U-8C8768E3",
         "MOHST017-5C4320E1",
         "MOHV84M5-1825A399",
         "MOOMPCI0-262176C2",
@@ -15822,7 +15865,7 @@
         "MOHDW91N-D9BDFDB1",
         "MTNB93L6-1411E014",
         "MOHCN98S-2540F4DF",
-        "MOUBETTU-F31C5206"
+        "MWS6DN7U-8C8768E3"
       ],
       "werkVoiceScore": 0.83594646387213,
       "corpusVoiceScore": 0.7944299668961942,

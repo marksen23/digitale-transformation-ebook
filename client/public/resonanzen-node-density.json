@@ -1,19 +1,19 @@
 {
-  "generatedAt": "2026-11-20T18:18:44.170Z",
+  "generatedAt": "2026-11-22T18:34:21.799Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 27,
+      "count": 28,
       "endpoints": {
-        "path-analyse": 21,
+        "path-analyse": 22,
         "analyse": 6
       }
     },
     "resonanz": {
-      "count": 31,
+      "count": 32,
       "endpoints": {
+        "path-analyse": 20,
         "analyse": 6,
-        "dialog": 6,
-        "path-analyse": 19
+        "dialog": 6
       }
     },
     "vernunft": {
@@ -70,9 +70,9 @@
       }
     },
     "klang": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 5,
         "analyse": 5
       }
     },

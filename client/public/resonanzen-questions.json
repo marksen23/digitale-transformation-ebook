@@ -1,18 +1,34 @@
 {
-  "generatedAt": "2026-11-20T18:18:44.610Z",
-  "count": 399,
+  "generatedAt": "2026-11-22T18:34:22.774Z",
+  "count": 400,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 399,
+    "total": 400,
     "answered": 360,
-    "open": 14,
+    "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
-    "embedded": 0
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWS6DN7U-8C8768E3",
+      "question": "Diese Bewegung ist für das Werk insgesamt von zentraler Bedeutung, da sie das Verständnis von Mensch und Existenz grundlegend prägt. Der Mensch wird nicht als abgeschlossenes Subjekt, sondern als relationales Wesen im \"Zwischen\" konstituiert [MQ5JM1HD-9047C82F]. Resonanzvernunft ist demnach kein Werkzeug, das man anwendet, sondern ein Seinsmodus, der die Art und Weise bestimmt, wie wir die Welt erfahren, erkennen und in ihr handeln. Sie stellt eine fundamentale Abkehr von einer rein instrumentellen Vernunft dar. Wie kann eine solche Resonanzvernunft in einer zunehmend durch algorithmische Echo-Kammern geprägten digitalen Welt erhalten bleiben?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanz",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:33:32.108Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWPA16O7-287F34C5",
       "question": "Wenn ein Dritter für die sprechen soll, die noch nicht da sind, woher nimmt er das Recht, für künftige Menschen zu entscheiden, was sie über das Scheitern ihrer Vorgänger wissen müssen?",
@@ -656,6 +672,10 @@
         {
           "id": "MWP89KEF-808B79A0",
           "score": 0.731
+        },
+        {
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.723
         }
       ],
       "answered": true,
@@ -678,16 +698,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.8
+        },
+        {
           "id": "MASTER-456B1D6E",
           "score": 0.755
         },
         {
           "id": "MASTER-7F7160A0",
           "score": 0.74
-        },
-        {
-          "id": "MWP85762-03FEE922",
-          "score": 0.729
         }
       ],
       "answered": true,
@@ -718,8 +738,8 @@
           "score": 0.737
         },
         {
-          "id": "MASTER-0DDDD54A",
-          "score": 0.732
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.735
         }
       ],
       "answered": true,
@@ -746,8 +766,8 @@
           "score": 0.779
         },
         {
-          "id": "MASTER-7F7160A0",
-          "score": 0.767
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.768
         }
       ],
       "answered": true,
@@ -1343,8 +1363,8 @@
           "score": 0.761
         },
         {
-          "id": "MASTER-7F7160A0",
-          "score": 0.743
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.744
         }
       ],
       "answered": true,
@@ -2111,8 +2131,8 @@
           "score": 0.781
         },
         {
-          "id": "MASTER-7F7160A0",
-          "score": 0.774
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.779
         }
       ],
       "answered": true,
@@ -3060,8 +3080,8 @@
           "score": 0.799
         },
         {
-          "id": "MWDQ2THL-B9BA920A",
-          "score": 0.787
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.797
         }
       ],
       "answered": true,

@@ -1,0 +1,46 @@
+{
+  "date": "2026-11-22",
+  "generatedAt": "2026-11-22T18:34:29.566Z",
+  "commit": "958af60a8ce011f03e994f1268363713f4f49388",
+  "triggeredBy": "958af60a8ce011f03e994f1268363713f4f49388",
+  "filesChecked": 489,
+  "aggregates": {
+    "byEndpoint": {
+      "analyse": 134,
+      "chapter": 65,
+      "dialog": 79,
+      "path-analyse": 67,
+      "enkidu": 68,
+      "graph-chat": 52,
+      "passage": 18,
+      "translate": 6
+    },
+    "byStatus": {
+      "published": 169,
+      "raw": 238,
+      "rejected": 28,
+      "approved": 54
+    },
+    "orphanNodeIds": [
+      "band1-kap5",
+      "band2-kap3",
+      "band2-kap4",
+      "band3-kap3",
+      "band3-kap4",
+      "band3-kap5",
+      "freier",
+      "schlussreflexion",
+      "teil4",
+      "teil5",
+      "teil6",
+      "teil7",
+      "vorwort",
+      "weiterdenken"
+    ],
+    "danglingLinks": 0,
+    "redundantDuplicates": 2
+  },
+  "errors": 0,
+  "warnings": 73,
+  "recovery": false
+}
