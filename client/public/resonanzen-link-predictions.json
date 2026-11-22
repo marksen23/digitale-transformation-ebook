@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T18:40:45.956Z",
+  "generatedAt": "2026-11-22T18:41:51.564Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -88,18 +88,18 @@
     {
       "source": "klang",
       "target": "resonanzvernunft",
-      "cooccurrence": 6,
+      "cooccurrence": 7,
       "endpoints": {
-        "dialog": 4,
+        "dialog": 5,
         "analyse": 1,
         "path-analyse": 1
       },
       "sampleEntryIds": [
+        "MWS6NSQA-93808042",
         "MWS6LXHZ-C8ACC98A",
         "MWS6KAHY-AFBBE834",
         "MWS6JJMY-0D187AD0",
-        "MWS6IJ29-DD378DC7",
-        "MWS6F9I8-00524756"
+        "MWS6IJ29-DD378DC7"
       ]
     },
     {
