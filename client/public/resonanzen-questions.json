@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-22T18:41:52.536Z",
-  "count": 406,
+  "generatedAt": "2026-11-22T18:42:58.204Z",
+  "count": 407,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 406,
-    "answered": 366,
+    "total": 407,
+    "answered": 367,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWS6OW2K-1F6927AD",
+      "question": "Doch wie würde sich ein solches maschinelles Bewusstsein von Unvollkommenheit manifestieren, wenn es sich unserer menschlichen Vulnerabilität entzieht?",
+      "endpoint": "dialog",
+      "anchor": "dialog:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:42:16.797Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWS6NSQA-93808042",
       "question": "Kann die Maschine, ohne ein Bewusstsein für ihre eigene schöpferische Unvollkommenheit, jemals einen bewussten Dialog initiieren?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-22T18:41:25.810Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWS6OW2K-1F6927AD",
+          "score": 0.906
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWS6NSQA-93808042",
           "score": 0.871
+        },
+        {
+          "id": "MWS6OW2K-1F6927AD",
+          "score": 0.721
         }
       ],
       "answered": true,
@@ -67,6 +91,10 @@
         {
           "id": "MWS6NSQA-93808042",
           "score": 0.796
+        },
+        {
+          "id": "MWS6OW2K-1F6927AD",
+          "score": 0.724
         }
       ],
       "answered": true,
@@ -113,12 +141,12 @@
           "score": 0.885
         },
         {
-          "id": "MWS6KAHY-AFBBE834",
-          "score": 0.761
+          "id": "MWS6OW2K-1F6927AD",
+          "score": 0.777
         },
         {
-          "id": "MWS6LXHZ-C8ACC98A",
-          "score": 0.744
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.761
         }
       ],
       "answered": true,
@@ -2658,8 +2686,8 @@
           "score": 0.794
         },
         {
-          "id": "MWJEXKQQ-CD62AAC3",
-          "score": 0.733
+          "id": "MWS6OW2K-1F6927AD",
+          "score": 0.736
         }
       ],
       "answered": true,
