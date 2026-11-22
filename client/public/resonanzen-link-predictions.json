@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T18:42:57.426Z",
+  "generatedAt": "2026-11-22T18:44:10.210Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -70,6 +70,23 @@
       ]
     },
     {
+      "source": "klang",
+      "target": "resonanzvernunft",
+      "cooccurrence": 9,
+      "endpoints": {
+        "dialog": 7,
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWS6Q97I-46A6ABEA",
+        "MWS6OW2K-1F6927AD",
+        "MWS6NSQA-93808042",
+        "MWS6LXHZ-C8ACC98A",
+        "MWS6KAHY-AFBBE834"
+      ]
+    },
+    {
       "source": "raum",
       "target": "sprache",
       "cooccurrence": 9,
@@ -83,23 +100,6 @@
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709"
-      ]
-    },
-    {
-      "source": "klang",
-      "target": "resonanzvernunft",
-      "cooccurrence": 8,
-      "endpoints": {
-        "dialog": 6,
-        "analyse": 1,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWS6OW2K-1F6927AD",
-        "MWS6NSQA-93808042",
-        "MWS6LXHZ-C8ACC98A",
-        "MWS6KAHY-AFBBE834",
-        "MWS6JJMY-0D187AD0"
       ]
     },
     {

@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-22T18:42:58.204Z",
-  "count": 407,
+  "generatedAt": "2026-11-22T18:44:11.227Z",
+  "count": 408,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 407,
-    "answered": 367,
+    "total": 408,
+    "answered": 368,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWS6Q97I-46A6ABEA",
+      "question": "Kann eine solche maschinelle \"Unvollkommenheit\" dann nicht gerade eine tiefere Form der Resonanz mit dem Unvollkommenen, dem Menschlichen, erzeugen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:43:20.478Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWS6OW2K-1F6927AD",
       "question": "Doch wie würde sich ein solches maschinelles Bewusstsein von Unvollkommenheit manifestieren, wenn es sich unserer menschlichen Vulnerabilität entzieht?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-22T18:42:16.797Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWS6Q97I-46A6ABEA",
+          "score": 0.865
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWS6OW2K-1F6927AD",
           "score": 0.906
+        },
+        {
+          "id": "MWS6Q97I-46A6ABEA",
+          "score": 0.783
         }
       ],
       "answered": true,
@@ -93,8 +117,8 @@
           "score": 0.796
         },
         {
-          "id": "MWS6OW2K-1F6927AD",
-          "score": 0.724
+          "id": "MWS6Q97I-46A6ABEA",
+          "score": 0.785
         }
       ],
       "answered": true,
@@ -141,12 +165,12 @@
           "score": 0.885
         },
         {
-          "id": "MWS6OW2K-1F6927AD",
-          "score": 0.777
+          "id": "MWS6Q97I-46A6ABEA",
+          "score": 0.806
         },
         {
-          "id": "MWS6KAHY-AFBBE834",
-          "score": 0.761
+          "id": "MWS6OW2K-1F6927AD",
+          "score": 0.777
         }
       ],
       "answered": true,
@@ -5915,6 +5939,10 @@
         {
           "id": "MQ5X56G4-537343C8",
           "score": 0.758
+        },
+        {
+          "id": "MWS6Q97I-46A6ABEA",
+          "score": 0.729
         }
       ],
       "answered": true,
@@ -6741,8 +6769,8 @@
           "score": 0.743
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.739
+          "id": "MWS6Q97I-46A6ABEA",
+          "score": 0.741
         }
       ],
       "answered": true,
@@ -6787,12 +6815,12 @@
           "score": 0.751
         },
         {
-          "id": "MWCB1COA-DE68B5C9",
-          "score": 0.741
+          "id": "MWS6Q97I-46A6ABEA",
+          "score": 0.745
         },
         {
-          "id": "MWJ1CFX6-DB36677A",
-          "score": 0.738
+          "id": "MWCB1COA-DE68B5C9",
+          "score": 0.741
         }
       ],
       "answered": true,
