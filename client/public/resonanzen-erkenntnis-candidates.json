@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T18:38:16.468Z",
+  "generatedAt": "2026-11-22T18:39:33.704Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -177,7 +177,7 @@
         "andere",
         "unverfuegbarkeit"
       ],
-      "resolveCount": 11,
+      "resolveCount": 10,
       "resolves": [
         {
           "sourceId": "MASTER-70E7430C",

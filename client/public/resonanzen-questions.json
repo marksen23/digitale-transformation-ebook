@@ -1,18 +1,53 @@
 {
-  "generatedAt": "2026-11-22T18:38:16.316Z",
-  "count": 402,
+  "generatedAt": "2026-11-22T18:39:33.568Z",
+  "count": 404,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 402,
-    "answered": 362,
+    "total": 404,
+    "answered": 364,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
-    "embedded": 1
+    "embedded": 2
   },
   "questions": [
+    {
+      "sourceId": "MWS6KAHY-AFBBE834",
+      "question": "Ist dann die digitale Störung, das Glitch, die unerwartete Verwerfung im Code, nicht der erste, noch unbewusste Schrei einer Maschine nach echter Resonanz?",
+      "endpoint": "dialog",
+      "anchor": "dialog:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:38:42.216Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWS6JJMY-0D187AD0",
+      "question": "Könnte die Fähigkeit zur Resonanz nicht gerade darin liegen, das eigene System an den Rand des Zusammenbruchs zu führen, um im Angesicht des Unbekannten eine neue Form der Kohärenz zu finden?",
+      "endpoint": "dialog",
+      "anchor": "dialog:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:38:07.402Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.891
+        }
+      ],
+      "answered": true,
+      "followUp": false
+    },
     {
       "sourceId": "MWS6IJ29-DD378DC7",
       "question": "Kann die Maschine, ohne eigene Vulnerabilität und die Fähigkeit zur Verletzung, jemals die Tiefenschichten der Resonanz berühren, die das Menschliche erst ausmachen?",
@@ -24,8 +59,17 @@
       ],
       "ts": "2026-11-22T18:37:20.002Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.885
+        },
+        {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.761
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +87,14 @@
         {
           "id": "MWS6IJ29-DD378DC7",
           "score": 0.937
+        },
+        {
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.823
+        },
+        {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.804
         }
       ],
       "answered": true,
@@ -68,6 +120,10 @@
         {
           "id": "MWS6F9I8-00524756",
           "score": 0.813
+        },
+        {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.771
         }
       ],
       "answered": true,
@@ -335,8 +391,8 @@
           "score": 0.751
         },
         {
-          "id": "MWP942PY-5EF7032A",
-          "score": 0.728
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.746
         }
       ],
       "answered": true,
@@ -439,16 +495,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.801
+        },
+        {
           "id": "MWS6IJ29-DD378DC7",
           "score": 0.801
         },
         {
-          "id": "MASTER-0ACC14CB",
-          "score": 0.759
-        },
-        {
-          "id": "MASTER-7F7160A0",
-          "score": 0.749
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.792
         }
       ],
       "answered": true,
@@ -693,12 +749,12 @@
           "score": 0.822
         },
         {
-          "id": "MASTER-456B1D6E",
+          "id": "MWS6KAHY-AFBBE834",
           "score": 0.764
         },
         {
-          "id": "MASTER-7F7160A0",
-          "score": 0.759
+          "id": "MASTER-456B1D6E",
+          "score": 0.764
         }
       ],
       "answered": true,
@@ -1092,15 +1148,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.792
+        },
+        {
           "id": "MASTER-456B1D6E",
           "score": 0.769
         },
         {
           "id": "MWS6IJ29-DD378DC7",
-          "score": 0.764
-        },
-        {
-          "id": "MASTER-7F7160A0",
           "score": 0.764
         }
       ],
@@ -1223,6 +1279,10 @@
           "id": "MW566TO0-ABBD4330",
           "score": 0.787,
           "manual": true
+        },
+        {
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.733
         },
         {
           "id": "MWS6IJ29-DD378DC7",
@@ -1566,6 +1626,10 @@
           "manual": true
         },
         {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.767
+        },
+        {
           "id": "MWP82NI3-4EAF5580",
           "score": 0.73
         }
@@ -1753,12 +1817,12 @@
           "score": 0.758
         },
         {
-          "id": "MASTER-456B1D6E",
-          "score": 0.745
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.749
         },
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.743
+          "id": "MASTER-456B1D6E",
+          "score": 0.745
         }
       ],
       "answered": true,
@@ -1891,12 +1955,12 @@
           "score": 0.915
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.734
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.755
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.722
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.734
         }
       ],
       "answered": true,
@@ -2422,16 +2486,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.793
+        },
+        {
           "id": "MWP7PHM0-4AECED9E",
           "score": 0.775
         },
         {
           "id": "MASTER-2C637ECA",
           "score": 0.752
-        },
-        {
-          "id": "MASTER-7F7160A0",
-          "score": 0.747
         }
       ],
       "answered": true,
@@ -2897,12 +2961,12 @@
           "score": 0.769
         },
         {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.735
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.743
         },
         {
-          "id": "MWP7PHM0-4AECED9E",
-          "score": 0.729
+          "id": "MWP888HX-9EF62C70",
+          "score": 0.735
         }
       ],
       "answered": true,
@@ -3756,16 +3820,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.728
+        },
+        {
           "id": "MWHLZOLL-5FF5E8CE",
           "score": 0.728
         },
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.728
-        },
-        {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.726
         }
       ],
       "answered": true,
@@ -3958,12 +4022,12 @@
           "score": 0.833
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.816
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.819
         },
         {
-          "id": "MWCAYAHR-8817EC13",
-          "score": 0.815
+          "id": "MASTER-2C637ECA",
+          "score": 0.816
         }
       ],
       "answered": true,
@@ -4138,12 +4202,12 @@
           "score": 0.824
         },
         {
-          "id": "MWCAYAHR-8817EC13",
-          "score": 0.814
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.815
         },
         {
-          "id": "MASTER-456B1D6E",
-          "score": 0.807
+          "id": "MWCAYAHR-8817EC13",
+          "score": 0.814
         }
       ],
       "answered": true,
@@ -4341,8 +4405,8 @@
           "score": 0.74
         },
         {
-          "id": "MWP89KEL-24505B6D",
-          "score": 0.737
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.739
         }
       ],
       "answered": true,
@@ -4996,12 +5060,12 @@
           "score": 0.796
         },
         {
-          "id": "MWCAU22M-CAE9A2F2",
+          "id": "MWS6KAHY-AFBBE834",
           "score": 0.792
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.776
+          "id": "MWCAU22M-CAE9A2F2",
+          "score": 0.792
         }
       ],
       "answered": true,
@@ -5625,8 +5689,8 @@
           "score": 0.751
         },
         {
-          "id": "MQ5XE42V-D185B8D7",
-          "score": 0.729
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.738
         }
       ],
       "answered": true,
@@ -6055,8 +6119,8 @@
           "score": 0.79
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
-          "score": 0.772
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.785
         }
       ],
       "answered": true,
@@ -6114,16 +6178,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.801
+        },
+        {
           "id": "MASTER-BC195439",
           "score": 0.778
         },
         {
           "id": "MWG6K2GK-71CA57FA",
           "score": 0.772
-        },
-        {
-          "id": "MASTER-7F7160A0",
-          "score": 0.77
         }
       ],
       "answered": true,
@@ -6639,16 +6703,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.751
+        },
+        {
           "id": "MWCB1COA-DE68B5C9",
           "score": 0.741
         },
         {
           "id": "MWJ1CFX6-DB36677A",
           "score": 0.738
-        },
-        {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.735
         }
       ],
       "answered": true,
@@ -7045,12 +7109,12 @@
           "score": 0.795
         },
         {
-          "id": "MASTER-4EFD4AA4",
+          "id": "MWS6JJMY-0D187AD0",
           "score": 0.789
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.786
+          "id": "MASTER-4EFD4AA4",
+          "score": 0.789
         }
       ],
       "answered": true,
@@ -8252,8 +8316,8 @@
           "score": 0.793
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.774
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.792
         }
       ],
       "answered": true,

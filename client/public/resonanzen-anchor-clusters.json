@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T18:38:16.469Z",
+  "generatedAt": "2026-11-22T18:39:33.705Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -148,6 +148,19 @@
       "lastVariantTs": "2026-05-16T18:18:38.925Z",
       "masterId": "MASTER-03059588",
       "masterTs": "2026-11-06T22:28:40.902Z",
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:klang+resonanzvernunft",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWS6KAHY-AFBBE834",
+        "MWS6JJMY-0D187AD0",
+        "MWS6IJ29-DD378DC7"
+      ],
+      "lastVariantTs": "2026-11-22T18:38:42.216Z",
+      "masterId": null,
+      "masterTs": null,
       "masterStale": false
     },
     {
@@ -347,7 +360,7 @@
   ],
   "stats": {
     "totalAnchors": 272,
-    "withMultipleVariants": 25,
+    "withMultipleVariants": 26,
     "withMaster": 25,
     "staleMasters": 2
   }
