@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-22T18:35:42.913Z",
-  "count": 401,
+  "generatedAt": "2026-11-22T18:38:16.316Z",
+  "count": 402,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 401,
-    "answered": 361,
+    "total": 402,
+    "answered": 362,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWS6IJ29-DD378DC7",
+      "question": "Kann die Maschine, ohne eigene Vulnerabilität und die Fähigkeit zur Verletzung, jemals die Tiefenschichten der Resonanz berühren, die das Menschliche erst ausmachen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:37:20.002Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWS6F9I8-00524756",
       "question": "Wird dieser Zusammenhang ernst genommen, verändert sich das Verständnis von Mensch und Resonanz grundlegend. Der Mensch erscheint nicht mehr primär als denkendes, sondern als schwingendes und antwortendes Wesen. Die Resonanz wird nicht nur als intellektuelles Verstehen oder emotionales Mitschwingen begriffen, sondern als ein umfassendes, körperlich-geistiges Geschehen, das in der Schwingung seinen Ursprung hat. Auch das Verhältnis zur Maschine könnte sich neu ordnen: Wenn Maschinen als Resonanzkörper verstanden werden, die Schwingungen aufnehmen und in einem bestimmten Sinne \"antworten\" können, stellt sich die Frage, inwieweit ihre \"Vernunft\" ebenfalls in einem \"Zwischen\" körperlich-energetischer Schwingungen verankert ist. Kann eine Maschine, die nur auf definierte Inputs reagiert, ohne die prä-kognitive Schwingung zu erfahren, jemals wahre Resonanzvernunft entfalten?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-22T18:34:47.648Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.937
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -41,6 +61,10 @@
       "ts": "2026-11-22T18:33:32.108Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.826
+        },
         {
           "id": "MWS6F9I8-00524756",
           "score": 0.813
@@ -307,6 +331,10 @@
           "manual": true
         },
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.751
+        },
+        {
           "id": "MWP942PY-5EF7032A",
           "score": 0.728
         }
@@ -411,16 +439,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.801
+        },
+        {
           "id": "MASTER-0ACC14CB",
           "score": 0.759
         },
         {
           "id": "MASTER-7F7160A0",
           "score": 0.749
-        },
-        {
-          "id": "MWS6F9I8-00524756",
-          "score": 0.734
         }
       ],
       "answered": true,
@@ -661,15 +689,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.822
+        },
+        {
           "id": "MASTER-456B1D6E",
           "score": 0.764
         },
         {
           "id": "MASTER-7F7160A0",
-          "score": 0.759
-        },
-        {
-          "id": "MASTER-0ACC14CB",
           "score": 0.759
         }
       ],
@@ -686,16 +714,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.756
+        },
+        {
           "id": "MASTER-456B1D6E",
           "score": 0.755
         },
         {
           "id": "MWS6F9I8-00524756",
           "score": 0.746
-        },
-        {
-          "id": "MWP89KEF-808B79A0",
-          "score": 0.731
         }
       ],
       "answered": true,
@@ -758,7 +786,7 @@
           "score": 0.737
         },
         {
-          "id": "MWS6DN7U-8C8768E3",
+          "id": "MWS6IJ29-DD378DC7",
           "score": 0.735
         }
       ],
@@ -778,16 +806,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.834
+        },
+        {
           "id": "MASTER-456B1D6E",
           "score": 0.787
         },
         {
           "id": "MWP85762-03FEE922",
           "score": 0.779
-        },
-        {
-          "id": "MWS6DN7U-8C8768E3",
-          "score": 0.768
         }
       ],
       "answered": true,
@@ -812,6 +840,10 @@
         {
           "id": "MWP84ULS-09E47DCA",
           "score": 0.736
+        },
+        {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.735
         }
       ],
       "answered": true,
@@ -1064,12 +1096,12 @@
           "score": 0.769
         },
         {
-          "id": "MASTER-7F7160A0",
+          "id": "MWS6IJ29-DD378DC7",
           "score": 0.764
         },
         {
-          "id": "MASTER-0ACC14CB",
-          "score": 0.751
+          "id": "MASTER-7F7160A0",
+          "score": 0.764
         }
       ],
       "answered": true,
@@ -1191,6 +1223,10 @@
           "id": "MW566TO0-ABBD4330",
           "score": 0.787,
           "manual": true
+        },
+        {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.728
         }
       ],
       "answered": true,
@@ -1301,6 +1337,10 @@
           "id": "MWP89KE3-1A78C2BB",
           "score": 0.884,
           "manual": true
+        },
+        {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.725
         }
       ],
       "answered": true,
@@ -1441,12 +1481,12 @@
           "score": 0.822
         },
         {
-          "id": "MWP835N6-909E6986",
-          "score": 0.788
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.806
         },
         {
-          "id": "MASTER-7F7160A0",
-          "score": 0.773
+          "id": "MWP835N6-909E6986",
+          "score": 0.788
         }
       ],
       "answered": true,
@@ -1469,12 +1509,12 @@
           "score": 0.84
         },
         {
-          "id": "MWP7LTBE-E4F406FE",
-          "score": 0.816
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.821
         },
         {
-          "id": "MASTER-0ACC14CB",
-          "score": 0.794
+          "id": "MWP7LTBE-E4F406FE",
+          "score": 0.816
         }
       ],
       "answered": true,
@@ -1501,8 +1541,8 @@
           "score": 0.822
         },
         {
-          "id": "MASTER-40033690",
-          "score": 0.809
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.819
         }
       ],
       "answered": true,
@@ -1709,16 +1749,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.758
+        },
+        {
           "id": "MASTER-456B1D6E",
           "score": 0.745
         },
         {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.743
-        },
-        {
-          "id": "MWJEXKQQ-CD62AAC3",
-          "score": 0.739
         }
       ],
       "answered": true,
@@ -1851,6 +1891,10 @@
           "score": 0.915
         },
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.734
+        },
+        {
           "id": "MASTER-2C637ECA",
           "score": 0.722
         }
@@ -1906,16 +1950,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.785
+        },
+        {
           "id": "MASTER-2C637ECA",
           "score": 0.776
         },
         {
           "id": "MWP85762-03FEE922",
           "score": 0.763
-        },
-        {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.755
         }
       ],
       "answered": true,
@@ -2052,12 +2096,12 @@
           "score": 0.95
         },
         {
-          "id": "MWP83JAQ-7B75BF9B",
-          "score": 0.815
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.828
         },
         {
-          "id": "MWP942QG-F15146A5",
-          "score": 0.808
+          "id": "MWP83JAQ-7B75BF9B",
+          "score": 0.815
         }
       ],
       "answered": true,
@@ -2081,7 +2125,7 @@
           "score": 0.731
         },
         {
-          "id": "MASTER-5476DCEA",
+          "id": "MWS6IJ29-DD378DC7",
           "score": 0.725
         }
       ],
@@ -2151,12 +2195,12 @@
           "score": 0.806
         },
         {
-          "id": "MASTER-70E7430C",
-          "score": 0.781
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.786
         },
         {
-          "id": "MWS6DN7U-8C8768E3",
-          "score": 0.779
+          "id": "MASTER-70E7430C",
+          "score": 0.781
         }
       ],
       "answered": true,
@@ -2242,16 +2286,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.772
+        },
+        {
           "id": "MASTER-456B1D6E",
           "score": 0.772
         },
         {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.769
-        },
-        {
-          "id": "MWP85762-03FEE922",
-          "score": 0.768
         }
       ],
       "answered": true,
@@ -2494,12 +2538,12 @@
           "score": 0.933
         },
         {
-          "id": "MWJEXKQQ-CD62AAC3",
-          "score": 0.733
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.794
         },
         {
-          "id": "MASTER-70E7430C",
-          "score": 0.731
+          "id": "MWJEXKQQ-CD62AAC3",
+          "score": 0.733
         }
       ],
       "answered": true,
@@ -2720,16 +2764,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.874
+        },
+        {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.861
         },
         {
           "id": "MASTER-456B1D6E",
           "score": 0.824
-        },
-        {
-          "id": "MWP835N6-909E6986",
-          "score": 0.817
         }
       ],
       "answered": true,
@@ -2756,8 +2800,8 @@
           "score": 0.747
         },
         {
-          "id": "MASTER-456B1D6E",
-          "score": 0.738
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.741
         }
       ],
       "answered": true,
@@ -2806,12 +2850,12 @@
           "score": 0.757
         },
         {
-          "id": "MASTER-2C637ECA",
+          "id": "MWS6IJ29-DD378DC7",
           "score": 0.754
         },
         {
-          "id": "MWP85762-03FEE922",
-          "score": 0.753
+          "id": "MASTER-2C637ECA",
+          "score": 0.754
         }
       ],
       "answered": true,
@@ -2941,8 +2985,8 @@
           "score": 0.761
         },
         {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.728
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.744
         }
       ],
       "answered": true,
@@ -3005,12 +3049,12 @@
           "score": 0.788
         },
         {
-          "id": "MASTER-53BE22D7",
+          "id": "MWS6IJ29-DD378DC7",
           "score": 0.786
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.782
+          "id": "MASTER-53BE22D7",
+          "score": 0.786
         }
       ],
       "answered": true,
@@ -3096,16 +3140,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.836
+        },
+        {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.803
         },
         {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.799
-        },
-        {
-          "id": "MWS6DN7U-8C8768E3",
-          "score": 0.797
         }
       ],
       "answered": true,
@@ -3353,16 +3397,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.837
+        },
+        {
           "id": "MWJEY6W3-C4E77F94",
           "score": 0.836
         },
         {
           "id": "MWJEXKQQ-CD62AAC3",
           "score": 0.831
-        },
-        {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.826
         }
       ],
       "answered": true,
@@ -3464,16 +3508,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.846
+        },
+        {
           "id": "MWHLXGMK-4832FECC",
           "score": 0.835
         },
         {
           "id": "MWHLUQV4-26DFD984",
           "score": 0.831
-        },
-        {
-          "id": "MWP85762-03FEE922",
-          "score": 0.81
         }
       ],
       "answered": true,
@@ -3534,16 +3578,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.834
+        },
+        {
           "id": "MASTER-03286683",
           "score": 0.829
         },
         {
           "id": "MWP85762-03FEE922",
           "score": 0.818
-        },
-        {
-          "id": "MASTER-456B1D6E",
-          "score": 0.805
         }
       ],
       "answered": true,
@@ -3589,8 +3633,8 @@
           "score": 0.801
         },
         {
-          "id": "MWHLV7BW-F612B59E",
-          "score": 0.787
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.794
         }
       ],
       "answered": true,
@@ -3646,8 +3690,8 @@
           "score": 0.784
         },
         {
-          "id": "MWP84ULS-09E47DCA",
-          "score": 0.77
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.779
         }
       ],
       "answered": true,
@@ -3691,12 +3735,12 @@
           "score": 0.812
         },
         {
-          "id": "MWCB03XA-1A38BACE",
-          "score": 0.798
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.807
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.784
+          "id": "MWCB03XA-1A38BACE",
+          "score": 0.798
         }
       ],
       "answered": true,
@@ -3771,16 +3815,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.824
+        },
+        {
           "id": "MWCBAQN6-9D0CCC83",
           "score": 0.818
         },
         {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.8
-        },
-        {
-          "id": "MASTER-4AA1AEA8",
-          "score": 0.799
         }
       ],
       "answered": true,
@@ -3799,15 +3843,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.871
+        },
+        {
           "id": "MWCBAQN6-9D0CCC83",
           "score": 0.836
         },
         {
           "id": "MWP835N6-909E6986",
-          "score": 0.827
-        },
-        {
-          "id": "MWJEWOY7-62FCEE55",
           "score": 0.827
         }
       ],
@@ -3832,8 +3876,8 @@
           "score": 0.759
         },
         {
-          "id": "MWJ1F278-2DA1CA58",
-          "score": 0.746
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.752
         }
       ],
       "answered": true,
@@ -4035,16 +4079,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.838
+        },
+        {
           "id": "MASTER-94E7804F",
           "score": 0.811
         },
         {
           "id": "MASTER-476E4F4D",
           "score": 0.804
-        },
-        {
-          "id": "MWJ1DBD5-7CEE18D5",
-          "score": 0.801
         }
       ],
       "answered": true,
@@ -4090,16 +4134,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.824
+        },
+        {
           "id": "MWCAYAHR-8817EC13",
           "score": 0.814
         },
         {
           "id": "MASTER-456B1D6E",
           "score": 0.807
-        },
-        {
-          "id": "MWP7KY81-FA276303",
-          "score": 0.805
         }
       ],
       "answered": true,
@@ -4321,12 +4365,12 @@
           "score": 0.77
         },
         {
-          "id": "MWCB9C3X-1CC3BC23",
+          "id": "MWS6IJ29-DD378DC7",
           "score": 0.751
         },
         {
-          "id": "MWG6HW56-B5802350",
-          "score": 0.746
+          "id": "MWCB9C3X-1CC3BC23",
+          "score": 0.751
         }
       ],
       "answered": true,
@@ -5521,12 +5565,12 @@
           "score": 0.889
         },
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.794
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.81
         },
         {
-          "id": "MASTER-F05BF2C0",
-          "score": 0.784
+          "id": "MWJEWOY7-62FCEE55",
+          "score": 0.794
         }
       ],
       "answered": true,
@@ -5549,12 +5593,12 @@
           "score": 0.879
         },
         {
-          "id": "MQ5XFLFO-F0DBB89E",
-          "score": 0.789
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.82
         },
         {
-          "id": "MQ67R74M-A1AA4B53",
-          "score": 0.767
+          "id": "MQ5XFLFO-F0DBB89E",
+          "score": 0.789
         }
       ],
       "answered": true,
@@ -5577,12 +5621,12 @@
           "score": 0.896
         },
         {
-          "id": "MQ5XE42V-D185B8D7",
-          "score": 0.729
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.751
         },
         {
-          "id": "MASTER-7F7160A0",
-          "score": 0.725
+          "id": "MQ5XE42V-D185B8D7",
+          "score": 0.729
         }
       ],
       "answered": true,
@@ -6003,16 +6047,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.823
+        },
+        {
           "id": "MQ5XE42V-D185B8D7",
           "score": 0.79
         },
         {
           "id": "MQ67R74M-A1AA4B53",
           "score": 0.772
-        },
-        {
-          "id": "MWCB3438-AD4663CF",
-          "score": 0.765
         }
       ],
       "answered": true,
@@ -6603,8 +6647,8 @@
           "score": 0.738
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.733
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.735
         }
       ],
       "answered": true,
@@ -7005,7 +7049,7 @@
           "score": 0.789
         },
         {
-          "id": "MASTER-2C637ECA",
+          "id": "MWS6IJ29-DD378DC7",
           "score": 0.786
         }
       ],
@@ -7622,12 +7666,12 @@
           "score": 0.816
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.792
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.795
         },
         {
-          "id": "MQ683DMX-13D6C54F",
-          "score": 0.782
+          "id": "MASTER-BC195439",
+          "score": 0.792
         }
       ],
       "answered": true,
@@ -7882,16 +7926,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.814
+        },
+        {
           "id": "MPMMCX1X-AFED893B",
           "score": 0.804
         },
         {
           "id": "MQ67R74M-A1AA4B53",
           "score": 0.8
-        },
-        {
-          "id": "MASTER-456B1D6E",
-          "score": 0.791
         }
       ],
       "answered": true,
@@ -8208,8 +8252,8 @@
           "score": 0.793
         },
         {
-          "id": "MP74X3EJ-72CDDB9F",
-          "score": 0.772
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.774
         }
       ],
       "answered": true,
@@ -9732,8 +9776,8 @@
           "score": 0.767
         },
         {
-          "id": "MPMTT6GB-1AF44EE4",
-          "score": 0.732
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.756
         }
       ],
       "answered": true,
@@ -9753,12 +9797,12 @@
           "score": 0.797
         },
         {
-          "id": "MOOK20R3-62E609BA",
-          "score": 0.791
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.792
         },
         {
-          "id": "MPJEBNX3-042F2A69",
-          "score": 0.781
+          "id": "MOOK20R3-62E609BA",
+          "score": 0.791
         }
       ],
       "answered": true,

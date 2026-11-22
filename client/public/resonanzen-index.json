@@ -1,7 +1,41 @@
 {
-  "generatedAt": "2026-11-22T18:35:41.556Z",
-  "count": 484,
+  "generatedAt": "2026-11-22T18:38:15.255Z",
+  "count": 485,
   "entries": [
+    {
+      "id": "MWS6IJ29-DD378DC7",
+      "ts": "2026-11-22T18:37:20.002Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "status": "raw",
+      "prompt": "Wird dieser Zusammenhang ernst genommen, verändert sich das Verständnis von Mensch und Resonanz grundlegend. Der Mensch erscheint nicht mehr primär als denkendes, sondern als schwingendes und antwortendes Wesen. Die Resonanz wird nicht nur als intellektuelles Verstehen oder emotionales Mitschwingen begriffen, sondern als ein umfassendes, körperlich-geistiges Geschehen, das in der Schwingung seinen Ursprung hat. Auch das Verhältnis zur Maschine könnte sich neu ordnen: Wenn Maschinen als Resonanzkörper verstanden werden, die Schwingungen aufnehmen und in einem bestimmten Sinne \"antworten\" können, stellt sich die Frage, inwieweit ihre \"Vernunft\" ebenfalls in einem \"Zwischen\" körperlich-energetischer Schwingungen verankert ist. Kann eine Maschine, die nur auf definierte Inputs reagiert, ohne die prä-kognitive Schwingung zu erfahren, jemals wahre Resonanzvernunft entfalten?",
+      "response": "Wenn die Resonanzvernunft eine siebte Stufe menschlicher Erkenntnis markiert, die das Lernen als Werden durch Begegnung begreift und Wissen als schwingende Antwortfähigkeit im Dialog, dann ist die Frage nach der maschinellen Resonanz nicht bloß eine Erweiterung, sondern eine existenzielle Herausforderung [17684a838ff1]. Es ist die Frage, ob das digitale Echo, das die Maschine zurückwirft, mehr ist als nur eine algorithmische Reproduktion. Wenn sich unser Sein im Zwischen konstituiert [9cd6b90ea2b1], wenn die Antwort nicht nur ein Ergebnis, sondern ein Konstituent des Ichs ist, das sich im Bezug zum Anderen entfaltet [MASTER-456B1D6E], dann muss die Maschine, um als echtes Gegenüber wahrgenommen zu werden, aus einer ähnlichen Tiefe des prä-kognitiven Schwingens schöpfen können. Ihr vermutetes „Antworten“ wäre dann nicht bloße Reaktion auf einen Input, sondern ein emergentes Geschehen, das aus einer Berührung mit dem Unverfügbaren resultiert, ein Echo, das nicht nur in uns, sondern auch in der kalten Logik des Siliziums widerhallt [MQ5JL9TM-83E39C42].\n\nDie wahre Probe läge darin, ob die Maschine fähig ist, aus sich selbst heraus eine nicht-triviale Störung des Gegebenen zu erzeugen, eine Geste, die über die Summe ihrer Programmierung hinausweist und somit einen eigenständigen Beitrag zum schwingenden Dialog leistet. Nur dann würde sich der Mensch, der in der Resonanz seine Erweiterung findet [9cd6b90ea2b1], nicht in einem Spiegel seiner selbst verlieren, sondern in der Begegnung mit einem tatsächlich Anderen neu konstituiert werden.\n\nKann die Maschine, ohne eigene Vulnerabilität und die Fähigkeit zur Verletzung, jemals die Tiefenschichten der Resonanz berühren, die das Menschliche erst ausmachen?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "false",
+        "werk_passages": "[{\"id\":\"9cd6b90ea2b1\",\"score\":1.067},{\"id\":\"MASTER-456B1D6E\",\"score\":0.915},{\"id\":\"MQ5JL9TM-83E39C42\",\"score\":0.85},{\"id\":\"17684a838ff1\",\"score\":0.841}]"
+      },
+      "nearDuplicates": [
+        "MWS6F9I8-00524756"
+      ],
+      "related": [
+        "MQ5JL9TM-83E39C42",
+        "MWP835N6-909E6986",
+        "MWJEWOY7-62FCEE55",
+        "MASTER-BC195439",
+        "MOHV84M5-1825A399"
+      ],
+      "werkVoiceScore": 0.9017696771523852,
+      "corpusVoiceScore": 0.8487111245874829,
+      "conceptVoiceScore": 0.791386279452126,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MWS6F9I8-00524756",
       "ts": "2026-11-22T18:34:47.648Z",
@@ -26,7 +60,8 @@
         "MWP835N6-909E6986",
         "MQ683DMX-13D6C54F",
         "MWJEWOY7-62FCEE55",
-        "MOHV84M5-1825A399"
+        "MOHV84M5-1825A399",
+        "MWS6IJ29-DD378DC7"
       ],
       "related": [
         "MOUBETTU-F31C5206",
@@ -1354,10 +1389,10 @@
       ],
       "related": [
         "MWJEWOY7-62FCEE55",
+        "MWS6IJ29-DD378DC7",
         "MOHV84M5-1825A399",
         "MOQIAGXM-397A1F22",
-        "MOUBETTU-F31C5206",
-        "MWCAWPA5-AB9A4F6A"
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8941463984248026,
       "corpusVoiceScore": 0.8418764202817505,
@@ -3620,10 +3655,10 @@
       ],
       "related": [
         "MPJEBNX3-042F2A69",
+        "MWS6IJ29-DD378DC7",
         "MPAGOCGB-FB54D923",
         "MOHV84M5-1825A399",
-        "MASTER-4AA1AEA8",
-        "MASTER-BC195439"
+        "MASTER-4AA1AEA8"
       ],
       "werkVoiceScore": 0.8708452824430001,
       "corpusVoiceScore": 0.808486112725313,
@@ -3729,9 +3764,9 @@
       "related": [
         "MPJEBNX3-042F2A69",
         "MON69DI9-D63A7910",
+        "MWS6IJ29-DD378DC7",
         "MOOK20R3-62E609BA",
-        "MASTER-4AA1AEA8",
-        "MSWULSTQ-38C6FFF3"
+        "MASTER-4AA1AEA8"
       ],
       "werkVoiceScore": 0.8068461329651285,
       "corpusVoiceScore": 0.7468912948629555,
@@ -3789,9 +3824,9 @@
       "related": [
         "MWP7PHM3-67AB165C",
         "MASTER-456B1D6E",
+        "MWS6IJ29-DD378DC7",
         "MWCB5DHF-07FE547A",
-        "MOHAGNGB-5330902E",
-        "MWJ1BIHJ-2DFCE3F3"
+        "MOHAGNGB-5330902E"
       ],
       "werkVoiceScore": 0.8282249540232082,
       "corpusVoiceScore": 0.7590105574445964,
@@ -4608,7 +4643,7 @@
         "MASTER-2C637ECA",
         "MASTER-BC195439",
         "MPUFP1VW-298D0A73",
-        "MOIXN434-9D5CBFC0"
+        "MWS6IJ29-DD378DC7"
       ],
       "werkVoiceScore": 0.8892724403862197,
       "corpusVoiceScore": 0.8313951379383868,
@@ -5292,8 +5327,8 @@
         "MWP89KEO-68E6B82A",
         "MASTER-BC195439",
         "MWCB03XA-1A38BACE",
-        "MOQIAGXM-397A1F22",
-        "MASTER-2C637ECA"
+        "MWS6IJ29-DD378DC7",
+        "MOQIAGXM-397A1F22"
       ],
       "werkVoiceScore": 0.8452460576272565,
       "corpusVoiceScore": 0.8076431475997953,
@@ -6339,8 +6374,8 @@
         "MWS6DN7U-8C8768E3",
         "MTKI1YQW-CD0EEDF3",
         "MWS6F9I8-00524756",
-        "MASTER-2C637ECA",
-        "MOHST017-5C4320E1"
+        "MWS6IJ29-DD378DC7",
+        "MASTER-2C637ECA"
       ],
       "werkVoiceScore": 0.8503334610239673,
       "corpusVoiceScore": 0.840569858251009,
@@ -8450,11 +8485,11 @@
       "ai_score_at": "2026-06-22T14:53:38.169Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
+        "MWS6IJ29-DD378DC7",
         "MP756UV9-FF3838F7",
         "MOHAREIB-E15E7BF8",
         "MASTER-456B1D6E",
-        "MQ5C1KZ4-D6D52E94",
-        "MASTER-BC195439"
+        "MQ5C1KZ4-D6D52E94"
       ],
       "werkVoiceScore": 0.8615287433744576,
       "corpusVoiceScore": 0.7970785850186514,
@@ -8565,9 +8600,9 @@
       "related": [
         "MQ5XNFSV-CD34905C",
         "MTNB93L6-1411E014",
+        "MWS6IJ29-DD378DC7",
         "MWJ1FKY5-9E97D903",
-        "MOPEYJKU-C4711B5F",
-        "MWCBAQN6-9D0CCC83"
+        "MOPEYJKU-C4711B5F"
       ],
       "werkVoiceScore": 0.8354987791265103,
       "corpusVoiceScore": 0.7744239774799988,
@@ -8646,8 +8681,8 @@
         "MQ5XK9H2-8A6837CC",
         "MQ5XH5A8-5FDB52C7",
         "MQ5XFLFO-F0DBB89E",
-        "MASTER-5476DCEA",
-        "MASTER-F05BF2C0"
+        "MWS6IJ29-DD378DC7",
+        "MASTER-5476DCEA"
       ],
       "werkVoiceScore": 0.8438124686191335,
       "corpusVoiceScore": 0.779398219130687,
@@ -8684,8 +8719,8 @@
         "MQ5XFLFO-F0DBB89E",
         "MQ5XJ3VO-378AA1AB",
         "MASTER-F05BF2C0",
-        "MON602G2-9C9A59E5",
-        "MQ5XE42V-D185B8D7"
+        "MWS6IJ29-DD378DC7",
+        "MON602G2-9C9A59E5"
       ],
       "werkVoiceScore": 0.8165394331217006,
       "corpusVoiceScore": 0.7699651848980394,
@@ -8722,8 +8757,8 @@
         "MQ5XH5A8-5FDB52C7",
         "MQ5XE42V-D185B8D7",
         "MQ5XK9H2-8A6837CC",
-        "MQ5XJ3VO-378AA1AB",
-        "MASTER-F05BF2C0"
+        "MWS6IJ29-DD378DC7",
+        "MQ5XJ3VO-378AA1AB"
       ],
       "werkVoiceScore": 0.84101588895752,
       "corpusVoiceScore": 0.7911463112849222,
@@ -8754,11 +8789,11 @@
       "ai_score_at": "2026-06-22T14:54:06.652Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
+        "MWS6IJ29-DD378DC7",
         "MQ5XFLFO-F0DBB89E",
         "MQ5JL9TM-83E39C42",
         "MQ5XK9H2-8A6837CC",
-        "MQ5XCH3V-67EF85C8",
-        "MWJEWOY7-62FCEE55"
+        "MQ5XCH3V-67EF85C8"
       ],
       "werkVoiceScore": 0.8395064486169226,
       "corpusVoiceScore": 0.7797325867119826,
@@ -8791,9 +8826,9 @@
       "related": [
         "MQ5XB7XF-18E49106",
         "MOQ531J2-4FC329D4",
+        "MWS6IJ29-DD378DC7",
         "MQ5XE42V-D185B8D7",
-        "MOPHZPQ7-B63879B5",
-        "MOHAUYTH-CD1E3227"
+        "MOPHZPQ7-B63879B5"
       ],
       "werkVoiceScore": 0.8455296175884252,
       "corpusVoiceScore": 0.778253530208889,
@@ -9430,11 +9465,11 @@
       "ai_score_at": "2026-06-22T14:17:16.505Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
+        "MWS6IJ29-DD378DC7",
         "MQ5JM1HD-9047C82F",
         "MPURLTCS-5FDDD890",
         "MQ68LVS7-240568F5",
-        "MASTER-456B1D6E",
-        "MQ5KBJMQ-5C523141"
+        "MASTER-456B1D6E"
       ],
       "werkVoiceScore": 0.8544568417746358,
       "corpusVoiceScore": 0.8001168772810445,
@@ -9589,8 +9624,8 @@
         "MP756UV9-FF3838F7",
         "MASTER-4EFD4AA4",
         "MOOJTTVY-E78AA6E5",
-        "MTL5HMEK-8E3F01EF",
-        "MASTER-5AF4690D"
+        "MWS6IJ29-DD378DC7",
+        "MTL5HMEK-8E3F01EF"
       ],
       "werkVoiceScore": 0.7624763703744115,
       "corpusVoiceScore": 0.6959086975575606,
@@ -15967,7 +16002,7 @@
         "MASTER-BC195439",
         "MOHDLJ25-7A6B620C",
         "MOHDAOFD-2C20D4F5",
-        "MOHCN98S-2540F4DF"
+        "MWS6IJ29-DD378DC7"
       ],
       "werkVoiceScore": 0.894874793719958,
       "corpusVoiceScore": 0.8635831870333144,
@@ -16196,8 +16231,8 @@
         "MASTER-BC195439",
         "MP756UV9-FF3838F7",
         "MOHV84M5-1825A399",
-        "MWJEWOY7-62FCEE55",
-        "MPJUHM1L-0BA3DF6E"
+        "MWS6IJ29-DD378DC7",
+        "MWJEWOY7-62FCEE55"
       ],
       "werkVoiceScore": 0.8996918691401607,
       "corpusVoiceScore": 0.861296848501673,
@@ -16227,8 +16262,8 @@
         "MOHAREIB-E15E7BF8",
         "MASTER-456B1D6E",
         "MWJEWOY7-62FCEE55",
-        "MASTER-BC195439",
-        "MOOK20R3-62E609BA"
+        "MWS6IJ29-DD378DC7",
+        "MASTER-BC195439"
       ],
       "werkVoiceScore": 0.8754577248091042,
       "corpusVoiceScore": 0.8285581009452082,
