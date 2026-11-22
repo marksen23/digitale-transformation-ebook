@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T18:34:21.801Z",
+  "generatedAt": "2026-11-22T18:35:41.570Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -459,6 +459,19 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "resonanzvernunft",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWS6F9I8-00524756",
+        "MWS6DN7U-8C8768E3"
       ]
     },
     {
@@ -1181,7 +1194,7 @@
   ],
   "stats": {
     "totalPairs": 445,
-    "candidatesCount": 90,
+    "candidatesCount": 91,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

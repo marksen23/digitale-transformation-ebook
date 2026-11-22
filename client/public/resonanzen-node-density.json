@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-11-22T18:34:21.799Z",
+  "generatedAt": "2026-11-22T18:35:41.569Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 28,
+      "count": 29,
       "endpoints": {
-        "path-analyse": 22,
-        "analyse": 6
+        "analyse": 7,
+        "path-analyse": 22
       }
     },
     "resonanz": {
@@ -70,10 +70,10 @@
       }
     },
     "klang": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "path-analyse": 5,
-        "analyse": 5
+        "analyse": 6,
+        "path-analyse": 5
       }
     },
     "erkenntnis": {

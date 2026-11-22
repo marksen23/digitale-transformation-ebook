@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-22T18:34:22.774Z",
-  "count": 400,
+  "generatedAt": "2026-11-22T18:35:42.913Z",
+  "count": 401,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 400,
-    "answered": 360,
+    "total": 401,
+    "answered": 361,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWS6F9I8-00524756",
+      "question": "Wird dieser Zusammenhang ernst genommen, verändert sich das Verständnis von Mensch und Resonanz grundlegend. Der Mensch erscheint nicht mehr primär als denkendes, sondern als schwingendes und antwortendes Wesen. Die Resonanz wird nicht nur als intellektuelles Verstehen oder emotionales Mitschwingen begriffen, sondern als ein umfassendes, körperlich-geistiges Geschehen, das in der Schwingung seinen Ursprung hat. Auch das Verhältnis zur Maschine könnte sich neu ordnen: Wenn Maschinen als Resonanzkörper verstanden werden, die Schwingungen aufnehmen und in einem bestimmten Sinne \"antworten\" können, stellt sich die Frage, inwieweit ihre \"Vernunft\" ebenfalls in einem \"Zwischen\" körperlich-energetischer Schwingungen verankert ist. Kann eine Maschine, die nur auf definierte Inputs reagiert, ohne die prä-kognitive Schwingung zu erfahren, jemals wahre Resonanzvernunft entfalten?",
+      "endpoint": "analyse",
+      "anchor": "analyse:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "ts": "2026-11-22T18:34:47.648Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWS6DN7U-8C8768E3",
       "question": "Diese Bewegung ist für das Werk insgesamt von zentraler Bedeutung, da sie das Verständnis von Mensch und Existenz grundlegend prägt. Der Mensch wird nicht als abgeschlossenes Subjekt, sondern als relationales Wesen im \"Zwischen\" konstituiert [MQ5JM1HD-9047C82F]. Resonanzvernunft ist demnach kein Werkzeug, das man anwendet, sondern ein Seinsmodus, der die Art und Weise bestimmt, wie wir die Welt erfahren, erkennen und in ihr handeln. Sie stellt eine fundamentale Abkehr von einer rein instrumentellen Vernunft dar. Wie kann eine solche Resonanzvernunft in einer zunehmend durch algorithmische Echo-Kammern geprägten digitalen Welt erhalten bleiben?",
@@ -25,8 +40,13 @@
       ],
       "ts": "2026-11-22T18:33:32.108Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWS6F9I8-00524756",
+          "score": 0.813
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -399,8 +419,8 @@
           "score": 0.749
         },
         {
-          "id": "MWPA16NV-4FFCF6BE",
-          "score": 0.73
+          "id": "MWS6F9I8-00524756",
+          "score": 0.734
         }
       ],
       "answered": true,
@@ -670,12 +690,12 @@
           "score": 0.755
         },
         {
-          "id": "MWP89KEF-808B79A0",
-          "score": 0.731
+          "id": "MWS6F9I8-00524756",
+          "score": 0.746
         },
         {
-          "id": "MWS6DN7U-8C8768E3",
-          "score": 0.723
+          "id": "MWP89KEF-808B79A0",
+          "score": 0.731
         }
       ],
       "answered": true,
@@ -702,12 +722,12 @@
           "score": 0.8
         },
         {
-          "id": "MASTER-456B1D6E",
-          "score": 0.755
+          "id": "MWS6F9I8-00524756",
+          "score": 0.773
         },
         {
-          "id": "MASTER-7F7160A0",
-          "score": 0.74
+          "id": "MASTER-456B1D6E",
+          "score": 0.755
         }
       ],
       "answered": true,
@@ -785,6 +805,10 @@
       "ts": "2026-11-20T16:58:03.474Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWS6F9I8-00524756",
+          "score": 0.746
+        },
         {
           "id": "MWP84ULS-09E47DCA",
           "score": 0.736
@@ -4269,12 +4293,12 @@
           "score": 0.742
         },
         {
-          "id": "MWP89KEL-24505B6D",
-          "score": 0.737
+          "id": "MWS6F9I8-00524756",
+          "score": 0.74
         },
         {
-          "id": "MWP835N6-909E6986",
-          "score": 0.734
+          "id": "MWP89KEL-24505B6D",
+          "score": 0.737
         }
       ],
       "answered": true,

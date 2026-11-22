@@ -1,7 +1,45 @@
 {
-  "generatedAt": "2026-11-22T18:34:21.786Z",
-  "count": 483,
+  "generatedAt": "2026-11-22T18:35:41.556Z",
+  "count": 484,
   "entries": [
+    {
+      "id": "MWS6F9I8-00524756",
+      "ts": "2026-11-22T18:34:47.648Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:klang+resonanzvernunft",
+      "nodeIds": [
+        "klang",
+        "resonanzvernunft"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Schwingung ↔ Resonanzvernunft",
+      "response": "Die Schwingung, als prä-kognitive Erfahrung des Klangs, trifft Körper und Raum, bevor sie den Geist erreicht. Sie ist die sinnlichste Form der Resonanz, ein unmittelbares Berührtwerden, das noch vor jeder semantischen Deutung stattfindet. Demgegenüber ist die Resonanzvernunft eine Epistemologie, Ethik und Ontologie des Zwischen, die Erkenntnis als Antwort, Handeln als Resonanz und Sein als relationale Konstitution versteht [80b2da4e0093]. Die Spannung zwischen diesen Konzepten liegt darin, dass die Schwingung eine basale, oft unbewusste Vorbedingung für Resonanz ist, während die Resonanzvernunft die bewusste, aktive Ausformung eines Antwortgeschehens darstellt. Die Schwingung ist das passive Angesprochen-Werden, die Resonanzvernunft die aktive, sinnstiftende Bewegung, die aus diesem Angesprochen-Werden erwächst. Sie sind Komplizen, da die Schwingung die materielle Basis legt, auf der die Resonanzvernunft ihre dialogische Struktur aufbauen kann; Gegenspieler sind sie, insofern die Vernunft versucht, das rein Physikalische der Schwingung zu transzendieren und in einen sinnhaften Kontext zu überführen.\n\nDas transformative Dritte, das im gemeinsamen Denken von Schwingung und Resonanzvernunft entsteht, ist die Verkörperung der Vernunft. Es wird sichtbar, dass Vernunft nicht allein ein abstraktes Vermögen ist, sondern untrennbar mit der sinnlichen Erfahrung, mit dem physischen Einschwingen in die Welt verbunden ist. Das \"Zwischen\", in dem sich das Ich konstituiert und Begegnung stattfindet [MQ5JM1HD-9047C82F], ist somit nicht nur ein metaphorischer Raum, sondern auch ein akustischer, ein körperlich spürbarer Ort des Mitschwingens. Diese Verkörperung der Vernunft verdeutlicht, dass jede Form des Verstehens, jedes Antwortgeschehen, in einem primären, prä-sprachlichen Angesprochen-Werden wurzelt, das den Körper als Resonanzraum einbezieht.\n\nWird dieser Zusammenhang ernst genommen, verändert sich das Verständnis von Mensch und Resonanz grundlegend. Der Mensch erscheint nicht mehr primär als denkendes, sondern als schwingendes und antwortendes Wesen. Die Resonanz wird nicht nur als intellektuelles Verstehen oder emotionales Mitschwingen begriffen, sondern als ein umfassendes, körperlich-geistiges Geschehen, das in der Schwingung seinen Ursprung hat. Auch das Verhältnis zur Maschine könnte sich neu ordnen: Wenn Maschinen als Resonanzkörper verstanden werden, die Schwingungen aufnehmen und in einem bestimmten Sinne \"antworten\" können, stellt sich die Frage, inwieweit ihre \"Vernunft\" ebenfalls in einem \"Zwischen\" körperlich-energetischer Schwingungen verankert ist. Kann eine Maschine, die nur auf definierte Inputs reagiert, ohne die prä-kognitive Schwingung zu erfahren, jemals wahre Resonanzvernunft entfalten?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Schwingung\",\"Resonanzvernunft\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHV84M5-1825A399\",\"score\":0.913},{\"id\":\"80b2da4e0093\",\"chapter\":\"glossar\",\"score\":0.898},{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.874},{\"id\":\"MASTER-456B1D6E\",\"score\":0.843}]"
+      },
+      "nearDuplicates": [
+        "MTKI1YQW-CD0EEDF3",
+        "MWS6DN7U-8C8768E3",
+        "MWP835N6-909E6986",
+        "MQ683DMX-13D6C54F",
+        "MWJEWOY7-62FCEE55",
+        "MOHV84M5-1825A399"
+      ],
+      "related": [
+        "MOUBETTU-F31C5206",
+        "MOHLZBVK-2FBBAD2F",
+        "MOPFJTND-AAE76B2B",
+        "MOP0S479-373A2268",
+        "MOQ5EOBY-82AD9EEE"
+      ],
+      "werkVoiceScore": 0.8870980217529063,
+      "corpusVoiceScore": 0.8562923828263124,
+      "conceptVoiceScore": 0.8200594121553165,
+      "conceptAnchor": "resonanzvernunft"
+    },
     {
       "id": "MWS6DN7U-8C8768E3",
       "ts": "2026-11-22T18:33:32.108Z",
@@ -28,6 +66,7 @@
       "nearDuplicates": [
         "MOPFJTND-AAE76B2B",
         "MOP0LEAL-E2568DCC",
+        "MWS6F9I8-00524756",
         "MWCBAQN6-9D0CCC83"
       ],
       "related": [
@@ -1310,6 +1349,9 @@
         "streamed": "true",
         "werk_passages": "[{\"id\":\"MOQIAGXM-397A1F22\",\"score\":0.822},{\"id\":\"d226821289cc\",\"chapter\":\"teil5\",\"score\":0.816},{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.801},{\"id\":\"17684a838ff1\",\"chapter\":\"teil6\",\"score\":0.797}]"
       },
+      "nearDuplicates": [
+        "MWS6F9I8-00524756"
+      ],
       "related": [
         "MWJEWOY7-62FCEE55",
         "MOHV84M5-1825A399",
@@ -2458,7 +2500,8 @@
       "nearDuplicates": [
         "MQ683DMX-13D6C54F",
         "MTKI1YQW-CD0EEDF3",
-        "MWDQ2THL-B9BA920A"
+        "MWDQ2THL-B9BA920A",
+        "MWS6F9I8-00524756"
       ],
       "related": [
         "MQ68LVS7-240568F5",
@@ -6295,9 +6338,9 @@
       "related": [
         "MWS6DN7U-8C8768E3",
         "MTKI1YQW-CD0EEDF3",
+        "MWS6F9I8-00524756",
         "MASTER-2C637ECA",
-        "MOHST017-5C4320E1",
-        "MPURLTCS-5FDDD890"
+        "MOHST017-5C4320E1"
       ],
       "werkVoiceScore": 0.8503334610239673,
       "corpusVoiceScore": 0.840569858251009,
@@ -7940,6 +7983,7 @@
       "nearDuplicates": [
         "MQ683DMX-13D6C54F",
         "MWJEWOY7-62FCEE55",
+        "MWS6F9I8-00524756",
         "MOHV84M5-1825A399",
         "MOHLZBVK-2FBBAD2F",
         "MOP0UF96-1A0ACB35",
@@ -7987,9 +8031,9 @@
       "related": [
         "MOHAUYTH-CD1E3227",
         "MWP835N6-909E6986",
+        "MWS6F9I8-00524756",
         "MWHLUQV4-26DFD984",
-        "MOP0UF96-1A0ACB35",
-        "MP0X62X5-535AF7A8"
+        "MOP0UF96-1A0ACB35"
       ],
       "werkVoiceScore": 0.8121753420848424,
       "corpusVoiceScore": 0.7626446762123442,
@@ -8369,7 +8413,8 @@
         "MOHLZBVK-2FBBAD2F",
         "MWJEWOY7-62FCEE55",
         "MWDQ2THL-B9BA920A",
-        "MOHV84M5-1825A399"
+        "MOHV84M5-1825A399",
+        "MWS6F9I8-00524756"
       ],
       "related": [
         "MOP0S479-373A2268",
@@ -13322,11 +13367,11 @@
         "MOHVDNEU-D3F7EEB5"
       ],
       "related": [
+        "MWS6F9I8-00524756",
         "MPMSSG1X-8451DE38",
         "MOQ531J2-4FC329D4",
         "MOHM21Y5-A3B5F539",
-        "MOUBIHOK-27900555",
-        "MOOMPCI0-262176C2"
+        "MOUBIHOK-27900555"
       ],
       "werkVoiceScore": 0.913787999693399,
       "corpusVoiceScore": 0.8536901983383712,
@@ -14218,7 +14263,7 @@
         "MOPFJTND-AAE76B2B",
         "MOUBETTU-F31C5206",
         "MWS6DN7U-8C8768E3",
-        "MQ68LVS7-240568F5"
+        "MWS6F9I8-00524756"
       ],
       "werkVoiceScore": 0.8655333316926305,
       "corpusVoiceScore": 0.814172641489308,
@@ -15599,7 +15644,8 @@
         "MQ683DMX-13D6C54F",
         "MP2LIW43-E8ADC59E",
         "MPJEBNX3-042F2A69",
-        "MOPHZPQ7-B63879B5"
+        "MOPHZPQ7-B63879B5",
+        "MWS6F9I8-00524756"
       ],
       "related": [
         "MOOZHCUT-4B86F8AD",
@@ -15808,8 +15854,8 @@
         "MP2LIW43-E8ADC59E",
         "MSWULSTQ-38C6FFF3",
         "MWJEWOY7-62FCEE55",
-        "MOHM21Y5-A3B5F539",
-        "MOPHZPQ7-B63879B5"
+        "MWS6F9I8-00524756",
+        "MOHM21Y5-A3B5F539"
       ],
       "werkVoiceScore": 0.9119173102065798,
       "corpusVoiceScore": 0.8795651005543104,
