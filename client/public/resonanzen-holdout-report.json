@@ -1,10 +1,38 @@
 {
-  "generatedAt": "2026-11-20T18:18:44.160Z",
-  "checked": 55,
-  "stable": 18,
-  "shifted": 24,
+  "generatedAt": "2026-11-22T19:15:07.442Z",
+  "checked": 57,
+  "stable": 19,
+  "shifted": 25,
   "drifted": 13,
   "details": [
+    {
+      "id": "MWS6NSQA-93808042",
+      "baseline": [
+        "MWS6LXHZ-C8ACC98A",
+        "MWS6KAHY-AFBBE834",
+        "MWG6HW56-B5802350"
+      ],
+      "current": [
+        "MWS6OW2K-1F6927AD",
+        "MWS6LXHZ-C8ACC98A",
+        "MWS6KAHY-AFBBE834"
+      ],
+      "overlap": 2
+    },
+    {
+      "id": "MWS6F9I8-00524756",
+      "baseline": [
+        "MTKI1YQW-CD0EEDF3",
+        "MWS6DN7U-8C8768E3",
+        "MWP835N6-909E6986"
+      ],
+      "current": [
+        "MTKI1YQW-CD0EEDF3",
+        "MWS6DN7U-8C8768E3",
+        "MWP835N6-909E6986"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MWPA16O4-913B0D8F",
       "baseline": [

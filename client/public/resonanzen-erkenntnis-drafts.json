@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:09:17.199Z",
+  "generatedAt": "2026-11-22T12:56:55.917Z",
   "drafts": [
     {
       "id": "ERK-10IDUCZ",
@@ -101,6 +101,17 @@
       "sourceHash": "143abb95b07dfddf"
     },
     {
+      "id": "ERK-1H6ZXLU",
+      "answerId": "MWP89KE6-947D0134",
+      "questionSourceId": "MWHLWXJ6-FBB227D8",
+      "kernsatz": "Entfremdung beginnt, wo die Zahl nicht mehr für etwas steht, sondern statt etwas, und die Lücke zwischen Gemessenem und Gemeintem nur noch als Unzufriedenheit erscheint.",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.288,
+      "distilledAt": "2026-11-22T12:56:27.578Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "37e273a882b2df36"
+    },
+    {
       "id": "ERK-1JFE8BH",
       "answerId": "MWJ1FKY5-9E97D903",
       "questionSourceId": "MWJ1EIER-0DB4F1CF",
@@ -121,6 +132,39 @@
       "distilledAt": "2026-11-16T12:22:24.241Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "3fea8da49d91cb4e"
+    },
+    {
+      "id": "ERK-1PH8E5T",
+      "answerId": "MWPA16O4-913B0D8F",
+      "questionSourceId": "MWP89KE9-5CA26BFA",
+      "kernsatz": "Die planmäßige Übung des Ohne ist keine Verweigerung des Werkzeugs, sondern die Bedingung, um bei seiner Nutzung mündig zu bleiben und die Fähigkeit zur Rücknahme der Delegation zu erhalten.",
+      "conceptAnchor": "gelassenheit",
+      "distinctness": 0.285,
+      "distilledAt": "2026-11-22T12:56:32.591Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "2517fd9d02a85eaf"
+    },
+    {
+      "id": "ERK-1TF5DZ0",
+      "answerId": "MWP89KEI-FACD63CA",
+      "questionSourceId": "MASTER-44EE5BE7",
+      "kernsatz": "Eine aus der Dichtung kommende Philosophie wird nicht unangreifbar, sondern auf zwei Weisen angreifbar: in ihrer theoretischen Strenge und in der Erfahrung, die sie weckt oder verfehlt.",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.237,
+      "distilledAt": "2026-11-22T12:56:55.517Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "54c2dd3b3553ac47"
+    },
+    {
+      "id": "ERK-1UAT90N",
+      "answerId": "MWP942QA-90A0C107",
+      "questionSourceId": "MWP82NI3-4EAF5580",
+      "kernsatz": "Die digitale Korrektur behebt Fehler ohne Irrtum, während Gnade und Buße einen zurechenbaren Irrtum voraussetzen, den die Logik des Updates gerade unsichtbar macht.",
+      "conceptAnchor": "lm-scheitern",
+      "distinctness": 0.258,
+      "distilledAt": "2026-11-22T12:56:41.726Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "fa077a0b567cadac"
     },
     {
       "id": "ERK-1UZXIEF",
@@ -156,6 +200,17 @@
       "sourceHash": "f04f4fb33f92bea7"
     },
     {
+      "id": "ERK-56MIX7",
+      "answerId": "MWP89KEC-7F9911C4",
+      "questionSourceId": "MW566TO7-1538114F",
+      "kernsatz": "Die Grenze wird nicht durch einen pauschalen Vorbehalt geschützt, sondern durch die konkrete, von wechselnden Hütern bewährte Praxis, die eigene Begrenztheit als offene Frage zu behandeln.",
+      "conceptAnchor": "lm-grenze",
+      "distinctness": 0.27,
+      "distilledAt": "2026-11-22T12:56:36.874Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "2c2660602d5c5a24"
+    },
+    {
       "id": "ERK-586393",
       "answerId": "MWHLWXJ6-FBB227D8",
       "questionSourceId": "MWHLVPL2-B591DBEC",
@@ -176,6 +231,17 @@
       "distilledAt": "2026-11-20T17:07:51.072Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "d12babe0cd22b651"
+    },
+    {
+      "id": "ERK-BRWAW7",
+      "answerId": "MWPA16NV-4FFCF6BE",
+      "questionSourceId": "MWHLYYWS-7B7C3E63",
+      "kernsatz": "Produktive Reibung ist kein Hindernis, sondern ein begründetes, dosiertes und wählbares Angebot, dessen Gewinn sich erst im Rückblick auf den überwundenen Widerstand als Erfahrung erschließt.",
+      "conceptAnchor": "spannung",
+      "distinctness": 0.25,
+      "distilledAt": "2026-11-22T12:56:46.649Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "e1ececfb05e2780a"
     },
     {
       "id": "ERK-CVN0DU",
@@ -222,6 +288,17 @@
       "sourceHash": "5e4f4b86bfacfc70"
     },
     {
+      "id": "ERK-LYM1MI",
+      "answerId": "MWP942Q4-D22CF61C",
+      "questionSourceId": "MWCB1COA-DE68B5C9",
+      "kernsatz": "Ein verantwortetes Urteil prüft den maschinellen Befund am Einzelfall, während der bloße Befund den Fall nur einer Regel zuordnet, ohne ihn anzusehen.",
+      "conceptAnchor": "vernunft",
+      "distinctness": 0.243,
+      "distilledAt": "2026-11-22T12:56:51.206Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "6ff35087965e16fe"
+    },
+    {
       "id": "ERK-N50PNU",
       "answerId": "MWCAXXDI-83630FEA",
       "questionSourceId": "MWCAVIKZ-02025CD4",
@@ -242,6 +319,17 @@
       "distilledAt": "2026-11-11T16:38:56.206Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "d5cd453f8296dcfb"
+    },
+    {
+      "id": "ERK-PP6H71",
+      "answerId": "MWPA16O7-287F34C5",
+      "questionSourceId": "MWP7PHM0-4AECED9E",
+      "kernsatz": "Das heilsame Verblassen einer Narbe trennt den Vorfall, der vergehen darf, von der Lehre, die bleiben muss, und bewahrt die Begründung des Vergessens bis sie zur Praxis wird.",
+      "conceptAnchor": "lm-scheitern",
+      "distinctness": 0.29,
+      "distilledAt": "2026-11-22T12:56:22.966Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "95b4a1b178baba7e"
     },
     {
       "id": "ERK-S38FB",
