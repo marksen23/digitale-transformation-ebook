@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T19:15:08.412Z",
+  "generatedAt": "2026-11-26T17:34:50.459Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -194,6 +194,18 @@
       "masterStale": false
     },
     {
+      "anchor": "analyse:echo-kammer+unverfuegbarkeit",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWXTZZPC-5F6A5744",
+        "MTNBAIUZ-299AC7D8"
+      ],
+      "lastVariantTs": "2026-11-26T17:33:36.776Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "analyse:antwort+resonanz",
       "endpoint": "analyse",
       "variantIds": [
@@ -364,7 +376,7 @@
   ],
   "stats": {
     "totalAnchors": 272,
-    "withMultipleVariants": 26,
+    "withMultipleVariants": 27,
     "withMaster": 25,
     "staleMasters": 2
   }

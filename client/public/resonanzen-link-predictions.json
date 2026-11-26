@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T19:15:07.458Z",
+  "generatedAt": "2026-11-26T17:34:49.093Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -218,6 +218,20 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "echo-kammer",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 2,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWXTZZPC-5F6A5744",
+        "MTNBAIUZ-299AC7D8",
+        "MQ5B6CTT-AB0A3D97"
       ]
     },
     {
@@ -945,19 +959,6 @@
       "sampleEntryIds": [
         "MUAAML84-D057EA33",
         "MPF4FISZ-67000E01"
-      ]
-    },
-    {
-      "source": "echo-kammer",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MTNBAIUZ-299AC7D8",
-        "MQ5B6CTT-AB0A3D97"
       ]
     },
     {

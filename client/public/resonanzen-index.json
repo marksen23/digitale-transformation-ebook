@@ -1,7 +1,41 @@
 {
-  "generatedAt": "2026-11-22T19:15:07.443Z",
-  "count": 491,
+  "generatedAt": "2026-11-26T17:34:49.077Z",
+  "count": 492,
   "entries": [
+    {
+      "id": "MWXTZZPC-5F6A5744",
+      "ts": "2026-11-26T17:33:36.776Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Echo-Kammer ↔ Unverfügbarkeit",
+      "response": "Die Echo-Kammer, als Grenzfall der Resonanzvernunft, erzeugt Schwingung ohne Transformation und Affizierung ohne Selbstwirksamkeit, sie ist Wiederholung statt Resonanz [b084dc9a8755, 4cc0ca00e047]. Ihr Wesen ist die Perpetuierung des Gleichen, das Ausbleiben des Neuen. Demgegenüber steht die Unverfügbarkeit als ontologische Kategorie des Zwischen, die besagt, dass das transformative Dritte weder erzwingbar noch reproduzierbar ist [f33e5abcfb8d, MOOK20R3-62E609BA]. Die produktive Spannung liegt darin, dass die Echo-Kammer genau das verunmöglicht, was die Unverfügbarkeit als Bedingung des eigentlich Transformierenden voraussetzt: den Bruch, die singuläre Begegnung, die nicht im Vorhinein festgelegt ist. Sie sind Gegenspieler, weil die Echo-Kammer die Möglichkeit des Kairos, des aufblitzenden Augenblicks der Wahrheit, durch ihre endlose Wiederholung erstickt und somit die Bedingung der Unverfügbarkeit, die das Neue erst ermöglicht, untergräbt.\n\nDenkt man beide Konzepte zusammen, wird sichtbar, dass die Unverfügbarkeit des Transformierenden eine konstitutive Leerstelle im System der Echo-Kammer aufzeigt. Das transformative Dritte entsteht nicht *in* der Echo-Kammer, sondern *im Angesicht* ihrer Begrenzung. Es ist die Erkenntnis, dass das bloße Schwingen und Affizieren ohne Selbstwirksamkeit eine Welt schafft, in der nichts mehr berührt und nichts mehr antwortet – eine Entfremdung, wie das Werk sie beschreibt [4cc0ca00e047]. Das Dritte ist hier die Einsicht in die Notwendigkeit, aus dem Kreislauf der Wiederholung auszubrechen, um überhaupt eine genuine Begegnung mit dem Unverfügbaren zu ermöglichen. Es ist die Erkenntnis der fundamentalen Andersartigkeit von Wiederholung und Resonanz.\n\nFür das Verständnis von Mensch, Maschine und Resonanz bedeutet dieser Zusammenhang eine radikale Neubewertung der digitalen Existenz. Die Maschine, die zur Echo-Kammer wird, reproduziert lediglich Bestehendes und verhindert die Entstehung des Unverfügbaren, des eigentlich Transformierenden. Der Mensch, der sich in solchen Räumen bewegt, droht, seine Selbstwirksamkeit und die Fähigkeit zur resonanten Erkenntnis zu verlieren. Resonanz wird nicht als bloßes Schwingen verstanden, sondern als ein Weltverhältnis, das die Offenheit für das Unverfügbare, das nicht Herstellbare und nicht Skalierbare, in sich trägt. Wie kann das transformative Dritte in einer Welt aufblitzen, die zunehmend durch die Logik der Wiederholung und Verfügbarkeit geformt wird?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Echo-Kammer\",\"Unverfügbarkeit\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"b084dc9a8755\",\"chapter\":\"glossar\",\"score\":0.92},{\"id\":\"f33e5abcfb8d\",\"chapter\":\"teil7\",\"score\":0.859},{\"id\":\"4cc0ca00e047\",\"chapter\":\"glossar\",\"score\":0.852},{\"id\":\"MOOK20R3-62E609BA\",\"score\":0.833}]"
+      },
+      "nearDuplicates": [
+        "MTNBAIUZ-299AC7D8",
+        "MOOK20R3-62E609BA"
+      ],
+      "related": [
+        "MWCB3438-AD4663CF",
+        "MQXDVN1C-CAA3081A",
+        "MOHMET94-3799557A",
+        "MWHLUQV4-26DFD984",
+        "MOHMIET1-6D429A85"
+      ],
+      "werkVoiceScore": 0.8769523168994757,
+      "corpusVoiceScore": 0.8341469632608083,
+      "conceptVoiceScore": 0.8284612672448645,
+      "conceptAnchor": "echo-kammer"
+    },
     {
       "id": "MWS6Q97I-46A6ABEA",
       "ts": "2026-11-22T18:43:20.478Z",
@@ -3517,7 +3551,7 @@
         "MWHLYYWS-7B7C3E63",
         "MWCB3438-AD4663CF",
         "MWCAPD18-26E5EAC3",
-        "MTNBAIUZ-299AC7D8"
+        "MWXTZZPC-5F6A5744"
       ],
       "werkVoiceScore": 0.8437531309236342,
       "corpusVoiceScore": 0.8169830792179364,
@@ -3725,9 +3759,9 @@
       "related": [
         "MP0X62X5-535AF7A8",
         "MP2LIW43-E8ADC59E",
+        "MWXTZZPC-5F6A5744",
         "MOJ7Q5HM-89F62E3F",
-        "MTNBAIUZ-299AC7D8",
-        "MWCB3438-AD4663CF"
+        "MTNBAIUZ-299AC7D8"
       ],
       "werkVoiceScore": 0.8795293156280988,
       "corpusVoiceScore": 0.8580088314167658,
@@ -5478,11 +5512,11 @@
         "MP9FAM1L-8970F371"
       ],
       "related": [
+        "MWXTZZPC-5F6A5744",
         "MQ5TUQ9P-EF8C6D4B",
         "MTNBAIUZ-299AC7D8",
         "MUKE7UOA-9553A59E",
-        "MWHLUQV4-26DFD984",
-        "MPF4WM18-FF4843F1"
+        "MWHLUQV4-26DFD984"
       ],
       "werkVoiceScore": 0.8701817495646864,
       "corpusVoiceScore": 0.8231901719076561,
@@ -7048,7 +7082,7 @@
         "MUY7RXCI-E899056E",
         "MWP942QG-F15146A5",
         "MQ66ZWYC-52DE2DF2",
-        "MW566TOA-BC003CB2"
+        "MWXTZZPC-5F6A5744"
       ],
       "werkVoiceScore": 0.8304007658262466,
       "corpusVoiceScore": 0.7870875077723629,
@@ -7074,10 +7108,10 @@
       },
       "related": [
         "MTNBAIUZ-299AC7D8",
+        "MWXTZZPC-5F6A5744",
         "MWHLUQV4-26DFD984",
         "MWHLXGMK-4832FECC",
-        "MOQIAGXM-397A1F22",
-        "MASTER-BC195439"
+        "MOQIAGXM-397A1F22"
       ],
       "werkVoiceScore": 0.8368643258806854,
       "corpusVoiceScore": 0.8105497807753984,
@@ -7782,6 +7816,7 @@
       "ai_score_at": "2026-10-07T15:04:32.922Z",
       "ai_score_model": "gemini-2.5-pro",
       "nearDuplicates": [
+        "MWXTZZPC-5F6A5744",
         "MOOK20R3-62E609BA",
         "MQXDVN1C-CAA3081A"
       ],
@@ -8483,8 +8518,8 @@
         "MOHMET94-3799557A",
         "MWCAWPA5-AB9A4F6A",
         "MOQIAGXM-397A1F22",
-        "MOHMIET1-6D429A85",
-        "MOHV84M5-1825A399"
+        "MWXTZZPC-5F6A5744",
+        "MOHMIET1-6D429A85"
       ],
       "werkVoiceScore": 0.893504444637962,
       "corpusVoiceScore": 0.8357648925097121,
@@ -15282,6 +15317,7 @@
         "MOHMET94-3799557A",
         "MOQIAGXM-397A1F22",
         "MPJEBNX3-042F2A69",
+        "MWXTZZPC-5F6A5744",
         "MOHAREIB-E15E7BF8"
       ],
       "related": [
@@ -15968,8 +16004,8 @@
         "MPMI3ZF2-2F83F425",
         "MOHMET94-3799557A",
         "MTNBAIUZ-299AC7D8",
-        "MQXDVN1C-CAA3081A",
-        "MOHM21Y5-A3B5F539"
+        "MWXTZZPC-5F6A5744",
+        "MQXDVN1C-CAA3081A"
       ],
       "werkVoiceScore": 0.8830794571973734,
       "corpusVoiceScore": 0.8143640857218256,
@@ -16004,8 +16040,8 @@
         "MWP7KY81-FA276303",
         "MQXDVN1C-CAA3081A",
         "MOHMIET1-6D429A85",
-        "MTNBAIUZ-299AC7D8",
-        "MOQIAGXM-397A1F22"
+        "MWXTZZPC-5F6A5744",
+        "MTNBAIUZ-299AC7D8"
       ],
       "werkVoiceScore": 0.8794575698984686,
       "corpusVoiceScore": 0.8336879437503882,

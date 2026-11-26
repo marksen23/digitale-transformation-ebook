@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T19:15:08.411Z",
+  "generatedAt": "2026-11-26T17:34:50.431Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -342,7 +342,7 @@
         "echo",
         "echo-kammer"
       ],
-      "resolveCount": 5,
+      "resolveCount": 4,
       "resolves": [
         {
           "sourceId": "MWHLXGMK-4832FECC",
@@ -363,11 +363,6 @@
           "sourceId": "MOQIHEM5-82D69E4F",
           "question": "In einer Welt, die zunehmend durch algorithmische Vorhersage und Personalisierung geprägt ist, wie kann die notwendige 'Gelassenheit' kultiviert werden, um die Schockmomente der 'Einsicht' zuzulassen, statt das Vertraute nur zu verstärken?",
           "score": 0.761
-        },
-        {
-          "sourceId": "MOQIQ8WD-D41AC1B6",
-          "question": "Doch wie können wir eine solche **Öffnung** für das Unbekannte kultivieren, ohne in eine **Echo-Kammer** der eigenen Erwartungen zu verfallen oder die **Spannung** des **Zwischen** vorschnell auflösen zu wollen?",
-          "score": 0.75
         }
       ]
     },
