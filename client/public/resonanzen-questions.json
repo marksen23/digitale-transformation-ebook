@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:49:03.015Z",
-  "count": 417,
+  "generatedAt": "2026-11-26T17:51:08.791Z",
+  "count": 418,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 417,
-    "answered": 377,
+    "total": 418,
+    "answered": 378,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXULDQ4-4AA45EF9",
+      "question": "Wie aber könnte dieses unsichtbare Netz seine Resonanz auch in jenen Momenten bewahren, in denen die Welt unerbittlich nach einer sichtbaren Antwort verlangt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:50:14.718Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXUIJIK-469D0C55",
       "question": "Wie aber könnte ein solches kollektives Unsichtbarmachen seine eigene innere Kohärenz finden, ohne eine sichtbare Identität anzunehmen, die es seiner Essenz beraubt?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:48:02.252Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXULDQ4-4AA45EF9",
+          "score": 0.885
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWXUIJIK-469D0C55",
           "score": 0.885
+        },
+        {
+          "id": "MWXULDQ4-4AA45EF9",
+          "score": 0.766
         }
       ],
       "answered": true,
@@ -93,8 +117,8 @@
           "score": 0.764
         },
         {
-          "id": "MWXUFW03-678DEC80",
-          "score": 0.744
+          "id": "MWXULDQ4-4AA45EF9",
+          "score": 0.748
         }
       ],
       "answered": true,

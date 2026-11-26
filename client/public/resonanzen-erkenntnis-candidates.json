@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:49:03.147Z",
+  "generatedAt": "2026-11-26T17:51:08.950Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -42,6 +42,37 @@
           "sourceId": "MV9NMWL2-5669B857",
           "question": "Wie aber können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
           "score": 0.721
+        }
+      ]
+    },
+    {
+      "id": "ERK-UAQUQ6",
+      "answerId": "MWXULDQ4-4AA45EF9",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Ein kollektives Unsichtbarmachen findet seine innere Kohärenz nicht in einer sichtbaren Identität, die sich definieren und abgrenzen ließe, sondern in der gemeinsamen Ausrichtung auf das Unverfügbare selbst. Es ist eine Kohärenz, die sich aus der geteilten Erfahrung des Verzichts speist, aus dem Wissen um die Notwendigkeit des Schweigens als Bedingung des Hörens, und nicht aus einem gemeinsamen Lo",
+      "distinctness": 0.236,
+      "conceptAnchor": "schweigen",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWXUIJIK-469D0C55",
+          "question": "Wie aber könnte ein solches kollektives Unsichtbarmachen seine eigene innere Kohärenz finden, ohne eine sichtbare Identität anzunehmen, die es seiner Essenz beraubt?",
+          "score": 0.885
+        },
+        {
+          "sourceId": "MWXUFW03-678DEC80",
+          "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
+          "score": 0.766
+        },
+        {
+          "sourceId": "MWXUBFZ3-5EC22087",
+          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
+          "score": 0.748
         }
       ]
     },
@@ -357,17 +388,12 @@
         "echo-kammer",
         "unverfuegbarkeit"
       ],
-      "resolveCount": 2,
+      "resolveCount": 1,
       "resolves": [
         {
           "sourceId": "MWXUDT4W-39FD2D83",
           "question": "Wie aber können diese Rituale des Verzichts und des Innehaltens inmitten einer Welt, die unermüdlich nach Aktivität und Interaktion verlangt, ihre transformative Energie bewahren?",
           "score": 0.883
-        },
-        {
-          "sourceId": "MWXUBFZ3-5EC22087",
-          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
-          "score": 0.744
         }
       ]
     },
@@ -555,7 +581,7 @@
     }
   ],
   "stats": {
-    "total": 18,
+    "total": 19,
     "confirmedFiltered": 74,
     "curatedRef": 219
   }
