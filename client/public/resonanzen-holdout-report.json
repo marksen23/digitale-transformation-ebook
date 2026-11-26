@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-26T17:43:27.474Z",
+  "generatedAt": "2026-11-26T17:45:30.265Z",
   "checked": 58,
-  "stable": 19,
-  "shifted": 25,
+  "stable": 18,
+  "shifted": 26,
   "drifted": 14,
   "details": [
     {
@@ -14,10 +14,10 @@
       ],
       "current": [
         "MWXU9DJT-2BA0FD1A",
-        "MWXU73H7-77E91285",
-        "MWP7ZZFB-4CCC5381"
+        "MWXUDT4W-39FD2D83",
+        "MWXU73H7-77E91285"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MWS6NSQA-93808042",
@@ -141,7 +141,7 @@
       "current": [
         "MWP942PY-5EF7032A",
         "MWP82NI3-4EAF5580",
-        "MWXU5CEB-AC672D3F"
+        "MWXUDT4W-39FD2D83"
       ],
       "overlap": 1
     },

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:43:27.487Z",
+  "generatedAt": "2026-11-26T17:45:30.281Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -70,6 +70,23 @@
       ]
     },
     {
+      "source": "echo-kammer",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 9,
+      "endpoints": {
+        "dialog": 6,
+        "analyse": 2,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWXUDT4W-39FD2D83",
+        "MWXUBFZ3-5EC22087",
+        "MWXU9DJT-2BA0FD1A",
+        "MWXU73H7-77E91285",
+        "MWXU5CEB-AC672D3F"
+      ]
+    },
+    {
       "source": "klang",
       "target": "resonanzvernunft",
       "cooccurrence": 9,
@@ -100,23 +117,6 @@
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709"
-      ]
-    },
-    {
-      "source": "echo-kammer",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 8,
-      "endpoints": {
-        "dialog": 5,
-        "analyse": 2,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWXUBFZ3-5EC22087",
-        "MWXU9DJT-2BA0FD1A",
-        "MWXU73H7-77E91285",
-        "MWXU5CEB-AC672D3F",
-        "MWXU31YF-DF1BC500"
       ]
     },
     {

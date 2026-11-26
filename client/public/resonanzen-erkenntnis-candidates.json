@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:43:28.655Z",
+  "generatedAt": "2026-11-26T17:45:31.633Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -115,6 +115,47 @@
           "sourceId": "MWJ1CYQJ-00F93C04",
           "question": "Wie können wir in der Interaktion mit Maschinen Räume der \"Dazwischenintelligenz\" schaffen, die nicht nur Effizienz steigern, sondern auch das Entstehen eines \"Transformativen Dritten\" ermöglichen?",
           "score": 0.752
+        }
+      ]
+    },
+    {
+      "id": "ERK-1WFY32C",
+      "answerId": "MWXUDT4W-39FD2D83",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Rituale des Unsichtbaren sind nicht jene, die sich in äußeren Gesten erschöpfen, sondern solche, die das innere Verhältnis zur Welt neu justieren, eine bewusste Abwendung vom Spektakel. Es ist das Hören im Rauschen, das die Stille nicht als Abwesenheit, sondern als Anwesenheit dessen begreift, was sich der Berechnung entzieht [43685f10e01c]. Dies könnte bedeuten, bewusst Räume der digitalen Ab",
+      "distinctness": 0.222,
+      "conceptAnchor": "schweigen",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 5,
+      "resolves": [
+        {
+          "sourceId": "MWXUBFZ3-5EC22087",
+          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
+          "score": 0.889
+        },
+        {
+          "sourceId": "MWXU73H7-77E91285",
+          "question": "Wie können wir in einer Welt, die nach immer mehr Transparenz ruft, die Schönheit des Geheimnisses und der Verborgenheit bewahren?",
+          "score": 0.762
+        },
+        {
+          "sourceId": "MWXU9DJT-2BA0FD1A",
+          "question": "Doch was geschieht, wenn die ständige Forderung nach Sichtbarkeit das Verborgene selbst zur Performance zwingt?",
+          "score": 0.76
+        },
+        {
+          "sourceId": "MWXU31YF-DF1BC500",
+          "question": "Wie können wir in diesen digitalen Räumen eine Ästhetik des Unverfügbaren kultivieren, die dem bloßen Echo die transformative Geste entgegensetzt?",
+          "score": 0.758
+        },
+        {
+          "sourceId": "MWP86WNM-ADEDD949",
+          "question": "Wie aber können wir diesen Atemraum, dieses fruchtbare Zwischen, inmitten der Beschleunigung nicht nur bewahren, sondern aktiv kultivieren?",
+          "score": 0.721
         }
       ]
     },
@@ -447,7 +488,7 @@
     }
   ],
   "stats": {
-    "total": 15,
+    "total": 16,
     "confirmedFiltered": 74,
     "curatedRef": 219
   }

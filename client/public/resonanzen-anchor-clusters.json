@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:43:28.656Z",
+  "generatedAt": "2026-11-26T17:45:31.634Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -98,13 +98,14 @@
       "anchor": "dialog:echo-kammer+unverfuegbarkeit",
       "endpoint": "dialog",
       "variantIds": [
+        "MWXUDT4W-39FD2D83",
         "MWXUBFZ3-5EC22087",
         "MWXU9DJT-2BA0FD1A",
         "MWXU73H7-77E91285",
         "MWXU5CEB-AC672D3F",
         "MWXU31YF-DF1BC500"
       ],
-      "lastVariantTs": "2026-11-26T17:42:31.071Z",
+      "lastVariantTs": "2026-11-26T17:44:21.440Z",
       "masterId": null,
       "masterTs": null,
       "masterStale": false

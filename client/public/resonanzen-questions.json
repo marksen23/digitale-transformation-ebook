@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:43:28.518Z",
-  "count": 414,
+  "generatedAt": "2026-11-26T17:45:31.441Z",
+  "count": 415,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 414,
-    "answered": 374,
+    "total": 415,
+    "answered": 375,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXUDT4W-39FD2D83",
+      "question": "Wie aber können diese Rituale des Verzichts und des Innehaltens inmitten einer Welt, die unermüdlich nach Aktivität und Interaktion verlangt, ihre transformative Energie bewahren?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:44:21.440Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXUBFZ3-5EC22087",
       "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:42:31.071Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXUDT4W-39FD2D83",
+          "score": 0.889
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWXUBFZ3-5EC22087",
           "score": 0.864
+        },
+        {
+          "id": "MWXUDT4W-39FD2D83",
+          "score": 0.76
         }
       ],
       "answered": true,
@@ -67,6 +91,10 @@
         {
           "id": "MWXUBFZ3-5EC22087",
           "score": 0.798
+        },
+        {
+          "id": "MWXUDT4W-39FD2D83",
+          "score": 0.762
         }
       ],
       "answered": true,
@@ -111,6 +139,10 @@
         {
           "id": "MWXU73H7-77E91285",
           "score": 0.821
+        },
+        {
+          "id": "MWXUDT4W-39FD2D83",
+          "score": 0.758
         }
       ],
       "answered": true,
@@ -958,6 +990,10 @@
         {
           "id": "MWP888HX-9EF62C70",
           "score": 0.737
+        },
+        {
+          "id": "MWXUDT4W-39FD2D83",
+          "score": 0.721
         }
       ],
       "answered": true,
