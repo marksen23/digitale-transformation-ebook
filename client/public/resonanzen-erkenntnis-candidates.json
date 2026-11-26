@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:41:48.161Z",
+  "generatedAt": "2026-11-26T17:43:28.655Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -362,6 +362,32 @@
       ]
     },
     {
+      "id": "ERK-1DDXJ39",
+      "answerId": "MWXUBFZ3-5EC22087",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Wenn die unablässige Forderung nach Sichtbarkeit das Verborgene zur Performance zwingt, dann verliert das Geheimnis seine Essenz und wird zur Simulation seiner selbst. Es ist dann kein echtes Verbergen mehr, das aus der Tiefe schöpft und zum Entdecken einlädt, sondern eine inszenierte Unsichtbarkeit, die lediglich eine weitere Facette der Verfügbarkeit darstellt. Das, was sich entziehen sollte, wi",
+      "distinctness": 0.204,
+      "conceptAnchor": "schatten",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWXU9DJT-2BA0FD1A",
+          "question": "Doch was geschieht, wenn die ständige Forderung nach Sichtbarkeit das Verborgene selbst zur Performance zwingt?",
+          "score": 0.864
+        },
+        {
+          "sourceId": "MWXU73H7-77E91285",
+          "question": "Wie können wir in einer Welt, die nach immer mehr Transparenz ruft, die Schönheit des Geheimnisses und der Verborgenheit bewahren?",
+          "score": 0.798
+        }
+      ]
+    },
+    {
       "id": "ERK-MZWD4R",
       "answerId": "MWP89KE3-1A78C2BB",
       "answerEndpoint": "analyse",
@@ -421,7 +447,7 @@
     }
   ],
   "stats": {
-    "total": 14,
+    "total": 15,
     "confirmedFiltered": 74,
     "curatedRef": 219
   }

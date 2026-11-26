@@ -1,10 +1,24 @@
 {
-  "generatedAt": "2026-11-26T17:41:47.012Z",
-  "checked": 57,
-  "stable": 18,
+  "generatedAt": "2026-11-26T17:43:27.474Z",
+  "checked": 58,
+  "stable": 19,
   "shifted": 25,
   "drifted": 14,
   "details": [
+    {
+      "id": "MWXUBFZ3-5EC22087",
+      "baseline": [
+        "MWXU9DJT-2BA0FD1A",
+        "MWXU73H7-77E91285",
+        "MWP7ZZFB-4CCC5381"
+      ],
+      "current": [
+        "MWXU9DJT-2BA0FD1A",
+        "MWXU73H7-77E91285",
+        "MWP7ZZFB-4CCC5381"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MWS6NSQA-93808042",
       "baseline": [
