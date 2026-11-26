@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:38:45.042Z",
-  "count": 411,
+  "generatedAt": "2026-11-26T17:39:59.701Z",
+  "count": 412,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 411,
-    "answered": 371,
+    "total": 412,
+    "answered": 372,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXU73H7-77E91285",
+      "question": "Wie können wir in einer Welt, die nach immer mehr Transparenz ruft, die Schönheit des Geheimnisses und der Verborgenheit bewahren?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:39:08.251Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXU5CEB-AC672D3F",
       "question": "Doch wie kann eine solche Ästhetik des Unverfügbaren, die sich dem Zugriff entzieht, in einer Logik der Verfügbarkeit überhaupt vermittelt oder erfahren werden, ohne selbst zur Ware zu werden?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:37:46.499Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXU73H7-77E91285",
+          "score": 0.871
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWXU5CEB-AC672D3F",
           "score": 0.903
+        },
+        {
+          "id": "MWXU73H7-77E91285",
+          "score": 0.821
         }
       ],
       "answered": true,
@@ -67,6 +91,10 @@
         {
           "id": "MWXU5CEB-AC672D3F",
           "score": 0.785
+        },
+        {
+          "id": "MWXU73H7-77E91285",
+          "score": 0.764
         }
       ],
       "answered": true,
@@ -714,12 +742,12 @@
           "score": 0.764
         },
         {
-          "id": "MWXTZZPC-5F6A5744",
-          "score": 0.741
+          "id": "MWXU73H7-77E91285",
+          "score": 0.745
         },
         {
-          "id": "MWP942PY-5EF7032A",
-          "score": 0.736
+          "id": "MWXTZZPC-5F6A5744",
+          "score": 0.741
         }
       ],
       "answered": true,
@@ -2991,8 +3019,8 @@
           "score": 0.76
         },
         {
-          "id": "MWP89KEF-808B79A0",
-          "score": 0.73
+          "id": "MWXU73H7-77E91285",
+          "score": 0.744
         }
       ],
       "answered": true,
@@ -3351,6 +3379,10 @@
           "manual": true
         },
         {
+          "id": "MWXU73H7-77E91285",
+          "score": 0.736
+        },
+        {
           "id": "MWXTZZPC-5F6A5744",
           "score": 0.729
         }
@@ -3422,6 +3454,10 @@
         {
           "id": "MASTER-7F7160A0",
           "score": 0.724
+        },
+        {
+          "id": "MWXU73H7-77E91285",
+          "score": 0.722
         },
         {
           "id": "MWP7PHLX-B52303F9",

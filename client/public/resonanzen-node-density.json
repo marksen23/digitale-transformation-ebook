@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:38:44.293Z",
+  "generatedAt": "2026-11-26T17:39:58.808Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 36,
@@ -301,9 +301,9 @@
       }
     },
     "echo-kammer": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "analyse": 8,
         "path-analyse": 1
       }
@@ -333,9 +333,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 21,
+      "count": 22,
       "endpoints": {
-        "dialog": 4,
+        "dialog": 5,
         "analyse": 9,
         "path-analyse": 8
       }
@@ -402,7 +402,7 @@
   "stats": {
     "minCount": 0,
     "maxCount": 45,
-    "median": 12,
+    "median": 13,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "wirklichkeit-moeglichkeit"

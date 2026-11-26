@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:38:45.125Z",
+  "generatedAt": "2026-11-26T17:39:59.812Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -168,6 +168,19 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWXU73H7-77E91285",
+        "MWXU5CEB-AC672D3F",
+        "MWXU31YF-DF1BC500"
+      ],
+      "lastVariantTs": "2026-11-26T17:39:08.251Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "chapter:teil4",
       "endpoint": "chapter",
       "variantIds": [
@@ -191,18 +204,6 @@
       "lastVariantTs": "2026-04-27T15:14:21.282Z",
       "masterId": "MASTER-556F1581",
       "masterTs": "2026-11-11T16:41:48.453Z",
-      "masterStale": false
-    },
-    {
-      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
-      "endpoint": "dialog",
-      "variantIds": [
-        "MWXU5CEB-AC672D3F",
-        "MWXU31YF-DF1BC500"
-      ],
-      "lastVariantTs": "2026-11-26T17:37:46.499Z",
-      "masterId": null,
-      "masterTs": null,
       "masterStale": false
     },
     {
