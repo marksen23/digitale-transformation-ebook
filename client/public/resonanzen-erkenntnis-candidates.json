@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:34:50.431Z",
+  "generatedAt": "2026-11-26T17:36:53.355Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -182,17 +182,12 @@
         "selbst",
         "werden"
       ],
-      "resolveCount": 2,
+      "resolveCount": 1,
       "resolves": [
         {
           "sourceId": "MWCB2NN3-B5D0CDE0",
           "question": "Doch wie gestalten wir eine Pädagogik, die nicht nur das Irritierbare zulässt, sondern die Angst vor dem Sich-Verlieren in der digitalen Resonanz in eine produktive Neugier verwandelt?",
           "score": 0.895
-        },
-        {
-          "sourceId": "MASTER-2C637ECA",
-          "question": "Wie gestalten wir digitale Räume, die das Scheitern, die Begegnung mit dem Andersartigen und die daraus folgende Verwandlung nicht nur zulassen, sondern aktiv befördern?",
-          "score": 0.73
         }
       ]
     },

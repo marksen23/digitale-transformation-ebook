@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-26T17:34:49.076Z",
+  "generatedAt": "2026-11-26T17:36:52.202Z",
   "checked": 57,
-  "stable": 19,
-  "shifted": 25,
+  "stable": 18,
+  "shifted": 26,
   "drifted": 13,
   "details": [
     {
@@ -799,9 +799,9 @@
       "current": [
         "MOOK20R3-62E609BA",
         "MOHAN4AO-7A201C56",
-        "MOHMET94-3799557A"
+        "MWXU31YF-DF1BC500"
       ],
-      "overlap": 3
+      "overlap": 2
     }
   ]
 }
