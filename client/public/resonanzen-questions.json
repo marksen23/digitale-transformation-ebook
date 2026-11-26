@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:46:46.181Z",
-  "count": 416,
+  "generatedAt": "2026-11-26T17:49:03.015Z",
+  "count": 417,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 416,
-    "answered": 376,
+    "total": 417,
+    "answered": 377,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXUIJIK-469D0C55",
+      "question": "Wie aber könnte ein solches kollektives Unsichtbarmachen seine eigene innere Kohärenz finden, ohne eine sichtbare Identität anzunehmen, die es seiner Essenz beraubt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:48:02.252Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXUFW03-678DEC80",
       "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:45:58.467Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXUIJIK-469D0C55",
+          "score": 0.885
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWXUFW03-678DEC80",
           "score": 0.883
+        },
+        {
+          "id": "MWXUIJIK-469D0C55",
+          "score": 0.75
         }
       ],
       "answered": true,
@@ -63,6 +87,10 @@
         {
           "id": "MWXUDT4W-39FD2D83",
           "score": 0.889
+        },
+        {
+          "id": "MWXUIJIK-469D0C55",
+          "score": 0.764
         },
         {
           "id": "MWXUFW03-678DEC80",
@@ -4901,6 +4929,10 @@
           "id": "MWP7PHLX-B52303F9",
           "score": 0.849,
           "manual": true
+        },
+        {
+          "id": "MWXUIJIK-469D0C55",
+          "score": 0.721
         }
       ],
       "answered": true,
@@ -5226,8 +5258,8 @@
           "score": 0.758
         },
         {
-          "id": "MWCASDSY-E712A809",
-          "score": 0.741
+          "id": "MWXUIJIK-469D0C55",
+          "score": 0.756
         }
       ],
       "answered": true,

@@ -1,9 +1,50 @@
 {
-  "generatedAt": "2026-11-26T17:46:46.340Z",
+  "generatedAt": "2026-11-26T17:49:03.147Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
+    {
+      "id": "ERK-1JNSAQR",
+      "answerId": "MWXUIJIK-469D0C55",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Weitung individueller Rituale zu einer kollektiven Erfahrung birgt die Gefahr, dass das Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer Bewegung verloren geht. Doch diese Gefahr ist zugleich die Herausforderung: Es geht nicht um eine sichtbare Massenbewegung, die sich in Manifesten oder lauten Forderungen artikuliert, sondern um eine unsichtbare Synchronisation, ein ko",
+      "distinctness": 0.239,
+      "conceptAnchor": "schweigen",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 5,
+      "resolves": [
+        {
+          "sourceId": "MWXUFW03-678DEC80",
+          "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
+          "score": 0.885
+        },
+        {
+          "sourceId": "MWXUBFZ3-5EC22087",
+          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
+          "score": 0.764
+        },
+        {
+          "sourceId": "MTNB85LB-7C1F15DE",
+          "question": "Wie können wir in einer zunehmend fragmentierten digitalen Welt die kollektive Eigenfrequenz kultivieren, die für eine solche universelle Resonanz notwendig ist?",
+          "score": 0.756
+        },
+        {
+          "sourceId": "MWXUDT4W-39FD2D83",
+          "question": "Wie aber können diese Rituale des Verzichts und des Innehaltens inmitten einer Welt, die unermüdlich nach Aktivität und Interaktion verlangt, ihre transformative Energie bewahren?",
+          "score": 0.75
+        },
+        {
+          "sourceId": "MV9NMWL2-5669B857",
+          "question": "Wie aber können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
+          "score": 0.721
+        }
+      ]
+    },
     {
       "id": "ERK-6UCEOO",
       "answerId": "MWPA16NY-3D5DD901",
@@ -514,7 +555,7 @@
     }
   ],
   "stats": {
-    "total": 17,
+    "total": 18,
     "confirmedFiltered": 74,
     "curatedRef": 219
   }
