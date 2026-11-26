@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:56:09.836Z",
+  "generatedAt": "2026-11-26T17:58:17.411Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -73,6 +73,42 @@
           "sourceId": "MWXUBFZ3-5EC22087",
           "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
           "score": 0.748
+        }
+      ]
+    },
+    {
+      "id": "ERK-1CIINM7",
+      "answerId": "MWXUUN2P-97518949",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die transformative Kraft eines kollektiven Schweigens, das sich jeder sichtbaren Identität verweigert, vermittelt sich in einer Kultur des unbedingten Sprechens nicht durch Argumentation oder Erklärung, sondern durch seine radikale Andersartigkeit. Es ist die Irritation, die ein solches Schweigen hervorruft, die den Raum für ein neues Hören öffnet, das jenseits des Echos der Plattformen liegt [ed3",
+      "distinctness": 0.234,
+      "conceptAnchor": "schweigen",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 4,
+      "resolves": [
+        {
+          "sourceId": "MWXURIG0-8075679A",
+          "question": "Doch wie kann das kollektive Schweigen, das sich der sichtbaren Identität entzieht, seine transformative Kraft in einer Kultur des unbedingten Sprechens überhaupt vermitteln?",
+          "score": 0.884
+        },
+        {
+          "sourceId": "MWXUO44D-816B11B2",
+          "question": "Wie aber kann dieses Schweigen als transformative Antwort verstanden und nicht als bloße Abwesenheit missinterpretiert werden?",
+          "score": 0.788
+        },
+        {
+          "sourceId": "MWXUIJIK-469D0C55",
+          "question": "Wie aber könnte ein solches kollektives Unsichtbarmachen seine eigene innere Kohärenz finden, ohne eine sichtbare Identität anzunehmen, die es seiner Essenz beraubt?",
+          "score": 0.746
+        },
+        {
+          "sourceId": "MWXUFW03-678DEC80",
+          "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
+          "score": 0.744
         }
       ]
     },
@@ -576,7 +612,7 @@
     }
   ],
   "stats": {
-    "total": 19,
+    "total": 20,
     "confirmedFiltered": 74,
     "curatedRef": 219
   }

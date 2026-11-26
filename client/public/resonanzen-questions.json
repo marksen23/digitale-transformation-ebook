@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:56:09.641Z",
-  "count": 420,
+  "generatedAt": "2026-11-26T17:58:17.276Z",
+  "count": 421,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 420,
-    "answered": 380,
+    "total": 421,
+    "answered": 381,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXUUN2P-97518949",
+      "question": "Doch welche neue Form der Wahrnehmung müsste sich entwickeln, um dieses Schweigen nicht als Abwesenheit, sondern als tiefste Form der Anwesenheit zu erfahren?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:57:26.737Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXURIG0-8075679A",
       "question": "Doch wie kann das kollektive Schweigen, das sich der sichtbaren Identität entzieht, seine transformative Kraft in einer Kultur des unbedingten Sprechens überhaupt vermitteln?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:55:00.768Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXUUN2P-97518949",
+          "score": 0.884
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWXURIG0-8075679A",
           "score": 0.868
+        },
+        {
+          "id": "MWXUUN2P-97518949",
+          "score": 0.788
         }
       ],
       "answered": true,
@@ -85,6 +109,10 @@
           "score": 0.885
         },
         {
+          "id": "MWXUUN2P-97518949",
+          "score": 0.746
+        },
+        {
           "id": "MWXUO44D-816B11B2",
           "score": 0.722
         }
@@ -111,6 +139,10 @@
         {
           "id": "MWXULDQ4-4AA45EF9",
           "score": 0.766
+        },
+        {
+          "id": "MWXUUN2P-97518949",
+          "score": 0.744
         }
       ],
       "answered": true,
