@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:51:07.796Z",
+  "generatedAt": "2026-11-26T17:53:13.284Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -22,18 +22,18 @@
     {
       "source": "echo-kammer",
       "target": "unverfuegbarkeit",
-      "cooccurrence": 12,
+      "cooccurrence": 13,
       "endpoints": {
-        "dialog": 9,
+        "dialog": 10,
         "analyse": 2,
         "path-analyse": 1
       },
       "sampleEntryIds": [
+        "MWXUO44D-816B11B2",
         "MWXULDQ4-4AA45EF9",
         "MWXUIJIK-469D0C55",
         "MWXUFW03-678DEC80",
-        "MWXUDT4W-39FD2D83",
-        "MWXUBFZ3-5EC22087"
+        "MWXUDT4W-39FD2D83"
       ]
     },
     {

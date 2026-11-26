@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:51:08.791Z",
-  "count": 418,
+  "generatedAt": "2026-11-26T17:53:14.284Z",
+  "count": 419,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 418,
-    "answered": 378,
+    "total": 419,
+    "answered": 379,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXUO44D-816B11B2",
+      "question": "Wie aber kann dieses Schweigen als transformative Antwort verstanden und nicht als bloße Abwesenheit missinterpretiert werden?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:52:22.237Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXULDQ4-4AA45EF9",
       "question": "Wie aber könnte dieses unsichtbare Netz seine Resonanz auch in jenen Momenten bewahren, in denen die Welt unerbittlich nach einer sichtbaren Antwort verlangt?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:50:14.718Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXUO44D-816B11B2",
+          "score": 0.866
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWXULDQ4-4AA45EF9",
           "score": 0.885
+        },
+        {
+          "id": "MWXUO44D-816B11B2",
+          "score": 0.722
         }
       ],
       "answered": true,
@@ -735,12 +759,12 @@
           "manual": true
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.751
+          "id": "MWXUO44D-816B11B2",
+          "score": 0.776
         },
         {
-          "id": "MWS6NSQA-93808042",
-          "score": 0.747
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.751
         }
       ],
       "answered": true,
@@ -1036,12 +1060,12 @@
           "score": 0.788
         },
         {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.76
+          "id": "MWXUO44D-816B11B2",
+          "score": 0.764
         },
         {
-          "id": "MASTER-456B1D6E",
-          "score": 0.759
+          "id": "MWP888HX-9EF62C70",
+          "score": 0.76
         }
       ],
       "answered": true,
