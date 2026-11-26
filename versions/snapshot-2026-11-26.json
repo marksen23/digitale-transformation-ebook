@@ -1,14 +1,14 @@
 {
   "date": "2026-11-26",
-  "generatedAt": "2026-11-26T17:40:05.684Z",
-  "commit": "bebe01d609a63029f4127c32e511dc0c80c93f43",
-  "triggeredBy": "bebe01d609a63029f4127c32e511dc0c80c93f43",
-  "filesChecked": 504,
+  "generatedAt": "2026-11-26T17:41:54.305Z",
+  "commit": "69459f951ec8f0bc298648b3d45e7a698464d414",
+  "triggeredBy": "69459f951ec8f0bc298648b3d45e7a698464d414",
+  "filesChecked": 505,
   "aggregates": {
     "byEndpoint": {
       "analyse": 136,
       "chapter": 65,
-      "dialog": 89,
+      "dialog": 90,
       "path-analyse": 67,
       "enkidu": 68,
       "graph-chat": 52,
@@ -17,7 +17,7 @@
     },
     "byStatus": {
       "published": 169,
-      "raw": 253,
+      "raw": 254,
       "rejected": 28,
       "approved": 54
     },

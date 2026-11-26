@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:39:59.701Z",
-  "count": 412,
+  "generatedAt": "2026-11-26T17:41:48.003Z",
+  "count": 413,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 412,
-    "answered": 372,
+    "total": 413,
+    "answered": 373,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXU9DJT-2BA0FD1A",
+      "question": "Doch was geschieht, wenn die ständige Forderung nach Sichtbarkeit das Verborgene selbst zur Performance zwingt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:40:54.617Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXU73H7-77E91285",
       "question": "Wie können wir in einer Welt, die nach immer mehr Transparenz ruft, die Schönheit des Geheimnisses und der Verborgenheit bewahren?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:39:08.251Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXU9DJT-2BA0FD1A",
+          "score": 0.896
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -9477,8 +9497,8 @@
           "score": 0.808
         },
         {
-          "id": "MWP7ZZFB-4CCC5381",
-          "score": 0.802
+          "id": "MWXU9DJT-2BA0FD1A",
+          "score": 0.804
         }
       ],
       "answered": true,
