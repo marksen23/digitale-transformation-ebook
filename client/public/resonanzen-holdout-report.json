@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-11-26T17:36:52.202Z",
+  "generatedAt": "2026-11-26T17:38:44.284Z",
   "checked": 57,
   "stable": 18,
-  "shifted": 26,
-  "drifted": 13,
+  "shifted": 25,
+  "drifted": 14,
   "details": [
     {
       "id": "MWS6NSQA-93808042",
@@ -127,9 +127,9 @@
       "current": [
         "MWP942PY-5EF7032A",
         "MWP82NI3-4EAF5580",
-        "MWP81YZO-24DCE87C"
+        "MWXU5CEB-AC672D3F"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MWP84DL5-F07ACB7E",

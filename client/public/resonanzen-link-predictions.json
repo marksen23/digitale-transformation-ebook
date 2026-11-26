@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:36:52.219Z",
+  "generatedAt": "2026-11-26T17:38:44.294Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -103,6 +103,23 @@
       ]
     },
     {
+      "source": "echo-kammer",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 5,
+      "endpoints": {
+        "dialog": 2,
+        "analyse": 2,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWXU5CEB-AC672D3F",
+        "MWXU31YF-DF1BC500",
+        "MWXTZZPC-5F6A5744",
+        "MTNBAIUZ-299AC7D8",
+        "MQ5B6CTT-AB0A3D97"
+      ]
+    },
+    {
       "source": "moment",
       "target": "zwischen",
       "cooccurrence": 5,
@@ -130,22 +147,6 @@
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
         "MP0QMSOR-C6EC1B5A"
-      ]
-    },
-    {
-      "source": "echo-kammer",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 4,
-      "endpoints": {
-        "dialog": 1,
-        "analyse": 2,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWXU31YF-DF1BC500",
-        "MWXTZZPC-5F6A5744",
-        "MTNBAIUZ-299AC7D8",
-        "MQ5B6CTT-AB0A3D97"
       ]
     },
     {
