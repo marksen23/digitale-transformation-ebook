@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:53:14.284Z",
-  "count": 419,
+  "generatedAt": "2026-11-26T17:56:09.641Z",
+  "count": 420,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 419,
-    "answered": 379,
+    "total": 420,
+    "answered": 380,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXURIG0-8075679A",
+      "question": "Doch wie kann das kollektive Schweigen, das sich der sichtbaren Identität entzieht, seine transformative Kraft in einer Kultur des unbedingten Sprechens überhaupt vermitteln?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:55:00.768Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXUO44D-816B11B2",
       "question": "Wie aber kann dieses Schweigen als transformative Antwort verstanden und nicht als bloße Abwesenheit missinterpretiert werden?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:52:22.237Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXURIG0-8075679A",
+          "score": 0.868
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -763,8 +783,8 @@
           "score": 0.776
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.751
+          "id": "MWXURIG0-8075679A",
+          "score": 0.765
         }
       ],
       "answered": true,
@@ -1064,8 +1084,8 @@
           "score": 0.764
         },
         {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.76
+          "id": "MWXURIG0-8075679A",
+          "score": 0.763
         }
       ],
       "answered": true,
@@ -3283,7 +3303,7 @@
           "score": 0.765
         },
         {
-          "id": "MASTER-70E7430C",
+          "id": "MWXURIG0-8075679A",
           "score": 0.761
         }
       ],
