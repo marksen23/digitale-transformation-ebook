@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:45:30.279Z",
+  "generatedAt": "2026-11-26T17:46:45.186Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 36,
@@ -301,9 +301,9 @@
       }
     },
     "echo-kammer": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
-        "dialog": 7,
+        "dialog": 8,
         "analyse": 8,
         "path-analyse": 1
       }
@@ -333,9 +333,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 25,
+      "count": 26,
       "endpoints": {
-        "dialog": 8,
+        "dialog": 9,
         "analyse": 9,
         "path-analyse": 8
       }

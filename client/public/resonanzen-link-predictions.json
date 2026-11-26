@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:45:30.281Z",
+  "generatedAt": "2026-11-26T17:46:45.188Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -17,6 +17,23 @@
         "MASTER-BC195439",
         "MQ5XNFSV-CD34905C",
         "MQ5XLW2D-D3E90BBC"
+      ]
+    },
+    {
+      "source": "echo-kammer",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 10,
+      "endpoints": {
+        "dialog": 7,
+        "analyse": 2,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWXUFW03-678DEC80",
+        "MWXUDT4W-39FD2D83",
+        "MWXUBFZ3-5EC22087",
+        "MWXU9DJT-2BA0FD1A",
+        "MWXU73H7-77E91285"
       ]
     },
     {
@@ -67,23 +84,6 @@
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709"
-      ]
-    },
-    {
-      "source": "echo-kammer",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 9,
-      "endpoints": {
-        "dialog": 6,
-        "analyse": 2,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWXUDT4W-39FD2D83",
-        "MWXUBFZ3-5EC22087",
-        "MWXU9DJT-2BA0FD1A",
-        "MWXU73H7-77E91285",
-        "MWXU5CEB-AC672D3F"
       ]
     },
     {

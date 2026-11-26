@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:45:31.634Z",
+  "generatedAt": "2026-11-26T17:46:46.341Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -61,6 +61,23 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWXUFW03-678DEC80",
+        "MWXUDT4W-39FD2D83",
+        "MWXUBFZ3-5EC22087",
+        "MWXU9DJT-2BA0FD1A",
+        "MWXU73H7-77E91285",
+        "MWXU5CEB-AC672D3F",
+        "MWXU31YF-DF1BC500"
+      ],
+      "lastVariantTs": "2026-11-26T17:45:58.467Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "dialog:klang+resonanzvernunft",
       "endpoint": "dialog",
       "variantIds": [
@@ -92,22 +109,6 @@
       "lastVariantTs": "2026-10-15T14:49:17.947Z",
       "masterId": "MASTER-53BE22D7",
       "masterTs": "2026-11-11T16:41:48.453Z",
-      "masterStale": false
-    },
-    {
-      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
-      "endpoint": "dialog",
-      "variantIds": [
-        "MWXUDT4W-39FD2D83",
-        "MWXUBFZ3-5EC22087",
-        "MWXU9DJT-2BA0FD1A",
-        "MWXU73H7-77E91285",
-        "MWXU5CEB-AC672D3F",
-        "MWXU31YF-DF1BC500"
-      ],
-      "lastVariantTs": "2026-11-26T17:44:21.440Z",
-      "masterId": null,
-      "masterTs": null,
       "masterStale": false
     },
     {

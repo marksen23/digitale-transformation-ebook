@@ -1,18 +1,33 @@
 {
-  "generatedAt": "2026-11-26T17:45:31.441Z",
-  "count": 415,
+  "generatedAt": "2026-11-26T17:46:46.181Z",
+  "count": 416,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 415,
-    "answered": 375,
+    "total": 416,
+    "answered": 376,
     "open": 15,
     "followUp": 41,
     "followUpOpen": 25,
     "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MWXUFW03-678DEC80",
+      "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
+      "endpoint": "dialog",
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-26T17:45:58.467Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXUDT4W-39FD2D83",
       "question": "Wie aber können diese Rituale des Verzichts und des Innehaltens inmitten einer Welt, die unermüdlich nach Aktivität und Interaktion verlangt, ihre transformative Energie bewahren?",
@@ -24,8 +39,13 @@
       ],
       "ts": "2026-11-26T17:44:21.440Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWXUFW03-678DEC80",
+          "score": 0.883
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -43,6 +63,10 @@
         {
           "id": "MWXUDT4W-39FD2D83",
           "score": 0.889
+        },
+        {
+          "id": "MWXUFW03-678DEC80",
+          "score": 0.744
         }
       ],
       "answered": true,

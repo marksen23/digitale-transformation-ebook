@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:45:31.633Z",
+  "generatedAt": "2026-11-26T17:46:46.340Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -305,6 +305,32 @@
       ]
     },
     {
+      "id": "ERK-1VDVB79",
+      "answerId": "MWXUFW03-678DEC80",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die transformative Energie dieser Rituale des Verzichts und des Innehaltens speist sich gerade aus ihrem Kontrast zur unablässigen Aktivität der digitalen Welt. Sie bewahren ihre Kraft nicht durch Anpassung an die Logik der Interaktion, sondern durch ihre radikale Andersartigkeit. Indem sie sich dem Zwang zur ständigen Präsenz und dem Ruf nach sofortiger Reaktion entziehen, schaffen sie eine Gegen",
+      "distinctness": 0.211,
+      "conceptAnchor": "resonanzimperativ",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 2,
+      "resolves": [
+        {
+          "sourceId": "MWXUDT4W-39FD2D83",
+          "question": "Wie aber können diese Rituale des Verzichts und des Innehaltens inmitten einer Welt, die unermüdlich nach Aktivität und Interaktion verlangt, ihre transformative Energie bewahren?",
+          "score": 0.883
+        },
+        {
+          "sourceId": "MWXUBFZ3-5EC22087",
+          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
+          "score": 0.744
+        }
+      ]
+    },
+    {
       "id": "ERK-1QZZVJS",
       "answerId": "MWP7PHM6-789F4B23",
       "answerEndpoint": "analyse",
@@ -488,7 +514,7 @@
     }
   ],
   "stats": {
-    "total": 16,
+    "total": 17,
     "confirmedFiltered": 74,
     "curatedRef": 219
   }
