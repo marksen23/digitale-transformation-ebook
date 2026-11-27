@@ -3,6 +3,7 @@ import { NODES, EDGES, LEITMOTIV_EDGES, CAT_COLOR, categoryLabel, PRINZIP_GROUPS
 import { useEbookTheme } from "@/hooks/useEbookTheme";
 import { loadResonanzenIndexLazy, groupResonanzenByNode, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { loadNodeDensity, densityRatio, type NodeDensityFile } from "@/lib/nodeDensity";
+import { groupLegendCount } from "@shared/prinzipDensity";
 import { track as trackTrajectory } from "@/lib/trajectory";
 // Zentrale Palette + Fonts — gleiche Sprache wie die Sub-Pages.
 import { SERIF, MONO, C_DARK as THEME_DARK, C_LIGHT as THEME_LIGHT, TRACKED, SERIF_BODY, TRANSITION, RADIUS } from "@/lib/theme";
@@ -507,15 +508,14 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
       return () => window.removeEventListener("resonanzen-index-stale", onStale);
     }
   }, []);
-  // Density beim ersten Heatmap-Klick lazy laden — bei Inactive-Default
-  // hat das keinen Bandbreiten-Cost. Cache ist im Modul-Singleton.
+  // Dichte einmal laden. Die Prinzip-Gruppen zeigen sonst 0, weil ihre
+  // id kein Knoten ist. Der Cache sitzt im Modul.
   useEffect(() => {
-    if (heatmapMode && !nodeDensity) {
-      loadNodeDensity().then(d => {
-        if (d) setNodeDensity(d);
-      });
-    }
-  }, [heatmapMode, nodeDensity]);
+    if (nodeDensity) return;
+    loadNodeDensity().then(d => {
+      if (d) setNodeDensity(d);
+    });
+  }, [nodeDensity]);
   const resonanzenByNode = useMemo(
     () => resonanzenEntries ? groupResonanzenByNode(resonanzenEntries) : null,
     [resonanzenEntries]
@@ -2856,6 +2856,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
           />
           <PrinzipLegendSection
             c={C}
+            counts={nodeDensity?.perNode}
             hiddenPrinzipien={hiddenPrinzipien}
             onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
               const n = new Set(prev);
@@ -3004,6 +3005,7 @@ export default function ConceptGraphPage({ onClose }: ConceptGraphPageProps) {
             />
             <PrinzipLegendSection
               c={C}
+              counts={nodeDensity?.perNode}
               hiddenPrinzipien={hiddenPrinzipien}
               onToggleGroup={(memberIds) => setHiddenPrinzipien(prev => {
                 const n = new Set(prev);
@@ -3777,15 +3779,17 @@ function LeitmotivLegendSection({
 }
 
 function PrinzipLegendSection({
-  c, hiddenPrinzipien, onToggleGroup, onToggleMember, onReset, compact = false,
+  c, counts, hiddenPrinzipien, onToggleGroup, onToggleMember, onReset, compact = false,
 }: {
   c: Palette;
+  counts?: Record<string, { count: number; endpoints: Record<string, number>; derived?: boolean }> | null;
   hiddenPrinzipien: Set<string>;
   onToggleGroup: (memberIds: string[]) => void;
   onToggleMember: (id: string) => void;
   onReset: () => void;
   compact?: boolean;
 }) {
+  const canonicalIds = new Set(NODES.map(node => node.id));
   return (
     <LegendSection
       title="Erkenntnisprinzipien"
@@ -3801,6 +3805,7 @@ function PrinzipLegendSection({
     >
       {PRINZIP_GROUPS.map(group => {
           const allHidden = group.memberIds.every(id => hiddenPrinzipien.has(id));
+          const density = groupLegendCount(group, counts, canonicalIds);
           return (
             <div key={group.id} style={{ marginBottom: compact ? "0.3rem" : "0.55rem" }}>
               <button onClick={() => onToggleGroup(group.memberIds)} title={group.description} style={{
@@ -3821,6 +3826,11 @@ function PrinzipLegendSection({
                   textAlign: "left", flex: 1, transition: "color 0.2s",
                 }}>
                   {group.label}
+                  {density !== null && (
+                    <span style={{ fontFamily: c.mono, fontSize: compact ? "0.58rem" : "0.62rem", color: allHidden ? c.ghost : c.muted, letterSpacing: "0.04em" }}>
+                      {density}
+                    </span>
+                  )}
                 </span>
                 {allHidden && (
                   <span style={{ fontFamily: c.mono, fontSize: "0.48rem", letterSpacing: "0.08em", color: c.ghost, border: `1px solid ${c.border}`, padding: "0.04rem 0.26rem", borderRadius: 2 }}>aus</span>
