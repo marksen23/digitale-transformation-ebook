@@ -305,6 +305,7 @@ const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/resonanzen", label: "Wissen (Korpus)" },
   { href: "/fragen", label: "Offene Fragen" },
   { href: "/erkenntnisse", label: "Erkenntnisse" },
+  { href: "/hoeren", label: "Hörfassung" },
   { href: "/landkarte", label: "Wissens-Landkarte" },
 ];
 function navSnapshot(): string {

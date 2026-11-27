@@ -19,6 +19,19 @@ describe("siteNav", () => {
     expect(enkidu?.match.test("/enkidu")).toBe(true);
   });
 
+  it("lists Hörfassung on both AppFrame and the mobile index", () => {
+    const hrefs = (surface: "appFrame" | "mobileIndex") =>
+      navItemsFor(surface).map(i => i.href);
+
+    expect(hrefs("appFrame")).toContain("/hoeren");
+    expect(hrefs("mobileIndex")).toContain("/hoeren");
+
+    const hoeren = navItemsFor("mobileIndex").find(i => i.href === "/hoeren");
+    expect(hoeren?.label).toBe("Hörfassung");
+    expect(hoeren?.mobileSub).toBe("STIMME");
+    expect(hoeren?.match.test("/hoeren")).toBe(true);
+  });
+
   it("keeps Status on the mobile index only, not in the AppFrame clusters", () => {
     expect(navItemsFor("mobileIndex").map(i => i.href)).toContain("/status");
     expect(navItemsFor("appFrame").map(i => i.href)).not.toContain("/status");
