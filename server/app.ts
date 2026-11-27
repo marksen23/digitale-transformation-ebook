@@ -27,6 +27,7 @@ import { createPassageRouter } from "./routes/passage.js";
 import { createNewsletterRouter } from "./routes/newsletter.js";
 import { createWerkstattRouter } from "./routes/werkstatt.js";
 import { createPdfRouter } from "./routes/pdf.js";
+import { createErkenntnisOgRouter } from "./routes/erkenntnisOg.js";
 import { createSeoRouter } from "./routes/seo.js";
 import { createTranslateRouter } from "./routes/translate.js";
 
@@ -105,6 +106,7 @@ export function createApp(serverDir: string): { app: Express; server: Server } {
   // Kapiteltext und Ähnlichkeitssuche: kleine Antworten, Vektoren bleiben hier.
   // Vor dem SEO-Catch-all, sonst schluckt GET /{*splat} die neuen Pfade.
   app.use(createCorpusReadRouter());
+  app.use(createErkenntnisOgRouter());
   app.use(createSeoRouter(staticPath));
 
   return { app, server };

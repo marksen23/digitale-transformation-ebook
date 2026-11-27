@@ -26,6 +26,7 @@ const AdminSettingsPage = lazy(() => import("./pages/admin/AdminSettingsPage"));
 const DevSearchPage = lazy(() => import("./pages/DevSearchPage"));
 const FragenPage = lazy(() => import("./pages/FragenPage"));
 const ErkenntnissePage = lazy(() => import("./pages/ErkenntnissePage"));
+const ErkenntnisCitePage = lazy(() => import("./pages/ErkenntnisCitePage"));
 const LivePage = lazy(() => import("./pages/LivePage"));
 const BlogPage = lazy(() => import("./pages/BlogPage"));
 const StatusPage = lazy(() => import("./pages/StatusPage"));
@@ -144,6 +145,12 @@ function Router() {
       </Route>
       <Route path={"/fragen"}>
         <Framed><Suspense fallback={fallback}><FragenPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/en/erkenntnisse/:id"}>
+        <Framed><Suspense fallback={fallback}><ErkenntnisCitePage /></Suspense></Framed>
+      </Route>
+      <Route path={"/erkenntnisse/:id"}>
+        <Framed><Suspense fallback={fallback}><ErkenntnisCitePage /></Suspense></Framed>
       </Route>
       <Route path={"/en/erkenntnisse"}>
         <Framed><Suspense fallback={fallback}><ErkenntnissePage /></Suspense></Framed>

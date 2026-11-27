@@ -106,7 +106,7 @@ export default function ErkenntnissePage() {
                 <div key={e.id} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: 6, padding: "0.95rem 1.1rem" }}>
                   {/* Kernsatz — die Erkenntnis selbst */}
                   <div style={{ fontFamily: SERIF, fontSize: "1.15rem", color: c.textBright, lineHeight: 1.45 }}>
-                    {shown.text}
+                    <Link href={`/erkenntnisse/${encodeURIComponent(e.id)}`} style={{ color: "inherit", textDecoration: "none" }}>{shown.text}</Link>
                     {shown.translated && <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.muted, marginTop: "0.35rem" }}>{tr("insights.translated")}</div>}
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
