@@ -34,6 +34,7 @@ import SectionLabel from "@/components/SectionLabel";
 import { useIsMobile } from "@/hooks/useMobile";
 import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
 import MobileLandkarte from "@/pages/mobile/MobileLandkarte";
+import BegriffVorschlag from "@/components/BegriffVorschlag";
 
 const CURATED = new Set(["approved", "published"]);
 const MIN_CO = 2;  // Min. gemeinsame Erkenntnisse, damit eine Verbindung „wird".
@@ -364,6 +365,9 @@ export default function LandkartePage() {
               <button onClick={() => navigate(`/dialoge/${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>Leser-Dialoge →</button>
               <button onClick={() => navigate(`/werkstatt?begriff=${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>Werkstatt zu diesem Begriff →</button>
               <button onClick={() => toggleBegriff("concept", selNode.id)} style={linkBtn(C)}>{hasBegriff("concept", selNode.id) ? "Begriff gemerkt" : "Begriff merken"}</button>
+              {NODES.some(node => node.id === selNode.id) && (
+                <BegriffVorschlag C={C} anchorId={selNode.id} nodes={NODES.map(node => ({ id: node.id, fullLabel: node.fullLabel }))} />
+              )}
 
               {selectedEmerging.length > 0 && (
                 <div style={{ marginTop: "1rem" }}>

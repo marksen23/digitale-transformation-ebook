@@ -8,8 +8,9 @@
 import { useCallback, useMemo, useRef } from "react";
 import { DISPLAY, MONO, RADIUS, SERIF, type Palette } from "@/lib/theme";
 import {
-  EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H, type ConceptNode,
+  NODES, EDGES, CAT_COLOR, categoryLabel, CANVAS_W, CANVAS_H, type ConceptNode,
 } from "@/data/conceptGraph";
+import BegriffVorschlag from "@/components/BegriffVorschlag";
 import type { ResonanzEntry } from "@/lib/resonanzenIndex";
 import type { PromotedEdge } from "@/lib/promotedEdges";
 import { useInteractiveCanvas } from "@/hooks/useInteractiveCanvas";
@@ -408,6 +409,10 @@ export default function MobileLandkarte({
                   ))}
                 </div>
               </section>
+            )}
+
+            {NODES.some(node => node.id === sheetNode.id) && (
+              <BegriffVorschlag C={C} anchorId={sheetNode.id} nodes={NODES.map(node => ({ id: node.id, fullLabel: node.fullLabel }))} />
             )}
 
             {/* Aktionen */}

@@ -87,7 +87,7 @@ export function useAdminAuth(): {
  *  Generisch über T → bei erfolgreichem Call ist data: T verfügbar.
  *  Bei Fehler ist data === undefined, error gesetzt. */
 export async function callAdminAction<T = unknown>(
-  action: "curate" | "curate-bulk" | "delete" | "delete-bulk" | "synthesize-master" | "pre-score" | "auto-curate" | "promote-edge" | "propose-concept" | "distill-erkenntnis" | "confirm-erkenntnis" | "withdraw-erkenntnis" | "restore-erkenntnis" | "dedup-corpus" | "config" | "newsletter/delete" | "newsletter/digest" | "newsletter/resend-confirm" | "werkstatt/delete" | "duelle/delete",
+  action: "curate" | "curate-bulk" | "delete" | "delete-bulk" | "synthesize-master" | "pre-score" | "auto-curate" | "promote-edge" | "propose-concept" | "distill-erkenntnis" | "confirm-erkenntnis" | "withdraw-erkenntnis" | "restore-erkenntnis" | "dedup-corpus" | "config" | "newsletter/delete" | "newsletter/digest" | "newsletter/resend-confirm" | "werkstatt/delete" | "duelle/delete" | "vorschlaege/promote" | "vorschlaege/delete",
   body: Record<string, unknown>,
 ): Promise<{ ok: boolean; data?: T; error?: string }> {
   const t = localStorage.getItem(ADMIN_TOKEN_KEY);
@@ -110,7 +110,7 @@ export async function callAdminAction<T = unknown>(
 /** GET-Variante für read-only Admin-Endpunkte (action-log, config).
  *  `query` wird als Querystring angehängt (z.B. { limit: 50 }). */
 export async function callAdminGet<T = unknown>(
-  action: "action-log" | "config" | "newsletter" | "werkstatt" | "duelle" | "monat",
+  action: "action-log" | "config" | "newsletter" | "werkstatt" | "duelle" | "monat" | "vorschlaege",
   query?: Record<string, string | number>,
 ): Promise<{ ok: boolean; data?: T; error?: string }> {
   const t = localStorage.getItem(ADMIN_TOKEN_KEY);
