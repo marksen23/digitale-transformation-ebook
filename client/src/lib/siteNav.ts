@@ -49,6 +49,7 @@ export const SITE_NAV_CLUSTERS: SiteNavCluster[] = [
       { href: "/erkunden",     label: "Übersicht",    i18nKey: "nav.erkunden.overview", match: /^\/erkunden/,     mobileSub: "DREI LINSEN" },
       { href: "/begriffsnetz", label: "Begriffsnetz", i18nKey: "nav.begriffsnetz",      match: /^\/begriffsnetz/, mobileSub: "KARTE" },
       { href: "/landkarte",    label: "Landkarte",    i18nKey: "nav.landkarte",         match: /^\/landkarte/,    mobileSub: "WISSEN" },
+      { href: "/duelle",       label: "Duelle",       i18nKey: "nav.duelle",            match: /^\/duelle/,       mobileSub: "STIMME" },
       { href: "/philosophie",  label: "Philosophie",  i18nKey: "nav.philosophie",       match: /^\/philosophie/,  mobileSub: "VERORTUNG" },
     ],
   },

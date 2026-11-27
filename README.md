@@ -245,6 +245,14 @@ Der Atom-Feed `/feed/erkenntnisse.xml` bleibt die Inhaltsquelle des Digests.
 Es wird nichts an X oder an einen externen Newsletter-Dienst gepusht, außer
 die einzelne Mail über den gewählten Anbieter.
 
+## Begriffs-Duelle
+
+`/duelle` stellt drei Paare aus dem Netz gegeneinander. Eine Stimme braucht
+eine Begründung. Die Begründung wird mit dem Zeitpunkt als Leser-Eintrag
+(`endpoint: dialog`, Status raw) in den Korpus geschrieben, sobald
+`GITHUB_TOKEN` gesetzt ist. Die Zählung selbst liegt in
+`data/duelle/votes.json` (gitignoriert). Löschen geht unter `/admin`.
+
 ## Gruppen-Werkstatt
 
 `/werkstatt` öffnet eine Runde zu einem Begriff. Der Code in der Adresse
