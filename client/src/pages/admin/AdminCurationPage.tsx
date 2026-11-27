@@ -34,6 +34,7 @@ import ErkenntnisCandidatesPanel from "@/components/admin/ErkenntnisCandidatesPa
 import NewsletterPanel from "@/components/admin/NewsletterPanel";
 import WorkshopPanel from "@/components/admin/WorkshopPanel";
 import DuellPanel from "@/components/admin/DuellPanel";
+import VorschlagPanel from "@/components/admin/VorschlagPanel";
 import DedupCorpusPanel from "@/components/admin/DedupCorpusPanel";
 import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
@@ -713,6 +714,7 @@ export default function AdminCurationPage() {
       <NewsletterPanel C={C} />
       <WorkshopPanel C={C} />
       <DuellPanel C={C} />
+      <VorschlagPanel C={C} />
 
       {/* Exakte Dubletten (Batch 5): Nachzügler aus der Zeit vor dem Ingest-Dedup */}
       <DedupCorpusPanel C={C} />

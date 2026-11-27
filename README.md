@@ -261,6 +261,15 @@ Erkenntnisse am häufigsten geöffnet wurden. Der Zähler speichert nur
 `id → Zahl` in `data/views/erkenntnisse.json` (gitignoriert). Keine Adressen,
 keine Namen. Ohne Token antwortet die Schnittstelle mit 401.
 
+## Leser-Vorschläge
+
+Auf der Landkarte kann ein Leser eine Verbindung oder einen neuen Begriff
+vorschlagen, mit einer kurzen Begründung. Der Vorschlag liegt in
+`data/vorschlaege/proposals.json` (gitignoriert, `VORSCHLAG_STORE_PATH`).
+Erst „Heben“ unter `/admin` schreibt eine Verbindung oder einen Begriff in
+den Kanon, und nur wenn der bestehende Schutzwall mitgeht. „Zurückziehen“
+nimmt den Vorschlag zurück, ohne ihn zu veröffentlichen.
+
 ## Gruppen-Werkstatt
 
 `/werkstatt` öffnet eine Runde zu einem Begriff. Der Code in der Adresse
