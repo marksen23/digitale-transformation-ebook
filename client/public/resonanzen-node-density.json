@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T19:57:46.285Z",
+  "generatedAt": "2026-11-27T19:58:59.115Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 36,
@@ -41,9 +41,9 @@
       }
     },
     "dasein": {
-      "count": 19,
+      "count": 20,
       "endpoints": {
-        "path-analyse": 15,
+        "path-analyse": 16,
         "dialog": 1,
         "analyse": 3
       }
@@ -181,19 +181,19 @@
       }
     },
     "existenz": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "path-analyse": 4,
+        "path-analyse": 5,
         "analyse": 5,
         "dialog": 1
       }
     },
     "wesen": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
+        "path-analyse": 6,
         "analyse": 3,
-        "dialog": 1,
-        "path-analyse": 5
+        "dialog": 1
       }
     },
     "selbst": {
@@ -256,9 +256,9 @@
       }
     },
     "lm-scheitern": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 6,
         "analyse": 7,
         "dialog": 2
       }

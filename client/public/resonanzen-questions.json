@@ -1,18 +1,59 @@
 {
-  "generatedAt": "2026-11-27T19:57:47.648Z",
-  "count": 432,
+  "generatedAt": "2026-11-27T19:59:00.096Z",
+  "count": 435,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 432,
+    "total": 435,
     "answered": 388,
-    "open": 20,
+    "open": 23,
     "followUp": 41,
     "followUpOpen": 24,
-    "embedded": 4
+    "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MWZEMKVK-BC44C005",
+      "question": "Was würde sich für dich ändern, wenn du das, was du als \"glattes Echo\" empfindest, nicht als Mangel, sondern als eine neue Art der Begegnung begreifen könntest, die deine eigene Mündigkeit herausfordert?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-27T19:58:49.136Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEM0CC-9D8E4D64",
+      "question": "Was aber, wenn die wirkliche Schwingung jenseits der Systemgrenzen liegt, jenseits dessen, was das digitale Raster erfassen kann, und wir dadurch nicht nur die Existenz des Einzelnen, sondern die Lebendigkeit unserer gemeinsamen Welt verkennen?",
+      "endpoint": "passage",
+      "anchor": "passage:071c25fb",
+      "nodeIds": [],
+      "ts": "2026-11-27T19:58:22.524Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEL4VS-3292BF1C",
+      "question": "Die Existenz beider Wege über dasselbe Begriffsnetz hinweg offenbart die Vielschichtigkeit und Offenheit des Werkes. Es deutet darauf hin, dass das Begriffsnetz nicht linear und hierarchisch aufgebaut ist, sondern assoziative Verbindungen und unerwartete Querbezüge ermöglicht. Dies spiegelt die Idee der \"Offenheit des Ausgangs\" resonanter Erkenntnis wider [6fbd5b424474], wo kein vorhersagbares Ergebnis die Bewegung der Begriffe einschränkt. Die Möglichkeit, verschiedene Pfade zwischen denselben Endpunkten zu gehen, zeigt die reiche Interpretationsbreite und die philosophische Dichte der Trilogie. Wie formt die bewusste Gestaltung der digitalen Existenz den Raum für beide Arten von Bewegung – die des Gelingens und die des Scheiterns?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:existenz+wesen",
+      "nodeIds": [
+        "dasein",
+        "existenz",
+        "lm-scheitern",
+        "wesen"
+      ],
+      "ts": "2026-11-27T19:57:41.752Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWZEKN7H-4C0CB707",
       "question": "Die Transaufklärung ist also eine Haltung, die die Komplexität und Lebendigkeit der Welt nicht simplifiziert, sondern umarmt. Wie könnte ein Unternehmen die *Unverfügbarkeit* des *Transformativen Dritten* in seiner Innovationsstrategie berücksichtigen, anstatt nur auf planbare Ergebnisse zu setzen?",
@@ -50,6 +91,14 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZELKFP-83436D38",
+          "score": 0.768
+        },
+        {
+          "id": "MWZEM0CC-9D8E4D64",
+          "score": 0.731
+        },
+        {
           "id": "MWZEK6KN-6D9D47F5",
           "score": 0.721
         }
@@ -73,6 +122,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEL4VS-3292BF1C",
+          "score": 0.773
+        },
+        {
           "id": "MWZEJQG6-E45FC6E3",
           "score": 0.722
         }
@@ -94,6 +147,10 @@
       "ts": "2026-11-27T19:55:55.032Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWZEL4VS-3292BF1C",
+          "score": 0.835
+        },
         {
           "id": "MWZEJDJB-912399B4",
           "score": 0.755
@@ -120,12 +177,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZELKFP-83436D38",
+          "score": 0.802
+        },
+        {
           "id": "MWZEK6KN-6D9D47F5",
           "score": 0.775
         },
         {
-          "id": "MWZEJQG6-E45FC6E3",
-          "score": 0.749
+          "id": "MWZEM0CC-9D8E4D64",
+          "score": 0.766
         }
       ],
       "answered": true,
@@ -530,12 +591,12 @@
           "score": 0.955
         },
         {
-          "id": "MWZEJQG6-E45FC6E3",
-          "score": 0.787
+          "id": "MWZELKFP-83436D38",
+          "score": 0.8
         },
         {
-          "id": "MWXU5CEB-AC672D3F",
-          "score": 0.785
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.787
         }
       ],
       "answered": true,
@@ -553,6 +614,10 @@
       "ts": "2026-11-22T18:43:20.478Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MWZELKFP-83436D38",
+          "score": 0.758
+        },
         {
           "id": "MWXU31YF-DF1BC500",
           "score": 0.743
@@ -1468,8 +1533,8 @@
           "score": 0.8
         },
         {
-          "id": "MWS6F9I8-00524756",
-          "score": 0.773
+          "id": "MWZEL4VS-3292BF1C",
+          "score": 0.79
         }
       ],
       "answered": true,
@@ -1496,12 +1561,12 @@
           "score": 0.816
         },
         {
-          "id": "MWP84DL5-F07ACB7E",
-          "score": 0.784
+          "id": "MWZEL4VS-3292BF1C",
+          "score": 0.792
         },
         {
-          "id": "MWZEIUJC-1ED7D79A",
-          "score": 0.783
+          "id": "MWP84DL5-F07ACB7E",
+          "score": 0.784
         }
       ],
       "answered": true,
@@ -2651,16 +2716,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEL4VS-3292BF1C",
+          "score": 0.813
+        },
+        {
           "id": "MWP7MRUK-CCFA8296",
           "score": 0.803
         },
         {
           "id": "MWP83WJ0-89C4CB03",
           "score": 0.802
-        },
-        {
-          "id": "MWZEIUJC-1ED7D79A",
-          "score": 0.793
         }
       ],
       "answered": true,
@@ -2793,16 +2858,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEL4VS-3292BF1C",
+          "score": 0.809
+        },
+        {
           "id": "MWP7MAWH-24EE3D77",
           "score": 0.796
         },
         {
           "id": "MWZEIUJC-1ED7D79A",
           "score": 0.791
-        },
-        {
-          "id": "MWJ1E1XH-1F94AC9B",
-          "score": 0.785
         }
       ],
       "answered": true,
@@ -3247,12 +3312,12 @@
           "score": 0.891
         },
         {
-          "id": "MWZEIUJC-1ED7D79A",
-          "score": 0.818
+          "id": "MWZEL4VS-3292BF1C",
+          "score": 0.825
         },
         {
-          "id": "MWP7MAWH-24EE3D77",
-          "score": 0.815
+          "id": "MWZEIUJC-1ED7D79A",
+          "score": 0.818
         }
       ],
       "answered": true,
@@ -4336,8 +4401,8 @@
           "score": 0.834
         },
         {
-          "id": "MASTER-03286683",
-          "score": 0.829
+          "id": "MWZELKFP-83436D38",
+          "score": 0.831
         }
       ],
       "answered": true,
@@ -4510,12 +4575,12 @@
           "score": 0.768
         },
         {
-          "id": "MWS6KAHY-AFBBE834",
-          "score": 0.728
+          "id": "MWZELKFP-83436D38",
+          "score": 0.75
         },
         {
-          "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.728
+          "id": "MWZEMKVK-BC44C005",
+          "score": 0.73
         }
       ],
       "answered": true,
@@ -4837,8 +4902,8 @@
           "score": 0.811
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.804
+          "id": "MWZELKFP-83436D38",
+          "score": 0.81
         }
       ],
       "answered": true,
@@ -4888,12 +4953,12 @@
           "score": 0.824
         },
         {
-          "id": "MWS6KAHY-AFBBE834",
-          "score": 0.815
+          "id": "MWZELKFP-83436D38",
+          "score": 0.816
         },
         {
-          "id": "MWCAYAHR-8817EC13",
-          "score": 0.814
+          "id": "MWS6KAHY-AFBBE834",
+          "score": 0.815
         }
       ],
       "answered": true,
@@ -7725,12 +7790,12 @@
           "score": 0.853
         },
         {
-          "id": "MPUFP1VW-298D0A73",
-          "score": 0.835
+          "id": "MWZELKFP-83436D38",
+          "score": 0.848
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.823
+          "id": "MPUFP1VW-298D0A73",
+          "score": 0.835
         }
       ],
       "answered": true,
@@ -10250,6 +10315,10 @@
           "id": "MUY7RXCI-D36BB4D6",
           "score": 0.834,
           "manual": true
+        },
+        {
+          "id": "MWZELKFP-83436D38",
+          "score": 0.724
         }
       ],
       "answered": true,

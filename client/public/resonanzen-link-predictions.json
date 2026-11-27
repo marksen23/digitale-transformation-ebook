@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T19:57:46.286Z",
+  "generatedAt": "2026-11-27T19:58:59.116Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -252,6 +252,20 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "existenz",
+      "target": "wesen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWZEL4VS-3292BF1C",
+        "MWZEIECW-C3021790",
+        "MWG6IZQ5-889B7147"
       ]
     },
     {
@@ -522,19 +536,6 @@
       "sampleEntryIds": [
         "MWZEJDJB-912399B4",
         "MWCAUU1H-558EDB1E"
-      ]
-    },
-    {
-      "source": "existenz",
-      "target": "wesen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWZEIECW-C3021790",
-        "MWG6IZQ5-889B7147"
       ]
     },
     {

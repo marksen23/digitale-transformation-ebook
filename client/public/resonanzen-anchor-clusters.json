@@ -1,10 +1,11 @@
 {
-  "generatedAt": "2026-11-27T19:57:47.776Z",
+  "generatedAt": "2026-11-27T19:59:00.186Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
       "endpoint": "chapter",
       "variantIds": [
+        "MWZELKFP-83436D38",
         "MWHLZOLL-5FF5E8CE",
         "MPUFP1VW-298D0A73",
         "MPUFM0YN-83C71BAB",
@@ -12,7 +13,7 @@
         "MPUFFZZO-69A41658",
         "MPUFECMA-7E85D8E2"
       ],
-      "lastVariantTs": "2026-11-15T09:05:06.633Z",
+      "lastVariantTs": "2026-11-27T19:58:01.909Z",
       "masterId": "MASTER-63686170",
       "masterTs": "2026-11-06T22:28:40.902Z",
       "masterStale": true
@@ -213,6 +214,18 @@
       "lastVariantTs": "2026-04-27T15:14:21.282Z",
       "masterId": "MASTER-556F1581",
       "masterTs": "2026-11-11T16:41:48.453Z",
+      "masterStale": false
+    },
+    {
+      "anchor": "path-analyse:existenz+wesen",
+      "endpoint": "path-analyse",
+      "variantIds": [
+        "MWZEL4VS-3292BF1C",
+        "MWG6IZQ5-889B7147"
+      ],
+      "lastVariantTs": "2026-11-27T19:57:41.752Z",
+      "masterId": null,
+      "masterTs": null,
       "masterStale": false
     },
     {
@@ -421,8 +434,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 280,
-    "withMultipleVariants": 30,
+    "totalAnchors": 281,
+    "withMultipleVariants": 31,
     "withMaster": 25,
     "staleMasters": 2
   }
