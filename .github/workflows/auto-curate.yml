@@ -16,8 +16,9 @@ name: Auto-Curate Resonanz-Korpus
 #
 # Setup-Voraussetzung: Repo-Secret ADMIN_TOKEN muss auf denselben Wert
 # gesetzt sein wie die ADMIN_TOKEN env var im Render-Service (Settings →
-# Environment). Ohne dieses Secret überspringt der Lauf sich selbst, statt
-# mit einem kryptischen 401 zu scheitern.
+# Environment). Fehlt das Secret, schlägt der Lauf rot fehl (exit 1) und
+# erklärt, wo der Token zu setzen ist — er darf nicht mehr still grün
+# durchlaufen, ohne etwas zu tun.
 
 on:
   schedule:
@@ -33,6 +34,18 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     steps:
+      # Zuerst den Token prüfen, bevor Checkout/Install Zeit kosten.
+      # Früher: stiller Skip mit Exit 0 — der Lauf erschien grün, obwohl
+      # nichts kuratiert wurde (mindestens seit 19.10.2026).
+      - name: Require ADMIN_TOKEN secret
+        env:
+          TOKEN_CHECK: ${{ secrets.ADMIN_TOKEN }}
+        run: |
+          if [ -z "$TOKEN_CHECK" ]; then
+            echo "::error::ADMIN_TOKEN fehlt in den GitHub-Actions-Secrets. Unter Settings → Secrets and variables → Actions denselben Wert setzen wie die ADMIN_TOKEN-Umgebungsvariable im Render-Service. Ohne dieses Secret kann Auto-Curate die Live-Admin-API nicht aufrufen und würde sonst grün erscheinen, ohne etwas zu tun."
+            exit 1
+          fi
+
       - name: Checkout
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v5
         with:
@@ -51,18 +64,6 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Skip if ADMIN_TOKEN secret is not configured
-        id: gate
-        env:
-          TOKEN_CHECK: ${{ secrets.ADMIN_TOKEN }}
-        run: |
-          if [ -z "$TOKEN_CHECK" ]; then
-            echo "::warning::ADMIN_TOKEN Repo-Secret fehlt — Auto-Curate übersprungen. Secret unter Settings → Secrets and variables → Actions setzen (gleicher Wert wie die ADMIN_TOKEN env var im Render-Service)."
-            echo "skip=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "skip=false" >> "$GITHUB_OUTPUT"
-          fi
-
       # limit 200 = das Maximum, das /api/admin/auto-curate pro Request annimmt
       # (server/routes/admin.ts, cap = Math.min(..., 200)) — deckt den aktuellen
       # raw/pending-Pool in einem Lauf ab. Kein --rescore (rührt bewusst
@@ -70,7 +71,6 @@ jobs:
       # Reject-Schwelle ist im Klassifikator selbst schon konservativ auf
       # "eindeutig schlecht" gesetzt, siehe classifyForAutoCurate).
       - name: Run auto-curate --apply
-        if: steps.gate.outputs.skip != 'true'
         env:
           ADMIN_TOKEN: ${{ secrets.ADMIN_TOKEN }}
         run: |

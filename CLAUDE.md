@@ -91,6 +91,7 @@ Browser (Netlify)                  Render-Server (Express)
 | `GEMINI_API_KEY_FALLBACK` | Render Env, GitHub Repo-Secrets | nein | Zweiter Key auf anderem GCP-Projekt (eigenes Billing). Der shared `embeddingClient` rotiert automatisch darauf, wenn der Primärkey billing/auth-blockiert ist. SELBES Modell → vektorkompatibel. Auch Komma-Liste via `GEMINI_API_KEYS` möglich. |
 | `GITHUB_TOKEN` (PAT mit `repo` scope) | Render Env | ja für Live-Append | Server-Logs: `[resonanzLog] skipped (no token)`. KI-Outputs landen nicht im Korpus. Heartbeat auf `/admin/health` zeigt `githubTokenPresent: false`. |
 | `ANTHROPIC_API_KEY` | Render Env | ja | 500-Fehler bei jeder KI-Anfrage |
+| `ADMIN_TOKEN` | Render Env + GitHub Repo-Secrets | ja für `/admin` und den Auto-Curate-Workflow | Ohne Render-Env kein Admin-Login. Ohne GitHub-Secret schlägt `.github/workflows/auto-curate.yml` rot fehl (früher stiller Skip mit Exit 0, Lauf erschien grün, `raw`-Pool wuchs weiter). Gleicher Wert in beiden Stellen. Siehe Fallstrick #14. |
 | `EMBEDDINGS_REQUIRED` | nur im CI gesetzt (Workflow-YAML) | nein | Wenn 1 + 0 Embeddings: Workflow rot. Wenn 0/leer: Soft-warn auf Netlify-Build. |
 | `GEMINI_EMBED_MODEL` | optional ENV-Overwrite | nein | Default `gemini-embedding-001`. Falls Google das Modell deprecaten: hier umschalten ohne Code-Change. |
 | `AUTO_CURATE_*` | optional Render Env | nein | Schwellen für `/api/admin/auto-curate`: `AI_MIN` (4), `CORPUS_MIN` (0.55), `AI_REJECT` (2), `CORPUS_REJECT` (0.30), `WERK_MIN` (0.55), `CONCEPT_MIN` (0.65 — seit 2026-06-22 von 0.68 gesenkt: bei 0.68 saßen 29 sonst freigabefähige Einträge in der Totzone [0.62,0.68), cn-Median im Pool ist 0.703), `CONCEPT_REJECT` (0.62). Niedriger = aggressivere Auto-Freigabe. Default konservativ. `CONCEPT_*` = dritter (Begriffs-)Anker des triangulierten Schutzwalls. |
@@ -367,6 +368,21 @@ Fix: Route `/enkidu` (`App.tsx`, eigene Vollbild-Seite, Schließen führt nach
 mobile Inhalt (plus die globale Bereichssuche) lesen dieselbe Quelle, Status
 bleibt nur im Mobile-Index. Wächter: `client/src/lib/__tests__/siteNav.test.ts`
 (AppFrame-Einträge dürfen im Mobile-Index nicht fehlen).
+
+### 14. „Auto-Curate-Workflow ist grün, der raw-Pool wächst aber weiter"
+
+Der tägliche Workflow `.github/workflows/auto-curate.yml` ruft die
+Live-Admin-API auf und braucht dafür das Repo-Secret `ADMIN_TOKEN` (gleicher
+Wert wie die Render-Env `ADMIN_TOKEN`). Fehlte das Secret, hat ein Gate-Step
+den Lauf mit `::warning::` übersprungen und mit Exit 0 beendet — die Action
+erschien grün, obwohl nichts kuratiert wurde (beobachtet mindestens seit
+19.10.2026, u. a. Lauf `46005486806` am 27.11.2026).
+
+Fix: Der Gate-Step prüft den Token vor Checkout/Install und bricht mit
+`::error::` und Exit 1 ab. Die Meldung sagt, dass `ADMIN_TOKEN` unter
+Settings → Secrets and variables → Actions gesetzt werden muss, identisch zum
+Render-Wert. `scripts/auto-curate.ts` bricht ohne Token ebenfalls mit Exit 1
+ab.
 
 ---
 
