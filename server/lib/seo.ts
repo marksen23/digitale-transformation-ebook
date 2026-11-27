@@ -16,6 +16,7 @@
  * robust gegen Reformatierung des Templates.
  */
 import { loadIndex, type IndexEntry } from "./indexUpdater.js";
+import { findPublicErkenntnis } from "./erkenntnisPublic.js";
 
 export const SITE_URL = (
   process.env.SITE_URL ?? "https://digitale-transformation-ebook.de"
@@ -294,8 +295,9 @@ function headTags(opts: {
   type?: string;
   jsonLd: object[];
   robots?: string;
+  ogImage?: string;
 }): string {
-  const { canonical, path, title, description, type = "website", jsonLd, robots } = opts;
+  const { canonical, path, title, description, type = "website", jsonLd, robots, ogImage = OG_IMAGE } = opts;
   const alt = hreflangLinks(path);
   const lines = [
     `<link rel="canonical" href="${escapeAttr(canonical)}" />`,
@@ -308,11 +310,11 @@ function headTags(opts: {
     `<meta property="og:title" content="${escapeAttr(title)}" />`,
     `<meta property="og:description" content="${escapeAttr(description)}" />`,
     `<meta property="og:url" content="${escapeAttr(canonical)}" />`,
-    `<meta property="og:image" content="${escapeAttr(OG_IMAGE)}" />`,
+    `<meta property="og:image" content="${escapeAttr(ogImage)}" />`,
     `<meta name="twitter:card" content="summary_large_image" />`,
     `<meta name="twitter:title" content="${escapeAttr(title)}" />`,
     `<meta name="twitter:description" content="${escapeAttr(description)}" />`,
-    `<meta name="twitter:image" content="${escapeAttr(OG_IMAGE)}" />`,
+    `<meta name="twitter:image" content="${escapeAttr(ogImage)}" />`,
   ];
   if (robots) lines.push(`<meta name="robots" content="${escapeAttr(robots)}" />`);
   for (const ld of jsonLd) {
@@ -374,9 +376,11 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
   let jsonLd: object[];
   let snapshot: string;
   let robots: string | undefined;
+  let ogImage: string | undefined;
   const canonical = `${SITE_URL}${path === "/" ? "/" : path}`;
 
   const m = path.match(/^\/resonanz\/([A-Za-z0-9-]+)$/);
+  const erk = path.match(/^\/(?:en\/)?erkenntnisse\/([A-Za-z0-9-]+)$/);
   if (isPrivatePath(path)) {
     meta = {
       title: `Intern — ${WORK_TITLE}`,
@@ -406,6 +410,20 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
       jsonLd = [websiteJsonLd()];
       snapshot = pageSnapshot(meta);
     }
+  } else if (erk) {
+    const found = findPublicErkenntnis(erk[1]);
+    if (found) {
+      meta = { title: `${clip(found.text, 90)} — Erkenntnis · ${WORK_TITLE}`, description: clip(found.text, 180) };
+      type = "article";
+      ogImage = `${SITE_URL}/api/og/erkenntnis/${encodeURIComponent(found.id)}`;
+      jsonLd = [websiteJsonLd()];
+      snapshot = `<article><h1>${escapeHtml(found.text)}</h1><p>Erkenntnis im Werk „${escapeHtml(WORK_TITLE)}" · ${escapeHtml(found.createdAt.slice(0, 10))}</p></article>`;
+    } else {
+      meta = { title: `Erkenntnis nicht gefunden — ${WORK_TITLE}`, description: "Diese Erkenntnis gibt es nicht." };
+      jsonLd = [];
+      snapshot = pageSnapshot(meta);
+      robots = "noindex, nofollow";
+    }
   } else {
     meta = routeMeta(path);
     if (path === "/en") {
@@ -424,7 +442,7 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
     if (/^\/werkstatt\/[a-z0-9]{8}$/.test(path)) robots = "noindex, nofollow";
   }
 
-  const head = headTags({ canonical, path, title: meta.title, description: meta.description, type, jsonLd, robots });
+  const head = headTags({ canonical, path, title: meta.title, description: meta.description, type, jsonLd, robots, ogImage });
   return template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`)
     .replace(

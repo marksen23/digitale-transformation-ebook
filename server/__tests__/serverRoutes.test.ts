@@ -76,6 +76,7 @@ const ROUTES = [
   "POST /api/corpus/similar",
   "GET /api/corpus/tensions",
   "GET /api/corpus/clusters",
+  "GET /api/og/erkenntnis/:id",
   "GET /feed/erkenntnisse.xml",
   "GET /sitemap.xml",
   "GET /llms-full.txt",
