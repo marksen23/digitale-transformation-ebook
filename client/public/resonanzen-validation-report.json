@@ -1,12 +1,18 @@
 {
-  "generatedAt": "2026-11-27T20:00:03.548Z",
-  "filesChecked": 528,
+  "generatedAt": "2026-11-27T21:20:06.905Z",
+  "filesChecked": 534,
   "errors": 0,
-  "warnings": 78,
+  "warnings": 84,
   "issues": [
     {
       "level": "warning",
       "file": "content/resonanzen/master/analyse/analyse_antwort-resonanz.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint analyse"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/analyse/analyse_echo-kammer-unverfuegbarkeit.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint analyse"
     },
@@ -180,6 +186,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_echo-kammer-unverfuegbarkeit.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/master/dialog/dialog_erkenntnis-lm-verwandlung.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
@@ -198,6 +210,18 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_gelassenheit.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_klang-resonanzvernunft.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/master/dialog/dialog_licht-schatten.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
@@ -211,6 +235,12 @@
     {
       "level": "warning",
       "file": "content/resonanzen/master/dialog/dialog_raumfaltung-weltfaltung.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint dialog"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/dialog/dialog_stimme.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint dialog"
     },
@@ -235,6 +265,12 @@
     {
       "level": "warning",
       "file": "content/resonanzen/master/path-analyse/path-analyse_antwort-zwischen.md",
+      "rule": "path-mismatch",
+      "detail": "file path doesn't match endpoint path-analyse"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/master/path-analyse/path-analyse_existenz-wesen.md",
       "rule": "path-mismatch",
       "detail": "file path doesn't match endpoint path-analyse"
     },
@@ -475,17 +511,17 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 138,
+      "analyse": 139,
       "chapter": 66,
-      "dialog": 103,
-      "path-analyse": 70,
+      "dialog": 107,
+      "path-analyse": 71,
       "enkidu": 69,
       "graph-chat": 54,
       "passage": 19,
       "translate": 9
     },
     "byStatus": {
-      "published": 169,
+      "published": 175,
       "raw": 277,
       "rejected": 28,
       "approved": 54
