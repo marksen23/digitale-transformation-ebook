@@ -110,7 +110,7 @@ export async function callAdminAction<T = unknown>(
 /** GET-Variante für read-only Admin-Endpunkte (action-log, config).
  *  `query` wird als Querystring angehängt (z.B. { limit: 50 }). */
 export async function callAdminGet<T = unknown>(
-  action: "action-log" | "config" | "newsletter" | "werkstatt" | "duelle",
+  action: "action-log" | "config" | "newsletter" | "werkstatt" | "duelle" | "monat",
   query?: Record<string, string | number>,
 ): Promise<{ ok: boolean; data?: T; error?: string }> {
   const t = localStorage.getItem(ADMIN_TOKEN_KEY);

@@ -253,6 +253,14 @@ eine Begründung. Die Begründung wird mit dem Zeitpunkt als Leser-Eintrag
 `GITHUB_TOKEN` gesetzt ist. Die Zählung selbst liegt in
 `data/duelle/votes.json` (gitignoriert). Löschen geht unter `/admin`.
 
+## Monatsbericht
+
+`/admin/monat` zeigt, welche Begriffe im laufenden Monat durch gesicherte
+Einträge gewachsen sind, welche Folgefragen offen sind, und welche
+Erkenntnisse am häufigsten geöffnet wurden. Der Zähler speichert nur
+`id → Zahl` in `data/views/erkenntnisse.json` (gitignoriert). Keine Adressen,
+keine Namen. Ohne Token antwortet die Schnittstelle mit 401.
+
 ## Gruppen-Werkstatt
 
 `/werkstatt` öffnet eine Runde zu einem Begriff. Der Code in der Adresse

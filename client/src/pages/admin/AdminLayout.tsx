@@ -19,6 +19,7 @@ const TABS: Array<{ path: string; label: string }> = [
   { path: "/admin/metrics",  label: "Metrics" },
   { path: "/admin/health",   label: "Health" },
   { path: "/admin/settings", label: "Einstellungen" },
+  { path: "/admin/monat",    label: "Monat" },
 ];
 
 export default function AdminLayout({ children }: { children: ReactNode }) {
@@ -70,7 +71,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
   }
 
   // ─── Authorisiert, Mobile → MobileBetrieb statt Tab-Layout + children ──
-  if (isMobile) {
+  if (isMobile && location !== "/admin/monat") {
     const activeTab: BetriebTab = location === "/admin/metrics" ? "met" : location === "/admin/health" ? "health" : "kur";
     const routeFor: Record<BetriebTab, string> = { kur: "/admin", met: "/admin/metrics", health: "/admin/health", status: "/status" };
     return <MobileBetrieb C={C} isDark={isDark} activeTab={activeTab} onTabChange={tab => navigate(routeFor[tab])} />;
