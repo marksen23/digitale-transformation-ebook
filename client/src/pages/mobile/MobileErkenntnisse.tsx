@@ -5,7 +5,7 @@
  * exakt dieselbe Ableitung wie ErkenntnissePage, nur neu gerahmt.
  */
 import { useEffect, useMemo, useState } from "react";
-import { useLocation } from "wouter";
+import { Link, useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLocale, useT } from "@/i18n";
 import { loadKernsatzTranslations, showKernsatz } from "@/lib/kernsatzI18n";
@@ -47,7 +47,10 @@ export default function MobileErkenntnisse() {
         {tr("insights.title")} <span style={{ color: C.accentText }}>·</span> {tr("insights.kicker")}
       </div>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 16 }}>
-        {tr("insights.intro")}
+        {tr("insights.intro")}{" "}
+        <Link href="/hoeren" style={{ color: C.accentText }}>{tr("insights.listening")}</Link>
+        {" · "}
+        <Link href="/fortschreibung" style={{ color: C.accentText }}>{tr("insights.print")}</Link>
       </div>
       <NewsletterSignup C={C} compact />
 
