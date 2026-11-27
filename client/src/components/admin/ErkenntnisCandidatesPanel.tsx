@@ -1,3 +1,4 @@
+import { fetchCorpus } from "@/lib/corpusFetch";
 /**
  * ErkenntnisCandidatesPanel — Admin-UI für die Erkenntnisse-Phase 2.
  *
@@ -117,7 +118,7 @@ function AutoPublishedSection({ C }: { C: Palette }) {
     loadResonanzenIndexLazy().then(idx => {
       setMasters((idx?.entries ?? []).filter(e => e.is_master && e.autoPublished && e.status === "published"));
     });
-    fetch(`/resonanzen-erkenntnis-withdrawn.json?_=${Date.now()}`, { cache: "no-store" })
+    fetchCorpus("/resonanzen-erkenntnis-withdrawn.json")
       .then(r => (r.ok ? r.json() : null))
       .then(data => {
         const kernsaetze = Array.isArray(data?.kernsaetze) ? data.kernsaetze as Erkenntnis[] : [];

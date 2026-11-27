@@ -39,6 +39,8 @@ describe("security headers", () => {
       "public, max-age=31536000, immutable",
     );
     expect(staticCacheControl(root, "/app/dist/public/index.html")).toBe("no-cache");
+    expect(staticCacheControl(root, "/app/dist/public/resonanzen-index.json")).toBe("no-cache");
+    expect(staticCacheControl(root, "/app/dist/public/ebook_content.md")).toBe("no-cache");
     expect(staticCacheControl(root, "/app/dist/public/icons/favicon-32.png")).toBeNull();
   });
 });

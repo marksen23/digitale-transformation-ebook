@@ -17,6 +17,7 @@
  */
 import type { Request, Response, NextFunction } from "express";
 import { isHeavyPublicJson } from "../../shared/heavyAssets.js";
+import { entityTag, isNotModified } from "./assetFreshness.js";
 
 const REPO_OWNER = process.env.GITHUB_REPO_OWNER ?? "marksen23";
 const REPO_NAME = process.env.GITHUB_REPO_NAME ?? "digitale-transformation-ebook";
@@ -68,9 +69,15 @@ export async function rawAssetMiddleware(req: Request, res: Response, next: Next
   const entry = _cache.get(url);
 
   const send = (text: string) => {
-    res.setHeader("Content-Type", "application/json; charset=utf-8");
-    res.setHeader("Cache-Control", "public, max-age=60");
+    const tag = entityTag(text);
+    res.setHeader("ETag", tag);
+    res.setHeader("Cache-Control", "no-cache");
     res.setHeader("X-Asset-Source", "github-raw");
+    if (isNotModified(req.get("if-none-match"), tag)) {
+      res.status(304).end();
+      return;
+    }
+    res.setHeader("Content-Type", "application/json; charset=utf-8");
     res.send(text);
   };
 

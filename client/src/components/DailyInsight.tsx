@@ -1,3 +1,4 @@
+import { fetchCorpus } from "@/lib/corpusFetch";
 /**
  * Erkenntnis des Tages auf der Startseite. Dieselbe Auswahl wie der Atom-Feed.
  */
@@ -19,7 +20,7 @@ export default function DailyInsight({ compact = false }: { compact?: boolean })
     let live = true;
     Promise.all([
       loadErkenntnisse(),
-      fetch(`/resonanzen-erkenntnis-withdrawn.json?_=${Date.now()}`, { cache: "no-store" })
+      fetchCorpus("/resonanzen-erkenntnis-withdrawn.json")
         .then(r => (r.ok ? r.json() : null))
         .catch(() => null),
     ]).then(([list, held]) => {

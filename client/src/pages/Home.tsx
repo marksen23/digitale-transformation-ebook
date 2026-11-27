@@ -9,7 +9,7 @@ import {
   Maximize2, Minimize2, ChevronRight, SlidersHorizontal,
   Compass, BookMarked,
 } from 'lucide-react';
-import { parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
+import { coverEbook, parseEbookMarkdown, type EbookData, type Chapter } from '@/lib/parseEbook';
 const EnkiduPage      = lazy(() => import('./EnkiduPage'));
 import { useLocation } from 'wouter';
 import { useIsMobile } from '@/hooks/useMobile';
@@ -66,8 +66,9 @@ export default function Home() {
   const tr = useT();
   const locale = useLocale();
   // Data
-  const [ebook, setEbook] = useState<EbookData | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [ebook, setEbook] = useState<EbookData>(() => coverEbook());
+  const [bodyReady, setBodyReady] = useState(false);
+  const [loadError, setLoadError] = useState(false);
 
   // Navigation
   const [currentId, setCurrentId] = useLocalStorage<string>('ebook-chapter', '__cover__');
@@ -187,17 +188,26 @@ export default function Home() {
   const contentRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Load ebook
+  // Der Volltext kommt erst, wenn ein Kapitel oder die Suche ihn braucht.
+  // Das Cover steht schon aus den Kapitelüberschriften.
   useEffect(() => {
-    fetch('/ebook_content.md')
-      .then(r => r.text())
-      .then(text => {
-        const data = parseEbookMarkdown(text);
-        setEbook(data);
+    const chapter = new URLSearchParams(window.location.search).get("chapter");
+    if (currentId === "__cover__" && !searchOpen && !chapter) return;
+    if (bodyReady) return;
+    let live = true;
+    fetch("/ebook_content.md", { cache: "no-cache" })
+      .then(r => {
+        if (!r.ok) throw new Error(String(r.status));
+        return r.text();
       })
-      .catch(console.error)
-      .finally(() => setLoading(false));
-  }, []);
+      .then(text => {
+        if (!live) return;
+        setEbook(parseEbookMarkdown(text));
+        setBodyReady(true);
+      })
+      .catch(() => { if (live) setLoadError(true); });
+    return () => { live = false; };
+  }, [currentId, searchOpen, bodyReady]);
 
   // M7: ?chapter=<id> Deep-Link — wird von der globalen Cmd-K-Suche genutzt.
   // Wenn der Param gesetzt ist und das Kapitel existiert, dorthin navigieren.
@@ -819,7 +829,8 @@ export default function Home() {
 
   // ─── Render ────────────────────────────────────────────────────────
 
-  if (loading) {
+  const needsBody = currentId !== "__cover__" || searchOpen;
+  if (needsBody && !bodyReady && !loadError) {
     return (
       <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-stone-950 text-stone-200' : 'bg-stone-50 text-stone-800'}`}>
         <div className="text-center space-y-4">
@@ -830,7 +841,7 @@ export default function Home() {
     );
   }
 
-  if (!ebook) {
+  if (loadError && needsBody) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
         <p className="text-red-600">{tr("home.loadError")}</p>

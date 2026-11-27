@@ -1,3 +1,4 @@
+import { fetchCorpus } from "@/lib/corpusFetch";
 /**
  * Hörfassung (/hoeren). Kernsätze und kurze Kapitelimpulse,
  * gesprochen von der Stimme des Browsers.
@@ -30,7 +31,7 @@ export default function HoerenPage() {
     setVoice(typeof window !== "undefined" && "speechSynthesis" in window);
     Promise.all([
       loadErkenntnisse(),
-      fetch("/resonanzen-erkenntnis-withdrawn.json", { cache: "no-store" }).then(r => (r.ok ? r.json() : null)).catch(() => null),
+      fetchCorpus("/resonanzen-erkenntnis-withdrawn.json").then(r => (r.ok ? r.json() : null)).catch(() => null),
     ]).then(([list, held]) => {
       const blocked = Array.isArray(held?.answerIds) ? held.answerIds as string[] : [];
       setKern(audibleKernsaetze(list, blocked));

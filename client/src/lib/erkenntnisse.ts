@@ -1,3 +1,4 @@
+import { fetchCorpus } from "./corpusFetch";
 /**
  * erkenntnisse.ts — lädt die menschlich bestätigten Erkenntnisse
  * (client/public/resonanzen-erkenntnisse.json, Erkenntnisse-Vision).
@@ -23,7 +24,7 @@ let _promise: Promise<Erkenntnis[]> | null = null;
 export function loadErkenntnisse(): Promise<Erkenntnis[]> {
   if (_cache) return Promise.resolve(_cache);
   if (_promise) return _promise;
-  _promise = fetch(`/resonanzen-erkenntnisse.json?_=${Date.now()}`, { cache: "no-store" })
+  _promise = fetchCorpus("/resonanzen-erkenntnisse.json")
     .then(r => (r.ok ? r.json() : null))
     .then(data => {
       const list = Array.isArray(data?.erkenntnisse) ? (data.erkenntnisse as Erkenntnis[]) : [];

@@ -16,7 +16,7 @@ let ebookPromise: Promise<EbookData> | null = null;
 async function loadEbook(): Promise<EbookData> {
   if (ebookCache) return ebookCache;
   if (ebookPromise) return ebookPromise;
-  ebookPromise = fetch("/ebook_content.md")
+  ebookPromise = fetch("/ebook_content.md", { cache: "no-cache" })
     .then(r => r.text())
     .then(text => {
       const data = parseEbookMarkdown(text);
@@ -26,15 +26,15 @@ async function loadEbook(): Promise<EbookData> {
   return ebookPromise;
 }
 
-export function useEbook(): EbookData | null {
+export function useEbook(enabled = true): EbookData | null {
   const [data, setData] = useState<EbookData | null>(ebookCache);
   useEffect(() => {
-    if (data) return;
+    if (!enabled || data) return;
     let cancelled = false;
     loadEbook()
       .then(d => { if (!cancelled) setData(d); })
       .catch(() => { /* ignore — Cmd-K bleibt ohne Werk-Treffer */ });
     return () => { cancelled = true; };
-  }, [data]);
+  }, [data, enabled]);
   return data;
 }

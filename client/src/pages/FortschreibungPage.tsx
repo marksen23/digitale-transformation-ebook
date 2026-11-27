@@ -1,3 +1,4 @@
+import { fetchCorpus } from "@/lib/corpusFetch";
 /**
  * Fortschreibung (/fortschreibung). Druckbare Sammlung der veröffentlichten
  * Erkenntnisse nach Quartal und Begriff. PDF über den Druckdialog des Browsers.
@@ -29,7 +30,7 @@ export default function FortschreibungPage() {
     Promise.all([
       loadErkenntnisse(),
       loadResonanzenIndexLazy(),
-      fetch("/resonanzen-erkenntnis-withdrawn.json", { cache: "no-store" }).then(r => (r.ok ? r.json() : null)).catch(() => null),
+      fetchCorpus("/resonanzen-erkenntnis-withdrawn.json").then(r => (r.ok ? r.json() : null)).catch(() => null),
     ]).then(([erk, index, held]) => {
       const feed = buildErkenntnisFeed(erk, index?.entries ?? []);
       const items: FortItem[] = feed.map(item => ({
