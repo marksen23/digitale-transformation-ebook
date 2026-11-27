@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T19:56:05.346Z",
+  "generatedAt": "2026-11-27T19:57:46.286Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -120,6 +120,23 @@
       ]
     },
     {
+      "source": "entfremdung",
+      "target": "resonanzimperativ",
+      "cooccurrence": 5,
+      "endpoints": {
+        "path-analyse": 1,
+        "dialog": 2,
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZEJDJB-912399B4",
+        "MWZEGQYC-567A529E",
+        "MWP85762-03FEE922",
+        "MWCASDSY-E712A809",
+        "MWCANTL2-D21DAFD5"
+      ]
+    },
+    {
       "source": "moment",
       "target": "zwischen",
       "cooccurrence": 5,
@@ -147,21 +164,6 @@
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
         "MP0QMSOR-C6EC1B5A"
-      ]
-    },
-    {
-      "source": "entfremdung",
-      "target": "resonanzimperativ",
-      "cooccurrence": 4,
-      "endpoints": {
-        "dialog": 2,
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWZEGQYC-567A529E",
-        "MWP85762-03FEE922",
-        "MWCASDSY-E712A809",
-        "MWCANTL2-D21DAFD5"
       ]
     },
     {
@@ -508,6 +510,18 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "entfremdung",
+      "target": "selbst",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZEJDJB-912399B4",
+        "MWCAUU1H-558EDB1E"
       ]
     },
     {
@@ -1242,8 +1256,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 452,
-    "candidatesCount": 94,
+    "totalPairs": 456,
+    "candidatesCount": 95,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

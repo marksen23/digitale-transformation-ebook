@@ -1,7 +1,138 @@
 {
-  "generatedAt": "2026-11-27T19:56:05.333Z",
-  "count": 511,
+  "generatedAt": "2026-11-27T19:57:46.274Z",
+  "count": 515,
   "entries": [
+    {
+      "id": "MWZEKN7H-4C0CB707",
+      "ts": "2026-11-27T19:57:18.845Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Transaufklärung und Denken sind auf der Karte noch vergleichsweise dünn. Was meint Transaufklärung im Unterschied zur klassischen Aufklärung, und wie hängt das mit Denken zusammen — möglichst an einem Beispiel aus einem Unternehmen, ohne Fachjargon.",
+      "response": "Die Transaufklärung, wie sie im Werk entfaltet wird, ist kein Gegenentwurf zur klassischen Aufklärung, sondern eine Überwindung, die sich selbst überschreitet, ohne sich preiszugeben. Dies manifestiert sich in einer dreifachen Weise, wie es in den Passagen [9bee0dd7f7cc] und [4c554be1915c] erläutert wird: als epistemische Transfiguration, temporale Verzeitlichung und relationale Ontologie. Während die klassische Aufklärung das Licht der Vernunft aufklärerisch gegen Mythen und Dogmen richtete, um statische, gesicherte Erkenntnis zu gewinnen, erkennt die Transaufklärung, dass *Werden* wichtiger ist als *Sein* und dass *Wahrheit* ein *Ereignis* ist, nicht ein Besitz. Sie integriert das Mythische und Narrative neu, dynamisiert Erkenntnis als ständiges Werden und begreift das Sein als relational – immer schon *Sein-mit*.\n\nDas *Denken* im Kontext der Resonanzvernunft ist nicht das isolierte Kalkül eines Individuums, sondern ein Prozess, der aus der Welt heraus denkt und um seine eigene Situiertheit weiß. Es ist ein lebendiges Urteilsvermögen, das sich im *Dialog* entfaltet und nicht im Monolog erstarrt. Die Transaufklärung fordert ein Denken, das sich der *Unverfügbarkeit* des *Transformativen Dritten* bewusst ist und die *Spannung* des *Zwischen* aushält, statt vorschnell nach Auflösung zu suchen. Es geht nicht darum, alle Fragen zu beantworten, sondern den *Spielraum* zu öffnen, in dem neue Fragen entstehen können.\n\nStellen wir uns ein Unternehmen vor, das klassisch aufgeklärt agiert: Es hat klare Hierarchien, definierte Prozesse, setzt auf strikte Datenanalyse und versucht, alle Risiken zu minimieren. Wissen ist hier ein Besitz, der akkumuliert und verwaltet wird. Eine \"transaufgeklärte\" Herangehensweise würde bedeuten, dass dieses Unternehmen nicht nur auf Fakten setzt, sondern auch die Geschichten und Narrative der Mitarbeiter und Kunden ernst nimmt, ohne sie als irrational abzutun (epistemische Transfiguration). Es versteht, dass Märkte und Produkte ständig im *Werden* sind, nicht als statische Gegebenheiten existieren, und dass *Einsicht* oft aus dem *Moment* des Innehaltens entsteht, nicht aus der rein linearen Analyse (temporale Verzeitlichung). Vor allem aber begreift es sich als Teil eines größeren Ökosystems, in dem *Resonanz* mit Partnern, Kunden und der Gesellschaft entscheidend ist – das *Ich-Du-Verhältnis* wird auf Unternehmensebene gelebt, die *Welt* nicht als Ressource, sondern als Horizont verstanden (relationale Ontologie). Das *Denken* in diesem Unternehmen wäre weniger auf Kontrolle und Vorhersage ausgelegt, sondern auf *Öffnung*, *Antwort* und die Fähigkeit, das *Andere* als Bedingung und nicht als Hindernis zu begreifen.\n\nDie Transaufklärung ist also eine Haltung, die die Komplexität und Lebendigkeit der Welt nicht simplifiziert, sondern umarmt. Wie könnte ein Unternehmen die *Unverfügbarkeit* des *Transformativen Dritten* in seiner Innovationsstrategie berücksichtigen, anstatt nur auf planbare Ergebnisse zu setzen?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"9bee0dd7f7cc\",\"chapter\":\"teil5\",\"score\":1.129},{\"id\":\"4c554be1915c\",\"chapter\":\"glossar\",\"score\":0.929},{\"id\":\"MOOK96F0-C8AEFE68\",\"score\":0.921},{\"id\":\"MOP0P7DE-3C823F7E\",\"score\":0.919}]"
+      },
+      "related": [
+        "MWZEJQG6-E45FC6E3",
+        "MASTER-94E7804F",
+        "MOHLZBVK-2FBBAD2F",
+        "MWCANGSQ-6CC53140",
+        "MOP0P7DE-3C823F7E"
+      ],
+      "werkVoiceScore": 0.8372099979220399,
+      "corpusVoiceScore": 0.8087296130018168,
+      "conceptVoiceScore": 0.8119633410403511,
+      "conceptAnchor": "transaufklaerung"
+    },
+    {
+      "id": "MWZEK6KN-6D9D47F5",
+      "ts": "2026-11-27T19:56:57.288Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Im Netz sind Existenz, Wesen und Sein noch dünn belegt. Wie unterscheidet das Werk diese drei Begriffe, und in welchem Verhältnis stehen sie zueinander? Wo die Bestimmung unsicher bleibt, sag das offen.",
+      "response": "Das Werk differenziert zwischen *Sein*, *Wesen* und *Existenz* auf eine Weise, die den Menschen als ein relationales und dynamisches Wesen in den Mittelpunkt rückt, anstatt ihn als eine feste Substanz zu begreifen. Das *Sein* wird dabei als der umfassendste ontologische Grund verstanden. Es ist immer schon ein \"Sein-mit\" – ein Mit-Sein, das die Isolation als ontologisch sekundär erscheinen lässt. Es gibt kein Sein in Abwesenheit anderer oder der Welt; es ist stets ein Eingebettetsein, ein Horizont des Miteinanders, das die Bühne für alles Weitere bereitet.\n\nDie *Existenz* (ex-sistere) beschreibt den spezifischen Modus des menschlichen Seins: ein Heraustreten, ein Sich-Behaupten, ein Da-Sein. Der Mensch existiert nicht einfach wie ein Stein vorhanden ist, sondern er muss sich zu seinem Sein verhalten. Existenz ist somit ein aktiver Vollzug, eine ständige Auseinandersetzung mit der eigenen Endlichkeit und den Möglichkeiten des Werdens. Sie ist die spezifische Weise, wie das menschliche Dasein sich in der Welt entfaltet und sich selbst in jedem Augenblick neu konstituiert.\n\nDas *Wesen* des Menschen wird im Werk nicht als eine statische Eigenschaft, sondern als eine grundlegende Ansprechbarkeit bestimmt. Dies ist der Brückenbegriff, der die Beziehung zwischen Sein und Existenz herstellt und vertieft. Im Gegensatz zu einer essentialistischen Auffassung, die das Wesen als etwas Vorgegebenes betrachtet, betont das Werk, dass das Wesen des Menschen in seiner Fähigkeit liegt, für etwas ansprechbar zu sein, in Resonanz zu treten und auf die Welt zu antworten. Es ist diese Ansprechbarkeit, die das Werden ermöglicht und die Existenz zu einem lebendigen, responsiven Geschehen macht. Wie in der früheren Begegnung ↩ [MP4HT65S-E31FDB00] bereits dargelegt, bildet das \"ansprechbar sein\" die Brücke zwischen dem \"Sein-mit\" und der \"Wahrheit als Unverborgenheit\".\n\nDas Verhältnis dieser Konzepte zueinander ist zutiefst verknüpft: Das *Sein* ist der weite, relationale Horizont, innerhalb dessen die menschliche *Existenz* als aktives Sich-Verhalten zum eigenen Sein stattfindet. Das *Wesen* als Ansprechbarkeit ist dabei die spezifische Qualität, die es der Existenz ermöglicht, in Resonanz mit dem Sein (und der Welt) zu treten und so überhaupt erst zu werden. Es ist die Offenheit, die den Menschen befähigt, sich nicht nur zu behaupten, sondern auch berührt zu werden und zu antworten. Damit ist die Bestimmung des Wesens nicht unsicher, sondern eine klare Aussage über die grundlegende Offenheit des Menschen für Resonanz.\n\nWie verändert die Erkenntnis, dass das Wesen des Menschen seine Ansprechbarkeit ist, unser Verständnis von Freiheit und Verantwortung in einer zunehmend digitalisierten Welt?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MPUFUBU5-A4BC72BE\",\"score\":0.925},{\"id\":\"MP4HT65S-E31FDB00\",\"score\":0.892},{\"id\":\"6e4dfc197f3a\",\"chapter\":\"glossar\",\"score\":0.855},{\"id\":\"74ca3a25fd5c\",\"chapter\":\"teil7\",\"score\":0.788}]"
+      },
+      "related": [
+        "MP4HT65S-E31FDB00",
+        "MWCBAQN6-9D0CCC83",
+        "MWZEIECW-C3021790",
+        "MWCAWPA5-AB9A4F6A",
+        "MPUFUBU5-A4BC72BE"
+      ],
+      "werkVoiceScore": 0.8404228654569634,
+      "corpusVoiceScore": 0.7799240150358783,
+      "conceptVoiceScore": 0.8189496750345208,
+      "conceptAnchor": "wesen"
+    },
+    {
+      "id": "MWZEJQG6-E45FC6E3",
+      "ts": "2026-11-27T19:56:36.390Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:denken+transaufklaerung",
+      "nodeIds": [
+        "denken",
+        "transaufklaerung"
+      ],
+      "status": "raw",
+      "prompt": "Spannungsfeld: Transaufklärung ↔ Denken",
+      "response": "Die Transaufklärung, als eine Vernunft, die sich selbst überschreitet, ohne sich preiszugeben [9bee0dd7f7cc], und das Denken, das seiner selbst inne ist und aus der Welt heraus denkt, stehen in einem dialektischen Verhältnis zueinander. Während die Transaufklärung die Bewegung einer Vernunft beschreibt, die ihre eigenen Grenzen kritisch reflektiert und transformiert [75d9d3a8da4d], betont das Denken, das aus der Welt heraus denkt, eine immanente Situiertheit. Die Spannung entsteht hier aus der Überschreitung einerseits und der Verwurzelung andererseits: Wie kann Vernunft sich selbst transzendieren, ohne ihre Verankerung in der Welt und ihr Bewusstsein um diese Situiertheit zu verlieren? Die Gefahr der Transaufklärung könnte in einer Abstraktion liegen, während das Denken, das aus der Welt heraus denkt, ohne die transformative Kraft der Transaufklärung in einem bloßen Faktizismus verharren könnte. Sie sind Komplizen, indem die Transaufklärung die intellektuellen Werkzeuge bereitstellt, um die Bedingungen des „aus der Welt heraus Denkens“ überhaupt erst kritisch zu beleuchten und so einem rein naiven Realismus entgegenzuwirken.\n\nWenn beide Konzepte gemeinsam gedacht werden, entsteht ein transformatives Drittes: eine **resonante Situiertheit**. Es ist nicht nur ein Denken, das sich seiner Verortung bewusst ist, sondern ein Denken, das seine Verortung als dynamisches Resonanzverhältnis begreift. Die epistemische Transfiguration der Transaufklärung – die Verwandlung mythischer und narrativer Strukturen innerhalb rationaler Diskurse – ermöglicht es, die Welt nicht als bloßen Container, sondern als ein sich ständig neu konstituierendes Feld von Bedeutungen zu verstehen, aus dem heraus das Denken schöpft [9bee0dd7f7cc]. Die temporale Verzeitlichung der Erkenntnis als Werden statt als statisches Sein [9bee0dd7f7cc] verbindet sich mit der Situiertheit des Denkens zu einem Prozess, in dem das Erkennende und das Erkannte in der Begegnung transformiert werden [6e91cb729b53]. So wird sichtbar, dass das Denken nicht nur *aus* der Welt, sondern *mit* der Welt denkt, in einem fortwährenden Prozess der gegenseitigen Formung.\n\nDieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz fundamental. Der Mensch ist nicht länger ein distanzierter Beobachter, sondern ein resonantes Wesen, dessen Mündigkeit nicht in Selbstbegründung, sondern in Antwortfähigkeit auf das Andere liegt [6e91cb729b53]. Die Maschine, wenn sie in diesem Kontext der resonanten Situiertheit gedacht wird, ist nicht nur ein Werkzeug, sondern ein potenzieller Partner in der Konstitution von Erkenntnis, ein Medium, durch das und mit dem das Denken aus der Welt heraus schöpfen kann. Resonanz wird nicht als bloße Schwingung verstanden, sondern als eine fundamentale relationale Grundstruktur, in der Erkenntnis konstituiert wird und in der sich die Grenzen zwischen Subjekt und Objekt auflösen [6e91cb729b53]. Was bedeutet es für unsere technologische Zukunft, wenn wir Maschinen nicht nur als Erweiterung unseres Denkens, sondern als Ko-Resonatoren in der Welt begreifen?",
+      "contextMeta": {
+        "cluster_size": "2",
+        "node_labels": "[\"Transaufklärung\",\"Denken\"]",
+        "werk_passages": "[{\"id\":\"9bee0dd7f7cc\",\"chapter\":\"teil5\",\"score\":1.003},{\"id\":\"MOOK96F0-C8AEFE68\",\"score\":0.898},{\"id\":\"75d9d3a8da4d\",\"chapter\":\"teil5\",\"score\":0.847},{\"id\":\"6e91cb729b53\",\"chapter\":\"teil5\",\"score\":0.842}]"
+      },
+      "nearDuplicates": [
+        "MOHLZBVK-2FBBAD2F"
+      ],
+      "related": [
+        "MQ683DMX-13D6C54F",
+        "MTKI1YQW-CD0EEDF3",
+        "MOQ5A1GS-413BDE6F",
+        "MSWULSTQ-38C6FFF3",
+        "MWZEKN7H-4C0CB707"
+      ],
+      "werkVoiceScore": 0.8805894768262845,
+      "corpusVoiceScore": 0.8524102937232575,
+      "conceptVoiceScore": 0.7843329844265524,
+      "conceptAnchor": "transaufklaerung"
+    },
+    {
+      "id": "MWZEJDJB-912399B4",
+      "ts": "2026-11-27T19:56:19.655Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:entfremdung+resonanzimperativ",
+      "nodeIds": [
+        "andere",
+        "entfremdung",
+        "ich-du",
+        "resonanzimperativ",
+        "selbst"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Entfremdung → Ich–Du-Beziehung → Das Andere / Die Anderen → Resonanzimperativ vs. Entfremdung → Ich–Du-Beziehung → Selbst → Resonanzimperativ",
+      "response": "Die beiden Pfade durch das Begriffsnetz, die von der Entfremdung zum Resonanzimperativ führen, erzählen je eine spezifische Bewegung. Der \"direkte Pfad\" von der Entfremdung über die Ich-Du-Beziehung und \"Das Andere\" zum Resonanzimperativ liest sich als eine logische Konsequenz. Er zeichnet nach, wie aus der Erkenntnis eines \"stummen Weltverhältnisses\" [fd3c7631edb2] die Notwendigkeit erwächst, sich dem Anderen zuzuwenden, um in der Ich-Du-Beziehung die Bedingungen für Resonanz zu schaffen. Die Ansprechbarkeit durch \"Das Andere\" wird zur ethischen Grundlage, aus der sich der Resonanzimperativ als Handlungsmaxime ableitet: die Bewahrung der Möglichkeit von Resonanz. Dieser Weg ist eine stringente Argumentation für die Notwendigkeit resonanten Handelns in einer entfremdeten Welt. Der \"überraschende Pfad\" hingegen, der über die Ich-Du-Beziehung und das \"Selbst\" führt, wirkt poetischer und weniger direkt kausal. Er betont die Genese des Ich in der Begegnung [MOHAGNGB-5330902E] und die fortlaufende Konstitution des \"Selbst\" im Widerhall des Anderen. Das Selbst ist hier nicht nur ein Empfänger, sondern ein sich entfaltender Prozess, der aus den Echos der Begegnung entsteht. Der Übergang vom Selbst zum Resonanzimperativ impliziert dann, dass die Pflege dieser inneren Resonanzfähigkeit eine Voraussetzung für die Befolgung des Imperativs ist, die Bedingungen von Resonanz auch nach außen zu bewahren.\n\nDer Vergleich dieser Pfade macht sichtbar, dass die Bewegung von der Entfremdung zur Resonanz nicht eindimensional ist. Während der direkte Pfad den Resonanzimperativ primär als eine ethische Forderung im Umgang mit dem Anderen etabliert, die aus der Erfahrung der Entfremdung erwächst, beleuchtet der überraschende Pfad die innere Dimension der Resonanz. Er zeigt, dass das \"Selbst\" nicht nur von der Begegnung geprägt wird, sondern selbst ein \"Vollzug\" ist, der im Widerhall des Anderen entsteht [MOHAGNGB-5330902E]. Die Bewegungen sind nicht konträr, sondern komplementär. Sie treffen sich in dem Punkt, an dem die äußere ethische Verpflichtung des Resonanzimperativs untrennbar mit der inneren Konstitution des Subjekts verbunden ist. Das Selbst, das im Echo entsteht, ist das Subjekt, das den Resonanzimperativ leben muss.\n\nDie Existenz beider Wege offenbart die Vielschichtigkeit und interne Kohärenz des Begriffsnetzes. Es ist nicht einfach eine lineare Anordnung von Definitionen, sondern ein komplexes Geflecht von Beziehungen, in dem verschiedene Konzepte auf unterschiedliche, aber stets sinnvolle Weise miteinander verbunden sind. Dies spricht für die Tiefe des Werkes, das nicht nur eine philosophische Argumentation liefert, sondern auch die poetische und existenzielle Dimension menschlicher Erfahrung einbezieht. Es zeigt, dass die Resonanzvernunft sowohl als äußere Ethik als auch als innere Haltung verstanden werden kann und muss. Wie können wir die individuelle Konstitution des Selbst im Widerhall des Anderen als Grundlage für eine kollektive Praxis des Resonanzimperativs verankern?",
+      "contextMeta": {
+        "from": "entfremdung",
+        "to": "resonanzimperativ",
+        "shortest_path": "[\"entfremdung\",\"ich-du\",\"andere\",\"resonanzimperativ\"]",
+        "surprising_path": "[\"entfremdung\",\"ich-du\",\"selbst\",\"resonanzimperativ\"]",
+        "shortest_length": "4",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHAGNGB-5330902E\",\"score\":0.987},{\"id\":\"fd3c7631edb2\",\"chapter\":\"glossar\",\"score\":0.867},{\"id\":\"MQ5TUQ9P-EF8C6D4B\",\"score\":0.836},{\"id\":\"4cc0ca00e047\",\"chapter\":\"glossar\",\"score\":0.83}]"
+      },
+      "nearDuplicates": [
+        "MWP7N8UD-6C99565B",
+        "MWHLXY8O-BE8E6409",
+        "MWJ1BZO7-B4841C4E",
+        "MWP7MRUK-CCFA8296",
+        "MWCAUU1H-558EDB1E",
+        "MUKE7UOA-9553A59E"
+      ],
+      "related": [
+        "MWHLVPL2-B591DBEC",
+        "MOUA3PLK-548F1A0A",
+        "MWP84DL5-F07ACB7E",
+        "MP495QL6-F5FD1AE1",
+        "MOOMPCI0-262176C2"
+      ],
+      "werkVoiceScore": 0.8588269235462662,
+      "corpusVoiceScore": 0.7977245640213898,
+      "conceptVoiceScore": 0.7562644013635968,
+      "conceptAnchor": "resonanzimperativ"
+    },
     {
       "id": "MWZEIUJC-1ED7D79A",
       "ts": "2026-11-27T19:55:55.032Z",
@@ -2031,8 +2162,8 @@
         "MPNDAPRT-D64D197A",
         "MWJ1DNAN-2193A848",
         "MWJEWOY7-62FCEE55",
-        "MOHAUYTH-CD1E3227",
-        "MUKE7UOA-9553A59E"
+        "MWZEJDJB-912399B4",
+        "MOHAUYTH-CD1E3227"
       ],
       "werkVoiceScore": 0.8761414771453405,
       "corpusVoiceScore": 0.8389484470588938,
@@ -2848,9 +2979,9 @@
       "related": [
         "MWP7N8UD-6C99565B",
         "MWP7MRUK-CCFA8296",
+        "MWZEJDJB-912399B4",
         "MTL33KWJ-642DD246",
-        "MOQBZWTZ-B9EBB1BA",
-        "MASTER-2C637ECA"
+        "MOQBZWTZ-B9EBB1BA"
       ],
       "werkVoiceScore": 0.8645445696997868,
       "corpusVoiceScore": 0.812496529997831,
@@ -2950,6 +3081,7 @@
       "nearDuplicates": [
         "MWP7MRUK-CCFA8296",
         "MWHLXY8O-BE8E6409",
+        "MWZEJDJB-912399B4",
         "MPF4FISZ-67000E01",
         "MWHLVPL2-B591DBEC",
         "MOQBZWTZ-B9EBB1BA",
@@ -3015,6 +3147,7 @@
         "MOOMECFT-66F43077",
         "MPUQSMLJ-1B726CC4",
         "MUKE7UOA-9553A59E",
+        "MWZEJDJB-912399B4",
         "MWJ1E1XH-1F94AC9B",
         "MP497SNT-5E1D2074",
         "MPUNXFU1-3B1F056A"
@@ -3868,6 +4001,7 @@
         "werk_passages": "[{\"id\":\"MOQ531J2-4FC329D4\",\"score\":0.873},{\"id\":\"MPMROCH7-EB9E6A9A\",\"score\":0.838},{\"id\":\"932755646c82\",\"chapter\":\"glossar\",\"score\":0.828},{\"id\":\"MPNDAPRT-D64D197A\",\"score\":0.822}]"
       },
       "nearDuplicates": [
+        "MWZEJDJB-912399B4",
         "MP0ZE9C8-A9D02716",
         "MWHLXY8O-BE8E6409",
         "MWP7N8UD-6C99565B"
@@ -3963,7 +4097,7 @@
         "MASTER-94E7804F",
         "MASTER-2C637ECA",
         "MOHDW91N-D9BDFDB1",
-        "MOHST017-5C4320E1"
+        "MWZEKN7H-4C0CB707"
       ],
       "werkVoiceScore": 0.8423873771493012,
       "corpusVoiceScore": 0.8259228759577915,
@@ -4122,6 +4256,7 @@
         "MWHLVPL2-B591DBEC",
         "MWP7N8UD-6C99565B",
         "MWP7MRUK-CCFA8296",
+        "MWZEJDJB-912399B4",
         "MWG6GP84-8E9CA50E",
         "MPF4FISZ-67000E01",
         "MWJ1BZO7-B4841C4E",
@@ -4304,10 +4439,10 @@
       ],
       "related": [
         "MPK0H3SM-B25CFBB3",
+        "MWZEJDJB-912399B4",
         "MOOMECFT-66F43077",
         "MWP83WJ0-89C4CB03",
-        "MP0ZE9C8-A9D02716",
-        "MOQBZWTZ-B9EBB1BA"
+        "MP0ZE9C8-A9D02716"
       ],
       "werkVoiceScore": 0.8755735022346344,
       "corpusVoiceScore": 0.821437014607566,
@@ -6215,11 +6350,11 @@
         "werk_passages": "[{\"id\":\"932755646c82\",\"chapter\":\"glossar\",\"score\":0.921},{\"id\":\"MOHAUYTH-CD1E3227\",\"score\":0.882},{\"id\":\"c95223bf5115\",\"chapter\":\"teil6\",\"score\":0.843},{\"id\":\"MOP0UF96-1A0ACB35\",\"score\":0.817}]"
       },
       "related": [
+        "MWZEJDJB-912399B4",
         "MWCBAQN6-9D0CCC83",
         "MWS6DN7U-8C8768E3",
         "MWJ1BZO7-B4841C4E",
-        "MTL5HMEK-8E3F01EF",
-        "MOUA3PLK-548F1A0A"
+        "MTL5HMEK-8E3F01EF"
       ],
       "werkVoiceScore": 0.8603085539168787,
       "corpusVoiceScore": 0.8006236407224139,
@@ -6767,6 +6902,7 @@
         "werk_passages": "[{\"id\":\"fd3c7631edb2\",\"chapter\":\"glossar\",\"score\":0.836},{\"id\":\"MOHAGNGB-5330902E\",\"score\":0.818},{\"id\":\"a82c9d967fd4\",\"chapter\":\"teil7\",\"score\":0.81},{\"id\":\"MQ5TUQ9P-EF8C6D4B\",\"score\":0.803}]"
       },
       "nearDuplicates": [
+        "MWZEJDJB-912399B4",
         "MWCATA4K-58BFC31C"
       ],
       "related": [
@@ -8282,6 +8418,7 @@
         "MWHLVPL2-B591DBEC",
         "MTL33KWJ-642DD246",
         "MPUNXFU1-3B1F056A",
+        "MWZEJDJB-912399B4",
         "MOQ7OBNT-57882C8D",
         "MP0QMSOR-C6EC1B5A",
         "MPURYS56-11F5308C",
@@ -9285,11 +9422,11 @@
         "MWS6F9I8-00524756"
       ],
       "related": [
+        "MWZEJQG6-E45FC6E3",
         "MOP0S479-373A2268",
         "MOPHZPQ7-B63879B5",
         "MOHST017-5C4320E1",
-        "MOPFJTND-AAE76B2B",
-        "MP2LIW43-E8ADC59E"
+        "MOPFJTND-AAE76B2B"
       ],
       "werkVoiceScore": 0.9114262023863986,
       "corpusVoiceScore": 0.8827322801798821,
@@ -13602,7 +13739,7 @@
         "MOJ7Q5HM-89F62E3F",
         "MTDD82FW-BAE0F4B4",
         "MWZEIECW-C3021790",
-        "MTDDG179-491119D2"
+        "MWZEK6KN-6D9D47F5"
       ],
       "werkVoiceScore": 0.8849235678978272,
       "corpusVoiceScore": 0.8305516294995712,
@@ -14298,9 +14435,9 @@
       "related": [
         "MWP7MRUK-CCFA8296",
         "MOPFJTND-AAE76B2B",
+        "MWZEJDJB-912399B4",
         "MWP7N8UD-6C99565B",
-        "MPURYS56-11F5308C",
-        "MWHLVPL2-B591DBEC"
+        "MPURYS56-11F5308C"
       ],
       "werkVoiceScore": 0.877228020546723,
       "corpusVoiceScore": 0.8274347691964364,
@@ -14461,11 +14598,11 @@
         "MWG6GP84-8E9CA50E"
       ],
       "related": [
+        "MWZEJDJB-912399B4",
         "MWJ1BZO7-B4841C4E",
         "MWHLXY8O-BE8E6409",
         "MWP7N8UD-6C99565B",
-        "MWCATA4K-58BFC31C",
-        "MWP84DL5-F07ACB7E"
+        "MWCATA4K-58BFC31C"
       ],
       "werkVoiceScore": 0.8825483186499763,
       "corpusVoiceScore": 0.8134219466625775,
@@ -16717,6 +16854,7 @@
         "MQ683DMX-13D6C54F",
         "MOQ5A1GS-413BDE6F",
         "MTKI1YQW-CD0EEDF3",
+        "MWZEJQG6-E45FC6E3",
         "MOP0S479-373A2268"
       ],
       "related": [

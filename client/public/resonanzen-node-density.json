@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T19:56:05.345Z",
+  "generatedAt": "2026-11-27T19:57:46.285Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 36,
@@ -96,9 +96,9 @@
       }
     },
     "denken": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "analyse": 7,
+        "analyse": 8,
         "path-analyse": 3
       }
     },
@@ -150,11 +150,11 @@
       }
     },
     "ich-du": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
+        "path-analyse": 3,
         "analyse": 7,
-        "dialog": 2,
-        "path-analyse": 2
+        "dialog": 2
       }
     },
     "antwort": {
@@ -197,17 +197,17 @@
       }
     },
     "selbst": {
-      "count": 22,
+      "count": 23,
       "endpoints": {
-        "analyse": 8,
-        "path-analyse": 14
+        "path-analyse": 15,
+        "analyse": 8
       }
     },
     "andere": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
+        "path-analyse": 6,
         "analyse": 7,
-        "path-analyse": 5,
         "dialog": 1
       }
     },
@@ -295,11 +295,11 @@
       }
     },
     "entfremdung": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "path-analyse": 2,
         "dialog": 3,
-        "analyse": 6,
-        "path-analyse": 1
+        "analyse": 6
       }
     },
     "echo-kammer": {
@@ -319,19 +319,19 @@
       }
     },
     "transaufklaerung": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "path-analyse": 3,
         "dialog": 2
       }
     },
     "resonanzimperativ": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "path-analyse": 3,
         "dialog": 3,
-        "analyse": 5,
-        "path-analyse": 2
+        "analyse": 5
       }
     },
     "unverfuegbarkeit": {

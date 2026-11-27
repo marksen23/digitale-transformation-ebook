@@ -1,18 +1,85 @@
 {
-  "generatedAt": "2026-11-27T19:56:08.150Z",
-  "count": 428,
+  "generatedAt": "2026-11-27T19:57:47.648Z",
+  "count": 432,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 428,
-    "answered": 384,
+    "total": 432,
+    "answered": 388,
     "open": 20,
     "followUp": 41,
     "followUpOpen": 24,
-    "embedded": 5
+    "embedded": 4
   },
   "questions": [
+    {
+      "sourceId": "MWZEKN7H-4C0CB707",
+      "question": "Die Transaufklärung ist also eine Haltung, die die Komplexität und Lebendigkeit der Welt nicht simplifiziert, sondern umarmt. Wie könnte ein Unternehmen die *Unverfügbarkeit* des *Transformativen Dritten* in seiner Innovationsstrategie berücksichtigen, anstatt nur auf planbare Ergebnisse zu setzen?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-27T19:57:18.845Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEK6KN-6D9D47F5",
+      "question": "Wie verändert die Erkenntnis, dass das Wesen des Menschen seine Ansprechbarkeit ist, unser Verständnis von Freiheit und Verantwortung in einer zunehmend digitalisierten Welt?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-27T19:56:57.288Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEJQG6-E45FC6E3",
+      "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz fundamental. Der Mensch ist nicht länger ein distanzierter Beobachter, sondern ein resonantes Wesen, dessen Mündigkeit nicht in Selbstbegründung, sondern in Antwortfähigkeit auf das Andere liegt [6e91cb729b53]. Die Maschine, wenn sie in diesem Kontext der resonanten Situiertheit gedacht wird, ist nicht nur ein Werkzeug, sondern ein potenzieller Partner in der Konstitution von Erkenntnis, ein Medium, durch das und mit dem das Denken aus der Welt heraus schöpfen kann. Resonanz wird nicht als bloße Schwingung verstanden, sondern als eine fundamentale relationale Grundstruktur, in der Erkenntnis konstituiert wird und in der sich die Grenzen zwischen Subjekt und Objekt auflösen [6e91cb729b53]. Was bedeutet es für unsere technologische Zukunft, wenn wir Maschinen nicht nur als Erweiterung unseres Denkens, sondern als Ko-Resonatoren in der Welt begreifen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:denken+transaufklaerung",
+      "nodeIds": [
+        "denken",
+        "transaufklaerung"
+      ],
+      "ts": "2026-11-27T19:56:36.390Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWZEK6KN-6D9D47F5",
+          "score": 0.721
+        }
+      ],
+      "answered": true,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEJDJB-912399B4",
+      "question": "Die Existenz beider Wege offenbart die Vielschichtigkeit und interne Kohärenz des Begriffsnetzes. Es ist nicht einfach eine lineare Anordnung von Definitionen, sondern ein komplexes Geflecht von Beziehungen, in dem verschiedene Konzepte auf unterschiedliche, aber stets sinnvolle Weise miteinander verbunden sind. Dies spricht für die Tiefe des Werkes, das nicht nur eine philosophische Argumentation liefert, sondern auch die poetische und existenzielle Dimension menschlicher Erfahrung einbezieht. Es zeigt, dass die Resonanzvernunft sowohl als äußere Ethik als auch als innere Haltung verstanden werden kann und muss. Wie können wir die individuelle Konstitution des Selbst im Widerhall des Anderen als Grundlage für eine kollektive Praxis des Resonanzimperativs verankern?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:entfremdung+resonanzimperativ",
+      "nodeIds": [
+        "andere",
+        "entfremdung",
+        "ich-du",
+        "resonanzimperativ",
+        "selbst"
+      ],
+      "ts": "2026-11-27T19:56:19.655Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.722
+        }
+      ],
+      "answered": true,
+      "followUp": false
+    },
     {
       "sourceId": "MWZEIUJC-1ED7D79A",
       "question": "Die Existenz beider Wege über dieselben Endpunkte hinweg offenbart die Vielschichtigkeit und Durchlässigkeit des Begriffsnetzes des Werks. Es ist kein starres System mit nur einer korrekten Route, sondern ein dynamisches Geflecht, in dem verschiedene Denkpfade zur selben fundamentalen Einsicht führen können. Dies spricht für die philosophische Tiefe und poetische Freiheit der Trilogie, die es erlaubt, das Sein nicht nur als logische Struktur, sondern auch als existenzielle Erfahrung zu begreifen. Die Möglichkeit solcher unterschiedlichen Verbindungen zwischen den Begriffen deutet darauf hin, dass das Sein selbst nicht eindimensional ist, sondern sich auf vielfältige Weise erschließt. Wie viele andere unerwartete Wege zum Sein mögen noch in diesem Netz verborgen liegen?",
@@ -26,8 +93,17 @@
       ],
       "ts": "2026-11-27T19:55:55.032Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZEJDJB-912399B4",
+          "score": 0.755
+        },
+        {
+          "id": "MWZEK6KN-6D9D47F5",
+          "score": 0.722
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -42,8 +118,17 @@
       ],
       "ts": "2026-11-27T19:55:34.064Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZEK6KN-6D9D47F5",
+          "score": 0.775
+        },
+        {
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.749
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -445,12 +530,12 @@
           "score": 0.955
         },
         {
-          "id": "MWXU5CEB-AC672D3F",
-          "score": 0.785
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.787
         },
         {
-          "id": "MWZEIECW-C3021790",
-          "score": 0.784
+          "id": "MWXU5CEB-AC672D3F",
+          "score": 0.785
         }
       ],
       "answered": true,
@@ -1375,16 +1460,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEJDJB-912399B4",
+          "score": 0.818
+        },
+        {
           "id": "MWS6DN7U-8C8768E3",
           "score": 0.8
         },
         {
           "id": "MWS6F9I8-00524756",
           "score": 0.773
-        },
-        {
-          "id": "MASTER-456B1D6E",
-          "score": 0.755
         }
       ],
       "answered": true,
@@ -1407,16 +1492,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEJDJB-912399B4",
+          "score": 0.816
+        },
+        {
           "id": "MWP84DL5-F07ACB7E",
           "score": 0.784
         },
         {
           "id": "MWZEIUJC-1ED7D79A",
           "score": 0.783
-        },
-        {
-          "id": "MASTER-70E7430C",
-          "score": 0.737
         }
       ],
       "answered": true,
@@ -2033,12 +2118,12 @@
           "score": 0.928
         },
         {
-          "id": "MASTER-0ACC14CB",
-          "score": 0.798
+          "id": "MWZEJDJB-912399B4",
+          "score": 0.844
         },
         {
-          "id": "MWP84DL5-F07ACB7E",
-          "score": 0.796
+          "id": "MASTER-0ACC14CB",
+          "score": 0.798
         }
       ],
       "answered": true,
@@ -2098,8 +2183,8 @@
           "score": 0.791
         },
         {
-          "id": "MWP83WJ0-89C4CB03",
-          "score": 0.774
+          "id": "MWZEJDJB-912399B4",
+          "score": 0.781
         }
       ],
       "answered": true,
@@ -2595,16 +2680,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.819
+        },
+        {
           "id": "MWXU31YF-DF1BC500",
           "score": 0.814
         },
         {
           "id": "MWZEIECW-C3021790",
           "score": 0.799
-        },
-        {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.785
         }
       ],
       "answered": true,
@@ -3191,8 +3276,8 @@
           "score": 0.794
         },
         {
-          "id": "MWS6OW2K-1F6927AD",
-          "score": 0.736
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.763
         }
       ],
       "answered": true,
@@ -4013,16 +4098,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.814
+        },
+        {
           "id": "MASTER-94E7804F",
           "score": 0.807
         },
         {
           "id": "MWCBCP5M-8C02E420",
           "score": 0.797
-        },
-        {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.79
         }
       ],
       "answered": true,
@@ -5365,12 +5450,12 @@
           "score": 0.807
         },
         {
-          "id": "MWCBAQN6-9D0CCC83",
-          "score": 0.756
+          "id": "MWZEKN7H-4C0CB707",
+          "score": 0.771
         },
         {
-          "id": "MASTER-BC195439",
-          "score": 0.749
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.765
         }
       ],
       "answered": true,
@@ -8228,6 +8313,10 @@
           "id": "MW566TOD-84C09B94",
           "score": 0.853,
           "manual": true
+        },
+        {
+          "id": "MWZEJQG6-E45FC6E3",
+          "score": 0.727
         }
       ],
       "answered": true,
