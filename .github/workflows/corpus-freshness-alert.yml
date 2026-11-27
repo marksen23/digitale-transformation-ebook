@@ -1,0 +1,79 @@
+name: Corpus-Frisch-Alarm
+
+# Täglich prüfen, ob ein Leser-Lauf den Korpus noch fortschreibt.
+# Mehr als 48 Stunden ohne neuen Eintrag: ein Issue mit Label `monitoring`
+# öffnen oder fort schreiben. Nie ein zweites. Schließt sich, sobald
+# wieder Einträge ankommen.
+
+on:
+  schedule:
+    - cron: "30 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: corpus-freshness-alert
+  cancel-in-progress: false
+
+jobs:
+  alert:
+    if: github.repository == 'marksen23/digitale-transformation-ebook'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v5
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@73e46992e05b19abd31f2f3c20e0e7370d762115  # v6.1.1
+        with:
+          run_install: false
+
+      - name: Setup Node
+        uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1  # v7.1.0
+        with:
+          node-version: "24"
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Frische prüfen
+        id: fresh
+        run: pnpm exec tsx scripts/corpus-freshness-alert.ts
+
+      - name: Issue öffnen, fortschreiben oder schließen
+        env:
+          GH_TOKEN: ${{ github.token }}
+          STALE: ${{ steps.fresh.outputs.stale }}
+          TITLE: ${{ steps.fresh.outputs.title }}
+          BODY_FILE: ${{ steps.fresh.outputs.body_file }}
+          LATEST: ${{ steps.fresh.outputs.latest }}
+        run: |
+          set -euo pipefail
+          if ! gh label list --limit 50 --json name --jq '.[].name' | grep -qx monitoring; then
+            gh label create monitoring --color d97706 --description "Wachhund für ausbleibende Korpus-Läufe"
+          fi
+          EXISTING=$(gh issue list --label monitoring --state open --limit 20 --json number,body \
+            --jq '.[] | select((.body // "") | contains("<!-- corpus-freshness-alert -->")) | .number' | head -1)
+          if [ "$STALE" = "true" ]; then
+            if [ -z "$EXISTING" ]; then
+              gh issue create --label monitoring --title "$TITLE" --body-file "$BODY_FILE"
+              echo "Issue geöffnet."
+            else
+              gh issue edit "$EXISTING" --title "$TITLE" --body-file "$BODY_FILE"
+              echo "Issue #$EXISTING fortgeschrieben."
+            fi
+          elif [ -n "$EXISTING" ]; then
+            gh issue close "$EXISTING" --reason completed \
+              --comment "Neue Korpus-Einträge sind wieder angekommen. Letzter Zeitpunkt: ${LATEST:-unbekannt}. Der Alarm schließt sich."
+            echo "Issue #$EXISTING geschlossen."
+          else
+            echo "Korpus ist frisch, kein offenes Alarm-Issue."
+          fi
