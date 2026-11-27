@@ -15,7 +15,7 @@ import { createEbookLoader } from "./lib/ebookContent.js";
 import { rawAssetMiddleware } from "./lib/rawAssets.js";
 import { canonicalHostRedirect } from "./lib/seo.js";
 import { securityHeaders, staticCacheControl } from "./lib/securityHeaders.js";
-import { createAdminRouter } from "./routes/admin.js";
+import { createAdminRouter } from "./routes/admin/index.js";
 import { createCorpusReadRouter } from "./routes/corpusRead.js";
 import { createAnalyseRouter } from "./routes/analyse.js";
 import { createAskRouter } from "./routes/ask.js";

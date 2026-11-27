@@ -3,6 +3,12 @@ import { fileURLToPath } from "url";
 import { createApp } from "./app.js";
 import { startNewsletterSchedule } from "./lib/newsletterDigest.js";
 
+// Dieser Entry hört nur zu. Die App hängt die Router in app.ts:
+// Leser-KI (enkidu, ask, translate, analyse, dialog, passage),
+// Admin (routes/admin: Zugang, Kuration, Begriffsnetz, Erkenntnisse,
+// Bewertung, Synthese, Pflege), Newsletter, Werkstatt, Duelle, Monat,
+// Vorschläge, Embeddings, PDF, Korpus-Lesen, Erkenntnis-Bild, SEO/SSR.
+
 // Verzeichnis des Entry-Points. import.meta.url bleibt hier, damit gebündelt
 // (dist/index.js) und ungebündelt (server/index.ts) dieselbe Basis wie zuvor
 // herauskommt — statische Dateien und Ebook-Kandidaten hängen daran.
