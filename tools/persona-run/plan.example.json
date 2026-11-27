@@ -1,0 +1,20 @@
+{
+  "version": 1,
+  "steps": [
+    {
+      "kind": "analyse",
+      "nodeIds": ["resonanz", "echo"],
+      "note": "Beispiel. Kein echter Lauf."
+    },
+    {
+      "kind": "dialog",
+      "nodeIds": ["gelassenheit"],
+      "note": "Beispiel. Kein echter Lauf."
+    },
+    {
+      "kind": "path",
+      "nodeIds": ["schatten", "licht"],
+      "note": "Beispiel. Kein echter Lauf."
+    }
+  ]
+}
