@@ -14,6 +14,7 @@ import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { useLocale, useT } from "@/i18n";
 import { loadKernsatzTranslations, showKernsatz } from "@/lib/kernsatzI18n";
+import { readBookmarks, toggleBookmark, writeBookmarks } from "@/lib/begriffBookmarks";
 import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, DISPLAY, RADIUS, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
@@ -37,6 +38,8 @@ export default function ErkenntnissePage() {
   const [erk, setErk] = useState<Erkenntnis[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
   const [open, setOpen] = useState<string | null>(null);
+  const [marks, setMarks] = useState(readBookmarks);
+  useEffect(() => { setMarks(readBookmarks()); }, []);
   const isMobile = useIsMobile();
 
   useEffect(() => {
@@ -113,6 +116,13 @@ export default function ErkenntnissePage() {
                       {e.conceptAnchor ? <> · <span style={{ color: c.accentText }}>{e.conceptAnchor}</span></> : null}
                     </span>
                     <SpeakButton id={`kern-${e.id}`} text={shown.text} color={c.accentText} />
+                    <button type="button" onClick={() => {
+                      const next = toggleBookmark(marks, "erkenntnis", e.id, new Date().toISOString());
+                      writeBookmarks(next);
+                      setMarks(next);
+                    }} style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: RADIUS.micro, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
+                      {marks.some(mark => mark.kind === "erkenntnis" && mark.id === e.id) ? "gemerkt" : "merken"}
+                    </button>
                     <button onClick={() => setOpen(isOpen ? null : e.id)}
                       style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: RADIUS.micro, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
                       {isOpen ? tr("insights.hide") : tr("insights.show")}
