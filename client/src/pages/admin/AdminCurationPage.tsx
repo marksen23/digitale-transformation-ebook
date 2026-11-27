@@ -32,6 +32,7 @@ import ProposeConceptPanel, { type ConceptPrefill } from "@/components/admin/Pro
 import ConceptCandidatesPanel from "@/components/admin/ConceptCandidatesPanel";
 import ErkenntnisCandidatesPanel from "@/components/admin/ErkenntnisCandidatesPanel";
 import NewsletterPanel from "@/components/admin/NewsletterPanel";
+import WorkshopPanel from "@/components/admin/WorkshopPanel";
 import DedupCorpusPanel from "@/components/admin/DedupCorpusPanel";
 import WerkstattEpigraph from "@/components/admin/WerkstattEpigraph";
 import Skeleton from "@/components/Skeleton";
@@ -709,6 +710,7 @@ export default function AdminCurationPage() {
       {/* Erkenntnisse-Phase 2: Antworten, die offene Fragen lösen → bestätigen */}
       <ErkenntnisCandidatesPanel C={C} />
       <NewsletterPanel C={C} />
+      <WorkshopPanel C={C} />
 
       {/* Exakte Dubletten (Batch 5): Nachzügler aus der Zeit vor dem Ingest-Dedup */}
       <DedupCorpusPanel C={C} />
