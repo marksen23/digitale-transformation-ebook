@@ -163,6 +163,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Einstieg in Begriffsnetz, Wissens-Landkarte und Philosophie: dasselbe Netz der Resonanzvernunft, aus drei Blickwinkeln.",
   },
+  "/meine-begriffe": {
+    title: `Meine Begriffe — ${WORK_TITLE}`,
+    description:
+      "Gemerkte Begriffe und Erkenntnisse nur in diesem Browser: Dichte und neue Sätze seit dem Merken.",
+  },
   "/mein-werk": {
     title: `Mein Werk — ${WORK_TITLE}`,
     description:

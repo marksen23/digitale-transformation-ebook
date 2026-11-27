@@ -72,6 +72,7 @@ export const SITE_NAV_CLUSTERS: SiteNavCluster[] = [
     i18nKey: "nav.cluster.meins",
     items: [
       { href: "/mein-werk", label: "Mein Werk", i18nKey: "nav.meinwerk", match: /^\/mein-werk/, mobileSub: "TRAJEKTORIE" },
+      { href: "/meine-begriffe", label: "Meine Begriffe", i18nKey: "nav.meinebegriffe", match: /^\/(?:en\/)?meine-begriffe/, mobileSub: "MERKER" },
       { href: "/blog",      label: "Blog",      i18nKey: "nav.blog",     match: /^\/blog/ },
     ],
   },

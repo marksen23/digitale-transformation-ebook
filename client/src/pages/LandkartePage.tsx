@@ -26,6 +26,7 @@ import {
   type ConceptNode, type NodeCategory,
 } from "@/data/conceptGraph";
 import { loadResonanzenIndexLazy, type ResonanzEntry } from "@/lib/resonanzenIndex";
+import { readBookmarks, toggleBookmark, writeBookmarks } from "@/lib/begriffBookmarks";
 import { loadPromotedEdges, invalidatePromotedEdges, type PromotedEdge } from "@/lib/promotedEdges";
 import { loadDynamicNodes, type DynamicConceptNode } from "@/lib/dynamicNodes";
 import { useAdminAuth, callAdminAction } from "@/lib/adminAuth";
@@ -49,6 +50,14 @@ export default function LandkartePage() {
   const [allEntries, setAllEntries] = useState<ResonanzEntry[] | null>(null);
   const [curatedOnly, setCuratedOnly] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
+  const [marks, setMarks] = useState(readBookmarks);
+  useEffect(() => { setMarks(readBookmarks()); }, []);
+  const hasBegriff = (kind: "concept" | "erkenntnis", id: string) => marks.some(mark => mark.kind === kind && mark.id === id);
+  const toggleBegriff = (kind: "concept" | "erkenntnis", id: string) => {
+    const next = toggleBookmark(marks, kind, id, new Date().toISOString());
+    writeBookmarks(next);
+    setMarks(next);
+  };
   const [promoted, setPromoted] = useState<PromotedEdge[]>([]);
   const [dynamic, setDynamic] = useState<DynamicConceptNode[]>([]);
   const [promoting, setPromoting] = useState<string | null>(null);
@@ -354,6 +363,7 @@ export default function LandkartePage() {
               <button onClick={() => navigate(`/begriffsnetz?node=${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>im Begriffsnetz öffnen →</button>
               <button onClick={() => navigate(`/dialoge/${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>Leser-Dialoge →</button>
               <button onClick={() => navigate(`/werkstatt?begriff=${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>Werkstatt zu diesem Begriff →</button>
+              <button onClick={() => toggleBegriff("concept", selNode.id)} style={linkBtn(C)}>{hasBegriff("concept", selNode.id) ? "Begriff gemerkt" : "Begriff merken"}</button>
 
               {selectedEmerging.length > 0 && (
                 <div style={{ marginTop: "1rem" }}>
