@@ -14,6 +14,7 @@ import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF_BODY } from "@/lib/theme";
 import type { EbookFile } from "@/lib/werkChunks";
 import DailyInsight from "@/components/DailyInsight";
+import { useT } from "@/i18n";
 import NewsletterSignup from "@/components/NewsletterSignup";
 import MobileIndexOverlay from "@/pages/mobile/MobileIndexOverlay";
 import MobileSearchOverlay from "@/pages/mobile/MobileSearchOverlay";
@@ -23,6 +24,7 @@ export default function MobileCover() {
   const isDark = theme === "dark";
   const C = isDark ? C_DARK : C_LIGHT;
   const [, navigate] = useLocation();
+  const tr = useT();
   const [ebook, setEbook] = useState<EbookFile | null>(null);
   const [indexOpen, setIndexOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
@@ -67,7 +69,7 @@ export default function MobileCover() {
           </div>
           <div style={{ width: 64, height: 1, margin: "0 auto", background: "linear-gradient(to right,transparent,rgba(245,158,11,0.55),transparent)" }} />
           <div style={{ fontFamily: SERIF_BODY, fontStyle: "italic", fontSize: 13, lineHeight: 1.55, color: "#d6d3d1" }}>
-            {ebook?.meta.subtitle ?? "Eine poetisch-philosophische Trilogie mit theoretischer Grundlegung"}
+            {tr("home.subtitle")}
           </div>
         </div>
         {bands.length > 0 && (
@@ -86,11 +88,11 @@ export default function MobileCover() {
           <button
             type="button" onClick={() => navigate("/werk")}
             style={{ minHeight: 48, background: "#92400e", border: "none", borderRadius: 8, color: "#fff", fontFamily: MONO, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}
-          >Lesen</button>
+          >{tr("home.read")}</button>
           <button
             type="button" onClick={() => setIndexOpen(true)}
             style={{ minHeight: 44, background: "transparent", border: "1px solid rgba(245,158,11,0.35)", borderRadius: 8, color: "#f59e0b", fontFamily: MONO, fontSize: 11, letterSpacing: "0.18em", textTransform: "uppercase", cursor: "pointer" }}
-          >Inhalt</button>
+          >{tr("home.contents")}</button>
         </div>
         <DailyInsight compact />
         <NewsletterSignup tone="cover" compact />

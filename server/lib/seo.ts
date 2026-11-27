@@ -272,22 +272,33 @@ function breadcrumbJsonLd(items: { name: string; url: string }[]): object {
 }
 
 // ─── Head-Tags ───────────────────────────────────────────────────────────
+/** de bleibt die kanonische Sprache. /en ist die Übersetzung derselben Adresse. */
+export function hreflangLinks(rawPath: string, site = SITE_URL): { de: string; en: string } {
+  const path = normalizePath(rawPath);
+  const bare = path === "/en" ? "/" : path.startsWith("/en/") ? path.slice(3) || "/" : path;
+  const de = bare === "/" ? `${site}/` : `${site}${bare}`;
+  const en = bare === "/" ? `${site}/en` : `${site}/en${bare}`;
+  return { de, en };
+}
+
 function headTags(opts: {
   canonical: string;
+  path: string;
   title: string;
   description: string;
   type?: string;
   jsonLd: object[];
   robots?: string;
 }): string {
-  const { canonical, title, description, type = "website", jsonLd, robots } = opts;
+  const { canonical, path, title, description, type = "website", jsonLd, robots } = opts;
+  const alt = hreflangLinks(path);
   const lines = [
     `<link rel="canonical" href="${escapeAttr(canonical)}" />`,
-    `<link rel="alternate" hreflang="de" href="${SITE_URL}/" />`,
-    `<link rel="alternate" hreflang="en" href="${SITE_URL}/en" />`,
-    `<link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`,
+    `<link rel="alternate" hreflang="de" href="${escapeAttr(alt.de)}" />`,
+    `<link rel="alternate" hreflang="en" href="${escapeAttr(alt.en)}" />`,
+    `<link rel="alternate" hreflang="x-default" href="${escapeAttr(alt.de)}" />`,
     `<meta property="og:site_name" content="${escapeAttr(WORK_TITLE)}" />`,
-    `<meta property="og:locale" content="de_DE" />`,
+    `<meta property="og:locale" content="${path === "/en" || path.startsWith("/en/") ? "en_US" : "de_DE"}" />`,
     `<meta property="og:type" content="${type}" />`,
     `<meta property="og:title" content="${escapeAttr(title)}" />`,
     `<meta property="og:description" content="${escapeAttr(description)}" />`,
@@ -392,12 +403,23 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
     }
   } else {
     meta = routeMeta(path);
+    if (path === "/en") {
+      meta = {
+        title: "Resonance Reason — Digital Transformation — Markus Oehring",
+        description: "A poetic-philosophical trilogy that keeps growing with every question.",
+      };
+    } else if (path === "/en/erkenntnisse") {
+      meta = {
+        title: `Insights — ${WORK_TITLE}`,
+        description: "Published insights. Where the wording is English, it is a translation and is marked as such.",
+      };
+    }
     jsonLd = path === "/" || path === "/en" ? [websiteJsonLd(), workJsonLd()] : [websiteJsonLd()];
     snapshot = pageSnapshot(meta);
     if (/^\/werkstatt\/[a-z0-9]{8}$/.test(path)) robots = "noindex, nofollow";
   }
 
-  const head = headTags({ canonical, title: meta.title, description: meta.description, type, jsonLd, robots });
+  const head = headTags({ canonical, path, title: meta.title, description: meta.description, type, jsonLd, robots });
   return template
     .replace(/<title>[\s\S]*?<\/title>/, `<title>${escapeHtml(meta.title)}</title>`)
     .replace(
