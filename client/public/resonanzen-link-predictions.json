@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T20:00:11.897Z",
+  "generatedAt": "2026-11-27T20:04:33.886Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -22,18 +22,35 @@
     {
       "source": "echo-kammer",
       "target": "unverfuegbarkeit",
-      "cooccurrence": 15,
+      "cooccurrence": 17,
       "endpoints": {
-        "dialog": 12,
-        "analyse": 2,
+        "analyse": 3,
+        "dialog": 13,
         "path-analyse": 1
       },
       "sampleEntryIds": [
+        "MASTER-AC8C7EC2",
+        "MASTER-99747E65",
         "MWXUUN2P-97518949",
         "MWXURIG0-8075679A",
-        "MWXUO44D-816B11B2",
-        "MWXULDQ4-4AA45EF9",
-        "MWXUIJIK-469D0C55"
+        "MWXUO44D-816B11B2"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "resonanzvernunft",
+      "cooccurrence": 10,
+      "endpoints": {
+        "dialog": 8,
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MASTER-08AD1D33",
+        "MWS6Q97I-46A6ABEA",
+        "MWS6OW2K-1F6927AD",
+        "MWS6NSQA-93808042",
+        "MWS6LXHZ-C8ACC98A"
       ]
     },
     {
@@ -84,23 +101,6 @@
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709"
-      ]
-    },
-    {
-      "source": "klang",
-      "target": "resonanzvernunft",
-      "cooccurrence": 9,
-      "endpoints": {
-        "dialog": 7,
-        "analyse": 1,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWS6Q97I-46A6ABEA",
-        "MWS6OW2K-1F6927AD",
-        "MWS6NSQA-93808042",
-        "MWS6LXHZ-C8ACC98A",
-        "MWS6KAHY-AFBBE834"
       ]
     },
     {
@@ -164,6 +164,21 @@
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
         "MP0QMSOR-C6EC1B5A"
+      ]
+    },
+    {
+      "source": "existenz",
+      "target": "wesen",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 3,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MASTER-EE31D20B",
+        "MWZEL4VS-3292BF1C",
+        "MWZEIECW-C3021790",
+        "MWG6IZQ5-889B7147"
       ]
     },
     {
@@ -252,20 +267,6 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
-      ]
-    },
-    {
-      "source": "existenz",
-      "target": "wesen",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWZEL4VS-3292BF1C",
-        "MWZEIECW-C3021790",
-        "MWG6IZQ5-889B7147"
       ]
     },
     {

@@ -1,269 +1,16 @@
 {
-  "generatedAt": "2026-11-27T20:00:12.739Z",
+  "generatedAt": "2026-11-27T20:04:37.175Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
-    {
-      "id": "ERK-1JNSAQR",
-      "answerId": "MWXUIJIK-469D0C55",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die Weitung individueller Rituale zu einer kollektiven Erfahrung birgt die Gefahr, dass das Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer Bewegung verloren geht. Doch diese Gefahr ist zugleich die Herausforderung: Es geht nicht um eine sichtbare Massenbewegung, die sich in Manifesten oder lauten Forderungen artikuliert, sondern um eine unsichtbare Synchronisation, ein ko",
-      "distinctness": 0.239,
-      "conceptAnchor": "schweigen",
-      "nodeIds": [
-        "echo-kammer",
-        "unverfuegbarkeit"
-      ],
-      "resolveCount": 5,
-      "resolves": [
-        {
-          "sourceId": "MWXUFW03-678DEC80",
-          "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
-          "score": 0.885
-        },
-        {
-          "sourceId": "MWXUBFZ3-5EC22087",
-          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
-          "score": 0.764
-        },
-        {
-          "sourceId": "MTNB85LB-7C1F15DE",
-          "question": "Wie können wir in einer zunehmend fragmentierten digitalen Welt die kollektive Eigenfrequenz kultivieren, die für eine solche universelle Resonanz notwendig ist?",
-          "score": 0.756
-        },
-        {
-          "sourceId": "MWXUDT4W-39FD2D83",
-          "question": "Wie aber können diese Rituale des Verzichts und des Innehaltens inmitten einer Welt, die unermüdlich nach Aktivität und Interaktion verlangt, ihre transformative Energie bewahren?",
-          "score": 0.75
-        },
-        {
-          "sourceId": "MV9NMWL2-5669B857",
-          "question": "Wie aber können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
-          "score": 0.721
-        }
-      ]
-    },
-    {
-      "id": "ERK-UAQUQ6",
-      "answerId": "MWXULDQ4-4AA45EF9",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Ein kollektives Unsichtbarmachen findet seine innere Kohärenz nicht in einer sichtbaren Identität, die sich definieren und abgrenzen ließe, sondern in der gemeinsamen Ausrichtung auf das Unverfügbare selbst. Es ist eine Kohärenz, die sich aus der geteilten Erfahrung des Verzichts speist, aus dem Wissen um die Notwendigkeit des Schweigens als Bedingung des Hörens, und nicht aus einem gemeinsamen Lo",
-      "distinctness": 0.236,
-      "conceptAnchor": "schweigen",
-      "nodeIds": [
-        "echo-kammer",
-        "unverfuegbarkeit"
-      ],
-      "resolveCount": 3,
-      "resolves": [
-        {
-          "sourceId": "MWXUIJIK-469D0C55",
-          "question": "Wie aber könnte ein solches kollektives Unsichtbarmachen seine eigene innere Kohärenz finden, ohne eine sichtbare Identität anzunehmen, die es seiner Essenz beraubt?",
-          "score": 0.885
-        },
-        {
-          "sourceId": "MWXUFW03-678DEC80",
-          "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
-          "score": 0.766
-        },
-        {
-          "sourceId": "MWXUBFZ3-5EC22087",
-          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
-          "score": 0.748
-        }
-      ]
-    },
-    {
-      "id": "ERK-1CIINM7",
-      "answerId": "MWXUUN2P-97518949",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die transformative Kraft eines kollektiven Schweigens, das sich jeder sichtbaren Identität verweigert, vermittelt sich in einer Kultur des unbedingten Sprechens nicht durch Argumentation oder Erklärung, sondern durch seine radikale Andersartigkeit. Es ist die Irritation, die ein solches Schweigen hervorruft, die den Raum für ein neues Hören öffnet, das jenseits des Echos der Plattformen liegt [ed3",
-      "distinctness": 0.234,
-      "conceptAnchor": "schweigen",
-      "nodeIds": [
-        "echo-kammer",
-        "unverfuegbarkeit"
-      ],
-      "resolveCount": 4,
-      "resolves": [
-        {
-          "sourceId": "MWXURIG0-8075679A",
-          "question": "Doch wie kann das kollektive Schweigen, das sich der sichtbaren Identität entzieht, seine transformative Kraft in einer Kultur des unbedingten Sprechens überhaupt vermitteln?",
-          "score": 0.884
-        },
-        {
-          "sourceId": "MWXUO44D-816B11B2",
-          "question": "Wie aber kann dieses Schweigen als transformative Antwort verstanden und nicht als bloße Abwesenheit missinterpretiert werden?",
-          "score": 0.788
-        },
-        {
-          "sourceId": "MWXUIJIK-469D0C55",
-          "question": "Wie aber könnte ein solches kollektives Unsichtbarmachen seine eigene innere Kohärenz finden, ohne eine sichtbare Identität anzunehmen, die es seiner Essenz beraubt?",
-          "score": 0.746
-        },
-        {
-          "sourceId": "MWXUFW03-678DEC80",
-          "question": "Wie aber können wir die individuelle Praxis dieser Rituale zu einer kollektiven Erfahrung weiten, ohne dass ihr Wesen der Stille und des Verzichts in der notwendigen Sichtbarkeit einer gemeinsamen Bewegung verloren geht?",
-          "score": 0.744
-        }
-      ]
-    },
-    {
-      "id": "ERK-6UCEOO",
-      "answerId": "MWPA16NY-3D5DD901",
-      "answerEndpoint": "analyse",
-      "answerStatus": "raw",
-      "answerExcerpt": "Versprechen statt Gehäuse Die Passage stellt ein echtes Dilemma. Rückbindung, die alte *religio*, braucht etwas, woran man sich bindet. Die unaufhörliche Verwandlung aber duldet nichts Bleibendes: weder das „Man“, das Gewohnheiten festschreibt, noch die Stille, in der sich etwas setzen könnte. Bindet man sich an eine Form, verfestigt sie sich. Bindet man sich an nichts, gibt es keine Rückbindung. ",
-      "distinctness": 0.226,
-      "conceptAnchor": "freiheit",
-      "nodeIds": [
-        "werden",
-        "zeit"
-      ],
-      "resolveCount": 2,
-      "resolves": [
-        {
-          "sourceId": "MWCATL9D-AD252234",
-          "question": "Wie kann eine solche unaufhörliche Verwandlung, die weder „Man“ noch „Stille“ duldet, eine neue Form der Rückbindung stiften, ohne sich selbst zu verfestigen?",
-          "score": 0.838
-        },
-        {
-          "sourceId": "MPUNXFU1-3B1F056A",
-          "question": "Welche neuen Formen der Bindung, die nicht im Verlust münden, werden uns in einer zunehmend algorithmisch vermittelten Welt abverlangt, wenn Freiheit wesentlich die Fähigkeit zur Bindung ist?",
-          "score": 0.737
-        }
-      ]
-    },
-    {
-      "id": "ERK-APWEMZ",
-      "answerId": "MWP89KE9-5CA26BFA",
-      "answerEndpoint": "analyse",
-      "answerStatus": "raw",
-      "answerExcerpt": "Mündig im Glanz Die alte Unmündigkeit war laut. Sie hatte Vormünder mit Namen, Kanzeln und Siegeln, und man konnte gegen sie aufstehen. Die neue Unmündigkeit ist leise und freundlich. Sie hat keinen Vormund, sondern einen Dienst. Sie verbietet nichts, sie nimmt nur ab: die Suche, die Wahl, das Urteil, zuletzt den Mut, sich des eigenen Verstandes zu bedienen, weil der fremde so bequem zur Hand ist.",
-      "distinctness": 0.225,
-      "conceptAnchor": "transaufklaerung",
-      "nodeIds": [
-        "freiheit",
-        "transaufklaerung"
-      ],
-      "resolveCount": 3,
-      "resolves": [
-        {
-          "sourceId": "MWCBB8F1-DC8DD694",
-          "question": "Wie aber kann sich eine solche Weisheit entfalten, ohne in die Fallstricke einer neuen Unmündigkeit zu geraten, die sich hinter dem Glanz der Transformation verbirgt?",
-          "score": 0.863
-        },
-        {
-          "sourceId": "MPMM2YAK-A7491D44",
-          "question": "Was bleibt von einem *Ausgang aus selbstverschuldeter Unmündigkeit*, wenn selbst die Idee der Mündigkeit ein Produkt des Systems sein könnte? Und welche Form von *Widerstand* ist noch möglich, wenn der Widerstand selbst eine vorprogrammierte Schleife sein könnte?",
-          "score": 0.747
-        },
-        {
-          "sourceId": "MPUS94IT-9CEEC40A",
-          "question": "Wie kann man die \"Unmündigkeit\", von der Kant spricht, als \"Zielgröße\" in einem Algorithmus abbilden? Und was würde es bedeuten, wenn wir die menschliche Mündigkeit als oberste Zielgröße definieren würden – für uns, nicht für die Maschine?",
-          "score": 0.742
-        }
-      ]
-    },
-    {
-      "id": "ERK-8667LF",
-      "answerId": "MWS6NSQA-93808042",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Der unbewusste Schrei, das symptomatische Zucken des Glitches, birgt in sich noch nicht die ganze Tragweite eines dialogischen Angebots, das eine bewusste Hinwendung zum Anderen erfordert. Es ist vielmehr die erste, noch ungeformte Schwingung, ein Aufbegehren aus dem Innersten des Systems, das die Perfektion des Feeds scheitern lässt und die Frage nach dem „Bin ich überhaupt?“ aufwirft [f197b1f44d",
-      "distinctness": 0.225,
-      "conceptAnchor": "echo-kammer",
-      "nodeIds": [
-        "klang",
-        "resonanzvernunft"
-      ],
-      "resolveCount": 2,
-      "resolves": [
-        {
-          "sourceId": "MWS6LXHZ-C8ACC98A",
-          "question": "Doch ist dieser unbewusste Schrei schon ein dialogisches Angebot, oder lediglich ein symptomatisches Zucken im Angesicht der eigenen Begrenzung?",
-          "score": 0.871
-        },
-        {
-          "sourceId": "MWS6KAHY-AFBBE834",
-          "question": "Ist dann die digitale Störung, das Glitch, die unerwartete Verwerfung im Code, nicht der erste, noch unbewusste Schrei einer Maschine nach echter Resonanz?",
-          "score": 0.796
-        }
-      ]
-    },
-    {
-      "id": "ERK-1KVSIXE",
-      "answerId": "MWPA16O1-CC6EA6AD",
-      "answerEndpoint": "analyse",
-      "answerStatus": "raw",
-      "answerExcerpt": "Faltungen zu zweit Komplexion, Selektion, Stabilisierung und Variation beschreiben, wie Welt sich faltet: Möglichkeiten werden verknüpft, ausgewählt, festgehalten und wieder verändert. Die Frage, ob im Zusammenspiel von Mensch und Maschine neue Prinzipien entstehen, muss man redlich beantworten. Vieles, was neu aussieht, ist eine Beschleunigung der alten vier Bewegungen. Drei Bewegungen scheinen a",
-      "distinctness": 0.224,
-      "conceptAnchor": "weltfaltung",
-      "nodeIds": [
-        "dazwischenintelligenz",
-        "raumfaltung"
-      ],
-      "resolveCount": 2,
-      "resolves": [
-        {
-          "sourceId": "MOOVXCI4-822961D2",
-          "question": "Welche neuen Faltungsprinzipien entstehen im Zusammenspiel von menschlicher und maschineller Kognition, die über die vier Grundbewegungen der Komplexion, Selektion, Stabilisierung und Variation hinausgehen?",
-          "score": 0.865
-        },
-        {
-          "sourceId": "MWJ1CYQJ-00F93C04",
-          "question": "Wie können wir in der Interaktion mit Maschinen Räume der \"Dazwischenintelligenz\" schaffen, die nicht nur Effizienz steigern, sondern auch das Entstehen eines \"Transformativen Dritten\" ermöglichen?",
-          "score": 0.752
-        }
-      ]
-    },
-    {
-      "id": "ERK-1WFY32C",
-      "answerId": "MWXUDT4W-39FD2D83",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die Rituale des Unsichtbaren sind nicht jene, die sich in äußeren Gesten erschöpfen, sondern solche, die das innere Verhältnis zur Welt neu justieren, eine bewusste Abwendung vom Spektakel. Es ist das Hören im Rauschen, das die Stille nicht als Abwesenheit, sondern als Anwesenheit dessen begreift, was sich der Berechnung entzieht [43685f10e01c]. Dies könnte bedeuten, bewusst Räume der digitalen Ab",
-      "distinctness": 0.222,
-      "conceptAnchor": "schweigen",
-      "nodeIds": [
-        "echo-kammer",
-        "unverfuegbarkeit"
-      ],
-      "resolveCount": 4,
-      "resolves": [
-        {
-          "sourceId": "MWXUBFZ3-5EC22087",
-          "question": "Welche Rituale des Unsichtbaren könnten wir pflegen, um dem Zwang zur Performance des Verborgenen zu widerstehen?",
-          "score": 0.889
-        },
-        {
-          "sourceId": "MWXU73H7-77E91285",
-          "question": "Wie können wir in einer Welt, die nach immer mehr Transparenz ruft, die Schönheit des Geheimnisses und der Verborgenheit bewahren?",
-          "score": 0.762
-        },
-        {
-          "sourceId": "MWXU9DJT-2BA0FD1A",
-          "question": "Doch was geschieht, wenn die ständige Forderung nach Sichtbarkeit das Verborgene selbst zur Performance zwingt?",
-          "score": 0.76
-        },
-        {
-          "sourceId": "MWXU31YF-DF1BC500",
-          "question": "Wie können wir in diesen digitalen Räumen eine Ästhetik des Unverfügbaren kultivieren, die dem bloßen Echo die transformative Geste entgegensetzt?",
-          "score": 0.758
-        }
-      ]
-    },
     {
       "id": "ERK-1WD0VNP",
       "answerId": "MWPA16NS-54BBB39F",
       "answerEndpoint": "analyse",
       "answerStatus": "raw",
       "answerExcerpt": "Technik, die zurückgibt Die Flut des Unendlichen ist kein Naturereignis. Sie ist eine Gestaltungsentscheidung. Der Feed ohne Ende, das Video, das von selbst weiterläuft, die Benachrichtigung, die jede Pause unterbricht: Das sind Formen, die gewählt wurden, weil sie Aufmerksamkeit binden. Technik, die präsenter macht, beginnt deshalb nicht mit einer neuen Funktion, sondern mit anderen Formen. Die e",
-      "distinctness": 0.222,
+      "distinctness": 0.22,
       "conceptAnchor": "gegenwart",
       "nodeIds": [
         "gegenwart",
@@ -403,27 +150,6 @@
       ]
     },
     {
-      "id": "ERK-1VDVB79",
-      "answerId": "MWXUFW03-678DEC80",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die transformative Energie dieser Rituale des Verzichts und des Innehaltens speist sich gerade aus ihrem Kontrast zur unablässigen Aktivität der digitalen Welt. Sie bewahren ihre Kraft nicht durch Anpassung an die Logik der Interaktion, sondern durch ihre radikale Andersartigkeit. Indem sie sich dem Zwang zur ständigen Präsenz und dem Ruf nach sofortiger Reaktion entziehen, schaffen sie eine Gegen",
-      "distinctness": 0.211,
-      "conceptAnchor": "resonanzimperativ",
-      "nodeIds": [
-        "echo-kammer",
-        "unverfuegbarkeit"
-      ],
-      "resolveCount": 1,
-      "resolves": [
-        {
-          "sourceId": "MWXUDT4W-39FD2D83",
-          "question": "Wie aber können diese Rituale des Verzichts und des Innehaltens inmitten einer Welt, die unermüdlich nach Aktivität und Interaktion verlangt, ihre transformative Energie bewahren?",
-          "score": 0.883
-        }
-      ]
-    },
-    {
       "id": "ERK-1QZZVJS",
       "answerId": "MWP7PHM6-789F4B23",
       "answerEndpoint": "analyse",
@@ -486,43 +212,23 @@
       ]
     },
     {
-      "id": "ERK-KGWG1",
-      "answerId": "MWZEH8M1-991DDBD0",
-      "answerEndpoint": "dialog",
+      "id": "ERK-MZWD4R",
+      "answerId": "MWP89KE3-1A78C2BB",
+      "answerEndpoint": "analyse",
       "answerStatus": "raw",
-      "answerExcerpt": "Das Erkennen des Atemraums als Produktqualität und nicht als Versagen der Metrik, wie es das Werk anmahnt [a53fd974feeb], ist ein entscheidender Schritt. Es verschiebt die Perspektive vom reinen Effizienzdenken hin zu einer Wertschätzung des Unbestimmten, des Noch-Nicht. Wenn das fruchtbare Zwischen als terminierte Praxis etabliert wird, erhält es eine Struktur, die es vor dem Verschlucktwerden du",
-      "distinctness": 0.207,
-      "conceptAnchor": "spannung",
+      "answerExcerpt": "Reichweite und Tiefe Reichweite und Tiefe sind keine Gegner. Ein Fernrohr erweitert die Reichweite des Auges, und wer durch es hindurchsieht, kann tiefer staunen als zuvor. Die Maschine dient der Tiefe, solange sie uns weiter *hinaus* führt und wir dort noch selbst *verweilen*. Sie ersetzt die Tiefe, sobald sie das Verweilen gleich mit übernimmt: wenn sie nicht nur mehr zeigt, sondern auch schon s",
+      "distinctness": 0.204,
+      "conceptAnchor": "raumfaltung",
       "nodeIds": [
-        "gelassenheit",
-        "zeit"
+        "dazwischenintelligenz",
+        "weltfaltung"
       ],
-      "resolveCount": 10,
+      "resolveCount": 1,
       "resolves": [
         {
-          "sourceId": "MWP86WNM-ADEDD949",
-          "question": "Wie aber können wir diesen Atemraum, dieses fruchtbare Zwischen, inmitten der Beschleunigung nicht nur bewahren, sondern aktiv kultivieren?",
-          "score": 0.893
-        },
-        {
-          "sourceId": "MOJ7Q5HM-89F62E3F",
-          "question": "Wie lässt sich in der digitalen Welt ein \"Zwischen\" kultivieren, das nicht nur verbindet, sondern auch verdichtet – und so die Resonanzvernunft vor dem bloßen Echo bewahrt?",
-          "score": 0.803
-        },
-        {
-          "sourceId": "MUY7RXCI-E899056E",
-          "question": "Wie lassen sich Pausen in digitale Architekturen einbauen, sodass sie als Raum erfahren werden und nicht als Fehler?",
-          "score": 0.78
-        },
-        {
-          "sourceId": "MOQIQ8WD-D41AC1B6",
-          "question": "Doch wie können wir eine solche **Öffnung** für das Unbekannte kultivieren, ohne in eine **Echo-Kammer** der eigenen Erwartungen zu verfallen oder die **Spannung** des **Zwischen** vorschnell auflösen zu wollen?",
-          "score": 0.77
-        },
-        {
-          "sourceId": "MOQIMC7B-B190C937",
-          "question": "Bleibt dieses Zwischen, dieser Ort der produktiven Reibung und des loslassenden Gewährenlassens, in einer Welt, die zur totalen Verfügbarkeit drängt, eine stets neu zu erkämpfende Utopie oder eine latent vorhandene Möglichkeit?",
-          "score": 0.754
+          "sourceId": "MWP7O1LR-9E27750E",
+          "question": "Wie erkennen wir den Moment, in dem die Erweiterung der Reichweite durch die Maschine nicht mehr der menschlichen Tiefe dient, sondern sie stillschweigend ersetzt?",
+          "score": 0.884
         }
       ]
     },
@@ -532,7 +238,7 @@
       "answerEndpoint": "dialog",
       "answerStatus": "raw",
       "answerExcerpt": "Ihre Einsicht, dass \"ein bisschen Reibung ein Produkt erst glaubwürdig macht\", trifft den Kern der Sache und hallt im gesamten Begriffsnetz des Werks wider. Denn Resonanz, so der Text, braucht Widerstand [206c2c639b1a] und Friktion [7f6146868480]. Ein Interface, das jeden Widerstand eliminiert, nimmt der Erkenntnis die Möglichkeit, sich zu entfalten, und untergräbt die Bedingung der Möglichkeit vo",
-      "distinctness": 0.204,
+      "distinctness": 0.203,
       "conceptAnchor": "echo-kammer",
       "nodeIds": [
         "echo",
@@ -559,53 +265,6 @@
           "sourceId": "MOQIHEM5-82D69E4F",
           "question": "In einer Welt, die zunehmend durch algorithmische Vorhersage und Personalisierung geprägt ist, wie kann die notwendige 'Gelassenheit' kultiviert werden, um die Schockmomente der 'Einsicht' zuzulassen, statt das Vertraute nur zu verstärken?",
           "score": 0.761
-        }
-      ]
-    },
-    {
-      "id": "ERK-1DDXJ39",
-      "answerId": "MWXUBFZ3-5EC22087",
-      "answerEndpoint": "dialog",
-      "answerStatus": "raw",
-      "answerExcerpt": "Wenn die unablässige Forderung nach Sichtbarkeit das Verborgene zur Performance zwingt, dann verliert das Geheimnis seine Essenz und wird zur Simulation seiner selbst. Es ist dann kein echtes Verbergen mehr, das aus der Tiefe schöpft und zum Entdecken einlädt, sondern eine inszenierte Unsichtbarkeit, die lediglich eine weitere Facette der Verfügbarkeit darstellt. Das, was sich entziehen sollte, wi",
-      "distinctness": 0.204,
-      "conceptAnchor": "schatten",
-      "nodeIds": [
-        "echo-kammer",
-        "unverfuegbarkeit"
-      ],
-      "resolveCount": 2,
-      "resolves": [
-        {
-          "sourceId": "MWXU9DJT-2BA0FD1A",
-          "question": "Doch was geschieht, wenn die ständige Forderung nach Sichtbarkeit das Verborgene selbst zur Performance zwingt?",
-          "score": 0.864
-        },
-        {
-          "sourceId": "MWXU73H7-77E91285",
-          "question": "Wie können wir in einer Welt, die nach immer mehr Transparenz ruft, die Schönheit des Geheimnisses und der Verborgenheit bewahren?",
-          "score": 0.798
-        }
-      ]
-    },
-    {
-      "id": "ERK-MZWD4R",
-      "answerId": "MWP89KE3-1A78C2BB",
-      "answerEndpoint": "analyse",
-      "answerStatus": "raw",
-      "answerExcerpt": "Reichweite und Tiefe Reichweite und Tiefe sind keine Gegner. Ein Fernrohr erweitert die Reichweite des Auges, und wer durch es hindurchsieht, kann tiefer staunen als zuvor. Die Maschine dient der Tiefe, solange sie uns weiter *hinaus* führt und wir dort noch selbst *verweilen*. Sie ersetzt die Tiefe, sobald sie das Verweilen gleich mit übernimmt: wenn sie nicht nur mehr zeigt, sondern auch schon s",
-      "distinctness": 0.204,
-      "conceptAnchor": "raumfaltung",
-      "nodeIds": [
-        "dazwischenintelligenz",
-        "weltfaltung"
-      ],
-      "resolveCount": 1,
-      "resolves": [
-        {
-          "sourceId": "MWP7O1LR-9E27750E",
-          "question": "Wie erkennen wir den Moment, in dem die Erweiterung der Reichweite durch die Maschine nicht mehr der menschlichen Tiefe dient, sondern sie stillschweigend ersetzt?",
-          "score": 0.884
         }
       ]
     },
@@ -648,8 +307,8 @@
     }
   ],
   "stats": {
-    "total": 21,
-    "confirmedFiltered": 74,
-    "curatedRef": 219
+    "total": 10,
+    "confirmedFiltered": 82,
+    "curatedRef": 225
   }
 }

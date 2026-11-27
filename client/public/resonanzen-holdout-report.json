@@ -1,10 +1,52 @@
 {
-  "generatedAt": "2026-11-27T20:00:11.883Z",
-  "checked": 61,
-  "stable": 19,
-  "shifted": 25,
-  "drifted": 17,
+  "generatedAt": "2026-11-27T20:04:33.874Z",
+  "checked": 64,
+  "stable": 22,
+  "shifted": 22,
+  "drifted": 20,
   "details": [
+    {
+      "id": "MASTER-83EFBD4F",
+      "baseline": [
+        "MWZEH8M1-991DDBD0",
+        "MASTER-3FFBA6E3",
+        "MASTER-63686170"
+      ],
+      "current": [
+        "MWZEH8M1-991DDBD0",
+        "MASTER-3FFBA6E3",
+        "MASTER-63686170"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MASTER-3FFBA6E3",
+      "baseline": [
+        "MWZEHNJM-EDB65CFA",
+        "MASTER-63686170",
+        "MASTER-83EFBD4F"
+      ],
+      "current": [
+        "MWZEHNJM-EDB65CFA",
+        "MASTER-63686170",
+        "MASTER-83EFBD4F"
+      ],
+      "overlap": 3
+    },
+    {
+      "id": "MASTER-EE31D20B",
+      "baseline": [
+        "MWG6IZQ5-889B7147",
+        "MWZEL4VS-3292BF1C",
+        "MWZEIUJC-1ED7D79A"
+      ],
+      "current": [
+        "MWG6IZQ5-889B7147",
+        "MWZEL4VS-3292BF1C",
+        "MWZEIUJC-1ED7D79A"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MWZEM0CC-9D8E4D64",
       "baseline": [
@@ -56,10 +98,10 @@
       ],
       "current": [
         "MWXU9DJT-2BA0FD1A",
-        "MWXUDT4W-39FD2D83",
-        "MWXU73H7-77E91285"
+        "MASTER-99747E65",
+        "MWXUDT4W-39FD2D83"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MWS6NSQA-93808042",
@@ -71,9 +113,9 @@
       "current": [
         "MWS6OW2K-1F6927AD",
         "MWS6LXHZ-C8ACC98A",
-        "MWS6KAHY-AFBBE834"
+        "MASTER-08AD1D33"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MWS6F9I8-00524756",
@@ -295,9 +337,9 @@
       "current": [
         "MWZEL4VS-3292BF1C",
         "MWZEIUJC-1ED7D79A",
-        "MWCB3NW4-F13A863B"
+        "MASTER-EE31D20B"
       ],
-      "overlap": 1
+      "overlap": 0
     },
     {
       "id": "MWG6I8ZX-F0E5CD18",
@@ -351,7 +393,7 @@
       "current": [
         "MASTER-BC195439",
         "MON602G2-9C9A59E5",
-        "MASTER-456B1D6E"
+        "MASTER-08AD1D33"
       ],
       "overlap": 2
     },
@@ -406,10 +448,10 @@
       ],
       "current": [
         "MWP83JAQ-7B75BF9B",
-        "MSWULSTQ-38C6FFF3",
-        "MWCB03XA-1A38BACE"
+        "MASTER-63686170",
+        "MSWULSTQ-38C6FFF3"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MWCAVIKZ-02025CD4",
@@ -616,8 +658,8 @@
       ],
       "current": [
         "MPUFGY4Z-44206712",
-        "MWZELKFP-83436D38",
-        "MASTER-63686170"
+        "MASTER-63686170",
+        "MWZELKFP-83436D38"
       ],
       "overlap": 1
     },

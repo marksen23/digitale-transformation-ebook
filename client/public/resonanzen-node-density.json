@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-27T20:00:11.896Z",
+  "generatedAt": "2026-11-27T20:04:33.885Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 36,
+      "count": 37,
       "endpoints": {
-        "dialog": 7,
+        "dialog": 8,
         "analyse": 7,
         "path-analyse": 22
       }
@@ -49,10 +49,10 @@
       }
     },
     "stimme": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
+        "dialog": 4,
         "analyse": 5,
-        "dialog": 3,
         "path-analyse": 4
       }
     },
@@ -72,9 +72,9 @@
       }
     },
     "klang": {
-      "count": 19,
+      "count": 20,
       "endpoints": {
-        "dialog": 8,
+        "dialog": 9,
         "analyse": 6,
         "path-analyse": 5
       }
@@ -181,17 +181,17 @@
       }
     },
     "existenz": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 6,
         "analyse": 5,
         "dialog": 1
       }
     },
     "wesen": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "path-analyse": 6,
+        "path-analyse": 7,
         "analyse": 3,
         "dialog": 1
       }
@@ -303,17 +303,17 @@
       }
     },
     "echo-kammer": {
-      "count": 22,
+      "count": 24,
       "endpoints": {
-        "dialog": 13,
-        "analyse": 8,
+        "analyse": 9,
+        "dialog": 14,
         "path-analyse": 1
       }
     },
     "gelassenheit": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "path-analyse": 4,
         "analyse": 4
       }
@@ -335,10 +335,10 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 31,
+      "count": 33,
       "endpoints": {
-        "dialog": 14,
-        "analyse": 9,
+        "analyse": 10,
+        "dialog": 15,
         "path-analyse": 8
       }
     },

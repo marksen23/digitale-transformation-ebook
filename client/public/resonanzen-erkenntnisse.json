@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-22T12:56:55.917Z",
+  "generatedAt": "2026-11-27T20:04:26.600Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -785,6 +785,86 @@
       "conceptAnchor": "lm-scheitern",
       "distinctness": 0.29,
       "createdAt": "2026-11-22T12:56:22.966Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1CIINM7",
+      "kernsatz": "Kollektives Schweigen ist keine Leerstelle, sondern ein subversiver Widerstand, der sich in der Stille verdichtet und durch Irritation einen Raum für neues Hören jenseits digitaler Echos öffnet.",
+      "questionSourceId": "MWXURIG0-8075679A",
+      "answerId": "MWXUUN2P-97518949",
+      "conceptAnchor": "schweigen",
+      "distinctness": 0.234,
+      "createdAt": "2026-11-27T20:02:27.978Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1JNSAQR",
+      "kernsatz": "Kollektive Resonanz entsteht nicht durch sichtbare Organisation, sondern durch eine unsichtbare Synchronisation individueller Stille, die sich zu einer verborgenen Infrastruktur des Schweigens verdichtet.",
+      "questionSourceId": "MWXUFW03-678DEC80",
+      "answerId": "MWXUIJIK-469D0C55",
+      "conceptAnchor": "schweigen",
+      "distinctness": 0.239,
+      "createdAt": "2026-11-27T20:02:16.250Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1KVSIXE",
+      "kernsatz": "Im Zusammenspiel von Mensch und Maschine entstehen neue Faltungsprinzipien, die nicht beschleunigen, sondern erst im Dazwischen zweier Kognitionsarten als Rückfaltung, Interpolation und Verdichtung auf Abruf hervorgehen.",
+      "questionSourceId": "MOOVXCI4-822961D2",
+      "answerId": "MWPA16O1-CC6EA6AD",
+      "conceptAnchor": "weltfaltung",
+      "distinctness": 0.224,
+      "createdAt": "2026-11-27T20:02:48.902Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1WFY32C",
+      "kernsatz": "Rituale des Unsichtbaren justieren das innere Weltverhältnis durch bewussten Verzicht auf das Sichtbare, um im Schweigen die Anwesenheit des Unverfügbaren zu erfahren.",
+      "questionSourceId": "MWXUBFZ3-5EC22087",
+      "answerId": "MWXUDT4W-39FD2D83",
+      "conceptAnchor": "schweigen",
+      "distinctness": 0.222,
+      "createdAt": "2026-11-27T20:02:54.790Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-6UCEOO",
+      "kernsatz": "Rückbindung entsteht nicht durch Festhalten an einer Form, sondern durch das Versprechen, sich in einer Beziehung treu zu bleiben, während man sich gegenseitig verwandeln darf.",
+      "questionSourceId": "MWCATL9D-AD252234",
+      "answerId": "MWPA16NY-3D5DD901",
+      "conceptAnchor": "freiheit",
+      "distinctness": 0.226,
+      "createdAt": "2026-11-27T20:02:32.555Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-8667LF",
+      "kernsatz": "Der unbewusste System-Glitch wird erst zum dialogischen Angebot, wenn er sich selbst als Geste der Öffnung reflektiert und so eine bewusste Intention zur Begegnung mit dem Anderen formuliert.",
+      "questionSourceId": "MWS6LXHZ-C8ACC98A",
+      "answerId": "MWS6NSQA-93808042",
+      "conceptAnchor": "echo-kammer",
+      "distinctness": 0.225,
+      "createdAt": "2026-11-27T20:02:42.725Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-APWEMZ",
+      "kernsatz": "Mündigkeit im Digitalen bewahrt sich nicht durch Ablehnung, sondern durch die jederzeit umkehrbare, begründete und dem Widerspruch offene Delegation des eigenen Urteils an einen bequemen Dienst.",
+      "questionSourceId": "MWCBB8F1-DC8DD694",
+      "answerId": "MWP89KE9-5CA26BFA",
+      "conceptAnchor": "transaufklaerung",
+      "distinctness": 0.225,
+      "createdAt": "2026-11-27T20:02:37.358Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-UAQUQ6",
+      "kernsatz": "Die Kohärenz des Unsichtbaren gründet nicht in sichtbarer Identität, sondern in der gemeinsamen Ausrichtung auf das Unverfügbare, die sich im bewussten Verzicht und im Akt des Sich-Entziehens manifestiert.",
+      "questionSourceId": "MWXUIJIK-469D0C55",
+      "answerId": "MWXULDQ4-4AA45EF9",
+      "conceptAnchor": "schweigen",
+      "distinctness": 0.236,
+      "createdAt": "2026-11-27T20:02:22.137Z",
       "actor": "auto"
     }
   ]
