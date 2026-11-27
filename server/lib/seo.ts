@@ -124,6 +124,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Kernsätze und kurze Kapitelimpulse zum Hören, gesprochen von der Stimme des Browsers.",
   },
+  "/fortschreibung": {
+    title: `Fortschreibung — ${WORK_TITLE}`,
+    description:
+      "Veröffentlichte Erkenntnisse zum Drucken, geordnet nach Quartal und Begriff. PDF über den Druckdialog.",
+  },
   "/werkstatt": {
     title: `Gruppen-Werkstatt — ${WORK_TITLE}`,
     description:

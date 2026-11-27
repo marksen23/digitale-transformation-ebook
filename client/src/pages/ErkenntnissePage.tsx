@@ -70,6 +70,8 @@ export default function ErkenntnissePage() {
           weitergeht — geprüft und bestätigt. Jede Erkenntnis mit ihrer Entstehung:
           aus welcher Frage, aus welcher Antwort sie erwuchs.{" "}
           <Link href="/hoeren" style={{ color: c.accentText }}>Hörfassung</Link>
+          {" · "}
+          <Link href="/fortschreibung" style={{ color: c.accentText }}>Fortschreibung</Link>
         </p>
         <NewsletterSignup C={c} />
 
