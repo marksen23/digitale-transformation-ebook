@@ -136,3 +136,6 @@ data/werkstatt/
 
 # Begriffs-Duelle (Stimmen, nie ins Repo)
 data/duelle/
+
+# Aufrufzähler der Erkenntnisse (nur Summen, nie ins Repo)
+data/views/

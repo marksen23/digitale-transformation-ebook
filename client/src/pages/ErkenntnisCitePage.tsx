@@ -25,6 +25,18 @@ export default function ErkenntnisCitePage() {
   const [copied, setCopied] = useState<"apa" | "plain" | null>(null);
 
   useEffect(() => {
+    if (!id) return;
+    const key = `rv-view-${id}`;
+    try {
+      if (!sessionStorage.getItem(key)) {
+        sessionStorage.setItem(key, "1");
+        void fetch("/api/views/erkenntnis", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ id }),
+        });
+      }
+    } catch { /* privater Modus */ }
     Promise.all([loadErkenntnisse(), loadResonanzenIndexLazy()]).then(([erk, index]) => {
       const found = buildErkenntnisFeed(erk, index?.entries ?? []).find(entry => entry.id === id) ?? null;
       setItem(found);

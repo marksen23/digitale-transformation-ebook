@@ -72,6 +72,8 @@ const ROUTES = [
   "POST /api/duelle/:id/stimme",
   "GET /api/admin/duelle",
   "POST /api/admin/duelle/delete",
+  "POST /api/views/erkenntnis",
+  "GET /api/admin/monat",
   "POST /api/embed",
   "GET /api/pdf",
   "GET /api/corpus/meta",
