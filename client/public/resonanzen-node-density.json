@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T21:20:22.278Z",
+  "generatedAt": "2026-11-27T21:27:24.806Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 37,
@@ -49,24 +49,24 @@
       }
     },
     "stimme": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
+        "analyse": 6,
         "dialog": 4,
-        "analyse": 5,
         "path-analyse": 4
       }
     },
     "schweigen": {
-      "count": 14,
+      "count": 17,
       "endpoints": {
-        "dialog": 4,
-        "analyse": 10
+        "analyse": 13,
+        "dialog": 4
       }
     },
     "echo": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "analyse": 8,
+        "analyse": 9,
         "dialog": 1,
         "path-analyse": 1
       }
@@ -118,10 +118,10 @@
       }
     },
     "zeit": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
+        "analyse": 6,
         "dialog": 2,
-        "analyse": 5,
         "path-analyse": 4
       }
     },
@@ -173,9 +173,9 @@
       }
     },
     "werden": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "analyse": 4,
+        "analyse": 5,
         "dialog": 3,
         "path-analyse": 3
       }
@@ -256,10 +256,10 @@
       }
     },
     "lm-scheitern": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
+        "analyse": 8,
         "path-analyse": 6,
-        "analyse": 7,
         "dialog": 2
       }
     },
@@ -279,17 +279,17 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "analyse": 8,
+        "analyse": 9,
         "dialog": 2,
         "path-analyse": 4
       }
     },
     "transformatives-drittes": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "analyse": 5,
+        "analyse": 6,
         "dialog": 3,
         "path-analyse": 3
       }
@@ -303,9 +303,9 @@
       }
     },
     "echo-kammer": {
-      "count": 24,
+      "count": 26,
       "endpoints": {
-        "analyse": 9,
+        "analyse": 11,
         "dialog": 14,
         "path-analyse": 1
       }
@@ -335,9 +335,9 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 33,
+      "count": 35,
       "endpoints": {
-        "analyse": 10,
+        "analyse": 12,
         "dialog": 15,
         "path-analyse": 8
       }
@@ -383,9 +383,9 @@
       }
     },
     "moeglichkeit": {
-      "count": 10,
+      "count": 12,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 8,
         "dialog": 3,
         "path-analyse": 1
       }
@@ -400,9 +400,9 @@
       "derived": true
     },
     "wirklichkeit-moeglichkeit": {
-      "count": 22,
+      "count": 24,
       "endpoints": {
-        "analyse": 15,
+        "analyse": 17,
         "dialog": 5,
         "path-analyse": 2
       },

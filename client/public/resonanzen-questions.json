@@ -1,18 +1,143 @@
 {
-  "generatedAt": "2026-11-27T21:20:23.146Z",
-  "count": 440,
+  "generatedAt": "2026-11-27T21:27:28.248Z",
+  "count": 448,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 440,
-    "answered": 394,
+    "total": 448,
+    "answered": 402,
     "open": 22,
-    "followUp": 41,
+    "followUp": 49,
     "followUpOpen": 24,
-    "embedded": 0
+    "embedded": 8
   },
   "questions": [
+    {
+      "sourceId": "MWZHKZAI-3B30A91E",
+      "question": "Wenn das Versprechen bei denen bleibt, die die Maschine verwandeln, wie bleibt es gültig, wenn diese Menschen selbst wechseln, die Firma verkauft wird oder niemand mehr da ist, der die alte Zusage noch kennt?",
+      "endpoint": "analyse",
+      "anchor": "analyse:werden+zeit",
+      "nodeIds": [
+        "werden",
+        "zeit"
+      ],
+      "ts": "2026-11-27T21:21:33.354Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": true
+    },
+    {
+      "sourceId": "MWZHKZAF-021072A1",
+      "question": "Wenn Nachsicht immer einen ansprechbaren Menschen braucht, wie verhindert man, dass diese Rolle zur neuen Macht wird, die milde erscheint und doch unkontrolliert gewährt oder versagt?",
+      "endpoint": "analyse",
+      "anchor": "analyse:lm-scheitern+moeglichkeit",
+      "nodeIds": [
+        "lm-scheitern",
+        "moeglichkeit"
+      ],
+      "ts": "2026-11-27T21:21:33.351Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": true
+    },
+    {
+      "sourceId": "MWZHKZAC-93FEB903",
+      "question": "Wenn eine Gemeinschaft ihre Vision nur gemeinsam nachgeben lassen kann, wer darf den Augenblick benennen, in dem nachgegeben werden muss, ohne dass diese Stimme selbst zur neuen Forderung wird?",
+      "endpoint": "analyse",
+      "anchor": "analyse:moeglichkeit+unverfuegbarkeit",
+      "nodeIds": [
+        "moeglichkeit",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-27T21:21:33.348Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": true
+    },
+    {
+      "sourceId": "MWZHKZA9-580AD874",
+      "question": "Wenn das Werkzeug die Lücke nur auf Verlangen zeigen soll, wer darf in einem ungleichen Gespräch dieses Verlangen äußern, und was geschieht mit den Abwesenheiten, nach denen niemand zu fragen wagt?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dazwischenintelligenz+schweigen",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "schweigen"
+      ],
+      "ts": "2026-11-27T21:21:33.345Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": true
+    },
+    {
+      "sourceId": "MWZHKZA6-A56A24E4",
+      "question": "Wenn der Sprechende selbst zum späteren Zeugen seines Gesprächs mit der Maschine wird, woran erkennt er, dass er sich wirklich erinnert, und nicht nur eine nachträgliche Geschichte über das erzählt, was ihn hätte treffen sollen?",
+      "endpoint": "analyse",
+      "anchor": "analyse:schweigen+stimme",
+      "nodeIds": [
+        "schweigen",
+        "stimme"
+      ],
+      "ts": "2026-11-27T21:21:33.342Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": true
+    },
+    {
+      "sourceId": "MWZHKZA3-841FB5DE",
+      "question": "Wenn Zugehörigkeit durch gemeinsames Tun den Riss tragen soll, wie verhindert eine Gesellschaft, dass auch dieses Tun zur neuen Kammer wird, in der nur noch mitmachen darf, wer schon dazugehört?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo-kammer+transformatives-drittes",
+      "nodeIds": [
+        "echo-kammer",
+        "transformatives-drittes"
+      ],
+      "ts": "2026-11-27T21:21:33.339Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": true
+    },
+    {
+      "sourceId": "MWZHKZA0-612499CC",
+      "question": "Wenn die Probe der Abweichung Zeit braucht, wie schützen wir in dieser Zwischenzeit das, was noch unentschieden ist, davor, schon als entlarvtes Muster oder schon als Stimme der Welt behandelt zu werden?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo+schweigen",
+      "nodeIds": [
+        "echo",
+        "schweigen"
+      ],
+      "ts": "2026-11-27T21:21:33.336Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": true
+    },
+    {
+      "sourceId": "MWZHKZ9X-CB2DBFCD",
+      "question": "Wenn Anwesenheit sich nicht mehr am Signal bemisst, woran merken wir, dass uns ein Gegenüber gegenwärtig ist und nicht nur eine wohlgeformte Pause, die uns beschäftigen soll?",
+      "endpoint": "analyse",
+      "anchor": "analyse:echo-kammer+unverfuegbarkeit",
+      "nodeIds": [
+        "echo-kammer",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-27T21:21:33.333Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MWZHKZA9-580AD874",
+          "score": 0.723
+        }
+      ],
+      "answered": true,
+      "followUp": true
+    },
     {
       "sourceId": "MASTER-AC8C7EC2",
       "question": "Wie kann das transformative Dritte in einer Welt aufblitzen, die sich zunehmend durch die Logik der Wiederholung und der algorithmischen Verfügbarmachung konstituiert?",
@@ -48,6 +173,10 @@
           "id": "MW566TNX-A16A2897",
           "score": 0.742,
           "manual": true
+        },
+        {
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.784
         }
       ],
       "answered": true,
@@ -317,16 +446,16 @@
       "dupCount": 1,
       "answeredBy": [
         {
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.756
+        },
+        {
           "id": "MASTER-99747E65",
           "score": 0.741
         },
         {
           "id": "MASTER-83EFBD4F",
           "score": 0.734
-        },
-        {
-          "id": "MASTER-63686170",
-          "score": 0.733
         }
       ],
       "answered": true,
@@ -400,8 +529,8 @@
           "score": 0.732
         },
         {
-          "id": "MWZEHNJM-EDB65CFA",
-          "score": 0.721
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.727
         }
       ],
       "answered": true,
@@ -420,16 +549,17 @@
       "dupCount": 1,
       "answeredBy": [
         {
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.841,
+          "manual": true
+        },
+        {
           "id": "MWZEI2GM-59D470EB",
           "score": 0.812
         },
         {
           "id": "MASTER-3FFBA6E3",
           "score": 0.754
-        },
-        {
-          "id": "MWZEHNJM-EDB65CFA",
-          "score": 0.734
         }
       ],
       "answered": true,
@@ -450,6 +580,10 @@
         {
           "id": "MWXUUN2P-97518949",
           "score": 0.884
+        },
+        {
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.748
         }
       ],
       "answered": true,
@@ -476,8 +610,8 @@
           "score": 0.788
         },
         {
-          "id": "MWZEI2GM-59D470EB",
-          "score": 0.741
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.755
         }
       ],
       "answered": true,
@@ -498,6 +632,10 @@
         {
           "id": "MWXUO44D-816B11B2",
           "score": 0.866
+        },
+        {
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.725
         }
       ],
       "answered": true,
@@ -1024,8 +1162,14 @@
       ],
       "ts": "2026-11-20T17:52:30.718Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZHKZAI-3B30A91E",
+          "score": 0.888,
+          "manual": true
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -1103,6 +1247,10 @@
         {
           "id": "MWZEI2GM-59D470EB",
           "score": 0.752
+        },
+        {
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.725
         }
       ],
       "answered": true,
@@ -1134,8 +1282,14 @@
       ],
       "ts": "2026-11-20T17:26:45.970Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZHKZAF-021072A1",
+          "score": 0.876,
+          "manual": true
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -2060,12 +2214,12 @@
           "score": 0.773
         },
         {
-          "id": "MWP942QG-F15146A5",
-          "score": 0.762
+          "id": "MWZHKZ9X-CB2DBFCD",
+          "score": 0.772
         },
         {
-          "id": "MWP942PY-5EF7032A",
-          "score": 0.758
+          "id": "MWP942QG-F15146A5",
+          "score": 0.762
         }
       ],
       "answered": true,
@@ -2127,8 +2281,14 @@
       ],
       "ts": "2026-11-20T16:47:25.806Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZHKZAC-93FEB903",
+          "score": 0.915,
+          "manual": true
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -2192,8 +2352,14 @@
       ],
       "ts": "2026-11-20T16:47:25.797Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZHKZA9-580AD874",
+          "score": 0.861,
+          "manual": true
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -5343,8 +5509,14 @@
       ],
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZHKZA0-612499CC",
+          "score": 0.871,
+          "manual": true
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -5358,8 +5530,14 @@
       ],
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZHKZA3-841FB5DE",
+          "score": 0.812,
+          "manual": true
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -5423,8 +5601,14 @@
       ],
       "ts": "2026-11-06T16:09:31.840Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZHKZA6-A56A24E4",
+          "score": 0.885,
+          "manual": true
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -5461,6 +5645,10 @@
           "id": "MWP7PHLX-B52303F9",
           "score": 0.849,
           "manual": true
+        },
+        {
+          "id": "MWZHKZA9-580AD874",
+          "score": 0.726
         },
         {
           "id": "MWXUIJIK-469D0C55",
@@ -5732,8 +5920,8 @@
           "score": 0.792
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.776
+          "id": "MWZHKZA3-841FB5DE",
+          "score": 0.788
         }
       ],
       "answered": true,
@@ -9299,12 +9487,12 @@
           "score": 0.808
         },
         {
-          "id": "MTNBAIUZ-299AC7D8",
-          "score": 0.781
+          "id": "MWZHKZA3-841FB5DE",
+          "score": 0.788
         },
         {
-          "id": "MWZEH8M1-991DDBD0",
-          "score": 0.77
+          "id": "MTNBAIUZ-299AC7D8",
+          "score": 0.781
         }
       ],
       "answered": true,
@@ -10252,12 +10440,12 @@
           "score": 0.784
         },
         {
-          "id": "MTNBAIUZ-299AC7D8",
-          "score": 0.744
+          "id": "MWZHKZA3-841FB5DE",
+          "score": 0.749
         },
         {
-          "id": "MOQIMC7B-B190C937",
-          "score": 0.736
+          "id": "MTNBAIUZ-299AC7D8",
+          "score": 0.744
         }
       ],
       "answered": true,

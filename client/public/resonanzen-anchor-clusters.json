@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T21:20:23.298Z",
+  "generatedAt": "2026-11-27T21:27:28.379Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap4",
@@ -13,6 +13,19 @@
       "lastVariantTs": "2026-11-15T09:00:48.238Z",
       "masterId": "MASTER-476E4F4D",
       "masterTs": "2026-11-11T16:41:48.453Z",
+      "masterStale": true
+    },
+    {
+      "anchor": "analyse:echo-kammer+unverfuegbarkeit",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZ9X-CB2DBFCD",
+        "MWXTZZPC-5F6A5744",
+        "MTNBAIUZ-299AC7D8"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.333Z",
+      "masterId": "MASTER-AC8C7EC2",
+      "masterTs": "2026-11-27T20:04:26.600Z",
       "masterStale": true
     },
     {
@@ -217,6 +230,90 @@
       "masterStale": false
     },
     {
+      "anchor": "analyse:werden+zeit",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZAI-3B30A91E",
+        "MWPA16NY-3D5DD901"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.354Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:lm-scheitern+moeglichkeit",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZAF-021072A1",
+        "MWP942QA-90A0C107"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.351Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:moeglichkeit+unverfuegbarkeit",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZAC-93FEB903",
+        "MWP7PHM6-789F4B23"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.348Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:dazwischenintelligenz+schweigen",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZA9-580AD874",
+        "MWP7PHLX-B52303F9"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.345Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:schweigen+stimme",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZA6-A56A24E4",
+        "MW566TO3-969C6466"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.342Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:echo-kammer+transformatives-drittes",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZA3-841FB5DE",
+        "MW566TOA-BC003CB2"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.339Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:echo+schweigen",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWZHKZA0-612499CC",
+        "MW566TOD-84C09B94"
+      ],
+      "lastVariantTs": "2026-11-27T21:21:33.336Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "path-analyse:existenz+wesen",
       "endpoint": "path-analyse",
       "variantIds": [
@@ -249,18 +346,6 @@
       ],
       "lastVariantTs": "2026-11-27T19:54:39.962Z",
       "masterId": "MASTER-83EFBD4F",
-      "masterTs": "2026-11-27T20:04:26.600Z",
-      "masterStale": false
-    },
-    {
-      "anchor": "analyse:echo-kammer+unverfuegbarkeit",
-      "endpoint": "analyse",
-      "variantIds": [
-        "MWXTZZPC-5F6A5744",
-        "MTNBAIUZ-299AC7D8"
-      ],
-      "lastVariantTs": "2026-11-26T17:33:36.776Z",
-      "masterId": "MASTER-AC8C7EC2",
       "masterTs": "2026-11-27T20:04:26.600Z",
       "masterStale": false
     },
@@ -435,8 +520,8 @@
   ],
   "stats": {
     "totalAnchors": 281,
-    "withMultipleVariants": 31,
+    "withMultipleVariants": 38,
     "withMaster": 31,
-    "staleMasters": 1
+    "staleMasters": 2
   }
 }

@@ -1,9 +1,72 @@
 {
-  "generatedAt": "2026-11-27T21:20:23.297Z",
+  "generatedAt": "2026-11-27T21:27:28.378Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
   "candidates": [
+    {
+      "id": "ERK-14FGSC7",
+      "answerId": "MWZHKZAC-93FEB903",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Das unbemerkte Kippen Eine gemeinsame Vision kippt selten in einem erkennbaren Beschluss. Sie kippt, indem Sätze, die einmal eine Richtung aufspannten, nach und nach als Maß genommen werden. Zuerst hofft eine Gemeinschaft auf etwas. Dann richtet sie ihre Schritte danach. Dann gilt, wer zweifelt, als jemand, der das Gemeinsame gefährdet. Der Möglichkeitsraum ist still zur Forderung geworden, und ge",
+      "distinctness": 0.277,
+      "conceptAnchor": "lm-begegnung",
+      "nodeIds": [
+        "moeglichkeit",
+        "unverfuegbarkeit"
+      ],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWP7PHM6-789F4B23",
+          "question": "Wenn die Ahnung sich daran zeigt, dass sie nachgeben kann, woran erkennen wir den Moment, in dem eine gemeinsame Vision einer Gemeinschaft unbemerkt vom Möglichkeitsraum in eine Forderung an die Wirklichkeit gekippt ist?",
+          "score": 0.915
+        }
+      ]
+    },
+    {
+      "id": "ERK-UG7NPP",
+      "answerId": "MWZHKZAF-021072A1",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die zurückgegebene Nachsicht Ein System, das über Menschen entscheidet, kann milde Regeln haben. Es kann Schwellen senken, Fristen verlängern, im Zweifel zugunsten des Betroffenen rechnen. Das alles ist nicht nichts, aber es ist keine Nachsicht. Nachsicht unterbricht die Rechnung; eine milde Regel rechnet nur anders. Wer die milde Regel kennt, kann sie erwarten, und was sich erwarten lässt, ist ke",
+      "distinctness": 0.254,
+      "conceptAnchor": "antwort",
+      "nodeIds": [
+        "lm-scheitern",
+        "moeglichkeit"
+      ],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWP942QA-90A0C107",
+          "question": "Wenn Gnade gerade das ist, was sich nicht verrechnen lässt, darf dann ein System, das über Menschen entscheidet, überhaupt Nachsicht üben, oder muss es jede Nachsicht an jemanden zurückgeben, der sie verantworten kann?",
+          "score": 0.876
+        }
+      ]
+    },
+    {
+      "id": "ERK-1BNHJBO",
+      "answerId": "MWZHKZA0-612499CC",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Probe, die kostet Unter dem Lärm der Wiederholung ist Abweichung leicht zu behaupten und schwer zu erkennen. Jedes raffiniertere Muster versteht sich inzwischen darauf, neu zu wirken: eine unerwartete Wendung, ein Bruch im Ton, ein fremdes Detail, das doch schon zum Repertoire gehört. Wer nur auf Überraschung achtet, wird getäuscht, denn auch die Kammer kann Überraschung liefern, solange sie i",
+      "distinctness": 0.228,
+      "conceptAnchor": "echo",
+      "nodeIds": [
+        "echo",
+        "schweigen"
+      ],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MW566TOD-84C09B94",
+          "question": "Wenn die Welt unter dem Lärm weiterspricht, woran erkennen wir die Abweichung, die wirklich von ihr kommt, und nicht nur das nächste, raffiniertere Muster?",
+          "score": 0.871
+        }
+      ]
+    },
     {
       "id": "ERK-1WD0VNP",
       "answerId": "MWPA16NS-54BBB39F",
@@ -27,6 +90,37 @@
           "sourceId": "MWCASDSY-E712A809",
           "question": "Wie aber sähen Technologien aus, die uns nicht nur entlasten, sondern auch bewusst zur Stille und zur inneren Ansprechbarkeit anleiten?",
           "score": 0.756
+        }
+      ]
+    },
+    {
+      "id": "ERK-KJSDGZ",
+      "answerId": "MWZHKZA9-580AD874",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Zeigen ohne Vorzeichnung Eine sichtbare Lücke ist schon eine Deutung. Sobald ein Werkzeug sagt: „Hier hat noch niemand weitergedacht“, hat es den Ort benannt, die Abwesenheit zugeschnitten und eine Richtung nahegelegt. Wer danach eintritt, betritt nicht das Ungedachte, sondern eine vorgezeichnete Offenheit. Das Gezeigtwerden selbst formt, auch wenn das Werkzeug die Lücke nicht füllt. Die vorangehe",
+      "distinctness": 0.219,
+      "conceptAnchor": "raum",
+      "nodeIds": [
+        "dazwischenintelligenz",
+        "schweigen"
+      ],
+      "resolveCount": 3,
+      "resolves": [
+        {
+          "sourceId": "MWP7PHLX-B52303F9",
+          "question": "Wenn ein Werkzeug die Leerstellen eines Gesprächs zeigen kann, wie verhindern wir, dass die sichtbar gewordene Lücke allein durch ihr Gezeigtwerden schon vorgeformt wird, bevor jemand sie betreten hat?",
+          "score": 0.861
+        },
+        {
+          "sourceId": "MV9NMWL2-5669B857",
+          "question": "Wie aber können wir die digitalen Werkzeuge so formen, dass sie nicht nur unsere Absichten abbilden, sondern auch das Unausgesprochene und das noch Ungedachte im kollektiven Sinnfindungsprozess sichtbar machen?",
+          "score": 0.726
+        },
+        {
+          "sourceId": "MWZHKZ9X-CB2DBFCD",
+          "question": "Wenn Anwesenheit sich nicht mehr am Signal bemisst, woran merken wir, dass uns ein Gegenüber gegenwärtig ist und nicht nur eine wohlgeformte Pause, die uns beschäftigen soll?",
+          "score": 0.723
         }
       ]
     },
@@ -146,6 +240,27 @@
           "sourceId": "MASTER-5476DCEA",
           "question": "Kann eine als Resonanzfähigkeit verstandene Würde dem totalisierenden Anspruch einer rein auf Effizienz ausgerichteten algorithmischen Optimierung überhaupt standhalten, oder wird sie selbst zu einer weiteren, subtileren Ressource im System der Verwertung?",
           "score": 0.75
+        }
+      ]
+    },
+    {
+      "id": "ERK-1MU99O6",
+      "answerId": "MWZHKZAI-3B30A91E",
+      "answerEndpoint": "analyse",
+      "answerStatus": "raw",
+      "answerExcerpt": "Wer die Verwandlung verspricht Ein Versprechen ist mehr als eine zutreffende Vorhersage. Es bindet jemanden, der auch anders könnte, an ein Verhältnis über die Zeit. „Ich bleibe ansprechbar, auch wenn ich mich verwandle“ kann nur sagen, wer angesprochen werden kann und wer für das Einhalten einsteht, wenn die Verwandlung gekommen ist. Eine Maschine, die sich mit jedem Update verändert, hat diese S",
+      "distinctness": 0.212,
+      "conceptAnchor": "dazwischenintelligenz",
+      "nodeIds": [
+        "werden",
+        "zeit"
+      ],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MWPA16NY-3D5DD901",
+          "question": "Wenn Rückbindung im Versprechen liegt, das Ansprechbarkeit trotz Verwandlung zusagt, kann dann auch eine Maschine, die sich mit jedem Update verwandelt, ein Versprechen geben, oder bleibt das Versprechen immer bei denen, die sie verwandeln?",
+          "score": 0.888
         }
       ]
     },
@@ -307,7 +422,7 @@
     }
   ],
   "stats": {
-    "total": 10,
+    "total": 15,
     "confirmedFiltered": 82,
     "curatedRef": 225
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T21:20:22.279Z",
+  "generatedAt": "2026-11-27T21:27:24.808Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -22,18 +22,18 @@
     {
       "source": "echo-kammer",
       "target": "unverfuegbarkeit",
-      "cooccurrence": 17,
+      "cooccurrence": 18,
       "endpoints": {
-        "analyse": 3,
+        "analyse": 4,
         "dialog": 13,
         "path-analyse": 1
       },
       "sampleEntryIds": [
+        "MWZHKZ9X-CB2DBFCD",
         "MASTER-AC8C7EC2",
         "MASTER-99747E65",
         "MWXUUN2P-97518949",
-        "MWXURIG0-8075679A",
-        "MWXUO44D-816B11B2"
+        "MWXURIG0-8075679A"
       ]
     },
     {
@@ -267,6 +267,19 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "echo",
+      "target": "schweigen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 3
+      },
+      "sampleEntryIds": [
+        "MWZHKZA0-612499CC",
+        "MW566TOD-84C09B94",
+        "MPF4WM18-FF4843F1"
       ]
     },
     {
@@ -525,6 +538,66 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "werden",
+      "target": "zeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZHKZAI-3B30A91E",
+        "MWPA16NY-3D5DD901"
+      ]
+    },
+    {
+      "source": "lm-scheitern",
+      "target": "moeglichkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZHKZAF-021072A1",
+        "MWP942QA-90A0C107"
+      ]
+    },
+    {
+      "source": "moeglichkeit",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZHKZAC-93FEB903",
+        "MWP7PHM6-789F4B23"
+      ]
+    },
+    {
+      "source": "dazwischenintelligenz",
+      "target": "schweigen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZHKZA9-580AD874",
+        "MWP7PHLX-B52303F9"
+      ]
+    },
+    {
+      "source": "echo-kammer",
+      "target": "transformatives-drittes",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZHKZA3-841FB5DE",
+        "MW566TOA-BC003CB2"
       ]
     },
     {
@@ -998,18 +1071,6 @@
       ]
     },
     {
-      "source": "echo",
-      "target": "schweigen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MW566TOD-84C09B94",
-        "MPF4WM18-FF4843F1"
-      ]
-    },
-    {
       "source": "denken",
       "target": "selbst",
       "cooccurrence": 2,
@@ -1259,7 +1320,7 @@
   ],
   "stats": {
     "totalPairs": 456,
-    "candidatesCount": 95,
+    "candidatesCount": 100,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }
