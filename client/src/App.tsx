@@ -37,6 +37,7 @@ const LesepfadePage = lazy(() => import("./pages/LesepfadePage"));
 const ZeitrafferPage = lazy(() => import("./pages/ZeitrafferPage"));
 const DialogePage = lazy(() => import("./pages/DialogePage"));
 const HoerenPage = lazy(() => import("./pages/HoerenPage"));
+const FortschreibungPage = lazy(() => import("./pages/FortschreibungPage"));
 const WerkstattPage = lazy(() => import("./pages/WerkstattPage"));
 const EnkiduPage = lazy(() => import("./pages/EnkiduPage"));
 
@@ -100,6 +101,9 @@ function Router() {
       </Route>
       <Route path={"/hoeren"}>
         <Framed><Suspense fallback={fallback}><HoerenPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/fortschreibung"}>
+        <Framed><Suspense fallback={fallback}><FortschreibungPage /></Suspense></Framed>
       </Route>
       <Route path={"/werkstatt/:code"}>
         <Framed><Suspense fallback={fallback}><WerkstattPage /></Suspense></Framed>

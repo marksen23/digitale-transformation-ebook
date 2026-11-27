@@ -369,10 +369,11 @@ article,
   html, body {
     background: #ffffff !important;
   }
-  body > #root {
+  /* Das Werk selbst bleibt undruckbar. Nur die Fortschreibung ist frei. */
+  body:not([data-printable="fortschreibung"]) > #root {
     display: none !important;
   }
-  body::before {
+  body:not([data-printable="fortschreibung"])::before {
     content: "Drucken und PDF-Export sind für dieses Werk nicht verfügbar. Bitte nutzen Sie die digitale Ausgabe.";
     display: block;
     padding: 3rem 2rem;
@@ -380,5 +381,31 @@ article,
     font-size: 1rem;
     color: #1c1917;
     text-align: center;
+  }
+  body[data-printable="fortschreibung"] header,
+  body[data-printable="fortschreibung"] .skip-link,
+  body[data-printable="fortschreibung"] .appframe-drawer,
+  body[data-printable="fortschreibung"] .appframe-drawer-backdrop,
+  body[data-printable="fortschreibung"] .no-print {
+    display: none !important;
+  }
+  body[data-printable="fortschreibung"] main {
+    padding-top: 0 !important;
+    min-height: 0 !important;
+  }
+  body[data-printable="fortschreibung"] .fortschreibung {
+    position: static !important;
+    overflow: visible !important;
+    height: auto !important;
+    inset: auto !important;
+    background: #fff !important;
+    color: #1c1917 !important;
+  }
+  body[data-printable="fortschreibung"] .fortschreibung h1,
+  body[data-printable="fortschreibung"] .fortschreibung h2,
+  body[data-printable="fortschreibung"] .fortschreibung h3,
+  body[data-printable="fortschreibung"] .fortschreibung p,
+  body[data-printable="fortschreibung"] .fortschreibung span {
+    color: #1c1917 !important;
   }
 }
