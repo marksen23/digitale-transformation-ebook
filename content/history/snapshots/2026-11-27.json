@@ -1,0 +1,186 @@
+{
+  "ts": "2026-11-27T11:47:01.157Z",
+  "schema_version": 1,
+  "total_files": 513,
+  "corpus_hash": "sha256:341ec013f5bde422",
+  "counts_by_endpoint": {
+    "analyse": 136,
+    "chapter": 65,
+    "dialog": 98,
+    "path-analyse": 67,
+    "enkidu": 68,
+    "graph-chat": 52,
+    "passage": 18,
+    "translate": 9
+  },
+  "status_distribution": {
+    "published": 169,
+    "raw": 262,
+    "rejected": 28,
+    "approved": 54
+  },
+  "top_anchors": [
+    {
+      "key": "enkidu",
+      "count": 68
+    },
+    {
+      "key": "graph",
+      "count": 52
+    },
+    {
+      "key": "dialog:erkenntnis+lm-verwandlung",
+      "count": 20
+    },
+    {
+      "key": "dialog:echo-kammer+unverfuegbarkeit",
+      "count": 12
+    },
+    {
+      "key": "dialog:raum+erkenntnis+sprache",
+      "count": 8
+    },
+    {
+      "key": "chapter:band3-kap3",
+      "count": 7
+    },
+    {
+      "key": "dialog:klang+resonanzvernunft",
+      "count": 7
+    },
+    {
+      "key": "chapter:teil7",
+      "count": 6
+    },
+    {
+      "key": "dialog:antwort+resonanz",
+      "count": 6
+    },
+    {
+      "key": "dialog:weiterdenken",
+      "count": 6
+    },
+    {
+      "key": "chapter:band3-kap4",
+      "count": 5
+    },
+    {
+      "key": "chapter:teil6",
+      "count": 5
+    },
+    {
+      "key": "dialog:licht+schatten",
+      "count": 5
+    },
+    {
+      "key": "chapter:band3-kap5",
+      "count": 4
+    },
+    {
+      "key": "chapter:teil4",
+      "count": 4
+    },
+    {
+      "key": "analyse:antwort+resonanz",
+      "count": 3
+    },
+    {
+      "key": "analyse:erkenntnis+lm-verwandlung",
+      "count": 3
+    },
+    {
+      "key": "analyse:lm-spiegel+wahrheit",
+      "count": 3
+    },
+    {
+      "key": "analyse:lm-verwandlung+stimme",
+      "count": 3
+    },
+    {
+      "key": "chapter:band1-kap5",
+      "count": 3
+    }
+  ],
+  "top_tags": [
+    {
+      "key": "erkenntnis",
+      "count": 45
+    },
+    {
+      "key": "lm-verwandlung",
+      "count": 39
+    },
+    {
+      "key": "resonanzvernunft",
+      "count": 36
+    },
+    {
+      "key": "resonanz",
+      "count": 32
+    },
+    {
+      "key": "unverfuegbarkeit",
+      "count": 31
+    },
+    {
+      "key": "antwort",
+      "count": 22
+    },
+    {
+      "key": "zwischen",
+      "count": 22
+    },
+    {
+      "key": "echo-kammer",
+      "count": 22
+    },
+    {
+      "key": "selbst",
+      "count": 22
+    },
+    {
+      "key": "freiheit",
+      "count": 19
+    },
+    {
+      "key": "raum",
+      "count": 18
+    },
+    {
+      "key": "sprache",
+      "count": 18
+    },
+    {
+      "key": "klang",
+      "count": 18
+    },
+    {
+      "key": "dasein",
+      "count": 18
+    },
+    {
+      "key": "vernunft",
+      "count": 17
+    },
+    {
+      "key": "moment",
+      "count": 16
+    },
+    {
+      "key": "lm-grenze",
+      "count": 15
+    },
+    {
+      "key": "welt",
+      "count": 15
+    },
+    {
+      "key": "wahrheit",
+      "count": 14
+    },
+    {
+      "key": "dazwischenintelligenz",
+      "count": 14
+    }
+  ]
+}
