@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:58:16.289Z",
+  "generatedAt": "2026-11-27T19:54:52.400Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -150,6 +150,21 @@
       ]
     },
     {
+      "source": "entfremdung",
+      "target": "resonanzimperativ",
+      "cooccurrence": 4,
+      "endpoints": {
+        "dialog": 2,
+        "analyse": 2
+      },
+      "sampleEntryIds": [
+        "MWZEGQYC-567A529E",
+        "MWP85762-03FEE922",
+        "MWCASDSY-E712A809",
+        "MWCANTL2-D21DAFD5"
+      ]
+    },
+    {
       "source": "klang",
       "target": "moment",
       "cooccurrence": 4,
@@ -235,20 +250,6 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
-      ]
-    },
-    {
-      "source": "entfremdung",
-      "target": "resonanzimperativ",
-      "cooccurrence": 3,
-      "endpoints": {
-        "analyse": 2,
-        "dialog": 1
-      },
-      "sampleEntryIds": [
-        "MWP85762-03FEE922",
-        "MWCASDSY-E712A809",
-        "MWCANTL2-D21DAFD5"
       ]
     },
     {
@@ -493,6 +494,19 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "stimme",
+      "target": "öffnung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWZEGBTK-5C3DF512",
+        "MOQID47V-A12862EA"
       ]
     },
     {
@@ -1201,8 +1215,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 445,
-    "candidatesCount": 91,
+    "totalPairs": 447,
+    "candidatesCount": 92,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

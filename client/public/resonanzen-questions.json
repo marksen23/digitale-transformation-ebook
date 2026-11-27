@@ -1,18 +1,49 @@
 {
-  "generatedAt": "2026-11-26T17:58:17.276Z",
-  "count": 421,
+  "generatedAt": "2026-11-27T19:54:53.544Z",
+  "count": 423,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 421,
+    "total": 423,
     "answered": 381,
-    "open": 15,
+    "open": 17,
     "followUp": 41,
     "followUpOpen": 25,
-    "embedded": 1
+    "embedded": 2
   },
   "questions": [
+    {
+      "sourceId": "MWZEGQYC-567A529E",
+      "question": "Doch wer oder was entscheidet letztlich, welche Begegnungen als wertvoll erachtet und welche als entfremdend bewertet werden, wenn die Technologie selbst zunehmend die Parameter dieser Beurteilung mitprägt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:resonanzimperativ",
+      "nodeIds": [
+        "resonanzimperativ",
+        "entfremdung"
+      ],
+      "ts": "2026-11-27T19:54:17.077Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEGBTK-5C3DF512",
+      "question": "Doch wenn Wahrheit eine gelungene Stimmung der Öffnung ist, die sich in der Schwingung manifestiert, wie verhält sich dann die Stille zu diesem resonanten Verständnis?",
+      "endpoint": "dialog",
+      "anchor": "dialog:öffnung",
+      "nodeIds": [
+        "öffnung",
+        "wahrheit",
+        "stimme"
+      ],
+      "ts": "2026-11-27T19:53:57.464Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWXUUN2P-97518949",
       "question": "Doch welche neue Form der Wahrnehmung müsste sich entwickeln, um dieses Schweigen nicht als Abwesenheit, sondern als tiefste Form der Anwesenheit zu erfahren?",
@@ -1185,16 +1216,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEGQYC-567A529E",
+          "score": 0.851
+        },
+        {
           "id": "MWS6IJ29-DD378DC7",
           "score": 0.822
         },
         {
           "id": "MWXU31YF-DF1BC500",
           "score": 0.796
-        },
-        {
-          "id": "MWS6KAHY-AFBBE834",
-          "score": 0.764
         }
       ],
       "answered": true,
@@ -1210,16 +1241,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEGBTK-5C3DF512",
+          "score": 0.777
+        },
+        {
           "id": "MWS6IJ29-DD378DC7",
           "score": 0.756
         },
         {
           "id": "MASTER-456B1D6E",
           "score": 0.755
-        },
-        {
-          "id": "MWS6F9I8-00524756",
-          "score": 0.746
         }
       ],
       "answered": true,
@@ -1330,16 +1361,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEGBTK-5C3DF512",
+          "score": 0.888
+        },
+        {
           "id": "MWS6F9I8-00524756",
           "score": 0.746
         },
         {
           "id": "MWP84ULS-09E47DCA",
           "score": 0.736
-        },
-        {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.735
         }
       ],
       "answered": true,
@@ -2261,12 +2292,12 @@
           "score": 0.758
         },
         {
-          "id": "MWS6JJMY-0D187AD0",
-          "score": 0.749
+          "id": "MWZEGQYC-567A529E",
+          "score": 0.75
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.748
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.749
         }
       ],
       "answered": true,
@@ -2822,6 +2853,10 @@
           "id": "MWPA16NS-54BBB39F",
           "score": 0.854,
           "manual": true
+        },
+        {
+          "id": "MWZEGQYC-567A529E",
+          "score": 0.723
         }
       ],
       "answered": true,
@@ -3354,16 +3389,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEGQYC-567A529E",
+          "score": 0.798
+        },
+        {
           "id": "MWXU31YF-DF1BC500",
           "score": 0.772
         },
         {
           "id": "MWJEWOY7-62FCEE55",
           "score": 0.757
-        },
-        {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.754
         }
       ],
       "answered": true,
@@ -4716,12 +4751,12 @@
           "score": 0.795
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.764
+          "id": "MWZEGQYC-567A529E",
+          "score": 0.777
         },
         {
-          "id": "MWP85762-03FEE922",
-          "score": 0.763
+          "id": "MASTER-2C637ECA",
+          "score": 0.764
         }
       ],
       "answered": true,
@@ -5387,8 +5422,8 @@
           "score": 0.795
         },
         {
-          "id": "MWCASDSY-E712A809",
-          "score": 0.752
+          "id": "MWZEGQYC-567A529E",
+          "score": 0.759
         }
       ],
       "answered": true,
@@ -6612,8 +6647,8 @@
           "score": 0.738
         },
         {
-          "id": "MASTER-4EFD4AA4",
-          "score": 0.729
+          "id": "MWZEGBTK-5C3DF512",
+          "score": 0.73
         }
       ],
       "answered": true,
@@ -9164,8 +9199,8 @@
           "score": 0.767
         },
         {
-          "id": "MWCB2NN3-B5D0CDE0",
-          "score": 0.74
+          "id": "MWZEGQYC-567A529E",
+          "score": 0.744
         }
       ],
       "answered": true,
@@ -9188,12 +9223,12 @@
           "score": 0.781
         },
         {
-          "id": "MASTER-476E4F4D",
-          "score": 0.775
+          "id": "MWZEGBTK-5C3DF512",
+          "score": 0.776
         },
         {
-          "id": "MPMTT6GB-1AF44EE4",
-          "score": 0.773
+          "id": "MASTER-476E4F4D",
+          "score": 0.775
         }
       ],
       "answered": true,

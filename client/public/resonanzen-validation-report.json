@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-26T17:58:04.786Z",
-  "filesChecked": 513,
+  "generatedAt": "2026-11-27T19:54:35.714Z",
+  "filesChecked": 515,
   "errors": 0,
-  "warnings": 73,
+  "warnings": 75,
   "issues": [
     {
       "level": "warning",
@@ -276,6 +276,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/_ffnung/2026-11-27-MWZEGBTK-5C3DF512.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 490e64b82ebb2ec8, computed 6426b50696463230 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/_ffnung+raumfaltung/2026-11-20-MWP82B5U-9D2E9F77.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 10ff7b21ee2682ef, computed 4c0ab622313162c3 — Tampering oder nachträgliche Edit?"
@@ -366,6 +372,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/resonanzimperativ/2026-11-27-MWZEGQYC-567A529E.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 7fd4a3fcdf2b66ae, computed e96a3eb0b6a3ac47 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/resonanzimperativ+transaufklaerung/2026-11-14-MWG6K2GK-71CA57FA.md",
       "rule": "content-hash-mismatch",
       "detail": "expected ea47fac19409212f, computed 7b0d28c960182806 — Tampering oder nachträgliche Edit?"
@@ -447,7 +459,7 @@
     "byEndpoint": {
       "analyse": 136,
       "chapter": 65,
-      "dialog": 98,
+      "dialog": 100,
       "path-analyse": 67,
       "enkidu": 68,
       "graph-chat": 52,
@@ -456,7 +468,7 @@
     },
     "byStatus": {
       "published": 169,
-      "raw": 262,
+      "raw": 264,
       "rejected": 28,
       "approved": 54
     },

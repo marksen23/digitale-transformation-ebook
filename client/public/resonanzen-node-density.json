@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:58:16.287Z",
+  "generatedAt": "2026-11-27T19:54:52.399Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 36,
@@ -49,8 +49,9 @@
       }
     },
     "stimme": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
+        "dialog": 1,
         "analyse": 4,
         "path-analyse": 4
       }
@@ -87,8 +88,9 @@
       }
     },
     "wahrheit": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
+        "dialog": 1,
         "analyse": 10,
         "path-analyse": 4
       }
@@ -225,9 +227,9 @@
       }
     },
     "öffnung": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "path-analyse": 6,
         "analyse": 2
       }
@@ -293,10 +295,10 @@
       }
     },
     "entfremdung": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
+        "dialog": 3,
         "analyse": 6,
-        "dialog": 2,
         "path-analyse": 1
       }
     },
@@ -325,11 +327,11 @@
       }
     },
     "resonanzimperativ": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
+        "dialog": 3,
         "analyse": 5,
-        "path-analyse": 2,
-        "dialog": 2
+        "path-analyse": 2
       }
     },
     "unverfuegbarkeit": {

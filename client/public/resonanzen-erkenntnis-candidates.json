@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-26T17:58:17.411Z",
+  "generatedAt": "2026-11-27T19:54:53.685Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -408,6 +408,47 @@
       ]
     },
     {
+      "id": "ERK-1JDQP20",
+      "answerId": "MWZEGQYC-567A529E",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Der Gedanke, Resonanzfähigkeit als konkretes Abnahmekriterium und Bewertungsmaßstab in technologischen Entwicklungsprozessen zu etablieren, greift tief in das Begriffsnetz des Werks ein. Es verschiebt den Resonanzimperativ von einem abstrakten Ideal zu einem operationalisierbaren Prüfstein, der Architektur nicht nur nach ihrer Effizienz, sondern nach ihrer Fähigkeit beurteilt, Begegnungen zu verdi",
+      "distinctness": 0.212,
+      "conceptAnchor": "resonanzimperativ",
+      "nodeIds": [
+        "resonanzimperativ",
+        "entfremdung"
+      ],
+      "resolveCount": 7,
+      "resolves": [
+        {
+          "sourceId": "MWP85762-03FEE922",
+          "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz fundamental. Der Mensch wird nicht länger als passiver Empfänger oder Opfer der Entfremdung begriffen, sondern als Akteur, der durch sein Handeln die Bedingungen für Resonanz aktiv mitgestaltet. Maschinen sind in diesem Kontext nicht nur Werkzeuge, die potenziell zur Entfremdung beitragen können, sondern auch Medien, durch die Resonanzbedingungen bewahrt oder zerstört werden. Resonanz selbst erscheint nicht nur als ein ersehntes Weltverhältnis, sondern als ein ethisches Ziel, dessen Erreichung eine kontinuierliche Anstrengung erfordert. Wie kann eine Gesellschaft sicherstellen, dass ihre technologischen Entwicklungen dem Resonanzimperativ gerecht werden, anstatt die Entfremdung zu vertiefen?",
+          "score": 0.851
+        },
+        {
+          "sourceId": "MASTER-556F1581",
+          "question": "Wie aber lässt sich die Integrität des „Zwischen“ wahren, wenn die Technologie selbst beginnt, die Bedingungen der Resonanz nicht nur zu ermöglichen, sondern sie autonom und unmerklich vorzuformen?",
+          "score": 0.798
+        },
+        {
+          "sourceId": "MWCAO97O-12EF85DE",
+          "question": "Vielmehr als um eine Widerlegung geht es um die Frage der Erfahrbarkeit und der praktischen Anwendung des Resonanzimperativs: Kann die Resonanzvernunft tatsächlich als Richtschnur für individuelles und institutionelles Handeln dienen, um die Bedingungen der Möglichkeit von Resonanz zu bewahren und zu fördern?",
+          "score": 0.777
+        },
+        {
+          "sourceId": "MTNB7STV-BCB7D709",
+          "question": "Doch wie können wir sicherstellen, dass diese Kultivierung der Resonanz nicht zur exklusiven Domäne einiger Weniger wird, sondern als eine grundlegende Fähigkeit in der gesamten Breite der digitalen Gesellschaft verankert wird?",
+          "score": 0.759
+        },
+        {
+          "sourceId": "MASTER-5476DCEA",
+          "question": "Kann eine als Resonanzfähigkeit verstandene Würde dem totalisierenden Anspruch einer rein auf Effizienz ausgerichteten algorithmischen Optimierung überhaupt standhalten, oder wird sie selbst zu einer weiteren, subtileren Ressource im System der Verwertung?",
+          "score": 0.75
+        }
+      ]
+    },
+    {
       "id": "ERK-1VDVB79",
       "answerId": "MWXUFW03-678DEC80",
       "answerEndpoint": "dialog",
@@ -612,7 +653,7 @@
     }
   ],
   "stats": {
-    "total": 20,
+    "total": 21,
     "confirmedFiltered": 74,
     "curatedRef": 219
   }
