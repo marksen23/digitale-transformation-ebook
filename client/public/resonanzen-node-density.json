@@ -391,23 +391,29 @@
       }
     },
     "schattenlicht": {
-      "count": 2,
+      "count": 27,
       "endpoints": {
-        "analyse": 2
-      }
+        "analyse": 13,
+        "dialog": 12,
+        "path-analyse": 2
+      },
+      "derived": true
     },
     "wirklichkeit-moeglichkeit": {
-      "count": 0,
-      "endpoints": {}
+      "count": 22,
+      "endpoints": {
+        "analyse": 15,
+        "dialog": 5,
+        "path-analyse": 2
+      },
+      "derived": true
     }
   },
   "stats": {
-    "minCount": 0,
+    "minCount": 9,
     "maxCount": 45,
     "median": 13,
-    "totalNodes": 52,
-    "zeroResonanceNodes": [
-      "wirklichkeit-moeglichkeit"
-    ]
+    "totalNodes": 50,
+    "zeroResonanceNodes": []
   }
 }

@@ -23,6 +23,8 @@ import {
   applyAnswerOverrides, loadAnswerOverrides, collectQuestions, foldMasterQuestions,
   isSelfAnswer, normalizeQuestion, isFollowUpQuestion, summarizeQuestions,
 } from "./lib/questionAnswers.js";
+import { NODES, PRINZIP_GROUPS } from "../client/src/data/conceptGraph.js";
+import { applyPrinzipGroupDensity, canonicalDensityStats } from "../shared/prinzipDensity.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -482,29 +484,20 @@ function writeNodeDensity(entries: ResonanzEntry[]): void {
     }
   }
 
-  const counts = allNodeIds.map(id => perNode[id].count);
-  const sorted = [...counts].sort((a, b) => a - b);
-  const median = sorted.length === 0 ? 0
-    : sorted.length % 2 === 1 ? sorted[(sorted.length - 1) / 2]
-    : Math.round((sorted[sorted.length / 2 - 1] + sorted[sorted.length / 2]) / 2);
-  const minCount = sorted[0] ?? 0;
-  const maxCount = sorted[sorted.length - 1] ?? 0;
-  const zeroResonanceNodes = allNodeIds.filter(id => perNode[id].count === 0);
+  const canonicalIds = NODES.map(node => node.id);
+  const withGroups = applyPrinzipGroupDensity(perNode, PRINZIP_GROUPS, new Set(canonicalIds));
+  const stats = canonicalDensityStats(withGroups, canonicalIds);
 
   const out = {
     generatedAt: new Date().toISOString(),
-    perNode,
-    stats: {
-      minCount, maxCount, median,
-      totalNodes: allNodeIds.length,
-      zeroResonanceNodes,
-    },
+    perNode: withGroups,
+    stats,
   };
   fs.writeFileSync(NODE_DENSITY_OUTPUT, JSON.stringify(out, null, 2));
   console.log(
-    `[build-resonanzen-index] node-density: ${allNodeIds.length} Knoten, ` +
-    `min=${minCount} max=${maxCount} median=${median}, ` +
-    `${zeroResonanceNodes.length} blinde Flecken`
+    `[build-resonanzen-index] node-density: ${stats.totalNodes} Knoten, ` +
+    `min=${stats.minCount} max=${stats.maxCount} median=${stats.median}, ` +
+    `${stats.zeroResonanceNodes.length} blinde Flecken`
   );
 }
 

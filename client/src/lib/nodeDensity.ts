@@ -1,3 +1,6 @@
+import { NODES, PRINZIP_GROUPS } from "@/data/conceptGraph";
+import { applyPrinzipGroupDensity, canonicalDensityStats } from "@shared/prinzipDensity";
+
 /**
  * nodeDensity.ts — Loader für die im CI generierte
  * /resonanzen-node-density.json (vom build-resonanzen-index.ts).
@@ -14,6 +17,8 @@
 export interface NodeDensityEntry {
   count: number;
   endpoints: Record<string, number>;
+  /** Gruppen-id, deren Zahl aus den Mitgliedern kommt. */
+  derived?: boolean;
 }
 
 export interface NodeDensityFile {
@@ -47,8 +52,15 @@ export async function loadNodeDensity(): Promise<NodeDensityFile | null> {
         return null;
       }
       const data = (await res.json()) as NodeDensityFile;
-      _cached = data;
-      return data;
+      const canonicalIds = NODES.map(node => node.id);
+      const perNode = applyPrinzipGroupDensity(data.perNode, PRINZIP_GROUPS, new Set(canonicalIds));
+      const presented: NodeDensityFile = {
+        ...data,
+        perNode,
+        stats: canonicalDensityStats(perNode, canonicalIds),
+      };
+      _cached = presented;
+      return presented;
     } catch (err) {
       console.warn("[nodeDensity] load failed:", err);
       return null;
