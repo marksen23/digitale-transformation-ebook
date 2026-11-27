@@ -119,6 +119,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Gesicherte Fragen, Antworten und Weiterdenken-Folgen je Begriff, gelesen aus dem öffentlichen Korpus.",
   },
+  "/hoeren": {
+    title: `Hörfassung — ${WORK_TITLE}`,
+    description:
+      "Kernsätze und kurze Kapitelimpulse zum Hören, gesprochen von der Stimme des Browsers.",
+  },
   "/live": {
     title: `Live — ${WORK_TITLE}`,
     description: "Der lebendige Strom: die jüngsten Resonanzen des Werks in Echtzeit.",
@@ -300,6 +305,7 @@ const NAV_LINKS: { href: string; label: string }[] = [
   { href: "/resonanzen", label: "Wissen (Korpus)" },
   { href: "/fragen", label: "Offene Fragen" },
   { href: "/erkenntnisse", label: "Erkenntnisse" },
+  { href: "/hoeren", label: "Hörfassung" },
   { href: "/landkarte", label: "Wissens-Landkarte" },
 ];
 function navSnapshot(): string {

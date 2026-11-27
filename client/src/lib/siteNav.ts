@@ -36,8 +36,9 @@ export const SITE_NAV_CLUSTERS: SiteNavCluster[] = [
     label: "Lesen",
     i18nKey: "nav.read",
     items: [
-      { href: "/",       label: "Werk",    i18nKey: "nav.werk",    match: /^\/$/ },
-      { href: "/projekt", label: "Projekt", i18nKey: "nav.projekt", match: /^\/projekt/, mobileSub: "BESCHREIBUNG" },
+      { href: "/",       label: "Werk",       i18nKey: "nav.werk",    match: /^\/$/ },
+      { href: "/hoeren",  label: "Hörfassung", i18nKey: "nav.hoeren",  match: /^\/hoeren/,  mobileSub: "STIMME" },
+      { href: "/projekt", label: "Projekt",    i18nKey: "nav.projekt", match: /^\/projekt/, mobileSub: "BESCHREIBUNG" },
     ],
   },
   {
