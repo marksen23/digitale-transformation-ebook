@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T19:54:53.686Z",
+  "generatedAt": "2026-11-27T19:56:08.294Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -216,6 +216,30 @@
       "masterStale": false
     },
     {
+      "anchor": "dialog:stimme",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWZEI2GM-59D470EB",
+        "MWZEHNJM-EDB65CFA"
+      ],
+      "lastVariantTs": "2026-11-27T19:55:18.647Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:gelassenheit",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWZEH8M1-991DDBD0",
+        "MWP86WNM-ADEDD949"
+      ],
+      "lastVariantTs": "2026-11-27T19:54:39.962Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
       "anchor": "analyse:echo-kammer+unverfuegbarkeit",
       "endpoint": "analyse",
       "variantIds": [
@@ -397,8 +421,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 275,
-    "withMultipleVariants": 28,
+    "totalAnchors": 278,
+    "withMultipleVariants": 30,
     "withMaster": 25,
     "staleMasters": 2
   }

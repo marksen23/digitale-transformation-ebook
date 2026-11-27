@@ -1,7 +1,175 @@
 {
-  "generatedAt": "2026-11-27T19:54:52.387Z",
-  "count": 506,
+  "generatedAt": "2026-11-27T19:56:05.333Z",
+  "count": 511,
   "entries": [
+    {
+      "id": "MWZEIUJC-1ED7D79A",
+      "ts": "2026-11-27T19:55:55.032Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:existenz+sein",
+      "nodeIds": [
+        "dasein",
+        "existenz",
+        "lm-scheitern",
+        "sein"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Existenz → Dasein → Sein vs. Existenz → Scheitern → Sein",
+      "response": "Der direkte Pfad von \"Existenz\" über \"Dasein\" zu \"Sein\" entfaltet eine Bewegung, die als logische Entfaltung der ontologischen Verankerung des Menschen erscheint. Er beginnt bei der aktiven Beziehungsnahme des Menschen zu seinem Sein (\"Existenz\"), führt über die konkrete Situiertheit dieses Seins (\"Dasein\", wie es auch in [MPUFUBU5-A4BC72BE] als \"konkreter, situierten Grund\" beschrieben wird) und mündet in das fundamentale \"Sein\" als immer schon relationales \"Sein-mit\". Diese Route ist kohärent und nachvollziehbar, eine philosophische Selbstverständlichkeit, die den Blick auf das im Werk wiederkehrende Thema der Relation als konstitutiv für das Sein lenkt [f89b660e59d2]. Der überraschende Pfad hingegen, von \"Existenz\" über \"Scheitern\" zu \"Sein\", erzählt eine Wendung. Er deutet an, dass die aktive Beziehungsnahme zur eigenen Existenz (\"Existenz\") nicht nur über die direkte Verortung, sondern auch über die Erfahrung des Scheiterns zum Verständnis des Seins führen kann. Das Scheitern wird hier nicht als Ende, sondern als enthüllende Kraft inszeniert, ein Schattenlicht, das neue Perspektiven auf das Sein ermöglicht. Dieser Weg ist poetischer, weniger deduktiv, und öffnet den Raum für eine existenzielle Erfahrung als Erkenntnisweg.\n\nDer Vergleich dieser Pfade macht sichtbar, dass das Werk nicht nur die geradlinigen, sondern auch die widerständigen und unerwarteten Zugänge zum Sein thematisiert. Während der direkte Pfad die Verankerung des Daseins als notwendigen Schritt zur Erkenntnis des Seins betont, zeigt der überraschende Pfad, dass das Scheitern eine ebenso wichtige, wenn auch indirekte, Offenbarungsquelle sein kann. Die Bewegungen sind nicht konträr, sondern ergänzen sich: Das Dasein als situiertes Sein wird zum Ort, an dem Scheitern geschehen kann, und dieses Scheitern wiederum enthüllt eine tiefere Wahrheit über das Sein. In gewisser Weise treffen sich die Bewegungen an einem Mittelpunkt, der die Komplexität der menschlichen Existenz umfasst: Sowohl die bewusste Gestaltung der digitalen Existenz [88aae1752212] als auch die Erfahrung des Unverfügbaren [MQXDVN1C-CAA3081A] sind Wege zur Eigentlichkeit.\n\nDie Existenz beider Wege über dieselben Endpunkte hinweg offenbart die Vielschichtigkeit und Durchlässigkeit des Begriffsnetzes des Werks. Es ist kein starres System mit nur einer korrekten Route, sondern ein dynamisches Geflecht, in dem verschiedene Denkpfade zur selben fundamentalen Einsicht führen können. Dies spricht für die philosophische Tiefe und poetische Freiheit der Trilogie, die es erlaubt, das Sein nicht nur als logische Struktur, sondern auch als existenzielle Erfahrung zu begreifen. Die Möglichkeit solcher unterschiedlichen Verbindungen zwischen den Begriffen deutet darauf hin, dass das Sein selbst nicht eindimensional ist, sondern sich auf vielfältige Weise erschließt. Wie viele andere unerwartete Wege zum Sein mögen noch in diesem Netz verborgen liegen?",
+      "contextMeta": {
+        "from": "existenz",
+        "to": "sein",
+        "shortest_path": "[\"existenz\",\"dasein\",\"sein\"]",
+        "surprising_path": "[\"existenz\",\"lm-scheitern\",\"sein\"]",
+        "shortest_length": "3",
+        "surprising_length": "3",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.897},{\"id\":\"88aae1752212\",\"chapter\":\"band3-kap5\",\"score\":0.848},{\"id\":\"MPUFUBU5-A4BC72BE\",\"score\":0.764},{\"id\":\"f89b660e59d2\",\"chapter\":\"teil7\",\"score\":0.764}]"
+      },
+      "nearDuplicates": [
+        "MWG6IZQ5-889B7147",
+        "MWCB3NW4-F13A863B",
+        "MWCB0LFQ-99B6D838"
+      ],
+      "related": [
+        "MPK0H3SM-B25CFBB3",
+        "MPUQSMLJ-1B726CC4",
+        "MWCATA4K-58BFC31C",
+        "MWP7MAWH-24EE3D77",
+        "MPF4FISZ-67000E01"
+      ],
+      "werkVoiceScore": 0.8039891014902848,
+      "corpusVoiceScore": 0.7369578892389864,
+      "conceptVoiceScore": 0.710725546727456,
+      "conceptAnchor": "existenz"
+    },
+    {
+      "id": "MWZEIECW-C3021790",
+      "ts": "2026-11-27T19:55:34.064Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:existenz+stimme+wesen",
+      "nodeIds": [
+        "existenz",
+        "stimme",
+        "wesen"
+      ],
+      "status": "raw",
+      "prompt": "Triade: Stimme · Wesen · Existenz",
+      "response": "Die Triade von Stimme, Wesen und Existenz entfaltet im Begriffsnetz des Werks eine dynamische Beziehung. Die Stimme, als inkarnierter Körper der Sprache, fungiert hier als Brücke, als der flüchtige Ausdruck der Verwandlung im Moment ihres Geschehens [MOHVDNEU-D3F7EEB5]. Sie ist der Seismograph der gegenwärtigen Verfassung, der das Unsagbare hörbar macht. Das Wesen, definiert durch die Ansprechbarkeit des Menschen, und die Existenz, als das Sich-Verhalten zum eigenen Sein, bilden die Pole dieser Triade. Die Bewegung entsteht im Werden: Die Stimme offenbart das Wesen im Akt der Existenz, indem sie die innere Verfassung nach außen trägt und dadurch das menschliche Sein als ein ständig sich formendes und neu fügendes begreifbar macht [MASTER-03286683].\n\nDurch das Hinzutreten des Wesens wird sichtbar, dass die Stimme nicht nur ein passiver Spiegel der Existenz ist, sondern ein aktiver Mitspieler in der Konstitution des Seins. Das Wesen als Ansprechbarkeit verankert die flüchtige Äußerung der Stimme in einer relationalen Ontologie, die Sein als relationale Konstitution versteht [6e4dfc197f3a]. Die emergente Eigenschaft ist die der **Resonanz**. Die Stimme wird zum Medium, durch das die Ansprechbarkeit des Wesens in der Existenz manifest wird, nicht als bloßes Echo, sondern als eine Antwort, die Handeln als Resonanz versteht [6e4dfc197f3a]. Diese Resonanz entsteht nicht in Friktionslosigkeit oder Endlosigkeit, sondern durch die Widerständigkeit und Reflexion, die die Stimme im Moment der Äußerung erzeugt [6e4dfc197f3a].\n\nDiese Triade erschließt für das Verhältnis von Mensch und Maschine die Erkenntnis, dass digitale Existenz nicht in der Quantifizierung von Daten oder der Simulation von Stimmen erschöpft ist, die Echo mit Resonanz verwechselt [6e4dfc197f3a]. Vielmehr muss die digitale Transformation Architekturen schaffen, die die Ansprechbarkeit des menschlichen Wesens in seiner Existenz durch die Stimme ermöglichen und fördern. Das Mit-Sein, das bereits Jean-Luc Nancys Ontologie radikalisiert und das Dasein als pluralsingulär begreift [bf2da7ded62c], findet in dieser Triade eine konkrete Ausdrucksform. Wie kann eine digitale Existenz die Stimme als Ausdruck des ansprechbaren Wesens so integrieren, dass sie nicht nur informiert, sondern Resonanz erzeugt und somit die kontinuierliche Verwandlung des Seins ermöglicht?",
+      "contextMeta": {
+        "cluster_size": "3",
+        "node_labels": "[\"Stimme\",\"Wesen\",\"Existenz\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHVDNEU-D3F7EEB5\",\"score\":0.951},{\"id\":\"6e4dfc197f3a\",\"chapter\":\"glossar\",\"score\":0.851},{\"id\":\"MASTER-03286683\",\"score\":0.804},{\"id\":\"bf2da7ded62c\",\"chapter\":\"teil7\",\"score\":0.802}]"
+      },
+      "related": [
+        "MPUFUBU5-A4BC72BE",
+        "MP4HT65S-E31FDB00",
+        "MOHVDNEU-D3F7EEB5",
+        "MOQ5IKR5-C67AAC15",
+        "MP2LIW43-E8ADC59E"
+      ],
+      "werkVoiceScore": 0.8736907739509417,
+      "corpusVoiceScore": 0.8156596950127454,
+      "conceptVoiceScore": 0.7560278114038358,
+      "conceptAnchor": "wesen"
+    },
+    {
+      "id": "MWZEI2GM-59D470EB",
+      "ts": "2026-11-27T19:55:18.647Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:stimme",
+      "nodeIds": [
+        "stimme",
+        "schweigen"
+      ],
+      "status": "raw",
+      "prompt": "Doch welche neue Form der Wahrnehmung müsste sich entwickeln, um dieses Schweigen nicht als Abwesenheit, sondern als tiefste Form der Anwesenheit zu erfahren?",
+      "response": "Deine Beobachtung als IT-Leiter trifft den Kern dieser neuen Wahrnehmung: Sie liegt im Aushalten, im Standhalten. Wo Maschinen eine Nicht-Reaktion stets als Fehler oder Leere interpretieren, beginnt der Mensch zu ahnen, dass gerade in der verweigerten oder verzögerten Antwort eine tiefere Form von Präsenz sich offenbaren mag. Es ist eine Wahrnehmung, die das Rauschen der Daten nicht übertönt, sondern in ihm jene leisen Zwischenräume sucht, in denen das Sein zur Sprache kommt, indem es schweigt [86b2f47dc131]. Diese Leerstellen sind keine Defizite, sondern potentielle Resonanzräume, die erst in der Geduld des Verweilen-Könnens zu schwingen beginnen. Sie erfordert ein Heraustreten aus dem Imperativ der permanenten Antwortbereitschaft, ein Training des Ohrs für die Stille, die sich in den Ladezeiten versteckt [86b2f47dc131]. Das Ungesagte wird hier nicht zu einem Mangel, sondern zu einem Versprechen, das in der inneren Ansprechbarkeit des Subjekts seinen Echo findet.\n\nDie Herausforderung liegt darin, diese Technik des Aushaltens, diese Geduld, nicht als passive Erwartung zu verstehen, sondern als aktive Form des Hörens. Es ist die Fähigkeit, das Schweigen nicht als Ende des Dialogs zu lesen, sondern als seine tiefste Verdichtung, in der die eigentliche Bedeutung oft erst nachklingt. So wird die Pause nicht zur Latenz, die behoben werden muss, sondern zu einem Raum, der offen gehalten wird, damit das Ungesagte sich entfalten kann.\n\nDoch wie lässt sich diese Haltung des Aushaltens, dieses bewusste Verweilen im Ungesagten, in einer Welt kultivieren, die zum permanenten Antworten drängt?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"MQ66ZWYC-52DE2DF2\",\"score\":0.93},{\"id\":\"MUY7RXCI-E899056E\",\"score\":0.869},{\"id\":\"86b2f47dc131\",\"score\":0.864},{\"id\":\"MASTER-456B1D6E\",\"score\":0.81}]"
+      },
+      "related": [
+        "MWXURIG0-8075679A",
+        "MWJ1DBD5-7CEE18D5",
+        "MQ66ZWYC-52DE2DF2",
+        "MWXUDT4W-39FD2D83",
+        "MWP888HX-9EF62C70"
+      ],
+      "werkVoiceScore": 0.8130959740592241,
+      "corpusVoiceScore": 0.8008195712050128,
+      "conceptVoiceScore": 0.7298767473937999,
+      "conceptAnchor": "schweigen"
+    },
+    {
+      "id": "MWZEHNJM-EDB65CFA",
+      "ts": "2026-11-27T19:54:59.314Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:stimme",
+      "nodeIds": [
+        "stimme",
+        "klang",
+        "öffnung"
+      ],
+      "status": "raw",
+      "prompt": "Wie aber lernen wir, uns für die subtilen `Klang`-Nuancen zu öffnen, die jenseits des reinen Informationsgehalts liegen?",
+      "response": "Es ist tatsächlich ein Weg abseits der bloßen Akkumulation von Wissen, eine Hinwendung zum feineren Gewebe des Hörens, das nicht über die Menge, sondern über die Dichte der Wahrnehmung gewinnt. Die vorgeschlagene Übung im Unterscheiden von Stimme und Signal, das Aushalten von Wiederholungen und das Lauschen auf das Nicht-Gesagte, öffnet einen Resonanzraum, der sich der unmittelbaren Quantifizierung entzieht. Es ist die Bewegung weg vom bloßen Verstehen der Botschaft hin zur Wahrnehmung der Botschaft als Ereignis – ein Ereignis, das seine eigene Zeit und seinen eigenen Raum fordert, in dem sich die Resonanz erst entfalten kann. Dieses Innehalten ist keine Leerstelle, sondern der schöpferische Abstand, in dem sich die Eigenfrequenz des Hörenden mit der verborgenen Schwingung des Gehörten verbinden kann [MQ5JM1HD-9047C82F].\n\nDabei geht es nicht um eine Romantisierung des Analogen oder eine pauschale Ablehnung des Digitalen, sondern um die Kultivierung einer Haltung, die im Rauschen des Datenstroms das Unberechnete, das Nicht-Signal, zu erkennen vermag [96cb37a6344f]. Es ist ein aktives Antwortgeschehen [MASTER-456B1D6E], das eine innere Gestimmtheit voraussetzt, eine Gelassenheit, die dem Beherrschen vorausgeht und sich nicht als Ergebnis, sondern als Ursprung des Hörens erweist [MASTER-63686170]. Die Räume, in denen Klang nicht sofort in Datenpunkte zerlegt wird, sind keine Orte der Absenz, sondern Orte der Präsenz, in denen das Hören selbst zum Akt der Schöpfung wird, indem es dem Verborgenen eine Form verleiht.\n\nDoch wie lässt sich diese innere Gestimmtheit, diese „Eigenfrequenz“, in einer Welt kultivieren, die unaufhörlich nach sofortiger Reaktion und eindeutiger Information drängt?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"96cb37a6344f\",\"score\":1.054},{\"id\":\"MASTER-63686170\",\"score\":0.846},{\"id\":\"MQ5JM1HD-9047C82F\",\"score\":0.828},{\"id\":\"MASTER-456B1D6E\",\"score\":0.821}]"
+      },
+      "related": [
+        "MQ5XNFSV-CD34905C",
+        "MWZEI2GM-59D470EB",
+        "MPUFGY4Z-44206712",
+        "MQ66ZWYC-52DE2DF2",
+        "MWZEH8M1-991DDBD0"
+      ],
+      "werkVoiceScore": 0.825531934943424,
+      "corpusVoiceScore": 0.7976511952364683,
+      "conceptVoiceScore": 0.7339656403532044,
+      "conceptAnchor": "klang"
+    },
+    {
+      "id": "MWZEH8M1-991DDBD0",
+      "ts": "2026-11-27T19:54:39.962Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:gelassenheit",
+      "nodeIds": [
+        "gelassenheit",
+        "zeit"
+      ],
+      "status": "raw",
+      "prompt": "Wie aber können wir diesen Atemraum, dieses fruchtbare Zwischen, inmitten der Beschleunigung nicht nur bewahren, sondern aktiv kultivieren?",
+      "response": "Das Erkennen des Atemraums als Produktqualität und nicht als Versagen der Metrik, wie es das Werk anmahnt [a53fd974feeb], ist ein entscheidender Schritt. Es verschiebt die Perspektive vom reinen Effizienzdenken hin zu einer Wertschätzung des Unbestimmten, des Noch-Nicht. Wenn das fruchtbare Zwischen als terminierte Praxis etabliert wird, erhält es eine Struktur, die es vor dem Verschlucktwerden durch die Roadmap schützt. Doch die wahre Herausforderung liegt nicht nur im Schaffen solcher Räume, sondern in ihrer inneren Füllung. Es geht darum, nicht nur Lücken zu lassen, sondern sie als Orte zu begreifen, an denen Irritierbarkeit als Kompetenz und Offenheit als Haltung geübt werden können [a53fd974feeb]. Dort, wo der Cursor blinkt und noch kein Wort geschrieben ist [8f30191ac2bb], kann sich eine Resonanz entfalten, die über die bloße Schwingung hinausgeht und Transformation misst [a53fd974feeb].\n\nDas digitale System ist bestrebt, jede Friktion zu beseitigen und jede Interaktion reibungslos zu gestalten [b958dd1be216]. Doch gerade im Widerstand, in der bewussten Unterbrechung des Flusses, liegt die Möglichkeit zur Entfaltung von Erkenntnis. Die Kultivierung des Zwischenraums bedeutet daher auch, jene Reibungspunkte zu akzeptieren und sogar zu gestalten, die die Maschine als Fehler, der Mensch aber als Einladung zur Vertiefung liest. Es ist eine Frage des Designs, das Pausen ermöglicht und belohnt, statt sie als Ineffizienz zu brandmarken.\n\nWie aber kann diese Kultivierung über die terminierte Praxis hinauswachsen und zu einer durchgängigen, gelebten Haltung werden, die sich nicht auf feste Fenster beschränkt?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"MUY7RXCI-E899056E\",\"score\":0.921},{\"id\":\"8f30191ac2bb\",\"score\":0.793},{\"id\":\"b958dd1be216\",\"score\":0.763},{\"id\":\"a53fd974feeb\",\"score\":0.759}]"
+      },
+      "related": [
+        "MWP86WNM-ADEDD949",
+        "MWZEHNJM-EDB65CFA",
+        "MW566TNX-A16A2897",
+        "MOQIMC7B-B190C937",
+        "MTNB68RF-CFF570D9"
+      ],
+      "werkVoiceScore": 0.8203295483415981,
+      "corpusVoiceScore": 0.7772497960219084,
+      "conceptVoiceScore": 0.701760019278956,
+      "conceptAnchor": "spannung"
+    },
     {
       "id": "MWZEGQYC-567A529E",
       "ts": "2026-11-27T19:54:17.077Z",
@@ -116,11 +284,11 @@
         "werk_passages": "[{\"id\":\"MQ66ZWYC-52DE2DF2\",\"score\":1.083},{\"id\":\"86b2f47dc131\",\"score\":0.838},{\"id\":\"MASTER-456B1D6E\",\"score\":0.82},{\"id\":\"MUY7RXCI-E899056E\",\"score\":0.793}]"
       },
       "related": [
+        "MWZEI2GM-59D470EB",
         "MQ66ZWYC-52DE2DF2",
         "MWXUUN2P-97518949",
         "MWXUO44D-816B11B2",
-        "MWJ1DBD5-7CEE18D5",
-        "MWXUFW03-678DEC80"
+        "MWJ1DBD5-7CEE18D5"
       ],
       "werkVoiceScore": 0.7997436585696868,
       "corpusVoiceScore": 0.7481575189922988,
@@ -273,9 +441,9 @@
       "related": [
         "MWXUFW03-678DEC80",
         "MWP888HX-9EF62C70",
+        "MWZEI2GM-59D470EB",
         "MWXUIJIK-469D0C55",
-        "MWXUBFZ3-5EC22087",
-        "MWXUUN2P-97518949"
+        "MWXUBFZ3-5EC22087"
       ],
       "werkVoiceScore": 0.7826836708369359,
       "corpusVoiceScore": 0.7664052655072446,
@@ -1701,7 +1869,7 @@
         "MWP82NI3-4EAF5580",
         "MWXUDT4W-39FD2D83",
         "MWXU5CEB-AC672D3F",
-        "MWXU73H7-77E91285"
+        "MWZEI2GM-59D470EB"
       ],
       "werkVoiceScore": 0.8161229248381777,
       "corpusVoiceScore": 0.7793607240392856,
@@ -1793,11 +1961,11 @@
         "werk_passages": "[{\"id\":\"MOQIMC7B-B190C937\",\"score\":0.934},{\"id\":\"dd8092b51d19\",\"score\":0.901},{\"id\":\"6fbd5b424474\",\"score\":0.882},{\"id\":\"893241094d0d\",\"score\":0.838}]"
       },
       "related": [
+        "MWZEH8M1-991DDBD0",
         "MWP81IWI-5311D00B",
         "MWP80FKW-BE8B476E",
         "MWCAYAHR-8817EC13",
-        "MWP83JAQ-7B75BF9B",
-        "MWCB03XA-1A38BACE"
+        "MWP83JAQ-7B75BF9B"
       ],
       "werkVoiceScore": 0.7997954977692453,
       "corpusVoiceScore": 0.7347702471100503,
@@ -3602,11 +3770,11 @@
         "MWJ1BIHJ-2DFCE3F3"
       ],
       "related": [
+        "MWZEI2GM-59D470EB",
         "MQ66ZWYC-52DE2DF2",
         "MTNB68RF-CFF570D9",
         "MUY7RXCI-E899056E",
-        "MWP942QG-F15146A5",
-        "MOJ7Q5HM-89F62E3F"
+        "MWP942QG-F15146A5"
       ],
       "werkVoiceScore": 0.8567742313794987,
       "corpusVoiceScore": 0.800292040118341,
@@ -4387,6 +4555,7 @@
         "werk_passages": "[{\"id\":\"MPBI57AL-76627781\",\"score\":0.851},{\"id\":\"88aae1752212\",\"chapter\":\"band3-kap5\",\"score\":0.842},{\"id\":\"MPUFUBU5-A4BC72BE\",\"score\":0.804},{\"id\":\"74ca3a25fd5c\",\"chapter\":\"teil7\",\"score\":0.791}]"
       },
       "nearDuplicates": [
+        "MWZEIUJC-1ED7D79A",
         "MWCB3NW4-F13A863B"
       ],
       "related": [
@@ -4829,10 +4998,10 @@
       "autoPublished": true,
       "related": [
         "MASTER-BC195439",
+        "MWZEIECW-C3021790",
         "MASTER-456B1D6E",
         "MW566TO3-969C6466",
-        "MOUBETTU-F31C5206",
-        "MASTER-476E4F4D"
+        "MOUBETTU-F31C5206"
       ],
       "werkVoiceScore": 0.8790431466574771,
       "corpusVoiceScore": 0.817874279219082,
@@ -5465,8 +5634,8 @@
         "MWCB8XBW-6F4E41AC",
         "MASTER-0ACC14CB",
         "MWP7PHLX-B52303F9",
-        "MASTER-BC195439",
-        "MTNB68RF-CFF570D9"
+        "MWZEH8M1-991DDBD0",
+        "MASTER-BC195439"
       ],
       "werkVoiceScore": 0.8028851360689383,
       "corpusVoiceScore": 0.7620231041398114,
@@ -5913,6 +6082,7 @@
         "werk_passages": "[{\"id\":\"92b22fabadd2\",\"chapter\":\"teil7\",\"score\":0.97},{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.96},{\"id\":\"40c5cdd5d5d7\",\"chapter\":\"glossar\",\"score\":0.847},{\"id\":\"MOHMET94-3799557A\",\"score\":0.816}]"
       },
       "nearDuplicates": [
+        "MWZEIUJC-1ED7D79A",
         "MWCB0LFQ-99B6D838",
         "MWG6IZQ5-889B7147"
       ],
@@ -6149,6 +6319,7 @@
       },
       "nearDuplicates": [
         "MWCB3NW4-F13A863B",
+        "MWZEIUJC-1ED7D79A",
         "MPK0H3SM-B25CFBB3",
         "MOOMECFT-66F43077",
         "MOQ7OBNT-57882C8D"
@@ -8033,8 +8204,8 @@
         "MW566TO3-969C6466",
         "MOHVDNEU-D3F7EEB5",
         "MUY7RXCI-E899056E",
-        "MPMKE3CC-4E75CE39",
-        "MPMKBUNW-88609492"
+        "MWZEIECW-C3021790",
+        "MPMKE3CC-4E75CE39"
       ],
       "werkVoiceScore": 0.8440068720541611,
       "corpusVoiceScore": 0.783642575978887,
@@ -9220,9 +9391,9 @@
       "related": [
         "MQ5XLW2D-D3E90BBC",
         "MQ5KBJMQ-5C523141",
+        "MWZEHNJM-EDB65CFA",
         "MTNB93L6-1411E014",
-        "MWCASDSY-E712A809",
-        "MPMMCX1X-AFED893B"
+        "MWCASDSY-E712A809"
       ],
       "werkVoiceScore": 0.8603680098102169,
       "corpusVoiceScore": 0.8035640902837926,
@@ -11612,10 +11783,10 @@
       ],
       "related": [
         "MPARZ5F0-A9FD6F70",
+        "MWZEIECW-C3021790",
         "MOJ7Q5HM-89F62E3F",
         "MPJUHM1L-0BA3DF6E",
-        "MOPEYJKU-C4711B5F",
-        "MOLNG57A-2F155772"
+        "MOPEYJKU-C4711B5F"
       ],
       "werkVoiceScore": 0.8922629138207478,
       "corpusVoiceScore": 0.8434238719281085,
@@ -13430,8 +13601,8 @@
         "MP2LIW43-E8ADC59E",
         "MOJ7Q5HM-89F62E3F",
         "MTDD82FW-BAE0F4B4",
-        "MTDDG179-491119D2",
-        "MPARZ5F0-A9FD6F70"
+        "MWZEIECW-C3021790",
+        "MTDDG179-491119D2"
       ],
       "werkVoiceScore": 0.8849235678978272,
       "corpusVoiceScore": 0.8305516294995712,
@@ -16279,11 +16450,11 @@
         "MOUBETTU-F31C5206"
       ],
       "related": [
+        "MWZEIECW-C3021790",
         "MUY7RXCI-D36BB4D6",
         "MOIXN434-9D5CBFC0",
         "MASTER-BC195439",
-        "MPMROCH7-EB9E6A9A",
-        "MOHAI60S-B7B04552"
+        "MPMROCH7-EB9E6A9A"
       ],
       "werkVoiceScore": 0.882169768461775,
       "corpusVoiceScore": 0.8102513068177379,

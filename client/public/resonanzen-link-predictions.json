@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T19:54:52.400Z",
+  "generatedAt": "2026-11-27T19:56:05.346Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -253,6 +253,20 @@
       ]
     },
     {
+      "source": "stimme",
+      "target": "öffnung",
+      "cooccurrence": 3,
+      "endpoints": {
+        "dialog": 2,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWZEHNJM-EDB65CFA",
+        "MWZEGBTK-5C3DF512",
+        "MOQID47V-A12862EA"
+      ]
+    },
+    {
       "source": "moment",
       "target": "welt",
       "cooccurrence": 3,
@@ -497,16 +511,29 @@
       ]
     },
     {
-      "source": "stimme",
+      "source": "existenz",
+      "target": "wesen",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWZEIECW-C3021790",
+        "MWG6IZQ5-889B7147"
+      ]
+    },
+    {
+      "source": "klang",
       "target": "öffnung",
       "cooccurrence": 2,
       "endpoints": {
         "dialog": 1,
-        "path-analyse": 1
+        "analyse": 1
       },
       "sampleEntryIds": [
-        "MWZEGBTK-5C3DF512",
-        "MOQID47V-A12862EA"
+        "MWZEHNJM-EDB65CFA",
+        "MWP835N6-909E6986"
       ]
     },
     {
@@ -1215,8 +1242,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 447,
-    "candidatesCount": 92,
+    "totalPairs": 452,
+    "candidatesCount": 94,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

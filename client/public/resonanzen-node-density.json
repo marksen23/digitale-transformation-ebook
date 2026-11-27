@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T19:54:52.399Z",
+  "generatedAt": "2026-11-27T19:56:05.345Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 36,
@@ -41,26 +41,26 @@
       }
     },
     "dasein": {
-      "count": 18,
+      "count": 19,
       "endpoints": {
+        "path-analyse": 15,
         "dialog": 1,
-        "path-analyse": 14,
         "analyse": 3
       }
     },
     "stimme": {
-      "count": 9,
+      "count": 12,
       "endpoints": {
-        "dialog": 1,
-        "analyse": 4,
+        "analyse": 5,
+        "dialog": 3,
         "path-analyse": 4
       }
     },
     "schweigen": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
-        "analyse": 10,
-        "dialog": 3
+        "dialog": 4,
+        "analyse": 10
       }
     },
     "echo": {
@@ -72,9 +72,9 @@
       }
     },
     "klang": {
-      "count": 18,
+      "count": 19,
       "endpoints": {
-        "dialog": 7,
+        "dialog": 8,
         "analyse": 6,
         "path-analyse": 5
       }
@@ -118,11 +118,11 @@
       }
     },
     "zeit": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "dialog": 2,
         "analyse": 5,
-        "path-analyse": 4,
-        "dialog": 1
+        "path-analyse": 4
       }
     },
     "raum": {
@@ -166,10 +166,10 @@
       }
     },
     "sein": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "analyse": 5,
-        "path-analyse": 4
+        "path-analyse": 5,
+        "analyse": 5
       }
     },
     "werden": {
@@ -181,19 +181,19 @@
       }
     },
     "existenz": {
-      "count": 8,
+      "count": 10,
       "endpoints": {
-        "dialog": 1,
-        "path-analyse": 3,
-        "analyse": 4
+        "path-analyse": 4,
+        "analyse": 5,
+        "dialog": 1
       }
     },
     "wesen": {
-      "count": 8,
+      "count": 9,
       "endpoints": {
+        "analyse": 3,
         "dialog": 1,
-        "path-analyse": 5,
-        "analyse": 2
+        "path-analyse": 5
       }
     },
     "selbst": {
@@ -227,9 +227,9 @@
       }
     },
     "öffnung": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "dialog": 4,
+        "dialog": 5,
         "path-analyse": 6,
         "analyse": 2
       }
@@ -256,10 +256,10 @@
       }
     },
     "lm-scheitern": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
+        "path-analyse": 5,
         "analyse": 7,
-        "path-analyse": 4,
         "dialog": 2
       }
     },
@@ -311,9 +311,9 @@
       }
     },
     "gelassenheit": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "dialog": 2,
+        "dialog": 3,
         "path-analyse": 4,
         "analyse": 4
       }

@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-27T19:54:35.714Z",
-  "filesChecked": 515,
+  "generatedAt": "2026-11-27T19:55:53.981Z",
+  "filesChecked": 519,
   "errors": 0,
-  "warnings": 75,
+  "warnings": 78,
   "issues": [
     {
       "level": "warning",
@@ -312,6 +312,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/gelassenheit/2026-11-27-MWZEH8M1-991DDBD0.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 21043e8ec15ccbf2, computed aa9b0f3fb012afa2 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/ich-du+dialog/2026-11-14-MWG6HW56-B5802350.md",
       "rule": "content-hash-mismatch",
       "detail": "expected e9fed378ee220340, computed 4b132d2214c3d9da — Tampering oder nachträgliche Edit?"
@@ -390,6 +396,18 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/stimme/2026-11-27-MWZEHNJM-EDB65CFA.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 2ce6b2204ecd3fc9, computed ff83c5c3e29302f8 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/stimme/2026-11-27-MWZEI2GM-59D470EB.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 10636689fdba9f24, computed b5b4c18a589ca48e — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/transformatives-drittes/2026-11-20-MWP7OI4B-71BADB55.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 9312281d57a1492d, computed 0f2af57c4bce9a2c — Tampering oder nachträgliche Edit?"
@@ -457,9 +475,9 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 136,
+      "analyse": 137,
       "chapter": 65,
-      "dialog": 100,
+      "dialog": 103,
       "path-analyse": 67,
       "enkidu": 68,
       "graph-chat": 52,
@@ -468,7 +486,7 @@
     },
     "byStatus": {
       "published": 169,
-      "raw": 264,
+      "raw": 268,
       "rejected": 28,
       "approved": 54
     },

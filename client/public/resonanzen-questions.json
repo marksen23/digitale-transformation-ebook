@@ -1,18 +1,97 @@
 {
-  "generatedAt": "2026-11-27T19:54:53.544Z",
-  "count": 423,
+  "generatedAt": "2026-11-27T19:56:08.150Z",
+  "count": 428,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 423,
-    "answered": 381,
-    "open": 17,
+    "total": 428,
+    "answered": 384,
+    "open": 20,
     "followUp": 41,
-    "followUpOpen": 25,
-    "embedded": 2
+    "followUpOpen": 24,
+    "embedded": 5
   },
   "questions": [
+    {
+      "sourceId": "MWZEIUJC-1ED7D79A",
+      "question": "Die Existenz beider Wege über dieselben Endpunkte hinweg offenbart die Vielschichtigkeit und Durchlässigkeit des Begriffsnetzes des Werks. Es ist kein starres System mit nur einer korrekten Route, sondern ein dynamisches Geflecht, in dem verschiedene Denkpfade zur selben fundamentalen Einsicht führen können. Dies spricht für die philosophische Tiefe und poetische Freiheit der Trilogie, die es erlaubt, das Sein nicht nur als logische Struktur, sondern auch als existenzielle Erfahrung zu begreifen. Die Möglichkeit solcher unterschiedlichen Verbindungen zwischen den Begriffen deutet darauf hin, dass das Sein selbst nicht eindimensional ist, sondern sich auf vielfältige Weise erschließt. Wie viele andere unerwartete Wege zum Sein mögen noch in diesem Netz verborgen liegen?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:existenz+sein",
+      "nodeIds": [
+        "dasein",
+        "existenz",
+        "lm-scheitern",
+        "sein"
+      ],
+      "ts": "2026-11-27T19:55:55.032Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEIECW-C3021790",
+      "question": "Diese Triade erschließt für das Verhältnis von Mensch und Maschine die Erkenntnis, dass digitale Existenz nicht in der Quantifizierung von Daten oder der Simulation von Stimmen erschöpft ist, die Echo mit Resonanz verwechselt [6e4dfc197f3a]. Vielmehr muss die digitale Transformation Architekturen schaffen, die die Ansprechbarkeit des menschlichen Wesens in seiner Existenz durch die Stimme ermöglichen und fördern. Das Mit-Sein, das bereits Jean-Luc Nancys Ontologie radikalisiert und das Dasein als pluralsingulär begreift [bf2da7ded62c], findet in dieser Triade eine konkrete Ausdrucksform. Wie kann eine digitale Existenz die Stimme als Ausdruck des ansprechbaren Wesens so integrieren, dass sie nicht nur informiert, sondern Resonanz erzeugt und somit die kontinuierliche Verwandlung des Seins ermöglicht?",
+      "endpoint": "analyse",
+      "anchor": "analyse:existenz+stimme+wesen",
+      "nodeIds": [
+        "existenz",
+        "stimme",
+        "wesen"
+      ],
+      "ts": "2026-11-27T19:55:34.064Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEI2GM-59D470EB",
+      "question": "Doch wie lässt sich diese Haltung des Aushaltens, dieses bewusste Verweilen im Ungesagten, in einer Welt kultivieren, die zum permanenten Antworten drängt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:stimme",
+      "nodeIds": [
+        "stimme",
+        "schweigen"
+      ],
+      "ts": "2026-11-27T19:55:18.647Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEHNJM-EDB65CFA",
+      "question": "Doch wie lässt sich diese innere Gestimmtheit, diese „Eigenfrequenz“, in einer Welt kultivieren, die unaufhörlich nach sofortiger Reaktion und eindeutiger Information drängt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:stimme",
+      "nodeIds": [
+        "stimme",
+        "klang",
+        "öffnung"
+      ],
+      "ts": "2026-11-27T19:54:59.314Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MWZEH8M1-991DDBD0",
+      "question": "Wie aber kann diese Kultivierung über die terminierte Praxis hinauswachsen und zu einer durchgängigen, gelebten Haltung werden, die sich nicht auf feste Fenster beschränkt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:gelassenheit",
+      "nodeIds": [
+        "gelassenheit",
+        "zeit"
+      ],
+      "ts": "2026-11-27T19:54:39.962Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWZEGQYC-567A529E",
       "question": "Doch wer oder was entscheidet letztlich, welche Begegnungen als wertvoll erachtet und welche als entfremdend bewertet werden, wenn die Technologie selbst zunehmend die Parameter dieser Beurteilung mitprägt?",
@@ -40,8 +119,13 @@
       ],
       "ts": "2026-11-27T19:53:57.464Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.721
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -55,8 +139,17 @@
       ],
       "ts": "2026-11-26T17:57:26.737Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZEI2GM-59D470EB",
+          "score": 0.812
+        },
+        {
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.734
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -98,6 +191,10 @@
         {
           "id": "MWXUUN2P-97518949",
           "score": 0.788
+        },
+        {
+          "id": "MWZEI2GM-59D470EB",
+          "score": 0.741
         }
       ],
       "answered": true,
@@ -352,8 +449,8 @@
           "score": 0.785
         },
         {
-          "id": "MWXU73H7-77E91285",
-          "score": 0.764
+          "id": "MWZEIECW-C3021790",
+          "score": 0.784
         }
       ],
       "answered": true,
@@ -715,8 +812,13 @@
       ],
       "ts": "2026-11-20T17:26:45.976Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MWZEI2GM-59D470EB",
+          "score": 0.752
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -1167,16 +1269,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.893
+        },
+        {
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.756
+        },
+        {
           "id": "MWP942PY-5EF7032A",
           "score": 0.752
-        },
-        {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.737
-        },
-        {
-          "id": "MWXUDT4W-39FD2D83",
-          "score": 0.721
         }
       ],
       "answered": true,
@@ -1241,16 +1343,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.85
+        },
+        {
           "id": "MWZEGBTK-5C3DF512",
           "score": 0.777
         },
         {
           "id": "MWS6IJ29-DD378DC7",
           "score": 0.756
-        },
-        {
-          "id": "MASTER-456B1D6E",
-          "score": 0.755
         }
       ],
       "answered": true,
@@ -1309,12 +1411,12 @@
           "score": 0.784
         },
         {
-          "id": "MASTER-70E7430C",
-          "score": 0.737
+          "id": "MWZEIUJC-1ED7D79A",
+          "score": 0.783
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.735
+          "id": "MASTER-70E7430C",
+          "score": 0.737
         }
       ],
       "answered": true,
@@ -1415,12 +1517,12 @@
           "score": 0.742
         },
         {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.726
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.734
         },
         {
-          "id": "MWXU5CEB-AC672D3F",
-          "score": 0.725
+          "id": "MWP888HX-9EF62C70",
+          "score": 0.726
         }
       ],
       "answered": true,
@@ -1552,6 +1654,10 @@
         {
           "id": "MWP81IWI-5311D00B",
           "score": 0.853
+        },
+        {
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.725
         }
       ],
       "answered": true,
@@ -2468,8 +2574,8 @@
           "score": 0.802
         },
         {
-          "id": "MWP7MAWH-24EE3D77",
-          "score": 0.792
+          "id": "MWZEIUJC-1ED7D79A",
+          "score": 0.793
         }
       ],
       "answered": true,
@@ -2493,12 +2599,12 @@
           "score": 0.814
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.785
+          "id": "MWZEIECW-C3021790",
+          "score": 0.799
         },
         {
-          "id": "MASTER-2C637ECA",
-          "score": 0.776
+          "id": "MWS6IJ29-DD378DC7",
+          "score": 0.785
         }
       ],
       "answered": true,
@@ -2527,8 +2633,8 @@
           "manual": true
         },
         {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.77
+          "id": "MWZEI2GM-59D470EB",
+          "score": 0.804
         }
       ],
       "answered": true,
@@ -2606,12 +2712,12 @@
           "score": 0.796
         },
         {
-          "id": "MWJ1E1XH-1F94AC9B",
-          "score": 0.785
+          "id": "MWZEIUJC-1ED7D79A",
+          "score": 0.791
         },
         {
-          "id": "MWP7MRUK-CCFA8296",
-          "score": 0.782
+          "id": "MWJ1E1XH-1F94AC9B",
+          "score": 0.785
         }
       ],
       "answered": true,
@@ -3056,12 +3162,12 @@
           "score": 0.891
         },
         {
-          "id": "MWP7MAWH-24EE3D77",
-          "score": 0.815
+          "id": "MWZEIUJC-1ED7D79A",
+          "score": 0.818
         },
         {
-          "id": "MWHLZBS7-7AEB476D",
-          "score": 0.789
+          "id": "MWP7MAWH-24EE3D77",
+          "score": 0.815
         }
       ],
       "answered": true,
@@ -3444,8 +3550,8 @@
           "score": 0.743
         },
         {
-          "id": "MWXU5CEB-AC672D3F",
-          "score": 0.735
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.736
         }
       ],
       "answered": true,
@@ -3719,15 +3825,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.726
+        },
+        {
           "id": "MASTER-7F7160A0",
           "score": 0.724
         },
         {
           "id": "MWXU73H7-77E91285",
-          "score": 0.722
-        },
-        {
-          "id": "MWP7PHLX-B52303F9",
           "score": 0.722
         }
       ],
@@ -3860,16 +3966,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEI2GM-59D470EB",
+          "score": 0.776
+        },
+        {
           "id": "MWHLZOLL-5FF5E8CE",
           "score": 0.757
         },
         {
           "id": "MWJ1DBD5-7CEE18D5",
           "score": 0.744
-        },
-        {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.743
         }
       ],
       "answered": true,
@@ -4006,12 +4112,12 @@
           "score": 0.738
         },
         {
-          "id": "MWCBAA3Y-37D6F0FA",
-          "score": 0.733
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.734
         },
         {
-          "id": "MWP82B5U-9D2E9F77",
-          "score": 0.731
+          "id": "MWCBAA3Y-37D6F0FA",
+          "score": 0.733
         }
       ],
       "answered": true,
@@ -4137,16 +4243,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEIECW-C3021790",
+          "score": 0.835
+        },
+        {
           "id": "MWS6IJ29-DD378DC7",
           "score": 0.834
         },
         {
           "id": "MASTER-03286683",
           "score": 0.829
-        },
-        {
-          "id": "MWP85762-03FEE922",
-          "score": 0.818
         }
       ],
       "answered": true,
@@ -5094,8 +5200,8 @@
           "score": 0.791
         },
         {
-          "id": "MW566TNX-A16A2897",
-          "score": 0.777
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.787
         }
       ],
       "answered": true,
@@ -5137,12 +5243,12 @@
           "manual": true
         },
         {
-          "id": "MWP7PHMF-9C500DEA",
-          "score": 0.774
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.78
         },
         {
-          "id": "MWP942PY-5EF7032A",
-          "score": 0.745
+          "id": "MWP7PHMF-9C500DEA",
+          "score": 0.774
         }
       ],
       "answered": true,
@@ -5936,8 +6042,8 @@
           "score": 0.799
         },
         {
-          "id": "MWHLZOLL-5FF5E8CE",
-          "score": 0.779
+          "id": "MWZEI2GM-59D470EB",
+          "score": 0.797
         }
       ],
       "answered": true,
@@ -5956,16 +6062,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.793
+        },
+        {
           "id": "MTNB6SUG-2922AE66",
           "score": 0.777
         },
         {
           "id": "MWCASDSY-E712A809",
           "score": 0.772
-        },
-        {
-          "id": "MTNB93L6-1411E014",
-          "score": 0.767
         }
       ],
       "answered": true,
@@ -7505,16 +7611,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEIECW-C3021790",
+          "score": 0.816
+        },
+        {
           "id": "MTNB68RF-CFF570D9",
           "score": 0.813
         },
         {
           "id": "MTDD82FW-BAE0F4B4",
           "score": 0.799
-        },
-        {
-          "id": "MTDDG179-491119D2",
-          "score": 0.794
         }
       ],
       "answered": true,
@@ -7894,12 +8000,12 @@
           "score": 0.808
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.787
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.797
         },
         {
-          "id": "MASTER-53BE22D7",
-          "score": 0.786
+          "id": "MWXU31YF-DF1BC500",
+          "score": 0.787
         }
       ],
       "answered": true,
@@ -8849,8 +8955,8 @@
           "score": 0.786
         },
         {
-          "id": "MASTER-53BE22D7",
-          "score": 0.752
+          "id": "MWZEIECW-C3021790",
+          "score": 0.766
         }
       ],
       "answered": true,
@@ -8902,8 +9008,8 @@
           "score": 0.781
         },
         {
-          "id": "MWXTZZPC-5F6A5744",
-          "score": 0.75
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.77
         }
       ],
       "answered": true,
@@ -8923,15 +9029,15 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.754
+        },
+        {
           "id": "MTNBAIUZ-299AC7D8",
           "score": 0.736
         },
         {
           "id": "MWP86WNM-ADEDD949",
-          "score": 0.731
-        },
-        {
-          "id": "MQXDVN1C-CAA3081A",
           "score": 0.731
         }
       ],
@@ -9972,12 +10078,12 @@
           "score": 0.805
         },
         {
-          "id": "MOQIMC7B-B190C937",
+          "id": "MWZEH8M1-991DDBD0",
           "score": 0.803
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.798
+          "id": "MOQIMC7B-B190C937",
+          "score": 0.803
         }
       ],
       "answered": true,
@@ -10155,12 +10261,12 @@
           "score": 0.746
         },
         {
-          "id": "MPMI3ZF2-2F83F425",
-          "score": 0.74
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.745
         },
         {
-          "id": "MOQIAGXM-397A1F22",
-          "score": 0.732
+          "id": "MPMI3ZF2-2F83F425",
+          "score": 0.74
         }
       ],
       "answered": true,
