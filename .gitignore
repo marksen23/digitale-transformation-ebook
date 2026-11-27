@@ -133,3 +133,6 @@ data/newsletter/
 
 # Gruppen-Werkstätten (Beiträge, nie ins Repo)
 data/werkstatt/
+
+# Begriffs-Duelle (Stimmen, nie ins Repo)
+data/duelle/

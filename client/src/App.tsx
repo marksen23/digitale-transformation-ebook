@@ -40,6 +40,7 @@ const DialogePage = lazy(() => import("./pages/DialogePage"));
 const HoerenPage = lazy(() => import("./pages/HoerenPage"));
 const FortschreibungPage = lazy(() => import("./pages/FortschreibungPage"));
 const MeineBegriffePage = lazy(() => import("./pages/MeineBegriffePage"));
+const DuellPage = lazy(() => import("./pages/DuellPage"));
 const WerkstattPage = lazy(() => import("./pages/WerkstattPage"));
 const EnkiduPage = lazy(() => import("./pages/EnkiduPage"));
 
@@ -118,6 +119,9 @@ function Router() {
       </Route>
       <Route path={"/werkstatt"}>
         <Framed><Suspense fallback={fallback}><WerkstattPage /></Suspense></Framed>
+      </Route>
+      <Route path={"/duelle"}>
+        <Framed><Suspense fallback={fallback}><DuellPage /></Suspense></Framed>
       </Route>
       <Route path={"/landkarte"}>
         <Framed><Suspense fallback={fallback}><LandkartePage /></Suspense></Framed>

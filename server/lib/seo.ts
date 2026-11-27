@@ -100,6 +100,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Destillierte Erkenntnisse: neuwertige Einsichten, die aus der Beantwortung offener Fragen entstanden sind, mit Entstehungsanalyse.",
   },
+  "/duelle": {
+    title: `Begriffs-Duelle — ${WORK_TITLE}`,
+    description:
+      "Echo oder Resonanz, Schatten oder Licht, Freiheit oder Gelassenheit: eine Stimme, eine Begründung, der Stand.",
+  },
   "/landkarte": {
     title: `Wissens-Landkarte — ${WORK_TITLE}`,
     description:
