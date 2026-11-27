@@ -80,6 +80,7 @@ export function staticCacheControl(staticRoot: string, filePath: string): string
   const rel = path.relative(staticRoot, filePath).split(path.sep).join("/");
   if (rel === "index.html") return "no-cache";
   if (rel.startsWith("assets/")) return "public, max-age=31536000, immutable";
+  if (rel.endsWith(".json") || rel.endsWith(".md")) return "no-cache";
   return null;
 }
 

@@ -2,6 +2,7 @@
  * Lädt + tokenisiert den vom Build-Step erzeugten resonanzen-index.json
  * für die FAQ-Ansicht (/resonanzen).
  */
+import { fetchCorpus } from "./corpusFetch";
 import { STOPWORDS_DE } from "./stopwords-de";
 
 export interface ResonanzEntry {
@@ -94,8 +95,7 @@ export interface ResonanzIndex {
  *  S1: cache-bust via Timestamp-Query, damit Browser/CDN-Caches keine
  *  stale-Versionen liefern nach Admin-Mutationen. */
 export async function loadResonanzenIndex(): Promise<ResonanzIndex> {
-  const url = `/resonanzen-index.json?_=${Date.now()}`;
-  const res = await fetch(url, { cache: "no-store" });
+  const res = await fetchCorpus("/resonanzen-index.json");
   if (!res.ok) {
     throw new Error(`Index nicht gefunden (${res.status})`);
   }

@@ -23,7 +23,7 @@ import type { SearchHit, SearchSource } from "@/lib/search/types";
 export function GlobalSearch() {
   const [open, setOpen] = useState(false);
   const [, navigate] = useLocation();
-  const ebook = useEbook();
+  const ebook = useEbook(open);
 
   const sources = useMemo<SearchSource[]>(
     () => [areasSource, createChaptersSource(ebook), conceptsSource, philosophersSource, resonanzenSource],

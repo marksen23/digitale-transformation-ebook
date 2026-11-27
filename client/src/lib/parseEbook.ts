@@ -105,6 +105,23 @@ function cleanContent(text: string): string {
     .trim();
 }
 
+/** Cover und Inhaltsverzeichnis ohne Kapiteltext. Der Volltext kommt erst beim Lesen. */
+export function coverEbook(): EbookData {
+  const parsed = parseEbookMarkdown("");
+  return {
+    ...parsed,
+    chapters: sectionDefs.map(def => ({
+      id: def.id,
+      title: def.title,
+      subtitle: def.subtitle,
+      part: def.part,
+      partTitle: def.partTitle,
+      content: "",
+      ...(def.isTitlePage ? { isTitlePage: true, description: def.description } : {}),
+    })),
+  };
+}
+
 export function parseEbookMarkdown(raw: string): EbookData {
   const lines = raw.split('\n');
 

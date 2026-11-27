@@ -1,3 +1,4 @@
+import { fetchCorpus } from "./corpusFetch";
 /**
  * Englische Kernsätze aus der Build-Datei. Kein Abruf von /api/translate.
  */
@@ -32,7 +33,7 @@ let pending: Promise<Map<string, string>> | null = null;
 export function loadKernsatzTranslations(): Promise<Map<string, string>> {
   if (cache) return Promise.resolve(cache);
   if (pending) return pending;
-  pending = fetch("/resonanzen-erkenntnisse-en.json", { cache: "no-store" })
+  pending = fetchCorpus("/resonanzen-erkenntnisse-en.json")
     .then(r => (r.ok ? r.json() : null))
     .then(data => {
       const map = new Map<string, string>();

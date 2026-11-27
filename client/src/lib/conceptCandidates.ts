@@ -1,3 +1,4 @@
+import { fetchCorpus } from "./corpusFetch";
 /**
  * conceptCandidates.ts — lädt die build-präkomputierten Begriffs-Kandidaten
  * (client/public/resonanzen-concept-candidates.json, Phase 5c-Erweiterung).
@@ -36,7 +37,7 @@ let _promise: Promise<ConceptCandidatesFile | null> | null = null;
 export function loadConceptCandidates(): Promise<ConceptCandidatesFile | null> {
   if (_cache) return Promise.resolve(_cache);
   if (_promise) return _promise;
-  _promise = fetch(`/resonanzen-concept-candidates.json?_=${Date.now()}`, { cache: "no-store" })
+  _promise = fetchCorpus("/resonanzen-concept-candidates.json")
     .then(r => (r.ok ? r.json() : null))
     .then((data: ConceptCandidatesFile | null) => {
       if (data && Array.isArray(data.candidates)) {

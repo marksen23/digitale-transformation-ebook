@@ -1,3 +1,4 @@
+import { fetchCorpus } from "./corpusFetch";
 /**
  * promotedEdges.ts — lädt die server-persistierte Wachstums-Schicht des
  * Begriffsnetzes (client/public/concept-edges.json).
@@ -21,7 +22,7 @@ let _promise: Promise<PromotedEdge[]> | null = null;
 export function loadPromotedEdges(): Promise<PromotedEdge[]> {
   if (_cache) return Promise.resolve(_cache);
   if (_promise) return _promise;
-  _promise = fetch(`/concept-edges.json?_=${Date.now()}`, { cache: "no-store" })
+  _promise = fetchCorpus("/concept-edges.json")
     .then(r => (r.ok ? r.json() : null))
     .then(data => {
       const edges = Array.isArray(data?.edges) ? (data.edges as PromotedEdge[]) : [];

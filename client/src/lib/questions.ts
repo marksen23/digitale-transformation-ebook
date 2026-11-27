@@ -1,3 +1,4 @@
+import { fetchCorpus } from "./corpusFetch";
 /**
  * questions.ts — lädt die build-präkomputierte Fragenansicht
  * (client/public/resonanzen-questions.json, Erkenntnisse-Phase 1).
@@ -83,7 +84,7 @@ let _promise: Promise<QuestionsFile | null> | null = null;
 export function loadQuestions(): Promise<QuestionsFile | null> {
   if (_cache) return Promise.resolve(_cache);
   if (_promise) return _promise;
-  _promise = fetch(`/resonanzen-questions.json?_=${Date.now()}`, { cache: "no-store" })
+  _promise = fetchCorpus("/resonanzen-questions.json")
     .then(r => (r.ok ? r.json() : null))
     .then((data: QuestionsFile | null) => {
       if (data && Array.isArray(data.questions)) { _cache = data; return data; }

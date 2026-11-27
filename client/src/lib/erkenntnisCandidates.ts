@@ -1,3 +1,4 @@
+import { fetchCorpus } from "./corpusFetch";
 /**
  * erkenntnisCandidates.ts — lädt die build-präkomputierten Erkenntnis-Kandidaten
  * (client/public/resonanzen-erkenntnis-candidates.json, Erkenntnisse-Phase 2).
@@ -32,7 +33,7 @@ let _promise: Promise<ErkenntnisCandidatesFile | null> | null = null;
 export function loadErkenntnisCandidates(): Promise<ErkenntnisCandidatesFile | null> {
   if (_cache) return Promise.resolve(_cache);
   if (_promise) return _promise;
-  _promise = fetch(`/resonanzen-erkenntnis-candidates.json?_=${Date.now()}`, { cache: "no-store" })
+  _promise = fetchCorpus("/resonanzen-erkenntnis-candidates.json")
     .then(r => (r.ok ? r.json() : null))
     .then((data: ErkenntnisCandidatesFile | null) => {
       if (data && Array.isArray(data.candidates)) { _cache = data; return data; }
