@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-11-20T18:07:19.681Z",
+  "generatedAt": "2026-11-26T17:58:23.317Z",
   "status": "stable",
   "previousSnapshot": {
-    "date": "2026-11-17",
-    "commit": "cfe6690eecb1bc239aba56a2f9ca06728e43e5a6",
-    "filesChecked": 418
+    "date": "2026-11-22",
+    "commit": "f5502b09b361383407f7eb08d73cf66fdf49118d",
+    "filesChecked": 500
   },
   "currentSnapshot": {
-    "date": "2026-11-20",
-    "commit": "1b55c3483de52756c90d69f7b7856f3e25255c5a",
-    "filesChecked": 488
+    "date": "2026-11-26",
+    "commit": "728da866a93fbe209e681456e5e59b3c58452409",
+    "filesChecked": 513
   },
   "delta": {
-    "files": 70
+    "files": 13
   },
   "issues": []
 }

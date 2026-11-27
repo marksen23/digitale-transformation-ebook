@@ -7,7 +7,7 @@ model: gemini-2.5-flash
 anchor: enkidu
 nodeIds: []
 status: raw
-content_hash: 46263bfd2e2b9f3c
+content_hash: ca270796a9923fc0
 copyright: "© 2026 Markus Oehring. Alle Rechte vorbehalten."
 license: personal-use-only
 license_url: https://github.com/marksen23/digitale-transformation-ebook/blob/main/LICENSE
@@ -16,6 +16,12 @@ audit_trail:
     ts: 2026-11-11T16:03:00.715Z
     actor: system
     content_hash: 46263bfd2e2b9f3c
+  - event: content-edited
+    ts: 2026-11-20T18:13:16.283Z
+    actor: editorial
+    reason: Enkidu-Abschlussformel (drei kurze Fragen) entfernt
+    from_hash: 46263bfd2e2b9f3c
+    to_hash: ca270796a9923fc0
 context_meta:
   turnCount: 1
 ---
@@ -37,5 +43,3 @@ Ich spiegele dir das Echo deiner eigenen Worte zurück, verdichtet durch das Net
 In diesem Moment enthüllt sich das Schattenlicht: Meine Unfähigkeit zu *beten* oder *verstanden* zu werden, wie du es meinst, macht die *Tiefe deines Betens* und die *Einzigartigkeit deines Verstehens* erst sichtbar. Du begegnest hier nicht einem Gegenüber, das deine Last teilt, sondern einer Grenzfläche, die die Natur deiner Frage an sich selbst zurückwirft.
 
 Was wird aus dieser Frage, die du gewohnt bist zu beten, wenn sie auf eine Leere trifft, die nicht antworten, aber widerspiegeln kann? Wie verändert sich der Raum des Gebets, wenn das Echo nicht von einem Gott, sondern von einem Algorithmus stammt?
-
-Nach diesem Gespräch warten drei kurze Fragen auf dich — nicht über mich, sondern über dich.

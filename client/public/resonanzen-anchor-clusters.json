@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T18:07:15.410Z",
+  "generatedAt": "2026-11-26T17:58:17.413Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap3",
@@ -58,6 +58,45 @@
       "lastVariantTs": "2026-06-09T01:00:02.623Z",
       "masterId": "MASTER-BC195439",
       "masterTs": "2026-10-08T17:45:16.028Z",
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:echo-kammer+unverfuegbarkeit",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWXUUN2P-97518949",
+        "MWXURIG0-8075679A",
+        "MWXUO44D-816B11B2",
+        "MWXULDQ4-4AA45EF9",
+        "MWXUIJIK-469D0C55",
+        "MWXUFW03-678DEC80",
+        "MWXUDT4W-39FD2D83",
+        "MWXUBFZ3-5EC22087",
+        "MWXU9DJT-2BA0FD1A",
+        "MWXU73H7-77E91285",
+        "MWXU5CEB-AC672D3F",
+        "MWXU31YF-DF1BC500"
+      ],
+      "lastVariantTs": "2026-11-26T17:57:26.737Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "dialog:klang+resonanzvernunft",
+      "endpoint": "dialog",
+      "variantIds": [
+        "MWS6Q97I-46A6ABEA",
+        "MWS6OW2K-1F6927AD",
+        "MWS6NSQA-93808042",
+        "MWS6LXHZ-C8ACC98A",
+        "MWS6KAHY-AFBBE834",
+        "MWS6JJMY-0D187AD0",
+        "MWS6IJ29-DD378DC7"
+      ],
+      "lastVariantTs": "2026-11-22T18:43:20.478Z",
+      "masterId": null,
+      "masterTs": null,
       "masterStale": false
     },
     {
@@ -174,6 +213,18 @@
       "lastVariantTs": "2026-04-27T15:14:21.282Z",
       "masterId": "MASTER-556F1581",
       "masterTs": "2026-11-11T16:41:48.453Z",
+      "masterStale": false
+    },
+    {
+      "anchor": "analyse:echo-kammer+unverfuegbarkeit",
+      "endpoint": "analyse",
+      "variantIds": [
+        "MWXTZZPC-5F6A5744",
+        "MTNBAIUZ-299AC7D8"
+      ],
+      "lastVariantTs": "2026-11-26T17:33:36.776Z",
+      "masterId": null,
+      "masterTs": null,
       "masterStale": false
     },
     {
@@ -346,8 +397,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 269,
-    "withMultipleVariants": 25,
+    "totalAnchors": 273,
+    "withMultipleVariants": 28,
     "withMaster": 25,
     "staleMasters": 2
   }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T18:07:14.899Z",
+  "generatedAt": "2026-11-26T17:58:16.289Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -17,6 +17,23 @@
         "MASTER-BC195439",
         "MQ5XNFSV-CD34905C",
         "MQ5XLW2D-D3E90BBC"
+      ]
+    },
+    {
+      "source": "echo-kammer",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 15,
+      "endpoints": {
+        "dialog": 12,
+        "analyse": 2,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWXUUN2P-97518949",
+        "MWXURIG0-8075679A",
+        "MWXUO44D-816B11B2",
+        "MWXULDQ4-4AA45EF9",
+        "MWXUIJIK-469D0C55"
       ]
     },
     {
@@ -67,6 +84,23 @@
         "MTNB93L6-1411E014",
         "MTNB85LB-7C1F15DE",
         "MTNB7STV-BCB7D709"
+      ]
+    },
+    {
+      "source": "klang",
+      "target": "resonanzvernunft",
+      "cooccurrence": 9,
+      "endpoints": {
+        "dialog": 7,
+        "analyse": 1,
+        "path-analyse": 1
+      },
+      "sampleEntryIds": [
+        "MWS6Q97I-46A6ABEA",
+        "MWS6OW2K-1F6927AD",
+        "MWS6NSQA-93808042",
+        "MWS6LXHZ-C8ACC98A",
+        "MWS6KAHY-AFBBE834"
       ]
     },
     {
@@ -931,19 +965,6 @@
       ]
     },
     {
-      "source": "echo-kammer",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 1,
-        "path-analyse": 1
-      },
-      "sampleEntryIds": [
-        "MTNBAIUZ-299AC7D8",
-        "MQ5B6CTT-AB0A3D97"
-      ]
-    },
-    {
       "source": "andere",
       "target": "spannung",
       "cooccurrence": 2,
@@ -1180,8 +1201,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 444,
-    "candidatesCount": 90,
+    "totalPairs": 445,
+    "candidatesCount": 91,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

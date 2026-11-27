@@ -17,6 +17,7 @@ export default defineConfig({
       "client/src/lib/__tests__/**/*.test.ts",
       "client/src/hooks/__tests__/**/*.test.{ts,tsx}",
       "client/src/components/**/__tests__/**/*.test.tsx",
+      "client/src/pages/**/__tests__/**/*.test.tsx",
       "scripts/__tests__/**/*.test.ts",
       "server/__tests__/**/*.test.ts",
     ],

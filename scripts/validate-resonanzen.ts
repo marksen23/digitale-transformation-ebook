@@ -25,6 +25,7 @@ import crypto from "node:crypto";
 import { fileURLToPath } from "node:url";
 import { parseFrontmatter, extractFrageAntwort } from "./lib/frontmatter.js";
 import { EDITORIAL_ORIGIN, KNOWN_CONTEXT_ORIGINS } from "./lib/questionAnswers.js";
+import { hasEnkiduClosing } from "./lib/enkiduClosing.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -283,6 +284,14 @@ async function main() {
     if (String(fm.model ?? "") === EDITORIAL_ORIGIN && origin !== EDITORIAL_ORIGIN) {
       issues.push({ level: "warning", file: file.path, rule: "origin-missing",
         detail: "model: editorial ohne context_meta.origin: editorial — Schlussfrage würde als offen statt als Anschlussfrage zählen" });
+    }
+
+    // 9. Enkidu-Abschlussformel („drei kurze Fragen …“): seit 2026-11-20 aus
+    //    Prompt und Korpus entfernt. Taucht sie wieder auf (alter Client, Prompt-
+    //    Rückfall, Import), soll das sichtbar werden.
+    if (hasEnkiduClosing(response)) {
+      issues.push({ level: "warning", file: file.path, rule: "enkidu-closing-announcement",
+        detail: "Antwort enthält die entfernte Enkidu-Abschlussformel („drei kurze Fragen …“) — scripts/strip-enkidu-closing.ts --write" });
     }
 
     // Aggregate

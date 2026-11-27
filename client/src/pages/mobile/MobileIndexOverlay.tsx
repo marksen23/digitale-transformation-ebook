@@ -15,6 +15,7 @@ import { loadResonanzenIndexLazy } from "@/lib/resonanzenIndex";
 import { loadQuestions, questionCounts } from "@/lib/questions";
 import { loadErkenntnisse } from "@/lib/erkenntnisse";
 import { getCompletedChapters } from "@/lib/readingProgress";
+import { navClustersFor, type SiteNavItem } from "@/lib/siteNav";
 
 interface Props {
   C: Palette;
@@ -59,48 +60,24 @@ export default function MobileIndexOverlay({ C, tocChapters, navigate, onClose, 
     group.chapters.push({ id: ch.id, title: ch.title, href: `/werk/${ch.id}`, page: i + 1 });
   });
 
-  // Vier Absichts-Cluster statt einer flachen "Werkzeuge"-Liste (Redesign
-  // Phase 1) — dieselbe Gruppierung wie AppFrames Desktop-Dropdown. Betrieb
-  // (Kuration/Metrics/Health) taucht bewusst nicht mehr auf; wer den Token
-  // hat, geht über /admin?token=…, wie schon bisher. Status bleibt als
-  // öffentliche Ecke unter Mitdenken erreichbar.
-  const clusters: Array<{ label: string; items: Array<{ label: string; sub: string; href: string }> }> = [
-    {
-      label: "Lesen",
-      items: [
-        { label: "Projekt", sub: "BESCHREIBUNG", href: "/projekt" },
-      ],
-    },
-    {
-      label: "Erkunden",
-      items: [
-        // Übersicht zuerst: erklärt, dass die drei folgenden Seiten denselben
-        // Begriffsnetz aus drei Blickwinkeln zeigen (Redesign Phase 2, Teil 2).
-        { label: "Übersicht", sub: "DREI LINSEN", href: "/erkunden" },
-        { label: "Begriffsnetz", sub: "KARTE", href: "/begriffsnetz" },
-        { label: "Landkarte", sub: "WISSEN", href: "/landkarte" },
-        { label: "Philosophie", sub: "VERORTUNG", href: "/philosophie" },
-      ],
-    },
-    {
-      label: "Mitdenken",
-      items: [
-        { label: "Fragen", sub: counts.fragen != null ? `${counts.fragen} OFFEN` : "OFFEN", href: "/fragen" },
-        { label: "Erkenntnisse", sub: counts.erk != null ? String(counts.erk) : "", href: "/erkenntnisse" },
-        { label: "Wissen", sub: counts.begegnungen != null ? `${counts.begegnungen} BEGEGNUNGEN` : "BEGEGNUNGEN", href: "/resonanzen" },
-        { label: "Live", sub: "STROM", href: "/live" },
-        { label: "Statistik", sub: "ZAHLEN", href: "/statistik" },
-        { label: "Status", sub: "ÖFFENTLICH", href: "/status" },
-      ],
-    },
-    {
-      label: "Meins",
-      items: [
-        { label: "Mein Werk", sub: "TRAJEKTORIE", href: "/mein-werk" },
-        { label: "Blog", sub: "", href: "/blog" },
-      ],
-    },
-  ];
+  // Dieselbe Cluster-Quelle wie AppFrame (`siteNav`) — plus Status, der
+  // nur im Mobile-Index als öffentliche Ecke unter Mitdenken steht.
+  // Zähler (offene Fragen, Erkenntnisse, Begegnungen) bleiben eine
+  // Präsentationsschicht über den statischen Mono-Untertiteln.
+  function mobileSub(item: SiteNavItem): string {
+    if (item.href === "/fragen" && counts.fragen != null) return `${counts.fragen} OFFEN`;
+    if (item.href === "/erkenntnisse" && counts.erk != null) return String(counts.erk);
+    if (item.href === "/resonanzen" && counts.begegnungen != null) return `${counts.begegnungen} BEGEGNUNGEN`;
+    return item.mobileSub ?? "";
+  }
+  const clusters = navClustersFor("mobileIndex").map(cluster => ({
+    label: cluster.label,
+    items: cluster.items.map(item => ({
+      label: item.label,
+      sub: mobileSub(item),
+      href: item.href,
+    })),
+  }));
 
   const go = (href: string) => { onClose(); navigate(href); };
 

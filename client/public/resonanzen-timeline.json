@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T18:07:15.759Z",
+  "generatedAt": "2026-11-26T17:58:17.933Z",
   "buckets": [
     {
       "date": "2026-05-03",
@@ -634,33 +634,75 @@
     },
     {
       "date": "2026-11-20",
-      "totalEntries": 482,
+      "totalEntries": 488,
       "byStatus": {
-        "raw": 235,
-        "published": 166,
+        "published": 169,
+        "raw": 237,
         "rejected": 28,
-        "approved": 53
+        "approved": 54
       },
       "byEndpoint": {
         "analyse": 134,
         "chapter": 65,
         "dialog": 79,
-        "graph-chat": 52,
         "path-analyse": 66,
+        "enkidu": 68,
+        "graph-chat": 52,
+        "passage": 18,
+        "translate": 6
+      },
+      "publishedRatio": 0.3463114754098361
+    },
+    {
+      "date": "2026-11-22",
+      "totalEntries": 500,
+      "byStatus": {
+        "published": 169,
+        "raw": 249,
+        "rejected": 28,
+        "approved": 54
+      },
+      "byEndpoint": {
+        "analyse": 135,
+        "chapter": 65,
+        "dialog": 86,
+        "path-analyse": 67,
+        "enkidu": 68,
+        "graph-chat": 52,
+        "passage": 18,
+        "translate": 9
+      },
+      "publishedRatio": 0.338
+    },
+    {
+      "date": "2026-11-26",
+      "totalEntries": 504,
+      "byStatus": {
+        "raw": 257,
+        "published": 166,
+        "rejected": 28,
+        "approved": 53
+      },
+      "byEndpoint": {
+        "dialog": 98,
+        "analyse": 136,
+        "path-analyse": 67,
+        "chapter": 65,
+        "graph-chat": 52,
         "enkidu": 68,
         "passage": 18
       },
-      "publishedRatio": 0.34439834024896265,
-      "medianWerkVoice": 0.8479837391151981,
-      "medianCorpusVoice": 0.8127723032862229,
-      "echoRatio": 0.43983402489626555,
+      "publishedRatio": 0.32936507936507936,
+      "medianWerkVoice": 0.8460642175646854,
+      "medianCorpusVoice": 0.8111444309643874,
+      "echoRatio": 0.43253968253968256,
       "noveltyRatio": 0
     }
   ],
   "stats": {
-    "totalSnapshots": 34,
-    "avgGrowthPerDay": 1.94,
-    "latestEchoRatio": 0.43983402489626555,
+    "totalSnapshots": 36,
+    "avgGrowthPerDay": 1.99,
+    "latestEchoRatio": 0.43253968253968256,
     "latestNoveltyRatio": 0
   }
 }

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-20T17:09:17.199Z",
+  "generatedAt": "2026-11-22T12:56:55.917Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -705,6 +705,86 @@
       "conceptAnchor": "schatten",
       "distinctness": 0.223,
       "createdAt": "2026-11-20T17:08:04.920Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1H6ZXLU",
+      "kernsatz": "Entfremdung beginnt, wo die Zahl nicht mehr für etwas steht, sondern statt etwas, und die Lücke zwischen Gemessenem und Gemeintem nur noch als Unzufriedenheit erscheint.",
+      "questionSourceId": "MWHLWXJ6-FBB227D8",
+      "answerId": "MWP89KE6-947D0134",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.288,
+      "createdAt": "2026-11-22T12:56:27.578Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1PH8E5T",
+      "kernsatz": "Die planmäßige Übung des Ohne ist keine Verweigerung des Werkzeugs, sondern die Bedingung, um bei seiner Nutzung mündig zu bleiben und die Fähigkeit zur Rücknahme der Delegation zu erhalten.",
+      "questionSourceId": "MWP89KE9-5CA26BFA",
+      "answerId": "MWPA16O4-913B0D8F",
+      "conceptAnchor": "gelassenheit",
+      "distinctness": 0.285,
+      "createdAt": "2026-11-22T12:56:32.591Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1TF5DZ0",
+      "kernsatz": "Eine aus der Dichtung kommende Philosophie wird nicht unangreifbar, sondern auf zwei Weisen angreifbar: in ihrer theoretischen Strenge und in der Erfahrung, die sie weckt oder verfehlt.",
+      "questionSourceId": "MASTER-44EE5BE7",
+      "answerId": "MWP89KEI-FACD63CA",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.237,
+      "createdAt": "2026-11-22T12:56:55.517Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1UAT90N",
+      "kernsatz": "Die digitale Korrektur behebt Fehler ohne Irrtum, während Gnade und Buße einen zurechenbaren Irrtum voraussetzen, den die Logik des Updates gerade unsichtbar macht.",
+      "questionSourceId": "MWP82NI3-4EAF5580",
+      "answerId": "MWP942QA-90A0C107",
+      "conceptAnchor": "lm-scheitern",
+      "distinctness": 0.258,
+      "createdAt": "2026-11-22T12:56:41.726Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-56MIX7",
+      "kernsatz": "Die Grenze wird nicht durch einen pauschalen Vorbehalt geschützt, sondern durch die konkrete, von wechselnden Hütern bewährte Praxis, die eigene Begrenztheit als offene Frage zu behandeln.",
+      "questionSourceId": "MW566TO7-1538114F",
+      "answerId": "MWP89KEC-7F9911C4",
+      "conceptAnchor": "lm-grenze",
+      "distinctness": 0.27,
+      "createdAt": "2026-11-22T12:56:36.874Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-BRWAW7",
+      "kernsatz": "Produktive Reibung ist kein Hindernis, sondern ein begründetes, dosiertes und wählbares Angebot, dessen Gewinn sich erst im Rückblick auf den überwundenen Widerstand als Erfahrung erschließt.",
+      "questionSourceId": "MWHLYYWS-7B7C3E63",
+      "answerId": "MWPA16NV-4FFCF6BE",
+      "conceptAnchor": "spannung",
+      "distinctness": 0.25,
+      "createdAt": "2026-11-22T12:56:46.649Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-LYM1MI",
+      "kernsatz": "Ein verantwortetes Urteil prüft den maschinellen Befund am Einzelfall, während der bloße Befund den Fall nur einer Regel zuordnet, ohne ihn anzusehen.",
+      "questionSourceId": "MWCB1COA-DE68B5C9",
+      "answerId": "MWP942Q4-D22CF61C",
+      "conceptAnchor": "vernunft",
+      "distinctness": 0.243,
+      "createdAt": "2026-11-22T12:56:51.206Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-PP6H71",
+      "kernsatz": "Das heilsame Verblassen einer Narbe trennt den Vorfall, der vergehen darf, von der Lehre, die bleiben muss, und bewahrt die Begründung des Vergessens bis sie zur Praxis wird.",
+      "questionSourceId": "MWP7PHM0-4AECED9E",
+      "answerId": "MWPA16O7-287F34C5",
+      "conceptAnchor": "lm-scheitern",
+      "distinctness": 0.29,
+      "createdAt": "2026-11-22T12:56:22.966Z",
       "actor": "auto"
     }
   ]

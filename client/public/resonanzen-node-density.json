@@ -1,19 +1,20 @@
 {
-  "generatedAt": "2026-11-20T18:07:14.897Z",
+  "generatedAt": "2026-11-26T17:58:16.287Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 27,
+      "count": 36,
       "endpoints": {
-        "path-analyse": 21,
-        "analyse": 6
+        "dialog": 7,
+        "analyse": 7,
+        "path-analyse": 22
       }
     },
     "resonanz": {
-      "count": 31,
+      "count": 32,
       "endpoints": {
+        "path-analyse": 20,
         "analyse": 6,
-        "dialog": 6,
-        "path-analyse": 19
+        "dialog": 6
       }
     },
     "vernunft": {
@@ -70,10 +71,11 @@
       }
     },
     "klang": {
-      "count": 9,
+      "count": 18,
       "endpoints": {
-        "path-analyse": 4,
-        "analyse": 5
+        "dialog": 7,
+        "analyse": 6,
+        "path-analyse": 5
       }
     },
     "erkenntnis": {
@@ -299,10 +301,10 @@
       }
     },
     "echo-kammer": {
-      "count": 9,
+      "count": 22,
       "endpoints": {
-        "analyse": 7,
-        "dialog": 1,
+        "dialog": 13,
+        "analyse": 8,
         "path-analyse": 1
       }
     },
@@ -331,10 +333,10 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 18,
+      "count": 31,
       "endpoints": {
-        "analyse": 8,
-        "dialog": 2,
+        "dialog": 14,
+        "analyse": 9,
         "path-analyse": 8
       }
     },
@@ -400,7 +402,7 @@
   "stats": {
     "minCount": 0,
     "maxCount": 45,
-    "median": 12,
+    "median": 13,
     "totalNodes": 52,
     "zeroResonanceNodes": [
       "wirklichkeit-moeglichkeit"
