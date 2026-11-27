@@ -8,7 +8,7 @@ import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
 import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, type Palette } from "@/lib/theme";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
-import { audibleKernsaetze, chapterImpulse } from "@/lib/speechText";
+import { audibleChapterImpulses, audibleKernsaetze } from "@/lib/speechText";
 import type { EbookFile } from "@/lib/werkChunks";
 import SpeakButton from "@/components/SpeakButton";
 import SiteFooter from "@/components/SiteFooter";
@@ -37,12 +37,12 @@ export default function HoerenPage() {
       setKern(audibleKernsaetze(list, blocked));
     });
     fetch("/ebook_structured.json").then(r => r.json()).then((book: EbookFile) => {
-      const rows: Impulse[] = [];
-      for (const chapter of book.chapters ?? []) {
-        const text = chapterImpulse(chapter.content ?? "");
-        if (!text) continue;
-        rows.push({ id: chapter.id, title: chapter.title, part: chapter.partTitle, text });
-      }
+      const rows: Impulse[] = audibleChapterImpulses(book.chapters ?? []).map(({ chapter, text }) => ({
+        id: chapter.id,
+        title: chapter.title,
+        part: chapter.partTitle,
+        text,
+      }));
       setImpulses(rows);
     }).catch(() => setImpulses([]));
   }, []);
