@@ -15,6 +15,7 @@ import { useLocation } from 'wouter';
 import { useIsMobile } from '@/hooks/useMobile';
 import MobileCover from '@/pages/mobile/MobileCover';
 import DailyInsight from '@/components/DailyInsight';
+import { useLocale, useT } from '@/i18n';
 import NewsletterSignup from '@/components/NewsletterSignup';
 import { useSpeechRecognition } from '@/hooks/useSpeech';
 import { useAudioPlayer, type VoiceGender } from '@/hooks/useAudioPlayer';
@@ -62,6 +63,8 @@ function OverlayLoader() {
 
 // ─── Main Component ─────────────────────────────────────────────────
 export default function Home() {
+  const tr = useT();
+  const locale = useLocale();
   // Data
   const [ebook, setEbook] = useState<EbookData | null>(null);
   const [loading, setLoading] = useState(true);
@@ -821,7 +824,7 @@ export default function Home() {
       <div className={`min-h-screen flex items-center justify-center ${darkMode ? 'bg-stone-950 text-stone-200' : 'bg-stone-50 text-stone-800'}`}>
         <div className="text-center space-y-4">
           <div className="w-8 h-8 border-2 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto" />
-          <p className="font-serif text-lg">Wird geladen...</p>
+          <p className="font-serif text-lg">{tr("home.loading")}</p>
         </div>
       </div>
     );
@@ -830,7 +833,7 @@ export default function Home() {
   if (!ebook) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-stone-50">
-        <p className="text-red-600">Fehler beim Laden des Ebooks.</p>
+        <p className="text-red-600">{tr("home.loadError")}</p>
       </div>
     );
   }
@@ -855,24 +858,24 @@ export default function Home() {
                 ("Transformatio/n"). md:text-[2.6rem] (≈42px) passt mit Reserve;
                 overflow-wrap:normal + hyphens-none verhindern jeden Wortbruch. */}
             <h1 className="text-[clamp(1.75rem,8vw,3rem)] md:text-[2.6rem] font-serif text-white tracking-tight leading-tight [overflow-wrap:normal] hyphens-none">
-              Die Digitale<br />Transformation
+              {tr("home.titleLine1")}<br />{tr("home.titleLine2")}
             </h1>
             <div className="w-24 h-px bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto" />
             <p className="text-stone-300 text-sm md:text-base font-serif italic max-w-sm mx-auto leading-relaxed">
-              Eine poetisch-philosophische Trilogie<br />mit theoretischer Grundlegung<br />in drei Kritiken
+              {tr("home.subtitle")}
             </p>
             {/* Redesign Phase 1: der zweite Satz, der bisher fehlte — was das
                 Werk von einem gewöhnlichen Buch unterscheidet, in einer Zeile. */}
             <p className="text-amber-400/90 text-xs md:text-sm font-serif italic max-w-sm mx-auto leading-relaxed pt-1">
-              Ein Buch, das mit jeder Frage weiterwächst.
+              {tr("home.growing")}
             </p>
           </div>
 
           <div className="space-y-3 text-stone-400 text-xs">
             <div className="space-y-1">
-              <p>Band I: Die Überführung &mdash; Gilgamesch im digitalen Zeitalter</p>
-              <p>Band II: Der Ausgang &mdash; Kant im Zeitalter der Maschinenvernunft</p>
-              <p>Band III: Die Rückbindung &mdash; Resonanz im Zeitalter der Entfremdung</p>
+              <p>{tr("home.band1")}</p>
+              <p>{tr("home.band2")}</p>
+              <p>{tr("home.band3")}</p>
             </div>
             <div className="w-8 h-px bg-stone-700 mx-auto" />
             <p>März 2026</p>
@@ -886,18 +889,18 @@ export default function Home() {
               className="px-8 py-3 bg-amber-700 hover:bg-amber-600 text-white rounded-lg font-medium transition-colors text-sm"
             >
               <BookOpen size={16} className="inline mr-2 -mt-0.5" />
-              Lesen
+              {tr("home.read")}
             </button>
             {/* Redesign Phase 1: der zweite Weg neben dem Lesen, statt dass
                 Erkunden erst über die Navigation gefunden werden muss. Führt
                 seit Phase 2 zum gemeinsamen Erkunden-Einstieg (/erkunden),
                 nicht mehr direkt in eine der drei Linsen. */}
             <button
-              onClick={() => setLocation('/erkunden')}
+              onClick={() => setLocation(locale === "en" ? "/en/erkunden" : "/erkunden")}
               className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
             >
               <Compass size={16} />
-              Erkunden
+              {tr("home.explore")}
             </button>
             {!isInstalled && (installPrompt || isIos) && (
               <button
@@ -905,7 +908,7 @@ export default function Home() {
                 className="px-8 py-3 border border-amber-600/50 text-amber-400 hover:bg-amber-600/10 rounded-lg font-medium transition-colors text-sm inline-flex items-center justify-center gap-2"
               >
                 <Smartphone size={16} />
-                Installieren
+                {tr("home.install")}
               </button>
             )}
             <a

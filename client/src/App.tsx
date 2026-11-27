@@ -138,6 +138,9 @@ function Router() {
       <Route path={"/fragen"}>
         <Framed><Suspense fallback={fallback}><FragenPage /></Suspense></Framed>
       </Route>
+      <Route path={"/en/erkenntnisse"}>
+        <Framed><Suspense fallback={fallback}><ErkenntnissePage /></Suspense></Framed>
+      </Route>
       <Route path={"/erkenntnisse"}>
         <Framed><Suspense fallback={fallback}><ErkenntnissePage /></Suspense></Framed>
       </Route>

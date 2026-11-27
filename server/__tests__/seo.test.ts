@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildSitemap, renderSeoHtml, SITE_URL } from "../lib/seo.js";
+import { buildSitemap, hreflangLinks, renderSeoHtml, SITE_URL } from "../lib/seo.js";
 
 const TEMPLATE =
   '<!doctype html><html><head><title>raw</title><meta name="description" content="raw" /><!--SEO-HEAD--></head><body><div id="root"><!--SEO-BODY--></div></body></html>';
@@ -17,6 +17,19 @@ function canonicalOf(html: string): string {
 }
 
 describe("SEO-Route-Meta", () => {
+  it("setzt hreflang auf dieselbe Adresse in de und en", async () => {
+    expect(hreflangLinks("/erkenntnisse")).toEqual({
+      de: `${SITE_URL}/erkenntnisse`,
+      en: `${SITE_URL}/en/erkenntnisse`,
+    });
+    expect(hreflangLinks("/en")).toEqual({ de: `${SITE_URL}/`, en: `${SITE_URL}/en` });
+    const html = await renderSeoHtml(TEMPLATE, "/erkenntnisse");
+    expect(html).toContain(`hreflang="en" href="${SITE_URL}/en/erkenntnisse"`);
+    expect(html).toContain(`hreflang="de" href="${SITE_URL}/erkenntnisse"`);
+    const home = await renderSeoHtml(TEMPLATE, "/en");
+    expect(home).toContain("Resonance Reason");
+  });
+
   it("gibt /datenschutz einen eigenen deutschen Titel, Beschreibung und Canonical", async () => {
     const html = await renderSeoHtml(TEMPLATE, "/datenschutz");
     expect(titleOf(html)).toBe(`Datenschutz — ${HOME_TITLE.split(" — ")[0]}`);

@@ -5,6 +5,7 @@
  */
 import { useEffect, useState } from "react";
 import type { Palette } from "@/lib/theme";
+import { useT } from "@/i18n";
 
 type Tone = "cover" | "plain";
 
@@ -17,6 +18,7 @@ export default function NewsletterSignup({
   C?: Palette;
   compact?: boolean;
 }) {
+  const tr = useT();
   const [email, setEmail] = useState("");
   const [cadence, setCadence] = useState<"daily" | "weekly">("weekly");
   const [consent, setConsent] = useState(false);
@@ -77,15 +79,15 @@ export default function NewsletterSignup({
       }}
     >
       <div style={{ fontFamily: "ui-monospace, monospace", fontSize: compact ? 9 : 11, letterSpacing: "0.16em", textTransform: "uppercase", color: accent }}>
-        Erkenntnis des Tages per E-Mail
+        {tr("news.title")}
       </div>
       <p style={{ margin: 0, fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: compact ? 12 : 14, lineHeight: 1.45, color: dim }}>
-        Ein veröffentlichter Kernsatz, {cadence === "daily" ? "jeden Tag" : "einmal die Woche"}. Erst der Link in der Mail macht die Anmeldung wirksam.
+        {cadence === "daily" ? tr("news.leadDaily") : tr("news.leadWeekly")}
       </p>
       {note && <p style={{ margin: 0, fontFamily: "Georgia, serif", fontSize: compact ? 12 : 13, color: dim }}>{note}</p>}
       <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
         <label style={{ flex: "1 1 12rem", display: "grid", gap: 4 }}>
-          <span style={{ fontFamily: "ui-monospace, monospace", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: dim }}>E-Mail</span>
+          <span style={{ fontFamily: "ui-monospace, monospace", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: dim }}>{tr("news.email")}</span>
           <input
             type="email"
             required
@@ -97,24 +99,24 @@ export default function NewsletterSignup({
           />
         </label>
         <label style={{ display: "grid", gap: 4 }}>
-          <span style={{ fontFamily: "ui-monospace, monospace", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: dim }}>Rhythmus</span>
+          <span style={{ fontFamily: "ui-monospace, monospace", fontSize: 10, letterSpacing: "0.08em", textTransform: "uppercase", color: dim }}>{tr("news.cadence")}</span>
           <select
             value={cadence}
             onChange={ev => setCadence(ev.target.value === "daily" ? "daily" : "weekly")}
             style={{ fontFamily: "Georgia, serif", fontSize: compact ? 14 : 15, color: text, background: fieldBg, border: `1px solid ${border}`, borderRadius: 6, padding: "0.45rem 0.6rem", minHeight: 36 }}
           >
-            <option value="weekly">Wöchentlich</option>
-            <option value="daily">Täglich</option>
+            <option value="weekly">{tr("news.weekly")}</option>
+            <option value="daily">{tr("news.daily")}</option>
           </select>
         </label>
       </div>
       <label style={{ display: "flex", gap: 8, alignItems: "flex-start", color: dim, fontFamily: "Georgia, serif", fontSize: compact ? 12 : 13, lineHeight: 1.4 }}>
         <input type="checkbox" checked={consent} onChange={ev => setConsent(ev.target.checked)} style={{ marginTop: 3 }} />
         <span>
-          Ich willige ein, dass diese Adresse für den Newsletter gespeichert wird. Abmelden geht jederzeit über den Link in jeder Mail.{" "}
-          <a href="/datenschutz" style={{ color: accent }}>Datenschutz</a>
+          {tr("news.consent")}{" "}
+          <a href="/datenschutz" style={{ color: accent }}>{tr("news.privacy")}</a>
           {" · "}
-          <a href="/impressum" style={{ color: accent }}>Impressum</a>
+          <a href="/impressum" style={{ color: accent }}>{tr("news.imprint")}</a>
         </span>
       </label>
       <div>
@@ -123,7 +125,7 @@ export default function NewsletterSignup({
           disabled={busy}
           style={{ fontFamily: "ui-monospace, monospace", fontSize: 11, letterSpacing: "0.12em", textTransform: "uppercase", color: cover ? "#fff" : accent, background: cover ? "#92400e" : "transparent", border: cover ? "none" : `1px solid ${border}`, borderRadius: 6, padding: "0.55rem 0.9rem", cursor: busy ? "wait" : "pointer", minHeight: 40 }}
         >
-          {busy ? "…" : "Anmelden"}
+          {busy ? "…" : tr("news.submit")}
         </button>
       </div>
       {message && <p style={{ margin: 0, fontFamily: "Georgia, serif", fontSize: 14, color: text }}>{message}</p>}

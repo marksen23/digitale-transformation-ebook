@@ -5,10 +5,15 @@ import { useEffect, useState } from "react";
 import { Link } from "wouter";
 import { pickDailyErkenntnis } from "@shared/dailyErkenntnis";
 import SpeakButton from "@/components/SpeakButton";
+import { useLocale, useT } from "@/i18n";
 import { loadErkenntnisse, type Erkenntnis } from "@/lib/erkenntnisse";
+import { loadKernsatzTranslations, showKernsatz } from "@/lib/kernsatzI18n";
 
 export default function DailyInsight({ compact = false }: { compact?: boolean }) {
+  const tr = useT();
+  const locale = useLocale();
   const [item, setItem] = useState<Erkenntnis | null | undefined>(undefined);
+  const [translations, setTranslations] = useState<Map<string, string>>(new Map());
 
   useEffect(() => {
     let live = true;
@@ -22,10 +27,12 @@ export default function DailyInsight({ compact = false }: { compact?: boolean })
       const blocked = Array.isArray(held?.answerIds) ? held.answerIds as string[] : [];
       setItem(pickDailyErkenntnis(list, new Date(), blocked));
     });
+    loadKernsatzTranslations().then(map => { if (live) setTranslations(map); });
     return () => { live = false; };
   }, []);
 
   if (!item) return null;
+  const shown = showKernsatz(item.id, item.kernsatz, locale, translations);
   const href = item.conceptAnchor
     ? `/landkarte?begriff=${encodeURIComponent(item.conceptAnchor)}`
     : "/erkenntnisse";
@@ -44,7 +51,7 @@ export default function DailyInsight({ compact = false }: { compact?: boolean })
         textTransform: "uppercase",
         color: "#f59e0b",
       }}>
-        Erkenntnis des Tages
+        {tr("daily.label")}
       </div>
       <p style={{
         fontFamily: "Georgia, serif",
@@ -54,18 +61,23 @@ export default function DailyInsight({ compact = false }: { compact?: boolean })
         color: "#e7e5e4",
         margin: "0.45rem 0 0.55rem",
       }}>
-        {item.kernsatz}
+        {shown.text}
       </p>
+      {shown.translated && (
+        <div style={{ fontFamily: "ui-monospace, monospace", fontSize: compact ? 9 : 10, letterSpacing: "0.08em", textTransform: "uppercase", color: "#a8a29e", marginBottom: 6 }}>
+          {tr("daily.translation")}
+        </div>
+      )}
       <div style={{ display: "flex", gap: "0.8rem", flexWrap: "wrap" }}>
         <Link href={href} style={{ color: "#fbbf24", fontSize: compact ? 11 : 12, textDecoration: "none" }}>
-          {item.conceptAnchor ? "Zum Begriff in der Landkarte" : "Alle Erkenntnisse"}
+          {item.conceptAnchor ? tr("daily.toConcept") : tr("daily.all")}
         </Link>
         <a href="/feed/erkenntnisse.xml" style={{ color: "#a8a29e", fontSize: compact ? 11 : 12, textDecoration: "none" }}>
-          Feed
+          {tr("daily.feed")}
         </a>
-        <SpeakButton id={`tag-${item.id}`} text={item.kernsatz} light />
+        <SpeakButton id={`tag-${item.id}`} text={shown.text} light />
         <a href="/hoeren" style={{ color: "#a8a29e", fontSize: compact ? 11 : 12, textDecoration: "none" }}>
-          Hörfassung
+          {tr("daily.listen")}
         </a>
       </div>
     </div>

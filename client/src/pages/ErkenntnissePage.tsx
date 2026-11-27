@@ -12,6 +12,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useLocale, useT } from "@/i18n";
+import { loadKernsatzTranslations, showKernsatz } from "@/lib/kernsatzI18n";
 import { C_DARK, C_LIGHT, MAX_WIDTH, MONO, SERIF, DISPLAY, RADIUS, type Palette } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
@@ -29,6 +31,9 @@ const epColor = (ep: string, fb: string) => ENDPOINT_COLOR[ep as ResonanzEntry["
 export default function ErkenntnissePage() {
   const { theme } = useTheme();
   const c: Palette = theme === "dark" ? C_DARK : C_LIGHT;
+  const tr = useT();
+  const locale = useLocale();
+  const [translations, setTranslations] = useState<Map<string, string>>(new Map());
   const [erk, setErk] = useState<Erkenntnis[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
   const [open, setOpen] = useState<string | null>(null);
@@ -36,6 +41,7 @@ export default function ErkenntnissePage() {
 
   useEffect(() => {
     loadErkenntnisse().then(setErk);
+    loadKernsatzTranslations().then(setTranslations);
     loadResonanzenIndexLazy().then(idx => { if (idx) setById(new Map(idx.entries.map(e => [e.id, e]))); });
   }, []);
 
@@ -63,15 +69,13 @@ export default function ErkenntnissePage() {
           Resonanzvernunft
         </div>
         <h1 style={{ margin: "0.4rem 0 0.4rem", fontFamily: DISPLAY, fontSize: "1.9rem", color: c.textBright, lineHeight: 1.2 }}>
-          Erkenntnisse <span style={{ color: c.accentText }}>·</span> Was sich gezeigt hat
+          {tr("insights.title")} <span style={{ color: c.accentText }}>·</span> {tr("insights.kicker")}
         </h1>
         <p style={{ fontFamily: SERIF, fontStyle: "italic", color: c.textDim, marginTop: 0, marginBottom: "1.2rem", lineHeight: 1.5 }}>
-          Wo eine offene Frage des Werks eine Antwort fand, die wirklich einen Schritt
-          weitergeht — geprüft und bestätigt. Jede Erkenntnis mit ihrer Entstehung:
-          aus welcher Frage, aus welcher Antwort sie erwuchs.{" "}
-          <Link href="/hoeren" style={{ color: c.accentText }}>Hörfassung</Link>
+          {tr("insights.intro")}{" "}
+          <Link href="/hoeren" style={{ color: c.accentText }}>{tr("insights.listening")}</Link>
           {" · "}
-          <Link href="/fortschreibung" style={{ color: c.accentText }}>Fortschreibung</Link>
+          <Link href="/fortschreibung" style={{ color: c.accentText }}>{tr("insights.print")}</Link>
         </p>
         <NewsletterSignup C={c} />
 
@@ -85,8 +89,7 @@ export default function ErkenntnissePage() {
           <div className="loading-pulse" style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted }}>lädt …</div>
         ) : items.length === 0 ? (
           <div style={{ fontFamily: SERIF, fontStyle: "italic", color: c.muted, lineHeight: 1.5 }}>
-            Noch keine Erkenntnisse bestätigt. Sie entstehen, wenn aus den Erkenntnis-Kandidaten
-            (Antworten, die offene Fragen lösen) im Admin ein Kernsatz destilliert und bestätigt wird.
+            {tr("insights.empty")}
           </div>
         ) : (
           <div style={{ display: "flex", flexDirection: "column", gap: "0.8rem" }}>
@@ -95,11 +98,13 @@ export default function ErkenntnissePage() {
               const source = byId.get(e.questionSourceId);
               const question = source ? extractClosingQuestion(source.response) : "";
               const isOpen = open === e.id;
+              const shown = showKernsatz(e.id, e.text, locale, translations);
               return (
                 <div key={e.id} style={{ background: c.surface, border: `1px solid ${c.border}`, borderRadius: 6, padding: "0.95rem 1.1rem" }}>
                   {/* Kernsatz — die Erkenntnis selbst */}
                   <div style={{ fontFamily: SERIF, fontSize: "1.15rem", color: c.textBright, lineHeight: 1.45 }}>
-                    {e.text}
+                    {shown.text}
+                    {shown.translated && <div style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.muted, marginTop: "0.35rem" }}>{tr("insights.translated")}</div>}
                   </div>
                   <div style={{ display: "flex", alignItems: "center", gap: "0.6rem", marginTop: "0.5rem", flexWrap: "wrap" }}>
                     <span style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.06em", color: c.muted }}>
@@ -107,10 +112,10 @@ export default function ErkenntnissePage() {
                       {e.auto ? <> · <span style={{ color: c.accentText }}>automatisch</span></> : null}
                       {e.conceptAnchor ? <> · <span style={{ color: c.accentText }}>{e.conceptAnchor}</span></> : null}
                     </span>
-                    <SpeakButton id={`kern-${e.id}`} text={e.text} color={c.accentText} />
+                    <SpeakButton id={`kern-${e.id}`} text={shown.text} color={c.accentText} />
                     <button onClick={() => setOpen(isOpen ? null : e.id)}
                       style={{ fontFamily: MONO, fontSize: "0.5rem", letterSpacing: "0.08em", textTransform: "uppercase", color: c.accentText, background: "none", border: `1px solid ${c.border}`, borderRadius: RADIUS.micro, padding: "0.25rem 0.5rem", cursor: "pointer" }}>
-                      {isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}
+                      {isOpen ? tr("insights.hide") : tr("insights.show")}
                     </button>
                   </div>
 

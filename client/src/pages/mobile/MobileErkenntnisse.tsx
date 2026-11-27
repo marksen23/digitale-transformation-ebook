@@ -7,6 +7,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { useLocation } from "wouter";
 import { useTheme } from "@/contexts/ThemeContext";
+import { useLocale, useT } from "@/i18n";
+import { loadKernsatzTranslations, showKernsatz } from "@/lib/kernsatzI18n";
 import { C_DARK, C_LIGHT, DISPLAY, MONO, SERIF, RADIUS } from "@/lib/theme";
 import { loadResonanzenIndexLazy, ENDPOINT_LABEL, ENDPOINT_COLOR, type ResonanzEntry } from "@/lib/resonanzenIndex";
 import { extractClosingQuestion } from "@/lib/closingQuestion";
@@ -24,12 +26,16 @@ export default function MobileErkenntnisse() {
   const isDark = theme === "dark";
   const C = isDark ? C_DARK : C_LIGHT;
   const [, navigate] = useLocation();
+  const tr = useT();
+  const locale = useLocale();
+  const [translations, setTranslations] = useState<Map<string, string>>(new Map());
   const [erk, setErk] = useState<Erkenntnis[] | null>(null);
   const [byId, setById] = useState<Map<string, ResonanzEntry>>(new Map());
   const [open, setOpen] = useState<string | null>(null);
 
   useEffect(() => {
     loadErkenntnisse().then(setErk);
+    loadKernsatzTranslations().then(setTranslations);
     loadResonanzenIndexLazy().then(idx => { if (idx) setById(new Map(idx.entries.map(e => [e.id, e]))); });
   }, []);
 
@@ -38,10 +44,10 @@ export default function MobileErkenntnisse() {
   return (
     <MobileScreenShell C={C} title="Erkenntnisse" meta={erk ? `${items.length}` : ""} isDark={isDark}>
       <div style={{ fontFamily: DISPLAY, fontSize: 27, lineHeight: 1.12, color: C.textBright, marginBottom: 8 }}>
-        Erkenntnisse <span style={{ color: C.accentText }}>·</span> Was sich gezeigt hat
+        {tr("insights.title")} <span style={{ color: C.accentText }}>·</span> {tr("insights.kicker")}
       </div>
       <div style={{ fontFamily: SERIF, fontStyle: "italic", fontSize: 13.5, lineHeight: 1.55, color: C.textDim, marginBottom: 16 }}>
-        Wo eine offene Frage des Werks eine Antwort fand, die wirklich einen Schritt weitergeht — geprüft und bestätigt. Jede mit ihrer Entstehung.
+        {tr("insights.intro")}
       </div>
       <NewsletterSignup C={C} compact />
 
@@ -49,7 +55,7 @@ export default function MobileErkenntnisse() {
         <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted }}>lädt …</div>
       ) : items.length === 0 ? (
         <div style={{ fontFamily: SERIF, fontStyle: "italic", color: C.muted, lineHeight: 1.5 }}>
-          Noch keine Erkenntnisse bestätigt.
+          {tr("insights.empty")}
         </div>
       ) : (
         items.map(e => {
@@ -57,20 +63,22 @@ export default function MobileErkenntnisse() {
           const source = byId.get(e.questionSourceId);
           const question = source ? extractClosingQuestion(source.response) : "";
           const isOpen = open === e.id;
+          const shown = showKernsatz(e.id, e.text, locale, translations);
           return (
             <div key={e.id} style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 6, padding: "15px 16px", marginBottom: 12 }}>
-              <div style={{ fontFamily: DISPLAY, fontSize: 23, lineHeight: 1.28, color: C.textBright }}>{e.text}</div>
+              <div style={{ fontFamily: DISPLAY, fontSize: 23, lineHeight: 1.28, color: C.textBright }}>{shown.text}</div>
+              {shown.translated && <div style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.08em", textTransform: "uppercase", color: C.muted, marginTop: 6 }}>{tr("insights.translated")}</div>}
               <div style={{ display: "flex", alignItems: "center", gap: 10, marginTop: 10, flexWrap: "wrap" }}>
                 <span style={{ fontFamily: MONO, fontSize: 9, letterSpacing: "0.06em", color: C.muted }}>
                   {e.kind === "master" ? "Synthese" : e.distinctness != null ? `Distinktheit ${e.distinctness.toFixed(2)}` : "Erkenntnis"}
                   {e.auto && <> · <span style={{ color: C.accentText }}>automatisch</span></>}
                   {e.conceptAnchor && <> · <span style={{ color: C.accentText }}>{e.conceptAnchor}</span></>}
                 </span>
-                <SpeakButton id={`kern-${e.id}`} text={e.text} color={C.accentText} />
+                <SpeakButton id={`kern-${e.id}`} text={shown.text} color={C.accentText} />
                 <button
                   type="button" onClick={() => setOpen(isOpen ? null : e.id)}
                   style={{ minHeight: 44, padding: "0 12px", background: "transparent", border: `1px solid ${C.border}`, borderRadius: RADIUS.micro, color: C.accentText, fontFamily: MONO, fontSize: 9, letterSpacing: "0.08em", textTransform: "uppercase", cursor: "pointer" }}
-                >{isOpen ? "Entstehung ausblenden" : "Entstehung zeigen"}</button>
+                >{isOpen ? tr("insights.hide") : tr("insights.show")}</button>
               </div>
 
               <div inert={!isOpen} style={{ display: "grid", gridTemplateRows: isOpen ? "1fr" : "0fr", transition: "grid-template-rows 0.22s ease" }}>
