@@ -124,6 +124,11 @@ const ROUTE_META: Record<string, Meta> = {
     description:
       "Kernsätze und kurze Kapitelimpulse zum Hören, gesprochen von der Stimme des Browsers.",
   },
+  "/werkstatt": {
+    title: `Gruppen-Werkstatt — ${WORK_TITLE}`,
+    description:
+      "Eine Runde zu einem Begriff: teilbarer Code, Beiträge und am Ende eine herunterladbare Sammlung.",
+  },
   "/live": {
     title: `Live — ${WORK_TITLE}`,
     description: "Der lebendige Strom: die jüngsten Resonanzen des Werks in Echtzeit.",
@@ -189,6 +194,7 @@ function routeMeta(path: string): Meta {
   if (base.startsWith("/werk/")) return ROUTE_META["/werk"];
   if (base === "/lesepfade" || base.startsWith("/lesepfade/")) return ROUTE_META["/lesepfade"];
   if (base === "/dialoge" || base.startsWith("/dialoge/")) return ROUTE_META["/dialoge"];
+  if (base === "/werkstatt" || base.startsWith("/werkstatt/")) return ROUTE_META["/werkstatt"];
   return ROUTE_META["/"];
 }
 
@@ -383,6 +389,7 @@ export async function renderSeoHtml(template: string, rawPath: string): Promise<
     meta = routeMeta(path);
     jsonLd = path === "/" || path === "/en" ? [websiteJsonLd(), workJsonLd()] : [websiteJsonLd()];
     snapshot = pageSnapshot(meta);
+    if (/^\/werkstatt\/[a-z0-9]{8}$/.test(path)) robots = "noindex, nofollow";
   }
 
   const head = headTags({ canonical, title: meta.title, description: meta.description, type, jsonLd, robots });

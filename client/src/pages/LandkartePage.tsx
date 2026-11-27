@@ -232,6 +232,14 @@ export default function LandkartePage() {
           >
             Dialoge
           </button>
+          {" · "}
+          <button
+            type="button"
+            onClick={() => navigate("/werkstatt")}
+            style={{ fontFamily: MONO, fontSize: "0.6rem", letterSpacing: "0.08em", textTransform: "uppercase", color: C.accentText, background: "none", border: "none", padding: 0, cursor: "pointer" }}
+          >
+            Werkstatt
+          </button>
         </p>
       </header>
 
@@ -345,6 +353,7 @@ export default function LandkartePage() {
               <p style={{ margin: 0, fontFamily: SERIF, fontStyle: "italic", fontSize: "0.82rem", color: C.textDim, lineHeight: 1.5 }}>{selNode.description}</p>
               <button onClick={() => navigate(`/begriffsnetz?node=${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>im Begriffsnetz öffnen →</button>
               <button onClick={() => navigate(`/dialoge/${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>Leser-Dialoge →</button>
+              <button onClick={() => navigate(`/werkstatt?begriff=${encodeURIComponent(selNode.id)}`)} style={linkBtn(C)}>Werkstatt zu diesem Begriff →</button>
 
               {selectedEmerging.length > 0 && (
                 <div style={{ marginTop: "1rem" }}>

@@ -245,6 +245,14 @@ Der Atom-Feed `/feed/erkenntnisse.xml` bleibt die Inhaltsquelle des Digests.
 Es wird nichts an X oder an einen externen Newsletter-Dienst gepusht, außer
 die einzelne Mail über den gewählten Anbieter.
 
+## Gruppen-Werkstatt
+
+`/werkstatt` öffnet eine Runde zu einem Begriff. Der Code in der Adresse
+ist der Zugang. Beiträge liegen nur auf dem Server (`WERKSTATT_STORE_PATH`,
+sonst `data/werkstatt/sessions.json`, gitignoriert). Auf Render gehört der
+Pfad auf eine Persistent Disk, sonst ist die Runde nach einem Redeploy weg.
+Abschluss lädt die Sammlung als Markdown. Löschen geht unter `/admin`.
+
 ## Hörfassung
 
 `/hoeren` spricht Kernsätze und die ersten beiden Sätze eines Kapitels mit der
