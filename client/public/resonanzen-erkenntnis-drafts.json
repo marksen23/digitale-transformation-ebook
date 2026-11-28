@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T20:04:26.600Z",
+  "generatedAt": "2026-11-28T09:10:25.185Z",
   "drafts": [
     {
       "id": "ERK-10IDUCZ",
@@ -11,6 +11,17 @@
       "distilledAt": "2026-11-20T17:07:42.098Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "997d30d7559b93b7"
+    },
+    {
+      "id": "ERK-14FGSC7",
+      "answerId": "MWZHKZAC-93FEB903",
+      "questionSourceId": "MWP7PHM6-789F4B23",
+      "kernsatz": "Eine Vision kippt von der Ahnung zur Forderung, wenn Widerspruch nicht mehr schärft, sondern stört, und das Unvorhergesehene nicht mehr empfangen, sondern nur noch als Abweichung verbucht wird.",
+      "conceptAnchor": "lm-begegnung",
+      "distinctness": 0.277,
+      "distilledAt": "2026-11-28T09:07:39.338Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "09a94834e0d971b1"
     },
     {
       "id": "ERK-14ZTQW9",
@@ -77,6 +88,17 @@
       "distilledAt": "2026-11-16T12:22:18.735Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "6ea4e90a45036d48"
+    },
+    {
+      "id": "ERK-1BNHJBO",
+      "answerId": "MWZHKZA0-612499CC",
+      "questionSourceId": "MW566TOD-84C09B94",
+      "kernsatz": "Echte Abweichung kostet eine bequeme Deutung, entzieht sich der Einübung und bewährt sich außerhalb des medialen Umlaufs, wo sie dem Echo der Wiederholung nicht mehr ausgesetzt ist.",
+      "conceptAnchor": "echo",
+      "distinctness": 0.228,
+      "distilledAt": "2026-11-28T09:07:49.760Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "93c1c248438f1acb"
     },
     {
       "id": "ERK-1CIINM7",
@@ -211,6 +233,17 @@
       "sourceHash": "09bb6bf4aca938bb"
     },
     {
+      "id": "ERK-1WD0VNP",
+      "answerId": "MWPA16NS-54BBB39F",
+      "questionSourceId": "MWHLW24R-959992F9",
+      "kernsatz": "Technik, die zurückgibt, misst sich nicht an der Verweildauer, sondern an der gut verbrachten Zeit, die sie dem Menschen für die Welt jenseits des Bildschirms zurückgewinnt.",
+      "conceptAnchor": "gegenwart",
+      "distinctness": 0.22,
+      "distilledAt": "2026-11-28T09:07:59.364Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "4ac797c3bb789aa5"
+    },
+    {
       "id": "ERK-1WFY32C",
       "answerId": "MWXUDT4W-39FD2D83",
       "questionSourceId": "MWXUBFZ3-5EC22087",
@@ -242,6 +275,17 @@
       "distilledAt": "2026-11-20T17:07:56.023Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "f04f4fb33f92bea7"
+    },
+    {
+      "id": "ERK-2KT39V",
+      "answerId": "MWPA16NM-2C6538A1",
+      "questionSourceId": "MP0Q5FDJ-F2C015AF",
+      "kernsatz": "Digitale Architektur stiftet Handeln nicht durch optimierte Reflexe, sondern indem sie an entscheidenden Stellen eine leere Voreinstellung als den Ort anbietet, an dem eine Antwort erst möglich wird.",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.217,
+      "distilledAt": "2026-11-28T09:08:09.657Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "03eb690eed882976"
     },
     {
       "id": "ERK-56MIX7",
@@ -365,6 +409,28 @@
       "sourceHash": "5e4f4b86bfacfc70"
     },
     {
+      "id": "ERK-KJSDGZ",
+      "answerId": "MWZHKZA9-580AD874",
+      "questionSourceId": "MWP7PHLX-B52303F9",
+      "kernsatz": "Ein zögerndes Zeigen wahrt das Ungedachte, indem es seine Markierung als widerrufbaren Vorschlag kenntlich macht, statt eine Leerstelle als feststehende Aufgabe vorzuzeichnen.",
+      "conceptAnchor": "raum",
+      "distinctness": 0.219,
+      "distilledAt": "2026-11-28T09:08:04.158Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "b147dce1dc32ba1f"
+    },
+    {
+      "id": "ERK-LN3RO7",
+      "answerId": "MWP89KEO-68E6B82A",
+      "questionSourceId": "MWCB2NN3-B5D0CDE0",
+      "kernsatz": "Die Angst vor dem Sich-Verlieren verwandelt sich in Aufmerksamkeit, sobald sie zwischen dem leeren Verbrauch und der erzählbaren Verwandlung unterscheiden lernt.",
+      "conceptAnchor": "spannung",
+      "distinctness": 0.216,
+      "distilledAt": "2026-11-28T09:08:15.107Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "e542a3223c2a9c29"
+    },
+    {
       "id": "ERK-LYM1MI",
       "answerId": "MWP942Q4-D22CF61C",
       "questionSourceId": "MWCB1COA-DE68B5C9",
@@ -431,6 +497,17 @@
       "sourceHash": "52352e039253c469"
     },
     {
+      "id": "ERK-UG7NPP",
+      "answerId": "MWZHKZAF-021072A1",
+      "questionSourceId": "MWP942QA-90A0C107",
+      "kernsatz": "Nachsicht unterbricht die berechenbare Regel durch eine verantwortete Gewährung, die nur ein ansprechbarer Mensch vollziehen kann, weil Gnade ein Gegenüber braucht, das für den unverdienten Neuanfang einsteht.",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.254,
+      "distilledAt": "2026-11-28T09:07:44.716Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "22b1d39d1e206af8"
+    },
+    {
       "id": "ERK-V5UC82",
       "answerId": "MWP814CF-E3AF9641",
       "questionSourceId": "MWP7ZZFB-4CCC5381",
@@ -440,6 +517,17 @@
       "distilledAt": "2026-11-20T17:08:04.920Z",
       "distilledModel": "gemini-2.5-pro",
       "sourceHash": "2cf5281bf46894a7"
+    },
+    {
+      "id": "ERK-Y6IVQB",
+      "answerId": "MX06GDPU-3E16CF3B",
+      "questionSourceId": "MWZEGQYC-567A529E",
+      "kernsatz": "Resonanzvernunft erfordert souveräne Orte der Selbstermächtigung, die den Wert einer Begegnung dem Subjekt zurückgeben und sich der algorithmischen Extraktion und Vorherbestimmung entziehen.",
+      "conceptAnchor": "entfremdung",
+      "distinctness": 0.222,
+      "distilledAt": "2026-11-28T09:07:54.699Z",
+      "distilledModel": "gemini-2.5-pro",
+      "sourceHash": "ab66ebf3eac171c9"
     }
   ]
 }

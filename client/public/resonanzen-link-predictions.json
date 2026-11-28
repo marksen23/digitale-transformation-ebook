@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:06:06.624Z",
+  "generatedAt": "2026-11-28T09:10:35.356Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -167,6 +167,34 @@
       ]
     },
     {
+      "source": "echo",
+      "target": "schweigen",
+      "cooccurrence": 4,
+      "endpoints": {
+        "analyse": 4
+      },
+      "sampleEntryIds": [
+        "MASTER-C551F859",
+        "MWZHKZA0-612499CC",
+        "MW566TOD-84C09B94",
+        "MPF4WM18-FF4843F1"
+      ]
+    },
+    {
+      "source": "resonanzvernunft",
+      "target": "spannung",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 4
+      },
+      "sampleEntryIds": [
+        "MASTER-3980C193",
+        "MX06KICB-81074BE1",
+        "MP8UIMZW-BADE77E5",
+        "MOPFJTND-AAE76B2B"
+      ]
+    },
+    {
       "source": "denken",
       "target": "echo",
       "cooccurrence": 4,
@@ -315,6 +343,84 @@
       ]
     },
     {
+      "source": "dazwischenintelligenz",
+      "target": "schweigen",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 3
+      },
+      "sampleEntryIds": [
+        "MASTER-DB098542",
+        "MWZHKZA9-580AD874",
+        "MWP7PHLX-B52303F9"
+      ]
+    },
+    {
+      "source": "echo-kammer",
+      "target": "transformatives-drittes",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 3
+      },
+      "sampleEntryIds": [
+        "MASTER-0A1659B7",
+        "MWZHKZA3-841FB5DE",
+        "MW566TOA-BC003CB2"
+      ]
+    },
+    {
+      "source": "lm-scheitern",
+      "target": "moeglichkeit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 3
+      },
+      "sampleEntryIds": [
+        "MASTER-DDFB4EC7",
+        "MWZHKZAF-021072A1",
+        "MWP942QA-90A0C107"
+      ]
+    },
+    {
+      "source": "moeglichkeit",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 3
+      },
+      "sampleEntryIds": [
+        "MASTER-C2AEB5BF",
+        "MWZHKZAC-93FEB903",
+        "MWP7PHM6-789F4B23"
+      ]
+    },
+    {
+      "source": "werden",
+      "target": "zeit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "analyse": 3
+      },
+      "sampleEntryIds": [
+        "MASTER-649038AE",
+        "MWZHKZAI-3B30A91E",
+        "MWPA16NY-3D5DD901"
+      ]
+    },
+    {
+      "source": "echo",
+      "target": "erkenntnis",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MASTER-4C9C8B25",
+        "MX06IL40-4EA50D3D",
+        "MP497SNT-5E1D2074"
+      ]
+    },
+    {
       "source": "gegenwart",
       "target": "werden",
       "cooccurrence": 3,
@@ -326,19 +432,6 @@
         "MX06ON2V-404E0703",
         "MX06HBI1-8CC15174",
         "MX06FY2Z-460F0789"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
-      "target": "spannung",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 3
-      },
-      "sampleEntryIds": [
-        "MX06KICB-81074BE1",
-        "MP8UIMZW-BADE77E5",
-        "MOPFJTND-AAE76B2B"
       ]
     },
     {
@@ -379,19 +472,6 @@
         "MX06FY2Z-460F0789",
         "MWCB2NN3-B5D0CDE0",
         "MWCAOLYV-9286BC9F"
-      ]
-    },
-    {
-      "source": "echo",
-      "target": "schweigen",
-      "cooccurrence": 3,
-      "endpoints": {
-        "analyse": 3
-      },
-      "sampleEntryIds": [
-        "MWZHKZA0-612499CC",
-        "MW566TOD-84C09B94",
-        "MPF4WM18-FF4843F1"
       ]
     },
     {
@@ -679,18 +759,6 @@
     },
     {
       "source": "echo",
-      "target": "erkenntnis",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MX06IL40-4EA50D3D",
-        "MP497SNT-5E1D2074"
-      ]
-    },
-    {
-      "source": "echo",
       "target": "resonanzvernunft",
       "cooccurrence": 2,
       "endpoints": {
@@ -774,66 +842,6 @@
       "sampleEntryIds": [
         "MX06F24A-8E9E95EB",
         "MWZEGBTK-5C3DF512"
-      ]
-    },
-    {
-      "source": "werden",
-      "target": "zeit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWZHKZAI-3B30A91E",
-        "MWPA16NY-3D5DD901"
-      ]
-    },
-    {
-      "source": "lm-scheitern",
-      "target": "moeglichkeit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWZHKZAF-021072A1",
-        "MWP942QA-90A0C107"
-      ]
-    },
-    {
-      "source": "moeglichkeit",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWZHKZAC-93FEB903",
-        "MWP7PHM6-789F4B23"
-      ]
-    },
-    {
-      "source": "dazwischenintelligenz",
-      "target": "schweigen",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWZHKZA9-580AD874",
-        "MWP7PHLX-B52303F9"
-      ]
-    },
-    {
-      "source": "echo-kammer",
-      "target": "transformatives-drittes",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWZHKZA3-841FB5DE",
-        "MW566TOA-BC003CB2"
       ]
     },
     {

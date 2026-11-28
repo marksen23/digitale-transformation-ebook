@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:06:06.682Z",
+  "generatedAt": "2026-11-28T09:10:35.427Z",
   "thresholds": {
     "DISTINCT_MIN": 0.1,
     "EVIDENCE_MIN": 3,
@@ -161,6 +161,44 @@
       ]
     },
     {
+      "suggestedLabel": "können",
+      "keywords": [
+        {
+          "word": "können",
+          "count": 2
+        },
+        {
+          "word": "logos",
+          "count": 2
+        },
+        {
+          "word": "bloßen",
+          "count": 2
+        },
+        {
+          "word": "architekten",
+          "count": 1
+        },
+        {
+          "word": "entwickler",
+          "count": 1
+        },
+        {
+          "word": "digitaler",
+          "count": 1
+        }
+      ],
+      "evidence": 3,
+      "distinctness": 0.245,
+      "nearestConcept": "antwort",
+      "nearestSim": 0.755,
+      "sampleEntryIds": [
+        "MTNB77VP-6A85F255",
+        "MTNB6SUG-2922AE66",
+        "MQ5XNFSV-CD34905C"
+      ]
+    },
+    {
       "suggestedLabel": "erkenntnis",
       "keywords": [
         {
@@ -239,198 +277,39 @@
       ]
     },
     {
-      "suggestedLabel": "synthese",
+      "suggestedLabel": "hello",
       "keywords": [
         {
-          "word": "synthese",
-          "count": 3
-        },
-        {
-          "word": "varianten",
-          "count": 3
-        },
-        {
-          "word": "chapter",
-          "count": 2
-        },
-        {
-          "word": "band",
+          "word": "hello",
           "count": 1
         },
         {
-          "word": "dialog",
+          "word": "besser",
           "count": 1
         },
         {
-          "word": "licht",
+          "word": "hätte",
+          "count": 1
+        },
+        {
+          "word": "wirklich",
+          "count": 1
+        },
+        {
+          "word": "ausdrücken",
+          "count": 1
+        },
+        {
+          "word": "können",
           "count": 1
         }
       ],
       "evidence": 3,
-      "distinctness": 0.235,
-      "nearestConcept": "antwort",
-      "nearestSim": 0.765,
-      "sampleEntryIds": [
-        "MASTER-0DDDD54A",
-        "MASTER-40033690",
-        "MASTER-03059588"
-      ]
-    },
-    {
-      "suggestedLabel": "können",
-      "keywords": [
-        {
-          "word": "können",
-          "count": 4
-        },
-        {
-          "word": "logos",
-          "count": 4
-        },
-        {
-          "word": "denken",
-          "count": 4
-        },
-        {
-          "word": "begrenzt",
-          "count": 4
-        },
-        {
-          "word": "bloßen",
-          "count": 2
-        },
-        {
-          "word": "spur",
-          "count": 2
-        }
-      ],
-      "evidence": 5,
       "distinctness": 0.228,
-      "nearestConcept": "antwort",
+      "nearestConcept": "resonanzvernunft",
       "nearestSim": 0.772,
       "sampleEntryIds": [
-        "MTNB77VP-6A85F255",
-        "MTNB6SUG-2922AE66",
-        "MQ5XNFSV-CD34905C",
-        "MPMKE3CC-4E75CE39",
-        "MPMKBUNW-88609492"
-      ]
-    },
-    {
-      "suggestedLabel": "neue",
-      "keywords": [
-        {
-          "word": "neue",
-          "count": 2
-        },
-        {
-          "word": "existenz",
-          "count": 2
-        },
-        {
-          "word": "maschine",
-          "count": 2
-        },
-        {
-          "word": "vereinzelung",
-          "count": 1
-        },
-        {
-          "word": "überwinden",
-          "count": 1
-        },
-        {
-          "word": "digitale",
-          "count": 1
-        }
-      ],
-      "evidence": 4,
-      "distinctness": 0.22,
-      "nearestConcept": "sein",
-      "nearestSim": 0.78,
-      "sampleEntryIds": [
-        "MQ5XLW2D-D3E90BBC",
-        "MQ5XK9H2-8A6837CC",
-        "MQ5XFLFO-F0DBB89E",
-        "MOPEYJKU-C4711B5F"
-      ]
-    },
-    {
-      "suggestedLabel": "pfad",
-      "keywords": [
-        {
-          "word": "pfad",
-          "count": 23
-        },
-        {
-          "word": "resonanzvernunft",
-          "count": 19
-        },
-        {
-          "word": "vergleich",
-          "count": 16
-        },
-        {
-          "word": "verwandlung",
-          "count": 13
-        },
-        {
-          "word": "resonanz",
-          "count": 11
-        },
-        {
-          "word": "analyse",
-          "count": 9
-        }
-      ],
-      "evidence": 27,
-      "distinctness": 0.214,
-      "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.786,
-      "sampleEntryIds": [
-        "MASTER-EE31D20B",
-        "MASTER-31CE5C0B",
-        "MUZTGAEK-432FB6BC",
-        "MUKE7UOA-9553A59E",
-        "MQ5WPJ3V-CF0A30C7"
-      ]
-    },
-    {
-      "suggestedLabel": "triade",
-      "keywords": [
-        {
-          "word": "triade",
-          "count": 2
-        },
-        {
-          "word": "vernunft",
-          "count": 2
-        },
-        {
-          "word": "wahrheit",
-          "count": 1
-        },
-        {
-          "word": "gegenwart",
-          "count": 1
-        },
-        {
-          "word": "spannung",
-          "count": 1
-        },
-        {
-          "word": "freiheit",
-          "count": 1
-        }
-      ],
-      "evidence": 6,
-      "distinctness": 0.198,
-      "nearestConcept": "resonanzvernunft",
-      "nearestSim": 0.802,
-      "sampleEntryIds": [
         "MPVCLR8S-F523777E",
-        "MP0X3ZXL-06513C82",
-        "MOOMJDPP-1F336D7D",
         "MOOK5A30-F596F31D",
         "MOHC8GKH-8E301C89"
       ]
@@ -440,14 +319,14 @@
       "keywords": [
         {
           "word": "bedeutet",
-          "count": 2
-        },
-        {
-          "word": "zeitalter",
-          "count": 2
+          "count": 3
         },
         {
           "word": "maschine",
+          "count": 3
+        },
+        {
+          "word": "zeitalter",
           "count": 2
         },
         {
@@ -455,7 +334,7 @@
           "count": 2
         },
         {
-          "word": "antwort",
+          "word": "resonanz",
           "count": 2
         },
         {
@@ -463,54 +342,56 @@
           "count": 1
         }
       ],
-      "evidence": 8,
-      "distinctness": 0.197,
+      "evidence": 6,
+      "distinctness": 0.214,
       "nearestConcept": "antwort",
-      "nearestSim": 0.803,
+      "nearestSim": 0.786,
       "sampleEntryIds": [
         "MQ67R74M-A1AA4B53",
         "MQ5XE42V-D185B8D7",
         "MQ5XCH3V-67EF85C8",
-        "MQ5C1KZ4-D6D52E94",
-        "MP756UV9-FF3838F7"
+        "MQ5JL9TM-83E39C42",
+        "MQ5C1KZ4-D6D52E94"
       ]
     },
     {
-      "suggestedLabel": "einsicht",
+      "suggestedLabel": "synthese",
       "keywords": [
         {
-          "word": "einsicht",
-          "count": 3
+          "word": "synthese",
+          "count": 4
         },
         {
-          "word": "verwandlung",
-          "count": 3
+          "word": "varianten",
+          "count": 4
+        },
+        {
+          "word": "chapter",
+          "count": 4
+        },
+        {
+          "word": "band",
+          "count": 4
         },
         {
           "word": "spannungsfeld",
           "count": 2
         },
         {
-          "word": "lässt",
-          "count": 1
-        },
-        {
-          "word": "erschrecken",
-          "count": 1
-        },
-        {
-          "word": "konstitutiver",
+          "word": "wahrheit",
           "count": 1
         }
       ],
-      "evidence": 3,
-      "distinctness": 0.193,
-      "nearestConcept": "erkenntnis",
-      "nearestSim": 0.807,
+      "evidence": 7,
+      "distinctness": 0.213,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.787,
       "sampleEntryIds": [
-        "MQ5WV5PP-6209C749",
-        "MQ5WUD1G-0976C016",
-        "MOIXN7OL-B18642AC"
+        "MASTER-0DDDD54A",
+        "MASTER-5AF4690D",
+        "MASTER-5476DCEA",
+        "MASTER-556F1581",
+        "MQASO35V-115DA081"
       ]
     },
     {
@@ -552,10 +433,90 @@
       ]
     },
     {
-      "suggestedLabel": "quadratur",
+      "suggestedLabel": "pfad",
       "keywords": [
         {
-          "word": "quadratur",
+          "word": "pfad",
+          "count": 29
+        },
+        {
+          "word": "resonanzvernunft",
+          "count": 27
+        },
+        {
+          "word": "vergleich",
+          "count": 22
+        },
+        {
+          "word": "resonanz",
+          "count": 20
+        },
+        {
+          "word": "verwandlung",
+          "count": 14
+        },
+        {
+          "word": "vernunft",
+          "count": 13
+        }
+      ],
+      "evidence": 46,
+      "distinctness": 0.182,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.818,
+      "sampleEntryIds": [
+        "MASTER-4C9C8B25",
+        "MASTER-3980C193",
+        "MASTER-EE31D20B",
+        "MASTER-476E4F4D",
+        "MASTER-94E7804F"
+      ]
+    },
+    {
+      "suggestedLabel": "synthese",
+      "keywords": [
+        {
+          "word": "synthese",
+          "count": 25
+        },
+        {
+          "word": "varianten",
+          "count": 25
+        },
+        {
+          "word": "dialog",
+          "count": 12
+        },
+        {
+          "word": "analyse",
+          "count": 9
+        },
+        {
+          "word": "echo",
+          "count": 6
+        },
+        {
+          "word": "schweigen",
+          "count": 5
+        }
+      ],
+      "evidence": 34,
+      "distinctness": 0.182,
+      "nearestConcept": "antwort",
+      "nearestSim": 0.818,
+      "sampleEntryIds": [
+        "MASTER-DB098542",
+        "MASTER-0A1659B7",
+        "MASTER-C551F859",
+        "MASTER-C2AEB5BF",
+        "MASTER-762676D0"
+      ]
+    },
+    {
+      "suggestedLabel": "wirklichkeit",
+      "keywords": [
+        {
+          "word": "wirklichkeit",
           "count": 2
         },
         {
@@ -563,78 +524,158 @@
           "count": 2
         },
         {
-          "word": "wirklichkeit",
+          "word": "möglichkeit",
           "count": 2
         },
         {
-          "word": "raumfaltung",
-          "count": 2
-        },
-        {
-          "word": "moment",
+          "word": "pfad",
           "count": 1
         },
         {
-          "word": "bewusstsein",
+          "word": "analyse",
+          "count": 1
+        },
+        {
+          "word": "realität",
           "count": 1
         }
       ],
       "evidence": 4,
-      "distinctness": 0.173,
+      "distinctness": 0.182,
       "nearestConcept": "raumfaltung",
-      "nearestSim": 0.827,
+      "nearestSim": 0.818,
       "sampleEntryIds": [
-        "MPCV5LR8-9AD1527C",
-        "MP8OB1IU-F6C31DC7",
-        "MOQ7HGW3-608EA4FA",
+        "MPMSRF6V-7FEB2991",
+        "MPMLQX6D-E6B61F8E",
+        "MP8O4O23-B2B71E51",
         "MOOVXCI4-822961D2"
       ]
     },
     {
-      "suggestedLabel": "bedeutet",
+      "suggestedLabel": "verwandlung",
       "keywords": [
         {
-          "word": "bedeutet",
+          "word": "verwandlung",
+          "count": 11
+        },
+        {
+          "word": "spannungsfeld",
+          "count": 11
+        },
+        {
+          "word": "selbst",
+          "count": 4
+        },
+        {
+          "word": "denken",
+          "count": 4
+        },
+        {
+          "word": "begrenzt",
+          "count": 4
+        },
+        {
+          "word": "analyse",
           "count": 3
+        }
+      ],
+      "evidence": 28,
+      "distinctness": 0.171,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.829,
+      "sampleEntryIds": [
+        "MASTER-03286683",
+        "MUY7RXCI-D36BB4D6",
+        "MQ68LVS7-240568F5",
+        "MQ5KBJMQ-5C523141",
+        "MPNDAPRT-D64D197A"
+      ]
+    },
+    {
+      "suggestedLabel": "spannungsfeld",
+      "keywords": [
+        {
+          "word": "spannungsfeld",
+          "count": 11
+        },
+        {
+          "word": "triade",
+          "count": 11
+        },
+        {
+          "word": "mensch",
+          "count": 5
+        },
+        {
+          "word": "welt",
+          "count": 5
+        },
+        {
+          "word": "maschine",
+          "count": 4
+        },
+        {
+          "word": "bewusstsein",
+          "count": 4
+        }
+      ],
+      "evidence": 38,
+      "distinctness": 0.161,
+      "nearestConcept": "resonanzvernunft",
+      "nearestSim": 0.839,
+      "sampleEntryIds": [
+        "MQXDVN1C-CAA3081A",
+        "MQ5XFLFO-F0DBB89E",
+        "MQ5JM1HD-9047C82F",
+        "MPURLTCS-5FDDD890",
+        "MPUFUBU5-A4BC72BE"
+      ]
+    },
+    {
+      "suggestedLabel": "entfremdung",
+      "keywords": [
+        {
+          "word": "entfremdung",
+          "count": 3
+        },
+        {
+          "word": "bedeutet",
+          "count": 2
         },
         {
           "word": "resonanz",
-          "count": 3
+          "count": 2
         },
         {
-          "word": "entfremdung",
+          "word": "genau",
+          "count": 2
+        },
+        {
+          "word": "transformation",
           "count": 2
         },
         {
           "word": "verh",
           "count": 1
-        },
-        {
-          "word": "ltnis",
-          "count": 1
-        },
-        {
-          "word": "verhaeltnis",
-          "count": 1
         }
       ],
       "evidence": 4,
-      "distinctness": 0.142,
+      "distinctness": 0.143,
       "nearestConcept": "entfremdung",
-      "nearestSim": 0.858,
+      "nearestSim": 0.857,
       "sampleEntryIds": [
         "MQ5TUQ9P-EF8C6D4B",
         "MQ5TTE84-08EB6321",
-        "MQ5JM1HD-9047C82F",
-        "MP74VXSM-5DEA06F3"
+        "MP74VXSM-5DEA06F3",
+        "MOHE3OLR-9165E355"
       ]
     }
   ],
   "stats": {
-    "curated": 225,
-    "uncovered": 225,
-    "candidatesCount": 16,
+    "curated": 235,
+    "uncovered": 235,
+    "candidatesCount": 17,
     "concepts": 50,
-    "maxEvidence": 27
+    "maxEvidence": 46
   }
 }

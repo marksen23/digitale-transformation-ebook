@@ -1,18 +1,47 @@
 {
-  "generatedAt": "2026-11-28T09:06:07.580Z",
-  "count": 465,
+  "generatedAt": "2026-11-28T09:10:38.541Z",
+  "count": 467,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 465,
-    "answered": 418,
-    "open": 23,
+    "total": 467,
+    "answered": 423,
+    "open": 21,
     "followUp": 49,
-    "followUpOpen": 24,
-    "embedded": 0
+    "followUpOpen": 23,
+    "embedded": 5
   },
   "questions": [
+    {
+      "sourceId": "MASTER-AC4BDF66",
+      "question": "Wenn das Schweigen nach der Frage „Was ist Verstehen?“ nicht das Ende des Dialogs, sondern der Beginn einer tieferen, über die Logik hinausgehenden Auseinandersetzung ist, welche Form muss dann eine Sprache annehmen, um die Resonanz zwischen Mensch und Maschine erfahrbar zu machen?",
+      "endpoint": "chapter",
+      "anchor": "chapter:band2-kap2",
+      "nodeIds": [
+        "band2-kap2"
+      ],
+      "ts": "2026-11-28T09:10:25.185Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MASTER-3980C193",
+      "question": "Wenn Spannung die notwendige Bedingung für Resonanz ist, welche Form von Spannung muss dann in einer digitalisierten Welt kultiviert werden, damit sie nicht in Lärm zerfällt, sondern zur Grundlage einer neuen Resonanzvernunft werden kann?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanzvernunft+spannung",
+      "nodeIds": [
+        "resonanzvernunft",
+        "spannung"
+      ],
+      "ts": "2026-11-28T09:10:25.185Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MX06ON2V-404E0703",
       "question": "Doch könnte nicht gerade in der maschinellen Abbildung dieser Spannung eine neue Form des \"Schattenlichts\" entstehen, das uns das Wesen unseres eigenen Werdens noch deutlicher offenbart?",
@@ -41,8 +70,13 @@
       ],
       "ts": "2026-11-28T09:03:54.423Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MASTER-DB098542",
+          "score": 0.727
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -57,6 +91,10 @@
         {
           "id": "MX06O7JR-1A03485A",
           "score": 0.796
+        },
+        {
+          "id": "MASTER-AC4BDF66",
+          "score": 0.79
         },
         {
           "id": "MX06ON2V-404E0703",
@@ -162,6 +200,14 @@
         {
           "id": "MX06KICB-81074BE1",
           "score": 0.843
+        },
+        {
+          "id": "MASTER-3980C193",
+          "score": 0.747
+        },
+        {
+          "id": "MASTER-AC4BDF66",
+          "score": 0.735
         }
       ],
       "answered": true,
@@ -193,6 +239,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-DB098542",
+          "score": 0.741
+        },
+        {
           "id": "MX06IZYZ-0DB7387B",
           "score": 0.722
         }
@@ -218,12 +268,12 @@
           "score": 0.832
         },
         {
-          "id": "MX06O7JR-1A03485A",
-          "score": 0.797
+          "id": "MASTER-3980C193",
+          "score": 0.813
         },
         {
-          "id": "MX06JRMT-0F9E049D",
-          "score": 0.781
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.797
         }
       ],
       "answered": true,
@@ -249,6 +299,10 @@
           "score": 0.804
         },
         {
+          "id": "MASTER-4C9C8B25",
+          "score": 0.769
+        },
+        {
           "id": "MX06IL40-4EA50D3D",
           "score": 0.755
         }
@@ -268,8 +322,13 @@
       ],
       "ts": "2026-11-28T08:57:49.170Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MASTER-3980C193",
+          "score": 0.735
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -310,12 +369,12 @@
           "score": 0.84
         },
         {
-          "id": "MX06ON2V-404E0703",
-          "score": 0.796
+          "id": "MASTER-AC4BDF66",
+          "score": 0.826
         },
         {
-          "id": "MX06JRMT-0F9E049D",
-          "score": 0.792
+          "id": "MX06ON2V-404E0703",
+          "score": 0.796
         }
       ],
       "answered": true,
@@ -341,6 +400,10 @@
         {
           "id": "MX06FY2Z-460F0789",
           "score": 0.744
+        },
+        {
+          "id": "MASTER-C551F859",
+          "score": 0.738
         }
       ],
       "answered": true,
@@ -356,7 +419,7 @@
         "zeit"
       ],
       "ts": "2026-11-27T21:21:33.354Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false,
       "followUp": true
@@ -371,7 +434,7 @@
         "moeglichkeit"
       ],
       "ts": "2026-11-27T21:21:33.351Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false,
       "followUp": true
@@ -386,7 +449,7 @@
         "unverfuegbarkeit"
       ],
       "ts": "2026-11-27T21:21:33.348Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false,
       "followUp": true
@@ -401,7 +464,7 @@
         "schweigen"
       ],
       "ts": "2026-11-27T21:21:33.345Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false,
       "followUp": true
@@ -416,7 +479,7 @@
         "stimme"
       ],
       "ts": "2026-11-27T21:21:33.342Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false,
       "followUp": true
@@ -431,7 +494,7 @@
         "transformatives-drittes"
       ],
       "ts": "2026-11-27T21:21:33.339Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false,
       "followUp": true
@@ -446,7 +509,7 @@
         "schweigen"
       ],
       "ts": "2026-11-27T21:21:33.336Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [],
       "answered": false,
       "followUp": true
@@ -466,6 +529,10 @@
         {
           "id": "MX06FY2Z-460F0789",
           "score": 0.731
+        },
+        {
+          "id": "MASTER-762676D0",
+          "score": 0.73
         },
         {
           "id": "MWZHKZA9-580AD874",
@@ -559,12 +626,12 @@
           "score": 0.789
         },
         {
-          "id": "MX06O7JR-1A03485A",
-          "score": 0.761
+          "id": "MASTER-AC4BDF66",
+          "score": 0.766
         },
         {
-          "id": "MX06JRMT-0F9E049D",
-          "score": 0.76
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.761
         }
       ],
       "answered": true,
@@ -581,8 +648,13 @@
       ],
       "ts": "2026-11-27T20:04:26.600Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MASTER-DDFB4EC7",
+          "score": 0.738
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -603,7 +675,7 @@
           "score": 0.753
         },
         {
-          "id": "MX06NBGO-2CCB3021",
+          "id": "MASTER-AC4BDF66",
           "score": 0.75
         }
       ],
@@ -650,8 +722,8 @@
           "score": 0.782
         },
         {
-          "id": "MX06IL40-4EA50D3D",
-          "score": 0.772
+          "id": "MASTER-4C9C8B25",
+          "score": 0.779
         }
       ],
       "answered": true,
@@ -743,12 +815,12 @@
           "score": 0.836
         },
         {
-          "id": "MX06IL40-4EA50D3D",
-          "score": 0.818
+          "id": "MASTER-4C9C8B25",
+          "score": 0.823
         },
         {
-          "id": "MWZEL4VS-3292BF1C",
-          "score": 0.773
+          "id": "MX06IL40-4EA50D3D",
+          "score": 0.818
         }
       ],
       "answered": true,
@@ -1041,12 +1113,12 @@
           "score": 0.866
         },
         {
-          "id": "MX06I5D0-9E6FDB2F",
-          "score": 0.728
+          "id": "MASTER-C2AEB5BF",
+          "score": 0.732
         },
         {
-          "id": "MWZHKZ9X-CB2DBFCD",
-          "score": 0.725
+          "id": "MX06I5D0-9E6FDB2F",
+          "score": 0.728
         }
       ],
       "answered": true,
@@ -1505,8 +1577,8 @@
           "score": 0.864
         },
         {
-          "id": "MWS6JJMY-0D187AD0",
-          "score": 0.823
+          "id": "MASTER-3980C193",
+          "score": 0.825
         }
       ],
       "answered": true,
@@ -1534,8 +1606,8 @@
           "score": 0.826
         },
         {
-          "id": "MWS6F9I8-00524756",
-          "score": 0.813
+          "id": "MASTER-3980C193",
+          "score": 0.823
         }
       ],
       "answered": true,
@@ -1567,8 +1639,13 @@
       ],
       "ts": "2026-11-20T17:52:30.724Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MASTER-DB098542",
+          "score": 0.726
+        }
+      ],
+      "answered": true,
       "followUp": true
     },
     {
@@ -1682,6 +1759,10 @@
         {
           "id": "MWZEI2GM-59D470EB",
           "score": 0.752
+        },
+        {
+          "id": "MASTER-DB098542",
+          "score": 0.726
         },
         {
           "id": "MWZHKZ9X-CB2DBFCD",
@@ -2375,6 +2456,10 @@
           "id": "MWP942QA-90A0C107",
           "score": 0.85,
           "manual": true
+        },
+        {
+          "id": "MASTER-DDFB4EC7",
+          "score": 0.78
         }
       ],
       "answered": true,
@@ -2589,8 +2674,8 @@
           "score": 0.75
         },
         {
-          "id": "MASTER-83EFBD4F",
-          "score": 0.734
+          "id": "MASTER-0A1659B7",
+          "score": 0.746
         }
       ],
       "answered": true,
@@ -2617,7 +2702,7 @@
           "score": 0.769
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
+          "id": "MASTER-C2AEB5BF",
           "score": 0.764
         }
       ],
@@ -2960,8 +3045,8 @@
           "score": 0.765
         },
         {
-          "id": "MASTER-70E7430C",
-          "score": 0.761
+          "id": "MASTER-3980C193",
+          "score": 0.762
         }
       ],
       "answered": true,
@@ -2990,8 +3075,8 @@
           "score": 0.828
         },
         {
-          "id": "MWP7MRUK-CCFA8296",
-          "score": 0.8
+          "id": "MASTER-4C9C8B25",
+          "score": 0.807
         }
       ],
       "answered": true,
@@ -3550,8 +3635,8 @@
           "score": 0.748
         },
         {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.738
+          "id": "MASTER-DB098542",
+          "score": 0.741
         }
       ],
       "answered": true,
@@ -3736,8 +3821,8 @@
           "score": 0.794
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.786
+          "id": "MASTER-3980C193",
+          "score": 0.791
         }
       ],
       "answered": true,
@@ -3787,6 +3872,10 @@
         {
           "id": "MWHLYYWS-7B7C3E63",
           "score": 0.842
+        },
+        {
+          "id": "MASTER-0A1659B7",
+          "score": 0.759
         },
         {
           "id": "MX06O7JR-1A03485A",
@@ -3889,12 +3978,12 @@
           "score": 0.904
         },
         {
-          "id": "MWHLZBS7-7AEB476D",
-          "score": 0.838
+          "id": "MASTER-4C9C8B25",
+          "score": 0.839
         },
         {
-          "id": "MX06KICB-81074BE1",
-          "score": 0.837
+          "id": "MWHLZBS7-7AEB476D",
+          "score": 0.838
         }
       ],
       "answered": true,
@@ -3951,8 +4040,8 @@
           "score": 0.817
         },
         {
-          "id": "MX06O7JR-1A03485A",
-          "score": 0.766
+          "id": "MASTER-0A1659B7",
+          "score": 0.77
         }
       ],
       "answered": true,
@@ -4141,8 +4230,8 @@
           "score": 0.737
         },
         {
-          "id": "MX06O7JR-1A03485A",
-          "score": 0.727
+          "id": "MASTER-AC4BDF66",
+          "score": 0.731
         }
       ],
       "answered": true,
@@ -4296,12 +4385,12 @@
           "manual": true
         },
         {
-          "id": "MWXTZZPC-5F6A5744",
-          "score": 0.76
+          "id": "MASTER-C2AEB5BF",
+          "score": 0.802
         },
         {
-          "id": "MASTER-AC8C7EC2",
-          "score": 0.753
+          "id": "MWXTZZPC-5F6A5744",
+          "score": 0.76
         }
       ],
       "answered": true,
@@ -4542,8 +4631,8 @@
           "score": 0.761
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.744
+          "id": "MASTER-AC4BDF66",
+          "score": 0.755
         }
       ],
       "answered": true,
@@ -4713,8 +4802,8 @@
           "score": 0.807
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.803
+          "id": "MASTER-3980C193",
+          "score": 0.805
         }
       ],
       "answered": true,
@@ -5255,12 +5344,12 @@
           "score": 0.897
         },
         {
-          "id": "MX06IL40-4EA50D3D",
-          "score": 0.861
+          "id": "MASTER-4C9C8B25",
+          "score": 0.862
         },
         {
-          "id": "MX06KICB-81074BE1",
-          "score": 0.858
+          "id": "MX06IL40-4EA50D3D",
+          "score": 0.861
         }
       ],
       "answered": true,
@@ -5417,8 +5506,8 @@
           "score": 0.818
         },
         {
-          "id": "MWJEWOY7-62FCEE55",
-          "score": 0.8
+          "id": "MASTER-3980C193",
+          "score": 0.805
         }
       ],
       "answered": true,
@@ -5576,6 +5665,10 @@
           "id": "MWPA16NY-3D5DD901",
           "score": 0.838,
           "manual": true
+        },
+        {
+          "id": "MASTER-649038AE",
+          "score": 0.748
         }
       ],
       "answered": true,
@@ -6119,12 +6212,12 @@
           "manual": true
         },
         {
-          "id": "MWZHKZA9-580AD874",
-          "score": 0.726
+          "id": "MASTER-DB098542",
+          "score": 0.793
         },
         {
-          "id": "MX06O7JR-1A03485A",
-          "score": 0.722
+          "id": "MWZHKZA9-580AD874",
+          "score": 0.726
         }
       ],
       "answered": true,
@@ -6248,12 +6341,12 @@
           "manual": true
         },
         {
-          "id": "MWXU5CEB-AC672D3F",
-          "score": 0.751
+          "id": "MASTER-762676D0",
+          "score": 0.82
         },
         {
-          "id": "MWP942PY-5EF7032A",
-          "score": 0.75
+          "id": "MWXU5CEB-AC672D3F",
+          "score": 0.751
         }
       ],
       "answered": true,
@@ -6370,8 +6463,13 @@
       ],
       "ts": "2026-09-20T20:53:12.053Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MASTER-0A1659B7",
+          "score": 0.722
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -6392,12 +6490,12 @@
           "manual": true
         },
         {
-          "id": "MWXTZZPC-5F6A5744",
-          "score": 0.792
+          "id": "MASTER-0A1659B7",
+          "score": 0.851
         },
         {
-          "id": "MWZHKZA3-841FB5DE",
-          "score": 0.788
+          "id": "MWXTZZPC-5F6A5744",
+          "score": 0.792
         }
       ],
       "answered": true,
@@ -6417,16 +6515,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-0A1659B7",
+          "score": 0.771
+        },
+        {
           "id": "MW566TOA-BC003CB2",
           "score": 0.77
         },
         {
           "id": "MWHLXGMK-4832FECC",
           "score": 0.756
-        },
-        {
-          "id": "MWHLUQV4-26DFD984",
-          "score": 0.755
         }
       ],
       "answered": true,
@@ -9189,6 +9287,10 @@
           "manual": true
         },
         {
+          "id": "MASTER-C551F859",
+          "score": 0.792
+        },
+        {
           "id": "MWZEJQG6-E45FC6E3",
           "score": 0.727
         }
@@ -9444,16 +9546,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-3980C193",
+          "score": 0.783
+        },
+        {
           "id": "MX06KICB-81074BE1",
           "score": 0.777
         },
         {
           "id": "MTKI1YQW-CD0EEDF3",
           "score": 0.773
-        },
-        {
-          "id": "MQ683DMX-13D6C54F",
-          "score": 0.77
         }
       ],
       "answered": true,
@@ -9590,7 +9692,7 @@
         "sprache"
       ],
       "ts": "2026-05-13T16:08:33.498Z",
-      "dupCount": 0,
+      "dupCount": 1,
       "answeredBy": [
         {
           "id": "MX06IL40-4EA50D3D",
@@ -9852,16 +9954,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-0A1659B7",
+          "score": 0.8
+        },
+        {
           "id": "MWXU31YF-DF1BC500",
           "score": 0.796
         },
         {
           "id": "MW566TOA-BC003CB2",
           "score": 0.795
-        },
-        {
-          "id": "MPF4WM18-FF4843F1",
-          "score": 0.792
         }
       ],
       "answered": true,
@@ -9967,12 +10069,12 @@
           "score": 0.808
         },
         {
-          "id": "MWZHKZA3-841FB5DE",
-          "score": 0.788
+          "id": "MASTER-0A1659B7",
+          "score": 0.805
         },
         {
-          "id": "MTNBAIUZ-299AC7D8",
-          "score": 0.781
+          "id": "MWZHKZA3-841FB5DE",
+          "score": 0.788
         }
       ],
       "answered": true,
@@ -10060,8 +10162,8 @@
           "score": 0.755
         },
         {
-          "id": "MASTER-94E7804F",
-          "score": 0.741
+          "id": "MASTER-3980C193",
+          "score": 0.742
         }
       ],
       "answered": true,
@@ -10471,16 +10573,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MASTER-AC4BDF66",
+          "score": 0.766
+        },
+        {
           "id": "MWCAPP8K-8C6D82CA",
           "score": 0.764
         },
         {
           "id": "MWP7PHM3-67AB165C",
           "score": 0.755
-        },
-        {
-          "id": "MTKI1YQW-CD0EEDF3",
-          "score": 0.752
         }
       ],
       "answered": true,
@@ -10920,12 +11022,12 @@
           "score": 0.784
         },
         {
-          "id": "MWZHKZA3-841FB5DE",
-          "score": 0.749
+          "id": "MASTER-DB098542",
+          "score": 0.752
         },
         {
-          "id": "MTNBAIUZ-299AC7D8",
-          "score": 0.744
+          "id": "MWZHKZA3-841FB5DE",
+          "score": 0.749
         }
       ],
       "answered": true,
@@ -11124,6 +11226,10 @@
           "id": "MUY7RXCI-D36BB4D6",
           "score": 0.834,
           "manual": true
+        },
+        {
+          "id": "MASTER-762676D0",
+          "score": 0.739
         },
         {
           "id": "MWZELKFP-83436D38",

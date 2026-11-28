@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:06:07.766Z",
+  "generatedAt": "2026-11-28T09:10:38.763Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap4",
@@ -237,8 +237,8 @@
         "MWCAPP8K-8C6D82CA"
       ],
       "lastVariantTs": "2026-11-28T09:02:08.811Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-AC4BDF66",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -249,8 +249,8 @@
         "MOPFJTND-AAE76B2B"
       ],
       "lastVariantTs": "2026-11-28T09:01:01.787Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-3980C193",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -261,8 +261,8 @@
         "MP497SNT-5E1D2074"
       ],
       "lastVariantTs": "2026-11-28T08:59:32.064Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-4C9C8B25",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -273,8 +273,8 @@
         "MWPA16NY-3D5DD901"
       ],
       "lastVariantTs": "2026-11-27T21:21:33.354Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-649038AE",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -285,8 +285,8 @@
         "MWP942QA-90A0C107"
       ],
       "lastVariantTs": "2026-11-27T21:21:33.351Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-DDFB4EC7",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -297,8 +297,8 @@
         "MWP7PHM6-789F4B23"
       ],
       "lastVariantTs": "2026-11-27T21:21:33.348Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-C2AEB5BF",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -309,8 +309,8 @@
         "MWP7PHLX-B52303F9"
       ],
       "lastVariantTs": "2026-11-27T21:21:33.345Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-DB098542",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -321,8 +321,8 @@
         "MW566TO3-969C6466"
       ],
       "lastVariantTs": "2026-11-27T21:21:33.342Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-762676D0",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -333,8 +333,8 @@
         "MW566TOA-BC003CB2"
       ],
       "lastVariantTs": "2026-11-27T21:21:33.339Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-0A1659B7",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -345,8 +345,8 @@
         "MW566TOD-84C09B94"
       ],
       "lastVariantTs": "2026-11-27T21:21:33.336Z",
-      "masterId": null,
-      "masterTs": null,
+      "masterId": "MASTER-C551F859",
+      "masterTs": "2026-11-28T09:10:25.185Z",
       "masterStale": false
     },
     {
@@ -557,7 +557,7 @@
   "stats": {
     "totalAnchors": 293,
     "withMultipleVariants": 41,
-    "withMaster": 31,
+    "withMaster": 41,
     "staleMasters": 2
   }
 }

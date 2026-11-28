@@ -1,10 +1,24 @@
 {
-  "generatedAt": "2026-11-28T09:06:06.605Z",
-  "checked": 68,
-  "stable": 21,
-  "shifted": 27,
-  "drifted": 20,
+  "generatedAt": "2026-11-28T09:10:35.334Z",
+  "checked": 69,
+  "stable": 20,
+  "shifted": 28,
+  "drifted": 21,
   "details": [
+    {
+      "id": "MASTER-649038AE",
+      "baseline": [
+        "MWZHKZAI-3B30A91E",
+        "MWPA16NY-3D5DD901",
+        "MASTER-BC195439"
+      ],
+      "current": [
+        "MWZHKZAI-3B30A91E",
+        "MWPA16NY-3D5DD901",
+        "MASTER-BC195439"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MX06FY2Z-460F0789",
       "baseline": [
@@ -42,10 +56,10 @@
       ],
       "current": [
         "MWP7PHLX-B52303F9",
-        "MW566TNX-A16A2897",
-        "MWZHKZA6-A56A24E4"
+        "MASTER-DB098542",
+        "MW566TNX-A16A2897"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MWZHKZA3-841FB5DE",
@@ -55,11 +69,11 @@
         "MASTER-AC8C7EC2"
       ],
       "current": [
+        "MASTER-0A1659B7",
         "MW566TOA-BC003CB2",
-        "MTNBAIUZ-299AC7D8",
-        "MASTER-AC8C7EC2"
+        "MTNBAIUZ-299AC7D8"
       ],
-      "overlap": 3
+      "overlap": 2
     },
     {
       "id": "MASTER-83EFBD4F",
@@ -434,10 +448,10 @@
       ],
       "current": [
         "MWP7PHM6-789F4B23",
-        "MOHCIS4R-69B0D47B",
-        "MTKI1YQW-CD0EEDF3"
+        "MASTER-C2AEB5BF",
+        "MOHCIS4R-69B0D47B"
       ],
-      "overlap": 2
+      "overlap": 1
     },
     {
       "id": "MASTER-F05BF2C0",

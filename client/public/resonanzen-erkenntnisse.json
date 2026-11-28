@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T20:04:26.600Z",
+  "generatedAt": "2026-11-28T09:10:25.185Z",
   "erkenntnisse": [
     {
       "id": "ERK-OE1OVO",
@@ -865,6 +865,86 @@
       "conceptAnchor": "schweigen",
       "distinctness": 0.236,
       "createdAt": "2026-11-27T20:02:22.137Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-14FGSC7",
+      "kernsatz": "Eine Vision kippt von der Ahnung zur Forderung, wenn Widerspruch nicht mehr schärft, sondern stört, und das Unvorhergesehene nicht mehr empfangen, sondern nur noch als Abweichung verbucht wird.",
+      "questionSourceId": "MWP7PHM6-789F4B23",
+      "answerId": "MWZHKZAC-93FEB903",
+      "conceptAnchor": "lm-begegnung",
+      "distinctness": 0.277,
+      "createdAt": "2026-11-28T09:07:39.338Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1BNHJBO",
+      "kernsatz": "Echte Abweichung kostet eine bequeme Deutung, entzieht sich der Einübung und bewährt sich außerhalb des medialen Umlaufs, wo sie dem Echo der Wiederholung nicht mehr ausgesetzt ist.",
+      "questionSourceId": "MW566TOD-84C09B94",
+      "answerId": "MWZHKZA0-612499CC",
+      "conceptAnchor": "echo",
+      "distinctness": 0.228,
+      "createdAt": "2026-11-28T09:07:49.760Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-1WD0VNP",
+      "kernsatz": "Technik, die zurückgibt, misst sich nicht an der Verweildauer, sondern an der gut verbrachten Zeit, die sie dem Menschen für die Welt jenseits des Bildschirms zurückgewinnt.",
+      "questionSourceId": "MWHLW24R-959992F9",
+      "answerId": "MWPA16NS-54BBB39F",
+      "conceptAnchor": "gegenwart",
+      "distinctness": 0.22,
+      "createdAt": "2026-11-28T09:07:59.364Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-2KT39V",
+      "kernsatz": "Digitale Architektur stiftet Handeln nicht durch optimierte Reflexe, sondern indem sie an entscheidenden Stellen eine leere Voreinstellung als den Ort anbietet, an dem eine Antwort erst möglich wird.",
+      "questionSourceId": "MP0Q5FDJ-F2C015AF",
+      "answerId": "MWPA16NM-2C6538A1",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.217,
+      "createdAt": "2026-11-28T09:08:09.657Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-KJSDGZ",
+      "kernsatz": "Ein zögerndes Zeigen wahrt das Ungedachte, indem es seine Markierung als widerrufbaren Vorschlag kenntlich macht, statt eine Leerstelle als feststehende Aufgabe vorzuzeichnen.",
+      "questionSourceId": "MWP7PHLX-B52303F9",
+      "answerId": "MWZHKZA9-580AD874",
+      "conceptAnchor": "raum",
+      "distinctness": 0.219,
+      "createdAt": "2026-11-28T09:08:04.158Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-LN3RO7",
+      "kernsatz": "Die Angst vor dem Sich-Verlieren verwandelt sich in Aufmerksamkeit, sobald sie zwischen dem leeren Verbrauch und der erzählbaren Verwandlung unterscheiden lernt.",
+      "questionSourceId": "MWCB2NN3-B5D0CDE0",
+      "answerId": "MWP89KEO-68E6B82A",
+      "conceptAnchor": "spannung",
+      "distinctness": 0.216,
+      "createdAt": "2026-11-28T09:08:15.107Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-UG7NPP",
+      "kernsatz": "Nachsicht unterbricht die berechenbare Regel durch eine verantwortete Gewährung, die nur ein ansprechbarer Mensch vollziehen kann, weil Gnade ein Gegenüber braucht, das für den unverdienten Neuanfang einsteht.",
+      "questionSourceId": "MWP942QA-90A0C107",
+      "answerId": "MWZHKZAF-021072A1",
+      "conceptAnchor": "antwort",
+      "distinctness": 0.254,
+      "createdAt": "2026-11-28T09:07:44.716Z",
+      "actor": "auto"
+    },
+    {
+      "id": "ERK-Y6IVQB",
+      "kernsatz": "Resonanzvernunft erfordert souveräne Orte der Selbstermächtigung, die den Wert einer Begegnung dem Subjekt zurückgeben und sich der algorithmischen Extraktion und Vorherbestimmung entziehen.",
+      "questionSourceId": "MWZEGQYC-567A529E",
+      "answerId": "MX06GDPU-3E16CF3B",
+      "conceptAnchor": "entfremdung",
+      "distinctness": 0.222,
+      "createdAt": "2026-11-28T09:07:54.699Z",
       "actor": "auto"
     }
   ]

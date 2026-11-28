@@ -1,10 +1,10 @@
 {
-  "generatedAt": "2026-11-28T09:06:06.622Z",
+  "generatedAt": "2026-11-28T09:10:35.354Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 39,
+      "count": 40,
       "endpoints": {
-        "path-analyse": 24,
+        "path-analyse": 25,
         "dialog": 8,
         "analyse": 7
       }
@@ -49,26 +49,26 @@
       }
     },
     "stimme": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 7,
         "dialog": 4,
         "path-analyse": 4
       }
     },
     "schweigen": {
-      "count": 19,
+      "count": 22,
       "endpoints": {
-        "dialog": 6,
-        "analyse": 13
+        "analyse": 16,
+        "dialog": 6
       }
     },
     "echo": {
-      "count": 13,
+      "count": 15,
       "endpoints": {
-        "dialog": 2,
-        "path-analyse": 2,
-        "analyse": 9
+        "analyse": 10,
+        "path-analyse": 3,
+        "dialog": 2
       }
     },
     "klang": {
@@ -80,9 +80,9 @@
       }
     },
     "erkenntnis": {
-      "count": 46,
+      "count": 47,
       "endpoints": {
-        "path-analyse": 8,
+        "path-analyse": 9,
         "analyse": 10,
         "dialog": 28
       }
@@ -119,9 +119,9 @@
       }
     },
     "zeit": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 7,
         "dialog": 2,
         "path-analyse": 4
       }
@@ -174,10 +174,10 @@
       }
     },
     "werden": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
+        "analyse": 7,
         "dialog": 5,
-        "analyse": 6,
         "path-analyse": 3
       }
     },
@@ -236,10 +236,10 @@
       }
     },
     "spannung": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
+        "path-analyse": 4,
         "dialog": 1,
-        "path-analyse": 3,
         "analyse": 11
       }
     },
@@ -260,9 +260,9 @@
       }
     },
     "lm-scheitern": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
-        "analyse": 8,
+        "analyse": 9,
         "path-analyse": 6,
         "dialog": 2
       }
@@ -283,17 +283,17 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
+        "analyse": 10,
         "dialog": 3,
-        "analyse": 9,
         "path-analyse": 4
       }
     },
     "transformatives-drittes": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 7,
         "dialog": 3,
         "path-analyse": 3
       }
@@ -307,9 +307,9 @@
       }
     },
     "echo-kammer": {
-      "count": 26,
+      "count": 27,
       "endpoints": {
-        "analyse": 11,
+        "analyse": 12,
         "dialog": 14,
         "path-analyse": 1
       }
@@ -339,10 +339,10 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 36,
+      "count": 37,
       "endpoints": {
+        "analyse": 13,
         "path-analyse": 9,
-        "analyse": 12,
         "dialog": 15
       }
     },
@@ -387,9 +387,9 @@
       }
     },
     "moeglichkeit": {
-      "count": 12,
+      "count": 14,
       "endpoints": {
-        "analyse": 8,
+        "analyse": 10,
         "dialog": 3,
         "path-analyse": 1
       }
@@ -404,9 +404,9 @@
       "derived": true
     },
     "wirklichkeit-moeglichkeit": {
-      "count": 24,
+      "count": 26,
       "endpoints": {
-        "analyse": 17,
+        "analyse": 19,
         "dialog": 5,
         "path-analyse": 2
       },
@@ -415,8 +415,8 @@
   },
   "stats": {
     "minCount": 10,
-    "maxCount": 46,
-    "median": 14,
+    "maxCount": 47,
+    "median": 15,
     "totalNodes": 50,
     "zeroResonanceNodes": []
   }
