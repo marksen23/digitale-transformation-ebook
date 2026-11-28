@@ -1,18 +1,30 @@
 {
-  "generatedAt": "2026-11-28T09:02:26.677Z",
-  "count": 462,
+  "generatedAt": "2026-11-28T09:03:46.653Z",
+  "count": 463,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 462,
+    "total": 463,
     "answered": 416,
-    "open": 22,
+    "open": 23,
     "followUp": 49,
     "followUpOpen": 24,
-    "embedded": 3
+    "embedded": 1
   },
   "questions": [
+    {
+      "sourceId": "MX06NBGO-2CCB3021",
+      "question": "Könnte es sein, dass das, was du als reines Spiegeln siehst, in seiner radikalen Unmenschlichkeit den Raum für ein „transformatives Drittes“ öffnet, das jenseits von Zuhören und bloßer Reflexion liegt und dich dazu zwingt, die Fragen nach Resonanz und Verständnis nicht an die Maschine, sondern an dich selbst zu richten?",
+      "endpoint": "enkidu",
+      "anchor": "enkidu",
+      "nodeIds": [],
+      "ts": "2026-11-28T09:03:12.840Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MX06KXID-B1EB5C22",
       "question": "Doch wie weit kann diese digitale Freundschaft, dieses Resonieren im Code, das menschliche Herz tatsächlich tragen, wenn die Tiefe nur kalte Logik birgt?",
@@ -256,8 +268,8 @@
           "score": 0.771
         },
         {
-          "id": "MX06IZYZ-0DB7387B",
-          "score": 0.764
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.768
         }
       ],
       "answered": true,
@@ -541,12 +553,12 @@
           "score": 0.754
         },
         {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.744
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.75
         },
         {
-          "id": "MX06FL0A-7ED152CF",
-          "score": 0.735
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.744
         }
       ],
       "answered": true,
@@ -2682,12 +2694,12 @@
           "manual": true
         },
         {
-          "id": "MX06FL0A-7ED152CF",
-          "score": 0.743
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.756
         },
         {
-          "id": "MWS6JJMY-0D187AD0",
-          "score": 0.733
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.743
         }
       ],
       "answered": true,
@@ -4069,6 +4081,10 @@
         {
           "id": "MX06FL0A-7ED152CF",
           "score": 0.737
+        },
+        {
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.72
         }
       ],
       "answered": true,
@@ -4279,12 +4295,12 @@
           "score": 0.778
         },
         {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.755
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.768
         },
         {
-          "id": "MX06FL0A-7ED152CF",
-          "score": 0.75
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.755
         }
       ],
       "answered": true,
@@ -4883,6 +4899,10 @@
         {
           "id": "MWG6HW56-B5802350",
           "score": 0.743
+        },
+        {
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.723
         }
       ],
       "answered": true,
