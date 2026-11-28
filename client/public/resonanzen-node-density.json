@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-27T21:27:24.806Z",
+  "generatedAt": "2026-11-28T08:57:32.512Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 37,
@@ -57,10 +57,10 @@
       }
     },
     "schweigen": {
-      "count": 17,
+      "count": 18,
       "endpoints": {
-        "analyse": 13,
-        "dialog": 4
+        "dialog": 5,
+        "analyse": 13
       }
     },
     "echo": {
@@ -88,9 +88,9 @@
       }
     },
     "wahrheit": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "dialog": 1,
+        "dialog": 2,
         "analyse": 10,
         "path-analyse": 4
       }
@@ -142,9 +142,9 @@
       }
     },
     "dialog": {
-      "count": 9,
+      "count": 10,
       "endpoints": {
-        "analyse": 3,
+        "analyse": 4,
         "dialog": 2,
         "path-analyse": 4
       }
@@ -227,9 +227,9 @@
       }
     },
     "öffnung": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
-        "dialog": 5,
+        "dialog": 6,
         "path-analyse": 6,
         "analyse": 2
       }
@@ -242,9 +242,9 @@
       }
     },
     "lm-spiegel": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "analyse": 6,
+        "analyse": 7,
         "path-analyse": 6
       }
     },
@@ -410,9 +410,9 @@
     }
   },
   "stats": {
-    "minCount": 9,
+    "minCount": 10,
     "maxCount": 45,
-    "median": 13,
+    "median": 14,
     "totalNodes": 50,
     "zeroResonanceNodes": []
   }

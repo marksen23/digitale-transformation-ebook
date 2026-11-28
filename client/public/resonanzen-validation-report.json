@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-27T21:27:05.348Z",
-  "filesChecked": 542,
+  "generatedAt": "2026-11-28T08:57:20.801Z",
+  "filesChecked": 543,
   "errors": 0,
-  "warnings": 84,
+  "warnings": 85,
   "issues": [
     {
       "level": "warning",
@@ -432,6 +432,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/schweigen+wahrheit/2026-11-28-MX06F24A-8E9E95EB.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected cda0356bed1ad11a, computed ecfe46f5058cb0b9 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/stimme/2026-11-27-MWZEHNJM-EDB65CFA.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 2ce6b2204ecd3fc9, computed ff83c5c3e29302f8 — Tampering oder nachträgliche Edit?"
@@ -513,7 +519,7 @@
     "byEndpoint": {
       "analyse": 147,
       "chapter": 66,
-      "dialog": 107,
+      "dialog": 108,
       "path-analyse": 71,
       "enkidu": 69,
       "graph-chat": 54,
@@ -522,7 +528,7 @@
     },
     "byStatus": {
       "published": 175,
-      "raw": 285,
+      "raw": 286,
       "rejected": 28,
       "approved": 54
     },

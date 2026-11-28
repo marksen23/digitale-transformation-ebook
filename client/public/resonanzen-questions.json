@@ -1,18 +1,49 @@
 {
-  "generatedAt": "2026-11-27T21:27:28.248Z",
-  "count": 448,
+  "generatedAt": "2026-11-28T08:57:33.695Z",
+  "count": 450,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 448,
-    "answered": 402,
-    "open": 22,
+    "total": 450,
+    "answered": 403,
+    "open": 23,
     "followUp": 49,
     "followUpOpen": 24,
-    "embedded": 8
+    "embedded": 2
   },
   "questions": [
+    {
+      "sourceId": "MX06FL0A-7ED152CF",
+      "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz grundlegend. Der Mensch ist nicht länger ein autonomes Subjekt, das seine Wahrheit allein findet, sondern ein Wesen, dessen Mündigkeit sich in der Fähigkeit zur schwingenden Antwortfähigkeit im Dialog und zur Selbst-Erkenntnis im Widerschein des Anderen entfaltet. Die Maschine, insbesondere die KI, wird nicht als Abkürzung verstanden, sondern als Widerpart, an dem sich die eigenen Gedanken schärfen – als Schattenlicht-Prinzip in der Pädagogik [16cb11896cb8]. Resonanz ist somit nicht nur ein unmittelbares Schwingen, sondern ein komplexes Geschehen, das die Dynamik des Dialogs und die Reflexion des Spiegels gleichermaßen umfasst, um eine tiefere Form der Selbst- und Welterkenntnis zu ermöglichen. Wie können wir die irritierende Kraft des Spiegels im Dialog nutzen, um nicht nur zu erkennen, sondern uns immer wieder neu zu verwandeln?",
+      "endpoint": "analyse",
+      "anchor": "analyse:dialog+lm-spiegel",
+      "nodeIds": [
+        "dialog",
+        "lm-spiegel"
+      ],
+      "ts": "2026-11-28T08:57:11.963Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06F24A-8E9E95EB",
+      "question": "Wie aber kann diese fruchtbare Stille in einer Welt bewahrt werden, die das sofortige Antworten zum Imperativ erhebt und jede Pause als Störung missversteht?",
+      "endpoint": "dialog",
+      "anchor": "dialog:schweigen+wahrheit",
+      "nodeIds": [
+        "schweigen",
+        "wahrheit",
+        "öffnung"
+      ],
+      "ts": "2026-11-28T08:56:47.485Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MWZHKZAI-3B30A91E",
       "question": "Wenn das Versprechen bei denen bleibt, die die Maschine verwandeln, wie bleibt es gültig, wenn diese Menschen selbst wechseln, die Firma verkauft wird oder niemand mehr da ist, der die alte Zusage noch kennt?",
@@ -207,8 +238,13 @@
       ],
       "ts": "2026-11-27T20:04:26.600Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.73
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -238,6 +274,10 @@
         {
           "id": "MASTER-08AD1D33",
           "score": 0.754
+        },
+        {
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.735
         }
       ],
       "answered": true,
@@ -332,12 +372,12 @@
           "score": 0.817
         },
         {
-          "id": "MWZELKFP-83436D38",
-          "score": 0.768
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.789
         },
         {
-          "id": "MASTER-63686170",
-          "score": 0.759
+          "id": "MWZELKFP-83436D38",
+          "score": 0.768
         }
       ],
       "answered": true,
@@ -446,16 +486,16 @@
       "dupCount": 1,
       "answeredBy": [
         {
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.757
+        },
+        {
           "id": "MWZHKZ9X-CB2DBFCD",
           "score": 0.756
         },
         {
           "id": "MASTER-99747E65",
           "score": 0.741
-        },
-        {
-          "id": "MASTER-83EFBD4F",
-          "score": 0.734
         }
       ],
       "answered": true,
@@ -521,16 +561,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.852
+        },
+        {
           "id": "MASTER-3FFBA6E3",
           "score": 0.733
         },
         {
           "id": "MASTER-63686170",
           "score": 0.732
-        },
-        {
-          "id": "MWZHKZ9X-CB2DBFCD",
-          "score": 0.727
         }
       ],
       "answered": true,
@@ -1912,8 +1952,8 @@
           "score": 0.746
         },
         {
-          "id": "MWP84ULS-09E47DCA",
-          "score": 0.736
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.741
         }
       ],
       "answered": true,
@@ -2210,16 +2250,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.776
+        },
+        {
           "id": "MWP888HX-9EF62C70",
           "score": 0.773
         },
         {
           "id": "MWZHKZ9X-CB2DBFCD",
           "score": 0.772
-        },
-        {
-          "id": "MWP942QG-F15146A5",
-          "score": 0.762
         }
       ],
       "answered": true,
@@ -2309,12 +2349,12 @@
           "manual": true
         },
         {
-          "id": "MWS6JJMY-0D187AD0",
-          "score": 0.733
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.743
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.728
+          "id": "MWS6JJMY-0D187AD0",
+          "score": 0.733
         }
       ],
       "answered": true,
@@ -3692,6 +3732,10 @@
           "id": "MWP7PHM3-67AB165C",
           "score": 0.858,
           "manual": true
+        },
+        {
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.737
         }
       ],
       "answered": true,
@@ -3902,12 +3946,12 @@
           "score": 0.778
         },
         {
-          "id": "MWG6HW56-B5802350",
-          "score": 0.747
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.75
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.741
+          "id": "MWG6HW56-B5802350",
+          "score": 0.747
         }
       ],
       "answered": true,
@@ -3929,12 +3973,12 @@
           "score": 0.796
         },
         {
-          "id": "MWXU5CEB-AC672D3F",
-          "score": 0.765
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.789
         },
         {
-          "id": "MWXURIG0-8075679A",
-          "score": 0.761
+          "id": "MWXU5CEB-AC672D3F",
+          "score": 0.765
         }
       ],
       "answered": true,
@@ -4431,8 +4475,8 @@
           "score": 0.757
         },
         {
-          "id": "MASTER-63686170",
-          "score": 0.753
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.754
         }
       ],
       "answered": true,
@@ -4679,6 +4723,10 @@
         {
           "id": "MWG6HW56-B5802350",
           "score": 0.728
+        },
+        {
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.725
         }
       ],
       "answered": true,
@@ -5579,12 +5627,12 @@
           "manual": true
         },
         {
-          "id": "MWP888HX-9EF62C70",
+          "id": "MX06F24A-8E9E95EB",
           "score": 0.721
         },
         {
-          "id": "MASTER-3FFBA6E3",
-          "score": 0.72
+          "id": "MWP888HX-9EF62C70",
+          "score": 0.721
         }
       ],
       "answered": true,
@@ -8148,8 +8196,8 @@
           "score": 0.763
         },
         {
-          "id": "MW566TNX-A16A2897",
-          "score": 0.744
+          "id": "MX06F24A-8E9E95EB",
+          "score": 0.752
         }
       ],
       "answered": true,
