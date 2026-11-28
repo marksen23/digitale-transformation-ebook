@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T08:59:05.766Z",
+  "generatedAt": "2026-11-28T09:00:37.161Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap4",
@@ -227,6 +227,18 @@
       "lastVariantTs": "2026-04-27T15:14:21.282Z",
       "masterId": "MASTER-556F1581",
       "masterTs": "2026-11-11T16:41:48.453Z",
+      "masterStale": false
+    },
+    {
+      "anchor": "path-analyse:echo+erkenntnis",
+      "endpoint": "path-analyse",
+      "variantIds": [
+        "MX06IL40-4EA50D3D",
+        "MP497SNT-5E1D2074"
+      ],
+      "lastVariantTs": "2026-11-28T08:59:32.064Z",
+      "masterId": null,
+      "masterTs": null,
       "masterStale": false
     },
     {
@@ -519,8 +531,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 287,
-    "withMultipleVariants": 38,
+    "totalAnchors": 289,
+    "withMultipleVariants": 39,
     "withMaster": 31,
     "staleMasters": 2
   }

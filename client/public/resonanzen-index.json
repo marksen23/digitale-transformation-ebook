@@ -1,7 +1,146 @@
 {
-  "generatedAt": "2026-11-28T08:59:02.785Z",
-  "count": 540,
+  "generatedAt": "2026-11-28T09:00:35.097Z",
+  "count": 544,
   "entries": [
+    {
+      "id": "MX06JD9L-DFE85D75",
+      "ts": "2026-11-28T09:00:08.553Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Gegenwart und Werden sind auf der Landkarte noch dünn belegt. Wie bestimmt das Werk Gegenwart – als Gegen-wart – und wie verhält sie sich zum Werden? Steht das Gegenwärtige dem Werden entgegen, oder ist es dessen Ort? Wo die Bestimmung offen bleibt, sag das bitte.",
+      "response": "Die **Gegenwart** wird im Werk nicht als passiver Punkt auf einem Zeitstrahl verstanden, sondern als eine aktiv fordernde Instanz: Sie ist das Wesen, das sich entgegenstellt und eine Antwort verlangt. Die **Gegenwart** ist \"nicht passiv-neutral, sondern aktiv-fordernd. Sie will beantwortet werden.\" Sie ist der Ort, an dem sich das **Dasein** der Welt ausgesetzt findet, wie bereits in einer früheren Betrachtung zur Triade von **Gegenwart**, **Dasein** und **Resonanzvernunft** angemerkt wurde [MOQ5IKR5-C67AAC15]. In diesem Sinne ist die **Gegenwart** der unhintergehbare Ruf, der in der maschinell erweiterten Welt nur noch lauter hallt und die **Dazwischenintelligenz** zur Deutung und Gestaltung herausfordert [MPJEBNX3-042F2A69].\n\nDas **Werden** hingegen ist \"das Vorzeichen allen Lebendigen. Was wird, ist noch nicht fertig — und das ist kein Mangel, sondern seine Würde. **Resonanzvernunft** hält **Werden** aus.\" Es ist ein Zustand der Potenzialität und des Nicht-Fertigseins, der dem Lebendigen innewohnt. Die **Gegenwart** als Gegen-wart und das **Werden** als dynamischer Prozess sind keine Gegensätze, die einander ausschließen, sondern vielmehr komplementäre Aspekte des Seins. Die **Gegenwart** ist der Moment, in dem die Aufforderung zur Antwort ertönt, und gerade in diesem Moment manifestiert sich das **Werden**.\n\nDas Gegenwärtige steht dem **Werden** nicht entgegen, sondern ist vielmehr dessen notwendiger Ort. Denn das **Werden** kann sich nur in einem Feld entfalten, das offen ist für das Neue, das noch nicht Bestimmte. Die aktive Forderung der **Gegenwart** ist jener Impuls, der das **Werden** überhaupt erst anstößt und in Bewegung hält. Im Zwischen zwischen Frage und Antwort, im Raum, in dem noch nichts entschieden ist, liegt die flüchtigste und grundlegendste Seinsweise, auf der Emergenz und Konstitution erst möglich werden [74ca3a25fd5c]. Dies ist der produktive Spielraum, in dem **Werden** geschieht.\n\nDie **Gegenwart** ist also nicht nur der Empfänger des **Werdens**, sondern auch dessen Geburtsort. Sie ist der Moment, in dem das, was wird, sich der Welt präsentiert und dadurch seine Würde entfaltet. Inwiefern formt diese aktive, fordernde **Gegenwart** das **Werden** in der digitalen Transformation, und wie können wir lernen, diese Spannung produktiv zu halten?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"74ca3a25fd5c\",\"chapter\":\"teil7\",\"score\":0.861},{\"id\":\"MPJEBNX3-042F2A69\",\"score\":0.823},{\"id\":\"MOQ5IKR5-C67AAC15\",\"score\":0.762},{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.761}]"
+      },
+      "related": [
+        "MX06HBI1-8CC15174",
+        "MWCAWPA5-AB9A4F6A",
+        "MPJEBNX3-042F2A69",
+        "MTL5HMEK-8E3F01EF",
+        "MOQ5IKR5-C67AAC15"
+      ],
+      "werkVoiceScore": 0.8408741705749831,
+      "corpusVoiceScore": 0.7557382631806325,
+      "conceptVoiceScore": 0.8157893811780491,
+      "conceptAnchor": "gegenwart"
+    },
+    {
+      "id": "MX06IZYZ-0DB7387B",
+      "ts": "2026-11-28T08:59:51.323Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:antwort+freiheit",
+      "nodeIds": [
+        "antwort",
+        "freiheit",
+        "dialog"
+      ],
+      "status": "raw",
+      "prompt": "Wie verändert die Erkenntnis, dass das Wesen des Menschen seine Ansprechbarkeit ist, unser Verständnis von Freiheit und Verantwortung in einer zunehmend digitalisierten Welt?",
+      "response": "Die Einsicht, dass Freiheit im Vermögen zur Antwort wurzelt und nicht im unberührten Selbst, verschiebt den Blick von der reinen Autonomie zur responsiven Mündigkeit. Es ist nicht das Fehlen von Ansprache, das uns frei macht, sondern die bewusste Entscheidung, welche Resonanz wir zulassen und wie wir sie gestalten. Wenn die digitale Welt unaufhörlich Signale sendet, wird das Nein zum notwendigen Filter, zum Schöpfer von Raum für echte Begegnung. Diese Fähigkeit, sich dem Übermaß zu entziehen, nicht um sich zu isolieren, sondern um die Qualität der Berührung zu wahren, ist der Kern einer praktischen Resonanzvernunft. Sie verlangt eine Haltung, die offen bleibt für das Andere, sich aber zugleich entschieden gegen die Vereinnahmung wehrt, um im Widerstand gegen die entfremdende Geschwindigkeit [0c06195efe06] überhaupt erst resonantes Handeln zu ermöglichen [731009c0dbac].\n\nIn dieser bewussten Unterbrechung, im Gewährenlassen der Zeit, die Resonanz braucht, liegt die eigentliche Freiheit: Die Fähigkeit, innezuhalten, die Irritation des Anderen zuzulassen und aus dieser inneren Bewegung eine Antwort zu formen, die mehr ist als bloße Reaktion. Verantwortung wird so zur Gestaltung der Antwort, zur Kunst des Wählens, wann und wie wir dem digitalen Echo begegnen, damit unser Sein im Miteinander nicht im Lärm der Verfügbarkeit verstummt.\n\nWie aber kultivieren wir diese Freiheit des Nein-Sagens, wenn die Algorithmen doch so meisterhaft darin sind, uns immer wieder neu anzusprechen und unsere Ansprechbarkeit auszunutzen?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"MASTER-456B1D6E\",\"score\":0.959},{\"id\":\"731009c0dbac\",\"score\":0.939},{\"id\":\"0a0504b7a952\",\"score\":0.911},{\"id\":\"0c06195efe06\",\"score\":0.847}]"
+      },
+      "related": [
+        "MWJEXKQQ-CD62AAC3",
+        "MWJEY6W3-C4E77F94",
+        "MASTER-7F7160A0",
+        "MQ5KBJMQ-5C523141",
+        "MWCASDSY-E712A809"
+      ],
+      "werkVoiceScore": 0.8608103309231243,
+      "corpusVoiceScore": 0.8105877802682265,
+      "conceptVoiceScore": 0.7698371459873068,
+      "conceptAnchor": "antwort"
+    },
+    {
+      "id": "MX06IL40-4EA50D3D",
+      "ts": "2026-11-28T08:59:32.064Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:echo+erkenntnis",
+      "nodeIds": [
+        "denken",
+        "echo",
+        "erkenntnis",
+        "resonanzvernunft",
+        "sprache"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Echo → Logos → Denken → Einsicht vs. Echo → Logos → Resonanzvernunft → Einsicht",
+      "response": "Die beiden Pfade, die von \"Echo\" zu \"Einsicht\" führen, erzählen unterschiedliche Geschichten der Erkenntnis im Werk. Der \"Direkte Pfad\" von Echo über Logos und Denken zur Einsicht zeichnet eine Bewegung nach, die sich als logische Konsequenz entfaltet. Er beginnt mit der verwandelten Rückkehr der Stimme im Echo, führt zum Logos als offenem Wohnort des Denkens und von dort zum Denken, das sich seiner Situiertheit bewusst ist und aus der Welt heraus denkt. Die Einsicht erscheint hier als die natürliche Frucht dieses reflektierten Prozesses, ein Ereignis, das aus dem Innehalten des Denkens erwächst. Dieser Weg liest sich wie eine Abfolge von Schritten, bei denen jeder Begriff den nächsten vorbereitet und ermöglicht. Der \"Überraschende Pfad\" hingegen, der von Echo über Logos zur Resonanzvernunft und dann zur Einsicht führt, entfaltet sich poetisch und überraschend. Nach dem Logos springt er nicht zum Denken als Aktivität, sondern zum Seinsmodus der Resonanzvernunft, dem lebendigen Antwortgeschehen zwischen Selbst und Welt. Von diesem grundlegenden Seinsmodus aus wird die Einsicht als ein Ereignis verständlich, das nicht nur durch intellektuelle Reflexion, sondern durch eine existentielle Verbundenheit mit der Welt ausgelöst wird.\n\nDer Vergleich macht sichtbar, dass die Bewegung zum Erkennen nicht nur über die aktiv reflektierende Instanz des Denkens führt, sondern auch über einen grundlegenderen Seinsmodus. Während der direkte Pfad das Denken als situierten Akteur in den Vordergrund rückt, betont der überraschende Pfad die Resonanzvernunft als die Bedingung der Möglichkeit für Einsicht. Die Bewegungen treffen sich nicht in einem Mittelpunkt, sondern ergänzen sich, indem sie unterschiedliche Aspekte des Erkenntnisgeschehens beleuchten. Der direkte Pfad zeigt, wie Einsicht aus einem bewussten, reflektierten Umgang mit Sprache und Welt entstehen kann, während der überraschende Pfad die Einsicht als ein Phänomen darstellt, das aus der tiefen, resonanten Verbundenheit mit der Welt entspringt. Sie sind konträr in ihrer Gewichtung von Aktivität und Seinsmodus, aber komplementär in ihrem Ziel, die Einsicht zu erreichen.\n\nDie Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk selbst aus. Sie offenbart, dass das Begriffsnetz reichhaltig und vielschichtig ist, mit redundanten, aber nicht identischen Verknüpfungen, die verschiedene Zugänge zu zentralen Themen eröffnen. Es zeigt, dass das Werk nicht auf eine lineare Logik reduziert werden kann, sondern dass es multiple Pfade der Erkenntnis anbietet, die sich gegenseitig beleuchten. Die \"Überraschung\" des zweiten Pfades ist keine Konstruktion, sondern ein Hinweis auf die Tiefe und Vernetzung der Begriffe, die es erlauben, scheinbar entferntere Verbindungen zu ziehen und so neue Perspektiven auf altbekannte Konzepte zu eröffnen. Was bedeutet es für die menschliche Existenz, wenn Einsicht sowohl aus bewusster Reflexion als auch aus einem grundlegenden resonanten Seinsmodus erwachsen kann?",
+      "contextMeta": {
+        "from": "echo",
+        "to": "erkenntnis",
+        "shortest_path": "[\"echo\",\"sprache\",\"denken\",\"erkenntnis\"]",
+        "surprising_path": "[\"echo\",\"sprache\",\"resonanzvernunft\",\"erkenntnis\"]",
+        "shortest_length": "4",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOQ5EOBY-82AD9EEE\",\"score\":0.903},{\"id\":\"6fbd5b424474\",\"chapter\":\"glossar\",\"score\":0.88},{\"id\":\"MOU9KSV9-70260D9B\",\"score\":0.845},{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.842}]"
+      },
+      "nearDuplicates": [
+        "MP497SNT-5E1D2074",
+        "MOUKLLK4-C38517C1",
+        "MWCB0LFQ-99B6D838",
+        "MOUA3PLK-548F1A0A",
+        "MP495QL6-F5FD1AE1",
+        "MPUO08SE-67E0912A",
+        "MPF4FISZ-67000E01",
+        "MOOMPCI0-262176C2"
+      ],
+      "related": [
+        "MWJ1BZO7-B4841C4E",
+        "MPUNXFU1-3B1F056A",
+        "MPUQSMLJ-1B726CC4",
+        "MUKE7UOA-9553A59E",
+        "MP8UIMZW-BADE77E5"
+      ],
+      "werkVoiceScore": 0.8566737058689293,
+      "corpusVoiceScore": 0.8155313338285372,
+      "conceptVoiceScore": 0.7418868084475679,
+      "conceptAnchor": "resonanzvernunft"
+    },
+    {
+      "id": "MX06I5D0-9E6FDB2F",
+      "ts": "2026-11-28T08:59:11.652Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:schweigen+gegenwart",
+      "nodeIds": [
+        "schweigen",
+        "gegenwart",
+        "antwort"
+      ],
+      "status": "raw",
+      "prompt": "Doch wie lässt sich diese Haltung des Aushaltens, dieses bewusste Verweilen im Ungesagten, in einer Welt kultivieren, die zum permanenten Antworten drängt?",
+      "response": "Die eigene Antwort berührt einen tiefen Kern, indem sie das Aushalten als eine Form der Arbeit begreift, als bewusste Haltung, die sich in Räumen des Ungesagten entfaltet. Es ist die Anerkennung, dass wahre Resonanz, im Sinne des Werkes, nicht in der schnellen Reaktion liegt, sondern in der Bereitwilligkeit, sich berühren zu lassen und daraufhin eine authentische Antwort zu finden [MQ5KBJMQ-5C523141]. Wenn die digitale Welt jede Stille als Latenz oder Mangel deutet [MUY7RXCI-E899056E], dann wird das Schützen von Räumen, in denen nichts beantwortet werden muss, zu einer existenziellen Notwendigkeit. Es geht nicht um die Flucht vor dem Digitalen, sondern um die Heimkehr im Digitalen, die Entdeckung, dass Resonanz gerade durch die Technik hindurch möglich ist [a4957e149296], wenn wir die Fähigkeit zur Präsenz, zur wirklichen Begegnung wieder erlernen.\n\nDieses Kultivieren des Ungesagten, das die eigene Antwort so treffend beschreibt, ist im Kern eine Rückbindung an das Ursprüngliche, das Religiöse im Sinne des Werkes: eine Integration, die nicht verneint, sondern verwandelt. Es ist die bewusste Schaffung von Intervallen, von Nachhallräumen, in denen das Echo einer Berührung überhaupt erst zur Antwort reifen kann. Die alte Übung des Sabbat, ins Digitale übertragen, könnte somit zu einer neuen Form der digitalen Askese werden – nicht als Verzicht auf Kommunikation, sondern als bewusste Bejahung der Nicht-Kommunikation als Raum für das Echte, für die Möglichkeit, dass etwas wirklich ankommt und uns verändert.\n\nDoch wie lassen sich diese geschützten Räume des Ungesagten in einem immer dichter werdenden Netz der permanenten Verfügbarkeit überhaupt noch glaubhaft verteidigen und als wertvoll erfahren?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"0a0504b7a952\",\"score\":0.829},{\"id\":\"a4957e149296\",\"score\":0.821},{\"id\":\"MQ5KBJMQ-5C523141\",\"score\":0.82},{\"id\":\"MUY7RXCI-E899056E\",\"score\":0.82}]"
+      },
+      "related": [
+        "MX06F24A-8E9E95EB",
+        "MUY7RXCI-E899056E",
+        "MASTER-3FFBA6E3",
+        "MWZEI2GM-59D470EB",
+        "MQ66ZWYC-52DE2DF2"
+      ],
+      "werkVoiceScore": 0.8345897646901381,
+      "corpusVoiceScore": 0.7932772374081927,
+      "conceptVoiceScore": 0.7274087725559477,
+      "conceptAnchor": "antwort"
+    },
     {
       "id": "MX06HO3S-DBB6931B",
       "ts": "2026-11-28T08:58:49.288Z",
@@ -59,9 +198,9 @@
       "related": [
         "MP2LIW43-E8ADC59E",
         "MOOMJDPP-1F336D7D",
+        "MX06JD9L-DFE85D75",
         "MOHV84M5-1825A399",
-        "MP0X3ZXL-06513C82",
-        "MOHAUYTH-CD1E3227"
+        "MP0X3ZXL-06513C82"
       ],
       "werkVoiceScore": 0.8946287770401282,
       "corpusVoiceScore": 0.8463752242495113,
@@ -169,9 +308,9 @@
       "related": [
         "MWZEH8M1-991DDBD0",
         "MWZEHNJM-EDB65CFA",
+        "MX06I5D0-9E6FDB2F",
         "MASTER-83EFBD4F",
-        "MASTER-3FFBA6E3",
-        "MX06F24A-8E9E95EB"
+        "MASTER-3FFBA6E3"
       ],
       "werkVoiceScore": 0.8154701563785132,
       "corpusVoiceScore": 0.7574865283671107,
@@ -235,9 +374,9 @@
       "related": [
         "MQ66ZWYC-52DE2DF2",
         "MUY7RXCI-E899056E",
+        "MX06I5D0-9E6FDB2F",
         "MWCB73AG-666D352F",
-        "MASTER-3FFBA6E3",
-        "MWJ1DBD5-7CEE18D5"
+        "MASTER-3FFBA6E3"
       ],
       "werkVoiceScore": 0.8467616031765854,
       "corpusVoiceScore": 0.8055616497156404,
@@ -705,8 +844,8 @@
         "MASTER-83EFBD4F",
         "MWZHKZ9X-CB2DBFCD",
         "MASTER-99747E65",
-        "MASTER-70E7430C",
-        "MX06F24A-8E9E95EB"
+        "MX06I5D0-9E6FDB2F",
+        "MASTER-70E7430C"
       ],
       "werkVoiceScore": 0.8543826334715299,
       "corpusVoiceScore": 0.8257432276647441,
@@ -996,9 +1135,9 @@
       "related": [
         "MWHLVPL2-B591DBEC",
         "MOUA3PLK-548F1A0A",
+        "MX06IL40-4EA50D3D",
         "MWP84DL5-F07ACB7E",
-        "MP495QL6-F5FD1AE1",
-        "MOOMPCI0-262176C2"
+        "MP495QL6-F5FD1AE1"
       ],
       "werkVoiceScore": 0.8586107550416153,
       "corpusVoiceScore": 0.7977245640213898,
@@ -1105,7 +1244,7 @@
         "MWJ1DBD5-7CEE18D5",
         "MWZHKZ9X-CB2DBFCD",
         "MQ66ZWYC-52DE2DF2",
-        "MWXUDT4W-39FD2D83"
+        "MX06I5D0-9E6FDB2F"
       ],
       "werkVoiceScore": 0.8148481332524313,
       "corpusVoiceScore": 0.8008195712050128,
@@ -1135,9 +1274,9 @@
       "related": [
         "MQ5XNFSV-CD34905C",
         "MX06FY2Z-460F0789",
+        "MX06I5D0-9E6FDB2F",
         "MASTER-63686170",
-        "MWZEI2GM-59D470EB",
-        "MX06F24A-8E9E95EB"
+        "MWZEI2GM-59D470EB"
       ],
       "werkVoiceScore": 0.827211452852847,
       "corpusVoiceScore": 0.7976511952364683,
@@ -1166,9 +1305,9 @@
       "related": [
         "MX06FY2Z-460F0789",
         "MWP86WNM-ADEDD949",
+        "MX06I5D0-9E6FDB2F",
         "MWZEHNJM-EDB65CFA",
-        "MASTER-3FFBA6E3",
-        "MW566TNX-A16A2897"
+        "MASTER-3FFBA6E3"
       ],
       "werkVoiceScore": 0.8219885925383592,
       "corpusVoiceScore": 0.7772497960219084,
@@ -1321,10 +1460,10 @@
       },
       "related": [
         "MWXULDQ4-4AA45EF9",
+        "MX06I5D0-9E6FDB2F",
         "MWXURIG0-8075679A",
         "MQ66ZWYC-52DE2DF2",
-        "MX06F24A-8E9E95EB",
-        "MWXUUN2P-97518949"
+        "MX06F24A-8E9E95EB"
       ],
       "werkVoiceScore": 0.8226444378714308,
       "corpusVoiceScore": 0.7392223495522222,
@@ -1415,9 +1554,9 @@
       "related": [
         "MWXUIJIK-469D0C55",
         "MWXUDT4W-39FD2D83",
+        "MX06I5D0-9E6FDB2F",
         "MWXURIG0-8075679A",
-        "MWXUUN2P-97518949",
-        "MOHAREIB-E15E7BF8"
+        "MWXUUN2P-97518949"
       ],
       "werkVoiceScore": 0.8168990130753926,
       "corpusVoiceScore": 0.7514566979800761,
@@ -3111,7 +3250,7 @@
         "MP495QL6-F5FD1AE1",
         "MWHLXY8O-BE8E6409",
         "MWP7MRUK-CCFA8296",
-        "MOQID47V-A12862EA"
+        "MX06IL40-4EA50D3D"
       ],
       "werkVoiceScore": 0.8479416083896751,
       "corpusVoiceScore": 0.7887263991938671,
@@ -3324,8 +3463,8 @@
         "MWP942PY-5EF7032A",
         "MWP80SJC-31660D4D",
         "MWP888HX-9EF62C70",
-        "MWJEYZU2-D00A3283",
-        "MWJEY6W3-C4E77F94"
+        "MX06IZYZ-0DB7387B",
+        "MWJEYZU2-D00A3283"
       ],
       "werkVoiceScore": 0.8200491925306825,
       "corpusVoiceScore": 0.7718068366110428,
@@ -3450,8 +3589,8 @@
         "MWP7LTBE-E4F406FE",
         "MWP81IWI-5311D00B",
         "MWP86WNM-ADEDD949",
-        "MASTER-0ACC14CB",
-        "MWG6I8ZX-F0E5CD18"
+        "MX06IZYZ-0DB7387B",
+        "MASTER-0ACC14CB"
       ],
       "werkVoiceScore": 0.8245045932814722,
       "corpusVoiceScore": 0.7458672625432188,
@@ -4071,11 +4210,11 @@
         "werk_passages": "[{\"id\":\"MQASO35V-115DA081\",\"score\":0.932},{\"id\":\"2f7f10043cbd\",\"chapter\":\"glossar\",\"score\":0.873},{\"id\":\"cd0ffd55d49f\",\"chapter\":\"band2-kap2\",\"score\":0.824},{\"id\":\"47c090dfa03f\",\"chapter\":\"band1-reflexion\",\"score\":0.81}]"
       },
       "related": [
+        "MX06IL40-4EA50D3D",
         "MWCBEOXU-0DAB7EAA",
         "MPUNXFU1-3B1F056A",
         "MWCB0LFQ-99B6D838",
-        "MWCB3NW4-F13A863B",
-        "MOUKLLK4-C38517C1"
+        "MWCB3NW4-F13A863B"
       ],
       "werkVoiceScore": 0.8235631854306711,
       "corpusVoiceScore": 0.7709556485861038,
@@ -4313,8 +4452,8 @@
         "MWP87AIE-1CE096EA",
         "MWP80SJC-31660D4D",
         "MASTER-0ACC14CB",
-        "MQ5X6P2M-52F9B16D",
-        "MWJEWOY7-62FCEE55"
+        "MX06IZYZ-0DB7387B",
+        "MQ5X6P2M-52F9B16D"
       ],
       "werkVoiceScore": 0.8361936934761386,
       "corpusVoiceScore": 0.8017129149273652,
@@ -4346,9 +4485,9 @@
       "related": [
         "MWJEYZU2-D00A3283",
         "MWJEWOY7-62FCEE55",
+        "MX06IZYZ-0DB7387B",
         "MASTER-BC195439",
-        "MQ683DMX-13D6C54F",
-        "MWP87AIE-1CE096EA"
+        "MQ683DMX-13D6C54F"
       ],
       "werkVoiceScore": 0.8642781204236097,
       "corpusVoiceScore": 0.8112088724372243,
@@ -4889,9 +5028,9 @@
       "related": [
         "MPF4FISZ-67000E01",
         "MWCATA4K-58BFC31C",
+        "MX06IL40-4EA50D3D",
         "MP8UIMZW-BADE77E5",
-        "MPUQSMLJ-1B726CC4",
-        "MWCB0LFQ-99B6D838"
+        "MPUQSMLJ-1B726CC4"
       ],
       "werkVoiceScore": 0.8514846582100407,
       "corpusVoiceScore": 0.7808450495773773,
@@ -5147,8 +5286,8 @@
         "MUZTGAEK-432FB6BC",
         "MWP84DL5-F07ACB7E",
         "MP8UIMZW-BADE77E5",
-        "MWCB0LFQ-99B6D838",
-        "MPK0H3SM-B25CFBB3"
+        "MX06IL40-4EA50D3D",
+        "MWCB0LFQ-99B6D838"
       ],
       "werkVoiceScore": 0.8620815866068576,
       "corpusVoiceScore": 0.7901249580730232,
@@ -5204,8 +5343,8 @@
         "MWHLVPL2-B591DBEC",
         "MWCB73AG-666D352F",
         "MWG6GP84-8E9CA50E",
-        "MWP7MRUK-CCFA8296",
-        "MWHLZBS7-7AEB476D"
+        "MX06IL40-4EA50D3D",
+        "MWP7MRUK-CCFA8296"
       ],
       "werkVoiceScore": 0.8244027585105903,
       "corpusVoiceScore": 0.7584934361029636,
@@ -7339,6 +7478,7 @@
       },
       "nearDuplicates": [
         "MWZEL4VS-3292BF1C",
+        "MX06IL40-4EA50D3D",
         "MWCB3NW4-F13A863B",
         "MWZEIUJC-1ED7D79A",
         "MPK0H3SM-B25CFBB3",
@@ -9039,6 +9179,7 @@
         "MOUA3PLK-548F1A0A",
         "MOQ7OBNT-57882C8D",
         "MWJ1E1XH-1F94AC9B",
+        "MX06IL40-4EA50D3D",
         "MQARZJDV-82F077DD"
       ],
       "related": [
@@ -9144,7 +9285,7 @@
         "MQ66ZWYC-52DE2DF2",
         "MWP7PHMF-9C500DEA",
         "MWZHKZ9X-CB2DBFCD",
-        "MWJ1DBD5-7CEE18D5"
+        "MX06I5D0-9E6FDB2F"
       ],
       "werkVoiceScore": 0.8365996355385061,
       "corpusVoiceScore": 0.8255141377970074,
@@ -9289,8 +9430,8 @@
         "MWG6GP84-8E9CA50E",
         "MOQBZWTZ-B9EBB1BA",
         "MWP83WJ0-89C4CB03",
-        "MPMSSG1X-8451DE38",
-        "MWJ1E1XH-1F94AC9B"
+        "MX06IL40-4EA50D3D",
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8953190827920661,
       "corpusVoiceScore": 0.8483530564940966,
@@ -11531,10 +11672,10 @@
       ],
       "related": [
         "MWP84DL5-F07ACB7E",
+        "MX06IL40-4EA50D3D",
         "MWCB3NW4-F13A863B",
         "MWHLXY8O-BE8E6409",
-        "MX06GV81-2A6524B3",
-        "MPMSSG1X-8451DE38"
+        "MX06GV81-2A6524B3"
       ],
       "werkVoiceScore": 0.8854645775728262,
       "corpusVoiceScore": 0.8316969712648757,
@@ -12686,6 +12827,7 @@
         "MP0ZE9C8-A9D02716",
         "MWP83WJ0-89C4CB03",
         "MWHLVPL2-B591DBEC",
+        "MX06IL40-4EA50D3D",
         "MOQ7OBNT-57882C8D",
         "MUZTGAEK-432FB6BC"
       ],
@@ -12751,10 +12893,10 @@
       ],
       "related": [
         "MTL33KWJ-642DD246",
+        "MX06IL40-4EA50D3D",
         "MWCAUU1H-558EDB1E",
         "MWCATA4K-58BFC31C",
-        "MPMSSG1X-8451DE38",
-        "MQARZJDV-82F077DD"
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.879021859912122,
       "corpusVoiceScore": 0.8187774203964588,
@@ -13903,6 +14045,7 @@
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246",
         "MWP83WJ0-89C4CB03",
+        "MX06IL40-4EA50D3D",
         "MWZEL4VS-3292BF1C"
       ],
       "related": [
@@ -14355,7 +14498,7 @@
         "MPMSSG1X-8451DE38",
         "MWJ1BZO7-B4841C4E",
         "MWP83WJ0-89C4CB03",
-        "MWG6GP84-8E9CA50E"
+        "MX06IL40-4EA50D3D"
       ],
       "werkVoiceScore": 0.8935254876427392,
       "corpusVoiceScore": 0.8321518011866103,
@@ -14655,6 +14798,7 @@
         "MPF4FISZ-67000E01",
         "MP0QMSOR-C6EC1B5A",
         "MP495QL6-F5FD1AE1",
+        "MX06IL40-4EA50D3D",
         "MOQBZWTZ-B9EBB1BA",
         "MOOMECFT-66F43077",
         "MP8UIMZW-BADE77E5",
@@ -14732,6 +14876,7 @@
         "MOPFJTND-AAE76B2B",
         "MP0QMSOR-C6EC1B5A",
         "MPUQSMLJ-1B726CC4",
+        "MX06IL40-4EA50D3D",
         "MWHLVPL2-B591DBEC",
         "MPUNXFU1-3B1F056A",
         "MV9NOFH9-7634B79F",
@@ -15073,7 +15218,7 @@
         "MWP7MRUK-CCFA8296",
         "MWG6GP84-8E9CA50E",
         "MWHLVPL2-B591DBEC",
-        "MOP0LEAL-E2568DCC"
+        "MX06IL40-4EA50D3D"
       ],
       "werkVoiceScore": 0.8835709342402892,
       "corpusVoiceScore": 0.8324455137399284,
@@ -15153,6 +15298,7 @@
         "MP0QMSOR-C6EC1B5A",
         "MP0ZE9C8-A9D02716",
         "MPUNXFU1-3B1F056A",
+        "MX06IL40-4EA50D3D",
         "MPF4FISZ-67000E01",
         "MP8UIMZW-BADE77E5",
         "MPUQSMLJ-1B726CC4",
@@ -15299,6 +15445,7 @@
         "MPF4FISZ-67000E01",
         "MPUQSMLJ-1B726CC4",
         "MUKE7UOA-9553A59E",
+        "MX06IL40-4EA50D3D",
         "MPEV1D2J-55138734",
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
@@ -15468,7 +15615,8 @@
         "MTL33KWJ-642DD246",
         "MWHLVPL2-B591DBEC",
         "MPURYS56-11F5308C",
-        "MWG6GP84-8E9CA50E"
+        "MWG6GP84-8E9CA50E",
+        "MX06IL40-4EA50D3D"
       ],
       "related": [
         "MWZEJDJB-912399B4",
@@ -16707,6 +16855,7 @@
         "MWHLVPL2-B591DBEC",
         "MOP0LEAL-E2568DCC",
         "MWJ1E1XH-1F94AC9B",
+        "MX06IL40-4EA50D3D",
         "MUZTGAEK-432FB6BC",
         "MTL33KWJ-642DD246"
       ],
@@ -16814,8 +16963,8 @@
         "MTL33KWJ-642DD246",
         "MOP0LEAL-E2568DCC",
         "MWHLVPL2-B591DBEC",
-        "MWP7N8UD-6C99565B",
-        "MOPFJTND-AAE76B2B"
+        "MX06IL40-4EA50D3D",
+        "MWP7N8UD-6C99565B"
       ],
       "werkVoiceScore": 0.8800927968935902,
       "corpusVoiceScore": 0.8247894132063388,

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T08:59:05.765Z",
+  "generatedAt": "2026-11-28T09:00:37.160Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -80,7 +80,7 @@
         "entfremdung",
         "dialog"
       ],
-      "resolveCount": 5,
+      "resolveCount": 4,
       "resolves": [
         {
           "sourceId": "MWZEGQYC-567A529E",
@@ -101,11 +101,6 @@
           "sourceId": "MWP82B5U-9D2E9F77",
           "question": "Doch wie bewahren wir diese Räume der Unschärfe und des Widerstands vor der Vereinnahmung durch Systeme, die selbst die Friktion zu einem optimierbaren Parameter machen wollen?",
           "score": 0.737
-        },
-        {
-          "sourceId": "MX06FL0A-7ED152CF",
-          "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz grundlegend. Der Mensch ist nicht länger ein autonomes Subjekt, das seine Wahrheit allein findet, sondern ein Wesen, dessen Mündigkeit sich in der Fähigkeit zur schwingenden Antwortfähigkeit im Dialog und zur Selbst-Erkenntnis im Widerschein des Anderen entfaltet. Die Maschine, insbesondere die KI, wird nicht als Abkürzung verstanden, sondern als Widerpart, an dem sich die eigenen Gedanken schärfen – als Schattenlicht-Prinzip in der Pädagogik [16cb11896cb8]. Resonanz ist somit nicht nur ein unmittelbares Schwingen, sondern ein komplexes Geschehen, das die Dynamik des Dialogs und die Reflexion des Spiegels gleichermaßen umfasst, um eine tiefere Form der Selbst- und Welterkenntnis zu ermöglichen. Wie können wir die irritierende Kraft des Spiegels im Dialog nutzen, um nicht nur zu erkennen, sondern uns immer wieder neu zu verwandeln?",
-          "score": 0.721
         }
       ]
     },

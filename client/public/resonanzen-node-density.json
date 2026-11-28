@@ -1,12 +1,12 @@
 {
-  "generatedAt": "2026-11-28T08:59:02.797Z",
+  "generatedAt": "2026-11-28T09:00:35.113Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 37,
+      "count": 38,
       "endpoints": {
+        "path-analyse": 23,
         "dialog": 8,
-        "analyse": 7,
-        "path-analyse": 22
+        "analyse": 7
       }
     },
     "resonanz": {
@@ -33,10 +33,10 @@
       }
     },
     "sprache": {
-      "count": 18,
+      "count": 19,
       "endpoints": {
+        "path-analyse": 5,
         "analyse": 5,
-        "path-analyse": 4,
         "dialog": 9
       }
     },
@@ -57,18 +57,18 @@
       }
     },
     "schweigen": {
-      "count": 18,
+      "count": 19,
       "endpoints": {
-        "dialog": 5,
+        "dialog": 6,
         "analyse": 13
       }
     },
     "echo": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
+        "path-analyse": 2,
         "analyse": 9,
-        "dialog": 1,
-        "path-analyse": 1
+        "dialog": 1
       }
     },
     "klang": {
@@ -80,10 +80,10 @@
       }
     },
     "erkenntnis": {
-      "count": 45,
+      "count": 46,
       "endpoints": {
+        "path-analyse": 8,
         "analyse": 10,
-        "path-analyse": 7,
         "dialog": 28
       }
     },
@@ -96,10 +96,10 @@
       }
     },
     "denken": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "analyse": 8,
-        "path-analyse": 3
+        "path-analyse": 4,
+        "analyse": 8
       }
     },
     "bewusstsein": {
@@ -134,17 +134,17 @@
       }
     },
     "gegenwart": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
+        "dialog": 3,
         "analyse": 8,
-        "path-analyse": 4,
-        "dialog": 2
+        "path-analyse": 4
       }
     },
     "dialog": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "analyse": 4,
         "path-analyse": 4
       }
@@ -158,10 +158,10 @@
       }
     },
     "antwort": {
-      "count": 22,
+      "count": 24,
       "endpoints": {
+        "dialog": 9,
         "analyse": 8,
-        "dialog": 7,
         "path-analyse": 7
       }
     },
@@ -219,11 +219,11 @@
       }
     },
     "freiheit": {
-      "count": 19,
+      "count": 20,
       "endpoints": {
+        "dialog": 3,
         "analyse": 8,
-        "path-analyse": 9,
-        "dialog": 2
+        "path-analyse": 9
       }
     },
     "öffnung": {
@@ -412,7 +412,7 @@
   },
   "stats": {
     "minCount": 10,
-    "maxCount": 45,
+    "maxCount": 46,
     "median": 14,
     "totalNodes": 50,
     "zeroResonanceNodes": []

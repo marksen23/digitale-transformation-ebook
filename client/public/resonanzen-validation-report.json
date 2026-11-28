@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-28T08:58:48.063Z",
-  "filesChecked": 547,
+  "generatedAt": "2026-11-28T09:00:16.615Z",
+  "filesChecked": 552,
   "errors": 0,
-  "warnings": 87,
+  "warnings": 89,
   "issues": [
     {
       "level": "warning",
@@ -330,6 +330,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/antwort+freiheit/2026-11-28-MX06IZYZ-0DB7387B.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 85d60cf0f7e9d549, computed 47eb75f2ff378ea6 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/antwort+ich-du/2026-11-20-MWP87AIE-1CE096EA.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 4efdcf91c191bead, computed 77f6c0f1888e6364 — Tampering oder nachträgliche Edit?"
@@ -444,6 +450,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/schweigen+gegenwart/2026-11-28-MX06I5D0-9E6FDB2F.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 6c06f6af64da4b0a, computed 90d83510c0d72a76 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/schweigen+wahrheit/2026-11-28-MX06F24A-8E9E95EB.md",
       "rule": "content-hash-mismatch",
       "detail": "expected cda0356bed1ad11a, computed ecfe46f5058cb0b9 — Tampering oder nachträgliche Edit?"
@@ -529,18 +541,18 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 148,
+      "analyse": 149,
       "chapter": 66,
-      "dialog": 110,
-      "path-analyse": 72,
+      "dialog": 112,
+      "path-analyse": 73,
       "enkidu": 69,
-      "graph-chat": 54,
+      "graph-chat": 55,
       "passage": 19,
       "translate": 9
     },
     "byStatus": {
       "published": 175,
-      "raw": 290,
+      "raw": 295,
       "rejected": 28,
       "approved": 54
     },
