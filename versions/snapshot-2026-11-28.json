@@ -1,8 +1,8 @@
 {
   "date": "2026-11-28",
-  "generatedAt": "2026-11-28T09:05:01.137Z",
-  "commit": "dfaded04a606d61a69fc6bb4ef231d98269a6139",
-  "triggeredBy": "4470ad116af2fd4f794ad8bf4c1ff8aa0fe894ab",
+  "generatedAt": "2026-11-28T09:06:13.842Z",
+  "commit": "c8c7b925338d738b0644ec059ccd394b2abc70d1",
+  "triggeredBy": "dfaded04a606d61a69fc6bb4ef231d98269a6139",
   "filesChecked": 560,
   "aggregates": {
     "byEndpoint": {
