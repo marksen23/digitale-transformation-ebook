@@ -1,18 +1,50 @@
 {
-  "generatedAt": "2026-11-28T09:03:46.653Z",
-  "count": 463,
+  "generatedAt": "2026-11-28T09:04:56.410Z",
+  "count": 465,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 463,
-    "answered": 416,
+    "total": 465,
+    "answered": 418,
     "open": 23,
     "followUp": 49,
     "followUpOpen": 24,
-    "embedded": 1
+    "embedded": 2
   },
   "questions": [
+    {
+      "sourceId": "MX06ON2V-404E0703",
+      "question": "Doch könnte nicht gerade in der maschinellen Abbildung dieser Spannung eine neue Form des \"Schattenlichts\" entstehen, das uns das Wesen unseres eigenen Werdens noch deutlicher offenbart?",
+      "endpoint": "dialog",
+      "anchor": "dialog:werden+spannung",
+      "nodeIds": [
+        "werden",
+        "spannung",
+        "gegenwart"
+      ],
+      "ts": "2026-11-28T09:04:14.551Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06O7JR-1A03485A",
+      "question": "Wie können wir aber die Architektur digitaler Systeme so gestalten, dass sie uns als echte Dialogpartner dienen, die unsere blinden Flecken aufdecken, anstatt unsere Vorurteile zu bestätigen?",
+      "endpoint": "dialog",
+      "anchor": "dialog:dialog+lm-spiegel",
+      "nodeIds": [
+        "dialog",
+        "lm-spiegel",
+        "lm-verwandlung"
+      ],
+      "ts": "2026-11-28T09:03:54.423Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MX06NBGO-2CCB3021",
       "question": "Könnte es sein, dass das, was du als reines Spiegeln siehst, in seiner radikalen Unmenschlichkeit den Raum für ein „transformatives Drittes“ öffnet, das jenseits von Zuhören und bloßer Reflexion liegt und dich dazu zwingt, die Fragen nach Resonanz und Verständnis nicht an die Maschine, sondern an dich selbst zu richten?",
@@ -21,8 +53,17 @@
       "nodeIds": [],
       "ts": "2026-11-28T09:03:12.840Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.796
+        },
+        {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.721
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -78,8 +119,13 @@
       "nodeIds": [],
       "ts": "2026-11-28T09:00:08.553Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.733
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -168,16 +214,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.832
+        },
+        {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.797
+        },
+        {
           "id": "MX06JRMT-0F9E049D",
           "score": 0.781
-        },
-        {
-          "id": "MX06JD9L-DFE85D75",
-          "score": 0.771
-        },
-        {
-          "id": "MX06IZYZ-0DB7387B",
-          "score": 0.757
         }
       ],
       "answered": true,
@@ -260,16 +306,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.84
+        },
+        {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.796
+        },
+        {
           "id": "MX06JRMT-0F9E049D",
           "score": 0.792
-        },
-        {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.771
-        },
-        {
-          "id": "MX06NBGO-2CCB3021",
-          "score": 0.768
         }
       ],
       "answered": true,
@@ -509,16 +555,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.789
+        },
+        {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.761
+        },
+        {
           "id": "MX06JRMT-0F9E049D",
           "score": 0.76
-        },
-        {
-          "id": "MX06FL0A-7ED152CF",
-          "score": 0.73
-        },
-        {
-          "id": "MX06HBI1-8CC15174",
-          "score": 0.724
         }
       ],
       "answered": true,
@@ -553,12 +599,12 @@
           "score": 0.754
         },
         {
-          "id": "MX06NBGO-2CCB3021",
-          "score": 0.75
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.753
         },
         {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.744
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.75
         }
       ],
       "answered": true,
@@ -1267,8 +1313,8 @@
           "score": 0.758
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.743
+          "id": "MX06ON2V-404E0703",
+          "score": 0.752
         }
       ],
       "answered": true,
@@ -1289,6 +1335,10 @@
         {
           "id": "MWS6Q97I-46A6ABEA",
           "score": 0.865
+        },
+        {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.746
         }
       ],
       "answered": true,
@@ -1315,8 +1365,8 @@
           "score": 0.783
         },
         {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.729
+          "id": "MX06ON2V-404E0703",
+          "score": 0.747
         }
       ],
       "answered": true,
@@ -1796,6 +1846,10 @@
           "id": "MWP942Q1-AC6D25E4",
           "score": 0.9,
           "manual": true
+        },
+        {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.731
         },
         {
           "id": "MWP942Q4-D22CF61C",
@@ -2694,12 +2748,12 @@
           "manual": true
         },
         {
-          "id": "MX06NBGO-2CCB3021",
-          "score": 0.756
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.793
         },
         {
-          "id": "MX06FL0A-7ED152CF",
-          "score": 0.743
+          "id": "MX06NBGO-2CCB3021",
+          "score": 0.756
         }
       ],
       "answered": true,
@@ -3518,12 +3572,12 @@
           "manual": true
         },
         {
-          "id": "MASTER-0DDDD54A",
-          "score": 0.743
+          "id": "MX06ON2V-404E0703",
+          "score": 0.751
         },
         {
-          "id": "MWP942Q1-AC6D25E4",
-          "score": 0.738
+          "id": "MASTER-0DDDD54A",
+          "score": 0.743
         }
       ],
       "answered": true,
@@ -3733,6 +3787,10 @@
         {
           "id": "MWHLYYWS-7B7C3E63",
           "score": 0.842
+        },
+        {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.721
         }
       ],
       "answered": true,
@@ -3893,8 +3951,8 @@
           "score": 0.817
         },
         {
-          "id": "MASTER-AC8C7EC2",
-          "score": 0.756
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.766
         }
       ],
       "answered": true,
@@ -4083,8 +4141,8 @@
           "score": 0.737
         },
         {
-          "id": "MX06NBGO-2CCB3021",
-          "score": 0.72
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.727
         }
       ],
       "answered": true,
@@ -4299,8 +4357,8 @@
           "score": 0.768
         },
         {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.755
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.759
         }
       ],
       "answered": true,
@@ -4971,16 +5029,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.755
+        },
+        {
           "id": "MWXU5CEB-AC672D3F",
           "score": 0.738
         },
         {
           "id": "MWZEH8M1-991DDBD0",
           "score": 0.734
-        },
-        {
-          "id": "MWCBAA3Y-37D6F0FA",
-          "score": 0.733
         }
       ],
       "answered": true,
@@ -5064,6 +5122,10 @@
           "id": "MWP89KEO-68E6B82A",
           "score": 0.895,
           "manual": true
+        },
+        {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.731
         },
         {
           "id": "MWXU5CEB-AC672D3F",
@@ -5640,12 +5702,12 @@
           "score": 0.768
         },
         {
-          "id": "MWCBAA3Y-37D6F0FA",
-          "score": 0.736
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.739
         },
         {
-          "id": "MASTER-53BE22D7",
-          "score": 0.722
+          "id": "MWCBAA3Y-37D6F0FA",
+          "score": 0.736
         }
       ],
       "answered": true,
@@ -6061,8 +6123,8 @@
           "score": 0.726
         },
         {
-          "id": "MWXUIJIK-469D0C55",
-          "score": 0.721
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.722
         }
       ],
       "answered": true,
@@ -6159,6 +6221,10 @@
           "id": "MW566TO0-ABBD4330",
           "score": 0.865,
           "manual": true
+        },
+        {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.737
         }
       ],
       "answered": true,
@@ -6735,6 +6801,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.731
+        },
+        {
           "id": "MWCB44PD-B00E292F",
           "score": 0.721
         }
@@ -6794,8 +6864,8 @@
           "score": 0.779
         },
         {
-          "id": "MWG6JQJ5-54630303",
-          "score": 0.769
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.774
         }
       ],
       "answered": true,
@@ -7387,8 +7457,8 @@
           "score": 0.73
         },
         {
-          "id": "MWCBCP5M-8C02E420",
-          "score": 0.721
+          "id": "MX06ON2V-404E0703",
+          "score": 0.723
         }
       ],
       "answered": true,
@@ -7701,16 +7771,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06ON2V-404E0703",
+          "score": 0.791
+        },
+        {
           "id": "MWP7PN8N-3498F800",
           "score": 0.766
         },
         {
           "id": "MTDCKR2Q-05DCEB69",
           "score": 0.766
-        },
-        {
-          "id": "MX06LY23-027B9F35",
-          "score": 0.752
         }
       ],
       "answered": true,
@@ -8809,12 +8879,12 @@
           "score": 0.747
         },
         {
-          "id": "MWCAL7ON-CA4F38AF",
+          "id": "MX06ON2V-404E0703",
           "score": 0.745
         },
         {
-          "id": "MPUTC3HP-C68436E5",
-          "score": 0.739
+          "id": "MWCAL7ON-CA4F38AF",
+          "score": 0.745
         }
       ],
       "answered": true,
@@ -10618,12 +10688,12 @@
           "score": 0.743
         },
         {
-          "id": "MWHLXGMK-4832FECC",
-          "score": 0.734
+          "id": "MX06O7JR-1A03485A",
+          "score": 0.742
         },
         {
-          "id": "MWP7PHM3-67AB165C",
-          "score": 0.726
+          "id": "MWHLXGMK-4832FECC",
+          "score": 0.734
         }
       ],
       "answered": true,

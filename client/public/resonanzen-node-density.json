@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:03:45.445Z",
+  "generatedAt": "2026-11-28T09:04:55.362Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 39,
@@ -135,17 +135,17 @@
       }
     },
     "gegenwart": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
-        "dialog": 3,
+        "dialog": 4,
         "analyse": 8,
         "path-analyse": 4
       }
     },
     "dialog": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "dialog": 4,
+        "dialog": 5,
         "analyse": 4,
         "path-analyse": 4
       }
@@ -174,10 +174,10 @@
       }
     },
     "werden": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
+        "dialog": 5,
         "analyse": 6,
-        "dialog": 4,
         "path-analyse": 3
       }
     },
@@ -236,15 +236,17 @@
       }
     },
     "spannung": {
-      "count": 14,
+      "count": 15,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 3,
         "analyse": 11
       }
     },
     "lm-spiegel": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
+        "dialog": 1,
         "analyse": 7,
         "path-analyse": 6
       }
@@ -273,11 +275,11 @@
       }
     },
     "lm-verwandlung": {
-      "count": 39,
+      "count": 40,
       "endpoints": {
+        "dialog": 21,
         "path-analyse": 10,
-        "analyse": 9,
-        "dialog": 20
+        "analyse": 9
       }
     },
     "dazwischenintelligenz": {

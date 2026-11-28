@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:03:45.447Z",
+  "generatedAt": "2026-11-28T09:04:55.364Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -315,6 +315,20 @@
       ]
     },
     {
+      "source": "gegenwart",
+      "target": "werden",
+      "cooccurrence": 3,
+      "endpoints": {
+        "dialog": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MX06ON2V-404E0703",
+        "MX06HBI1-8CC15174",
+        "MX06FY2Z-460F0789"
+      ]
+    },
+    {
       "source": "resonanzvernunft",
       "target": "spannung",
       "cooccurrence": 3,
@@ -612,6 +626,45 @@
       ]
     },
     {
+      "source": "gegenwart",
+      "target": "spannung",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MX06ON2V-404E0703",
+        "MX06HBI1-8CC15174"
+      ]
+    },
+    {
+      "source": "spannung",
+      "target": "werden",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MX06ON2V-404E0703",
+        "MX06HBI1-8CC15174"
+      ]
+    },
+    {
+      "source": "dialog",
+      "target": "lm-spiegel",
+      "cooccurrence": 2,
+      "endpoints": {
+        "dialog": 1,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MX06O7JR-1A03485A",
+        "MX06FL0A-7ED152CF"
+      ]
+    },
+    {
       "source": "antwort",
       "target": "freiheit",
       "cooccurrence": 2,
@@ -685,19 +738,6 @@
       "sampleEntryIds": [
         "MX06I5D0-9E6FDB2F",
         "MUY7RXCI-E899056E"
-      ]
-    },
-    {
-      "source": "gegenwart",
-      "target": "werden",
-      "cooccurrence": 2,
-      "endpoints": {
-        "analyse": 1,
-        "dialog": 1
-      },
-      "sampleEntryIds": [
-        "MX06HBI1-8CC15174",
-        "MX06FY2Z-460F0789"
       ]
     },
     {
@@ -1453,8 +1493,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 468,
-    "candidatesCount": 110,
+    "totalPairs": 470,
+    "candidatesCount": 113,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

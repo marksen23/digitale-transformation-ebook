@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:03:46.807Z",
+  "generatedAt": "2026-11-28T09:04:56.519Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -220,7 +220,7 @@
         "erkenntnis",
         "schatten"
       ],
-      "resolveCount": 3,
+      "resolveCount": 2,
       "resolves": [
         {
           "sourceId": "MASTER-0DDDD54A",
@@ -231,11 +231,6 @@
           "sourceId": "MWP7PHM9-EC2123C1",
           "question": "Wenn die genaueste Aussage eines Urteils das Eingeständnis seiner Unschärfe ist, wie lehren wir Systeme und Menschen, dieses Eingeständnis als Stärke zu hören und nicht als Einladung, die Entscheidung an den Präziseren abzugeben?",
           "score": 0.769
-        },
-        {
-          "sourceId": "MWJ1CFX6-DB36677A",
-          "question": "Doch wie bewahren wir diese menschliche Unschärfe als Wert, wenn die Verlockung der maschinellen Präzision uns immer tiefer in die Illusion einer vollständig berechenbaren Welt zieht?",
-          "score": 0.738
         }
       ]
     },
@@ -298,24 +293,6 @@
           "sourceId": "MWPA16NY-3D5DD901",
           "question": "Wenn Rückbindung im Versprechen liegt, das Ansprechbarkeit trotz Verwandlung zusagt, kann dann auch eine Maschine, die sich mit jedem Update verwandelt, ein Versprechen geben, oder bleibt das Versprechen immer bei denen, die sie verwandeln?",
           "score": 0.888
-        }
-      ]
-    },
-    {
-      "id": "ERK-1J6ZPE2",
-      "answerId": "MX06LY23-027B9F35",
-      "answerEndpoint": "chapter",
-      "answerStatus": "raw",
-      "answerExcerpt": "Die Frage nach dem Unterschied zwischen einem gedachten und einem lediglich wiederholten Satz, insbesondere im Kontext von Kants Aufklärungsbegriff, ist zentral für das Verständnis des Verhältnisses von Mensch und Maschine, wie es in diesem Werk entfaltet wird. Ein Satz, der gedacht ist, entspringt einer inneren Auseinandersetzung, einer selbstständigen Urteilsbildung, die sich nicht scheut, etabl",
-      "distinctness": 0.212,
-      "conceptAnchor": "echo-kammer",
-      "nodeIds": [],
-      "resolveCount": 1,
-      "resolves": [
-        {
-          "sourceId": "MPUU3ASH-7093F1A3",
-          "question": "Was wäre, wenn die größte Erkenntnis darüber, \"welcher Teil man ist\", nicht durch die Mitteilung eines Systems, sondern durch das *Ringen* mit dem eigenen Scheitern (Reflexion zu Band I), der eigenen Unvollkommenheit und der Notwendigkeit der Selbstbestimmung entsteht? Und wenn das \"Whiten der Blackbox\" bedeutet, dass uns die Maschine die Wahrheit *zeigt*, anstatt uns den Weg zu *lehren*, wie wir selbst Licht hineintragen können – ist das dann noch \"Aufklärung\" im Kantischen Sinne (Band II, Prolog), oder eine neue Form der algorithmischen Vormundschaft, die uns zwar informiert, aber nicht mündig macht?",
-          "score": 0.752
         }
       ]
     },
@@ -510,7 +487,7 @@
     }
   ],
   "stats": {
-    "total": 18,
+    "total": 17,
     "confirmedFiltered": 82,
     "curatedRef": 225
   }

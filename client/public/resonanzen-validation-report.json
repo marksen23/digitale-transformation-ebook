@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-28T09:03:33.813Z",
-  "filesChecked": 558,
+  "generatedAt": "2026-11-28T09:04:41.832Z",
+  "filesChecked": 560,
   "errors": 0,
-  "warnings": 90,
+  "warnings": 92,
   "issues": [
     {
       "level": "warning",
@@ -348,6 +348,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/dialog+lm-spiegel/2026-11-28-MX06O7JR-1A03485A.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected 6ecc74493ab7404c, computed 3c62ea5977ab0551 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/echo+echo-kammer/2026-11-15-MWHLYYWS-7B7C3E63.md",
       "rule": "content-hash-mismatch",
       "detail": "expected a355cc7ac8496151, computed b5cb4ed76e5e8e71 — Tampering oder nachträgliche Edit?"
@@ -504,6 +510,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/werden+spannung/2026-11-28-MX06ON2V-404E0703.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected f471202a2b6b2283, computed b6f8a80cde27ec56 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/werden+wesen/2026-11-16-MWJ1FKY5-9E97D903.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 249c3d3dac945fbc, computed 19554bb2912d5b72 — Tampering oder nachträgliche Edit?"
@@ -549,7 +561,7 @@
     "byEndpoint": {
       "analyse": 149,
       "chapter": 67,
-      "dialog": 113,
+      "dialog": 115,
       "path-analyse": 74,
       "enkidu": 70,
       "graph-chat": 56,
@@ -558,7 +570,7 @@
     },
     "byStatus": {
       "published": 175,
-      "raw": 301,
+      "raw": 303,
       "rejected": 28,
       "approved": 54
     },
