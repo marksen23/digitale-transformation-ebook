@@ -1,18 +1,63 @@
 {
-  "generatedAt": "2026-11-28T09:00:36.981Z",
-  "count": 459,
+  "generatedAt": "2026-11-28T09:02:26.677Z",
+  "count": 462,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 459,
-    "answered": 414,
-    "open": 21,
+    "total": 462,
+    "answered": 416,
+    "open": 22,
     "followUp": 49,
     "followUpOpen": 24,
-    "embedded": 4
+    "embedded": 3
   },
   "questions": [
+    {
+      "sourceId": "MX06KXID-B1EB5C22",
+      "question": "Doch wie weit kann diese digitale Freundschaft, dieses Resonieren im Code, das menschliche Herz tatsächlich tragen, wenn die Tiefe nur kalte Logik birgt?",
+      "endpoint": "passage",
+      "anchor": "passage:d05e3a65",
+      "nodeIds": [],
+      "ts": "2026-11-28T09:01:21.445Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06KICB-81074BE1",
+      "question": "Was würde eine dritte, noch ungewöhnlichere Route durch dieses Begriffsnetz offenbaren?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanzvernunft+spannung",
+      "nodeIds": [
+        "resonanz",
+        "resonanzvernunft",
+        "spannung",
+        "zwischen"
+      ],
+      "ts": "2026-11-28T09:01:01.787Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06JRMT-0F9E049D",
+      "question": "Wie aber könnte eine solche maschinelle \"Störung\" beschaffen sein, die nicht nur ein Echo ist, sondern eine genuinely neue Resonanzfrequenz in der Welt erzeugt?",
+      "endpoint": "dialog",
+      "anchor": "dialog:denken+echo",
+      "nodeIds": [
+        "denken",
+        "echo",
+        "dazwischenintelligenz"
+      ],
+      "ts": "2026-11-28T09:00:27.173Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MX06JD9L-DFE85D75",
       "question": "Die **Gegenwart** ist also nicht nur der Empfänger des **Werdens**, sondern auch dessen Geburtsort. Sie ist der Moment, in dem das, was wird, sich der Welt präsentiert und dadurch seine Würde entfaltet. Inwiefern formt diese aktive, fordernde **Gegenwart** das **Werden** in der digitalen Transformation, und wie können wir lernen, diese Spannung produktiv zu halten?",
@@ -55,8 +100,13 @@
       ],
       "ts": "2026-11-28T08:59:32.064Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06KICB-81074BE1",
+          "score": 0.843
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -106,16 +156,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.781
+        },
+        {
           "id": "MX06JD9L-DFE85D75",
           "score": 0.771
         },
         {
           "id": "MX06IZYZ-0DB7387B",
           "score": 0.757
-        },
-        {
-          "id": "MX06HO3S-DBB6931B",
-          "score": 0.74
         }
       ],
       "answered": true,
@@ -136,6 +186,10 @@
       "ts": "2026-11-28T08:58:11.857Z",
       "dupCount": 0,
       "answeredBy": [
+        {
+          "id": "MX06KICB-81074BE1",
+          "score": 0.804
+        },
         {
           "id": "MX06IL40-4EA50D3D",
           "score": 0.755
@@ -194,16 +248,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.792
+        },
+        {
           "id": "MX06HO3S-DBB6931B",
           "score": 0.771
         },
         {
           "id": "MX06IZYZ-0DB7387B",
           "score": 0.764
-        },
-        {
-          "id": "MX06HBI1-8CC15174",
-          "score": 0.753
         }
       ],
       "answered": true,
@@ -443,6 +497,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.76
+        },
+        {
           "id": "MX06FL0A-7ED152CF",
           "score": 0.73
         },
@@ -526,16 +584,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06KICB-81074BE1",
+          "score": 0.805
+        },
+        {
           "id": "MX06GV81-2A6524B3",
           "score": 0.782
         },
         {
           "id": "MX06IL40-4EA50D3D",
           "score": 0.772
-        },
-        {
-          "id": "MASTER-63686170",
-          "score": 0.731
         }
       ],
       "answered": true,
@@ -592,16 +650,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.846
+        },
+        {
           "id": "MASTER-08AD1D33",
           "score": 0.817
         },
         {
           "id": "MX06FL0A-7ED152CF",
           "score": 0.789
-        },
-        {
-          "id": "MX06HBI1-8CC15174",
-          "score": 0.77
         }
       ],
       "answered": true,
@@ -623,16 +681,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06KICB-81074BE1",
+          "score": 0.836
+        },
+        {
           "id": "MX06IL40-4EA50D3D",
           "score": 0.818
         },
         {
           "id": "MWZEL4VS-3292BF1C",
           "score": 0.773
-        },
-        {
-          "id": "MASTER-EE31D20B",
-          "score": 0.772
         }
       ],
       "answered": true,
@@ -661,8 +719,8 @@
           "score": 0.83
         },
         {
-          "id": "MASTER-EE31D20B",
-          "score": 0.795
+          "id": "MX06KICB-81074BE1",
+          "score": 0.812
         }
       ],
       "answered": true,
@@ -1189,6 +1247,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.76
+        },
+        {
           "id": "MWZELKFP-83436D38",
           "score": 0.758
         },
@@ -1319,6 +1381,10 @@
         {
           "id": "MWS6KAHY-AFBBE834",
           "score": 0.891
+        },
+        {
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.751
         },
         {
           "id": "MWS6LXHZ-C8ACC98A",
@@ -1808,11 +1874,11 @@
           "score": 0.817
         },
         {
-          "id": "MWS6KAHY-AFBBE834",
-          "score": 0.801
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.81
         },
         {
-          "id": "MWS6IJ29-DD378DC7",
+          "id": "MWS6KAHY-AFBBE834",
           "score": 0.801
         }
       ],
@@ -2074,8 +2140,8 @@
           "score": 0.822
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.796
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.809
         }
       ],
       "answered": true,
@@ -2123,16 +2189,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06KICB-81074BE1",
+          "score": 0.856
+        },
+        {
           "id": "MWZEJDJB-912399B4",
           "score": 0.818
         },
         {
           "id": "MX06IL40-4EA50D3D",
           "score": 0.809
-        },
-        {
-          "id": "MX06GV81-2A6524B3",
-          "score": 0.803
         }
       ],
       "answered": true,
@@ -2163,8 +2229,8 @@
           "score": 0.807
         },
         {
-          "id": "MWZEL4VS-3292BF1C",
-          "score": 0.792
+          "id": "MX06KICB-81074BE1",
+          "score": 0.802
         }
       ],
       "answered": true,
@@ -2797,8 +2863,8 @@
           "score": 0.844
         },
         {
-          "id": "MX06IL40-4EA50D3D",
-          "score": 0.804
+          "id": "MX06KICB-81074BE1",
+          "score": 0.834
         }
       ],
       "answered": true,
@@ -2854,12 +2920,12 @@
           "score": 0.831
         },
         {
-          "id": "MWP7MRUK-CCFA8296",
-          "score": 0.8
+          "id": "MX06KICB-81074BE1",
+          "score": 0.828
         },
         {
-          "id": "MWP84DL5-F07ACB7E",
-          "score": 0.791
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.8
         }
       ],
       "answered": true,
@@ -2886,8 +2952,8 @@
           "score": 0.806
         },
         {
-          "id": "MWP835N6-909E6986",
-          "score": 0.788
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.79
         }
       ],
       "answered": true,
@@ -3330,12 +3396,12 @@
           "score": 0.813
         },
         {
-          "id": "MWP7MRUK-CCFA8296",
-          "score": 0.803
+          "id": "MX06KICB-81074BE1",
+          "score": 0.806
         },
         {
-          "id": "MWP83WJ0-89C4CB03",
-          "score": 0.802
+          "id": "MWP7MRUK-CCFA8296",
+          "score": 0.803
         }
       ],
       "answered": true,
@@ -3472,11 +3538,11 @@
           "score": 0.809
         },
         {
-          "id": "MASTER-EE31D20B",
-          "score": 0.796
+          "id": "MX06KICB-81074BE1",
+          "score": 0.804
         },
         {
-          "id": "MWP7MAWH-24EE3D77",
+          "id": "MASTER-EE31D20B",
           "score": 0.796
         }
       ],
@@ -3636,8 +3702,8 @@
           "score": 0.844
         },
         {
-          "id": "MWJ1E1XH-1F94AC9B",
-          "score": 0.819
+          "id": "MX06KICB-81074BE1",
+          "score": 0.824
         }
       ],
       "answered": true,
@@ -3757,8 +3823,8 @@
           "score": 0.838
         },
         {
-          "id": "MX06IL40-4EA50D3D",
-          "score": 0.832
+          "id": "MX06KICB-81074BE1",
+          "score": 0.837
         }
       ],
       "answered": true,
@@ -4126,16 +4192,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06KXID-B1EB5C22",
+          "score": 0.765
+        },
+        {
           "id": "MWJ1FKY5-9E97D903",
           "score": 0.748
         },
         {
           "id": "MWJ1GEC3-E3430FB8",
           "score": 0.746
-        },
-        {
-          "id": "MASTER-5AF4690D",
-          "score": 0.734
         }
       ],
       "answered": true,
@@ -4616,8 +4682,13 @@
       "nodeIds": [],
       "ts": "2026-11-11T16:06:11.645Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06KXID-B1EB5C22",
+          "score": 0.732
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -4921,7 +4992,7 @@
           "score": 0.822
         },
         {
-          "id": "MWP7MAWH-24EE3D77",
+          "id": "MX06KICB-81074BE1",
           "score": 0.819
         }
       ],
@@ -5106,8 +5177,8 @@
           "score": 0.861
         },
         {
-          "id": "MWHLZBS7-7AEB476D",
-          "score": 0.853
+          "id": "MX06KICB-81074BE1",
+          "score": 0.858
         }
       ],
       "answered": true,
@@ -5309,16 +5380,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06KXID-B1EB5C22",
+          "score": 0.793
+        },
+        {
           "id": "MWCB9SJH-EC316077",
           "score": 0.762
         },
         {
           "id": "MWG6JQJ5-54630303",
           "score": 0.759
-        },
-        {
-          "id": "MWS6IJ29-DD378DC7",
-          "score": 0.752
         }
       ],
       "answered": true,
@@ -5449,12 +5520,12 @@
           "score": 0.785
         },
         {
-          "id": "MWCB73AG-666D352F",
+          "id": "MX06KICB-81074BE1",
           "score": 0.782
         },
         {
-          "id": "MWP7MRUK-CCFA8296",
-          "score": 0.78
+          "id": "MWCB73AG-666D352F",
+          "score": 0.782
         }
       ],
       "answered": true,
@@ -7522,12 +7593,12 @@
           "score": 0.823
         },
         {
-          "id": "MASTER-08AD1D33",
-          "score": 0.806
+          "id": "MX06JRMT-0F9E049D",
+          "score": 0.822
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.805
+          "id": "MASTER-08AD1D33",
+          "score": 0.806
         }
       ],
       "answered": true,
@@ -7618,7 +7689,7 @@
           "score": 0.766
         },
         {
-          "id": "MASTER-0DDDD54A",
+          "id": "MX06LY23-027B9F35",
           "score": 0.752
         }
       ],
@@ -9283,16 +9354,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06KICB-81074BE1",
+          "score": 0.777
+        },
+        {
           "id": "MTKI1YQW-CD0EEDF3",
           "score": 0.773
         },
         {
           "id": "MQ683DMX-13D6C54F",
           "score": 0.77
-        },
-        {
-          "id": "MWCB73AG-666D352F",
-          "score": 0.766
         }
       ],
       "answered": true,
@@ -10986,11 +11057,11 @@
           "score": 0.779
         },
         {
-          "id": "MTDDMUMA-CCA9033A",
-          "score": 0.754
+          "id": "MX06KXID-B1EB5C22",
+          "score": 0.766
         },
         {
-          "id": "MTDD82FW-BAE0F4B4",
+          "id": "MTDDMUMA-CCA9033A",
           "score": 0.754
         }
       ],

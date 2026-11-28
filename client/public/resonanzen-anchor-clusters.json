@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:00:37.161Z",
+  "generatedAt": "2026-11-28T09:02:26.822Z",
   "clusters": [
     {
       "anchor": "chapter:band3-kap4",
@@ -227,6 +227,30 @@
       "lastVariantTs": "2026-04-27T15:14:21.282Z",
       "masterId": "MASTER-556F1581",
       "masterTs": "2026-11-11T16:41:48.453Z",
+      "masterStale": false
+    },
+    {
+      "anchor": "chapter:band2-kap2",
+      "endpoint": "chapter",
+      "variantIds": [
+        "MX06LY23-027B9F35",
+        "MWCAPP8K-8C6D82CA"
+      ],
+      "lastVariantTs": "2026-11-28T09:02:08.811Z",
+      "masterId": null,
+      "masterTs": null,
+      "masterStale": false
+    },
+    {
+      "anchor": "path-analyse:resonanzvernunft+spannung",
+      "endpoint": "path-analyse",
+      "variantIds": [
+        "MX06KICB-81074BE1",
+        "MOPFJTND-AAE76B2B"
+      ],
+      "lastVariantTs": "2026-11-28T09:01:01.787Z",
+      "masterId": null,
+      "masterTs": null,
       "masterStale": false
     },
     {
@@ -531,8 +555,8 @@
     }
   ],
   "stats": {
-    "totalAnchors": 289,
-    "withMultipleVariants": 39,
+    "totalAnchors": 291,
+    "withMultipleVariants": 41,
     "withMaster": 31,
     "staleMasters": 2
   }

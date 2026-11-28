@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:00:35.115Z",
+  "generatedAt": "2026-11-28T09:02:25.354Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -168,6 +168,22 @@
     },
     {
       "source": "denken",
+      "target": "echo",
+      "cooccurrence": 4,
+      "endpoints": {
+        "dialog": 1,
+        "path-analyse": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MX06JRMT-0F9E049D",
+        "MX06IL40-4EA50D3D",
+        "MPF4WM18-FF4843F1",
+        "MP497SNT-5E1D2074"
+      ]
+    },
+    {
+      "source": "denken",
       "target": "resonanzvernunft",
       "cooccurrence": 4,
       "endpoints": {
@@ -299,17 +315,16 @@
       ]
     },
     {
-      "source": "denken",
-      "target": "echo",
+      "source": "resonanzvernunft",
+      "target": "spannung",
       "cooccurrence": 3,
       "endpoints": {
-        "path-analyse": 2,
-        "analyse": 1
+        "path-analyse": 3
       },
       "sampleEntryIds": [
-        "MX06IL40-4EA50D3D",
-        "MPF4WM18-FF4843F1",
-        "MP497SNT-5E1D2074"
+        "MX06KICB-81074BE1",
+        "MP8UIMZW-BADE77E5",
+        "MOPFJTND-AAE76B2B"
       ]
     },
     {
@@ -1377,18 +1392,6 @@
     },
     {
       "source": "resonanzvernunft",
-      "target": "spannung",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MP8UIMZW-BADE77E5",
-        "MOPFJTND-AAE76B2B"
-      ]
-    },
-    {
-      "source": "resonanzvernunft",
       "target": "welt",
       "cooccurrence": 2,
       "endpoints": {
@@ -1450,7 +1453,7 @@
     }
   ],
   "stats": {
-    "totalPairs": 466,
+    "totalPairs": 468,
     "candidatesCount": 110,
     "existingEdges": 134,
     "maxCooccurrence": 26

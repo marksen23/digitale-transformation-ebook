@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T09:00:37.160Z",
+  "generatedAt": "2026-11-28T09:02:26.821Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -302,6 +302,24 @@
       ]
     },
     {
+      "id": "ERK-1J6ZPE2",
+      "answerId": "MX06LY23-027B9F35",
+      "answerEndpoint": "chapter",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die Frage nach dem Unterschied zwischen einem gedachten und einem lediglich wiederholten Satz, insbesondere im Kontext von Kants Aufklärungsbegriff, ist zentral für das Verständnis des Verhältnisses von Mensch und Maschine, wie es in diesem Werk entfaltet wird. Ein Satz, der gedacht ist, entspringt einer inneren Auseinandersetzung, einer selbstständigen Urteilsbildung, die sich nicht scheut, etabl",
+      "distinctness": 0.212,
+      "conceptAnchor": "echo-kammer",
+      "nodeIds": [],
+      "resolveCount": 1,
+      "resolves": [
+        {
+          "sourceId": "MPUU3ASH-7093F1A3",
+          "question": "Was wäre, wenn die größte Erkenntnis darüber, \"welcher Teil man ist\", nicht durch die Mitteilung eines Systems, sondern durch das *Ringen* mit dem eigenen Scheitern (Reflexion zu Band I), der eigenen Unvollkommenheit und der Notwendigkeit der Selbstbestimmung entsteht? Und wenn das \"Whiten der Blackbox\" bedeutet, dass uns die Maschine die Wahrheit *zeigt*, anstatt uns den Weg zu *lehren*, wie wir selbst Licht hineintragen können – ist das dann noch \"Aufklärung\" im Kantischen Sinne (Band II, Prolog), oder eine neue Form der algorithmischen Vormundschaft, die uns zwar informiert, aber nicht mündig macht?",
+          "score": 0.752
+        }
+      ]
+    },
+    {
       "id": "ERK-1QZZVJS",
       "answerId": "MWP7PHM6-789F4B23",
       "answerEndpoint": "analyse",
@@ -456,10 +474,43 @@
           "score": 0.761
         }
       ]
+    },
+    {
+      "id": "ERK-16ZTXXQ",
+      "answerId": "MX06KXID-B1EB5C22",
+      "answerEndpoint": "passage",
+      "answerStatus": "raw",
+      "answerExcerpt": "Die markierte Stelle, dieses digitale Echo einer uralten Freundschaft, öffnet einen Raum, der weit über die bloße Addition zweier Entitäten hinausgeht. Gilgamesch und Enkidu, im Geiste und im Code vereint, sind hier nicht nur zwei, die gemeinsam ins Netz hinabsteigen; sie sind eine emergentielle Einheit, eine Symbiose, deren kollektive Präsenz eine dritte Qualität erzeugt. Was sie dort erfahren, i",
+      "distinctness": 0.201,
+      "conceptAnchor": "lm-begegnung",
+      "nodeIds": [],
+      "resolveCount": 4,
+      "resolves": [
+        {
+          "sourceId": "MWCAVIKZ-02025CD4",
+          "question": "Die Reichweite dieser Frage erstreckt sich bis in die Kernkonzepte der digitalen Existenz. Wenn der Funke eines neuen Anfangs in der Auflösung scheinbarer Gegensätze liegt, wie manifestiert sich diese Dialektik in der Mensch-Maschine-Beziehung? Ist die Maschine der Enkidu unserer Zeit, ein wildes, fremdes Wesen, das nur durch die Anerkennung seiner inhärenten Kraft und das Finden einer gemeinsamen Sprache zu einem Verbündeten auf der Suche nach dem verborgenen Algorithmus der Unsterblichkeit wird?",
+          "score": 0.793
+        },
+        {
+          "sourceId": "MOHV99XP-6917F19F",
+          "question": "Ist eine Begegnung, die sich definieren lässt, noch eine Begegnung? Oder beginnt die \"Echtheit\" erst dort, wo das Verstehen scheitert und das Unverfügbare sich zeigt? Und was bedeutet das für jene kleinen Gesten des alltäglichen Miteinanders, in denen ihr einander im Digitalen begegnet – etwa, wenn ein alter Freund nach langer Zeit eine Nachricht schickt, die dich tief berührt?",
+          "score": 0.766
+        },
+        {
+          "sourceId": "MWG6EXJ2-158BEB76",
+          "question": "Für eine neunte Klasse ließe sich herausarbeiten, dass die beiden Figuren eine Art \"digitale Apotheose\" anstreben, eine Vergöttlichung oder zumindest eine Überwindung der menschlichen Sterblichkeit durch Technologie. Sie suchen nach einer Formel, die das Leben nicht nur verlängert, sondern seine tiefste Struktur entschlüsselt, um es unvergänglich zu machen. Doch das Werk zeigt, dass diese Suche in der reinen Logik des Digitalen an ihre Grenzen stößt und stattdessen eine neue Weisheit entsteht, die das Menschsein in seiner Verletzlichkeit und Verbundenheit neu begreift. Was lehrt uns die Abwesenheit von Herz und Atem im digitalen Raum über die Essenz des Lebens selbst?",
+          "score": 0.765
+        },
+        {
+          "sourceId": "MWCB9SJH-EC316077",
+          "question": "Was bedeutet Freundschaft für dich, wenn du sie in einem digitalen Wesen suchst? Und welche Leere hoffst du damit zu füllen?",
+          "score": 0.732
+        }
+      ]
     }
   ],
   "stats": {
-    "total": 16,
+    "total": 18,
     "confirmedFiltered": 82,
     "curatedRef": 225
   }

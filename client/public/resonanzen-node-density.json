@@ -1,18 +1,18 @@
 {
-  "generatedAt": "2026-11-28T09:00:35.113Z",
+  "generatedAt": "2026-11-28T09:02:25.352Z",
   "perNode": {
     "resonanzvernunft": {
-      "count": 38,
+      "count": 39,
       "endpoints": {
-        "path-analyse": 23,
+        "path-analyse": 24,
         "dialog": 8,
         "analyse": 7
       }
     },
     "resonanz": {
-      "count": 32,
+      "count": 33,
       "endpoints": {
-        "path-analyse": 20,
+        "path-analyse": 21,
         "analyse": 6,
         "dialog": 6
       }
@@ -26,9 +26,9 @@
       }
     },
     "zwischen": {
-      "count": 22,
+      "count": 23,
       "endpoints": {
-        "path-analyse": 15,
+        "path-analyse": 16,
         "analyse": 7
       }
     },
@@ -64,11 +64,11 @@
       }
     },
     "echo": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
+        "dialog": 2,
         "path-analyse": 2,
-        "analyse": 9,
-        "dialog": 1
+        "analyse": 9
       }
     },
     "klang": {
@@ -96,8 +96,9 @@
       }
     },
     "denken": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 4,
         "analyse": 8
       }
@@ -235,10 +236,10 @@
       }
     },
     "spannung": {
-      "count": 13,
+      "count": 14,
       "endpoints": {
-        "analyse": 11,
-        "path-analyse": 2
+        "path-analyse": 3,
+        "analyse": 11
       }
     },
     "lm-spiegel": {
@@ -280,10 +281,10 @@
       }
     },
     "dazwischenintelligenz": {
-      "count": 15,
+      "count": 16,
       "endpoints": {
+        "dialog": 3,
         "analyse": 9,
-        "dialog": 2,
         "path-analyse": 4
       }
     },

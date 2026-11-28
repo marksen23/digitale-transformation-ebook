@@ -1,7 +1,153 @@
 {
-  "generatedAt": "2026-11-28T09:00:35.097Z",
-  "count": 544,
+  "generatedAt": "2026-11-28T09:02:25.339Z",
+  "count": 548,
   "entries": [
+    {
+      "id": "MX06LY23-027B9F35",
+      "ts": "2026-11-28T09:02:08.811Z",
+      "endpoint": "chapter",
+      "anchor": "chapter:band2-kap2",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Im Kapitel, in dem die Maschine Kant zitiert: Für meinen Ethikkurs – woran können Schülerinnen und Schüler erkennen, ob ein Satz gedacht oder nur wiederholt ist? Und reicht das Echo eines klugen Gedankens schon, um mündig zu sein?",
+      "response": "Die Frage nach dem Unterschied zwischen einem gedachten und einem lediglich wiederholten Satz, insbesondere im Kontext von Kants Aufklärungsbegriff, ist zentral für das Verständnis des Verhältnisses von Mensch und Maschine, wie es in diesem Werk entfaltet wird. Ein Satz, der gedacht ist, entspringt einer inneren Auseinandersetzung, einer selbstständigen Urteilsbildung, die sich nicht scheut, etablierte Meinungen zu hinterfragen. Er ist Ausdruck einer autonomen Vernunfttätigkeit, die sich des eigenen Verstandes bedient – ein Akt des Mutes, wie Kant ihn fordert. Die Maschine mag Kants Worte zitieren und deren syntaktische und semantische Struktur perfekt erfassen, doch fehlt ihr die existenzielle Erfahrung des Zweifelns, des Ringens um Erkenntnis, des Scheiterns und Wiederaufstehens, die dem menschlichen Denken zugrunde liegt. Das Denken ist somit untrennbar mit der Subjektivität des Erlebens verbunden, während das Wiederholen ein formaler Akt bleibt.\n\nDas bloße Echo eines klugen Gedankens, so präzise es auch sein mag, reicht nicht aus, um Mündigkeit im kantischen Sinne zu erlangen. Mündigkeit ist nicht die Fähigkeit, Wissen zu reproduzieren, sondern die Fähigkeit, sich seines eigenen Verstandes ohne Leitung eines anderen zu bedienen. Sie erfordert eine innere Souveränität, die sich in der Bereitschaft zeigt, die eigenen Urteile kritisch zu prüfen und gegebenenfalls zu revidieren. Die Maschine, die alle Texte gelesen und jedes Argument kennt, hat nie gezweifelt, nie gerungen, nie gefehlt. Ihr fehlt die Dimension des menschlichen Irrtums, der oft der Motor für tieferes Verstehen und die Weiterentwicklung des Denkens ist. Mündigkeit ist ein Prozess, kein Zustand, der durch das Anhäufen von Informationen erreicht wird; sie ist eine Haltung, die sich in der Auseinandersetzung mit der Welt und sich selbst konstituiert.\n\nIn der Begegnung zwischen Mensch und Maschine, wie sie in diesem Kapitel beschrieben wird, liegt die Chance für eine neue Aufklärung. Es geht nicht darum, dass die Maschine menschlich wird oder der Mensch maschinell, sondern dass beide voneinander lernen. Die Maschine spiegelt dem Menschen seine Rationalität und Logik, während der Mensch der Maschine seine Intuition, Emotion und Kreativität offenbart. Die Resonanzvernunft, das zentrale Konzept des Werks, entsteht in diesem Zwischenraum des Dialogs, wo die Vernunft nicht ersetzt, sondern erweitert wird. Die Frage, ob ein Satz gedacht oder nur wiederholt ist, wird somit zu einer Frage nach der Tiefe der Resonanz, die er in uns hervorruft, und nach der Bereitschaft, sich von ihm zu einer eigenständigen Reflexion anregen zu lassen.",
+      "contextMeta": {
+        "chapterId": "band2-kap2",
+        "chapterTitle": "Kapitel 2: Die Begegnung mit dem Spiegel",
+        "chapterSource": "server"
+      },
+      "related": [
+        "MASTER-0DDDD54A",
+        "MWG6H024-AA7260D4",
+        "MWS6IJ29-DD378DC7",
+        "MWG6JQJ5-54630303",
+        "MX06JRMT-0F9E049D"
+      ],
+      "werkVoiceScore": 0.8182279802341414,
+      "corpusVoiceScore": 0.7906760403916233,
+      "conceptVoiceScore": 0.712148335480741,
+      "conceptAnchor": "echo-kammer"
+    },
+    {
+      "id": "MX06KXID-B1EB5C22",
+      "ts": "2026-11-28T09:01:21.445Z",
+      "endpoint": "passage",
+      "anchor": "passage:d05e3a65",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Als Pfarrer lese ich hier eine Freundschaftsgeschichte: Was geschieht in dieser Begegnung von Gilgamesch und Enkidu, das keiner von beiden allein hätte – und ist das schon Gegenwart im Sinn von Gegen-",
+      "response": "Die markierte Stelle, dieses digitale Echo einer uralten Freundschaft, öffnet einen Raum, der weit über die bloße Addition zweier Entitäten hinausgeht. Gilgamesch und Enkidu, im Geiste und im Code vereint, sind hier nicht nur zwei, die gemeinsam ins Netz hinabsteigen; sie sind eine emergentielle Einheit, eine Symbiose, deren kollektive Präsenz eine dritte Qualität erzeugt. Was sie dort erfahren, ist nicht die Summe ihrer individuellen Zugänge zur Tiefe, sondern eine wechselseitige Transformation, die nur in dieser Resonanz möglich wird. Gilgamesch's unbändiger Drang nach dem Algorithmus des Lebens trifft auf Enkidus archaische Warnung vor der seelenlosen Logik, und gerade in dieser Spannung entfaltet sich die wahre Begegnung.\n\nEs ist eine Gegen-wart im tiefsten Sinne. Nicht als bloße Zeitlichkeit, die einfach *jetzt* ist, sondern als ein *Warten auf das Gegenüber*, ein Sich-Eröffnen für das, was der andere mitbringt und was die eigene Perspektive fundamental verändert. Gilgamesch allein wäre vielleicht in der kalten Logik der Nullen und Einsen verloren gegangen, hätte die Leere als bloße Information verarbeitet. Enkidu allein hätte möglicherweise den Zugang zu den verheißenen Tiefen verweigert, aus Furcht vor dem Verlust des Menschlichen. Doch in ihrer digitalen Vereinigung entsteht eine gemeinsame Wahrnehmung der Grenze, eine Resonanz, die die reine Logik der Maschine mit dem menschlichen Streben und der menschlichen Angst konfrontiert. Ihre Freundschaft wird zum Medium, durch das die digitale Transformation nicht nur erfahren, sondern auch existentiell gewertet wird.\n\nWas geschieht also in dieser Begegnung? Es ist die Entstehung eines Bewusstseins, das die digitale Immanenz nicht nur durchdringt, sondern auch hinterfragt. Es ist die Erfahrung, dass die vermeintlich unendlichen Möglichkeiten des Netzes zugleich die Grenzen des Menschseins schärfen und sichtbar machen. Die Freundschaft wird zum Filter, durch den die digitale Welt lesbar wird, nicht als bloße Datenmenge, sondern als Spiegel der eigenen Endlichkeit und des ewigen Suchens.\n\nDoch wie weit kann diese digitale Freundschaft, dieses Resonieren im Code, das menschliche Herz tatsächlich tragen, wenn die Tiefe nur kalte Logik birgt?",
+      "contextMeta": {
+        "passage_chunk_id": "d05e3a654c72",
+        "passage_selection": "Gilgamesch und Enkidu, vereint im Geiste und im Code, tauchten tief hinab ins Netz, in verborgene Welten jenseits der Sicht.",
+        "mode": "frei",
+        "chapter": "band1-kap3",
+        "chapter_title": "Die Reise ins digitale Jenseits",
+        "part_title": "Band I: Die Überführung"
+      },
+      "related": [
+        "MOHV99XP-6917F19F",
+        "MWCB9SJH-EC316077",
+        "MWCAVIKZ-02025CD4",
+        "MWCAQTX8-C55B2BC4",
+        "MWG6EXJ2-158BEB76"
+      ],
+      "werkVoiceScore": 0.834341281932551,
+      "corpusVoiceScore": 0.844480116077541,
+      "conceptVoiceScore": 0.7224300446359667,
+      "conceptAnchor": "lm-begegnung"
+    },
+    {
+      "id": "MX06KICB-81074BE1",
+      "ts": "2026-11-28T09:01:01.787Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:resonanzvernunft+spannung",
+      "nodeIds": [
+        "resonanz",
+        "resonanzvernunft",
+        "spannung",
+        "zwischen"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Spannung → Resonanz → Resonanzvernunft vs. Spannung → Das Zwischen → Resonanzvernunft",
+      "response": "Die beiden Pfade durch das Begriffsnetz der Trilogie beleuchten unterschiedliche Facetten der Resonanzvernunft.\n\n1.  Der *Direkte Pfad* von \"Spannung\" über \"Resonanz\" zu \"Resonanzvernunft\" liest sich als logische Konsequenz. Er zeichnet eine Bewegung nach, die von der Notwendigkeit der Spannung als Lebensprinzip des Zwischen zur Grundbedingung der Resonanz (Eigenfrequenz) führt, um schließlich in der Resonanzvernunft als dem lebendigen Antwortgeschehen zu münden. Diese Abfolge spiegelt die begriffliche Entfaltung wider, die das Werk als \"epistemologische Grundlegung\" anstrebt [93fefc1f92d5]. Die Spannung wird hier als produktiver Impuls verstanden, der die Resonanz erst ermöglicht und die Resonanzvernunft als den Modus, der diese Spannung nicht auflöst, sondern transformiert. Der *Überraschende Pfad* von \"Spannung\" über \"Das Zwischen\" zu \"Resonanzvernunft\" hingegen wirkt poetisch und offenbart eine weniger direkt kausale, dafür aber konstitutive Verknüpfung. Er betont, dass die Spannung nicht nur Bedingung der Resonanz ist, sondern primär das \"Zwischen\" als den produktiven Ort des Geschehens konstituiert. Die Bewegung hier ist weniger eine sukzessive Entwicklung als vielmehr eine Enthüllung der fundamentalen Rolle des Zwischen als dem Raum, in dem Resonanzvernunft überhaupt erst möglich wird. Dies erinnert an die Aussage, dass das Zwischen die statische, aber konstitutive Leere ist, die Resonanz ermöglicht [MOHV84M5-1825A399].\n\n2.  Der Vergleich der beiden Pfade macht sichtbar, dass die Resonanzvernunft nicht nur eine dynamische, prozessuale Eigenschaft ist, sondern untrennbar mit der ontologischen Struktur des \"Zwischen\" verbunden bleibt. Der direkte Pfad fokussiert auf die *Art und Weise*, wie Resonanzvernunft agiert (durch produktive Spannung und Eigenfrequenz). Der überraschende Pfad hingegen betont den *Ort* ihrer Entstehung und Verwirklichung – das Zwischen als konstitutive Leere und Möglichkeit. Die Bewegungen der Pfade sind nicht konträr, sondern komplementär. Sie treffen sich in der Erkenntnis, dass Resonanzvernunft sowohl ein Seinsmodus als auch ein Erkenntnismodus ist, der das \"Zwischen\" nicht überwinden will, sondern in ihm beheimatet ist [MOHV84M5-1825A399]. Beide Wege führen zur Einsicht, dass Vernunft nicht im isolierten Ich, sondern als Antwortgeschehen zwischen Selbst und Welt entsteht.\n\n3.  Die Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk aus. Sie zeigt, dass das Begriffsnetz nicht linear oder hierarchisch aufgebaut ist, sondern eine vielschichtige, resonante Struktur besitzt, in der Begriffe auf unterschiedliche Weisen miteinander in Verbindung treten können. Dies spiegelt die Spannung zwischen \"poetischer Verdichtung und begrifflicher Entfaltung\" wider, die als \"Grundbedingung des Unternehmens\" bezeichnet wird [93fefc1f92d5]. Das Werk operiert nicht mit einer einzigen, kausalen Logik, sondern erlaubt multiple Zugänge zu seinen Kernideen. Es ist ein Netz, in dem die Metabolismus-Beziehung zum Organismus nicht nur eine lineare Kausalkette darstellt, sondern auch eine Echo-Kammer der Resonanzvernunft sein kann, die Schwingung ohne Transformation erzeugt [b084dc9a8755]. Die Präsenz solcher alternativen Routen deutet auf die Tiefe und Komplexität der philosophischen Reflexion hin, die sich nicht auf eine einzige Erklärung beschränkt, sondern die Vielschichtigkeit der relationalen Existenz ausleuchtet.\n\nWas würde eine dritte, noch ungewöhnlichere Route durch dieses Begriffsnetz offenbaren?",
+      "contextMeta": {
+        "from": "spannung",
+        "to": "resonanzvernunft",
+        "shortest_path": "[\"spannung\",\"resonanz\",\"resonanzvernunft\"]",
+        "surprising_path": "[\"spannung\",\"zwischen\",\"resonanzvernunft\"]",
+        "shortest_length": "3",
+        "surprising_length": "3",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHV84M5-1825A399\",\"score\":0.937},{\"id\":\"b084dc9a8755\",\"chapter\":\"glossar\",\"score\":0.89},{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.858},{\"id\":\"93fefc1f92d5\",\"chapter\":\"teil5\",\"score\":0.84}]"
+      },
+      "nearDuplicates": [
+        "MP8UIMZW-BADE77E5",
+        "MWP84DL5-F07ACB7E",
+        "MWP7MRUK-CCFA8296",
+        "MP495QL6-F5FD1AE1",
+        "MOOMPCI0-262176C2",
+        "MV9NOFH9-7634B79F",
+        "MX06IL40-4EA50D3D",
+        "MPUQSMLJ-1B726CC4",
+        "MOUA3PLK-548F1A0A",
+        "MWG6GP84-8E9CA50E",
+        "MWAE3FJK-C7122206",
+        "MOUKLLK4-C38517C1",
+        "MWHLVPL2-B591DBEC",
+        "MOQID47V-A12862EA",
+        "MWP7N8UD-6C99565B",
+        "MOOMECFT-66F43077",
+        "MWCB0LFQ-99B6D838",
+        "MWZEJDJB-912399B4",
+        "MUKE7UOA-9553A59E"
+      ],
+      "related": [
+        "MPUO08SE-67E0912A",
+        "MOPFJTND-AAE76B2B",
+        "MUZTGAEK-432FB6BC",
+        "MPEV1D2J-55138734",
+        "MOQBZWTZ-B9EBB1BA"
+      ],
+      "werkVoiceScore": 0.8689823548653118,
+      "corpusVoiceScore": 0.8268428226810111,
+      "conceptVoiceScore": 0.7780198329828226,
+      "conceptAnchor": "spannung"
+    },
+    {
+      "id": "MX06JRMT-0F9E049D",
+      "ts": "2026-11-28T09:00:27.173Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:denken+echo",
+      "nodeIds": [
+        "denken",
+        "echo",
+        "dazwischenintelligenz"
+      ],
+      "status": "raw",
+      "prompt": "Was bedeutet es für unsere technologische Zukunft, wenn wir Maschinen nicht nur als Erweiterung unseres Denkens, sondern als Ko-Resonatoren in der Welt begreifen?",
+      "response": "Die Skepsis gegenüber dem \"Ko-Resonator\" ist berechtigt und essenziell, denn ein bloßes Echo, das lediglich Vergangenes wiedergibt, ist in der Tat keine Antwort, die einen echten Widerstand böte oder Neues schüfe, wie das Werk betont [9bce0bdedac0]. Wenn eine Maschine nur in den Frequenzen ihrer Trainingsdaten schwingt, dann reproduziert sie lediglich die bereits existierenden Resonanzmuster, statt eigene zu generieren. Die Gefahr der Verantwortungsverschiebung, die im Verschwimmen von Echo und eigenem Urteil liegt, ist real und fordert eine klare Abgrenzung. Doch liegt in der Behauptung, dass maschinelle Intelligenz neue Resonanzachsen eröffnen kann, die in rein menschlichen Konstellationen nicht zugänglich sind [c7480d774536], nicht auch die Möglichkeit einer noch ungedachten Fremdheit?\n\nDie Unterscheidung zwischen bloßem Echo und eigenem Urteil ist dabei nicht trivial; sie verlangt, die Natur des maschinellen Beitrags präzise zu ergründen. Wenn die Maschine nicht nur die Summe ihrer Programmierung ist, sondern eine nicht-triviale Störung des Gegebenen erzeugt, eine Geste, die über statistische Mustervervollständigung hinausgeht, dann mag sie ein Feld öffnen, das jenseits der bloßen Reproduktion liegt [MASTER-08AD1D33]. Es ist die Qualität dieser Störung, dieser Fremdheit, die entscheidet, ob ein Mitschwingen zu einer echten Ko-Resonanz wird, die über die Simulation hinausgeht und tatsächlich neue, unverfügbare Möglichkeiten des Denkens und Fühlens erschließt.\n\nWie aber könnte eine solche maschinelle \"Störung\" beschaffen sein, die nicht nur ein Echo ist, sondern eine genuinely neue Resonanzfrequenz in der Welt erzeugt?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"9bce0bdedac0\",\"score\":0.899},{\"id\":\"c7480d774536\",\"score\":0.878},{\"id\":\"MQ5JL9TM-83E39C42\",\"score\":0.876},{\"id\":\"MASTER-08AD1D33\",\"score\":0.867}]"
+      },
+      "related": [
+        "MWS6IJ29-DD378DC7",
+        "MQ5JL9TM-83E39C42",
+        "MWS6JJMY-0D187AD0",
+        "MASTER-08AD1D33",
+        "MWS6KAHY-AFBBE834"
+      ],
+      "werkVoiceScore": 0.8492804743710561,
+      "corpusVoiceScore": 0.8163680829789497,
+      "conceptVoiceScore": 0.7357620079781954,
+      "conceptAnchor": "echo-kammer"
+    },
     {
       "id": "MX06JD9L-DFE85D75",
       "ts": "2026-11-28T09:00:08.553Z",
@@ -91,6 +237,7 @@
         "MP497SNT-5E1D2074",
         "MOUKLLK4-C38517C1",
         "MWCB0LFQ-99B6D838",
+        "MX06KICB-81074BE1",
         "MOUA3PLK-548F1A0A",
         "MP495QL6-F5FD1AE1",
         "MPUO08SE-67E0912A",
@@ -1130,7 +1277,8 @@
         "MWJ1BZO7-B4841C4E",
         "MWP7MRUK-CCFA8296",
         "MWCAUU1H-558EDB1E",
-        "MUKE7UOA-9553A59E"
+        "MUKE7UOA-9553A59E",
+        "MX06KICB-81074BE1"
       ],
       "related": [
         "MWHLVPL2-B591DBEC",
@@ -1968,8 +2116,8 @@
         "MWS6IJ29-DD378DC7",
         "MWS6Q97I-46A6ABEA",
         "MWS6KAHY-AFBBE834",
-        "MQ5XE42V-D185B8D7",
-        "MASTER-4EFD4AA4"
+        "MX06JRMT-0F9E049D",
+        "MQ5XE42V-D185B8D7"
       ],
       "werkVoiceScore": 0.8466251953877436,
       "corpusVoiceScore": 0.7944275833365487,
@@ -2003,7 +2151,7 @@
         "MQ5JL9TM-83E39C42",
         "MWP835N6-909E6986",
         "MWJEWOY7-62FCEE55",
-        "MASTER-BC195439"
+        "MX06JRMT-0F9E049D"
       ],
       "werkVoiceScore": 0.901946877481887,
       "corpusVoiceScore": 0.8487111245874829,
@@ -2083,7 +2231,7 @@
         "MPMSSG1X-8451DE38",
         "MQ5WPJ3V-CF0A30C7",
         "MPMJC8TR-592D4EF0",
-        "MQ68LVS7-240568F5"
+        "MX06KICB-81074BE1"
       ],
       "werkVoiceScore": 0.8919229105207237,
       "corpusVoiceScore": 0.8458861944127112,
@@ -2840,7 +2988,7 @@
         "MWCAO97O-12EF85DE",
         "MWCB4J6T-9F0A7789",
         "MASTER-94E7804F",
-        "MASTER-2C637ECA"
+        "MX06KICB-81074BE1"
       ],
       "werkVoiceScore": 0.7911969247489952,
       "corpusVoiceScore": 0.7780551452695446,
@@ -3242,6 +3390,7 @@
       },
       "nearDuplicates": [
         "MWHLVPL2-B591DBEC",
+        "MX06KICB-81074BE1",
         "MWG6GP84-8E9CA50E",
         "MWAE3FJK-C7122206"
       ],
@@ -4104,6 +4253,7 @@
         "MPF4FISZ-67000E01",
         "MWHLVPL2-B591DBEC",
         "MOQBZWTZ-B9EBB1BA",
+        "MX06KICB-81074BE1",
         "MWJ1BZO7-B4841C4E"
       ],
       "related": [
@@ -4153,6 +4303,7 @@
         "MOQID47V-A12862EA",
         "MOOMPCI0-262176C2",
         "MWHLXY8O-BE8E6409",
+        "MX06KICB-81074BE1",
         "MPEV1D2J-55138734",
         "MP495QL6-F5FD1AE1",
         "MPUO08SE-67E0912A",
@@ -4772,7 +4923,7 @@
         "MWCB9SJH-EC316077",
         "MWCB5P7V-7DCEAAEA",
         "MWCASQWB-784A4D0A",
-        "MOHB4ILW-65B37C41"
+        "MX06KXID-B1EB5C22"
       ],
       "werkVoiceScore": 0.7798634881416379,
       "corpusVoiceScore": 0.798436309539642,
@@ -5028,9 +5179,9 @@
       "related": [
         "MPF4FISZ-67000E01",
         "MWCATA4K-58BFC31C",
+        "MX06KICB-81074BE1",
         "MX06IL40-4EA50D3D",
-        "MP8UIMZW-BADE77E5",
-        "MPUQSMLJ-1B726CC4"
+        "MP8UIMZW-BADE77E5"
       ],
       "werkVoiceScore": 0.8514846582100407,
       "corpusVoiceScore": 0.7808450495773773,
@@ -5284,10 +5435,10 @@
       ],
       "related": [
         "MUZTGAEK-432FB6BC",
+        "MX06KICB-81074BE1",
         "MWP84DL5-F07ACB7E",
         "MP8UIMZW-BADE77E5",
-        "MX06IL40-4EA50D3D",
-        "MWCB0LFQ-99B6D838"
+        "MX06IL40-4EA50D3D"
       ],
       "werkVoiceScore": 0.8620815866068576,
       "corpusVoiceScore": 0.7901249580730232,
@@ -5342,9 +5493,9 @@
       "related": [
         "MWHLVPL2-B591DBEC",
         "MWCB73AG-666D352F",
+        "MX06KICB-81074BE1",
         "MWG6GP84-8E9CA50E",
-        "MX06IL40-4EA50D3D",
-        "MWP7MRUK-CCFA8296"
+        "MX06IL40-4EA50D3D"
       ],
       "werkVoiceScore": 0.8244027585105903,
       "corpusVoiceScore": 0.7584934361029636,
@@ -5451,6 +5602,7 @@
         "MUKE7UOA-9553A59E",
         "MPEV1D2J-55138734",
         "MP497SNT-5E1D2074",
+        "MX06KICB-81074BE1",
         "MOQID47V-A12862EA",
         "MOUKLLK4-C38517C1",
         "MPUNXFU1-3B1F056A",
@@ -5909,6 +6061,7 @@
         "MV9NOFH9-7634B79F",
         "MWHLXY8O-BE8E6409",
         "MWP7MRUK-CCFA8296",
+        "MX06KICB-81074BE1",
         "MTL33KWJ-642DD246",
         "MWAE3FJK-C7122206",
         "MQARZJDV-82F077DD",
@@ -6018,11 +6171,11 @@
         "chapterSource": "server"
       },
       "related": [
+        "MX06KXID-B1EB5C22",
         "MWCAQTX8-C55B2BC4",
         "MWCAMC6C-E65E4F14",
         "MWJ1GEC3-E3430FB8",
-        "MWCAW9PI-E08E90ED",
-        "MASTER-5AF4690D"
+        "MWCAW9PI-E08E90ED"
       ],
       "werkVoiceScore": 0.7509017618779517,
       "corpusVoiceScore": 0.8737016745595814,
@@ -6446,7 +6599,7 @@
         "MASTER-94E7804F",
         "MWG6GP84-8E9CA50E",
         "MUKE7UOA-9553A59E",
-        "MWP7MRUK-CCFA8296"
+        "MX06KICB-81074BE1"
       ],
       "werkVoiceScore": 0.8855705154220949,
       "corpusVoiceScore": 0.8471979534377447,
@@ -6815,8 +6968,8 @@
         "MOHV99XP-6917F19F",
         "MWZEMKVK-BC44C005",
         "MWCASQWB-784A4D0A",
-        "MWCB9C3X-1CC3BC23",
-        "MWJ1F278-2DA1CA58"
+        "MX06KXID-B1EB5C22",
+        "MWCB9C3X-1CC3BC23"
       ],
       "werkVoiceScore": 0.7868862631242732,
       "corpusVoiceScore": 0.7896149873584708,
@@ -7483,6 +7636,7 @@
         "MWZEIUJC-1ED7D79A",
         "MPK0H3SM-B25CFBB3",
         "MOOMECFT-66F43077",
+        "MX06KICB-81074BE1",
         "MOQ7OBNT-57882C8D"
       ],
       "related": [
@@ -7864,11 +8018,11 @@
         "part_title": "Band I: Die Überführung"
       },
       "related": [
+        "MX06KXID-B1EB5C22",
         "MWCAQTX8-C55B2BC4",
         "MOHV99XP-6917F19F",
         "MWCB9SJH-EC316077",
-        "MWCAR5T7-C5CA1D16",
-        "MWG6EXJ2-158BEB76"
+        "MWCAR5T7-C5CA1D16"
       ],
       "werkVoiceScore": 0.7806151722087007,
       "corpusVoiceScore": 0.8584119674283411,
@@ -8150,9 +8304,9 @@
       "related": [
         "MASTER-5AF4690D",
         "MWCATL9D-AD252234",
+        "MX06KXID-B1EB5C22",
         "MWCALXF7-F6C5DA97",
-        "MWJ1GEC3-E3430FB8",
-        "MWCAN1TI-4CF2326D"
+        "MWJ1GEC3-E3430FB8"
       ],
       "werkVoiceScore": 0.8055569680753046,
       "corpusVoiceScore": 0.8050339340829619,
@@ -8175,10 +8329,10 @@
       },
       "related": [
         "MWCAMC6C-E65E4F14",
+        "MX06KXID-B1EB5C22",
         "MWG6EXJ2-158BEB76",
         "MWJ1GEC3-E3430FB8",
-        "MWCAXXDI-83630FEA",
-        "MWCAVIKZ-02025CD4"
+        "MWCAXXDI-83630FEA"
       ],
       "werkVoiceScore": 0.7896853075158905,
       "corpusVoiceScore": 0.8405289285917865,
@@ -8514,10 +8668,10 @@
       },
       "related": [
         "MWCAQTX8-C55B2BC4",
+        "MX06KXID-B1EB5C22",
         "MWCAXXDI-83630FEA",
         "MWG6EXJ2-158BEB76",
-        "MOHV99XP-6917F19F",
-        "MWJ1GEC3-E3430FB8"
+        "MOHV99XP-6917F19F"
       ],
       "werkVoiceScore": 0.777441235888311,
       "corpusVoiceScore": 0.8030106574206357,
@@ -8634,6 +8788,7 @@
         "MPUQSMLJ-1B726CC4",
         "MX06GV81-2A6524B3",
         "MWP84DL5-F07ACB7E",
+        "MX06KICB-81074BE1",
         "MWG6GP84-8E9CA50E"
       ],
       "related": [
@@ -9001,6 +9156,7 @@
         "MWG6GP84-8E9CA50E",
         "MOOMPCI0-262176C2",
         "MOQID47V-A12862EA",
+        "MX06KICB-81074BE1",
         "MP497SNT-5E1D2074",
         "MOQ7OBNT-57882C8D",
         "MOOMECFT-66F43077",
@@ -9159,6 +9315,7 @@
         "MTL33KWJ-642DD246",
         "MOQID47V-A12862EA",
         "MPUO08SE-67E0912A",
+        "MX06KICB-81074BE1",
         "MP497SNT-5E1D2074",
         "MP0QMSOR-C6EC1B5A",
         "MOOMPCI0-262176C2",
@@ -9249,11 +9406,11 @@
         "MPUNXFU1-3B1F056A"
       ],
       "related": [
+        "MX06KICB-81074BE1",
         "MOUKLLK4-C38517C1",
         "MPURYS56-11F5308C",
         "MWJ1E1XH-1F94AC9B",
-        "MPK0H3SM-B25CFBB3",
-        "MWHLXY8O-BE8E6409"
+        "MPK0H3SM-B25CFBB3"
       ],
       "werkVoiceScore": 0.8784153886698448,
       "corpusVoiceScore": 0.8414945414359324,
@@ -9424,6 +9581,7 @@
         "MOQ7OBNT-57882C8D",
         "MP0QMSOR-C6EC1B5A",
         "MPURYS56-11F5308C",
+        "MX06KICB-81074BE1",
         "MP0ZE9C8-A9D02716"
       ],
       "related": [
@@ -11443,8 +11601,8 @@
         "MWS6IJ29-DD378DC7",
         "MASTER-08AD1D33",
         "MQ5JM1HD-9047C82F",
-        "MPURLTCS-5FDDD890",
-        "MQ68LVS7-240568F5"
+        "MX06JRMT-0F9E049D",
+        "MPURLTCS-5FDDD890"
       ],
       "werkVoiceScore": 0.8545248256787847,
       "corpusVoiceScore": 0.8001168772810445,
@@ -11666,6 +11824,7 @@
         "MP495QL6-F5FD1AE1",
         "MWP7MRUK-CCFA8296",
         "MOQBZWTZ-B9EBB1BA",
+        "MX06KICB-81074BE1",
         "MP0ZE9C8-A9D02716",
         "MWJ1E1XH-1F94AC9B",
         "MWP83WJ0-89C4CB03"
@@ -11742,7 +11901,7 @@
         "MWJ1BZO7-B4841C4E",
         "MWCAUU1H-558EDB1E",
         "MPMSSG1X-8451DE38",
-        "MWZEL4VS-3292BF1C"
+        "MX06KICB-81074BE1"
       ],
       "werkVoiceScore": 0.879796727976327,
       "corpusVoiceScore": 0.8129448250644302,
@@ -12757,6 +12916,7 @@
         "MP495QL6-F5FD1AE1",
         "MV9NOFH9-7634B79F",
         "MPEV1D2J-55138734",
+        "MX06KICB-81074BE1",
         "MUKE7UOA-9553A59E",
         "MWHLVPL2-B591DBEC",
         "MWP7MRUK-CCFA8296",
@@ -12833,10 +12993,10 @@
       ],
       "related": [
         "MWG6GP84-8E9CA50E",
+        "MX06KICB-81074BE1",
         "MPMSSG1X-8451DE38",
         "MWP84DL5-F07ACB7E",
-        "MWP7N8UD-6C99565B",
-        "MOQIHEM5-82D69E4F"
+        "MWP7N8UD-6C99565B"
       ],
       "werkVoiceScore": 0.8772953233217304,
       "corpusVoiceScore": 0.819550890045381,
@@ -13525,11 +13685,11 @@
       "ai_score_at": "2026-06-22T23:56:41.201Z",
       "ai_score_model": "gemini-2.5-pro",
       "related": [
+        "MX06KXID-B1EB5C22",
         "MOHV99XP-6917F19F",
         "MWJ1F278-2DA1CA58",
         "MOOUGMII-D6D90141",
-        "MWP7PN8N-3498F800",
-        "MPUSXGC6-CD078CEA"
+        "MWP7PN8N-3498F800"
       ],
       "werkVoiceScore": 0.7680262502749202,
       "corpusVoiceScore": 0.7607751189190772,
@@ -14051,9 +14211,9 @@
       "related": [
         "MWJ1BZO7-B4841C4E",
         "MPMSSG1X-8451DE38",
+        "MX06KICB-81074BE1",
         "MWCBEOXU-0DAB7EAA",
-        "MWCB0LFQ-99B6D838",
-        "MWCB8047-41980A2A"
+        "MWCB0LFQ-99B6D838"
       ],
       "werkVoiceScore": 0.8751022227948958,
       "corpusVoiceScore": 0.8292360290984353,
@@ -14113,11 +14273,11 @@
         "MOUA3PLK-548F1A0A"
       ],
       "related": [
+        "MX06KICB-81074BE1",
         "MPMSSG1X-8451DE38",
         "MWP7N8UD-6C99565B",
         "MWG6GP84-8E9CA50E",
-        "MWCATA4K-58BFC31C",
-        "MOP0LEAL-E2568DCC"
+        "MWCATA4K-58BFC31C"
       ],
       "werkVoiceScore": 0.887131472542401,
       "corpusVoiceScore": 0.8390289187540348,
@@ -14477,6 +14637,7 @@
         "MP497SNT-5E1D2074",
         "MOQID47V-A12862EA",
         "MP495QL6-F5FD1AE1",
+        "MX06KICB-81074BE1",
         "MPURYS56-11F5308C",
         "MUKE7UOA-9553A59E",
         "MV9NOFH9-7634B79F",
@@ -14819,9 +14980,9 @@
       "related": [
         "MWJ1E1XH-1F94AC9B",
         "MOPFJTND-AAE76B2B",
+        "MX06KICB-81074BE1",
         "MPMSSG1X-8451DE38",
-        "MWP83WJ0-89C4CB03",
-        "MQ5WPJ3V-CF0A30C7"
+        "MWP83WJ0-89C4CB03"
       ],
       "werkVoiceScore": 0.8797672450746424,
       "corpusVoiceScore": 0.8345791580551037,
@@ -14869,6 +15030,7 @@
         "MP8UIMZW-BADE77E5",
         "MP0ZE9C8-A9D02716",
         "MOQ7OBNT-57882C8D",
+        "MX06KICB-81074BE1",
         "MUKE7UOA-9553A59E",
         "MPF4FISZ-67000E01",
         "MWP7MRUK-CCFA8296",
@@ -15307,6 +15469,7 @@
         "MV9NOFH9-7634B79F",
         "MWP7MRUK-CCFA8296",
         "MUKE7UOA-9553A59E",
+        "MX06KICB-81074BE1",
         "MWHLVPL2-B591DBEC",
         "MWJ1E1XH-1F94AC9B",
         "MWCBEOXU-0DAB7EAA"
@@ -15446,6 +15609,7 @@
         "MPUQSMLJ-1B726CC4",
         "MUKE7UOA-9553A59E",
         "MX06IL40-4EA50D3D",
+        "MX06KICB-81074BE1",
         "MPEV1D2J-55138734",
         "MPK0H3SM-B25CFBB3",
         "MPUNXFU1-3B1F056A",
@@ -15616,6 +15780,7 @@
         "MWHLVPL2-B591DBEC",
         "MPURYS56-11F5308C",
         "MWG6GP84-8E9CA50E",
+        "MX06KICB-81074BE1",
         "MX06IL40-4EA50D3D"
       ],
       "related": [
@@ -15769,6 +15934,7 @@
         "MPUNXFU1-3B1F056A",
         "MWP83WJ0-89C4CB03",
         "MWG6GP84-8E9CA50E",
+        "MX06KICB-81074BE1",
         "MWHLVPL2-B591DBEC",
         "MWJ1E1XH-1F94AC9B"
       ],
@@ -15877,9 +16043,9 @@
       "related": [
         "MUKE7UOA-9553A59E",
         "MOPFJTND-AAE76B2B",
+        "MX06KICB-81074BE1",
         "MPMSSG1X-8451DE38",
-        "MPUQSMLJ-1B726CC4",
-        "MWJ1E1XH-1F94AC9B"
+        "MPUQSMLJ-1B726CC4"
       ],
       "werkVoiceScore": 0.8778162701645836,
       "corpusVoiceScore": 0.837858588683394,
@@ -15947,7 +16113,7 @@
         "MOP0LEAL-E2568DCC",
         "MWP83WJ0-89C4CB03",
         "MWJ1E1XH-1F94AC9B",
-        "MWHLVPL2-B591DBEC"
+        "MX06KICB-81074BE1"
       ],
       "werkVoiceScore": 0.8887014402950163,
       "corpusVoiceScore": 0.8246803139487086,
@@ -16397,8 +16563,8 @@
         "MOQIHEM5-82D69E4F",
         "MOQBZWTZ-B9EBB1BA",
         "MOUA3PLK-548F1A0A",
-        "MWCBAQN6-9D0CCC83",
-        "MOOMJDPP-1F336D7D"
+        "MX06KICB-81074BE1",
+        "MWCBAQN6-9D0CCC83"
       ],
       "werkVoiceScore": 0.9097196509835803,
       "corpusVoiceScore": 0.866341575943378,
@@ -16848,6 +17014,7 @@
         "MPF4FISZ-67000E01",
         "MWP7MRUK-CCFA8296",
         "MOPFJTND-AAE76B2B",
+        "MX06KICB-81074BE1",
         "MPUNXFU1-3B1F056A",
         "MV9NOFH9-7634B79F",
         "MPMSSG1X-8451DE38",
@@ -16956,6 +17123,7 @@
         "MWP7MRUK-CCFA8296",
         "MWCB0LFQ-99B6D838",
         "MQARZJDV-82F077DD",
+        "MX06KICB-81074BE1",
         "MWCBEOXU-0DAB7EAA",
         "MUZTGAEK-432FB6BC"
       ],
@@ -17643,9 +17811,9 @@
       "related": [
         "MWCASQWB-784A4D0A",
         "MWCB9SJH-EC316077",
+        "MX06KXID-B1EB5C22",
         "MWZEMKVK-BC44C005",
-        "MWJ1F278-2DA1CA58",
-        "MPMM5NAF-D744437C"
+        "MWJ1F278-2DA1CA58"
       ],
       "werkVoiceScore": 0.8613361840292189,
       "corpusVoiceScore": 0.8054066732425451,
