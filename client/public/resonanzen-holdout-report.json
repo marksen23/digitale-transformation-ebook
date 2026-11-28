@@ -1,10 +1,24 @@
 {
-  "generatedAt": "2026-11-28T08:57:32.497Z",
-  "checked": 67,
-  "stable": 24,
+  "generatedAt": "2026-11-28T08:59:02.780Z",
+  "checked": 68,
+  "stable": 25,
   "shifted": 23,
   "drifted": 20,
   "details": [
+    {
+      "id": "MX06FY2Z-460F0789",
+      "baseline": [
+        "MWZEH8M1-991DDBD0",
+        "MWZEHNJM-EDB65CFA",
+        "MASTER-83EFBD4F"
+      ],
+      "current": [
+        "MWZEH8M1-991DDBD0",
+        "MWZEHNJM-EDB65CFA",
+        "MASTER-83EFBD4F"
+      ],
+      "overlap": 3
+    },
     {
       "id": "MX06F24A-8E9E95EB",
       "baseline": [

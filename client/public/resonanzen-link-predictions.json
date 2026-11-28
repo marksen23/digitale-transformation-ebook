@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T08:57:32.514Z",
+  "generatedAt": "2026-11-28T08:59:02.798Z",
   "minCooccurrence": 2,
   "candidates": [
     {
@@ -167,6 +167,20 @@
       ]
     },
     {
+      "source": "dasein",
+      "target": "moment",
+      "cooccurrence": 4,
+      "endpoints": {
+        "path-analyse": 4
+      },
+      "sampleEntryIds": [
+        "MX06GV81-2A6524B3",
+        "MWHLXY8O-BE8E6409",
+        "MWCB3NW4-F13A863B",
+        "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
       "source": "existenz",
       "target": "wesen",
       "cooccurrence": 4,
@@ -267,6 +281,46 @@
         "MQ5B6CTT-AB0A3D97",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "dasein",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MX06GV81-2A6524B3",
+        "MWCB3NW4-F13A863B",
+        "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "moment",
+      "target": "sein",
+      "cooccurrence": 3,
+      "endpoints": {
+        "path-analyse": 3
+      },
+      "sampleEntryIds": [
+        "MX06GV81-2A6524B3",
+        "MWCB3NW4-F13A863B",
+        "MPUQSMLJ-1B726CC4"
+      ]
+    },
+    {
+      "source": "gelassenheit",
+      "target": "werden",
+      "cooccurrence": 3,
+      "endpoints": {
+        "dialog": 2,
+        "analyse": 1
+      },
+      "sampleEntryIds": [
+        "MX06FY2Z-460F0789",
+        "MWCB2NN3-B5D0CDE0",
+        "MWCAOLYV-9286BC9F"
       ]
     },
     {
@@ -416,19 +470,6 @@
       ]
     },
     {
-      "source": "dasein",
-      "target": "moment",
-      "cooccurrence": 3,
-      "endpoints": {
-        "path-analyse": 3
-      },
-      "sampleEntryIds": [
-        "MWHLXY8O-BE8E6409",
-        "MWCB3NW4-F13A863B",
-        "MPUQSMLJ-1B726CC4"
-      ]
-    },
-    {
       "source": "lm-scheitern",
       "target": "moment",
       "cooccurrence": 3,
@@ -538,6 +579,43 @@
         "MPBI57AL-76627781",
         "MOQ7OBNT-57882C8D",
         "MOP0LEAL-E2568DCC"
+      ]
+    },
+    {
+      "source": "gegenwart",
+      "target": "werden",
+      "cooccurrence": 2,
+      "endpoints": {
+        "analyse": 1,
+        "dialog": 1
+      },
+      "sampleEntryIds": [
+        "MX06HBI1-8CC15174",
+        "MX06FY2Z-460F0789"
+      ]
+    },
+    {
+      "source": "gegenwart",
+      "target": "sein",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MX06GV81-2A6524B3",
+        "MWCB3NW4-F13A863B"
+      ]
+    },
+    {
+      "source": "gegenwart",
+      "target": "unverfuegbarkeit",
+      "cooccurrence": 2,
+      "endpoints": {
+        "path-analyse": 2
+      },
+      "sampleEntryIds": [
+        "MX06GV81-2A6524B3",
+        "MWCB3NW4-F13A863B"
       ]
     },
     {
@@ -1021,43 +1099,6 @@
       ]
     },
     {
-      "source": "dasein",
-      "target": "unverfuegbarkeit",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWCB3NW4-F13A863B",
-        "MPUQSMLJ-1B726CC4"
-      ]
-    },
-    {
-      "source": "moment",
-      "target": "sein",
-      "cooccurrence": 2,
-      "endpoints": {
-        "path-analyse": 2
-      },
-      "sampleEntryIds": [
-        "MWCB3NW4-F13A863B",
-        "MPUQSMLJ-1B726CC4"
-      ]
-    },
-    {
-      "source": "gelassenheit",
-      "target": "werden",
-      "cooccurrence": 2,
-      "endpoints": {
-        "dialog": 1,
-        "analyse": 1
-      },
-      "sampleEntryIds": [
-        "MWCB2NN3-B5D0CDE0",
-        "MWCAOLYV-9286BC9F"
-      ]
-    },
-    {
       "source": "resonanzvernunft",
       "target": "wahrheit",
       "cooccurrence": 2,
@@ -1331,8 +1372,8 @@
     }
   ],
   "stats": {
-    "totalPairs": 459,
-    "candidatesCount": 101,
+    "totalPairs": 465,
+    "candidatesCount": 104,
     "existingEdges": 134,
     "maxCooccurrence": 26
   }

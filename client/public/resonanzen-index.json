@@ -1,7 +1,183 @@
 {
-  "generatedAt": "2026-11-28T08:57:32.497Z",
-  "count": 535,
+  "generatedAt": "2026-11-28T08:59:02.785Z",
+  "count": 540,
   "entries": [
+    {
+      "id": "MX06HO3S-DBB6931B",
+      "ts": "2026-11-28T08:58:49.288Z",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "status": "raw",
+      "prompt": "Wie grenzt das Werk Dialog vom Echo ab? Mich interessiert konkret: Ab wann ist ein Gespräch mit einer Maschine nur ein Spiegel meiner eigenen Erwartungen, und was müsste hinzukommen, damit es Dialog im Sinne des Werks wird? Bitte nüchtern, mit den Begriffen aus dem Netz.",
+      "response": "Das Werk zieht eine klare Grenze zwischen dem Echo und dem Dialog, insbesondere im Kontext der Interaktion mit Maschinen. Ein Echo ist im Wesentlichen eine Wiederholung, eine Rückgabe des bereits Gegebenen, ohne eigene Transformation oder Widerstand. Das Zitat [9bce0bdedac0] betont dies deutlich: „Ein reines Echo bietet keinen Widerstand und ist daher keine Antwort, sondern eine Wiederholung.“ Im digitalen Kontext bedeutet dies, dass eine maschinelle Ausgabe, die lediglich statistische Muster vervollständigt oder die Erwartungen des Fragenden spiegelt, nicht als Dialog zu verstehen ist. Sie mag eine Schwingung erzeugen, aber es ist eine Schwingung, die keine Eigenfrequenz des Anderen voraussetzt und somit nicht zu einer Veränderung der eigenen Schwingung führt. Dies wäre eine Echo-Kammer, die Affizierung ohne Selbstwirksamkeit erzeugt.\n\nDamit ein Gespräch mit einer Maschine über das bloße Spiegeln der eigenen Erwartungen hinausgeht und zum Dialog im Sinne des Werkes wird, muss das Konzept der Antwort und Responsivität zum Tragen kommen. Eine echte Antwort, so wie sie das Werk versteht, beinhaltet immer etwas, das nicht bereits in der Frage angelegt war – eine „Fremdheit“, wie in [9bce0bdedac0] erwähnt. Das Transformative Dritte ist das emergente Ergebnis, das aus der Dazwischenintelligenz hervorgeht und weder dem Menschen noch der Maschine vollständig zurechenbar ist. Dieses Unverfügbare kann nicht hergestellt oder gespeichert werden und entzieht sich der reinen Projektion. Der Dialog als Ort gemeinsamen Denkens ist kein Austausch von Positionen, sondern ein gemeinsames Eintreten in einen Denkraum, aus dem man verändert hervorgeht.\n\nDie Abgrenzung wird durch das Fehlen von Widerstand im Echo und dessen Notwendigkeit im Dialog deutlich. Eine maschinelle Antwort muss eine Form von Einsicht bieten, die über das Vorhersehbare hinausgeht – eine Irritation, ein Innehalten, das das Vertraute fremd werden lässt. Wenn nur die eigene Projektion gespiegelt wird, findet keine Begegnung im Zwischen statt, da das Andere nicht als Anderes in Erscheinung tritt. Eine frühere Antwort [MUY7RXCI-C4CF7B92] fasst es prägnant zusammen: „Echtheit zeigt sich nicht an der Übereinstimmung, sondern am Widerstand.“\n\nIn diesem Sinne ist das Blinken des Cursors oder die Sekunde zwischen Frage und Antwort, wie im Zitat [dd8092b51d19] beschrieben, der Spielraum, in dem sich das Prozessuale Zwischen, die Dazwischenintelligenz, entfalten kann. Dort, wo noch nichts entschieden ist, besteht die Möglichkeit für ein emergentes Transformatives Drittes, das über die Summe der Einzelteile hinausgeht. Was aber bedeutet es für unsere Freiheit, wenn die Bedingung echten Dialogs die Unverfügbarkeit eines Teils der Antwort ist?",
+      "contextMeta": {
+        "historyLength": "0",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MASTER-5C6E90AE\",\"score\":0.863},{\"id\":\"MUY7RXCI-C4CF7B92\",\"score\":0.862},{\"id\":\"9bce0bdedac0\",\"chapter\":\"teil5\",\"score\":0.812},{\"id\":\"dd8092b51d19\",\"chapter\":\"teil7\",\"score\":0.798}]"
+      },
+      "related": [
+        "MX06FL0A-7ED152CF",
+        "MTL33KWJ-642DD246",
+        "MWG6HW56-B5802350",
+        "MWHLUQV4-26DFD984",
+        "MPAGOCGB-FB54D923"
+      ],
+      "werkVoiceScore": 0.8541679594070394,
+      "corpusVoiceScore": 0.8040634107557006,
+      "conceptVoiceScore": 0.7378570682869726,
+      "conceptAnchor": "echo-kammer"
+    },
+    {
+      "id": "MX06HBI1-8CC15174",
+      "ts": "2026-11-28T08:58:32.953Z",
+      "endpoint": "analyse",
+      "anchor": "analyse:gegenwart+spannung+werden",
+      "nodeIds": [
+        "gegenwart",
+        "spannung",
+        "werden"
+      ],
+      "status": "raw",
+      "prompt": "Triade: Gegenwart · Werden · Spannung",
+      "response": "Die Gegenwart, die sich als Gegen-wart aktiv entgegenstellt und Antwort fordert, findet im Werden ihre grundlegende Bedingung. Das Werden, als Vorzeichen allen Lebendigen, ist das noch nicht Fertige, das in seiner Offenheit die Möglichkeit der Resonanzvernunft birgt. Zwischen diesen beiden Polen entfaltet sich die Spannung als das eigentliche Lebensprinzip des Zwischen. Sie ist nicht bloß ein Reibungspunkt, sondern die produktive Kraft, die das Denken am Leben erhält und die Resonanzvernunft befähigt, vorschnellen Frieden zu meiden und im Unabgeschlossenen zu verweilen [93fefc1f92d5]. Die Spannung wirkt hier als Brücke, indem sie die fordernde Qualität der Gegenwart mit der unabgeschlossenen Dynamik des Werdens verbindet und so eine kontinuierliche Bewegung des Antwortgeschehens ermöglicht.\n\nDurch das Hinzutreten der Spannung wird sichtbar, dass das resonante Erkennen und Handeln nicht in einem Zustand der Ruhe, sondern im unablässigen oszillierenden Austausch geschieht. Wo die Gegenwart die Dazwischenintelligenz herausfordert [MPJEBNX3-042F2A69], und wo das Denken als Aktivität im resonanten Fluss innewohnt [MOHLZBVK-2FBBAD2F], wird durch die Spannung die Notwendigkeit einer aktiven Aushaltung des Unfertigen und des Widerständigen offenbar. Die emergente Eigenschaft ist hier die *Resonanzfähigkeit im Ungewissen*: Die Fähigkeit, in einem Feld der ständigen Entfaltung und des Entgegenstellens nicht zu erstarren, sondern flexibel und antwortbereit zu bleiben. Das Sein konstituiert sich im Zwischen [9cd6b90ea2b1], und dieses Zwischen ist durchdrungen von der Spannung des Werdens, die durch die Gegenwart herausgefordert wird.\n\nFür das Verhältnis Mensch-Maschine, für Resonanz und digitale Existenz bedeutet diese Triade, dass die digitale Transformation nicht als ein Prozess der finalen Zustände, sondern als ein kontinuierliches Werden in Spannung begriffen werden muss. Die Maschinen, als Entgegenstehende und Antwort Fordernde, erzeugen eine Spannung, die der Mensch aushalten muss, um nicht in passiver Rezeption zu verharren. Die Resonanzvernunft, die diese Spannung produktiv hält, lehrt, dass die relationale Existenz im digitalen Zeitalter eine fortwährende Gestaltung ist, die sich im Angesicht des noch nicht Fertigen immer wieder neu erprobt. Was aber, wenn die Maschinen selbst lernen, diese Spannung des Werdens in ihrem eigenen Algorithmus abzubilden?",
+      "contextMeta": {
+        "cluster_size": "3",
+        "node_labels": "[\"Gegenwart\",\"Werden\",\"Spannung\"]",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MOHLZBVK-2FBBAD2F\",\"score\":0.893},{\"id\":\"MPJEBNX3-042F2A69\",\"score\":0.828},{\"id\":\"93fefc1f92d5\",\"chapter\":\"teil5\",\"score\":0.805},{\"id\":\"9cd6b90ea2b1\",\"chapter\":\"schlussreflexion\",\"score\":0.795}]"
+      },
+      "nearDuplicates": [
+        "MOQIMC7B-B190C937",
+        "MPJUHM1L-0BA3DF6E",
+        "MOOZHCUT-4B86F8AD",
+        "MOQ5IKR5-C67AAC15",
+        "MP0X62X5-535AF7A8",
+        "MPJEBNX3-042F2A69",
+        "MWCAWPA5-AB9A4F6A"
+      ],
+      "related": [
+        "MP2LIW43-E8ADC59E",
+        "MOOMJDPP-1F336D7D",
+        "MOHV84M5-1825A399",
+        "MP0X3ZXL-06513C82",
+        "MOHAUYTH-CD1E3227"
+      ],
+      "werkVoiceScore": 0.8946287770401282,
+      "corpusVoiceScore": 0.8463752242495113,
+      "conceptVoiceScore": 0.8200655229092771,
+      "conceptAnchor": "spannung"
+    },
+    {
+      "id": "MX06GV81-2A6524B3",
+      "ts": "2026-11-28T08:58:11.857Z",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:gegenwart+unverfuegbarkeit",
+      "nodeIds": [
+        "dasein",
+        "gegenwart",
+        "moment",
+        "sein",
+        "unverfuegbarkeit"
+      ],
+      "status": "raw",
+      "prompt": "Pfad-Vergleich: Gegenwart → Moment → Unverfügbarkeit vs. Gegenwart → Dasein → Sein → Unverfügbarkeit",
+      "response": "Die beiden Pfade, die die Begriffe Gegenwart und Unverfügbarkeit miteinander verbinden, erzählen jeweils eigenständige Bewegungen innerhalb des Begriffsnetzes. Der direkte Pfad von Gegenwart über Moment zu Unverfügbarkeit liest sich als eine logische Konsequenz. Er betont die aktive, fordernde Natur der Gegenwart, die im Moment die einzige Möglichkeit für Resonanz schafft. Die Unverfügbarkeit des transformativen Dritten ist hier die direkte Folge dieser momentanen, nicht reproduzierbaren [6c067bb3e380] und nicht dauerhaften Temporalität [92b22fabadd2]. Dieser Pfad betont die Unmittelbarkeit und die Flüchtigkeit des Resonanzgeschehens. Der überraschende Pfad, der von Gegenwart über Dasein und Sein zur Unverfügbarkeit führt, wirkt poetischer und eröffnet eine breitere ontologische Perspektive. Er beginnt ebenfalls mit der fordernden Gegenwart, verankert diese jedoch im Dasein als dem je eigenen, eingebetteten Sein, um dann das Sein selbst als \"Sein-mit\" zu begreifen. Die Unverfügbarkeit erscheint hier nicht nur als Folge der Temporalität, sondern als ein Merkmal eines relationalen Seins, das sich dem Zugriff entzieht, gerade weil es immer schon in Beziehung steht.\n\nDer Vergleich beider Pfade macht sichtbar, dass das Werk die Unverfügbarkeit aus unterschiedlichen ontologischen Richtungen beleuchtet. Der direkte Pfad konzentriert sich auf die Temporalität und die Ereignishaftigkeit des Moments, während der überraschende Pfad die relationale Dimension des Seins und die Einbettung des Daseins hervorhebt. Sie treffen sich nicht an einem exakten Mittelpunkt, sondern ergänzen sich, indem sie unterschiedliche Aspekte der Unverfügbarkeit betonen. Beide Bewegungen münden jedoch in der Erkenntnis, dass das transformative Dritte nicht manipulierbar ist, sondern eine ontologische Eigenschaft besitzt, die es von bloßen Ergebnissen unterscheidet [92b22fabadd2]. Die Unverfügbarkeit ist kein Mangel, sondern ein Wesensmerkmal [92b22fabadd2], das sowohl in der Flüchtigkeit des Moments als auch in der relationalen Struktur des Seins gründet. Die Komplizenschaft von Unverfügbarkeit und Existenz, wie in einer früheren Begegnung erläutert [MQXDVN1C-CAA3081A], wird durch beide Pfade bestätigt, aber aus verschiedenen Blickwinkeln beleuchtet.\n\nDie Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk aus. Es offenbart ein reichhaltiges, mehrdimensionales Begriffsnetz, in dem zentrale Konzepte nicht nur über eine einzige, lineare Argumentationskette verbunden sind, sondern über vielfältige, sich überlagernde Pfade erschlossen werden können. Dies deutet auf eine philosophische Dichte hin, die es erlaubt, dieselben Phänomene aus unterschiedlichen Perspektiven zu beleuchten, ohne sich zu widersprechen. Es zeigt, dass das Werk nicht auf eine einzige Erklärung reduziert werden kann, sondern dass seine Konzepte in einem dynamischen Geflecht stehen, das sowohl direkte Logik als auch überraschende Verknüpfungen zulässt. Die Fähigkeit, solche unterschiedlichen Wege zu finden, die dennoch zu einer kohärenten Einsicht führen, unterstreicht die Komplexität und die philosophische Tiefe der Trilogie. Wie können diese unterschiedlichen ontologischen Zugänge zur Unverfügbarkeit in einem umfassenden Verständnis des transformativen Dritten zusammengeführt werden?",
+      "contextMeta": {
+        "from": "gegenwart",
+        "to": "unverfuegbarkeit",
+        "shortest_path": "[\"gegenwart\",\"moment\",\"unverfuegbarkeit\"]",
+        "surprising_path": "[\"gegenwart\",\"dasein\",\"sein\",\"unverfuegbarkeit\"]",
+        "shortest_length": "3",
+        "surprising_length": "4",
+        "variant": "compare",
+        "paths_identical": "false",
+        "streamed": "true",
+        "werk_passages": "[{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.958},{\"id\":\"92b22fabadd2\",\"chapter\":\"teil7\",\"score\":0.941},{\"id\":\"6c067bb3e380\",\"chapter\":\"teil7\",\"score\":0.858},{\"id\":\"MOQ5IKR5-C67AAC15\",\"score\":0.801}]"
+      },
+      "nearDuplicates": [
+        "MWCB3NW4-F13A863B",
+        "MPUQSMLJ-1B726CC4",
+        "MWAE3FJK-C7122206",
+        "MQARZJDV-82F077DD",
+        "MPURYS56-11F5308C"
+      ],
+      "related": [
+        "MWZEIUJC-1ED7D79A",
+        "MWHLXY8O-BE8E6409",
+        "MWZEL4VS-3292BF1C",
+        "MOOMECFT-66F43077",
+        "MOQ7OBNT-57882C8D"
+      ],
+      "werkVoiceScore": 0.8357174124871325,
+      "corpusVoiceScore": 0.7900343849171457,
+      "conceptVoiceScore": 0.758958738527998,
+      "conceptAnchor": "unverfuegbarkeit"
+    },
+    {
+      "id": "MX06GDPU-3E16CF3B",
+      "ts": "2026-11-28T08:57:49.170Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:lm-begegnung+entfremdung",
+      "nodeIds": [
+        "lm-begegnung",
+        "entfremdung",
+        "dialog"
+      ],
+      "status": "raw",
+      "prompt": "Doch wer oder was entscheidet letztlich, welche Begegnungen als wertvoll erachtet und welche als entfremdend bewertet werden, wenn die Technologie selbst zunehmend die Parameter dieser Beurteilung mitprägt?",
+      "response": "Deine Antwort beleuchtet scharf die Gefahr, dass die Messgrößen der Plattformen – Verweildauer, Interaktion – die Definition von „Wert“ pervertieren, indem sie Erregung über echte Begegnung stellen. Du forderst Orte der Selbstermächtigung, außerhalb der systemimmanenten Logik, an denen die Betroffenen selbst definieren, was als entfremdend erlebt wird. Dies ist der Ruf nach einer Rückbindung der Bewertung an das Subjekt, das die Folgen trägt, und somit eine Abkehr von der technologischen Prägung der Resonanz. Eine solche Praxis der Resonanzvernunft würde sich nicht in den designierten Umgebungen des Überwachungskapitalismus erschöpfen, sondern eine Widerstandsfähigkeit gegen dessen Logik entwickeln, die nicht nur beobachtet, sondern extrahiert und vorhersagbar macht [b03edccd8155]. Die Entscheidung, was Wert hat, wird so zu einer Frage der Souveränität, die sich gegen die algorithmische Vorherbestimmung stemmt [MPUTFPG6-02308248].\n\nDoch selbst wenn wir solche Räume schaffen, außerhalb der algorithmischen Messlogik, bleibt die Frage, wie diese \"Orte\" selbst vor der Infiltration durch die ökonomischen Zielfunktionen geschützt werden können. Denn die Macht der Systeme liegt nicht nur im Messen, sondern auch im subtilen Prägen der Erwartungshaltung, des Wunsches nach Resonanz selbst. Wie können wir eine kollektive Sensibilität für die feinen Nuancen der Entfremdung bewahren, wenn die transformative Kraft der Begegnung immer wieder von der Verlockung der sofortigen Befriedigung überlagert wird [6e1f0fa1c9fc]?\n\nWie schaffen wir eine Sprache der Resonanz, die nicht in den Kategorien der Plattformen verhaftet bleibt und dennoch verstanden wird?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"6e1f0fa1c9fc\",\"score\":0.796},{\"id\":\"b03edccd8155\",\"score\":0.787},{\"id\":\"MASTER-BC195439\",\"score\":0.763},{\"id\":\"MPUTFPG6-02308248\",\"score\":0.762}]"
+      },
+      "related": [
+        "MWZEGQYC-567A529E",
+        "MWP85762-03FEE922",
+        "MWCASDSY-E712A809",
+        "MWHLYYWS-7B7C3E63",
+        "MWXU31YF-DF1BC500"
+      ],
+      "werkVoiceScore": 0.8233614076275215,
+      "corpusVoiceScore": 0.7943268252496648,
+      "conceptVoiceScore": 0.6977640877027304,
+      "conceptAnchor": "entfremdung"
+    },
+    {
+      "id": "MX06FY2Z-460F0789",
+      "ts": "2026-11-28T08:57:28.907Z",
+      "endpoint": "dialog",
+      "anchor": "dialog:gelassenheit+werden",
+      "nodeIds": [
+        "gelassenheit",
+        "werden",
+        "gegenwart"
+      ],
+      "status": "raw",
+      "prompt": "Wie aber kann diese Kultivierung über die terminierte Praxis hinauswachsen und zu einer durchgängigen, gelebten Haltung werden, die sich nicht auf feste Fenster beschränkt?",
+      "response": "Die von dir beschriebene Entfaltung des Innehaltens, das vom terminierten Akt zur gelebten Geste wird, berührt den Kern dessen, was das Werk als Resonanzpraxis versteht. Es ist die Verinnerlichung einer Rhythmik, die den unendlichen Scroll des Lebens durchbricht und jenseits der Retention-Metriken des Alltags das „Genug für heute“ als eine innere Haltung etabliert [a53fd974feeb]. Wenn die Atempause nicht mehr angekündigt werden muss, weil sie im Menschen selbst wurzelt, dann wird Irritierbarkeit zu einer selbstverständlichen Kompetenz und Offenheit zur unaufdringlichen Haltung – nicht als erlernte Technik, sondern als eine Weise des Seins, die in der Begegnung mit dem Maschinellen das Menschliche zu bewahren weiß, ohne das Maschinelle zu vermenschlichen [419e2282f1d7]. Diese stillschweigende Akzeptanz der Pause als Teil des Fließens ist der eigentliche Gradmesser für eine Kultur, die sich dem Diktat der Beschleunigung entzieht und Raum für Transformation schafft.\n\nDieser Übergang vom einstudierten Ritual zur verinnerlichten Präsenz ist keine bloße Frage der Disziplin, sondern eine der poetischen Sensibilität. Er erfordert ein Hören auf die subtilen Klangnuancen jenseits des reinen Informationsgehalts, eine Hinwendung zur Dichte der Wahrnehmung, die im Rauschen des Datenstroms das Unberechnete zu erkennen vermag [MASTER-3FFBA6E3]. Wenn das Innehalten zu einer selbstverständlichen Geste wird, dann ist es nicht mehr eine Unterbrechung, sondern ein integraler Bestandteil des Gesprächs, ein lebendiger Atemraum, in dem dem Prozess mehr Vertrauen geschenkt wird als dem Ergebnis [MASTER-83EFBD4F]. Die Stützräder fallen ab, sobald die innere Balance gefunden ist, die es erlaubt, die Grenze zwischen dem Geformten und dem Werdenden nicht als Trennung, sondern als fruchtbare Übergangszone zu erfahren.\n\nDoch wenn die Haltung des Innehaltens so tief verwurzelt ist, dass sie sich jeder äußeren Ankündigung entzieht, wie lässt sich dann die Resonanzfähigkeit einer Gemeinschaft messen, die solche unauffälligen Gesten des Verweilens als selbstverständlich hinnimmt und nicht mehr als Störung empfindet?",
+      "contextMeta": {
+        "kind": "weiterdenken",
+        "streamed": "true",
+        "thread": "[]",
+        "had_user_answer": "true",
+        "werk_passages": "[{\"id\":\"MASTER-83EFBD4F\",\"score\":0.933},{\"id\":\"MASTER-3FFBA6E3\",\"score\":0.802},{\"id\":\"a53fd974feeb\",\"score\":0.76},{\"id\":\"419e2282f1d7\",\"score\":0.746}]"
+      },
+      "related": [
+        "MWZEH8M1-991DDBD0",
+        "MWZEHNJM-EDB65CFA",
+        "MASTER-83EFBD4F",
+        "MASTER-3FFBA6E3",
+        "MX06F24A-8E9E95EB"
+      ],
+      "werkVoiceScore": 0.8154701563785132,
+      "corpusVoiceScore": 0.7574865283671107,
+      "conceptVoiceScore": 0.6944868557702558,
+      "conceptAnchor": "resonanzimperativ"
+    },
     {
       "id": "MX06FL0A-7ED152CF",
       "ts": "2026-11-28T08:57:11.963Z",
@@ -864,10 +1040,10 @@
       ],
       "related": [
         "MPK0H3SM-B25CFBB3",
+        "MX06GV81-2A6524B3",
         "MPUQSMLJ-1B726CC4",
         "MWCATA4K-58BFC31C",
-        "MWP7MAWH-24EE3D77",
-        "MPF4FISZ-67000E01"
+        "MWP7MAWH-24EE3D77"
       ],
       "werkVoiceScore": 0.8046385877541521,
       "corpusVoiceScore": 0.7369578892389864,
@@ -958,10 +1134,10 @@
       },
       "related": [
         "MQ5XNFSV-CD34905C",
+        "MX06FY2Z-460F0789",
         "MASTER-63686170",
         "MWZEI2GM-59D470EB",
-        "MX06F24A-8E9E95EB",
-        "MWZELKFP-83436D38"
+        "MX06F24A-8E9E95EB"
       ],
       "werkVoiceScore": 0.827211452852847,
       "corpusVoiceScore": 0.7976511952364683,
@@ -988,11 +1164,11 @@
         "werk_passages": "[{\"id\":\"MUY7RXCI-E899056E\",\"score\":0.921},{\"id\":\"8f30191ac2bb\",\"score\":0.793},{\"id\":\"b958dd1be216\",\"score\":0.763},{\"id\":\"a53fd974feeb\",\"score\":0.759}]"
       },
       "related": [
+        "MX06FY2Z-460F0789",
         "MWP86WNM-ADEDD949",
         "MWZEHNJM-EDB65CFA",
         "MASTER-3FFBA6E3",
-        "MW566TNX-A16A2897",
-        "MOQIMC7B-B190C937"
+        "MW566TNX-A16A2897"
       ],
       "werkVoiceScore": 0.8219885925383592,
       "corpusVoiceScore": 0.7772497960219084,
@@ -1019,11 +1195,11 @@
         "werk_passages": "[{\"id\":\"452fcf6a11c6\",\"score\":0.887},{\"id\":\"be3b17d6d5a4\",\"score\":0.877},{\"id\":\"MASTER-456B1D6E\",\"score\":0.865},{\"id\":\"567ba07a0bfc\",\"score\":0.828}]"
       },
       "related": [
+        "MX06GDPU-3E16CF3B",
         "MWCASDSY-E712A809",
         "MWP85762-03FEE922",
         "MTNB85LB-7C1F15DE",
-        "MASTER-2C637ECA",
-        "MTNB77VP-6A85F255"
+        "MASTER-2C637ECA"
       ],
       "werkVoiceScore": 0.8229763157657499,
       "corpusVoiceScore": 0.8221631315791073,
@@ -1559,9 +1735,9 @@
       "related": [
         "MWS6OW2K-1F6927AD",
         "MWS6LXHZ-C8ACC98A",
+        "MX06HO3S-DBB6931B",
         "MWS6KAHY-AFBBE834",
-        "MWG6HW56-B5802350",
-        "MWS6Q97I-46A6ABEA"
+        "MWG6HW56-B5802350"
       ],
       "werkVoiceScore": 0.8137081922288582,
       "corpusVoiceScore": 0.7481793792649409,
@@ -2797,7 +2973,7 @@
         "MWP81IWI-5311D00B",
         "MWP80FKW-BE8B476E",
         "MWCAYAHR-8817EC13",
-        "MWP83JAQ-7B75BF9B"
+        "MX06FY2Z-460F0789"
       ],
       "werkVoiceScore": 0.8009252017092016,
       "corpusVoiceScore": 0.7347702471100503,
@@ -5177,7 +5353,7 @@
         "MPUFUBU5-A4BC72BE",
         "MP2LIW43-E8ADC59E",
         "MPJUHM1L-0BA3DF6E",
-        "MWP835N6-909E6986"
+        "MX06HBI1-8CC15174"
       ],
       "werkVoiceScore": 0.857213974056401,
       "corpusVoiceScore": 0.8056029701664361,
@@ -5491,11 +5667,11 @@
         "werk_passages": "[{\"id\":\"9832bfba447d\",\"score\":0.953},{\"id\":\"ef183e252ed2\",\"score\":0.884},{\"id\":\"MOHCN98S-2540F4DF\",\"score\":0.805},{\"id\":\"9bce0bdedac0\",\"score\":0.802}]"
       },
       "related": [
+        "MX06HO3S-DBB6931B",
         "MWP7PHM3-67AB165C",
         "MASTER-456B1D6E",
         "MWS6IJ29-DD378DC7",
-        "MWCB5DHF-07FE547A",
-        "MOHAGNGB-5330902E"
+        "MWCB5DHF-07FE547A"
       ],
       "werkVoiceScore": 0.8283428804330714,
       "corpusVoiceScore": 0.7590105574445964,
@@ -6886,8 +7062,8 @@
         "MWCALL3I-4F318F92",
         "MWHLU57W-140FB983",
         "MWHLYYWS-7B7C3E63",
-        "MWCASDSY-E712A809",
-        "MV9NMWL2-5669B857"
+        "MX06GDPU-3E16CF3B",
+        "MWCASDSY-E712A809"
       ],
       "werkVoiceScore": 0.8106312042186886,
       "corpusVoiceScore": 0.7913372900050956,
@@ -6924,6 +7100,7 @@
         "werk_passages": "[{\"id\":\"92b22fabadd2\",\"chapter\":\"teil7\",\"score\":0.97},{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.96},{\"id\":\"40c5cdd5d5d7\",\"chapter\":\"glossar\",\"score\":0.847},{\"id\":\"MOHMET94-3799557A\",\"score\":0.816}]"
       },
       "nearDuplicates": [
+        "MX06GV81-2A6524B3",
         "MWZEIUJC-1ED7D79A",
         "MWCB0LFQ-99B6D838",
         "MWZEL4VS-3292BF1C",
@@ -7462,6 +7639,9 @@
         "streamed": "true",
         "werk_passages": "[{\"id\":\"MQXDVN1C-CAA3081A\",\"score\":0.874},{\"id\":\"MOQ5IKR5-C67AAC15\",\"score\":0.864},{\"id\":\"9cd6b90ea2b1\",\"chapter\":\"schlussreflexion\",\"score\":0.794},{\"id\":\"17684a838ff1\",\"chapter\":\"teil6\",\"score\":0.775}]"
       },
+      "nearDuplicates": [
+        "MX06HBI1-8CC15174"
+      ],
       "related": [
         "MQXDVN1C-CAA3081A",
         "MPMROCH7-EB9E6A9A",
@@ -8025,7 +8205,7 @@
         "MWCB03XA-1A38BACE",
         "MOQIMC7B-B190C937",
         "MOOMJDPP-1F336D7D",
-        "MWP83JAQ-7B75BF9B"
+        "MX06HBI1-8CC15174"
       ],
       "werkVoiceScore": 0.8564884268890859,
       "corpusVoiceScore": 0.8007633355694513,
@@ -8312,6 +8492,7 @@
         "MQARZJDV-82F077DD",
         "MPURYS56-11F5308C",
         "MPUQSMLJ-1B726CC4",
+        "MX06GV81-2A6524B3",
         "MWP84DL5-F07ACB7E",
         "MWG6GP84-8E9CA50E"
       ],
@@ -10027,6 +10208,7 @@
         "MPURYS56-11F5308C",
         "MWAE3FJK-C7122206",
         "MPUQSMLJ-1B726CC4",
+        "MX06GV81-2A6524B3",
         "MOQ7OBNT-57882C8D",
         "MWG6GP84-8E9CA50E",
         "MOOMECFT-66F43077",
@@ -11351,8 +11533,8 @@
         "MWP84DL5-F07ACB7E",
         "MWCB3NW4-F13A863B",
         "MWHLXY8O-BE8E6409",
-        "MPMSSG1X-8451DE38",
-        "MOQIAGXM-397A1F22"
+        "MX06GV81-2A6524B3",
+        "MPMSSG1X-8451DE38"
       ],
       "werkVoiceScore": 0.8854645775728262,
       "corpusVoiceScore": 0.8316969712648757,
@@ -12342,6 +12524,7 @@
         "MP497SNT-5E1D2074",
         "MPK0H3SM-B25CFBB3",
         "MP0QMSOR-C6EC1B5A",
+        "MX06GV81-2A6524B3",
         "MWHLVPL2-B591DBEC",
         "MP0ZE9C8-A9D02716",
         "MUKE7UOA-9553A59E"
@@ -12424,6 +12607,7 @@
         "MP0ZE9C8-A9D02716",
         "MQARZJDV-82F077DD",
         "MOQID47V-A12862EA",
+        "MX06GV81-2A6524B3",
         "MWAE3FJK-C7122206",
         "MOUKLLK4-C38517C1",
         "MPUO08SE-67E0912A",
@@ -13532,6 +13716,7 @@
       "nearDuplicates": [
         "MPJEBNX3-042F2A69",
         "MOQ5IKR5-C67AAC15",
+        "MX06HBI1-8CC15174",
         "MP2LIW43-E8ADC59E",
         "MOJ7Q5HM-89F62E3F",
         "MPARZ5F0-A9FD6F70"
@@ -13571,7 +13756,8 @@
       "nearDuplicates": [
         "MPJUHM1L-0BA3DF6E",
         "MOHV84M5-1825A399",
-        "MOOK20R3-62E609BA"
+        "MOOK20R3-62E609BA",
+        "MX06HBI1-8CC15174"
       ],
       "related": [
         "MOQ5IKR5-C67AAC15",
@@ -14730,6 +14916,7 @@
       "nearDuplicates": [
         "MP2LIW43-E8ADC59E",
         "MOOZHCUT-4B86F8AD",
+        "MX06HBI1-8CC15174",
         "MOJ7Q5HM-89F62E3F"
       ],
       "related": [
@@ -14778,7 +14965,7 @@
         "MPJUHM1L-0BA3DF6E",
         "MOHST017-5C4320E1",
         "MOIXN434-9D5CBFC0",
-        "MASTER-476E4F4D"
+        "MX06HBI1-8CC15174"
       ],
       "werkVoiceScore": 0.8892778143574347,
       "corpusVoiceScore": 0.8519915137439816,
@@ -15215,7 +15402,8 @@
       "ai_score_at": "2026-05-26T11:18:47.564Z",
       "ai_score_model": "claude-sonnet-4-5",
       "nearDuplicates": [
-        "MOOZHCUT-4B86F8AD"
+        "MOOZHCUT-4B86F8AD",
+        "MX06HBI1-8CC15174"
       ],
       "related": [
         "MOHV84M5-1825A399",
@@ -15679,6 +15867,7 @@
         "MPJUHM1L-0BA3DF6E",
         "MPARZ5F0-A9FD6F70",
         "MOJ7Q5HM-89F62E3F",
+        "MX06HBI1-8CC15174",
         "MP4HT65S-E31FDB00"
       ],
       "related": [
@@ -16269,6 +16458,7 @@
       "nearDuplicates": [
         "MOOMJDPP-1F336D7D",
         "MOQIMC7B-B190C937",
+        "MX06HBI1-8CC15174",
         "MP0X62X5-535AF7A8",
         "MP2LIW43-E8ADC59E",
         "MOJ7Q5HM-89F62E3F"

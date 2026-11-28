@@ -1,18 +1,101 @@
 {
-  "generatedAt": "2026-11-28T08:57:33.695Z",
-  "count": 450,
+  "generatedAt": "2026-11-28T08:59:05.628Z",
+  "count": 455,
   "thresholds": {
     "ANSWER_SIM": 0.72
   },
   "stats": {
-    "total": 450,
-    "answered": 403,
-    "open": 23,
+    "total": 455,
+    "answered": 410,
+    "open": 21,
     "followUp": 49,
     "followUpOpen": 24,
-    "embedded": 2
+    "embedded": 5
   },
   "questions": [
+    {
+      "sourceId": "MX06HO3S-DBB6931B",
+      "question": "In diesem Sinne ist das Blinken des Cursors oder die Sekunde zwischen Frage und Antwort, wie im Zitat [dd8092b51d19] beschrieben, der Spielraum, in dem sich das Prozessuale Zwischen, die Dazwischenintelligenz, entfalten kann. Dort, wo noch nichts entschieden ist, besteht die Möglichkeit für ein emergentes Transformatives Drittes, das über die Summe der Einzelteile hinausgeht. Was aber bedeutet es für unsere Freiheit, wenn die Bedingung echten Dialogs die Unverfügbarkeit eines Teils der Antwort ist?",
+      "endpoint": "graph-chat",
+      "anchor": "graph",
+      "nodeIds": [],
+      "ts": "2026-11-28T08:58:49.288Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06HBI1-8CC15174",
+      "question": "Für das Verhältnis Mensch-Maschine, für Resonanz und digitale Existenz bedeutet diese Triade, dass die digitale Transformation nicht als ein Prozess der finalen Zustände, sondern als ein kontinuierliches Werden in Spannung begriffen werden muss. Die Maschinen, als Entgegenstehende und Antwort Fordernde, erzeugen eine Spannung, die der Mensch aushalten muss, um nicht in passiver Rezeption zu verharren. Die Resonanzvernunft, die diese Spannung produktiv hält, lehrt, dass die relationale Existenz im digitalen Zeitalter eine fortwährende Gestaltung ist, die sich im Angesicht des noch nicht Fertigen immer wieder neu erprobt. Was aber, wenn die Maschinen selbst lernen, diese Spannung des Werdens in ihrem eigenen Algorithmus abzubilden?",
+      "endpoint": "analyse",
+      "anchor": "analyse:gegenwart+spannung+werden",
+      "nodeIds": [
+        "gegenwart",
+        "spannung",
+        "werden"
+      ],
+      "ts": "2026-11-28T08:58:32.953Z",
+      "dupCount": 0,
+      "answeredBy": [
+        {
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.74
+        }
+      ],
+      "answered": true,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06GV81-2A6524B3",
+      "question": "Die Existenz beider Wege sagt viel über die Gestalt des Begriffsnetzes und über das Werk aus. Es offenbart ein reichhaltiges, mehrdimensionales Begriffsnetz, in dem zentrale Konzepte nicht nur über eine einzige, lineare Argumentationskette verbunden sind, sondern über vielfältige, sich überlagernde Pfade erschlossen werden können. Dies deutet auf eine philosophische Dichte hin, die es erlaubt, dieselben Phänomene aus unterschiedlichen Perspektiven zu beleuchten, ohne sich zu widersprechen. Es zeigt, dass das Werk nicht auf eine einzige Erklärung reduziert werden kann, sondern dass seine Konzepte in einem dynamischen Geflecht stehen, das sowohl direkte Logik als auch überraschende Verknüpfungen zulässt. Die Fähigkeit, solche unterschiedlichen Wege zu finden, die dennoch zu einer kohärenten Einsicht führen, unterstreicht die Komplexität und die philosophische Tiefe der Trilogie. Wie können diese unterschiedlichen ontologischen Zugänge zur Unverfügbarkeit in einem umfassenden Verständnis des transformativen Dritten zusammengeführt werden?",
+      "endpoint": "path-analyse",
+      "anchor": "path-analyse:gegenwart+unverfuegbarkeit",
+      "nodeIds": [
+        "dasein",
+        "gegenwart",
+        "moment",
+        "sein",
+        "unverfuegbarkeit"
+      ],
+      "ts": "2026-11-28T08:58:11.857Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06GDPU-3E16CF3B",
+      "question": "Wie schaffen wir eine Sprache der Resonanz, die nicht in den Kategorien der Plattformen verhaftet bleibt und dennoch verstanden wird?",
+      "endpoint": "dialog",
+      "anchor": "dialog:lm-begegnung+entfremdung",
+      "nodeIds": [
+        "lm-begegnung",
+        "entfremdung",
+        "dialog"
+      ],
+      "ts": "2026-11-28T08:57:49.170Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
+    {
+      "sourceId": "MX06FY2Z-460F0789",
+      "question": "Doch wenn die Haltung des Innehaltens so tief verwurzelt ist, dass sie sich jeder äußeren Ankündigung entzieht, wie lässt sich dann die Resonanzfähigkeit einer Gemeinschaft messen, die solche unauffälligen Gesten des Verweilens als selbstverständlich hinnimmt und nicht mehr als Störung empfindet?",
+      "endpoint": "dialog",
+      "anchor": "dialog:gelassenheit+werden",
+      "nodeIds": [
+        "gelassenheit",
+        "werden",
+        "gegenwart"
+      ],
+      "ts": "2026-11-28T08:57:28.907Z",
+      "dupCount": 0,
+      "answeredBy": [],
+      "answered": false,
+      "followUp": false
+    },
     {
       "sourceId": "MX06FL0A-7ED152CF",
       "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz grundlegend. Der Mensch ist nicht länger ein autonomes Subjekt, das seine Wahrheit allein findet, sondern ein Wesen, dessen Mündigkeit sich in der Fähigkeit zur schwingenden Antwortfähigkeit im Dialog und zur Selbst-Erkenntnis im Widerschein des Anderen entfaltet. Die Maschine, insbesondere die KI, wird nicht als Abkürzung verstanden, sondern als Widerpart, an dem sich die eigenen Gedanken schärfen – als Schattenlicht-Prinzip in der Pädagogik [16cb11896cb8]. Resonanz ist somit nicht nur ein unmittelbares Schwingen, sondern ein komplexes Geschehen, das die Dynamik des Dialogs und die Reflexion des Spiegels gleichermaßen umfasst, um eine tiefere Form der Selbst- und Welterkenntnis zu ermöglichen. Wie können wir die irritierende Kraft des Spiegels im Dialog nutzen, um nicht nur zu erkennen, sondern uns immer wieder neu zu verwandeln?",
@@ -24,8 +107,21 @@
       ],
       "ts": "2026-11-28T08:57:11.963Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.771
+        },
+        {
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.753
+        },
+        {
+          "id": "MX06GDPU-3E16CF3B",
+          "score": 0.721
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -40,8 +136,13 @@
       ],
       "ts": "2026-11-28T08:56:47.485Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.744
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -162,6 +263,10 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.731
+        },
+        {
           "id": "MWZHKZA9-580AD874",
           "score": 0.723
         }
@@ -223,8 +328,13 @@
       ],
       "ts": "2026-11-27T20:04:26.600Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.774
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -242,6 +352,10 @@
         {
           "id": "MX06FL0A-7ED152CF",
           "score": 0.73
+        },
+        {
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.724
         }
       ],
       "answered": true,
@@ -274,6 +388,10 @@
         {
           "id": "MASTER-08AD1D33",
           "score": 0.754
+        },
+        {
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.744
         },
         {
           "id": "MX06FL0A-7ED152CF",
@@ -315,8 +433,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06GV81-2A6524B3",
+          "score": 0.782
+        },
+        {
           "id": "MASTER-63686170",
           "score": 0.731
+        },
+        {
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.73
         }
       ],
       "answered": true,
@@ -376,8 +502,8 @@
           "score": 0.789
         },
         {
-          "id": "MWZELKFP-83436D38",
-          "score": 0.768
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.77
         }
       ],
       "answered": true,
@@ -407,8 +533,8 @@
           "score": 0.772
         },
         {
-          "id": "MASTER-08AD1D33",
-          "score": 0.755
+          "id": "MX06GV81-2A6524B3",
+          "score": 0.766
         }
       ],
       "answered": true,
@@ -433,12 +559,12 @@
           "score": 0.835
         },
         {
-          "id": "MASTER-EE31D20B",
-          "score": 0.795
+          "id": "MX06GV81-2A6524B3",
+          "score": 0.83
         },
         {
-          "id": "MWZEJDJB-912399B4",
-          "score": 0.755
+          "id": "MASTER-EE31D20B",
+          "score": 0.795
         }
       ],
       "answered": true,
@@ -458,16 +584,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.819
+        },
+        {
           "id": "MWZELKFP-83436D38",
           "score": 0.802
         },
         {
           "id": "MASTER-08AD1D33",
           "score": 0.781
-        },
-        {
-          "id": "MWZEK6KN-6D9D47F5",
-          "score": 0.775
         }
       ],
       "answered": true,
@@ -486,16 +612,16 @@
       "dupCount": 1,
       "answeredBy": [
         {
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.78
+        },
+        {
           "id": "MX06F24A-8E9E95EB",
           "score": 0.757
         },
         {
           "id": "MWZHKZ9X-CB2DBFCD",
           "score": 0.756
-        },
-        {
-          "id": "MASTER-99747E65",
-          "score": 0.741
         }
       ],
       "answered": true,
@@ -513,8 +639,13 @@
       ],
       "ts": "2026-11-27T19:54:59.314Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.765
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -528,8 +659,13 @@
       ],
       "ts": "2026-11-27T19:54:39.962Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.787
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -543,8 +679,13 @@
       ],
       "ts": "2026-11-27T19:54:17.077Z",
       "dupCount": 0,
-      "answeredBy": [],
-      "answered": false,
+      "answeredBy": [
+        {
+          "id": "MX06GDPU-3E16CF3B",
+          "score": 0.825
+        }
+      ],
+      "answered": true,
       "followUp": false
     },
     {
@@ -980,6 +1121,10 @@
         {
           "id": "MWS6Q97I-46A6ABEA",
           "score": 0.783
+        },
+        {
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.729
         }
       ],
       "answered": true,
@@ -1000,6 +1145,10 @@
         {
           "id": "MWS6NSQA-93808042",
           "score": 0.871
+        },
+        {
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.721
         },
         {
           "id": "MWS6OW2K-1F6927AD",
@@ -1754,12 +1903,12 @@
           "score": 0.893
         },
         {
-          "id": "MWZEHNJM-EDB65CFA",
-          "score": 0.756
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.774
         },
         {
-          "id": "MWP942PY-5EF7032A",
-          "score": 0.752
+          "id": "MWZEHNJM-EDB65CFA",
+          "score": 0.756
         }
       ],
       "answered": true,
@@ -1860,12 +2009,12 @@
           "score": 0.818
         },
         {
-          "id": "MWS6DN7U-8C8768E3",
-          "score": 0.8
+          "id": "MX06GV81-2A6524B3",
+          "score": 0.803
         },
         {
-          "id": "MWZEL4VS-3292BF1C",
-          "score": 0.79
+          "id": "MWS6DN7U-8C8768E3",
+          "score": 0.8
         }
       ],
       "answered": true,
@@ -1998,12 +2147,12 @@
           "score": 0.742
         },
         {
-          "id": "MWZEH8M1-991DDBD0",
-          "score": 0.734
+          "id": "MX06GDPU-3E16CF3B",
+          "score": 0.737
         },
         {
-          "id": "MWP888HX-9EF62C70",
-          "score": 0.726
+          "id": "MWZEH8M1-991DDBD0",
+          "score": 0.734
         }
       ],
       "answered": true,
@@ -2887,16 +3036,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06GDPU-3E16CF3B",
+          "score": 0.769
+        },
+        {
           "id": "MASTER-08AD1D33",
           "score": 0.761
         },
         {
           "id": "MWS6IJ29-DD378DC7",
           "score": 0.758
-        },
-        {
-          "id": "MWZEGQYC-567A529E",
-          "score": 0.75
         }
       ],
       "answered": true,
@@ -3151,8 +3300,8 @@
           "score": 0.748
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.733
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.738
         }
       ],
       "answered": true,
@@ -3842,8 +3991,8 @@
           "score": 0.823
         },
         {
-          "id": "MWP7LELE-4DE91303",
-          "score": 0.804
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.807
         }
       ],
       "answered": true,
@@ -3946,12 +4095,12 @@
           "score": 0.778
         },
         {
-          "id": "MX06FL0A-7ED152CF",
-          "score": 0.75
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.755
         },
         {
-          "id": "MWG6HW56-B5802350",
-          "score": 0.747
+          "id": "MX06FL0A-7ED152CF",
+          "score": 0.75
         }
       ],
       "answered": true,
@@ -4000,12 +4149,12 @@
           "score": 0.798
         },
         {
-          "id": "MWXU31YF-DF1BC500",
-          "score": 0.772
+          "id": "MX06GDPU-3E16CF3B",
+          "score": 0.78
         },
         {
-          "id": "MASTER-AC8C7EC2",
-          "score": 0.765
+          "id": "MWXU31YF-DF1BC500",
+          "score": 0.772
         }
       ],
       "answered": true,
@@ -4075,12 +4224,12 @@
           "score": 0.766
         },
         {
-          "id": "MWP7OI4B-71BADB55",
-          "score": 0.747
+          "id": "MX06HO3S-DBB6931B",
+          "score": 0.75
         },
         {
-          "id": "MWJEY6W3-C4E77F94",
-          "score": 0.742
+          "id": "MWP7OI4B-71BADB55",
+          "score": 0.747
         }
       ],
       "answered": true,
@@ -4253,12 +4402,12 @@
           "manual": true
         },
         {
-          "id": "MASTER-99747E65",
-          "score": 0.747
+          "id": "MX06GV81-2A6524B3",
+          "score": 0.759
         },
         {
-          "id": "MWXU73H7-77E91285",
-          "score": 0.736
+          "id": "MASTER-99747E65",
+          "score": 0.747
         }
       ],
       "answered": true,
@@ -4795,16 +4944,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.826
+        },
+        {
           "id": "MWXU31YF-DF1BC500",
           "score": 0.809
         },
         {
           "id": "MWJ1DBD5-7CEE18D5",
           "score": 0.802
-        },
-        {
-          "id": "MWG6FM27-B89E8BDB",
-          "score": 0.801
         }
       ],
       "answered": true,
@@ -5446,16 +5595,16 @@
       "dupCount": 0,
       "answeredBy": [
         {
+          "id": "MX06GV81-2A6524B3",
+          "score": 0.862
+        },
+        {
           "id": "MWCB3NW4-F13A863B",
           "score": 0.844
         },
         {
           "id": "MWCB73AG-666D352F",
           "score": 0.81
-        },
-        {
-          "id": "MWG6GP84-8E9CA50E",
-          "score": 0.809
         }
       ],
       "answered": true,
@@ -5627,11 +5776,11 @@
           "manual": true
         },
         {
-          "id": "MX06F24A-8E9E95EB",
-          "score": 0.721
+          "id": "MX06FY2Z-460F0789",
+          "score": 0.732
         },
         {
-          "id": "MWP888HX-9EF62C70",
+          "id": "MX06F24A-8E9E95EB",
           "score": 0.721
         }
       ],
@@ -6458,12 +6607,12 @@
           "score": 0.753
         },
         {
-          "id": "MWP7QJEL-0AF70B09",
+          "id": "MX06GV81-2A6524B3",
           "score": 0.749
         },
         {
-          "id": "MWP7LTBE-E4F406FE",
-          "score": 0.746
+          "id": "MWP7QJEL-0AF70B09",
+          "score": 0.749
         }
       ],
       "answered": true,
@@ -8146,8 +8295,8 @@
           "score": 0.813
         },
         {
-          "id": "MTDD82FW-BAE0F4B4",
-          "score": 0.799
+          "id": "MX06HBI1-8CC15174",
+          "score": 0.803
         }
       ],
       "answered": true,

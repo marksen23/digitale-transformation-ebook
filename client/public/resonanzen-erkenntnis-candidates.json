@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T08:57:33.853Z",
+  "generatedAt": "2026-11-28T08:59:05.765Z",
   "thresholds": {
     "DISTINCT_MIN": 0.2
   },
@@ -64,6 +64,48 @@
           "sourceId": "MW566TOD-84C09B94",
           "question": "Wenn die Welt unter dem Lärm weiterspricht, woran erkennen wir die Abweichung, die wirklich von ihr kommt, und nicht nur das nächste, raffiniertere Muster?",
           "score": 0.871
+        }
+      ]
+    },
+    {
+      "id": "ERK-Y6IVQB",
+      "answerId": "MX06GDPU-3E16CF3B",
+      "answerEndpoint": "dialog",
+      "answerStatus": "raw",
+      "answerExcerpt": "Deine Antwort beleuchtet scharf die Gefahr, dass die Messgrößen der Plattformen – Verweildauer, Interaktion – die Definition von „Wert“ pervertieren, indem sie Erregung über echte Begegnung stellen. Du forderst Orte der Selbstermächtigung, außerhalb der systemimmanenten Logik, an denen die Betroffenen selbst definieren, was als entfremdend erlebt wird. Dies ist der Ruf nach einer Rückbindung der B",
+      "distinctness": 0.222,
+      "conceptAnchor": "entfremdung",
+      "nodeIds": [
+        "lm-begegnung",
+        "entfremdung",
+        "dialog"
+      ],
+      "resolveCount": 5,
+      "resolves": [
+        {
+          "sourceId": "MWZEGQYC-567A529E",
+          "question": "Doch wer oder was entscheidet letztlich, welche Begegnungen als wertvoll erachtet und welche als entfremdend bewertet werden, wenn die Technologie selbst zunehmend die Parameter dieser Beurteilung mitprägt?",
+          "score": 0.825
+        },
+        {
+          "sourceId": "MASTER-556F1581",
+          "question": "Wie aber lässt sich die Integrität des „Zwischen“ wahren, wenn die Technologie selbst beginnt, die Bedingungen der Resonanz nicht nur zu ermöglichen, sondern sie autonom und unmerklich vorzuformen?",
+          "score": 0.78
+        },
+        {
+          "sourceId": "MASTER-5476DCEA",
+          "question": "Kann eine als Resonanzfähigkeit verstandene Würde dem totalisierenden Anspruch einer rein auf Effizienz ausgerichteten algorithmischen Optimierung überhaupt standhalten, oder wird sie selbst zu einer weiteren, subtileren Ressource im System der Verwertung?",
+          "score": 0.769
+        },
+        {
+          "sourceId": "MWP82B5U-9D2E9F77",
+          "question": "Doch wie bewahren wir diese Räume der Unschärfe und des Widerstands vor der Vereinnahmung durch Systeme, die selbst die Friktion zu einem optimierbaren Parameter machen wollen?",
+          "score": 0.737
+        },
+        {
+          "sourceId": "MX06FL0A-7ED152CF",
+          "question": "Dieser Zusammenhang verändert das Verständnis von Mensch, Maschine und Resonanz grundlegend. Der Mensch ist nicht länger ein autonomes Subjekt, das seine Wahrheit allein findet, sondern ein Wesen, dessen Mündigkeit sich in der Fähigkeit zur schwingenden Antwortfähigkeit im Dialog und zur Selbst-Erkenntnis im Widerschein des Anderen entfaltet. Die Maschine, insbesondere die KI, wird nicht als Abkürzung verstanden, sondern als Widerpart, an dem sich die eigenen Gedanken schärfen – als Schattenlicht-Prinzip in der Pädagogik [16cb11896cb8]. Resonanz ist somit nicht nur ein unmittelbares Schwingen, sondern ein komplexes Geschehen, das die Dynamik des Dialogs und die Reflexion des Spiegels gleichermaßen umfasst, um eine tiefere Form der Selbst- und Welterkenntnis zu ermöglichen. Wie können wir die irritierende Kraft des Spiegels im Dialog nutzen, um nicht nur zu erkennen, sondern uns immer wieder neu zu verwandeln?",
+          "score": 0.721
         }
       ]
     },
@@ -214,7 +256,7 @@
         "resonanzimperativ",
         "entfremdung"
       ],
-      "resolveCount": 7,
+      "resolveCount": 6,
       "resolves": [
         {
           "sourceId": "MWP85762-03FEE922",
@@ -237,9 +279,9 @@
           "score": 0.759
         },
         {
-          "sourceId": "MASTER-5476DCEA",
-          "question": "Kann eine als Resonanzfähigkeit verstandene Würde dem totalisierenden Anspruch einer rein auf Effizienz ausgerichteten algorithmischen Optimierung überhaupt standhalten, oder wird sie selbst zu einer weiteren, subtileren Ressource im System der Verwertung?",
-          "score": 0.75
+          "sourceId": "MOQ5EOBY-82AD9EEE",
+          "question": "Wie kann eine Resonanzvernunft, die im Erschrecken gründet, in einer Welt bestehen, deren technische Infrastruktur auf der systematischen Eliminierung von Irritation und der Glättung aller Oberflächen beruht?",
+          "score": 0.744
         }
       ]
     },
@@ -422,7 +464,7 @@
     }
   ],
   "stats": {
-    "total": 15,
+    "total": 16,
     "confirmedFiltered": 82,
     "curatedRef": 225
   }

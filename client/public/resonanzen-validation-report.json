@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-11-28T08:57:20.801Z",
-  "filesChecked": 543,
+  "generatedAt": "2026-11-28T08:58:48.063Z",
+  "filesChecked": 547,
   "errors": 0,
-  "warnings": 85,
+  "warnings": 87,
   "issues": [
     {
       "level": "warning",
@@ -354,6 +354,12 @@
     },
     {
       "level": "warning",
+      "file": "content/resonanzen/raw/dialog/gelassenheit+werden/2026-11-28-MX06FY2Z-460F0789.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected f3e926f8cf466978, computed 6b8e65cb8e5d66a4 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
       "file": "content/resonanzen/raw/dialog/ich-du+dialog/2026-11-14-MWG6HW56-B5802350.md",
       "rule": "content-hash-mismatch",
       "detail": "expected e9fed378ee220340, computed 4b132d2214c3d9da — Tampering oder nachträgliche Edit?"
@@ -381,6 +387,12 @@
       "file": "content/resonanzen/raw/dialog/licht+schatten/2026-11-20-MWP87W94-699C7D13.md",
       "rule": "content-hash-mismatch",
       "detail": "expected 01658098ee34b9c6, computed a0b0316c94b284f4 — Tampering oder nachträgliche Edit?"
+    },
+    {
+      "level": "warning",
+      "file": "content/resonanzen/raw/dialog/lm-begegnung+entfremdung/2026-11-28-MX06GDPU-3E16CF3B.md",
+      "rule": "content-hash-mismatch",
+      "detail": "expected d0d32cfdacf46061, computed ab66ebf3eac171c9 — Tampering oder nachträgliche Edit?"
     },
     {
       "level": "warning",
@@ -517,10 +529,10 @@
   ],
   "aggregates": {
     "byEndpoint": {
-      "analyse": 147,
+      "analyse": 148,
       "chapter": 66,
-      "dialog": 108,
-      "path-analyse": 71,
+      "dialog": 110,
+      "path-analyse": 72,
       "enkidu": 69,
       "graph-chat": 54,
       "passage": 19,
@@ -528,7 +540,7 @@
     },
     "byStatus": {
       "published": 175,
-      "raw": 286,
+      "raw": 290,
       "rejected": 28,
       "approved": 54
     },

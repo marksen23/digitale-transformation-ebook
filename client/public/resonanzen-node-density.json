@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-11-28T08:57:32.512Z",
+  "generatedAt": "2026-11-28T08:59:02.797Z",
   "perNode": {
     "resonanzvernunft": {
       "count": 37,
@@ -41,9 +41,9 @@
       }
     },
     "dasein": {
-      "count": 20,
+      "count": 21,
       "endpoints": {
-        "path-analyse": 16,
+        "path-analyse": 17,
         "dialog": 1,
         "analyse": 3
       }
@@ -110,10 +110,10 @@
       }
     },
     "moment": {
-      "count": 16,
+      "count": 17,
       "endpoints": {
+        "path-analyse": 13,
         "analyse": 3,
-        "path-analyse": 12,
         "dialog": 1
       }
     },
@@ -134,18 +134,18 @@
       }
     },
     "gegenwart": {
-      "count": 11,
+      "count": 14,
       "endpoints": {
-        "analyse": 7,
-        "dialog": 1,
-        "path-analyse": 3
+        "analyse": 8,
+        "path-analyse": 4,
+        "dialog": 2
       }
     },
     "dialog": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "dialog": 3,
         "analyse": 4,
-        "dialog": 2,
         "path-analyse": 4
       }
     },
@@ -166,17 +166,17 @@
       }
     },
     "sein": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
-        "path-analyse": 5,
+        "path-analyse": 6,
         "analyse": 5
       }
     },
     "werden": {
-      "count": 11,
+      "count": 13,
       "endpoints": {
-        "analyse": 5,
-        "dialog": 3,
+        "analyse": 6,
+        "dialog": 4,
         "path-analyse": 3
       }
     },
@@ -235,9 +235,9 @@
       }
     },
     "spannung": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "analyse": 10,
+        "analyse": 11,
         "path-analyse": 2
       }
     },
@@ -249,8 +249,9 @@
       }
     },
     "lm-begegnung": {
-      "count": 10,
+      "count": 11,
       "endpoints": {
+        "dialog": 1,
         "path-analyse": 7,
         "analyse": 3
       }
@@ -295,10 +296,10 @@
       }
     },
     "entfremdung": {
-      "count": 11,
+      "count": 12,
       "endpoints": {
+        "dialog": 4,
         "path-analyse": 2,
-        "dialog": 3,
         "analyse": 6
       }
     },
@@ -311,9 +312,9 @@
       }
     },
     "gelassenheit": {
-      "count": 12,
+      "count": 13,
       "endpoints": {
-        "dialog": 4,
+        "dialog": 5,
         "path-analyse": 4,
         "analyse": 4
       }
@@ -335,11 +336,11 @@
       }
     },
     "unverfuegbarkeit": {
-      "count": 35,
+      "count": 36,
       "endpoints": {
+        "path-analyse": 9,
         "analyse": 12,
-        "dialog": 15,
-        "path-analyse": 8
+        "dialog": 15
       }
     },
     "weltfaltung": {
